@@ -140,6 +140,7 @@ export class WikiRequestService {
       format: 'json',
       prop: 'redirects',
       pageids: pageId,
+      rdlimit: 500,
     };
 
     const response = await axios.get<{

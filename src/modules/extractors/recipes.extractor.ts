@@ -50,8 +50,8 @@ export class RecipesExtractor {
       .reduce((acc, r) => {
         acc.push(...r);
         return acc;
-      }, []);
-
+      }, [])
+      .filter((v) => v);
     if (recipes.length) {
       writeFileSync(ALL_RECIPES, JSON.stringify(recipes, null, 2));
     }
@@ -81,8 +81,8 @@ export class RecipesExtractor {
   private extractRecipesFromPageId(pageId: number): Recipe[] | null {
     const page = this.pageContentDumper.getPageFromId(pageId);
 
-    const hasRecipe = page.rawContent.includes('{{Recipe');
-    if (!hasRecipe) {
+    const hasRecipe = page?.rawContent.includes('{{Recipe');
+    if (!page || !hasRecipe) {
       // Item has no recipes
       return null;
     }

@@ -90,7 +90,6 @@ export class PageContentDumper {
     };
 
     writeFileSync(this.getPathFromPageId(pageId), JSON.stringify(newPage));
-    this.logger.log('Dump All Wiki Pages - Completed');
   }
 
   public getPageFromId(pageId: number): WikiPageWithContent | null {

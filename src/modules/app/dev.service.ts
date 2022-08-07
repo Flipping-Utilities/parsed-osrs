@@ -4,6 +4,7 @@ import { PageListDumper } from '../dumpers/page-list.dumper';
 import { ItemsExtractor } from '../extractors/items.extractor';
 import { RecipesExtractor } from '../extractors/recipes.extractor';
 import { SetsExtractor } from '../extractors/sets.extractor';
+import { ShopsExtractor } from '../extractors/shops.extractor';
 
 @Injectable()
 export class DevService {
@@ -13,14 +14,15 @@ export class DevService {
     private readonly pageContentDumper: PageContentDumper,
     private readonly itemsExtractor: ItemsExtractor,
     private readonly setsExtractor: SetsExtractor,
-    private readonly recipesExtractor: RecipesExtractor
+    private readonly recipesExtractor: RecipesExtractor,
+    private readonly shopsExtractor: ShopsExtractor
   ) {
     // this.dumpEverything();
     this.testTheThing();
   }
 
   async testTheThing() {
-    await this.recipesExtractor.extractAllRecipes();
+    await this.shopsExtractor.extractAllShops();
   }
 
   async dumpEverything() {
