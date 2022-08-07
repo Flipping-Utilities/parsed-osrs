@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PageContentDumper } from '../dumpers/page-content.dumper';
 import { PageListDumper } from '../dumpers/page-list.dumper';
 import { ItemsExtractor } from '../extractors/items.extractor';
+import { MonstersExtractor } from '../extractors/monsters.extractor';
 import { RecipesExtractor } from '../extractors/recipes.extractor';
 import { SetsExtractor } from '../extractors/sets.extractor';
 import { ShopsExtractor } from '../extractors/shops.extractor';
@@ -15,14 +16,14 @@ export class DevService {
     private readonly itemsExtractor: ItemsExtractor,
     private readonly setsExtractor: SetsExtractor,
     private readonly recipesExtractor: RecipesExtractor,
-    private readonly shopsExtractor: ShopsExtractor
+    private readonly shopsExtractor: ShopsExtractor,
+    private readonly monstersExtractor: MonstersExtractor
   ) {
     // this.dumpEverything();
     this.testTheThing();
   }
 
   async testTheThing() {
-    await this.shopsExtractor.extractAllShops();
   }
 
   async dumpEverything() {
@@ -45,5 +46,7 @@ export class DevService {
     await this.itemsExtractor.extractAllItems();
     await this.setsExtractor.extractAllSets();
     await this.recipesExtractor.extractAllRecipes();
+    await this.shopsExtractor.extractAllShops();
+    await this.monstersExtractor.extractAllMonsters();
   }
 }

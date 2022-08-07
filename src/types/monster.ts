@@ -1,5 +1,6 @@
 export interface MonsterDrop {
   name: string;
+  itemId: number | null;
   quantity?: string;
   rarity?: string;
 }
