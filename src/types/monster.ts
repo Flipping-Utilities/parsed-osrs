@@ -6,6 +6,7 @@ export interface MonsterDrop {
 }
 
 export interface Monster {
+  id: number;
   name: string;
   examine: string;
   aliases: string[];

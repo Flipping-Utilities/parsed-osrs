@@ -99,7 +99,26 @@ export class MonstersExtractor {
       allDrops.push(...sectionDrops);
     });
 
+    // If there are multiple ids: 12, 34
+    // The data-attr-param is present
+    // Otherwise, it is not there
+    const candidateIdElement = dom(
+      dom('.advanced-data').filter((i, e) => {
+        return dom(e).children().first().text().includes('Monster ID');
+      })
+    )?.children('td');
+
+    const candidateId = dom(candidateIdElement)?.text()?.split(',')[0];
+
+    const realId = Number(candidateId);
+    if (!candidateId || isNaN(realId)) {
+      console.debug(candidateId);
+      this.logger.warn('no id for monster', page.title, page.pageid);
+      return null;
+    }
+
     const monster: Monster = {
+      id: realId,
       name: page.title,
       aliases: page.redirects || [],
       drops: allDrops,
