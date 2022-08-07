@@ -19,11 +19,12 @@ export class DevService {
     private readonly shopsExtractor: ShopsExtractor,
     private readonly monstersExtractor: MonstersExtractor
   ) {
-    // this.dumpEverything();
-    this.testTheThing();
+    this.dumpEverything();
+    // this.testTheThing();
   }
 
   async testTheThing() {
+    // await this.extractWikiContent();
   }
 
   async dumpEverything() {
