@@ -926,6 +926,41 @@
         "baseQuantity": 1000,
         "itemId": 13261,
         "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 22846,
+        "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 22844,
+        "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 22838,
+        "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 13258,
+        "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 13259,
+        "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 13260,
+        "restockTime": 1
+      },
+      {
+        "baseQuantity": 1000,
+        "itemId": 13261,
+        "restockTime": 1
       }
     ]
   },
@@ -6826,7 +6861,7 @@
       {
         "baseQuantity": 4,
         "itemId": 4587,
-        "restockTime": 300
+        "restockTime": 500
       }
     ]
   },
@@ -7732,6 +7767,11 @@
       {
         "baseQuantity": "inf",
         "itemId": 7936,
+        "restockTime": 0
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 11738,
         "restockTime": 0
       },
       {
@@ -11030,32 +11070,32 @@
     "inventory": [
       {
         "baseQuantity": 100,
-        "itemId": 11851,
+        "itemId": 11850,
         "restockTime": 1
       },
       {
         "baseQuantity": 100,
-        "itemId": 11855,
+        "itemId": 11854,
         "restockTime": 1
       },
       {
         "baseQuantity": 100,
-        "itemId": 11857,
+        "itemId": 11856,
         "restockTime": 1
       },
       {
         "baseQuantity": 100,
-        "itemId": 11859,
+        "itemId": 11858,
         "restockTime": 1
       },
       {
         "baseQuantity": 100,
-        "itemId": 11861,
+        "itemId": 11860,
         "restockTime": 1
       },
       {
         "baseQuantity": 100,
-        "itemId": 11853,
+        "itemId": 11852,
         "restockTime": 1
       },
       {
@@ -12372,11 +12412,6 @@
         "baseQuantity": 200,
         "itemId": 8988,
         "restockTime": 100
-      },
-      {
-        "baseQuantity": "inf",
-        "itemId": 10260,
-        "restockTime": "N/A"
       }
     ]
   },
@@ -17432,42 +17467,42 @@
     "pageId": 37933,
     "buyPercent": 0.4,
     "sellPercent": 1.5,
-    "buyChangePercent": 0.03,
+    "buyChangePercent": 0,
     "inventory": [
       {
         "baseQuantity": 100,
         "itemId": 436,
-        "restockTime": 100000
+        "restockTime": 200
       },
       {
         "baseQuantity": 100,
         "itemId": 438,
-        "restockTime": 100000
+        "restockTime": 200
       },
       {
         "baseQuantity": 100,
         "itemId": 440,
-        "restockTime": 100000
+        "restockTime": 200
       },
       {
         "baseQuantity": 100,
         "itemId": 447,
-        "restockTime": 100000
+        "restockTime": 200
       },
       {
         "baseQuantity": 100,
         "itemId": 442,
-        "restockTime": 100000
+        "restockTime": 200
       },
       {
         "baseQuantity": 100,
         "itemId": 444,
-        "restockTime": 100000
+        "restockTime": 200
       },
       {
         "baseQuantity": 100,
         "itemId": 453,
-        "restockTime": 100000
+        "restockTime": 200
       }
     ]
   },
@@ -20819,6 +20854,25 @@
     ]
   },
   {
+    "name": "Speedrunning Reward Shop",
+    "pageId": 367614,
+    "buyPercent": 0,
+    "sellPercent": 0,
+    "buyChangePercent": 0,
+    "inventory": [
+      {
+        "baseQuantity": "∞",
+        "itemId": 27414,
+        "restockTime": 0
+      },
+      {
+        "baseQuantity": "∞",
+        "itemId": 27416,
+        "restockTime": 0
+      }
+    ]
+  },
+  {
     "name": "The Spice Is Right.",
     "pageId": 40197,
     "buyPercent": 0.25,
@@ -21112,11 +21166,11 @@
     "name": "The Crypt",
     "pageId": 266399,
     "buyPercent": 0,
-    "sellPercent": 1,
+    "sellPercent": 0,
     "buyChangePercent": 0,
     "inventory": [
       {
-        "baseQuantity": "∞",
+        "baseQuantity": "inf",
         "itemId": 24774,
         "restockTime": 0
       }
@@ -23147,6 +23201,50 @@
         "baseQuantity": 35,
         "itemId": 12738,
         "restockTime": 10
+      }
+    ]
+  },
+  {
+    "name": "Void Knights' Reward Options",
+    "pageId": 367463,
+    "buyPercent": 0,
+    "sellPercent": 0,
+    "buyChangePercent": 0,
+    "inventory": [
+      {
+        "baseQuantity": "inf",
+        "itemId": 8841,
+        "restockTime": "N/A"
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 8839,
+        "restockTime": "N/A"
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 8840,
+        "restockTime": "N/A"
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 8842,
+        "restockTime": "N/A"
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 11663,
+        "restockTime": "N/A"
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 11664,
+        "restockTime": "N/A"
+      },
+      {
+        "baseQuantity": "inf",
+        "itemId": 11665,
+        "restockTime": "N/A"
       }
     ]
   },

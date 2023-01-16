@@ -857,16 +857,13 @@
       {
         "id": 1161,
         "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -1058,7 +1055,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -1458,16 +1456,13 @@
       {
         "id": 1199,
         "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -1659,7 +1654,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -2098,7 +2094,7 @@
       {
         "id": 2361,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -2110,7 +2106,43 @@
         "xp": 37.5
       }
     ],
-    "ticks": null,
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once. Smelting process does not begin until sufficient adamantite ore and coal is deposited at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 449,
+        "quantity": 1
+      },
+      {
+        "id": 453,
+        "quantity": 3
+      },
+      {
+        "id": 27017,
+        "quantity": 1,
+        "notes": "Foundry Reputation"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2361,
+        "quantity": 1,
+        "subText": "Catalyzed"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 70,
+        "name": "Smithing",
+        "xp": 75
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -2321,6 +2353,75 @@
     "ticks": 3,
     "ticksNote": "Make-X is 3t, then 2t for the remainder.",
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1399,
+        "quantity": 1
+      },
+      {
+        "id": 556,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1397,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1393,
+        "quantity": 1
+      },
+      {
+        "id": 556,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1397,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1395,
+        "quantity": 1
+      },
+      {
+        "id": 556,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1397,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
   },
   {
     "inputs": [
@@ -2702,8 +2803,7 @@
       }
     ],
     "ticks": 2,
-    "toolIds": [],
-    "notes": "Tourist Trap"
+    "toolIds": []
   },
   {
     "inputs": [
@@ -3771,6 +3871,35 @@
   {
     "inputs": [
       {
+        "id": 12905,
+        "quantity": 1
+      },
+      {
+        "id": 111,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12913,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 94,
+        "name": "Herblore",
+        "xp": 125
+      }
+    ],
+    "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 5942,
         "quantity": 1
       },
@@ -4483,18 +4612,70 @@
       {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 11771,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6733,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11771,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6733,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11771,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -4864,6 +5045,81 @@
     "members": true,
     "skills": [],
     "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11826,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27269,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Crafting",
+        "xp": 210
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11828,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27269,
+        "quantity": 4
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Crafting",
+        "xp": 840
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11830,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27269,
+        "quantity": 3
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Crafting",
+        "xp": 630
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -5430,6 +5686,122 @@
     "ticks": 1,
     "ticksNote": "Auto-creating is 1, then 2, then 3 ticks",
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 995,
+        "quantity": 999,
+        "cost": 1
+      },
+      {
+        "id": 886,
+        "quantity": 75
+      }
+    ],
+    "outputs": [
+      {
+        "id": 10499,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 50,
+        "name": "Ranged",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Animal Magnetism"
+  },
+  {
+    "inputs": [
+      {
+        "id": 10498,
+        "quantity": 1
+      },
+      {
+        "id": 886,
+        "quantity": 75
+      }
+    ],
+    "outputs": [
+      {
+        "id": 10499,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 50,
+        "name": "Ranged",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Animal Magnetism"
+  },
+  {
+    "inputs": [
+      {
+        "id": 995,
+        "quantity": 4999,
+        "cost": 1
+      },
+      {
+        "id": 21907,
+        "quantity": 1
+      },
+      {
+        "id": 888,
+        "quantity": 75
+      }
+    ],
+    "outputs": [
+      {
+        "id": 22109,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Dragon Slayer II"
+  },
+  {
+    "inputs": [
+      {
+        "id": 10499,
+        "quantity": 1
+      },
+      {
+        "id": 21907,
+        "quantity": 1
+      },
+      {
+        "id": 888,
+        "quantity": 75
+      }
+    ],
+    "outputs": [
+      {
+        "id": 22109,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Dragon Slayer II"
   },
   {
     "inputs": [
@@ -6254,7 +6626,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6290,7 +6662,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6325,7 +6697,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6361,7 +6733,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6397,7 +6769,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6433,7 +6805,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6474,46 +6846,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
-      },
-      {
-        "boostable": true,
-        "lvl": 16,
-        "name": "Construction",
-        "xp": 0
-      }
-    ],
-    "ticks": 6,
-    "toolIds": []
-  },
-  {
-    "inputs": [
-      {
-        "id": 8790,
-        "quantity": 1
-      },
-      {
-        "id": 960,
-        "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
-      }
-    ],
-    "outputs": [
-      {
-        "id": 0,
-        "quantity": 1
-      }
-    ],
-    "members": true,
-    "skills": [
-      {
-        "boostable": true,
-        "lvl": 48,
-        "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6539,7 +6872,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -6548,7 +6882,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6583,7 +6917,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6618,7 +6952,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6653,7 +6987,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6688,7 +7022,42 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
+      },
+      {
+        "boostable": true,
+        "lvl": 16,
+        "name": "Construction",
+        "xp": 0
+      }
+    ],
+    "ticks": 6,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 8790,
+        "quantity": 1
+      },
+      {
+        "id": 960,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 48,
+        "name": "Crafting",
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6720,7 +7089,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -6729,7 +7099,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6764,7 +7134,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -6799,7 +7169,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Crafting",
-        "xp": 43
+        "xp": 42.5
       },
       {
         "boostable": true,
@@ -7421,18 +7791,70 @@
       {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 11773,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6737,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11773,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6737,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11773,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -8170,18 +8592,70 @@
       {
         "id": 0,
         "quantity": 1250000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 26781,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 8921,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 500,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 26781,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 8921,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 26781,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -8212,6 +8686,53 @@
     ],
     "ticks": 0,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 7980,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 19639,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "King black bonnet"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 7980,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 19641,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "King black bonnet"
   },
   {
     "inputs": [
@@ -8439,7 +8960,7 @@
         "quantity": 1
       },
       {
-        "id": 3367,
+        "id": 3365,
         "quantity": 1
       }
     ],
@@ -8462,7 +8983,7 @@
         "quantity": 1
       },
       {
-        "id": 3365,
+        "id": 3367,
         "quantity": 1
       }
     ],
@@ -8911,7 +9432,8 @@
       }
     ],
     "ticks": 1,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Sins of the Father"
   },
   {
     "inputs": [
@@ -8936,7 +9458,8 @@
       }
     ],
     "ticks": 1,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Sins of the Father"
   },
   {
     "inputs": [
@@ -8983,7 +9506,6 @@
     ],
     "members": true,
     "skills": [
-      null,
       {
         "boostable": true,
         "lvl": 77,
@@ -8992,7 +9514,8 @@
       }
     ],
     "ticks": 1,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Arceuus favour"
   },
   {
     "inputs": [
@@ -9913,7 +10436,8 @@
     "outputs": [
       {
         "id": 9467,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Regular furnace"
       }
     ],
     "members": true,
@@ -9926,6 +10450,47 @@
       }
     ],
     "ticks": 4,
+    "toolIds": [],
+    "notes": "The Knight's Sword"
+  },
+  {
+    "inputs": [
+      {
+        "id": 668,
+        "quantity": 1
+      },
+      {
+        "id": 561,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 4
+      }
+    ],
+    "outputs": [
+      {
+        "id": 9467,
+        "quantity": 1,
+        "subText": "Superheat"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 13,
+        "name": "Smithing",
+        "xp": 8
+      },
+      {
+        "boostable": true,
+        "lvl": 43,
+        "name": "Magic",
+        "xp": 53
+      }
+    ],
+    "ticks": 3,
     "toolIds": [],
     "notes": "The Knight's Sword"
   },
@@ -11587,7 +12152,7 @@
       {
         "id": 2349,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -11600,7 +12165,7 @@
       }
     ],
     "ticks": 11,
-    "ticksNote": "Multiple bars are completed at once.",
+    "ticksNote": "Multiple bars are completed at once",
     "toolIds": []
   },
   {
@@ -12543,6 +13108,74 @@
         "text": "Blue tribal mask"
       },
       {
+        "id": 4819,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6339,
+        "quantity": 1,
+        "text": "Blue tribal mask"
+      },
+      {
+        "id": 4820,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6339,
+        "quantity": 1,
+        "text": "Blue tribal mask"
+      },
+      {
         "id": 1539,
         "quantity": 8
       }
@@ -12550,6 +13183,176 @@
     "outputs": [
       {
         "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6339,
+        "quantity": 1,
+        "text": "Blue tribal mask"
+      },
+      {
+        "id": 4821,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6339,
+        "quantity": 1,
+        "text": "Blue tribal mask"
+      },
+      {
+        "id": 4822,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6339,
+        "quantity": 1,
+        "text": "Blue tribal mask"
+      },
+      {
+        "id": 4823,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6339,
+        "quantity": 1,
+        "text": "Blue tribal mask"
+      },
+      {
+        "id": 4824,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6279,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6335,
+        "quantity": 1,
+        "text": "Green tribal mask"
+      },
+      {
+        "id": 4819,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6235,
         "quantity": 1
       }
     ],
@@ -12606,12 +13409,386 @@
         "quantity": 2
       },
       {
+        "id": 6335,
+        "quantity": 1,
+        "text": "Green tribal mask"
+      },
+      {
+        "id": 1539,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6235,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6335,
+        "quantity": 1,
+        "text": "Green tribal mask"
+      },
+      {
+        "id": 4821,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6235,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6335,
+        "quantity": 1,
+        "text": "Green tribal mask"
+      },
+      {
+        "id": 4822,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6235,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6335,
+        "quantity": 1,
+        "text": "Green tribal mask"
+      },
+      {
+        "id": 4823,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6235,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6335,
+        "quantity": 1,
+        "text": "Green tribal mask"
+      },
+      {
+        "id": 4824,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6235,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6337,
+        "quantity": 1,
+        "text": "Orange tribal mask"
+      },
+      {
+        "id": 4819,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6257,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6337,
+        "quantity": 1,
+        "text": "Orange tribal mask"
+      },
+      {
+        "id": 4820,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6257,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
         "id": 6337,
         "quantity": 1,
         "text": "Orange tribal mask"
       },
       {
         "id": 1539,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6257,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6337,
+        "quantity": 1,
+        "text": "Orange tribal mask"
+      },
+      {
+        "id": 4821,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6257,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6337,
+        "quantity": 1,
+        "text": "Orange tribal mask"
+      },
+      {
+        "id": 4822,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6257,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6337,
+        "quantity": 1,
+        "text": "Orange tribal mask"
+      },
+      {
+        "id": 4823,
+        "quantity": 8
+      }
+    ],
+    "outputs": [
+      {
+        "id": 6257,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 100
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6289,
+        "quantity": 2
+      },
+      {
+        "id": 6337,
+        "quantity": 1,
+        "text": "Orange tribal mask"
+      },
+      {
+        "id": 4824,
         "quantity": 8
       }
     ],
@@ -12789,7 +13966,8 @@
     "outputs": [
       {
         "id": 22368,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Crafting"
       }
     ],
     "members": true,
@@ -12882,12 +14060,125 @@
     "outputs": [
       {
         "id": 1783,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Sandpit"
       }
     ],
     "members": true,
     "skills": [],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6971,
+        "quantity": 1
+      },
+      {
+        "id": 1925,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 50,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1783,
+        "quantity": 1,
+        "subText": "Sandstorm"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6973,
+        "quantity": 1
+      },
+      {
+        "id": 1925,
+        "quantity": 2
+      },
+      {
+        "id": 995,
+        "quantity": 100,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1783,
+        "quantity": 2,
+        "subText": "Sandstorm"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6975,
+        "quantity": 1
+      },
+      {
+        "id": 1925,
+        "quantity": 4
+      },
+      {
+        "id": 995,
+        "quantity": 200,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1783,
+        "quantity": 4,
+        "subText": "Sandstorm"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6977,
+        "quantity": 1
+      },
+      {
+        "id": 1925,
+        "quantity": 8
+      },
+      {
+        "id": 995,
+        "quantity": 400,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1783,
+        "quantity": 8,
+        "subText": "Sandstorm"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
     "toolIds": []
   },
   {
@@ -12906,6 +14197,24 @@
     "members": true,
     "skills": [],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1925,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 4286,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
     "toolIds": []
   },
   {
@@ -13647,27 +14956,19 @@
   {
     "inputs": [
       {
-        "id": 11246,
-        "quantity": 3
-      },
-      {
-        "id": 11248,
-        "quantity": 2
-      },
-      {
-        "id": 11250,
-        "quantity": 1
+        "id": 11258,
+        "quantity": 0.01
       }
     ],
     "outputs": [
       {
         "id": 10012,
-        "quantity": 100
+        "quantity": 1
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": 200,
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -14554,7 +15855,8 @@
       }
     ],
     "ticks": 1,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Astral Altar"
   },
   {
     "inputs": [
@@ -14728,7 +16030,8 @@
         "xp": 15
       }
     ],
-    "ticks": 1,
+    "ticks": 0,
+    "ticksNote": "Auto-cutting leaping fish is 3 ticks",
     "toolIds": []
   },
   {
@@ -15089,6 +16392,81 @@
       }
     ],
     "ticks": 26,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 2130,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1985,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 48,
+        "name": "Cooking",
+        "xp": 46
+      }
+    ],
+    "ticks": 19,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6697,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1985,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 48,
+        "name": "Cooking",
+        "xp": 23.5
+      }
+    ],
+    "ticks": 10,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24788,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1985,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 48,
+        "name": "Cooking",
+        "xp": 23.5
+      }
+    ],
+    "ticks": 10,
     "toolIds": []
   },
   {
@@ -16520,7 +17898,8 @@
     "outputs": [
       {
         "id": 2140,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Ogre spit-roast"
       }
     ],
     "members": true,
@@ -16934,7 +18313,7 @@
         "xp": 30
       }
     ],
-    "ticks": 1,
+    "ticks": 2,
     "ticksNote": "Increases to 4 with the use of the Make-X functionality.",
     "toolIds": []
   },
@@ -18196,7 +19575,107 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 6043,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 9438,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 10,
+        "name": "Crafting",
+        "xp": 15
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6045,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 9438,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 10,
+        "name": "Crafting",
+        "xp": 15
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6047,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 9438,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 10,
+        "name": "Crafting",
+        "xp": 15
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6049,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 9438,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 10,
+        "name": "Crafting",
+        "xp": 15
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6051,
         "quantity": 1
       }
     ],
@@ -18590,7 +20069,8 @@
     "outputs": [
       {
         "id": 23983,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Crafting"
       }
     ],
     "members": true,
@@ -18610,7 +20090,33 @@
     ],
     "ticks": 3,
     "ticksNote": "Takes 3 ticks to create an entire inventory",
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Song of the Elves"
+  },
+  {
+    "inputs": [
+      {
+        "id": 4207,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 180000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23983,
+        "quantity": 1,
+        "subText": "Ilfeen"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": " Roving Elves"
   },
   {
     "inputs": [
@@ -18759,7 +20265,8 @@
     "outputs": [
       {
         "id": 23987,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Crafting"
       }
     ],
     "members": true,
@@ -18779,7 +20286,39 @@
     ],
     "ticks": 3,
     "ticksNote": "Takes 3 ticks to create an entire inventory",
-    "toolIds": []
+    "toolIds": [],
+    "notes": [
+      "Song of the Elves",
+      "SCP"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 4207,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 150000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23987,
+        "quantity": 1,
+        "subText": "Ilfeen"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": [
+      " Roving Elves",
+      "SCP"
+    ]
   },
   {
     "inputs": [
@@ -19512,7 +21051,8 @@
     "outputs": [
       {
         "id": 23991,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Crafting"
       }
     ],
     "members": true,
@@ -19532,7 +21072,33 @@
     ],
     "ticks": 3,
     "ticksNote": "Takes 3 ticks to create an entire inventory",
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Song of the Elves"
+  },
+  {
+    "inputs": [
+      {
+        "id": 4207,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 150000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23991,
+        "quantity": 1,
+        "subText": "Ilfeen"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": " Roving Elves"
   },
   {
     "inputs": [
@@ -19651,11 +21217,80 @@
   {
     "inputs": [
       {
-        "id": 4244,
+        "id": 4239,
         "quantity": 1
       },
       {
-        "id": 4239,
+        "id": 4244,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Ghosts Ahoy"
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 4244,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Ghosts Ahoy"
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 4244,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Ghosts Ahoy"
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 4244,
         "quantity": 1
       }
     ],
@@ -19693,6 +21328,50 @@
     "ticks": null,
     "toolIds": [],
     "notes": "Ghosts Ahoy"
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 1980,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 1927,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -20552,7 +22231,7 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 2,
     "toolIds": []
   },
   {
@@ -21407,6 +23086,36 @@
       }
     ],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12791,
+        "quantity": 1,
+        "notes": "rune pouch note"
+      },
+      {
+        "id": 27279,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27281,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 75,
+        "name": "Crafting",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
     "toolIds": []
   },
   {
@@ -22415,7 +24124,7 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -22505,9 +24214,9 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
     "toolIds": [],
-    "notes": "Combat Achievements/Hard"
+    "notes": "hard Combat Achievements"
   },
   {
     "inputs": [
@@ -22528,9 +24237,9 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
     "toolIds": [],
-    "notes": "Combat Achievements/Elite"
+    "notes": "elite Combat Achievements"
   },
   {
     "inputs": [
@@ -24319,6 +26028,35 @@
   {
     "inputs": [
       {
+        "id": 13573,
+        "quantity": 1
+      },
+      {
+        "id": 2398,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27426,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 50,
+        "name": "Firemaking",
+        "xp": 0
+      }
+    ],
+    "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 575,
         "quantity": 1
       },
@@ -24345,6 +26083,75 @@
     "ticks": 2,
     "ticksNote": "Make-X is 3t, then 2t for the remainder.",
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1397,
+        "quantity": 1
+      },
+      {
+        "id": 557,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1399,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1393,
+        "quantity": 1
+      },
+      {
+        "id": 557,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1399,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1395,
+        "quantity": 1
+      },
+      {
+        "id": 557,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1399,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
   },
   {
     "inputs": [
@@ -24979,7 +26786,8 @@
       {
         "id": 2893,
         "quantity": 1,
-        "cost": 0
+        "cost": 0,
+        "subText": "Elemental furnace"
       }
     ],
     "members": true,
@@ -24989,6 +26797,44 @@
         "lvl": 20,
         "name": "Smithing",
         "xp": 8
+      }
+    ],
+    "ticks": 6,
+    "toolIds": [],
+    "notes": "Elemental Workshop I"
+  },
+  {
+    "inputs": [
+      {
+        "id": 2892,
+        "quantity": 1,
+        "cost": 0
+      },
+      {
+        "id": 453,
+        "quantity": 2
+      },
+      {
+        "id": 27017,
+        "quantity": 1,
+        "notes": "Foundry Reputation"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2893,
+        "quantity": 1,
+        "cost": 0,
+        "subText": "Catalyzed"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Smithing",
+        "xp": 16
       }
     ],
     "ticks": 6,
@@ -25053,6 +26899,90 @@
   {
     "inputs": [
       {
+        "id": 25985,
+        "quantity": 1
+      },
+      {
+        "id": 12827,
+        "quantity": 1
+      },
+      {
+        "id": 566,
+        "quantity": 10000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27251,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Prayer",
+        "xp": 260
+      },
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Smithing",
+        "xp": 260
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27251,
+        "quantity": 1
+      },
+      {
+        "id": 27255,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27253,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 8840,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 200
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13073,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Hard Western Provinces Diary"
+  },
+  {
+    "inputs": [
+      {
         "id": 13073,
         "quantity": 1,
         "cost": 0
@@ -25072,6 +27002,29 @@
     "skills": [],
     "ticks": 0,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 8839,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 200
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13072,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Hard Western Provinces Diary"
   },
   {
     "inputs": [
@@ -25928,6 +27881,10 @@
       {
         "id": 4006,
         "quantity": 1
+      },
+      {
+        "id": 4020,
+        "quantity": 1
       }
     ],
     "outputs": [
@@ -26197,7 +28154,8 @@
     "outputs": [
       {
         "id": 3008,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Apothecary"
       }
     ],
     "members": false,
@@ -26380,7 +28338,7 @@
     ],
     "outputs": [
       {
-        "id": 0,
+        "id": 21177,
         "quantity": 1
       }
     ],
@@ -26390,11 +28348,40 @@
         "boostable": true,
         "lvl": 7,
         "name": "Magic",
-        "xp": 17.5
+        "xp": 0
       }
     ],
     "ticks": 1,
     "ticksNote": "Manual casting is 3 ticks, auto-casting is 7 ticks",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21343,
+        "quantity": 1,
+        "cost": 60
+      },
+      {
+        "id": 21345,
+        "quantity": 1,
+        "cost": 120
+      },
+      {
+        "id": 21341,
+        "quantity": 60,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21392,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -26901,7 +28888,7 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 7,
     "toolIds": [],
     "notes": "Dragon Slayer II"
   },
@@ -26970,6 +28957,75 @@
     "ticks": 3,
     "ticksNote": "Make-X is 3t, then 2t for the remainder.",
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1397,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1393,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1399,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1393,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1395,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1393,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
   },
   {
     "inputs": [
@@ -27319,7 +29375,8 @@
         "xp": 0
       }
     ],
-    "ticks": 1,
+    "ticks": 0,
+    "ticksNote": "Auto-cutting leaping fish is 3 ticks",
     "toolIds": []
   },
   {
@@ -27344,7 +29401,8 @@
         "xp": 0
       }
     ],
-    "ticks": 1,
+    "ticks": 0,
+    "ticksNote": "Auto-cutting leaping fish is 3 ticks",
     "toolIds": []
   },
   {
@@ -27369,7 +29427,8 @@
         "xp": 0
       }
     ],
-    "ticks": 1,
+    "ticks": 0,
+    "ticksNote": "Auto-cutting leaping fish is 3 ticks",
     "toolIds": []
   },
   {
@@ -27605,6 +29664,122 @@
       }
     ],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 26346,
+        "quantity": 1
+      },
+      {
+        "id": 27616,
+        "quantity": 20
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27638,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 91,
+        "name": "Herblore",
+        "xp": 36
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 26344,
+        "quantity": 1
+      },
+      {
+        "id": 27616,
+        "quantity": 40
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27635,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 91,
+        "name": "Herblore",
+        "xp": 72
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 26342,
+        "quantity": 1
+      },
+      {
+        "id": 27616,
+        "quantity": 60
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27632,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 91,
+        "name": "Herblore",
+        "xp": 108
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 26340,
+        "quantity": 1
+      },
+      {
+        "id": 27616,
+        "quantity": 80
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27629,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 91,
+        "name": "Herblore",
+        "xp": 145
+      }
+    ],
+    "ticks": 3,
     "toolIds": []
   },
   {
@@ -27895,6 +30070,52 @@
     "ticks": null,
     "toolIds": [],
     "notes": "Plague City"
+  },
+  {
+    "inputs": [
+      {
+        "id": 22322,
+        "quantity": 1
+      },
+      {
+        "id": 25934,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27550,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "master Combat Achievements"
+  },
+  {
+    "inputs": [
+      {
+        "id": 22322,
+        "quantity": 1
+      },
+      {
+        "id": 25936,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27552,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "grandmaster Combat Achievements"
   },
   {
     "inputs": [
@@ -28314,6 +30535,116 @@
   {
     "inputs": [
       {
+        "id": 7329,
+        "quantity": 1
+      },
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 7330,
+        "quantity": 1
+      },
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 7331,
+        "quantity": 1
+      },
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10326,
+        "quantity": 1
+      },
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10327,
+        "quantity": 1
+      },
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20275,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 9735,
         "quantity": 1
       }
@@ -28638,7 +30969,7 @@
       }
     ],
     "ticks": 4,
-    "ticksNote": "Make-All option available.",
+    "ticksNote": "Make-All option available",
     "toolIds": []
   },
   {
@@ -28652,7 +30983,7 @@
       {
         "id": 2357,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -28664,7 +30995,8 @@
         "xp": 22.5
       }
     ],
-    "ticks": null,
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once",
     "toolIds": []
   },
   {
@@ -29204,7 +31536,29 @@
   {
     "inputs": [
       {
-        "id": 11861,
+        "id": 11860,
+        "quantity": 1
+      },
+      {
+        "id": 27410,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11860,
         "quantity": 1
       },
       {
@@ -29226,7 +31580,7 @@
   {
     "inputs": [
       {
-        "id": 11861,
+        "id": 11860,
         "quantity": 1
       },
       {
@@ -29248,7 +31602,29 @@
   {
     "inputs": [
       {
-        "id": 11853,
+        "id": 11852,
+        "quantity": 1
+      },
+      {
+        "id": 27442,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11852,
         "quantity": 1
       },
       {
@@ -29270,7 +31646,7 @@
   {
     "inputs": [
       {
-        "id": 11853,
+        "id": 11852,
         "quantity": 1
       },
       {
@@ -29292,7 +31668,29 @@
   {
     "inputs": [
       {
-        "id": 11859,
+        "id": 11858,
+        "quantity": 1
+      },
+      {
+        "id": 27412,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11858,
         "quantity": 1
       },
       {
@@ -29314,7 +31712,7 @@
   {
     "inputs": [
       {
-        "id": 11859,
+        "id": 11858,
         "quantity": 1
       },
       {
@@ -29336,7 +31734,29 @@
   {
     "inputs": [
       {
-        "id": 11851,
+        "id": 11850,
+        "quantity": 1
+      },
+      {
+        "id": 27408,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11850,
         "quantity": 1
       },
       {
@@ -29358,7 +31778,7 @@
   {
     "inputs": [
       {
-        "id": 11851,
+        "id": 11850,
         "quantity": 1
       },
       {
@@ -29380,7 +31800,29 @@
   {
     "inputs": [
       {
-        "id": 11857,
+        "id": 11856,
+        "quantity": 1
+      },
+      {
+        "id": 27406,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11856,
         "quantity": 1
       },
       {
@@ -29402,7 +31844,7 @@
   {
     "inputs": [
       {
-        "id": 11857,
+        "id": 11856,
         "quantity": 1
       },
       {
@@ -29424,7 +31866,29 @@
   {
     "inputs": [
       {
-        "id": 11855,
+        "id": 11854,
+        "quantity": 1
+      },
+      {
+        "id": 27404,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11854,
         "quantity": 1
       },
       {
@@ -29446,7 +31910,7 @@
   {
     "inputs": [
       {
-        "id": 11855,
+        "id": 11854,
         "quantity": 1
       },
       {
@@ -29596,18 +32060,70 @@
       {
         "id": 0,
         "quantity": 500000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 21752,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21739,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 200,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21752,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21739,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21752,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -30113,6 +32629,53 @@
     "skills": [],
     "ticks": 0,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 7981,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 19643,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Kalphite khat"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 7981,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 19645,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Kalphite khat"
   },
   {
     "inputs": [
@@ -31243,12 +33806,11 @@
   {
     "inputs": [
       {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
+        "id": 251,
+        "quantity": 1
       },
       {
-        "id": 251,
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -31273,14 +33835,13 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 255,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1
       }
     ],
     "outputs": [
@@ -31305,12 +33866,11 @@
   {
     "inputs": [
       {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
+        "id": 249,
+        "quantity": 1
       },
       {
-        "id": 249,
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -32433,11 +34993,11 @@
   {
     "inputs": [
       {
-        "id": 4460,
+        "id": 255,
         "quantity": 1
       },
       {
-        "id": 255,
+        "id": 4460,
         "quantity": 1
       }
     ],
@@ -32464,11 +35024,11 @@
   {
     "inputs": [
       {
-        "id": 4460,
+        "id": 249,
         "quantity": 1
       },
       {
-        "id": 249,
+        "id": 4460,
         "quantity": 1
       }
     ],
@@ -32495,11 +35055,11 @@
   {
     "inputs": [
       {
-        "id": 4460,
+        "id": 251,
         "quantity": 1
       },
       {
-        "id": 251,
+        "id": 4460,
         "quantity": 1
       }
     ],
@@ -32526,13 +35086,13 @@
   {
     "inputs": [
       {
+        "id": 251,
+        "quantity": 1
+      },
+      {
         "id": 0,
         "quantity": 1,
         "text": "Herb tea mix"
-      },
-      {
-        "id": 251,
-        "quantity": 1
       }
     ],
     "outputs": [
@@ -32557,14 +35117,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 255,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32589,14 +35149,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 249,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32621,14 +35181,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 255,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32653,14 +35213,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 249,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32685,14 +35245,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 251,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32717,14 +35277,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 249,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32749,14 +35309,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 255,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32781,14 +35341,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 249,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32813,14 +35373,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 251,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32845,14 +35405,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 249,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32877,14 +35437,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 251,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32909,14 +35469,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 249,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -32941,14 +35501,14 @@
   },
   {
     "inputs": [
-      {
-        "id": 0,
-        "quantity": 1,
-        "text": "Herb tea mix"
-      },
       {
         "id": 255,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Herb tea mix"
       }
     ],
     "outputs": [
@@ -33325,6 +35885,53 @@
   {
     "inputs": [
       {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 23077,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23073,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Use more head"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 23077,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23075,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Use more head"
+  },
+  {
+    "inputs": [
+      {
         "id": 1409,
         "quantity": 1,
         "cost": 0
@@ -33544,7 +36151,8 @@
     "inputs": [
       {
         "id": 11238,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "Any jarred impling can be traded in for three impling jars."
       }
     ],
     "outputs": [
@@ -33561,27 +36169,19 @@
   {
     "inputs": [
       {
-        "id": 11246,
-        "quantity": 3
-      },
-      {
-        "id": 11248,
-        "quantity": 2
-      },
-      {
-        "id": 11250,
-        "quantity": 1
+        "id": 11258,
+        "quantity": 0.03
       }
     ],
     "outputs": [
       {
         "id": 11260,
-        "quantity": 33
+        "quantity": 1
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": 66,
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -33674,12 +36274,11 @@
   {
     "inputs": [
       {
-        "id": 1921,
+        "id": 2142,
         "quantity": 1
       },
-      null,
       {
-        "id": 2142,
+        "id": 1921,
         "quantity": 1
       }
     ],
@@ -33703,14 +36302,13 @@
   },
   {
     "inputs": [
-      {
-        "id": 1921,
-        "quantity": 1
-      },
-      null,
       {
         "id": 2140,
         "quantity": 1
+      },
+      {
+        "id": 1921,
+        "quantity": 1
       }
     ],
     "outputs": [
@@ -33734,11 +36332,11 @@
   {
     "inputs": [
       {
-        "id": 1921,
+        "id": 1942,
         "quantity": 1
       },
       {
-        "id": 1942,
+        "id": 1921,
         "quantity": 1
       }
     ],
@@ -33972,7 +36570,7 @@
         "quantity": 1
       },
       {
-        "id": 23964,
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -34176,7 +36774,7 @@
       }
     ],
     "ticks": 4,
-    "ticksNote": "Make-All option available.",
+    "ticksNote": "Make-All option available",
     "toolIds": []
   },
   {
@@ -34190,7 +36788,7 @@
       {
         "id": 2351,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -34202,7 +36800,8 @@
         "xp": 12.5
       }
     ],
-    "ticks": null,
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once",
     "toolIds": []
   },
   {
@@ -35470,8 +38069,8 @@
     ],
     "outputs": [
       {
-        "id": 11260,
-        "quantity": 33
+        "id": 11258,
+        "quantity": 1
       }
     ],
     "members": true,
@@ -35623,8 +38222,8 @@
         "xp": 200
       }
     ],
-    "ticks": 20,
-    "ticksNote": "Resets to 20 every time a new unfermented wine is made",
+    "ticks": 22,
+    "ticksNote": "2 ticks to add grapes, 20 ticks to ferment; timer resets to 20 every time a new unfermented wine is made",
     "toolIds": []
   },
   {
@@ -35931,7 +38530,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 58,
+        "lvl": 1,
         "name": "Cooking",
         "xp": 0
       }
@@ -35960,7 +38559,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 58,
+        "lvl": 1,
         "name": "Cooking",
         "xp": 0
       }
@@ -35989,7 +38588,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 58,
+        "lvl": 1,
         "name": "Cooking",
         "xp": 0
       }
@@ -36039,6 +38638,75 @@
     "skills": [],
     "ticks": 0,
     "ticksNote": "Auto-crushing kebbit teeth is 3 ticks",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 25979,
+        "quantity": 1,
+        "cost": 60000
+      },
+      {
+        "id": 27283,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25981,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 25979,
+        "quantity": 1,
+        "cost": 60000
+      },
+      {
+        "id": 27285,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27287,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 25979,
+        "quantity": 1,
+        "cost": 60000
+      },
+      {
+        "id": 27289,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27291,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
     "toolIds": []
   },
   {
@@ -36609,6 +39277,186 @@
     ],
     "ticks": 3,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21600,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21551,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21602,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21551,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21604,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21551,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21606,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21551,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21608,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21551,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21566,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21551,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
   },
   {
     "inputs": [
@@ -38122,7 +40970,8 @@
     "outputs": [
       {
         "id": 13354,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Lovakite furnace"
       }
     ],
     "members": true,
@@ -38132,6 +40981,42 @@
         "lvl": 45,
         "name": "Smithing",
         "xp": 20
+      }
+    ],
+    "ticks": 4,
+    "toolIds": [],
+    "notes": "Lovakengj favour"
+  },
+  {
+    "inputs": [
+      {
+        "id": 13356,
+        "quantity": 1
+      },
+      {
+        "id": 453,
+        "quantity": 1
+      },
+      {
+        "id": 27017,
+        "quantity": 1,
+        "notes": "Foundry Reputation"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13354,
+        "quantity": 1,
+        "subText": "Catalyzed"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 45,
+        "name": "Smithing",
+        "xp": 40
       }
     ],
     "ticks": 4,
@@ -38160,7 +41045,8 @@
     "outputs": [
       {
         "id": 13354,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Superheat"
       }
     ],
     "members": true,
@@ -38271,7 +41157,8 @@
     "outputs": [
       {
         "id": 9077,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Normal furnace"
       }
     ],
     "members": true,
@@ -38309,7 +41196,8 @@
     "outputs": [
       {
         "id": 9077,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Superheat"
       }
     ],
     "members": true,
@@ -38327,7 +41215,7 @@
         "xp": 53
       }
     ],
-    "ticks": 6,
+    "ticks": 3,
     "toolIds": [],
     "notes": "Lunar Diplomacy"
   },
@@ -38345,7 +41233,8 @@
     "outputs": [
       {
         "id": 9100,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "The lunar boots require a visible Crafting level of 52 to make, although level 61 is required to start the quest."
       }
     ],
     "members": true,
@@ -38375,7 +41264,8 @@
     "outputs": [
       {
         "id": 9099,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "The lunar gloves require a visible Crafting level of 52 to make, although level 61 is required to start the quest."
       }
     ],
     "members": true,
@@ -38431,7 +41321,8 @@
     "outputs": [
       {
         "id": 9098,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "The lunar legs require a visible Crafting level of 59 to make, although level 61 is required to start the quest."
       }
     ],
     "members": true,
@@ -40605,6 +43496,115 @@
   {
     "inputs": [
       {
+        "id": 22109,
+        "quantity": 1
+      },
+      {
+        "id": 27372,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27374,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27229,
+        "quantity": 1
+      },
+      {
+        "id": 27269,
+        "quantity": 4
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27238,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Crafting",
+        "xp": 3320
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27232,
+        "quantity": 1
+      },
+      {
+        "id": 27269,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27241,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Crafting",
+        "xp": 2490
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27226,
+        "quantity": 1
+      },
+      {
+        "id": 27269,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27235,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 90,
+        "name": "Crafting",
+        "xp": 830
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 5992,
         "quantity": 4
       },
@@ -40850,6 +43850,186 @@
   {
     "inputs": [
       {
+        "id": 21580,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21549,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21582,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21549,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21584,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21549,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21586,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21549,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21588,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21549,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21564,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21549,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
         "id": 3180,
         "quantity": 1,
         "cost": 0
@@ -40874,11 +44054,40 @@
   {
     "inputs": [
       {
-        "id": 1927,
+        "id": 109,
         "quantity": 1
       },
       {
+        "id": 27272,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27205,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 88,
+        "name": "Herblore",
+        "xp": 200
+      }
+    ],
+    "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 2130,
+        "quantity": 1
+      },
+      {
+        "id": 1927,
         "quantity": 1
       }
     ],
@@ -41731,7 +44940,7 @@
       {
         "id": 2359,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -41743,7 +44952,43 @@
         "xp": 30
       }
     ],
-    "ticks": null,
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once. Smelting process does not begin until sufficient mithril ore and coal is deposited at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 447,
+        "quantity": 1
+      },
+      {
+        "id": 453,
+        "quantity": 2
+      },
+      {
+        "id": 27017,
+        "quantity": 1,
+        "notes": "Foundry Reputation"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2359,
+        "quantity": 1,
+        "subText": "Catalyzed"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 50,
+        "name": "Smithing",
+        "xp": 60
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -43325,7 +46570,7 @@
       {
         "id": 1775,
         "quantity": 28.8,
-        "subText": "Superglass make - giant seaweed"
+        "subText": "Superglass Make - giant seaweed"
       }
     ],
     "members": true,
@@ -43374,7 +46619,7 @@
       {
         "id": 1775,
         "quantity": 16.9,
-        "subText": "Superglass make - seaweed"
+        "subText": "Superglass Make - seaweed"
       }
     ],
     "members": true,
@@ -43423,7 +46668,7 @@
       {
         "id": 1775,
         "quantity": 16.9,
-        "subText": "Superglass make - soda ash"
+        "subText": "Superglass Make - soda ash"
       }
     ],
     "members": true,
@@ -43472,7 +46717,7 @@
       {
         "id": 1775,
         "quantity": 16.9,
-        "subText": "Superglass make - swamp weed"
+        "subText": "Superglass Make - swamp weed"
       }
     ],
     "members": true,
@@ -44326,9 +47571,8 @@
   {
     "inputs": [
       {
-        "id": 1403,
-        "quantity": 1,
-        "notes": "Mystic staff"
+        "id": 1401,
+        "quantity": 1
       },
       {
         "id": 556,
@@ -44345,10 +47589,53 @@
     "skills": [],
     "ticks": null,
     "toolIds": [],
-    "notes": [
-      "SCP",
-      "Construction"
-    ]
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1407,
+        "quantity": 1
+      },
+      {
+        "id": 556,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1405,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1403,
+        "quantity": 1
+      },
+      {
+        "id": 556,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1405,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
   },
   {
     "inputs": [
@@ -44525,9 +47812,8 @@
   {
     "inputs": [
       {
-        "id": 1401,
-        "quantity": 1,
-        "notes": "Mystic staff"
+        "id": 1405,
+        "quantity": 1
       },
       {
         "id": 557,
@@ -44544,10 +47830,53 @@
     "skills": [],
     "ticks": null,
     "toolIds": [],
-    "notes": [
-      "SCP",
-      "Construction"
-    ]
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1401,
+        "quantity": 1
+      },
+      {
+        "id": 557,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1407,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1403,
+        "quantity": 1
+      },
+      {
+        "id": 557,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1407,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
   },
   {
     "inputs": [
@@ -44628,8 +47957,7 @@
     "inputs": [
       {
         "id": 1405,
-        "quantity": 1,
-        "notes": "Mystic staff"
+        "quantity": 1
       },
       {
         "id": 554,
@@ -44646,10 +47974,53 @@
     "skills": [],
     "ticks": null,
     "toolIds": [],
-    "notes": [
-      "SCP",
-      "Construction"
-    ]
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1407,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1401,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1403,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1401,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
   },
   {
     "inputs": [
@@ -45392,9 +48763,8 @@
   {
     "inputs": [
       {
-        "id": 1407,
-        "quantity": 1,
-        "notes": "Mystic staff"
+        "id": 1405,
+        "quantity": 1
       },
       {
         "id": 555,
@@ -45411,10 +48781,53 @@
     "skills": [],
     "ticks": null,
     "toolIds": [],
-    "notes": [
-      "SCP",
-      "Construction"
-    ]
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1407,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1403,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1401,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 1000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1403,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Crystal of power"
   },
   {
     "inputs": [
@@ -48327,6 +51740,28 @@
   {
     "inputs": [
       {
+        "id": 26219,
+        "quantity": 1
+      },
+      {
+        "id": 27248,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27246,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 563,
         "quantity": 1
       },
@@ -49477,7 +52912,7 @@
         "xp": 40.5
       }
     ],
-    "ticks": 10,
+    "ticks": 19,
     "toolIds": []
   },
   {
@@ -52057,6 +55492,53 @@
   {
     "inputs": [
       {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 21275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21264,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Dark Mantle"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 21275,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21266,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Dark Mantle"
+  },
+  {
+    "inputs": [
+      {
         "id": 1511,
         "quantity": 1
       },
@@ -52068,6 +55550,11 @@
     "outputs": [
       {
         "id": 3438,
+        "quantity": 1,
+        "subText": "2-dose oil"
+      },
+      {
+        "id": 229,
         "quantity": 1,
         "subText": "2-dose oil"
       }
@@ -52195,7 +55682,7 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 3,
     "toolIds": []
   },
   {
@@ -52359,6 +55846,216 @@
     ],
     "ticks": 2,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21610,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21612,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21614,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21616,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21618,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21620,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21568,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21553,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
   },
   {
     "inputs": [
@@ -52685,14 +56382,7 @@
       }
     ],
     "members": true,
-    "skills": [
-      {
-        "boostable": true,
-        "lvl": 1,
-        "name": "Cooking",
-        "xp": 0
-      }
-    ],
+    "skills": [],
     "ticks": 0,
     "toolIds": []
   },
@@ -53276,6 +56966,53 @@
     "skills": [],
     "ticks": null,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 7979,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 19647,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Unholy helmet"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 7979,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 19649,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Unholy helmet"
   },
   {
     "inputs": [
@@ -54041,7 +57778,8 @@
     "outputs": [
       {
         "id": 2568,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Magic"
       }
     ],
     "members": true,
@@ -54303,18 +58041,70 @@
       {
         "id": 0,
         "quantity": 725000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 26761,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 19550,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 300,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 26761,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 19550,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 26761,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -54324,26 +58114,72 @@
         "quantity": 1
       },
       {
-        "id": 6714,
-        "quantity": 1,
-        "cost": 0,
-        "notes": "The wrench is not consumed in the process of imbuing the ring."
-      },
-      {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 13202,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12601,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13202,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12601,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13202,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -54887,7 +58723,8 @@
         "xp": 10
       }
     ],
-    "ticks": 1,
+    "ticks": 0,
+    "ticksNote": "Auto-cutting leaping fish is 3 ticks",
     "toolIds": []
   },
   {
@@ -54916,7 +58753,8 @@
         "xp": 10
       }
     ],
-    "ticks": 1,
+    "ticks": 0,
+    "ticksNote": "Auto-cutting leaping fish is 3 ticks",
     "toolIds": []
   },
   {
@@ -55027,7 +58865,7 @@
         "subText": "Compost bin"
       }
     ],
-    "members": false,
+    "members": true,
     "skills": [
       {
         "boostable": true,
@@ -56110,16 +59948,13 @@
       {
         "id": 1163,
         "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -56311,7 +60146,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -56711,16 +60547,13 @@
       {
         "id": 1201,
         "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -56912,7 +60745,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -57504,7 +61338,7 @@
       {
         "id": 2363,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -57516,7 +61350,43 @@
         "xp": 50
       }
     ],
-    "ticks": null,
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once. Smelting process does not begin until sufficient runite ore and coal is deposited at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 451,
+        "quantity": 1
+      },
+      {
+        "id": 453,
+        "quantity": 4
+      },
+      {
+        "id": 27017,
+        "quantity": 1,
+        "notes": "Foundry Reputation"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2363,
+        "quantity": 1,
+        "subText": "Catalyzed"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 85,
+        "name": "Smithing",
+        "xp": 100
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -57823,7 +61693,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 35,
+        "lvl": 1,
         "name": "Crafting",
         "xp": 0
       }
@@ -57859,13 +61729,67 @@
       {
         "id": 0,
         "quantity": 800000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 12018,
+        "quantity": 1,
+        "subText": "Total - Nightmare Zone"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Lair of Tarn Razorlor"
+  },
+  {
+    "inputs": [
+      {
+        "id": 4081,
         "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 320,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12018,
+        "quantity": 1,
+        "subText": "Total - Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "Lair of Tarn Razorlor"
+  },
+  {
+    "inputs": [
+      {
+        "id": 4081,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12018,
+        "quantity": 1,
+        "subText": "Total - Emir's Arena"
       }
     ],
     "members": true,
@@ -57889,7 +61813,7 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
     "toolIds": [],
     "notes": "Lair of Tarn Razorlor"
   },
@@ -57902,18 +61826,70 @@
       {
         "id": 0,
         "quantity": 800000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 12018,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10588,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 320,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12018,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10588,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12018,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -57925,18 +61901,70 @@
       {
         "id": 0,
         "quantity": 800000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 12017,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 4081,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 320,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12017,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 4081,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12017,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -59079,6 +63107,35 @@
   {
     "inputs": [
       {
+        "id": 20724,
+        "quantity": 1
+      },
+      {
+        "id": 27616,
+        "quantity": 150000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27641,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Magic",
+        "xp": 500
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 6057,
         "quantity": 1
       },
@@ -59233,18 +63290,70 @@
       {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 11770,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6731,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11770,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6731,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11770,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -59536,11 +63645,11 @@
   {
     "inputs": [
       {
-        "id": 1921,
+        "id": 13413,
         "quantity": 1
       },
       {
-        "id": 13413,
+        "id": 1921,
         "quantity": 1
       }
     ],
@@ -59570,11 +63679,11 @@
   {
     "inputs": [
       {
-        "id": 1921,
+        "id": 13414,
         "quantity": 1
       },
       {
-        "id": 13414,
+        "id": 1921,
         "quantity": 1
       }
     ],
@@ -59634,11 +63743,11 @@
   {
     "inputs": [
       {
-        "id": 1921,
+        "id": 13397,
         "quantity": 1
       },
       {
-        "id": 13397,
+        "id": 1921,
         "quantity": 1
       }
     ],
@@ -59736,11 +63845,11 @@
   {
     "inputs": [
       {
-        "id": 1921,
+        "id": 13397,
         "quantity": 1
       },
       {
-        "id": 13397,
+        "id": 1921,
         "quantity": 1
       }
     ],
@@ -61185,7 +65294,8 @@
     "outputs": [
       {
         "id": 2355,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Regular furnace"
       }
     ],
     "members": false,
@@ -61198,6 +65308,73 @@
       }
     ],
     "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 442,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2355,
+        "quantity": 1,
+        "subText": "Blast Furnace"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Smithing",
+        "xp": 13.7
+      }
+    ],
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 442,
+        "quantity": 1
+      },
+      {
+        "id": 561,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 4
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2355,
+        "quantity": 1,
+        "subText": "Superheat"
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Smithing",
+        "xp": 13.7
+      },
+      {
+        "boostable": true,
+        "lvl": 43,
+        "name": "Magic",
+        "xp": 53
+      }
+    ],
+    "ticks": 3,
     "toolIds": []
   },
   {
@@ -61896,25 +66073,182 @@
   {
     "inputs": [
       {
-        "id": 11864,
+        "id": 8921,
         "quantity": 1
+      },
+      {
+        "id": 4166,
+        "quantity": 1
+      },
+      {
+        "id": 4164,
+        "quantity": 1
+      },
+      {
+        "id": 4168,
+        "quantity": 1
+      },
+      {
+        "id": 4551,
+        "quantity": 1
+      },
+      {
+        "id": 4155,
+        "quantity": 1,
+        "cost": 1
+      },
+      {
+        "id": 24942,
+        "quantity": 1,
+        "cost": 100,
+        "notes": "A Porcine of Interest"
       },
       {
         "id": 0,
         "quantity": 1250000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 11865,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Total - Nightmare Zone"
       }
     ],
     "members": true,
-    "skills": [],
-    "ticks": null,
-    "toolIds": []
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 55,
+        "name": "Crafting",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Malevolent masquerade"
+  },
+  {
+    "inputs": [
+      {
+        "id": 8921,
+        "quantity": 1
+      },
+      {
+        "id": 4166,
+        "quantity": 1
+      },
+      {
+        "id": 4164,
+        "quantity": 1
+      },
+      {
+        "id": 4168,
+        "quantity": 1
+      },
+      {
+        "id": 4551,
+        "quantity": 1
+      },
+      {
+        "id": 4155,
+        "quantity": 1,
+        "cost": 1
+      },
+      {
+        "id": 24942,
+        "quantity": 1,
+        "cost": 100,
+        "notes": "A Porcine of Interest"
+      },
+      {
+        "id": 0,
+        "quantity": 500,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11865,
+        "quantity": 1,
+        "subText": "Total - Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 55,
+        "name": "Crafting",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Malevolent masquerade"
+  },
+  {
+    "inputs": [
+      {
+        "id": 8921,
+        "quantity": 1
+      },
+      {
+        "id": 4166,
+        "quantity": 1
+      },
+      {
+        "id": 4164,
+        "quantity": 1
+      },
+      {
+        "id": 4168,
+        "quantity": 1
+      },
+      {
+        "id": 4551,
+        "quantity": 1
+      },
+      {
+        "id": 4155,
+        "quantity": 1,
+        "cost": 1
+      },
+      {
+        "id": 24942,
+        "quantity": 1,
+        "cost": 100,
+        "notes": "A Porcine of Interest"
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11865,
+        "quantity": 1,
+        "subText": "Total - Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 55,
+        "name": "Crafting",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Malevolent masquerade"
   },
   {
     "inputs": [
@@ -61953,7 +66287,8 @@
     "outputs": [
       {
         "id": 11865,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Crafting"
       }
     ],
     "members": true,
@@ -61968,6 +66303,81 @@
     "ticks": 0,
     "toolIds": [],
     "notes": "Malevolent masquerade"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1250000,
+        "notes": "herb box"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11865,
+        "quantity": 1,
+        "subText": "Nightmare Zone"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 500,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11865,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11865,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -62197,6 +66607,28 @@
   {
     "inputs": [
       {
+        "id": 4170,
+        "quantity": 1
+      },
+      {
+        "id": 21257,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21255,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 1315,
         "quantity": 1
       }
@@ -62366,6 +66798,186 @@
     "skills": [],
     "ticks": 1,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21570,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21547,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21572,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21547,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21574,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21547,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21576,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21547,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21578,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21547,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 21562,
+        "quantity": 1
+      },
+      {
+        "id": 21543,
+        "quantity": 3
+      },
+      {
+        "id": 21545,
+        "quantity": 3
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21547,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 117,
+    "toolIds": [],
+    "notes": [
+      "SCP",
+      "Bone Voyage"
+    ]
   },
   {
     "inputs": [
@@ -63318,7 +67930,8 @@
     "outputs": [
       {
         "id": 1761,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Bucket"
       },
       {
         "id": 1925,
@@ -63344,7 +67957,8 @@
     "outputs": [
       {
         "id": 1761,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Bowl"
       },
       {
         "id": 1923,
@@ -63370,7 +67984,8 @@
     "outputs": [
       {
         "id": 1761,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Jug"
       },
       {
         "id": 1935,
@@ -63381,6 +67996,86 @@
     "skills": [],
     "ticks": 2,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 434,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 3
+      },
+      {
+        "id": 9075,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1761,
+        "quantity": 1,
+        "subText": "Humidify"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 68,
+        "name": "Magic",
+        "xp": 65
+      }
+    ],
+    "ticks": 3,
+    "ticksNote": "A single cast waters all clay in the inventory.",
+    "toolIds": [],
+    "notes": "Dream Mentor"
+  },
+  {
+    "inputs": [
+      {
+        "id": 434,
+        "quantity": 27
+      },
+      {
+        "id": 554,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 3
+      },
+      {
+        "id": 9075,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1761,
+        "quantity": 27,
+        "subText": "Humidify inventory"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 68,
+        "name": "Magic",
+        "xp": 65
+      }
+    ],
+    "ticks": 3,
+    "ticksNote": "A single cast waters all clay in the inventory.",
+    "toolIds": [],
+    "notes": "Dream Mentor"
   },
   {
     "inputs": [
@@ -64559,6 +69254,158 @@
   {
     "inputs": [
       {
+        "id": 24311,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24321,
+        "quantity": 1,
+        "subText": "Ectofuntus"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24311,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24321,
+        "quantity": 1,
+        "subText": "Swampy sink"
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24305,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24315,
+        "quantity": 1,
+        "subText": "Ectofuntus"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24305,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24315,
+        "quantity": 1,
+        "subText": "Swampy sink"
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24307,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24317,
+        "quantity": 1,
+        "subText": "Ectofuntus"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24307,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24317,
+        "quantity": 1,
+        "subText": "Swampy sink"
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24309,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24319,
+        "quantity": 1,
+        "subText": "Ectofuntus"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24309,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24319,
+        "quantity": 1,
+        "subText": "Swampy sink"
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 10125,
         "quantity": 2
       },
@@ -64635,6 +69482,63 @@
   {
     "inputs": [
       {
+        "id": 1385,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1381,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1387,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1381,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1383,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1381,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
         "id": 11791,
         "quantity": 1
       },
@@ -64657,6 +69561,120 @@
   {
     "inputs": [
       {
+        "id": 1381,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1385,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1387,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1385,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1383,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1385,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1381,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1387,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1385,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1387,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1383,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1387,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
         "id": 11791,
         "quantity": 1
       },
@@ -64675,6 +69693,63 @@
     "skills": [],
     "ticks": null,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1381,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1383,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1385,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1383,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1387,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1383,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
   },
   {
     "inputs": [
@@ -64860,35 +69935,6 @@
     "ticks": null,
     "toolIds": [],
     "notes": "2018 Christmas event"
-  },
-  {
-    "inputs": [
-      {
-        "id": 109,
-        "quantity": 1
-      },
-      {
-        "id": 0,
-        "quantity": 1
-      }
-    ],
-    "outputs": [
-      {
-        "id": 0,
-        "quantity": 1
-      }
-    ],
-    "members": true,
-    "skills": [
-      {
-        "boostable": true,
-        "lvl": 71,
-        "name": "Herblore",
-        "xp": 150
-      }
-    ],
-    "ticks": 2,
-    "toolIds": []
   },
   {
     "inputs": [
@@ -65310,7 +70356,7 @@
       {
         "id": 2353,
         "quantity": 1,
-        "subText": "Blast furnace"
+        "subText": "Blast Furnace"
       }
     ],
     "members": true,
@@ -65322,7 +70368,43 @@
         "xp": 17.5
       }
     ],
-    "ticks": null,
+    "ticks": 11,
+    "ticksNote": "Multiple bars are completed at once. Smelting process does not begin until sufficient iron ore and coal is deposited at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 440,
+        "quantity": 1
+      },
+      {
+        "id": 453,
+        "quantity": 1
+      },
+      {
+        "id": 27017,
+        "quantity": 1,
+        "notes": "Foundry Reputation"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2353,
+        "quantity": 1,
+        "subText": "Catalyzed"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 30,
+        "name": "Smithing",
+        "xp": 35
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -65999,16 +71081,13 @@
       {
         "id": 1157,
         "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -66200,7 +71279,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -66600,16 +71680,13 @@
       {
         "id": 1193,
         "quantity": 1
-      },
-      {
-        "id": 2526,
-        "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "toy horsey"
       }
     ],
     "members": true,
@@ -66801,7 +71878,8 @@
     "outputs": [
       {
         "id": 0,
-        "quantity": 1
+        "quantity": 1,
+        "notes": "skull (status)"
       }
     ],
     "members": true,
@@ -67466,7 +72544,8 @@
     "outputs": [
       {
         "id": 113,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Apothecary"
       }
     ],
     "members": false,
@@ -67677,6 +72756,222 @@
   {
     "inputs": [
       {
+        "id": 7979,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 12000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7986,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 7977,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 4000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7984,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 7976,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 2000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7983,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 1000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7982,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 23077,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 50000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23079,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 7980,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 50000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7987,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 7981,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 50000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7988,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 22671,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 50000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 22673,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 7978,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 6000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7985,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
         "id": 7577,
         "quantity": 1
       }
@@ -67693,7 +72988,7 @@
         "boostable": true,
         "lvl": 70,
         "name": "Cooking",
-        "xp": 100
+        "xp": 180
       }
     ],
     "ticks": null,
@@ -69743,6 +75038,31 @@
   {
     "inputs": [
       {
+        "id": 6103,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 150,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23904,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "ticksNote": "There is a delay before the first seed is charged, then 1 tick for each additional seed.",
+    "toolIds": [],
+    "notes": "Mourning's Ends Part 1"
+  },
+  {
+    "inputs": [
+      {
         "id": 23866,
         "quantity": 40
       }
@@ -70143,7 +75463,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Fletching",
-        "xp": 4
+        "xp": 3.9
       }
     ],
     "ticks": 5,
@@ -70744,18 +76064,70 @@
       {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 12692,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12605,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12692,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12605,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12692,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -71176,6 +76548,53 @@
   {
     "inputs": [
       {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 21907,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21888,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Undead Head"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 21907,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21890,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Undead Head"
+  },
+  {
+    "inputs": [
+      {
         "id": 20801,
         "quantity": 1
       },
@@ -71341,24 +76760,123 @@
   {
     "inputs": [
       {
+        "id": 11864,
+        "quantity": 1
+      },
+      {
+        "id": 24466,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24370,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Twisted Vision"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      },
+      {
+        "id": 24466,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24444,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Twisted Vision"
+  },
+  {
+    "inputs": [
+      {
         "id": 12603,
         "quantity": 1
       },
       {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 12691,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12603,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12691,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 12603,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 12691,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -71382,6 +76900,84 @@
     "skills": [],
     "ticks": null,
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25910,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "grandmaster Combat Achievements"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25912,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "grandmaster Combat Achievements"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11864,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25898,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "elite Combat Achievements"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25900,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "elite Combat Achievements"
   },
   {
     "inputs": [
@@ -71492,7 +77088,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 58,
+        "lvl": 1,
         "name": "Cooking",
         "xp": 40
       }
@@ -71521,9 +77117,9 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 58,
+        "lvl": 1,
         "name": "Cooking",
-        "xp": 40
+        "xp": 0
       }
     ],
     "ticks": 2,
@@ -71855,11 +77451,11 @@
         "quantity": 1
       },
       {
-        "id": 1927,
+        "id": 1933,
         "quantity": 1
       },
       {
-        "id": 1933,
+        "id": 1927,
         "quantity": 1
       }
     ],
@@ -71892,12 +77488,12 @@
   {
     "inputs": [
       {
-        "id": 2001,
-        "quantity": 1
-      },
-      {
         "id": 5970,
         "quantity": 3
+      },
+      {
+        "id": 2001,
+        "quantity": 1
       }
     ],
     "outputs": [
@@ -71921,11 +77517,11 @@
   {
     "inputs": [
       {
-        "id": 2001,
+        "id": 2007,
         "quantity": 1
       },
       {
-        "id": 2007,
+        "id": 2001,
         "quantity": 1
       }
     ],
@@ -72097,11 +77693,11 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 2142,
         "quantity": 1
       },
       {
-        "id": 2142,
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -72127,11 +77723,11 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 2140,
         "quantity": 1
       },
       {
-        "id": 2140,
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -72157,11 +77753,11 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 1942,
         "quantity": 1
       },
       {
-        "id": 1942,
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -72217,11 +77813,11 @@
   {
     "inputs": [
       {
-        "id": 1937,
+        "id": 1987,
         "quantity": 1
       },
       {
-        "id": 1987,
+        "id": 1937,
         "quantity": 1
       }
     ],
@@ -73126,6 +78722,45 @@
   {
     "inputs": [
       {
+        "id": 11864,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25904,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "master Combat Achievements"
+  },
+  {
+    "inputs": [
+      {
+        "id": 11865,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25906,
+        "quantity": 1,
+        "subText": "Crafting"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "master Combat Achievements"
+  },
+  {
+    "inputs": [
+      {
         "id": 563,
         "quantity": 1
       },
@@ -73217,6 +78852,24 @@
       }
     ],
     "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27614,
+        "quantity": 5
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27612,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
     "toolIds": []
   },
   {
@@ -73645,6 +79298,30 @@
   {
     "inputs": [
       {
+        "id": 21907,
+        "quantity": 1
+      },
+      {
+        "id": 995,
+        "quantity": 50000,
+        "cost": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21909,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
         "id": 9082,
         "quantity": 1
       },
@@ -73681,18 +79358,70 @@
       {
         "id": 0,
         "quantity": 650000,
-        "notes": "Herb box"
+        "notes": "herb box"
       }
     ],
     "outputs": [
       {
         "id": 11772,
-        "quantity": 1
+        "quantity": 1,
+        "subText": "Nightmare Zone"
       }
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6735,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 260,
+        "notes": [
+          "Soul Wars",
+          "Zeal Tokens"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11772,
+        "quantity": 1,
+        "subText": "Soul Wars"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6735,
+        "quantity": 1
+      },
+      {
+        "id": 26706,
+        "quantity": 1,
+        "notes": "scroll of imbuing"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 11772,
+        "quantity": 1,
+        "subText": "Emir's Arena"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -73789,6 +79518,75 @@
     "ticks": 3,
     "ticksNote": "Make-X is 3t, then 2t for the remainder.",
     "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1397,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1395,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1399,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1395,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1393,
+        "quantity": 1
+      },
+      {
+        "id": 555,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1395,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": [],
+    "notes": "crystal ball space"
   },
   {
     "inputs": [
@@ -74232,39 +80030,6 @@
         "lvl": 60,
         "name": "Herblore",
         "xp": 137.5
-      }
-    ],
-    "ticks": 2,
-    "toolIds": []
-  },
-  {
-    "inputs": [
-      {
-        "id": 5935,
-        "quantity": 1
-      },
-      {
-        "id": 6016,
-        "quantity": 1
-      },
-      {
-        "id": 223,
-        "quantity": 1
-      }
-    ],
-    "outputs": [
-      {
-        "id": 5937,
-        "quantity": 1
-      }
-    ],
-    "members": true,
-    "skills": [
-      {
-        "boostable": true,
-        "lvl": 73,
-        "name": "Herblore",
-        "xp": 165
       }
     ],
     "ticks": 2,
@@ -76669,11 +82434,11 @@
   {
     "inputs": [
       {
-        "id": 1937,
+        "id": 20749,
         "quantity": 1
       },
       {
-        "id": 20749,
+        "id": 1937,
         "quantity": 1
       }
     ],
