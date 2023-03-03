@@ -637,7 +637,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/55",
+        "rarity": "1/56",
         "itemId": 23083
       },
       {
@@ -2989,7 +2989,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/52",
+        "rarity": "1/53",
         "itemId": 23083
       },
       {
@@ -4364,7 +4364,7 @@
         "itemId": 22746
       }
     ],
-    "examine": "The Alchemical Hydra is a boss found in the lower level of the Karuulm Slayer Dungeon in Mount Karuulm, requiring level 95 Slayer to kill. The Alchemical Hydra was the creation of a Dragonkin named Karuulm. While Karuulm saw promise in his creation, he nevertheless saw it as a failure because he could not replicate its traits, and abandoned it along with his other creations: the Wyrms, Drakes, and Hydras."
+    "examine": "The Alchemical Hydra is a boss version of hydra, found in the lower level of the Karuulm Slayer Dungeon in Mount Karuulm, requiring level 95 Slayer to kill. The Alchemical Hydra was the creation of a Dragonkin named Karuulm. While Karuulm saw promise in his creation, he nevertheless saw it as a failure because he could not replicate its traits, and abandoned it along with his other creations: the Wyrms, Drakes, and Hydras."
   },
   {
     "id": 2623,
@@ -4703,20 +4703,6 @@
       }
     ],
     "examine": "Alexis is one of the citizens of Canifis. If you are not wielding wolfbane when you attack, she will turn into a werewolf. She is more friendly if you are wearing a ring of charos."
-  },
-  {
-    "id": 1204,
-    "name": "Alomone",
-    "aliases": [],
-    "drops": [
-      {
-        "name": "Carnillean armour",
-        "quantity": "1",
-        "rarity": "Always",
-        "itemId": 2405
-      }
-    ],
-    "examine": "Alomone is the leader of the Cult of Hazeel, a group dedicated to the revival of the Zamorakian mahjarrat Hazeel."
   },
   {
     "id": 3676,
@@ -6091,7 +6077,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/78",
+        "rarity": "1/79",
         "itemId": 23083
       },
       {
@@ -8222,7 +8208,7 @@
         "itemId": 526
       }
     ],
-    "examine": "Archers are found in Ardougne, atop Ardougne Castle. They are not aggressive to players, but when attacked, will defend themselves with Ranged attacks that are fairly accurate and can hit up to 5."
+    "examine": "Archers are found in Ardougne, atop Ardougne Castle. They are not aggressive to players, but when attacked, will defend themselves with Ranged attacks that are fairly accurate and can hit up to 6."
   },
   {
     "id": 4096,
@@ -8654,7 +8640,6 @@
     "name": "Arrg",
     "aliases": [
       "Aarg",
-      "Arg",
       "Arrg (hard)",
       "Argg"
     ],
@@ -9093,6 +9078,293 @@
       }
     ],
     "examine": "Arrg is a quest monster that must be defeated during Troll Romance. All mountain trolls are named after the first thing they ate or tried to eat. Arrg, however, makes an exception. With some trolls, the name of what they first ate is unknown. This is the case with Arrg, so he was named after the sound made by the first thing he ate. This is the same case with Ug and Aga."
+  },
+  {
+    "id": 11992,
+    "name": "Artio",
+    "aliases": [
+      "Artito",
+      "Rto"
+    ],
+    "drops": [
+      {
+        "name": "Big bones",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 532
+      },
+      {
+        "name": "Dragon 2h sword",
+        "quantity": "1",
+        "rarity": "1/358",
+        "itemId": 7158
+      },
+      {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/358",
+        "itemId": 11920
+      },
+      {
+        "name": "Claws of callisto",
+        "quantity": "1",
+        "rarity": "1/618",
+        "itemId": 27667
+      },
+      {
+        "name": "Tyrannical ring",
+        "quantity": "1",
+        "rarity": "1/716",
+        "itemId": 12603
+      },
+      {
+        "name": "Voidwaker hilt",
+        "quantity": "1",
+        "rarity": "1/912",
+        "itemId": 27681
+      },
+      {
+        "name": "Dark crab",
+        "quantity": "9",
+        "rarity": "5/128",
+        "itemId": 11936
+      },
+      {
+        "name": "Super restore(4)",
+        "quantity": "3",
+        "rarity": "5/128",
+        "itemId": 3024
+      },
+      {
+        "name": "Rune 2h sword",
+        "quantity": "1",
+        "rarity": "3/128",
+        "itemId": 1319
+      },
+      {
+        "name": "Rune pickaxe",
+        "quantity": "1",
+        "rarity": "12/128",
+        "itemId": 1275
+      },
+      {
+        "name": "Chaos rune",
+        "quantity": "300",
+        "rarity": "7/128",
+        "itemId": 562
+      },
+      {
+        "name": "Death rune",
+        "quantity": "220",
+        "rarity": "7/128",
+        "itemId": 560
+      },
+      {
+        "name": "Blood rune",
+        "quantity": "140",
+        "rarity": "7/128",
+        "itemId": 565
+      },
+      {
+        "name": "Soul rune",
+        "quantity": "200",
+        "rarity": "5/128",
+        "itemId": 566
+      },
+      {
+        "name": "Cannonball",
+        "quantity": "190",
+        "rarity": "4/128",
+        "itemId": 2
+      },
+      {
+        "name": "Uncut ruby",
+        "quantity": "22 ",
+        "rarity": "4/128",
+        "itemId": 1619
+      },
+      {
+        "name": "Uncut diamond",
+        "quantity": "9 ",
+        "rarity": "3/128",
+        "itemId": 1617
+      },
+      {
+        "name": "Uncut dragonstone",
+        "quantity": "1",
+        "rarity": "2/128",
+        "itemId": 1631
+      },
+      {
+        "name": "Limpwurt root",
+        "quantity": "20 ",
+        "rarity": "5/128",
+        "itemId": 225
+      },
+      {
+        "name": "Magic logs",
+        "quantity": "60 ",
+        "rarity": "5/128",
+        "itemId": 1513
+      },
+      {
+        "name": "Mahogany logs",
+        "quantity": "200 ",
+        "rarity": "6/128",
+        "itemId": 6332
+      },
+      {
+        "name": "Dragon bones",
+        "quantity": "25 ",
+        "rarity": "3/128",
+        "itemId": 536
+      },
+      {
+        "name": "Grimy toadflax",
+        "quantity": "60 ",
+        "rarity": "1/128",
+        "itemId": 3049
+      },
+      {
+        "name": "Coconut",
+        "quantity": "30 ",
+        "rarity": "2/128",
+        "itemId": 5974
+      },
+      {
+        "name": "Red dragonhide",
+        "quantity": "55 ",
+        "rarity": "3/128",
+        "itemId": 1749
+      },
+      {
+        "name": "Coins",
+        "quantity": "12000",
+        "rarity": "21/128",
+        "itemId": 995
+      },
+      {
+        "name": "Dark fishing bait",
+        "quantity": "300",
+        "rarity": "1/128",
+        "itemId": 11940
+      },
+      {
+        "name": "Supercompost",
+        "quantity": "60 ",
+        "rarity": "4/128",
+        "itemId": 6034
+      },
+      {
+        "name": "Yew seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5315
+      },
+      {
+        "name": "Magic seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5316
+      },
+      {
+        "name": "Ranarr seed",
+        "quantity": "3",
+        "rarity": "5/128",
+        "itemId": 5295
+      },
+      {
+        "name": "Snapdragon seed",
+        "quantity": "2",
+        "rarity": "5/128",
+        "itemId": 5300
+      },
+      {
+        "name": "Palm tree seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5289
+      },
+      {
+        "name": "Blighted anglerfish",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24592
+      },
+      {
+        "name": "Blighted karambwan",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24595
+      },
+      {
+        "name": "Blighted super restore(3)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24601
+      },
+      {
+        "name": "Blighted super restore(4)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24598
+      },
+      {
+        "name": "Ranging potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 171
+      },
+      {
+        "name": "Super combat potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 12699
+      },
+      {
+        "name": "Looting bag",
+        "quantity": "1",
+        "rarity": "1/3",
+        "itemId": 11941
+      },
+      {
+        "name": "Long bone",
+        "quantity": "1",
+        "rarity": "1/400",
+        "itemId": 10976
+      },
+      {
+        "name": "Curved bone",
+        "quantity": "1",
+        "rarity": "1/5012.5",
+        "itemId": 10977
+      },
+      {
+        "name": "Clue scroll (elite)",
+        "quantity": "1",
+        "rarity": "1/100",
+        "itemId": 21524
+      },
+      {
+        "name": "Callisto cub",
+        "quantity": "1",
+        "rarity": "1/2800",
+        "itemId": 13178
+      },
+      {
+        "name": "Larran's key",
+        "quantity": "1",
+        "rarity": "1/55",
+        "itemId": 23490
+      },
+      {
+        "name": "Slayer's enchantment",
+        "quantity": "1",
+        "rarity": "1/30",
+        "itemId": 21257
+      }
+    ],
+    "examine": "Artio is a weaker variant of Callisto who is fought in the Hunter's End, a singles-plus combat area in level 21 Wilderness."
   },
   {
     "id": 1233,
@@ -9846,7 +10118,7 @@
       "Baby red dragon (construction)"
     ],
     "drops": [],
-    "examine": "A baby red dragon can be built in the Guard space of the Oubliette and Dungeon in a player-owned house. It requires 82 Construction to build and when built, it gives 387 experience."
+    "examine": "A baby red dragon can be built in the guard space of the oubliette and dungeon in a player-owned house for 150,000 coins. It requires 82 Construction to build and when built, it gives 387 Construction experience."
   },
   {
     "id": 762,
@@ -13296,7 +13568,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/63",
+        "rarity": "1/64",
         "itemId": 23083
       },
       {
@@ -15154,7 +15426,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/85",
+        "rarity": "1/86",
         "itemId": 23083
       },
       {
@@ -16055,7 +16327,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/74",
+        "rarity": "1/75",
         "itemId": 23083
       },
       {
@@ -17372,6 +17644,12 @@
         "itemId": 555
       },
       {
+        "name": "Mind rune",
+        "quantity": "5",
+        "rarity": "1/128",
+        "itemId": 558
+      },
+      {
         "name": "Grimy guam leaf",
         "quantity": "1",
         "rarity": "1/34.1",
@@ -17488,7 +17766,7 @@
       {
         "name": "Nothing",
         "quantity": "N/A",
-        "rarity": "3/128",
+        "rarity": "2/128",
         "itemId": null
       },
       {
@@ -19678,7 +19956,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/97",
+        "rarity": "1/98",
         "itemId": 23083
       },
       {
@@ -21527,7 +21805,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/93",
+        "rarity": "1/94",
         "itemId": 23083
       },
       {
@@ -21586,19 +21864,19 @@
     ],
     "drops": [
       {
-        "name": "Tribal mask (green)",
+        "name": "Tribal mask (poison)",
         "quantity": "1",
         "rarity": "Always",
         "itemId": 6335
       },
       {
-        "name": "Tribal mask (orange)",
+        "name": "Tribal mask (disease)",
         "quantity": "1",
         "rarity": "Always",
         "itemId": 6337
       },
       {
-        "name": "Tribal mask (blue)",
+        "name": "Tribal mask (combat)",
         "quantity": "1",
         "rarity": "Always",
         "itemId": 6339
@@ -22037,7 +22315,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/56",
+        "rarity": "1/57",
         "itemId": 23083
       },
       {
@@ -22453,7 +22731,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/65",
+        "rarity": "1/66",
         "itemId": 23083
       },
       {
@@ -23286,7 +23564,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/62",
+        "rarity": "1/63",
         "itemId": 23083
       },
       {
@@ -23354,7 +23632,8 @@
       "Bryophta",
       "Briophyta",
       "Bryphota",
-      "Mossy Mommy"
+      "Mossy Mommy",
+      "Bryopaheyjdbcja"
     ],
     "drops": [
       {
@@ -24004,6 +24283,30 @@
         "itemId": 532
       },
       {
+        "name": "Claws of callisto",
+        "quantity": "1",
+        "rarity": "1/196",
+        "itemId": 27667
+      },
+      {
+        "name": "Dragon 2h sword",
+        "quantity": "1",
+        "rarity": "1/256",
+        "itemId": 7158
+      },
+      {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/256",
+        "itemId": 11920
+      },
+      {
+        "name": "Voidwaker hilt",
+        "quantity": "1",
+        "rarity": "1/360",
+        "itemId": 27681
+      },
+      {
         "name": "Tyrannical ring",
         "quantity": "1",
         "rarity": "1/512",
@@ -24011,7 +24314,7 @@
       },
       {
         "name": "Rune pickaxe",
-        "quantity": "1",
+        "quantity": "1–3 ",
         "rarity": "12/128",
         "itemId": 1275
       },
@@ -24022,166 +24325,190 @@
         "itemId": 1319
       },
       {
-        "name": "Dragon pickaxe",
-        "quantity": "1",
-        "rarity": "3/512",
-        "itemId": 11920
-      },
-      {
-        "name": "Dragon 2h sword",
-        "quantity": "1",
-        "rarity": "1/256",
-        "itemId": 7158
-      },
-      {
         "name": "Blood rune",
-        "quantity": "200",
+        "quantity": "75–500",
         "rarity": "7/128",
         "itemId": 565
       },
       {
-        "name": "Chaos rune",
-        "quantity": "400",
-        "rarity": "7/128",
-        "itemId": 562
-      },
-      {
         "name": "Death rune",
-        "quantity": "300",
+        "quantity": "105–700",
         "rarity": "7/128",
         "itemId": 560
       },
       {
+        "name": "Chaos rune",
+        "quantity": "135–900",
+        "rarity": "7/128",
+        "itemId": 562
+      },
+      {
         "name": "Soul rune",
-        "quantity": "250",
+        "quantity": "90–600",
         "rarity": "5/128",
         "itemId": 566
       },
       {
         "name": "Cannonball",
-        "quantity": "250",
+        "quantity": "90–600",
         "rarity": "4/128",
         "itemId": 2
       },
       {
         "name": "Uncut ruby",
-        "quantity": "20 ",
-        "rarity": "7/128",
+        "quantity": "11–75 ",
+        "rarity": "4/128",
         "itemId": 1619
       },
       {
         "name": "Uncut diamond",
-        "quantity": "10 ",
-        "rarity": "7/128",
+        "quantity": "5–35 ",
+        "rarity": "3/128",
         "itemId": 1617
       },
       {
-        "name": "Mahogany logs",
-        "quantity": "400 ",
-        "rarity": "6/128",
-        "itemId": 6332
+        "name": "Uncut dragonstone",
+        "quantity": "1–5 ",
+        "rarity": "2/128",
+        "itemId": 1631
       },
       {
         "name": "Limpwurt root",
-        "quantity": "25 ",
+        "quantity": "15–100 ",
         "rarity": "5/128",
         "itemId": 225
       },
       {
         "name": "Magic logs",
-        "quantity": "100 ",
+        "quantity": "33–225 ",
         "rarity": "5/128",
         "itemId": 1513
       },
       {
+        "name": "Mahogany logs",
+        "quantity": "90–600 ",
+        "rarity": "6/128",
+        "itemId": 6332
+      },
+      {
         "name": "Red dragonhide",
-        "quantity": "75 ",
+        "quantity": "25–170 ",
         "rarity": "3/128",
         "itemId": 1749
       },
       {
         "name": "Coconut",
-        "quantity": "60 ",
+        "quantity": "20–135 ",
         "rarity": "2/128",
         "itemId": 5974
       },
       {
-        "name": "Uncut dragonstone",
-        "quantity": "1",
-        "rarity": "2/128",
-        "itemId": 1631
-      },
-      {
         "name": "Grimy toadflax",
-        "quantity": "100 ",
+        "quantity": "22–150 ",
         "rarity": "1/128",
         "itemId": 3049
       },
       {
+        "name": "Grimy dwarf weed",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 217
+      },
+      {
+        "name": "Grimy ranarr weed",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 207
+      },
+      {
+        "name": "Grimy snapdragon",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 3051
+      },
+      {
         "name": "Ranarr seed",
-        "quantity": "5",
+        "quantity": "1–11",
         "rarity": "5/128",
         "itemId": 5295
       },
       {
         "name": "Snapdragon seed",
-        "quantity": "3",
+        "quantity": "1–8",
         "rarity": "5/128",
         "itemId": 5300
       },
       {
-        "name": "Magic seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5316
-      },
-      {
-        "name": "Palm tree seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5289
-      },
-      {
-        "name": "Yew seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5315
-      },
-      {
         "name": "Coins",
-        "quantity": "15000–19999",
-        "rarity": "19/128",
+        "quantity": "7500–50000",
+        "rarity": "21/128",
         "itemId": 995
       },
       {
         "name": "Dark crab",
-        "quantity": "8",
-        "rarity": "10/128",
+        "quantity": "7–50 ",
+        "rarity": "5/128",
         "itemId": 11936
       },
       {
         "name": "Super restore(4)",
-        "quantity": "3",
-        "rarity": "10/128",
+        "quantity": "1–10 ",
+        "rarity": "5/128",
         "itemId": 3024
       },
       {
         "name": "Supercompost",
-        "quantity": "100 ",
-        "rarity": "19/512",
+        "quantity": "33–225 ",
+        "rarity": "4/128",
         "itemId": 6034
       },
       {
         "name": "Dragon bones",
-        "quantity": "30 ",
+        "quantity": "11–75 ",
         "rarity": "3/128",
         "itemId": 536
       },
       {
-        "name": "Dark fishing bait",
-        "quantity": "375",
+        "name": "Blighted anglerfish",
+        "quantity": "6–45 ",
         "rarity": "1/128",
-        "itemId": 11940
+        "itemId": 24592
+      },
+      {
+        "name": "Blighted anglerfish",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24592
+      },
+      {
+        "name": "Blighted karambwan",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24595
+      },
+      {
+        "name": "Blighted super restore(3)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24601
+      },
+      {
+        "name": "Blighted super restore(4)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24598
+      },
+      {
+        "name": "Ranging potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 171
+      },
+      {
+        "name": "Super combat potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 12699
       },
       {
         "name": "Looting bag",
@@ -24230,21 +24557,310 @@
         "quantity": "1",
         "rarity": "1/30",
         "itemId": 21257
-      },
-      {
-        "name": "Saradomin brew(4)",
-        "quantity": "1",
-        "rarity": "1/3",
-        "itemId": 6685
-      },
-      {
-        "name": "Saradomin brew(1)",
-        "quantity": "1",
-        "rarity": "1/3",
-        "itemId": 6691
       }
     ],
-    "examine": "Callisto is an enormous bear empowered by the corruption of the Wilderness that resides south of the Demonic Ruins and is the only monster to drop the tyrannical ring. He attacks using Melee. He can knock players back a few tiles, which renders them unable to move for a few seconds, as well as heal himself slightly. He is also able to perform a deadly shock wave attack that can hit up to 60 and may combine this with a melee attack, which is capable of instantly killing the player if they are within melee range and do not have Protect from Melee active."
+    "examine": "Callisto is an enormous bear empowered by the corruption of the Wilderness that resides in Callisto's Den and is the one of two monsters to drop the tyrannical ring."
+  },
+  {
+    "id": 11995,
+    "name": "Calvar'ion",
+    "aliases": [
+      "Calvarion",
+      "Cal'varion",
+      "Calvar",
+      "Kalvarion"
+    ],
+    "drops": [
+      {
+        "name": "Big bones",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 532
+      },
+      {
+        "name": "Dragon 2h sword",
+        "quantity": "1",
+        "rarity": "1/358",
+        "itemId": 7158
+      },
+      {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/358",
+        "itemId": 11920
+      },
+      {
+        "name": "Skull of vet'ion",
+        "quantity": "1",
+        "rarity": "1/618",
+        "itemId": 27673
+      },
+      {
+        "name": "Ring of the gods",
+        "quantity": "1",
+        "rarity": "1/716",
+        "itemId": 12601
+      },
+      {
+        "name": "Voidwaker blade",
+        "quantity": "1",
+        "rarity": "1/912",
+        "itemId": 27684
+      },
+      {
+        "name": "Dark crab",
+        "quantity": "8",
+        "rarity": "5/128",
+        "itemId": 11936
+      },
+      {
+        "name": "Super restore(4)",
+        "quantity": "3",
+        "rarity": "5/128",
+        "itemId": 3024
+      },
+      {
+        "name": "Ancient staff",
+        "quantity": "1",
+        "rarity": "3/128",
+        "itemId": 4675
+      },
+      {
+        "name": "Rune 2h sword",
+        "quantity": "1",
+        "rarity": "3/128",
+        "itemId": 1319
+      },
+      {
+        "name": "Rune pickaxe",
+        "quantity": "1",
+        "rarity": "12/128",
+        "itemId": 1275
+      },
+      {
+        "name": "Chaos rune",
+        "quantity": "220",
+        "rarity": "7/128",
+        "itemId": 562
+      },
+      {
+        "name": "Death rune",
+        "quantity": "120",
+        "rarity": "7/128",
+        "itemId": 560
+      },
+      {
+        "name": "Blood rune",
+        "quantity": "180",
+        "rarity": "7/128",
+        "itemId": 565
+      },
+      {
+        "name": "Cannonball",
+        "quantity": "180",
+        "rarity": "4/128",
+        "itemId": 2
+      },
+      {
+        "name": "Uncut ruby",
+        "quantity": "22 ",
+        "rarity": "4/128",
+        "itemId": 1619
+      },
+      {
+        "name": "Uncut diamond",
+        "quantity": "9 ",
+        "rarity": "3/128",
+        "itemId": 1617
+      },
+      {
+        "name": "Uncut dragonstone",
+        "quantity": "1",
+        "rarity": "2/128",
+        "itemId": 1631
+      },
+      {
+        "name": "Gold ore",
+        "quantity": "200 ",
+        "rarity": "6/128",
+        "itemId": 444
+      },
+      {
+        "name": "Limpwurt root",
+        "quantity": "19 ",
+        "rarity": "5/128",
+        "itemId": 225
+      },
+      {
+        "name": "Magic logs",
+        "quantity": "60 ",
+        "rarity": "5/128",
+        "itemId": 1513
+      },
+      {
+        "name": "Oak plank",
+        "quantity": "220 ",
+        "rarity": "5/128",
+        "itemId": 8778
+      },
+      {
+        "name": "Dragon bones",
+        "quantity": "60 ",
+        "rarity": "3/128",
+        "itemId": 536
+      },
+      {
+        "name": "Mort myre fungus",
+        "quantity": "120 ",
+        "rarity": "2/128",
+        "itemId": 2970
+      },
+      {
+        "name": "Wine of zamorak",
+        "quantity": "35 ",
+        "rarity": "5/128",
+        "itemId": 245
+      },
+      {
+        "name": "Grimy ranarr weed",
+        "quantity": "60 ",
+        "rarity": "1/128",
+        "itemId": 207
+      },
+      {
+        "name": "Coins",
+        "quantity": "12000",
+        "rarity": "21/128",
+        "itemId": 995
+      },
+      {
+        "name": "Yew seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5315
+      },
+      {
+        "name": "Magic seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5316
+      },
+      {
+        "name": "Palm tree seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5289
+      },
+      {
+        "name": "Supercompost",
+        "quantity": "60 ",
+        "rarity": "4/128",
+        "itemId": 6034
+      },
+      {
+        "name": "Sanfew serum(4)",
+        "quantity": "6 ",
+        "rarity": "5/128",
+        "itemId": 10925
+      },
+      {
+        "name": "Dark fishing bait",
+        "quantity": "280",
+        "rarity": "1/128",
+        "itemId": 11940
+      },
+      {
+        "name": "Blighted anglerfish",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24592
+      },
+      {
+        "name": "Blighted karambwan",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24595
+      },
+      {
+        "name": "Blighted super restore(3)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24601
+      },
+      {
+        "name": "Blighted super restore(4)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24598
+      },
+      {
+        "name": "Ranging potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 171
+      },
+      {
+        "name": "Super combat potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 12699
+      },
+      {
+        "name": "Looting bag",
+        "quantity": "1",
+        "rarity": "1/3",
+        "itemId": 11941
+      },
+      {
+        "name": "Long bone",
+        "quantity": "1",
+        "rarity": "1/400",
+        "itemId": 10976
+      },
+      {
+        "name": "Curved bone",
+        "quantity": "1",
+        "rarity": "1/5012.5",
+        "itemId": 10977
+      },
+      {
+        "name": "Skeleton champion scroll",
+        "quantity": "1",
+        "rarity": "1/5000",
+        "itemId": 6806
+      },
+      {
+        "name": "Brimstone key",
+        "quantity": "1",
+        "rarity": "1/50",
+        "itemId": 23083
+      },
+      {
+        "name": "Clue scroll (elite)",
+        "quantity": "1",
+        "rarity": "1/100",
+        "itemId": 21524
+      },
+      {
+        "name": "Vet'ion jr.",
+        "quantity": "1",
+        "rarity": "1/2800",
+        "itemId": 13179
+      },
+      {
+        "name": "Larran's key",
+        "quantity": "1",
+        "rarity": "1/65",
+        "itemId": 23490
+      },
+      {
+        "name": "Slayer's enchantment",
+        "quantity": "1",
+        "rarity": "1/30",
+        "itemId": 21257
+      }
+    ],
+    "examine": "Calvar'ion is a weaker variant of Vet'ion who is fought in the Skeletal Tomb, a singles-plus combat area in level 21 Wilderness."
   },
   {
     "id": 1383,
@@ -26763,7 +27379,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/75",
+        "rarity": "1/76",
         "itemId": 23083
       },
       {
@@ -27612,7 +28228,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/56",
+        "rarity": "1/57",
         "itemId": 23083
       },
       {
@@ -29210,7 +29826,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/79",
+        "rarity": "1/80",
         "itemId": 23083
       },
       {
@@ -29262,7 +29878,7 @@
         "itemId": 11931
       }
     ],
-    "examine": "The Chaos Fanatic is an insane mage that resides west of the Lava Maze. He is surrounded by unattackable miniature chaotic clouds, which serve as scenery. He drops one of three shards required to forge Odium wards and Malediction wards. He has a special attack where he uses a green magical attack that explodes and can deal high damage, similar to the Crazy Archaeologist's explosive book attack. Players must run away from them to avoid damage.\nHe is also able to disarm players, much like how the Chaos Elemental does. He is also one of the only monsters (including mummies, Vet'ion and the thermonuclear smoke devil) to drop the ancient staff."
+    "examine": "The Chaos Fanatic is an insane mage that resides west of the Lava Maze (level 42 Wilderness). He is surrounded by unattackable miniature chaotic clouds, which serve as scenery. He drops one of three shards required to forge Odium wards and Malediction wards. He is also one of the only monsters (including mummies, Vet'ion and the thermonuclear smoke devil) to drop the ancient staff."
   },
   {
     "id": 10689,
@@ -30076,7 +30692,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/53",
+        "rarity": "1/54",
         "itemId": 23083
       },
       {
@@ -30106,7 +30722,7 @@
       {
         "name": "Larran's key",
         "quantity": "1",
-        "rarity": "1/52",
+        "rarity": "Always",
         "itemId": 23490
       },
       {
@@ -30148,7 +30764,8 @@
     "aliases": [
       "Chompy",
       "Chompies",
-      "Chompy birds"
+      "Chompy birds",
+      "Dodo"
     ],
     "drops": [
       {
@@ -31796,7 +32413,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/46",
+        "rarity": "1/47",
         "itemId": 23083
       },
       {
@@ -32544,7 +33161,7 @@
         "itemId": 13383
       }
     ],
-    "examine": "The Corrupt Lizardman is a monster fought in a cave at Mount Quidamortem during the Tale of the Righteous quest."
+    "examine": "The Corrupt Lizardman is a monster fought in a cave underneath Mount Quidamortem during the Tale of the Righteous quest."
   },
   {
     "id": 9042,
@@ -33555,7 +34172,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/79",
+        "rarity": "1/80",
         "itemId": 23083
       },
       {
@@ -33601,7 +34218,7 @@
         "itemId": 11932
       }
     ],
-    "examine": "Bellock, the crazy archaeologist, is an insane individual and demi-boss who resides in the ruins south of The Forgotten Cemetery. He uses Ranged and melee attacks and can perform a special attack where he throws explosive books that explode in a 3x3 area."
+    "examine": "Bellock, the crazy archaeologist, is an insane individual and demi-boss who resides in the ruins south of The Forgotten Cemetery (level 23 Wilderness). He uses Ranged and melee attacks and can perform a special attack where he throws explosive books that explode in a 3x3 area."
   },
   {
     "id": 4184,
@@ -36497,7 +37114,7 @@
       "Dagannoth (construction)"
     ],
     "drops": [],
-    "examine": "A dagannoth can be built in the Monster space of the Treasure Room in a player-owned house. It requires 90 Construction to build and when built, it gives 2,738 experience."
+    "examine": "A dagannoth can be built in the monster space of the treasure Room in a player-owned house. It requires 90 Construction to build and when built, it gives 2,738 Construction experience."
   },
   {
     "id": 976,
@@ -36544,7 +37161,7 @@
       },
       {
         "name": "Mithril javelin",
-        "quantity": "3",
+        "quantity": "1–3",
         "rarity": "2/128",
         "itemId": 828
       },
@@ -38001,7 +38618,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/59",
+        "rarity": "1/60",
         "itemId": 23083
       },
       {
@@ -38481,7 +39098,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/59",
+        "rarity": "1/60",
         "itemId": 23083
       },
       {
@@ -39163,7 +39780,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/59",
+        "rarity": "1/60",
         "itemId": 23083
       },
       {
@@ -39205,7 +39822,7 @@
         "itemId": 4673
       }
     ],
-    "examine": "Damis is one of the four guardians of the Diamonds of Azzanadra, fought only when doing the Desert Treasure quest. He is the only guardian who exclusively uses melee to attack, however this is made up by him having two forms, with the second form being able to attack at a quick rate as well as draining Prayer rapidly. As with most monsters in the Shadow Dungeon, Damis allows other monsters to pass through him."
+    "examine": "Damis is one of the four guardians of the Diamonds of Azzanadra, fought only when doing the Desert Treasure I quest. He is the only guardian who exclusively uses melee to attack, however this is made up by him having two forms, with the second form being able to attack at a quick rate as well as draining Prayer rapidly. As with most monsters in the Shadow Dungeon, Damis allows other monsters to pass through him."
   },
   {
     "id": 7296,
@@ -39227,7 +39844,8 @@
       "Darkbeast",
       "Dark beats",
       "Dark best",
-      "Dbeast"
+      "Dbeast",
+      "Dark beat"
     ],
     "drops": [
       {
@@ -39689,7 +40307,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/66",
+        "rarity": "1/67",
         "itemId": 23083
       },
       {
@@ -39722,7 +40340,10 @@
   {
     "id": 320,
     "name": "Dark energy core",
-    "aliases": [],
+    "aliases": [
+      "Energy core",
+      "Corp core"
+    ],
     "drops": [
       {
         "name": "Ashes",
@@ -40883,7 +41504,7 @@
       "Demon (construction)"
     ],
     "drops": [],
-    "examine": "A demon can be built in the Monster space of the Treasure Room in a player-owned house. It requires 75 Construction to build and when built, it gives 707 experience."
+    "examine": "A demon can be built in the monster space of the treasure room in a player-owned house. It requires 75 Construction to build and when built, it gives 707 Construction experience."
   },
   {
     "id": 7144,
@@ -41785,7 +42406,7 @@
         "itemId": 21524
       }
     ],
-    "examine": "The deranged archaeologist is a demi-boss located on Fossil Island, at the southern end of the Tar Swamp. An axe is required to chop a swamp vine in order to reach him. Directly before the area is a spine that will occasionally hit passing players for 10 damage and apply poison."
+    "examine": "The deranged archaeologist is a boss located on Fossil Island, at the southern end of the Tar Swamp. An axe is required to chop a swamp vine in order to reach him. Directly before the area is a spine that will occasionally hit passing players for 10 damage and apply poison."
   },
   {
     "id": 7513,
@@ -42154,7 +42775,7 @@
         "itemId": 1975
       }
     ],
-    "examine": "Dessourt is one of the bosses fought during Recipe for Disaster. He resembles Dessous from Desert Treasure. He is most vulnerable to Magic and fairly weak to Ranged and stab. He is resistant to slash and crush."
+    "examine": "Dessourt is one of the bosses fought during Recipe for Disaster. He resembles Dessous from Desert Treasure I. He is most vulnerable to Magic and fairly weak to Ranged and stab. He is resistant to slash and crush."
   },
   {
     "id": 3459,
@@ -42171,7 +42792,7 @@
         "itemId": 3325
       }
     ],
-    "examine": "Dessous, the Harvester of Blood, is a vampyre lord who owns some territory north of Castle Drakan. He must be killed during the Desert Treasure quest. The player is told of Dessous by Malak, one of the four guardians of the Diamonds of Azzanadra, who wants him dead in order to claim Dessous's land as his own. In order to achieve this, Malak tells the player that Dessous guards the diamond and if they wish to retrieve it they must eliminate him; it is when the player encounters Malak after the fight that he confesses that he is the real guardian and that Dessous was just an enemy of his, and then gives the diamond to the player as a reward for their troubles. According to Malak, Dessous is ancient but weak for vampyre standards and indeed he describes him as a 'frail and decrepit example of our species.'"
+    "examine": "Dessous, the Harvester of Blood, is a vampyre lord who owns some territory north of Castle Drakan. He must be killed during the Desert Treasure I quest. The player is told of Dessous by Malak, one of the four guardians of the Diamonds of Azzanadra, who wants him dead in order to claim Dessous's land as his own. In order to achieve this, Malak tells the player that Dessous guards the diamond and if they wish to retrieve it they must eliminate him; it is when the player encounters Malak after the fight that he confesses that he is the real guardian and that Dessous was just an enemy of his, and then gives the diamond to the player as a reward for their troubles. According to Malak, Dessous is ancient but weak for vampyre standards and indeed he describes him as a 'frail and decrepit example of our species.'"
   },
   {
     "id": 7279,
@@ -42468,7 +43089,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/68",
+        "rarity": "1/69",
         "itemId": 23083
       },
       {
@@ -42657,6 +43278,12 @@
         "itemId": 555
       },
       {
+        "name": "Mind rune",
+        "quantity": "5",
+        "rarity": "1/128",
+        "itemId": 558
+      },
+      {
         "name": "Grimy guam leaf",
         "quantity": "1",
         "rarity": "1/34.1",
@@ -42773,7 +43400,7 @@
       {
         "name": "Nothing",
         "quantity": "N/A",
-        "rarity": "3/128",
+        "rarity": "2/128",
         "itemId": null
       },
       {
@@ -43461,7 +44088,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/64",
+        "rarity": "1/65",
         "itemId": 23083
       },
       {
@@ -44741,7 +45368,7 @@
         "itemId": 24585
       }
     ],
-    "examine": "A dust devil is a Slayer monster that requires level 65 Slayer to kill. They are located in the Smoke Dungeon and the Catacombs of Kourend. The use of a facemask or a Slayer helmet is required to fight dust devils as they use clouds of dust, sand, ash, and whatever else they can inhale to blind and disorient their victims. Dust devils cannot be assigned as a Slayer task until starting Desert Treasure.&#91;1&#93;"
+    "examine": "A dust devil is a Slayer monster that requires level 65 Slayer to kill. They are located in the Smoke Dungeon, Catacombs of Kourend, and the Wilderness Slayer Cave. The use of a facemask or a Slayer helmet is required to fight dust devils as they use clouds of dust, sand, ash, and whatever else they can inhale to blind and disorient their victims. Dust devils cannot be assigned as a Slayer task until starting Desert Treasure I.&#91;1&#93;"
   },
   {
     "id": 1408,
@@ -48590,7 +49217,7 @@
         "itemId": 592
       }
     ],
-    "examine": "Fareed, the Warrior of Smoke is one of the four guardians of the Diamonds of Azzanadra, fought only in the Desert Treasure quest. Fareed possesses the unique ability to disarm players who are not wearing ice gloves when they are attacking him close up."
+    "examine": "Fareed, the Warrior of Smoke is one of the four guardians of the Diamonds of Azzanadra, fought only in the Desert Treasure I quest. Fareed possesses the unique ability to disarm players who are not wearing ice gloves when they are attacking him close up."
   },
   {
     "id": 3114,
@@ -50455,7 +51082,7 @@
         "itemId": 1891
       }
     ],
-    "examine": "Flambeed is the second boss in the Recipe for Disaster quest. He is similar to the boss Fareed from Desert Treasure. He attacks using fairly strong melee attack and close-range Magic. Players are advised to wear ice gloves while fighting him as when he lands a hit on the player, if they are not wearing ice gloves, their weapon will be unequipped. Flambeed is weak to Water spells, melee attacks (especially crush) and Ice arrows."
+    "examine": "Flambeed is the second boss in the Recipe for Disaster quest. He is similar to the boss Fareed from Desert Treasure I. He attacks using fairly strong melee attack and close-range Magic. Players are advised to wear ice gloves while fighting him as when he lands a hit on the player, if they are not wearing ice gloves, their weapon will be unequipped. Flambeed is weak to Water spells, melee attacks (especially crush) and Ice arrows."
   },
   {
     "id": 7394,
@@ -51126,7 +51753,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/88",
+        "rarity": "1/89",
         "itemId": 23083
       },
       {
@@ -51263,7 +51890,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/90",
+        "rarity": "1/91",
         "itemId": 23083
       },
       {
@@ -53070,7 +53697,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/77",
+        "rarity": "1/78",
         "itemId": 23083
       },
       {
@@ -53130,7 +53757,8 @@
       "General graa",
       "Gaardor",
       "Grarrdor",
-      "Garagedoor"
+      "Garagedoor",
+      "General garage door"
     ],
     "drops": [
       {
@@ -54062,7 +54690,7 @@
         "itemId": 1249
       }
     ],
-    "examine": "Ghasts are lingering souls of people that starved to death in Mort Myre swamp. When they first appear they are invisible and have no combat level, and try to turn food into useless rotten food; if players have no food they will do damage instead. Upon completion of the easy Morytania Diary, ghasts will have a 50% of ignoring the player rather than attacking. Building the Fire of Dehumidification in the area stops these attacks (requires the completion of Making Friends with My Arm)."
+    "examine": "Ghasts are lingering souls of people that starved to death in Mort Myre swamp. When they first appear they are invisible and have no combat level, and try to turn food into useless rotten food; if players have no food they will do damage instead. Upon completion of the easy Morytania Diary, ghasts will have a 50% chance of ignoring the player rather than attacking. Building the Fire of Dehumidification in the area stops these attacks (requires the completion of Making Friends with My Arm)."
   },
   {
     "id": 85,
@@ -56468,7 +57096,7 @@
         "itemId": 10977
       }
     ],
-    "examine": "Giant skeletons are a more powerful variant of skeleton found in the Shadow Dungeon, which can be accessed using a ring of visibility during or after the Desert Treasure quest. They are seldom killed due to their significantly higher combat stats than regular skeletons, being located in a multicombat area, as well as lacklustre drops. As with most monsters in the Shadow Dungeon, they allow other monsters to pass through them."
+    "examine": "Giant skeletons are a more powerful variant of skeleton found in the Shadow Dungeon, which can be accessed using a ring of visibility during or after the Desert Treasure I quest. They are seldom killed due to their significantly higher combat stats than regular skeletons, being located in a multicombat area, as well as lacklustre drops. As with most monsters in the Shadow Dungeon, they allow other monsters to pass through them."
   },
   {
     "id": 6440,
@@ -57034,7 +57662,7 @@
       "Mutated glough"
     ],
     "drops": [],
-    "examine": "Glough (pronounced /glʌf/\"GLUHF\"&#91;1&#93;) is an ill-natured, misanthropic gnome who tries to take over Gielinor. In the Grand Tree quest, he can be found just south-east of the starting point of the Grand Tree; look for a ladder to the East of the ramp (between start of the quest and the agility course) that leads to Glough; take this ladder up to find Glough on the second floor."
+    "examine": "Glough (/ˈɡlʌf/ GLUHF&#91;1&#93;) is an ill-natured, misanthropic gnome who tries to take over Gielinor. In the Grand Tree quest, he can be found just south-east of the starting point of the Grand Tree; look for a ladder to the East of the ramp (between start of the quest and the agility course) that leads to Glough; take this ladder up to find Glough on the second floor."
   },
   {
     "id": 7568,
@@ -57099,7 +57727,7 @@
         "itemId": 569
       }
     ],
-    "examine": "Gnomes are a race of small humanoids found in various parts of Gielinor. They can be found primarily in the Gnome Empire, although they are most common in the Tree Gnome Village, Tree Gnome Stronghold, and Battlefield of Khazard. Gnomes fight with either ranged or melee attacks, depending on the weapon they wield. They have different coloured hoods."
+    "examine": "Gnomes are a race of small humanoids found in various parts of Gielinor. They can be found primarily in the Kandarin region, being most common in the Tree Gnome Village, Tree Gnome Stronghold, and Battlefield of Khazard. Gnomes fight with primarily either ranged or melee attacks, depending on the weapon they wield. They have different coloured hoods."
   },
   {
     "id": 6097,
@@ -58641,6 +59269,13 @@
     "examine": "Golems are summoned by Zalcano while her stone armour is intact. They explode upon reaching Zalcano, recovering her stone armour's health by 50."
   },
   {
+    "id": 2836,
+    "name": "Golem (unused NPC)",
+    "aliases": [],
+    "drops": [],
+    "examine": "The Golem is a cut race originally added during the RuneScape 2 beta. Although it was never added to the game, their appearance was reused for the Rock golem random event, while the concept was later recycled for the Clay golem."
+  },
+  {
     "id": 4367,
     "name": "Gorad",
     "aliases": [],
@@ -59818,7 +60453,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/40",
+        "rarity": "1/41",
         "itemId": 23083
       },
       {
@@ -59860,13 +60495,13 @@
       {
         "name": "Larran's key",
         "quantity": "1",
-        "rarity": "1/40",
+        "rarity": "Always",
         "itemId": 23490
       },
       {
         "name": "Slayer's enchantment",
         "quantity": "1",
-        "rarity": "1/0",
+        "rarity": "1/80",
         "itemId": 21257
       },
       {
@@ -61410,11 +62045,16 @@
     "examine": "Greater nechryael are stronger variants of nechryael that require level 80 Slayer to kill. They are found within the Catacombs of Kourend, Iorwerth Dungeon and the Wilderness Slayer Cave."
   },
   {
+    "id": 12108,
+    "name": "Greater Skeleton Hellhound (Calvar'ion)",
+    "aliases": [],
+    "drops": [],
+    "examine": "The Greater Skeleton Hellhound is a monster summoned by Calvar'ion. Two spawn during the second form of Calvar'ion after half of his health has depleted and must be killed as he is immune to attacks while they are present."
+  },
+  {
     "id": 6614,
-    "name": "Greater Skeleton Hellhound",
-    "aliases": [
-      "Greater skeleton hellhound"
-    ],
+    "name": "Greater Skeleton Hellhound (Vet'ion)",
+    "aliases": [],
     "drops": [
       {
         "name": "Bones",
@@ -61461,7 +62101,8 @@
       "Grn drags",
       "Greendragon",
       "Dragon green",
-      "Green dragon osrs"
+      "Green dragon osrs",
+      "Mix yellow with blue and add heat"
     ],
     "drops": [
       {
@@ -62294,6 +62935,13 @@
       }
     ],
     "examine": "Grizzly bears are large but relatively weak monsters typically found in forests. They are the stronger, aggressive cousins of the non-aggressive black bear."
+  },
+  {
+    "id": 11989,
+    "name": "Grizzly bear (Escape Caves)",
+    "aliases": [],
+    "drops": [],
+    "examine": "Grizzly bears are a monster found in the Escape Caves, and are the strongest among grizzly bear variants. Along with poison spiders, they are intended to deter player killers from world switching whilst inside the Escape Caves, as they will never stop attacking and will pursue players until they leave the caves."
   },
   {
     "id": 3424,
@@ -64467,6 +65115,12 @@
         "itemId": 526
       },
       {
+        "name": "Key (medium)",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": null
+      },
+      {
         "name": "Ensouled dog head",
         "quantity": "1",
         "rarity": "1/25",
@@ -64483,7 +65137,7 @@
       "Guard dog (construction)"
     ],
     "drops": [],
-    "examine": "A guard dog can be built in the Guard space of the Oubliette and Dungeon in a player-owned house. It requires 74 Construction to build and when built, it gives 273 experience."
+    "examine": "A guard dog can be built in the guard space of the oubliette and dungeon in a player-owned house. It requires 74 Construction to build and when built, it gives 273 Construction experience."
   },
   {
     "id": 7569,
@@ -66127,7 +66781,7 @@
         "itemId": 10977
       }
     ],
-    "examine": "The Headless Beast is a headless undead bear encountered during the Getting Ahead quest, it was resurrected by the inexperienced necromancer Neilan Redmark. The Headless Beast attacks mainly with melee. It has a special attack where it slams the ground, causing a rock to fall from the ceiling onto the player's current location, dealing 12-16 damage. This can easily be avoided simply by moving one tile away in any direction. Immune to movement inhibitors from ice spells, bind, snare, and entangle."
+    "examine": "The Headless Beast is a headless undead bear encountered during the Getting Ahead quest, it was resurrected by the inexperienced necromancer Neilan Redmark. The Headless Beast attacks mainly with melee. It has a special attack where it slams the ground, causing a rock to fall from the ceiling onto the player's current location, dealing 12-16 damage. This can easily be avoided simply by moving one tile away in any direction. It is immune to movement inhibitors from ice spells, bind, snare, and entangle."
   },
   {
     "id": 104,
@@ -66198,7 +66852,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/95",
+        "rarity": "1/96",
         "itemId": 23083
       },
       {
@@ -66236,6 +66890,42 @@
         "quantity": "1",
         "rarity": "1/228",
         "itemId": 21257
+      },
+      {
+        "name": "Vile ashes",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 25769
+      },
+      {
+        "name": "Ensouled hellhound head",
+        "quantity": "1",
+        "rarity": "1/40",
+        "itemId": 26997
+      },
+      {
+        "name": "Clue scroll (elite)",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 21524
+      },
+      {
+        "name": "Reward casket (elite)",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 20543
+      },
+      {
+        "name": "Clue scroll (hard)",
+        "quantity": "1",
+        "rarity": "1/64",
+        "itemId": 3550
+      },
+      {
+        "name": "Brimstone key",
+        "quantity": "1",
+        "rarity": "1/96",
+        "itemId": 23083
       },
       {
         "name": "Vile ashes",
@@ -66442,7 +67132,7 @@
         "itemId": 24585
       }
     ],
-    "examine": "Hellhounds are mid-to-high level monsters that are often given as a Slayer task to mid-to-high level players. Hellhounds are an excellent source of hard clue scrolls, as they drop them more frequently than other monsters. If players are on a Hellhound Task and they want to make some money off it, they could choose to kill Vet'ion as his Skeleton Hellhound and Greater Skeleton Hellhound spawns will count towards the task and the player may also receive some generous drops from the boss. Killing Cerberus will also count towards a Hellhounds Task. Note that none of Revenant hellhounds, Bouncer, Bouncer's ghost, or the Skeleton Hellhound from In Search of the Myreque can be killed for a Hellhound slayer task."
+    "examine": "Hellhounds are monsters that are often given as a Slayer task to mid-to-high level players. Hellhounds are an excellent source of hard clue scrolls, as they drop them more frequently than other monsters. If players are on a hellhound task and they want to make some money off it, they could choose to kill Vet'ion as his Skeleton Hellhound and Greater Skeleton Hellhound spawns will count towards the task and the player may also receive some generous drops from the boss. Killing Cerberus also counts towards a hellhound task. Revenant hellhounds, Bouncer, Bouncer's ghost, and the Skeleton Hellhound from In Search of the Myreque don't count towards a hellhound task."
   },
   {
     "id": 135,
@@ -66452,7 +67142,7 @@
       "Hellhound (construction)"
     ],
     "drops": [],
-    "examine": "A hellhound can be built in the Guard space of the Oubliette and Dungeon in a player-owned house. It requires 94 Construction to build and when built, it gives 2,236 experience."
+    "examine": "A hellhound can be built in the guard space of the oubliette and dungeon in a player-owned house. It requires 94 Construction to build and when built, it gives 2,236 Construction experience."
   },
   {
     "id": 3284,
@@ -69160,7 +69850,7 @@
     "name": "Hobgoblin guard",
     "aliases": [],
     "drops": [],
-    "examine": "The hobgoblin can be built in the Guard space of the Oubliette and Dungeon in a player-owned house. It requires 78 Construction to build and when built, it gives 316 experience."
+    "examine": "The hobgoblin can be built in the guard space of the oubliette and dungeon in a player-owned house. It requires 78 Construction to build and when built, it gives 316 Construction experience."
   },
   {
     "id": 8996,
@@ -69253,7 +69943,7 @@
       "Huge Spider"
     ],
     "drops": [],
-    "examine": "The huge spider can be built in the Guard space of the Oubliette and Dungeon in a player-owned house. It requires 86 Construction to build and when built, it gives 447 experience."
+    "examine": "The huge spider can be built in the guard space of the oubliette and dungeon in a player-owned house. It requires 86 Construction to build and when built, it gives 447 Construction experience."
   },
   {
     "id": 9454,
@@ -69732,7 +70422,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/64",
+        "rarity": "1/65",
         "itemId": 23083
       },
       {
@@ -71284,7 +71974,7 @@
         "itemId": 10977
       }
     ],
-    "examine": "Ice trolls (also styled as Ice Trolls) are level 120-124 monsters encountered during Desert Treasure when the player is trying to get the Ice diamond. Five trolls have to be killed to gain access to the ice cave on the eastern side. They are also encountered during Troll Romance where the player has to navigate through the cave leading to Trollweiss Mountain."
+    "examine": "Ice trolls (also styled as Ice Trolls) are level 120-124 monsters encountered during Desert Treasure I when the player is trying to get the Ice diamond. Five trolls have to be killed to gain access to the ice cave on the eastern side. They are also encountered during Troll Romance where the player has to navigate through the cave leading to Trollweiss Mountain."
   },
   {
     "id": 1876,
@@ -74735,7 +75425,7 @@
         "itemId": 7830
       }
     ],
-    "examine": "Ice wolves are level 96 or level 132 enemies that are encountered on the Ice Path during Desert Treasure. They are also found on the top of Trollweiss Mountain, at the Settlement Ruins, near the entrance of God Wars Dungeon and Weiss (inside a fence, these level 132 ice wolves can be killed by range or magic attacks only). They are dangerous, as they can hit 10's and 16's respectively, and are in a multicombat area. While following this path, it is highly recommended that you use Protect from Melee. These can be killed in place of normal wolves for more Slayer experience."
+    "examine": "Ice wolves are level 96 or level 132 enemies that are encountered on the Ice Path during Desert Treasure I. They are also found on the top of Trollweiss Mountain, at the Settlement Ruins, near the entrance of God Wars Dungeon and Weiss (inside a fence, these level 132 ice wolves can be killed by range or magic attacks only). They are dangerous, as they can hit 10's and 16's respectively, and are in a multicombat area. While following this path, it is highly recommended that you use Protect from Melee. These can be killed in place of normal wolves for more Slayer experience."
   },
   {
     "id": 4813,
@@ -76149,7 +76839,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/63",
+        "rarity": "1/64",
         "itemId": 23083
       },
       {
@@ -76526,7 +77216,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/51",
+        "rarity": "1/52",
         "itemId": 23083
       },
       {
@@ -78244,7 +78934,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/82",
+        "rarity": "1/83",
         "itemId": 23083
       },
       {
@@ -80836,7 +81526,8 @@
       "Kirl",
       "K'ril tsutsaroth",
       "K'ril Tsutsaroth Sr.",
-      "Zamorak general"
+      "Zamorak general",
+      "Tootsiepop"
     ],
     "drops": [
       {
@@ -81146,7 +81837,7 @@
         "itemId": 12652
       }
     ],
-    "examine": "K'ril Tsutsaroth (pronounced \"KRILL TUTT-zee-roth\"&#91;1&#93;) is the boss of the Zamorak Fortress in the God Wars Dungeon. To gain access to his chamber, players must have slain 40 Zamorakians throughout the dungeon. He uses melee and magic attacks, and his special attack can occasionally hit through the Protect from Melee prayer should players attempt to use it."
+    "examine": "K'ril Tsutsaroth (pronounced KRILL TUTT-zee-roth&#91;1&#93;) is the boss of the Zamorak Fortress in the God Wars Dungeon. To gain access to his chamber, players must have slain 40 Zamorakians throughout the dungeon. He uses melee and magic attacks, and his special attack can occasionally hit through the Protect from Melee prayer should players attempt to use it."
   },
   {
     "id": 959,
@@ -81513,7 +82204,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/91",
+        "rarity": "1/92",
         "itemId": 23083
       }
     ],
@@ -81971,7 +82662,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/53",
+        "rarity": "1/54",
         "itemId": 23083
       },
       {
@@ -81987,6 +82678,12 @@
         "itemId": 7981
       },
       {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/400",
+        "itemId": 11920
+      },
+      {
         "name": "Jar of sand",
         "quantity": "1",
         "rarity": "1/2000",
@@ -81999,7 +82696,7 @@
         "itemId": 12647
       }
     ],
-    "examine": "The Kalphite Queen (Kalphiscarabeinae pasha), also called the KQ, is the strongest of the Kalphites. The Kalphite Queen, along with dust devils and smoke devils, is notable for dropping the Dragon chainbody.\nThe Kalphite Queen can inflict large amounts of damage with her Ranged and Magic attacks as they always result in a successful hit. It is recommended for players to bring an emergency teleport such as an Ectophial, royal seed pod or teleport tablet, or only bring items into the lair for which they are willing to pay the gravestone fees."
+    "examine": "The Kalphite Queen (Kalphiscarabeinae pasha&#91;1&#93;), also called the KQ, is the strongest of the Kalphites. The Kalphite Queen, along with dust devils and smoke devils, is notable for dropping the Dragon chainbody.\nThe Kalphite Queen is also notable as one of two places, outside of the wilderness, where players can obtain a Dragon pickaxe (the other being Volcanic Mine). The Kalphite Queen can inflict large amounts of damage with her Ranged and Magic attacks as they always result in a successful hit. It is recommended for players to bring an emergency teleport such as an Ectophial, royal seed pod or teleport tablet, or only bring items into the lair for which they are willing to pay the gravestone fees."
   },
   {
     "id": 957,
@@ -82594,7 +83291,7 @@
         "itemId": 3024
       }
     ],
-    "examine": "(Not to be confused with Karil, one of the Barrows Brothers)"
+    "examine": "Kamil is one of the four guardians of the Diamonds of Azzanadra, fought in the Desert Treasure I quest. He uses Ice spells that will freeze the player. He resides in a freezing environment which will constantly lower the player's stats, providing an additional threat when fighting him."
   },
   {
     "id": 4882,
@@ -82611,7 +83308,7 @@
         "itemId": 6794
       }
     ],
-    "examine": "Karamel is fought during the Recipe for Disaster quest. She is the counterpart of Kamil (from Desert Treasure) and is very similar to the original."
+    "examine": "Karamel is fought during the Recipe for Disaster quest. She is the counterpart of Kamil (from Desert Treasure I) and is very similar to the original."
   },
   {
     "id": 1675,
@@ -82666,7 +83363,8 @@
     "aliases": [
       "Khepri",
       "Kefri",
-      "Shit boss"
+      "Shit boss",
+      "Poop boss"
     ],
     "drops": [
       {
@@ -82733,18 +83431,6 @@
       }
     ],
     "examine": "Khazard Guards are found in General Khazard's Fight Arena, south of Ardougne. During the Fight Arena quest, the guard in the south-eastern corner of the jail, by the staircase, is given Khali brew to get him drunk so that he hands over the khazard cell keys."
-  },
-  {
-    "id": 1209,
-    "name": "Khazard Guard (drunk)",
-    "aliases": [
-      "Lazy Khazard Guard",
-      "Khazard Guard (Gerald",
-      "Khazard guard (gerald)",
-      "Khazard Guard (Gerald)"
-    ],
-    "drops": [],
-    "examine": "The Khazard Guard is a guard found in the Fight Arena and is involved in the quest of the same name. Players must knock him out with a Khali brew during the quest and steal the Khazard cell keys from him."
   },
   {
     "id": 1225,
@@ -83151,7 +83837,7 @@
       {
         "name": "Dragon pickaxe",
         "quantity": "1",
-        "rarity": "1/1500",
+        "rarity": "1/1000",
         "itemId": 11920
       },
       {
@@ -83445,7 +84131,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/64",
+        "rarity": "1/65",
         "itemId": 23083
       },
       {
@@ -84399,7 +85085,8 @@
       "Ardougne knights",
       "Ardounge knight",
       "Knight of ardougne",
-      "Koa"
+      "Koa",
+      "Knight of ardy"
     ],
     "drops": [
       {
@@ -85117,7 +85804,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/48",
+        "rarity": "1/49",
         "itemId": 23083
       },
       {
@@ -86210,7 +86897,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/78",
+        "rarity": "1/79",
         "itemId": 23083
       },
       {
@@ -90187,7 +90874,7 @@
         "itemId": 10977
       }
     ],
-    "examine": "Lizardman shamans are monsters found in the Chambers of Xeric, in the lizardmen shaman room."
+    "examine": "Lizardman shamans are monsters found in the Chambers of Xeric, in the lizardmen shaman room. They do not count for Sherlock's master clue step that requires players to kill a lizardman shaman."
   },
   {
     "id": 1277,
@@ -91577,7 +92264,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/71",
+        "rarity": "1/72",
         "itemId": 23083
       },
       {
@@ -93716,7 +94403,7 @@
     "examine": "The Market Guard is an attackable NPC that guards the stalls in Rellekka Marketplace. They are non-aggressive towards players, but they will attack a player they spot Thieving from the stalls around them. To steal or buy from a stall, the player must become a Fremennik by completing The Fremennik Trials quest. They have an attack speed of 3, being one tick faster than most melee weapons (such as scimitars). They have a decent amount of life points, making them a feasible training monster, but their drops are of limited value."
   },
   {
-    "id": 2120,
+    "id": 5732,
     "name": "Market Guard (Draynor)",
     "aliases": [
       "Market Guard (Draynor",
@@ -93778,7 +94465,8 @@
     "id": 11492,
     "name": "Menaphite Akh",
     "aliases": [
-      "Mephanite akh"
+      "Mephanite akh",
+      "Akh"
     ],
     "drops": [],
     "examine": "The Menaphite Akh is the final boss encountered during the Beneath Cursed Sands quest after speaking with Osman at Maisa's camp. She can deal very high amounts of damage from her lightning and shadow attacks that can easily hit for 60+ damage if not avoided. It is recommended to keep Protect from Melee on throughout the fight. She cannot be frozen by ice spells. She can deal small amounts of damage through Protect from Melee."
@@ -94828,7 +95516,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/59",
+        "rarity": "1/60",
         "itemId": 23083
       },
       {
@@ -95915,7 +96603,8 @@
       "Most giant",
       "Mossy",
       "Mos giant",
-      "Moss giant osrs"
+      "Moss giant osrs",
+      "Mossy g"
     ],
     "drops": [
       {
@@ -98413,7 +99102,7 @@
         "itemId": 10260
       }
     ],
-    "examine": "Mummies are undead monsters found in the Pyramid Plunder minigame and during Desert Treasure. The mummies that drop ancient staves are in Jaldraocht Pyramid south of Bandit Camp, and can only be accessed once the four Diamonds of Azzanadra have been recovered during Desert Treasure."
+    "examine": "Mummies are undead monsters found in the Pyramid Plunder minigame and during Desert Treasure I. The mummies that drop ancient staves are in Ancient Pyramid south of Bandit Camp, and can only be accessed once the four Diamonds of Azzanadra have been recovered during Desert Treasure I."
   },
   {
     "id": 7276,
@@ -100516,13 +101205,13 @@
       {
         "name": "Larran's key",
         "quantity": "1",
-        "rarity": "1/47",
+        "rarity": "Always",
         "itemId": 23490
       },
       {
         "name": "Slayer's enchantment",
         "quantity": "1",
-        "rarity": "1/64",
+        "rarity": "1/80",
         "itemId": 21257
       },
       {
@@ -106130,7 +106819,12 @@
       "Muspah",
       "Phantom muspah",
       "Phantom Chutzpah",
-      "The Grumbler"
+      "The Grumbler",
+      "The grumbler",
+      "Money slug",
+      "Money grub",
+      "Muspha",
+      "Grumbler"
     ],
     "drops": [
       {
@@ -106152,9 +106846,15 @@
         "itemId": 27616
       },
       {
+        "name": "Frozen cache",
+        "quantity": "1",
+        "rarity": "4/100",
+        "itemId": 27622
+      },
+      {
         "name": "Ancient icon",
         "quantity": "1",
-        "rarity": "1/50",
+        "rarity": "2/100",
         "itemId": 27627
       },
       {
@@ -106162,24 +106862,6 @@
         "quantity": "1",
         "rarity": "1/100",
         "itemId": 27614
-      },
-      {
-        "name": "Frozen cache",
-        "quantity": "1",
-        "rarity": "1/25",
-        "itemId": 27622
-      },
-      {
-        "name": "Charged ice",
-        "quantity": "1",
-        "rarity": "Always",
-        "itemId": 27643
-      },
-      {
-        "name": "Muphin",
-        "quantity": "1",
-        "rarity": "Unknown",
-        "itemId": 27590
       },
       {
         "name": "Shark",
@@ -106218,40 +106900,40 @@
         "itemId": 139
       },
       {
+        "name": "Rune kiteshield",
+        "quantity": "3 ",
+        "rarity": "2 × 10/220",
+        "itemId": 1201
+      },
+      {
         "name": "Dragon plateskirt",
         "quantity": "1",
         "rarity": "2 × 5/220",
         "itemId": 4585
       },
       {
-        "name": "Dragon platelegs",
-        "quantity": "3",
-        "rarity": "2 × 4/220",
-        "itemId": 4087
-      },
-      {
         "name": "Rune platelegs",
-        "quantity": "1–3 ",
+        "quantity": "3 ",
         "rarity": "2 × 5/220",
         "itemId": 1079
-      },
-      {
-        "name": "Rune sword",
-        "quantity": "1",
-        "rarity": "2 × 1/220",
-        "itemId": 1289
-      },
-      {
-        "name": "Rune kiteshield",
-        "quantity": "1–3 ",
-        "rarity": "2 × 10/220",
-        "itemId": 1201
       },
       {
         "name": "Black d'hide body",
         "quantity": "1",
         "rarity": "2 × 5/220",
         "itemId": 2503
+      },
+      {
+        "name": "Dragon platelegs",
+        "quantity": "2",
+        "rarity": "2 × 4/220",
+        "itemId": 4087
+      },
+      {
+        "name": "Rune sword",
+        "quantity": "1",
+        "rarity": "2 × 1/220",
+        "itemId": 1289
       },
       {
         "name": "Law rune",
@@ -106266,12 +106948,6 @@
         "itemId": 566
       },
       {
-        "name": "Chaos rune",
-        "quantity": "480",
-        "rarity": "2 × 5/220",
-        "itemId": 562
-      },
-      {
         "name": "Death rune",
         "quantity": "428",
         "rarity": "2 × 10/220",
@@ -106282,6 +106958,12 @@
         "quantity": "314",
         "rarity": "2 × 10/220",
         "itemId": 4697
+      },
+      {
+        "name": "Chaos rune",
+        "quantity": "480",
+        "rarity": "2 × 5/220",
+        "itemId": 562
       },
       {
         "name": "Fire rune",
@@ -106296,22 +106978,16 @@
         "itemId": 2
       },
       {
-        "name": "Grimy kwuarm",
-        "quantity": "6 ",
-        "rarity": "2 × 1.5625/220",
-        "itemId": 213
-      },
-      {
         "name": "Grimy toadflax",
-        "quantity": "74 ",
+        "quantity": "55 ",
         "rarity": "2 × 3/220",
         "itemId": 3049
       },
       {
-        "name": "Grimy lantadyme",
+        "name": "Grimy kwuarm",
         "quantity": "6 ",
-        "rarity": "2 × 0.9375/220",
-        "itemId": 2485
+        "rarity": "2 × 1.5625/220",
+        "itemId": 213
       },
       {
         "name": "Grimy cadantine",
@@ -106320,16 +106996,58 @@
         "itemId": 215
       },
       {
-        "name": "Grimy snapdragon",
-        "quantity": "31 ",
-        "rarity": "2 × 4/220",
-        "itemId": 3051
-      },
-      {
         "name": "Grimy dwarf weed",
         "quantity": "6 ",
         "rarity": "2 × 1.25/220",
         "itemId": 217
+      },
+      {
+        "name": "Grimy lantadyme",
+        "quantity": "6 ",
+        "rarity": "2 × 0.9375/220",
+        "itemId": 2485
+      },
+      {
+        "name": "Yew seed",
+        "quantity": "2",
+        "rarity": "2 × 5/220",
+        "itemId": 5315
+      },
+      {
+        "name": "Torstol seed",
+        "quantity": "4",
+        "rarity": "2 × 5/220",
+        "itemId": 5304
+      },
+      {
+        "name": "Palm tree seed",
+        "quantity": "2",
+        "rarity": "2 × 5/220",
+        "itemId": 5289
+      },
+      {
+        "name": "Ranarr seed",
+        "quantity": "3",
+        "rarity": "2 × 5/220",
+        "itemId": 5295
+      },
+      {
+        "name": "Snapdragon seed",
+        "quantity": "5",
+        "rarity": "2 × 4/220",
+        "itemId": 5300
+      },
+      {
+        "name": "Ranarr seed",
+        "quantity": "8",
+        "rarity": "2 × 3/220",
+        "itemId": 5295
+      },
+      {
+        "name": "Spirit seed",
+        "quantity": "1",
+        "rarity": "2 × 2/220",
+        "itemId": 5317
       },
       {
         "name": "Ranarr seed",
@@ -106428,48 +107146,6 @@
         "itemId": 22871
       },
       {
-        "name": "Yew seed",
-        "quantity": "2",
-        "rarity": "2 × 5/220",
-        "itemId": 5315
-      },
-      {
-        "name": "Torstol seed",
-        "quantity": "5",
-        "rarity": "2 × 5/220",
-        "itemId": 5304
-      },
-      {
-        "name": "Palm tree seed",
-        "quantity": "2",
-        "rarity": "2 × 5/220",
-        "itemId": 5289
-      },
-      {
-        "name": "Ranarr seed",
-        "quantity": "3",
-        "rarity": "2 × 5/220",
-        "itemId": 5295
-      },
-      {
-        "name": "Ranarr seed",
-        "quantity": "10",
-        "rarity": "2 × 3/220",
-        "itemId": 5295
-      },
-      {
-        "name": "Spirit seed",
-        "quantity": "1",
-        "rarity": "2 × 2/220",
-        "itemId": 5317
-      },
-      {
-        "name": "Runite ore",
-        "quantity": "23 ",
-        "rarity": "2 × 3/220",
-        "itemId": 451
-      },
-      {
         "name": "Adamantite ore",
         "quantity": "22 ",
         "rarity": "2 × 10/220",
@@ -106480,18 +107156,6 @@
         "quantity": "180 ",
         "rarity": "2 × 10/220",
         "itemId": 444
-      },
-      {
-        "name": "Silver ore",
-        "quantity": "101 ",
-        "rarity": "2 × 2/220",
-        "itemId": 442
-      },
-      {
-        "name": "Coal",
-        "quantity": "163 ",
-        "rarity": "2 × 5/220",
-        "itemId": 453
       },
       {
         "name": "Teak plank",
@@ -106512,16 +107176,28 @@
         "itemId": 7936
       },
       {
+        "name": "Coal",
+        "quantity": "163 ",
+        "rarity": "2 × 5/220",
+        "itemId": 453
+      },
+      {
+        "name": "Runite ore",
+        "quantity": "18 ",
+        "rarity": "2 × 3/220",
+        "itemId": 451
+      },
+      {
+        "name": "Silver ore",
+        "quantity": "101 ",
+        "rarity": "2 × 2/220",
+        "itemId": 442
+      },
+      {
         "name": "Manta ray",
         "quantity": "28 ",
         "rarity": "2 × 10/220",
         "itemId": 391
-      },
-      {
-        "name": "Limpwurt root",
-        "quantity": "21 ",
-        "rarity": "2 × 3/220",
-        "itemId": 225
       },
       {
         "name": "Water orb",
@@ -106534,6 +107210,12 @@
         "quantity": "89",
         "rarity": "2 × 10/220",
         "itemId": 21930
+      },
+      {
+        "name": "Limpwurt root",
+        "quantity": "21 ",
+        "rarity": "2 × 3/220",
+        "itemId": 225
       },
       {
         "name": "Nothing",
@@ -106708,6 +107390,18 @@
         "quantity": "1",
         "rarity": "~1/50",
         "itemId": 21524
+      },
+      {
+        "name": "Charged ice",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 27643
+      },
+      {
+        "name": "Muphin",
+        "quantity": "1",
+        "rarity": "1/2500",
+        "itemId": 27590
       }
     ],
     "examine": "The Phantom Muspah is a solo boss that can be fought after completion of the quest Secrets of the North. It is the leftover energy of the Strange Creature that manifested after the events of the quest."
@@ -107360,6 +108054,13 @@
     "examine": "Poison spiders are monsters that can be found in many locations, including the Wilderness. They are aggressive and attack with Melee, being fairly accurate and able to inflict a poison that starts at a 6. Contrary to popular belief, Protect from Melee does not prevent them from causing poison."
   },
   {
+    "id": 11990,
+    "name": "Poison spider (Escape Caves)",
+    "aliases": [],
+    "drops": [],
+    "examine": "Poison spiders are a monster found in the Escape Caves. Along with grizzly bears, they are intended to deter player killers from world switching whilst inside the Escape Caves, as they will never stop attacking and will pursue players until they leave the caves."
+  },
+  {
     "id": 4758,
     "name": "Poltenip",
     "aliases": [],
@@ -107405,7 +108106,7 @@
       {
         "name": "Slayer's enchantment",
         "quantity": "1",
-        "rarity": "1/64",
+        "rarity": "1/80",
         "itemId": 21257
       }
     ],
@@ -107419,7 +108120,7 @@
       "Portal (pest control)"
     ],
     "drops": [],
-    "examine": "The Portals are key features in the Pest Control minigame. They spawn monsters, and should be destroyed to win the game. There are four portals in one game of Pest Control, and players are ordered to destroy them in a random rotation. Their health is 200 hitpoints for a novice game, and 250 hitpoints for intermediate and veteran games. Killing one portal will heal the Void Knight in the centre by 50 hitpoints. The portals can be healed by Spinners, and players are advised to kill these before attacking the portal."
+    "examine": "The Portals are key features in the Pest Control minigame. They spawn monsters, and should be destroyed to win the game. There are four portals in one game of Pest Control, and players are ordered to destroy them in a random rotation. Their health is 200 hitpoints for a novice game, and 250 hitpoints for intermediate and veteran games&#91;1&#93; . Killing one portal will heal the Void Knight in the centre by 50 hitpoints. The portals can be healed by Spinners, and players are advised to kill these before attacking the portal."
   },
   {
     "id": 3612,
@@ -108181,7 +108882,8 @@
     "name": "Reanimated abyssal",
     "aliases": [
       "Reanimated Abyssal Creature",
-      "Reanimated abbysal"
+      "Reanimated abbysal",
+      "Reanimated abyssal demon"
     ],
     "drops": [],
     "examine": "A Reanimated abyssal can be spawned with the spell Master Reanimation. It can be reanimated where it was killed, but a player can only reanimate the ensouled head that they loot themselves. If a player teleports or trades the ensouled head, it must be reanimated by the Dark Altar. Killing the creature will grant the player 1,300 Prayer experience."
@@ -108675,7 +109377,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/89",
+        "rarity": "1/90",
         "itemId": 23083
       },
       {
@@ -109090,25 +109792,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/24400",
+        "rarity": "1/16266.87",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/3253.13",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
         "itemId": 22542
       },
       {
@@ -109450,25 +110176,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/22000",
+        "rarity": "1/14666.85",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/44000",
+        "rarity": "1/29333.7",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/44000",
+        "rarity": "1/29333.7",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/44000",
+        "rarity": "1/29333.7",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/2933.15",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/5866.3",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/5866.3",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/5866.3",
         "itemId": 22542
       },
       {
@@ -109809,25 +110559,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/24400",
+        "rarity": "1/16266.87",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/3253.13",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
         "itemId": 22542
       },
       {
@@ -110168,25 +110942,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/20000",
+        "rarity": "1/13333.5",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/2666.5",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
         "itemId": 22542
       },
       {
@@ -110521,25 +111319,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/73300",
+        "rarity": "1/48867.28",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/146600",
+        "rarity": "1/97734.56",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/146600",
+        "rarity": "1/97734.56",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/146600",
+        "rarity": "1/97734.56",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/9772.72",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/19545.45",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/19545.45",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/19545.45",
         "itemId": 22542
       },
       {
@@ -110883,25 +111705,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/24400",
+        "rarity": "1/16266.87",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/48800",
+        "rarity": "1/32533.74",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/3253.13",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/6506.26",
         "itemId": 22542
       },
       {
@@ -111242,25 +112088,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/31400",
+        "rarity": "1/20933.6",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/62800",
+        "rarity": "1/41867.19",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/62800",
+        "rarity": "1/41867.19",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/62800",
+        "rarity": "1/41867.19",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/4186.41",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/8372.81",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/8372.81",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/8372.81",
         "itemId": 22542
       },
       {
@@ -111591,7 +112461,8 @@
       "Rev imp",
       "Revanant imp",
       "Imp revenant",
-      "Revenent imp"
+      "Revenent imp",
+      "Revanent imp"
     ],
     "drops": [
       {
@@ -111603,25 +112474,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/110000",
+        "rarity": "1/73334.25",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/220000",
+        "rarity": "1/146668.5",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/220000",
+        "rarity": "1/146668.5",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/220000",
+        "rarity": "1/146668.5",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/14665.75",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/29331.5",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/29331.5",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/29331.5",
         "itemId": 22542
       },
       {
@@ -111961,25 +112856,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/20000",
+        "rarity": "1/13333.5",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/2666.5",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
         "itemId": 22542
       },
       {
@@ -112326,25 +113245,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/20000",
+        "rarity": "1/13333.5",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/40000",
+        "rarity": "1/26667",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/2666.5",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/5333",
         "itemId": 22542
       },
       {
@@ -112679,25 +113622,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/22000",
+        "rarity": "1/14666.85",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/44000",
+        "rarity": "1/29333.7",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/44000",
+        "rarity": "1/29333.7",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/44000",
+        "rarity": "1/29333.7",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/2933.15",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/5866.3",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/5866.3",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/5866.3",
         "itemId": 22542
       },
       {
@@ -113039,25 +114006,49 @@
       {
         "name": "Amulet of avarice",
         "quantity": "1",
-        "rarity": "1/31400",
+        "rarity": "1/20933.6",
         "itemId": 22557
       },
       {
         "name": "Craw's bow (u)",
         "quantity": "1",
-        "rarity": "1/62800",
+        "rarity": "1/41867.19",
         "itemId": 22547
       },
       {
         "name": "Thammaron's sceptre (u)",
         "quantity": "1",
-        "rarity": "1/62800",
+        "rarity": "1/41867.19",
         "itemId": 22552
       },
       {
         "name": "Viggora's chainmace (u)",
         "quantity": "1",
-        "rarity": "1/62800",
+        "rarity": "1/41867.19",
+        "itemId": 22542
+      },
+      {
+        "name": "Amulet of avarice",
+        "quantity": "1",
+        "rarity": "1/4186.41",
+        "itemId": 22557
+      },
+      {
+        "name": "Craw's bow (u)",
+        "quantity": "1",
+        "rarity": "1/8372.81",
+        "itemId": 22547
+      },
+      {
+        "name": "Thammaron's sceptre (u)",
+        "quantity": "1",
+        "rarity": "1/8372.81",
+        "itemId": 22552
+      },
+      {
+        "name": "Viggora's chainmace (u)",
+        "quantity": "1",
+        "rarity": "1/8372.81",
         "itemId": 22542
       },
       {
@@ -113822,7 +114813,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/97",
+        "rarity": "1/98",
         "itemId": 23083
       },
       {
@@ -116765,7 +117756,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/56",
+        "rarity": "1/57",
         "itemId": 23083
       },
       {
@@ -117477,7 +118468,7 @@
     "name": "Scarabs",
     "aliases": [],
     "drops": [],
-    "examine": "Scarabs are lower levelled versions of Scarab swarms, which randomly spawn inside the Jaldraocht Pyramid from cracks in the ground. They are identical in appearance and behaviour to scarab swarms, including their extremely fast attack speed and ability to poison, making them dangerous for lower levelled players."
+    "examine": "Scarabs are lower levelled versions of Scarab swarms, which randomly spawn inside the Ancient Pyramid from cracks in the ground. They are identical in appearance and behaviour to scarab swarms, including their extremely fast attack speed and ability to poison, making them dangerous for lower levelled players."
   },
   {
     "id": 7548,
@@ -120071,7 +121062,7 @@
         "itemId": 6801
       }
     ],
-    "examine": "Sergeant Steelwill is one of the three sergeants found guarding General Graardor in the Bandos section of the God Wars Dungeon, along with Sergeant Strongstack and Sergeant Grimspike. Sergeant Steelwill uses a magic attack with a max hit of up to 16 hitpoints."
+    "examine": "Sergeant Steelwill is one of the three sergeants found guarding General Graardor in the Bandos section of the God Wars Dungeon, along with Sergeant Strongstack and Sergeant Grimspike. Sergeant Steelwill uses a magic attack with a max hit of up to 15 hitpoints."
   },
   {
     "id": 2216,
@@ -120332,7 +121323,7 @@
         "itemId": 526
       }
     ],
-    "examine": "Shadow Hounds are dog-like monsters found in the Shadow Dungeon. They can be accessed by wearing a ring of visibility during or after the Desert Treasure quest. They are seldom killed due to being located in a multicombat area, as well as providing no drops except bones. As with most monsters in the Shadow Dungeon, they allow other monsters to pass through them."
+    "examine": "Shadow Hounds are dog-like monsters found in the Shadow Dungeon. They can be accessed by wearing a ring of visibility during or after the Desert Treasure I quest. They are seldom killed due to being located in a multicombat area, as well as providing no drops except bones. As with most monsters in the Shadow Dungeon, they allow other monsters to pass through them."
   },
   {
     "id": 11485,
@@ -120977,7 +121968,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/52",
+        "rarity": "1/53",
         "itemId": 23083
       },
       {
@@ -122204,7 +123195,7 @@
         "itemId": 10260
       }
     ],
-    "examine": "A skeletal miner is an undead monster. It appears on the second and 4th level of the Abandoned Mine as a corpse with the examine text \"Well, at least he doesn't have to worry about getting 'black lung'.\" and will animate occasionally when walked past to attack you. It counts as a skeleton for the purpose of Slayer tasks."
+    "examine": "A skeletal miner is an undead monster. It appears on the second and 4th level of the Abandoned Mine as a corpse with the examine text \"Well, at least he doesn't have to worry about getting 'black lung'.\" and will animate occasionally to attack passing players. It counts as a skeleton for the purpose of Slayer tasks."
   },
   {
     "id": 7604,
@@ -126921,13 +127912,13 @@
     "drops": [
       {
         "name": "Big bones",
-        "quantity": "4",
+        "quantity": "1",
         "rarity": "Always",
         "itemId": 532
       },
       {
         "name": "Big bones",
-        "quantity": "1",
+        "quantity": "4",
         "rarity": "Always",
         "itemId": 532
       },
@@ -126950,7 +127941,14 @@
         "itemId": 10977
       }
     ],
-    "examine": "The Skeleton Hellhound is a monster summoned by Vanstrom Klause during the In Search of the Myreque quest to kill the remaining Myreque members. In order for the quest to be completed, the Skeletal Hellhound must be defeated, which should not be a problem for a moderately levelled player, as it is fairly weak. Crumble Undead does not work against this monster, and the salve amulet seems to have no effect. After dying, the Skeleton Hellhound will drop 4 big bones and two uncut rubies, which appear to be the eyes of the monster."
+    "examine": "The Skeleton Hellhound is a monster summoned by Vanstrom Klause during the In Search of the Myreque quest to kill the remaining Myreque members. In order for the quest to be completed, the Skeletal Hellhound must be defeated, which should not be a problem for a moderately levelled player, as it is fairly weak. Crumble Undead does not work against this monster, and the salve amulet seems to have no effect."
+  },
+  {
+    "id": 12107,
+    "name": "Skeleton Hellhound (Calvar'ion)",
+    "aliases": [],
+    "drops": [],
+    "examine": "The Skeleton Hellhound is a monster summoned by Calvar'ion. Two spawn during the first form of Calvar'ion after half of his health has depleted and must be killed as he is immune to attacks while they are present."
   },
   {
     "id": 6613,
@@ -128570,7 +129568,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/55",
+        "rarity": "1/56",
         "itemId": 23083
       },
       {
@@ -130686,7 +131684,9 @@
   {
     "id": 11724,
     "name": "Soldier Scarab",
-    "aliases": [],
+    "aliases": [
+      "Soldier scarab"
+    ],
     "drops": [],
     "examine": "Soldier Scarabs are a monster that is summoned by Kephri in the Tombs of Amascut. They use melee attacks."
   },
@@ -131581,12 +132581,6 @@
         "itemId": null
       },
       {
-        "name": "Clue scroll (easy)",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": null
-      },
-      {
         "name": "Long bone",
         "quantity": "1",
         "rarity": "1/400",
@@ -131700,6 +132694,12 @@
         "quantity": "30",
         "rarity": "3/128",
         "itemId": 555
+      },
+      {
+        "name": "Mind rune",
+        "quantity": "5",
+        "rarity": "1/128",
+        "itemId": 558
       },
       {
         "name": "Grimy guam leaf",
@@ -131818,7 +132818,7 @@
       {
         "name": "Nothing",
         "quantity": "N/A",
-        "rarity": "3/128",
+        "rarity": "2/128",
         "itemId": null
       },
       {
@@ -132996,7 +133996,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/56",
+        "rarity": "1/57",
         "itemId": 23083
       },
       {
@@ -133025,6 +134025,281 @@
       }
     ],
     "examine": "The spiked turoth is a superior variant of the turoth. It has a chance of spawning after purchasing the unlock Bigger and Badder for 150 Slayer reward points from any Slayer master."
+  },
+  {
+    "id": 11998,
+    "name": "Spindel",
+    "aliases": [
+      "Spindle"
+    ],
+    "drops": [
+      {
+        "name": "Big bones",
+        "quantity": "1",
+        "rarity": "Always",
+        "itemId": 532
+      },
+      {
+        "name": "Dragon 2h sword",
+        "quantity": "1",
+        "rarity": "1/358",
+        "itemId": 7158
+      },
+      {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/358",
+        "itemId": 11920
+      },
+      {
+        "name": "Fangs of venenatis",
+        "quantity": "1",
+        "rarity": "1/618",
+        "itemId": 27670
+      },
+      {
+        "name": "Treasonous ring",
+        "quantity": "1",
+        "rarity": "1/716",
+        "itemId": 12605
+      },
+      {
+        "name": "Voidwaker gem",
+        "quantity": "1",
+        "rarity": "1/912",
+        "itemId": 27687
+      },
+      {
+        "name": "Dark crab",
+        "quantity": "8",
+        "rarity": "5/128",
+        "itemId": 11936
+      },
+      {
+        "name": "Super restore(4)",
+        "quantity": "3",
+        "rarity": "5/128",
+        "itemId": 3024
+      },
+      {
+        "name": "Rune knife",
+        "quantity": "30",
+        "rarity": "5/128",
+        "itemId": 868
+      },
+      {
+        "name": "Rune pickaxe",
+        "quantity": "1",
+        "rarity": "12/128",
+        "itemId": 1275
+      },
+      {
+        "name": "Rune 2h sword",
+        "quantity": "1",
+        "rarity": "3/128",
+        "itemId": 1319
+      },
+      {
+        "name": "Chaos rune",
+        "quantity": "180",
+        "rarity": "7/128",
+        "itemId": 562
+      },
+      {
+        "name": "Blood rune",
+        "quantity": "150",
+        "rarity": "7/128",
+        "itemId": 565
+      },
+      {
+        "name": "Death rune",
+        "quantity": "220",
+        "rarity": "7/128",
+        "itemId": 560
+      },
+      {
+        "name": "Cannonball",
+        "quantity": "200",
+        "rarity": "4/128",
+        "itemId": 2
+      },
+      {
+        "name": "Diamond bolts (e)",
+        "quantity": "60",
+        "rarity": "5/128",
+        "itemId": 9243
+      },
+      {
+        "name": "Uncut diamond",
+        "quantity": "9 ",
+        "rarity": "8/128",
+        "itemId": 1617
+      },
+      {
+        "name": "Uncut dragonstone",
+        "quantity": "1",
+        "rarity": "2/128",
+        "itemId": 1631
+      },
+      {
+        "name": "Uncut ruby",
+        "quantity": "18 ",
+        "rarity": "1/128",
+        "itemId": 1619
+      },
+      {
+        "name": "Gold ore",
+        "quantity": "180 ",
+        "rarity": "6/128",
+        "itemId": 444
+      },
+      {
+        "name": "Magic logs",
+        "quantity": "60 ",
+        "rarity": "5/128",
+        "itemId": 1513
+      },
+      {
+        "name": "Red spiders' eggs",
+        "quantity": "250 ",
+        "rarity": "3/128",
+        "itemId": 223
+      },
+      {
+        "name": "Limpwurt root",
+        "quantity": "18 ",
+        "rarity": "5/128",
+        "itemId": 225
+      },
+      {
+        "name": "Onyx bolt tips",
+        "quantity": "35",
+        "rarity": "5/128",
+        "itemId": 9194
+      },
+      {
+        "name": "Grimy snapdragon",
+        "quantity": "60 ",
+        "rarity": "1/128",
+        "itemId": 3051
+      },
+      {
+        "name": "Unicorn horn",
+        "quantity": "60 ",
+        "rarity": "1/128",
+        "itemId": 237
+      },
+      {
+        "name": "Coins",
+        "quantity": "14000",
+        "rarity": "21/128",
+        "itemId": 995
+      },
+      {
+        "name": "Dark fishing bait",
+        "quantity": "200",
+        "rarity": "1/128",
+        "itemId": 11940
+      },
+      {
+        "name": "Magic seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5316
+      },
+      {
+        "name": "Palm tree seed",
+        "quantity": "1",
+        "rarity": "1/128",
+        "itemId": 5289
+      },
+      {
+        "name": "Supercompost",
+        "quantity": "60 ",
+        "rarity": "4/128",
+        "itemId": 6034
+      },
+      {
+        "name": "Antidote++(4)",
+        "quantity": "6 ",
+        "rarity": "3/128",
+        "itemId": 5952
+      },
+      {
+        "name": "Blighted anglerfish",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24592
+      },
+      {
+        "name": "Blighted karambwan",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24595
+      },
+      {
+        "name": "Blighted super restore(3)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24601
+      },
+      {
+        "name": "Blighted super restore(4)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24598
+      },
+      {
+        "name": "Ranging potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 171
+      },
+      {
+        "name": "Super combat potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 12699
+      },
+      {
+        "name": "Looting bag",
+        "quantity": "1",
+        "rarity": "1/3",
+        "itemId": 11941
+      },
+      {
+        "name": "Clue scroll (elite)",
+        "quantity": "1",
+        "rarity": "1/100",
+        "itemId": 21524
+      },
+      {
+        "name": "Venenatis spiderling",
+        "quantity": "1",
+        "rarity": "1/2800",
+        "itemId": 13177
+      },
+      {
+        "name": "Larran's key",
+        "quantity": "1",
+        "rarity": "1/58",
+        "itemId": 23490
+      },
+      {
+        "name": "Slayer's enchantment",
+        "quantity": "1",
+        "rarity": "1/30",
+        "itemId": 21257
+      }
+    ],
+    "examine": "Spindel is a weaker variant of Venenatis who is fought in the Web Chasm, a singles-plus combat area in level 21 Wilderness."
+  },
+  {
+    "id": 12001,
+    "name": "Spindel's Spiderling",
+    "aliases": [],
+    "drops": [],
+    "examine": "Spindel's Spiderlings are creatures which appear during the fight with Spindel."
   },
   {
     "id": 1709,
@@ -134495,7 +135770,7 @@
     "name": "Spitting Scarab",
     "aliases": [],
     "drops": [],
-    "examine": "Spitting Scarabs are a monster that is summoned by Kephri in the Tombs of Amascut. They use ranged attacks that can inflict poison starting at 7 damage. Like the Arcane Scarab, the spitting scarab's attacks can hit through protection prayers."
+    "examine": "Spitting Scarabs are a monster that is summoned by Kephri in the Tombs of Amascut. They use ranged attacks that can inflict poison starting at 6 damage. Like the Arcane Scarab, the spitting scarab's attacks can hit through protection prayers."
   },
   {
     "id": 7794,
@@ -134851,7 +136126,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/73",
+        "rarity": "1/74",
         "itemId": 23083
       },
       {
@@ -135004,7 +136279,7 @@
         "itemId": 3550
       }
     ],
-    "examine": "Starlight the unicorn is a bodyguard of Commander Zilyana, along with Growler and Bree. She uses powerful melee attacks to bring down her enemies, which has a max hit of 15. She is the strongest known Unicorn in the game."
+    "examine": "Starlight the unicorn is a bodyguard of Commander Zilyana, along with Growler and Bree. She uses powerful melee attacks to bring down her enemies, which has a max hit of 15. She is the strongest Unicorn in the game."
   },
   {
     "id": 274,
@@ -135330,7 +136605,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/70",
+        "rarity": "1/71",
         "itemId": 23083
       },
       {
@@ -135684,7 +136959,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/99",
+        "rarity": "1/100",
         "itemId": 23083
       },
       {
@@ -135725,7 +137000,7 @@
       "The stranger"
     ],
     "drops": [],
-    "examine": "The stranger is a mysterious person who sometimes appears and attacks players when they have one or more Diamonds of Azzanadra in their inventory. He wields a poisoned dragon dagger."
+    "examine": "The stranger is a mysterious assassin who sometimes appears and attacks players when they have one or more diamonds of Azzanadra in their inventory. He wields a poisoned dragon dagger."
   },
   {
     "id": 11273,
@@ -138972,7 +140247,7 @@
       },
       {
         "name": "Adamantite ore",
-        "quantity": "8–50 ",
+        "quantity": "7–50 ",
         "rarity": "4/100",
         "itemId": 449
       },
@@ -138990,7 +140265,7 @@
       },
       {
         "name": "Snapdragon seed",
-        "quantity": "1–6",
+        "quantity": "1–7",
         "rarity": "Unknown",
         "itemId": 5300
       },
@@ -139422,7 +140697,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/47",
+        "rarity": "1/48",
         "itemId": 23083
       },
       {
@@ -143214,7 +144489,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/97",
+        "rarity": "1/98",
         "itemId": 23083
       },
       {
@@ -145711,7 +146986,7 @@
         "itemId": 526
       }
     ],
-    "examine": "Ulfric Longbeard is a skeletal boss monster who appears during Olaf's Quest. There is a ranging safespot at his grave. It is a good idea for players to turn on Protect from Melee to avoid the use of food. His max hit is rather low compared to monsters of a similar level, with the fact that Ulfric is inaccurate, makes him a very easy boss for players about his level."
+    "examine": "Ulfric Longbeard is a skeletal boss monster who appears during Olaf's Quest."
   },
   {
     "id": 11284,
@@ -147006,34 +148281,10 @@
     ],
     "drops": [
       {
-        "name": "Treasonous ring",
+        "name": "Fangs of venenatis",
         "quantity": "1",
-        "rarity": "1/512",
-        "itemId": 12605
-      },
-      {
-        "name": "Rune pickaxe",
-        "quantity": "1",
-        "rarity": "12/128",
-        "itemId": 1275
-      },
-      {
-        "name": "Rune knife",
-        "quantity": "60",
-        "rarity": "5/128",
-        "itemId": 868
-      },
-      {
-        "name": "Rune 2h sword",
-        "quantity": "1",
-        "rarity": "3/128",
-        "itemId": 1319
-      },
-      {
-        "name": "Dragon pickaxe",
-        "quantity": "1",
-        "rarity": "3/512",
-        "itemId": 11920
+        "rarity": "1/196",
+        "itemId": 27670
       },
       {
         "name": "Dragon 2h sword",
@@ -147042,148 +148293,214 @@
         "itemId": 7158
       },
       {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/256",
+        "itemId": 11920
+      },
+      {
+        "name": "Voidwaker gem",
+        "quantity": "1",
+        "rarity": "1/360",
+        "itemId": 27687
+      },
+      {
+        "name": "Treasonous ring",
+        "quantity": "1",
+        "rarity": "1/512",
+        "itemId": 12605
+      },
+      {
+        "name": "Rune pickaxe",
+        "quantity": "3 ",
+        "rarity": "12/128",
+        "itemId": 1275
+      },
+      {
+        "name": "Rune dart",
+        "quantity": "150",
+        "rarity": "3/128",
+        "itemId": 811
+      },
+      {
+        "name": "Rune knife",
+        "quantity": "150",
+        "rarity": "5/128",
+        "itemId": 868
+      },
+      {
         "name": "Chaos rune",
-        "quantity": "400",
+        "quantity": "500",
         "rarity": "7/128",
         "itemId": 562
       },
       {
         "name": "Death rune",
-        "quantity": "300",
+        "quantity": "700",
         "rarity": "7/128",
         "itemId": 560
       },
       {
         "name": "Blood rune",
-        "quantity": "200",
+        "quantity": "900",
         "rarity": "7/128",
         "itemId": 565
       },
       {
         "name": "Diamond bolts (e)",
-        "quantity": "100",
+        "quantity": "300",
         "rarity": "5/128",
         "itemId": 9243
       },
       {
         "name": "Cannonball",
-        "quantity": "250",
+        "quantity": "600",
         "rarity": "4/128",
         "itemId": 2
       },
       {
         "name": "Uncut ruby",
-        "quantity": "20 ",
-        "rarity": "7/128",
+        "quantity": "75 ",
+        "rarity": "1/128",
         "itemId": 1619
       },
       {
         "name": "Uncut diamond",
-        "quantity": "10 ",
-        "rarity": "7/128",
+        "quantity": "35 ",
+        "rarity": "8/128",
         "itemId": 1617
       },
       {
         "name": "Gold ore",
-        "quantity": "300 ",
+        "quantity": "675 ",
         "rarity": "6/128",
         "itemId": 444
       },
       {
         "name": "Onyx bolt tips",
-        "quantity": "60",
+        "quantity": "150",
         "rarity": "5/128",
         "itemId": 9194
       },
       {
         "name": "Magic logs",
-        "quantity": "100 ",
+        "quantity": "225 ",
         "rarity": "5/128",
         "itemId": 1513
       },
       {
         "name": "Limpwurt root",
-        "quantity": "25 ",
+        "quantity": "100 ",
         "rarity": "5/128",
         "itemId": 225
       },
       {
         "name": "Red spiders' eggs",
-        "quantity": "500 ",
+        "quantity": "75–500 ",
         "rarity": "3/128",
         "itemId": 223
       },
       {
         "name": "Unicorn horn",
-        "quantity": "100 ",
-        "rarity": "2/128",
+        "quantity": "225 ",
+        "rarity": "1/128",
         "itemId": 237
       },
       {
         "name": "Uncut dragonstone",
-        "quantity": "1",
+        "quantity": "5 ",
         "rarity": "2/128",
         "itemId": 1631
       },
       {
+        "name": "Grimy ranarr weed",
+        "quantity": "50 ",
+        "rarity": "1/128",
+        "itemId": 207
+      },
+      {
         "name": "Grimy snapdragon",
-        "quantity": "100 ",
+        "quantity": "150 ",
         "rarity": "1/128",
         "itemId": 3051
       },
       {
+        "name": "Grimy toadflax",
+        "quantity": "45 ",
+        "rarity": "1/128",
+        "itemId": 3049
+      },
+      {
         "name": "Coins",
-        "quantity": "15000–19999",
-        "rarity": "19/128",
+        "quantity": "50000",
+        "rarity": "21/128",
         "itemId": 995
       },
       {
-        "name": "Dark crab",
-        "quantity": "8",
-        "rarity": "10/128",
-        "itemId": 11936
-      },
-      {
-        "name": "Super restore(4)",
-        "quantity": "3",
-        "rarity": "10/128",
-        "itemId": 3024
-      },
-      {
         "name": "Supercompost",
-        "quantity": "100 ",
-        "rarity": "19/512",
+        "quantity": "225 ",
+        "rarity": "4/128",
         "itemId": 6034
       },
       {
         "name": "Antidote++(4)",
-        "quantity": "10 ",
+        "quantity": "20 ",
         "rarity": "3/128",
         "itemId": 5952
       },
       {
-        "name": "Dark fishing bait",
-        "quantity": "375",
-        "rarity": "1/128",
-        "itemId": 11940
+        "name": "Super restore(4)",
+        "quantity": "10 ",
+        "rarity": "5/128",
+        "itemId": 3024
       },
       {
-        "name": "Yew seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5315
+        "name": "Dark crab",
+        "quantity": "50 ",
+        "rarity": "5/128",
+        "itemId": 11936
       },
       {
-        "name": "Magic seed",
-        "quantity": "1",
+        "name": "Blighted anglerfish",
+        "quantity": "45 ",
         "rarity": "1/128",
-        "itemId": 5316
+        "itemId": 24592
       },
       {
-        "name": "Palm tree seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5289
+        "name": "Blighted anglerfish",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24592
+      },
+      {
+        "name": "Blighted karambwan",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24595
+      },
+      {
+        "name": "Blighted super restore(3)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24601
+      },
+      {
+        "name": "Blighted super restore(4)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24598
+      },
+      {
+        "name": "Ranging potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 171
+      },
+      {
+        "name": "Super combat potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 12699
       },
       {
         "name": "Looting bag",
@@ -147232,21 +148549,18 @@
         "quantity": "1",
         "rarity": "1/30",
         "itemId": 21257
-      },
-      {
-        "name": "Saradomin brew(4)",
-        "quantity": "1",
-        "rarity": "1/3",
-        "itemId": 6685
-      },
-      {
-        "name": "Saradomin brew(1)",
-        "quantity": "1",
-        "rarity": "1/3",
-        "itemId": 6691
       }
     ],
-    "examine": "Venenatis is a large poison spider that resides east of the Bone Yard, and is the only monster to drop the treasonous ring. She uses multi-target Magic and long-ranged melee attacks. She is able to drain Prayer as well as perform a lethal stun attack that can hit up to 50 damage, and may combine it with another attack if the player does not have Protect from Magic active, which is capable of instantly killing the player. Unlike the other Wilderness bosses, Venenatis' lethal attack has a chance of failing."
+    "examine": "Venenatis is a large spider that resides in the Silk Chasm."
+  },
+  {
+    "id": 12000,
+    "name": "Venenatis' Spiderling (monster)",
+    "aliases": [
+      "Venenatis' Spiderling"
+    ],
+    "drops": [],
+    "examine": "Venenatis' Spiderlings are creatures which appear during the fight with Venenatis. While alive, they increase Venenatis' max hit and allow her to hit through protection prayers. They will also drain prayer by 1 for every attack regardless if it hits or not."
   },
   {
     "id": 2630,
@@ -147688,7 +149002,8 @@
       "Skeleton boss",
       "Vention",
       "Vettion",
-      "Vet'ion Reborn"
+      "Vet'ion Reborn",
+      "Vet'tion"
     ],
     "drops": [
       {
@@ -147698,34 +149013,10 @@
         "itemId": 532
       },
       {
-        "name": "Ring of the gods",
+        "name": "Skull of vet'ion",
         "quantity": "1",
-        "rarity": "1/512",
-        "itemId": 12601
-      },
-      {
-        "name": "Rune pickaxe",
-        "quantity": "1",
-        "rarity": "12/128",
-        "itemId": 1275
-      },
-      {
-        "name": "Rune 2h sword",
-        "quantity": "1",
-        "rarity": "3/128",
-        "itemId": 1319
-      },
-      {
-        "name": "Ancient staff",
-        "quantity": "1",
-        "rarity": "3/128",
-        "itemId": 4675
-      },
-      {
-        "name": "Dragon pickaxe",
-        "quantity": "1",
-        "rarity": "3/512",
-        "itemId": 11920
+        "rarity": "1/196",
+        "itemId": 27673
       },
       {
         "name": "Dragon 2h sword",
@@ -147734,148 +149025,220 @@
         "itemId": 7158
       },
       {
+        "name": "Dragon pickaxe",
+        "quantity": "1",
+        "rarity": "1/256",
+        "itemId": 11920
+      },
+      {
+        "name": "Voidwaker blade",
+        "quantity": "1",
+        "rarity": "1/360",
+        "itemId": 27684
+      },
+      {
+        "name": "Ring of the gods",
+        "quantity": "1",
+        "rarity": "1/512",
+        "itemId": 12601
+      },
+      {
+        "name": "Rune pickaxe",
+        "quantity": "1–3 ",
+        "rarity": "12/128",
+        "itemId": 1275
+      },
+      {
+        "name": "Rune dart",
+        "quantity": "22–150",
+        "rarity": "3/128",
+        "itemId": 811
+      },
+      {
+        "name": "Rune knife",
+        "quantity": "22–150",
+        "rarity": "3/128",
+        "itemId": 868
+      },
+      {
         "name": "Chaos rune",
-        "quantity": "400",
+        "quantity": "135–900",
         "rarity": "7/128",
         "itemId": 562
       },
       {
         "name": "Death rune",
-        "quantity": "300",
+        "quantity": "105–700",
         "rarity": "7/128",
         "itemId": 560
       },
       {
         "name": "Blood rune",
-        "quantity": "200",
+        "quantity": "75–500",
         "rarity": "7/128",
         "itemId": 565
       },
       {
         "name": "Cannonball",
-        "quantity": "250",
+        "quantity": "82–550",
         "rarity": "4/128",
         "itemId": 2
       },
       {
         "name": "Uncut ruby",
-        "quantity": "20 ",
-        "rarity": "7/128",
+        "quantity": "11–75 ",
+        "rarity": "4/128",
         "itemId": 1619
       },
       {
         "name": "Uncut diamond",
-        "quantity": "10 ",
-        "rarity": "7/128",
+        "quantity": "5–35 ",
+        "rarity": "3/128",
         "itemId": 1617
       },
       {
+        "name": "Uncut dragonstone",
+        "quantity": "1–5 ",
+        "rarity": "2/128",
+        "itemId": 1631
+      },
+      {
         "name": "Gold ore",
-        "quantity": "300 ",
+        "quantity": "101–675 ",
         "rarity": "6/128",
         "itemId": 444
       },
       {
         "name": "Limpwurt root",
-        "quantity": "25 ",
+        "quantity": "9–60 ",
         "rarity": "5/128",
         "itemId": 225
       },
       {
+        "name": "Wine of zamorak",
+        "quantity": "15–100 ",
+        "rarity": "5/128",
+        "itemId": 245
+      },
+      {
         "name": "Magic logs",
-        "quantity": "100 ",
+        "quantity": "33–225 ",
         "rarity": "5/128",
         "itemId": 1513
       },
       {
         "name": "Oak plank",
-        "quantity": "300 ",
+        "quantity": "60–400 ",
         "rarity": "5/128",
         "itemId": 8778
       },
       {
         "name": "Dragon bones",
-        "quantity": "100 ",
+        "quantity": "22–150 ",
         "rarity": "3/128",
         "itemId": 536
       },
       {
-        "name": "Uncut dragonstone",
-        "quantity": "1",
-        "rarity": "2/128",
-        "itemId": 1631
-      },
-      {
         "name": "Mort myre fungus",
-        "quantity": "200 ",
+        "quantity": "67–450 ",
         "rarity": "2/128",
         "itemId": 2970
       },
       {
         "name": "Grimy ranarr weed",
-        "quantity": "100 ",
+        "quantity": "15–100 ",
         "rarity": "1/128",
         "itemId": 207
       },
       {
+        "name": "Grimy dwarf weed",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 217
+      },
+      {
+        "name": "Grimy snapdragon",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 3051
+      },
+      {
+        "name": "Grimy toadflax",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 3049
+      },
+      {
         "name": "Coins",
-        "quantity": "15000–19999",
-        "rarity": "19/128",
+        "quantity": "7500–50000",
+        "rarity": "21/128",
         "itemId": 995
       },
       {
-        "name": "Dark crab",
-        "quantity": "8",
-        "rarity": "10/128",
-        "itemId": 11936
+        "name": "Supercompost",
+        "quantity": "33–225 ",
+        "rarity": "4/128",
+        "itemId": 6034
       },
       {
         "name": "Super restore(4)",
-        "quantity": "3",
-        "rarity": "10/128",
+        "quantity": "1–10",
+        "rarity": "5/128",
         "itemId": 3024
       },
       {
+        "name": "Blighted anglerfish",
+        "quantity": "6–45 ",
+        "rarity": "1/128",
+        "itemId": 24592
+      },
+      {
         "name": "Sanfew serum(4)",
-        "quantity": "10 ",
+        "quantity": "3–20 ",
         "rarity": "5/128",
         "itemId": 10925
       },
       {
-        "name": "Ogre coffin key",
-        "quantity": "10 ",
+        "name": "Dark crab",
+        "quantity": "7–50 ",
         "rarity": "5/128",
-        "itemId": 4850
+        "itemId": 11936
       },
       {
-        "name": "Supercompost",
-        "quantity": "100 ",
-        "rarity": "19/512",
-        "itemId": 6034
+        "name": "Blighted anglerfish",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24592
       },
       {
-        "name": "Dark fishing bait",
-        "quantity": "375",
-        "rarity": "1/128",
-        "itemId": 11940
+        "name": "Blighted karambwan",
+        "quantity": "5–6",
+        "rarity": "1/18",
+        "itemId": 24595
       },
       {
-        "name": "Palm tree seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5289
+        "name": "Blighted super restore(3)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24601
       },
       {
-        "name": "Yew seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5315
+        "name": "Blighted super restore(4)",
+        "quantity": "3–4",
+        "rarity": "1/18",
+        "itemId": 24598
       },
       {
-        "name": "Magic seed",
-        "quantity": "1",
-        "rarity": "1/128",
-        "itemId": 5316
+        "name": "Ranging potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 171
+      },
+      {
+        "name": "Super combat potion(2)",
+        "quantity": "2–3",
+        "rarity": "1/18",
+        "itemId": 12699
       },
       {
         "name": "Looting bag",
@@ -147930,21 +149293,9 @@
         "quantity": "1",
         "rarity": "1/30",
         "itemId": 21257
-      },
-      {
-        "name": "Saradomin brew(4)",
-        "quantity": "1",
-        "rarity": "1/3",
-        "itemId": 6685
-      },
-      {
-        "name": "Saradomin brew(1)",
-        "quantity": "1",
-        "rarity": "1/3",
-        "itemId": 6691
       }
     ],
-    "examine": "Vet'ion (pronounced \"VET-e-un\") is a Zamorakian skeletal champion that resides north of the Bone Yard and south of Lava Dragon Isle, and he is the only monster to drop the ring of the gods. Like other bosses in the Wilderness, he can also drop the dragon pickaxe."
+    "examine": "Vet'ion (pronounced VET-ee-un) is a Zamorakian skeletal champion that resides in Vet'ion's Rest. Like other bosses in the Wilderness, he can also drop the dragon pickaxe."
   },
   {
     "id": 7399,
@@ -148125,13 +149476,13 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/62",
+        "rarity": "1/63",
         "itemId": 23083
       },
       {
         "name": "Larran's key",
         "quantity": "1",
-        "rarity": "1/60",
+        "rarity": "Always",
         "itemId": 23490
       },
       {
@@ -148357,7 +149708,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/56",
+        "rarity": "1/57",
         "itemId": 23083
       },
       {
@@ -150295,7 +151646,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/89",
+        "rarity": "1/90",
         "itemId": 23083
       },
       {
@@ -151036,7 +152387,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/77",
+        "rarity": "1/78",
         "itemId": 23083
       },
       {
@@ -151398,7 +152749,7 @@
         "itemId": 995
       }
     ],
-    "examine": "Watchmen are guards located on the middle floor of the Watchtower on the western end of Yanille. They can be attacked and pickpocketed at level 65 Thieving. Thieving from them yields 60 coins and bread along with 137.5 experience. To get to the middle floor of the Watchtower, you should head west from Nightmare Zone, outside the wall. If you are inside Yanille, you should then walk north and follow the northern wall until you see a tunnel, and then climb through it. After that, walk west to the Watchtower. On the north of the building, you will see a trellis (18 Agility required). Climb the trellis, and then you will find yourself on the middle floor of the Watchtower, with some Watchmen walking around."
+    "examine": "Watchmen are guards located on the middle floor of the Watchtower on the north-western end of Yanille. They can be attacked and pickpocketed at level 65 Thieving. Thieving from them yields 60 coins and bread along with 137.5 experience. The route outside of walls requires going west from Nightmare Zone. From inside the walls, walk north and follow the northern wall and use the underwall tunnel, requiring 16 Agility, or climbing rocks, requiring 5 Agility, then walk west to the Watchtower. On the north side of the building, climb the trellis, requiring 18 Agility, to the the middle floor of the Watchtower."
   },
   {
     "id": 1370,
@@ -154090,7 +155441,7 @@
       {
         "name": "Brimstone key",
         "quantity": "1",
-        "rarity": "1/91",
+        "rarity": "1/92",
         "itemId": 23083
       },
       {
@@ -156082,7 +157433,8 @@
       "Salcano",
       "Zarcano",
       "Zalkano",
-      "Zalcan"
+      "Zalcan",
+      "Money rock"
     ],
     "drops": [
       {
@@ -156141,13 +157493,13 @@
       },
       {
         "name": "Coal",
-        "quantity": "169–926 ",
+        "quantity": "169–938 ",
         "rarity": "1/36",
         "itemId": 453
       },
       {
         "name": "Mithril ore",
-        "quantity": "56–387 ",
+        "quantity": "56–388 ",
         "rarity": "2/36",
         "itemId": 447
       },
@@ -156183,7 +157535,7 @@
       },
       {
         "name": "Adamantite bar",
-        "quantity": "14–107 ",
+        "quantity": "13–107 ",
         "rarity": "2/36",
         "itemId": 2361
       },
@@ -156532,7 +157884,8 @@
       "Zamik Wizard",
       "Zammy wizard",
       "Zamarok wizard",
-      "Zamorakian wizard"
+      "Zamorakian wizard",
+      "Zamorack wizard"
     ],
     "drops": [
       {
