@@ -1,73 +1,27 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Wiki Scraper
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Project to download all of the wiki page, and extract a lot of metadata from it.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## THIS IS A WORK IN PROGRESS!
+It's something I've used to extract some information from the wiki, but is very much not ready for production use. As I've been lacking the time to clean everything up, I'm still releasing it so it can be used by others.
 
-## Description
+If you'd like to contribute to the project, please message me on discord `Anyny0#4452` in `discord.gg/flipping` so we can chat!  
+I'll be slowly working on this project so it can gather all of the information required: My end goal is to have everything be available as a json, then in a database, and expose a GraphQL endpoint where we can query anything related to OSRS from it.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+CREDIT to the OSRS wiki!
+All of the content extracted from the wiki belongs to Jagex and the OSRS wiki team, this is only an interface to parse the data.
 
-## Installation
+## Usage
 
-```bash
-$ npm install
-```
+There are 2 environment variables you can set:  
+`DATA_FOLDER_PATH`, which will contain the resulting parsed data, and `WIKI_FOLDER_PATH`, which will contain the raw wiki dumped data.  
+They default to `./data` and `./wiki-data`, you will have to create the `wiki-data` directory to get started.
 
-## Running the app
+At this time, everything works through the `DevService` within `./src/modules/app/dev.service.ts`: It defaults to `dumpEverything`, which will download every single wiki page, then extract all of the information from them.
 
-```bash
-# development
-$ npm run start
+Downloading all of the wiki pages take a while, so I would recommend only doing it every major update or whenevery you need the most up-to-date data. If you want to use the local files, replace `this.dumpEverything()`  with `this.extractWikiContent()` within the dev service method, or adjust as you need to only dump the relevant data you need.
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+To run:
+1. Make sure the environment variables are set, or that the `wiki-data` folder exists.
+2. Adjust the dev service content to dump or extract the relevant data only
+3. Run using `npm run start`
