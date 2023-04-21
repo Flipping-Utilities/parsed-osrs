@@ -413,7 +413,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -3991,6 +3992,39 @@
         "quantity": 1
       },
       {
+        "id": 6049,
+        "quantity": 1
+      },
+      {
+        "id": 2998,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 5943,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 68,
+        "name": "Herblore",
+        "xp": 155
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 5935,
+        "quantity": 1
+      },
+      {
         "id": 2998,
         "quantity": 1
       }
@@ -6259,6 +6293,10 @@
         "quantity": 1
       },
       {
+        "id": 1759,
+        "quantity": 0.0666
+      },
+      {
         "id": 0,
         "quantity": 1
       }
@@ -6279,6 +6317,10 @@
       {
         "id": 2875,
         "quantity": 1
+      },
+      {
+        "id": 1759,
+        "quantity": 0.0666
       },
       {
         "id": 0,
@@ -7398,6 +7440,31 @@
   {
     "inputs": [
       {
+        "id": 25684,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25676,
+        "quantity": 6
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 14,
+        "name": "Smithing",
+        "xp": 30
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 563,
         "quantity": 2
       },
@@ -8029,7 +8096,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -14888,7 +14956,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -17226,6 +17295,112 @@
   {
     "inputs": [
       {
+        "id": 327,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Burnt fish"
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 327,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Burnt fish"
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 349,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Burnt fish"
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
+    "ticksNote": "Increases to 4 when using the Make-X functionality.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 349,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Burnt fish"
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
+    "ticksNote": "Increases to 4 when using the Make-X functionality.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 3127,
         "quantity": 1,
         "cost": 0
@@ -17447,6 +17622,32 @@
   {
     "inputs": [
       {
+        "id": 25833,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 2146,
+        "quantity": 1,
+        "notes": "cooked meat"
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 2134,
         "quantity": 1
       }
@@ -17520,6 +17721,56 @@
       }
     ],
     "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 317,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7954,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 317,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7954,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -19735,11 +19986,11 @@
   {
     "inputs": [
       {
-        "id": 1861,
+        "id": 1923,
         "quantity": 1
       },
       {
-        "id": 1923,
+        "id": 1861,
         "quantity": 1
       }
     ],
@@ -22084,19 +22335,16 @@
   {
     "inputs": [
       {
-        "id": 1535,
-        "quantity": 1,
-        "text": "Map part (Melzar)"
+        "id": 0,
+        "quantity": 1
       },
       {
-        "id": 1535,
-        "quantity": 1,
-        "text": "Map part (Thalzar)"
+        "id": 0,
+        "quantity": 1
       },
       {
-        "id": 1535,
-        "quantity": 1,
-        "text": "Map part (Lozar)"
+        "id": 0,
+        "quantity": 1
       }
     ],
     "outputs": [
@@ -22128,7 +22376,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 30,
+        "lvl": 20,
         "name": "Smithing",
         "xp": 20
       }
@@ -33232,6 +33480,28 @@
   {
     "inputs": [
       {
+        "id": 27892,
+        "quantity": 1
+      },
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27886,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 217,
         "quantity": 1
       }
@@ -33919,6 +34189,33 @@
       }
     ],
     "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27880,
+        "quantity": 1
+      },
+      {
+        "id": 27890,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Easter egg"
+      },
+      {
+        "id": 27890,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": 0,
     "toolIds": []
   },
   {
@@ -37574,7 +37871,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Big Chompy Bird Hunting"
   },
   {
     "inputs": [
@@ -43730,6 +44028,56 @@
   {
     "inputs": [
       {
+        "id": 27886,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27888,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 1
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 27886,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27888,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 1
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 9075,
         "quantity": 2
       },
@@ -44908,7 +45256,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -46244,7 +46593,7 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": 96000,
+    "ticks": 99000,
     "toolIds": []
   },
   {
@@ -46498,11 +46847,11 @@
   {
     "inputs": [
       {
-        "id": 1879,
+        "id": 1877,
         "quantity": 1
       },
       {
-        "id": 1957,
+        "id": 1982,
         "quantity": 1
       }
     ],
@@ -46527,11 +46876,11 @@
   {
     "inputs": [
       {
-        "id": 1877,
+        "id": 1879,
         "quantity": 1
       },
       {
-        "id": 1982,
+        "id": 1957,
         "quantity": 1
       }
     ],
@@ -52062,11 +52411,11 @@
   {
     "inputs": [
       {
-        "id": 2142,
+        "id": 1923,
         "quantity": 1
       },
       {
-        "id": 1923,
+        "id": 2142,
         "quantity": 1
       }
     ],
@@ -53100,7 +53449,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -57156,7 +57506,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 1,
+        "lvl": 20,
         "name": "Cooking",
         "xp": 1
       }
@@ -61273,6 +61623,32 @@
       }
     ],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 349,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 351,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Cooking",
+        "xp": 80
+      }
+    ],
+    "ticks": 1,
+    "ticksNote": "Increases to 4 when using the Make-X functionality.",
     "toolIds": []
   },
   {
@@ -67211,6 +67587,110 @@
   {
     "inputs": [
       {
+        "id": 25670,
+        "quantity": 1,
+        "cost": 0
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25674,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 46,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 25658,
+        "quantity": 1,
+        "cost": 0
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25662,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 20,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 25652,
+        "quantity": 1,
+        "cost": 0
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25656,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 7,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 25664,
+        "quantity": 1,
+        "cost": 0
+      }
+    ],
+    "outputs": [
+      {
+        "id": 25668,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 33,
+        "name": "Cooking",
+        "xp": 0
+      }
+    ],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 2363,
         "quantity": 3
       }
@@ -67364,7 +67844,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -71059,6 +71540,32 @@
   {
     "inputs": [
       {
+        "id": 327,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 325,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 40
+      }
+    ],
+    "ticks": 1,
+    "ticksNote": "Make-All is 4 ticks",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 20724,
         "quantity": 1
       },
@@ -73210,6 +73717,31 @@
   {
     "inputs": [
       {
+        "id": 317,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 315,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Cooking",
+        "xp": 30
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 95,
         "quantity": 1
       },
@@ -74624,11 +75156,11 @@
   {
     "inputs": [
       {
-        "id": 6004,
+        "id": 1923,
         "quantity": 1
       },
       {
-        "id": 1923,
+        "id": 6004,
         "quantity": 1
       }
     ],
@@ -77819,7 +78351,8 @@
       }
     ],
     "ticks": 4,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Below Ice Mountain"
   },
   {
     "inputs": [
@@ -78414,7 +78947,8 @@
       }
     ],
     "ticks": 2,
-    "toolIds": []
+    "toolIds": [],
+    "notes": "Zogre Flesh Eaters"
   },
   {
     "inputs": [
@@ -82518,7 +83052,7 @@
     "ticks": 5,
     "ticksNote": "Manual casting is 3 ticks, auto-casting is 5 ticks",
     "toolIds": [],
-    "notes": "Lunar Diplomacy"
+    "notes": "Dream Mentor"
   },
   {
     "inputs": [
@@ -84309,17 +84843,21 @@
   {
     "inputs": [
       {
-        "id": 7086,
+        "id": 7088,
         "quantity": 1
       },
       {
-        "id": 5988,
+        "id": 7086,
         "quantity": 1
       }
     ],
     "outputs": [
       {
         "id": 7068,
+        "quantity": 1
+      },
+      {
+        "id": 1923,
         "quantity": 1
       }
     ],
@@ -84338,7 +84876,7 @@
   {
     "inputs": [
       {
-        "id": 7088,
+        "id": 5988,
         "quantity": 1
       },
       {
@@ -84349,10 +84887,6 @@
     "outputs": [
       {
         "id": 7068,
-        "quantity": 1
-      },
-      {
-        "id": 1923,
         "quantity": 1
       }
     ],
@@ -86777,7 +87311,7 @@
     ],
     "outputs": [
       {
-        "id": 0,
+        "id": 27612,
         "quantity": 1
       }
     ],
@@ -87263,6 +87797,28 @@
     "ticks": null,
     "toolIds": [],
     "notes": "Lunar Diplomacy"
+  },
+  {
+    "inputs": [
+      {
+        "id": 27882,
+        "quantity": 1
+      },
+      {
+        "id": 27882,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27880,
+        "quantity": 1
+      }
+    ],
+    "members": false,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -89168,6 +89724,66 @@
       },
       {
         "id": 6814,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 10891,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 16,
+        "name": "Crafting",
+        "xp": 15
+      }
+    ],
+    "ticks": 3,
+    "ticksNote": "4 ticks if the player is not already seated",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 960,
+        "quantity": 1
+      },
+      {
+        "id": 948,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 10891,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 16,
+        "name": "Crafting",
+        "xp": 15
+      }
+    ],
+    "ticks": 3,
+    "ticksNote": "4 ticks if the player is not already seated",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 960,
+        "quantity": 1
+      },
+      {
+        "id": 958,
         "quantity": 1
       }
     ],

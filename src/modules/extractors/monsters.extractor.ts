@@ -103,9 +103,11 @@ export class MonstersExtractor {
     // The data-attr-param is present
     // Otherwise, it is not there
     const candidateIdElement = dom(
-      dom('.advanced-data').filter((i, e) => {
-        return dom(e).children().first().text().includes('Monster ID');
-      })
+      dom('.advanced-data')
+        .filter((i, e) => {
+          return dom(e).children().first().text().includes('Monster ID');
+        })
+        .first()
     )?.children('td');
 
     const candidateId = dom(candidateIdElement)?.text()?.split(',')[0];

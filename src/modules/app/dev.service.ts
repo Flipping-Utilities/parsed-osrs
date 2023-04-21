@@ -6,6 +6,7 @@ import { MonstersExtractor } from '../extractors/monsters.extractor';
 import { RecipesExtractor } from '../extractors/recipes.extractor';
 import { SetsExtractor } from '../extractors/sets.extractor';
 import { ShopsExtractor } from '../extractors/shops.extractor';
+import { SpawnExtractor } from '../extractors/spawn.extractor';
 
 @Injectable()
 export class DevService {
@@ -17,14 +18,16 @@ export class DevService {
     private readonly setsExtractor: SetsExtractor,
     private readonly recipesExtractor: RecipesExtractor,
     private readonly shopsExtractor: ShopsExtractor,
-    private readonly monstersExtractor: MonstersExtractor
+    private readonly monstersExtractor: MonstersExtractor,
+    private readonly spawnExtractor: SpawnExtractor,
   ) {
-    this.dumpEverything();
-    // this.testTheThing();
+    this.testTheThing();
   }
 
   async testTheThing() {
-    // await this.extractWikiContent();
+    this.dumpEverything();
+    // await this.monstersExtractor.extractAllMonsters();
+    // await this.spawnExtractor.extractAllItemSpawns();
   }
 
   async dumpEverything() {

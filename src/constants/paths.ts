@@ -1,5 +1,5 @@
-export const DATA_FOLDER = process.env.DATA_FOLDER_PATH;
-export const WIKI_DATA_FOLDER = process.env.WIKI_FOLDER_PATH;
+export const DATA_FOLDER = process.env.DATA_FOLDER_PATH || './data';
+export const WIKI_DATA_FOLDER = process.env.WIKI_FOLDER_PATH || './wiki-data';
 
 // Wiki content must be on a different path as it's on its own repo
 export const WIKI_PAGES_FOLDER = `${WIKI_DATA_FOLDER}/wiki-pages`;
@@ -10,6 +10,7 @@ export const META_FILE = `${DATA_FOLDER}/meta.json`;
 export const ITEMS_FOLDER = `${DATA_FOLDER}/items`;
 export const MONSTERS_FOLDER = `${DATA_FOLDER}/monsters`;
 
+export const ALL_SPAWNS = `${ITEMS_FOLDER}/all-spawns.json`;
 export const ALL_ITEMS = `${ITEMS_FOLDER}/all-items.json`;
 export const ALL_ITEM_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-item-page-list.json`;
 export const ALL_SETS = `${ITEMS_FOLDER}/all-sets.json`;

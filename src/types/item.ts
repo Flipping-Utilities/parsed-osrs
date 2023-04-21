@@ -39,3 +39,11 @@ export interface Item {
   // Not a removed or seasonal item
   isInMainGame: boolean | null;
 }
+
+export interface ItemSpawn {
+  itemName: string;
+  itemId?: string;
+  location: string;
+  members: boolean;
+  positions: [number, number, number?][];
+}

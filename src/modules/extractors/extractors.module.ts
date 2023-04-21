@@ -6,6 +6,7 @@ import { MonstersExtractor } from './monsters.extractor';
 import { RecipesExtractor } from './recipes.extractor';
 import { SetsExtractor } from './sets.extractor';
 import { ShopsExtractor } from './shops.extractor';
+import { SpawnExtractor } from './spawn.extractor';
 
 @Module({
   imports: [WikiModule, DumpersModule],
@@ -14,11 +15,13 @@ import { ShopsExtractor } from './shops.extractor';
     SetsExtractor,
     RecipesExtractor,
     ShopsExtractor,
+    SpawnExtractor,
     MonstersExtractor,
   ],
   exports: [
     ItemsExtractor,
     SetsExtractor,
+    SpawnExtractor,
     RecipesExtractor,
     ShopsExtractor,
     MonstersExtractor,
