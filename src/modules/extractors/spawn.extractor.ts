@@ -56,7 +56,7 @@ export class SpawnExtractor {
       return null;
     }
 
-    const spawnLineRegex = /\{\{ItemSpawnLine\|(.*)\}\}\n/g;
+    const spawnLineRegex = /\{\{ItemSpawnLine\|((?:.|\n)*?)\}\}\n/gm;
 
     const spawns = Array.from(page.rawContent.matchAll(spawnLineRegex));
 
@@ -65,7 +65,7 @@ export class SpawnExtractor {
     }
 
     // @ts-ignore
-    return spawns.map(s=>s[1]);
+    return spawns.map((s) => s[1].replaceAll('\n', ''));
 
     return spawns.map((spawnLine) => {
       const [name, location, members, ...positions] = spawnLine[1]
