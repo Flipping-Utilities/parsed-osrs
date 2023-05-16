@@ -7,24 +7,27 @@ import { RecipesExtractor } from './recipes.extractor';
 import { SetsExtractor } from './sets.extractor';
 import { ShopsExtractor } from './shops.extractor';
 import { SpawnExtractor } from './spawn.extractor';
+import { TemplateExtractor } from './template.extractor';
 
 @Module({
   imports: [WikiModule, DumpersModule],
   providers: [
     ItemsExtractor,
-    SetsExtractor,
+    MonstersExtractor,
     RecipesExtractor,
+    SetsExtractor,
     ShopsExtractor,
     SpawnExtractor,
-    MonstersExtractor,
+    TemplateExtractor,
   ],
   exports: [
     ItemsExtractor,
-    SetsExtractor,
-    SpawnExtractor,
-    RecipesExtractor,
-    ShopsExtractor,
     MonstersExtractor,
+    RecipesExtractor,
+    SetsExtractor,
+    ShopsExtractor,
+    SpawnExtractor,
+    TemplateExtractor,
   ],
 })
 export class ExtractorsModule {}

@@ -1,0 +1,244 @@
+[
+  {
+    "skill": "Agility",
+    "members": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Attack",
+    "strict": "yes",
+    "images": "icons",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Construction",
+    "images": "icons",
+    "members": "no",
+    "batchsize": "70",
+    "template": "skill table"
+  },
+  {
+    "skill": "Cooking",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Crafting",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Defence",
+    "strict": "yes",
+    "images": "icons",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Farming",
+    "images": "icons",
+    "members": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Firemaking",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Fishing",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Fletching",
+    "images": "icons",
+    "facilities": "no",
+    "members": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Herblore",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "members": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Hitpoints",
+    "materials": "no",
+    "tools": "no",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Hunter",
+    "members": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Standard spells",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Ancient Magick",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Lunar spells",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Arceuus spellbook",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Uses infobox::!Spell",
+    "strict": "yes",
+    "images": "icons",
+    "tools": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Mining",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Prayer",
+    "template": "skill table"
+  },
+  {
+    "skill": "Ranged",
+    "strict": "yes",
+    "images": "icons",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Runecraft",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::~*ore|Lovakite furnace",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Bronze bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Iron bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Steel bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Lovakite bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Mithril bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Adamant bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Runite bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "|Silver bar||Blurite bar||Elemental metal||Lunar bar",
+    "images": "icons",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Uses material::Crystal shard",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "|Corrupted shards",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
+    "query": "Smithing experience::>0",
+    "exclude material": "bar%], elemental metal, crystal shard, corrupted shard, ore",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Strength",
+    "strict": "yes",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Thieving",
+    "materials": "no",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Woodcutting",
+    "images": "icons",
+    "template": "skill table"
+  }
+]

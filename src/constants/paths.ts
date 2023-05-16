@@ -9,6 +9,7 @@ export const WIKI_PAGE_LIST_FOLDER = `${WIKI_DATA_FOLDER}/page-lists`;
 export const META_FILE = `${DATA_FOLDER}/meta.json`;
 export const ITEMS_FOLDER = `${DATA_FOLDER}/items`;
 export const MONSTERS_FOLDER = `${DATA_FOLDER}/monsters`;
+export const TEMPLATE_FOLDER = `${DATA_FOLDER}/templates`;
 
 export const ALL_SPAWNS = `${ITEMS_FOLDER}/all-spawns.json`;
 export const ALL_ITEMS = `${ITEMS_FOLDER}/all-items.json`;
