@@ -14,6 +14,7 @@ export const TEMPLATE_FOLDER = `${DATA_FOLDER}/templates`;
 export const ALL_SPAWNS = `${ITEMS_FOLDER}/all-spawns.json`;
 export const ALL_ITEMS = `${ITEMS_FOLDER}/all-items.json`;
 export const ALL_ITEM_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-item-page-list.json`;
+export const ALL_ITEM_SPAWNS_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-item-spawns-page-list.json`;
 export const ALL_SETS = `${ITEMS_FOLDER}/all-sets.json`;
 export const ALL_SETS_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-sets-page-list.json`;
 export const ALL_RECIPES = `${ITEMS_FOLDER}/all-recipes.json`;

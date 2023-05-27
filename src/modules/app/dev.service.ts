@@ -21,7 +21,7 @@ export class DevService {
     private readonly shopsExtractor: ShopsExtractor,
     private readonly monstersExtractor: MonstersExtractor,
     private readonly spawnExtractor: SpawnExtractor,
-    private readonly templateExtractor: TemplateExtractor,
+    private readonly templateExtractor: TemplateExtractor
   ) {
     this.testTheThing();
   }
@@ -29,8 +29,8 @@ export class DevService {
   async testTheThing() {
     // this.dumpEverything();
     // await this.monstersExtractor.extractAllMonsters();
-    // await this.spawnExtractor.extractAllItemSpawns();
-    await this.templateExtractor.extractAllTemplates();
+    await this.spawnExtractor.extractAllItemSpawns();
+    // await this.templateExtractor.extractAllTemplates();
   }
 
   async dumpEverything() {
@@ -46,6 +46,7 @@ export class DevService {
     await this.pageListDumper.dumpItemSetsPageList();
     await this.pageListDumper.dumpMonstersPageList();
     await this.pageListDumper.dumpShopPageList();
+    await this.pageListDumper.dumpItemSpawnPageList();
     await this.pageListDumper.dumpRedirectList();
   }
 

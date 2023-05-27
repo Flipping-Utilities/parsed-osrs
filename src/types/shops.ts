@@ -1,8 +1,8 @@
 export interface ShopItem {
-    itemId: number;
-    baseQuantity: number;
-    // Number of ticks between each stock, or 0.6s * this number
-    restockTime: number;
+  itemId: number;
+  baseQuantity: number;
+  // Number of ticks between each stock, or 0.6s * this number
+  restockTime: number;
 }
 
 export interface Shop {
