@@ -41,9 +41,12 @@ export interface Item {
 }
 
 export interface ItemSpawn {
-  itemName: string;
-  itemId?: string;
+  id: number;
+  name: string;
+  quantity: number;
+  x: number;
+  y: number;
+  plane: number;
   location: string;
   members: boolean;
-  positions: [number, number, number?][];
 }

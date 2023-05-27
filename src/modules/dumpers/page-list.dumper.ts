@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import {
   ALL_ITEM_PAGE_LIST,
+  ALL_ITEM_SPAWNS_PAGE_LIST,
   ALL_MONSTERS_PAGE_LIST,
   ALL_SETS_PAGE_LIST,
   ALL_SHOPS_PAGE_LIST,
@@ -196,6 +197,47 @@ export class PageListDumper {
 
   getMonsters(): WikiPageSlim[] {
     return this.getPageList(ALL_MONSTERS_PAGE_LIST);
+  }
+
+  async fetchTemplatePageList(template: string): Promise<WikiPageSlim[]> {
+    const properties = {
+      action: 'query',
+      list: 'embeddedin',
+      eititle: `Template:${template}`,
+      eilimit: 'max',
+      format: 'json',
+    };
+
+    const pages =
+      await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
+        'eicontinue',
+        'embeddedin',
+        properties
+      );
+
+    // Wiki responses have 'ns' property, remove it
+    return pages
+      .map((p) => ({
+        pageid: p.pageid,
+        title: p.title,
+        redirects: [],
+      }))
+      .filter((page) => !page.title.includes(':'));
+  }
+
+  fetchItemSpawnPageList(): Promise<WikiPageSlim[]> {
+    return this.fetchTemplatePageList('ItemSpawnLine');
+  }
+
+  async dumpItemSpawnPageList() {
+    this.logger.log('Dump item spawn page list');
+    const pages = await this.fetchItemSpawnPageList();
+    this.logger.log('Dump item spawn page list - Completed');
+    await this.saveFile(ALL_ITEM_SPAWNS_PAGE_LIST, pages);
+  }
+
+  getItemSpawns(): WikiPageSlim[] {
+    return this.getPageList(ALL_ITEM_SPAWNS_PAGE_LIST);
   }
 
   private saveFile(path: string, content: unknown) {
