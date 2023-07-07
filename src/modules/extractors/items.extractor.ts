@@ -185,6 +185,7 @@ export class ItemsExtractor {
 
     const baseItem: Item = {
       id: Number(parsed.id),
+      aliases: page.redirects || [],
       name: parsed.gemwname || parsed.name,
       examine: parsed.examine,
       image: parsed.image,
