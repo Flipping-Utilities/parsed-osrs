@@ -43,6 +43,7 @@ export class DevService {
     await this.pageListDumper.dumpItemSetsPageList();
     await this.pageListDumper.dumpMonstersPageList();
     await this.pageListDumper.dumpShopPageList();
+    await this.pageListDumper.dumpItemSpawnPageList();
     await this.pageListDumper.dumpRedirectList();
   }
 
