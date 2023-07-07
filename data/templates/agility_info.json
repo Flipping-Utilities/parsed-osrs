@@ -26,7 +26,7 @@
   {
     "name": "Balancing ledge",
     "level": "40",
-    "xp": "22",
+    "xp": "22.5",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -125,6 +125,14 @@
     "xp2": "75",
     "xp3": "80",
     "course": "Hallowed Sepulchre",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Bridge",
+    "level": "1",
+    "xp": "0",
+    "failxp": "0",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -301,6 +309,13 @@
     "template": "agility info"
   },
   {
+    "name": "Crevice",
+    "level": "46",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "name": "Narrow crevice",
     "level": "62",
     "xp": "0",
@@ -461,6 +476,14 @@
     "name": "Fissure",
     "level": "32",
     "xp": "3",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Floating Book",
+    "level": "70",
+    "xp": "0",
+    "failxp": "0",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -1046,13 +1069,6 @@
     "template": "agility info"
   },
   {
-    "name": "Crevice",
-    "level": "46",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
     "name": "Narrow crevice",
     "level": "42",
     "xp": "0",
@@ -1118,6 +1134,13 @@
     "xp": "12.5",
     "course": "Wilderness Agility Course",
     "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "49",
+    "xp": "7",
+    "type": "Shortcut",
     "template": "agility info"
   },
   {
@@ -1208,6 +1231,16 @@
     "template": "agility info"
   },
   {
+    "version1": "To the demons",
+    "version2": "To the dragons",
+    "name": "Pipe",
+    "level1": "34",
+    "level2": "1",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "name": "Pipe squeeze",
     "level": "22",
     "xp": "8.5",
@@ -1227,23 +1260,6 @@
     "xp": "15",
     "course": "Werewolf Agility Course",
     "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "To the demons",
-    "version2": "To the dragons",
-    "name": "Pipe",
-    "level1": "34",
-    "level2": "1",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "49",
-    "xp": "7",
-    "type": "Shortcut",
     "template": "agility info"
   },
   {

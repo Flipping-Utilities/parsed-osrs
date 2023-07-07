@@ -82,8 +82,26 @@
     "name": "Blurite rocks",
     "level": "10",
     "xp": "17.5",
+    "rock": "Blurite rocks",
     "tool": "Pickaxe",
     "time": "25 seconds",
+    "template": "mining info"
+  },
+  {
+    "name": "Blurite rocks",
+    "level": "10",
+    "xp": "17.5",
+    "tool": "Pickaxe",
+    "time": "25 seconds",
+    "template": "mining info"
+  },
+  {
+    "name": "Boulder",
+    "level": "52",
+    "xp": "35",
+    "xpnote": "Experience is not received if the player's inventory is full.",
+    "tool": "Pickaxe",
+    "time": "Instant",
     "template": "mining info"
   },
   {
@@ -578,7 +596,7 @@
     "template": "mining info"
   },
   {
-    "name": "Rocks (The Tourist Trap)",
+    "name": "Rocks",
     "level": "1",
     "xp": "1",
     "tool": "Pickaxe",

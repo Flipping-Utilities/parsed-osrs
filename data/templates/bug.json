@@ -43,7 +43,7 @@
   },
   {
     "list": [
-      "There is a bug that may prevent Ultimate Ironmen death pile from appearing should they die in this instance. It is strongly recommended to bring extra supplies or a one-click teleport to prevent this."
+      "There is a bug that may prevent Ultimate Ironmen death pile from appearing should they die in this instance. It is strongly recommended to bring extra supplies or a one-click teleport to prevent this. Bug can also happen to regular players, who may then reclaim items from death"
     ],
     "template": "bug"
   },
@@ -74,6 +74,12 @@
   {
     "list": [
       "Captain Cleive's name is misspelt as Captain Clieve when upgrading slayer helmets and when attempting to attack lizardmen in the caves while not on a lizardman Slayer task."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Rather than reverting to the base rate of 1/10, the drop rate of the thread of Elidinis is set to 1/50 after one has been received for the first time."
     ],
     "template": "bug"
   },
@@ -187,7 +193,13 @@
   },
   {
     "list": [
-      "As of 07 August 2022, this quest's quest log entry still refers to GPDT employees as R.P.D.T. men and the depot as R.P.D.T. incorrectly after the 11 October 2018 update."
+      "As of 24 April 2023, this quest's quest log entry still refers to GPDT employees as R.P.D.T. men and the depot as R.P.D.T. incorrectly after the 11 October 2018 update."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "An opening quest dialogue with Kangai Mau has a grammatical error. It states \"Lord Handlemort is an Ardougnese explorer which means he think he have the right to come to my tribal home, steal our stuff and put in his private museum.\""
     ],
     "template": "bug"
   },

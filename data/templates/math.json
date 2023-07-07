@@ -131,6 +131,11 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3"
+  },
+  {
+    "template": "math",
     "formula": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2.5 \\cdot 4(4+1) = 50\n\\end{align}",
     "raw": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2.5 \\cdot 4(4+1) = 50\n\\end{align}"
   },
@@ -193,6 +198,11 @@
     "template": "math",
     "formula": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor + 2",
     "raw": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{1}{10}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{1}{10}\\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -366,8 +376,8 @@
   },
   {
     "template": "math",
-    "formula": "Cost_{AS} = Cost_{NPC} \\times \\left(1-\\frac{Smithing_{Level}}{200}\\right)",
-    "raw": "Cost_{AS} = Cost_{NPC} \\times \\left(1-\\frac{Smithing_{Level}}{200}\\right)"
+    "formula": "\\text{Cost}_{AS} = \\text{Cost}_{NPC} \\times \\left(1-\\frac{\\text{Smithing Level}}{200}\\right)",
+    "raw": "\\text{Cost}_{AS} = \\text{Cost}_{NPC} \\times \\left(1-\\frac{\\text{Smithing Level}}{200}\\right)"
   },
   {
     "template": "math",
@@ -601,8 +611,23 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1",
+    "raw": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1"
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 2",
     "raw": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 2",
+    "raw": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 3",
+    "raw": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 3"
   },
   {
     "template": "math",
@@ -776,8 +801,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{AverageLevel} &= \\left\\lfloor \\frac{\\text{Attack} + \\text{Strength} + \\text{Defence} + \\text{Hitpoints}}{4} \\right\\rfloor, \\\\ \\\\\n\\text{AverageDefBonus} &= \\left\\lfloor \\frac{\\text{StabDefence} + \\text{SlashDefence} + \\text{CrushDefence}}{3} \\right\\rfloor.\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{AverageLevel} &= \\left\\lfloor \\frac{\\text{Attack} + \\text{Strength} + \\text{Defence} + \\text{Hitpoints}}{4} \\right\\rfloor, \\\\ \\\\\n\\text{AverageDefBonus} &= \\left\\lfloor \\frac{\\text{StabDefence} + \\text{SlashDefence} + \\text{CrushDefence}}{3} \\right\\rfloor.\n\\end{align}"
+    "formula": "\\begin{align}\n\\text{AverageLevel} &= \\left\\lfloor \\frac{\\text{Attack} + \\text{Strength} + \\text{Defence} + \\min\\left\\{ \\text{Hitpoints},2000 \\right\\}}{4} \\right\\rfloor, \\\\ \\\\\n\\text{AverageDefBonus} &= \\left\\lfloor \\frac{\\text{StabDefence} + \\text{SlashDefence} + \\text{CrushDefence}}{3} \\right\\rfloor.\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{AverageLevel} &= \\left\\lfloor \\frac{\\text{Attack} + \\text{Strength} + \\text{Defence} + \\min\\left\\{ \\text{Hitpoints},2000 \\right\\}}{4} \\right\\rfloor, \\\\ \\\\\n\\text{AverageDefBonus} &= \\left\\lfloor \\frac{\\text{StabDefence} + \\text{SlashDefence} + \\text{CrushDefence}}{3} \\right\\rfloor.\n\\end{align}"
   },
   {
     "template": "math",
@@ -1008,6 +1033,11 @@
     "template": "math",
     "formula": "Y",
     "raw": "Y"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3"
   },
   {
     "template": "math",
@@ -1341,6 +1371,11 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor + 7",
+    "raw": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor + 7"
+  },
+  {
+    "template": "math",
     "formula": "S(x)",
     "raw": "S(x)"
   },
@@ -1598,6 +1633,11 @@
     "template": "math",
     "formula": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor + 2",
     "raw": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times \\frac{1}{10}\\rfloor + 2",
+    "raw": "\\lfloor Level \\times \\frac{1}{10}\\rfloor + 2"
   },
   {
     "template": "math",
@@ -1876,6 +1916,21 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor MagicLevel \\times \\frac{16}{100} \\rfloor + 6",
+    "raw": "\\lfloor MagicLevel \\times \\frac{16}{100} \\rfloor + 6"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor MagicLevel \\times \\frac{10}{100} \\rfloor + 4",
+    "raw": "\\lfloor MagicLevel \\times \\frac{10}{100} \\rfloor + 4"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor MagicLevel \\times \\frac{13}{100} \\rfloor + 5",
+    "raw": "\\lfloor MagicLevel \\times \\frac{13}{100} \\rfloor + 5"
+  },
+  {
+    "template": "math",
     "formula": "P",
     "raw": "P"
   },
@@ -2046,18 +2101,18 @@
   },
   {
     "template": "math",
-    "formula": "R_{d} = E_{d} \\times (M_{db} + 64) = 10 \\times (900 + 64) = 9,640",
-    "raw": "R_{d} = E_{d} \\times (M_{db} + 64) = 10 \\times (900 + 64) = 9,640"
+    "formula": "R_{d} = E_{d} \\times (M_{db} + 64) = 10 \\times (0 + 64) = 640",
+    "raw": "R_{d} = E_{d} \\times (M_{db} + 64) = 10 \\times (0 + 64) = 640"
   },
   {
     "template": "math",
-    "formula": "E_{d} = M_{lvl} + 9 = 120 + 9 = 129",
-    "raw": "E_{d} = M_{lvl} + 9 = 120 + 9 = 129"
+    "formula": "E_{d} = M_{lvl} + 9 = 125 + 9 = 134",
+    "raw": "E_{d} = M_{lvl} + 9 = 125 + 9 = 134"
   },
   {
     "template": "math",
-    "formula": "R_{d} = E_{d} \\times (M_{db} + 64) = 129 \\times (80 + 64) = 18,576",
-    "raw": "R_{d} = E_{d} \\times (M_{db} + 64) = 129 \\times (80 + 64) = 18,576"
+    "formula": "R_{d} = E_{d} \\times (M_{db} + 64) = 134 \\times (80 + 64) = 19,296",
+    "raw": "R_{d} = E_{d} \\times (M_{db} + 64) = 134 \\times (80 + 64) = 19,296"
   },
   {
     "template": "math",
@@ -2091,6 +2146,16 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor MagicLevel \\times 0.02\\rfloor + 3",
+    "raw": "\\lfloor MagicLevel \\times 0.02\\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times 0.05\\rfloor + 2",
+    "raw": "\\lfloor Level \\times 0.05\\rfloor + 2"
+  },
+  {
+    "template": "math",
     "formula": "\\text{Effective Strength} = \\Bigg\\lfloor\\bigg(\\Big\\lfloor\\big\\lfloor\\text{Strength Level} + \\text{Potion Bonus}\\big\\rfloor \\times \\text{Prayer Bonus}\\Big\\rfloor + \\text{Style Bonus} + 8 \\bigg) \\times \\text{Void Bonus} \\Bigg\\rfloor",
     "raw": "\\text{Effective Strength} = \\Bigg\\lfloor\\bigg(\\Big\\lfloor\\big\\lfloor\\text{Strength Level} + \\text{Potion Bonus}\\big\\rfloor \\times \\text{Prayer Bonus}\\Big\\rfloor + \\text{Style Bonus} + 8 \\bigg) \\times \\text{Void Bonus} \\Bigg\\rfloor"
   },
@@ -2116,6 +2181,11 @@
   },
   {
     "template": "math",
+    "formula": "1 + {Max Hit}",
+    "raw": "1 + {Max Hit}"
+  },
+  {
+    "template": "math",
     "formula": "1.1\\overline{6}",
     "raw": "1.1\\overline{6}"
   },
@@ -2136,8 +2206,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Max Hit}_{\\text{Saradomin sword}} = \\lfloor \\text{Base Damage} + 15 \\rfloor",
-    "raw": "\\text{Max Hit}_{\\text{Saradomin sword}} = \\lfloor \\text{Base Damage} + 15 \\rfloor"
+    "formula": "\\text{Max Hit}_{\\text{Saradomin sword}} = \\lfloor \\text{Base Damage} + 16 \\rfloor",
+    "raw": "\\text{Max Hit}_{\\text{Saradomin sword}} = \\lfloor \\text{Base Damage} + 16 \\rfloor"
   },
   {
     "template": "math",
@@ -2146,8 +2216,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Maximum Hit} =\\left\\lfloor 0.5+\\frac{\\text{Effective Ranged Strength}*(\\text{Equipment Ranged Strength}+64)}{640}*\\text{Gear Bonus} \\right\\rfloor",
-    "raw": "\\text{Maximum Hit} =\\left\\lfloor 0.5+\\frac{\\text{Effective Ranged Strength}*(\\text{Equipment Ranged Strength}+64)}{640}*\\text{Gear Bonus} \\right\\rfloor"
+    "formula": "\\text{Maximum Hit} = \\left\\lfloor \\left\\lfloor 0.5+\\frac{\\text{Effective Ranged Strength}*(\\text{Equipment Ranged Strength}+64)}{640} \\right\\rfloor * \\text{Gear Bonus} \\right\\rfloor",
+    "raw": "\\text{Maximum Hit} = \\left\\lfloor \\left\\lfloor 0.5+\\frac{\\text{Effective Ranged Strength}*(\\text{Equipment Ranged Strength}+64)}{640} \\right\\rfloor * \\text{Gear Bonus} \\right\\rfloor"
   },
   {
     "template": "math",
@@ -2431,33 +2501,53 @@
   },
   {
     "template": "math",
-    "formula": "\\mathit{BonusRunes} = \\left\\lfloor\\frac{RunesCrafted}{10}\\right\\rfloor * \\mathit{OutfitMultiplier}",
-    "raw": "\\mathit{BonusRunes} = \\left\\lfloor\\frac{RunesCrafted}{10}\\right\\rfloor * \\mathit{OutfitMultiplier}"
+    "formula": "\\lfloor StrengthLevel \\times \\frac{5}{100} \\rfloor + 1",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{5}{100} \\rfloor + 1"
   },
   {
     "template": "math",
-    "formula": "RunesCrafted",
-    "raw": "RunesCrafted"
+    "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
+    "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
   },
   {
     "template": "math",
-    "formula": "RunesCrafted",
-    "raw": "RunesCrafted"
+    "formula": "\\lfloor StrengthLevel \\times \\frac{6}{100} \\rfloor + 1",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{6}{100} \\rfloor + 1"
   },
   {
     "template": "math",
-    "formula": "\\mathit{BonusRunes} = \\left\\lfloor\\frac{RunesCrafted}{10} + 1\\right\\rfloor * \\mathit{OutfitMultiplier}",
-    "raw": "\\mathit{BonusRunes} = \\left\\lfloor\\frac{RunesCrafted}{10} + 1\\right\\rfloor * \\mathit{OutfitMultiplier}"
+    "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
+    "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
   },
   {
     "template": "math",
-    "formula": "OutfitMultiplier",
-    "raw": "OutfitMultiplier"
+    "formula": "\\mathrm{BonusRunes} = \\left\\lfloor\\frac{\\mathrm{RunesCrafted}}{10}\\right\\rfloor * \\mathrm{OutfitMultiplier}",
+    "raw": "\\mathrm{BonusRunes} = \\left\\lfloor\\frac{\\mathrm{RunesCrafted}}{10}\\right\\rfloor * \\mathrm{OutfitMultiplier}"
   },
   {
     "template": "math",
-    "formula": "RunesCrafted",
-    "raw": "RunesCrafted"
+    "formula": "\\mathrm{RunesCrafted}",
+    "raw": "\\mathrm{RunesCrafted}"
+  },
+  {
+    "template": "math",
+    "formula": "\\mathrm{RunesCrafted}",
+    "raw": "\\mathrm{RunesCrafted}"
+  },
+  {
+    "template": "math",
+    "formula": "\\mathrm{BonusRunes} = \\left\\lfloor\\frac{\\mathrm{RunesCrafted}}{10} + 1\\right\\rfloor * \\mathrm{OutfitMultiplier}",
+    "raw": "\\mathrm{BonusRunes} = \\left\\lfloor\\frac{\\mathrm{RunesCrafted}}{10} + 1\\right\\rfloor * \\mathrm{OutfitMultiplier}"
+  },
+  {
+    "template": "math",
+    "formula": "\\mathrm{OutfitMultiplier}",
+    "raw": "\\mathrm{OutfitMultiplier}"
+  },
+  {
+    "template": "math",
+    "formula": "\\mathrm{RunesCrafted}",
+    "raw": "\\mathrm{RunesCrafted}"
   },
   {
     "template": "math",
@@ -2696,6 +2786,16 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor StrengthLevel \\times \\frac{5}{100} \\rfloor + 1",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{5}{100} \\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
+    "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
     "formula": "0.6 * MagicLevel",
     "raw": "0.6 * MagicLevel"
   },
@@ -2918,6 +3018,11 @@
     "template": "math",
     "formula": "\\lfloor SkillLevel \\times \\frac{15}{100} \\rfloor + 5",
     "raw": "\\lfloor SkillLevel \\times \\frac{15}{100} \\rfloor + 5"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{15}{100} \\rfloor + 5",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{15}{100} \\rfloor + 5"
   },
   {
     "template": "math",
@@ -3716,13 +3821,13 @@
   },
   {
     "template": "math",
-    "formula": "Scales = \\frac{7.14}{3} * Darts",
-    "raw": "Scales = \\frac{7.14}{3} * Darts"
+    "formula": "Scales = \\frac{50}{21} * Darts",
+    "raw": "Scales = \\frac{50}{21} * Darts"
   },
   {
     "template": "math",
-    "formula": "Scales = \\frac{5.001}{3} * Darts",
-    "raw": "Scales = \\frac{5.001}{3} * Darts"
+    "formula": "Scales = \\frac{5}{3} * Darts",
+    "raw": "Scales = \\frac{5}{3} * Darts"
   },
   {
     "template": "math",
@@ -3756,8 +3861,23 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nAccuracy &= 140 + \\frac{\\frac{10 \\cdot 3 \\cdot Magic}{10} - 10}{100} - \\frac{\\left(\\frac{3 \\cdot Magic}{10} - 100\\right)^2}{100} \\% & Accuracy \\in [0, 140]\\\\\nDamage &= 250 + \\frac{\\frac{10 \\cdot 3 \\cdot Magic}{10} - 14}{100} - \\frac{\\left(\\frac{3 \\cdot Magic}{10} - 140\\right)^2}{100} \\% & Damage \\in [0, 250]\n\\end{align}",
-    "raw": "\\begin{align}\nAccuracy &= 140 + \\frac{\\frac{10 \\cdot 3 \\cdot Magic}{10} - 10}{100} - \\frac{\\left(\\frac{3 \\cdot Magic}{10} - 100\\right)^2}{100} \\% & Accuracy \\in [0, 140]\\\\\nDamage &= 250 + \\frac{\\frac{10 \\cdot 3 \\cdot Magic}{10} - 14}{100} - \\frac{\\left(\\frac{3 \\cdot Magic}{10} - 140\\right)^2}{100} \\% & Damage \\in [0, 250]\n\\end{align}"
+    "formula": "\\lfloor RangedLevel \\times \\frac{16}{100} \\rfloor + 6",
+    "raw": "\\lfloor RangedLevel \\times \\frac{16}{100} \\rfloor + 6"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor RangedLevel \\times \\frac{1}{10} \\rfloor + 4",
+    "raw": "\\lfloor RangedLevel \\times \\frac{1}{10} \\rfloor + 4"
+  },
+  {
+    "template": "math",
+    "formula": "\\begin{align}\n\\text{Accuracy} &= 140 + \\frac{\\frac{10 \\cdot 3 \\cdot \\text{Magic}}{10} - 10}{100} - \\frac{\\left(\\frac{3 \\cdot \\text{Magic}}{10} - 100\\right)^2}{100} \\% & \\text{Accuracy} \\in [0, 140]\\\\\n\\text{Damage} &= 250 + \\frac{\\frac{10 \\cdot 3 \\cdot \\text{Magic}}{10} - 14}{100} - \\frac{\\left(\\frac{3 \\cdot \\text{Magic}}{10} - 140\\right)^2}{100} \\% & \\text{Damage} \\in [0, 250]\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Accuracy} &= 140 + \\frac{\\frac{10 \\cdot 3 \\cdot \\text{Magic}}{10} - 10}{100} - \\frac{\\left(\\frac{3 \\cdot \\text{Magic}}{10} - 100\\right)^2}{100} \\% & \\text{Accuracy} \\in [0, 140]\\\\\n\\text{Damage} &= 250 + \\frac{\\frac{10 \\cdot 3 \\cdot \\text{Magic}}{10} - 14}{100} - \\frac{\\left(\\frac{3 \\cdot \\text{Magic}}{10} - 140\\right)^2}{100} \\% & \\text{Damage} \\in [0, 250]\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor RangedLevel \\times \\frac{13}{100} \\rfloor + 5",
+    "raw": "\\lfloor RangedLevel \\times \\frac{13}{100} \\rfloor + 5"
   },
   {
     "template": "math",
@@ -4033,6 +4153,21 @@
     "template": "math",
     "formula": "\\lfloor MagicLevel \\times 0.02\\rfloor + 2",
     "raw": "\\lfloor MagicLevel \\times 0.02\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times 0.05\\rfloor + 1",
+    "raw": "\\lfloor Level \\times 0.05\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor StrengthLevel \\times \\frac{6}{100} \\rfloor + 1",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{6}{100} \\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
+    "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
   },
   {
     "template": "math",

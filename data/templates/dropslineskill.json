@@ -738,46 +738,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Barronite shards",
     "quantity": "4-6",
     "rarity": "76/100",
@@ -1142,30 +1102,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Blurite ore",
     "quantity": "1",
     "rarity": "Always",
@@ -1226,6 +1162,14 @@
     "quantity": "40",
     "rarity": "Always",
     "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Rock (elemental)",
+    "alt": "Rock",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -2380,46 +2324,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Clay",
     "quantity": "1",
     "rarity": "Always",
@@ -2465,46 +2369,6 @@
     "name": "Rock golem",
     "quantity": "1",
     "rarity": "Very rare",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
     "skill": "Mining",
     "template": "dropslineskill"
   },
@@ -2948,6 +2812,22 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Linum tirinum (corrupted)",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Farming",
+    "gemw": "no",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Phren bark (corrupted)",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "gemw": "no",
+    "template": "dropslineskill"
+  },
+  {
     "quantity": "1",
     "name": "Rock cake",
     "rarity": "Always",
@@ -2976,46 +2856,6 @@
     "rarity": "1/3",
     "approx": "Yes",
     "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -5387,7 +5227,8 @@
     "name": "Molch pearl",
     "quantity": "1",
     "rarity": "1/100",
-    "raritynotes": "-1/75",
+    "altrarity": "1/75",
+    "altraritydash": "-",
     "template": "dropslineskill"
   },
   {
@@ -6303,46 +6144,6 @@
     "quantity": "1",
     "rarity": "2/128",
     "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -7962,46 +7763,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Iron ore",
     "quantity": "1",
     "rarity": "Always",
@@ -8339,14 +8100,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Linum tirinum (corrupted)",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Bronze key red",
     "quantity": "1",
     "rarity": "35/108.86",
@@ -8535,7 +8288,7 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Leaves (magic)",
+    "name": "Magic leaves",
     "quantity": "1",
     "rarity": "Always",
     "version": "Diseased",
@@ -8680,6 +8433,13 @@
     "name": "Magic logs",
     "quantity": "1",
     "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic leaves",
+    "quantity": "1",
+    "rarity": "1/4",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -8999,7 +8759,7 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Leaves (maple)",
+    "name": "Maple leaves",
     "quantity": "1",
     "rarity": "Always",
     "version": "Diseased",
@@ -9143,7 +8903,14 @@
   {
     "name": "Maple logs",
     "quantity": "1",
-    "rarity": "Common",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Maple leaves",
+    "quantity": "1",
+    "rarity": "1/4",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -9987,46 +9754,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Mithril ore",
     "quantity": "1",
     "rarity": "Always",
@@ -10410,7 +10137,14 @@
   {
     "name": "Oak logs",
     "quantity": "1",
-    "rarity": "Common",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak leaves",
+    "quantity": "1",
+    "rarity": "1/4",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -10422,7 +10156,7 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Leaves (oak)",
+    "name": "Oak leaves",
     "quantity": "1",
     "rarity": "Always",
     "version": "Diseased",
@@ -10939,14 +10673,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Phren bark (corrupted)",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Woodcutting",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Steel key red",
     "quantity": "1",
     "rarity": "35/127.85",
@@ -11093,6 +10819,48 @@
     "quantity": "1",
     "rarity": "Always",
     "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Ekeleshuun key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Horogothgar key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Huzamogaarb key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Narogoshuun key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Saragorgak key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Yurkolgokh key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
@@ -13484,46 +13252,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Tin ore",
     "quantity": "1",
     "rarity": "Always",
@@ -13596,7 +13324,7 @@
   {
     "name": "Logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -14111,7 +13839,14 @@
   {
     "name": "Willow logs",
     "quantity": "1",
-    "rarity": "Common",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Willow leaves",
+    "quantity": "1",
+    "rarity": "1/4",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -14123,7 +13858,7 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Leaves (willow)",
+    "name": "Willow leaves",
     "quantity": "1",
     "rarity": "Always",
     "version": "Diseased",
@@ -14314,6 +14049,13 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Yew leaves",
+    "quantity": "1",
+    "rarity": "1/4",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Beaver",
     "quantity": "1",
     "rarity": "Very rare",
@@ -14453,7 +14195,7 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Leaves (yew)",
+    "name": "Yew leaves",
     "quantity": "1",
     "rarity": "Always",
     "version": "Diseased",
@@ -14471,21 +14213,27 @@
   },
   {
     "name": "Nothing",
+    "rolls": "3",
     "rarity": "5/10",
+    "raritynotes": "&thinsp;",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Logs",
-    "quantity": "0-3",
+    "quantity": "1",
+    "rolls": "3",
     "rarity": "4/10",
+    "raritynotes": "&thinsp;",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Magic logs",
-    "quantity": "0-3",
+    "quantity": "1",
+    "rolls": "3",
     "rarity": "1/10",
+    "raritynotes": "&thinsp;",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },

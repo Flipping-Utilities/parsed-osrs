@@ -115,11 +115,10 @@
   {
     "head1": "(only on Fossil island wyvern task) /",
     "head2": "(only on Fossil island wyvern task) / (When in full set)",
-    "head3": "/",
+    "head4": "/",
     "neck1": "(Only with full best in slot.)",
     "body2": "/ /",
     "legs2": "/ /",
-    "legs3": "/",
     "ammo2": "/",
     "ring1": "/",
     "template": "recommended equipment"
@@ -221,8 +220,13 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "(if on a Slayer task)",
+    "head1": "(if on a Slayer task) / /",
     "head2": "(if on a Slayer task)",
+    "head5": "/",
+    "body1": "/",
+    "body4": "/ /",
+    "legs1": "/",
+    "legs5": "/",
     "template": "recommended equipment"
   },
   {
@@ -329,12 +333,12 @@
   {
     "weapon1": "//",
     "weapon2": "/ /",
-    "weapon3": "/ (with /",
+    "weapon3": "/ (with )/",
     "template": "recommended equipment"
   },
   {
     "weapon3": "/",
-    "weapon4": "/ (with",
+    "weapon4": "/ (with )",
     "template": "recommended equipment"
   },
   {
@@ -380,7 +384,7 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "/",
+    "head1": "/ /",
     "neck3": "/",
     "neck5": "/",
     "body1": "/",
@@ -390,7 +394,7 @@
     "weapon1": "/",
     "hands3": "/",
     "feet2": "/",
-    "special2": "/ (50% health) /  (20% health)",
+    "special2": "/ /",
     "body3": "/",
     "template": "recommended equipment"
   },
@@ -534,7 +538,7 @@
   },
   {
     "neck2": "/",
-    "shield6": "/",
+    "shield5": "(charged)",
     "template": "recommended equipment"
   },
   {
@@ -903,11 +907,8 @@
     "body1": "+",
     "body2": "+",
     "body3": "+",
-    "body4": "+",
     "legs1": "+",
     "legs2": "+",
-    "legs3": "+",
-    "legs4": "+",
     "weapon1": "+ (or ) +",
     "weapon2": "+ +",
     "weapon3": "+ +",
@@ -937,6 +938,10 @@
   },
   {
     "head1": "(task only) /",
+    "body3": "/",
+    "legs3": "/",
+    "feet2": "/",
+    "special5": "/",
     "template": "recommended equipment"
   },
   {
@@ -977,14 +982,14 @@
   },
   {
     "head1": "(on kalphite task only)",
-    "neck2": "or",
-    "cape5": "/",
+    "head2": "/",
+    "neck2": "/",
+    "cape2": "/",
+    "cape4": "/",
     "ammo2": "/",
-    "weapon1": "(crush)",
-    "weapon2": "(crush if using Inquisitor, slash otherwise)",
-    "weapon3": "(crush)",
-    "shield1": "(if using a one-handed weapon)",
-    "shield2": "(if using a one-handed weapon)",
+    "body1": "/",
+    "legs1": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -992,18 +997,19 @@
     "head5": "/",
     "body2": "/",
     "legs2": "/",
-    "weapon1": "(if using )",
+    "weapon1": "(s)",
     "weapon2": "(With crystal armour)",
-    "weapon3": "(if using )",
-    "shield1": "(if using a one-handed weapon)",
-    "shield2": "(if using a one-handed weapon)",
-    "shield3": "(if using a one-handed weapon)",
-    "shield4": "(if using a one-handed weapon)",
+    "weapon3": "(s)",
     "ammo1": "(Toxic blowpipe or Bow of faerdhinen)",
     "ammo2": "/ (Toxic blowpipe or Bow of faerdhinen)",
     "ammo3": "/",
     "ammo4": "/",
     "ammo5": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(on kalphite task only)",
+    "ammo2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1065,11 +1071,12 @@
   },
   {
     "cape3": "/",
-    "body5": "/",
-    "legs4": "/",
+    "body5": "/ /",
+    "legs5": "/ /",
     "weapon4": "/",
-    "weapon5": "/",
+    "weapon5": "/ If using Fire Surge with tome of fire",
     "shield1": "/",
+    "hands1": "/",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
@@ -1175,13 +1182,13 @@
     "template": "recommended equipment"
   },
   {
+    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
+    "cape2": "[[File:God_capes.gif]] God capes",
+    "shield1": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
-    "cape2": "[[File:God_capes.gif]] God capes",
-    "shield1": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -1204,6 +1211,7 @@
     "head1": "/ (with hard diary completed)",
     "cape4": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "ammo2": "/",
+    "weapon4": "/",
     "shield2": "/",
     "shield3": "/",
     "template": "recommended equipment"
@@ -1280,6 +1288,7 @@
     "cape5": "/",
     "legs1": "/",
     "weapon1": "/ /",
+    "weapon4": "/",
     "ammo2": "/",
     "hands5": "/",
     "ring5": "/ /",
@@ -1294,7 +1303,7 @@
     "head2": "(for special attacks)",
     "head3": "(for special attacks)",
     "head4": "(for special attacks)",
-    "head5": "// (for special attacks)",
+    "head5": "(for special attacks)",
     "neck1": "/",
     "body2": "(for special attacks)",
     "body3": "(for special attacks)",
@@ -1312,11 +1321,11 @@
     "template": "recommended equipment"
   },
   {
-    "head4": "/",
-    "legs5": "/",
+    "head5": "/",
     "weapon1": "/ /",
     "weapon3": "(Attack or Defence) / (Strength)",
-    "weapon4": "/",
+    "weapon4": "/ /",
+    "weapon5": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -1364,6 +1373,7 @@
     "body1": "/",
     "body2": "(for special attacks)",
     "body3": "(for special attacks)",
+    "body4": "(for special attacks)",
     "legs1": "/",
     "weapon1": "/",
     "ammo2": "/",
@@ -1395,7 +1405,7 @@
   },
   {
     "head1": "or &",
-    "head2": "&",
+    "head2": "/ &",
     "head3": "&",
     "head4": "&",
     "neck1": "&",
@@ -1412,8 +1422,8 @@
     "weapon1": "&",
     "weapon2": "&",
     "weapon3": "/ &  /  /  /",
-    "weapon4": "/ /  &",
-    "weapon5": "/",
+    "weapon4": "/ /  &  /",
+    "weapon5": "/ &",
     "shield1": "/",
     "hands1": "&",
     "feet1": "&",
@@ -1427,6 +1437,7 @@
   },
   {
     "head1": "/",
+    "2h3": "/",
     "ammo1": "& /",
     "ammo2": "/ &",
     "ammo3": "/",
@@ -1451,14 +1462,17 @@
   {
     "neck1": "<ref\nname = amulet>You will have a Skull over your head at all times",
     "neck5": "/",
-    "body1": "/",
-    "legs1": "/ /",
+    "body2": "/",
+    "legs1": "/",
+    "legs2": "/ /",
     "cape1": "/",
     "cape2": "/",
     "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "weapon3": "/ /",
     "weapon4": "/ /",
     "weapon5": "/ /",
+    "shield2": "/",
+    "shield3": "/",
     "shield5": "/ / None if using a two-handed weapon",
     "template": "recommended equipment"
   },
@@ -1466,7 +1480,7 @@
     "head1": "(on task)",
     "head3": "(set effect)",
     "ammo2": "/",
-    "special2": "/",
+    "special4": "/",
     "template": "recommended equipment"
   },
   {
@@ -1504,7 +1518,7 @@
     "cape4": "[[File:Guthix cloak.png]] Vestment cloak",
     "ammo2": "/",
     "feet2": "/",
-    "shield1": "(with Harmonised nightmare staff or Accursed sceptre)",
+    "shield1": "(with harmonised nightmare staff)",
     "weapon1": "/",
     "hands2": "/",
     "hands3": "/",
@@ -1594,6 +1608,9 @@
   {
     "neck2": "/",
     "shield6": "/",
+    "hands4": "/",
+    "feet4": "/ /  /",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1607,6 +1624,12 @@
     "head1": "(task only)",
     "weapon1": "or",
     "ammo2": "or",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(task only)",
+    "hands1": "(task only)",
+    "ring1": "(if combined with Dinh's bulwark)",
     "template": "recommended equipment"
   },
   {
@@ -1672,6 +1695,7 @@
     "cape5": "/",
     "weapon2": "/",
     "ammo2": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -1737,7 +1761,7 @@
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(Soteseg and Verzik only, see notes)",
+    "weapon2": "(Sotetseg and Verzik only, see notes)",
     "ammo3": "/",
     "special1": "and",
     "special2": "and",
@@ -1790,9 +1814,9 @@
     "template": "recommended equipment"
   },
   {
-    "weapon1": "// (with )",
-    "weapon2": "//",
-    "weapon3": "//",
+    "weapon1": "+ +",
+    "weapon2": "+ +",
+    "weapon3": "+ +  /",
     "template": "recommended equipment"
   },
   {
@@ -2049,10 +2073,11 @@
   {
     "legs2": "/",
     "ammo2": "/",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
+    "cape1": "/",
+    "cape4": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "weapon1": "/",
     "weapon3": "/ (on crush) /",
-    "weapon4": "/",
+    "weapon4": "/ (on crush)",
     "weapon5": "[[File:Bandos godsword.png]] Godsword (any works, Bandos Godsword lowers defence however) /",
     "weapon6": "/ /",
     "template": "recommended equipment"
@@ -2065,7 +2090,7 @@
     "weapon1": "/",
     "weapon2": "//",
     "shield3": "/",
-    "ammo2": "/ /2",
+    "ammo3": "/ /2",
     "hands4": "/",
     "ring1": "/",
     "ring4": "/",
@@ -2099,6 +2124,7 @@
     "neck4": "/",
     "legs5": "/ /",
     "ammo2": "/",
+    "special5": "(HP + Prayer sustain)",
     "template": "recommended equipment"
   },
   {
@@ -2115,6 +2141,13 @@
     "template": "recommended equipment"
   },
   {
+    "neck2": "any God Stole",
+    "cape2": "any warm Cape Slot item",
+    "weapon3": "any other warm Weapon Slot item",
+    "ammo2": "any God Blessing, Rada's Blessing 3 or 2",
+    "template": "recommended equipment"
+  },
+  {
     "neck1": "/",
     "neck3": "/",
     "cape4": "/ /",
@@ -2127,7 +2160,7 @@
   },
   {
     "head1": "or",
-    "head4": "/",
+    "head3": "/",
     "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
     "cape2": "[[File:God_capes.gif]] God capes",
     "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",

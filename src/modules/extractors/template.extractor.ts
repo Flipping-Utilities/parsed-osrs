@@ -30,6 +30,10 @@ export class TemplateExtractor {
       }
       const pageMeta = allPageList[i];
       const page = this.pageContentDumper.getPageFromId(pageMeta.pageid);
+      if (!page) {
+        this.logger.warn('Could not find page with id', pageMeta.pageid);
+        continue;
+      }
       const meta = wtf(page.rawContent);
       const pageTemplates = meta
         .templates()

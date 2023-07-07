@@ -63,6 +63,10 @@ export class MonstersExtractor {
 
   private extractMonsterFromPageId(pageId: number): Monster | null {
     const page = this.pageContentDumper.getPageFromId(pageId);
+    if (!page) {
+      this.logger.warn('Could not fetch page content from id', pageId);
+      return null;
+    }
 
     const html = page.content;
     const dom = load(html);

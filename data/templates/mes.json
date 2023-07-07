@@ -377,6 +377,13 @@
     "template": "mes"
   },
   {
+    "color": "#0000b2",
+    "list": [
+      "Your Bee on a stick buzzes excitedly as it detects pollen rich plants nearby."
+    ],
+    "template": "mes"
+  },
+  {
     "list": [
       "The table appears to be in use."
     ],
@@ -458,6 +465,36 @@
   {
     "list": [
       "The foreman won't be happy if you light a fire here."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The blighted anglerfish can be eaten only in the Wilderness."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The blighted karambwan can be eaten only in the Wilderness."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The blighted manta ray can be eaten only in the Wilderness."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The blighted potion can be used only in the Wilderness."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The power of the Dark Altar redirects the rift to the place in Arceuus where the energy of the true Blood Altar is focused."
     ],
     "template": "mes"
   },
@@ -548,6 +585,12 @@
   {
     "list": [
       "You have found a rare item. If you lose it, you will  be able to get a replacement."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The dwarven pouch resists your magic."
     ],
     "template": "mes"
   },
@@ -671,6 +714,12 @@
   {
     "list": [
       "You already have that item. You don't need another."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You heat the bones over the fire, but they don't look any different."
     ],
     "template": "mes"
   },
@@ -805,7 +854,34 @@
   },
   {
     "list": [
+      "You will be logged out in approximately 30 minutes. Make sure you move to a safe area or log out now."
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You will be logged out in approximately 10 minutes. Make sure you move to a safe area or log out now."
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You will be logged out in approximately 5 minutes. Make sure you move to a safe area or log out now."
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
       "For a moment you think you've found Zamorak's teddy bear, but the chest is empty."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You search the chest and find nothing"
     ],
     "template": "mes"
   },
@@ -1104,7 +1180,7 @@
   },
   {
     "list": [
-      "You need more than 10 hitpoints to survive the power of a divine potion."
+      "You slip your weapon through a [chink/gap] in the creature's chitin, landing a vicious blow."
     ],
     "template": "mes"
   },
@@ -1147,6 +1223,24 @@
   {
     "list": [
       "You need more than 10 hitpoints to survive the power of a divine potion."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You need more than 10 hitpoints to survive the power of a divine potion."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "He tries to lick your hands as you pet him."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You didn't find anything interesting."
     ],
     "template": "mes"
   },
@@ -1546,9 +1640,27 @@
   },
   {
     "list": [
+      "The forestry kit cannot hold itself! How weird would that be?"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have enabled additional drops from activities across the game. To disable these speak to Sir Pear Visor in the Falador museum."
     ],
     "color": "#ef1020",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Such a shame that [other player name] can't play this game."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "[Other player name] probably logged out after that beating."
+    ],
     "template": "mes"
   },
   {
@@ -1602,6 +1714,12 @@
   {
     "list": [
       "I can't give it to him. It goes right through him."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "I'm already under attack."
     ],
     "template": "mes"
   },
@@ -1663,12 +1781,6 @@
   },
   {
     "list": [
-      "Come... Come... Come... Down into the depths... Come..."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
       "The cormorant has brought you a very strange tench."
     ],
     "color": "red",
@@ -1677,6 +1789,12 @@
   {
     "list": [
       "You have more urgent things to do with this anthem!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The magic of the monkeys defies alchemy."
     ],
     "template": "mes"
   },
@@ -1929,6 +2047,12 @@
   },
   {
     "list": [
+      "You've obtained a single coin! Wow!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have fallen as a Hardcore Iron Man, your Hardcore status has been revoked."
     ],
     "template": "mes"
@@ -2091,6 +2215,12 @@
   },
   {
     "list": [
+      "Your charm has attracted a Leprechaun."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "Your lights have been magically extinguished."
     ],
     "template": "mes"
@@ -2135,6 +2265,34 @@
       "You feel something weird sneaking into your backpack."
     ],
     "color": "red",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You've been playing for a while, consider taking a break from your screen."
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You will be logged out in approximately 30 minutes. Make sure you move to a safe area or log out now."
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You will be logged out in approximately 10 minutes. Make sure you move to a safe area or log out now."
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You will be logged out in approximately 5 minutes. Make sure you move to a safe area or log out now."
+    ],
+    "color": "purple",
     "template": "mes"
   },
   {
@@ -2275,18 +2433,6 @@
   {
     "list": [
       "Mine mine mine mine MINE!"
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "He's on the wrong side of the law."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "She has stirred up quite the storm."
     ],
     "template": "mes"
   },
@@ -3027,6 +3173,12 @@
   },
   {
     "list": [
+      "Nothing interesting happens."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "I'm not going to throw fruit at that player, they might hit me!"
     ],
     "template": "mes"
@@ -3170,6 +3322,12 @@
   },
   {
     "list": [
+      "You can only do this whilst in a bank."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have a funny feeling like you're being followed."
     ],
     "color": "red",
@@ -3210,6 +3368,12 @@
   },
   {
     "list": [
+      "Nothing interesting happens."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You cannot sit down while wearing that heavy bonesack."
     ],
     "template": "mes"
@@ -3226,6 +3390,18 @@
       "The sheep manages to get away from you!"
     ],
     "color": "black",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You pet the dog..."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Its tail wags, slapping the rug underneath."
+    ],
     "template": "mes"
   },
   {
@@ -3314,6 +3490,30 @@
       "You feel something weird sneaking into your backpack."
     ],
     "color": "red",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You pick up a sled. There seems to be more available, should you ever lose it."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You already have a sled. There's really no need to get another."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You don't have enough inventory space to do that."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The tablet crumbles to dust as you touch it."
+    ],
     "template": "mes"
   },
   {

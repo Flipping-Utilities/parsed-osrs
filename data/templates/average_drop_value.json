@@ -492,7 +492,6 @@
   },
   {
     "mob": "Callisto",
-    "mobname": "callisto",
     "template": "average drop value"
   },
   {
@@ -570,6 +569,14 @@
     "template": "average drop value"
   },
   {
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
     "mobname": "Certer",
     "killname": "event reward",
     "template": "average drop value"
@@ -614,6 +621,8 @@
     "list": [
       "Chest (Rogues' Castle)"
     ],
+    "mobname": "Rogues' Castle chest",
+    "killname": "opening",
     "template": "average drop value"
   },
   {
@@ -852,13 +861,12 @@
   },
   {
     "mob": "Deviant spectre",
-    "brimstone": "yes",
+    "alch": "yes",
     "template": "average drop value"
   },
   {
     "mob": "Deviant spectre",
     "brimstone": "yes",
-    "alch": "yes",
     "template": "average drop value"
   },
   {
@@ -868,6 +876,14 @@
   },
   {
     "mob": "herb box",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
     "raw": "y",
     "template": "average drop value"
   },
@@ -1129,20 +1145,8 @@
     "template": "average drop value"
   },
   {
-    "mob": "Greater Nechryael#Regular",
-    "mobname": "Greater Nechryael",
-    "alch": "yes",
-    "template": "average drop value"
-  },
-  {
     "mob": "Greater Nechryael#Wilderness Slayer Cave",
     "mobname": "Greater Nechryael",
-    "template": "average drop value"
-  },
-  {
-    "mob": "Greater Nechryael#Wilderness Slayer Cave",
-    "mobname": "Greater Nechryael",
-    "alch": "yes",
     "template": "average drop value"
   },
   {
@@ -1261,12 +1265,7 @@
   },
   {
     "mob": "herb box",
-    "raw": "y",
-    "template": "average drop value"
-  },
-  {
-    "mob": "herb box",
-    "raw": "y",
+    "killname": "opening",
     "template": "average drop value"
   },
   {
@@ -1321,10 +1320,6 @@
   },
   {
     "mob": "Ice troll runt#Variant 2",
-    "template": "average drop value"
-  },
-  {
-    "mob": "Ice troll runt#Variant 3",
     "template": "average drop value"
   },
   {
@@ -1459,7 +1454,16 @@
   },
   {
     "mob": "Kurask",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Kurask",
     "brimstone": "yes",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Kurask",
+    "raw": "y",
     "template": "average drop value"
   },
   {
@@ -2083,6 +2087,11 @@
     "template": "average drop value"
   },
   {
+    "mob": "Ore stall",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
     "killname": "opening",
     "template": "average drop value"
   },
@@ -2527,6 +2536,10 @@
     "template": "average drop value"
   },
   {
+    "mob": "Werewolf",
+    "template": "average drop value"
+  },
+  {
     "mob": "Woman#Regular",
     "mobname": "woman",
     "template": "average drop value"
@@ -2543,21 +2556,21 @@
   },
   {
     "list": [
-      "Zombie (Tarn's Lair)#Level 40–56"
+      "Zombie (Tarn's Lair)#Low level"
     ],
     "mobname": "low level zombie in Tarn's Lair",
     "template": "average drop value"
   },
   {
     "list": [
-      "Zombie (Tarn's Lair)#Level 61–80"
+      "Zombie (Tarn's Lair)#Medium level"
     ],
     "mobname": "mid level zombie in Tarn's Lair",
     "template": "average drop value"
   },
   {
     "list": [
-      "Zombie (Tarn's Lair)#Level 81–100"
+      "Zombie (Tarn's Lair)#High level"
     ],
     "mobname": "high level zombie in Tarn's Lair",
     "template": "average drop value"

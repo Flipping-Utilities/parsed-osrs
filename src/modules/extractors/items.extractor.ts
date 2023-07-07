@@ -8,7 +8,7 @@ import { Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 
 const GELimitsModuleUrl =
-  'https://oldschool.runescape.wiki/w/Module:GELimits/data?action=raw';
+  'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
 
 interface WikiItem {
   gemwname?: string;
@@ -68,11 +68,8 @@ export class ItemsExtractor {
   public async extractAllItems() {
     const itemsPageList = this.pageListDumper.getAllItems();
 
-    const GELimitsRawText = (await axios.get(GELimitsModuleUrl)).data;
-    const json = GELimitsRawText.replace('return ', '')
-      .replace(/[[|\]]/g, '')
-      .replace(/=/g, ':');
-    this.GELimitsRecord = JSON.parse(json);
+    const GELimits = (await axios.get(GELimitsModuleUrl)).data;
+    this.GELimitsRecord = GELimits;
 
     const items = itemsPageList
       .map((item) => this.extractItemFromPageId(item.pageid))

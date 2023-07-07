@@ -21,16 +21,13 @@ export class DevService {
     private readonly shopsExtractor: ShopsExtractor,
     private readonly monstersExtractor: MonstersExtractor,
     private readonly spawnExtractor: SpawnExtractor,
-    private readonly templateExtractor: TemplateExtractor,
+    private readonly templateExtractor: TemplateExtractor
   ) {
     this.testTheThing();
   }
 
   async testTheThing() {
-    // this.dumpEverything();
-    // await this.monstersExtractor.extractAllMonsters();
-    // await this.spawnExtractor.extractAllItemSpawns();
-    await this.templateExtractor.extractAllTemplates();
+    this.dumpEverything();
   }
 
   async dumpEverything() {
@@ -56,5 +53,6 @@ export class DevService {
     await this.shopsExtractor.extractAllShops();
     await this.monstersExtractor.extractAllMonsters();
     await this.spawnExtractor.extractAllItemSpawns();
+    await this.templateExtractor.extractAllTemplates();
   }
 }

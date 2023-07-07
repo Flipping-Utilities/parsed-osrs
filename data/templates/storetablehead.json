@@ -982,17 +982,6 @@
     "template": "storetablehead"
   },
   {
-    "currency": "Points",
-    "hidege": "yes",
-    "hidebuy": "yes",
-    "hidestock": "y",
-    "hiderestock": "y",
-    "hidecaption": "y",
-    "column1": "Target kill count",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
     "hidebuy": "yes",
     "hidege": "yes",
     "hidestock": "y",
@@ -1021,6 +1010,26 @@
     "column1": "GP per point",
     "namenotes": "(old stock)",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Points",
+    "hidege": "yes",
+    "hidebuy": "yes",
+    "column1": "Target kill count",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "no",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "currency": "Points",
+    "column1": "GP per point",
     "template": "storetablehead"
   },
   {
@@ -2681,8 +2690,9 @@
     "hidege": "yes",
     "currency": "Mark of grace",
     "column1": "Weight reduction",
-    "column2": "Reduction (kg/)",
-    "smw": "No",
+    "column2": "Run energy restoration rate",
+    "column3": "Reduction (kg/)",
+    "column4": "Restoration (%/)",
     "template": "storetablehead"
   },
   {

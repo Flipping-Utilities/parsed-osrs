@@ -646,7 +646,7 @@
   },
   {
     "name": "Ancient Wyvern",
-    "location": "Wyvern Cave",
+    "location": "Wyvern Cave (Slayer task only)",
     "levels": "210",
     "members": "Yes",
     "mapid": "30",
@@ -661,7 +661,7 @@
   },
   {
     "name": "Ancient Wyvern",
-    "location": "Wyvern Cave (Slayer task only)",
+    "location": "Wyvern Cave",
     "levels": "210",
     "members": "Yes",
     "mapid": "30",
@@ -7930,111 +7930,6 @@
     "template": "locline"
   },
   {
-    "name": "Desert snake",
-    "location": "Pollnivneach",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3328,y:2952",
-      "x:3328,y:2957",
-      "x:3331,y:2955",
-      "x:3331,y:2961"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Desert snake",
-    "location": "North of Nardah",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3429,y:2976"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Desert snake",
-    "location": "North of Nardah",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3396,y:3029",
-      "x:3397,y:3044",
-      "x:3398,y:3038"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Desert snake",
-    "location": "North of Nardah",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3403,y:2963"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Desert snake",
-    "location": "Near the Smoke Dungeon entrance",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3266,y:2955",
-      "x:3271,y:2967",
-      "x:3279,y:2957",
-      "x:3280,y:2975",
-      "x:3284,y:2959",
-      "x:3294,y:2964",
-      "x:3295,y:2978",
-      "x:3305,y:2966",
-      "x:3307,y:2959",
-      "x:3309,y:2973"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Desert snake",
-    "location": "The genie's crevice west of Nardah",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "10070",
-    "plane": "0",
-    "list": [
-      "x:3371,y:9301",
-      "x:3371,y:9303",
-      "x:3371,y:9305",
-      "x:3371,y:9307",
-      "x:3371,y:9309",
-      "x:3373,y:9301",
-      "x:3373,y:9303",
-      "x:3373,y:9306",
-      "x:3373,y:9308",
-      "x:3375,y:9301",
-      "x:3375,y:9303",
-      "x:3375,y:9305",
-      "x:3375,y:9307",
-      "x:3375,y:9309"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
     "name": "Deviant spectre",
     "location": "Catacombs of Kourend",
     "levels": "169",
@@ -8045,19 +7940,7 @@
       "x:1646,y:9988",
       "x:1651,y:9989",
       "x:1656,y:9987",
-      "x:1657,y:9990"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Deviant spectre",
-    "location": "Catacombs of Kourend",
-    "levels": "169",
-    "members": "Yes",
-    "mapid": "32",
-    "plane": "0",
-    "list": [
+      "x:1657,y:9990",
       "x:1602,y:10009",
       "x:1604,y:10013",
       "x:1606,y:10009",
@@ -18552,7 +18435,7 @@
       "x:2318,y:3891",
       "x:2321,y:3894",
       "x:2403,y:3856,title:Variant 1",
-      "x:2408,y:3859,title:Variant 3"
+      "x:2408,y:3859,title:Variant 2,icon:bluePin"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -18566,14 +18449,7 @@
     "plane": "0",
     "list": [
       "x:2416,y:10272",
-      "x:2419,y:10282",
-      "x:2420,y:10274",
-      "x:2381,y:10285",
-      "x:2382,y:10275",
-      "x:2388,y:10272",
-      "x:2388,y:10283",
-      "x:2393,y:10280",
-      "x:2398,y:10278"
+      "x:2419,y:10282"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -18596,7 +18472,7 @@
   {
     "name": "Ice troll grunt",
     "location": "Fremennik Isles",
-    "levels": "102",
+    "levels": "100",
     "members": "Yes",
     "mapid": "0",
     "plane": "0",
@@ -18612,17 +18488,14 @@
   {
     "name": "Ice troll grunt",
     "location": "Ice Troll Caves",
-    "levels": "102",
+    "levels": "100",
     "members": "Yes",
     "mapid": "11",
     "plane": "0",
     "list": [
       "x:2413,y:10265",
       "x:2414,y:10277",
-      "x:2420,y:10270",
-      "x:2383,y:10281",
-      "x:2388,y:10277",
-      "x:2394,y:10274"
+      "x:2420,y:10270"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -18638,11 +18511,11 @@
       "x:2344,y:3893",
       "x:2359,y:3892",
       "x:2376,y:3892",
-      "x:2394,y:3866,title: Variant 1",
-      "x:2398,y:3853,title: Variant 1",
-      "x:2400,y:3857,title:Variant 2",
-      "x:2408,y:3863,title:Variant 1",
-      "x:2418,y:3866,title:Variant 2",
+      "x:2394,y:3866",
+      "x:2398,y:3853",
+      "x:2400,y:3857,title:Variant 2,icon:bluePin",
+      "x:2408,y:3863",
+      "x:2418,y:3866,title:Variant 2,icon:bluePin",
       "x:2320,y:3889",
       "x:2324,y:3860",
       "x:2343,y:3861",
@@ -18660,11 +18533,6 @@
     "mapid": "11",
     "plane": "0",
     "list": [
-      "x:2376,y:10280",
-      "x:2378,y:10271",
-      "x:2386,y:10268",
-      "x:2397,y:10271",
-      "x:2401,y:10285",
       "x:2415,y:10284",
       "x:2421,y:10266"
     ],
@@ -18699,16 +18567,16 @@
       "x:2370,y:3833",
       "x:2356,y:3831",
       "x:2365,y:3832",
-      "x:2325,y:3836",
-      "x:2329,y:3828",
+      "x:2325,y:3836,title:Variant 2,icon:bluePin",
+      "x:2329,y:3828,title:Variant 2,icon:bluePin",
       "x:2329,y:3832",
-      "x:2336,y:3835",
+      "x:2336,y:3835,title:Variant 2,icon:bluePin",
       "x:2321,y:3891",
       "x:2340,y:3892",
-      "x:2387,y:3869,title:Variant 2",
-      "x:2394,y:3862,title:Variant 1",
-      "x:2396,y:3856,title:Variant 2",
-      "x:2406,y:3865,title:Variant 1",
+      "x:2387,y:3869,title:Variant 2,icon:bluePin",
+      "x:2394,y:3862",
+      "x:2396,y:3856,title:Variant 2,icon:bluePin",
+      "x:2406,y:3865",
       "x:2325,y:3862",
       "x:2341,y:3862",
       "x:2354,y:3863"
@@ -18724,9 +18592,6 @@
     "mapid": "11",
     "plane": "0",
     "list": [
-      "x:2390,y:10286",
-      "x:2393,y:10286",
-      "x:2396,y:10286",
       "x:2406,y:10259",
       "x:2414,y:10257"
     ],
@@ -18742,7 +18607,7 @@
     "plane": "0",
     "list": [
       "x:2402,y:10225",
-      "x:2404,y:10215",
+      "x:2404,y:10215,title:Variant 2,icon:bluePin",
       "x:2408,y:10227",
       "x:2420,y:10215",
       "x:2378,y:10216"
@@ -21006,6 +20871,19 @@
     "plane": "0",
     "list": [
       "x:2875,y:3598"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Kraken",
+    "location": "Kraken Cove",
+    "levels": "291",
+    "members": "Yes",
+    "mapid": "19",
+    "plane": "0",
+    "list": [
+      "x:2281,y:10036"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -31411,19 +31289,6 @@
   },
   {
     "name": "Seagull",
-    "location": "Icyene Graveyard",
-    "levels": "3",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3683,y:3186"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Seagull",
     "location": "Ruins of Unkah",
     "levels": "2",
     "members": "Yes",
@@ -31451,6 +31316,19 @@
       "x:3510,y:3056",
       "x:3512,y:3057",
       "x:3511,y:3059"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Seagull",
+    "location": "Icyene Graveyard",
+    "levels": "3",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:3683,y:3186"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -33738,6 +33616,111 @@
       "x:3744,y:3004",
       "x:3756,y:2999",
       "x:3828,y:3058"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Desert snake",
+    "location": "Pollnivneach",
+    "levels": "5",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:3328,y:2952",
+      "x:3328,y:2957",
+      "x:3331,y:2955",
+      "x:3331,y:2961"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Desert snake",
+    "location": "North of Nardah",
+    "levels": "5",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:3429,y:2976"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Desert snake",
+    "location": "North of Nardah",
+    "levels": "5",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:3396,y:3029",
+      "x:3397,y:3044",
+      "x:3398,y:3038"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Desert snake",
+    "location": "North of Nardah",
+    "levels": "5",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:3403,y:2963"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Desert snake",
+    "location": "Near the Smoke Dungeon entrance",
+    "levels": "5",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:3266,y:2955",
+      "x:3271,y:2967",
+      "x:3279,y:2957",
+      "x:3280,y:2975",
+      "x:3284,y:2959",
+      "x:3294,y:2964",
+      "x:3295,y:2978",
+      "x:3305,y:2966",
+      "x:3307,y:2959",
+      "x:3309,y:2973"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Desert snake",
+    "location": "The genie's crevice west of Nardah",
+    "levels": "5",
+    "members": "Yes",
+    "mapid": "10070",
+    "plane": "0",
+    "list": [
+      "x:3371,y:9301",
+      "x:3371,y:9303",
+      "x:3371,y:9305",
+      "x:3371,y:9307",
+      "x:3371,y:9309",
+      "x:3373,y:9301",
+      "x:3373,y:9303",
+      "x:3373,y:9306",
+      "x:3373,y:9308",
+      "x:3375,y:9301",
+      "x:3375,y:9303",
+      "x:3375,y:9305",
+      "x:3375,y:9307",
+      "x:3375,y:9309"
     ],
     "mtype": "pin",
     "template": "locline"

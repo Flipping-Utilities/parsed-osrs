@@ -286,6 +286,34 @@
     "template": "map"
   },
   {
+    "type": "maplink",
+    "x": "3212",
+    "y": "3464",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3253",
+    "y": "3424",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3179",
+    "y": "3357",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3103",
+    "y": "3411",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "50% Luke",
     "x": "2121",
     "y": "5096",
@@ -704,8 +732,10 @@
   },
   {
     "name": "A flag",
-    "x": "3015",
-    "y": "3502",
+    "list": [
+      "x:3013,y:3502",
+      "x:3015,y:3502"
+    ],
     "mapid": "-1",
     "mtype": "pin",
     "template": "map"
@@ -740,163 +770,10 @@
     "template": "map"
   },
   {
+    "name": "Barrel (a small key)",
     "list": [
-      "3405,3390",
-      "3406,3375",
-      "3407,3391",
-      "3408,3359",
-      "3408,3384",
-      "3410,3363",
-      "3410,3381",
-      "3411,3385",
-      "3412,3375",
-      "3413,3347",
-      "3413,3359",
-      "3413,3388",
-      "3416,3356",
-      "3416,3391",
-      "3417,3375",
-      "3420,3370",
-      "3420,3388",
-      "3423,3386",
-      "3425,3377",
-      "3426,3340",
-      "3426,3385",
-      "3427,3358",
-      "3427,3372",
-      "3429,3384",
-      "3430,3348",
-      "3430,3386",
-      "3431,3329",
-      "3432,3390",
-      "3433,3361",
-      "3437,3348",
-      "3439,3350",
-      "3444,3360",
-      "3444,3387",
-      "3448,3357",
-      "3449,3360",
-      "3452,3383",
-      "3414,3404",
-      "3415,3434",
-      "3415,3436",
-      "3419,3394",
-      "3420,3416",
-      "3421,3409",
-      "3428,3450",
-      "3432,3399",
-      "3434,3428",
-      "3438,3406",
-      "3439,3416",
-      "3440,3408",
-      "3440,3414",
-      "3440,3432",
-      "3445,3437",
-      "3445,3449",
-      "3446,3447",
-      "3447,3412",
-      "3449,3408",
-      "3449,3428",
-      "3450,3394",
-      "3450,3415",
-      "3450,3434",
-      "3451,3401",
-      "3451,3443",
-      "3452,3441",
-      "3456,3339",
-      "3457,3354",
-      "3457,3362",
-      "3458,3349",
-      "3459,3369",
-      "3462,3355",
-      "3466,3346",
-      "3467,3361",
-      "3470,3365",
-      "3474,3349",
-      "3475,3366",
-      "3478,3369",
-      "3479,3353",
-      "3480,3334",
-      "3480,3365",
-      "3483,3390",
-      "3484,3335",
-      "3484,3350",
-      "3485,3367",
-      "3486,3390",
-      "3487,3359",
-      "3489,3376",
-      "3491,3336",
-      "3494,3332",
-      "3494,3356",
-      "3494,3381",
-      "3495,3355",
-      "3496,3360",
-      "3497,3350",
-      "3497,3364",
-      "3499,3367",
-      "3499,3390",
-      "3500,3332",
-      "3501,3329",
-      "3501,3380",
-      "3502,3348",
-      "3502,3369",
-      "3503,3341",
-      "3503,3381",
-      "3504,3335",
-      "3504,3345",
-      "3504,3372",
-      "3457,3402",
-      "3457,3443",
-      "3459,3412",
-      "3459,3438",
-      "3460,3407",
-      "3461,3431",
-      "3462,3424",
-      "3465,3417",
-      "3466,3427",
-      "3467,3432",
-      "3468,3408",
-      "3468,3415",
-      "3472,3414",
-      "3473,3403",
-      "3474,3418",
-      "3475,3402",
-      "3475,3449",
-      "3476,3429",
-      "3476,3433",
-      "3477,3421",
-      "3477,3445",
-      "3478,3437",
-      "3481,3425",
-      "3481,3440",
-      "3482,3428",
-      "3483,3443",
-      "3484,3405",
-      "3484,3408",
-      "3485,3411",
-      "3489,3411",
-      "3492,3413",
-      "3495,3419",
-      "3496,3446",
-      "3496,3450",
-      "3497,3422",
-      "3500,3422",
-      "3502,3438",
-      "3503,3440",
-      "3504,3402",
-      "3507,3418",
-      "3508,3402",
-      "3513,3415",
-      "3514,3432",
-      "3515,3411",
-      "3516,3443",
-      "3518,3403",
-      "3518,3409",
-      "3518,3441",
-      "3518,3449",
-      "3519,3404"
+      "3221,9910"
     ],
-    "plane": "0",
     "mapid": "-1",
     "mtype": "pin",
     "template": "map"
@@ -4706,15 +4583,6 @@
     "template": "map"
   },
   {
-    "name": "Apple orchard",
-    "x": "2480",
-    "y": "3380",
-    "height": "300",
-    "width": "300",
-    "zoom": "2",
-    "template": "map"
-  },
-  {
     "name": "Apple tree (scenery)",
     "list": [
       "x:2471,y:3384",
@@ -4804,6 +4672,15 @@
     "plane": "0",
     "mapid": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Apple orchard",
+    "x": "2480",
+    "y": "3380",
+    "height": "300",
+    "width": "300",
+    "zoom": "2",
     "template": "map"
   },
   {
@@ -5426,15 +5303,6 @@
     ],
     "mtype": "square",
     "r": "2",
-    "template": "map"
-  },
-  {
-    "name": "Archaeological expert",
-    "x": "3353",
-    "y": "3335",
-    "plane": "0",
-    "r": "4",
-    "mtype": "square",
     "template": "map"
   },
   {
@@ -6334,10 +6202,9 @@
   {
     "name": "Ashuelot Reis",
     "x": "2904",
-    "y": "5203",
-    "r": "5",
+    "y": "5205",
     "mapid": "-1",
-    "mtype": "square",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -9229,13 +9096,6 @@
     "template": "map"
   },
   {
-    "name": "Barrows",
-    "zoom": "2",
-    "x": "3567",
-    "y": "3291",
-    "template": "map"
-  },
-  {
     "list": [
       "3564,3315"
     ],
@@ -9855,6 +9715,14 @@
     "template": "map"
   },
   {
+    "name": "Bethan",
+    "x": "3222",
+    "y": "3400",
+    "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Betty",
     "x": "3014",
     "y": "3259",
@@ -10342,6 +10210,57 @@
       "3217,3242"
     ],
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "3808",
+    "y": "2974",
+    "list": [
+      "x:3783,y:2972",
+      "x:3805,y:2972",
+      "x:3833,y:2975"
+    ],
+    "mtype": "pin",
+    "group": "a",
+    "width": "600",
+    "height": "200",
+    "zoom": "3",
+    "template": "map"
+  },
+  {
+    "mtype": "polygon",
+    "list": [
+      "3814,2964",
+      "3797,2964",
+      "3797,2981",
+      "3814,2981",
+      "3814,2964"
+    ],
+    "group": "a",
+    "template": "map"
+  },
+  {
+    "mtype": "polygon",
+    "list": [
+      "3791,2964",
+      "3774,2964",
+      "3774,2981",
+      "3791,2981",
+      "3791,2964"
+    ],
+    "group": "a",
+    "template": "map"
+  },
+  {
+    "mtype": "polygon",
+    "list": [
+      "3842,2967",
+      "3825,2967",
+      "3825,2984",
+      "3842,2984",
+      "3842,2967"
+    ],
+    "group": "a",
     "template": "map"
   },
   {
@@ -11021,10 +10940,10 @@
   {
     "name": "Boaty",
     "list": [
-      "1343,3645",
-      "1368,3640",
-      "1383,3662",
-      "1405,3611"
+      "1343,3645,title:Molch",
+      "1368,3640,title:Molch Island",
+      "1383,3662,title:Battlefront",
+      "1405,3611,title:Shayzien"
     ],
     "mtype": "pin",
     "template": "map"
@@ -11873,6 +11792,31 @@
     "template": "map"
   },
   {
+    "name": "Bounty Hunter Shop",
+    "x": "3096",
+    "y": "3504",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Daimon's Crater",
+    "x": "3426",
+    "y": "4064",
+    "zoom": "1",
+    "template": "map"
+  },
+  {
+    "name": "Bounty Hunter portal",
+    "list": [
+      "3140,3622"
+    ],
+    "plane": "0",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Bouquet Mac Hyacinth",
     "x": "2102",
     "y": "3920",
@@ -12192,6 +12136,71 @@
     "r": "4",
     "mapid": "-1",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "2100",
+    "y": "4650",
+    "list": [
+      "x:2034,y:4727",
+      "x:2158,y:4724",
+      "x:2155,y:4718",
+      "x:2145,y:4717",
+      "x:2033,y:4701",
+      "x:2154,y:4690",
+      "x:2020,y:4678",
+      "x:1999,y:4674",
+      "x:2162,y:4663",
+      "x:2161,y:4637",
+      "x:2148,y:4614",
+      "x:2127,y:4610",
+      "x:2127,y:4592",
+      "x:2136,y:4584",
+      "x:2142,y:4562"
+    ],
+    "mtype": "pin",
+    "zoom": "0",
+    "plane": "1",
+    "mapid": "-1",
+    "group": "1",
+    "template": "map"
+  },
+  {
+    "x": "2100",
+    "y": "4650",
+    "list": [
+      "x:2033,y:4718",
+      "x:2155,y:4704",
+      "x:2032,y:4689",
+      "x:2121,y:4686",
+      "x:2164,y:4686",
+      "x:1995,y:4680",
+      "x:2161,y:4654",
+      "x:2160,y:4625",
+      "x:2123,y:4616",
+      "x:2143,y:4604",
+      "x:2161,y:4599",
+      "x:2147,y:4583",
+      "x:2123,y:4582",
+      "x:2156,y:4582",
+      "x:2126,y:4566"
+    ],
+    "mtype": "pin",
+    "zoom": "0",
+    "plane": "1",
+    "mapid": "-1",
+    "group": "2",
+    "template": "map"
+  },
+  {
+    "caption": "The chasm where a player lands after failing to cross a bridge.",
+    "mapid": "-1",
+    "zoom": "1",
+    "x": "2335",
+    "y": "9856",
+    "width": "160",
+    "height": "300",
+    "group": "3",
     "template": "map"
   },
   {
@@ -12599,6 +12608,15 @@
     ],
     "mapid": "-1",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Broken fence",
+    "list": [
+      "2866,3938"
+    ],
+    "mtype": "pin",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -14654,8 +14672,8 @@
   {
     "name": "Castle Wars portal",
     "zoom": "2",
-    "x": "3140",
-    "y": "3626",
+    "x": "3146",
+    "y": "3638",
     "mtype": "pin",
     "template": "map"
   },
@@ -15079,7 +15097,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance",
     "x": "2433",
     "y": "3313",
     "plane": "0",
@@ -15088,7 +15106,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance",
     "x": "2542",
     "y": "3740",
     "plane": "0",
@@ -15097,7 +15115,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance",
     "x": "2403",
     "y": "3418",
     "plane": "0",
@@ -15123,6 +15141,15 @@
     "template": "map"
   },
   {
+    "name": "Cave entrance",
+    "x": "2328",
+    "y": "3494",
+    "plane": "0",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Wilhelm",
     "x": "1993",
     "y": "4983",
@@ -15140,7 +15167,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (Keldagrim cave)",
     "x": "2781",
     "y": "10161",
     "mapid": "-1",
@@ -15175,7 +15202,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (Rantz's cave)",
     "x": "2629",
     "y": "2998",
     "mapid": "0",
@@ -15231,7 +15258,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (The Hollows)",
     "list": [
       "3467,9820",
       "3476,9806",
@@ -15248,7 +15275,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (The Kendal's cave)",
     "x": "2809",
     "y": "3703",
     "mapid": "-1",
@@ -15280,7 +15307,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (Trollweiss Dungeon)",
     "x": "2820",
     "y": "3743",
     "mapid": "0",
@@ -15297,7 +15324,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (Weiss)",
     "x": "2858",
     "y": "3966",
     "mapid": "0",
@@ -15323,7 +15350,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (from Ogre Enclave)",
     "x": "2598",
     "y": "9468",
     "mapid": "-1",
@@ -15331,7 +15358,7 @@
     "template": "map"
   },
   {
-    "name": "Cave_entrance",
+    "name": "Cave entrance",
     "x": "2412",
     "y": "5118",
     "plane": "0",
@@ -15350,7 +15377,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (south-east Wilderness)",
     "list": [
       "3300,3656",
       "3306,3654"
@@ -15361,16 +15388,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
-    "x": "2328",
-    "y": "3494",
-    "plane": "0",
-    "mapid": "0",
-    "mtype": "pin",
-    "template": "map"
-  },
-  {
-    "name": "Wilhelm",
+    "name": "Cave entrance (to Mor Ul Rek)",
     "x": "2863",
     "y": "9571",
     "plane": "0",
@@ -15379,7 +15397,7 @@
     "template": "map"
   },
   {
-    "name": "Wilhelm",
+    "name": "Cave entrance (to Ogre Enclave)",
     "x": "2504",
     "y": "3037",
     "mapid": "0",
@@ -15387,7 +15405,7 @@
     "template": "map"
   },
   {
-    "name": "Cave_entrance",
+    "name": "Cave entrance (to TzHaar Fight Caves)",
     "x": "2437",
     "y": "5166",
     "plane": "0",
@@ -15431,6 +15449,7 @@
   {
     "x": "1976",
     "y": "6218",
+    "plane": "3",
     "mapid": "-1",
     "mtype": "pin",
     "template": "map"
@@ -17386,7 +17405,8 @@
   },
   {
     "list": [
-      "2586,9734"
+      "2586,9734",
+      "2586,9737"
     ],
     "mtype": "pin",
     "mapid": "2",
@@ -18355,6 +18375,41 @@
     "template": "map"
   },
   {
+    "name": "Clay oven",
+    "list": [
+      "1648,3627",
+      "1677,3622",
+      "1680,3622",
+      "2342,3811"
+    ],
+    "plane": "0",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Clay oven",
+    "list": [
+      "3410,2937",
+      "3433,2885"
+    ],
+    "plane": "0",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Clay oven (non-working)",
+    "list": [
+      "2723,3271",
+      "2763,3273"
+    ],
+    "plane": "0",
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Cleaner",
     "x": "3252",
     "y": "3428",
@@ -18526,6 +18581,7 @@
     "template": "map"
   },
   {
+    "name": "Climbing rocks",
     "list": [
       "x:2561,y:3108"
     ],
@@ -19308,6 +19364,16 @@
     "r": "4",
     "mapid": "0",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Bounty Hunter portal",
+    "list": [
+      "3421,4070"
+    ],
+    "plane": "0",
+    "mapid": "0",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -20540,6 +20606,15 @@
     "template": "map"
   },
   {
+    "name": "Log",
+    "x": "3116",
+    "y": "3742",
+    "mtype": "square",
+    "r": "3",
+    "caption": "The location between a hollow log and fallen tree.",
+    "template": "map"
+  },
+  {
     "name": "Sir Vyvin",
     "x": "2984",
     "y": "3339",
@@ -20651,6 +20726,26 @@
     "r": "3",
     "mtype": "square",
     "caption": "Location of the chemist.",
+    "template": "map"
+  },
+  {
+    "name": "Narf",
+    "x": "2986",
+    "y": "3438",
+    "r": "3",
+    "mtype": "square",
+    "caption": "Location of Narf.",
+    "template": "map"
+  },
+  {
+    "name": "Convergence point",
+    "x": "3190",
+    "y": "3165",
+    "height": "220",
+    "width": "220",
+    "mtype": "pin",
+    "caption": "Where all four lines converge.",
+    "group": "swamp",
     "template": "map"
   },
   {
@@ -21070,6 +21165,19 @@
     "height": "300",
     "zoom": "2",
     "mapid": "32",
+    "plane": "0",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Crevice",
+    "x": "3046",
+    "y": "10332",
+    "r": "7",
+    "width": "300",
+    "height": "300",
+    "zoom": "2",
+    "mapid": "26",
     "plane": "0",
     "mtype": "square",
     "template": "map"
@@ -27012,6 +27120,14 @@
     "template": "map"
   },
   {
+    "name": "Hairdresser",
+    "x": "3255",
+    "y": "3464",
+    "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "list": [
       "2496,3136",
       "2496,3200",
@@ -31464,7 +31580,7 @@
     "template": "map"
   },
   {
-    "name": "Evil Bob",
+    "name": "Fishing spot (ScapeRune)",
     "x": "2527",
     "y": "4777",
     "mapid": "10057",
@@ -31636,6 +31752,76 @@
     "plane": "0",
     "r": "2",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "2620",
+    "y": "6155",
+    "list": [
+      "x:2598,y:6173",
+      "x:2606,y:6173",
+      "x:2640,y:6101",
+      "x:2648,y:6101"
+    ],
+    "plane": "2",
+    "zoom": "1",
+    "mapid": "-1",
+    "mtype": "pin",
+    "icon": "redPin",
+    "group": "start",
+    "template": "map"
+  },
+  {
+    "x": "2620",
+    "y": "6155",
+    "list": [
+      "x:2599,y:6173",
+      "x:2604,y:6173",
+      "x:2642,y:6101",
+      "x:2645,y:6101"
+    ],
+    "plane": "2",
+    "zoom": "1",
+    "mapid": "-1",
+    "mtype": "pin",
+    "icon": "redPin",
+    "group": "red",
+    "template": "map"
+  },
+  {
+    "x": "2620",
+    "y": "6155",
+    "list": [
+      "x:2601,y:6173",
+      "x:2605,y:6173",
+      "x:2644,y:6101",
+      "x:2646,y:6101"
+    ],
+    "plane": "2",
+    "zoom": "1",
+    "mapid": "-1",
+    "mtype": "pin",
+    "icon": "bluePin",
+    "group": "blue",
+    "template": "map"
+  },
+  {
+    "x": "2620",
+    "y": "6155",
+    "list": [
+      "x:2600,y:6173",
+      "x:2602,y:6173",
+      "x:2603,y:6173",
+      "x:2641,y:6101",
+      "x:2643,y:6101",
+      "x:2647,y:6101"
+    ],
+    "plane": "2",
+    "zoom": "1",
+    "mapid": "-1",
+    "mtype": "pin",
+    "icon": "greenPin",
+    "group": "green",
     "template": "map"
   },
   {
@@ -32250,6 +32436,20 @@
     "template": "map"
   },
   {
+    "name": "Friendly Forester",
+    "x": "3096",
+    "y": "3238",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Friendly Forester",
+    "x": "2727",
+    "y": "3480",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "3066,3456",
       "3066,3519",
@@ -32634,6 +32834,47 @@
       "3373,3892"
     ],
     "mtype": "polygon",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3366,3899",
+      "3367,3899",
+      "3367,3898",
+      "3368,3898",
+      "3368,3897",
+      "3369,3897",
+      "3369,3896",
+      "3368,3896",
+      "3368,3893",
+      "3367,3893",
+      "3367,3890",
+      "3377,3890",
+      "3377,3889",
+      "3378,3889",
+      "3378,3888",
+      "3379,3888",
+      "3379,3887",
+      "3380,3887",
+      "3380,3886",
+      "3381,3886",
+      "3381,3885",
+      "3381,3885",
+      "3388,3885",
+      "3388,3895",
+      "3387,3896",
+      "3386,3897",
+      "3385,3898",
+      "3384,3899",
+      "3383,3900",
+      "3382,3901",
+      "3381,3902",
+      "3380,3903",
+      "3366,3903"
+    ],
+    "zoom": "3",
+    "mtype": "polygon",
+    "caption": "The range of the Fountain of Rune's effects.",
     "template": "map"
   },
   {
@@ -35431,35 +35672,6 @@
     "mapid": "10003",
     "zoom": "3",
     "mtype": "pin",
-    "template": "map"
-  },
-  {
-    "mtype": "pin",
-    "list": [
-      "x:3323,y:3195",
-      "x:3323,y:3193",
-      "x:3316,y:3186",
-      "x:3316,y:3178",
-      "x:3318,y:3175",
-      "x:3316,y:3173",
-      "x:3318,y:3163",
-      "x:3313,y:3163",
-      "x:3301,y:3166",
-      "x:3301,y:3167",
-      "x:3300,y:3178",
-      "x:3302,y:3178",
-      "x:3285,y:3178",
-      "x:3283,y:3178",
-      "x:3284,y:3167",
-      "x:3268,y:3162",
-      "x:3268,y:3172",
-      "x:3273,y:3179",
-      "x:3275,y:3184",
-      "x:3275,y:3188",
-      "x:3288,y:3192",
-      "x:3285,y:3192,icon:greyPin,desc:These glyphs are on the upper floor.",
-      "x:3290,y:3192,icon:greyPin,desc:These glyphs are on the upper floor."
-    ],
     "template": "map"
   },
   {
@@ -40154,14 +40366,6 @@
     "template": "map"
   },
   {
-    "x": "3099",
-    "y": "3373",
-    "mtype": "pin",
-    "icon": "bluePin",
-    "type": "maplink",
-    "template": "map"
-  },
-  {
     "name": "Hooknosed Jack",
     "x": "3269",
     "y": "3401",
@@ -44062,6 +44266,7 @@
     "template": "map"
   },
   {
+    "name": "Jutting wall",
     "list": [
       "x:3066,y:10148"
     ],
@@ -44341,6 +44546,14 @@
     "zoom": "0",
     "x": "2843",
     "y": "3070",
+    "template": "map"
+  },
+  {
+    "x": "2919",
+    "y": "3030",
+    "r": "4",
+    "mtype": "square",
+    "caption": "The closest approximate location of the painter.",
     "template": "map"
   },
   {
@@ -45341,6 +45554,13 @@
     "plane": "0",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Klaus",
+    "x": "3252",
+    "y": "3424",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -47961,9 +48181,7 @@
   {
     "name": "Lighthouse",
     "x": "2509",
-    "y": "3640",
-    "height": "250",
-    "width": "250",
+    "y": "3641",
     "zoom": "2",
     "template": "map"
   },
@@ -48226,7 +48444,7 @@
     "template": "map"
   },
   {
-    "name": "Little crack (God Wars Dungeon)",
+    "name": "Little crack",
     "x": "2901",
     "y": "3712",
     "r": "5",
@@ -49116,6 +49334,14 @@
     "template": "map"
   },
   {
+    "name": "Lost Property shop (Daimon's Crater",
+    "x": "3420",
+    "y": "4069",
+    "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "list": [
       "2240,3072",
       "2240,3136",
@@ -49288,6 +49514,14 @@
     "width": "300",
     "height": "300",
     "zoom": "2",
+    "template": "map"
+  },
+  {
+    "name": "Love",
+    "x": "3220",
+    "y": "3395",
+    "r": "3",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -49544,6 +49778,14 @@
     "height": "250",
     "caption": "Hatius Cosaintus's location.",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "3218",
+    "y": "3282",
+    "r": "4",
+    "mtype": "square",
+    "caption": "The approximate location of the painter.",
     "template": "map"
   },
   {
@@ -51077,6 +51319,13 @@
     "template": "map"
   },
   {
+    "name": "Marissa",
+    "x": "3215",
+    "y": "3460",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Marius",
     "x": "3516",
     "y": "3210",
@@ -52427,6 +52676,13 @@
     "template": "map"
   },
   {
+    "name": "Klaus",
+    "x": "3104",
+    "y": "3408",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "2624,4672",
       "2624,4736",
@@ -52762,6 +53018,14 @@
     "plane": "0",
     "mapid": "-1",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "2392",
+    "y": "4630",
+    "mapid": "10107",
+    "mtype": "pin",
+    "group": "pinex",
     "template": "map"
   },
   {
@@ -55796,19 +56060,6 @@
     "template": "map"
   },
   {
-    "name": "Narrow crevice (Deep Wilderness Dungeon)",
-    "x": "3046",
-    "y": "10332",
-    "r": "7",
-    "width": "300",
-    "height": "300",
-    "zoom": "2",
-    "mapid": "26",
-    "plane": "0",
-    "mtype": "square",
-    "template": "map"
-  },
-  {
     "name": "Narrow crevice (Dwarven Mine)",
     "x": "3032",
     "y": "9807",
@@ -57357,6 +57608,19 @@
     "template": "map"
   },
   {
+    "name": "Pipe squeeze (Yanille Agility dungeon)",
+    "x": "2577",
+    "y": "9507",
+    "r": "2",
+    "width": "400",
+    "height": "400",
+    "zoom": "3",
+    "mapid": "27",
+    "plane": "0",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "list": [
       "1367,3631"
     ],
@@ -58107,15 +58371,6 @@
     ],
     "mtype": "pin",
     "ptype": "object",
-    "template": "map"
-  },
-  {
-    "list": [
-      "x:2477,y:4940"
-    ],
-    "plane": "0",
-    "mapid": "-1",
-    "mtype": "pin",
     "template": "map"
   },
   {
@@ -59681,6 +59936,16 @@
     "template": "map"
   },
   {
+    "mapid": "-1",
+    "list": [
+      "3748,5667"
+    ],
+    "squarex": "1",
+    "squarey": "14",
+    "mtype": "rectangle",
+    "template": "map"
+  },
+  {
     "list": [
       "2398,3870"
     ],
@@ -60438,7 +60703,7 @@
     "template": "map"
   },
   {
-    "name": "Pile of rubble (Yanille Agility dungeon)",
+    "name": "Pile of rubble (Yanille Agility Dungeon)",
     "x": "2620",
     "y": "9499",
     "r": "5",
@@ -60451,7 +60716,7 @@
     "template": "map"
   },
   {
-    "name": "Pile of rubble (Yanille Agility dungeon)",
+    "name": "Pile of rubble (Yanille Agility Dungeon)",
     "x": "2616",
     "y": "9572",
     "r": "5",
@@ -60525,6 +60790,41 @@
       "x:1981,y:8996"
     ],
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "2",
+    "list": [
+      "1818,5228",
+      "1829,5228",
+      "1818,5217",
+      "1829,5217"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "list": [
+      "1299,10015",
+      "1316,10015",
+      "1299,9998",
+      "1316,9998",
+      "1364,10011",
+      "1386,10011",
+      "1364,10001",
+      "1386,10001",
+      "1299,9894",
+      "1320,9894",
+      "1299,9888",
+      "1320,9888",
+      "1420,9835",
+      "1435,9835",
+      "1420,9813",
+      "1435,9813"
+    ],
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -60648,6 +60948,16 @@
     "template": "map"
   },
   {
+    "name": "Pipe (Brimhaven Dungeon Red Dragon)",
+    "x": "2698",
+    "y": "9497",
+    "squarex": "6",
+    "squarey": "8",
+    "mapid": "9",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Brimhaven Dungeon",
     "x": "2655",
     "y": "9570",
@@ -60694,29 +61004,6 @@
     "template": "map"
   },
   {
-    "name": "Pipe squeeze (Brimhaven Dungeon Red Dragon)",
-    "x": "2698",
-    "y": "9497",
-    "squarex": "6",
-    "squarey": "8",
-    "mapid": "9",
-    "mtype": "square",
-    "template": "map"
-  },
-  {
-    "name": "Pipe squeeze (Yanille Agility dungeon)",
-    "x": "2577",
-    "y": "9507",
-    "r": "2",
-    "width": "400",
-    "height": "400",
-    "zoom": "3",
-    "mapid": "27",
-    "plane": "0",
-    "mtype": "square",
-    "template": "map"
-  },
-  {
     "mapid": "10022",
     "list": [
       "x:1943,y:4961",
@@ -60749,6 +61036,40 @@
     "plane": "1",
     "r": "1",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "title": "Pirate Flag (red)",
+    "x": "3808",
+    "y": "2976",
+    "list": [
+      "x:3828,y:2997",
+      "x:3832,y:2997",
+      "x:3804,y:2994",
+      "x:3808,y:2994",
+      "x:3823,y:2994",
+      "x:3825,y:2994"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "group": "red",
+    "template": "map"
+  },
+  {
+    "title": "Pirate Flag (blue)",
+    "x": "3808",
+    "y": "2976",
+    "list": [
+      "x:3807,y:2957",
+      "x:3812,y:2957",
+      "x:3824,y:2957",
+      "x:3827,y:2956",
+      "x:3799,y:2953",
+      "x:3803,y:2953"
+    ],
+    "mtype": "pin",
+    "icon": "bluePin",
+    "group": "blue",
     "template": "map"
   },
   {
@@ -60798,40 +61119,6 @@
     "plane": "0",
     "mapid": "-1",
     "mtype": "pin",
-    "template": "map"
-  },
-  {
-    "title": "Pirate flag (red)",
-    "x": "3808",
-    "y": "2976",
-    "list": [
-      "x:3828,y:2997",
-      "x:3832,y:2997",
-      "x:3804,y:2994",
-      "x:3808,y:2994",
-      "x:3823,y:2994",
-      "x:3825,y:2994"
-    ],
-    "mtype": "pin",
-    "icon": "redPin",
-    "group": "red",
-    "template": "map"
-  },
-  {
-    "title": "Pirate flag (blue)",
-    "x": "3808",
-    "y": "2976",
-    "list": [
-      "x:3807,y:2957",
-      "x:3812,y:2957",
-      "x:3824,y:2957",
-      "x:3827,y:2956",
-      "x:3799,y:2953",
-      "x:3803,y:2953"
-    ],
-    "mtype": "pin",
-    "icon": "bluePin",
-    "group": "blue",
     "template": "map"
   },
   {
@@ -61365,6 +61652,16 @@
     "list": [
       "3128,3638",
       "3128,3633"
+    ],
+    "plane": "0",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Pool of Refreshment",
+    "list": [
+      "3430,4065"
     ],
     "plane": "0",
     "mapid": "0",
@@ -62929,6 +63226,13 @@
     "template": "map"
   },
   {
+    "name": "Protest Banners",
+    "x": "1671",
+    "y": "3676",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Protest Leader",
     "x": "1664",
     "y": "3670",
@@ -63203,6 +63507,14 @@
     "width": "250",
     "height": "250",
     "caption": "The entrance to the cave.",
+    "template": "map"
+  },
+  {
+    "name": "Quinton",
+    "x": "3222",
+    "y": "3400",
+    "r": "4",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -65256,6 +65568,12 @@
     "template": "map"
   },
   {
+    "x": "3253",
+    "y": "3459",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Rionasta",
     "x": "2783",
     "y": "3092",
@@ -65417,21 +65735,6 @@
     "x": "1794",
     "y": "3757",
     "r": "4",
-    "mtype": "square",
-    "template": "map"
-  },
-  {
-    "name": "Wardrobe",
-    "x": "3099",
-    "y": "3373",
-    "mtype": "pin",
-    "template": "map"
-  },
-  {
-    "name": "Betty",
-    "x": "3014",
-    "y": "3259",
-    "r": "3",
     "mtype": "square",
     "template": "map"
   },
@@ -65599,6 +65902,20 @@
     "template": "map"
   },
   {
+    "list": [
+      "2983,3381",
+      "2985,3385",
+      "3002,3370",
+      "3004,3370",
+      "3006,3370",
+      "2571,3338",
+      "2573,3338",
+      "2578,3337"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Rockfall",
     "list": [
       "x:3719,y:5664",
@@ -65713,7 +66030,7 @@
     "template": "map"
   },
   {
-    "name": "Rocks (Corsair Cove Resource Area)",
+    "name": "Rocks",
     "x": "2486",
     "y": "2898",
     "r": "5",
@@ -67366,6 +67683,128 @@
     "mapid": "0",
     "mtype": "pin",
     "group": "22",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3557,9782",
+      "3565,9780",
+      "2469,5437",
+      "2466,5433",
+      "2407,4381",
+      "3059,3595",
+      "3056,3590",
+      "2981,3517",
+      "2978,3513",
+      "3305,3477",
+      "3052,3442",
+      "2988,3293",
+      "2984,3289",
+      "3309,3256",
+      "3317,3254",
+      "3184,3161",
+      "2870,3023"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2471,5438",
+      "2466,5435",
+      "2471,5431",
+      "2409,4381",
+      "2409,4374",
+      "3061,3595",
+      "3056,3592",
+      "3064,3592",
+      "3061,3587",
+      "2983,3518",
+      "2978,3515",
+      "2983,3511",
+      "3307,3477",
+      "3307,3471",
+      "3052,3448",
+      "3050,3446",
+      "3056,3446",
+      "3054,3442",
+      "2859,3377",
+      "3317,3256",
+      "3309,3254",
+      "3181,3166",
+      "3189,3166",
+      "3186,3161",
+      "2865,3018",
+      "2873,3018",
+      "2868,3015",
+      "2447,2828"
+    ],
+    "mtype": "pin",
+    "group": "2",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2473,5435",
+      "2404,4378",
+      "2412,4376",
+      "3061,3589",
+      "2985,3515",
+      "3314,3259",
+      "3312,3251",
+      "2865,3020",
+      "2449,2825"
+    ],
+    "mtype": "pin",
+    "group": "3",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2984,3295",
+      "2986,3289"
+    ],
+    "mtype": "pin",
+    "group": "4",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2988,3291"
+    ],
+    "mtype": "pin",
+    "group": "5",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "list": [
+      "3233,4838",
+      "3231,4828"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "list": [
+      "3234,4838",
+      "3233,4836",
+      "3229,4829"
+    ],
+    "mtype": "pin",
+    "group": "2",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "list": [
+      "3229,4835"
+    ],
+    "mtype": "pin",
+    "group": "3",
     "template": "map"
   },
   {
@@ -69283,6 +69722,12 @@
     "template": "map"
   },
   {
+    "x": "2561",
+    "y": "3278",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "x:2621,y:9835"
     ],
@@ -70515,6 +70960,14 @@
     "plane": "0",
     "r": "2",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Shelf",
+    "list": [
+      "3259,3465"
+    ],
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -73793,6 +74246,72 @@
     "template": "map"
   },
   {
+    "mapid": "0",
+    "plane": "1",
+    "type": "maplink",
+    "mtype": "pin",
+    "list": [
+      "3413,3550,title:Aberrant spectre",
+      "3424,3551,title:Aberrant spectre",
+      "3428,3543,title:Aberrant spectre",
+      "3428,3551,title:Aberrant spectre",
+      "3438,3549,title:Aberrant spectre",
+      "3411,3534,title:Aberrant spectre",
+      "3423,3542,title:Aberrant spectre",
+      "3435,3545,title:Aberrant spectre",
+      "3442,3550,title:Aberrant spectre",
+      "3413,3545,title:Aberrant spectre",
+      "3420,3537,title:Aberrant spectre",
+      "3427,3539,title:Aberrant spectre",
+      "3431,3548,title:Aberrant spectre",
+      "3442,3544,title:Aberrant spectre"
+    ],
+    "template": "map"
+  },
+  {
+    "mapid": "19",
+    "plane": "0",
+    "type": "maplink",
+    "mtype": "pin",
+    "list": [
+      "2443,9785,title:Aberrant spectre",
+      "2444,9777,title:Aberrant spectre",
+      "2456,9777,title:Aberrant spectre",
+      "2470,9782,title:Aberrant spectre",
+      "2471,9776,title:Aberrant spectre",
+      "2452,9794,title:Aberrant spectre",
+      "2460,9793,title:Aberrant spectre",
+      "2441,9775,title:Aberrant spectre",
+      "2443,9781,title:Aberrant spectre",
+      "2456,9790,title:Aberrant spectre",
+      "2458,9780,title:Aberrant spectre",
+      "2459,9774,title:Aberrant spectre",
+      "2468,9778,title:Aberrant spectre"
+    ],
+    "template": "map"
+  },
+  {
+    "mapid": "32",
+    "plane": "0",
+    "type": "maplink",
+    "mtype": "pin",
+    "list": [
+      "1646,9988,title:Deviant spectre,icon:redPin",
+      "1651,9989,title:Deviant spectre,icon:redPin",
+      "1656,9987,title:Deviant spectre,icon:redPin",
+      "1657,9990,title:Deviant spectre,icon:redPin",
+      "1602,10009,title:Deviant spectre,icon:redPin",
+      "1604,10013,title:Deviant spectre,icon:redPin",
+      "1606,10009,title:Deviant spectre,icon:redPin",
+      "1606,10015,title:Deviant spectre,icon:redPin",
+      "1609,10011,title:Deviant spectre,icon:redPin",
+      "1619,10007,title:Deviant spectre,icon:redPin",
+      "1619,10010,title:Deviant spectre,icon:redPin",
+      "1621,10004,title:Deviant spectre,icon:redPin"
+    ],
+    "template": "map"
+  },
+  {
     "mapid": "32",
     "type": "maplink",
     "mtype": "pin",
@@ -75600,6 +76119,168 @@
   },
   {
     "list": [
+      "3405,3390",
+      "3406,3375",
+      "3407,3391",
+      "3408,3359",
+      "3408,3384",
+      "3410,3363",
+      "3410,3381",
+      "3411,3385",
+      "3412,3375",
+      "3413,3347",
+      "3413,3359",
+      "3413,3388",
+      "3416,3356",
+      "3416,3391",
+      "3417,3375",
+      "3420,3370",
+      "3420,3388",
+      "3423,3386",
+      "3425,3377",
+      "3426,3340",
+      "3426,3385",
+      "3427,3358",
+      "3427,3372",
+      "3429,3384",
+      "3430,3348",
+      "3430,3386",
+      "3431,3329",
+      "3432,3390",
+      "3433,3361",
+      "3437,3348",
+      "3439,3350",
+      "3444,3360",
+      "3444,3387",
+      "3448,3357",
+      "3449,3360",
+      "3452,3383",
+      "3414,3404",
+      "3415,3434",
+      "3415,3436",
+      "3419,3394",
+      "3420,3416",
+      "3421,3409",
+      "3428,3450",
+      "3432,3399",
+      "3434,3428",
+      "3438,3406",
+      "3439,3416",
+      "3440,3408",
+      "3440,3414",
+      "3440,3432",
+      "3445,3437",
+      "3445,3449",
+      "3446,3447",
+      "3447,3412",
+      "3449,3408",
+      "3449,3428",
+      "3450,3394",
+      "3450,3415",
+      "3450,3434",
+      "3451,3401",
+      "3451,3443",
+      "3452,3441",
+      "3456,3339",
+      "3457,3354",
+      "3457,3362",
+      "3458,3349",
+      "3459,3369",
+      "3462,3355",
+      "3466,3346",
+      "3467,3361",
+      "3470,3365",
+      "3474,3349",
+      "3475,3366",
+      "3478,3369",
+      "3479,3353",
+      "3480,3334",
+      "3480,3365",
+      "3483,3390",
+      "3484,3335",
+      "3484,3350",
+      "3485,3367",
+      "3486,3390",
+      "3487,3359",
+      "3489,3376",
+      "3491,3336",
+      "3494,3332",
+      "3494,3356",
+      "3494,3381",
+      "3495,3355",
+      "3496,3360",
+      "3497,3350",
+      "3497,3364",
+      "3499,3367",
+      "3499,3390",
+      "3500,3332",
+      "3501,3329",
+      "3501,3380",
+      "3502,3348",
+      "3502,3369",
+      "3503,3341",
+      "3503,3381",
+      "3504,3335",
+      "3504,3345",
+      "3504,3372",
+      "3457,3402",
+      "3457,3443",
+      "3459,3412",
+      "3459,3438",
+      "3460,3407",
+      "3461,3431",
+      "3462,3424",
+      "3465,3417",
+      "3466,3427",
+      "3467,3432",
+      "3468,3408",
+      "3468,3415",
+      "3472,3414",
+      "3473,3403",
+      "3474,3418",
+      "3475,3402",
+      "3475,3449",
+      "3476,3429",
+      "3476,3433",
+      "3477,3421",
+      "3477,3445",
+      "3478,3437",
+      "3481,3425",
+      "3481,3440",
+      "3482,3428",
+      "3483,3443",
+      "3484,3405",
+      "3484,3408",
+      "3485,3411",
+      "3489,3411",
+      "3492,3413",
+      "3495,3419",
+      "3496,3446",
+      "3496,3450",
+      "3497,3422",
+      "3500,3422",
+      "3502,3438",
+      "3503,3440",
+      "3504,3402",
+      "3507,3418",
+      "3508,3402",
+      "3513,3415",
+      "3514,3432",
+      "3515,3411",
+      "3516,3443",
+      "3518,3403",
+      "3518,3409",
+      "3518,3441",
+      "3518,3449",
+      "3519,3404"
+    ],
+    "plane": "0",
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
       "2570,5192",
       "2573,5193",
       "2569,5199",
@@ -77176,7 +77857,7 @@
     "mapid": "-1",
     "mtype": "polygon",
     "smw": "hist",
-    "caption": "Location before 2021 and on Clasic mode",
+    "caption": "Location before 2021 and on Classic mode",
     "template": "map"
   },
   {
@@ -78684,6 +79365,15 @@
     "template": "map"
   },
   {
+    "list": [
+      "x:2477,y:4940"
+    ],
+    "plane": "0",
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Stone Relief",
     "x": "1809",
     "y": "9959",
@@ -79862,40 +80552,6 @@
     "template": "map"
   },
   {
-    "name": "Summoned Soul",
-    "list": [
-      "1240,1256",
-      "1239,1256",
-      "1241,1256",
-      "1304,1320",
-      "1303,1320",
-      "1305,1320",
-      "1368,1256",
-      "1367,1256",
-      "1369,1256"
-    ],
-    "mtype": "pin",
-    "mapid": "10030",
-    "template": "map"
-  },
-  {
-    "name": "Summoned Soul",
-    "list": [
-      "1240,1256",
-      "1239,1256",
-      "1241,1256",
-      "1304,1320",
-      "1303,1320",
-      "1305,1320",
-      "1368,1256",
-      "1367,1256",
-      "1369,1256"
-    ],
-    "mtype": "pin",
-    "mapid": "10030",
-    "template": "map"
-  },
-  {
     "list": [
       "3200,2944",
       "3200,3008",
@@ -79990,9 +80646,8 @@
   {
     "name": "Supplies",
     "list": [
-      "x:3140,y:3624",
-      "x:3128,y:3618",
-      "x:3140,y:3618"
+      "x:3130,y:3623",
+      "x:3130,y:3619"
     ],
     "mtype": "pin",
     "template": "map"
@@ -80084,6 +80739,14 @@
     "x": "3271",
     "y": "3148",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Hairdresser",
+    "x": "3255",
+    "y": "3464",
+    "r": "4",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -80259,7 +80922,7 @@
   {
     "x": "3364",
     "y": "9638",
-    "plane": "0",
+    "plane": "2",
     "r": "4",
     "mapid": "-1",
     "mtype": "square",
@@ -80276,7 +80939,7 @@
     "template": "map"
   },
   {
-    "name": "Sweetgrub sign",
+    "name": "Sweetgrub Sign",
     "list": [
       "3815,3004",
       "3818,2947"
@@ -80347,6 +81010,14 @@
     "name": "Sylvia",
     "x": "3216",
     "y": "3406",
+    "template": "map"
+  },
+  {
+    "name": "Tabbitha",
+    "x": "3222",
+    "y": "3400",
+    "r": "4",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -80808,6 +81479,15 @@
       "x:2772,y:3679"
     ],
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Tamayu",
+    "x": "2838",
+    "y": "3044",
+    "plane": "0",
+    "r": "4",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -81819,6 +82499,15 @@
     "y": "3502",
     "plane": "0",
     "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Archaeological expert",
+    "x": "3353",
+    "y": "3335",
+    "plane": "0",
+    "r": "4",
     "mtype": "square",
     "template": "map"
   },
@@ -84743,6 +85432,14 @@
     "template": "map"
   },
   {
+    "x": "3168",
+    "y": "2979",
+    "r": "4",
+    "mtype": "square",
+    "caption": "The closest approximate location of the painter.",
+    "template": "map"
+  },
+  {
     "name": "The middle of a fireplace",
     "list": [
       "x:3700,y:3340",
@@ -84903,6 +85600,13 @@
     "list": [
       "2891,3676"
     ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Thomas",
+    "x": "3182",
+    "y": "3356",
     "mtype": "pin",
     "template": "map"
   },
@@ -87005,7 +87709,7 @@
     "template": "map"
   },
   {
-    "name": "Tree Gnome Village dungeon",
+    "name": "Tree Gnome Village Dungeon",
     "list": [
       "2530,9570"
     ],
@@ -92229,8 +92933,6 @@
       "2848,9877"
     ],
     "mapid": "20",
-    "height": "160",
-    "width": "280",
     "template": "map"
   },
   {
@@ -92750,6 +93452,13 @@
     "template": "map"
   },
   {
+    "mtype": "pin",
+    "list": [
+      "x:3687,y:3221,icon:greenPin,desc:Window"
+    ],
+    "template": "map"
+  },
+  {
     "name": "Wine Shop.",
     "x": "3085",
     "y": "3253",
@@ -92817,7 +93526,7 @@
   },
   {
     "name": "Wintertoad",
-    "x": "1632",
+    "x": "1636",
     "y": "3941",
     "r": "10",
     "mtype": "square",
@@ -94013,6 +94722,7 @@
     "template": "map"
   },
   {
+    "group": "swamp",
     "list": [
       "3532,3447",
       "3536,3451",
@@ -94045,6 +94755,7 @@
     "template": "map"
   },
   {
+    "group": "orange",
     "list": [
       "3403,3100",
       "3404,3092",
@@ -94063,6 +94774,7 @@
     "template": "map"
   },
   {
+    "group": "red",
     "list": [
       "2447,3225",
       "2449,3228",
@@ -94079,6 +94791,7 @@
     "template": "map"
   },
   {
+    "group": "black",
     "list": [
       "3294,3669",
       "3294,3672",

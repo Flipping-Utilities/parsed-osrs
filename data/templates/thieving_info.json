@@ -252,6 +252,7 @@
     "xp": "650",
     "type": "Chest",
     "tool": "Lockpick",
+    "boostable": "No",
     "template": "thieving info"
   },
   {
@@ -985,7 +986,7 @@
     "template": "thieving info"
   },
   {
-    "name": "Wine stall",
+    "name": "Market stall (wine)",
     "level": "22",
     "xp": "27",
     "type": "Stall",
@@ -1229,6 +1230,13 @@
     "template": "thieving info"
   },
   {
+    "name": "Priest",
+    "level": "45",
+    "xp": "0",
+    "type": "Pickpocket",
+    "template": "thieving info"
+  },
+  {
     "name": "Remus Kaninus",
     "level": "82",
     "xp": "306.9",
@@ -1309,7 +1317,7 @@
     "template": "thieving info"
   },
   {
-    "name": "Ore stall",
+    "name": "Shop Counter",
     "level": "82",
     "xp": "180",
     "type": "Stall",
