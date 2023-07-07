@@ -5,6 +5,8 @@ export interface Item {
   name: string;
   // Image url
   image?: string | string[];
+  // List of alternative names for this item, from the redirected pages
+  aliases?: string[];
   // Examine text
   examine: string;
   // Can this item be traded between players
