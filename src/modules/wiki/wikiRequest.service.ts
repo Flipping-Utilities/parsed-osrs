@@ -14,6 +14,7 @@ export interface CategorySearch extends ApiQueryBase {
   continue: {
     cmcontinue: string;
     continue: string;
+    eicontinue: string;
   };
   limits: {
     categorymembers: number;
@@ -27,6 +28,7 @@ export interface PageSearch extends ApiQueryBase {
   continue: {
     apcontinue: string;
     continue: string;
+    eicontinue: string;
   };
   limits: {
     allpages: number;
@@ -83,8 +85,8 @@ export class WikiRequestService {
   }
 
   public async queryAllPagesPromise<T>(
-    paginationKey: 'cmcontinue' | 'apcontinue',
-    resultKey: 'categorymembers' | 'allpages',
+    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue',
+    resultKey: 'categorymembers' | 'allpages' | 'embeddedin',
     params: { action: string } & Record<string, string>
   ) {
     const result: T[] = [];
@@ -101,11 +103,11 @@ export class WikiRequestService {
   }
 
   public queryAllPages = async function* <T>(
-    paginationKey: 'cmcontinue' | 'apcontinue',
-    resultKey: 'categorymembers' | 'allpages',
+    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue',
+    resultKey: 'categorymembers' | 'allpages' | 'embeddedin',
     params: { action: string } & Record<string, string>
   ): AsyncGenerator<T[]> {
-    let next = '';
+    let next: string | undefined = undefined;
     let hasNext = true;
     let i = 0;
     do {
