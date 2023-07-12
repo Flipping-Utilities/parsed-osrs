@@ -1,5 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFile, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { load } from 'cheerio';
+
 // @ts-ignore
 import { ALL_SETS } from '../../constants/paths';
 import { Set } from '../../types';
@@ -9,9 +11,6 @@ import { ItemsExtractor } from './items.extractor';
 @Injectable()
 export class SetsExtractor {
   private logger: Logger = new Logger(SetsExtractor.name);
-  // Key = item name, value = GE limit
-  private GELimitsRecord: Record<string, number> = {};
-
   private cachedSets: Set[] | null = null;
 
   constructor(
@@ -53,6 +52,8 @@ export class SetsExtractor {
 
   private extractSetFromPageId(pageId: number): Set | null {
     const page = this.pageContentDumper.getPageFromId(pageId);
+    const title = load(page.title).text();
+
     /*
      * Set format:
      * {{CostTableHead}}
@@ -66,7 +67,7 @@ export class SetsExtractor {
     const matcher = /\{\{CostLine\|(.+)\}\}/gm;
     const components = Array.from(page.rawContent.matchAll(matcher));
     if (!components.length) {
-      this.logger.log('No components', page.title, page.pageid);
+      this.logger.log('No components', title, page.pageid);
       return null;
     }
     // Blue mystic sets has |disambiguation, strip it
@@ -75,12 +76,12 @@ export class SetsExtractor {
       (name) => this.itemExtractor.getItemByName(name)?.id
     );
     const set: Set = {
-      id: this.itemExtractor.getItemByName(page.title)?.id,
-      name: page.title,
+      id: this.itemExtractor.getItemByName(title)?.id,
+      name: title,
       componentIds,
     };
     if (!set.id) {
-      this.logger.warn(`No set id!`, page.title);
+      this.logger.warn(`No set id!`, title);
     }
     if (!componentIds.every((c) => c)) {
       this.logger.log(
