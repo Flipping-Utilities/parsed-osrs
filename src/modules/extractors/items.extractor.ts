@@ -105,6 +105,21 @@ export class ItemsExtractor {
     return this.cachedItems;
   }
 
+  private itemIdMap: Map<number, Item>;
+  public getItemById(itemId: number): Item | undefined {
+    if (!this.itemIdMap) {
+      this.fillItemIdMap();
+    }
+
+    return this.itemIdMap.get(itemId);
+  }
+
+  private fillItemIdMap() {
+    const m: Map<number, Item> = new Map();
+    this.getAllItems().forEach((i) => m.set(i.id, i));
+    this.itemIdMap = m;
+  }
+
   public getGEItems() {
     if (!this.cachedGEItems) {
       const allItems = this.getAllItems();
@@ -119,6 +134,7 @@ export class ItemsExtractor {
   }
 
   private itemNameMap: Map<string, Item>;
+
   public getItemByName(candidateName: string): Item | null {
     if (!this.itemNameMap) {
       this.itemNameMap = new Map();
