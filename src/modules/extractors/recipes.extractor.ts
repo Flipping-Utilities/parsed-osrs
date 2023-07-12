@@ -4,6 +4,7 @@ import { ALL_RECIPES } from '../../constants/paths';
 import { Recipe, RecipeMaterial, RecipeSkill, Set } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
+import { SetsExtractor } from './sets.extractor';
 
 // @ts-ignore
 import * as parse from 'infobox-parser';
@@ -36,6 +37,7 @@ export class RecipesExtractor {
 
   constructor(
     private itemExtractor: ItemsExtractor,
+    private setsExtractor: SetsExtractor,
     private pageListDumper: PageListDumper,
     private readonly pageContentDumper: PageContentDumper
   ) {}
@@ -52,6 +54,54 @@ export class RecipesExtractor {
         return acc;
       }, [])
       .filter((v) => v);
+    // Add all sets
+    const sets = this.setsExtractor.getAllSets();
+    if (sets) {
+      sets
+        .filter((s) => s.id)
+        .map((set) => {
+          const setItem = this.itemExtractor.getItemById(set.id);
+          const makeRecipe: Recipe = {
+            name: `Making ${setItem?.name || 'Unknown set'}`,
+            inputs: set.componentIds.map((v) => ({
+              id: v,
+              quantity: 1,
+            })),
+            outputs: [
+              {
+                id: set.id,
+                quantity: 1,
+              },
+            ],
+            skills: [],
+            // Todo: Find if set is f2p/p2p
+            members: setItem.isMembers || false,
+            ticks: 1,
+            toolIds: [],
+          };
+          const breakRecipe: Recipe = {
+            outputs: set.componentIds.map((v) => ({
+              id: v,
+              quantity: 1,
+            })),
+            inputs: [
+              {
+                id: set.id,
+                quantity: 1,
+              },
+            ],
+            skills: [],
+            // Todo: Find if set is f2p/p2p
+            members: true,
+            ticks: 1,
+            toolIds: [],
+          };
+          return [makeRecipe, breakRecipe];
+        })
+        .forEach((setRecipes) => {
+          recipes.push(...setRecipes);
+        });
+    }
     if (recipes.length) {
       writeFileSync(ALL_RECIPES, JSON.stringify(recipes, null, 2));
     }
