@@ -12,6 +12,14 @@
     "template": "relativelocation"
   },
   {
+    "location": "Ancient Vault",
+    "north": "Uzer Oasis",
+    "east": "Eastern Sea",
+    "south": "Nardah",
+    "west": "River Elid",
+    "template": "relativelocation"
+  },
+  {
     "location": "Ape Atoll",
     "east": "Kharidian Desert",
     "north": "Karamja",
@@ -161,7 +169,7 @@
   },
   {
     "location": "Castle Drakan",
-    "north": "Graveyard",
+    "north": "Morytania Graveyard",
     "west": "The Hollows",
     "south": "Barrows",
     "east": "Darkmeyer",
@@ -390,7 +398,7 @@
     "location": "Feldip Jungle",
     "north": "Gu'Tanoth",
     "east": "Karamja",
-    "south": "Unknown",
+    "south": "Corsair Cove",
     "west": "Gu'Tanoth",
     "template": "relativelocation"
   },
@@ -464,9 +472,17 @@
   {
     "location": "Frozen Waste Plateau",
     "north": "Northern Sea",
-    "west": "Weiss",
+    "west": "Ghorrock",
     "south": "Chaos Temple (hut)",
     "east": "Wilderness Agility Course",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ghorrock",
+    "north": "Northern Sea",
+    "west": "Weiss",
+    "south": "Chaos Temple (hut)",
+    "east": "Frozen Waste Plateau",
     "template": "relativelocation"
   },
   {
@@ -675,6 +691,8 @@
   {
     "location": "Kebos Lowlands",
     "east": "Great Kourend",
+    "south": "Varlamore",
+    "west": "Western Sea",
     "template": "relativelocation"
   },
   {
@@ -709,6 +727,14 @@
     "west": "Hemenster",
     "south": "Witchaven",
     "east": "Entrana",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Lizardman Settlement",
+    "north": "Kebos Swamp",
+    "west": "Mount Quidamortem",
+    "south": "The Stranglewood",
+    "east": "Shayziens' Wall",
     "template": "relativelocation"
   },
   {
@@ -749,6 +775,13 @@
     "west": "Crandor",
     "south": "Rimmington",
     "east": "Port Sarim",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Menaphos",
+    "north": "Jaldraocht",
+    "west": "Ruins of Unkah",
+    "east": "Sophanem",
     "template": "relativelocation"
   },
   {
@@ -1210,7 +1243,7 @@
   {
     "location": "Varlamore",
     "north": "Kebos Lowlands",
-    "west": "Unknown",
+    "west": "Stranglewood",
     "south": "Unknown",
     "east": "Great Kourend",
     "template": "relativelocation"
@@ -1220,7 +1253,7 @@
     "north": "Wilderness",
     "west": "Barbarian Village",
     "south": "Lumbridge",
-    "east": "Silvarea",
+    "east": "Digsite",
     "template": "relativelocation"
   },
   {
@@ -1263,14 +1296,14 @@
     "north": "Northern Sea",
     "west": "Northern Sea",
     "south": "Ice Path",
-    "east": "Frozen Waste Plateau",
+    "east": "Ghorrock",
     "template": "relativelocation"
   },
   {
     "location": "Werewolf Agility Course",
     "north": "Fenkenstrain's Castle",
     "west": "Canifis",
-    "south": "Graveyard",
+    "south": "Morytania Graveyard",
     "east": "Haunted Woods",
     "template": "relativelocation"
   },

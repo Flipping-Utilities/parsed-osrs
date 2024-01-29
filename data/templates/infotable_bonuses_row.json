@@ -320,6 +320,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Kodai hat",
     "astab": "0",
@@ -340,6 +341,7 @@
   },
   {
     "name": "Kodai robetop",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "0",
     "aslash": "0",
@@ -359,6 +361,7 @@
   },
   {
     "name": "Kodai robelegs",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "0",
     "aslash": "0",
@@ -377,6 +380,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Kodai hood",
     "astab": "-5",
@@ -397,6 +401,7 @@
   },
   {
     "name": "Kodai robe top",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "-7",
     "aslash": "-7",
@@ -416,6 +421,7 @@
   },
   {
     "name": "Kodai robe legs",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "-6",
     "aslash": "-6",
@@ -434,6 +440,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Kodai hat",
     "astab": "-5",
@@ -454,6 +461,7 @@
   },
   {
     "name": "Kodai robetop",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "-7",
     "aslash": "-7",
@@ -473,6 +481,7 @@
   },
   {
     "name": "Kodai robelegs",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "-6",
     "aslash": "-6",
@@ -491,6 +500,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Elder helm",
     "astab": "+3",
@@ -511,6 +521,7 @@
   },
   {
     "name": "Elder platebody",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "+5",
     "aslash": "+5",
@@ -530,6 +541,7 @@
   },
   {
     "name": "Elder platelegs",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "+4",
     "aslash": "+4",
@@ -548,6 +560,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Elder helm",
     "astab": "+3",
@@ -568,6 +581,7 @@
   },
   {
     "name": "Elder platebody",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "+5",
     "aslash": "+5",
@@ -587,6 +601,7 @@
   },
   {
     "name": "Elder platelegs",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "+4",
     "aslash": "+4",
@@ -605,6 +620,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Elder helm",
     "astab": "+3",
@@ -625,6 +641,7 @@
   },
   {
     "name": "Elder platebody",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "+5",
     "aslash": "+5",
@@ -644,6 +661,7 @@
   },
   {
     "name": "Elder platelegs",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "+4",
     "aslash": "+4",
@@ -662,6 +680,7 @@
     "template": "infotable bonuses row"
   },
   {
+    "nolink": "yes",
     "hideicon": "yes",
     "name": "Twisted coif",
     "astab": "-6",
@@ -682,6 +701,7 @@
   },
   {
     "name": "Twisted body",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "-10",
     "aslash": "-10",
@@ -701,6 +721,7 @@
   },
   {
     "name": "Twisted chaps",
+    "nolink": "yes",
     "hideicon": "yes",
     "astab": "-8",
     "aslash": "-8",
@@ -1387,7 +1408,7 @@
   },
   {
     "name": "Blessed coif",
-    "gif": "yes",
+    "pic": "Ancient coif",
     "astab": "0",
     "aslash": "0",
     "acrush": "0",
@@ -1857,7 +1878,7 @@
   },
   {
     "name": "Blessed body",
-    "gif": "yes",
+    "pic": "Ancient d'hide body",
     "astab": "0",
     "aslash": "0",
     "acrush": "0",
@@ -2164,7 +2185,7 @@
   },
   {
     "name": "Blessed shield",
-    "gif": "yes",
+    "pic": "Ancient d'hide shield",
     "astab": "-15",
     "aslash": "-15",
     "acrush": "-11",
@@ -2399,7 +2420,7 @@
   },
   {
     "name": "Blessed chaps",
-    "gif": "yes",
+    "pic": "Ancient chaps",
     "astab": "0",
     "aslash": "0",
     "acrush": "0",
@@ -2670,7 +2691,7 @@
   },
   {
     "name": "Blessed vambraces",
-    "gif": "yes",
+    "pic": "Ancient bracers",
     "astab": "0",
     "aslash": "0",
     "acrush": "0",
@@ -2923,7 +2944,7 @@
   },
   {
     "name": "Blessed boots",
-    "gif": "yes",
+    "pic": "Ancient d'hide boots",
     "astab": "0",
     "aslash": "0",
     "acrush": "0",
@@ -3008,6 +3029,24 @@
     "drange": "+1",
     "str": "0",
     "rstr": "0",
+    "mdmg": "0",
+    "prayer": "0",
+    "template": "infotable bonuses row"
+  },
+  {
+    "name": "Venator ring",
+    "astab": "0",
+    "aslash": "0",
+    "acrush": "0",
+    "amagic": "0",
+    "arange": "+10",
+    "dstab": "0",
+    "dslash": "0",
+    "dcrush": "0",
+    "dmagic": "0",
+    "drange": "0",
+    "str": "0",
+    "rstr": "+2",
     "mdmg": "0",
     "prayer": "0",
     "template": "infotable bonuses row"
@@ -4004,6 +4043,24 @@
     "template": "infotable bonuses row"
   },
   {
+    "name": "Ultor ring",
+    "astab": "0",
+    "aslash": "0",
+    "acrush": "0",
+    "amagic": "0",
+    "arange": "0",
+    "dstab": "0",
+    "dslash": "0",
+    "dcrush": "0",
+    "dmagic": "0",
+    "drange": "0",
+    "str": "+12",
+    "rstr": "0",
+    "mdmg": "0",
+    "prayer": "0",
+    "template": "infotable bonuses row"
+  },
+  {
     "name": "Berserker ring (i)",
     "astab": "0",
     "aslash": "0",
@@ -4058,6 +4115,24 @@
     "template": "infotable bonuses row"
   },
   {
+    "name": "Ring of shadows",
+    "astab": "+4",
+    "aslash": "+4",
+    "acrush": "+4",
+    "amagic": "+5",
+    "arange": "+4",
+    "dstab": "0",
+    "dslash": "0",
+    "dcrush": "0",
+    "dmagic": "+5",
+    "drange": "0",
+    "str": "+2",
+    "rstr": "0",
+    "mdmg": "0",
+    "prayer": "+2",
+    "template": "infotable bonuses row"
+  },
+  {
     "name": "Warrior ring",
     "astab": "0",
     "aslash": "+4",
@@ -4085,24 +4160,6 @@
     "dstab": "0",
     "dslash": "0",
     "dcrush": "+4",
-    "dmagic": "0",
-    "drange": "0",
-    "str": "0",
-    "rstr": "0",
-    "mdmg": "0",
-    "prayer": "0",
-    "template": "infotable bonuses row"
-  },
-  {
-    "name": "Treasonous ring",
-    "astab": "+4",
-    "aslash": "0",
-    "acrush": "0",
-    "amagic": "0",
-    "arange": "0",
-    "dstab": "+4",
-    "dslash": "0",
-    "dcrush": "0",
     "dmagic": "0",
     "drange": "0",
     "str": "0",

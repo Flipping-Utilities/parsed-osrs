@@ -103,11 +103,21 @@
   },
   {
     "fromlevel": "201",
+    "tolevel": "250",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "251",
     "tolevel": "300",
     "template": "bestiarytable"
   },
   {
     "fromlevel": "301",
+    "tolevel": "350",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "351",
     "tolevel": "400",
     "template": "bestiarytable"
   },
@@ -1130,6 +1140,13 @@
     "tolevel": "2000",
     "levelsort": "no",
     "attribute": "penance",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "rat",
     "template": "bestiarytable"
   },
   {

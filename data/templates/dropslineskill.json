@@ -154,6 +154,14 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Tainted essence chunk",
+    "quantity": "1-3",
+    "rarity": "Always",
+    "skill": "Mining",
+    "gemw": "no",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Nothing",
     "quantity": "1",
     "rarity": "70/32768",
@@ -269,7 +277,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -606,7 +613,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -1336,7 +1342,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -1352,7 +1357,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -1488,7 +1492,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -2018,6 +2021,12 @@
     "quantity": "1",
     "rarity": "1/15",
     "gemw": "No",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Nothing",
+    "rarity": "29/200",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -2860,7 +2869,7 @@
   },
   {
     "name": "Stardust",
-    "quantity": "1-2",
+    "quantity": "1",
     "rarity": "Always",
     "skill": "Mining",
     "template": "dropslineskill"
@@ -2901,16 +2910,9 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Crystal shard",
-    "quantity": "1",
-    "rarity": "1/127",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Rock golem",
     "quantity": "1",
-    "rarity": "Very rare",
+    "rarity": "1/521,550",
     "skill": "Mining",
     "template": "dropslineskill"
   },
@@ -3141,7 +3143,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -3241,7 +3242,7 @@
   {
     "name": "Rune pickaxe",
     "quantity": "1",
-    "rarity": "98/3778",
+    "rarity": "204/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3249,7 +3250,7 @@
   {
     "name": "Rune axe",
     "quantity": "1",
-    "rarity": "83/3778",
+    "rarity": "215/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3257,7 +3258,7 @@
   {
     "name": "Rune longsword",
     "quantity": "1",
-    "rarity": "28/3778",
+    "rarity": "65/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3265,7 +3266,7 @@
   {
     "name": "Rune kiteshield",
     "quantity": "1",
-    "rarity": "56/3778",
+    "rarity": "140/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3273,7 +3274,7 @@
   {
     "name": "Rune chainbody",
     "quantity": "1",
-    "rarity": "65/3778",
+    "rarity": "140/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3281,7 +3282,7 @@
   {
     "name": "Dragon plateskirt",
     "quantity": "1",
-    "rarity": "2/3778",
+    "rarity": "13/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3289,39 +3290,39 @@
   {
     "name": "Dragon platelegs",
     "quantity": "1",
-    "rarity": "9/3778",
+    "rarity": "13/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Mind rune",
-    "quantity": "403-600",
-    "rarity": "139/3778",
+    "quantity": "400-600",
+    "rarity": "363/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Chaos rune",
-    "quantity": "302-500",
-    "rarity": "168/3778",
+    "quantity": "300-500",
+    "rarity": "374/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Blood rune",
-    "quantity": "100-199",
-    "rarity": "146/3778",
+    "quantity": "100-200",
+    "rarity": "372/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Nature rune",
-    "quantity": "153-350",
-    "rarity": "135/3778",
+    "quantity": "150-350",
+    "rarity": "359/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3329,15 +3330,15 @@
   {
     "name": "Law rune",
     "quantity": "100-300",
-    "rarity": "154/3778",
+    "rarity": "403/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Death rune",
-    "quantity": "201-399",
-    "rarity": "186/3778",
+    "quantity": "200-400",
+    "rarity": "434/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3345,15 +3346,15 @@
   {
     "name": "Adamant arrow",
     "quantity": "200-400",
-    "rarity": "256/3778",
+    "rarity": "582/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Rune arrow",
-    "quantity": "102-299",
-    "rarity": "185/3778",
+    "quantity": "100-300",
+    "rarity": "467/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3361,7 +3362,7 @@
   {
     "name": "Grimy dwarf weed",
     "quantity": "10-15 (noted)",
-    "rarity": "162/3778",
+    "rarity": "390/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3369,7 +3370,7 @@
   {
     "name": "Grimy torstol",
     "quantity": "10-15 (noted)",
-    "rarity": "168/3778",
+    "rarity": "371/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3377,7 +3378,7 @@
   {
     "name": "Grimy ranarr weed",
     "quantity": "10-15 (noted)",
-    "rarity": "154/3778",
+    "rarity": "356/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3385,7 +3386,7 @@
   {
     "name": "Grimy snapdragon",
     "quantity": "10-15 (noted)",
-    "rarity": "163/3778",
+    "rarity": "346/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3393,7 +3394,7 @@
   {
     "name": "Green dragon leather",
     "quantity": "5-10 (noted)",
-    "rarity": "123/3778",
+    "rarity": "320/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3401,7 +3402,7 @@
   {
     "name": "Blue dragon leather",
     "quantity": "5-10 (noted)",
-    "rarity": "138/3778",
+    "rarity": "316/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3409,7 +3410,7 @@
   {
     "name": "Red dragon leather",
     "quantity": "5-10 (noted)",
-    "rarity": "106/3778",
+    "rarity": "284/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3417,7 +3418,7 @@
   {
     "name": "Black dragon leather",
     "quantity": "5-10 (noted)",
-    "rarity": "141/3778",
+    "rarity": "305/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3425,7 +3426,7 @@
   {
     "name": "Babydragon bones",
     "quantity": "10-15 (noted)",
-    "rarity": "230/3778",
+    "rarity": "510/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3433,15 +3434,15 @@
   {
     "name": "Dragon bones",
     "quantity": "10-15 (noted)",
-    "rarity": "134/3778",
+    "rarity": "313/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Coins",
-    "quantity": "9664-29496",
-    "rarity": "424/3778",
+    "quantity": "9600-29500",
+    "rarity": "1008/8942",
     "approx": "Yes",
     "gemw": "no",
     "skill": "thieving",
@@ -3450,7 +3451,7 @@
   {
     "name": "Dragonstone",
     "quantity": "1",
-    "rarity": "67/3778",
+    "rarity": "160/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3458,7 +3459,7 @@
   {
     "name": "Dark key",
     "quantity": "2",
-    "rarity": "48/3778",
+    "rarity": "104/8942",
     "approx": "Yes",
     "gemw": "no",
     "skill": "thieving",
@@ -3467,7 +3468,7 @@
   {
     "name": "Shield left half",
     "quantity": "1",
-    "rarity": "10/3778",
+    "rarity": "15/8942",
     "approx": "Yes",
     "skill": "thieving",
     "template": "dropslineskill"
@@ -3566,7 +3567,7 @@
   {
     "name": "Thatch spar dense",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -3815,13 +3816,12 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
     "name": "Dramen branch",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -3830,45 +3830,6 @@
     "quantity": "1",
     "rarity": "Always",
     "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "540/87500",
-    "skill": "Fishing",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified small fossil",
-    "quantity": "1",
-    "rarity": "30/87500",
-    "skill": "Fishing",
-    "gemw": "No",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified medium fossil",
-    "quantity": "1",
-    "rarity": "15/87500",
-    "skill": "Fishing",
-    "gemw": "No",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified large fossil",
-    "quantity": "1",
-    "rarity": "12/87500",
-    "skill": "Fishing",
-    "gemw": "No",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified rare fossil",
-    "quantity": "1",
-    "rarity": "3/87500",
-    "skill": "Fishing",
-    "gemw": "No",
     "template": "dropslineskill"
   },
   {
@@ -3890,15 +3851,7 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "1/6",
-    "skill": "Fishing",
-    "level": "47",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "1/6",
+    "rarity": "1/5",
     "skill": "Fishing",
     "level": "47",
     "template": "dropslineskill"
@@ -3906,7 +3859,7 @@
   {
     "name": "Pufferfish",
     "quantity": "1",
-    "rarity": "1/6",
+    "rarity": "1/5",
     "skill": "Fishing",
     "level": "47",
     "template": "dropslineskill"
@@ -3914,7 +3867,7 @@
   {
     "name": "Raw anchovies",
     "quantity": "1",
-    "rarity": "1/6",
+    "rarity": "1/5",
     "skill": "Fishing",
     "level": "47",
     "template": "dropslineskill"
@@ -3922,7 +3875,7 @@
   {
     "name": "Raw sardine",
     "quantity": "1",
-    "rarity": "1/6",
+    "rarity": "1/5",
     "skill": "Fishing",
     "level": "47",
     "template": "dropslineskill"
@@ -3930,7 +3883,7 @@
   {
     "name": "Raw tuna",
     "quantity": "1",
-    "rarity": "1/6",
+    "rarity": "1/5",
     "skill": "Fishing",
     "level": "47",
     "template": "dropslineskill"
@@ -3938,15 +3891,7 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "1/7",
-    "skill": "Fishing",
-    "level": "50",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "1/7",
+    "rarity": "1/6",
     "skill": "Fishing",
     "level": "50",
     "template": "dropslineskill"
@@ -3954,7 +3899,7 @@
   {
     "name": "Pufferfish",
     "quantity": "1",
-    "rarity": "1/7",
+    "rarity": "1/6",
     "skill": "Fishing",
     "level": "50",
     "template": "dropslineskill"
@@ -3962,7 +3907,7 @@
   {
     "name": "Raw anchovies",
     "quantity": "1",
-    "rarity": "1/7",
+    "rarity": "1/6",
     "skill": "Fishing",
     "level": "50",
     "template": "dropslineskill"
@@ -3970,7 +3915,7 @@
   {
     "name": "Raw sardine",
     "quantity": "1",
-    "rarity": "1/7",
+    "rarity": "1/6",
     "skill": "Fishing",
     "level": "50",
     "template": "dropslineskill"
@@ -3978,7 +3923,7 @@
   {
     "name": "Raw tuna",
     "quantity": "1",
-    "rarity": "1/7",
+    "rarity": "1/6",
     "skill": "Fishing",
     "level": "50",
     "template": "dropslineskill"
@@ -3986,7 +3931,7 @@
   {
     "name": "Raw lobster",
     "quantity": "1",
-    "rarity": "1/7",
+    "rarity": "1/6",
     "skill": "Fishing",
     "level": "50",
     "template": "dropslineskill"
@@ -3994,15 +3939,7 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "1/8",
-    "skill": "Fishing",
-    "level": "60",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4010,7 +3947,7 @@
   {
     "name": "Pufferfish",
     "quantity": "1",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4018,7 +3955,7 @@
   {
     "name": "Raw anchovies",
     "quantity": "1",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4026,7 +3963,7 @@
   {
     "name": "Raw sardine",
     "quantity": "1",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4034,7 +3971,7 @@
   {
     "name": "Raw tuna",
     "quantity": "1",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4042,7 +3979,7 @@
   {
     "name": "Raw lobster",
     "quantity": "1",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4050,7 +3987,7 @@
   {
     "name": "Raw swordfish",
     "quantity": "1",
-    "rarity": "1/8",
+    "rarity": "1/7",
     "skill": "Fishing",
     "level": "60",
     "template": "dropslineskill"
@@ -4058,15 +3995,7 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "1/9",
-    "skill": "Fishing",
-    "level": "70",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4074,7 +4003,7 @@
   {
     "name": "Pufferfish",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4082,7 +4011,7 @@
   {
     "name": "Raw anchovies",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4090,7 +4019,7 @@
   {
     "name": "Raw sardine",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4098,7 +4027,7 @@
   {
     "name": "Raw tuna",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4106,7 +4035,7 @@
   {
     "name": "Raw lobster",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4114,7 +4043,7 @@
   {
     "name": "Raw swordfish",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4122,7 +4051,7 @@
   {
     "name": "Raw shark",
     "quantity": "1",
-    "rarity": "1/9",
+    "rarity": "1/8",
     "skill": "Fishing",
     "level": "70",
     "template": "dropslineskill"
@@ -4130,15 +4059,7 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "1/10",
-    "skill": "Fishing",
-    "level": "80",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4146,7 +4067,7 @@
   {
     "name": "Pufferfish",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4154,7 +4075,7 @@
   {
     "name": "Raw anchovies",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4162,7 +4083,7 @@
   {
     "name": "Raw sardine",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4170,7 +4091,7 @@
   {
     "name": "Raw tuna",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4178,7 +4099,7 @@
   {
     "name": "Raw lobster",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4186,7 +4107,7 @@
   {
     "name": "Raw swordfish",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4194,7 +4115,7 @@
   {
     "name": "Raw shark",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4202,7 +4123,7 @@
   {
     "name": "Raw sea turtle",
     "quantity": "1",
-    "rarity": "1/10",
+    "rarity": "1/9",
     "skill": "Fishing",
     "level": "80",
     "template": "dropslineskill"
@@ -4210,15 +4131,7 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "1/11",
-    "skill": "Fishing",
-    "level": "90",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "5-14",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4226,7 +4139,7 @@
   {
     "name": "Pufferfish",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4234,7 +4147,7 @@
   {
     "name": "Raw anchovies",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4242,7 +4155,7 @@
   {
     "name": "Raw sardine",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4250,7 +4163,7 @@
   {
     "name": "Raw tuna",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4258,7 +4171,7 @@
   {
     "name": "Raw lobster",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4266,7 +4179,7 @@
   {
     "name": "Raw swordfish",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4274,7 +4187,7 @@
   {
     "name": "Raw shark",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4282,7 +4195,7 @@
   {
     "name": "Raw sea turtle",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4290,7 +4203,7 @@
   {
     "name": "Raw manta ray",
     "quantity": "1",
-    "rarity": "1/11",
+    "rarity": "1/10",
     "skill": "Fishing",
     "level": "90",
     "template": "dropslineskill"
@@ -4315,7 +4228,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -5156,6 +5068,8 @@
   {
     "name": "Raw harpoonfish",
     "quantity": "1",
+    "rarity": "always",
+    "altrarity": "2/3",
     "skill": "Fishing",
     "template": "dropslineskill"
   },
@@ -5164,6 +5078,57 @@
     "quantity": "1",
     "rarity": "1/3",
     "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Raw pike",
+    "quantity": "1",
+    "rarity": "Common",
+    "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Lobster pot",
+    "quantity": "1",
+    "rarity": "Common",
+    "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Newspaper",
+    "quantity": "1",
+    "rarity": "Common",
+    "skill": "Fishing",
+    "gemw": "no",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Old boot",
+    "quantity": "1",
+    "rarity": "Common",
+    "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Casket",
+    "quantity": "1",
+    "rarity": "Uncommon",
+    "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Acorn",
+    "quantity": "1",
+    "rarity": "Rare",
+    "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Clue bottle",
+    "quantity": "1",
+    "rarity": "Very rare",
+    "skill": "Fishing",
+    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -5216,7 +5181,6 @@
   },
   {
     "name": "Clue bottle",
-    "image": "Clue bottles.gif",
     "quantity": "1",
     "rarity": "rare",
     "skill": "Fishing",
@@ -5456,6 +5420,7 @@
   {
     "name": "Frog spawn",
     "quantity": "1",
+    "rarity": "Common",
     "skill": "Fishing",
     "level": "33",
     "template": "dropslineskill"
@@ -5463,6 +5428,7 @@
   {
     "name": "Swamp weed",
     "quantity": "1",
+    "rarity": "43/1000",
     "skill": "Fishing",
     "template": "dropslineskill"
   },
@@ -5901,112 +5867,140 @@
   {
     "name": "Nothing",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "19/20",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Iron ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Coal fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Adamantite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Runite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Calcite",
+    "quantity": "1-4",
+    "rarity": "1/20",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pyrophosphite",
+    "quantity": "1-4",
+    "rarity": "1/20",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Nothing",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "11/12",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Iron ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Coal fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Adamantite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Runite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Calcite",
+    "quantity": "1-4",
+    "rarity": "1/20",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pyrophosphite",
+    "quantity": "1-4",
+    "rarity": "1/20",
     "skill": "Mining",
     "template": "dropslineskill"
   },
@@ -6191,7 +6185,7 @@
   {
     "name": "Crystal shard",
     "quantity": "1",
-    "rarity": "Rare",
+    "rarity": "1/127",
     "version": "Prifddinas",
     "skill": "Mining",
     "template": "dropslineskill"
@@ -6395,20 +6389,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Stone statuette",
-    "quantity": "1",
-    "rarity": "1/4",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Stone scarab",
-    "quantity": "1",
-    "rarity": "1/2",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Stone seal",
     "quantity": "1",
     "rarity": "1/4",
@@ -6416,15 +6396,23 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Pharaoh's sceptre",
+    "name": "Stone scarab",
     "quantity": "1",
-    "rarity": "Varies",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone statuette",
     "quantity": "1",
-    "rarity": "1/2",
+    "rarity": "1/4",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/4200",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -6436,22 +6424,16 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Pharaoh's sceptre",
+    "name": "Stone statuette",
     "quantity": "1",
-    "rarity": "Varies",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Gold seal",
-    "quantity": "1",
-    "rarity": "1/4",
+    "rarity": "1/2",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
-    "name": "Stone statuette",
+    "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "1/2",
+    "rarity": "1/2800",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -6463,15 +6445,23 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Pharaoh's sceptre",
+    "name": "Stone statuette",
     "quantity": "1",
-    "rarity": "Varies",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Gold seal",
     "quantity": "1",
-    "rarity": "1/2",
+    "rarity": "1/4",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/1600",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -6483,22 +6473,16 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Pharaoh's sceptre",
+    "name": "Gold seal",
     "quantity": "1",
-    "rarity": "Varies",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Golden scarab",
-    "quantity": "1",
-    "rarity": "1/4",
+    "rarity": "1/2",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
-    "name": "Gold seal",
+    "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "1/2",
+    "rarity": "1/950",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -6510,15 +6494,23 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Pharaoh's sceptre",
+    "name": "Gold seal",
     "quantity": "1",
-    "rarity": "Varies",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Golden scarab",
     "quantity": "1",
-    "rarity": "1/2",
+    "rarity": "1/4",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/800",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -6530,13 +6522,21 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Pharaoh's sceptre",
+    "name": "Golden scarab",
     "quantity": "1",
-    "rarity": "Varies",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
-    "name": "Golden statuette",
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/750",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Gold seal",
     "quantity": "1",
     "rarity": "1/4",
     "skill": "Thieving",
@@ -6550,7 +6550,7 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Gold seal",
+    "name": "Golden statuette",
     "quantity": "1",
     "rarity": "1/4",
     "skill": "Thieving",
@@ -6559,13 +6559,7 @@
   {
     "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "Varies",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Golden statuette",
-    "quantity": "1",
-    "rarity": "1/2",
+    "rarity": "1/650",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -6577,9 +6571,17 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Golden statuette",
+    "quantity": "1",
+    "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "Varies",
+    "rarity": "1/650",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
@@ -6664,30 +6666,6 @@
     "quantity": "17500-25000",
     "rarity": "1/10",
     "skill": "thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -7435,45 +7413,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Numulite",
-    "quantity": "5-25",
-    "rarity": "Common",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified small fossil",
-    "quantity": "1",
-    "rarity": "1/50",
-    "gemw": "No",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified medium fossil",
-    "quantity": "1",
-    "rarity": "1/100",
-    "gemw": "No",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified large fossil",
-    "quantity": "1",
-    "rarity": "1/125",
-    "gemw": "No",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified rare fossil",
-    "quantity": "1",
-    "rarity": "1/500",
-    "gemw": "No",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Grimy guam leaf",
     "quantity": "1-4",
     "rarity": "Varies",
@@ -7827,6 +7766,13 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Bluish key",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Jangerberries",
     "quantity": "1",
     "rarity": "Always",
@@ -7839,7 +7785,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -7859,7 +7804,7 @@
   {
     "name": "Logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Common",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -7929,56 +7874,70 @@
   {
     "name": "Nothing",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "7/8",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Iron ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Coal fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Adamantite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Runite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Calcite",
+    "quantity": "1-4",
+    "rarity": "1/20",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pyrophosphite",
+    "quantity": "1-4",
+    "rarity": "1/20",
     "skill": "Mining",
     "template": "dropslineskill"
   },
@@ -7999,7 +7958,7 @@
   {
     "name": "Thatch spar light",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -8135,30 +8094,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Lovakite ore",
     "quantity": "1",
     "rarity": "Always",
@@ -8253,13 +8188,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Lunar ore",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Air rune",
     "quantity": "1",
     "rarity": "1/3",
@@ -8278,30 +8206,6 @@
     "quantity": "1",
     "rarity": "1/3",
     "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Magic logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Magic leaves",
-    "quantity": "1",
-    "rarity": "Always",
-    "version": "Diseased",
-    "skill": "Farming",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Magic roots",
-    "quantity": "1-4",
-    "rarity": "Always",
-    "version": "Stump",
-    "skill": "Farming",
     "template": "dropslineskill"
   },
   {
@@ -8441,6 +8345,37 @@
     "quantity": "1",
     "rarity": "1/4",
     "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic leaves",
+    "quantity": "1",
+    "rarity": "Always",
+    "version": "Diseased",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic roots",
+    "quantity": "1-4",
+    "rarity": "Always",
+    "version": "Stump",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic stone (Tears of Guthix)",
+    "quantity": "1",
+    "gemw": "No",
+    "rarity": "Always",
+    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -8592,13 +8527,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Mahogany logs",
-    "quantity": "1",
-    "rarity": "Common",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Clockwork",
     "quantity": "1",
     "rarity": "Always",
@@ -8727,7 +8655,21 @@
     "name": "Mahogany logs",
     "quantity": "1",
     "rarity": "Common",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Mahogany logs",
+    "quantity": "1",
+    "rarity": "Common",
     "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Coins",
+    "quantity": "3",
+    "rarity": "Always",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
@@ -8749,30 +8691,6 @@
     "quantity": "1",
     "rarity": "1/5000",
     "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Maple logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Maple leaves",
-    "quantity": "1",
-    "rarity": "Always",
-    "version": "Diseased",
-    "skill": "Farming",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Maple roots",
-    "quantity": "1-4",
-    "rarity": "Always",
-    "version": "Stump",
-    "skill": "Farming",
     "template": "dropslineskill"
   },
   {
@@ -8912,6 +8830,29 @@
     "quantity": "1",
     "rarity": "1/4",
     "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Maple logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Maple leaves",
+    "quantity": "1",
+    "rarity": "Always",
+    "version": "Diseased",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Maple roots",
+    "quantity": "1-4",
+    "rarity": "Always",
+    "version": "Stump",
+    "skill": "Farming",
     "template": "dropslineskill"
   },
   {
@@ -9525,6 +9466,46 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Seaweed spore",
+    "quantity": "1",
+    "rarity": "1/2,200",
+    "approx": "yes",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Mushroom spore",
+    "quantity": "1",
+    "rarity": "1/400",
+    "approx": "yes",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Belladonna seed",
+    "quantity": "1",
+    "rarity": "1/667",
+    "approx": "yes",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Cactus seed",
+    "quantity": "1",
+    "rarity": "1/1000",
+    "approx": "yes",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Potato cactus seed",
+    "quantity": "1",
+    "rarity": "1/2200",
+    "approx": "yes",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Guam seed",
     "quantity": "1",
     "rarity": "1/65.1",
@@ -9637,112 +9618,86 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Seaweed spore",
-    "quantity": "1",
-    "rarity": "1/2,200",
-    "approx": "yes",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Mushroom spore",
-    "quantity": "1",
-    "rarity": "1/400",
-    "approx": "yes",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Belladonna seed",
-    "quantity": "1",
-    "rarity": "1/667",
-    "approx": "yes",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Cactus seed",
-    "quantity": "1",
-    "rarity": "1/1000",
-    "approx": "yes",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Potato cactus seed",
-    "quantity": "1",
-    "rarity": "1/2200",
-    "approx": "yes",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Juniper logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Nothing",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "4/5",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Iron ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Coal fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Adamantite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Runite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Calcite",
+    "quantity": "1-4",
+    "rarity": "1/20",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pyrophosphite",
+    "quantity": "1-4",
+    "rarity": "1/20",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Thatch spar med",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -10135,51 +10090,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Oak logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Oak leaves",
-    "quantity": "1",
-    "rarity": "1/4",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Oak logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Oak leaves",
-    "quantity": "1",
-    "rarity": "Always",
-    "version": "Diseased",
-    "skill": "Farming",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Oak roots",
-    "quantity": "1-4",
-    "rarity": "Always",
-    "version": "Stump",
-    "skill": "Farming",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Oak logs",
-    "quantity": "1",
-    "rarity": "Common",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Clockwork",
     "quantity": "1",
     "rarity": "Always",
@@ -10302,6 +10212,50 @@
     "altrarity": "60/95",
     "gemw": "no",
     "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak leaves",
+    "quantity": "1",
+    "rarity": "1/4",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak leaves",
+    "quantity": "1",
+    "rarity": "Always",
+    "version": "Diseased",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak roots",
+    "quantity": "1-4",
+    "rarity": "Always",
+    "version": "Stump",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak logs",
+    "quantity": "1",
+    "rarity": "Common",
+    "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
@@ -10490,6 +10444,34 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Zogre bones",
+    "quantity": "1",
+    "rarity": "64/128",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Fayrg bones",
+    "quantity": "1",
+    "rarity": "14/128",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Raurg bones",
+    "quantity": "1",
+    "rarity": "10/128",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Ourg bones",
+    "quantity": "1",
+    "rarity": "5/128",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Onion",
     "quantity": "1",
     "rarity": "Always",
@@ -10516,31 +10498,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -10577,7 +10534,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -10590,9 +10546,17 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Coins",
+    "quantity": "1-10",
+    "rarity": "4/40",
+    "gemw": "no",
+    "skill": "Fishing",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Nuggets",
     "quantity": "1",
-    "rarity": "20/194",
+    "rarity": "4/40",
     "gemw": "no",
     "skill": "Fishing",
     "template": "dropslineskill"
@@ -10600,43 +10564,35 @@
   {
     "name": "Oyster",
     "quantity": "1",
-    "rarity": "15/194",
+    "rarity": "3/40",
     "skill": "Fishing",
     "template": "dropslineskill"
   },
   {
     "name": "Uncut opal",
     "quantity": "1",
-    "rarity": "17/194",
+    "rarity": "3/40",
     "skill": "Fishing",
     "template": "dropslineskill"
   },
   {
     "name": "Uncut jade",
     "quantity": "1",
-    "rarity": "13/194",
+    "rarity": "3/40",
     "skill": "Fishing",
     "template": "dropslineskill"
   },
   {
     "name": "Special cup",
     "quantity": "1",
-    "rarity": "15/194",
-    "gemw": "no",
-    "skill": "Fishing",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Coins",
-    "quantity": "1-10",
-    "rarity": "22/194",
+    "rarity": "3/40",
     "gemw": "no",
     "skill": "Fishing",
     "template": "dropslineskill"
   },
   {
     "name": "Nothing",
-    "rarity": "92/194",
+    "rarity": "20/40",
     "gemw": "no",
     "skill": "Fishing",
     "template": "dropslineskill"
@@ -10654,7 +10610,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -10734,7 +10689,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -10911,14 +10865,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Redwood logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
@@ -11050,6 +10996,13 @@
     "name": "Redwood logs",
     "quantity": "1",
     "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Redwood logs",
+    "quantity": "1",
+    "rarity": "Always",
     "skill": "Farming",
     "template": "dropslineskill"
   },
@@ -11059,7 +11012,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -11133,7 +11085,6 @@
     "rarity": "Rare",
     "skill": "Fishing",
     "level": "80",
-    "image": "Clue bottles.gif",
     "template": "dropslineskill"
   },
   {
@@ -11435,6 +11386,14 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Salax salt",
+    "quantity": "4-6",
+    "rarity": "Always",
+    "skill": "Mining",
+    "gemw": "No",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Saltpetre",
     "quantity": "1-2",
     "rarity": "Always",
@@ -11535,8 +11494,8 @@
   {
     "name": "Kindling (Chambers of Xeric)",
     "quantity": "1-8",
-    "rarity": "Unknown",
-    "skill": "Mining",
+    "rarity": "Always",
+    "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
@@ -11547,179 +11506,199 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Stone seal",
-    "quantity": "1",
-    "rarity": "1/4",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Pottery statuette",
-    "quantity": "1",
-    "rarity": "1/2",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Pottery scarab",
     "quantity": "1",
     "rarity": "1/4",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Pharaoh's sceptre",
-    "quantity": "1",
-    "rarity": "1/4667",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Stone seal",
-    "quantity": "1",
-    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Pottery statuette",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Stone seal",
+    "quantity": "1",
+    "rarity": "1/4",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "1/3429",
-    "approx": "yes",
+    "rarity": "1/4200",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
-    "name": "Stone scarab",
+    "name": "Pottery statuette",
     "quantity": "1",
-    "rarity": "1/4",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone seal",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/2800",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Pottery statuette",
     "quantity": "1",
     "rarity": "1/4",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Pharaoh's sceptre",
-    "quantity": "1",
-    "rarity": "1/2222",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Stone scarab",
-    "quantity": "1",
-    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone seal",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Stone scarab",
+    "quantity": "1",
+    "rarity": "1/4",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Pharaoh's sceptre",
     "quantity": "1",
     "rarity": "1/1600",
-    "approx": "yes",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
-    "name": "Stone statuette",
+    "name": "Stone seal",
     "quantity": "1",
-    "rarity": "1/4",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone scarab",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/950",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone seal",
     "quantity": "1",
     "rarity": "1/4",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Pharaoh's sceptre",
-    "quantity": "1",
-    "rarity": "1/1733",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Stone statuette",
-    "quantity": "1",
-    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone scarab",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Stone statuette",
+    "quantity": "1",
+    "rarity": "1/4",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "1/2311",
-    "approx": "yes",
+    "rarity": "1/800",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
-    "name": "Gold seal",
+    "name": "Stone scarab",
     "quantity": "1",
-    "rarity": "1/4",
+    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone statuette",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/750",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone scarab",
     "quantity": "1",
     "rarity": "1/4",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Pharaoh's sceptre",
-    "quantity": "1",
-    "rarity": "1/3467",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Gold seal",
-    "quantity": "1",
-    "rarity": "1/2",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Stone statuette",
     "quantity": "1",
     "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Gold seal",
+    "quantity": "1",
+    "rarity": "1/4",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Pharaoh's sceptre",
     "quantity": "1",
-    "rarity": "1/6933",
-    "approx": "yes",
+    "rarity": "1/650",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Stone statuette",
+    "quantity": "1",
+    "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Gold seal",
+    "quantity": "1",
+    "rarity": "1/2",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pharaoh's sceptre",
+    "quantity": "1",
+    "rarity": "1/650",
+    "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
@@ -11746,7 +11725,7 @@
   {
     "name": "Scrapey tree logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -12035,46 +12014,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Nothing",
-    "quantity": "1",
-    "rarity": "70/32768",
-    "altrarity": "70/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut sapphire",
-    "quantity": "1",
-    "rarity": "32/32768",
-    "altrarity": "32/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut emerald",
-    "quantity": "1",
-    "rarity": "16/32768",
-    "altrarity": "16/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut ruby",
-    "quantity": "1",
-    "rarity": "8/32768",
-    "altrarity": "8/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Uncut diamond",
-    "quantity": "1",
-    "rarity": "2/32768",
-    "altrarity": "2/11008",
-    "skill": "Mining",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Silver ore",
     "quantity": "1",
     "rarity": "Always",
@@ -12142,56 +12081,70 @@
   {
     "name": "Nothing",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "2/3",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Iron ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Coal fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Silver ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Adamantite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
     "skill": "Mining",
     "template": "dropslineskill"
   },
   {
     "name": "Runite ore fragment",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "Varies",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Calcite",
+    "quantity": "1-4",
+    "rarity": "1/20",
+    "skill": "Mining",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Pyrophosphite",
+    "quantity": "1-4",
+    "rarity": "1/20",
     "skill": "Mining",
     "template": "dropslineskill"
   },
@@ -12528,6 +12481,7 @@
     "rarity": "1/20",
     "approx": "Yes",
     "gemw": "No",
+    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -12682,52 +12636,14 @@
   },
   {
     "name": "Nothing",
-    "rarity": "5242/5851",
-    "approx": "yes",
+    "rarity": "252150/280000",
     "template": "dropslineskill"
   },
   {
     "name": "Numulite",
     "quantity": "1",
-    "rarity": "608/5851",
+    "rarity": "27650/280000",
     "skill": "Mining",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified small fossil",
-    "quantity": "1",
-    "rarity": "1/28000",
-    "skill": "Mining",
-    "gemw": "No",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified medium fossil",
-    "quantity": "1",
-    "rarity": "1/56000",
-    "skill": "Mining",
-    "gemw": "No",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified large fossil",
-    "quantity": "1",
-    "rarity": "1/70000",
-    "skill": "Mining",
-    "gemw": "No",
-    "approx": "yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified rare fossil",
-    "quantity": "1",
-    "rarity": "1/280000",
-    "skill": "Mining",
-    "gemw": "No",
-    "approx": "yes",
     "template": "dropslineskill"
   },
   {
@@ -12832,7 +12748,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -12854,7 +12769,7 @@
     "quantity": "1",
     "rarity": "Always",
     "version": "Winter",
-    "skill": "Farming",
+    "skill": "Thieving",
     "gemw": "no",
     "template": "dropslineskill"
   },
@@ -12863,7 +12778,7 @@
     "quantity": "1",
     "rarity": "Always",
     "version": "Spring",
-    "skill": "Farming",
+    "skill": "Thieving",
     "gemw": "no",
     "template": "dropslineskill"
   },
@@ -12872,7 +12787,7 @@
     "quantity": "1",
     "rarity": "Always",
     "version": "Autumn",
-    "skill": "Farming",
+    "skill": "Thieving",
     "gemw": "no",
     "template": "dropslineskill"
   },
@@ -12881,8 +12796,15 @@
     "quantity": "1",
     "rarity": "Always",
     "version": "Summer",
-    "skill": "Farming",
+    "skill": "Thieving",
     "gemw": "no",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Lunar ore",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Mining",
     "template": "dropslineskill"
   },
   {
@@ -13014,6 +12936,48 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Willow leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Maple leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Yew leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Teddy",
     "quantity": "1",
     "rarity": "Always",
@@ -13022,51 +12986,16 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Unidentified small fossil",
-    "quantity": "1",
-    "rarity": "1/70",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified medium fossil",
-    "quantity": "1",
-    "rarity": "1/140",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified large fossil",
-    "quantity": "1",
-    "rarity": "1/175",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Unidentified rare fossil",
-    "quantity": "1",
-    "rarity": "1/700",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Numulite",
-    "quantity": "1-60",
-    "rarity": "9/35",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Mushroom",
     "quantity": "1",
-    "rarity": "Common",
+    "rarity": "90/100",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Mort myre fungus",
     "quantity": "1",
-    "rarity": "Uncommon",
+    "rarity": "9/100",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -13110,20 +13039,6 @@
     "quantity": "1",
     "rarity": "Always",
     "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Teak logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Teak logs",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
     "template": "dropslineskill"
   },
   {
@@ -13252,6 +13167,20 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Teak logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Teak logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Tin ore",
     "quantity": "1",
     "rarity": "Always",
@@ -13338,13 +13267,6 @@
   {
     "name": "Logs",
     "quantity": "1",
-    "rarity": "Unknown",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Logs",
-    "quantity": "1",
     "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
@@ -13359,21 +13281,28 @@
   {
     "name": "Logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Logs",
+    "quantity": "1",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Logs (Tutorial Island)",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Logs (Tutorial Island)",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -13387,14 +13316,14 @@
   {
     "name": "Logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
     "name": "Logs",
     "quantity": "1",
-    "rarity": "Unknown",
+    "rarity": "Always",
     "skill": "Woodcutting",
     "template": "dropslineskill"
   },
@@ -13812,7 +13741,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -13837,6 +13765,131 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Clockwork",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Raw bird meat",
+    "quantity": "10",
+    "rarity": "Always",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Feather",
+    "quantity": "30,40,50,60",
+    "rarity": "Always",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Bird nest (seeds)",
+    "quantity": "1",
+    "rarity": "Varies",
+    "gemw": "no",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Clue nest (elite)",
+    "quantity": "1",
+    "rarity": "1/1500",
+    "gemw": "no",
+    "skill": "Hunter",
+    "approx": "Yes",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Clue nest (hard)",
+    "quantity": "1",
+    "rarity": "2/1500",
+    "gemw": "no",
+    "skill": "Hunter",
+    "approx": "Yes",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Clue nest (medium)",
+    "quantity": "1",
+    "rarity": "3/1500",
+    "gemw": "no",
+    "skill": "Hunter",
+    "approx": "Yes",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Clue nest (easy)",
+    "quantity": "1",
+    "rarity": "4/1500",
+    "gemw": "no",
+    "skill": "Hunter",
+    "approx": "Yes",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Clue nest (beginner)",
+    "quantity": "1",
+    "rarity": "30/1500",
+    "gemw": "no",
+    "skill": "Hunter",
+    "approx": "Yes",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Bird nest (ring)",
+    "quantity": "1",
+    "rarity": "32/100",
+    "altrarity": "32/95",
+    "gemw": "no",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Bird nest (egg)#Red egg",
+    "image": "Bird nest (red egg).png",
+    "alt": "Bird nest (red egg)",
+    "quantity": "1",
+    "rarity": "1/100",
+    "altrarity": "1/95",
+    "gemw": "no",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Bird nest (egg)#Green egg",
+    "image": "Bird nest (green egg).png",
+    "alt": "Bird nest (green egg)",
+    "quantity": "1",
+    "rarity": "1/100",
+    "altrarity": "1/95",
+    "gemw": "no",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Bird nest (egg)#Blue egg",
+    "image": "Bird nest (blue egg).png",
+    "alt": "Bird nest (blue egg)",
+    "quantity": "1",
+    "rarity": "1/100",
+    "altrarity": "1/95",
+    "gemw": "no",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Bird nest (empty)",
+    "quantity": "1",
+    "rarity": "65/100",
+    "altrarity": "60/95",
+    "gemw": "no",
+    "skill": "Hunter",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Willow logs",
     "quantity": "1",
     "rarity": "Always",
@@ -13863,7 +13916,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {
@@ -13877,6 +13929,48 @@
   {
     "name": "Willow branch",
     "quantity": "1-6",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Windswept logs",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Cave goblin wire",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Woad leaf",
+    "quantity": "3",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Coins",
+    "quantity": "3",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Coins",
+    "quantity": "3",
+    "rarity": "Always",
+    "skill": "Thieving",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Yanillian hops",
+    "quantity": "1",
     "rarity": "Always",
     "skill": "Farming",
     "template": "dropslineskill"
@@ -14004,41 +14098,6 @@
     "altrarity": "60/95",
     "gemw": "no",
     "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Windswept logs",
-    "quantity": "1",
-    "rarity": "Unknown",
-    "skill": "Woodcutting",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Cave goblin wire",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Woad leaf",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Coins",
-    "quantity": "3",
-    "rarity": "Always",
-    "skill": "Thieving",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Yanillian hops",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Farming",
     "template": "dropslineskill"
   },
   {
@@ -14063,131 +14122,6 @@
     "template": "dropslineskill"
   },
   {
-    "name": "Clockwork",
-    "quantity": "1",
-    "rarity": "Always",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Raw bird meat",
-    "quantity": "10",
-    "rarity": "Always",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Feather",
-    "quantity": "30,40,50,60",
-    "rarity": "Always",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Bird nest (seeds)",
-    "quantity": "1",
-    "rarity": "Varies",
-    "gemw": "no",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Clue nest (elite)",
-    "quantity": "1",
-    "rarity": "1/1500",
-    "gemw": "no",
-    "skill": "Hunter",
-    "approx": "Yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Clue nest (hard)",
-    "quantity": "1",
-    "rarity": "2/1500",
-    "gemw": "no",
-    "skill": "Hunter",
-    "approx": "Yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Clue nest (medium)",
-    "quantity": "1",
-    "rarity": "3/1500",
-    "gemw": "no",
-    "skill": "Hunter",
-    "approx": "Yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Clue nest (easy)",
-    "quantity": "1",
-    "rarity": "4/1500",
-    "gemw": "no",
-    "skill": "Hunter",
-    "approx": "Yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Clue nest (beginner)",
-    "quantity": "1",
-    "rarity": "30/1500",
-    "gemw": "no",
-    "skill": "Hunter",
-    "approx": "Yes",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Bird nest (ring)",
-    "quantity": "1",
-    "rarity": "32/100",
-    "altrarity": "32/95",
-    "gemw": "no",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Bird nest (egg)#Red egg",
-    "image": "Bird nest (red egg).png",
-    "alt": "Bird nest (red egg)",
-    "quantity": "1",
-    "rarity": "1/100",
-    "altrarity": "1/95",
-    "gemw": "no",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Bird nest (egg)#Green egg",
-    "image": "Bird nest (green egg).png",
-    "alt": "Bird nest (green egg)",
-    "quantity": "1",
-    "rarity": "1/100",
-    "altrarity": "1/95",
-    "gemw": "no",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Bird nest (egg)#Blue egg",
-    "image": "Bird nest (blue egg).png",
-    "alt": "Bird nest (blue egg)",
-    "quantity": "1",
-    "rarity": "1/100",
-    "altrarity": "1/95",
-    "gemw": "no",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
-    "name": "Bird nest (empty)",
-    "quantity": "1",
-    "rarity": "65/100",
-    "altrarity": "60/95",
-    "gemw": "no",
-    "skill": "Hunter",
-    "template": "dropslineskill"
-  },
-  {
     "name": "Yew logs",
     "quantity": "1",
     "rarity": "Always",
@@ -14200,7 +14134,6 @@
     "rarity": "Always",
     "version": "Diseased",
     "skill": "Farming",
-    "gemw": "no",
     "template": "dropslineskill"
   },
   {

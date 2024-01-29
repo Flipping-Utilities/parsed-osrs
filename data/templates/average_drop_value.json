@@ -50,6 +50,12 @@
     "template": "average drop value"
   },
   {
+    "mob": "Abyssal demon#Wilderness Slayer Cave",
+    "mobname": "Wilderness Slayer Cave abyssal demon",
+    "wildernessslayer": "yes",
+    "template": "average drop value"
+  },
+  {
     "brimstone": "yes",
     "template": "average drop value"
   },
@@ -78,7 +84,7 @@
   },
   {
     "mob": "Ankou#Free-to-play",
-    "mobname": "ankou",
+    "mobname": "free-to-play ankou",
     "template": "average drop value"
   },
   {
@@ -99,7 +105,15 @@
     "template": "average drop value"
   },
   {
+    "mob": "Armadylean guard",
+    "template": "average drop value"
+  },
+  {
     "brimstone": "yes",
+    "template": "average drop value"
+  },
+  {
+    "wildernessslayer": "yes",
     "template": "average drop value"
   },
   {
@@ -359,9 +373,25 @@
   },
   {
     "list": [
+      "Black demon#Regular"
+    ],
+    "mobname": "black demon",
+    "wildernessslayer": "yes",
+    "template": "average drop value"
+  },
+  {
+    "list": [
       "Black demon#Wilderness Slayer Cave"
     ],
     "mobname": "black demon in the Wilderness Slayer Cave",
+    "template": "average drop value"
+  },
+  {
+    "list": [
+      "Black demon#Wilderness Slayer Cave"
+    ],
+    "mobname": "black demon in the Wilderness Slayer Cave",
+    "wildernessslayer": "yes",
     "template": "average drop value"
   },
   {
@@ -409,12 +439,52 @@
     "template": "average drop value"
   },
   {
+    "wildernessslayer": "yes",
+    "template": "average drop value"
+  },
+  {
     "brimstone": "yes",
     "template": "average drop value"
   },
   {
     "mob": "Body Golem",
     "mobname": "body golem",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 1 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 2 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 3 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 4 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 5 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 6 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 7 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 8 bounty crate",
+    "template": "average drop value"
+  },
+  {
+    "mobname": "tier 9 bounty crate",
     "template": "average drop value"
   },
   {
@@ -483,7 +553,7 @@
   },
   {
     "mob": "Bryophyta#F2P",
-    "mobname": "Bryophyta",
+    "mobname": "free-to-play Bryophyta",
     "template": "average drop value"
   },
   {
@@ -767,7 +837,7 @@
     "template": "average drop value"
   },
   {
-    "mob": "Cyclops#Regular,Warriors' Guild",
+    "mob": "Cyclops#Warriors' Guild Rooftop",
     "mobname": "cyclops",
     "template": "average drop value"
   },
@@ -777,11 +847,6 @@
     "template": "average drop value"
   },
   {
-    "mob": "Cyclops#Ardougne Zoo",
-    "mobname": "cyclops in the Ardougne Zoo",
-    "template": "average drop value"
-  },
-  {
     "mob": "Dagannoth",
     "template": "average drop value"
   },
@@ -799,7 +864,15 @@
     "template": "average drop value"
   },
   {
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
     "brimstone": "yes",
+    "template": "average drop value"
+  },
+  {
+    "raw": "y",
     "template": "average drop value"
   },
   {
@@ -812,7 +885,7 @@
     "template": "average drop value"
   },
   {
-    "alch": "yes",
+    "raw": "y",
     "template": "average drop value"
   },
   {
@@ -1195,6 +1268,10 @@
     "template": "average drop value"
   },
   {
+    "wildernessslayer": "yes",
+    "template": "average drop value"
+  },
+  {
     "brimstone": "yes",
     "template": "average drop value"
   },
@@ -1311,7 +1388,15 @@
     "template": "average drop value"
   },
   {
-    "mob": "Ice troll runt#Variant 2",
+    "mob": "Ice troll grunt",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Ice troll male#Variant 1",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Ice troll male#Variant 2",
     "template": "average drop value"
   },
   {
@@ -1346,14 +1431,14 @@
     "list": [
       "Iorwerth Warrior#Iorwerth Camp"
     ],
-    "mobname": "Iorwerth Warrior at the Iorwerth Camp",
+    "mobname": "Iorwerth Warrior (at the Iorwerth Camp)",
     "template": "average drop value"
   },
   {
     "list": [
       "Iorwerth Warrior#Iorwerth Dungeon"
     ],
-    "mobname": "Iorwerth Warrior in the Iorwerth Dungeon",
+    "mobname": "Iorwerth Warrior (in the Iorwerth Dungeon)",
     "template": "average drop value"
   },
   {
@@ -1549,13 +1634,6 @@
   {
     "mob": "Bowl of fish",
     "raw": "y",
-    "template": "average drop value"
-  },
-  {
-    "list": [
-      "Man#Regular"
-    ],
-    "mobname": "man",
     "template": "average drop value"
   },
   {
@@ -1879,11 +1957,27 @@
     "template": "average drop value"
   },
   {
+    "mob": "spoils of war",
+    "killname": "opening",
+    "raw": "y",
+    "round": "1",
+    "template": "average drop value"
+  },
+  {
     "brimstone": "yes",
     "template": "average drop value"
   },
   {
     "mob": "Obor",
+    "template": "average drop value"
+  },
+  {
+    "killname": "opening",
+    "mobname": "ogre coffin",
+    "template": "average drop value"
+  },
+  {
+    "raw": "y",
     "template": "average drop value"
   },
   {
@@ -2068,6 +2162,16 @@
     "template": "average drop value"
   },
   {
+    "mob": "Scurrius#MVP",
+    "mobname": "Scurrius",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Scurrius#nonMVP",
+    "mobname": "non-MVP Scurrius",
+    "template": "average drop value"
+  },
+  {
     "mob": "herb box",
     "raw": "y",
     "template": "average drop value"
@@ -2134,6 +2238,12 @@
   },
   {
     "list": [
+      "skeleton"
+    ],
+    "template": "average drop value"
+  },
+  {
+    "list": [
       "Skeleton (Shayzien Crypts)"
     ],
     "template": "average drop value"
@@ -2161,6 +2271,10 @@
   },
   {
     "mobname": "skeleton mage in Tarn's Lair",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Skeleton Mage#Level 83",
     "template": "average drop value"
   },
   {
@@ -2220,6 +2334,10 @@
     "list": [
       "Sourhog"
     ],
+    "template": "average drop value"
+  },
+  {
+    "wildernessslayer": "yes",
     "template": "average drop value"
   },
   {
@@ -2312,6 +2430,42 @@
   },
   {
     "mobname": "sulphur lizard",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "mobname": "supply crate",
+    "killname": "opening",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "raw": "y",
+    "template": "average drop value"
+  },
+  {
+    "mob": "Supply crate (Mahogany Homes)",
+    "raw": "y",
     "template": "average drop value"
   },
   {
@@ -2440,7 +2594,7 @@
   },
   {
     "mob": "Venenatis",
-    "mobname": "venenatis",
+    "mobname": "Venenatis",
     "template": "average drop value"
   },
   {
@@ -2490,6 +2644,13 @@
   },
   {
     "brimstone": "yes",
+    "template": "average drop value"
+  },
+  {
+    "list": [
+      "Vyrewatch Sentinel"
+    ],
+    "raw": "y",
     "template": "average drop value"
   },
   {

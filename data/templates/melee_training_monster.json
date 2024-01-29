@@ -190,7 +190,7 @@
     "hitpoints": "35",
     "requirements": "Brass key (for the shed shortcut if going to Edgeville Dungeon), decent combat",
     "recommendations": "Your best armour (chainbody recommended) and weapons, and some moderate-to-high-healing food",
-    "advantages": "*Decently high HP for level (35).\n*They have decent profitable drops for lower-level players such as limpwurt roots and they have access to the gem drop table that rarely drop uncut gems.\n*Chance of dropping a giant key, which allows the player to fight Obor, who also has good drops and a chance of dropping the valuable hill giant club .\n*They sometimes drop law runes, cosmic runes, nature runes, low-level equipment (varies depending on type of Hill Giant), and rarely drop chaos runes and death runes.\n*Always drop big bones which can be sold for guaranteed profit  or used for Prayer experience while training.",
+    "advantages": "*Decently high HP for level (35).\n*They have decent profitable drops for lower-level players such as limpwurt roots and they have access to the gem drop table that rarely drop uncut gems.\n*Chance of dropping a giant key, which allows the player to fight Obor, who also has good drops and a chance of dropping the valuable hill giant club .\n*They sometimes drop law runes, cosmic runes, nature runes, low-level equipment (varies depending on type of Hill Giant), and rarely drop chaos runes and death runes.\n*Always drop big bones which can be sold for guaranteed profit  or used for Prayer experience while training.\n* Faster aggression reset than Stronghold of Security, due to no doors. Just walk until you can't see giants on the minimap and return.",
     "disadvantages": "* Highly crowded in most worlds.\n*They can be a bit rough and tough against lower levels.",
     "template": "melee training monster"
   },
@@ -234,7 +234,7 @@
     "hitpoints": "60",
     "requirements": "Below Ice Mountain, good combat",
     "recommendations": "Food, rune equipment, barronite mace",
-    "advantages": "*Barronite mace deals the most damage per second on golems in the ruins than any other weapon.\n*The player has a +5 permanent Defence boost if Charm of Defence is active.\n*If not using extra barronite guards for barronite shards or to create additional barronite maces, they can be high-level alchemized for coins. Charm of Luck will increase the drop rate by 5%.\n*Sometimes drop uncut gems up to ruby.\n*Drops clay and ores up to iron.\n*Drops noted rune essences and body cores for Runecraft training.\n*Close to a bank.",
+    "advantages": "*Barronite mace deals more damage per second on golems in the ruins than any other weapon.\n*The player has a +5 permanent Defence boost if Charm of Defence is active.\n*If not using extra barronite guards for barronite shards or to create additional barronite maces, they can be high-level alchemized for coins. Charm of Luck will increase the drop rate by 5%.\n*Sometimes drop uncut gems up to ruby.\n*Drops clay and ores up to iron.\n*Drops noted rune essences and body cores for Runecraft training.\n*Close to a bank.",
     "disadvantages": "*Requires a quest to complete and may take a lot of time put into creating a barronite mace.\n*No bones or ashes drop for Prayer experience.",
     "template": "melee training monster"
   },
@@ -312,7 +312,7 @@
     "combat": "15",
     "hitpoints": "60",
     "requirements": "10,000 coins to enter Crabclaw Isle, or have started The Depths of Despair to enter the Crabclaw Caves. There are also spots with no requirements",
-    "recommendations": "Armour and food for low levels. If you are farming on the beach south of Hosidius there is a bank chest nearby so inventory space is not a concern. Using a full inventory of super attack and super strength potions increases considerably the DPS, which ultimately increases the experiences rates per hour",
+    "recommendations": "Armour and food for low levels. If you are farming on the beach south of Hosidius there is a bank chest nearby so inventory space is not a concern. Using a full inventory of super attack and super strength potions increases your DPS considerably, which ultimately increases the experiences rates per hour",
     "advantages": "* Very high health targets with low Defence and Attack ability\n*High in number, easy to group and kill in groups\n*Automatic aggro, meaning there are many AFK spots",
     "disadvantages": "* Often very crowded\n*Stops aggro after about 10 minutes, must be reset by walking about one screen away",
     "template": "melee training monster"
@@ -337,6 +337,17 @@
     "advantages": "*Barrage tasks are the most efficient way to train Defence and Magic\n*Melee tasks offer good experience rates due to the damage and accuracy bonuses of the slayer helm\n*Trains the Slayer skill at the same time\n*Can be profitable depending on the task list",
     "disadvantages": "*Overall, efficient Slayer training gives relatively low amount of experience in Attack and Strength, as most of the Slayer experience is gained by barraging\n*Efficient Slayer training has many requirements, including already having high Melee stats, completing most of the game's quests to unlock teleports and blocking bad tasks\n*Profitable Melee tasks do not give good experience rates in Slayer\n*Only doing cannonable Melee tasks will result in a loss.\n*Many Slayer spots can often be crowded\n*Worse Melee experience per hour than using Dharok the Wretched's equipment in Nightmare Zone\n*Much less AFK compared to using normal customisable rumble setup with absorption potions in Nightmare Zone",
     "locations": "Varies",
+    "template": "melee training monster"
+  },
+  {
+    "name": "Pest Control",
+    "locations": "Void Knight Outpost",
+    "requirements": "70 Combat (for Intermediate Lander), 100 Combat (for Veteran Lander)",
+    "recommendations": "At least the medium tier of combat achievements completed",
+    "combat": "Varies",
+    "hitpoints": "Varies",
+    "advantages": "*Fastest melee XP in the game at higher levels with the hard combat achievements completed, as XP is gained both from combat and commendation points simultaneously\n*No competition from other players - in fact this method benefits from having more people participating\n*Stats get restored at the end of each game, allowing for frequent use of special attacks and negating the need for prayer potions\n*Earns a small amount of coins",
+    "disadvantages": "*Depends on having enough people playing for optimal XP rates\n*Requires a high amount of attention as the games move quickly",
     "template": "melee training monster"
   },
   {
@@ -366,7 +377,7 @@
     "combat": "25",
     "hitpoints": "100",
     "requirements": "Priest in Peril, started Creature of Fenkenstrain",
-    "recommendations": "Armour and food for low levels. Ectophial, started Fairy Tale II - Cure a Queen for access to fairy rings or other teleport to Canifis for ease of access",
+    "recommendations": "Armour and food for low levels. Ectophial, started Fairytale II - Cure a Queen for access to fairy rings or other teleport to Canifis for ease of access",
     "advantages": "* Identical stats to the Ammonite crabs above\n*Very, very high health targets with low Defence and Attack ability, meaning you won't need much food if any\n*Single combat area, meaning no chance of shared kills\n*Not crowded",
     "disadvantages": "* Experiments are usually a few squares apart\n*Only drops bones; no other drops\n*Cannot be grouped\n*Not aggressive, will require manual clicking",
     "template": "melee training monster"
@@ -399,9 +410,9 @@
     "combat": "13",
     "hitpoints": "20",
     "requirements": "Decent combat, level 46 Thieving if fighting in Chaos Druid Tower",
-    "recommendations": "Food. Your best weapon and armour if fighting outside of the Wilderness. Only three valuable items and a Looting bag if fighting in Edgeville dungeon",
-    "advantages": "*Great profit for a low level monster, drops valuable herbs, runes, and mithril bolts\n*Not far from a bank and teleport if using an Amulet of glory or Ardougne teleport\n*Aggressive",
-    "disadvantages": "*Easiest spot to reach is in low-level Wilderness, where players may be attacked by other players or may accidentally attack another player, Skulling themselves, unless PK Skull Prevention is turned on in the settings.\n*Non-wilderness locations are far from a bank or require decent thieving\n*They deal decent damage to low level players\n*Sometimes crowded",
+    "recommendations": "Food. Your best weapon and armour if fighting outside of the Wilderness. Only three valuable items and a looting bag if fighting in Edgeville dungeon",
+    "advantages": "*Great profit for a low level monster, drops valuable herbs, runes, and mithril bolts\n*Not far from a bank and teleport if using an amulet of glory or Ardougne teleport\n*Aggressive",
+    "disadvantages": "*Easiest spot to reach is in low-level Wilderness, where players may be attacked by other players or may accidentally attack another player, skulling themselves, unless PK Skull Prevention is turned on in the settings.\n*Non-Wilderness locations are far from a bank or require decent thieving\n*They deal decent damage to low level players\n*Sometimes crowded",
     "template": "melee training monster"
   },
   {

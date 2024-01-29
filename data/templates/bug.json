@@ -1,31 +1,7 @@
 [
   {
     "list": [
-      "Before the player has given the thick dye to Gregg or learned about the intent to paint Ned's door, the player can ask Ned one step too early for his permission to paint the door."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "After the player has given the thick dye to Gregg, Ned will thank the player for painting his door with extra colours and exclaims the door to be missing something, before the door is actually painted."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Before the player has learned Gregg didn't do the decorations when he got back to Draynor and Ned did this, the player praises Ned for his excellent work on the decorations."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "If the player talks to the Cook immediately after painting Ned's door, the Cook will state that he gave rotten eggs to Gregg, but this is before Gregg ever made it to the kitchen."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "If the player takes Gregg's teleport from the lumberyard to Draynor, Thessalia will change her dialogue to tell the player Gregg is at Draynor, as intended. However, if the player skips taking Gregg's teleport and travels to Draynor manually, Thessalia will believe Gregg to be at the lumberyard, even if Gregg has left the lumberyard."
+      "* Before the player has given the thick dye to Gregg or learned about the intent to paint Ned's door, the player can ask Ned one step too early for his permission to paint the door.\n* After the player has given the thick dye to Gregg, Ned will thank the player for painting his door with extra colours and exclaims the door to be missing something, before the door is actually painted.\n* Before the player has learned Gregg didn't do the decorations when he got back to Draynor and Ned did this, the player praises Ned for his excellent work on the decorations.\n* Immediately after painting Ned's door but before being offered by Gregg to be teleported to Lumbridge, if the player asks the Cook about the Easter event, the player will question prematurely if the eggs the Cook gave to Gregg were rotten ones, in spite of the fact Gregg has not made it to the kitchen, the player hasn't asked the Cook for \"fancy eggs\", and Gregg has not received any \"colourful eggs\" from the Cook yet. \n* If the player and Gregg teleport from the Lumber Yard to Draynor together, Thessalia's dialogue will change to tell the player Gregg is at Draynor (as evidently intended). However, if the player skips teleporting with Gregg from the Lumber Yard, travels to Draynor Village manually and talks to Gregg there at this time (as may be unintended), Gregg will not be seen at the Lumber Yard again (as evidently intended), but the script updating Thessalia's dialogue to tell the player Gregg is at Draynor will not trigger, thus her dialogue will continue to incorrectly hint Gregg to be at the Lumber Yard instead of Draynor Village. Thessalia's dialogue will be glitched, but the event can be completed as normal without softlocking. The technical explanation for this is that the player's state of progression of the 2021 Easter event is tracked as an enumerated value, while a hint if the player should go to the Lumber Yard is tracked separately as a boolean value. The event state of progression is observed to control the primary flow of the event and the appearance of Gregg's persona at various places at any time. The hint boolean value is observed to have small adjustments to Gregg's choice of hints at Draynor and Thessalia's choice of the hint of Gregg's next location. These two values can become out of sync with each other. \n When Thessalia instructs the player's best bet is to talk to the sawmill operator at the Lumber Yard, the event's enumerated state changes to value 79 and the Lumber Yard hint will be enabled (changes to value 1 ). \n When Gregg will be ready to return to Draynor from the Lumber Yard, the event state's value will be 104 ; the value of the Lumber Yard hint will be unchanged at this time as 1 . Gregg can be found at the Lumber Yard as normal, while his dialogue at Draynor Village will be changed.\n If the player teleports with Gregg as offered, the event's enumerated value will be changed to 105, Gregg will no longer be seen at the Lumber Yard, and the Lumber Yard hint will be disabled (changed to 0 ), and the event stays in sync. After this, talking to Gregg at Draynor Village would then change the value 105 → 125 to progress in the event. \n However, if Gregg will be ready to return to Draynor and the player doesn't teleport from the Lumberyard to Draynor with Gregg, the event state's value will be 104 as before. Talking to Gregg at Draynor will then change the enumerated value 104 → 125 , which will progress the event and removes Gregg's persona from the Lumber Yard. In this scenario, 104 → 105 → 125 won't be observed and the Lumber Yard value will stay enabled (unchanged as 1 )."
     ],
     "template": "bug"
   },
@@ -49,31 +25,7 @@
   },
   {
     "list": [
-      "Rada's blessing and spirit flakes are reported by Jagex Moderators not to provide an extra big bass. However, players have reported this to occur, likely due to a bug."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Rada's blessing and spirit flakes are reported by Jagex Moderators not to provide an extra big shark. However, players have reported this to occur, likely due to a bug."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Rada's blessing and spirit flakes are reported by Jagex Moderators not to provide an extra big swordfish. However, players have reported this to occur, likely due to a bug."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
       "If a player adds \"the stuff\" to a brewing vat, then proceeds to enter the waiting area for the Trouble Brewing minigame while the vat is fermenting, or to log in or out of the game while in the vicinity of the minigame area, the fermentation process will continue as if no \"stuff\" has been added, essentially reducing the chance of a mature vat back to 5%. Hence, it is highly advisable to avoid the immediate area surrounding the Trouble Brewing minigame – that is to say both the lobby and the minigame arena itself – while brewing a vat of ale containing \"the stuff\"."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Captain Cleive's name is misspelt as Captain Clieve when upgrading slayer helmets and when attempting to attack lizardmen in the caves while not on a lizardman Slayer task."
     ],
     "template": "bug"
   },
@@ -91,6 +43,12 @@
   },
   {
     "list": [
+      "If the player has charged the corrupted Tumeken's shadow and adds more charges, uncharging the staff will only return the latest batch of runes — eg. charging 500 charges then 250 charges will only return 250 charges worth of runes when uncharged."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
       "There is currently a glitch right before the Sigmund fight that can cause the player to lose their pet if they have one out when trying to leave the area. Players are thus advised not to bring a pet during this quest."
     ],
     "template": "bug"
@@ -98,6 +56,12 @@
   {
     "list": [
       "There is currently a glitch right before the Sigmund fight that can cause the player to lose their pet if they have one out when trying to leave the area. Players are thus advised not to bring a pet during this quest."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Combat can be interrupted for a couple seconds if the gorilla is prayer switching to the style of your thrall."
     ],
     "template": "bug"
   },
@@ -133,6 +97,12 @@
   },
   {
     "list": [
+      "As of 30 August 2023, when asked about the rewards for each tier, Lesser Fanatic states an incorrect number of free daily runes. The awarded amount has been increased on 30 August 2023, but he still references the old rewards."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
       "If a player teleports while on the \"depositing to your bank\" part of talking to Advisor Ghrim, after teleporting, the \"subject distribution\" interface will appear, and players are able to change distribution from their teleport point."
     ],
     "template": "bug"
@@ -158,6 +128,12 @@
   {
     "list": [
       "If the player talks to Steve from this point on, until the quest is finished, he will have Nieve's chat head instead."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Even though Ultimate Iron players cannot use the bank or Grand Exchange, Odovacar will still take 100 coins from any player who asks to open either of those interfaces, if they have it on them."
     ],
     "template": "bug"
   },
@@ -193,13 +169,7 @@
   },
   {
     "list": [
-      "As of 24 April 2023, this quest's quest log entry still refers to GPDT employees as R.P.D.T. men and the depot as R.P.D.T. incorrectly after the 11 October 2018 update."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "An opening quest dialogue with Kangai Mau has a grammatical error. It states \"Lord Handlemort is an Ardougnese explorer which means he think he have the right to come to my tribal home, steal our stuff and put in his private museum.\""
+      "As of December 26 2023, this quest's quest log entry still refers to GPDT employees as R.P.D.T. men and the depot as R.P.D.T. incorrectly after the 11 October 2018 update."
     ],
     "template": "bug"
   },

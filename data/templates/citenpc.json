@@ -12,6 +12,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Diango",
+    "loc": "2017 Christmas event",
+    "quote": "[Player: I could make the toys!] I don't think so, I reckon that would take you somewhere between 72 and 74 years even with the new make-all interface.",
+    "template": "citenpc"
+  },
+  {
     "npc": "A R Wright",
     "loc": "Book (Shield of Arrav)",
     "quote": "The Shield of Arrav by A R Wright.",
@@ -23,6 +29,16 @@
     "loc": "Haunted Mine",
     "quote": "Well, below the very ground you stand upon lies an intricate network on tunnels that make up the abandoned Mort Ridge mines.",
     "name": "Mort Ridge",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Rank: Venator (Formerly)",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Status: Deceased",
     "template": "citenpc"
   },
   {
@@ -342,7 +358,7 @@
   {
     "npc": "Lyra",
     "quote": "Sometimes I travel to market fairs in distant lands, and I use my feminine arts to lure young farmers back to this land; then the vampyres come for them and I see them no more.",
-    "loc": "Garden of Tranquility",
+    "loc": "Garden of Tranquillity",
     "template": "citenpc"
   },
   {
@@ -392,6 +408,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Sphinx",
+    "quote": "[Player: The Devourer?] She's the very incarnation of destruction.",
+    "loc": "Icthlarin's Little Helper",
+    "template": "citenpc"
+  },
+  {
     "npc": "Mehhar",
     "loc": "Beneath Cursed Sands",
     "quote": "During the great war, our forces were decimated by the servants of the Ruinous Powers.",
@@ -416,19 +438,18 @@
     "template": "citenpc"
   },
   {
-    "npc": "Sphinx",
-    "quote": "The Devourer has taken to destroying humans. (...) Not just killing them; totally destroying them, body and soul. This has brought her into conflict with Icthlarin.",
-    "loc": "Icthlarin's Little Helper",
+    "npc": "Neite",
+    "quote": "The last of her priestesses gathered and cursed her.[...]Our curse trapped her in a human form, limiting her power. We also cursed her to never be willing worshipped again, though I fear that curse has started to wane.",
     "template": "citenpc"
   },
   {
     "npc": "Neite",
-    "quote": "It is not in Icthlarin's best interest to let us die, so we will never die of natural causes.",
+    "quote": "Unfortunately, she also cast a spell of her own, condemning us to an eternity of walking Gielinor in her form.[...]There are fewer of us priestesses left now, but we still hold enough power to be quite the problem for her.",
     "template": "citenpc"
   },
   {
     "npc": "Sphinx",
-    "quote": "I ensure the survival of cats and, for this service, Icthlarin grants me eternal life. (...) I look after my kind and, for that, Icthlarin looks after me.",
+    "quote": "Cats play a significant role in the religion of this area, particularly when it comes to guarding the dead from the Devourer.[...]The Devourer is terrified of cats for reasons I will not explain. However, her followers, although few in number, are not. I ensure the survival of cats. For this service, Icthlarin grants me eternal life.",
     "loc": "Icthlarin's Little Helper",
     "template": "citenpc"
   },
@@ -466,6 +487,12 @@
     "npc": "Het",
     "loc": "Into the Tombs",
     "quote": "We have opened the way for you, my friend. Any other day, I would have joined you in the fight against Amascut, but this one is up to you. Go now, and show her the error of her ways!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Amascut",
+    "loc": "Into the Tombs",
+    "quote": "My plan has only just begun! Even with this setback, those pathetic fragments of my father have still given me ample power. My strength is absolute!",
     "template": "citenpc"
   },
   {
@@ -513,6 +540,63 @@
   {
     "npc": "Player",
     "quote": "Sorry to be the bearer of bad news, but I think this 'shiny' might have killed you as well.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazelmere",
+    "loc": "The Path of Glouphrie",
+    "quote": "[Player: Hang on... you're properly talking to me, without using a mind meld. I thought you only spoke ancient gnomish?] Bah! I've always been able to speak your uncivilised tongue. Normally I wouldn't lower myself to these rudimentary words, but given your recent near-death experience, I felt you would not have the energy for a mind meld.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: The dwarves of Acheron uncovered it. They lost their home as a result. They fled south, but some remained under its control. They brought it with them.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: What am I looking at here? [Sliske]: An answer. Mysterious Voice 1: To what question? [Sliske]: What lies beyond?",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Then we'd better not waste time. There are resources that can be diverted, though there will be pushback. [Sliske]: It will be dealt with. My companion will remain to oversee your research. She will ensure that you face no barriers.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 2: What did they speak of? Mysterious Voice 1: Seas, curses and something called blackstone. It didn't really make much sense.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: I have shielded it. It will do you no harm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "The totem seems to act as a conduit between our world and the Shadow Realm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: Have the undercity sealed, then remove the protections on the totem. We require a more thorough test.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 2: The undercity is being sealed. They say the fortress has fallen. Mysterious Voice 3: Sealed? On whose orders? Mysterious Voice 2: Well... yours. Mysterious Voice 3: I gave no such order. Round up the centurions! We have a traitor among us. [The Whisperer]: No. Mysterious Voice 3: You! This was your doing! [The Whisperer]: You have served your Empire well, High Magister, but that servitude is at an end. Now it is time for a new one to begin.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Do not be afraid, my child, for you are not alone. Your voice will be one of thousands, singing an eternal silence.[...]And so another voice joins the Silent Choir.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ketla",
+    "quote": "Its influence has been weakened. Without the totem, it cannot spread beyond this city.",
+    "loc": "Desert Treasure II",
     "template": "citenpc"
   },
   {
@@ -594,6 +678,31 @@
     "template": "citenpc"
   },
   {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Annakarl fell early in the war to forces of Saradomin. Attempts to reclaim the fortress have so far been unsuccessful.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Last Known Location [of Zilyana]: Annakarl",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Last Known Location [of Lamistard]: Annakarl",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Status: Deceased",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Last Known Location: Carrallanger",
+    "template": "citenpc"
+  },
+  {
     "npc": "Wintertodt parable",
     "quote": "His lord had a beautiful daughter, Arastasia, with whom he was in love",
     "template": "citenpc"
@@ -625,66 +734,18 @@
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
-    "quote": "You don't recognize me??? I am the world famous Asgarnia Smith, Archaeologist extraordinaire!",
+    "npc": "Lord Trobin Arceuus",
+    "quote": "There are many souls that find themselves trapped here after death. My people and I do our best to release them.",
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
-    "quote": "Well, it all started the day I was fishing in Catherby, funnily enough.",
+    "npc": "Commander Fullore",
+    "quote": "It was under [the Council] that trade with your lands to the east was established. Without those trade routes, you would have no easy way of getting here.",
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
-    "quote": "Well, it might not seem much to us now kid, but back then, it was a revelation! Why waste my time fishing when there were secret treasures from long ago hidden around the world? I immediately applied to the Museum of Varrock as a field agent, and the rest is history!",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "Well anyway, let's just assume there's a treasure hidden in the desert somewhere, and let's just say for the sake of argument that maybe if I found a big stash of gold and treasure I wouldn't necessarily hand it all over to the Museum of Varrock.",
-    "loc": "Desert Treasure I",
-    "name": "Dishonesty",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "Ah, don't sweat it kid. I'll be honest with ya - I'm already rich many times over, and its more the kicks of being a treasure hunter I do it for than the actual cash!",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeological expert",
-    "quote": "You spoke to the legendary Asgarnia Smith??? Quickly, let me see what he had to give you! He is always at the forefront of archaeological breakthroughs!",
-    "loc": "Desert Treasure I",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "Hey, thanks kid. Looking snazzy is an important part of being a treasure hunter!",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "I'm the leading archaeological expert of our time! I was voted archaeologist of the year four years running by the Varrock Herald! Are you REALLY sure you've never heard of me?",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "I am the one who discovered the long forgotten Temple of Ikov! The one who unearthed the strange trap filled arena in Brimhaven!",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "Well, while he was screaming and waving his sword around, I stood behind a nearby stalactite, then shot him with my shortbow. And that was how I recovered the Golden Monkey of Tee-Ta-Toh.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "Well, that's where you'd be wrong. I work for the Archaeological Society of Varrock, and have been excavating around here recently.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Archaeologist",
-    "quote": "Aw... I was hoping to go abroad on holiday this year. Maybe I'll go check out Karamja next, I hear there's treasure to be found there...",
+    "npc": "Lord Trobin Arceuus",
+    "quote": "...we did manage to search his [Xamphur's] lair in Molch. Most of it had been cleared out before we arrived. There was some research left behind though. Notes on potential new spells. Some are far too dangerous to use, but others we've found to be safe. We're preparing a tome of all the ones that are suitable.",
     "template": "citenpc"
   },
   {
@@ -764,6 +825,21 @@
     "template": "citenpc"
   },
   {
+    "npc": "Lieutenant Schepbur",
+    "quote": "Lieutenant Shepbur, commanding officer of the new Armoured Tortoise Regiment.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lieutenant Schepbur",
+    "quote": "This is just the beginning! Gnome breeders and trainers are already working to expand the number of units. Soon we'll have hundreds of these beauties, nay thousands!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lieutenant Schepbur",
+    "quote": "And they will not only carry mages and archers but other fiendish weapons of destruction of gnome devising.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Outpost",
     "list": [
       "Large Display"
@@ -788,6 +864,64 @@
     "npc": "Dionysius",
     "loc": "Old man's message",
     "quote": "Following your request, I have spend some time re-reading the relevant scrolls in the Library of Varrock. It appears that when your forefathers encountered that adventurer, he was on a quest to find a mysterious shield.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Well, it all started the day I was fishing in Catherby, funnily enough.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Well, it might not seem much to us now kid, but back then, it was a revelation! Why waste my time fishing when there were secret treasures from long ago hidden around the world? I immediately applied to the Museum of Varrock as a field agent, and the rest is history!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Well anyway, let's just assume there's a treasure hidden in the desert somewhere, and let's just say for the sake of argument that maybe if I found a big stash of gold and treasure I wouldn't necessarily hand it all over to the Museum of Varrock.",
+    "loc": "Desert Treasure I",
+    "name": "Dishonesty",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Ah, don't sweat it kid. I'll be honest with ya - I'm already rich many times over, and its more the kicks of being a treasure hunter I do it for than the actual cash!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Terry Balando",
+    "quote": "You spoke to the legendary Asgarnia Smith??? Quickly, let me see what he had to give you! He is always at the forefront of archaeological breakthroughs!",
+    "loc": "Desert Treasure I",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Hey, thanks kid. Looking snazzy is an important part of being a treasure hunter!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "I'm the leading archaeological expert of our time! I was voted archaeologist of the year four years running by the Varrock Herald! Are you REALLY sure you've never heard of me?",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "I am the one who discovered the long forgotten Temple of Ikov! The one who unearthed the strange trap filled arena in Brimhaven!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Well, while he was screaming and waving his sword around, I stood behind a nearby stalactite, then shot him with my shortbow. And that was how I recovered the Golden Monkey of Tee-Ta-Toh.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Well, that's where you'd be wrong. I work for the Archaeological Society of Varrock, and have been excavating around here recently.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Asgarnia Smith",
+    "quote": "Aw... I was hoping to go abroad on holiday this year. Maybe I'll go check out Karamja next, I hear there's treasure to be found there...",
     "template": "citenpc"
   },
   {
@@ -892,6 +1026,11 @@
     "template": "citenpc"
   },
   {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Rank: Pontifex Maximus",
+    "template": "citenpc"
+  },
+  {
     "npc": "Eblis",
     "loc": "Desert Treasure I",
     "quote": "The spiteful Saradomin and pathetic Zamorak warred with each other, but the hatred they had for each other was as nothing to the hatred they held towards us! With each battle they waged, we lost more and more land, unable to fight on all fronts, and were pushed further and further South into this gods-forsaken desert. Our greatest hero, Azzanadra, was finally trapped in a strange stone structure to the South of here, and bound within by terrible powers...",
@@ -921,9 +1060,39 @@
     "template": "citenpc"
   },
   {
+    "npc": "Viggora",
+    "quote": "It was then [after the Betrayal of Zaros] that the other gods appeared and banished Zamorak from the world completely for daring to kill one of their kind, although as it turned out it didn't quite work out that way for them, when he returned stronger than ever, a god himself.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Zachariah",
+    "quote": "...he [Saradomin] has given us the task of protecting it [the Eye].",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Zachariah",
+    "quote": "You must build a sanctuary for the Eye. The forces of chaos already seek to reobtain it, as do countless others.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Zachariah",
+    "quote": "Aliya. You must keep the Eye secret from all others, even our own. The fewer people that know the truth, the better.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "The Great Guardian",
+    "quote": "The Eye was removed after the battle, but not before the Justiciar of the Lion used it to seal the rift once more.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "The Great Guardian",
+    "quote": "She then created us, the Guardians of the Rift, to protect this place in the event the rift was ever reopened.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Clivet",
     "loc": "Hazeel cult",
-    "quote": "TThe Carnillean home does not belong to them. The builder of the house was Lord Hazeel, one of the Mahjarrat followers of Zamorak. Many years ago there was a civil war in this land, and the hateful Saradominists declared war upon all Zamorakians who lived here.",
+    "quote": "The Carnillean home does not belong to them. The builder of the house was Lord Hazeel, one of the Mahjarrat followers of Zamorak. Many years ago there was a civil war in this land, and the hateful Saradominists declared war upon all Zamorakians who lived here.",
     "template": "citenpc"
   },
   {
@@ -1315,6 +1484,29 @@
     "template": "citenpc"
   },
   {
+    "npc": "Katrine",
+    "quote": "A small, family business. We give financial advice to other companies.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Straven",
+    "loc": "Shield of Arrav",
+    "quote": "Shortly after the fight some gang members decided they didn't want to be part of our gang anymore. So they split off to form their own gang. The Black Arm Gang.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Straven",
+    "loc": "Shield of Arrav",
+    "quote": "the shield got broken in half during that fight.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Straven",
+    "loc": "Shield of Arrav",
+    "quote": "On their way out they looted what treasures they could from us - which included one of the halves of the shield.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Witch (Lensig)",
     "quote": "[Black Knight Captain: No need to... get upset... you're scaring the cat.] 'The CAT'? She's not 'THE CAT'! She's Maemi... aren't you dear....",
     "template": "citenpc"
@@ -1394,6 +1586,48 @@
   {
     "npc": "Kaal-Xil-Dar",
     "quote": "[Kaal-Mej-San: Without life, there is no anima.] [Kaal-Ket-Jor: But life can also destroy. It can endanger the anima.] So life must be kept in check.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Historian Minas",
+    "quote": "What kingdom does he rule then? [Player: England...] Where on Gielinor is that? [Player: It's not! That's what I've been trying to tell you. I found that King Arthur and his knights are really biding their time here in Gielinor until they are called back to their own world, when they are needed!]",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Sir Tristram",
+    "quote": "Hail Arthur, King of the Britons! [Player: Um... Hello.]",
+    "template": "citenpc"
+  },
+  {
+    "npc": "King Arthur",
+    "loc": "Dragon Slayer II",
+    "quote": "Careful Lathas. I have seen the horrors of war first hand. This is not something we should merrily jump into.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "King Arthur",
+    "loc": "Holy Grail",
+    "quote": "Well, we recently found out that the Holy Grail has passed into Gielinor. This is most fortuitous! None of my knights ever did return with it last time.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "King Arthur",
+    "loc": "Merlin's Crystal",
+    "quote": "Unfortunately, our current quest is to rescue Merlin. Back in England, he got himself trapped in some sort of magical Crystal. We've moved him from the cave we found him in and now he's upstairs in his tower.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "King Arthur",
+    "quote": "[Player: So what are you doing in Gielinor?] Well legend says we will return to Britain in its time of greatest need. But that's not for quite a while yet.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Guard (Courthouse)",
+    "list": [
+      "Guard"
+    ],
+    "loc": "King's Ransom",
+    "quote": "The Sinclairs have disappeared, though I'm not sorry to see them go, but what worries me is the disappearance of King Arthur and his knights around the same time. [Player: They haven't returned to their other realm have they?] No, there's no evidence to suggest that.",
     "template": "citenpc"
   },
   {
@@ -1573,6 +1807,12 @@
     "loc": "Song of the Elves",
     "quote": "When I first encountered the elves on their homeworld of Tarddiad, it was like I had finally found my purpose... ...Ceidwad, documented my teachings in a great book called the Cerddi.",
     "name": "Ceidwad",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Char * Designation: Unknown (See Notes) * Race: Auspah * Rank: Classified * Status: Unknown (See Notes) * Last Known Location: Arandar * Notes: Char has not been seen since shortly before Zamorak's betrayal, leaving her status and loyalties unknown.",
     "template": "citenpc"
   },
   {
@@ -1878,6 +2118,24 @@
     "template": "citenpc"
   },
   {
+    "npc": "Transcript:The Giant Dwarf#Starting off",
+    "list": [
+      "Unnamed narrator"
+    ],
+    "quote": "Five hundred years have passed since the rule of King Alvis ... He founded the Consortium, the gathering of mining companies\nthat were to serve the monarchy",
+    "loc": "The Giant Dwarf",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Transcript:The Giant Dwarf#Starting off",
+    "list": [
+      "Unnamed narrator"
+    ],
+    "quote": "Eventually the monarchy came to serve the Consortium. By the time of his death, the monarchy was all but abolished. Now the Kings in Keldagrim are but a distant memory.",
+    "loc": "The Giant Dwarf",
+    "template": "citenpc"
+  },
+  {
     "npc": "Pagida",
     "quote": "Following the rebellion of the five houses against King Rada III, the Council of Elders was formed.",
     "template": "citenpc"
@@ -2099,6 +2357,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Strange Old Man",
+    "quote": "Yes! Needed it for him, but not to keep! His friend asked him to protect it, but he made a new plan, a better plan![...]The old plan is gone. We're not doing it that way. His friend won't be happy, but it was for the best!",
+    "loc": "His Faithful Servants",
+    "template": "citenpc"
+  },
+  {
     "npc": "Player character",
     "loc": "What Lies Below",
     "quote": "Hey, your cart has no donkey!",
@@ -2223,6 +2487,36 @@
     "template": "citenpc"
   },
   {
+    "list": [
+      "Golem (Desert Treasure II)"
+    ],
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Mephitis * Designation: Ally * Race: Cthonian [sic] * Rank: Legatus * Status: Alive * Last Known Location: Paddewwa * Notes: Duke Mephitis leads the garrison at Paddewwa.",
+    "template": "citenpc"
+  },
+  {
+    "list": [
+      "Golem (Desert Treasure II)"
+    ],
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Paddewwa * Designation: Location * Status: Under Allied Control * Notes: A large Bandosian force is marching on Paddewwa. Reinforcements will be needed there.",
+    "template": "citenpc"
+  },
+  {
+    "list": [
+      "Golem (Desert Treasure II)"
+    ],
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Last Known Location: Paddewwa Vicinity * Notes: Graardor and his forces are marching on Paddewwa.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "Half of the crest used to do so came into my possession, but it was seemingly taken by the Carnilleans after my defeat.",
+    "loc": "Secrets of the North",
+    "template": "citenpc"
+  },
+  {
     "npc": "Lilly",
     "quote": "Player: That's a pretty wall hanging. Lilly: Do you think so? I made it myself [...] it's a hobby of mine when I'm.... relaxing.",
     "loc": "Warrior Guild Potion Shop",
@@ -2272,9 +2566,36 @@
     "template": "citenpc"
   },
   {
+    "npc": "Islwyn",
+    "loc": "Song of the Elves",
+    "quote": "[Baxtorian: I did. But you don't understand, I loved my wife. If there was a chance of freeing her, I had to take it.] You think I don't understand love? I knew love, for Eirlys! My mother! Your daughter! She died in your war, while you hid away!",
+    "template": "citenpc"
+  },
+  {
     "npc": "Lord Baxtorian Cadarn",
     "loc": "Song of the Elves",
     "quote": "[ Arianwyn: Then I can take you back to Lletya. Your grandson, Islwyn, is there.] Grandson? So Eirlys had a child?",
+    "notes": "Her first mention by name.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Azzanadra",
+    "quote": "It [the Elder Horn] grants absolute control. With this, one person has the power to bring entire armies to their knees, all without a single drop of blood being shed.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Wizard Persten",
+    "quote": "It's [a tablet] written by one of the crew on Perseriya's ship. Apparently they snuck into her private cabin... And found Imperium inside! This was after Imperium had already been delivered to the east!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "This vault was sealed with magics that prevented beings like ourselves from opening it.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Sliske",
+    "quote": "I want the Horn for all of us. Do you not see our fate? Over and over, we have our ritual. Over and over, we doom one of our kind to the endless void. It's all so... predictable. It's all so... tiresome. And in the end, it will be the death of us all. But the Horn will be our salvation. I will use it to break the cycle that has shackled us for so long. We will finally be free. The ritual approaches once more, but things will be different this time. This will be the final Ritual of the Mahjarrat.",
     "template": "citenpc"
   },
   {
@@ -2388,10 +2709,97 @@
     "template": "citenpc"
   },
   {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "The Iorwerth forces had the strength and safety of the city walls though. They slowly whittled us down until we were too weak to carry on. We had no choice but to retreat.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Arianwyn",
+    "loc": "Mourning's End Part I",
+    "quote": "[Iorwerth] claimed Prifddinas as his own. Baxtorian tried to take it back from him, but Prifddinas was built to survive the God Wars. There was no way to retake it.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "With Prifddinas lost to us, we returned to our kingdom in the east. We'd been gone for years by then.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "We took our best fighters to Prifddinas, those that remained were unable to hold back the enemy.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Islwyn",
+    "loc": "Roving Elves",
+    "quote": "It was the acts of humans that led my grandmother's death. (...) [Player: Your grandmother?] Glarial, wife to King Baxtorian. At one time my grandparents ruled over a great elven kingdom. But your kind put an end to that.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "My wife was taken and most of my people were slaughtered. I turned my attention to finding my wife and getting the rest of my people to safety. [...] Lord Iorwerth became the least of my problems.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "Eventually, we managed to track her captors to some caves south of our ruined kingdom. It was clearly a trap, but I was a fool. I was so blind in my desire to find her, I didn't consider the obvious. [...] I sent my soldiers in, the few that I still had. They fought the best they could, but it was hopeless. They were massacred.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "The enemy took [Glarial], so I searched far and wide to find her again. [...] At times I came close, but in the end, I was too weak to carry on. I knew there was a chance she may live though, so I sealed myself away, hoping she would be the one to wake me.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Baxtorian Cadarn",
+    "loc": "Song of the Elves",
+    "quote": "After that, I knew I couldn't carry on. I was alone and powerless. So I sealed myself away, in the hope that one day she would come back to me.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Arianwyn",
+    "loc": "Mourning's End Part I",
+    "quote": "Anyway, with Baxtorian gone and Prifddinas lost, our land erupted into a Civil War. We've been fighting ever since.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lord Ieuan Amlodd",
+    "loc": "Song of the Elves",
+    "quote": "The rebels have created a wonderful village here. A safe refuge from the tyranny of Lord Iorwerth.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Arianwyn",
+    "loc": "Song of the Elves",
+    "quote": "After Baxtorian left to try and retake Prifddinas, my parents were among those who joined him. They never returned. I was still just a child at the time, alone and afraid.",
+    "notes": "He is mentioned as Gollwyn's son in the book Gollwyn's final statement.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Arianwyn",
+    "loc": "Song of the Elves",
+    "quote": "For a long time now, we've believed that Lord Iorwerth has been trying to summon Zamorak, the Dark Lord.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Prince Ali",
     "loc": "Prince Ali Rescue",
     "quote": "I know my father is very grateful as well. If he were in better health, he would have thanked you personally. However at his age, it is best that he spends his time resting.",
     "notes": "post-quest dialogue",
+    "template": "citenpc"
+  },
+  {
+    "list": [
+      "Golem (Desert Treasure II)"
+    ],
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Empyrean Citadel * Designation: Location * Status: Under Enemy Control * Notes: Armadyl commands his forces from the Empyrean Citadel.",
     "template": "citenpc"
   },
   {
@@ -2421,12 +2829,6 @@
     "npc": "Fairy",
     "loc": "Fairytale II - Cure a Queen",
     "quote": "Have you seen Fairy Cake? She went to talk to the Godfather and I haven't seen her since.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Fairy",
-    "loc": "Fairytale II - Cure a Queen",
-    "quote": "The Godfather's henchmen tried to pull off my wings!",
     "template": "citenpc"
   },
   {
@@ -2656,6 +3058,31 @@
     "template": "citenpc"
   },
   {
+    "npc": "Azzanadra",
+    "quote": "The Frostenhorn has the ability to amplify power to potentially unimaginable levels.",
+    "loc": "Desert Treasure II",
+    "notes": "as \"Mysterious Voice\"",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "The Frostenhorn has been missing since the loss of the Pontifex Maximus. It was removed from Senntisten by unknown individuals. Status unknown.",
+    "loc": "Desert Treasure II",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "And in answer to your question, the Frostenhorn was destroyed.[...]It was during your little excursion to Ghorrock Prison.",
+    "loc": "Desert Treasure II",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Azzanadra",
+    "quote": "The Frostenhorn was one of three powerful items I was seeking. Together, they may have been my best chance to determine the fate of my lord.",
+    "loc": "Desert Treasure II",
+    "template": "citenpc"
+  },
+  {
     "npc": "Galahad",
     "loc": "Holy Grail",
     "quote": "I AM Sir Galahad. Although I've retired as a Knight, and now live as a solitary monk. Also, I prefer to be known as Brother rather than Sir now.",
@@ -2728,6 +3155,40 @@
   {
     "npc": "Smith",
     "quote": "A week later about ten foot of tentacle washed up on the beach, with his rapier embedded in it to the hilt. I took it, cleaned it up, and I've been lookin' after it ever since.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "Before the God Wars, a settlement of the old empire was found here.",
+    "loc": "Secrets of the North",
+    "notes": "as Big Fish (Hazeel)",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "The fortress to the east is all that remains on the surface, but there is much still hidden below.",
+    "loc": "Secrets of the North",
+    "notes": "as Big Fish (Hazeel)",
+    "template": "citenpc"
+  },
+  {
+    "npc": "General Khazard",
+    "quote": "We're blind here. My senses do nothing this close to the ritual marker.",
+    "loc": "Secrets of the North",
+    "notes": "as Dead Wolf (Khazard)",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "A great prison, sealed long ago.",
+    "loc": "Secrets of the North",
+    "notes": "as Big Fish (Hazeel)",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "But to risk unleashing an abomination of the Fallen Empire when the ritual is so close would not be wise.",
+    "loc": "Secrets of the North",
     "template": "citenpc"
   },
   {
@@ -2805,29 +3266,49 @@
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
+    "npc": "Asgarnia Smith",
     "quote": "Well, this one time I found this spooky old temple in the middle of the jungle.",
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
+    "npc": "Asgarnia Smith",
     "quote": "Well anyway, I found the secret entrance, fought my way in through the zombies and tribesmen, and came to a big pedestal with a statue of solid gold sat on top of it!",
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
+    "npc": "Asgarnia Smith",
     "quote": "Well, while he was screaming and waving his sword around, I stood behind a nearby stalactite, then shot him with my shortbow.",
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
+    "npc": "Asgarnia Smith",
     "quote": "(...) a statue of solid gold sat on top of it!",
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
+    "npc": "Asgarnia Smith",
     "quote": "Well, that's where you'd be wrong. I work for the Archaeological Society of Varrock, and have been excavating around here recently.",
     "loc": "Desert Treasure I",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Duradel",
+    "quote": "Be extremely careful, their [Gorak] touch drains health as well as skills!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Fairy Nuff",
+    "quote": "Goraks drain the life from their prey, so by using one of their claws we are hoping to draw the Queen's life essence back.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Fairy Nuff",
+    "quote": "The fairy rings can take you to the plane that the Goraks are imprisoned on. Be careful, they are extremely dangerous creatures.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Duradel",
+    "quote": "Goraks are extremely aggressive creatures. They have been imprisoned on an alternative plane, which is only accesible by using the fairyrings.",
     "template": "citenpc"
   },
   {
@@ -3178,6 +3659,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Grimnash",
+    "loc": "Grim Tales",
+    "quote": "Grimgnash not give food names. Does human call a carrot jasper or something?",
+    "template": "citenpc"
+  },
+  {
     "npc": "Guard (Doric's hut)",
     "quote": "We guards usually stay by banks and shops, but I got sent all the way out here to keep an eye on the brigands loitering just south of here.",
     "template": "citenpc"
@@ -3209,53 +3696,44 @@
   },
   {
     "npc": "Kaqemeex",
-    "quote": "He is the god of balance, and nature; he is also a very part of this world.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Kaqemeex",
-    "quote": "Guthix is the oldest and most powerful god in Gielinor. His existence is vital to this world.",
+    "loc": "Druidic Ritual",
+    "quote": "Guthix is the oldest and most powerful god in Gielinor. His existence is vital to this world. He is the god of balance, and nature; he is also a very part of this world.",
     "template": "citenpc"
   },
   {
     "npc": "Juna",
+    "loc": "Tears of Guthix",
     "quote": "Silence fell, for the gods knew that none could challenge the power of the mighty Guthix -- for His power is that of nature itself, to which all other things are subject, in the end.",
     "template": "citenpc"
   },
   {
     "npc": "Squire (Veteran)",
-    "quote": "[Player: What's 'Gielinor'?] It is the name that Guthix gave to this world, so we honour him with its use.",
+    "quote": "[Player: What's 'Gielinor'?] It is the name that Guthix gave to this world (...)",
     "template": "citenpc"
   },
   {
     "npc": "Memory of Seren",
-    "quote": "...Another being came to our world. Divine like myself, but not by design. [Guthix] spoke of a perfect world, one filled with power. I knew it was a risk, but I decided to travel there. The power he spoke of might have been the only thing capable of saving the elves.",
-    "notes": "While never named explicitly, the divine being in question is generally acknowledged to be Guthix.",
+    "loc": "Song of the Elves",
+    "quote": "...Another being came to our world. Divine like myself, but not by design. He spoke of a perfect world, one filled with power. I knew it was a risk, but I decided to travel there. The power he spoke of might have been the only thing capable of saving the elves.",
+    "notes": "While not named explicitly, the divine being in question is generally acknowledged to be Guthix.",
     "template": "citenpc"
   },
   {
     "npc": "Juna",
+    "loc": "Tears of Guthix",
     "quote": "Myriad and beautiful were the creatures and civilizations of the early ages of the world. Gielinor was a work of art, shaped lovingly over the millennia by the creative mind of Guthix.",
     "template": "citenpc"
   },
   {
     "npc": "Juna",
+    "loc": "Tears of Guthix",
     "quote": "In time the noise of the conflict woke Guthix from His deep slumber, and He rose and stood in the centre of the battlefield so that the splendour of His wrath filled the world, and He called for the conflict to cease!",
     "template": "citenpc"
   },
   {
-    "npc": "Aeonisig Raispher",
-    "quote": "I am afraid with the Guthixian edicts regarding religious balance, there is little else we can do. [Player: Guthixian edicts?] Indeed. They were put in place by Guthix himself at the end of the God Wars. At least, so his followers claim. All of us must abide by them, lest the world fall into ruin again.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Drezel",
-    "quote": "They were apparently created at the end of the God Wars to ensure that the world never sees a conflict like that again. The edicts state that no single god should be allowed to gain enough power to become dominant. Instead, a balance must be kept between the gods and their servants. If the balance is not kept, the followers of Guthix will try to intervene. If they are unable to restore balance, they will supposedly awaken Guthix from his slumber beneath the earth. Once he awakens, they say he will remake the world, destroying civilisation as we know it.",
-    "template": "citenpc"
-  },
-  {
     "npc": "Juna",
-    "quote": "Guthix reclaimed that which had been stolen from Him, and went back underground to return to His sleep and continue to draw the world's power into Himself. But on His way into the depths of the earth He sat and rested in this cave; and, thinking of the battle-scarred desert that now stretched from one side of His world to the other, He wept. And so great was His sorrow, and so great was His life- giving power, that the rocks themselves began to weep with Him.",
+    "loc": "Tears of Guthix",
+    "quote": "Guthix reclaimed that which had been stolen from Him, and went back underground to return to His sleep and continue to draw the world's power into Himself. [...] But on His way into the depths of the earth He sat and rested in this cave; and, thinking of the battle-scarred desert that now stretched from one side of His world to the other, He wept. [...] And so great was His sorrow, and so great was His life-giving power, that the rocks themselves began to weep with Him.",
     "template": "citenpc"
   },
   {
@@ -3364,6 +3842,11 @@
     "template": "citenpc"
   },
   {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Hannibus fled Senntisten early in the war and is the only remaining ilujanka traitor to be unaccounted for.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Hans",
     "quote": "Oh my aching feet! A chair! Just what I've been needing! I'm going to go sit by the fountain, so pretty this time of year.",
     "loc": "2018 Christmas event",
@@ -3376,6 +3859,12 @@
     ],
     "quote": "I reckon Hans could do with a sit down as he's always on his feet.",
     "loc": "2018 Christmas event",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Old Crone",
+    "loc": "Ghosts Ahoy",
+    "quote": "All his rituals came from a book written by an ancient sorcerer from the East called Haricanto.",
     "template": "citenpc"
   },
   {
@@ -3539,9 +4028,42 @@
     "template": "citenpc"
   },
   {
-    "npc": "Wyson the gardener",
-    "loc": "Christmas event 2021",
-    "quote": "[Player: Any idea what it could be?] None at all, this is exciting! What could it be... a hornless unicorn? Pumpkin pie? A party hat?",
+    "npc": "Sir Renitee",
+    "quote": "A horse? I know people talk about them, but I'm not at all sure they ever existed. I don't think I could let you use one as your symbol unless you can fetch me some kind of model of one.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Sir Renitee",
+    "quote": "Ah, I see you've brought a toy horse for me to see. An interesting beast. Certainly you can use that as your crest if you like, although it seems a bit strange to me.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Dimintheis",
+    "loc": "Family Crest",
+    "quote": "Well, there is a long standing rule of chivalry amongst the Varrockian aristocracy, where each noble family is in possession of a unique crest, which signifies the honour and lineage of the family.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Sir Bedivere",
+    "loc": "King's Ransom",
+    "quote": "We are true knights who fight for honour. Those Black Knights didn't fight fair, so we were unprepared. Most unchivalrous of them.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lithil",
+    "quote": "Ugh, of course not. The fool says he won't fight a woman. That demon thinks he's a pillar of chivalry.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Thorvald the warrior",
+    "loc": "The Fremennik Trials",
+    "quote": "Some say he cannot die, for he has hidden his heart outside of his body to be kept forever safe in a duck egg. Others say he has been cursed by the gods to wander this land forever, never knowing any peace in his life, but only combat. Some claim that the sword he carries is the source of all his power, and if he should lose it, then exactly one minute later, he will turn back into his true form; A weakened, lame, old man. [Player: And what do you believe?] I believe you shouldn't look a gift horse in the mouth.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Horses Designation: Error Status: Error Last Known Location: Error Notes: ??????????",
     "template": "citenpc"
   },
   {
@@ -3551,13 +4073,9 @@
     "template": "citenpc"
   },
   {
-    "npc": "Sir Renitee",
-    "quote": "A horse? I know people talk about them, but I'm not at all sure they ever existed. I don't think I could let you use one as your symbol unless you can fetch me some kind of model of one.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Sir Renitee",
-    "quote": "Ah, I see you've brought a toy horse for me to see. An interesting beast. Certainly you can use that as your crest if you like, although it seems a bit strange to me.",
+    "npc": "Wyson the gardener",
+    "loc": "Christmas event 2021",
+    "quote": "[Player: Any idea what it could be?] None at all, this is exciting! What could it be... a hornless unicorn? Pumpkin pie? A party hat?",
     "template": "citenpc"
   },
   {
@@ -3576,25 +4094,6 @@
     "template": "citenpc"
   },
   {
-    "npc": "Dimintheis",
-    "loc": "Family Crest",
-    "list": [
-      "Well, there is a long standing rule of chivalry amongst the Varrockian aristocracy, where each noble family is in possession of a unique crest, which signifies the honour and lineage of the family."
-    ],
-    "template": "citenpc"
-  },
-  {
-    "npc": "Sir Bedivere",
-    "loc": "King's Ransom",
-    "quote": "We are true knights who fight for honour. Those Black Knights didn't fight fair, so we were unprepared. Most unchivalrous of them.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Lithil",
-    "quote": "Ugh, of course not. The fool says he won't fight a woman. That demon thinks he's a pillar of chivalry.",
-    "template": "citenpc"
-  },
-  {
     "npc": "Drunken Ali",
     "quote": "Did you hear the one where the camel walks into the bar and orders a pint? The barman asks 'Why the long face!'.",
     "template": "citenpc"
@@ -3603,11 +4102,6 @@
     "npc": "Johanhus Ulsbrecht",
     "loc": "H.A.M. Hideout",
     "quote": "We're mobilising people and we're starting out own society... cleaning out the caves once inhabited by these foul creatures and defending them so that they can never again shelter sub-human species.",
-    "template": "citenpc"
-  },
-  {
-    "loc": "H.A.M. Hideout",
-    "quote": "Good honest human food. None of your fancy gnome or dwarf stuff here.",
     "template": "citenpc"
   },
   {
@@ -3687,7 +4181,7 @@
   },
   {
     "npc": "Ghost (Ruins of Camdozaal)",
-    "quote": "Their leader is named Yonrith Lovakengj. He has fled to the west with his closest allies, but much of his army still remains.",
+    "quote": "Their leader is named Yonrith Lovakengj. He has fled to the west with his closest allies, but much of his army still remains. Carnifex Maximus Vardorvis is in pursuit of him.",
     "template": "citenpc"
   },
   {
@@ -3803,6 +4297,18 @@
   {
     "npc": "Ghost (Ruins of Camdozaal)",
     "quote": "It seems [the Imcando] have been promised a new home here in return for wiping us out.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Arianwyn",
+    "loc": "Song of the Elves",
+    "quote": "If... If what you say is true, how does it relate to Lord Iorwerth's claims? (...)\n[Player: Lord Iorwerth spoke the truth. [Seren] created a fragment of herself, filled with darkness, hoping to use it to break the curse. It didn't work though, so she sealed it in the Temple of Light.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Arianwyn",
+    "loc": "Song of the Elves",
+    "quote": "Am I? My whole life, I've been fighting Lord Iorwerth. My whole life, I've believed him to be a servant of Zamorak. Now I learn that everything I fought for was a lie. [...] I don't even know what I'm leading any more...",
     "template": "citenpc"
   },
   {
@@ -3933,7 +4439,7 @@
     "template": "citenpc"
   },
   {
-    "npc": "Archaeologist",
+    "npc": "Asgarnia Smith",
     "quote": "Well, this one time I found this spooky old temple in the middle of the jungle.",
     "template": "citenpc"
   },
@@ -4250,6 +4756,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Ketla",
+    "quote": "When the barbarians came, many tried to fight. I should have fought with them, but I turned away. I had a duty to my people, but I abandoned them. The barbarians had blocked all exits, so the only way to flee was down. I hid down here while my people died, but now I pay the price for my choice.",
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "template": "citenpc"
+  },
+  {
     "npc": "Mehhar",
     "loc": "Beneath Cursed Sands",
     "quote": "During the great war, our forces were decimated by the servants of the Ruinous Powers.",
@@ -4313,6 +4825,11 @@
     "npc": "Mehhar",
     "loc": "Beneath Cursed Sands",
     "quote": "The weapons in my father's tomb can be used to drain a being of divine energy and transfer that energy to another. If used correctly, they would grant the Devourer true godhood.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Golem (Desert Treasure II)",
+    "quote": "Kharyrll was completely destroyed by Zamorakian forces.",
     "template": "citenpc"
   },
   {
@@ -4445,7 +4962,7 @@
     "template": "citenpc"
   },
   {
-    "npc": "Statue",
+    "npc": "Statue (King Rada I)",
     "loc": "Architectural Alliance",
     "quote": "King Rada I, founder of Great Kourend",
     "note": "Object examine text",
@@ -4747,6 +5264,41 @@
     "template": "citenpc"
   },
   {
+    "npc": "Ketla",
+    "quote": "When the barbarians came, many tried to fight. I should have fought with them, but I turned away. I had a duty to my people, but I abandoned them. The barbarians had blocked all exits, so the only way to flee was down. I hid down here while my people died, but now I pay the price for my choice.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: What am I looking at here? [Sliske]: An answer. Mysterious Voice 1: To what question? [Sliske]: What lies beyond?",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Then we'd better not waste time. There are resources that can be diverted, though there will be pushback. [Sliske]: It will be dealt with. My companion will remain to oversee your research. She will ensure that you face no barriers.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: I have shielded it. It will do you no harm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: Have the undercity sealed, then remove the protections on the totem. We require a more thorough test. [The Whisperer]: And the researchers? [Sliske]: Their work is complete. Do with them as you wish.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 2: The undercity is being sealed. They say the fortress has fallen. Mysterious Voice 3: Sealed? On whose orders? Mysterious Voice 2: Well... yours. Mysterious Voice 3: I gave no such order. Round up the centurions! We have a traitor among us. [The Whisperer]: No. Mysterious Voice 3: You! This was your doing! [The Whisperer]: You have served your Empire well, High Magister, but that servitude is at an end. Now it is time for a new one to begin.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Do not be afraid, my child, for you are not alone. Your voice will be one of thousands, singing an eternal silence.[...]And so another voice joins the Silent Choir.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Tolna",
     "quote": "I can't live with your rules any more. Mother. I'm tired of working hard for very little money. There's great wealth that's mine for the taking!",
     "loc": "A Soul's Bane",
@@ -5002,6 +5554,18 @@
     "template": "citenpc"
   },
   {
+    "npc": "Commorb v2",
+    "loc": "Wanted!",
+    "quote": "The charismatic Lord Daquarius was the youngest Black Knight to ever take lead of the Kinshra, being unanimously voted into leadership after the death of Lord Shadwell in the infamous incident at Edgeville.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Commorb v2",
+    "loc": "Wanted!",
+    "quote": "Those of us who survived the Edgeville incident and recall what the Black Knights activities under Lord Shadwell were like, can see that Lord Daquarius is better to keep around than risk another fanatical extremist taking his place.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Timeline",
     "loc": "Library Historical Archive",
     "quote": "Lord Shayzien I: 3rd",
@@ -5083,6 +5647,143 @@
     "template": "citenpc"
   },
   {
+    "npc": "Vanescula Drakan",
+    "quote": "You have been gone too long, brother. While you spend your days hidden away, lamenting about that stupid rock, our kind suffer.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lowerniel Drakan",
+    "quote": "I rememeber when I was young. Our father would take me out into the woods, hunting. That was where I truly discovered what it meant to be alive. The constant fear. That knowledge that if you fail, your very life may well be over. But then at the same time, the thrill. The thrill of the chase. Of the conquest. Nothing can match it.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lowerniel Drakan",
+    "quote": "One day, he decided to bring my sister along. He felt it was time for her to develop her own taste for the hunt. She was a natural. A raw talent I had never seen before, and rarely since. I felt a unique pride that day.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "Back on our homeworld, new clan leaders were selected during a festival known as the Night of the Blood Moon. It was a simple concept. A full night of killing. At dawn, the one with the most kills became the new leader. Lowerniel loved it. He won every time of course.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lowerniel Drakan",
+    "quote": "You and your kind, you have spent your years engrossing yourself in culture, in aristocracy. Pretending to be something you're not.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "During the war, they managed to capture a justiciar, one of Efaritay's most elite warriors. They tortured him for days, until he gave them what they needed. [Player: Which was?] A secret tunnel, leading directly into Efaritay's castle. The tunnel was here, in this very graveyard. Once they were inside, capturing Ascertes was easy.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "Efaritay surrendered that same day. She walked into Lowerniel's camp, alone, and willingly handed herself in. I guess she had hoped that Lowerniel would free your father in exchange for her.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "quote": "Safalaan Hallow: What happened then? After you had your way with him, what became of my father? Vanescula Drakan: He still lives to this day, under a different name of course. Safalaan Hallow: What name? Tell me! Vanescula Drakan: Vanstrom Klause.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "Verzik ended up getting Efaritay's castle. It was quite the boon for her.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Drezel",
+    "quote": "Alas, all that ended when the vampyres invaded, claiming the land as their own. Morytania wasn't enough for them though. Soon, they set their sights on these lands as well.",
+    "loc": "Priest in Peril",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Drezel",
+    "quote": "Before they were defeated, the Seven Priestly Warriors managed to bless the Salve with the holy power of Saradomin.",
+    "loc": "Priest in Peril",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Drezel",
+    "quote": "The temple here was built soon after. It guards the source of the River Salve, and acts as the only passage between Misthalin and Morytania.",
+    "loc": "Priest in Peril",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "Ah yes, the great 'Count' Draynor. He loved his stupid titles. He was weak even before he got trapped on the wrong side of the Salve. A coward as well. There's a reason Lowerniel had him banished.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ulsquire Shauncy",
+    "quote": "The emanations from the rest of Morytania affect the people here terribly turning them into mindless creatures.",
+    "loc": "Shades of Mort'ton",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ulsquire Shauncy",
+    "quote": "The people are affected by the emanations from the rest of Morytania and the dead from the tombs have manifested into shadow creatures.",
+    "loc": "Shades of Mort'ton",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "For our kind to be less reliant on humans would be a fundamental change to our society. History has told us that leaders generally don't survive such a transition.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "It seems that the bark of the Blisterwood tree can be used to create weapons that are deadly to my kind.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "You have been gone too long, brother. While you spend your days hidden away, lamenting about that stupid rock, our kind suffer. Out there, in your city, they're starving. There's not enough blood to go around and their great leader is unwilling to provide a solution.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "Every day that goes by, the number of humans in Morytania decreases. Yet while this happens, our population continues to grow. Unsurprisingly, we no longer have enough blood to go around.[...][W]hile all of this happens, our great leader remains absent.[...]Under my rule, I would see us return to that way of life.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "[E]ven today there are many in Darkmeyer who still blindly believe in Lowerniel. It will be much easier for me to take his place if I am not responsible for his demise.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "You will pose as my prisoners and I shall escort you to Castle Drakan. Your capture is something that even Lowerniel will be unable to ignore. [Player: And once inside, we kill him.] Exactly. A nice and simple plan.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lowerniel Drakan",
+    "quote": "Tell me, Vanescula. What is the cause of this latest betrayal? How is it I have displeased you this time?",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lowerniel Drakan",
+    "quote": "[W]hen you play your games of politics, you do not do so because you're smarter than me. When you weave your words and make your schemes, you are not getting the better of me. No. You do these things only because I allow it. Because your plots are so insignificant to me, that I do not even care to pay attention to them. But now Vanescula, now you have my attention. And now, you will be reminded what it means to cross the lord of Vampyrium.",
+    "loc": "Sins of the Father",
+    "template": "citenpc"
+  },
+  {
     "npc": "Guildmaster",
     "loc": "Dragon Slayer I",
     "quote": "Out of all the people of Crandor there were only three survivors: a trio of wizards who used magic to escape. Their names were Thalzar, Lozar and Melzar.",
@@ -5109,30 +5810,30 @@
   {
     "npc": "Cow",
     "quote": "Can't the human take a hint? I've been ignoring you! Do you think I would ignore you if I wanted to discuss your Rorschach ink-blots?",
-    "loc": "A Fairy Tale II - Cure a Queen",
+    "loc": "Fairytale II - Cure a Queen",
     "template": "citenpc"
   },
   {
     "npc": "Gatekeeper",
     "quote": "That you've been doodling? If you don't mind, I have a job to do. Please stop distracting me.",
-    "loc": "A Fairy Tale II - Cure a Queen",
+    "loc": "Fairytale II - Cure a Queen",
     "template": "citenpc"
   },
   {
     "npc": "Fairy Godfather",
     "quote": "For why you show-a me dat? Eez very nice to see yous learning to draw! Bravo!",
-    "loc": "A Fairy Tale II - Cure a Queen",
+    "loc": "Fairytale II - Cure a Queen",
     "template": "citenpc"
   },
   {
     "npc": "Co-ordinator",
-    "loc": "A Fairy Tale II - Cure a Queen",
+    "loc": "Fairytale II - Cure a Queen",
     "quote": "They look familiar, but I can't think where I've seen marks like that. Try asking around, maybe somebody else will recognise them.",
     "template": "citenpc"
   },
   {
     "npc": "Fairy chef",
-    "loc": "A Fairy Tale II - Cure a Queen",
+    "loc": "Fairytale II - Cure a Queen",
     "quote": "Sorry dearie, no, but I have seen a sign with similar marks near the mysterious ruins. You know, the ones that lead you to the Cosmic Altar.",
     "template": "citenpc"
   },
@@ -5519,6 +6220,23 @@
     "template": "citenpc"
   },
   {
+    "npc": "Strange Old Man",
+    "loc": "His Faithful Servants",
+    "quote": "Dutiful servants of Saradomin... At least, that's what they'd tell you! Ha! Not so. Not so.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Vanescula Drakan",
+    "quote": "Long ago, the land of Morytania was known as Hallowvale and it was ruled over by a race of Saradominists called the icyene.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Strange Old Man",
+    "loc": "His Faithful Servants",
+    "quote": "They guard it for him! That was their purpose",
+    "template": "citenpc"
+  },
+  {
     "npc": "Savant",
     "loc": "The Slug Menace",
     "quote": "Well, this isn't the first time the Temple Knights have encountered the Mother Mallum. Centuries ago we discovered that a great evil had taken control of some of the most influential people in the world. That great evil was the Mother Mallum.",
@@ -5570,6 +6288,12 @@
     ],
     "loc": "Cold War",
     "quote": "I see you have some raw cod with you, comrade. I might be willing to exchange information for it, if you are willing. [Sure!] Thank you comrade. This is like a taste of the motherland.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hazeel",
+    "quote": "Enakhra: It didn't have to be that way, Hazeel. We had proxies available. Had you supported my plan, we'd have the Horn by now. Hazeel: Unlikely. Your minion failed to recover even one of the medallions.",
+    "loc": "Desert Treasure II - The Fallen Empire",
     "template": "citenpc"
   },
   {
@@ -5779,65 +6503,7 @@
   {
     "npc": "Brimstail",
     "loc": "The Eyes of Glouphrie",
-    "quote": "Ah, Oaknock was an engineer and architect. Very famous. There are statues to him around the place – his reputation amongst gnomes is second only to King Healthorg himself. He built most of the Stronghold you know.",
-    "name": "build",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Varrock Museum",
-    "list": [
-      "Display case 10"
-    ],
-    "loc": "Varrock Museum",
-    "quote": "They did mention that an old gnome engineer called Oaknock used to make model gliders for his children. Oaknock's son, Yewknock, ended up creating this method of transport with inspiration from his father's models.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Brimstail",
-    "loc": "The Eyes of Glouphrie",
     "quote": "I've no idea, it must have been Oaknock's, he liked talking to the elves.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Brimstail",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "Oaknock the Engineer and Glouphrie didn't like each other either...",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Hazelmere",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "Let us travel back in time, to the time you humans call the Fourth Age. King Healthorg had become King. The elves mysteriously decided to travel west, leaving most of Kandarin open for conquest. The humans weren't here yet, only King Healthorg and the gnomes to the north, and a collection of Goblin tribes to the south. Both armies moved to claim the lands, and were of course destined to meet in battle... And so it came to pass the Goblin and Gnome armies met at the Battle of Atarisundri.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Brimstail",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "It was built by Oaknock. [...] That room used to be Oaknock's workshop. I'd also recognise his style anywhere.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Brimstail",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "Oh, that's not my potplant. I think it was Oaknock's.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Hazelmere",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "Someone had hidden his death. I talked to Oaknock and he was incensed. He immediately blamed Glouphrie, and although Oaknock could be rather irrational when it came to Glouphrie – they never saw eye to eye – I knew he was right this time. Glouphrie had used his magicks to hide the truth from all of us. Oaknock had made a machine – an anti-illusion machine, with some help from the elves. He prepared it, and summoned the advisors to Argento...",
-    "template": "citenpc"
-  },
-  {
-    "npc": "Hazelmere",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "And so Glouphrie left and travelled with some companions to a place they called Arposandra. We have heard nothing but rumours about them since... [...] The rumour is that after founding his new home, Glouphrie used his magicks to shroud the city in mist. Arposandra may not exist at all, however I suspect that Glouphrie is still around, one way or another.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "King Narnode Shareen",
-    "loc": "The Eyes of Glouphrie",
-    "quote": "It was passed down to me from King to King. It belonged to Oaknock. He proclaimed that only a hero of the gnomes should have it. I think you count as a hero.",
     "template": "citenpc"
   },
   {
@@ -5868,6 +6534,16 @@
     "npc": "Drezel",
     "loc": "Priest in Peril",
     "quote": "If that happens, there won't be anything to stop an invasion from Morytania.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Kasonde",
+    "quote": "It [soul tranference] was their final attempt to overcome their extinction, but they failed. What you see around you is the result of their failure. It's known as the Strangler.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Kasonde",
+    "quote": "It's some sort of parasite. It was presumably meant to play a role in their transference rituals, but instead it destroyed them. It has remained here ever since.",
     "template": "citenpc"
   },
   {
@@ -6062,7 +6738,7 @@
   {
     "npc": "Ava",
     "loc": "Dragon Slayer II",
-    "quote": "You said it was red right? [...] Must be Orikalkum, Dragon as you adventuring lot call it. Quite rare [...]",
+    "quote": "You said it was red, right? [...] Must be orikalkum. Dragon as you adventuring lot call it. Quite rare.",
     "template": "citenpc"
   },
   {
@@ -6174,9 +6850,26 @@
     "template": "citenpc"
   },
   {
+    "npc": "Wizard Persten",
+    "quote": "It's [a tablet] written by one of the crew on Perseriya's ship. Apparently they snuck into her private cabin... And found Imperium inside! This was after Imperium had already been delivered to the east!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Player",
+    "quote": "The one she took east was a fake. She secretly kept the real one. The intention must always have been to hide it here.",
+    "loc": "Desert Treasure II",
+    "template": "citenpc"
+  },
+  {
     "npc": "Lord Kandur Hosidius",
     "quote": "It was indeed me who sent that parcel. Had I revealed the contents of the journal myself, I would likely have just been dismissed as trying to create a rift between our two houses. Phileas was the perfect third party.",
     "loc": "A Kingdom Divided",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Baraek",
+    "loc": "Shield of Arrav",
+    "quote": "They're operating there under the name of the VTAM Corporation. Be careful. The Phoenixes ain't the types to be messed about.",
     "template": "citenpc"
   },
   {
@@ -6188,7 +6881,24 @@
   {
     "npc": "Straven",
     "loc": "Shield of Arrav",
+    "quote": "the shield got broken in half during that fight.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Straven",
+    "loc": "Shield of Arrav",
     "quote": "On their way out they looted what treasures they could from us - which included one of the halves of the shield.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Baraek",
+    "loc": "Shield of Arrav",
+    "quote": "They're operating there under the name of the VTAM Corporation. Be careful. The Phoenixes ain't the types to be messed about.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Straven",
+    "quote": "Hey! You can't go in there. Only authorised personnel of the VTAM Corporation are allowed beyond this point.",
     "template": "citenpc"
   },
   {
@@ -6242,19 +6952,19 @@
     "template": "citenpc"
   },
   {
-    "npc": "Velorina",
-    "quote": "[The book of haricanto] was stolen when our port was raided by pirates many years ago, and never seen since.",
-    "loc": "Ghosts Ahoy",
+    "npc": "Shura",
+    "quote": "We rarely come this far to the west, the climate is too cold for our tastes.",
     "template": "citenpc"
   },
   {
-    "quote": "Oh well. My mum did always tell me that experience teaches fools.",
-    "npc": "Player character",
-    "list": [
-      "Player",
-      "Tower of Life"
-    ],
-    "loc": "Tower of Life",
+    "npc": "Shura",
+    "quote": "Back home on the other hand, our numbers equal the humans. Sirens live on pretty much every island in the archipelago.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Velorina",
+    "quote": "[The book of haricanto] was stolen when our port was raided by pirates many years ago, and never seen since.",
+    "loc": "Ghosts Ahoy",
     "template": "citenpc"
   },
   {
@@ -6293,6 +7003,11 @@
     ],
     "quote": "Well... I know things about myself. I know I like hot chocolate!",
     "loc": "Transcript:Selene",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Toothy",
+    "quote": "'s a sulphur mine. Ye get sulphur here. For making the dynamite, ye know? Folks use it in the blast mine. Watch the poison gas clouds, though - they'll choke ye.",
     "template": "citenpc"
   },
   {
@@ -6516,6 +7231,17 @@
     "template": "citenpc"
   },
   {
+    "npc": "Brother Aimeri",
+    "quote": "I am a travelling monk from the distant land of Varlamore... I worship Ralos, a common practice where I am from.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Alina",
+    "loc": "Children of the Sun",
+    "quote": "The sun plays an important role in Varlamorian life. In fact, they worship it!",
+    "template": "citenpc"
+  },
+  {
     "npc": "Player",
     "quote": "He's managed to keep the city going all these years, even with his lack of vision.",
     "template": "citenpc"
@@ -6604,6 +7330,12 @@
   {
     "npc": "Miodvetnir",
     "quote": "No fish around here.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "The Sage (Shattered Relics League)",
+    "quote": "Reality as you know it has many layers, all slightly different with their own rules. Through the power granted to me, I brought us to this layer using the River-Between. The River of Souls.",
+    "name": "Sage",
     "template": "citenpc"
   },
   {
@@ -6827,14 +7559,24 @@
   },
   {
     "npc": "Brundt the Chieftain",
-    "loc": "The Fremennik Exiles",
-    "quote": "[V earned the right to use magic]. Now the Moon Clan on the other hand, did not earn that right. Their use of magic is an insult to our people.",
+    "quote": "V was different. Stories tell of how he unlocked the potential of magic with the single touch of a stone.",
     "template": "citenpc"
   },
   {
-    "npc": "Hunding",
-    "name": "Hunding",
-    "quote": "However, our ways have changed little in the last century. Although more and more people use magical powers, we do not believe it is wise to take upon oneself the power of the gods in this way. To this day, we fight",
+    "npc": "Baba Yaga",
+    "loc": "Lunar Diplomacy",
+    "quote": "The Fremennik were actually the first to discover how to make runes.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Brundt the Chieftain",
+    "quote": "[But V--- earned the right to use magic?] Exactly. Now the Moon Clan on the other hand, did not earn that right. Their use of magic is an insult to our people.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Baba Yaga",
+    "loc": "Lunar Diplomacy",
+    "quote": "Most Fremennik felt we were stealing power from the gods. They could not see past that to the great things we could do with such power, so we split from them and became the Moon Clan",
     "template": "citenpc"
   },
   {
@@ -6844,7 +7586,58 @@
   },
   {
     "npc": "Baba Yaga",
+    "loc": "Lunar Diplomacy",
+    "quote": "He and his followers built altars all over Gielinor - which you use today to create runes",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Brundt the Chieftain",
+    "loc": "The Fremennik Exiles",
+    "quote": "[V earned the right to use magic]. Now the Moon Clan on the other hand, did not earn that right. Their use of magic is an insult to our people.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hunding",
+    "name": "Hunding",
+    "quote": "However, our ways have changed little in the last century. Although more and more people use magical powers, we do not believe it is wise to take upon oneself the power of the gods in this way. To this day, we fight with the mighty sword, the vicious axe and the swift arrow on the wind.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Archmage Sedridor",
+    "loc": "Rune Mysteries",
+    "quote": "The rediscovery of runecrafting had such a large impact on the world, that it marked the dawn of the Fifth Age. It also resulted in the birth of our order, and the construction of the first Wizards' Tower.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Baba Yaga",
+    "loc": "Lunar Diplomacy",
+    "quote": "The Fremennik had grown strong in body, while our clan had grown strong in mind. They overpowered our tribe and we retreated to Lunar Isle, where we have lived ever since. The Fremennik then swept over Gielinor destroying the altars we had made, in an attempt to remove all trace of magic from the land.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Baba Yaga",
+    "loc": "Lunar Diplomacy",
     "quote": "The Fremennik were not as thorough as they thought. They destroyed only the entrances to the altars, for the altars themselves were on a different plane",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Erdan",
+    "quote": "And so the rune temples that man had created were under threat, all were destroyed and thus forgotten, but the wrath that these Gunnites embraced rippled through the pocket dimensions and a new altar of power was discovered.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Erdan",
+    "quote": "The temple was destroyed just as construction had finished, and a nearby nomadic group called the Sect of Uhld were not pleased with the brutality they witnessed.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Erdan",
+    "quote": "Quickly they [the Sect of Uhld] established this guild with information preservation as their core goal.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Erdan",
+    "quote": "...the Sect of Uhld had used the information gained from the wrath altar, and with a spell of their own making, they destroyed the southern runecrafting crusade with much ease.",
     "template": "citenpc"
   },
   {
@@ -7028,13 +7821,28 @@
     "template": "citenpc"
   },
   {
-    "npc": "Mage of Zamorak",
-    "quote": "A Zamorakian wizard made a great breakthrough in teleportation magic, but the Saradominists stole his research.",
+    "npc": "High Priest (Entrana)",
+    "loc": "Heroes' Quest",
+    "quote": "You are standing on the holy island of Entrana. It was here that Saradomin first stepped upon Gielinor.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Lennissa",
+    "loc": "Curse of the Empty Lord",
+    "notes": "In reference to the Empty Lord, aka Zaros.",
+    "quote": "Let us just say that he was a fearsome deity, whose strength was greater than all the gods we knew of on this realm at the time.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Dhalak",
+    "loc": "Curse of the Empty Lord",
+    "quote": "To my eternal shame, I decided that I would assist Zamorak and his henchmen in their battle, by secretly casting a spell of concealment upon the staff so that [...] they might use it secretly against their master.",
     "template": "citenpc"
   },
   {
     "npc": "Mage of Zamorak",
-    "quote": "They used it to perform a ritual, but their lack of understanding caused it to go wrong. The entire Wizards' Tower burnt down. Many were killed, and years of research was destroyed.",
+    "loc": "Enter the Abyss",
+    "quote": "A Zamorakian wizard made a great breakthrough in teleportation magic, but the Saradominists stole his research. [...] They used it to perform a ritual, but their lack of understanding caused it to go wrong. The entire Wizards' Tower burnt down. Many were killed, and years of research was destroyed.",
     "template": "citenpc"
   },
   {
@@ -7075,6 +7883,12 @@
     "loc": "Sophanem",
     "npc": "Neite",
     "quote": "Hah! Those insane earth burrowers! They got their comeuppance! They thought they could undermine the mighty Elidinis so she buried them. They have never been seen around here since.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ceril Carnillean",
+    "loc": "Hazeel Cult",
+    "quote": "He's been with our family for twenty years... that's 140 in dog years!",
     "template": "citenpc"
   },
   {
@@ -7138,7 +7952,7 @@
   {
     "npc": "Eblis",
     "quote": "My ancestors lived far to the North of here, and our lands stretched from the sea in the East to the river Lum, and the mountain of ice. From coast to coast, North to South, our domain was absolute.",
-    "loc": "Desert Treasure",
+    "loc": "Desert Treasure I",
     "template": "citenpc"
   },
   {
@@ -7688,6 +8502,138 @@
     "template": "citenpc"
   },
   {
+    "npc": "Ketla",
+    "loc": "Desert Treasure II",
+    "quote": "It is beyond our understanding. It exists in the shadows, and there it should remain, but the blackstone is like a blade. It cuts through into our world.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Imcandoria's fall",
+    "quote": "One of the acolytes discovered a strange idol along the beach today, it has the oddest markings scratched upon it, much akin to the runic rocks of the Fremennik.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Imcandoria's fall",
+    "quote": "The Elders of Imcandoria will know what to do with such a relic so the other Seers and I have agreed that it will be sent to them immediately.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Imcandoria's fall",
+    "quote": "It has been two moons since we sent the idol away and the storms have turned increasingly ferocious. We have gone below into the lower Necropolis, hoping to seek refuge in the Forge of Giants.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Imcandoria's fall",
+    "quote": "Piles of bodies. Pools of blood. A large globulous mass sat hungrily on a throne of oily black rock, a shock of tentacles capped with claws dangled above its three pulsing bulbous eyes.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: The dwarves of Acheron uncovered it. They lost their home as a result. They fled south, but some remained under its control. They brought it with them.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: What am I looking at here? [Sliske]: An answer. Mysterious Voice 1: To what question? [Sliske]: What lies beyond?",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: What became of these dwarves? [Sliske]: They succumbed. It had no further use for them. Mysterious Voice 1: Could it do the same to us? [Sliske]: I have shielded it. It will do you no harm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Then we'd better not waste time. There are resources that can be diverted, though there will be pushback. [Sliske]: It will be dealt with. My companion will remain to oversee your research. She will ensure that you face no barriers.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "The totem seems to act as a conduit between our world and the Shadow Realm. In theory, it could be used to harvest energy from there.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Some of the volunteers needed... neutralising.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Yes, but... after doing so, they came back. It's like the totem reanimated them, but this was no normal necromancy.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: They weren't just mindless husks... It's like... they were still in there. [Sliske]: Their souls remained? Mysterious Voice 1: It would seem so.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: What did they speak of? Mysterious Voice 1: Seas, curses and something called blackstone.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: But if news gets out... [Sliske]: Ensure it does not.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ghost (Ruins of Camdozaal)",
+    "quote": "...another dwarven clan has joined the Saradominists. They march upon the fortress as we speak.",
+    "loc": "Ruins of Camdozaal",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: The enemy marches on Lassar. Mysterious Voice 1: Are they after the totem? [Sliske]: It destroyed their home. Perhaps they wish to destroy it in return.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: The enemy marches on Lassar.[...] Mysterious Voice 1: We should relocate it. [Sliske]: No. The work will continue.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: Have the undercity sealed, then remove the protections on the totem. We require a more thorough test. [The Whisperer]: And the researchers? [Sliske]: Their work is complete. Do with them as you wish.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 2: The undercity is being sealed. They say the fortress has fallen. Mysterious Voice 3: Sealed? On whose orders? Mysterious Voice 2: Well... yours. Mysterious Voice 3: I gave no such order. Round up the centurions! We have a traitor among us. [The Whisperer]: No. Mysterious Voice 3: You! This was your doing! [The Whisperer]: You have served your Empire well, High Magister, but that servitude is at an end. Now it is time for a new one to begin.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "We're talking about an unprecedented event here! All experts on the totem were lost. We had to make assumptions!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: How bad are we talking? Mysterious Voice 2: A pair of civilians.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Did you see it? That thing in the science district?[...]That was no pillar. It was something far more.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Seek out our divine order in the cistern below. They will guide you across the waves.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Do not be afraid, my child, for you are not alone. Your voice will be one of thousands, singing an eternal silence.[...]And so another voice joins the Silent Choir.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "It matters not. The day of ascension approaches. His fear will be washed away by the endless sea...",
+    "template": "citenpc"
+  },
+  {
     "npc": "Silver merchant",
     "loc": "Making History",
     "quote": "The only thing I have of [my great-grandfather] is a key. It's a strange key, it changes temperature by itself as you walk around. I'm afraid I don't know what it's for, though.",
@@ -7731,6 +8677,12 @@
     "npc": "Guardian mummy",
     "loc": "Pyramid Plunder",
     "quote": "That Simon Simpleton, I mean Templeton, will probably give you some money for them. He couldn't spot a real artefact if it came up to him and bit him in the face.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "General Khazard",
+    "loc": "The General's Shadow",
+    "quote": "The note says you have committed many sins and atrocities in your life. I'm impressed; I will use you.",
     "template": "citenpc"
   },
   {
@@ -7804,9 +8756,92 @@
     "template": "citenpc"
   },
   {
+    "npc": "Shura",
+    "quote": "Back home on the other hand, our numbers equal the humans. Sirens live on pretty much every island in the archipelago.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Wisp",
+    "quote": "If I were to [sing], your mind would perish.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Shura",
+    "quote": "We are a peaceful race, and most were all too eager to lay down their weapons once the Nightmare was gone.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: The dwarves of Acheron uncovered it. They lost their home as a result. They fled south, but some remained under its control. They brought it with them.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: What am I looking at here? [Sliske]: An answer. Mysterious Voice 1: To what question? [Sliske]: What lies beyond?",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: What became of these dwarves? [Sliske]: They succumbed. It had no further use for them. Mysterious Voice 1: Could it do the same to us? [Sliske]: I have shielded it. It will do you no harm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Then we'd better not waste time. There are resources that can be diverted, though there will be pushback. [Sliske]: It will be dealt with. My companion will remain to oversee your research. She will ensure that you face no barriers.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: Have the undercity sealed, then remove the protections on the totem. We require a more thorough test. [The Whisperer]: And the researchers? [Sliske]: Their work is complete. Do with them as you wish.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 2: The undercity is being sealed. They say the fortress has fallen. Mysterious Voice 3: Sealed? On whose orders? Mysterious Voice 2: Well... yours. Mysterious Voice 3: I gave no such order. Round up the centurions! We have a traitor among us. [The Whisperer]: No. Mysterious Voice 3: You! This was your doing! [The Whisperer]: You have served your Empire well, High Magister, but that servitude is at an end. Now it is time for a new one to begin.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ashuelot Reis",
+    "loc": "The Frozen Door",
+    "quote": "I never saw [the priest] again. He never gave us his true name, but as Nex was freed, she spoke to him... I heard little of what they said, but I did hear what she called him. Sliske.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ashuelot Reis",
+    "quote": "He encouraged us to join him. We abandoned the cause of Saradomin and became followers of Guthix.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ashuelot Reis",
+    "quote": "Our new leader taught us the ways of the druids, including an ancient ritual that had the power to awaken Guthix himself.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ashuelot Reis",
+    "quote": "When our leader led us to perform the ritual, it was not Guthix we woke, but Nex and her forces. The ritual also destroyed the protective enchantments on their prison.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Sliske",
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "* Sliske: You and I have been friends for some time now. Don't you remember?\n* Wizard Persten: Don't you remember how we survived the horrors of the Scar?\n* Assassin: Don't you remember how we escaped Ghorrock Prison?\n* Ketla: Don't you remember how we held back the shadows of Lassar?\n* Kasonde: Don't you remember how we overcame the infected Stranglewood?",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Sliske",
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "quote": "Over and over, we have our ritual. Over and over, we doom one of our kind to the endless void. [...] But the Horn will be our salvation. I will use it to break the cycle that has shackled us for so long. We will finally be free.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Commorb v2",
     "loc": "Wanted!",
     "quote": "He was first brought to our attention as a possible threat in the infamous zombie attack of Varrock masterminded by the Mahjarrat Lucien, but did not serve a particularly key role.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Solztun",
+    "quote": "I'm no ghost! I'm a spirit, I'm injecting my thoughts into your head",
     "template": "citenpc"
   },
   {
@@ -7885,9 +8920,45 @@
     "template": "citenpc"
   },
   {
+    "npc": "Osman",
+    "quote": "Ah it's sweet, sweet nectar for a thief or spy; it makes light fingers lighter, fleet feet flightier and comes in four different colours for those who are easily amused.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Del-Monty",
+    "quote": "Their juice is an excellent source of energy for runners, and in the riper varieties they are known to heighten one's Thieving abilities.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Del-Monty",
+    "quote": "I get this strange urge for sq'irks. It's quite peculiar. I think I may be addicted.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Osman",
+    "quote": "Osman starts salivating at the thought of sq'irk juice. [Player: It wouldn't have addictive properties, would it?] It only holds power over those with poor self-control, something which I have an abundance of.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Osman",
+    "quote": "Ahh, I'm hallucinating! Must cut back on sq'irks!",
+    "template": "citenpc"
+  },
+  {
     "npc": "Lennissa",
     "quote": "As I have told you, the Empty Lord was extremely powerful, but not so powerful that he could rule over the other deities of this world without opposition. [...] If he had taken possession of this god-weapon, then his power would have been so great that he could have overthrown all on this world, and made it into his own image!",
     "loc": "Curse of the Empty Lord",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Wizard Persten",
+    "quote": "It's been known by many names, and most of them have been long forgotten. The Eye of Saradomin was one. The Fist of Guthix was another.",
+    "loc": "Desert Treasure II - The Fallen Empire",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Player",
+    "quote": "Apparently, the one known as Primus was being defended by Saradominists. Perseriya and her fleet were trying to claim it, but things clearly didn't go as planned, hence them ending up here.[...]Isn't it obvious? It must be the Eye.",
     "template": "citenpc"
   },
   {
@@ -7903,6 +8974,12 @@
   {
     "npc": "Baba Yaga",
     "quote": "The Fremennik were actually the first to discover how to make runes.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Temple Guardian",
+    "loc": "Temple of the Eye",
+    "quote": "The Eye was removed after the battle, but not before the Justiciar of the Lion used it to seal the rift once more.",
     "template": "citenpc"
   },
   {
@@ -7937,11 +9014,6 @@
   },
   {
     "npc": "The Great Guardian",
-    "quote": "No part of the Abyss is more dangerous than the Scar.",
-    "template": "citenpc"
-  },
-  {
-    "npc": "The Great Guardian",
     "quote": "The Eye was removed after the battle, but not before the Justiciar of the Lion used it to seal the rift once more.",
     "template": "citenpc"
   },
@@ -7953,6 +9025,11 @@
   {
     "npc": "Noranna Tytanin",
     "quote": "They say that an object of great power was once stored in this very cave. Apparently, the presence of this object created the daeyalt deposits.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Straven",
+    "quote": "Hey! You can't go in there. Only authorised personnel of the VTAM Corporation are allowed beyond this point.",
     "template": "citenpc"
   },
   {
@@ -8028,6 +9105,17 @@
   {
     "npc": "Abigaila",
     "quote": "It was dark, and I couldn't find Suro in the water. I swam as deep as I could, until my lungs screamed, but I couldn't find him. He wasn't good at swimming. Eventually I got myself to the shore. The sun was rising, and I found Suro there. On the shore, where the water had dumped his... body.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Alina",
+    "loc": "Children of the Sun",
+    "quote": "[The college is] found in the floating city of Tempestus!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Hameln the Jester",
+    "quote": "You see, I found a poem in the College of Bards that told of the sanctuary below.",
     "template": "citenpc"
   },
   {
@@ -8154,6 +9242,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Player",
+    "quote": "The one she took east was a fake. She secretly kept the real one. The intention must always have been to hide it here.",
+    "loc": "Desert Treasure II",
+    "template": "citenpc"
+  },
+  {
     "npc": "Player character",
     "quote": "Indeed, it turns out that there was a big battle in the year 98 of the 5th Age.",
     "notes": "The player says this while talking to Historian Minas after the completion of Making History.",
@@ -8177,6 +9271,16 @@
   {
     "npc": "The Great Guardian",
     "quote": "Without the power of the Eye, we have no way to seal the rift permanently. It will soon reopen once more.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ranis Drakan",
+    "quote": "When we created the Maiden, we experimented heavily in that area.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ranis Drakan",
+    "quote": "Precisely that! Specifically the hespori. Their bark has wonderful regenerative abilities.",
     "template": "citenpc"
   },
   {
@@ -8283,6 +9387,26 @@
     "template": "citenpc"
   },
   {
+    "npc": "Kasonde",
+    "quote": "It [soul tranference] was their final attempt to overcome their extinction, but they failed. What you see around you is the result of their failure. It's known as the Strangler.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Kasonde",
+    "quote": "It's some sort of parasite. It was presumably meant to play a role in their transference rituals, but instead it destroyed them.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ghost (Ruins of Camdozaal)",
+    "quote": "Their leader is named Yonrith Lovakengj. He has fled to the west with his closest allies, but much of his army still remains. Carnifex Maximus Vardorvis is in pursuit of him.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Barus",
+    "quote": "The Burning Man is a monument to a great triumph in Lovakengj history. [...] What we do know is that a great evil threatened the earliest dwarven settlers here. Had that evil prevailed, Lovakengj might never have existed! Thankfully, with guidance from their brave leader, the settlers were able to overcome this evil! The Burning Man is a reminder of that. [...] Have you heard of the Stranglewood? [...] Anyway, that's supposedly where this evil emerged from.",
+    "template": "citenpc"
+  },
+  {
     "npc": "Player character",
     "loc": "Rogue Trader",
     "quote": "The Sultan himself might even buy some of the new range.",
@@ -8298,6 +9422,31 @@
     "npc": "Neite",
     "loc": "Sophanem",
     "quote": "My family tree dates back to days before any sultan or king of RuneScape.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: I have shielded it. It will do you no harm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "The totem seems to act as a conduit between our world and the Shadow Realm.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "[Sliske]: Have the undercity sealed, then remove the protections on the totem. We require a more thorough test. [The Whisperer]: And the researchers? [Sliske]: Their work is complete. Do with them as you wish.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 2: The undercity is being sealed. They say the fortress has fallen. Mysterious Voice 3: Sealed? On whose orders? Mysterious Voice 2: Well... yours. Mysterious Voice 3: I gave no such order. Round up the centurions! We have a traitor among us. [The Whisperer]: No. Mysterious Voice 3: You! This was your doing! [The Whisperer]: You have served your Empire well, High Magister, but that servitude is at an end. Now it is time for a new one to begin.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Remnant",
+    "quote": "Mysterious Voice 1: Do not be afraid, my child, for you are not alone. Your voice will be one of thousands, singing an eternal silence.[...]And so another voice joins the Silent Choir.",
     "template": "citenpc"
   },
   {
@@ -8561,6 +9710,18 @@
     "template": "citenpc"
   },
   {
+    "npc": "Koftik",
+    "quote": "The voices, they've been telling me things...",
+    "loc": "Underground Pass",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Koftik",
+    "quote": "What? Of course, the voices... But they've stopped. What happened? [Player: Iban's dead, I destroyed him.]",
+    "loc": "Underground Pass",
+    "template": "citenpc"
+  },
+  {
     "npc": "Wintertodt parable",
     "quote": "His lord had a beautiful daughter, Arastasia, with whom he was in love.",
     "template": "citenpc"
@@ -8604,6 +9765,16 @@
   },
   {
     "npc": "Ghost (Ruins of Camdozaal)",
+    "quote": "The city [Imcandoria] fell and now they are homeless.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ghost (Ruins of Camdozaal)",
+    "quote": "It seems [the Imcando] have been promised a new home here in return for wiping us out.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Ghost (Ruins of Camdozaal)",
     "quote": "Their leader is named Yonrith Lovakengj. He has fled to the west with his closest allies, but much of his army still remains. Carnifex Maximus Vardorvis is in pursuit of him.",
     "template": "citenpc"
   },
@@ -8618,6 +9789,12 @@
     "template": "citenpc"
   },
   {
+    "npc": "Alina",
+    "loc": "Children of the Sun",
+    "quote": "The sun plays an important role in Varlamorian life. In fact, they worship it!",
+    "template": "citenpc"
+  },
+  {
     "npc": "Queen Zyanyi Arkan",
     "quote": "From today, the sun will shine on our two kingdoms once more. The mistakes of the past are now behind us.",
     "template": "citenpc"
@@ -8625,6 +9802,12 @@
   {
     "npc": "Commander Fullore",
     "quote": "[The King is] keen to put an end to the animosity between the two kingdoms. Rumor has it [Queen Zyanyi Arkan] feels the same way.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Alina",
+    "loc": "Children of the Sun",
+    "quote": "[Teokan] means High Priest",
     "template": "citenpc"
   },
   {
@@ -8677,6 +9860,14 @@
   {
     "npc": "Jarvald",
     "quote": "We are glad the dagger-mouths have returned to these shores, for it means we will get the chance to hunt them once again as our ancestors did!",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Squire (Crypt)",
+    "list": [
+      "Vicks"
+    ],
+    "quote": "I'm Vicks, squire to Sir Culler Flife. He's away on a surveillance mission to Burthorpe, so he sent me down here to do some cleaning.",
     "template": "citenpc"
   },
   {
@@ -8770,6 +9961,12 @@
     "npc": "Davey",
     "loc": "Rum Deal",
     "quote": "* Player: What's Operation Witchwood?\n* Davey: It's a plan the Captain and I hatched to get rid of Donnie and his crew. It's named that because we need to get past 50% Luke, but he won't let us.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Player",
+    "quote": "It wasn't the Abyss. I think she might have been dead long before then. The Persten we spoke to was an imposter.",
+    "loc": "Desert Treasure II - The Fallen Empire",
     "template": "citenpc"
   },
   {
@@ -8945,6 +10142,12 @@
   {
     "npc": "Mage of Zamorak",
     "quote": "Naturally, they blamed the Zamorakians. Claimed we intentionally burnt the tower down. After the tower was rebuilt, we were banished from the Order of Wizards and forced underground.",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Savant",
+    "loc": "Wanted!",
+    "quote": "We suspect them to be the group responsible for destroying the Wizards Tower all of those years ago, as well as other more recent acts of sabotage.",
     "template": "citenpc"
   },
   {
@@ -9134,6 +10337,11 @@
     "template": "citenpc"
   },
   {
+    "npc": "Ashuelot Reis",
+    "quote": "Nex posed such a danger, that the four armies temorarily joined forces to drive her back into the prison. They resealed it, but were unable to fix the enchantments we destroyed.",
+    "template": "citenpc"
+  },
+  {
     "quote": "No. Among the Stern Judges, there was a serpent. After my father became Pharaoh, this serpent convinced the others to abandon us. [They joined the enemy?] They did.",
     "loc": "Beneath Cursed Sands",
     "name": "Serpent",
@@ -9189,6 +10397,15 @@
   {
     "npc": "Raulyn",
     "quote": "This was, of course, before the building started to sink into the swamp...",
+    "template": "citenpc"
+  },
+  {
+    "npc": "Tomb (Dragon Slayer II)",
+    "list": [
+      "Tomb"
+    ],
+    "loc": "Dragon Slayer II",
+    "quote": "The one from Zartharim sat at the north of the table, opposite the one with the sword.",
     "template": "citenpc"
   }
 ]

@@ -496,10 +496,11 @@
     "template": "agility info"
   },
   {
-    "name": "Gap",
+    "name": "Other",
     "level": "1",
     "xp": "25",
     "time": "0",
+    "type": "Other",
     "template": "agility info"
   },
   {
@@ -754,18 +755,15 @@
     "template": "agility info"
   },
   {
+    "version1": "Medium",
+    "version2": "Advanced",
     "name": "Jutting wall",
-    "level": "46",
-    "xp": "10",
-    "failxp": "6",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Jutting wall",
-    "level": "66",
-    "xp": "10",
-    "failxp": "6",
+    "level1": "46",
+    "xp1": "10",
+    "failxp1": "6",
+    "level2": "66",
+    "xp2": "10",
+    "failxp2": "6",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -1044,7 +1042,7 @@
     "template": "agility info"
   },
   {
-    "name": "Monkey bars",
+    "name": "Monkeybars",
     "level": "57",
     "xp": "20",
     "type": "Shortcut",
@@ -1139,7 +1137,7 @@
   {
     "name": "Obstacle pipe",
     "level": "49",
-    "xp": "7",
+    "xp": "7.5",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -1207,26 +1205,19 @@
     "template": "agility info"
   },
   {
+    "version1": "Easy",
+    "version2": "Medium",
+    "version3": "Hard",
     "name": "Pillar",
-    "level": "65",
-    "xp": "6.5",
-    "failxp": "3.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Pillar",
-    "level": "75",
-    "xp": "7.5",
-    "failxp": "3.8",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Pillar",
-    "level": "89",
-    "xp": "8.9",
-    "failxp": "4.5",
+    "level1": "65",
+    "level2": "75",
+    "level3": "89",
+    "xp1": "6.5",
+    "xp2": "7.5",
+    "xp3": "8.9",
+    "failxp1": "3.5",
+    "failxp2": "3.8",
+    "failxp3": "4.5",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -1333,7 +1324,7 @@
     "version2": "Floor 4",
     "version3": "Floor 5",
     "name": "Portal Frame",
-    "level": "52",
+    "level": "72",
     "xp1": "75",
     "xp2": "75",
     "xp3": "80",
@@ -1374,7 +1365,7 @@
   },
   {
     "name": "Rocks",
-    "level": "32",
+    "level": "15",
     "xp": "1",
     "type": "Shortcut",
     "template": "agility info"
@@ -1434,6 +1425,13 @@
     "template": "agility info"
   },
   {
+    "name": "Rocks",
+    "level": "68",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "version1": "Lower",
     "version2": "Upper",
     "name1": "Rocks (Lower)",
@@ -1469,23 +1467,16 @@
     "template": "agility info"
   },
   {
+    "version1": "Easy",
+    "version2": "Medium",
+    "version3": "Hard",
     "name": "Rocks",
-    "level": "59",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "68",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "85",
-    "xp": "0",
+    "level1": "59",
+    "level2": "68",
+    "level3": "85",
+    "xp1": "0",
+    "xp2": "0",
+    "xp3": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -1592,9 +1583,9 @@
     "version1": "Bottom",
     "version2": "Middle",
     "version3": "Top",
-    "name1": "Rockslide (bottom)",
-    "name2": "Rockslide (middle)",
-    "name3": "Rockslide (top)",
+    "name1": "Rockslide",
+    "name2": "Rockslide",
+    "name3": "Rockslide",
     "level1": "68",
     "level2": "68",
     "level3": "68",
@@ -1608,9 +1599,9 @@
     "version1": "Bottom",
     "version2": "Middle",
     "version3": "Top",
-    "name1": "Rockslide (bottom)",
-    "name2": "Rockslide (middle)",
-    "name3": "Rockslide (top)",
+    "name1": "Rockslide",
+    "name2": "Rockslide",
+    "name3": "Rockslide",
     "level1": "1",
     "level2": "1",
     "level3": "1",
@@ -1723,6 +1714,13 @@
   },
   {
     "name": "Ropeswing",
+    "level": "10",
+    "xp": "3",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Ropeswing",
     "level": "52",
     "xp": "20",
     "course": "Wilderness Agility Course",
@@ -1822,18 +1820,15 @@
     "template": "agility info"
   },
   {
+    "version1": "Medium",
+    "version2": "Advanced",
     "name": "Spikey chain",
-    "level": "61",
-    "xp": "3",
-    "failxp": "6",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Spikey chain",
-    "level": "71",
-    "xp": "3",
-    "failxp": "6",
+    "level1": "61",
+    "xp1": "3",
+    "failxp1": "6",
+    "level2": "71",
+    "xp2": "3",
+    "failxp2": "6",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -2397,6 +2392,7 @@
     "template": "agility info"
   },
   {
+    "lvl": "55",
     "xp": "2",
     "type": "Obstacle",
     "template": "agility info"

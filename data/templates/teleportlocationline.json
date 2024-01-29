@@ -56,6 +56,34 @@
     "template": "teleportlocationline"
   },
   {
+    "name": "Edgeville",
+    "x": "3087",
+    "y": "3496",
+    "mtype": "pin",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "Karamja",
+    "x": "2918",
+    "y": "3176",
+    "mtype": "pin",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "Draynor Village",
+    "x": "3105",
+    "y": "3251",
+    "mtype": "pin",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "Al Kharid",
+    "x": "3293",
+    "y": "3163",
+    "mtype": "pin",
+    "template": "teleportlocationline"
+  },
+  {
     "name": "Temple of the Eye",
     "x": "3615",
     "y": "9461",
@@ -87,12 +115,6 @@
     "name": "Camelot",
     "x": "2757",
     "y": "3479",
-    "template": "teleportlocationline"
-  },
-  {
-    "name": "Seer's Bank",
-    "x": "2726",
-    "y": "3485",
     "template": "teleportlocationline"
   },
   {
@@ -239,9 +261,9 @@
   },
   {
     "name": "Burthorpe Games Room",
-    "x": "2898",
+    "x": "2899",
     "y": "3553",
-    "r": "2",
+    "r": "3",
     "template": "teleportlocationline"
   },
   {
@@ -390,6 +412,51 @@
     "template": "teleportlocationline"
   },
   {
+    "name": "Ancient Vault",
+    "x": "3296",
+    "y": "6436",
+    "mapid": "-1",
+    "mtype": "square",
+    "r": "3",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "Ghorrock Dungeon (requires using the frozen tablet on the ring)",
+    "x": "2912",
+    "y": "10336",
+    "mapid": "-1",
+    "mtype": "square",
+    "r": "3",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "The Scar (requires using the scarred tablet on the ring)",
+    "x": "2019",
+    "y": "6434",
+    "mapid": "-1",
+    "mtype": "square",
+    "r": "3",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "Lassar Undercity palace (requires using the sirenic tablet on the ring)",
+    "x": "2588",
+    "y": "6435",
+    "mapid": "-1",
+    "mtype": "square",
+    "r": "3",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "The Stranglewood temple entrance (requires using the strangled tablet on the ring)",
+    "x": "1175",
+    "y": "3424",
+    "mapid": "-1",
+    "mtype": "square",
+    "r": "3",
+    "template": "teleportlocationline"
+  },
+  {
     "name": "South of the Air Altar entrance",
     "x": "2981",
     "y": "3276",
@@ -419,9 +486,6 @@
   },
   {
     "name": "Miscellania",
-    "list": [
-      ""
-    ],
     "x": "2534",
     "y": "3862",
     "template": "teleportlocationline"
@@ -514,6 +578,22 @@
     "template": "teleportlocationline"
   },
   {
+    "name": "Troll Stronghold",
+    "x": "2845",
+    "y": "3694",
+    "mtype": "square",
+    "r": "2",
+    "template": "teleportlocationline"
+  },
+  {
+    "name": "Troll Stronghold roof",
+    "x": "2837",
+    "y": "3695",
+    "mtype": "square",
+    "r": "2",
+    "template": "teleportlocationline"
+  },
+  {
     "name": "Varrock centre",
     "x": "3213",
     "y": "3424",
@@ -584,7 +664,7 @@
     "template": "teleportlocationline"
   },
   {
-    "name": "4. Xeric's Heart, next to the statue at Kourend Castle.\n\nUnlocked upon completion of the Architectural Alliance miniquest.",
+    "name": "4. Xeric's Heart, next to the statue at Kourend Castle.",
     "x": "1644",
     "y": "3673",
     "mtype": "pin",

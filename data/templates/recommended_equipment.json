@@ -23,10 +23,11 @@
     "body1": "(with bow of faerdhinen or crystal bow)",
     "legs1": "(with bow of faerdhinen or crystal bow)",
     "weapon2": "(with s or better)",
+    "ring4": "(for special)",
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god capes",
+    "cape1": "[[File:Imbued guthix cape.png]] Imbued god capes",
     "shield1": "(with 1 handed staffs)",
     "shield2": "(with 1 handed staffs)",
     "template": "recommended equipment"
@@ -38,7 +39,6 @@
   },
   {
     "cape4": "/",
-    "ring4": "/",
     "template": "recommended equipment"
   },
   {
@@ -46,15 +46,20 @@
     "weapon2": "/ (s or better)",
     "shield1": "(for special)",
     "shield2": "(for special)",
-    "ring3": "(for special)",
+    "ring4": "(for special)",
     "special1": "/",
     "template": "recommended equipment"
   },
   {
-    "head1": "(on task)",
+    "shield1": "(for special)",
+    "shield2": "(for special)",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(on task) /",
     "head3": "(set effect)",
     "ammo2": "/",
-    "special2": "/",
+    "special3": "/",
     "template": "recommended equipment"
   },
   {
@@ -66,16 +71,14 @@
   },
   {
     "head1": "(on task)",
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
-    "cape3": "/",
+    "cape5": "/",
     "ammo2": "/",
     "hidecol5": "yes",
     "template": "recommended equipment"
   },
   {
     "head1": "(on task)",
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
-    "cape3": "/",
+    "cape5": "/",
     "weapon3": "/swamp",
     "weapon4": "(on task)",
     "ammo2": "/",
@@ -105,6 +108,7 @@
     "feet1": "(after Kebos elite diary)",
     "feet2": "(after Kebos elite diary)",
     "feet4": "(after Kebos elite diary)",
+    "ring2": "/",
     "special1": "/ (faster kills)",
     "special2": "(HP and Prayer sustain)",
     "special3": "/ (to lower defence)",
@@ -117,10 +121,11 @@
     "head2": "(only on Fossil island wyvern task) / (When in full set)",
     "head4": "/",
     "neck1": "(Only with full best in slot.)",
-    "body2": "/ /",
+    "body2": "/",
+    "body3": "/",
     "legs2": "/ /",
     "ammo2": "/",
-    "ring1": "/",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -137,8 +142,8 @@
     "head2": "(only on Fossil Island wyvern task)",
     "cape4": "/",
     "ammo2": "/",
-    "ring3": "/",
     "ring4": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
@@ -150,14 +155,40 @@
     "legs5": "/",
     "ammo2": "/",
     "hands3": "/",
-    "ring2": "/",
+    "ring3": "/",
+    "ring4": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(only on task)",
+    "weapon1": "/",
+    "weapon3": "/ /",
+    "shield1": "None if using a 2 handed weapon",
+    "shield3": "/",
+    "shield4": "/",
+    "ammo1": "(if using Webweaver/Craw's bow)",
+    "ammo2": "/ (if using Webweaver/Craw's bow)",
+    "ammo3": "(if using Dragon crossbow or better) /",
+    "ammo4": "/ (if using a bow)",
+    "ammo5": "/ (if using crossbow)",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo2": "/",
+    "body4": "/ /",
+    "legs4": "/  /",
+    "weapon2": "/",
+    "weapon3": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(only on task)",
     "head2": "(only on task)",
     "head3": "/",
-    "ring2": "or",
+    "ring2": "/",
+    "ring3": "/",
+    "ring4": "/",
     "shield1": "None if using Toxic blowpipe",
     "ammo1": "/ (if using Blowpipe)",
     "ammo2": "or",
@@ -165,11 +196,12 @@
   },
   {
     "head1": "(only on task)",
-    "head2": "(only on task)",
     "shield1": "None if using Blowpipe",
     "ammo1": "/ (if using Blowpipe)",
     "ammo2": "or",
-    "ring2": "or",
+    "ring3": "/",
+    "ring4": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
@@ -227,12 +259,18 @@
     "body4": "/ /",
     "legs1": "/",
     "legs5": "/",
+    "weapon3": "/",
+    "weapon5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(if on a Slayer task)",
     "head2": "(if on a Slayer task)",
+    "head5": "/",
     "ammo1": "(if using Throwing knives)",
+    "feet5": "/",
+    "ring2": "/",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
@@ -247,17 +285,30 @@
     "shield1": "None if using a 2 handed weapon",
     "shield3": "/",
     "shield4": "/",
+    "ring1": "/",
     "ammo1": "(if using Webweaver/Craw's bow)",
     "ammo2": "/ (if using Webweaver/Craw's bow)",
     "ammo3": "(if using Dragon crossbow or better) /",
-    "ammo4": "/ (if using crossbow)",
-    "ammo5": "/ (if using a bow)",
+    "ammo4": "/ (if using a bow)",
+    "ammo5": "/ (if using crossbow)",
     "template": "recommended equipment"
   },
   {
+    "ammo2": "/",
+    "body4": "/ /",
+    "legs4": "/  /",
+    "weapon2": "/",
+    "weapon3": "/",
+    "ring1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "body4": "/",
+    "weapon3": "(on stab)",
     "weapon4": ">",
     "ammo2": "/",
     "ring5": "/",
+    "special1": ">",
     "template": "recommended equipment"
   },
   {
@@ -306,7 +357,7 @@
     "template": "recommended equipment"
   },
   {
-    "weapon4": "/",
+    "weapon3": "/",
     "ammo1": "See Ranged",
     "template": "recommended equipment"
   },
@@ -331,14 +382,14 @@
     "template": "recommended equipment"
   },
   {
-    "weapon1": "//",
-    "weapon2": "/ /",
-    "weapon3": "/ (with )/",
+    "weapon1": "(with )",
+    "weapon3": "(with )",
+    "weapon4": "/",
     "template": "recommended equipment"
   },
   {
-    "weapon3": "/",
-    "weapon4": "/ (with )",
+    "weapon2": "(with or )",
+    "weapon3": "(with )",
     "template": "recommended equipment"
   },
   {
@@ -349,31 +400,26 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "/",
-    "cape1": "/",
+    "neck4": "/",
     "cape2": "/",
-    "cape4": "/",
-    "body1": "/",
-    "legs1": "/",
-    "weapon1": "/",
     "weapon4": "/",
-    "shield2": "/",
-    "ring2": "/",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "cape2": "/",
     "weapon4": "/",
     "shield2": "/",
-    "ring2": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
     "cape2": "/ if using Webweaver/Craw's bow",
     "weapon1": "/",
     "shield1": "None if using a two-handed weapon",
-    "ammo1": "if using Webweaver/Craw's bow, Toxic blowpipe or Bow of faerdhinen",
-    "ammo2": "/",
+    "ammo3": "/",
+    "ring1": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
@@ -384,18 +430,31 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "/ /",
+    "head5": "/",
+    "cape3": "/",
+    "ring1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "/",
+    "head4": "/",
     "neck3": "/",
     "neck5": "/",
-    "body1": "/",
-    "legs1": "/",
+    "body2": "/",
+    "body3": "/",
+    "legs2": "/",
     "legs3": "/",
+    "legs4": "/",
     "cape2": "/",
-    "weapon1": "/",
+    "weapon4": ">",
+    "weapon5": ">",
     "hands3": "/",
     "feet2": "/",
-    "special2": "/ /",
-    "body3": "/",
+    "special3": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -425,6 +484,8 @@
   },
   {
     "weapon1": "/",
+    "shield1": "/",
+    "ring1": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -438,19 +499,19 @@
     "feet4": "/",
     "ring1": "/",
     "ring2": "/",
-    "ring4": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "/ (if on task)",
     "neck1": "+ +",
-    "neck3": "/",
+    "neck4": "/",
     "cape1": "+",
     "body2": "/ +",
     "legs2": "+ /",
     "weapon1": "+ +",
-    "weapon2": "/ +  +",
-    "weapon3": "/ +  +",
+    "weapon2": "/ /  / +  +",
+    "weapon3": "+ +",
     "weapon4": "+ +",
     "shield5": "/",
     "ammo1": "/",
@@ -458,7 +519,7 @@
     "hands1": "+ +",
     "feet1": "/",
     "feet3": "/",
-    "feet4": "/",
+    "feet5": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -487,8 +548,8 @@
     "template": "recommended equipment"
   },
   {
-    "shield1": "None if using Scythe of vitur",
     "ammo2": "/",
+    "body2": "/",
     "template": "recommended equipment"
   },
   {
@@ -506,15 +567,15 @@
     "legs3": "/",
     "legs5": "/",
     "weapon1": "(Melee switch) (Ranged switch)",
-    "weapon2": "(Melee switch) (crystal set) (Ranged switch)",
-    "weapon3": "(Melee switch)",
+    "weapon2": "(Melee switch)",
+    "weapon3": "(Melee switch) (crystal set) (Ranged switch)",
     "weapon4": "(Melee switch) (Ranged switch)",
     "weapon5": "(Melee switch) (Ranged switch) +  /   /  (Ranged switch)  (Ranged switch) +  (Ranged switch)",
     "ammo1": "(With Twisted bow)",
-    "ammo2": "and (With toxic blowpipe)",
     "feet5": "/",
     "ring1": "(With arclight)",
-    "ring2": "(If extra defence and/or Prayer is needed)",
+    "ring2": "(With arclight)",
+    "ring3": "(If extra defence and/or Prayer is needed)",
     "template": "recommended equipment"
   },
   {
@@ -527,18 +588,43 @@
     "template": "recommended equipment"
   },
   {
+    "head5": "/ /",
+    "cape3": "/",
+    "weapon4": "/",
+    "ammo3": "/",
+    "template": "recommended equipment"
+  },
+  {
     "weapon3": "/",
     "ammo2": "/",
     "feet5": "/",
     "template": "recommended equipment"
   },
   {
+    "neck2": "/",
+    "ring5": "/",
+    "template": "recommended equipment"
+  },
+  {
     "ammo2": "/",
     "template": "recommended equipment"
   },
   {
+    "head1": "or",
+    "cape3": "/",
+    "ammo1": "/",
+    "ammo2": "/",
+    "hands3": "/",
+    "ring1": "/",
+    "ring3": "/",
+    "special4": "/",
+    "template": "recommended equipment"
+  },
+  {
     "neck2": "/",
-    "shield5": "(charged)",
+    "neck4": "/",
+    "shield5": "/ (charged)",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
@@ -563,18 +649,18 @@
     "body1": "(Scavvo's Rune Store. or Obor)",
     "body2": "(Oziach)",
     "body3": "(Wayne's Chains! - Chainmail specialist)",
-    "body4": "(800 Castle wars tickets) (Valaine's Shop of Champions)",
+    "body4": "(800 Castle wars tickets) (Valaine's Shop of Champions or ornate lockbox)",
     "body5": "(Horvik's Armour Shop or Wayne's Chains! - Chainmail specialist)",
     "legs1": "(Scavvo's Rune Store. or Obor)",
-    "legs2": "(Ranael's Super Skirt Store.)\n (600 Castle wars tickets)",
-    "legs3": "(Ranael's Super Skirt Store.)",
+    "legs2": "(Ranael's Super Skirt Store. or ornate lockbox)\n (600 Castle wars tickets)",
+    "legs3": "(Ranael's Super Skirt Store. or ornate lockbox)",
     "legs4": "(20 Ranged and Horvik's Armour Shop)",
     "legs5": "(Ranael's Super Skirt Store. or 45+1 Smithing)",
     "weapon1": "(89+1 Smithing)",
     "weapon2": "(Ruins of Camdozaal)",
     "weapon3": "(Scavvo's Rune Store. or Bryophyta)",
     "weapon4": "(74+1 Smithing)",
-    "weapon5": "(Varrock Swordshop)",
+    "weapon5": "(Varrock Swordshop or ornate lockbox)",
     "weapon6": "(Zeke's Superior Scimitars)",
     "shield1": "(96+1 Smithing or Obor)",
     "shield2": "(92+1 Smithing or Bryophyta)",
@@ -587,7 +673,7 @@
     "feet1": "(400 Castle wars tickets, 30 Defence)",
     "feet2": "(40 Castle wars tickets, 20 Defence)",
     "feet3": "(4 Castle wars tickets, 5 Defence)",
-    "feet4": "/ (Stronghold of Security)",
+    "feet4": "/ /  (Stronghold of Security)",
     "feet5": "(Spawn in Lumbridge Castle cellar or 7 Crafting)",
     "template": "recommended equipment"
   },
@@ -729,13 +815,50 @@
     "template": "recommended equipment"
   },
   {
+    "head1": "/",
+    "head2": "/",
+    "head3": "/",
+    "head4": "/",
+    "neck1": "/",
+    "cape1": "/",
+    "cape2": "/",
+    "cape3": "/",
+    "body1": "/",
+    "body2": "/",
+    "body3": "/",
+    "body4": "/",
+    "legs1": "/",
+    "legs2": "/",
+    "legs3": "/",
+    "legs4": "/",
+    "legs5": "/",
+    "weapon1": "/",
+    "weapon2": "/",
+    "weapon3": "/",
+    "weapon4": "/",
+    "shield1": "/",
+    "hands1": "/",
+    "hands2": "/",
+    "hands3": "/",
+    "hands4": "/",
+    "hands5": "/ /",
+    "feet1": "/",
+    "feet2": "/",
+    "ring1": "/",
+    "ring2": "/",
+    "special4": "/",
+    "template": "recommended equipment"
+  },
+  {
     "head5": "/",
     "cape4": "/",
     "body4": "/",
     "body5": "/",
-    "weapon2": "/",
-    "weapon3": "/",
+    "weapon2": "/ /",
     "shield5": "/",
+    "ring1": "/",
+    "special1": "/",
+    "special2": "/",
     "special3": "(lesser defence reduction, more accurate)",
     "special4": "(greater defence reduction, less accurate)",
     "template": "recommended equipment"
@@ -745,15 +868,17 @@
     "shield5": "/",
     "ammo4": "/",
     "feet3": "/",
+    "ring1": "/",
     "ring4": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(On task) /",
     "head5": "/",
     "cape3": "/",
-    "weapon3": "/",
-    "weapon4": "/",
+    "weapon3": "/ /",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -773,24 +898,25 @@
   },
   {
     "head5": "/ /",
+    "cape5": "/",
     "body1": "(if not flicking)",
     "body3": "(only if flicking)",
     "body4": "/ (if not flicking)",
     "body5": "/",
-    "weapon2": "/",
-    "weapon3": "/",
+    "weapon2": "/ /",
     "weapon5": "/",
     "shield5": "/",
     "ammo1": "/",
-    "special1": "(great combined with Lightbearer)",
-    "special3": "(greater defence reduction, less accurate)",
+    "special2": "(great combined with Lightbearer)",
     "special4": "(lesser defence reduction, more accurate)",
-    "special5": "(Ironman)",
+    "special5": "(greater defence reduction, less accurate)",
+    "special6": "(Ironman)",
     "template": "recommended equipment"
   },
   {
     "head1": "(on task)",
     "shield5": "/ /",
+    "ring4": "/",
     "special1": "(for minions)",
     "template": "recommended equipment"
   },
@@ -800,6 +926,7 @@
     "head3": "/",
     "hands2": "/",
     "feet1": "/",
+    "ring5": "/",
     "special1": "(for mage minion after melee/ranged are dead)",
     "template": "recommended equipment"
   },
@@ -808,30 +935,38 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "or",
+    "head1": "/",
     "ammo4": "&",
     "ammo5": "&",
+    "feet2": "/",
+    "ring3": "/",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "or",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
   {
     "head1": "+ (only on special attack)",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "or",
+    "body5": "/",
+    "legs4": "/",
     "ammo2": "/ /2",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
     "cape4": "/ /",
     "cape5": "/ /",
     "ammo2": "/",
+    "ring2": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
@@ -840,9 +975,17 @@
     "template": "recommended equipment"
   },
   {
+    "head2": "(set effect)",
+    "ammo2": "/",
+    "special4": "/",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "(task only)",
     "neck3": "/",
+    "neck5": "/",
     "hands1": "(task only)",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
@@ -864,10 +1007,18 @@
   {
     "neck2": "/",
     "weapon2": "/ /",
-    "ammo1": "/",
-    "ammo2": "/ /",
-    "ring1": "/",
-    "ring4": "/ /",
+    "weapon4": "/",
+    "ammo1": "/ /",
+    "ammo2": "/ /  /",
+    "ring2": "/ /",
+    "ring4": "/",
+    "ring5": "/ /",
+    "special4": ">",
+    "template": "recommended equipment"
+  },
+  {
+    "body4": "/",
+    "legs4": "/",
     "template": "recommended equipment"
   },
   {
@@ -881,22 +1032,16 @@
   {
     "cape1": "/ /",
     "cape2": "/",
-    "weapon2": "Any other crossbow, excluding Armadyl and Zaryte",
+    "weapon2": "Any other crossbow, excluding Armadyl",
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Construct. cape(t).png]] Construction cape",
-    "cape2": "[[File:Capes of accomplishments (trimmed).gif]] Capes of Accomplishment",
-    "cape3": "[[File:God capes.gif]] God capes",
     "weapon2": "or",
     "ammo2": "/",
     "ammo3": "or",
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Construct. cape(t).png]] Construction cape",
-    "cape2": "[[File:Capes of accomplishments (trimmed).gif]] Capes of Accomplishment",
-    "cape3": "[[File:God capes.gif]] God capes",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -907,13 +1052,15 @@
     "body1": "+",
     "body2": "+",
     "body3": "+",
+    "body4": "+",
     "legs1": "+",
     "legs2": "+",
+    "legs3": "+",
     "weapon1": "+ (or ) +",
     "weapon2": "+ +",
-    "weapon3": "+ +",
+    "weapon3": "+ /  +",
     "weapon4": "+ (or )+  /",
-    "ammo1": "+ /  (Recommended to only bring dragon darts after getting to zuk a few times)",
+    "ammo1": "+ /",
     "ammo2": "/ (if using crossbow)",
     "template": "recommended equipment"
   },
@@ -930,10 +1077,15 @@
     "legs4": "+",
     "weapon1": "+ (or ) +",
     "weapon2": "+ +",
-    "weapon3": "+ +",
+    "weapon3": "+ /  +",
     "weapon4": "+ (or )+  /",
-    "ammo1": "+ /  (Recommended to only bring dragon darts after getting to zuk a few times)",
+    "ammo1": "+ /",
     "ammo2": "/ (if using crossbow)",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(task only)",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -941,6 +1093,7 @@
     "body3": "/",
     "legs3": "/",
     "feet2": "/",
+    "ring1": "/",
     "special5": "/",
     "template": "recommended equipment"
   },
@@ -981,6 +1134,15 @@
     "template": "recommended equipment"
   },
   {
+    "head1": "or",
+    "head4": "/",
+    "body4": "/",
+    "legs4": "/",
+    "weapon5": "/ /",
+    "ammo2": "/ /2",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "(on kalphite task only)",
     "head2": "/",
     "neck2": "/",
@@ -989,7 +1151,7 @@
     "ammo2": "/",
     "body1": "/",
     "legs1": "/",
-    "ring1": "/",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1010,9 +1172,12 @@
   {
     "head1": "(on kalphite task only)",
     "ammo2": "/",
+    "ring1": "/",
+    "special1": "/",
     "template": "recommended equipment"
   },
   {
+    "cape2": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -1077,12 +1242,14 @@
     "weapon5": "/ If using Fire Surge with tome of fire",
     "shield1": "/",
     "hands1": "/",
+    "ring5": "/",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
   {
     "ammo2": "/ /2",
     "feet3": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -1092,7 +1259,6 @@
     "weapon1": "s",
     "weapon2": "s",
     "hands3": "/",
-    "feet3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1100,19 +1266,27 @@
     "body4": "/",
     "legs5": "/",
     "hands3": "/",
-    "feet3": "/",
     "template": "recommended equipment"
   },
   {
+    "body2": "/",
     "body4": "/",
+    "legs2": "/",
     "legs5": "/",
+    "ammo1": "/",
+    "ammo2": "/ /",
     "hands3": "/",
+    "feet2": "/",
     "feet3": "/",
+    "feet4": "/",
+    "ring2": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
     "neck3": "/",
     "ring1": "/",
+    "ring2": "/",
     "ammo2": "/",
     "hidecol4": "yes",
     "hidecol5": "yes",
@@ -1141,8 +1315,8 @@
     "hands5": "/",
     "feet1": "/",
     "feet2": "/",
-    "ring1": "/",
-    "ring2": "(below level 30 Wilderness) /",
+    "ring1": "/ /",
+    "ring3": "(below level 30 Wilderness) /",
     "shield1": "/",
     "shield2": "/",
     "ammo1": "(Melee or Toxic blowpipe)",
@@ -1155,7 +1329,6 @@
     "head4": "/",
     "head5": "/",
     "neck2": "/",
-    "cape1": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "cape2": "/ /",
     "cape4": "/",
     "body1": "/ or",
@@ -1169,23 +1342,21 @@
     "weapon2": "/",
     "weapon4": "/",
     "weapon5": "/",
-    "ring1": "/",
-    "ring2": "(below level 30 Wilderness) /",
+    "ring1": "/ /",
+    "ring3": "(below level 30 Wilderness) /",
     "ammo2": "/",
     "template": "recommended equipment"
   },
   {
     "neck3": "/",
-    "cape1": "[[File:God capes.gif]] God cape",
-    "cape2": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
+    "ring2": "/",
     "weapon1": "/",
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
-    "cape2": "[[File:God_capes.gif]] God capes",
     "shield1": "/",
     "ammo2": "/",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1193,12 +1364,13 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "/ (with hard diary completed)",
+    "head1": "(with hard diary completed)",
     "cape2": "/ (if using Bow of faerdhinen)",
     "cape3": "[[File:Ranging cape(t).png]] Ranging cape (trimmed)",
     "weapon1": "(with adamant darts or better, ideally amethyst darts)",
     "weapon5": "/ /",
     "shield1": "None if using two-handed weapons.",
+    "ring4": "/",
     "ring5": "/",
     "ammo1": "(if using Toxic blowpipe or Bow of faerdhinen)",
     "ammo2": "/ (if using Toxic blowpipe or Bow of faerdhinen)",
@@ -1209,15 +1381,18 @@
   },
   {
     "head1": "/ (with hard diary completed)",
-    "cape4": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
+    "neck1": "/",
     "ammo2": "/",
-    "weapon4": "/",
+    "weapon4": "(on stab)",
+    "weapon5": "/",
     "shield2": "/",
     "shield3": "/",
+    "ring1": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
-    "head3": "/",
+    "head4": "/",
     "neck5": "/",
     "cape3": "(or best cloak variant)",
     "ammo2": "/",
@@ -1229,8 +1404,8 @@
     "template": "recommended equipment"
   },
   {
-    "head3": "/",
-    "head4": "Magic armour with best Magic attack bonus",
+    "head4": "/",
+    "head5": "Magic armour with best Magic attack bonus",
     "neck3": "/",
     "cape3": "(or best cloak variant)",
     "ammo2": "/",
@@ -1254,43 +1429,70 @@
     "template": "recommended equipment"
   },
   {
-    "cape4": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "ammo2": "/",
+    "ring3": "/",
+    "ring4": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "ring4": "/",
+    "ammo3": "/",
+    "ammo4": "/",
     "template": "recommended equipment"
   },
   {
     "ammo2": "/",
+    "ring2": "/",
     "ring4": "/",
-    "cape1": "[[File:Imbued god capes.gif]] Imbued God cape",
-    "cape2": "[[File:God capes.gif]] God cape",
-    "cape4": "[[File:Saradomin cloak.png]] Vestment cloak",
+    "ring5": "/ /",
     "weapon5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(task only)",
     "legs4": "/",
+    "weapon1": "/",
     "ammo2": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(task only)",
+    "shield1": "/",
+    "shield2": "/",
     "ammo2": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(task only)",
+    "template": "recommended equipment"
+  },
+  {
+    "body3": "/",
+    "legs3": "/",
+    "weapon1": "/",
+    "shield2": "(for duos/trios)",
+    "shield3": "(for duos/trios)",
+    "ammo1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo1": "(if using a Twisted bow)",
+    "ammo2": "(if using a crossbow)",
     "ring2": "/",
+    "special1": "(if not bringing a Zaryte crossbow)",
     "template": "recommended equipment"
   },
   {
     "head3": "/",
     "cape5": "/",
     "legs1": "/",
-    "weapon1": "/ /",
-    "weapon4": "/",
+    "weapon2": "/ /",
+    "weapon5": "/",
     "ammo2": "/",
     "hands5": "/",
+    "ring4": "/",
     "ring5": "/ /",
     "special1": "(damage)",
     "special2": "(prayer)",
@@ -1316,17 +1518,20 @@
     "ammo2": "/",
     "hands5": "/ /",
     "feet5": "/",
+    "ring2": "(more damage) / (more accuracy)",
+    "ring4": "(more damage) / (more accuracy)",
     "ring5": "/",
     "special4": "+ /",
     "template": "recommended equipment"
   },
   {
     "head5": "/",
-    "weapon1": "/ /",
-    "weapon3": "(Attack or Defence) / (Strength)",
-    "weapon4": "/ /",
-    "weapon5": "/",
+    "weapon2": "/ /",
+    "weapon4": "(Attack or Defence) / (Strength)",
+    "weapon5": "/ /",
+    "weapon6": "/",
     "ammo2": "/",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1346,7 +1551,7 @@
     "ammo1": "/ /",
     "ammo2": "/ /2 / /",
     "hands1": "/",
-    "ring1": "/",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1360,7 +1565,9 @@
     "ammo2": "/",
     "hands1": "/",
     "feet5": "/",
+    "ring2": "/",
     "ring4": "/",
+    "ring5": "/",
     "special1": "(Damage)",
     "special2": "(Prayer)",
     "special3": "(Prayer)",
@@ -1377,6 +1584,9 @@
     "legs1": "/",
     "weapon1": "/",
     "ammo2": "/",
+    "ring2": "(more damage) / (more accuracy)",
+    "ring4": "(more damage) / (more accuracy)",
+    "ring5": "/",
     "special2": "(with Ornate maul handle)",
     "template": "recommended equipment"
   },
@@ -1385,12 +1595,11 @@
     "legs5": "/",
     "ammo1": "/ /",
     "ammo2": "/",
+    "ring2": "/",
     "special3": "(with Ornate maul handle)",
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Capes of accomplishments (trimmed).gif]] Capes of Accomplishment",
-    "cape2": "[[File:God capes.gif]] God capes",
     "weapon1": "/",
     "weapon2": "/",
     "shield3": "/",
@@ -1398,25 +1607,23 @@
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Capes of accomplishments (trimmed).gif]] Capes of Accomplishment",
-    "cape2": "[[File:God capes.gif]] God capes",
     "ammo2": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "or &",
     "head2": "/ &",
-    "head3": "&",
+    "head3": "/ &",
     "head4": "&",
     "neck1": "&",
     "cape1": "/",
     "cape2": "/",
     "body1": "&",
-    "body2": "& /",
+    "body2": "/ &  /",
     "body3": "&",
     "body4": "&",
     "legs1": "&",
-    "legs2": "& /",
+    "legs2": "/ &  /",
     "legs3": "&",
     "legs4": "&",
     "weapon1": "&",
@@ -1425,10 +1632,12 @@
     "weapon4": "/ /  &  /",
     "weapon5": "/ &",
     "shield1": "/",
+    "shield3": "/",
     "hands1": "&",
     "feet1": "&",
     "feet2": "&",
     "feet3": "&",
+    "ring4": "/",
     "ammo1": "& /",
     "ammo2": "/ &",
     "ammo3": "/",
@@ -1446,7 +1655,11 @@
     "template": "recommended equipment"
   },
   {
+    "weapon1": "(on crush)",
+    "weapon4": "(on crush)",
     "ring1": "/",
+    "ring3": "/",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
@@ -1462,12 +1675,12 @@
   {
     "neck1": "<ref\nname = amulet>You will have a Skull over your head at all times",
     "neck5": "/",
+    "body1": "/",
     "body2": "/",
     "legs1": "/",
     "legs2": "/ /",
     "cape1": "/",
     "cape2": "/",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "weapon3": "/ /",
     "weapon4": "/ /",
     "weapon5": "/ /",
@@ -1490,22 +1703,24 @@
   },
   {
     "head1": "(on task)",
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
-    "cape3": "/",
+    "cape5": "/",
     "weapon3": "/swamp",
     "weapon4": "(on task)",
+    "shield5": "/",
     "ammo2": "/",
     "hidecol5": "yes",
     "template": "recommended equipment"
   },
   {
+    "weapon2": "/",
     "weapon3": "/",
     "weapon4": "/",
     "weapon5": "/",
     "shield3": "/",
     "ammo2": "/ /",
     "feet2": "/",
-    "ring3": "/ /",
+    "ring1": "/ &",
+    "ring4": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -1513,15 +1728,49 @@
     "template": "recommended equipment"
   },
   {
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god capes",
-    "cape2": "[[File:God capes.gif]] God capes",
-    "cape4": "[[File:Guthix cloak.png]] Vestment cloak",
     "ammo2": "/",
     "feet2": "/",
     "shield1": "(with harmonised nightmare staff)",
     "weapon1": "/",
     "hands2": "/",
     "hands3": "/",
+    "ring2": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo1": "(with bone/magic shortbow)",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon2": "/ /",
+    "weapon3": ">",
+    "ammo2": "/",
+    "ring2": "(with Scythe of vitur)",
+    "template": "recommended equipment"
+  },
+  {
+    "neck4": "(with full Karil's)",
+    "2h1": "(with Amethyst or better darts)",
+    "2h4": "(with Crystal armour)",
+    "ammo1": "(with Bone shortbow)",
+    "ammo2": "(with Twisted bow)",
+    "ammo3": "(with Dragon or higher crossbows)",
+    "ammo4": "(with Karil's crossbow)",
+    "ring3": "(if using special attacks)",
+    "template": "recommended equipment"
+  },
+  {
+    "shield3": ">",
+    "shield4": ">",
+    "ammo2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1553,27 +1802,31 @@
     "ammo3": "(if using crossbow) / (if using crossbow)",
     "ammo4": "(if using crossbow)",
     "ammo5": "(if using crossbow)",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "ammo3": "/",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "cape1": "/ God cape",
     "ammo2": "/ God blessing",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
-    "head1": "or (if on task, imbue optional)",
-    "head4": "/ /  (if using void)",
-    "head5": "/",
+    "head1": "/ (if on task, imbue optional)",
+    "head5": "/ /  (if using void)",
     "cape4": "/",
     "ammo2": "/ /",
+    "body1": "/",
+    "body2": "/",
     "body4": "/ /  (if using void)",
     "body5": "/",
-    "legs3": "/ (if using void)",
-    "legs5": "/",
+    "legs4": "/ (if using void)",
+    "legs5": "/ /",
     "weapon4": "/ /",
     "shield4": "/",
     "hands3": "(if using void)",
@@ -1610,26 +1863,43 @@
     "shield6": "/",
     "hands4": "/",
     "feet4": "/ /  /",
+    "ring1": "/",
     "ring3": "/",
+    "ring4": "/",
+    "ring5": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "neck2": "/",
+    "ring3": "/",
+    "ring4": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(on task)",
+    "body5": "/",
     "legs4": "/ /",
-    "weapon5": "/",
+    "weapon3": "/",
+    "weapon5": "/ /  /",
+    "weapon6": "/",
     "ammo2": "/",
+    "ring3": "/",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(task only)",
-    "weapon1": "or",
+    "weapon1": "/ /",
     "ammo2": "or",
+    "hands1": "(task only)",
     "template": "recommended equipment"
   },
   {
     "head1": "(task only)",
+    "weapon3": "/",
     "hands1": "(task only)",
-    "ring1": "(if combined with Dinh's bulwark)",
+    "ring1": "/ (if combined with Dinh's bulwark)",
     "template": "recommended equipment"
   },
   {
@@ -1648,6 +1918,7 @@
     "weapon1": "/",
     "weapon4": "/",
     "ammo2": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1655,6 +1926,13 @@
     "weapon1": "/",
     "weapon4": "/",
     "ammo2": "/",
+    "ring3": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(task only)",
+    "ammo2": "or",
+    "hands1": "(task only)",
     "template": "recommended equipment"
   },
   {
@@ -1666,17 +1944,16 @@
     "template": "recommended equipment"
   },
   {
-    "cape2": "[[File:God capes.gif]] God cape",
     "ammo2": "/",
-    "body2": "/",
     "body3": "/",
-    "legs2": "/",
+    "body4": "/",
     "legs3": "/",
+    "legs4": "/",
     "hands1": "/",
     "feet1": "/",
     "feet2": "/",
-    "ring1": "/",
     "ring2": "/",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1686,6 +1963,12 @@
   },
   {
     "ammo2": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "neck3": "/",
+    "hands4": "/",
+    "ring4": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -1694,6 +1977,14 @@
     "cape4": "/",
     "cape5": "/",
     "weapon2": "/",
+    "ammo2": "/",
+    "ring1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "neck2": "/",
+    "cape5": "/",
+    "weapon4": "/ /",
     "ammo2": "/",
     "ring1": "/",
     "template": "recommended equipment"
@@ -1708,8 +1999,7 @@
     "template": "recommended equipment"
   },
   {
-    "cape1": "/",
-    "cape3": "/",
+    "weapon1": "/",
     "shield1": "/",
     "template": "recommended equipment"
   },
@@ -1718,29 +2008,44 @@
     "template": "recommended equipment"
   },
   {
-    "head2": "(if using Void Knight equipment)",
-    "body2": "/ (if using Void Knight equipment)",
-    "legs2": "/ (if using Void Knight equipment)",
+    "head2": "/",
+    "body1": "/",
+    "legs1": "/",
+    "weapon1": "/",
+    "weapon2": "/",
+    "weapon3": "/",
+    "ammo1": "/",
+    "ammo2": "/",
+    "ammo3": "/",
+    "ammo5": "/ /2",
+    "template": "recommended equipment"
+  },
+  {
+    "head3": "(if using Void Knight equipment)",
+    "body3": "/ (if using Void Knight equipment)",
+    "legs3": "/ (if using Void Knight equipment)",
+    "shield4": "/",
     "ammo2": "/",
     "hands2": "(if using Void Knight equipment)",
     "feet3": "/",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
-    "head2": "(if using Void Knight equipment)",
-    "body2": "/ (if using Void Knight equipment)",
-    "legs2": "/ (if using Void Knight equipment)",
-    "weapon1": "(with adamant or better darts)",
-    "shield1": "(crossbow only)",
-    "shield2": "(crossbow only)",
-    "shield3": "(crossbow only)",
-    "shield4": "(crossbow only)",
-    "shield5": "(crossbow only)",
+    "head2": "/",
+    "head3": "(if using Void Knight equipment)",
+    "body2": "/",
+    "body3": "/ (if using Void Knight equipment)",
+    "legs2": "/",
+    "legs3": "/ (if using Void Knight equipment)",
+    "weapon1": "(with amethyst or better darts)",
+    "weapon3": "(with adamant or better darts)",
     "ammo1": "(blowpipe only)",
     "ammo2": "/ (blowpipe only)",
     "ammo3": "(crossbow only)",
     "ammo4": "(crossbow only)",
-    "hands2": "(if using Void Knight equipment)",
+    "hands3": "(if using Void Knight equipment)",
+    "ring3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1752,30 +2057,45 @@
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(Soteseg and Verzik only, see notes)",
-    "list": [
-      "weapon5"
-    ],
+    "head1": "or",
+    "head3": "/",
+    "head4": "/",
+    "weapon1": "/ (for souls)",
+    "weapon2": "/",
+    "weapon3": "/ /",
+    "shield1": "/",
+    "shield3": "/",
+    "ring1": "(with shadow)",
+    "special4": "(only for lost souls)",
+    "ammo1": "/ Any arrow (if using Venator bow)",
+    "ammo2": "/ /2",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon2": "/ (Sotetseg only, see notes)",
     "special1": "and",
     "special2": "and",
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(Sotetseg and Verzik only, see notes)",
+    "weapon2": "(need to maintain 3 stacks or higher)",
+    "weapon3": "/ (Sotetseg only, see notes)",
     "ammo3": "/",
     "special1": "and",
     "special2": "and",
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(Soteseg and Verzik only, see notes)",
+    "weapon2": "(need to maintain 3 stacks or higher)",
+    "weapon3": "/ (Sotetseg only, see notes)",
     "ammo3": "/",
     "special1": "and",
     "special2": "and",
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(Soteseg and Verzik only, see notes)",
+    "weapon2": "(need to maintain 3 stacks or higher)",
+    "weapon3": "/ (Sotetseg only, see notes)",
     "ammo3": "/",
     "special1": "and",
     "special2": "and",
@@ -1786,6 +2106,8 @@
     "shield1": "/",
     "ammo2": "/ /2",
     "feet3": "/",
+    "ring4": "/ /",
+    "ring5": "/",
     "template": "recommended equipment"
   },
   {
@@ -1807,16 +2129,37 @@
     "weapon2": "/",
     "weapon4": "/\n /",
     "ammo2": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
     "ammo1": "See Ranged",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
     "weapon1": "+ +",
     "weapon2": "+ +",
     "weapon3": "+ +  /",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "/",
+    "head2": "/",
+    "head3": "/",
+    "head4": "/",
+    "cape3": "/",
+    "body1": "/",
+    "body2": "/",
+    "body3": "/",
+    "body4": "/",
+    "body5": "/",
+    "legs1": "/",
+    "legs2": "/",
+    "legs3": "/",
+    "legs4": "/",
+    "legs5": "/",
+    "special3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1831,7 +2174,8 @@
     "hands1": "/",
     "hands2": "/",
     "hands4": "/",
-    "ring2": "/ (if using Blowpipe)",
+    "ring3": "/ (if using Blowpipe)",
+    "ring5": "/ /",
     "weapon1": "/",
     "weapon3": "/",
     "weapon4": "/ /",
@@ -1840,7 +2184,7 @@
     "ammo2": "(Bow of faerdhinen or Bow of faerdhinen (c))",
     "ammo3": "(for cave) / (for Jad)",
     "ammo4": "s (Karil's crossbow) or (for cave) /  (for Jad)",
-    "ammo5": "([Webweaver bow or Crystal bow) /s (Magic shortbow (i))",
+    "ammo5": "(Webweaver bow or Crystal bow) /s (Magic shortbow (i))",
     "template": "recommended equipment"
   },
   {
@@ -1849,7 +2193,9 @@
     "cape1": "/ Ava's device",
     "weapon1": "/ /",
     "weapon5": "/",
-    "ring2": "/",
+    "shield5": "/",
+    "ring3": "/ (if using Blowpipe)",
+    "ring5": "/ /",
     "ammo1": "(for cave) / (for Jad)",
     "ammo2": "s (for cave) / s (for Jad)",
     "ammo3": "s (only if using Karil's crossbow)",
@@ -1870,7 +2216,8 @@
     "ammo3": "s (only if using Karil's crossbow)",
     "ammo4": "(Webweaver bow) / (Magic shortbow (i))",
     "shield2": "/",
-    "ring2": "/",
+    "ring3": "/ (if using Blowpipe)",
+    "ring5": "/ /",
     "hands1": "/",
     "hands2": "/",
     "hands4": "/",
@@ -1883,21 +2230,22 @@
     "cape1": "/ Ava's device",
     "legs1": "/",
     "legs2": "/",
-    "feet1": "/",
-    "feet2": "/",
-    "hands3": "/",
+    "legs5": "/",
     "weapon1": "/ /",
     "weapon5": "/",
     "shield1": "/",
     "shield2": "/",
     "shield5": "/",
-    "ring2": "/",
+    "feet1": "/",
+    "feet2": "/",
+    "hands3": "/",
+    "ring3": "/ (if using Blowpipe)",
+    "ring5": "/ /",
     "ammo1": "(for cave) / (for Jad)",
     "ammo2": "s (for cave) / s (for Jad)",
     "ammo3": "s (only if using Karil's crossbow)",
     "ammo4": "(Webweaver bow / (Magic shortbow (i))",
     "special2": "Blood spells",
-    "legs5": "/",
     "template": "recommended equipment"
   },
   {
@@ -1905,31 +2253,28 @@
     "head4": "/",
     "head5": "/",
     "neck2": "/",
-    "neck3": "/",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
+    "body2": "/",
     "body3": "/",
     "body4": "/",
     "legs4": "/",
-    "weapon1": "/ /",
-    "weapon2": "/",
-    "weapon5": "/",
-    "shield1": "/ (switch)",
-    "ring3": "(slash weapon)",
+    "weapon2": "/ /",
+    "weapon5": ">",
+    "ring1": "(If using Voidwaker/Claws)",
     "ammo2": "/ /",
-    "special1": "(for Jad)",
-    "special2": "(cave healing)",
+    "special3": "(cave healing)",
     "template": "recommended equipment"
   },
   {
     "head1": "/",
     "neck3": "/",
-    "cape3": "/ [[File:Capes of accomplishments.gif]] Cape of Accomplishment",
+    "cape3": "/",
     "body1": "/",
     "legs1": "/",
     "weapon1": "/ /",
-    "shield3": "/",
+    "shield4": "/",
     "ring2": "/",
-    "special1": "Blood spells",
+    "ring5": "/ /",
+    "special2": "Blood spells",
     "template": "recommended equipment"
   },
   {
@@ -1939,8 +2284,6 @@
     "ammo4": "(Webweaver bow / (Magic shortbow (i))",
     "body4": "",
     "feet4": "/",
-    "cape1": "/ Ava's device",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "hands2": "",
     "hands4": "",
     "head3": "",
@@ -1955,7 +2298,6 @@
     "ammo3": "s (Magic shortbow (i))",
     "ammo4": "(Crystal bow)",
     "cape1": "/ Ava's device",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
     "hands3": "/ /",
     "hands4": "/",
     "shield2": "/ /",
@@ -1963,103 +2305,185 @@
     "template": "recommended equipment"
   },
   {
-    "head2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, STASH",
-    "head3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "head4": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck3": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck4": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck5": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "cape3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "cape4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "body2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "body3": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "legs3": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "weapon1": "/",
-    "weapon2": "STASH",
-    "weapon5": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
+    "head3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "head4": "Shop, STASH",
+    "head5": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/Shop",
+    "neck2": "<span title=\"Might not be worth keeping this item if you intend to obtain Zenyte Jewelery and an Occult Necklace.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "neck3": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck4": "<span title=\"This can be stored in the quest hall of a player owned house by building/removing a Mounted glory as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, STASH/<span title=\"The trimmed version obtained through Treasure Trails can be stored in the costume room of the player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck5": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH, STASH",
+    "cape3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape5": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "body2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, <span title=\"The time investment to get the full set outweights the benefit of it being storable in the POH.\" style=\"cursor:help;border-bottom:2px dotted;\">skip/<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "body3": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, <span title=\"The time investment to get the full set outweighs the benefit of it being storable in the POH.\" style=\"cursor:help;border-bottom:2px dotted;\">skip",
+    "legs3": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "weapon2": "/",
+    "weapon3": "<span title=\"This item can stored in a STASH unit. It is also possible to store an Abbysal Tentacle in the STASH unit.\" style=\"cursor:help;border-bottom:2px dotted;\">STASH/",
+    "weapon4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/Shop",
+    "weapon5": "Shop",
     "shield1": "STASH",
     "shield2": "STASH",
-    "hands2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, STASH",
-    "feet2": "STASH, <span title=\"This can be stored in the player's player-owned house using the ornament kit obtained through Treasure Trails.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "feet3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "feet4": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
+    "hands2": "Shop, STASH",
+    "hands3": "Shop",
+    "hands4": "Shop",
+    "feet1": "<span title=\"This item can stored in the same STASH unit as Dragon boots.\" style=\"cursor:help;border-bottom:2px dotted;\">STASH",
+    "feet2": "STASH / <span title=\"This can be stored in the player's player-owned house using the ornament kit obtained through Treasure Trails.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "feet3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "feet4": "STASH",
+    "feet5": "Shop/<span title=\"This can be stored in the player's player-owned house if obtained through Treasure Trails.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "ring4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "template": "recommended equipment"
   },
   {
-    "head2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "head3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "neck3": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck4": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "body3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "body5": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "legs3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "legs5": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "weapon2": "STASH",
-    "weapon3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "2h1": "STASH",
+    "head1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/",
+    "head2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "head3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/ <span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "head4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "head5": "Shop",
+    "neck2": "<span title=\"Might not be worth keeping this item if you intend to obtain Zenyte Jewelery and an Occult Necklace.\" style=\"cursor:help;border-bottom:2px dotted;\">*/",
+    "neck3": "<span title=\"This can be stored in the quest hall of a player owned house by building/removing a Mounted glory as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, STASH/<span title=\"The trimmed version obtained through Treasure Trails can be stored in the costume room of the player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck4": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape2": "<span title=\"This item can't be bagged, STASHed or stored in the POH and is not easily reobtainable.\" style=\"cursor:help;border-bottom:2px dotted;\">storage concerns",
+    "cape3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH+",
+    "cape4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape5": "Shop",
+    "body1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/",
+    "body2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "body5": "/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/",
+    "legs2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "legs5": "/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "weapon2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "weapon3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "weapon4": "STASH",
+    "weapon5": "Shop",
+    "2h2": "STASH",
+    "2h3": "/",
     "2h4": "(imbued)",
-    "shield3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop/<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "shield4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "hands1": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, STASH",
-    "feet2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "feet3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "feet4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
+    "shield1": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield3": "<span title=\"This item can be bought from Perdu as needed or reclaimed from Jossik.\" style=\"cursor:help;border-bottom:2px dotted;\">Shop/<span title=\"This item can be bought from Perdu as needed or reclaimed from Jossik.\" style=\"cursor:help;border-bottom:2px dotted;\">Shop",
+    "shield4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "hands2": "Shop, STASH",
+    "hands3": "Shop",
+    "feet1": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "feet2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "feet3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "feet4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "feet5": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "ring1": "<span title=\"Might not be worth the time investment as it doesn't provide a max hit for most end game setups.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "ring2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "ring3": "<span title=\"This item can retrieved from the Mysterious Bandit in the Ancient vault for a fee of 75,000 coins as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC",
+    "ring4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "ring5": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "template": "recommended equipment"
   },
   {
-    "head1": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "head2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "head3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "head4": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, <span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck3": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck4": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "neck5": "<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "cape3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "cape4": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "cape5": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "body1": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "body3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, <span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "legs1": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "legs3": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, <span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
+    "head1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "head2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "head3": "Shop",
+    "head4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "head5": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck2": "<span title=\"Might not be worth keeping this item if you intend to obtain Zenyte Jewelery and an Occult Necklace.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "neck3": "<span title=\"This can be stored in the quest hall of a player owned house by building/removing a Mounted glory as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, STASH/<span title=\"The trimmed version obtained through Treasure Trails can be stored in the costume room of the player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck4": "/<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck5": "/<span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape3": "Shop",
+    "cape4": "Shop",
+    "cape5": "Shop",
+    "body1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "body4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body5": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "legs4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs5": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "weapon1": "//",
-    "weapon2": "/",
-    "weapon3": "/",
-    "weapon5": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "shield2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop/<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop",
-    "shield4": "<span title=\"This item can retrieved from Commander Fullore in Kourend Castle as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">NPC",
-    "hands2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, STASH",
-    "feet2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "feet3": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "feet4": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, <span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "ring4": "<span title=\"This item can retrieved from Zaff in Varrock as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">NPC",
+    "weapon2": "//<span title=\"This item can't be bagged, STASHed or stored in the POH and is not easily reobtainable.\" style=\"cursor:help;border-bottom:2px dotted;\">storage concerns/",
+    "weapon3": "<span title=\"While autocasting Undead Grasp from the Arceuus spellbook.\" style=\"cursor:help;border-bottom:2px dotted;\">Undead grasp, Shop/<span title=\"This item can retrieved from Koftik outside of the underground pass, but must be repaired for a fee of 400,000 coins with the nearby Dark mage as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC, <span title=\"Might not be worth keeping this item after gaining access to undead grasp.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "weapon5": "Shop",
+    "shield1": "<span title=\"Might not be worth obtaining/keeping this item, as it stays in the inventory on death and is untradable. This results in a permanently occupied inventory space.\" style=\"cursor:help;border-bottom:2px dotted;\">*//<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield2": "<span title=\"This item can be bought from Perdu as needed or reclaimed from Jossik.\" style=\"cursor:help;border-bottom:2px dotted;\">Shop/<span title=\"This item can be bought from Perdu as needed or reclaimed from Jossik.\" style=\"cursor:help;border-bottom:2px dotted;\">Shop",
+    "shield3": "<span title=\"This item can retrieved from Commander Fullore in Kourend Castle as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC, <span title=\"While using thralls from the Arceuus spellbook.\" style=\"cursor:help;border-bottom:2px dotted;\">thralls",
+    "hands2": "Shop, STASH",
+    "hands3": "Shop/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "feet1": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*/",
+    "feet2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "feet3": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "ring1": "<span title=\"This item is only worth actively seeking if Tumeken's shadow is owned.\" style=\"cursor:help;border-bottom:2px dotted;\">with shadow",
+    "ring2": "<span title=\"This item can retrieved from the Mysterious Bandit in the Ancient vault for a fee of 75,000 coins as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC",
+    "ring3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">* /<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "ring4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "ring5": "<span title=\"This item can retrieved from Zaff in Varrock as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC",
     "template": "recommended equipment"
   },
   {
     "hidecol5": "yes",
-    "head1": "Void Knight helmets<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "head2": "STASH",
-    "head4": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "body1": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "body2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, <span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "body3": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "legs1": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "legs2": "<span title=\"This item can be bought from a shop as needed.\" style=\"cursor:help; border-bottom:1px dotted;\">Shop, <span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
-    "legs3": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help; border-bottom:1px dotted;\">POH*",
+    "head1": "STASH",
+    "head2": "Void Knight helmets<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "head3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "head4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck2": "<span title=\"Might not be worth keeping this item if inventory space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "body1": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body2": "<span title=\"This item can stored in the player's player-owned house only if the full set is stored together.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body3": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body4": "Spawn/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "body5": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs1": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs3": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "legs4": "Spawn/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "weapon1": "<span title=\"Do not corrupt this item in order to uncharge it and bag the seed if needed, however you will have to recharge it later in order to use it.\" style=\"cursor:help;border-bottom:2px dotted;\">Don't corrupt",
     "weapon2": "STASH",
-    "feet1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help; border-bottom:1px dotted;\">POH",
-    "ring1": "/",
-    "special3": "STASH",
-    "special4": "STASH",
+    "weapon3": "<span title=\"Might not be worth keeping, as for most content where this item excels Osmumten's fang performs similarly.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "2h2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "2h4": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield1": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield2": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "hands1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "feet1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
+    "ring2": "<span title=\"Might not be worth keeping this item if bag space is a concern, however for Zulrah and content where you are taking chip damage, this can be provide a lot of DPS/utility.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "ring3": "<span title=\"Might not be worth keeping this item if bag space is a concern, however for Zulrah and content where you are taking chip damage, this can be provide a lot of DPS/utility.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "special1": "///STASH",
+    "special2": "Shop",
+    "special3": "/<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "special4": "STASH, Shop",
+    "template": "recommended equipment"
+  },
+  {
+    "special1": "or",
+    "special3": "/",
+    "special4": "/",
+    "head1": "or",
+    "neck5": "or",
+    "legs3": "or",
+    "weapon4": "or",
+    "shield1": "(with one-handed weapon)",
+    "feet4": "/",
+    "ammo2": "/ /",
     "template": "recommended equipment"
   },
   {
     "head1": "(only on task)",
-    "special2": "(to kill spiderling spawns quicker in a 3-4 man team)",
+    "ammo2": "/",
+    "special1": "(to kill spiderling spawns quicker in a 3-4 man team)",
     "template": "recommended equipment"
   },
   {
@@ -2071,15 +2495,14 @@
     "template": "recommended equipment"
   },
   {
-    "legs2": "/",
+    "legs4": "/",
     "ammo2": "/",
     "cape1": "/",
-    "cape4": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
+    "shield4": "/",
     "weapon1": "/",
-    "weapon3": "/ (on crush) /",
+    "weapon3": "/ (crush) /",
     "weapon4": "/ (on crush)",
-    "weapon5": "[[File:Bandos godsword.png]] Godsword (any works, Bandos Godsword lowers defence however) /",
-    "weapon6": "/ /",
+    "weapon5": "[[File:Bandos godsword.png]] Godsword (any, Bandos Godsword for defence reduction) /",
     "template": "recommended equipment"
   },
   {
@@ -2088,13 +2511,13 @@
     "body1": "/",
     "legs2": "/",
     "weapon1": "/",
-    "weapon2": "//",
+    "weapon2": "/ /",
+    "shield1": "/ 3",
     "shield3": "/",
-    "ammo3": "/ /2",
+    "ammo3": "/ / 2",
     "hands4": "/",
     "ring1": "/",
-    "ring4": "/",
-    "ring5": "/",
+    "ring5": "/ 3 / 2 / 1",
     "template": "recommended equipment"
   },
   {
@@ -2107,6 +2530,7 @@
     "ammo2": "+",
     "ammo3": "/",
     "hands4": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -2115,7 +2539,8 @@
     "body5": "/",
     "legs2": "/",
     "legs5": "/",
-    "ammo2": "/",
+    "ammo2": "/ /",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -2123,28 +2548,34 @@
     "neck1": "/",
     "neck4": "/",
     "legs5": "/ /",
-    "ammo2": "/",
+    "ammo2": "/ /",
     "special5": "(HP + Prayer sustain)",
     "template": "recommended equipment"
   },
   {
-    "head1": "/",
+    "neck3": "/",
     "ammo2": "/",
     "feet2": "/",
+    "feet3": "/",
+    "feet4": "/",
+    "feet5": "/",
     "template": "recommended equipment"
   },
   {
     "head4": "/",
     "cape2": "/",
     "legs1": "/",
+    "ring4": "/",
+    "ring5": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
   {
-    "neck2": "any God Stole",
-    "cape2": "any warm Cape Slot item",
-    "weapon3": "any other warm Weapon Slot item",
-    "ammo2": "any God Blessing, Rada's Blessing 3 or 2",
+    "neck1": "/",
+    "cape2": "Any warm cape",
+    "weapon3": "Any other warm weapon",
+    "ammo2": "/",
+    "ring2": "/",
     "template": "recommended equipment"
   },
   {
@@ -2160,45 +2591,46 @@
   },
   {
     "head1": "or",
-    "head3": "/",
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape",
-    "cape2": "[[File:God_capes.gif]] God capes",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
-    "body3": "/",
-    "legs3": "/",
+    "head4": "/",
+    "body4": "/",
+    "legs4": "/",
     "weapon3": "/ /",
     "weapon4": "/",
+    "weapon5": "/",
     "shield1": "/",
+    "shield3": "/",
+    "ring1": "+",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
   {
     "head1": "or &",
     "head2": "&",
-    "head3": "& [[File:Blessed coif.gif]] Blessed coif",
+    "head3": "&",
     "head4": "&",
     "head5": "&",
     "neck1": "&",
-    "cape1": "[[File:Imbued god capes.gif]] Imbued god cape /",
-    "cape2": "[[File:God_capes.gif]] God capes /",
-    "cape3": "[[File:Capes of accomplishments (trimmed).gif]] Cape of Accomplishment",
+    "cape1": "/",
+    "cape2": "/",
     "body1": "&",
     "body2": "&",
-    "body3": "& [[File:Blessed body.gif]] Blessed body",
+    "body3": "&",
     "body4": "&",
     "legs1": "&",
     "legs2": "&",
-    "legs3": "& [[File:Blessed chaps.gif]] Blessed chaps",
+    "legs3": "&",
     "legs4": "&",
     "weapon1": "&",
     "weapon2": "&",
     "weapon3": "/ /  &",
     "weapon4": "/",
+    "weapon5": "/",
     "shield1": "/",
+    "shield3": "/",
     "hands1": "&",
     "feet1": "&",
     "feet2": "&",
-    "feet3": "& [[File:Blessed boots.gif]] Blessed boots",
+    "feet3": "&",
     "ammo5": "/ /2",
     "template": "recommended equipment"
   },
