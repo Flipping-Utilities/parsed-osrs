@@ -136,8 +136,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2.5 \\cdot 4(4+1) = 50\n\\end{align}",
-    "raw": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2.5 \\cdot 4(4+1) = 50\n\\end{align}"
+    "formula": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 6\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 6\\\\\n\\end{align}"
   },
   {
     "template": "math",
@@ -221,8 +221,13 @@
   },
   {
     "template": "math",
-    "formula": "\\Delta Health = \\lfloor Level \\times \\frac{1}{10} \\rfloor + C",
-    "raw": "\\Delta Health = \\lfloor Level \\times \\frac{1}{10} \\rfloor + C"
+    "formula": "x",
+    "raw": "x"
+  },
+  {
+    "template": "math",
+    "formula": "f(x) = \\lfloor \\frac{x}{10} \\rfloor +2 \\lfloor \\frac{x}{25} \\rfloor + 5 \\lfloor \\frac{x}{93} \\rfloor + 2",
+    "raw": "f(x) = \\lfloor \\frac{x}{10} \\rfloor +2 \\lfloor \\frac{x}{25} \\rfloor + 5 \\lfloor \\frac{x}{93} \\rfloor + 2 "
   },
   {
     "template": "math",
@@ -276,8 +281,8 @@
   },
   {
     "template": "math",
-    "formula": "P(n)=p(1)+p(2)+...+p(n-1) + p(n)",
-    "raw": "P(n)=p(1)+p(2)+...+p(n-1) + p(n)\n"
+    "formula": "P(n)=p(1)+p(2)+\\cdots+p(n-1) + p(n)",
+    "raw": "P(n)=p(1)+p(2)+\\cdots+p(n-1) + p(n)\n"
   },
   {
     "template": "math",
@@ -286,8 +291,8 @@
   },
   {
     "template": "math",
-    "formula": "P(n)=1 + 0.72 + 0.72^2 + ... 0.72^{n-1}+0.72^{n} \\implies \\sum_{k=0}^n 0.72^k",
-    "raw": "P(n)=1 + 0.72 + 0.72^2 + ... 0.72^{n-1}+0.72^{n} \\implies \\sum_{k=0}^n 0.72^k"
+    "formula": "P(n)=1 + 0.72 + 0.72^2 + \\cdots + 0.72^{n-1}+0.72^{n} = \\sum_{k=0}^n 0.72^k",
+    "raw": "P(n)=1 + 0.72 + 0.72^2 + \\cdots + 0.72^{n-1}+0.72^{n} = \\sum_{k=0}^n 0.72^k"
   },
   {
     "template": "math",
@@ -361,6 +366,11 @@
   },
   {
     "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor SkillLevel \\times \\frac{15}{100} \\rfloor + 4",
     "raw": "\\lfloor SkillLevel \\times \\frac{15}{100} \\rfloor + 4"
   },
@@ -401,6 +411,11 @@
   },
   {
     "template": "math",
+    "formula": "\\frac{1}{B - (Level * 25)}",
+    "raw": "\\frac{1}{B - (Level * 25)}"
+  },
+  {
+    "template": "math",
     "formula": "P(L) = (\\lfloor \\frac{306 \\times (L-1)}{98} \\rfloor - 78) \\div 255",
     "raw": "\nP(L) = (\\lfloor \\frac{306 \\times (L-1)}{98} \\rfloor - 78) \\div 255\n"
   },
@@ -426,6 +441,11 @@
   },
   {
     "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
     "formula": "\\Delta Health = \\lfloor Level \\times \\frac{1}{10} \\rfloor + C",
     "raw": "\\Delta Health = \\lfloor Level \\times \\frac{1}{10} \\rfloor + C"
   },
@@ -433,6 +453,11 @@
     "template": "math",
     "formula": "\\lfloor SkillLevel \\times \\frac{4}{100} \\rfloor + 2",
     "raw": "\\lfloor SkillLevel \\times \\frac{4}{100} \\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\begin{align}\n \\text{Max Hit} &= \\lfloor \\frac{\\text{MagicLevel}}{3} \\rfloor + 5\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n \\text{Max Hit} &= \\lfloor \\frac{\\text{MagicLevel}}{3} \\rfloor + 5\\\\\n\\end{align}"
   },
   {
     "template": "math",
@@ -506,6 +531,21 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times 0.02\\rfloor + 1",
+    "raw": "\\lfloor DefenceLevel \\times 0.02\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1",
+    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{1}{11}\\right\\rfloor",
+    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{1}{11}\\right\\rfloor"
+  },
+  {
+    "template": "math",
     "formula": "P(L) = (\\lfloor \\frac{306 \\times (L-1)}{98} \\rfloor - 78) \\div 255",
     "raw": "\nP(L) = (\\lfloor \\frac{306 \\times (L-1)}{98} \\rfloor - 78) \\div 255\n"
   },
@@ -531,86 +571,6 @@
   },
   {
     "template": "math",
-    "formula": "x",
-    "raw": "x"
-  },
-  {
-    "template": "math",
-    "formula": "S",
-    "raw": "S"
-  },
-  {
-    "template": "math",
-    "formula": "S=x",
-    "raw": "S=x"
-  },
-  {
-    "template": "math",
-    "formula": "x",
-    "raw": "x"
-  },
-  {
-    "template": "math",
-    "formula": "x",
-    "raw": "x"
-  },
-  {
-    "template": "math",
-    "formula": "1/2",
-    "raw": "1/2"
-  },
-  {
-    "template": "math",
-    "formula": "\\frac{1}{2}x",
-    "raw": "\\frac{1}{2}x"
-  },
-  {
-    "template": "math",
-    "formula": "\\frac{1}{2}(\\frac{1}{2}x)=\\frac{1}{4}x",
-    "raw": "\\frac{1}{2}(\\frac{1}{2}x)=\\frac{1}{4}x"
-  },
-  {
-    "template": "math",
-    "formula": "S(x) = x + \\frac{1}{2}x + \\frac{1}{4}x + \\frac{1}{8}x + \\frac{1}{16}x ...",
-    "raw": "S(x) = x + \\frac{1}{2}x + \\frac{1}{4}x + \\frac{1}{8}x + \\frac{1}{16}x ..."
-  },
-  {
-    "template": "math",
-    "formula": "S(x) = x(1 + \\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\frac{1}{16} ...)",
-    "raw": "S(x) = x(1 + \\frac{1}{2} + \\frac{1}{4} + \\frac{1}{8} + \\frac{1}{16} ...)"
-  },
-  {
-    "template": "math",
-    "formula": "S(x) = x \\sum_{n=0}^{\\infty} 2^{-n} = 2x",
-    "raw": "S(x) = x \\sum_{n=0}^{\\infty} 2^{-n} = 2x"
-  },
-  {
-    "template": "math",
-    "formula": "x",
-    "raw": "x"
-  },
-  {
-    "template": "math",
-    "formula": "\\frac{x}{p}",
-    "raw": "\\frac{x}{p}"
-  },
-  {
-    "template": "math",
-    "formula": "p = 0.5",
-    "raw": "p = 0.5"
-  },
-  {
-    "template": "math",
-    "formula": "x",
-    "raw": "x"
-  },
-  {
-    "template": "math",
-    "formula": "2x",
-    "raw": "2x"
-  },
-  {
-    "template": "math",
     "formula": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1",
     "raw": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1"
   },
@@ -631,8 +591,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nP(N) &= \\frac{1}{450 - 58 \\times N} && (1)\n\\end{align}",
-    "raw": "\\begin{align}\nP(N) &= \\frac{1}{450 - 58 \\times N} && (1)\n\\end{align}"
+    "formula": "\\begin{align}\nP(N) &= \\frac{1}{450 - 58 \\times N} && (fig. 1)\n\\end{align}",
+    "raw": "\\begin{align}\nP(N) &= \\frac{1}{450 - 58 \\times N} && (fig. 1)\n\\end{align}"
   },
   {
     "template": "math",
@@ -701,8 +661,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{ItemQty} = \\frac{X}{\\text{ItemDivisor}}",
-    "raw": "\\text{ItemQty} = \\frac{X}{\\text{ItemDivisor}}"
+    "formula": "\\text{ItemQty} = \\begin{cases}\n\\frac{\\text{Points}}{\\text{ItemDivisor}} & \\text{if Invocation} < 300\\\\\n\\frac{\\text{Points}}{\\text{ItemDivisor}} \\cdot (1.15 + 0.01\\cdot\\lfloor(\\text{Invocation}-300)/5\\rfloor) & \\text{if Invocation} > 300\n\\end{cases}",
+    "raw": "\\text{ItemQty} = \\begin{cases}\n\\frac{\\text{Points}}{\\text{ItemDivisor}} & \\text{if Invocation} < 300\\\\\n\\frac{\\text{Points}}{\\text{ItemDivisor}} \\cdot (1.15 + 0.01\\cdot\\lfloor(\\text{Invocation}-300)/5\\rfloor) & \\text{if Invocation} > 300\n\\end{cases} "
   },
   {
     "template": "math",
@@ -721,58 +681,133 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor CurrentHitpoints \\times \\frac{12}{100} \\rfloor + 3",
+    "raw": "\\lfloor CurrentHitpoints \\times \\frac{12}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
     "formula": "P(L) = (\\lfloor\\frac{262 \\times (L-1)}{98}\\rfloor + 6) \\div 255",
     "raw": "\nP(L) = (\\lfloor\\frac{262 \\times (L-1)}{98}\\rfloor + 6) \\div 255\n"
   },
   {
     "template": "math",
-    "formula": "[(100 + Y) / X]",
-    "raw": "[(100 + Y) / X]"
+    "formula": "1",
+    "raw": "1"
   },
   {
     "template": "math",
-    "formula": "Y",
-    "raw": "Y"
+    "formula": "\\left\\lfloor \\frac{ \\lfloor \\text{BaseChance} \\times \\text{CA} \\rfloor }{100 + \\text{Fishing}} \\times \\text{ClueTier} \\right\\rfloor",
+    "raw": " \\left\\lfloor \\frac{ \\lfloor \\text{BaseChance} \\times \\text{CA} \\rfloor }{100 + \\text{Fishing}} \\times \\text{ClueTier} \\right\\rfloor "
   },
   {
     "template": "math",
-    "formula": "X",
-    "raw": "X"
+    "formula": "\\text{BaseChance} =",
+    "raw": "\\text{BaseChance} ="
   },
   {
     "template": "math",
-    "formula": "[X/(100+Y)]",
-    "raw": "[X/(100+Y)]"
+    "formula": "\\text{CA} =",
+    "raw": "\\text{CA} ="
   },
   {
     "template": "math",
-    "formula": "[X/(100+Y)]",
-    "raw": "[X/(100+Y)]"
+    "formula": "0.95",
+    "raw": "0.95"
   },
   {
     "template": "math",
-    "formula": "X",
-    "raw": "X"
+    "formula": "1",
+    "raw": "1"
   },
   {
     "template": "math",
-    "formula": "Y",
-    "raw": "Y"
+    "formula": "\\text{Fishing} =",
+    "raw": "\\text{Fishing} ="
   },
   {
     "template": "math",
-    "formula": "[X/(100+Y)]",
-    "raw": "[X/(100+Y)]"
+    "formula": "\\text{ClueTier} =",
+    "raw": "\\text{ClueTier} ="
   },
   {
     "template": "math",
-    "formula": "X",
-    "raw": "X"
+    "formula": "1",
+    "raw": "1"
   },
   {
     "template": "math",
-    "formula": "Y",
-    "raw": "Y"
+    "formula": "\\left\\lfloor \\frac{ \\lfloor \\text{BaseChance} \\times \\text{CA} \\rfloor }{100 + \\text{Mining}} \\times \\text{ClueTier} \\right\\rfloor",
+    "raw": " \\left\\lfloor \\frac{ \\lfloor \\text{BaseChance} \\times \\text{CA} \\rfloor }{100 + \\text{Mining}} \\times \\text{ClueTier} \\right\\rfloor "
+  },
+  {
+    "template": "math",
+    "formula": "\\text{BaseChance} =",
+    "raw": "\\text{BaseChance} ="
+  },
+  {
+    "template": "math",
+    "formula": "\\text{CA} =",
+    "raw": "\\text{CA} ="
+  },
+  {
+    "template": "math",
+    "formula": "0.95",
+    "raw": "0.95"
+  },
+  {
+    "template": "math",
+    "formula": "1",
+    "raw": "1"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{Mining} =",
+    "raw": "\\text{Mining} ="
+  },
+  {
+    "template": "math",
+    "formula": "\\text{ClueTier} =",
+    "raw": "\\text{ClueTier} ="
+  },
+  {
+    "template": "math",
+    "formula": "1",
+    "raw": "1"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\lfloor \\text{BaseChance} \\times \\text{CA} \\rfloor }{100 + \\text{Woodcutting}} \\times \\text{ClueTier} \\right\\rfloor",
+    "raw": " \\left\\lfloor \\frac{ \\lfloor \\text{BaseChance} \\times \\text{CA} \\rfloor }{100 + \\text{Woodcutting}} \\times \\text{ClueTier} \\right\\rfloor "
+  },
+  {
+    "template": "math",
+    "formula": "\\text{BaseChance} =",
+    "raw": "\\text{BaseChance} ="
+  },
+  {
+    "template": "math",
+    "formula": "\\text{CA} =",
+    "raw": "\\text{CA} ="
+  },
+  {
+    "template": "math",
+    "formula": "0.95",
+    "raw": "0.95"
+  },
+  {
+    "template": "math",
+    "formula": "1",
+    "raw": "1"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{Woodcutting} =",
+    "raw": "\\text{Woodcutting} ="
+  },
+  {
+    "template": "math",
+    "formula": "\\text{ClueTier} =",
+    "raw": "\\text{ClueTier} ="
   },
   {
     "template": "math",
@@ -816,8 +851,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{Melee Combat Level} &= \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times (\\text{Attack} + \\text{Strength}) \\right\\rfloor \\\\\n\\text{Ranged Combat Level} &= \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Ranged} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor \\\\\n\\text{Magic Combat Level} &= \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Magic} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{Melee Combat Level} &= \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times (\\text{Attack} + \\text{Strength}) \\right\\rfloor \\\\\n\\text{Ranged Combat Level} &= \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Ranged} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor \\\\\n\\text{Magic Combat Level} &= \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Magic} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor\n\\end{align}"
+    "formula": "\\begin{align}\n\\text{Melee Combat Level} &= \\left\\lfloor \\text{Base + Melee} \\right\\rfloor = \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times (\\text{Attack} + \\text{Strength}) \\right\\rfloor\\\\\n\\text{Ranged Combat Level} &= \\left\\lfloor \\text{Base + Range}\\right\\rfloor = \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Ranged} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor \\\\\n\\text{Magic Combat Level} &= \\left\\lfloor \\text{Base + Mage}\\right\\rfloor = \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Magic} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Melee Combat Level} &= \\left\\lfloor \\text{Base + Melee} \\right\\rfloor = \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times (\\text{Attack} + \\text{Strength}) \\right\\rfloor\\\\\n\\text{Ranged Combat Level} &= \\left\\lfloor \\text{Base + Range}\\right\\rfloor = \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Ranged} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor \\\\\n\\text{Magic Combat Level} &= \\left\\lfloor \\text{Base + Mage}\\right\\rfloor = \\left\\lfloor \\frac{1}{4} \\times \\left(\\text{Defence} + \\text{Hitpoints} + \\left\\lfloor \\text{Prayer} \\times \\frac{1}{2} \\right\\rfloor \\right) + \\frac{13}{40} \\times \\left\\lfloor \\text{Magic} \\times \\frac{3}{2} \\right\\rfloor \\right\\rfloor\n\\end{align}"
   },
   {
     "template": "math",
@@ -843,6 +878,21 @@
     "template": "math",
     "formula": "firemakingLevel - 1",
     "raw": "firemakingLevel - 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\frac{1}{B-(Lvl*25)}",
+    "raw": "\\frac{1}{B-(Lvl*25)}"
+  },
+  {
+    "template": "math",
+    "formula": "B",
+    "raw": "B"
+  },
+  {
+    "template": "math",
+    "formula": "Lvl",
+    "raw": "Lvl"
   },
   {
     "template": "math",
@@ -956,6 +1006,31 @@
   },
   {
     "template": "math",
+    "formula": "\\mathbb{P} \\approx \\frac{1}{\\left\\lfloor 337.5 - 1.75L \\right\\rfloor}",
+    "raw": "\\mathbb{P} \\approx \\frac{1}{\\left\\lfloor 337.5 - 1.75L \\right\\rfloor}"
+  },
+  {
+    "template": "math",
+    "formula": "\\mathbb{P} \\approx \\frac{1}{75}",
+    "raw": "\\mathbb{P} \\approx \\frac{1}{75}"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{random}(\\text{min}(\\text{npcCombatLevel}, 100))",
+    "raw": "\\text{random}(\\text{min}(\\text{npcCombatLevel}, 100))"
+  },
+  {
+    "template": "math",
+    "formula": "L",
+    "raw": "L"
+  },
+  {
+    "template": "math",
+    "formula": "\\mathbb{P} \\approx \\frac{1}{250 + \\left\\lfloor (50 - L)^2/5 \\right\\rfloor}",
+    "raw": "\\mathbb{P} \\approx \\frac{1}{250 + \\left\\lfloor (50 - L)^2/5 \\right\\rfloor}"
+  },
+  {
+    "template": "math",
     "formula": "\\mathbb{P} \\approx \\frac{1}{\\left\\lfloor 337.5 - L/1.75 \\right\\rfloor}",
     "raw": "\\mathbb{P} \\approx \\frac{1}{\\left\\lfloor 337.5 - L/1.75 \\right\\rfloor}"
   },
@@ -1026,16 +1101,6 @@
   },
   {
     "template": "math",
-    "formula": "0.6 * Y",
-    "raw": "0.6 * Y"
-  },
-  {
-    "template": "math",
-    "formula": "Y",
-    "raw": "Y"
-  },
-  {
-    "template": "math",
     "formula": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3",
     "raw": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3"
   },
@@ -1051,8 +1116,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{Extra Strength Bonus} &= \\frac{\\frac{\\left(\\text{Stab Defence + Slash Defence + Crush Defence + Ranged Defence}\\right)}{4} - 200}{3} - 38 \\approx \\frac{\\left({ D_{St} + D_{Sl} + D_{C} + D_R}\\right)}{12} - 104.66\\\\\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{Extra Strength Bonus} &= \\frac{\\frac{\\left(\\text{Stab Defence + Slash Defence + Crush Defence + Ranged Defence}\\right)}{4} - 200}{3} - 38 \\approx \\frac{\\left({ D_{St} + D_{Sl} + D_{C} + D_R}\\right)}{12} - 104.66\\\\\n\\end{align}"
+    "formula": "\\text{Extra Strength Bonus} = \\max\\left(0, \\frac{\\text{Stab Defence + Slash Defence + Crush Defence + Ranged Defence} - 800}{12} - 38\\right)",
+    "raw": "\\text{Extra Strength Bonus} = \\max\\left(0, \\frac{\\text{Stab Defence + Slash Defence + Crush Defence + Ranged Defence} - 800}{12} - 38\\right)\n"
   },
   {
     "template": "math",
@@ -1376,6 +1441,11 @@
   },
   {
     "template": "math",
+    "formula": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{200}{449} + 1\\bigr), 44\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{200}{449} + 1\\bigr), 44\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}"
+  },
+  {
+    "template": "math",
     "formula": "S(x)",
     "raw": "S(x)"
   },
@@ -1388,11 +1458,6 @@
     "template": "math",
     "formula": "S(x) = x \\sum_{n=0}^{\\infty} 10^{-n} = 1.1\\bar{1}x",
     "raw": "S(x) = x \\sum_{n=0}^{\\infty} 10^{-n} = 1.1\\bar{1}x"
-  },
-  {
-    "template": "math",
-    "formula": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M-1}n + M = H\\cdot\\frac{1}{2}M(M-1) + M = 2 \\cdot 5(5-1) + 5 = 45\n\\end{align}",
-    "raw": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M-1}n + M = H\\cdot\\frac{1}{2}M(M-1) + M = 2 \\cdot 5(5-1) + 5 = 45\n\\end{align}"
   },
   {
     "template": "math",
@@ -1501,8 +1566,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Experience} \\approx \\frac{1}{8} \\left( {L}^{2} - L + 600 \\, \\frac{{2}^{L/7}-2^{1/7}} {{2}^{1/7}-1} \\right) - \\frac{L}{10} - \\gamma",
-    "raw": "\\text{Experience} \\approx \\frac{1}{8} \\left( {L}^{2} - L + 600 \\, \\frac{{2}^{L/7}-2^{1/7}} {{2}^{1/7}-1} \\right) - \\frac{L}{10} - \\gamma"
+    "formula": "\\text{Experience} \\approx \\frac{1}{8} \\left( {L}^{2} - L + 600 \\, \\frac{{2}^{L/7}-2^{1/7}} {{2}^{1/7}-1} \\right) - \\frac{L}{10} - \\gamma = \\frac{L^2}8 - \\frac9{40} L + 75 \\, \\frac{2^{L/7}-2^{1/7}}{2^{1/7}-1}-\\gamma",
+    "raw": "\\text{Experience} \\approx \\frac{1}{8} \\left( {L}^{2} - L + 600 \\, \\frac{{2}^{L/7}-2^{1/7}} {{2}^{1/7}-1} \\right) - \\frac{L}{10} - \\gamma = \\frac{L^2}8 - \\frac9{40} L + 75 \\, \\frac{2^{L/7}-2^{1/7}}{2^{1/7}-1}-\\gamma"
   },
   {
     "template": "math",
@@ -1511,68 +1576,113 @@
   },
   {
     "template": "math",
-    "formula": "ChanceToSave = \\frac{\\frac{CTS_{low} (99-F)}{98}+ \\frac{CTS_{high} (F-1)}{98} +1}{256}",
-    "raw": "ChanceToSave = \\frac{\\frac{CTS_{low} (99-F)}{98}+ \\frac{CTS_{high} (F-1)}{98} +1}{256} "
+    "formula": "60*60=3600",
+    "raw": "60*60=3600"
   },
   {
     "template": "math",
-    "formula": "F =",
-    "raw": "F ="
+    "formula": "3600 / 75 * 28 = 1344",
+    "raw": "3600 / 75 * 28 = 1344"
   },
   {
     "template": "math",
-    "formula": "CTS_{low}",
-    "raw": "CTS_{low}"
+    "formula": "1344 * 120",
+    "raw": "1344 * 120"
   },
   {
     "template": "math",
-    "formula": "CTS_{high} =",
-    "raw": "CTS_{high} ="
+    "formula": "\\text{Chance to save (unboosted)} = \\frac{\\left\\lfloor \\frac{\\text{CTS}_{\\text{low}} (99-F)}{98} \\right\\rfloor + \\left\\lfloor \\frac{\\text{CTS}_{\\text{high}} (F-1)}{98} \\right\\rfloor +1}{256}",
+    "raw": "\\text{Chance to save (unboosted)} = \\frac{\\left\\lfloor \\frac{\\text{CTS}_{\\text{low}} (99-F)}{98} \\right\\rfloor + \\left\\lfloor \\frac{\\text{CTS}_{\\text{high}} (F-1)}{98} \\right\\rfloor +1}{256} "
   },
   {
     "template": "math",
-    "formula": "ChancetoSave",
-    "raw": "ChancetoSave"
+    "formula": "F",
+    "raw": "F"
   },
   {
     "template": "math",
-    "formula": "CTS",
-    "raw": "CTS"
+    "formula": "\\text{CTS}_{\\text{low}}",
+    "raw": "\\text{CTS}_{\\text{low}}"
   },
   {
     "template": "math",
-    "formula": "CTS = \\lfloor CTS * (1 + ItemBonus) \\rfloor",
-    "raw": "CTS = \\lfloor CTS * (1 + ItemBonus) \\rfloor"
+    "formula": "\\text{CTS}_{\\text{high}}",
+    "raw": "\\text{CTS}_{\\text{high}}"
   },
   {
     "template": "math",
-    "formula": "CTS = CTS + DiaryBonus",
-    "raw": "CTS = CTS + DiaryBonus"
+    "formula": "\\text{CTS}_{\\text{low}}",
+    "raw": "\\text{CTS}_{\\text{low}}"
   },
   {
     "template": "math",
-    "formula": "CTS = \\lfloor CTS * (1 + AttasBonus) \\rfloor",
-    "raw": "CTS = \\lfloor CTS * (1 + AttasBonus) \\rfloor"
+    "formula": "\\text{CTS}_{\\text{high}}",
+    "raw": "\\text{CTS}_{\\text{high}}"
   },
   {
     "template": "math",
-    "formula": "ItemBonus =",
-    "raw": "ItemBonus ="
+    "formula": "\\text{CTS}_{\\text{high}}",
+    "raw": "\\text{CTS}_{\\text{high}}"
   },
   {
     "template": "math",
-    "formula": "DiaryBonus =",
-    "raw": "DiaryBonus ="
+    "formula": "\\text{CTS}_{\\text{high}} = 80",
+    "raw": "\\text{CTS}_{\\text{high}} = 80 "
   },
   {
     "template": "math",
-    "formula": "AttasBonus =",
-    "raw": "AttasBonus ="
+    "formula": "\\text{CTS}_{\\text{low}}",
+    "raw": "\\text{CTS}_{\\text{low}}"
   },
   {
     "template": "math",
-    "formula": "Expected Yield = \\frac{Harvest Lives}{1-Chance to Save}",
-    "raw": " Expected Yield = \\frac{Harvest Lives}{1-Chance to Save}"
+    "formula": "\\text{CTS}_{\\text{high}}",
+    "raw": "\\text{CTS}_{\\text{high}}"
+  },
+  {
+    "template": "math",
+    "formula": "\\begin{align}\n\\mathrm{ItemBoost}(CTS) &= \\lfloor CTS * (1+\\text{ItemBonus}) \\rfloor, \\\\ \n\\mathrm{DiaryBoost}(CTS) &= CTS + \\text{DiaryBonus}, \\\\ \n\\mathrm{AttasBoost}(CTS) &= \\lfloor CTS * (1+\\text{AttasBonus}) \\rfloor\n\\end{align}",
+    "raw": "\n\\begin{align}\n\\mathrm{ItemBoost}(CTS) &= \\lfloor CTS * (1+\\text{ItemBonus}) \\rfloor, \\\\ \n\\mathrm{DiaryBoost}(CTS) &= CTS + \\text{DiaryBonus},  \\\\ \n\\mathrm{AttasBoost}(CTS) &= \\lfloor CTS * (1+\\text{AttasBonus}) \\rfloor\n\\end{align}\n"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{ItemBonus}",
+    "raw": "\\text{ItemBonus}"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{DiaryBonus}",
+    "raw": "\\text{DiaryBonus}"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{AttasBonus}",
+    "raw": "\\text{AttasBonus}"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{CTS}_{\\text{low/high}}",
+    "raw": "\\text{CTS}_{\\text{low/high}}"
+  },
+  {
+    "template": "math",
+    "formula": "\\overline{\\text{CTS}}_{\\text{low/high}} = \\mathrm{AttasBoost}(\\mathrm{DiaryBoost}(\\mathrm{ItemBoost}(\\text{CTS}_{\\text{low/high}})))",
+    "raw": "\\overline{\\text{CTS}}_{\\text{low/high}} = \\mathrm{AttasBoost}(\\mathrm{DiaryBoost}(\\mathrm{ItemBoost}(\\text{CTS}_{\\text{low/high}})))"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{Chance to save (boosted)} = \\frac{\\left\\lfloor \\frac{\\overline{\\text{CTS}}_{\\text{low}} (99-F)}{98} \\right\\rfloor + \\left\\lfloor \\frac{\\overline{\\text{CTS}}_{\\text{high}} (F-1)}{98} \\right\\rfloor +1}{256}.",
+    "raw": "\\text{Chance to save (boosted)} = \\frac{\\left\\lfloor \\frac{\\overline{\\text{CTS}}_{\\text{low}} (99-F)}{98} \\right\\rfloor + \\left\\lfloor \\frac{\\overline{\\text{CTS}}_{\\text{high}} (F-1)}{98} \\right\\rfloor +1}{256}."
+  },
+  {
+    "template": "math",
+    "formula": "\\mathrm{NB}(r=\\text{Harvest Lives}, p=\\text{Chance to not save})",
+    "raw": "\\mathrm{NB}(r=\\text{Harvest Lives}, p=\\text{Chance to not save})"
+  },
+  {
+    "template": "math",
+    "formula": "r + \\frac{r(1-p)}{p} = \\frac{\\text{Harvest Lives}}{1 - \\text{Chance to save}}",
+    "raw": " r + \\frac{r(1-p)}{p} = \\frac{\\text{Harvest Lives}}{1 - \\text{Chance to save}} "
   },
   {
     "template": "math",
@@ -1606,6 +1716,11 @@
   },
   {
     "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
     "formula": "Hitpoints * \\frac{15}{100} + 2",
     "raw": "Hitpoints * \\frac{15}{100} + 2"
   },
@@ -1623,6 +1738,31 @@
     "template": "math",
     "formula": "Hitpoints * \\frac{15}{100} + 2",
     "raw": "Hitpoints * \\frac{15}{100} + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Hitpoints \\times \\frac{7}{100} \\rfloor + 1",
+    "raw": "\\lfloor Hitpoints \\times \\frac{7}{100} \\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Hitpoints \\times \\frac{12}{100} \\rfloor + 2",
+    "raw": "\\lfloor Hitpoints \\times \\frac{12}{100} \\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Hitpoints \\times \\frac{15}{100} \\rfloor + 5",
+    "raw": "\\lfloor Hitpoints \\times \\frac{15}{100} \\rfloor + 5"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Hitpoints \\times \\frac{15}{100} \\rfloor + 3",
+    "raw": "\\lfloor Hitpoints \\times \\frac{15}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "Thieving \\, Level \\div 2",
+    "raw": "Thieving \\, Level \\div 2"
   },
   {
     "template": "math",
@@ -1781,8 +1921,8 @@
   },
   {
     "template": "math",
-    "formula": "0.6 * \\text{Current Magic Level}",
-    "raw": "0.6 * \\text{Current Magic Level}"
+    "formula": "0.6 * CurrentMagicLevel",
+    "raw": "0.6 * CurrentMagicLevel"
   },
   {
     "template": "math",
@@ -1798,6 +1938,11 @@
     "template": "math",
     "formula": "x",
     "raw": "x"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -1841,6 +1986,11 @@
   },
   {
     "template": "math",
+    "formula": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 1\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 1\\\\\n\\end{align}"
+  },
+  {
+    "template": "math",
     "formula": "\\frac{p}{n} + 1 = s",
     "raw": "\\frac{p}{n} + 1 = s"
   },
@@ -1851,13 +2001,28 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor SkillLevel \\times \\frac{1}{4} \\rfloor + 8",
+    "raw": "\\lfloor SkillLevel \\times \\frac{1}{4} \\rfloor + 8"
+  },
+  {
+    "template": "math",
     "formula": "\\left \\lfloor \\text{Magic Level} \\times \\frac{1}{10} \\right \\rfloor + 1",
     "raw": "\\left \\lfloor \\text{Magic Level} \\times \\frac{1}{10} \\right \\rfloor + 1"
   },
   {
     "template": "math",
-    "formula": "\\frac{1}{8* (200-\\lfloor\\frac{(\\text{Slayer Req} + 55)^2}{125}\\rfloor)}",
-    "raw": "\\frac{1}{8* (200-\\lfloor\\frac{(\\text{Slayer Req} + 55)^2}{125}\\rfloor)} "
+    "formula": "\\frac{1}{8* \\left(200-\\left\\lfloor\\frac{\\left(\\text{Slayer Req} + 55\\right)^2}{125}\\right\\rfloor\\right)}",
+    "raw": "\\frac{1}{8* \\left(200-\\left\\lfloor\\frac{\\left(\\text{Slayer Req} + 55\\right)^2}{125}\\right\\rfloor\\right)} "
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\text{BaseRate} \\frac{4000 - \\text{Population}}{4000} \\right\\rfloor",
+    "raw": "\\left\\lfloor \\text{BaseRate} \\frac{4000 - \\text{Population}}{4000} \\right\\rfloor"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{BaseRate}",
+    "raw": "\\text{BaseRate}"
   },
   {
     "template": "math",
@@ -1901,8 +2066,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2 \\cdot 6(6+1) = 84 \\\\\n\\end{align}",
-    "raw": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2 \\cdot 6(6+1) = 84 \\\\\n\\end{align}"
+    "formula": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2.5 \\cdot 6(6+1) = 105 \\\\\n\\end{align}",
+    "raw": "\\begin{align}\nD(M) &= H\\cdot\\sum_{n=1}^{M}n = H\\cdot\\frac{1}{2}M(M+1) = 2.5 \\cdot 6(6+1) = 105 \\\\\n\\end{align}"
   },
   {
     "template": "math",
@@ -1941,8 +2106,8 @@
   },
   {
     "template": "math",
-    "formula": "P = \\begin{cases} \\frac{1}{\\left \\lfloor \\frac{3}{10} \\times (80 - L)^2 \\right\\rfloor + 100} &\\text{if } L\\in (0,80] \\\\ \\frac{1}{\\left \\lfloor-\\frac{5}{27} \\times L \\right\\rfloor + 115} &\\text{if } L \\in (80, 350]\\end{cases}",
-    "raw": "P = \\begin{cases} \\frac{1}{\\left \\lfloor \\frac{3}{10} \\times (80 - L)^2 \\right\\rfloor + 100} &\\text{if } L\\in (0,80] \\\\  \\frac{1}{\\left \\lfloor-\\frac{5}{27} \\times L \\right\\rfloor + 115} &\\text{if } L \\in (80, 350]\\end{cases}"
+    "formula": "P = \\begin{cases} \\frac{1}{\\left \\lfloor \\frac{3}{10} \\times (80 - L)^2 \\right\\rfloor + 100} &\\text{if } L\\in (0,80] \\\\ \\frac{1}{\\left \\lfloor-\\frac{5}{27} \\times L \\right\\rfloor + 115} &\\text{if } L \\in (80, 350] \\\\ \\frac{1}{50} & L\\in (350,\\infty) \\end{cases}",
+    "raw": "P = \\begin{cases} \\frac{1}{\\left \\lfloor \\frac{3}{10} \\times (80 - L)^2 \\right\\rfloor + 100} &\\text{if } L\\in (0,80] \\\\  \\frac{1}{\\left \\lfloor-\\frac{5}{27} \\times L \\right\\rfloor + 115} &\\text{if } L \\in (80, 350] \\\\ \\frac{1}{50} & L\\in (350,\\infty) \\end{cases}"
   },
   {
     "template": "math",
@@ -1958,6 +2123,11 @@
     "template": "math",
     "formula": "0.6 * CurrentMagicLevel",
     "raw": "0.6 * CurrentMagicLevel"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -1998,6 +2168,11 @@
     "template": "math",
     "formula": "M_{edb}",
     "raw": "M_{edb}"
+  },
+  {
+    "template": "math",
+    "formula": "P_{e}",
+    "raw": "P_{e}"
   },
   {
     "template": "math",
@@ -2096,13 +2271,13 @@
   },
   {
     "template": "math",
-    "formula": "E_{d} = M_{lvl} + 9 = 1 + 9 = 10",
-    "raw": "E_{d} = M_{lvl} + 9 = 1 + 9 = 10"
+    "formula": "E_{d} = M_{lvl} + 9 = 140 + 9 = 149",
+    "raw": "E_{d} = M_{lvl} + 9 = 140 + 9 = 149"
   },
   {
     "template": "math",
-    "formula": "R_{d} = E_{d} \\times (M_{db} + 64) = 10 \\times (0 + 64) = 640",
-    "raw": "R_{d} = E_{d} \\times (M_{db} + 64) = 10 \\times (0 + 64) = 640"
+    "formula": "R_{d} = E_{d} \\times (M_{db} + 64) = 149 \\times (0 + 64) = 9536",
+    "raw": "R_{d} = E_{d} \\times (M_{db} + 64) = 149 \\times (0 + 64) = 9536"
   },
   {
     "template": "math",
@@ -2136,6 +2311,16 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor Level \\times 0.05\\rfloor + 1",
+    "raw": "\\lfloor Level \\times 0.05\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times 0.05\\rfloor + 1",
+    "raw": "\\lfloor Level \\times 0.05\\rfloor + 1"
+  },
+  {
+    "template": "math",
     "formula": "0.6 * Y",
     "raw": "0.6 * Y"
   },
@@ -2156,6 +2341,11 @@
   },
   {
     "template": "math",
+    "formula": "\\begin{array}{lcr}\nBaseDamageModifier = floor(BaseMaxDamage + ChaosGauntlets + Charge)\\\\\nPrimaryMagicDamage = floor(BaseDamageModifier * (1 + minimum(1,(VisibleBonuses - Void) * ShadowBonus) + Void + Salve + Avarice + SmokeBattlestaff + VirtusRobesAncientBonus))\\\\\nSecondaryMagicDamage = floor(PrimaryMagicDamage * (1 + AhrimsDamned + Slayer + SceptreWilderness))\\\\\nTertiaryMagicDamage = floor(SecondaryMagicDamage * (1 + AccursedSceptreSpecialAttack))\\\\\nHitRoll = floor(random(0,TertiaryMagicDamage))\\\\\nPostHitRoll = floor(HitRoll * (1 + TomeOfFire + TomeOfWater + MarkOfDarkness))\\\\\nAppliedHit = floor(PostHitRoll * (1 + CastleWarsBraclet))\\\\\n\\end{array}",
+    "raw": "\\begin{array}{lcr}\nBaseDamageModifier = floor(BaseMaxDamage + ChaosGauntlets + Charge)\\\\\nPrimaryMagicDamage = floor(BaseDamageModifier * (1 + minimum(1,(VisibleBonuses - Void) * ShadowBonus) + Void + Salve + Avarice + SmokeBattlestaff + VirtusRobesAncientBonus))\\\\\nSecondaryMagicDamage = floor(PrimaryMagicDamage * (1 + AhrimsDamned + Slayer + SceptreWilderness))\\\\\nTertiaryMagicDamage = floor(SecondaryMagicDamage * (1 + AccursedSceptreSpecialAttack))\\\\\nHitRoll = floor(random(0,TertiaryMagicDamage))\\\\\nPostHitRoll = floor(HitRoll * (1 + TomeOfFire + TomeOfWater + MarkOfDarkness))\\\\\nAppliedHit = floor(PostHitRoll * (1 + CastleWarsBraclet))\\\\\n\\end{array}\n"
+  },
+  {
+    "template": "math",
     "formula": "\\text{Effective Strength} = \\Bigg\\lfloor\\bigg(\\Big\\lfloor\\big\\lfloor\\text{Strength Level} + \\text{Potion Bonus}\\big\\rfloor \\times \\text{Prayer Bonus}\\Big\\rfloor + \\text{Style Bonus} + 8 \\bigg) \\times \\text{Void Bonus} \\Bigg\\rfloor",
     "raw": "\\text{Effective Strength} = \\Bigg\\lfloor\\bigg(\\Big\\lfloor\\big\\lfloor\\text{Strength Level} + \\text{Potion Bonus}\\big\\rfloor \\times \\text{Prayer Bonus}\\Big\\rfloor + \\text{Style Bonus} + 8 \\bigg) \\times \\text{Void Bonus} \\Bigg\\rfloor"
   },
@@ -2171,8 +2361,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Max Hit} = \\lfloor \\text{Base Damage} \\times \\text{Special Bonus} \\rfloor",
-    "raw": "\\text{Max Hit} = \\lfloor \\text{Base Damage} \\times \\text{Special Bonus} \\rfloor"
+    "formula": "\\text{Max Hit} = \\lfloor \\lfloor \\text{Base Damage} \\rfloor \\times \\text{Special Bonus} \\rfloor",
+    "raw": "\\text{Max Hit} = \\lfloor \\lfloor \\text{Base Damage} \\rfloor \\times \\text{Special Bonus} \\rfloor"
   },
   {
     "template": "math",
@@ -2236,8 +2426,8 @@
   },
   {
     "template": "math",
-    "formula": "\\frac{1}{100-(X-40)*25/59}",
-    "raw": "\\frac{1}{100-(X-40)*25/59}"
+    "formula": "\\frac{ 1 }{ 100 - (X - 40) \\times 25/59}",
+    "raw": " \\frac{ 1 }{ 100 - (X - 40) \\times 25/59}"
   },
   {
     "template": "math",
@@ -2361,6 +2551,11 @@
   },
   {
     "template": "math",
+    "formula": "0.6",
+    "raw": "0.6"
+  },
+  {
+    "template": "math",
     "formula": "\\frac{1.5}{1 + \\frac{X}{Y}}",
     "raw": "\\frac{1.5}{1 + \\frac{X}{Y}}"
   },
@@ -2403,6 +2598,16 @@
     "template": "math",
     "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{3}{10}\\right\\rfloor",
     "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{3}{10}\\right\\rfloor"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -2518,6 +2723,11 @@
     "template": "math",
     "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
     "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -2691,8 +2901,28 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor",
+    "raw": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1",
+    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
     "formula": "2 * SpellLevel + 20",
     "raw": "2 * SpellLevel + 20"
+  },
+  {
+    "template": "math",
+    "formula": "(AgilityLvl*0.66)",
+    "raw": "(AgilityLvl*0.66)"
   },
   {
     "template": "math",
@@ -2706,8 +2936,8 @@
   },
   {
     "template": "math",
-    "formula": "\\lfloor SkillLevel \\times \\frac{32}{100} \\rfloor + 4",
-    "raw": "\\lfloor SkillLevel \\times \\frac{32}{100} \\rfloor + 4"
+    "formula": "\\lfloor PrayerLevel \\times \\frac{32}{100} \\rfloor + 4",
+    "raw": "\\lfloor PrayerLevel \\times \\frac{32}{100} \\rfloor + 4"
   },
   {
     "template": "math",
@@ -2716,13 +2946,8 @@
   },
   {
     "template": "math",
-    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{15}{100}\\right\\rfloor + 2",
-    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{15}{100}\\right\\rfloor + 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{1}{5}\\right\\rfloor + 2",
-    "raw": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{1}{5}\\right\\rfloor + 2"
+    "formula": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 1\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 1\\\\\n\\end{align}"
   },
   {
     "template": "math",
@@ -2733,6 +2958,61 @@
     "template": "math",
     "formula": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{1}{5}\\right\\rfloor + 2",
     "raw": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{1}{5}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{1}{10}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{1}{10}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{15}{100}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{15}{100}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{1}{5}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{1}{5}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "((80*4)/5)/60=1.067",
+    "raw": "((80*4)/5)/60=1.067"
+  },
+  {
+    "template": "math",
+    "formula": "80*4",
+    "raw": "80*4"
+  },
+  {
+    "template": "math",
+    "formula": "5",
+    "raw": "5"
+  },
+  {
+    "template": "math",
+    "formula": "60",
+    "raw": "60"
+  },
+  {
+    "template": "math",
+    "formula": "(5*.6)*1.067=3.201",
+    "raw": "(5*.6)*1.067=3.201"
+  },
+  {
+    "template": "math",
+    "formula": "5",
+    "raw": "5"
+  },
+  {
+    "template": "math",
+    "formula": ".6",
+    "raw": ".6"
+  },
+  {
+    "template": "math",
+    "formula": "1.067",
+    "raw": "1.067"
   },
   {
     "template": "math",
@@ -2801,28 +3081,43 @@
   },
   {
     "template": "math",
-    "formula": "P(\\text{Level}) = \\frac{1 + (\\lfloor\\frac{low \\times (99-\\text{Level})}{98}\\rfloor + \\lfloor\\frac{high \\times (\\text{Level}-1)}{98}\\rfloor)}{256}",
-    "raw": " P(\\text{Level}) = \\frac{1 + (\\lfloor\\frac{low \\times (99-\\text{Level})}{98}\\rfloor + \\lfloor\\frac{high \\times (\\text{Level}-1)}{98}\\rfloor)}{256} "
+    "formula": "\\dfrac{1+low}{256}",
+    "raw": "\\dfrac{1+low}{256}"
   },
   {
     "template": "math",
-    "formula": "P_{\\text{sturgeon}}(85) = \\frac{1 + (\\lfloor\\frac{8 \\times (99-85)}{98}\\rfloor + \\lfloor\\frac{64 \\times (85-1)}{98}\\rfloor)}{256} = \\frac{1 + (\\lfloor\\frac{112}{98}\\rfloor + \\lfloor\\frac{5376}{98}\\rfloor)}{256} = \\frac{1 + 1 + 54}{256} = 0.21875",
-    "raw": " P_{\\text{sturgeon}}(85) = \\frac{1 + (\\lfloor\\frac{8 \\times (99-85)}{98}\\rfloor + \\lfloor\\frac{64 \\times (85-1)}{98}\\rfloor)}{256} = \\frac{1 + (\\lfloor\\frac{112}{98}\\rfloor + \\lfloor\\frac{5376}{98}\\rfloor)}{256} = \\frac{1 + 1 + 54}{256} = 0.21875 "
+    "formula": "\\dfrac{1+high}{256}",
+    "raw": "\\dfrac{1+high}{256}"
   },
   {
     "template": "math",
-    "formula": "P_{\\text{salmon}}(85) = \\frac{1 + (\\lfloor\\frac{16 \\times (99-85)}{98}\\rfloor + \\lfloor\\frac{96 \\times (85-1)}{98}\\rfloor)}{256} = \\frac{1 + (\\lfloor\\frac{224}{98}\\rfloor + \\lfloor\\frac{8064}{98}\\rfloor)}{256} = \\frac{1 + 2 + 82}{256} \\approx 0.33203",
-    "raw": " P_{\\text{salmon}}(85) = \\frac{1 + (\\lfloor\\frac{16 \\times (99-85)}{98}\\rfloor + \\lfloor\\frac{96 \\times (85-1)}{98}\\rfloor)}{256} = \\frac{1 + (\\lfloor\\frac{224}{98}\\rfloor + \\lfloor\\frac{8064}{98}\\rfloor)}{256} = \\frac{1 + 2 + 82}{256} \\approx 0.33203 "
+    "formula": "P(\\text{Level}) = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{low \\times (99-\\text{Level})}{\\displaystyle 98}\\right\\rfloor + \\left\\lfloor\\dfrac{high \\times (\\text{Level}-1)}{98}\\right\\rfloor\\right)}{256}",
+    "raw": "P(\\text{Level}) = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{low \\times (99-\\text{Level})}{\\displaystyle 98}\\right\\rfloor + \\left\\lfloor\\dfrac{high \\times (\\text{Level}-1)}{98}\\right\\rfloor\\right)}{256}"
   },
   {
     "template": "math",
-    "formula": "(1-P_{\\text{sturgeon}}(85))*P_{\\text{salmon}}(85) \\approx (1-0.21875) * 0.33203 \\approx 0.2594",
-    "raw": " (1-P_{\\text{sturgeon}}(85))*P_{\\text{salmon}}(85) \\approx (1-0.21875) * 0.33203 \\approx 0.2594 "
+    "formula": "\\begin{align}\n\\mbox{low-scaled value at 74} &= \\left\\lfloor\\dfrac{48 \\times 25}{98}\\right\\rfloor = \\lfloor 12.244 \\rfloor = 12 & \\mbox{low-scaled value at 75} =& \\left\\lfloor\\dfrac{48 \\times 24}{98}\\right\\rfloor = \\lfloor 11.755 \\rfloor = 11\\\\\n\\mbox{high-scaled value at 74} &= \\left\\lfloor\\dfrac{90 \\times 73}{98}\\right\\rfloor = \\lfloor 67.041 \\rfloor = 67 & \\mbox{high-scaled value at 75} =& \\left\\lfloor\\dfrac{90 \\times 74}{98}\\right\\rfloor = \\lfloor 67.959 \\rfloor = 67\\\\ \\\\\n\\mbox{total } P(74) &= \\dfrac{1+12+67}{256} = 0.3125 & \\mbox{total } P(75) =& \\dfrac{1+11+67}{256} = 0.3085\n\\end{align}",
+    "raw": "\\begin{align}\n\\mbox{low-scaled value at 74} &= \\left\\lfloor\\dfrac{48 \\times 25}{98}\\right\\rfloor = \\lfloor 12.244 \\rfloor = 12 & \\mbox{low-scaled value at 75} =& \\left\\lfloor\\dfrac{48 \\times 24}{98}\\right\\rfloor = \\lfloor 11.755 \\rfloor = 11\\\\\n\\mbox{high-scaled value at 74} &= \\left\\lfloor\\dfrac{90 \\times 73}{98}\\right\\rfloor = \\lfloor 67.041 \\rfloor = 67 & \\mbox{high-scaled value at 75} =& \\left\\lfloor\\dfrac{90 \\times 74}{98}\\right\\rfloor = \\lfloor 67.959 \\rfloor = 67\\\\ \\\\\n\\mbox{total } P(74) &= \\dfrac{1+12+67}{256} = 0.3125 & \\mbox{total } P(75) =& \\dfrac{1+11+67}{256} = 0.3085\n\\end{align}"
   },
   {
     "template": "math",
-    "formula": "(1-P_{\\text{sturgeon}}(85))*(1-P_{\\text{salmon}}(85))*P_{\\text{trout}}(85) \\approx 0.3445",
-    "raw": " (1-P_{\\text{sturgeon}}(85))*(1-P_{\\text{salmon}}(85))*P_{\\text{trout}}(85) \\approx 0.3445 "
+    "formula": "P_{\\text{sturgeon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{8 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{64 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{112}{98}\\right\\rfloor + \\left\\lfloor\\dfrac{5376}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 1 + 54}{256} = 0.21875",
+    "raw": " P_{\\text{sturgeon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{8 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{64 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{112}{98}\\right\\rfloor + \\left\\lfloor\\dfrac{5376}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 1 + 54}{256} = 0.21875 "
+  },
+  {
+    "template": "math",
+    "formula": "P_{\\text{salmon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{16 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{96 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{224}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{8064}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 2 + 82}{256} \\approx 0.33203",
+    "raw": " P_{\\text{salmon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{16 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{96 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{224}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{8064}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 2 + 82}{256} \\approx 0.33203 "
+  },
+  {
+    "template": "math",
+    "formula": "(1-P_{\\text{sturgeon}}(85)) \\times P_{\\text{salmon}}(85) \\approx (1-0.21875) \\times 0.33203 \\approx 0.2594",
+    "raw": " (1-P_{\\text{sturgeon}}(85)) \\times P_{\\text{salmon}}(85) \\approx (1-0.21875) \\times 0.33203 \\approx 0.2594 "
+  },
+  {
+    "template": "math",
+    "formula": "(1-P_{\\text{sturgeon}}(85)) \\times (1-P_{\\text{salmon}}(85)) \\times P_{\\text{trout}}(85) \\approx 0.3445",
+    "raw": " (1-P_{\\text{sturgeon}}(85)) \\times (1-P_{\\text{salmon}}(85)) \\times P_{\\text{trout}}(85) \\approx 0.3445 "
   },
   {
     "template": "math",
@@ -2836,8 +3131,8 @@
   },
   {
     "template": "math",
-    "formula": "\\frac{1}{320 - \\lfloor Hitpoints \\times \\frac{8}{10} \\rfloor}",
-    "raw": "\\frac{1}{320 - \\lfloor Hitpoints \\times \\frac{8}{10} \\rfloor}"
+    "formula": "\\frac{1}{320 - \\lfloor Min(300,Hitpoints) \\times \\frac{8}{10} \\rfloor}",
+    "raw": "\\frac{1}{320 - \\lfloor Min(300,Hitpoints) \\times \\frac{8}{10} \\rfloor}"
   },
   {
     "template": "math",
@@ -2918,6 +3213,11 @@
     "template": "math",
     "formula": "\\lfloor\\quad\\rfloor",
     "raw": "\\lfloor\\quad\\rfloor"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -3181,531 +3481,6 @@
   },
   {
     "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{6}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{6}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{20}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{20}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{12}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{12}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{CurrentLevel} \\times \\frac{12}{100} \\rfloor",
-    "raw": "\\lfloor \\text{CurrentLevel} \\times \\frac{12}{100} \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11",
-    "raw": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11"
-  },
-  {
-    "template": "math",
-    "formula": "\\left\\lfloor Level * \\frac{1}{20}\\right\\rfloor + 1",
-    "raw": "\\left\\lfloor Level * \\frac{1}{20}\\right\\rfloor + 1"
-  },
-  {
-    "template": "math",
-    "formula": "\\left\\lfloor Level * \\frac{1}{20}\\right\\rfloor + 2",
-    "raw": "\\left\\lfloor Level * \\frac{1}{20}\\right\\rfloor + 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "4",
-    "raw": "4"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{20}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{20}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11",
-    "raw": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor Level \\times \\frac{1}{5} \\rfloor + 2",
-    "raw": "\\lfloor Level \\times \\frac{1}{5} \\rfloor + 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor Level \\times \\frac{15}{100} \\rfloor + 2",
-    "raw": "\\lfloor Level \\times \\frac{15}{100} \\rfloor + 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor Level \\times \\frac{1}{10} \\rfloor + 2",
-    "raw": "\\lfloor Level \\times \\frac{1}{10} \\rfloor + 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor HitpointsLevel \\times \\frac{15}{100} \\rfloor + 3",
-    "raw": "\\lfloor HitpointsLevel \\times \\frac{15}{100} \\rfloor + 3"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\frac{CurrentLevel}{20} + 5 \\rfloor",
-    "raw": "\\lfloor \\frac{CurrentLevel}{20} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor + 7",
-    "raw": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor + 7"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor Level \\times \\frac{1}{10} \\rfloor + 2 \\times \\lfloor Level \\times \\frac{1}{25} \\rfloor + 5 \\times \\lfloor Level \\times \\frac{1}{93} \\rfloor + 2",
-    "raw": "\\lfloor Level \\times \\frac{1}{10} \\rfloor + 2 \\times \\lfloor Level \\times \\frac{1}{25} \\rfloor + 5 \\times \\lfloor Level \\times \\frac{1}{93} \\rfloor + 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\frac{HitpointsLevel}{4} + 2 \\rfloor",
-    "raw": "\\lfloor \\frac{HitpointsLevel}{4} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\frac{PrayerLevel}{5} + 5 \\rfloor",
-    "raw": "\\lfloor \\frac{PrayerLevel}{5} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{2}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{2}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{2}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{2}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "4",
-    "raw": "4"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{5}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{5}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{8}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{8}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 1 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 1 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11",
-    "raw": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\frac{HitpointsLevel}{4} + 2 \\rfloor",
-    "raw": "\\lfloor \\frac{HitpointsLevel}{4} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\frac{PrayerLevel}{5} + 5 \\rfloor",
-    "raw": "\\lfloor \\frac{PrayerLevel}{5} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{1}{10} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{1}{10} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{1}{10} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{1}{10} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{1}{10} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{1}{10} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11",
-    "raw": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{4}{100} \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{4}{100} \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{7}{100} \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{7}{100} \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Strength} \\times \\frac{4}{100} + 1 \\rfloor",
-    "raw": "\\lfloor \\text{Strength} \\times \\frac{4}{100} + 1 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 3 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{20}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{20}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{12}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{12}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 2 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{CurrentLevel} \\times \\frac{12}{100} \\rfloor",
-    "raw": "\\lfloor \\text{CurrentLevel} \\times \\frac{12}{100} \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{13}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 4 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 4 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{15}{100} + 5 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{16}{100} + 6 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{Level} \\times \\frac{10}{100} \\rfloor",
-    "raw": "\\lfloor \\text{Level} \\times \\frac{10}{100} \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor \\text{LevelsDrained} \\times \\frac{25}{100} + 10 \\rfloor",
-    "raw": "\\lfloor \\text{LevelsDrained} \\times \\frac{25}{100} + 10 \\rfloor"
-  },
-  {
-    "template": "math",
-    "formula": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11",
-    "raw": "\\lfloor BaseLevel \\times \\frac{16}{100} \\rfloor + 11"
-  },
-  {
-    "template": "math",
     "formula": "exp = \\lfloor\\left(450 + \\left(1000 - 450\\right) \\times \\left(\\text{fishingLevel} - 35\\right) / \\left(99 - 35\\right)\\right)\\rfloor / 100",
     "raw": "exp = \\lfloor\\left(450 + \\left(1000 - 450\\right) \\times \\left(\\text{fishingLevel} - 35\\right) / \\left(99 - 35\\right)\\right)\\rfloor / 100"
   },
@@ -3716,8 +3491,23 @@
   },
   {
     "template": "math",
-    "formula": "exp = \\lfloor\\left(450 + \\left(1000 - 450\\right) \\times \\left(\\text{fishingLevel} - 35\\right) / \\left(99 - 35\\right)\\right)\\rfloor \\times 11 / 10",
-    "raw": "exp = \\lfloor\\left(450 + \\left(1000 - 450\\right) \\times \\left(\\text{fishingLevel} - 35\\right) / \\left(99 - 35\\right)\\right)\\rfloor \\times 11 / 10"
+    "formula": "exp = \\lfloor\\left(450 + \\left(1000 - 450\\right) \\times \\left(\\text{fishingLevel} - 35\\right) / \\left(99 - 35\\right)\\right)\\rfloor \\times 11 / 100",
+    "raw": "exp = \\lfloor\\left(450 + \\left(1000 - 450\\right) \\times \\left(\\text{fishingLevel} - 35\\right) / \\left(99 - 35\\right)\\right)\\rfloor \\times 11 / 100"
+  },
+  {
+    "template": "math",
+    "formula": "exp = \\lfloor\\left(890 + \\left(1000 - 890\\right) \\times \\left(\\text{fishingLevel} - 70\\right) / \\left(99 - 70\\right)\\right)\\rfloor / 100",
+    "raw": "exp = \\lfloor\\left(890 + \\left(1000 - 890\\right) \\times \\left(\\text{fishingLevel} - 70\\right) / \\left(99 - 70\\right)\\right)\\rfloor / 100"
+  },
+  {
+    "template": "math",
+    "formula": "exp = \\lfloor\\left(890 + \\left(1000 - 890\\right) \\times \\left(\\text{fishingLevel} - 70\\right) / \\left(99 - 70\\right)\\right)\\rfloor / 10",
+    "raw": "exp = \\lfloor\\left(890 + \\left(1000 - 890\\right) \\times \\left(\\text{fishingLevel} - 70\\right) / \\left(99 - 70\\right)\\right)\\rfloor / 10"
+  },
+  {
+    "template": "math",
+    "formula": "exp = \\lfloor\\left(890 + \\left(1000 - 890\\right) \\times \\left(\\text{fishingLevel} - 70\\right) / \\left(99 - 70\\right)\\right)\\rfloor \\times 11 / 100",
+    "raw": "exp = \\lfloor\\left(890 + \\left(1000 - 890\\right) \\times \\left(\\text{fishingLevel} - 70\\right) / \\left(99 - 70\\right)\\right)\\rfloor \\times 11 / 100"
   },
   {
     "template": "math",
@@ -3733,6 +3523,11 @@
     "template": "math",
     "formula": "0.6 * CurrentMagicLevel",
     "raw": "0.6 * CurrentMagicLevel"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
   {
     "template": "math",
@@ -3851,13 +3646,23 @@
   },
   {
     "template": "math",
+    "formula": "\\begin{align}\n \\text{Max Hit} &= \\lfloor \\frac{\\text{MagicLevel}}{3} \\rfloor - 5\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n \\text{Max Hit} &= \\lfloor \\frac{\\text{MagicLevel}}{3} \\rfloor - 5\\\\\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "\\begin{align}\n \\text{Max Hit} &= \\lfloor \\frac{\\text{MagicLevel}}{3} \\rfloor - 2\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n \\text{Max Hit} &= \\lfloor \\frac{\\text{MagicLevel}}{3} \\rfloor - 2\\\\\n\\end{align}"
+  },
+  {
+    "template": "math",
     "formula": "\\begin{align}\nFast &= \\frac{Magic}{6} + 1\\\\\nCharged &= \\frac{Magic - 25}{2}\\\\\n\\end{align}",
     "raw": "\\begin{align}\nFast &= \\frac{Magic}{6} + 1\\\\\nCharged &= \\frac{Magic - 25}{2}\\\\\n\\end{align}"
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} + 1\\\\\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} + 1\\\\\n\\end{align}"
+    "formula": "\\text{Max Hit} = \\left\\lfloor \\frac{\\text{Magic}}{3} + 1 \\right\\rfloor",
+    "raw": " \\text{Max Hit} = \\left\\lfloor \\frac{\\text{Magic}}{3} + 1 \\right\\rfloor "
   },
   {
     "template": "math",
@@ -4011,8 +3816,13 @@
   },
   {
     "template": "math",
-    "formula": "\\text{CrateChance} = ( \\frac{ \\text{T} + 1}{200} + \\frac{199 - \\text{T}}{200} \\times \\frac{1}{2} ) \\times \\frac{5}{8}",
-    "raw": "\\text{CrateChance} = ( \\frac{ \\text{T} + 1}{200} + \\frac{199 - \\text{T}}{200} \\times \\frac{1}{2} ) \\times \\frac{5}{8}"
+    "formula": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{263}{449} + 1\\bigr), 58\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{263}{449} + 1\\bigr), 58\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "\\text{CrateChance} = ( \\frac{ \\text{T} + 201}{400} ) \\times \\frac{5}{8}",
+    "raw": "\\text{CrateChance} = ( \\frac{ \\text{T} + 201}{400} ) \\times \\frac{5}{8}"
   },
   {
     "template": "math",
@@ -4031,93 +3841,8 @@
   },
   {
     "template": "math",
-    "formula": "L",
-    "raw": "L"
-  },
-  {
-    "template": "math",
-    "formula": "R",
-    "raw": "R"
-  },
-  {
-    "template": "math",
-    "formula": "S",
-    "raw": "S"
-  },
-  {
-    "template": "math",
-    "formula": "S=30",
-    "raw": "S=30"
-  },
-  {
-    "template": "math",
-    "formula": "S=20",
-    "raw": "S=20"
-  },
-  {
-    "template": "math",
-    "formula": "S=10",
-    "raw": "S=10"
-  },
-  {
-    "template": "math",
-    "formula": "W",
-    "raw": "W"
-  },
-  {
-    "template": "math",
-    "formula": "D=5",
-    "raw": "D=5"
-  },
-  {
-    "template": "math",
-    "formula": "D=0",
-    "raw": "D=0"
-  },
-  {
-    "template": "math",
-    "formula": "X = L + R + S + D - W",
-    "raw": "X = L + R + S + D - W"
-  },
-  {
-    "template": "math",
-    "formula": "X * 0.7",
-    "raw": "X * 0.7"
-  },
-  {
-    "template": "math",
-    "formula": "X * 0.1",
-    "raw": "X * 0.1"
-  },
-  {
-    "template": "math",
-    "formula": "X / 250",
-    "raw": "X / 250"
-  },
-  {
-    "template": "math",
-    "formula": "X",
-    "raw": "X"
-  },
-  {
-    "template": "math",
-    "formula": "X",
-    "raw": "X"
-  },
-  {
-    "template": "math",
-    "formula": "X",
-    "raw": "X"
-  },
-  {
-    "template": "math",
-    "formula": "X = 216",
-    "raw": "X = 216"
-  },
-  {
-    "template": "math",
-    "formula": "X = 43",
-    "raw": "X = 43"
+    "formula": "\\begin{align}\n\\text{Max Hit} &= \\left\\lfloor \\frac{8(\\text{Magic Level}) + 96}{37} \\right\\rfloor\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Max Hit} &= \\left\\lfloor \\frac{8(\\text{Magic Level}) + 96}{37} \\right\\rfloor\n\\end{align}"
   },
   {
     "template": "math",
@@ -4136,18 +3861,18 @@
   },
   {
     "template": "math",
-    "formula": "\\frac{(16 - W - 2B)(HP + 1)}{FM}",
-    "raw": "\\frac{(16 - W - 2B)(HP + 1)}{FM}"
+    "formula": "\\max (1 \\times \\lfloor \\frac{{(16 - W - (2 \\times B)) \\times (HP + 1)}}{FM} \\rfloor, 1)",
+    "raw": " \\max (1 \\times \\lfloor \\frac{{(16 - W - (2 \\times B)) \\times (HP + 1)}}{FM} \\rfloor, 1)\n"
   },
   {
     "template": "math",
-    "formula": "2\\frac{(10 - W)(HP + 1)}{FM}",
-    "raw": "2\\frac{(10 - W)(HP + 1)}{FM}"
+    "formula": "\\max (2 \\times \\lfloor \\frac{{(10 - W) \\times (HP + 1)}}{FM} \\rfloor, 2)",
+    "raw": " \\max (2 \\times  \\lfloor \\frac{{(10 - W) \\times (HP + 1)}}{FM} \\rfloor, 2)\n"
   },
   {
     "template": "math",
-    "formula": "3\\frac{(10 - W)(HP + 1)}{FM}",
-    "raw": "3\\frac{(10 - W)(HP + 1)}{FM}"
+    "formula": "\\max ( 3 \\times \\lfloor \\frac{{(10 - W) \\times (HP + 1)}}{FM} \\rfloor, 1)",
+    "raw": " \\max ( 3 \\times \\lfloor \\frac{{(10 - W) \\times (HP + 1)}}{FM} \\rfloor, 1)\n\n"
   },
   {
     "template": "math",
@@ -4171,6 +3896,36 @@
   },
   {
     "template": "math",
+    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{12}{100}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{12}{100}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{18}{100}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{18}{100}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{9}{100}\\right\\rfloor + 2",
+    "raw": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{9}{100}\\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{7}{100}\\right\\rfloor + 1",
+    "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{7}{100}\\right\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{14}{100}\\right\\rfloor + 1",
+    "raw": "\\left\\lfloor\\text{(Defence Level)} \\cdot \\frac{14}{100}\\right\\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{7}{100}\\right\\rfloor + 1",
+    "raw": "\\left\\lfloor\\text{(Current Stat Level)} \\cdot \\frac{7}{100}\\right\\rfloor + 1"
+  },
+  {
+    "template": "math",
     "formula": "5+\\frac{(\\text{Smithing}+\\text{Runecraft})/2}{7}",
     "raw": "5+\\frac{(\\text{Smithing}+\\text{Runecraft})/2}{7}"
   },
@@ -4191,13 +3946,18 @@
   },
   {
     "template": "math",
-    "formula": "\\left\\lfloor \\frac{1}{5} \\, \\mathit{AttackLevel} \\right\\rfloor + 2",
-    "raw": "\\left\\lfloor \\frac{1}{5} \\, \\mathit{AttackLevel} \\right\\rfloor + 2"
+    "formula": "\\lfloor AttackLevel \\times \\frac{1}{5} \\rfloor +2",
+    "raw": "\\lfloor AttackLevel \\times \\frac{1}{5} \\rfloor +2"
   },
   {
     "template": "math",
-    "formula": "\\left\\lfloor \\frac{12}{100} \\, \\mathit{StrengthLevel} \\right\\rfloor + 2",
-    "raw": "\\left\\lfloor \\frac{12}{100} \\, \\mathit{StrengthLevel} \\right\\rfloor + 2"
+    "formula": "\\lfloor StrengthLevel \\times \\frac{12}{100} \\rfloor +2",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{12}{100} \\rfloor +2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor",
+    "raw": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor"
   },
   {
     "template": "math",

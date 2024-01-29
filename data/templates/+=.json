@@ -343,7 +343,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+20"
     ],
     "echo": "2",
     "template": "+="
@@ -499,7 +499,7 @@
   {
     "list": [
       "int",
-      "+12"
+      "+15"
     ],
     "echo": "2",
     "template": "+="
@@ -577,7 +577,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+10"
     ],
     "echo": "2",
     "template": "+="
@@ -1045,7 +1045,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+12"
     ],
     "echo": "2",
     "template": "+="
@@ -1115,6 +1115,14 @@
     "list": [
       "int",
       "+5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+2"
     ],
     "echo": "2",
     "template": "+="
@@ -3180,6 +3188,14 @@
   },
   {
     "list": [
+      "weight",
+      "6"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
       "xp",
       "*150"
     ],
@@ -3638,6 +3654,14 @@
     "list": [
       "weight",
       "10"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
+      "8"
     ],
     "echo": "2",
     "template": "+="
@@ -4142,6 +4166,14 @@
     "list": [
       "weight",
       "3"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
+      "4"
     ],
     "echo": "2",
     "template": "+="
@@ -4886,7 +4918,7 @@
   {
     "list": [
       "int",
-      "+12"
+      "+15"
     ],
     "echo": "2",
     "template": "+="
@@ -4901,7 +4933,7 @@
   {
     "list": [
       "2htotal",
-      "+"
+      "(+)*3"
     ],
     "template": "+="
   },
@@ -5570,6 +5602,14 @@
   {
     "list": [
       "weight",
+      "6"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
       "7"
     ],
     "echo": "2",
@@ -6174,6 +6214,42 @@
   },
   {
     "list": [
+      "Soul",
+      "200"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Water",
+      "400"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Fire",
+      "500"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "cost",
+      "+ +  +"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "Law",
+      "200"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
       "Water",
       "200"
     ],
@@ -6365,42 +6441,6 @@
     "list": [
       "cost",
       "+ +"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "Law",
-      "200"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Soul",
-      "200"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Water",
-      "400"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Fire",
-      "500"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "cost",
-      "+ +  +"
     ],
     "echo": "2",
     "template": "+="
@@ -6867,6 +6907,27 @@
   {
     "list": [
       "Law",
+      "2000"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Water",
+      "1000"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Fire",
+      "1000"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Law",
       "1000"
     ],
     "template": "+="
@@ -7022,34 +7083,6 @@
     "list": [
       "Earth",
       "2000"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Law",
-      "2000"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Soul",
-      "2000"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Water",
-      "4000"
-    ],
-    "template": "+="
-  },
-  {
-    "list": [
-      "Fire",
-      "5000"
     ],
     "template": "+="
   },
@@ -8880,6 +8913,14 @@
   {
     "list": [
       "magic",
+      "5,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "magic",
       "7,000"
     ],
     "echo": "2",
@@ -9360,6 +9401,14 @@
   {
     "list": [
       "slayer",
+      "20,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "slayer",
       "50,000"
     ],
     "echo": "2",
@@ -9583,6 +9632,14 @@
   },
   {
     "list": [
+      "strength",
+      "30,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
       "thieving",
       "500"
     ],
@@ -9713,6 +9770,14 @@
     "list": [
       "thieving",
       "4,500"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "thieving",
+      "5,000"
     ],
     "echo": "2",
     "template": "+="
@@ -9928,7 +9993,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+10"
     ],
     "echo": "2",
     "template": "+="
@@ -12241,6 +12306,14 @@
   },
   {
     "list": [
+      "StrengthExp",
+      "30,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
       "Law",
       "1"
     ],
@@ -12276,6 +12349,34 @@
   },
   {
     "list": [
+      "Law",
+      "1"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Blood",
+      "1"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Soul",
+      "1"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Death",
+      "1"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
       "weight",
       "8"
     ],
@@ -12293,7 +12394,7 @@
   {
     "list": [
       "weight",
-      "6"
+      "7"
     ],
     "echo": "2",
     "template": "+="
@@ -12301,7 +12402,7 @@
   {
     "list": [
       "weight",
-      "7"
+      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -12990,6 +13091,94 @@
     "list": [
       "xp",
       "125"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "31.751"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "10.000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "4.535"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "0.510"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "32.000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "22.679"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "15.875"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "4.535"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "7.000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      "3.000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "total",
+      ""
     ],
     "echo": "2",
     "template": "+="

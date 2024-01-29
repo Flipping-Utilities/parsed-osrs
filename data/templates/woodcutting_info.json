@@ -17,18 +17,18 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Arctic Pine",
+    "name": "Arctic pine tree",
     "level": "54",
     "xp": "40",
+    "tree": "Arctic pine tree",
     "tool": "Axe",
     "time": "8.4 seconds",
     "template": "woodcutting info"
   },
   {
-    "name": "Arctic Pine",
+    "name": "Arctic pine tree",
     "level": "54",
     "xp": "40",
-    "tree": "Arctic Pine",
     "tool": "Axe",
     "time": "8.4 seconds",
     "template": "woodcutting info"
@@ -43,20 +43,20 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Blisterwood Tree",
+    "name": "Blisterwood tree",
+    "level": "62",
+    "xp": "76",
+    "tree": "Blisterwood tree",
+    "tool": "Axe",
+    "time": "0",
+    "template": "woodcutting info"
+  },
+  {
+    "name": "Blisterwood tree",
     "level": "62",
     "xp": "76",
     "tool": "Axe",
     "time": "0 seconds",
-    "template": "woodcutting info"
-  },
-  {
-    "name": "Blisterwood Tree",
-    "level": "62",
-    "xp": "76",
-    "tree": "Blisterwood Tree",
-    "tool": "Axe",
-    "time": "0",
     "template": "woodcutting info"
   },
   {
@@ -149,9 +149,12 @@
     "template": "woodcutting info"
   },
   {
+    "version1": "Success",
+    "version2": "Failure",
     "name": "Dense Jungle",
     "level": "35",
-    "xp": "80",
+    "xp1": "80",
+    "xp2": "0.5",
     "tool": "Machete",
     "time": "1 minute 28 seconds",
     "template": "woodcutting info"
@@ -187,11 +190,18 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Evergreen",
+    "name": "Evergreen tree",
     "level": "1",
     "xp": "25",
     "tool": "Axe",
     "time": "35.4 - 58.8 seconds",
+    "template": "woodcutting info"
+  },
+  {
+    "name": "Evergreen tree",
+    "level": "99",
+    "xp": "0",
+    "tool": "Axe",
     "template": "woodcutting info"
   },
   {
@@ -289,7 +299,7 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Magic Tree",
+    "name": "Magic tree",
     "level": "75",
     "xp": "250",
     "tool": "Axe",
@@ -299,15 +309,15 @@
   {
     "name": "Mahogany",
     "level": "50",
+    "tree": "Mahogany",
     "xp": "125",
     "tool": "Axe",
     "time": "8.4 seconds",
     "template": "woodcutting info"
   },
   {
-    "name": "Mahogany",
+    "name": "Mahogany tree",
     "level": "50",
-    "tree": "Mahogany",
     "xp": "125",
     "tool": "Axe",
     "time": "8.4 seconds",
@@ -358,26 +368,26 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Oak",
-    "level": "15",
-    "xp": "37.5",
-    "tool": "Axe",
-    "time": "8.4 seconds",
-    "template": "woodcutting info"
-  },
-  {
-    "name": "Oak",
-    "level": "15",
-    "xp": "0.0",
-    "tool": "Axe",
-    "time": "8.4 seconds",
-    "template": "woodcutting info"
-  },
-  {
-    "name": "Oak",
+    "name": "Oak tree",
     "level": "15",
     "xp": "37.5",
     "tree": "Oak",
+    "tool": "Axe",
+    "time": "8.4 seconds",
+    "template": "woodcutting info"
+  },
+  {
+    "name": "Oak tree",
+    "level": "15",
+    "xp": "37.5",
+    "tool": "Axe",
+    "time": "8.4 seconds",
+    "template": "woodcutting info"
+  },
+  {
+    "name": "Oak tree",
+    "level": "15",
+    "xp": "0.0",
     "tool": "Axe",
     "time": "8.4 seconds",
     "template": "woodcutting info"
@@ -410,20 +420,20 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Redwood tree",
-    "level": "90",
-    "xp": "380",
-    "tool": "Axe",
-    "time": "119.4 Seconds",
-    "template": "woodcutting info"
-  },
-  {
     "name": "Redwood",
     "level": "90",
     "xp": "380",
     "tree": "Redwood",
     "tool": "Axe",
     "time": "119.4 seconds",
+    "template": "woodcutting info"
+  },
+  {
+    "name": "Redwood tree",
+    "level": "90",
+    "xp": "380",
+    "tool": "Axe",
+    "time": "119.4 Seconds",
     "template": "woodcutting info"
   },
   {
@@ -471,15 +481,15 @@
     "name": "Teak",
     "level": "35",
     "xp": "85",
+    "tree": "Teak",
     "tool": "Axe",
     "time": "9 seconds",
     "template": "woodcutting info"
   },
   {
-    "name": "Teak",
+    "name": "Teak tree",
     "level": "35",
     "xp": "85",
-    "tree": "Teak",
     "tool": "Axe",
     "time": "9 seconds",
     "template": "woodcutting info"
@@ -639,6 +649,7 @@
     "level": "35",
     "xp": "5",
     "tool": "Blessed axe",
+    "time": "N/A",
     "template": "woodcutting info"
   },
   {
@@ -649,18 +660,18 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Willow",
+    "name": "Willow tree",
     "level": "30",
     "xp": "67.5",
+    "tree": "Willow tree",
     "tool": "Axe",
     "time": "8.4 seconds",
     "template": "woodcutting info"
   },
   {
-    "name": "Willow",
+    "name": "Willow tree",
     "level": "30",
     "xp": "67.5",
-    "tree": "Willow",
     "tool": "Axe",
     "time": "8.4 seconds",
     "template": "woodcutting info"
@@ -681,18 +692,18 @@
     "template": "woodcutting info"
   },
   {
-    "name": "Yew",
+    "name": "Yew tree",
     "level": "60",
     "xp": "175",
+    "tree": "Yew tree",
     "tool": "Axe",
     "time": "59.4 seconds",
     "template": "woodcutting info"
   },
   {
-    "name": "Yew",
+    "name": "Yew tree",
     "level": "60",
     "xp": "175",
-    "tree": "Yew",
     "tool": "Axe",
     "time": "59.4 seconds",
     "template": "woodcutting info"

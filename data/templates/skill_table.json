@@ -219,8 +219,14 @@
   },
   {
     "skill": "Smithing",
+    "query": "Uses facility::Armour stand",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Smithing",
     "query": "Smithing experience::>0",
-    "exclude material": "bar%], elemental metal, crystal shard, corrupted shard, ore",
+    "exclude material": "bar%], elemental metal, crystal shard, corrupted shard, ore, ahrim, dharok, guthan, karil, torag, verac",
     "images": "icons",
     "template": "skill table"
   },

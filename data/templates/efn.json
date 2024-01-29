@@ -19,12 +19,6 @@
   },
   {
     "list": [
-      "Appropriate to your attack style"
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
       "Not boostable."
     ],
     "name": "\"noboost\"",
@@ -130,7 +124,7 @@
   {
     "group": "n",
     "list": [
-      "The experience awarded for each crop harvested. The expected yield depends on farming level and equipment. See Variable crop yield."
+      "The experience awarded for each crop harvested. The expected yield depends on Farming level and equipment. See Variable crop yield."
     ],
     "template": "efn"
   },
@@ -169,6 +163,10 @@
     "list": [
       "These potions require using input with less than 4 doses. See mechanics section above."
     ],
+    "name": "\"variable\"",
+    "template": "efn"
+  },
+  {
     "name": "\"variable\"",
     "template": "efn"
   },
@@ -336,6 +334,31 @@
     "template": "efn"
   },
   {
+    "name": "exception",
+    "list": [
+      "This project has never been shared by Jagex in an official news post."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "ruinous-powers-beta",
+    "list": [
+      "This project was first announced in the update in which it was added to the game."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "ruinous-powers-beta",
+    "template": "efn"
+  },
+  {
+    "name": "improved-skill-guide",
+    "list": [
+      "This project was first announced in the update in which it was polled."
+    ],
+    "template": "efn"
+  },
+  {
     "list": [
       "Additional requirement of 55 Slayer."
     ],
@@ -460,6 +483,12 @@
   },
   {
     "list": [
+      "The plural of \"tanglefoot\" is \"tanglefootii\" according to Gatekeeper dialogue."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
       "A broken Barrelchest anchor will not work."
     ],
     "template": "efn"
@@ -477,6 +506,29 @@
   },
   {
     "name": "inquisitors",
+    "template": "efn"
+  },
+  {
+    "name": "no_inquisitors",
+    "list": [
+      "Without Inquisitor's armour, these items are better than the Zamorakian hasta"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "no_inquisitors",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only worthwhile with Voidwaker"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Paired with Zaryte crossbow special attack"
+    ],
     "template": "efn"
   },
   {
@@ -513,6 +565,13 @@
   {
     "list": [
       "As the amount of Hitpoints restored by a blood spell is first rounded down before the bonus of bloodbark armour is applied, the total healing effect might be lower in practice."
+    ],
+    "template": "efn"
+  },
+  {
+    "group": "d",
+    "list": [
+      "Silver bolts are the only ranged weapons that can be used effectively against vampyres."
     ],
     "template": "efn"
   },
@@ -628,6 +687,10 @@
     "template": "efn"
   },
   {
+    "name": "defender",
+    "template": "efn"
+  },
+  {
     "name": "gloves",
     "list": [
       "Players might want to extend their cerberus tasks by using or switching to a Bracelet of slaughter when the boss is almost dead."
@@ -663,6 +726,42 @@
     "list": [
       "The amount of prayer/super restore potions depends if the player has a Spectral spirit shield or not."
     ],
+    "template": "efn"
+  },
+  {
+    "name": "Verac's",
+    "list": [
+      "If using full Verac's set"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "Verac's",
+    "template": "efn"
+  },
+  {
+    "name": "Verac's",
+    "template": "efn"
+  },
+  {
+    "name": "Verac's",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Craw's bow is very slightly better in performance compared to the twisted bow, but due to it consuming ether, it is significantly more expensive and risky to use. However, it is also significantly cheaper to obtain than the twisted bow."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "blessing",
+    "list": [
+      "If using Webweaver/Craw's bow, Toxic blowpipe or Bow of faerdhinen"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "blessing",
     "template": "efn"
   },
   {
@@ -710,14 +809,14 @@
   },
   {
     "list": [
-      "Given in place of all other rewards if the player dies at Pestilent Bloat or Sotetseg."
+      "Given in place of all other rewards if the player dies at both Maiden of Sugadinti and Pestilent Bloat or Nylocas and Sotetseg."
     ],
     "group": "c",
     "template": "efn"
   },
   {
     "list": [
-      "10 are given only in entry mode."
+      "10 are given in Entry Mode in place of all other supplies."
     ],
     "group": "c",
     "template": "efn"
@@ -818,6 +917,18 @@
   {
     "list": [
       "If filling a bin with tomatoes, at least one compostable item must be of a different type. Otherwise, rotten tomatoes will be produced."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only while on a Slayer task."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only if it will be protected on death."
     ],
     "template": "efn"
   },
@@ -994,13 +1105,13 @@
   },
   {
     "list": [
-      "If using a twisted bow."
+      "Cheaper alternative at the cost of 6 ranged strength"
     ],
     "template": "efn"
   },
   {
     "list": [
-      "If using a toxic blowpipe or [bow of Faerdhinen (c)."
+      "If using a toxic blowpipe or bow of Faerdhinen (c)."
     ],
     "name": "\"blessing\"",
     "template": "efn"
@@ -1011,7 +1122,7 @@
   },
   {
     "list": [
-      "If the player cannot afford a twisted bow, pegasian boots should be worn instead."
+      "Bring one or the other. Pegasian boots are only relevant when using Blowpipe; otherwise melee boots are always preferable."
     ],
     "template": "efn"
   },
@@ -1076,6 +1187,57 @@
     "template": "efn"
   },
   {
+    "name": "1H",
+    "list": [
+      "If using a 1-handed weapon"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "1H",
+    "template": "efn"
+  },
+  {
+    "name": "1H",
+    "template": "efn"
+  },
+  {
+    "name": "1H",
+    "template": "efn"
+  },
+  {
+    "group": "c",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Can be charged using only blood runes, with no vials of blood required."
+    ],
+    "group": "infotable",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "The passive effect that multiplies the Magic Accuracy and Magic Damage bonuses received from equipped items is reduced from 3x to 2x, and from 4x to 3x inside the Tombs of Amascut."
+    ],
+    "group": "infotable",
+    "template": "efn"
+  },
+  {
+    "group": "q",
+    "list": [
+      "Only the subquests that together compose Recipe for Disaster are automatically unlocked on reaching the final bracket, but none of the other prerequisite quests are."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Damage dealt by thralls against breach bosses will also yield points."
+    ],
+    "group": "points",
+    "template": "efn"
+  },
+  {
     "list": [
       "Once Bone Voyage has been completed, this option can be unlocked after using the pendant on the Strange Machine in the House on the Hill"
     ],
@@ -1133,6 +1295,89 @@
       "Unlocked by using a Slepey tablet on the medallion"
     ],
     "group": "L",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "On task only"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "defender",
+    "list": [
+      "Use only with super antifire potion or if you plan to dodge the fire or else the fire ball will hurt you."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "defender",
+    "template": "efn"
+  },
+  {
+    "name": "boots",
+    "list": [
+      "Use only with the Elite Kourend diary else you will take constant damage"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "boots",
+    "template": "efn"
+  },
+  {
+    "name": "boots",
+    "template": "efn"
+  },
+  {
+    "name": "defender",
+    "template": "efn"
+  },
+  {
+    "name": "defender",
+    "template": "efn"
+  },
+  {
+    "name": "defender",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only while on a Slayer task."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Serpentine helm will proc extra poison damage and does not lose any max hits compared to Torva full helm: https://imgur.com/a/ci8TaP4"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "if using one-handed weapon"
+    ],
+    "name": "\"oneHanded\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"oneHanded\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"oneHanded\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If using Scythe of vitur, Serpentine helm, or Arclight"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Can be brought as a ring swap between kills"
+    ],
     "template": "efn"
   },
   {
@@ -1250,7 +1495,7 @@
   {
     "group": "n",
     "list": [
-      "Most flowers yield 1 flower when picked, but woad leaves will yield 3 leaves and limpwurt roots will yield a minimum of 3 and up to 13 roots, depending on farming level."
+      "Most flowers yield 1 flower when picked, but woad leaves will yield 3 leaves and limpwurt roots will yield a minimum of 3 and up to 13 roots, depending on Farming level."
     ],
     "template": "efn"
   },
@@ -1276,12 +1521,6 @@
   {
     "list": [
       "GP per heal on food that take multiple bites indicate the total hp healed, rather than per bite or dose."
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
-      "If you have some piece of the Raiments of the Eye outfit, less may be required; 26 essence for 1 piece, 24 for 2 pieces, 22 for 3 pieces or 19 for the full outfit."
     ],
     "template": "efn"
   },
@@ -1333,22 +1572,34 @@
   },
   {
     "list": [
-      "Buy price depends if you have the Karamja gloves 3"
+      "Requires Karamja gloves 3 or better to be equipped"
+    ],
+    "group": "T",
+    "name": "Buy",
+    "template": "efn"
+  },
+  {
+    "group": "T",
+    "name": "Buy",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Requires Karamja gloves 1 or better to be equipped"
     ],
     "group": "T",
     "template": "efn"
   },
   {
     "list": [
-      "Buy price depends if you have the Karamja gloves 3"
+      "Though it has infinite charges, the effect can be procced by an amulet of eternal glory"
     ],
-    "group": "T",
-    "name": "Buy",
     "template": "efn"
   },
   {
-    "group": "T",
-    "name": "Buy",
+    "list": [
+      "Though it has infinite charges, the effect can be procced by a slayer ring (eternal)"
+    ],
     "template": "efn"
   },
   {
@@ -1370,14 +1621,9 @@
     "template": "efn"
   },
   {
-    "name": "crossbow",
     "list": [
-      "If using a crossbow"
+      "With Scythe of Vitur"
     ],
-    "template": "efn"
-  },
-  {
-    "name": "crossbow",
     "template": "efn"
   },
   {
@@ -1408,10 +1654,26 @@
     "template": "efn"
   },
   {
+    "name": "optional",
+    "template": "efn"
+  },
+  {
+    "name": "optional",
+    "template": "efn"
+  },
+  {
+    "name": "optional",
+    "template": "efn"
+  },
+  {
     "name": "crossbow",
     "list": [
       "If using a crossbow"
     ],
+    "template": "efn"
+  },
+  {
+    "name": "crossbow",
     "template": "efn"
   },
   {
@@ -1630,7 +1892,13 @@
   {
     "group": "n",
     "list": [
-      "The experience awarded for each hop harvested. The expected yield depends on farming level and equipment. See Variable crop yield."
+      "The experience awarded for each hop harvested. The expected yield depends on Farming level and equipment. See Variable crop yield."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "May only be equipped in a members' world. However, if already equipped upon logging into a free-to-play world, the hammer retains its usual functionality, regardless of the player's membership status."
     ],
     "template": "efn"
   },
@@ -1794,17 +2062,6 @@
     "template": "efn"
   },
   {
-    "name": "Armour",
-    "list": [
-      "Only use Ancestral robes in combination with a Harmonised nightmare staff, a Sanguinesti staff or a Trident of the swamp and Arcane spirit shield."
-    ],
-    "template": "efn"
-  },
-  {
-    "name": "Armour",
-    "template": "efn"
-  },
-  {
     "name": "harm",
     "list": [
       "If using Fire Surge with tome of fire."
@@ -1837,7 +2094,7 @@
   },
   {
     "list": [
-      "Only on an aviansies Slayer task."
+      "Only on a Slayer task."
     ],
     "template": "efn"
   },
@@ -1863,7 +2120,7 @@
   },
   {
     "list": [
-      "Only on an aviansies Slayer task."
+      "Only on a Slayer task."
     ],
     "template": "efn"
   },
@@ -1894,7 +2151,7 @@
   },
   {
     "list": [
-      "Only on an aviansies Slayer task."
+      "Only on a Slayer task."
     ],
     "template": "efn"
   },
@@ -1911,7 +2168,7 @@
   },
   {
     "list": [
-      "Ruby bolts (e) are used only for the enchanted bolt effect, Blood Forfeit, until half of the foe's overall health remains. Afterwards, switch to the primary bolt, diamond bolts (e). Only use ruby bolts if you are under 90 Range. Otherwise, use diamond bolts for the entire kill."
+      "Only use if your max hit is around 20 or less. Ruby bolts may be used for the enchanted bolt effect during the beginning of the kill to deplete 10% of Kree'arra's health (up to 25). Afterwards, use a primary bolt for the rest of the kill."
     ],
     "template": "efn"
   },
@@ -1930,17 +2187,57 @@
     "template": "efn"
   },
   {
+    "name": "crystal",
     "list": [
-      "Respective god items must be worn at all times prior to entering an area plagued with a god or gods' followers. The god item can be swapped or removed when entering the boss room since the boss is aggressive regardless."
+      "If using Bow of Faerdhinen"
     ],
-    "name": "\"god items\"",
+    "template": "efn"
+  },
+  {
+    "name": "crystal",
+    "template": "efn"
+  },
+  {
+    "name": "crystal",
     "template": "efn"
   },
   {
     "list": [
-      "Drop two Saradomin brews upon teleporting, and use an amulet of glory or a ring of dueling teleport to grab two more brews and another Trollheim Teleport. See the drop trick."
+      "Twisted bow is stronger than Bow of faerdhinen if you have at least 2 of the following: Masori body (f), Masori chaps (f), Dragon arrows"
     ],
-    "name": "brews",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only use with full crystal armour (Crystal helm can be substituted with Slayer helmet (i))"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "blessing",
+    "list": [
+      "If using Bow of faerdhinen"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "blessing",
+    "template": "efn"
+  },
+  {
+    "name": "blessing",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only with spec weapon"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "With Ruby dragon bolts (e)"
+    ],
     "template": "efn"
   },
   {
@@ -1989,6 +2286,24 @@
       "Xeric's talisman drop rate increased to 1/125 with the completion of Easy Kourend & Kebos Diary."
     ],
     "group": "d",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Requires Vorkath's head to purchase."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "When harvesting from a herbiboar with magic secateurs equipped or in the inventory, exactly one extra herb will always be provided."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If you world hop after the weeds have grown to the first stage, they will reset to fully grown."
+    ],
     "template": "efn"
   },
   {
@@ -2052,57 +2367,14 @@
     "template": "efn"
   },
   {
-    "name": "deadweight",
-    "list": [
-      "Only obtained if a player ends the raid with 0 individual contribution points."
-    ],
-    "template": "efn"
-  },
-  {
-    "name": "deadweight",
-    "template": "efn"
-  },
-  {
-    "name": "tertiary",
-    "list": [
-      "Drop rate scales down based on the individual's performance during the raid."
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
-      "The elite clue scroll rarity for Entry, Normal, and Hard Mode is 1/25, 3/25, and 3.5/25, respectively."
-    ],
-    "template": "efn"
-  },
-  {
-    "name": "hardmode",
-    "template": "efn"
-  },
-  {
-    "name": "hardmode",
-    "template": "efn"
-  },
-  {
-    "name": "hardmode",
-    "list": [
-      "Only obtainable in Hard Mode."
-    ],
-    "template": "efn"
-  },
-  {
-    "name": "tertiary",
-    "template": "efn"
-  },
-  {
-    "list": [
-      "The base rate for Lil' Zik is 1/650 in Normal Mode and 1/500 in Hard Mode."
-    ],
-    "template": "efn"
-  },
-  {
     "list": [
       "After completion of Beneath Cursed Sands, Selim will be contacted instead of Osman. The actual conversation however remains almost the same."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "In practice, 1GB of RAM is sufficient for normal gameplay, although this does not come with any performance guarantees."
     ],
     "template": "efn"
   },
@@ -2115,6 +2387,13 @@
   {
     "list": [
       "Based on average value of herb boxes."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Based on the average price of opening a spoils of war",
+      "1"
     ],
     "template": "efn"
   },
@@ -2152,80 +2431,64 @@
     "template": "efn"
   },
   {
+    "name": "exception",
     "list": [
-      "Using an unsired on the Font of Consumption"
+      "This project was not listed in the dedicated post."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "Bonds",
+    "list": [
+      "Assuming sellings bonds on the GE"
     ],
     "template": "efn"
   },
   {
     "list": [
-      "1/2560 per Abyssal Sire kill; 5/128 per unsired"
+      "Requires Vorkath's head to purchase."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "To change into a baby mole-rat, a mole claw must be used on the baby mole."
+      "Using an unsired on the Font of Consumption."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "Charged ice must be used on Muphin in order to transmogrify it into its other forms."
+      "1/2,560 per Abyssal Sire kill; 5/128 per unsired."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "Sanguine dust is required to metamorphose into all five variants."
+      "The drop rate varies based on the player's individual performance in the raid, ranging from 1/650 (the base rate) to 1/6,500 in Normal Mode. For Hard Mode, the base rate is 1/500."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "To change into Little Parasite, a parasitic egg must be used on Little Nightmare."
+      "Dropped by supply crates earned from subduing the Wintertodt."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "Metamorphic dust is required to metamorphose into all seven variants."
+      "Only rolls for the MVP."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "Dropped by Supply crates earned from subduing the Wintertodt."
+      "Received when collecting from the reward pool after subduing Tempoross."
     ],
     "template": "efn"
   },
   {
     "list": [
-      "An orange or blue egg sac is required to metamorphose into its respective variant"
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
-      "Received from Reward pool when collecting rewards for Tempoross"
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
-      "A variety of items are required to metamorphose into all six variants."
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
-      "The pet drop rate varies depending on total reward points and raid level. Given rate is for 17,500 total reward points at raid level 0."
-    ],
-    "template": "efn"
-  },
-  {
-    "list": [
-      "To change into JalRek-Jad, all six of TzHaar-Ket-Rak's Challenges must be completed."
+      "The drop rate varies depending on total reward points and raid level. See this page for more details."
     ],
     "template": "efn"
   },
@@ -2240,6 +2503,12 @@
       "If casting Ancient Magicks."
     ],
     "name": "\"AncMag\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If casting Ancient Magicks with Ahrim's set"
+    ],
     "template": "efn"
   },
   {
@@ -2280,7 +2549,14 @@
   },
   {
     "list": [
-      "For prayer-shield phase."
+      "Especially useful with Frozen tablet for quick returns to the boss after resupplying."
+    ],
+    "name": "\"teleport\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "For prayer-shield phase. Dragon bolts are marginally better if flicking Smite due to their increased max hit."
     ],
     "name": "\"prayer\"",
     "template": "efn"
@@ -2320,7 +2596,7 @@
   },
   {
     "list": [
-      "For prayer shield phase."
+      "For prayer shield phase. Dragon bolts are marginally better if flicking Smite due to their increased max hit."
     ],
     "name": "\"prayer\"",
     "template": "efn"
@@ -2518,7 +2794,7 @@
   },
   {
     "list": [
-      "This is Jagex's official pronunciation for the word. This is incorrect per the word's spelling, as Welsh orthography uses ⟨dd⟩ for /ð/; /θ/ would, in-turn, be written ⟨th⟩. See Wikipedia's article on Welsh phonology."
+      "This is Jagex's official pronunciation for the word. This does not match Welsh pronunciation, as Welsh orthography uses ⟨dd⟩ for /ð/; /θ/ would, in-turn, be written ⟨th⟩. See Wikipedia's article on Welsh phonology."
     ],
     "template": "efn"
   },
@@ -2595,14 +2871,43 @@
     "template": "efn"
   },
   {
+    "name": "Pyramid Plunder",
     "list": [
-      "Chance is rolled upon picking a fruit from any of the sq'irk trees, but not the herbs."
+      "Chance is rolled upon opening the Grand Gold Chest in the room, even if a scarab swarm appears."
     ],
     "template": "efn"
   },
   {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
+    "name": "Pyramid Plunder",
+    "template": "efn"
+  },
+  {
     "list": [
-      "Chance is rolled upon opening the Grand Gold Chest in the room, even if a scarab swarm appears."
+      "Chance is rolled upon picking a fruit from any of the sq'irk trees, but not the herbs."
     ],
     "template": "efn"
   },
@@ -2621,6 +2926,12 @@
   {
     "list": [
       "Fang typically out damages Dragon hunter lance when using full Justiciar, while DHL is usually better in damage oriented gear"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Players can only craft five earth runes per essence with a base Runecraft level of 99 and a +5 boost from an orange spicy stew. Earth runes are currently the only runes with a multiple-rune crafting level requirement higher than 99 that is reachable with existing boosts."
     ],
     "template": "efn"
   },
@@ -2663,6 +2974,18 @@
   },
   {
     "list": [
+      "Bellator is only BIS with Scythe and max melee, including Torva. If using Slayer helm or below max melee, Ultor is usually better"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Used to unfreeze from Sarachnis' web attack when it appears. An Easter ring is a free alternative to the ring of stone if unlocked."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
       "Use the ring appropriate to your weapon's combat style."
     ],
     "template": "efn"
@@ -2680,12 +3003,6 @@
   },
   {
     "name": "\"chance20\"",
-    "template": "efn"
-  },
-  {
-    "list": [
-      "Effect applies only to the following five fish: lobsters, swordfish, monkfish, sharks, and anglerfish."
-    ],
     "template": "efn"
   },
   {
@@ -2732,7 +3049,7 @@
   },
   {
     "list": [
-      "The teleport takes players inside the guild if their Farming level is at least 45 and their Hosidius favour is 60% or greater, otherwise players are teleported outside the guild"
+      "The teleport takes players inside the guild if their Farming level is at least 45, otherwise players are teleported outside the guild"
     ],
     "group": "L",
     "template": "efn"
@@ -2812,6 +3129,13 @@
     "template": "efn"
   },
   {
+    "name": "Points Unlock",
+    "list": [
+      "Task must be unlocked with Slayer reward points to be assigned."
+    ],
+    "template": "efn"
+  },
+  {
     "name": "Points Unlock 3",
     "list": [
       "Task must be unlocked with Slayer reward points to be assigned by Chaeldar, Konar, Duradel and Nieve."
@@ -2831,8 +3155,39 @@
     "template": "efn"
   },
   {
+    "name": "Points Unlock",
+    "template": "efn"
+  },
+  {
     "list": [
       "If using an appropriate spec weapon"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "Inquisitor's",
+    "list": [
+      "Inquisitor's is usually higher DPS than Torva if using a crush weapon"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "Inquisitor's",
+    "template": "efn"
+  },
+  {
+    "name": "Inquisitor's",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If the obsidian platelegs do not increase the players max hit you can wear Prostelyte when praying piety."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Gargoyles drop coins frequently, if a player wishes to pay less attention they can wear a ring of wealth to automatically pick up coin drops."
     ],
     "template": "efn"
   },
@@ -2932,8 +3287,9 @@
   },
   {
     "list": [
-      "In practice, 1GB of RAM is sufficient for normal gameplay, although this does not come with any performance guarantees."
+      "After level 73 Agility and completion of the Hard Fremennik Diary."
     ],
+    "group": "L",
     "template": "efn"
   },
   {
@@ -2948,6 +3304,131 @@
       "Total values indicate the combination Coal + Iron ore (e.g. a reward of 21 would be 14 Coal and 7 Iron)."
     ],
     "group": "r",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only while on a Slayer task."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "bowfa",
+    "list": [
+      "If using Bow of faerdhinen"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "bowfa",
+    "template": "efn"
+  },
+  {
+    "name": "bowfa",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If using crystal armour."
+    ],
+    "name": "\"crystal\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Stronger than Bow of faerdhinen while Leviathan is above ~440 HP, if using Masori, Twisted buckler and Ruby dragon bolts (e)"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Tbow surpasses Armadyl crossbow with ruby dragon bolts (e) below ~405 HP"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "\"crystal\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"1h\"",
+    "list": [
+      "If using a 1-handed weapon"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "\"1h\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"1h\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"1h\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"1h\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"bowfa\"",
+    "list": [
+      "Use with Bow of faerdhinen"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "\"bowfa\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"bowfa\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Surpasses Bow of faerdhinen only with at least 2 Masori armour pieces"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only if using full Crystal armour"
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only while on a Slayer task."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If casting Ancient Magicks."
+    ],
+    "name": "\"AncMag\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If casting Fire Surge."
+    ],
+    "name": "\"FireSurge\"",
+    "template": "efn"
+  },
+  {
+    "name": "\"FireSurge\"",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If not using a shadow/do not have a nightmare staff."
+    ],
+    "name": "\"spec\"",
     "template": "efn"
   },
   {
@@ -2969,6 +3450,10 @@
     "list": [
       "Only if bringing a crossbow."
     ],
+    "name": "xbow",
+    "template": "efn"
+  },
+  {
     "name": "xbow",
     "template": "efn"
   },
@@ -3047,7 +3532,7 @@
   },
   {
     "list": [
-      "The attack performs a hybrid roll of a mage and range attack based off of the player's and Zuk's stats, with the accuracy and damage being the average of the two rolls; the mage attack's max hit is 128 and range attack's is 169. The melee max hit is 251, but it is never used."
+      "The damage roll for Zuk's projectile attack consists of a single roll between 0 and the average of its maximum Magic hit and maximum Ranged hit. The max hit of the mage attack is 128, while the range attack's max hit is 169. The melee max hit is 251, but it is never used."
     ],
     "template": "efn"
   },
@@ -3096,6 +3581,45 @@
     "template": "efn"
   },
   {
+    "name": "def",
+    "list": [
+      "Scales linearly with Vardorvis' remaining HP."
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
+    "name": "def",
+    "template": "efn"
+  },
+  {
     "list": [
       "If medium Varrock Diary has been completed."
     ],
@@ -3107,6 +3631,12 @@
       "If medium Varrock Diary has been completed."
     ],
     "group": "L",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "It is not possible to receive two heads on the 50th Vorkath kill, that is to say to receive Vorkath's head as a random loot drop in addition to the guaranteed one."
+    ],
     "template": "efn"
   },
   {
@@ -3117,7 +3647,7 @@
   },
   {
     "list": [
-      "Keep in mind this calculation is based on visible Thieving level, which is likely to be deboosted when the wall safe crack is attempted, depending on the actions taken navigating the maze."
+      "Keep in mind this calculation is based on visible Thieving level, which is likely to have been lowered when reaching the wall safe."
     ],
     "template": "efn"
   },
@@ -3133,6 +3663,17 @@
       "If hard Ardougne Diary has been completed."
     ],
     "group": "L",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "These rewards are not final, and will be subject to further discussion and community consultation."
+    ],
+    "name": "notFinal",
+    "template": "efn"
+  },
+  {
+    "name": "notFinal",
     "template": "efn"
   },
   {

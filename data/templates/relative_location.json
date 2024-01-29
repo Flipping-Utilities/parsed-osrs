@@ -59,7 +59,7 @@
     "location": "Chaos Temple (Wilderness)",
     "north": "Bone Yard",
     "west": "Ferox Enclave",
-    "south": "Varrock",
+    "south": "Varrock Palace",
     "east": "Slayer Tower",
     "template": "relative location"
   },
@@ -284,7 +284,7 @@
     "location": "Mount Quidamortem",
     "north": "Kebos Swamp",
     "east": "Lizardman Settlement",
-    "south": "Varlamore",
+    "south": "The Stranglewood",
     "west": "Unknown",
     "template": "relative location"
   },
@@ -411,6 +411,14 @@
     "template": "relative location"
   },
   {
+    "location": "The Stranglewood",
+    "north": "Mount Quidamortem",
+    "east": "Varlamore",
+    "south": "Varlamore",
+    "west": "Unknown",
+    "template": "relative location"
+  },
+  {
     "location": "Tree Gnome Stronghold",
     "north": "Piscatoris Fishing Colony",
     "east": "Baxtorian Falls",
@@ -420,25 +428,25 @@
   },
   {
     "location": "Varrock Museum",
-    "north": "Wilderness",
+    "north": "Varrock Church",
     "east": "Digsite",
-    "south": "Varrock",
+    "south": "Varrock east bank",
     "west": "Varrock Palace",
     "template": "relative location"
   },
   {
     "location": "Varrock Palace",
-    "north": "Chaos Temple",
-    "south": "Varrock",
+    "north": "Chaos Temple (Wilderness)",
+    "south": "Varrock Square",
     "east": "Varrock Museum",
-    "west": "Edgeville",
+    "west": "Grand Exchange",
     "template": "relative location"
   },
   {
     "location": "Varrock Sewer",
     "north": "Wilderness",
     "west": "Varrock Palace",
-    "south": "Varrock East Bank",
+    "south": "Varrock east bank",
     "east": "Varrock Museum",
     "template": "relative location"
   },

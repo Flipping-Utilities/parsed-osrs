@@ -38,6 +38,7 @@
     "name": "Rod Fishing spot (lure, bait)",
     "level": "1",
     "xp": "Varies",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -95,7 +96,7 @@
   {
     "name": "Fishing spot",
     "level": "28",
-    "xp": "Varies",
+    "xp": "80",
     "smw": "No",
     "template": "fishing info"
   },
@@ -103,6 +104,7 @@
     "name": "Fishing spot",
     "level": "10",
     "xp": "N/A",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -141,6 +143,14 @@
     "template": "fishing info"
   },
   {
+    "name": "Fishing spot",
+    "level": "1",
+    "xp": "7.5",
+    "tool": "OR",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
     "name": "Rod Fishing spot (lure, bait)",
     "level": "1",
     "xp": "10",
@@ -149,7 +159,7 @@
     "template": "fishing info"
   },
   {
-    "name": "Fishing spot (aerial fishing)",
+    "name": "Fishing spot",
     "level": "43",
     "skill2name": "Hunter",
     "skill2lvl": "35",
@@ -168,6 +178,7 @@
     "skill3lvl": "15",
     "skill1exp": "Varies",
     "skill2exp": "Varies",
+    "tool": "OR",
     "bait": ",, , ,",
     "smw": "No",
     "template": "fishing info"
@@ -233,6 +244,7 @@
     "name": "Fishing spot",
     "level": "28",
     "xp": "80",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -255,6 +267,7 @@
     "name": "Fishing spot",
     "level": "53",
     "xp": "30",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -270,6 +283,7 @@
     "name": "Fishing spot",
     "level": "87",
     "xp": "105",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -279,19 +293,23 @@
     "xp": "Varies",
     "bait": "Nothing",
     "smw": "No",
+    "dropversion": "Small net",
     "template": "fishing info"
   },
   {
     "name": "Fishing spot",
     "level": "10",
     "xp": "Varies",
+    "tool": "OR",
     "smw": "No",
+    "dropversion": "Bait",
     "template": "fishing info"
   },
   {
     "name": "Fishing spot",
     "level": "28",
-    "xp": "80",
+    "xp": "65",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -421,6 +439,7 @@
     "tool": "Empty panning tray",
     "spot": "Panning point",
     "bait": "None",
+    "dropversion": "Mud",
     "template": "fishing info"
   },
   {
@@ -701,8 +720,15 @@
   {
     "name": "Raw slimy eel",
     "level": "28",
+    "xp": "80",
+    "spot": "Fishing spot (frogspawn), Fishing spot (Camdozaal)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw slimy eel",
+    "level": "28",
     "xp": "65",
-    "spot": "Fishing spot (swamp) Fishing spot (frogspawn)",
+    "spot": "Fishing spot (swamp)",
     "template": "fishing info"
   },
   {
@@ -766,7 +792,8 @@
   {
     "name": "Fishing spot",
     "level": "82",
-    "xp": "Varies",
+    "xp": "120",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -774,6 +801,7 @@
     "name": "Fishing spot",
     "level": "80",
     "xp": "95",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -781,6 +809,7 @@
     "name": "Rod Fishing spot (lure, bait)",
     "level": "20",
     "xp": "Varies",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -788,6 +817,7 @@
     "name": "Rod Fishing spot (lure, bait)",
     "level": "25",
     "xp": "60",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
@@ -795,6 +825,7 @@
     "name": "Rod Fishing spot (lure, bait)",
     "level": "38",
     "xp": "80",
+    "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },

@@ -22,6 +22,15 @@
     "xp": "95",
     "tool": "Pickaxe",
     "time": "4 minutes",
+    "dropversion": "Prifddinas",
+    "template": "mining info"
+  },
+  {
+    "name": "Amalgamation",
+    "level": "66",
+    "xp": "6",
+    "tool": "Pickaxe",
+    "time": "15 seconds (Small) ~35.4 seconds (Medium) ~42 seconds (Large)",
     "template": "mining info"
   },
   {
@@ -169,6 +178,7 @@
     "xp": "50",
     "tool": "Pickaxe",
     "time": "30 seconds",
+    "dropversion": "Prifddinas",
     "template": "mining info"
   },
   {
@@ -234,15 +244,7 @@
     "level7": "70",
     "level8": "80",
     "level9": "90",
-    "xp1": "12",
-    "xp2": "22",
-    "xp3": "26",
-    "xp4": "31",
-    "xp5": "48",
-    "xp6": "74",
-    "xp7": "123",
-    "xp8": "162",
-    "xp9": "244",
+    "xp": "32",
     "tool": "Pickaxe",
     "time": "N/A",
     "template": "mining info"
@@ -355,6 +357,7 @@
     "xp": "65",
     "tool": "Pickaxe",
     "time": "1 minute",
+    "dropversion": "Prifddinas",
     "template": "mining info"
   },
   {
@@ -453,6 +456,7 @@
     "xp": "35",
     "tool": "Pickaxe",
     "time": "5.4 seconds",
+    "dropversion": "Prifddinas",
     "template": "mining info"
   },
   {
@@ -491,7 +495,7 @@
   {
     "name": "Lovakite rocks",
     "level": "65",
-    "xp": "10",
+    "xp": "60",
     "rock": "Lovakite rocks",
     "tool": "Pickaxe",
     "time": "35 seconds",
@@ -500,26 +504,27 @@
   {
     "name": "Lovakite rocks",
     "level": "65",
-    "xp": "10",
+    "xp": "60",
     "tool": "Pickaxe",
     "time": "35 seconds",
     "template": "mining info"
   },
   {
-    "name": "Lunar rock",
+    "name": "Stalagmites",
     "level": "60",
     "xp": "0",
-    "rock": "Lunar rock",
+    "rock": "Stalagmites",
     "tool": "Pickaxe",
     "time": "0",
     "template": "mining info"
   },
   {
-    "name": "Lunar rock",
-    "level": "60",
+    "name": "Magical rocks",
+    "level": "20",
     "xp": "0",
+    "rock": "Magical rocks",
     "tool": "Pickaxe",
-    "time": "N/A",
+    "time": "5.4 seconds",
     "template": "mining info"
   },
   {
@@ -553,6 +558,7 @@
     "xp": "80",
     "tool": "Pickaxe",
     "time": "2 minutes",
+    "dropversion": "Prifddinas",
     "template": "mining info"
   },
   {
@@ -600,6 +606,7 @@
     "level": "1",
     "xp": "1",
     "tool": "Pickaxe",
+    "time": "15",
     "template": "mining info"
   },
   {
@@ -634,6 +641,22 @@
     "xp": "125",
     "tool": "Pickaxe",
     "time": "12 minutes 6 minutes in Mining Guild",
+    "dropversion": "Prifddinas",
+    "template": "mining info"
+  },
+  {
+    "name": "Salt Deposit",
+    "xp": "5",
+    "tool": "Pickaxe",
+    "time": "NA",
+    "template": "mining info"
+  },
+  {
+    "name": "Salt Deposit",
+    "level": "72",
+    "xp": "5",
+    "tool": "Pickaxe",
+    "time": "NA",
     "template": "mining info"
   },
   {
@@ -666,6 +689,7 @@
     "xp": "40",
     "tool": "Pickaxe",
     "time": "1 minute",
+    "dropversion": "Prifddinas",
     "template": "mining info"
   },
   {
@@ -677,7 +701,7 @@
     "template": "mining info"
   },
   {
-    "name": "Rocks",
+    "name": "Soft clay rocks",
     "level": "70",
     "xp": "5",
     "tool": "Pickaxe",
@@ -730,6 +754,14 @@
   {
     "level": "1",
     "xp": "0.5",
+    "time": "N/A",
+    "template": "mining info"
+  },
+  {
+    "name": "Stalagmites",
+    "level": "60",
+    "xp": "0",
+    "tool": "Pickaxe",
     "time": "N/A",
     "template": "mining info"
   },
@@ -804,7 +836,7 @@
   {
     "name": "Volcanic sulphur (rock)",
     "level": "42",
-    "xp": "25",
+    "xp": "35",
     "rock": "Volcanic sulphur (rock)",
     "tool": "Pickaxe",
     "time": "25.2 seconds",
@@ -813,7 +845,7 @@
   {
     "name": "Volcanic sulphur",
     "level": "42",
-    "xp": "25",
+    "xp": "35",
     "tool": "Pickaxe",
     "time": "25.2 seconds",
     "template": "mining info"

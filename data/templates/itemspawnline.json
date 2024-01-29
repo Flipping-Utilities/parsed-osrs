@@ -347,6 +347,25 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Beer glass",
+    "location": "Corsair Cove",
+    "members": "No",
+    "plane": "1",
+    "list": [
+      "2563, 2867"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Beer glass",
+    "location": "Shayzien Encampment",
+    "members": "Yes",
+    "list": [
+      "1531,3638"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Beer tankard",
     "location": "Rellekka - longhall bar",
     "members": "Yes",
@@ -1432,6 +1451,17 @@
     "template": "itemspawnline"
   },
   {
+    "location": "Ruins of Ullek",
+    "list": [
+      "3393,2800",
+      "3398,2805"
+    ],
+    "mapid": "0",
+    "members": "Yes",
+    "name": "Bones",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Bones",
     "location": "Ape Atoll Dungeon",
     "members": "Yes",
@@ -1931,7 +1961,7 @@
   {
     "name": "Bronze arrow",
     "location": "Wilderness - south-west of Ferox Enclave",
-    "members": "Yes",
+    "members": "no",
     "list": [
       "3098,3596",
       "3098,3600,qty:2",
@@ -1997,6 +2027,24 @@
     "members": "No",
     "list": [
       "3232,3296"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze axe",
+    "location": "Draynor Village - near Friendly Forester",
+    "members": "No",
+    "list": [
+      "3097,3239"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze axe",
+    "location": "Seers' Village - near Friendly Forester",
+    "members": "Yes",
+    "list": [
+      "2729,3479"
     ],
     "template": "itemspawnline"
   },
@@ -2135,6 +2183,16 @@
     "list": [
       "3077,9778"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "location": "Necropolis",
+    "list": [
+      "3325,2727"
+    ],
+    "mapid": "0",
+    "members": "Yes",
+    "name": "Bronze nails(5)",
     "template": "itemspawnline"
   },
   {
@@ -2930,6 +2988,17 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Burnt bread",
+    "location": "Corsair Cove Resource Area",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "1976,9077"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Burnt fish",
     "location": "Feldip Hills - tower north-east of Myths' Guild",
     "members": "No",
@@ -3298,6 +3367,16 @@
   },
   {
     "name": "Chisel",
+    "location": "Guardians of the Rift",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "2407,5645"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Chisel",
     "location": "Isle of Souls - bench near anvil",
     "members": "Yes",
     "list": [
@@ -3582,24 +3661,6 @@
   },
   {
     "name": "Coins",
-    "location": "Shayzien - Secluded Chapel",
-    "members": "Yes",
-    "list": [
-      "1439,3590"
-    ],
-    "template": "itemspawnline"
-  },
-  {
-    "name": "Coins",
-    "location": "Shayzien Encampment",
-    "members": "Yes",
-    "list": [
-      "1531,3637,qty:4"
-    ],
-    "template": "itemspawnline"
-  },
-  {
-    "name": "Coins",
     "location": "King Black Dragon Lair",
     "members": "Yes",
     "mapid": "26",
@@ -3623,6 +3684,36 @@
       "3109,10269,qty:2",
       "3113,10266,qty:3",
       "3113,10269,qty:7"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Coins",
+    "location": "Scabaras Dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "3371,9252",
+      "3381,9246",
+      "3370,9244"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Coins",
+    "location": "Shayzien - Secluded Chapel",
+    "members": "Yes",
+    "list": [
+      "1439,3590"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Coins",
+    "location": "Shayzien Encampment",
+    "members": "Yes",
+    "list": [
+      "1531,3637,qty:4"
     ],
     "template": "itemspawnline"
   },
@@ -4139,6 +4230,16 @@
     "list": [
       "2900,9766"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Dwarf remains",
+    "location": "Watchtower south of Coal Trucks",
+    "members": "Yes",
+    "list": [
+      "2567,3444"
+    ],
+    "plane": "2",
     "template": "itemspawnline"
   },
   {
@@ -4668,7 +4769,7 @@
     "location": "Ruins (east), level 27 Wilderness",
     "members": "No",
     "list": [
-      "3146,3734"
+      "3165,3739"
     ],
     "template": "itemspawnline"
   },
@@ -4720,6 +4821,16 @@
     "mapid": "26",
     "list": [
       "3107,10268"
+    ],
+    "members": "Yes",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Gold ring",
+    "location": "Scabaras Dungeon",
+    "mapid": "-1",
+    "list": [
+      "3369,9246"
     ],
     "members": "Yes",
     "template": "itemspawnline"
@@ -4964,6 +5075,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Hammer",
+    "location": "Ruins of Ullek",
+    "mapid": "0",
+    "list": [
+      "3435,2835"
+    ],
+    "members": "Yes",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Harpoon",
     "location": "Fishing Guild",
     "members": "Yes",
@@ -5082,10 +5203,20 @@
   },
   {
     "name": "Iron bar",
+    "location": "Ghorrock Dungeon",
+    "members": "Yes",
+    "list": [
+      "2918,10327"
+    ],
+    "mapid": "-1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron bar",
     "location": "Mynydd",
     "members": "Yes",
     "list": [
-      "2176,3429"
+      "2169,3430"
     ],
     "template": "itemspawnline"
   },
@@ -5177,7 +5308,9 @@
     "location": "Mynydd summit",
     "members": "Yes",
     "list": [
-      "2176,3429"
+      "2170,3432",
+      "2170,3430",
+      "2169,3427"
     ],
     "template": "itemspawnline"
   },
@@ -5295,6 +5428,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Iron scimitar",
+    "location": "South-west corner of the south-western temple in the Stranglewood (must be telegrabbed)",
+    "members": "Yes",
+    "list": [
+      "1098,3339"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Iron spit",
     "location": "Weiss",
     "members": "Yes",
@@ -5323,7 +5465,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Beer",
+    "name": "Iron warhammer",
     "location": "Shayzia Ruin",
     "members": "Yes",
     "list": [
@@ -5411,7 +5553,7 @@
   {
     "name": "Jug",
     "location": "Uzer Oasis - Cassim's house",
-    "members": "No",
+    "members": "Yes",
     "list": [
       "3512,3049,qty:1"
     ],
@@ -6542,7 +6684,7 @@
   },
   {
     "name": "Pestle and mortar",
-    "location": "Crumbling Tower,",
+    "location": "Isle of Souls - Crumbling Tower,",
     "members": "Yes",
     "list": [
       "2132,2998"
@@ -6794,6 +6936,17 @@
       "3312,2724",
       "3352,2747"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Plank",
+    "location": "Ghorrock Dungeon",
+    "members": "Yes",
+    "list": [
+      "2915,10342",
+      "2922,10326"
+    ],
+    "mapid": "-1",
     "template": "itemspawnline"
   },
   {
@@ -7386,6 +7539,17 @@
     "template": "itemspawnline"
   },
   {
+    "location": "Ruins of Ullek",
+    "list": [
+      "3395,2799",
+      "3397,2802"
+    ],
+    "members": "Yes",
+    "mapid": "0",
+    "name": "Rope",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Rope",
     "location": "Brine Rat Cavern",
     "members": "Yes",
@@ -7666,6 +7830,31 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Seaweed",
+    "location": "Isle of Souls",
+    "members": "Yes",
+    "list": [
+      "2254,2785",
+      "2257,2787",
+      "2259,2790",
+      "2267,2787",
+      "2270,2789",
+      "2280,2787",
+      "2279,2794",
+      "2291,2783",
+      "2296,2783",
+      "2297,2787",
+      "2293,2787",
+      "2285,2797",
+      "2290,2796",
+      "2287,2802",
+      "2289,2804",
+      "2282,2808",
+      "2284,2813"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Shaman robe",
     "location": "Ogre Enclave",
     "members": "Yes",
@@ -7861,7 +8050,8 @@
     "location": "Lumbridge Swamp - by the Fishing tutor",
     "members": "No",
     "list": [
-      "3244,3157"
+      "3244,3159",
+      "3245,3156"
     ],
     "template": "itemspawnline"
   },
@@ -8016,11 +8206,21 @@
   },
   {
     "name": "Spade",
-    "location": "Keldagrim - Blast Furnace",
+    "location": "Barrows - entrance",
     "members": "Yes",
-    "mapid": "10022",
     "list": [
-      "1951,4964"
+      "3572,3312",
+      "3571,3310"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Spade",
+    "location": "Corsair Cove Dungeon",
+    "members": "No",
+    "mapid": "31",
+    "list": [
+      "2031,8984"
     ],
     "template": "itemspawnline"
   },
@@ -8044,16 +8244,6 @@
   },
   {
     "name": "Spade",
-    "location": "Barrows - entrance",
-    "members": "Yes",
-    "list": [
-      "3572,3312",
-      "3571,3310"
-    ],
-    "template": "itemspawnline"
-  },
-  {
-    "name": "Spade",
     "location": "Falador - estate agent",
     "members": "No",
     "list": [
@@ -8063,31 +8253,10 @@
   },
   {
     "name": "Spade",
-    "location": "Varrock General Store",
-    "members": "No",
-    "plane": "1",
-    "list": [
-      "3218,3412"
-    ],
-    "template": "itemspawnline"
-  },
-  {
-    "name": "Spade",
-    "location": "Slayer Tower basement",
+    "location": "Farming Guild",
     "members": "Yes",
-    "mapid": "14",
     "list": [
-      "3426,9958"
-    ],
-    "template": "itemspawnline"
-  },
-  {
-    "name": "Spade",
-    "location": "Corsair Cove Dungeon",
-    "members": "No",
-    "mapid": "31",
-    "list": [
-      "2031,8984"
+      "1251,3735"
     ],
     "template": "itemspawnline"
   },
@@ -8097,6 +8266,39 @@
     "members": "Yes",
     "list": [
       "1657,3569"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Spade",
+    "location": "Keldagrim - Blast Furnace",
+    "members": "Yes",
+    "mapid": "10022",
+    "list": [
+      "1951,4964"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Spade",
+    "location": "Necropolis",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "3355,2758",
+      "3338,2751",
+      "3334,2719",
+      "3333,2702"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Spade",
+    "location": "Prifddinas - west in Alwyn's house (estate agent)",
+    "members": "Yes",
+    "mapid": "29",
+    "list": [
+      "3219,6058"
     ],
     "template": "itemspawnline"
   },
@@ -8112,20 +8314,21 @@
   },
   {
     "name": "Spade",
-    "location": "Farming Guild",
+    "location": "Slayer Tower basement (requires Telekinetic Grab)",
     "members": "Yes",
+    "mapid": "14",
     "list": [
-      "1251,3735"
+      "3426,9958"
     ],
     "template": "itemspawnline"
   },
   {
     "name": "Spade",
-    "location": "Prifddinas - west in Alwyn's house (estate agent)",
-    "members": "Yes",
-    "mapid": "29",
+    "location": "Varrock General Store",
+    "members": "No",
+    "plane": "1",
     "list": [
-      "3219,6058"
+      "3218,3412"
     ],
     "template": "itemspawnline"
   },
@@ -8261,6 +8464,16 @@
     "members": "No",
     "list": [
       "3184,3733"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Steel scimitar",
+    "location": "Prifddinas - on a table in Iorwerth's Arms",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "3258,6057"
     ],
     "template": "itemspawnline"
   },
@@ -8922,6 +9135,17 @@
     "list": [
       "3172,2857"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "location": "Necropolis",
+    "list": [
+      "3302,2739",
+      "3297,2737",
+      "3296,2731"
+    ],
+    "members": "Yes",
+    "name": "Waterskin(4)",
     "template": "itemspawnline"
   },
   {

@@ -70,6 +70,7 @@
       "3rd age kiteshield",
       "3rd age plateskirt"
     ],
+    "nototals": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -77,7 +78,7 @@
     "list": [
       "3rd age longsword"
     ],
-    "noheader": "yes",
+    "nototals": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -95,7 +96,6 @@
       "3rd age amulet",
       "3rd age wand"
     ],
-    "noheader": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -113,7 +113,7 @@
     "list": [
       "3rd age bow"
     ],
-    "noheader": "yes",
+    "nototals": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -130,7 +130,7 @@
     "list": [
       "3rd age druidic staff"
     ],
-    "noheader": "yes",
+    "nototals": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -138,6 +138,7 @@
     "list": [
       "Ring of 3rd age",
       "3rd age axe",
+      "3rd age felling axe",
       "3rd age pickaxe",
       "3rd age cloak"
     ],
@@ -544,21 +545,26 @@
     "template": "infotable bonuses"
   },
   {
+    "nototals": "yes",
+    "sort": "str,mdmg,rstr",
+    "order": "desc,desc,desc",
+    "list": [
+      "Bellator ring",
+      "Magus ring",
+      "Ultor ring",
+      "Venator ring"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
     "list": [
       "Ancient robe top",
       "Ancient robe legs",
       "Ancient mitre",
       "Ancient cloak",
-      "Ancient stole"
-    ],
-    "itemwidth": "140px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Ancient stole",
       "Ancient crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "140px",
     "template": "infotable bonuses"
   },
@@ -613,16 +619,9 @@
       "Armadyl robe legs",
       "Armadyl mitre",
       "Armadyl cloak",
-      "Armadyl stole"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Armadyl stole",
       "Armadyl crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -650,7 +649,7 @@
       "Necklace of anguish",
       "Ava's assembler#Normal",
       "Pegasian boots",
-      "Archers ring (i)#Nightmare Zone",
+      "Venator ring",
       "Twisted buckler",
       "Dragon bolts#Unpoisoned"
     ],
@@ -721,8 +720,7 @@
       "Blessed axe",
       "Gilded axe",
       "3rd age axe",
-      "Infernal axe#Charged",
-      "Crystal axe#Active"
+      "Infernal axe#Charged"
     ],
     "sort": "aslash",
     "nototals": "yes",
@@ -782,16 +780,9 @@
       "Bandos robe legs",
       "Bandos mitre",
       "Bandos cloak",
-      "Bandos stole"
-    ],
-    "itemwidth": "140px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Bandos stole",
       "Bandos crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "140px",
     "template": "infotable bonuses"
   },
@@ -1685,6 +1676,24 @@
   },
   {
     "list": [
+      "Corrupted voidwaker",
+      "Corrupted dragon claws",
+      "Corrupted armadyl godsword",
+      "Corrupted twisted bow",
+      "Corrupted scythe of vitur#Charged",
+      "Corrupted tumeken's shadow#Charged"
+    ],
+    "comment1": "Requires",
+    "comment2": "Requires",
+    "comment3": "Requires",
+    "comment4": "Requires",
+    "comment5": "Requires &",
+    "comment6": "Requires",
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Deadman's chest#Cosmetic",
       "Deadman's legs#Cosmetic",
       "Deadman's cape#Cosmetic"
@@ -1901,6 +1910,23 @@
   },
   {
     "list": [
+      "Bronze felling axe",
+      "Iron felling axe",
+      "Steel felling axe",
+      "Black felling axe",
+      "Mithril felling axe",
+      "Adamant felling axe",
+      "Rune felling axe",
+      "Dragon felling axe",
+      "3rd age felling axe",
+      "Crystal felling axe#Active"
+    ],
+    "sort": "aslash",
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Infernal cape#Normal",
       "Fire cape#Normal",
       "Mythical cape",
@@ -1927,9 +1953,9 @@
       "Swift blade"
     ],
     "comment1": "The only viable ranged weapon in the long run. Can be used along with the adamant arrows for a +31 ranged strength bonus. When using the rapid combat style, this bow becomes one of the fastest free-to-play weapons, which is crucial for damage stacking and combos. Its damage with the rapid style is capped at 18 with the Eagle Eye prayer. Note: while longbows can shoot further, they are slower and provide no extra accuracy or damage bonuses over shortbows whatsoever.",
-    "comment2": "A 2-handed weapon with no bonuses that speeds up basic melee attack. Its relatively long attack animation causes a movement stall that can be very useful in combat when used correctly. Useful for low level players, as well as the strength and defence pures. While not very popular, it is sometimes used by mid and high level pures for unusual combos. Like all weapons without a strength bonus, it achieves a maximum hit capped at 16.",
-    "comment3": "A 1-handed weapon with no bonuses that speeds up basic melee attack. Although it might be too expensive for regular fights, the ability to use a shield arguably makes it better than the goblin paint cannon, especially for the defence pures and strength tanks.",
-    "comment4": "A 1-handed weapon with no bonuses that speeds up melee attacks. In contrary to other free-to-play 3-tick melee weapons which are all crush-based, swift blade offers 3 basic stab type attacks, as well as a strength-based slash attack. Has custom animations with a slight stall. Although it might be too expensive for regular fights, the ability to use a shield arguably makes it better than the goblin paint cannon, especially for the defence pures and strength tanks.",
+    "comment2": "A two-handed weapon with no bonuses that speeds up basic melee attack. Its relatively long attack animation causes a movement stall that can be very useful in combat when used correctly. Useful for low level players, as well as the strength and defence pures. While not very popular, it is sometimes used by mid and high level pures for unusual combos. Like all weapons without a strength bonus, it achieves a maximum hit capped at 16.",
+    "comment3": "A one-handed weapon with no bonuses that speeds up basic melee attack. Although it might be too expensive for regular fights, the ability to use a shield arguably makes it better than the goblin paint cannon, especially for the defence pures and strength tanks.",
+    "comment4": "A one-handed weapon with no bonuses that speeds up melee attacks. In contrary to other free-to-play 3-tick melee weapons which are all crush-based, swift blade offers 3 basic stab type attacks, as well as a strength-based slash attack. Has custom animations with a slight stall. Although it might be too expensive for regular fights, the ability to use a shield arguably makes it better than the goblin paint cannon, especially for the defence pures and strength tanks.",
     "template": "infotable bonuses"
   },
   {
@@ -1942,7 +1968,7 @@
       "Rune mace"
     ],
     "comment1": "The iconic free-to-play weapon considered to have the highest overall damage-per-second value among all available melee weapons. Commonly used as the main weapon of melee pures, as well as a secondary knockout weapon used by hybrid pures for building momentum. Allows to hit up to 25 below the 30 defence level, or up to 26 when wearing the gold decorative boots.",
-    "comment2": "A crush-based alternative to the rune scimitar. While it does have a smaller strength bonus, it is still high enough to achieve similar maximum melee hits on many strength levels. Its damage is capped at 25. Notably, it provides a small prayer bonus and uses crush attacks, which are more accurate against opponents in plate armour. Below 20 level of the wilderness, the barronite mace is not lost on PvP death. Instead, it becomes broken and requires 10,500 coins to repair. This is the best melee weapon that can be obtained by free-to-play ironmen without training smithing for the rune scimitar.",
+    "comment2": "A crush-based alternative to the rune scimitar. While it does have a smaller strength bonus, it is still high enough to achieve similar maximum melee hits on many strength levels. Its damage is capped at 25. Notably, it provides a small prayer bonus and uses crush attacks, which are more accurate against opponents in plate armour. Below 20 level of the Wilderness, the barronite mace is not lost on PvP death. Instead, it becomes broken and requires 10,500 coins to repair. This is the best melee weapon that can be obtained by free-to-play ironmen without training smithing for the rune scimitar.",
     "comment3": "A stab-based alternative to the rune scimitar. Offers similar attack speed, but with slightly lower damage and accuracy. On some strength levels maximum melee hit of the rune sword can be equal to that of the rune scimitar, which makes it a somewhat viable cheaper option with a more subtle attack animation. It is also the best melee weapon that can be bought and easily reobtained by free-to-play ironmen. Allows to hit up to 24 below the 30 defence level, or up to 25 when wearing the gold decorative boots.",
     "comment4": "A niche crush-based alternative to the rune scimitar. Notable for a significant prayer bonus, which might be helpful for tanks who can afford to sacrifice some of the damage output. Its damage is capped at 24.",
     "template": "infotable bonuses"
@@ -1956,9 +1982,9 @@
       "Hill giant club",
       "Rune warhammer"
     ],
-    "comment1": "The second weapon from the iconic free-to-play duo, rune 2h sword is a slow but powerful 2-handed piece of equipment that allows to deal the highest possible max melee hit of 31 at 7-tick (4.2 seconds) speed. Commonly used as a knockout weapon.",
+    "comment1": "The second weapon from the iconic free-to-play duo, rune 2h sword is a slow but powerful two-handed piece of equipment that allows to deal the highest possible max melee hit of 31 at 7-tick (4.2 seconds) speed. Commonly used as a knockout weapon.",
     "comment2": "One tick faster than the rune 2h sword, but a little weaker and much less accurate. Hits every 6 ticks (or 3.6 seconds) for a maximum of 30 damage. This is the strongest weapon that requires a single hand to wield. It is also easier to obtain than rune 2h sword for free-to-play ironmen. Might be preferred by melee pures that want to keep their shields on, or by players that want to shorten the delays between knockout hits.",
-    "comment3": "A crush-based equivalent to the rune 2h sword with the same speed of 7 ticks (or 4.2 seconds) and the highest possible damage at 31. Since plate armours offer high slash and low crush defensive bonuses, this 2-handed weapon is preferable when fighting armoured players with a high defence level. However, it can be relatively costly, which makes it common only in the so-called risk fights.",
+    "comment3": "A crush-based equivalent to the rune 2h sword with the same speed of 7 ticks (or 4.2 seconds) and the highest possible damage at 31. Since plate armours offer high slash and low crush defensive bonuses, this two-handed weapon is preferable when fighting armoured players with a high defence level. However, it can be relatively costly, which makes it common only in the so-called risk fights.",
     "comment4": "Slightly less strong and more accurate than the rune battleaxe. Allows to hit every 6 ticks (or 3.6 seconds) for a maximum of 29, or 30 with the gold decorative boots. In contrary to the other metal weapons, warhammers require strength levels to wield instead of attack. With a 40 strength level requirement, rune warhammers are commonly used by strength pures and by low level players that do not have access to more powerful rune weapons.",
     "template": "infotable bonuses"
   },
@@ -1981,7 +2007,7 @@
     "comment4": "Provides unlimited supplies of fire runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting fire combat spells.",
     "comment5": "Offers the highest magic accuracy and defence bonuses, along with considerable melee attack bonuses. Stores up to 1,000 nature runes. Although expensive, it is the strongest magic weapon that can also double as a backup melee switch.",
     "comment6": "Along with the regular crossbow, it is one of the only one-handed ranged weapon available in the free-to-play worlds. Allows to shoot bronze bolts with +10 ranged strength at 6-tick speed (3.6 seconds per attack), which goes down to 5 ticks on rapid (3 seconds). While this is a slow and relatively weak weapon, it is sometimes used by tanks due to its long range and the ability to use a shield. Note: regular crossbow provides the same bonuses, but weights slightly more (around 8 kg).",
-    "comment7": "Allows to teleport to the Barbarian Village from most locations including the wilderness up to the 20 level. It also allows to autocast the Crumble Undead spell. While not particularly useful in PvP, it can be used to train magic as it gives more experience per cast than Fire Bolt with a similar runes cost.",
+    "comment7": "Allows to teleport to the Barbarian Village from most locations including the Wilderness up to the 20 level. It also allows to autocast the Crumble Undead spell. While not particularly useful in PvP, it can be used to train magic as it gives more experience per cast than Fire Bolt with a similar runes cost.",
     "comment8": "The only composite bow available in the free-to-play worlds. Shoots arrows up to mithril with +22 ranged strength at 4-tick speed (2.4 seconds per shot) on rapid attack style, which allows to attack slightly faster than with the longbows. Notable for its high range comparable to combat spells and exceeding crossbow and shortbows even with the longrange attack style.",
     "template": "infotable bonuses"
   },
@@ -2016,7 +2042,7 @@
       "Iron platebody"
     ],
     "comment1": "Offers the highest prayer bonus. Note: shade robe top and priest gown are similar items with considerable prayer bonuses, but both are worse than monk's robe and should not be used other than for their looks.",
-    "comment2": "A halfway between monk and wizard robes, the zamorak monk top provides both considerable prayer bonus, as well as some small magic bonuses. Preferable in the deep wilderness.",
+    "comment2": "A halfway between monk and wizard robes, the zamorak monk top provides both considerable prayer bonus, as well as some small magic bonuses. Preferable in the deep Wilderness.",
     "comment3": "Arguably the best free-to-play item in the slot for magic users due to the highest magic attack bonus. On par with blue wizard robe.",
     "comment4": "Arguably the best free-to-play item in the slot for magic users due to the highest magic attack bonus. On par with black robe.",
     "comment5": "This is the only body without any defence requirements that provides a ranged attack bonus. It is worth noting that it has the highest magic defence bonus among body armours.",
@@ -2025,16 +2051,18 @@
     "template": "infotable bonuses"
   },
   {
-    "sort": "dslash",
+    "sort": "no",
     "nototals": "yes",
     "list": [
       "Leather boots",
       "Fighting boots",
-      "Fancy boots"
+      "Fancy boots",
+      "Fancier boots"
     ],
     "comment1": "Marginal bonuses with no offensive penalties. \nNote: Canifis boots (coloured boots) offer the same bonuses, but are significantly more expensive.",
-    "comment2": "They offer slightly better bonuses than the leather boots, but suffer from ranged and magic attack penalties and have to be retrieved from the Stronghold of Security after death. On par with fancy boots and bronze boots.",
-    "comment3": "They offer slightly better bonuses than the leather boots, but suffer from ranged and magic attack penalties and have to be retrieved from the Stronghold of Security after death. On par with fighting boots and bronze boots.",
+    "comment2": "They offer slightly better bonuses than the leather boots, but suffer from ranged and magic attack penalties. Sent to gravestone upon death below the 20 level of the Wilderness. On par with fancy boots, fancier boots, and bronze boots.",
+    "comment3": "They offer slightly better bonuses than the leather boots, but suffer from ranged and magic attack penalties. Sent to gravestone upon death below the 20 level of the Wilderness. On par with fighting boots, fancier boots, and bronze boots.",
+    "comment4": "They offer slightly better bonuses than the leather boots, but suffer from ranged and magic attack penalties. Sent to gravestone upon death below the 20 level of the Wilderness. On par with fancy boots, fighting boots, and bronze boots.",
     "template": "infotable bonuses"
   },
   {
@@ -2047,7 +2075,7 @@
     ],
     "comment1": "Offers marginal defensive bonuses with no offensive penalties. Note: all coloured capes and some decorative capes like cabbage cape share the same bonuses.",
     "comment2": "Offers marginal defensive bonuses with no offensive penalties. Wearing the same team cape as another player prevents from attacking them with a left click, which is desirable in multicombat areas, but can be an annoyance in typical arranged 1-vs-1 combat. Note: all team capes share the same bonuses.",
-    "comment3": "Some decorative capes are notable for providing the same minor defensive bonuses as regular capes while not being lost upon death below the 20 level of the wilderness. These include items such as Castlewars cloak (Saradomin), Castlewars cloak (Zamorak), and ornate cape.",
+    "comment3": "Some decorative capes are notable for providing the same minor defensive bonuses as regular capes while not being lost upon death below the 20 level of the Wilderness. These include items such as Castlewars cloak (Saradomin), Castlewars cloak (Zamorak), and ornate cape.",
     "template": "infotable bonuses"
   },
   {
@@ -2059,7 +2087,7 @@
       "Green d'hide vambraces",
       "Gilded d'hide vambraces"
     ],
-    "comment1": "Although their crush defence bonus is better than that of leather vambraces, the difference is minimal. Leather gloves might be preferred on lower levels to defend against strength pures, but in general the slash attack type is more common later on due to scimitars and 2-handed swords. \nNote: Canifis gloves (coloured gloves) offer the same bonuses, but are significantly more expensive and seem to weigh slightly more (0.45 kg).",
+    "comment1": "Although their crush defence bonus is better than that of leather vambraces, the difference is minimal. Leather gloves might be preferred on lower levels to defend against strength pures, but in general the slash attack type is more common later on due to scimitars and two-handed swords. \nNote: Canifis gloves (coloured gloves) offer the same bonuses, but are significantly more expensive and seem to weigh slightly more (0.45 kg).",
     "comment2": "Considered the best free-to-play gloves without any level requirements. Since they have no attack penalties, mages can safely use these gloves and are encouraged to do so.",
     "comment3": "Gloves offering small defensive bonuses and a considerable ranged accuracy bonus. \nNote: 40 ranged level requirement.",
     "comment4": "The best gloves available for both ranged and melee combat. Very expensive. \nNote: 40 ranged level requirement.",
@@ -2117,7 +2145,7 @@
       "Iron sq shield",
       "Iron kiteshield"
     ],
-    "comment1": "While it has no combat bonuses whatsoever, it allows the user to teleport to a spot nearby the Champions' Guild. This might be useful for low level accounts without any access to teleport spells, or simply as a teleport item that requires only a single inventory space. Note that it cannot be used within the wilderness, but it will work in other locations in the PvP worlds—however, the destination is not a safe zone. Frequently used by low level free-to-play ironmen to escape combat on the PvP worlds.",
+    "comment1": "While it has no combat bonuses whatsoever, it allows the user to teleport to a spot nearby the Champions' Guild. This might be useful for low level accounts without any access to teleport spells, or simply as a teleport item that requires only a single inventory space. Note that it cannot be used within the Wilderness, but it will work in other locations in the PvP worlds—however, the destination is not a safe zone. Frequently used by low level free-to-play ironmen to escape combat on the PvP worlds.",
     "comment2": "With no attack penalties, this shield can be used by low level mages without access to the anti-dragon shield.",
     "comment3": "It provides defensive bonuses roughly equivalent to the iron sq shield and only slightly worse than the iron kiteshield. However, unlike the other two, it provides a positive magic defence bonus and has no attack penalties. The best-in-slot item for mages and a helpful piece of equipment for low level melee pures. Note: Dragon Slayer I quest has to be started in order to use this shield.",
     "comment4": "Rarely used in practice, as it does not fill any particular niche. While it does not have a negative magic defence bonus like the iron kiteshield does, the anti-dragon shield provides positive magic defence bonus and similar overall defensive bonuses with no attack penalties. Note: Bronze sq shield shares the same negative effects while providing lower defensive bonuses.",
@@ -2139,7 +2167,7 @@
       "Saradomin platebody"
     ],
     "comment1": "Offers the highest prayer bonus.",
-    "comment2": "A halfway between monk and wizard robes, the zamorak monk top provides both considerable prayer bonus, as well as some small magic bonuses. Preferable in the deep wilderness.",
+    "comment2": "A halfway between monk and wizard robes, the zamorak monk top provides both considerable prayer bonus, as well as some small magic bonuses. Preferable in the deep Wilderness.",
     "comment3": "Arguably the best free-to-play item in the slot for magic users due to the highest magic attack bonus. On par with blue wizard robe.",
     "comment4": "Arguably the best free-to-play item in the slot for magic users due to the highest magic attack bonus. On par with black robe.",
     "comment5": "Offers notable ranged accuracy and magic defence bonuses.",
@@ -2159,9 +2187,9 @@
       "Decorative boots (gold)#Normal"
     ],
     "comment1": "Marginal bonuses with no offensive penalties. \nNote: Canifis boots (coloured boots) offer the same bonuses, but are significantly more expensive.",
-    "comment2": "A cheap pair of untradeable boots obtainable through the Castle Wars minigame. Equivalent of the steel boots. Offers slight melee defensive bonuses at the cost of marginal ranged and magic attack penalties. Due to their low cost, they might be preferred beyond the 20 level of the wilderness where untradeable items are lost upon death.",
+    "comment2": "A cheap pair of untradeable boots obtainable through the Castle Wars minigame. Equivalent of the steel boots. Offers slight melee defensive bonuses at the cost of marginal ranged and magic attack penalties. Due to their low cost, they might be preferred beyond the 20 level of the Wilderness where untradeable items are lost upon death.",
     "comment3": "A pair of untradeable boots obtainable through the Castle Wars minigame. Equivalent of the mithril boots.",
-    "comment4": "An expensive pair of untradeable boots obtainable through the Castle Wars minigame. Equivalent of the adamant boots. This is the only free-to-play item in this slot that provides a strength bonus. They will be broken and will require 5,000 coins to repair upon PvP death below the 20 level of the wilderness. However, they will be lost upon death beyond 20 level of the wilderness, which combined with their high cost makes them not recommended for deep wilderness trips.",
+    "comment4": "An expensive pair of untradeable boots obtainable through the Castle Wars minigame. Equivalent of the adamant boots. This is the only free-to-play item in this slot that provides a strength bonus. They will be broken and will require 5,000 coins to repair upon PvP death below the 20 level of the Wilderness. However, they will be lost upon death beyond 20 level of the Wilderness, which combined with their high cost makes them not recommended for deep Wilderness trips.",
     "template": "infotable bonuses"
   },
   {
@@ -2174,7 +2202,7 @@
     ],
     "comment1": "Marginal bonuses with no offensive penalties. Note: all coloured capes and some decorative capes like cabbage cape share the same bonuses.",
     "comment2": "Marginal bonuses with no offensive penalties. Wearing the same team cape as another player prevents from attacking them with a left click, which is desirable in team player killing and can be an annoyance in typical arranged 1-vs-1 combat. Note: all team capes share the same bonuses.",
-    "comment3": "Marginal bonuses with no offensive penalties. Notable for not being lost upon death below the 20 level of the wilderness. Note: Castlewars cloak (Saradomin) shares the same bonuses and cost.",
+    "comment3": "Marginal bonuses with no offensive penalties. Notable for not being lost upon death below the 20 level of the Wilderness. Note: Castlewars cloak (Saradomin) shares the same bonuses and cost.",
     "template": "infotable bonuses"
   },
   {
@@ -2242,23 +2270,23 @@
       "Saradomin kiteshield"
     ],
     "comment1": "Provides slight defensive bonuses against all combat styles with no magic or ranged accuracy penalties.",
-    "comment2": "Provides decent melee and ranged bonuses at the cost of small magic accuracy penalty. Unlike the rune kiteshield, this shield does not have any magic defence or ranged attack penalties. Due to the lack of decent 1-handed ranged weapons, this shield is rarely used in practice.",
+    "comment2": "Provides decent melee and ranged bonuses at the cost of small magic accuracy penalty. Unlike the rune kiteshield, this shield does not have any magic defence or ranged attack penalties. Due to the lack of decent one-handed ranged weapons, this shield is rarely used in practice.",
     "comment3": "Provides the best overall melee and ranged defence bonuses.",
     "comment4": "Grants the same bonuses as the rune kiteshield on top of a small prayer bonus. Note: all shields from the god armour sets offer the same bonuses.",
     "template": "infotable bonuses"
   },
   {
-    "list": [
-      "Warrior ring (i)#Nightmare Zone",
-      "Berserker ring (i)#Nightmare Zone",
-      "Seers ring (i)#Nightmare Zone",
-      "Archers ring (i)#Nightmare Zone",
-      "Warrior ring",
-      "Berserker ring",
-      "Seers ring",
-      "Archers ring"
-    ],
     "nototals": "yes",
+    "list": [
+      "Archers ring",
+      "Archers ring (i)#Nightmare Zone",
+      "Berserker ring",
+      "Berserker ring (i)#Nightmare Zone",
+      "Seers ring",
+      "Seers ring (i)#Nightmare Zone",
+      "Warrior ring",
+      "Warrior ring (i)#Nightmare Zone"
+    ],
     "template": "infotable bonuses"
   },
   {
@@ -2344,7 +2372,8 @@
       "Gregg's eastdoor",
       "Skis",
       "Giant boulder",
-      "Cursed banana"
+      "Cursed banana",
+      "Love crossbow"
     ],
     "nototals": "yes",
     "template": "infotable bonuses"
@@ -2376,9 +2405,6 @@
   },
   {
     "list": [
-      "Golden tench",
-      "Mouse toy",
-      "Stale baguette",
       "Twisted adamant trophy",
       "Twisted rune trophy",
       "Twisted dragon trophy",
@@ -2389,6 +2415,19 @@
       "Silver speedrun trophy",
       "Gold speedrun trophy",
       "Platinum speedrun trophy",
+      "Trailblazer reloaded adamant trophy",
+      "Trailblazer reloaded rune trophy",
+      "Trailblazer reloaded dragon trophy"
+    ],
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Cursed goblin hammer",
+      "Golden tench",
+      "Mouse toy",
+      "Stale baguette",
       "Giant stopwatch",
       "Mystic cards"
     ],
@@ -2508,20 +2547,20 @@
       "Granite body",
       "Granite legs",
       "Granite gloves",
-      "Granite boots"
+      "Granite boots",
+      "Granite ring"
     ],
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
   {
     "list": [
-      "Granite shield",
-      "Granite ring",
       "Granite maul#Normal",
       "Granite longsword",
-      "Granite hammer"
+      "Granite hammer",
+      "Granite shield"
     ],
-    "noheader": "yes",
+    "nototals": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -2610,16 +2649,9 @@
       "Guthix robe legs",
       "Guthix mitre",
       "Guthix cloak",
-      "Guthix stole"
-    ],
-    "itemwidth": "120px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Guthix stole",
       "Guthix crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "120px",
     "template": "infotable bonuses"
   },
@@ -3061,6 +3093,7 @@
     "list": [
       "Anger mace",
       "Ancient mace",
+      "Bone mace",
       "Viggora's chainmace#Charged",
       "Verac's flail#Undamaged",
       "Inquisitor's mace",
@@ -3318,21 +3351,48 @@
   },
   {
     "list": [
-      "Morrigan's coif",
-      "Morrigan's leather body",
-      "Morrigan's leather chaps"
+      "Morrigan's coif (bh)#Activated",
+      "Morrigan's leather body (bh)#Activated",
+      "Morrigan's leather chaps (bh)#Activated"
     ],
-    "itemwidth": "180px",
+    "itemwidth": "200px",
     "template": "infotable bonuses"
   },
   {
     "list": [
-      "Morrigan's throwing axe",
-      "Morrigan's javelin"
+      "Morrigan's throwing axe (bh)#Activated",
+      "Morrigan's javelin (bh)#Activated"
+    ],
+    "noheader": "yes",
+    "itemwidth": "200px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Corrupted morrigan's coif (bh)#Activated",
+      "Corrupted morrigan's leather body (bh)#Activated",
+      "Corrupted morrigan's leather chaps (bh)#Activated"
+    ],
+    "itemwidth": "275px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Morrigan's coif (Deadman Mode)",
+      "Morrigan's leather body (Deadman Mode)",
+      "Morrigan's leather chaps (Deadman Mode)"
+    ],
+    "itemwidth": "275px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Morrigan's throwing axe (Deadman Mode)",
+      "Morrigan's javelin (Deadman Mode)"
     ],
     "noheader": "yes",
     "nototals": "yes",
-    "itemwidth": "180px",
+    "itemwidth": "275px",
     "template": "infotable bonuses"
   },
   {
@@ -3582,7 +3642,8 @@
       "Decorative armour (gold platelegs)#Normal",
       "Decorative armour (white platelegs)",
       "Decorative armour (red platelegs)",
-      "Obsidian platelegs"
+      "Obsidian platelegs",
+      "Torva platelegs#Restored"
     ],
     "sort": "dslash",
     "nototals": "yes",
@@ -3606,6 +3667,7 @@
   },
   {
     "list": [
+      "3rd age plateskirt",
       "Bandos tassets",
       "Gilded plateskirt",
       "Verac's plateskirt#Undamaged",
@@ -3659,6 +3721,8 @@
   {
     "list": [
       "Starter staff",
+      "Warped sceptre#Charged",
+      "Bone staff",
       "Trident of the seas#Charged",
       "Trident of the seas (e)#Charged",
       "Trident of the swamp#Charged",
@@ -3781,6 +3845,16 @@
   {
     "nototals": "yes",
     "list": [
+      "Venator ring",
+      "Ultor ring",
+      "Magus ring",
+      "Bellator ring"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "nototals": "yes",
+    "list": [
       "Ring of the gods",
       "Treasonous ring",
       "Tyrannical ring"
@@ -3791,6 +3865,7 @@
     "nototals": "yes",
     "list": [
       "Brimstone ring",
+      "Ring of shadows#Charged",
       "Celestial ring#Charged",
       "Celestial signet#Charged",
       "Explorer's ring 1",
@@ -4057,16 +4132,9 @@
       "Saradomin robe legs",
       "Saradomin mitre",
       "Saradomin cloak",
-      "Saradomin stole"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Saradomin stole",
       "Saradomin crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -4201,6 +4269,7 @@
       "Rain bow",
       "Cursed goblin bow",
       "Training bow",
+      "Bone shortbow",
       "Magic shortbow (i)",
       "Craw's bow#Charged"
     ],
@@ -4487,7 +4556,8 @@
       "Thammaron's sceptre#Charged",
       "Trident of the swamp#Charged",
       "Trident of the swamp (e)#Charged",
-      "Tumeken's shadow#Charged"
+      "Tumeken's shadow#Charged",
+      "Warped sceptre#Charged"
     ],
     "sort": "mdmg,amagic",
     "nototals": "yes",
@@ -4996,16 +5066,9 @@
       "Guthix robe legs",
       "Guthix mitre",
       "Guthix cloak",
-      "Guthix stole"
-    ],
-    "itemwidth": "120px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Guthix stole",
       "Guthix crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "120px",
     "template": "infotable bonuses"
   },
@@ -5173,21 +5236,16 @@
     "template": "infotable bonuses"
   },
   {
+    "nototals": "yes",
+    "sort": "acrush,astab,prayer",
     "list": [
+      "Ring of the gods",
+      "Ring of the gods (i)#Nightmare_Zone",
       "Treasonous ring",
-      "Tyrannical ring",
-      "Ring of the gods"
-    ],
-    "nototals": "yes",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
       "Treasonous ring (i)#Nightmare_Zone",
-      "Tyrannical ring (i)#Nightmare_Zone",
-      "Ring of the gods (i)#Nightmare_Zone"
+      "Tyrannical ring",
+      "Tyrannical ring (i)#Nightmare_Zone"
     ],
-    "nototals": "yes",
     "template": "infotable bonuses"
   },
   {
@@ -5268,16 +5326,9 @@
       "Zamorak robe legs",
       "Zamorak mitre",
       "Zamorak cloak",
-      "Zamorak stole"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "Zamorak stole",
       "Zamorak crozier"
     ],
-    "noheader": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },

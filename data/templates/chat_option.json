@@ -702,6 +702,16 @@
   },
   {
     "list": [
+      "2",
+      "2",
+      "2",
+      "3",
+      "1"
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
       "1Can I help?"
     ],
     "template": "chat option"
@@ -993,7 +1003,7 @@
   },
   {
     "list": [
-      "4Where can I learn more?",
+      "3Where can I learn more?",
       "1Yes please, teleport me to the Stronghold of Security."
     ],
     "template": "chat option"
@@ -1085,6 +1095,12 @@
   },
   {
     "list": [
+      "3 When will this delegation arrive?"
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
       "4 Have you got any quests for me?",
       "1 Sounds interesting! How can I help?"
     ],
@@ -1093,35 +1109,35 @@
   {
     "list": [
       "3 Can I ask you about Piscarilius?",
-      "3 Why should I gain favour in Piscarilius?"
+      "2 What is there to do in Piscarilius?"
     ],
     "template": "chat option"
   },
   {
     "list": [
       "3 Can I ask you about Hosidius?",
-      "3 Why should I gain favour in Hosidius?"
+      "2 What is there to do in Hosidius?"
     ],
     "template": "chat option"
   },
   {
     "list": [
       "3 Can I ask you about Shayzien?",
-      "3 Why should I gain favour in Shayzien?"
+      "2 What is there to do in Shayzien?"
     ],
     "template": "chat option"
   },
   {
     "list": [
       "4 Can I ask you about Lovakengj?",
-      "3 Why should I gain favour in Lovakengj?"
+      "2 What is there to do in Lovakengj?"
     ],
     "template": "chat option"
   },
   {
     "list": [
       "4 Can I ask you about Arceuus?",
-      "3 Why should I gain favour in Arceuus?"
+      "2 What is there to do in Arceuus?"
     ],
     "template": "chat option"
   },
@@ -1416,6 +1432,12 @@
   },
   {
     "list": [
+      "2"
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
       "1Talk to the King about Morytania.",
       "4What should I do now?",
       "1Yes, thanks, I'll accept the free teleport."
@@ -1701,6 +1723,36 @@
       "5I am looking for a special Diamond...",
       "1Yes",
       "3How can I kill Dessous?"
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "1Yes."
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "3I hear you visited Lovakengj recently."
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "1Yes."
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "2"
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "1"
     ],
     "template": "chat option"
   },
@@ -2511,12 +2563,6 @@
   },
   {
     "list": [
-      "2I was asking you about fighting a Tanglefoot..."
-    ],
-    "template": "chat option"
-  },
-  {
-    "list": [
       "3Hi, I am a bold adventurer.",
       "2So where is this crest?",
       "1Ok, I will help you."
@@ -2899,6 +2945,7 @@
   {
     "list": [
       "3 Do you want me to pick an armour colour for you?",
+      "1 Start the quest?",
       "3 What about a different colour?"
     ],
     "template": "chat option"
@@ -3154,12 +3201,6 @@
   {
     "list": [
       "1Sure, no problem."
-    ],
-    "template": "chat option"
-  },
-  {
-    "list": [
-      "2Alright, I'll get the wood for you."
     ],
     "template": "chat option"
   },
@@ -4663,7 +4704,7 @@
     "list": [
       "1Can I journey on this ship?",
       "2Search away, I have nothing to hide.",
-      "1Ok."
+      "10k."
     ],
     "template": "chat option"
   },
@@ -4786,8 +4827,8 @@
   {
     "list": [
       "1Heard of you? You are famous in Gielinor!",
-      "2What is your latest plan then?",
-      "3Can you be sure they will not try to get him out?",
+      "1What is your latest plan then?",
+      "2Can you be sure they will not try to get him out?",
       "1Could I see the key please?",
       "1Could I touch the key for a moment please?"
     ],
@@ -5482,7 +5523,6 @@
   },
   {
     "list": [
-      "2 Talk about something else.",
       "1 Have you any quests for me?",
       "1 Yes."
     ],
@@ -5490,15 +5530,15 @@
   },
   {
     "list": [
-      "3 I'm looking for the head wizard.",
-      "1 Ok, here you are.",
-      "1 Yes, certainly."
+      "1 Okay here you are.",
+      "2 Actually I'm not interested.",
+      "1 Yes certainly."
     ],
     "template": "chat option"
   },
   {
     "list": [
-      "2 I have been sent here with a package for you."
+      "2 I've been sent here with a package for you."
     ],
     "template": "chat option"
   },
@@ -7294,7 +7334,7 @@
   },
   {
     "list": [
-      "1Phew! I've got that machine working now. What do I need to do now?"
+      "2Phew! I've got that machine working now. What do I need to do now?"
     ],
     "template": "chat option"
   },
@@ -8182,6 +8222,24 @@
   {
     "list": [
       "2"
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "1Yes."
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "2I need your help with a device."
+    ],
+    "template": "chat option"
+  },
+  {
+    "list": [
+      "2I need your help finding a certain gnome."
     ],
     "template": "chat option"
   },

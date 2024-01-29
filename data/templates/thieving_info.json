@@ -384,11 +384,49 @@
   },
   {
     "name": "Door",
+    "level": "46",
+    "xp": "37.5",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
     "level": "1",
     "xp": "4",
     "skill2label": "Failure XP",
-    "skill2exp": "1",
+    "skill2exp": "0.5",
     "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "23",
+    "xp": "22.5",
+    "type": "Door",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "39",
+    "xp": "35",
+    "type": "Door",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "13",
+    "xp": "15",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gate",
+    "level": "82",
+    "xp": "50",
+    "type": "Door",
+    "tool": "Lockpick",
     "template": "thieving info"
   },
   {
@@ -618,6 +656,13 @@
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gate",
+    "level": "31",
+    "xp": "25",
+    "type": "Door",
     "template": "thieving info"
   },
   {
@@ -866,6 +911,14 @@
     "template": "thieving info"
   },
   {
+    "name": "Istoria",
+    "level": "52",
+    "xp": "0",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
     "name": "Jeff",
     "level": "1",
     "xp": "8",
@@ -965,6 +1018,14 @@
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Man",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
     "template": "thieving info"
   },
   {
@@ -1180,7 +1241,7 @@
     "level": "20",
     "xp": "27",
     "skill2label": "XP on failure",
-    "skill2exp": "1",
+    "skill2exp": "0.5",
     "tool": "Lockpick",
     "type": "Chest",
     "template": "thieving info"
@@ -1616,6 +1677,14 @@
     "xp": "8",
     "type": "Pickpocket",
     "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Woman",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
     "template": "thieving info"
   }
 ]

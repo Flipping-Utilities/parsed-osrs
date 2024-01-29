@@ -321,6 +321,15 @@
   },
   {
     "currency": "Abyssal pearls",
+    "column1": "GP per pearl",
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Abyssal pearls",
     "hidesell": "y",
     "hidestock": "y",
     "hiderestock": "y",
@@ -655,14 +664,6 @@
     "template": "storetablehead"
   },
   {
-    "currency": "shark",
-    "hidestock": "y",
-    "hiderestock": "y",
-    "hidesell": "y",
-    "hidecaption": "y",
-    "template": "storetablehead"
-  },
-  {
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
@@ -698,7 +699,6 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
-    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -1413,7 +1413,7 @@
     "sellmultiplier": "1040",
     "buymultiplier": "400",
     "delta": "20",
-    "namenotes": "(diary)",
+    "namenotes": "(full, diary)",
     "template": "storetablehead"
   },
   {
@@ -1490,7 +1490,7 @@
     "sellmultiplier": "1040",
     "buymultiplier": "400",
     "delta": "20",
-    "namenotes": "(diary)",
+    "namenotes": "(full, diary)",
     "template": "storetablehead"
   },
   {
@@ -1685,6 +1685,16 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "yes",
+    "hidege": "yes",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "currency": "Archaic emblem",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "700",
     "delta": "10",
@@ -1712,6 +1722,14 @@
     "buymultiplier": "500",
     "delta": "2",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hidege": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -2303,39 +2321,6 @@
     "sellmultiplier": "1000",
     "buymultiplier": "950",
     "delta": "10",
-    "namenotes": "(100% favour)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1000",
-    "buymultiplier": "850",
-    "delta": "10",
-    "namenotes": "(75% favour)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1250",
-    "buymultiplier": "750",
-    "delta": "10",
-    "namenotes": "(50% favour)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1500",
-    "buymultiplier": "600",
-    "delta": "10",
-    "namenotes": "(25% favour)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "2000",
-    "buymultiplier": "500",
-    "delta": "10",
-    "namenotes": "(0% favour)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2343,35 +2328,6 @@
     "sellmultiplier": "1000",
     "buymultiplier": "950",
     "delta": "10",
-    "namenotes": "(100% favour)",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1000",
-    "buymultiplier": "850",
-    "delta": "10",
-    "namenotes": "(75% favour)",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1250",
-    "buymultiplier": "750",
-    "delta": "10",
-    "namenotes": "(50% favour)",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1500",
-    "buymultiplier": "600",
-    "delta": "10",
-    "namenotes": "(25% favour)",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "2000",
-    "buymultiplier": "500",
-    "delta": "10",
-    "namenotes": "(0% favour)",
     "template": "storetablehead"
   },
   {
@@ -2714,11 +2670,10 @@
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1000",
-    "buymultiplier": "0",
-    "hidebuy": "yes",
-    "hidecaption": "yes",
-    "hidestock": "yes",
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -3165,6 +3120,11 @@
     "hidebuy": "yes",
     "hidecaption": "yes",
     "hidestock": "yes",
+    "template": "storetablehead"
+  },
+  {
+    "buymultiplier": "500",
+    "delta": "0",
     "template": "storetablehead"
   },
   {
@@ -3689,6 +3649,35 @@
     "hidecaption": "y",
     "hiderestock": "y",
     "column1": "GP Per Point",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "currency": "League Points",
+    "column1": "GP per point",
+    "hidestock": "y",
+    "hidecaption": "y",
+    "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "currency": "League Points",
+    "column1": "GP per point",
+    "hidestock": "y",
+    "hidecaption": "y",
+    "hiderestock": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "currency": "League Points",
+    "column1": "GP per point",
+    "hidestock": "y",
+    "hidecaption": "y",
+    "hiderestock": "y",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -4227,7 +4216,10 @@
     "template": "storetablehead"
   },
   {
-    "hidebuy": "yes",
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -4292,6 +4284,13 @@
     "hidestock": "y",
     "hidesell": "y",
     "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "550",
+    "delta": "10",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -4436,6 +4435,7 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "smw": "no",
     "template": "storetablehead"
   },
   {
@@ -4517,6 +4517,7 @@
     "hidestock": "yes",
     "hidecaption": "yes",
     "hiderestock": "yes",
+    "column1": "GP per Zeal",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -4842,6 +4843,11 @@
     "template": "storetablehead"
   },
   {
+    "buymultiplier": "500",
+    "delta": "0",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "800",
     "delta": "0",
@@ -4920,7 +4926,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "750",
     "delta": "10",
-    "namenotes": "Contact!",
+    "namenotes": "(after Contact!)",
     "template": "storetablehead"
   },
   {
@@ -5699,6 +5705,7 @@
     "delta": "0",
     "currency": "Coins",
     "namenotes": "(Recruitment Drive)",
+    "smw": "no",
     "template": "storetablehead"
   },
   {
@@ -5706,6 +5713,7 @@
     "delta": "0",
     "currency": "Coins",
     "namenotes": "(The Slug Menace)",
+    "smw": "no",
     "template": "storetablehead"
   },
   {
@@ -5812,7 +5820,7 @@
   },
   {
     "hidebuy": "y",
-    "currency": "Speedrunning Points",
+    "currency": "Speedrun Points",
     "hidestock": "y",
     "hidecaption": "y",
     "hiderestock": "y",
@@ -6344,6 +6352,12 @@
     "buymultiplier": "400",
     "delta": "30",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "template": "storetablehead"
   },
   {
