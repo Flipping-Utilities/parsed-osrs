@@ -546,6 +546,11 @@
   },
   {
     "template": "math",
+    "formula": "Estimated Loot Rolls Earned = Wintertodt Kill Count + \\frac{Lifetime Score}{500}",
+    "raw": "Estimated Loot Rolls Earned = Wintertodt Kill Count + \\frac{Lifetime Score}{500}"
+  },
+  {
+    "template": "math",
     "formula": "P(L) = (\\lfloor \\frac{306 \\times (L-1)}{98} \\rfloor - 78) \\div 255",
     "raw": "\nP(L) = (\\lfloor \\frac{306 \\times (L-1)}{98} \\rfloor - 78) \\div 255\n"
   },
@@ -661,8 +666,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{ItemQty} = \\begin{cases}\n\\frac{\\text{Points}}{\\text{ItemDivisor}} & \\text{if Invocation} < 300\\\\\n\\frac{\\text{Points}}{\\text{ItemDivisor}} \\cdot (1.15 + 0.01\\cdot\\lfloor(\\text{Invocation}-300)/5\\rfloor) & \\text{if Invocation} > 300\n\\end{cases}",
-    "raw": "\\text{ItemQty} = \\begin{cases}\n\\frac{\\text{Points}}{\\text{ItemDivisor}} & \\text{if Invocation} < 300\\\\\n\\frac{\\text{Points}}{\\text{ItemDivisor}} \\cdot (1.15 + 0.01\\cdot\\lfloor(\\text{Invocation}-300)/5\\rfloor) & \\text{if Invocation} > 300\n\\end{cases} "
+    "formula": "\\text{ItemQty} = \\begin{cases}\n\\frac{\\text{Points}}{\\text{ItemDivisor}} & \\text{if Invocation} < 300\\\\\n\\frac{\\text{Points}}{\\text{ItemDivisor}} \\cdot (1.15 + 0.01\\cdot\\lfloor(\\text{Invocation}-300)/5\\rfloor) & \\text{if Invocation} >= 300\n\\end{cases}",
+    "raw": "\\text{ItemQty} = \\begin{cases}\n\\frac{\\text{Points}}{\\text{ItemDivisor}} & \\text{if Invocation} < 300\\\\\n\\frac{\\text{Points}}{\\text{ItemDivisor}} \\cdot (1.15 + 0.01\\cdot\\lfloor(\\text{Invocation}-300)/5\\rfloor) & \\text{if Invocation} >= 300\n\\end{cases} "
   },
   {
     "template": "math",
@@ -3631,8 +3636,8 @@
   },
   {
     "template": "math",
-    "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
-    "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
+    "formula": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}"
   },
   {
     "template": "math",
@@ -3643,6 +3648,16 @@
     "template": "math",
     "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
     "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
+  },
+  {
+    "template": "math",
+    "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
+  },
+  {
+    "template": "math",
+    "formula": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}"
   },
   {
     "template": "math",

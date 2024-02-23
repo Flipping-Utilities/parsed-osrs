@@ -279,6 +279,11 @@
     "template": "recommended equipment"
   },
   {
+    "ring1": "/",
+    "ammo2": "/",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "(only on task)",
     "weapon1": "/",
     "weapon3": "/ /",
@@ -1092,8 +1097,10 @@
     "head1": "(task only) /",
     "body3": "/",
     "legs3": "/",
+    "weapon3": "/",
+    "shield2": "/",
     "feet2": "/",
-    "ring1": "/",
+    "ring3": "/",
     "special5": "/",
     "template": "recommended equipment"
   },
@@ -1535,6 +1542,12 @@
     "template": "recommended equipment"
   },
   {
+    "ammo2": "/",
+    "feet5": "/",
+    "ring2": "(more damage) / (more accuracy)",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "/",
     "head4": "(defence)",
     "head5": "/ (defence)",
@@ -1750,26 +1763,21 @@
     "template": "recommended equipment"
   },
   {
-    "weapon2": "/ /",
-    "weapon3": ">",
+    "weapon3": "/ /  /",
+    "weapon4": ">",
     "ammo2": "/",
-    "ring2": "(with Scythe of vitur)",
+    "ring4": "/",
     "template": "recommended equipment"
   },
   {
-    "neck4": "(with full Karil's)",
-    "2h1": "(with Amethyst or better darts)",
-    "2h4": "(with Crystal armour)",
+    "weapon1": "(with Amethyst or better darts)",
     "ammo1": "(with Bone shortbow)",
     "ammo2": "(with Twisted bow)",
     "ammo3": "(with Dragon or higher crossbows)",
-    "ammo4": "(with Karil's crossbow)",
-    "ring3": "(if using special attacks)",
+    "ring3": "(if using special attacks) /",
     "template": "recommended equipment"
   },
   {
-    "shield3": ">",
-    "shield4": ">",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -1783,7 +1791,6 @@
     "body1": "/",
     "legs1": "/",
     "weapon1": "(on Pound)",
-    "weapon2": "(on Slash)",
     "template": "recommended equipment"
   },
   {
@@ -2106,8 +2113,7 @@
     "shield1": "/",
     "ammo2": "/ /2",
     "feet3": "/",
-    "ring4": "/ /",
-    "ring5": "/",
+    "ring5": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -2475,6 +2481,7 @@
     "neck5": "or",
     "legs3": "or",
     "weapon4": "or",
+    "weapon5": "or",
     "shield1": "(with one-handed weapon)",
     "feet4": "/",
     "ammo2": "/ /",
@@ -2482,6 +2489,10 @@
   },
   {
     "head1": "(only on task)",
+    "cape1": "/",
+    "weapon1": "/",
+    "weapon3": "/ /",
+    "weapon5": "/",
     "ammo2": "/",
     "special1": "(to kill spiderling spawns quicker in a 3-4 man team)",
     "template": "recommended equipment"
@@ -2500,8 +2511,8 @@
     "cape1": "/",
     "shield4": "/",
     "weapon1": "/",
-    "weapon3": "/ (crush) /",
-    "weapon4": "/ (on crush)",
+    "weapon3": "/ (crush) /  (crush)",
+    "weapon4": "/ /  (on crush)",
     "weapon5": "[[File:Bandos godsword.png]] Godsword (any, Bandos Godsword for defence reduction) /",
     "template": "recommended equipment"
   },
@@ -2544,16 +2555,14 @@
     "template": "recommended equipment"
   },
   {
-    "head5": "/",
+    "head4": "/",
     "neck1": "/",
     "neck4": "/",
     "legs5": "/ /",
     "ammo2": "/ /",
-    "special5": "(HP + Prayer sustain)",
     "template": "recommended equipment"
   },
   {
-    "neck3": "/",
     "ammo2": "/",
     "feet2": "/",
     "feet3": "/",

@@ -543,7 +543,7 @@
   },
   {
     "name": "Alchemical Hydra",
-    "location": "Karuulm Slayer Dungeon (Lower Level)",
+    "location": "Karuulm Slayer Dungeon (lower level)",
     "levels": "426",
     "members": "Yes",
     "mapid": "33",
@@ -8859,7 +8859,8 @@
   },
   {
     "name": "Duke Sucellus",
-    "location": "Ghorrock Prison's asylum",
+    "location": "Ghorrock Prison - Asylum",
+    "levels": "538, 758, 1,099",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
@@ -21090,7 +21091,7 @@
   },
   {
     "name": "Kurask",
-    "location": "Fremennik Slayer Cave",
+    "location": "Fremennik Slayer Dungeon",
     "levels": "106",
     "members": "Yes",
     "mapid": "-1",
@@ -21107,7 +21108,7 @@
   },
   {
     "name": "Kurask",
-    "location": "Fremennik Slayer Cave (Slayer task only)",
+    "location": "Fremennik Slayer Dungeon (Slayer task only)",
     "levels": "106",
     "members": "Yes",
     "mapid": "-1",
@@ -31947,23 +31948,6 @@
   },
   {
     "name": "Shadow",
-    "location": "Mynydd",
-    "levels": "73",
-    "members": "y",
-    "mapid": "29",
-    "plane": "0",
-    "list": [
-      "x:3188,y:6183",
-      "x:3191,y:6181",
-      "x:3191,y:6184",
-      "x:3192,y:6179",
-      "x:3194,y:6180"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Shadow",
     "location": "Temple of Light",
     "levels": "73",
     "members": "Yes",
@@ -32566,17 +32550,16 @@
     "location": "Asgarnian Ice Dungeon",
     "levels": "140",
     "members": "Yes",
-    "mapid": "3",
-    "plane": "0",
+    "mapid": "-1",
     "list": [
-      "x:3025,y:9543",
-      "x:3025,y:9553",
-      "x:3033,y:9554",
-      "x:3039,y:9541",
-      "x:3045,y:9553",
-      "x:3057,y:9539",
-      "x:3063,y:9554",
-      "x:3066,y:9545",
+      "x:3025,y:9543,icon:bluePin",
+      "x:3025,y:9553,icon:bluePin",
+      "x:3033,y:9554,icon:bluePin",
+      "x:3039,y:9541,icon:bluePin",
+      "x:3045,y:9553,icon:bluePin",
+      "x:3057,y:9539,icon:bluePin",
+      "x:3063,y:9554,icon:bluePin",
+      "x:3066,y:9545,icon:bluePin",
       "x:3040,y:9569",
       "x:3042,y:9562",
       "x:3047,y:9560",
@@ -32586,19 +32569,7 @@
       "x:3070,y:9586",
       "x:3071,y:9554",
       "x:3071,y:9574",
-      "x:3071,y:9581"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Skeletal Wyvern",
-    "location": "Asgarnian Ice Dungeon (Upper level)",
-    "levels": "140",
-    "members": "Yes",
-    "mapid": "12",
-    "plane": "0",
-    "list": [
+      "x:3071,y:9581",
       "x:3076,y:9557",
       "x:3076,y:9567",
       "x:3076,y:9578",
@@ -38944,6 +38915,7 @@
   {
     "name": "The Leviathan",
     "location": "The Scar",
+    "levels": "593, 798, 1,157",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
@@ -38982,7 +38954,8 @@
   },
   {
     "name": "The Whisperer",
-    "location": "Lassar Undercity's cathedral",
+    "location": "Lassar Undercity - Sunken Cathedral",
+    "levels": "587, 791, 1,146",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
@@ -41247,7 +41220,8 @@
   },
   {
     "name": "Vardorvis",
-    "location": "The Stranglewood's Ritual Site",
+    "location": "The Stranglewood - Ritual Site",
+    "levels": "572, 784, 1,136",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
@@ -43177,13 +43151,13 @@
   },
   {
     "name": "Zalcano",
-    "location": "Beneath Prifddinas",
+    "location": "Volcanic caverns beneath Prifddinas",
     "levels": "336",
     "members": "Yes",
-    "mapid": "34",
+    "mapid": "-1",
     "plane": "0",
     "list": [
-      "x:3287,y:12448"
+      "x:3031,y:6048"
     ],
     "mtype": "pin",
     "template": "locline"

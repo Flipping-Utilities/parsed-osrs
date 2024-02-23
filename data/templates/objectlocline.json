@@ -1717,6 +1717,23 @@
     "template": "objectlocline"
   },
   {
+    "location": "South-west of Rellekka",
+    "members": "Yes",
+    "list": [
+      "2609,3641",
+      "2606,3640",
+      "2603,3637",
+      "2602,3633",
+      "2603,3631",
+      "2606,3630",
+      "2610,3631",
+      "2612,3634",
+      "2610,3638"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Arm",
     "location": "Wilderness God Wars Dungeon",
     "members": "Yes",
@@ -5287,8 +5304,7 @@
     "name": "Big egg",
     "location": "Brimhaven Dungeon",
     "members": "Yes",
-    "mapid": "9",
-    "plane": "0",
+    "mapid": "-1",
     "list": [
       "x:2633,y:9451",
       "x:2653,y:9462",
@@ -5328,9 +5344,8 @@
   {
     "name": "Big egg",
     "location": "Lava Dragon Isle",
+    "mapid": "-1",
     "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
     "list": [
       "x:3230,y:3824",
       "x:3229,y:3822",
@@ -5342,25 +5357,9 @@
   },
   {
     "name": "Big egg",
-    "location": "Taverley Dungeon (Upper level)",
-    "members": "Yes",
-    "mapid": "20",
-    "plane": "1",
-    "list": [
-      "x:2961,y:9824",
-      "x:2957,y:9832",
-      "x:2944,y:9805",
-      "x:2947,y:9829",
-      "x:2934,y:9823"
-    ],
-    "mtype": "pin",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Big egg",
     "location": "Taverley Dungeon",
     "members": "Yes",
-    "mapid": "20",
+    "mapid": "-1",
     "plane": "0",
     "list": [
       "x:2902,y:9801",
@@ -5368,6 +5367,22 @@
       "x:2908,y:9780",
       "x:2907,y:9798",
       "x:2905,y:9807"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Big egg",
+    "location": "Taverley Dungeon - upper level",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:2961,y:9824",
+      "x:2957,y:9832",
+      "x:2944,y:9805",
+      "x:2947,y:9829",
+      "x:2934,y:9823"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -5655,28 +5670,50 @@
   },
   {
     "name": "Bone barrel",
-    "location": "Fishing Platform",
-    "members": "Yes",
-    "spawns": "4",
-    "mapid": "0",
-    "plane": "0",
+    "location": "Corsair Cove",
+    "members": "No",
     "list": [
-      "x:2779,y:3282"
+      "x:2576,y:2856",
+      "x:2570,y:2852",
+      "x:2581,y:2852",
+      "x:2584,y:2851",
+      "x:2576,y:2848",
+      "x:2581,y:2848"
     ],
-    "mtype": "square",
+    "mtype": "pin",
     "template": "objectlocline"
   },
   {
     "name": "Bone barrel",
-    "location": "Corsair Cove",
-    "members": "No",
-    "spawns": "6",
-    "mapid": "0",
-    "plane": "0",
+    "location": "Fishing Platform",
+    "members": "Yes",
     "list": [
-      "x:2576,y:2852"
+      "x:2762,y:3285",
+      "x:2787,y:3278",
+      "x:2793,y:3274"
     ],
-    "mtype": "square",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bone barrel",
+    "location": "Fishing Platform - upper level",
+    "members": "Yes",
+    "list": [
+      "x:2787,y:3283"
+    ],
+    "plane": "1",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bone barrel",
+    "location": "Ruins of Unkah",
+    "members": "Yes",
+    "list": [
+      "x:3157,y:2846"
+    ],
+    "mtype": "pin",
     "template": "objectlocline"
   },
   {
@@ -18367,6 +18404,43 @@
     "template": "objectlocline"
   },
   {
+    "name": "Drill",
+    "location": "Varrock",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3227,3441"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Drill",
+    "location": "The Node",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3109,3029"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Drill",
+    "location": "Iceberg",
+    "members": "Yes",
+    "mapid": "11",
+    "plane": "0",
+    "list": [
+      "2678,10410",
+      "2679,10410"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Dragon statue",
     "location": "Between Castle Wars and Yanille",
     "members": "Yes",
@@ -18665,6 +18739,40 @@
       "x:2510,y:10253"
     ],
     "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Easel",
+    "location": "West of Rimmington",
+    "members": "No",
+    "list": [
+      "x:2926,y:3218"
+    ],
+    "mtype": "pin",
+    "version": "Generic",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Easel",
+    "location": "East of Land's End",
+    "members": "Yes",
+    "list": [
+      "x:1528,y:3422"
+    ],
+    "mtype": "pin",
+    "version": "Generic",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Easel",
+    "location": "Lumbridge General Store, upstairs",
+    "members": "Yes",
+    "list": [
+      "x:3213,y:3250"
+    ],
+    "plane": "1",
+    "mtype": "pin",
+    "version": "Morytania",
     "template": "objectlocline"
   },
   {
@@ -41131,6 +41239,36 @@
     "template": "objectlocline"
   },
   {
+    "name": "Penance cave",
+    "location": "Barbarian Assault Wave 1-9",
+    "members": "Yes",
+    "mapid": "10019",
+    "plane": "0",
+    "list": [
+      "1873,5487",
+      "1879,5488",
+      "1891,5488",
+      "1897,5487"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Penance cave",
+    "location": "Barbarian Assault Wave 10",
+    "members": "Yes",
+    "mapid": "10019",
+    "plane": "0",
+    "list": [
+      "1873,5423",
+      "1879,5424",
+      "1891,5424",
+      "1897,5423"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Pew",
     "location": "Entrana",
     "members": "Yes",
@@ -43054,6 +43192,28 @@
     "plane": "0",
     "list": [
       "x:3417,y:4062"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Pool of Refreshment",
+    "location": "Ferox Enclave - chapel",
+    "members": "No",
+    "list": [
+      "x:3128,y:3638",
+      "x:3128,y:3633"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Pool of Refreshment",
+    "location": "Daimon's Crater - lobby area",
+    "members": "Yes",
+    "list": [
+      "x:3417,y:4061",
+      "x:3429,y:4065"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -48565,6 +48725,52 @@
     "template": "objectlocline"
   },
   {
+    "name": "Skullshield",
+    "location": "God Wars Dungeon - entrance",
+    "members": "Yes",
+    "list": [
+      "x:2910,y:3734"
+    ],
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Skullshield",
+    "location": "God Wars Dungeon - main area",
+    "members": "Yes",
+    "list": [
+      "x:2864,y:5279"
+    ],
+    "mapid": "-1",
+    "plane": "2",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Skullshield",
+    "location": "Saradomin's Encampment - sub-level 1",
+    "members": "Yes",
+    "list": [
+      "x:2915,y:5286"
+    ],
+    "mapid": "-1",
+    "plane": "1",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Skullshield",
+    "location": "Ancient Prison",
+    "members": "Yes",
+    "list": [
+      "x:2874,y:5224"
+    ],
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Sled",
     "location": "Scrubfoot's cave",
     "members": "No",
@@ -50359,6 +50565,28 @@
     ],
     "mtype": "pin",
     "plane": "2",
+    "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue",
+    "location": "Darkmeyer - upper tier",
+    "members": "Yes",
+    "list": [
+      "x:3604,y:3354"
+    ],
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue",
+    "location": "Old School Museum - lower level",
+    "members": "No",
+    "list": [
+      "x:2985,y:9976"
+    ],
+    "mtype": "pin",
     "mapid": "-1",
     "template": "objectlocline"
   },
