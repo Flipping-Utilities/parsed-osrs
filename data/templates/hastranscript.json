@@ -283,6 +283,12 @@
   },
   {
     "list": [
+      "event"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
       "npc"
     ],
     "template": "hastranscript"
@@ -682,6 +688,12 @@
   {
     "list": [
       "NPC"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "hastranscript"
   },
@@ -1595,6 +1607,10 @@
     "template": "hastranscript"
   },
   {
+    "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
     "list": [
       "NPC"
     ],
@@ -1638,24 +1654,6 @@
   },
   {
     "list": [
-      "NPC"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
       "npc"
     ],
     "template": "hastranscript"
@@ -1669,36 +1667,6 @@
   {
     "list": [
       "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "npc"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
-      "NPC"
     ],
     "template": "hastranscript"
   },
@@ -1770,6 +1738,18 @@
   },
   {
     "list": [
+      "NPC"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
       "npc"
     ],
     "template": "hastranscript"
@@ -1783,6 +1763,54 @@
   {
     "list": [
       "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "NPC"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "hastranscript"
   },
@@ -3442,12 +3470,6 @@
   },
   {
     "list": [
-      "NPC"
-    ],
-    "template": "hastranscript"
-  },
-  {
-    "list": [
       "npc"
     ],
     "template": "hastranscript"
@@ -4105,6 +4127,12 @@
   },
   {
     "list": [
+      "NPC"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
       "npc"
     ],
     "template": "hastranscript"
@@ -4274,6 +4302,12 @@
       "Deed"
     ],
     "transclude": "Yes",
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "Quest"
+    ],
     "template": "hastranscript"
   },
   {
@@ -5002,6 +5036,12 @@
       "Ebrill's journal"
     ],
     "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "scenery"
+    ],
     "template": "hastranscript"
   },
   {
@@ -6126,6 +6166,12 @@
   {
     "list": [
       "npc"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "hastranscript"
   },
@@ -7560,6 +7606,10 @@
     "template": "hastranscript"
   },
   {
+    "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
     "list": [
       "npc",
       "Transcript:Vyre"
@@ -7880,6 +7930,12 @@
   {
     "list": [
       "NPC"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "quest"
     ],
     "template": "hastranscript"
   },
@@ -10002,6 +10058,13 @@
   {
     "list": [
       "List"
+    ],
+    "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "List of elders"
     ],
     "transclude": "yes",
     "template": "hastranscript"
@@ -14496,6 +14559,10 @@
     "template": "hastranscript"
   },
   {
+    "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
     "list": [
       "npc"
     ],
@@ -14667,6 +14734,10 @@
     "list": [
       "Short note"
     ],
+    "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
     "transclude": "yes",
     "template": "hastranscript"
   },
@@ -15359,6 +15430,12 @@
       "Soul wars guide"
     ],
     "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "item"
+    ],
     "template": "hastranscript"
   },
   {
@@ -17610,6 +17687,12 @@
   },
   {
     "list": [
+      "scenery"
+    ],
+    "template": "hastranscript"
+  },
+  {
+    "list": [
       "NPC"
     ],
     "template": "hastranscript"
@@ -17685,6 +17768,12 @@
   },
   {
     "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "Quest"
+    ],
     "template": "hastranscript"
   },
   {
@@ -18279,6 +18368,12 @@
   },
   {
     "transclude": "yes",
+    "template": "hastranscript"
+  },
+  {
+    "list": [
+      "item"
+    ],
     "template": "hastranscript"
   },
   {

@@ -2833,8 +2833,8 @@
   },
   {
     "type": "maplink",
-    "x": "1612",
-    "y": "3513",
+    "x": "2796",
+    "y": "3091",
     "mtype": "pin",
     "template": "map"
   },
@@ -2857,7 +2857,7 @@
   {
     "mtype": "pin",
     "list": [
-      "x:2797,y:2794"
+      "x:3426,y:2930"
     ],
     "zoom": "3",
     "type": "maplink",
@@ -8995,16 +8995,6 @@
     "template": "map"
   },
   {
-    "name": "Otto Godblessed",
-    "x": "2502",
-    "y": "3489",
-    "plane": "0",
-    "r": "3",
-    "mtype": "square",
-    "caption": "Otto Godblessed's location",
-    "template": "map"
-  },
-  {
     "name": "Barbarian Village",
     "x": "3078",
     "y": "3426",
@@ -9277,6 +9267,13 @@
       "x:2938,y:5812"
     ],
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3749,3291"
+    ],
+    "mtype": "Pin",
     "template": "map"
   },
   {
@@ -10438,6 +10435,14 @@
     "template": "map"
   },
   {
+    "list": [
+      "3234, 9864"
+    ],
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Big vase",
     "x": "3208",
     "y": "3249",
@@ -11411,6 +11416,13 @@
     "y": "3169",
     "mtype": "pin",
     "group": "board",
+    "template": "map"
+  },
+  {
+    "x": "3523",
+    "y": "3177",
+    "mtype": "pin",
+    "group": "hut",
     "template": "map"
   },
   {
@@ -13474,6 +13486,7 @@
     "mapid": "-1",
     "mtype": "pin",
     "caption": "The locations of the coloured spices the Hell-Rat Behemoths guard.",
+    "zoom": "3",
     "template": "map"
   },
   {
@@ -19050,15 +19063,6 @@
     "template": "map"
   },
   {
-    "name": "Chief Farmer",
-    "x": "1751",
-    "y": "3536",
-    "plane": "0",
-    "r": "4",
-    "mtype": "square",
-    "template": "map"
-  },
-  {
     "list": [
       "2013,9006"
     ],
@@ -20413,6 +20417,24 @@
     "mapid": "-1",
     "mtype": "pin",
     "group": "outer",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3316,3163"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2952,3452"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -27646,6 +27668,33 @@
     "template": "map"
   },
   {
+    "name": "Crazy penguin",
+    "list": [
+      "2634,4047"
+    ],
+    "mtype": "pin",
+    "group": "cannon",
+    "template": "map"
+  },
+  {
+    "name": "Crazy penguin",
+    "list": [
+      "2631,4042"
+    ],
+    "mtype": "pin",
+    "group": "flying",
+    "template": "map"
+  },
+  {
+    "name": "Crazy penguin",
+    "list": [
+      "2639,4048"
+    ],
+    "mtype": "pin",
+    "group": "balloon",
+    "template": "map"
+  },
+  {
     "name": "Creakyknees",
     "x": "2470",
     "y": "3186",
@@ -27844,6 +27893,14 @@
     "x": "1214",
     "y": "3559",
     "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3374,2905"
+    ],
+    "r": "6",
     "mtype": "square",
     "template": "map"
   },
@@ -29088,6 +29145,15 @@
     "x": "3482",
     "y": "3236",
     "r": "7",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Dale",
+    "x": "1751",
+    "y": "3536",
+    "plane": "0",
+    "r": "4",
     "mtype": "square",
     "template": "map"
   },
@@ -31072,6 +31138,86 @@
     "mtype": "polygon",
     "smw": "hist",
     "caption": "Location before 2021 and on Classic mode",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3222",
+    "y": "3472",
+    "mtype": "pin",
+    "desc": "Roald Remanis and Aeonisig Raispher",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3203",
+    "y": "3472",
+    "mtype": "pin",
+    "desc": "Enhtor Prysin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3211",
+    "y": "3425",
+    "mtype": "pin",
+    "desc": "Romeo Gontamue",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3230",
+    "y": "3437",
+    "mtype": "pin",
+    "desc": "Horvik Ravitz",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3260",
+    "y": "3451",
+    "mtype": "pin",
+    "desc": "Haig Halen",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3222",
+    "y": "3472",
+    "mtype": "pin",
+    "desc": "Aeonisig Raispher",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3203",
+    "y": "3472",
+    "mtype": "pin",
+    "desc": "Enhtor Prysin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3211",
+    "y": "3425",
+    "mtype": "pin",
+    "desc": "Romeo Gontamue",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3230",
+    "y": "3437",
+    "mtype": "pin",
+    "desc": "Horvik Ravitz",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "3260",
+    "y": "3451",
+    "mtype": "pin",
+    "desc": "Haig Halen",
     "template": "map"
   },
   {
@@ -33918,6 +34064,13 @@
     "template": "map"
   },
   {
+    "x": "3267",
+    "y": "3192",
+    "r": "5",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "x": "3196",
     "y": "3437",
     "r": "5",
@@ -34537,7 +34690,7 @@
   {
     "name": "Elias White",
     "list": [
-      "3505,3037"
+      "3283,3501"
     ],
     "r": "3",
     "mtype": "square",
@@ -44327,6 +44480,17 @@
     "template": "map"
   },
   {
+    "name": "Gate",
+    "list": [
+      "2380, 9619",
+      "2404, 9620"
+    ],
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Gate (Witch's House)",
     "x": "2902",
     "y": "9874",
@@ -47590,6 +47754,14 @@
     "template": "map"
   },
   {
+    "name": "Grave",
+    "zoom": "1",
+    "x": "1273",
+    "y": "3762",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Grave digger",
     "x": "1429",
     "y": "3593",
@@ -47676,16 +47848,6 @@
     "plane": "0",
     "r": "2",
     "mtype": "square",
-    "template": "map"
-  },
-  {
-    "name": "Great Kourend",
-    "list": [
-      "x:1630,y:3730"
-    ],
-    "zoom": "-1",
-    "height": "350",
-    "width": "300",
     "template": "map"
   },
   {
@@ -54277,6 +54439,15 @@
     "template": "map"
   },
   {
+    "name": "Ivy Sophista",
+    "x": "2907",
+    "y": "3450",
+    "plane": "0",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Iwan",
     "x": "3256",
     "y": "6126",
@@ -57577,6 +57748,16 @@
   },
   {
     "list": [
+      "3725,9759",
+      "3729,9760"
+    ],
+    "mapid": "-1",
+    "plane": "1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
       "3264,9216",
       "3264,9280",
       "3328,9280",
@@ -58668,6 +58849,26 @@
     "list": [
       "x:1779,y:6435"
     ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Lava crater",
+    "list": [
+      "x:1872,y:5419",
+      "x:1901,y:5419",
+      "x:1868,y:5411",
+      "x:1906,y:5410",
+      "x:1905,y:5403",
+      "x:1871,y:5401",
+      "x:1872,y:5395",
+      "x:1901,y:5416,icon:redPin",
+      "x:1870,y:5415,icon:redPin",
+      "x:1906,y:5406,icon:redPin",
+      "x:1867,y:5403,icon:redPin",
+      "x:1894,y:5393,icon:redPin"
+    ],
+    "mapid": "-1",
     "mtype": "pin",
     "template": "map"
   },
@@ -60803,6 +61004,16 @@
     "mtype": "square",
     "r": "2",
     "type": "maplink",
+    "template": "map"
+  },
+  {
+    "name": "Mercenary (Ferox Enclave)",
+    "x": "3130",
+    "y": "3629",
+    "r": "4",
+    "mtype": "square",
+    "type": "maplink",
+    "zoom": "3",
     "template": "map"
   },
   {
@@ -73772,6 +73983,28 @@
     "template": "map"
   },
   {
+    "name": "Petrified mushroom",
+    "list": [
+      "x:1874,y:5417",
+      "x:1903,y:5415",
+      "x:1870,y:5413",
+      "x:1869,y:5410",
+      "x:1905,y:5408",
+      "x:1869,y:5405",
+      "x:1902,y:5404",
+      "x:1899,y:5401",
+      "x:1873,y:5397",
+      "x:1900,y:5397",
+      "x:1896,y:5396",
+      "x:1876,y:5395",
+      "x:1879,y:5393",
+      "x:1892,y:5393"
+    ],
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Phabelle Bile",
     "x": "3152",
     "y": "3644",
@@ -74998,6 +75231,26 @@
     "template": "map"
   },
   {
+    "name": "Poison crater",
+    "list": [
+      "x:1868,y:5414",
+      "x:1901,y:5414",
+      "x:1908,y:5408",
+      "x:1866,y:5406",
+      "x:1868,y:5401",
+      "x:1900,y:5400",
+      "x:1874,y:5393",
+      "x:1897,y:5393",
+      "x:1904,y:5412,icon:redPin",
+      "x:1866,y:5408,icon:redPin",
+      "x:1902,y:5401,icon:redPin",
+      "x:1870,y:5398,icon:redPin"
+    ],
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Poison gas cloud",
     "x": "1440",
     "y": "3869",
@@ -75154,27 +75407,6 @@
     "name": "Pool of Dreams",
     "x": "2466",
     "y": "2846",
-    "mtype": "pin",
-    "template": "map"
-  },
-  {
-    "name": "Pool of Refreshment",
-    "list": [
-      "3128,3638",
-      "3128,3633"
-    ],
-    "plane": "0",
-    "mapid": "0",
-    "mtype": "pin",
-    "template": "map"
-  },
-  {
-    "name": "Pool of Refreshment",
-    "list": [
-      "3430,4065"
-    ],
-    "plane": "0",
-    "mapid": "0",
     "mtype": "pin",
     "template": "map"
   },
@@ -82907,8 +83139,8 @@
     "list": [
       "3136,9856",
       "3136,9920",
-      "3328,9920",
-      "3328,9856"
+      "3287,9920",
+      "3287,9856"
     ],
     "plane": "0",
     "height": "150",
@@ -84975,6 +85207,15 @@
   {
     "x": "1240",
     "y": "3688",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3625,3358"
+    ],
+    "mapid": "-1",
+    "plane": "0",
     "mtype": "pin",
     "template": "map"
   },
@@ -87550,17 +87791,6 @@
     ],
     "group": "Skulls",
     "caption": "Skull locations.",
-    "template": "map"
-  },
-  {
-    "name": "Skullshield",
-    "list": [
-      "2910,3734"
-    ],
-    "mapid": "0",
-    "height": "300",
-    "group": "1",
-    "mtype": "pin",
     "template": "map"
   },
   {
@@ -92981,17 +93211,6 @@
     "mtype": "polygon",
     "smw": "no",
     "caption": "Location on Modern mode in 2021-2022",
-    "template": "map"
-  },
-  {
-    "name": "Statue",
-    "list": [
-      "3604,3356",
-      "3607,3356",
-      "3607,3354",
-      "3604,3354"
-    ],
-    "mtype": "polygon",
     "template": "map"
   },
   {
@@ -101736,6 +101955,51 @@
     "template": "map"
   },
   {
+    "mapid": "-1",
+    "list": [
+      "3863,9942",
+      "3879,9942",
+      "3863,9958",
+      "3879,9958"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "3799,9766",
+      "3815,9766",
+      "3799,9750",
+      "3815,9750"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "list": [
+      "3863,9942",
+      "3879,9942",
+      "3863,9958",
+      "3879,9958"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2793,2908",
+      "2852,2917",
+      "2875,2913",
+      "2918,2922",
+      "2950,2901"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Total Pole (Legends' Guild)",
     "list": [
       "2729,3378"
@@ -105071,6 +105335,13 @@
     "zoom": "1",
     "x": "3210",
     "y": "3448",
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "list": [
+      "3214,3497"
+    ],
     "template": "map"
   },
   {
@@ -110878,6 +111149,16 @@
     "zoom": "3",
     "plane": "0",
     "mtype": "polygon",
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "width": "250",
+    "height": "250",
+    "list": [
+      "x:3343,y:3515"
+    ],
+    "caption": "The trapdoor leading to Zemouregal's Base.",
     "template": "map"
   },
   {

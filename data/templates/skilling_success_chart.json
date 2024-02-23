@@ -501,30 +501,6 @@
     "template": "skilling success chart"
   },
   {
-    "label": "Barbarian fishing catch chance",
-    "cascade": "yes",
-    "showbefore": "no",
-    "label1": "Leaping sturgeon",
-    "low1": "8",
-    "high1": "64",
-    "req1": "70",
-    "color1": "gray",
-    "image1": "Leaping sturgeon.png",
-    "label2": "Leaping salmon",
-    "low2": "16",
-    "high2": "96",
-    "req2": "58",
-    "color2": "red",
-    "image2": "Leaping salmon.png",
-    "label3": "Leaping trout",
-    "low3": "32",
-    "high3": "192",
-    "req3": "48",
-    "color3": "blue",
-    "image3": "Leaping trout.png",
-    "template": "skilling success chart"
-  },
-  {
     "label": "Harvest life preservation chance",
     "xlabel": "Farming level",
     "ylabel": "CTS (chance-to-save)",
@@ -1824,6 +1800,17 @@
     "req1": "15",
     "color1": "red",
     "image1": "Crab claw.png",
+    "template": "skilling success chart"
+  },
+  {
+    "color1": "goldenrod",
+    "high1": "117",
+    "image1": "Stardust_175.png",
+    "label": "Stardust mining chance",
+    "label1": "Stardust",
+    "low1": "73",
+    "req1": "10",
+    "showbefore": "no",
     "template": "skilling success chart"
   },
   {
@@ -8058,6 +8045,17 @@
     "req7": "80",
     "color7": "#ccccff",
     "image7": "Cooking gauntlets.png",
+    "template": "skilling success chart"
+  },
+  {
+    "color1": "goldenrod",
+    "high1": "117",
+    "image1": "Stardust_175.png",
+    "label": "Stardust mining chance",
+    "label1": "Stardust",
+    "low1": "73",
+    "req1": "10",
+    "showbefore": "no",
     "template": "skilling success chart"
   },
   {

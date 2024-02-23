@@ -7319,13 +7319,14 @@
       "2343,3313,qty:1",
       "2346,3310,qty:1"
     ],
+    "mapid": "-1",
     "template": "itemspawnline"
   },
   {
     "name": "Red spiders' eggs",
     "location": "Crandor and Karamja Dungeon",
     "members": "No",
-    "mapid": "9",
+    "mapid": "-1",
     "list": [
       "2832,9586"
     ],
@@ -7335,7 +7336,7 @@
     "name": "Red spiders' eggs",
     "location": "Edgeville Dungeon - Wilderness area",
     "members": "Yes",
-    "mapid": "12",
+    "mapid": "-1",
     "list": [
       "3128,9956",
       "3126,9958",
@@ -7348,20 +7349,9 @@
   },
   {
     "name": "Red spiders' eggs",
-    "location": "Varrock Sewers",
-    "members": "No",
-    "mapid": "12",
-    "list": [
-      "3177,9880",
-      "3179,9881"
-    ],
-    "template": "itemspawnline"
-  },
-  {
-    "name": "Red spiders' eggs",
     "location": "Forthos Dungeon",
     "members": "Yes",
-    "mapid": "32",
+    "mapid": "-1",
     "list": [
       "1850,9960",
       "1845,9965",
@@ -7374,6 +7364,17 @@
       "1837,9958",
       "1840,9960",
       "1840,9955"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Red spiders' eggs",
+    "location": "Varrock Sewers",
+    "members": "No",
+    "mapid": "-1",
+    "list": [
+      "3177,9880",
+      "3179,9881"
     ],
     "template": "itemspawnline"
   },

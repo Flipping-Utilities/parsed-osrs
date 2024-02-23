@@ -24,7 +24,6 @@
     "east": "Kharidian Desert",
     "north": "Karamja",
     "west": "Feldip Hills",
-    "south": "Void Knight Outpost",
     "template": "relativelocation"
   },
   {
@@ -36,11 +35,11 @@
     "template": "relativelocation"
   },
   {
-    "location": "Asgarnia",
+    "location": "Kingdom of Asgarnia",
     "north": "Wilderness",
-    "west": "Kandarin",
+    "west": "Kingdom of Kandarin",
     "south": "Karamja",
-    "east": "Misthalin",
+    "east": "Kingdom of Misthalin",
     "template": "relativelocation"
   },
   {
@@ -388,10 +387,10 @@
   },
   {
     "location": "Feldip Hills",
-    "north": "Kandarin",
-    "west": "Tirannwn",
-    "south": "Corsair Cove",
+    "north": "Kingdom of Kandarin",
+    "west": "Isle of Souls",
     "east": "Karamja",
+    "south": "Ape Atoll",
     "template": "relativelocation"
   },
   {
@@ -454,18 +453,22 @@
     "template": "relativelocation"
   },
   {
+    "location": "Fossil Island",
+    "west": "Wilderness",
+    "south": "Morytania",
+    "template": "relativelocation"
+  },
+  {
     "location": "Fremennik Isles",
-    "north": "Unknown",
-    "east": "Miscellania",
-    "south": "Tree Gnome Stronghold",
+    "east": "Fremennik Province",
+    "south": "Kingdom of Kandarin",
     "west": "Lunar Isle",
     "template": "relativelocation"
   },
   {
     "location": "Fremennik Province",
-    "north": "Miscellania",
-    "west": "Waterbirth Island",
-    "south": "Kandarin",
+    "west": "Fremennik Isles",
+    "south": "Kingdom of Kandarin",
     "east": "Troll Country",
     "template": "relativelocation"
   },
@@ -550,9 +553,10 @@
     "template": "relativelocation"
   },
   {
-    "location": "Great Kourend",
-    "east": "Fremennik Province",
+    "location": "Kingdom of Great Kourend",
+    "east": "Lunar Isle",
     "west": "Kebos Lowlands",
+    "south": "Varlamore",
     "template": "relativelocation"
   },
   {
@@ -646,6 +650,12 @@
     "template": "relativelocation"
   },
   {
+    "location": "Isle of Souls",
+    "north": "Tirannwn",
+    "east": "Feldip Hills",
+    "template": "relativelocation"
+  },
+  {
     "location": "Jiggig",
     "north": "Castle Wars",
     "east": "Gu'Tanoth",
@@ -654,17 +664,17 @@
     "template": "relativelocation"
   },
   {
-    "location": "Kandarin",
-    "north": "Lunar Sea",
+    "location": "Kingdom of Kandarin",
+    "north": "Fremennik Province",
     "west": "Tirannwn",
     "south": "Feldip Hills",
-    "east": "Asgarnia",
+    "east": "Kingdom of Asgarnia",
     "template": "relativelocation"
   },
   {
     "location": "Karamja",
-    "north": "Asgarnia",
-    "west": "Kandarin",
+    "north": "Kingdom of Asgarnia",
+    "west": "Feldip Hills",
     "east": "Kharidian Desert",
     "south": "Ape Atoll",
     "template": "relativelocation"
@@ -692,7 +702,6 @@
     "location": "Kebos Lowlands",
     "east": "Great Kourend",
     "south": "Varlamore",
-    "west": "Western Sea",
     "template": "relativelocation"
   },
   {
@@ -708,7 +717,7 @@
   },
   {
     "location": "Kharidian Desert",
-    "north": "Misthalin",
+    "north": "Kingdom of Misthalin",
     "west": "Karamja",
     "east": "Mos Le'Harmless",
     "template": "relativelocation"
@@ -718,7 +727,7 @@
     "north": "Resource Area",
     "west": "Lava Maze",
     "south": "Ruins (east)",
-    "east": "Callisto",
+    "east": "Callisto's Den",
     "template": "relativelocation"
   },
   {
@@ -747,10 +756,9 @@
   },
   {
     "location": "Lunar Isle",
-    "north": "Ungael",
-    "east": "Neitiznot",
-    "south": "Pirates' Cove",
-    "west": "Great Kourend",
+    "east": "Fremennik Isles",
+    "south": "Tirannwn",
+    "west": "Kingdom of Great Kourend",
     "template": "relativelocation"
   },
   {
@@ -793,19 +801,17 @@
     "template": "relativelocation"
   },
   {
-    "location": "Misthalin",
+    "location": "Kingdom of Misthalin",
     "north": "Wilderness",
-    "west": "Asgarnia",
+    "west": "Kingdom of Asgarnia",
     "south": "Kharidian Desert",
     "east": "Morytania",
     "template": "relativelocation"
   },
   {
     "location": "Mos Le'Harmless",
-    "north": "Meiyerditch",
+    "north": "Morytania",
     "west": "Kharidian Desert",
-    "south": "Harmony Island",
-    "east": "Unknown",
     "template": "relativelocation"
   },
   {
@@ -1152,6 +1158,14 @@
     "template": "relativelocation"
   },
   {
+    "location": "Tirannwn",
+    "north": "Lunar Isle",
+    "west": "Varlamore",
+    "south": "Isle of Souls",
+    "east": "Kingdom of Kandarin",
+    "template": "relativelocation"
+  },
+  {
     "location": "Tourist Information Centre",
     "north": "Baxtorian Falls",
     "west": "Tree Gnome Stronghold",
@@ -1184,7 +1198,7 @@
     "template": "relativelocation"
   },
   {
-    "south": "Asgarnia",
+    "south": "Kingdom of Asgarnia",
     "west": "Fremennik Province",
     "east": "Wilderness",
     "location": "Troll Country",
@@ -1242,10 +1256,8 @@
   },
   {
     "location": "Varlamore",
-    "north": "Kebos Lowlands",
-    "west": "Stranglewood",
-    "south": "Unknown",
-    "east": "Great Kourend",
+    "north": "Kingdom of Great Kourend",
+    "east": "Tirannwn",
     "template": "relativelocation"
   },
   {
@@ -1321,6 +1333,13 @@
     "east": "Heroes' Guild",
     "south": "Catherby",
     "west": "Camelot",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Wilderness",
+    "west": "Troll Country",
+    "south": "Kingdom of Misthalin",
+    "east": "Fossil Island",
     "template": "relativelocation"
   },
   {
