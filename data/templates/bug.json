@@ -103,6 +103,12 @@
   },
   {
     "list": [
+      "The enchantment bonus for enchanting the specified shape does not reward any bonus pizazz points."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
       "If a player teleports while on the \"depositing to your bank\" part of talking to Advisor Ghrim, after teleporting, the \"subject distribution\" interface will appear, and players are able to change distribution from their teleport point."
     ],
     "template": "bug"
@@ -140,6 +146,12 @@
   {
     "list": [
       "If the growth-time reward would put the cat into the next stage of growth, the cat's growth may sometimes not advance, and instead show a negative time remaining."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The ring cannot be charged with stamina mixes: attempting to do so will prompt the game to ask the number of charges that should be added, but it only accepts 0."
     ],
     "template": "bug"
   },

@@ -250,6 +250,14 @@
     "template": "cryptics"
   },
   {
+    "clue": "Search the bookshelf with a skull on it inside the Burrow.",
+    "note": "In the Hunter Guild basement (requires ), search the bookshelf in the east room with a skull on it.",
+    "task": "search",
+    "image": "Cryptic clue - search Burrow bookcase.png",
+    "level": "1",
+    "template": "cryptics"
+  },
+  {
     "clue": "Search the eastern bookcase in Father Urhney's house.",
     "note": "Father Urhney's house is on the west side of Lumbridge Swamp.",
     "task": "search",
@@ -1261,6 +1269,14 @@
     "template": "cryptics"
   },
   {
+    "clue": "With drinks and dwarves I make my way, upon my head a glass will stay.",
+    "note": "Speak to Funbo in The Lost Pickaxe pub in Cam Torum.",
+    "task": "talk",
+    "image": "Cryptic clue - speak to Funbo.png",
+    "level": "4",
+    "template": "cryptics"
+  },
+  {
     "clue": "You'll get licked.",
     "note": "Kill a bloodveld. Mutated variants do work. Bloodvelds in the God Wars Dungeon do work.",
     "task": "kill",
@@ -1345,6 +1361,14 @@
     "note": "Dig 2 steps east and 1 step south of the centre of the fairy ring.",
     "task": "dig",
     "image": "Cryptic clue - AIR 2331.png",
+    "level": "3",
+    "template": "cryptics"
+  },
+  {
+    "clue": "AJP 3015",
+    "note": "Dig 2 steps north and 5 steps west of the centre of the fairy ring.",
+    "task": "dig",
+    "image": "Cryptic clue - AJP 3015.png",
     "level": "3",
     "template": "cryptics"
   },
@@ -2006,7 +2030,7 @@
   },
   {
     "clue": "If you're feeling brave, dig beneath the dragon's eye.",
-    "note": "Dig below the mossy rock under the Viyeldi caves. Requires progress or completion of Legends' Quest. Items needed: Pickaxe, unpowered orb, lockpick (multiple recommended), a spade, and any Charge Orb spell. A bravery potion and rope are also required if the quest is not completed (You also need any Axe and a Machete to get through the jungle).\n\nPlayers with level 91 Agility can attach a long rope, purchased from the Darkmeyer General Store, to the rock next to the blue hat to instantly climb down the large cliff.",
+    "note": "Dig below the mossy rock under the Viyeldi caves. Requires progress or completion of Legends' Quest. Items needed: Pickaxe, woodcutting axe, machete, unpowered orb, lockpick (multiple recommended), a spade, and any Charge Orb spell. A bravery potion and rope are also required if the quest is not completed (You also need any Axe and a Machete to get through the jungle).\n\nPlayers with level 91 Agility can attach a long rope, purchased from the Darkmeyer General Store, to the rock next to the blue hat to instantly climb down the large cliff.",
     "task": "dig",
     "image": "Cryptic clue - dig dragon's eye.png",
     "level": "5",
@@ -2046,7 +2070,7 @@
   },
   {
     "clue": "Robin wishes to see your finest ranged equipment.",
-    "note": "Robin at the inn in Port Phasmatys. Speak to him while wearing equipment adding up to 181 ranged attack bonus or over. A crystal bow gives 100 ranged attack bonus on its own.",
+    "note": "Robin at the inn in Port Phasmatys. Speak to him while wearing equipment adding up to 181 ranged attack bonus or over ( crystal bow gives +100 ranged attack bonus on its own). The bonuses from a toxic blowpipe does not count.",
     "task": "talk",
     "image": "Cryptic clue - speak to robin.png",
     "level": "5",
@@ -2132,6 +2156,14 @@
     "note": "Search the crate inside of the clothes shop in Canifis. (fairy ring code )",
     "task": "search",
     "image": "Cryptic clue - search crate barkers canifis.png",
+    "level": "2",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Are you somewhat entertained?",
+    "note": "Speak to Gloria inside the Fortis Colosseum.",
+    "task": "talk",
+    "image": "Cryptic clue - are you somewhat entertained.png",
     "level": "2",
     "template": "cryptics"
   },

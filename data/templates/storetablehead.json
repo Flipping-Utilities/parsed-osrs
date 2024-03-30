@@ -33,6 +33,12 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
     "currency": "Agility arena ticket",
     "hidebuy": "y",
     "hidestock": "y",
@@ -457,6 +463,12 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "650",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1200",
     "buymultiplier": "700",
     "delta": "20",
@@ -468,6 +480,13 @@
     "buymultiplier": "400",
     "delta": "20",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "template": "storetablehead"
   },
   {
@@ -612,6 +631,12 @@
   },
   {
     "sellmultiplier": "1000",
+    "buymultiplier": "800",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
     "buymultiplier": "700",
     "delta": "10",
     "template": "storetablehead"
@@ -740,6 +765,14 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "0",
     "hidebuy": "yes",
@@ -807,6 +840,22 @@
     "sellmultiplier": "1300",
     "buymultiplier": "700",
     "delta": "30",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "n",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -893,6 +942,13 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -1152,6 +1208,18 @@
   },
   {
     "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
     "buymultiplier": "0",
     "hidebuy": "yes",
     "hidecaption": "yes",
@@ -1356,6 +1424,19 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
     "hidecaption": "yes",
     "hidestock": "yes",
     "hiderestock": "yes",
@@ -1364,6 +1445,12 @@
     "column1": "Queen",
     "column2": "Value",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "20",
     "template": "storetablehead"
   },
   {
@@ -2110,9 +2197,12 @@
   },
   {
     "currency": "Tithe",
+    "hidege": "yes",
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "column1": "GE price",
+    "column2": "GP per point",
     "template": "storetablehead"
   },
   {
@@ -2238,6 +2328,12 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "550",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1100",
     "buymultiplier": "700",
     "delta": "30",
@@ -2288,6 +2384,48 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "800",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1200",
+    "buymultiplier": "950",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1500",
+    "buymultiplier": "800",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "500",
+    "buymultiplier": "500",
+    "delta": "0",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "20",
     "template": "storetablehead"
   },
   {
@@ -2414,6 +2552,12 @@
     "sellmultiplier": "1200",
     "buymultiplier": "950",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1200",
+    "buymultiplier": "950",
+    "delta": "20",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2538,6 +2682,13 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1500",
+    "buymultiplier": "800",
+    "delta": "30",
+    "smw": "n",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "700",
     "delta": "30",
@@ -2637,18 +2788,6 @@
     "buymultiplier": "550",
     "delta": "20",
     "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1000",
-    "buymultiplier": "800",
-    "delta": "0",
-    "hidege": "yes",
-    "currency": "Mark of grace",
-    "column1": "Weight reduction",
-    "column2": "Run energy restoration rate",
-    "column3": "Reduction (kg/)",
-    "column4": "Restoration (%/)",
     "template": "storetablehead"
   },
   {
@@ -2834,6 +2973,12 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "yes",
+    "hidecaption": "yes",
+    "hidestock": "yes",
     "template": "storetablehead"
   },
   {
@@ -3061,6 +3206,12 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1200",
     "buymultiplier": "700",
     "delta": "20",
@@ -3114,6 +3265,19 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "20",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "20",
     "template": "storetablehead"
   },
   {
@@ -4094,6 +4258,13 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
     "hidebuy": "yes",
     "hidecaption": "yes",
     "hidestock": "yes",
@@ -4228,6 +4399,13 @@
     "buymultiplier": "0",
     "hidebuy": "yes",
     "currency": "ecto-tokens",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "500",
+    "delta": "30",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -4375,6 +4553,12 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "10",
     "template": "storetablehead"
   },
   {
@@ -4708,6 +4892,19 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "20",
+    "smw": "n",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
@@ -4755,6 +4952,19 @@
     "hiderestock": "yes",
     "currency": "Volcanic Mine points",
     "column1": "GP/Point",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
     "template": "storetablehead"
   },
   {
@@ -5613,6 +5823,30 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
@@ -5643,6 +5877,12 @@
     "sellmultiplier": "1300",
     "buymultiplier": "500",
     "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "500",
+    "buymultiplier": "500",
+    "delta": "0",
     "template": "storetablehead"
   },
   {
@@ -5698,6 +5938,7 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "column1": "Requirements",
     "template": "storetablehead"
   },
   {
@@ -5829,9 +6070,26 @@
   },
   {
     "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "20",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
     "template": "storetablehead"
   },
   {
@@ -5879,7 +6137,19 @@
     "sellmultiplier": "1300",
     "buymultiplier": "500",
     "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "500",
+    "delta": "30",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
     "template": "storetablehead"
   },
   {
@@ -5974,6 +6244,13 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "20",
@@ -5996,6 +6273,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "template": "storetablehead"
   },
   {
@@ -6035,6 +6319,13 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidestock": "n",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
     "hidestock": "y",
     "hiderestock": "y",
     "hidebuy": "y",
@@ -6045,6 +6336,12 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "10",
     "template": "storetablehead"
   },
   {
@@ -6132,6 +6429,18 @@
   {
     "sellmultiplier": "1000",
     "buymultiplier": "600",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
     "delta": "1",
     "smw": "No",
     "template": "storetablehead"
@@ -6180,6 +6489,12 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
     "template": "storetablehead"
   },
   {
@@ -7094,6 +7409,12 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "550",
+    "delta": "10",
     "template": "storetablehead"
   },
   {

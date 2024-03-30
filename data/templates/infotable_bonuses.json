@@ -20,6 +20,16 @@
   },
   {
     "list": [
+      "3rd age full helmet",
+      "3rd age platebody",
+      "3rd age plateskirt",
+      "3rd age kiteshield"
+    ],
+    "itemwidth": "150px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "3rd age longsword"
     ],
     "noheader": "yes",
@@ -647,7 +657,7 @@
       "Zaryte vambraces",
       "Zaryte crossbow",
       "Necklace of anguish",
-      "Ava's assembler#Normal",
+      "Blessed dizana's quiver#Normal",
       "Pegasian boots",
       "Venator ring",
       "Twisted buckler",
@@ -1140,7 +1150,8 @@
       "Staff of the dead",
       "Staff of light",
       "Staff of balance",
-      "Toxic staff of the dead#Charged"
+      "Toxic staff of the dead#Charged",
+      "Blue moon spear"
     ],
     "sort": "amagic",
     "nototals": "yes",
@@ -1166,6 +1177,15 @@
       "Guthix bracers",
       "Guthix d'hide boots",
       "Guthix d'hide shield"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Blood_moon_helm#New",
+      "Blood_moon_chestplate#New",
+      "Blood_moon_tassets#New",
+      "Dual macuahuitl"
     ],
     "template": "infotable bonuses"
   },
@@ -1216,6 +1236,15 @@
       "Blue wizard hat (g)",
       "Blue wizard robe (g)",
       "Blue skirt (g)"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Blue moon helm#New",
+      "Blue moon chestplate#New",
+      "Blue moon tassets#New",
+      "Blue moon spear"
     ],
     "template": "infotable bonuses"
   },
@@ -1546,7 +1575,8 @@
       "Karil's crossbow#Undamaged",
       "Dragon hunter crossbow",
       "Armadyl crossbow",
-      "Zaryte crossbow"
+      "Zaryte crossbow",
+      "Hunters' sunlight crossbow"
     ],
     "sort": "arange",
     "nototals": "yes",
@@ -1843,19 +1873,17 @@
   {
     "list": [
       "Dragon full helm (g)",
+      "Dragon chainbody (g)",
       "Dragon platebody (g)",
       "Dragon platelegs (g)",
-      "Dragon kiteshield (g)"
-    ],
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
-      "Dragon full helm (g)",
-      "Dragon platebody (g)",
       "Dragon plateskirt (g)",
-      "Dragon kiteshield (g)"
+      "Dragon boots (g)",
+      "Dragon sq shield (g)",
+      "Dragon kiteshield (g)",
+      "Dragon scimitar (or)",
+      "Dragon defender (t)#Normal"
     ],
+    "nototals": "yes",
     "template": "infotable bonuses"
   },
   {
@@ -1872,6 +1900,15 @@
     "list": [
       "Druid's robe top",
       "Druid's robe"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Eclipse moon helm#New",
+      "Eclipse moon chestplate#New",
+      "Eclipse moon tassets#New",
+      "Eclipse atlatl"
     ],
     "template": "infotable bonuses"
   },
@@ -2000,7 +2037,8 @@
       "Bryophyta's staff#Charged",
       "Phoenix crossbow",
       "Skull sceptre (i)",
-      "Willow comp bow"
+      "Willow comp bow",
+      "Cursed goblin hammer"
     ],
     "comment1": "Provides unlimited supplies of air runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting air combat spells.",
     "comment2": "Provides unlimited supplies of water runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting water combat spells.",
@@ -2010,6 +2048,7 @@
     "comment6": "Along with the regular crossbow, it is one of the only one-handed ranged weapon available in the free-to-play worlds. Allows to shoot bronze bolts with +10 ranged strength at 6-tick speed (3.6 seconds per attack), which goes down to 5 ticks on rapid (3 seconds). While this is a slow and relatively weak weapon, it is sometimes used by tanks due to its long range and the ability to use a shield. Note: regular crossbow provides the same bonuses, but weights slightly more (around 8 kg).",
     "comment7": "Allows to teleport to the Barbarian Village from most locations including the Wilderness up to the 20 level. It also allows to autocast the Crumble Undead spell. While not particularly useful in PvP, it can be used to train magic as it gives more experience per cast than Fire Bolt with a similar runes cost.",
     "comment8": "The only composite bow available in the free-to-play worlds. Shoots arrows up to mithril with +22 ranged strength at 4-tick speed (2.4 seconds per shot) on rapid attack style, which allows to attack slightly faster than with the longbows. Notable for its high range comparable to combat spells and exceeding crossbow and shortbows even with the longrange attack style.",
+    "comment9": "This 4-tick melee weapon has an accuracy penalty of -100, which makes it always hit a 0 on its target. As such, it might be useful for so-called boxing, or locking with an opponent in combat in 1-vs-1 areas to prevent from being attacked.",
     "template": "infotable bonuses"
   },
   {
@@ -3002,7 +3041,13 @@
       "Green d'hide shield",
       "Blue d'hide shield",
       "Red d'hide shield",
-      "Black d'hide shield"
+      "Black d'hide shield",
+      "Ancient d'hide shield",
+      "Armadyl d'hide shield",
+      "Bandos d'hide shield",
+      "Guthix d'hide shield",
+      "Saradomin d'hide shield",
+      "Zamorak d'hide shield"
     ],
     "sort": "dslash",
     "nototals": "yes",
@@ -3330,6 +3375,15 @@
       "Mithril platebody (t)",
       "Mithril plateskirt (t)",
       "Mithril kiteshield (t)"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Mixed hide top",
+      "Mixed hide legs",
+      "Mixed hide boots",
+      "Mixed hide cape"
     ],
     "template": "infotable bonuses"
   },
@@ -4083,7 +4137,8 @@
       "Swamp lizard",
       "Orange salamander",
       "Red salamander",
-      "Black salamander"
+      "Black salamander",
+      "Tecu salamander"
     ],
     "sort": "aslash",
     "nototals": "yes",
@@ -4758,6 +4813,14 @@
   },
   {
     "list": [
+      "Sunfire fanatic helm",
+      "Sunfire fanatic cuirass",
+      "Sunfire fanatic chausses"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Swampbark helm",
       "Swampbark body",
       "Swampbark legs",
@@ -5074,6 +5137,14 @@
       "Guthix crozier"
     ],
     "itemwidth": "120px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Virtus mask",
+      "Virtus robe top",
+      "Virtus robe bottom"
+    ],
     "template": "infotable bonuses"
   },
   {
