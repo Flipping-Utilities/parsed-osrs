@@ -268,8 +268,9 @@
     ],
     "members": true,
     "skills": [],
-    "ticks": null,
-    "toolIds": []
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "the Overseer"
   },
   {
     "inputs": [
@@ -405,6 +406,66 @@
     "outputs": [
       {
         "id": 26482,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10499,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13337,
+        "quantity": 1
+      },
+      {
+        "id": 13338,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10499,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13338,
+        "quantity": 1
+      },
+      {
+        "id": 13337,
         "quantity": 1
       }
     ],
@@ -5945,6 +6006,66 @@
   {
     "inputs": [
       {
+        "id": 13124,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20760,
+        "quantity": 1
+      },
+      {
+        "id": 20764,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 13124,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 20764,
+        "quantity": 1
+      },
+      {
+        "id": 20760,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 563,
         "quantity": 2
       },
@@ -6625,6 +6746,66 @@
     "ticks": 0,
     "toolIds": [],
     "notes": "Recipe for Disaster/Freeing the Mountain Dwarf"
+  },
+  {
+    "inputs": [
+      {
+        "id": 22109,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21898,
+        "quantity": 1
+      },
+      {
+        "id": 21900,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 22109,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21900,
+        "quantity": 1
+      },
+      {
+        "id": 21898,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -8514,6 +8695,28 @@
   {
     "inputs": [
       {
+        "id": 29251,
+        "quantity": 1
+      },
+      {
+        "id": 1519,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29271,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 5933,
         "quantity": 6
       }
@@ -10373,6 +10576,276 @@
   {
     "inputs": [
       {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Raw Wild Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Larupia"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Barb-tailed Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Graahk"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Kyatt"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Pyre fox"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Sunlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Dashing Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10014,
+        "quantity": 1
+      },
+      {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29189,
+        "quantity": 1,
+        "subText": "Moonlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 25859,
         "quantity": 1
       },
@@ -12157,6 +12630,232 @@
   {
     "inputs": [
       {
+        "id": 530,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29346,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 534,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29352,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 28899,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29354,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 532,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29348,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29344,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29381,
+        "quantity": 4
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Crafting",
+        "xp": 5
+      }
+    ],
+    "ticks": 0,
+    "ticksNote": "Auto-crushing blessed bones is 0, then 4 ticks.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29338,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29381,
+        "quantity": 125
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Crafting",
+        "xp": 5
+      }
+    ],
+    "ticks": 0,
+    "ticksNote": "Auto-crushing blessed bones is 0, then 4 ticks.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 526,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29344,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 28951,
+        "quantity": 1
+      },
+      {
+        "id": 28924,
+        "quantity": 150000
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28955,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 536,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29356,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 22783,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29366,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 4830,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29370,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 721,
         "quantity": 1
       }
@@ -12179,6 +12878,82 @@
     "ticks": null,
     "toolIds": [],
     "notes": "Legends' Quest"
+  },
+  {
+    "inputs": [
+      {
+        "id": 22786,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29368,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 11943,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29358,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 4834,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29374,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 4832,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29372,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
   },
   {
     "inputs": [
@@ -12212,6 +12987,25 @@
   {
     "inputs": [
       {
+        "id": 22124,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29362,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 2953,
         "quantity": 1
       }
@@ -12227,6 +13021,63 @@
     "ticks": 0,
     "toolIds": [],
     "notes": "Priest in Peril"
+  },
+  {
+    "inputs": [
+      {
+        "id": 22780,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29364,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6812,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29360,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 4812,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29350,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
   },
   {
     "inputs": [
@@ -12324,7 +13175,7 @@
     ],
     "outputs": [
       {
-        "id": 0,
+        "id": 28260,
         "quantity": 1
       }
     ],
@@ -16712,32 +17563,6 @@
     "ticks": 1,
     "toolIds": [],
     "notes": "Client of Kourend"
-  },
-  {
-    "inputs": [
-      {
-        "id": 28813,
-        "quantity": 1
-      }
-    ],
-    "outputs": [
-      {
-        "id": 28810,
-        "quantity": 1
-      }
-    ],
-    "members": true,
-    "skills": [
-      {
-        "boostable": true,
-        "lvl": 70,
-        "name": "Smithing",
-        "xp": 500
-      }
-    ],
-    "ticks": null,
-    "toolIds": [],
-    "notes": "Defender of Varrock"
   },
   {
     "inputs": [
@@ -22760,6 +23585,45 @@
   {
     "inputs": [
       {
+        "id": 563,
+        "quantity": 2
+      },
+      {
+        "id": 554,
+        "quantity": 1
+      },
+      {
+        "id": 557,
+        "quantity": 1
+      },
+      {
+        "id": 1761,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Civitas illa fortis teleport"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 54,
+        "name": "Magic",
+        "xp": 64
+      }
+    ],
+    "ticks": 4,
+    "toolIds": [],
+    "notes": "Twilight's Promise"
+  },
+  {
+    "inputs": [
+      {
         "id": 950,
         "quantity": 1
       },
@@ -23305,6 +24169,81 @@
   {
     "inputs": [
       {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29131,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 32,
+        "name": "Cooking",
+        "xp": 106
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29131,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 32,
+        "name": "Cooking",
+        "xp": 106
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29216,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29217,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 30,
+        "name": "Cooking",
+        "xp": 45
+      }
+    ],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 2138,
         "quantity": 1
       }
@@ -23470,6 +24409,31 @@
   {
     "inputs": [
       {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29134,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 82,
+        "name": "Cooking",
+        "xp": 215
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 7529,
         "quantity": 1
       }
@@ -23491,6 +24455,31 @@
     ],
     "ticks": 4,
     "ticksNote": "Make-X is 0t, 3t, then 4t",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29149,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 41,
+        "name": "Cooking",
+        "xp": 124
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -23546,6 +24535,56 @@
     "ticks": 4,
     "toolIds": [],
     "notes": "Tai Bwo Wannai Trio"
+  },
+  {
+    "inputs": [
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29152,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 51,
+        "name": "Cooking",
+        "xp": 143
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29146,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 31,
+        "name": "Cooking",
+        "xp": 92
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -23711,6 +24750,56 @@
   {
     "inputs": [
       {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29143,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 92,
+        "name": "Cooking",
+        "xp": 220
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29076,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29077,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 30,
+        "name": "Cooking",
+        "xp": 60
+      }
+    ],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 24782,
         "quantity": 1
       }
@@ -23758,6 +24847,31 @@
     ],
     "ticks": 2,
     "ticksNote": "Increases to 4 with the use of the Make-X functionality.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29137,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 59,
+        "name": "Cooking",
+        "xp": 154
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -23815,6 +24929,31 @@
   {
     "inputs": [
       {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29140,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 68,
+        "name": "Cooking",
+        "xp": 175
+      }
+    ],
+    "ticks": 4,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 5986,
         "quantity": 1
       }
@@ -23836,6 +24975,31 @@
     ],
     "ticks": 1,
     "ticksNote": "Make-X is 1, then 3, then 4 ticks",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29128,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 23,
+        "name": "Cooking",
+        "xp": 73
+      }
+    ],
+    "ticks": 4,
     "toolIds": []
   },
   {
@@ -28231,6 +29395,26 @@
   {
     "inputs": [
       {
+        "id": 0,
+        "quantity": 1,
+        "text": "Crystal"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1,
+        "text": "Crystal dust"
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 23866,
         "quantity": 10
       }
@@ -32233,6 +33417,25 @@
       {
         "id": 6729,
         "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All bones are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6729,
+        "quantity": 1
       },
       {
         "id": 1931,
@@ -34304,6 +35507,66 @@
       }
     ],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 28955,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28902,
+        "quantity": 1
+      },
+      {
+        "id": 28904,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 28955,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28904,
+        "quantity": 1
+      },
+      {
+        "id": 28902,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
     "toolIds": []
   },
   {
@@ -37583,6 +38846,29 @@
   {
     "inputs": [
       {
+        "id": 4622,
+        "quantity": 1
+      },
+      {
+        "id": 2112,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 7514,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": [],
+    "notes": "Freeing the Goblin generals"
+  },
+  {
+    "inputs": [
+      {
         "id": 13572,
         "quantity": 1
       },
@@ -38258,6 +39544,35 @@
       }
     ],
     "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 227,
+        "quantity": 1
+      },
+      {
+        "id": 23798,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 23800,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 70,
+        "name": "Herblore",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -40212,6 +41527,32 @@
   {
     "inputs": [
       {
+        "id": 29271,
+        "quantity": 1
+      },
+      {
+        "id": 29253,
+        "quantity": 1
+      },
+      {
+        "id": 1515,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29273,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 7980,
         "quantity": 1
       }
@@ -41089,6 +42430,66 @@
   {
     "inputs": [
       {
+        "id": 6570,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13329,
+        "quantity": 1
+      },
+      {
+        "id": 13330,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 6570,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13330,
+        "quantity": 1
+      },
+      {
+        "id": 13329,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 567,
         "quantity": 1
       },
@@ -41945,7 +43346,7 @@
   {
     "inputs": [
       {
-        "id": 325,
+        "id": 365,
         "quantity": 1
       },
       {
@@ -41956,7 +43357,7 @@
     "outputs": [
       {
         "id": 28157,
-        "quantity": 10,
+        "quantity": 20,
         "subText": "Yew leaves"
       }
     ],
@@ -42584,7 +43985,8 @@
     "inputs": [
       {
         "id": 28134,
-        "quantity": 15000
+        "quantity": 15000,
+        "notes": "Secateurs attachment"
       },
       {
         "id": 1521,
@@ -46758,6 +48160,66 @@
   {
     "inputs": [
       {
+        "id": 2413,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13335,
+        "quantity": 1
+      },
+      {
+        "id": 13336,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 2413,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13336,
+        "quantity": 1
+      },
+      {
+        "id": 13335,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 251,
         "quantity": 1
       },
@@ -48999,6 +50461,68 @@
   {
     "inputs": [
       {
+        "id": 6333,
+        "quantity": 1
+      },
+      {
+        "id": 29166,
+        "quantity": 5
+      },
+      {
+        "id": 29311,
+        "quantity": 5
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29305,
+        "quantity": 5
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 60,
+        "name": "Fletching",
+        "xp": 9.5
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29168,
+        "quantity": 1
+      },
+      {
+        "id": 10156,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28869,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 74,
+        "name": "Fletching",
+        "xp": 0
+      }
+    ],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 10002,
         "quantity": 1
       },
@@ -49215,6 +50739,126 @@
   {
     "inputs": [
       {
+        "id": 21793,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21784,
+        "quantity": 1
+      },
+      {
+        "id": 21786,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21793,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21786,
+        "quantity": 1
+      },
+      {
+        "id": 21784,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 23607,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21776,
+        "quantity": 1
+      },
+      {
+        "id": 21778,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 23607,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21778,
+        "quantity": 1
+      },
+      {
+        "id": 21776,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 23906,
         "quantity": 1
       }
@@ -49235,6 +50879,66 @@
       }
     ],
     "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 23605,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21780,
+        "quantity": 1
+      },
+      {
+        "id": 21782,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 23605,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21782,
+        "quantity": 1
+      },
+      {
+        "id": 21780,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
     "toolIds": []
   },
   {
@@ -49995,6 +51699,66 @@
   {
     "inputs": [
       {
+        "id": 21295,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21285,
+        "quantity": 1
+      },
+      {
+        "id": 21282,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21295,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 21282,
+        "quantity": 1
+      },
+      {
+        "id": 21285,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 11920,
         "quantity": 1
       },
@@ -50164,6 +51928,35 @@
       }
     ],
     "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1939,
+        "quantity": 15
+      },
+      {
+        "id": 259,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28837,
+        "quantity": 15
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 55,
+        "name": "Herblore",
+        "xp": 85
+      }
+    ],
+    "ticks": 3,
     "toolIds": []
   },
   {
@@ -52080,6 +53873,67 @@
   {
     "inputs": [
       {
+        "id": 29382,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29384,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All jugs of wine are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 1993,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29386,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "All jugs of wine are blessed at once.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 28924,
+        "quantity": 2
+      },
+      {
+        "id": 1993,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29382,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "Auto-crushing blessed bones is 0, then 4 ticks.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 1935,
         "quantity": 1
       }
@@ -52531,7 +54385,7 @@
     "outputs": [
       {
         "id": 10158,
-        "quantity": 6
+        "quantity": 12
       }
     ],
     "members": true,
@@ -53420,6 +55274,72 @@
       "SCP",
       "Bone Voyage"
     ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 29301,
+        "quantity": 1
+      },
+      {
+        "id": 10103,
+        "quantity": 3
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29303,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 65,
+        "name": "Crafting",
+        "xp": 60
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29295,
+        "quantity": 1
+      },
+      {
+        "id": 29177,
+        "quantity": 3
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29297,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 65,
+        "name": "Crafting",
+        "xp": 60
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -54933,7 +56853,7 @@
     "outputs": [
       {
         "id": 10159,
-        "quantity": 6
+        "quantity": 12
       }
     ],
     "members": true,
@@ -57132,6 +59052,32 @@
   {
     "inputs": [
       {
+        "id": 29166,
+        "quantity": 1
+      },
+      {
+        "id": 28978,
+        "quantity": 1
+      },
+      {
+        "id": 28979,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28980,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 11931,
         "quantity": 1
       },
@@ -57795,6 +59741,10 @@
   {
     "inputs": [
       {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
         "id": 13280,
         "quantity": 1
       },
@@ -57804,6 +59754,70 @@
       }
     ],
     "outputs": [
+      {
+        "id": 27363,
+        "quantity": 1
+      },
+      {
+        "id": 27366,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 21900,
+        "quantity": 1
+      },
+      {
+        "id": 21898,
+        "quantity": 1
+      },
+      {
+        "id": 27372,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27363,
+        "quantity": 1
+      },
+      {
+        "id": 27366,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      },
+      {
+        "id": 27374,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 27366,
+        "quantity": 1
+      },
       {
         "id": 27363,
         "quantity": 1
@@ -57817,6 +59831,10 @@
   {
     "inputs": [
       {
+        "id": 21900,
+        "quantity": 1
+      },
+      {
         "id": 21898,
         "quantity": 1
       },
@@ -57826,6 +59844,10 @@
       }
     ],
     "outputs": [
+      {
+        "id": 27366,
+        "quantity": 1
+      },
       {
         "id": 27363,
         "quantity": 1
@@ -58347,6 +60369,39 @@
       "SCP",
       "Bone Voyage"
     ]
+  },
+  {
+    "inputs": [
+      {
+        "id": 29299,
+        "quantity": 1
+      },
+      {
+        "id": 10099,
+        "quantity": 3
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29301,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 50,
+        "name": "Crafting",
+        "xp": 40
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -60781,6 +62836,138 @@
   {
     "inputs": [
       {
+        "id": 29292,
+        "quantity": 1
+      },
+      {
+        "id": 29177,
+        "quantity": 1
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29286,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 69,
+        "name": "Crafting",
+        "xp": 75
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29292,
+        "quantity": 1
+      },
+      {
+        "id": 29218,
+        "quantity": 1
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29289,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 68,
+        "name": "Crafting",
+        "xp": 62
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29292,
+        "quantity": 1
+      },
+      {
+        "id": 29163,
+        "quantity": 3
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29283,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 71,
+        "name": "Crafting",
+        "xp": 210
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29292,
+        "quantity": 1
+      },
+      {
+        "id": 29177,
+        "quantity": 2
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29280,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 72,
+        "name": "Crafting",
+        "xp": 150
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 2114,
         "quantity": 2
       },
@@ -61557,6 +63744,50 @@
   {
     "inputs": [
       {
+        "id": 29171,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28878,
+        "quantity": 12
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 72,
+        "name": "Fletching",
+        "xp": 12
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29078,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29079,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "ticksNote": "Players can crush multiple grubs at once, depending on their Herblore level.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 1929,
         "quantity": 2
       },
@@ -61716,6 +63947,305 @@
       }
     ],
     "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Raw Wild Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Larupia"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Barb-tailed Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Graahk"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Kyatt"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Pyre fox"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Sunlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Dashing Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29195,
+        "quantity": 1,
+        "subText": "Moonlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 227,
+        "quantity": 1
+      },
+      {
+        "id": 29079,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29080,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 38,
+        "name": "Herblore",
+        "xp": 0
+      }
+    ],
+    "ticks": 2,
     "toolIds": []
   },
   {
@@ -63570,6 +66100,66 @@
   {
     "inputs": [
       {
+        "id": 22114,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24855,
+        "quantity": 1
+      },
+      {
+        "id": 24857,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 22114,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 24857,
+        "quantity": 1
+      },
+      {
+        "id": 24855,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 28446,
         "quantity": 1
       },
@@ -64403,7 +66993,7 @@
         "boostable": true,
         "lvl": 30,
         "name": "Construction",
-        "xp": 120
+        "xp": 210
       }
     ],
     "ticks": 5,
@@ -68576,6 +71166,32 @@
       }
     ],
     "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29273,
+        "quantity": 1
+      },
+      {
+        "id": 29256,
+        "quantity": 1
+      },
+      {
+        "id": 19669,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29275,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
     "toolIds": []
   },
   {
@@ -75314,6 +77930,276 @@
   {
     "inputs": [
       {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Raw Wild Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Larupia"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Barb-tailed Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Graahk"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Kyatt"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Pyre fox"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Sunlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Dashing Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10020,
+        "quantity": 1
+      },
+      {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29186,
+        "quantity": 1,
+        "subText": "Moonlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 1603,
         "quantity": 1
       },
@@ -79554,6 +82440,276 @@
   {
     "inputs": [
       {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Raw Wild Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Larupia"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Barb-tailed Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Graahk"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Kyatt"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Pyre fox"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Sunlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Dashing Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10018,
+        "quantity": 1
+      },
+      {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29180,
+        "quantity": 1,
+        "subText": "Moonlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 4544,
         "quantity": 1
       },
@@ -79728,6 +82884,66 @@
     "members": true,
     "skills": [],
     "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 2412,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13331,
+        "quantity": 1
+      },
+      {
+        "id": 13332,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 2412,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13332,
+        "quantity": 1
+      },
+      {
+        "id": 13331,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
     "toolIds": []
   },
   {
@@ -79958,6 +83174,28 @@
     ],
     "ticks": 1,
     "ticksNote": "Increases to 4 when using the Make-X functionality.",
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 20718,
+        "quantity": 1
+      },
+      {
+        "id": 28929,
+        "quantity": 100
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28931,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
     "toolIds": []
   },
   {
@@ -84496,6 +87734,64 @@
   {
     "inputs": [
       {
+        "id": 10095,
+        "quantity": 4
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29299,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 20
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29163,
+        "quantity": 4
+      },
+      {
+        "id": 1734,
+        "quantity": 0.2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29295,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 35,
+        "name": "Crafting",
+        "xp": 30
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 3179,
         "quantity": 1,
         "cost": 0
@@ -85626,6 +88922,276 @@
       }
     ],
     "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Raw Wild Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Larupia"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Barb-tailed Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Graahk"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Kyatt"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Pyre fox"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Sunlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Dashing Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 10016,
+        "quantity": 1
+      },
+      {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29183,
+        "quantity": 1,
+        "subText": "Moonlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
     "toolIds": []
   },
   {
@@ -91525,6 +95091,367 @@
   {
     "inputs": [
       {
+        "id": 7936,
+        "quantity": 1
+      },
+      {
+        "id": 28924,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28929,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 33,
+        "name": "Runecraft",
+        "xp": 4.5
+      }
+    ],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 24704,
+        "quantity": 1
+      },
+      {
+        "id": 28924,
+        "quantity": 1
+      },
+      {
+        "id": 554,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28929,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 33,
+        "name": "Runecraft",
+        "xp": null
+      }
+    ],
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 29168,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28872,
+        "quantity": 12
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 62,
+        "name": "Fletching",
+        "xp": 10
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29104,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Raw Wild Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29122,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Larupia"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29101,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Barb-tailed Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29119,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Graahk"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29125,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Kyatt"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29110,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Pyre fox"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29116,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Sunlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29107,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Dashing Kebbit"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29113,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29192,
+        "quantity": 1,
+        "subText": "Moonlight Antelope"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 0
+      }
+    ],
+    "ticks": 3,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 21984,
         "quantity": 1
       },
@@ -94238,7 +98165,7 @@
         "boostable": true,
         "lvl": 48,
         "name": "Fletching",
-        "xp": 40
+        "xp": 39
       }
     ],
     "ticks": 2,
@@ -101875,6 +105802,66 @@
   {
     "inputs": [
       {
+        "id": 2414,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13333,
+        "quantity": 1
+      },
+      {
+        "id": 13334,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 2414,
+        "quantity": 1
+      },
+      {
+        "id": 13281,
+        "quantity": 1
+      },
+      {
+        "id": 13280,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 13334,
+        "quantity": 1
+      },
+      {
+        "id": 13333,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 191,
         "quantity": 1
       },
@@ -101994,7 +105981,7 @@
       },
       {
         "id": 26231,
-        "quantity": 1
+        "quantity": 250
       }
     ],
     "outputs": [
@@ -102224,8 +106211,7 @@
       }
     ],
     "ticks": 8,
-    "toolIds": [],
-    "notes": "Defender of Varrock"
+    "toolIds": []
   },
   {
     "inputs": [
@@ -108075,6 +112061,59 @@
     "inputs": [
       {
         "id": 20379,
+        "quantity": 1
+      }
+    ],
+    "skills": [],
+    "members": true,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "name": "Making Sunfire fanatic armour set",
+    "inputs": [
+      {
+        "id": 28933,
+        "quantity": 1
+      },
+      {
+        "id": 28936,
+        "quantity": 1
+      },
+      {
+        "id": 28939,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29424,
+        "quantity": 1
+      }
+    ],
+    "skills": [],
+    "members": true,
+    "ticks": 1,
+    "toolIds": []
+  },
+  {
+    "outputs": [
+      {
+        "id": 28933,
+        "quantity": 1
+      },
+      {
+        "id": 28936,
+        "quantity": 1
+      },
+      {
+        "id": 28939,
+        "quantity": 1
+      }
+    ],
+    "inputs": [
+      {
+        "id": 29424,
         "quantity": 1
       }
     ],

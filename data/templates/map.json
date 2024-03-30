@@ -314,6 +314,14 @@
     "template": "map"
   },
   {
+    "x": "3174",
+    "y": "3462",
+    "r": "4",
+    "mtype": "square",
+    "caption": "Event's start point",
+    "template": "map"
+  },
+  {
     "name": "50% Luke",
     "x": "2121",
     "y": "5096",
@@ -1427,6 +1435,23 @@
     "mapid": "1",
     "plane": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1594",
+    "y": "3103",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Agelus' Farm Shop",
+    "x": "1593",
+    "y": "3104",
+    "r": "3",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -2872,6 +2897,51 @@
     "template": "map"
   },
   {
+    "mtype": "pin",
+    "list": [
+      "x:1701,y:3085"
+    ],
+    "zoom": "3",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "list": [
+      "x:1569,y:3166"
+    ],
+    "zoom": "3",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "list": [
+      "x:1449,y:3171"
+    ],
+    "zoom": "3",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "list": [
+      "x:1734,y:2927"
+    ],
+    "zoom": "3",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "list": [
+      "x:1681,y:3031"
+    ],
+    "zoom": "3",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
     "name": "Altar",
     "mapid": "-1",
     "list": [
@@ -3656,6 +3726,16 @@
     "template": "map"
   },
   {
+    "name": "Ancient Icon",
+    "list": [
+      "2977,6412"
+    ],
+    "plane": "2",
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "x:2866,y:9680"
     ],
@@ -4130,6 +4210,14 @@
     "y": "3400",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Moons of Peril",
+    "zoom": "0",
+    "x": "1440",
+    "y": "9632",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -4623,6 +4711,30 @@
     "template": "map"
   },
   {
+    "name": "Anvil",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1446,y:9582",
+      "x:1446,y:9586"
+    ],
+    "mtype": "pin",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "name": "Anvil",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1778,y:3057",
+      "x:1778,y:3060"
+    ],
+    "mtype": "pin",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
     "name": "Rusted anvil",
     "desc": "Rusted anvil",
     "mapid": "0",
@@ -4741,7 +4853,8 @@
     "plane": "0",
     "mapid": "-1",
     "mtype": "polygon",
-    "smw": "yes",
+    "smw": "hist",
+    "caption": "Location before 2024 and on Classic mode",
     "template": "map"
   },
   {
@@ -5849,6 +5962,14 @@
     "template": "map"
   },
   {
+    "name": "Ardougne farm",
+    "x": "2650",
+    "y": "3366",
+    "r": "26",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Ardougne north bank",
     "x": "2617",
     "y": "3333",
@@ -6240,6 +6361,16 @@
     "template": "map"
   },
   {
+    "name": "Arnkel",
+    "x": "1506",
+    "y": "2986",
+    "r": "3",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Arno",
     "x": "1231",
     "y": "3729",
@@ -6407,6 +6538,23 @@
     "x": "3230",
     "y": "3238",
     "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1766",
+    "y": "3101",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Artima's Crafting Supplies",
+    "x": "1766",
+    "y": "3101",
+    "r": "4",
     "mtype": "square",
     "template": "map"
   },
@@ -6634,11 +6782,41 @@
     "template": "map"
   },
   {
+    "zoom": "1",
+    "mtype": "pin",
+    "caption": "Key locations: \nRed: Guild Hunter Fox and smooth leaves. \nYellow: Sticky leaves and embertailed jerboas. \nGreen: Atza",
+    "list": [
+      "1618,2979,icon:redPin,desc:Guild Hunter Fox/smooth leaves",
+      "1673,2992,icon:yellowPin,desc:Sticky leaves and jerboas",
+      "1697,3064,icon:greenPin,desc:Atza"
+    ],
+    "template": "map"
+  },
+  {
+    "zoom": "1",
+    "mtype": "pin",
+    "caption": "Key locations: \nRed: Guild Hunter Fox and smooth leaves. \nYellow: Sticky leaves and embertailed jerboas. \nGreen: Atza",
+    "list": [
+      "1618,2979,icon:redPin,desc:Guild Hunter Fox/smooth leaves",
+      "1673,2992,icon:yellowPin,desc:Sticky leaves and jerboas",
+      "1697,3064,icon:greenPin,desc:Atza"
+    ],
+    "template": "map"
+  },
+  {
     "name": "Atlas",
     "x": "3075",
     "y": "3439",
     "mtype": "pin",
     "mapid": "0",
+    "template": "map"
+  },
+  {
+    "name": "Atlazora's Rest",
+    "x": "1723",
+    "y": "3075",
+    "r": "5",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -6827,6 +7005,14 @@
     "template": "map"
   },
   {
+    "name": "Atza",
+    "x": "1697",
+    "y": "3064",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Aubury",
     "x": "3253",
     "y": "3402",
@@ -6884,6 +7070,15 @@
     "y": "3241",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1681",
+    "y": "3087",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -6982,6 +7177,15 @@
     "template": "map"
   },
   {
+    "x": "1631",
+    "y": "3126",
+    "r": "6",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Avan",
     "x": "3297",
     "y": "3280",
@@ -7022,6 +7226,23 @@
     "x": "2611",
     "y": "3287",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1741",
+    "y": "2960",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Avium Savannah",
+    "list": [
+      "1635,3010"
+    ],
+    "zoom": "0",
     "template": "map"
   },
   {
@@ -7310,6 +7531,14 @@
     "x": "2669",
     "y": "3310",
     "plane": "0",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Baker (Civitas illa Fortis)",
+    "x": "1688",
+    "y": "3110",
     "r": "3",
     "mtype": "square",
     "template": "map"
@@ -8510,6 +8739,12 @@
     "template": "map"
   },
   {
+    "x": "1546",
+    "y": "3038",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Bank chest (Void Knight Outpost)",
     "list": [
       "x:2669,y:2651"
@@ -8584,6 +8819,16 @@
     "template": "map"
   },
   {
+    "name": "Banker",
+    "mapid": "-1",
+    "x": "1747",
+    "y": "5478",
+    "squarex": "6",
+    "squarey": "4",
+    "mtype": "rectangle",
+    "template": "map"
+  },
+  {
     "name": "Banker (Darkmeyer)",
     "x": "3605",
     "y": "3367",
@@ -8631,6 +8876,15 @@
     "y": "3599",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1542",
+    "y": "3041",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -9113,6 +9367,33 @@
     "template": "map"
   },
   {
+    "x": "1510",
+    "y": "3107",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1512",
+    "y": "3104",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1508",
+    "y": "3103",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "2602,9864"
     ],
@@ -9473,6 +9754,13 @@
     "template": "map"
   },
   {
+    "name": "Bartender (Atlazora's Rest)",
+    "x": "1723",
+    "y": "3077",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Bartender (Blue Moon Inn)",
     "x": "3226",
     "y": "3399",
@@ -9556,6 +9844,23 @@
     "y": "2983",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Bartender (The Flaming Arrow)",
+    "x": "1711",
+    "y": "3116",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Bartender (The Lost Pickaxe)",
+    "x": "1429",
+    "y": "9585",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -9727,6 +10032,14 @@
     "template": "map"
   },
   {
+    "name": "Bazaar",
+    "x": "1680",
+    "y": "3106",
+    "height": "250",
+    "zoom": "2",
+    "template": "map"
+  },
+  {
     "list": [
       "x:2522,y:3595"
     ],
@@ -9820,6 +10133,12 @@
     ],
     "mapid": "10152",
     "plane": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1680",
+    "y": "2973",
     "mtype": "pin",
     "template": "map"
   },
@@ -10606,6 +10925,16 @@
     "template": "map"
   },
   {
+    "list": [
+      "1555,3170",
+      "x:1713,y:3086"
+    ],
+    "mtype": "pin",
+    "ptype": "object",
+    "caption": "Bird Bath Locations",
+    "template": "map"
+  },
+  {
     "mtype": "pin",
     "mapid": "-1",
     "plane": "2",
@@ -10895,6 +11224,25 @@
     "template": "map"
   },
   {
+    "name": "Blacksmith",
+    "x": "1658",
+    "y": "3140",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1448",
+    "y": "9585",
+    "r": "3",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Blade",
     "list": [
       "2761,9585",
@@ -11101,6 +11449,15 @@
     "template": "map"
   },
   {
+    "name": "Blood Mural",
+    "x": "1431",
+    "y": "9631",
+    "mtype": "pin",
+    "plane": "1",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "3692,3893",
       "3698,3891",
@@ -11261,6 +11618,15 @@
     "sqaurex": "5",
     "squarey": "10",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Blue Mural",
+    "x": "1439",
+    "y": "9641",
+    "mtype": "pin",
+    "plane": "1",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -13719,6 +14085,21 @@
     "template": "map"
   },
   {
+    "x": "1436",
+    "y": "3120",
+    "r": "2",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1440",
+    "y": "9632",
+    "r": "2",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Buneir",
     "x": "1572",
     "y": "3465",
@@ -14394,6 +14775,15 @@
     "template": "map"
   },
   {
+    "x": "1624",
+    "y": "3114",
+    "r": "25",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Caleb",
     "x": "2815",
     "y": "3453",
@@ -14410,11 +14800,62 @@
     "template": "map"
   },
   {
+    "x": "1509",
+    "y": "9539",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "3292,3849,desc:Entrance to Callisto's Den"
     ],
     "mtype": "pin",
     "caption": "Entrance to Callisto's Den",
+    "template": "map"
+  },
+  {
+    "x": "1439",
+    "y": "9565",
+    "plane": "1",
+    "zoom": "1",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Blacksmith (Cam Torum)",
+    "list": [
+      "1455,9580",
+      "1455,9589",
+      "1442,9589",
+      "1442,9580"
+    ],
+    "mtype": "polygon",
+    "mapid": "-1",
+    "zoom": "2",
+    "template": "map"
+  },
+  {
+    "name": "Cam Torum General Store",
+    "list": [
+      "1431,9552",
+      "1431,9560",
+      "1419,9560",
+      "1419,9552"
+    ],
+    "mtype": "polygon",
+    "mapid": "-1",
+    "zoom": "2",
+    "template": "map"
+  },
+  {
+    "x": "1508",
+    "y": "9541",
+    "r": "4",
+    "plane": "1",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -14534,6 +14975,14 @@
     "y": "10143",
     "mapid": "-1",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Moons of Peril",
+    "zoom": "0",
+    "x": "1440",
+    "y": "9632",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -14985,6 +15434,12 @@
     "r": "4",
     "mapid": "-1",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1694",
+    "y": "2976",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -18878,6 +19333,12 @@
     "template": "map"
   },
   {
+    "x": "1676",
+    "y": "2974",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "x:3269,y:4449"
     ],
@@ -18901,6 +19362,14 @@
     ],
     "mapid": "-1",
     "plane": "1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1648",
+    "y": "3142",
+    "plane": "2",
+    "mapid": "0",
     "mtype": "pin",
     "template": "map"
   },
@@ -19355,6 +19824,31 @@
     "plane": "0",
     "mapid": "-1",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Civitas illa Fortis",
+    "height": "240",
+    "list": [
+      "1725,3128"
+    ],
+    "zoom": "0",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1681,3133"
+    ],
+    "mtype": "square",
+    "r": "2",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1681,3133"
+    ],
+    "mtype": "square",
+    "r": "2",
     "template": "map"
   },
   {
@@ -20429,12 +20923,54 @@
     "template": "map"
   },
   {
+    "x": "3195",
+    "y": "3404",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "3109",
+    "y": "3160",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "3027",
+    "y": "3249",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "2952,3452"
     ],
     "mtype": "pin",
     "plane": "0",
     "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "3110",
+    "y": "3330",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "3152",
+    "y": "3408",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "2945",
+    "y": "3380",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "3085",
+    "y": "3252",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -20889,6 +21425,15 @@
   {
     "list": [
       "3054,3484"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1569,9460"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -21824,6 +22369,15 @@
   },
   {
     "list": [
+      "1712,3163"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "3209,3492"
     ],
     "mtype": "pin",
@@ -21834,6 +22388,15 @@
   {
     "list": [
       "2609,3116"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1557,3183"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -22184,6 +22747,15 @@
   },
   {
     "list": [
+      "1719,3723"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2922,3484"
     ],
     "mtype": "pin",
@@ -22207,14 +22779,6 @@
     "mtype": "pin",
     "plane": "0",
     "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "1719,3723"
-    ],
-    "mtype": "pin",
-    "plane": "0",
     "template": "map"
   },
   {
@@ -22255,10 +22819,29 @@
   },
   {
     "list": [
+      "1699,3087"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2150,3866"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3462,3557"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22276,6 +22859,7 @@
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22284,14 +22868,16 @@
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
     "list": [
-      "3462,3557"
+      "3182,3946"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22346,14 +22932,6 @@
     "mtype": "pin",
     "plane": "0",
     "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "3182,3946"
-    ],
-    "mtype": "pin",
-    "plane": "0",
     "template": "map"
   },
   {
@@ -22479,6 +23057,7 @@
     ],
     "mtype": "pin",
     "plane": "1",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22505,6 +23084,7 @@
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22531,14 +23111,6 @@
     ],
     "mtype": "pin",
     "plane": "0",
-    "template": "map"
-  },
-  {
-    "list": [
-      "2221,3091"
-    ],
-    "mtype": "pin",
-    "plane": "0",
     "mapid": "-1",
     "template": "map"
   },
@@ -22548,6 +23120,16 @@
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2221,3091"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22562,6 +23144,15 @@
   {
     "list": [
       "3410,3324"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2351,3801"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -22624,14 +23215,6 @@
   },
   {
     "list": [
-      "2351,3801"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "template": "map"
-  },
-  {
-    "list": [
       "2449,3130"
     ],
     "mtype": "pin",
@@ -22690,6 +23273,7 @@
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -22716,6 +23300,15 @@
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1432,9584"
+    ],
+    "mtype": "pin",
+    "plane": "1",
     "mapid": "-1",
     "template": "map"
   },
@@ -23280,6 +23873,15 @@
   },
   {
     "list": [
+      "1646,3012"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "3309,3503"
     ],
     "mtype": "pin",
@@ -23325,6 +23927,15 @@
   },
   {
     "list": [
+      "2783,3861"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "3407,3330"
     ],
     "mtype": "pin",
@@ -23352,6 +23963,15 @@
   },
   {
     "list": [
+      "3238,3220"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2329,3689"
     ],
     "mtype": "pin",
@@ -23361,10 +23981,20 @@
   },
   {
     "list": [
-      "2783,3861"
+      "1558,3046"
+    ],
+    "mtype": "pin",
+    "plane": "2",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2529,3162"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -23387,27 +24017,11 @@
   },
   {
     "list": [
-      "3238,3220"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "template": "map"
-  },
-  {
-    "list": [
       "2511,3641"
     ],
     "mtype": "pin",
     "plane": "2",
     "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "2529,3162"
-    ],
-    "mtype": "pin",
-    "plane": "0",
     "template": "map"
   },
   {
@@ -23430,10 +24044,20 @@
   },
   {
     "list": [
+      "3061,3377"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2395,3486"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -23474,15 +24098,25 @@
   },
   {
     "list": [
-      "3061,3377"
+      "3488,3289"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
     "list": [
-      "3488,3289"
+      "3728,3302"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3039,4835"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -23509,7 +24143,7 @@
   },
   {
     "list": [
-      "3294,2781"
+      "3230,3230"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -23518,15 +24152,25 @@
   },
   {
     "list": [
-      "3728,3302"
+      "3564,3288"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
     "list": [
-      "3039,4835"
+      "2913,10221"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3294,2781"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -23545,33 +24189,6 @@
   {
     "list": [
       "3195,3357"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "3230,3230"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "2913,10221"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "3564,3288"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -23787,15 +24404,6 @@
   },
   {
     "list": [
-      "2832,9586"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
       "2606,3211"
     ],
     "mtype": "pin",
@@ -23805,7 +24413,7 @@
   },
   {
     "list": [
-      "2576,3464"
+      "1688,3540"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -23814,7 +24422,16 @@
   },
   {
     "list": [
-      "1688,3540"
+      "2832,9586"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2576,3464"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -23958,6 +24575,15 @@
   },
   {
     "list": [
+      "3088,3253"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2914,3168"
     ],
     "mtype": "pin",
@@ -23977,15 +24603,6 @@
   {
     "list": [
       "3239,3611"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "3088,3253"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -24058,6 +24675,15 @@
   {
     "list": [
       "1934,4427"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2990,3384"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -24156,6 +24782,15 @@
   },
   {
     "list": [
+      "3079,9892"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2634,4682"
     ],
     "mtype": "pin",
@@ -24165,7 +24800,7 @@
   },
   {
     "list": [
-      "3079,9892"
+      "2802,2765"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -24193,15 +24828,6 @@
   {
     "list": [
       "3388,3152"
-    ],
-    "mtype": "pin",
-    "plane": "0",
-    "mapid": "-1",
-    "template": "map"
-  },
-  {
-    "list": [
-      "2802,2765"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -24541,6 +25167,15 @@
   },
   {
     "list": [
+      "1659,3111"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2585,3505"
     ],
     "mtype": "pin",
@@ -24757,6 +25392,15 @@
   {
     "list": [
       "3498,3507"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1802,9504"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -25107,10 +25751,11 @@
   },
   {
     "list": [
-      "3229,3227"
+      "3227,3227"
     ],
     "mtype": "pin",
     "plane": "0",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -25251,6 +25896,15 @@
   {
     "list": [
       "2760,3496"
+    ],
+    "mtype": "pin",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1742,2977"
     ],
     "mtype": "pin",
     "plane": "0",
@@ -25700,14 +26354,6 @@
   },
   {
     "list": [
-      "3112,3162"
-    ],
-    "mtype": "pin",
-    "plane": "1",
-    "template": "map"
-  },
-  {
-    "list": [
       "2432,3423"
     ],
     "mtype": "pin",
@@ -25729,7 +26375,7 @@
       "3112,3162"
     ],
     "mtype": "pin",
-    "plane": "0",
+    "plane": "1",
     "mapid": "-1",
     "template": "map"
   },
@@ -25813,6 +26459,24 @@
     "plane": "0",
     "r": "4",
     "mapid": "0",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1702",
+    "y": "3112",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Cobado",
+    "x": "1703",
+    "y": "3115",
+    "plane": "0",
+    "r": "5",
     "mtype": "square",
     "template": "map"
   },
@@ -25985,6 +26649,24 @@
   },
   {
     "list": [
+      "1640,2921"
+    ],
+    "plane": "0",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Colosseum scoreboard",
+    "x": "1804",
+    "y": "9513",
+    "plane": "0",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
       "2048,6400",
       "2112,6400",
       "2112,6336",
@@ -26128,6 +26810,24 @@
     "plane": "0",
     "mapid": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1437",
+    "y": "9560",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1437",
+    "y": "9560",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -27574,6 +28274,13 @@
     "template": "map"
   },
   {
+    "x": "1778",
+    "y": "3149",
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Crate (Underground Pass)",
     "list": [
       "2417, 9658"
@@ -28094,6 +28801,16 @@
   },
   {
     "list": [
+      "x:1660,y:3636,icon:yellowPin,title:24988"
+    ],
+    "width": "300",
+    "height": "225",
+    "mtype": "pin",
+    "group": "rotation",
+    "template": "map"
+  },
+  {
+    "list": [
       "x:3160,y:3299,icon:yellowPin,title:24988"
     ],
     "width": "300",
@@ -28305,6 +29022,15 @@
     "y": "9937",
     "plane": "0",
     "mapid": "10124",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Crushed barricade",
+    "list": [
+      "2456,3048",
+      "2456,3049"
+    ],
     "mtype": "pin",
     "template": "map"
   },
@@ -28578,6 +29304,15 @@
     "template": "map"
   },
   {
+    "x": "1434",
+    "y": "9585",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Culinaromancer's Chest",
     "x": "3219",
     "y": "9623",
@@ -28629,6 +29364,13 @@
     "y": "3336",
     "plane": "2",
     "r": "3",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Curator",
+    "x": "1712",
+    "y": "3163",
     "mtype": "pin",
     "template": "map"
   },
@@ -29115,6 +29857,15 @@
     "template": "map"
   },
   {
+    "x": "1587",
+    "y": "3120",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "x": "3159",
     "y": "5212",
     "plane": "0",
@@ -29430,10 +30181,10 @@
   {
     "mtype": "polygon",
     "list": [
-      "1663,3871",
+      "1664,3871",
       "1746,3871",
       "1746,3897",
-      "1663,3897"
+      "1664,3897"
     ],
     "caption": "The area in which reanimating any ensouled heads is possible.",
     "template": "map"
@@ -31143,47 +31894,7 @@
   {
     "type": "maplink",
     "x": "3222",
-    "y": "3472",
-    "mtype": "pin",
-    "desc": "Roald Remanis and Aeonisig Raispher",
-    "template": "map"
-  },
-  {
-    "type": "maplink",
-    "x": "3203",
-    "y": "3472",
-    "mtype": "pin",
-    "desc": "Enhtor Prysin",
-    "template": "map"
-  },
-  {
-    "type": "maplink",
-    "x": "3211",
-    "y": "3425",
-    "mtype": "pin",
-    "desc": "Romeo Gontamue",
-    "template": "map"
-  },
-  {
-    "type": "maplink",
-    "x": "3230",
-    "y": "3437",
-    "mtype": "pin",
-    "desc": "Horvik Ravitz",
-    "template": "map"
-  },
-  {
-    "type": "maplink",
-    "x": "3260",
-    "y": "3451",
-    "mtype": "pin",
-    "desc": "Haig Halen",
-    "template": "map"
-  },
-  {
-    "type": "maplink",
-    "x": "3222",
-    "y": "3472",
+    "y": "3471",
     "mtype": "pin",
     "desc": "Aeonisig Raispher",
     "template": "map"
@@ -32965,6 +33676,33 @@
     "template": "map"
   },
   {
+    "name": "Draynor farm",
+    "list": [
+      "3130,3286"
+    ],
+    "squarex": "48",
+    "squarey": "45",
+    "zoom": "2",
+    "mtype": "rectangle",
+    "template": "map"
+  },
+  {
+    "name": "Draynor island",
+    "x": "3082",
+    "y": "3206",
+    "zoom": "3",
+    "template": "map"
+  },
+  {
+    "name": "Draynor jail",
+    "x": "3125",
+    "y": "3244",
+    "height": "250",
+    "mtype": "square",
+    "zoom": "2",
+    "template": "map"
+  },
+  {
     "list": [
       "3108,3353",
       "3110,3353",
@@ -33239,6 +33977,15 @@
     "y": "3268",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1821",
+    "y": "9484",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -34078,6 +34825,13 @@
     "template": "map"
   },
   {
+    "x": "3174",
+    "y": "3462",
+    "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "EblisPre",
     "x": "3185",
     "y": "2983",
@@ -34093,6 +34847,15 @@
     "plane": "0",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Eclipse Mural",
+    "x": "1449",
+    "y": "9631",
+    "mtype": "pin",
+    "plane": "1",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -35508,6 +36271,13 @@
     "y": "5625",
     "mtype": "pin",
     "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1687",
+    "y": "3141",
+    "mapid": "0",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -36944,6 +37714,13 @@
     "mapid": "-1",
     "mtype": "polygon",
     "smw": "yes",
+    "template": "map"
+  },
+  {
+    "name": "The Teomat",
+    "x": "1436",
+    "y": "3144",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -38624,6 +39401,19 @@
     "plane": "0",
     "list": [
       "x:2700,y:3247"
+    ],
+    "mtype": "pin",
+    "height": "200",
+    "width": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Fairy ring (AJP)",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1651,y:3010"
     ],
     "mtype": "pin",
     "height": "200",
@@ -40598,7 +41388,6 @@
     "mapid": "0",
     "group": "nofire",
     "mtype": "polygon",
-    "caption": "likely to thwart any anti-LGBTQIA+ rioting efforts",
     "template": "map"
   },
   {
@@ -41066,6 +41855,15 @@
     "template": "map"
   },
   {
+    "name": "Fishing spot (Civitas illa Fortis)",
+    "x": "1738",
+    "y": "3101",
+    "mapid": "-1",
+    "r": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Fishing spot (ScapeRune)",
     "x": "2527",
     "y": "4777",
@@ -41385,6 +42183,23 @@
     "mapid": "-1",
     "plane": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1659",
+    "y": "3100",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Floria's Fashion",
+    "x": "1659",
+    "y": "3100",
+    "r": "3",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -42170,6 +42985,95 @@
     "template": "map"
   },
   {
+    "name": "Fortis Aqueduct",
+    "height": "400",
+    "list": [
+      "1558,3153"
+    ],
+    "zoom": "1",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Baker's Stall",
+    "x": "1687",
+    "y": "3112",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Blacksmith",
+    "x": "1658",
+    "y": "3140",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Colosseum",
+    "list": [
+      "1824,3107"
+    ],
+    "zoom": "2",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "name": "Fortis Colosseum entrance",
+    "x": "1825",
+    "y": "9506",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Cothon",
+    "height": "240",
+    "list": [
+      "1760,3158"
+    ],
+    "zoom": "1",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Fur Stall",
+    "x": "1675",
+    "y": "3112",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Gem Stall",
+    "x": "1675",
+    "y": "3101",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fortis General Store",
+    "x": "1669",
+    "y": "3122",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Silk Stall",
+    "x": "1677",
+    "y": "3114",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fortis Spice Stall.",
+    "x": "1686",
+    "y": "3101",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Fortunato",
     "x": "3085",
     "y": "3252",
@@ -42590,6 +43494,17 @@
     "y": "3769",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Fred's farm",
+    "list": [
+      "3193,3282"
+    ],
+    "squarex": "50",
+    "squarey": "52",
+    "zoom": "2",
+    "mtype": "rectangle",
     "template": "map"
   },
   {
@@ -43284,6 +44199,15 @@
     "template": "map"
   },
   {
+    "x": "1432",
+    "y": "9585",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Funch's Fine Groceries",
     "x": "2491",
     "y": "3489",
@@ -43394,6 +44318,15 @@
     "template": "map"
   },
   {
+    "x": "1674",
+    "y": "3111",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Fur trader (East Ardougne)",
     "x": "2665",
     "y": "3295",
@@ -43408,6 +44341,13 @@
     "y": "3675",
     "r": "5",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1686",
+    "y": "3142",
+    "mapid": "0",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -44677,6 +45617,13 @@
     "x": "1758",
     "y": "5479",
     "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1675",
+    "y": "3102",
+    "r": "2",
     "mtype": "square",
     "template": "map"
   },
@@ -46273,6 +47220,15 @@
     "template": "map"
   },
   {
+    "x": "1803",
+    "y": "9512",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Glough",
     "x": "2478",
     "y": "3463",
@@ -47491,6 +48447,16 @@
     "template": "map"
   },
   {
+    "x": "1439",
+    "y": "9567",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "zoom": "2",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Grand Exchange",
     "x": "3165",
     "y": "3490",
@@ -47583,6 +48549,14 @@
       "3232,12528"
     ],
     "mapid": "10183",
+    "template": "map"
+  },
+  {
+    "name": "Grand Museum",
+    "x": "1712",
+    "y": "3163",
+    "height": "250",
+    "zoom": "2",
     "template": "map"
   },
   {
@@ -48255,6 +49229,17 @@
     "template": "map"
   },
   {
+    "name": "Groats' farm",
+    "list": [
+      "3244,3292"
+    ],
+    "squarex": "50",
+    "squarey": "60",
+    "zoom": "2",
+    "mtype": "rectangle",
+    "template": "map"
+  },
+  {
     "list": [
       "3392,9728",
       "3392,9792",
@@ -48666,6 +49651,15 @@
     "template": "map"
   },
   {
+    "x": "1848",
+    "y": "9498",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Guard",
     "x": "3756",
     "y": "4320",
@@ -48879,6 +49873,15 @@
     "plane": "0",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1642",
+    "y": "9569",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -49116,6 +50119,69 @@
     "template": "map"
   },
   {
+    "x": "1559",
+    "y": "9452",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1559",
+    "y": "9459",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1552",
+    "y": "9460",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1559",
+    "y": "9460",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1561",
+    "y": "9454",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1554",
+    "y": "9462",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1559",
+    "y": "9464",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "2658,3438"
     ],
@@ -49129,6 +50195,24 @@
     "plane": "0",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1556",
+    "y": "3032",
+    "r": "3",
+    "plane": "1",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1554",
+    "y": "3033",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -49957,6 +51041,15 @@
     "template": "map"
   },
   {
+    "x": "1584",
+    "y": "3100",
+    "r": "9",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "1856,5312",
       "1856,5376",
@@ -50563,6 +51656,16 @@
     "mapid": "-1",
     "r": "2",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Helvia",
+    "x": "1681",
+    "y": "3172",
+    "r": "2",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -51820,12 +52923,38 @@
     "template": "map"
   },
   {
+    "x": "1437",
+    "y": "9551",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1437",
+    "y": "9551",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Hunding",
     "x": "3097",
     "y": "3429",
     "plane": "2",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Hunter Guild",
+    "list": [
+      "1559,3048"
+    ],
+    "zoom": "2",
     "template": "map"
   },
   {
@@ -51843,6 +52972,13 @@
     ],
     "mtype": "square",
     "r": "2",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1558,3046"
+    ],
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -51880,6 +53016,14 @@
     "y": "3829",
     "r": "2",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1556",
+    "y": "9464",
+    "r": "3",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -52550,6 +53694,23 @@
     "plane": "0",
     "r": "4",
     "mapid": "-1",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1561",
+    "y": "3060",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Imia's Supplies",
+    "x": "1562",
+    "y": "3060",
+    "r": "3",
     "mtype": "square",
     "template": "map"
   },
@@ -53580,6 +54741,15 @@
     "template": "map"
   },
   {
+    "x": "1522",
+    "y": "2985",
+    "r": "4",
+    "plane": "2",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Ingrid",
     "x": "2525",
     "y": "10264",
@@ -53720,6 +54890,27 @@
     "y": "3200",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2644,y:2640"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:2638,y:2648",
+      "x:2641,y:2648",
+      "x:2656,y:2615",
+      "x:2659,y:2615"
+    ],
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -54091,7 +55282,8 @@
     "plane": "0",
     "mapid": "-1",
     "mtype": "polygon",
-    "smw": "yes",
+    "smw": "hist",
+    "caption": "Location before 2024 and on Classic mode",
     "template": "map"
   },
   {
@@ -55176,6 +56368,15 @@
     "template": "map"
   },
   {
+    "x": "1713",
+    "y": "3104",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Julie",
     "x": "3281",
     "y": "3382",
@@ -55787,6 +56988,15 @@
     "r": "4",
     "mapid": "10143",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1429",
+    "y": "9585",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -57096,6 +58306,50 @@
     "template": "map"
   },
   {
+    "x": "1683",
+    "y": "3105",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1682",
+    "y": "3104",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1747",
+    "y": "3119",
+    "mapid": "0",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1722",
+    "y": "3074",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1721",
+    "y": "3075",
+    "mapid": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1804",
+    "y": "9522",
+    "mapid": "-1",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Knight of Varlamore",
     "x": "1608",
     "y": "3674",
@@ -57715,6 +58969,13 @@
     "plane": "0",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Kualti Headquarters",
+    "x": "1645",
+    "y": "3148",
+    "zoom": "3",
     "template": "map"
   },
   {
@@ -58915,6 +60176,15 @@
     "template": "map"
   },
   {
+    "x": "1672",
+    "y": "3099",
+    "r": "22",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "mtype": "pin",
     "x": "2463",
     "y": "4831",
@@ -59007,11 +60277,16 @@
     "template": "map"
   },
   {
+    "x": "1618",
+    "y": "2979",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "League Firsts Board",
-    "x": "2801",
-    "y": "3445",
-    "r": "2",
-    "mtype": "square",
+    "x": "3225",
+    "y": "3208",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -59563,6 +60838,15 @@
     "template": "map"
   },
   {
+    "x": "1680",
+    "y": "3107",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Leon",
     "x": "2567",
     "y": "3083",
@@ -59678,6 +60962,13 @@
     "x": "1619",
     "y": "4977",
     "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "The Teomat",
+    "x": "1458",
+    "y": "3188",
     "mtype": "pin",
     "template": "map"
   },
@@ -60915,6 +62206,33 @@
     "template": "map"
   },
   {
+    "name": "Hunter's Guild bank",
+    "x": "1542",
+    "y": "3040",
+    "mtype": "square",
+    "r": "3",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "name": "Fortis west bank",
+    "x": "1648",
+    "y": "3118",
+    "mtype": "square",
+    "r": "5",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "name": "Fortis east bank",
+    "x": "1780",
+    "y": "3096",
+    "mtype": "square",
+    "r": "5",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
     "name": "Peer the Seer",
     "x": "2634",
     "y": "3668",
@@ -60950,9 +62268,7 @@
   },
   {
     "name": "Mausoleum (Gravedigger)",
-    "list": [
-      "x:1927,y:5004"
-    ],
+    "x": "1927,y=5004",
     "plane": "0",
     "mapid": "-1",
     "mtype": "square",
@@ -61028,11 +62344,33 @@
     "template": "map"
   },
   {
+    "name": "Deposit Pool",
+    "x": "3609",
+    "y": "9487",
+    "plane": "0",
+    "mapid": "-1",
+    "mtype": "square",
+    "r": "1",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
     "1": "3546,5154",
     "name": "Deposit pot",
     "mapid": "-1",
     "mtype": "square",
     "r": "2",
+    "type": "maplink",
+    "template": "map"
+  },
+  {
+    "list": [
+      "",
+      "3308,12443"
+    ],
+    "name": "Deposit pot",
+    "mapid": "-1",
+    "mtype": "pin",
     "type": "maplink",
     "template": "map"
   },
@@ -61354,6 +62692,12 @@
     "template": "map"
   },
   {
+    "name": "Locus Oasis",
+    "x": "1685",
+    "y": "2986",
+    "template": "map"
+  },
+  {
     "name": "Lofu",
     "x": "2805",
     "y": "2782",
@@ -61582,6 +62926,15 @@
     "plane": "0",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1747",
+    "y": "3049",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -62449,6 +63802,15 @@
     "template": "map"
   },
   {
+    "x": "1664",
+    "y": "3090",
+    "r": "6",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "1792,5184",
       "1792,5213",
@@ -62625,6 +63987,15 @@
     "template": "map"
   },
   {
+    "name": "Graveyard",
+    "x": "3245",
+    "y": "3200",
+    "height": "350",
+    "width": "300",
+    "zoom": "3",
+    "template": "map"
+  },
+  {
     "name": "Lumbridge Guide",
     "x": "3238",
     "y": "3220",
@@ -62689,6 +64060,17 @@
     "width": "300",
     "height": "300",
     "zoom": "2",
+    "template": "map"
+  },
+  {
+    "name": "Lumbridge pasture",
+    "list": [
+      "3185,3330"
+    ],
+    "squarex": "66",
+    "squarey": "38",
+    "zoom": "2",
+    "mtype": "rectangle",
     "template": "map"
   },
   {
@@ -62757,6 +64139,15 @@
     "y": "3517",
     "r": "2",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1512",
+    "y": "9579",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -65666,6 +67057,24 @@
     "template": "map"
   },
   {
+    "x": "1742",
+    "y": "2977",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Metzli, Teokan of Ranul",
+    "x": "1699",
+    "y": "3087",
+    "plane": "0",
+    "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Mia",
     "x": "1498",
     "y": "3567",
@@ -66066,6 +67475,15 @@
     "template": "map"
   },
   {
+    "name": "Trahaearn mine",
+    "list": [
+      "3308,12443"
+    ],
+    "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "name": "Mine cart driver",
     "x": "3288",
     "y": "3023",
@@ -66303,6 +67721,15 @@
     "x": "2992",
     "y": "3843",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1805",
+    "y": "9508",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -67269,21 +68696,6 @@
   },
   {
     "list": [
-      "2752,2752",
-      "2752,2816",
-      "2816,2816",
-      "2816,2752"
-    ],
-    "plane": "0",
-    "height": "150",
-    "group": "1",
-    "mapid": "-1",
-    "mtype": "polygon",
-    "smw": "yes",
-    "template": "map"
-  },
-  {
-    "list": [
       "2048,5376",
       "2048,5440",
       "2112,5440",
@@ -67295,6 +68707,21 @@
     "mapid": "-1",
     "mtype": "polygon",
     "smw": "yes",
+    "template": "map"
+  },
+  {
+    "list": [
+      "2752,2752",
+      "2752,2816",
+      "2816,2816",
+      "2816,2752"
+    ],
+    "plane": "0",
+    "group": "2",
+    "mapid": "-1",
+    "mtype": "polygon",
+    "smw": "hist",
+    "caption": "Location before 2024 and on Classic mode",
     "template": "map"
   },
   {
@@ -69288,6 +70715,20 @@
     "template": "map"
   },
   {
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3214,y:2951",
+      "x:3211,y:2953",
+      "x:3211,y:2956",
+      "x:3214,y:2958",
+      "x:3217,y:2956",
+      "x:3217,y:2953"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "list": [
       "3008,6080",
       "3008,6144",
@@ -69405,6 +70846,15 @@
     "r": "4",
     "mapid": "10122",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1423",
+    "y": "9568",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -70749,6 +72199,27 @@
     "template": "map"
   },
   {
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2657,y:2636"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:2660,y:2644",
+      "x:2663,y:2644",
+      "x:2656,y:2615",
+      "x:2659,y:2615"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "mtype": "pin",
     "plane": "1",
     "mapid": "-1",
@@ -71643,6 +73114,15 @@
     "template": "map"
   },
   {
+    "x": "1653",
+    "y": "3103",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Olivia",
     "x": "3079",
     "y": "3250",
@@ -71972,6 +73452,12 @@
     "mapid": "12",
     "plane": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1700",
+    "y": "2990",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -72448,6 +73934,39 @@
     "template": "map"
   },
   {
+    "x": "1570",
+    "y": "9459",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1569",
+    "y": "9458",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Ortus Farm",
+    "x": "1569",
+    "y": "3126",
+    "template": "map"
+  },
+  {
+    "x": "1440",
+    "y": "3100",
+    "r": "30",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Oscar",
     "x": "3216",
     "y": "3406",
@@ -72666,6 +74185,20 @@
     "mapid": "-1",
     "mtype": "polygon",
     "smw": "yes",
+    "template": "map"
+  },
+  {
+    "name": "Outer Fortis",
+    "height": "200",
+    "x": "1704",
+    "y": "3065",
+    "zoom": "1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1720,3060"
+    ],
     "template": "map"
   },
   {
@@ -73701,6 +75234,24 @@
     "template": "map"
   },
   {
+    "x": "1565",
+    "y": "3034",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1565",
+    "y": "3034",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Pelters' Veg Stall",
     "x": "3228",
     "y": "3411",
@@ -74207,6 +75758,27 @@
     "template": "map"
   },
   {
+    "x": "1560",
+    "y": "2960",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Picaria's Fishing Shop",
+    "height": "240",
+    "list": [
+      "1560,2960"
+    ],
+    "zoom": "2",
+    "squarex": "7",
+    "squarey": "8",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "list": [
       "3712,5632",
       "3712,5696",
@@ -74235,6 +75807,26 @@
     ],
     "mapid": "-1",
     "plane": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2917,y:3145",
+      "x:2920,y:3147"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3018,y:3371",
+      "x:3021,y:3373"
+    ],
     "mtype": "pin",
     "template": "map"
   },
@@ -74355,6 +75947,12 @@
     ],
     "plane": "0",
     "mapid": "-1",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1697",
+    "y": "3063",
     "mtype": "pin",
     "template": "map"
   },
@@ -76433,6 +78031,20 @@
     "template": "map"
   },
   {
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2120,y:2933",
+      "x:2136,y:2901",
+      "x:2278,y:2922",
+      "x:2293,y:2888",
+      "x:2163,y:2897",
+      "x:2252,y:2924"
+    ],
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "mtype": "pin",
     "list": [
       "2561,3278"
@@ -76735,6 +78347,21 @@
     "r": "4",
     "mapid": "29",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3257,6111",
+      "3270,6116",
+      "3282,6138",
+      "3267,6147",
+      "3272,6157",
+      "3273,6171"
+    ],
+    "plane": "1",
+    "zoom": "2",
+    "mapid": "29",
+    "mtype": "pin",
     "template": "map"
   },
   {
@@ -77375,6 +79002,123 @@
     "template": "map"
   },
   {
+    "x": "1556",
+    "y": "3042",
+    "r": "4",
+    "plane": "2",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Civitas illa Fortis",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1700,y:3142"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "250",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Hunters' Guild",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1584,y:3055"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Sunset Coast",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1548,y:2997"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "The Teomat",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1437,y:3169"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Fortis Colosseum",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1776,y:3111"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Outer Fortis",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1703,y:3037"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Colossal Wyrm Remains",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1672,y:2933"
+    ],
+    "icon": "redPin",
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Cam Torum Entrance",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1448,y:3108"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
     "name": "Quidamortem Cave",
     "list": [
       "1184,9952"
@@ -77765,6 +79509,22 @@
     "plane": "0",
     "r": "3",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Ralos' Rise",
+    "height": "400",
+    "list": [
+      "1450,3140"
+    ],
+    "zoom": "1",
+    "template": "map"
+  },
+  {
+    "name": "Ralos' Rise mine",
+    "x": "1482",
+    "y": "3085",
+    "zoom": "2",
     "template": "map"
   },
   {
@@ -78639,6 +80399,20 @@
     "template": "map"
   },
   {
+    "x": "3282",
+    "y": "3413",
+    "r": "2",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1700",
+    "y": "3143",
+    "r": "2",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "name": "Reinald",
     "x": "2927",
     "y": "10226",
@@ -78663,6 +80437,15 @@
     "mapid": "11",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1521",
+    "y": "2983",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -79630,6 +81413,14 @@
     "template": "map"
   },
   {
+    "name": "River Ortus",
+    "list": [
+      "1550,3200"
+    ],
+    "zoom": "1",
+    "template": "map"
+  },
+  {
     "name": "River Salve",
     "x": "3403",
     "y": "3350",
@@ -79687,6 +81478,21 @@
     "x": "1794",
     "y": "3757",
     "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Wardrobe",
+    "x": "3099",
+    "y": "3373",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Betty",
+    "x": "3014",
+    "y": "3259",
+    "r": "3",
     "mtype": "square",
     "template": "map"
   },
@@ -80408,7 +82214,6 @@
       "x:2274,y:5351",
       "x:2267,y:5335"
     ],
-    "plane": "0",
     "mapid": "-1",
     "mtype": "pin",
     "template": "map"
@@ -81349,6 +83154,12 @@
     "template": "map"
   },
   {
+    "x": "1673",
+    "y": "2992",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
     "x": "3273",
     "y": "3195",
     "plane": "0",
@@ -81515,6 +83326,16 @@
   },
   {
     "list": [
+      "1609,2980",
+      "1845,3071",
+      "1481,3050"
+    ],
+    "plane": "0",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
       "3113,9691"
     ],
     "mapid": "12",
@@ -81612,6 +83433,14 @@
     "x": "3508",
     "y": "3495",
     "r": "4",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1632",
+    "y": "3096",
+    "r": "6",
+    "plane": "0",
     "mtype": "square",
     "template": "map"
   },
@@ -82565,6 +84394,15 @@
     ],
     "mtype": "pin",
     "version": "27433",
+    "template": "map"
+  },
+  {
+    "name": "Graveyard",
+    "x": "3434",
+    "y": "3461",
+    "height": "300",
+    "width": "300",
+    "zoom": "3",
     "template": "map"
   },
   {
@@ -84276,6 +86114,15 @@
     "template": "map"
   },
   {
+    "x": "1828",
+    "y": "9483",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Selena",
     "x": "2578",
     "y": "3103",
@@ -84602,6 +86449,15 @@
     ],
     "plane": "0",
     "mapid": "10047",
+    "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Sewage water",
+    "list": [
+      "3288,9867"
+    ],
+    "mapid": "-1",
     "mtype": "pin",
     "template": "map"
   },
@@ -86381,6 +88237,39 @@
   },
   {
     "type": "maplink",
+    "x": "1771",
+    "y": "3102",
+    "title": "Varlamore",
+    "desc": "Civitas illa Fortis",
+    "mtype": "pin",
+    "group": "Stars",
+    "icon": "redPin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "1742",
+    "y": "2954",
+    "title": "Varlamore",
+    "desc": "Stonecutter Outpost",
+    "mtype": "pin",
+    "group": "Stars",
+    "icon": "redPin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
+    "x": "1486",
+    "y": "3089",
+    "title": "Varlamore",
+    "desc": "Ralos' Rise mining site",
+    "mtype": "pin",
+    "group": "Stars",
+    "icon": "redPin",
+    "template": "map"
+  },
+  {
+    "type": "maplink",
     "x": "3108",
     "y": "3569",
     "title": "Wilderness",
@@ -86669,6 +88558,42 @@
     "template": "map"
   },
   {
+    "name": "Shopkeeper (Cam Torum)",
+    "x": "1427",
+    "y": "9555",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Shopkeeper (Civitas illa Fortis)",
+    "x": "1669",
+    "y": "3122",
+    "r": "3",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Shopkeeper (Outer Fortis)",
+    "x": "1721",
+    "y": "3065",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "Shopkeeper (Sunset Coast)",
+    "x": "1517",
+    "y": "2986",
+    "r": "3",
+    "plane": "0",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
     "list": [
       "x:2808,y:3059",
       "x:2813,y:3063",
@@ -86783,6 +88708,19 @@
     "y": "10276",
     "mtype": "pin",
     "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "list": [
+      "x:1701,y:3085",
+      "x:1569,y:3166",
+      "x:1449,y:3171",
+      "x:1734,y:2927",
+      "x:1681,y:3031"
+    ],
+    "mtype": "pin",
+    "ptype": "object",
+    "zoom": "-1",
     "template": "map"
   },
   {
@@ -87015,6 +88953,15 @@
     "r": "4",
     "mapid": "-1",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1676",
+    "y": "3113",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -90826,6 +92773,15 @@
     "template": "map"
   },
   {
+    "x": "1558",
+    "y": "3046",
+    "r": "9",
+    "plane": "2",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Soil",
     "list": [
       "3367,3397",
@@ -91350,6 +93306,15 @@
     "template": "map"
   },
   {
+    "x": "1452",
+    "y": "9556",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "mtype": "pin",
     "list": [
       "2225,3133"
@@ -91679,6 +93644,17 @@
     "template": "map"
   },
   {
+    "name": "South Varrock farm",
+    "list": [
+      "3239,3347"
+    ],
+    "squarex": "67",
+    "squarey": "26",
+    "zoom": "2",
+    "mtype": "rectangle",
+    "template": "map"
+  },
+  {
     "name": "South Wilderness mine",
     "x": "3105",
     "y": "3569",
@@ -91769,6 +93745,13 @@
   {
     "x": "1640",
     "y": "3673",
+    "mtype": "square",
+    "r": "3",
+    "template": "map"
+  },
+  {
+    "x": "1681",
+    "y": "3145",
     "mtype": "square",
     "r": "3",
     "template": "map"
@@ -91925,6 +93908,15 @@
     "template": "map"
   },
   {
+    "x": "1686",
+    "y": "3100",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Spice seller",
     "x": "2659",
     "y": "3297",
@@ -91975,6 +93967,27 @@
     "plane": "1",
     "mapid": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1774",
+    "y": "3059",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Spike's Spikes",
+    "height": "240",
+    "list": [
+      "1776,3059"
+    ],
+    "zoom": "2",
+    "squarex": "8",
+    "squarey": "6",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -92800,6 +94813,15 @@
     "template": "map"
   },
   {
+    "x": "1680",
+    "y": "3167",
+    "r": "3",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Squire (Veteran)",
     "x": "2639",
     "y": "2656",
@@ -93214,6 +95236,40 @@
     "template": "map"
   },
   {
+    "name": "Statue (Eclipse Moon)",
+    "x": "1410",
+    "y": "9631",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Statue (Eclipse Moon)",
+    "x": "1439",
+    "y": "9659",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1439",
+    "y": "9567",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "zoom": "2",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Statue (Eclipse Moon)",
+    "x": "1467",
+    "y": "9631",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Statue",
     "x": "3189",
     "y": "2925",
@@ -93394,6 +95450,28 @@
     "y": "3171",
     "mtype": "pin",
     "mapid": "0",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1797,3112",
+      "1799,3120",
+      "1799,3092",
+      "1809,3081",
+      "1819,3079",
+      "1829,3134",
+      "1839,3081",
+      "1843,3128",
+      "1843,3084"
+    ],
+    "mtype": "Pin",
+    "template": "map"
+  },
+  {
+    "list": [
+      "1659,3113"
+    ],
+    "mtype": "Pin",
     "template": "map"
   },
   {
@@ -94008,6 +96086,27 @@
     "template": "map"
   },
   {
+    "mtype": "pin",
+    "list": [
+      "1166,3325"
+    ],
+    "template": "map"
+  },
+  {
+    "mtype": "pin",
+    "list": [
+      "1343,3774",
+      "1336,3517",
+      "1865,3460",
+      "1748,4008"
+    ],
+    "caption": "Potential teleport destinations for the stone chest",
+    "width": "400",
+    "height": "400",
+    "group": "1",
+    "template": "map"
+  },
+  {
     "name": "Stone crusher",
     "x": "2846",
     "y": "10186",
@@ -94109,6 +96208,24 @@
     "plane": "1",
     "mapid": "-1",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "name": "Stonecutter Outpost",
+    "x": "1740",
+    "y": "2963",
+    "template": "map"
+  },
+  {
+    "name": "Stonecutter Supplies",
+    "height": "240",
+    "list": [
+      "1743,2977"
+    ],
+    "zoom": "2",
+    "squarex": "7",
+    "squarey": "6",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -95354,6 +97471,45 @@
     ],
     "mapid": "0",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "list": [
+      "3136,3456",
+      "3136,3520",
+      "3200,3520",
+      "3200,3456"
+    ],
+    "plane": "0",
+    "mapid": "-1",
+    "mtype": "polygon",
+    "template": "map"
+  },
+  {
+    "name": "Sunrise Palace",
+    "x": "1680",
+    "y": "3164",
+    "template": "map"
+  },
+  {
+    "name": "Sunset Coast",
+    "height": "240",
+    "list": [
+      "1514,2984"
+    ],
+    "zoom": "2",
+    "template": "map"
+  },
+  {
+    "name": "Sunset Coast General Store",
+    "height": "240",
+    "list": [
+      "1517,2985"
+    ],
+    "zoom": "2",
+    "squarex": "7",
+    "squarey": "8",
+    "mtype": "square",
     "template": "map"
   },
   {
@@ -97592,6 +99748,13 @@
     "template": "map"
   },
   {
+    "name": "The Burrow",
+    "x": "1558",
+    "y": "9445",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "2560,9694",
       "2584,9694",
@@ -98235,6 +100398,14 @@
     "plane": "1",
     "r": "5",
     "mapid": "-1",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "name": "The Flaming Arrow",
+    "x": "1714",
+    "y": "3116",
+    "r": "5",
     "mtype": "square",
     "template": "map"
   },
@@ -99557,6 +101728,19 @@
     "template": "map"
   },
   {
+    "name": "The Lost Pickaxe",
+    "list": [
+      "1437,9580",
+      "1437,9589",
+      "1424,9589",
+      "1424,9580"
+    ],
+    "mtype": "polygon",
+    "mapid": "-1",
+    "zoom": "2",
+    "template": "map"
+  },
+  {
     "mtype": "square",
     "r": "3",
     "list": [
@@ -100103,6 +102287,20 @@
     "template": "map"
   },
   {
+    "name": "The Runic Emporium",
+    "list": [
+      "1431,9564",
+      "1431,9570",
+      "1420,9570",
+      "1420,9564"
+    ],
+    "mtype": "polygon",
+    "mapid": "-1",
+    "zoom": "2",
+    "plane": "1",
+    "template": "map"
+  },
+  {
     "x": "3223",
     "y": "3214",
     "mtype": "pin",
@@ -100267,6 +102465,15 @@
     "x": "1168",
     "y": "3320",
     "height": "310",
+    "zoom": "2",
+    "template": "map"
+  },
+  {
+    "name": "The Teomat",
+    "x": "1449",
+    "y": "3185",
+    "height": "300",
+    "width": "300",
     "zoom": "2",
     "template": "map"
   },
@@ -100806,6 +103013,13 @@
     "template": "map"
   },
   {
+    "mtype": "pin",
+    "list": [
+      "1823,3123"
+    ],
+    "template": "map"
+  },
+  {
     "list": [
       "2719,4913"
     ],
@@ -100857,6 +103071,27 @@
     "x": "3001",
     "y": "3144",
     "r": "2",
+    "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1514",
+    "y": "2994",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "name": "Sunset Coast General Store",
+    "height": "240",
+    "list": [
+      "1515,2994"
+    ],
+    "zoom": "2",
+    "squarex": "10",
+    "squarey": "6",
     "mtype": "square",
     "template": "map"
   },
@@ -101345,6 +103580,24 @@
     "template": "map"
   },
   {
+    "x": "1442",
+    "y": "9554",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1442",
+    "y": "9554",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Tjorvi",
     "x": "2523",
     "y": "10259",
@@ -101566,6 +103819,33 @@
     "mtype": "pin",
     "mapid": "-1",
     "zoom": "5",
+    "template": "map"
+  },
+  {
+    "x": "1614",
+    "y": "3092",
+    "type": "maplink",
+    "mtype": "pin",
+    "desc": "Buffalo location",
+    "zoom": "3",
+    "template": "map"
+  },
+  {
+    "x": "1500",
+    "y": "3064",
+    "type": "maplink",
+    "mtype": "pin",
+    "desc": "Dig location",
+    "zoom": "3",
+    "template": "map"
+  },
+  {
+    "x": "1691",
+    "y": "3131",
+    "type": "maplink",
+    "mtype": "pin",
+    "desc": "Pickpocket location",
+    "zoom": "3",
     "template": "map"
   },
   {
@@ -104107,6 +106387,15 @@
     "template": "map"
   },
   {
+    "x": "1825",
+    "y": "9487",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Ug",
     "x": "2827",
     "y": "10065",
@@ -104202,6 +106491,114 @@
     "width": "250",
     "height": "250",
     "caption": "Fruit stall locations in Hosidius.",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Civitas illa Fortis",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1700,y:3142"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "250",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Hunters' Guild",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1584,y:3055"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Sunset Coast",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1548,y:2997"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "The Teomat",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1437,y:3169"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Fortis Colosseum",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1776,y:3111"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Outer Fortis",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1703,y:3037"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Colossal Wyrm Remains",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1672,y:2933"
+    ],
+    "icon": "redPin",
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Cam Torum Entrance",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1448,y:3108"
+    ],
+    "mtype": "pin",
+    "icon": "redPin",
+    "width": "250",
+    "height": "200",
     "template": "map"
   },
   {
@@ -105707,6 +108104,15 @@
     "template": "map"
   },
   {
+    "x": "1641",
+    "y": "3108",
+    "r": "20",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "list": [
       "3182,9758",
       "3182,9759",
@@ -106117,6 +108523,15 @@
     "y": "3382",
     "r": "4",
     "mtype": "square",
+    "template": "map"
+  },
+  {
+    "x": "1442",
+    "y": "3154",
+    "r": "6",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -107036,6 +109451,15 @@
     "plane": "0",
     "mapid": "-1",
     "mtype": "pin",
+    "template": "map"
+  },
+  {
+    "x": "1654",
+    "y": "3164",
+    "r": "4",
+    "plane": "0",
+    "mtype": "square",
+    "mapid": "-1",
     "template": "map"
   },
   {
@@ -110413,6 +112837,24 @@
     "template": "map"
   },
   {
+    "x": "1442",
+    "y": "9560",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "x": "1442",
+    "y": "9560",
+    "r": "4",
+    "plane": "1",
+    "mtype": "square",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
     "name": "Yarsul",
     "x": "3031",
     "y": "9747",
@@ -111023,7 +113465,7 @@
     "list": [
       "x:3326,y:3391,iconWikiLink:Senntisten_Teleport.png,iconSizeX:30,iconSizeY:30",
       "x:3088,y:3490,iconWikiLink:Paddewwa_Teleport.png,iconSizeX:30,iconSizeY:30",
-      "x:3294,y:3187,iconWikiLink:Kharyrll_Teleport.png,iconSizeX:30,iconSizeY:30"
+      "x:3364,y:3177,iconWikiLink:Kharyrll_Teleport.png,iconSizeX:30,iconSizeY:30"
     ],
     "mtype": "pin",
     "zoom": "-1",
@@ -111084,9 +113526,9 @@
   {
     "name": "Zeah",
     "list": [
-      "1538,3730"
+      "1538,3475"
     ],
-    "zoom": "-1",
+    "zoom": "-2",
     "template": "map"
   },
   {
@@ -111159,6 +113601,11 @@
       "x:3343,y:3515"
     ],
     "caption": "The trapdoor leading to Zemouregal's Base.",
+    "template": "map"
+  },
+  {
+    "x": "2833",
+    "y": "3858",
     "template": "map"
   },
   {

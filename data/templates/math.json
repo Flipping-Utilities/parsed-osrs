@@ -571,8 +571,13 @@
   },
   {
     "template": "math",
-    "formula": "1.\\overline{1}\\;\\;(1.11...)",
-    "raw": "1.\\overline{1}\\;\\;(1.11...)"
+    "formula": "Damage(Hitpoints) = \\begin{cases} 15, & \\text{if }Hitpoints \\geq 20 \\\\ \\left\\lfloor \\frac{Hitpoints}{2}\\right\\rfloor & \\text{if }Hitpoints < 20 \\end{cases}",
+    "raw": "Damage(Hitpoints) = \\begin{cases} 15, & \\text{if }Hitpoints \\geq 20 \\\\ \\left\\lfloor \\frac{Hitpoints}{2}\\right\\rfloor & \\text{if }Hitpoints < 20 \\end{cases}"
+  },
+  {
+    "template": "math",
+    "formula": "10/9\\;(1.11...)",
+    "raw": "10/9\\;(1.11...)"
   },
   {
     "template": "math",
@@ -1446,8 +1451,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{200}{449} + 1\\bigr), 44\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{200}{449} + 1\\bigr), 44\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}"
+    "formula": "\\begin{align}\n\\text{Spell Max Hit} &= \\min\\left\\{ \\left\\lfloor\\ 44 * \\frac{\\text{Magic Level}}{99} + 1 \\right\\rfloor\\, 44 \\right\\} \\\\\n\\text{Staff Max Hit} &= \\left\\lfloor\\ \\text{Spell Max Hit} * 1.15 \\right\\rfloor\\ \\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Spell Max Hit} &= \\min\\left\\{ \\left\\lfloor\\ 44 * \\frac{\\text{Magic Level}}{99} + 1 \\right\\rfloor\\ , 44 \\right\\} \\\\\n\\text{Staff Max Hit} &= \\left\\lfloor\\ \\text{Spell Max Hit} * 1.15 \\right\\rfloor\\ \\\\\n\\end{align}"
   },
   {
     "template": "math",
@@ -2011,6 +2016,21 @@
   },
   {
     "template": "math",
+    "formula": "Experience = (HunterLvl + 5) * Tier",
+    "raw": "Experience = (HunterLvl + 5) * Tier"
+  },
+  {
+    "template": "math",
+    "formula": "HunterLvl",
+    "raw": "HunterLvl"
+  },
+  {
+    "template": "math",
+    "formula": "Tier",
+    "raw": "Tier"
+  },
+  {
+    "template": "math",
     "formula": "\\left \\lfloor \\text{Magic Level} \\times \\frac{1}{10} \\right \\rfloor + 1",
     "raw": "\\left \\lfloor \\text{Magic Level} \\times \\frac{1}{10} \\right \\rfloor + 1"
   },
@@ -2441,6 +2461,61 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor PrayerLevel \\times 0.25 \\rfloor + 7",
+    "raw": "\\lfloor PrayerLevel \\times 0.25 \\rfloor + 7"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor HerbloreLevel \\times 0.3 \\rfloor + 7",
+    "raw": "\\lfloor HerbloreLevel \\times 0.3 \\rfloor + 7"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor + 7",
+    "raw": "\\lfloor PrayerLevel \\times \\frac{1}{4} \\rfloor + 7"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor HerbloreLevel \\times \\frac{3}{10} \\rfloor + 7",
+    "raw": "\\lfloor HerbloreLevel \\times \\frac{3}{10} \\rfloor + 7"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor AttackLevel \\times \\frac{1}{10} \\rfloor + 3",
+    "raw": "\\lfloor AttackLevel \\times \\frac{1}{10} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 5",
+    "raw": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 5"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor StrengthLevel \\times \\frac{1}{10} \\rfloor + 3",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{1}{10} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor StrengthLevel \\times \\frac{15}{100} \\rfloor + 5",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{15}{100} \\rfloor + 5"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{15}{100} \\rfloor + 5",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{15}{100} \\rfloor + 5"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{2}{10} \\rfloor + 7",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{2}{10} \\rfloor + 7"
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor \\frac{CurrentLevel}{20} + 5 \\rfloor",
     "raw": "\\lfloor \\frac{CurrentLevel}{20} + 5 \\rfloor"
   },
@@ -2453,6 +2528,11 @@
     "template": "math",
     "formula": "2^{20} - 1",
     "raw": "2^{20} - 1"
+  },
+  {
+    "template": "math",
+    "formula": "Damage(Hitpoints) = \\begin{cases} 15, & \\text{if }Hitpoints \\geq 20 \\\\ \\left\\lfloor \\frac{Hitpoints}{2}\\right\\rfloor & \\text{if }Hitpoints < 20 \\end{cases}",
+    "raw": "Damage(Hitpoints) = \\begin{cases} 15, & \\text{if }Hitpoints \\geq 20 \\\\ \\left\\lfloor \\frac{Hitpoints}{2}\\right\\rfloor & \\text{if }Hitpoints < 20 \\end{cases}"
   },
   {
     "template": "math",
@@ -3421,8 +3501,18 @@
   },
   {
     "template": "math",
+    "formula": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}"
+  },
+  {
+    "template": "math",
     "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
     "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
+  },
+  {
+    "template": "math",
+    "formula": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}"
   },
   {
     "template": "math",
@@ -3448,6 +3538,11 @@
     "template": "math",
     "formula": "\\lfloor BaseLevel \\times \\frac{1}{10} \\rfloor + 10",
     "raw": "\\lfloor BaseLevel \\times \\frac{1}{10} \\rfloor + 10"
+  },
+  {
+    "template": "math",
+    "formula": "\\begin{align}\n\\text{Hit}_\\text{max} &= \\lfloor \\frac{1}{2} + \\frac{\\text{Magic} \\times (64 + \\text{Bonus})}{640} \\rfloor && (1) \\\\\n\\text{Hit}_\\text{max} &= \\lfloor \\frac{1}{2} + \\frac{\\text{Magic} \\times 168}{640} \\rfloor && (2)\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Hit}_\\text{max} &= \\lfloor \\frac{1}{2} + \\frac{\\text{Magic} \\times (64 + \\text{Bonus})}{640} \\rfloor && (1) \\\\\n\\text{Hit}_\\text{max} &= \\lfloor \\frac{1}{2} + \\frac{\\text{Magic} \\times 168}{640} \\rfloor && (2)\n\\end{align}"
   },
   {
     "template": "math",
@@ -3641,16 +3736,6 @@
   },
   {
     "template": "math",
-    "formula": "XP = \\begin{cases}\nLevel \\times 20 & \\text{for Hitpoints } \\\\\nLevel \\times 25 & \\text{for Attack, Strength, and Defence}\n\\end{cases}",
-    "raw": "XP = \\begin{cases}\nLevel \\times 20 & \\text{for Hitpoints } \\\\\nLevel \\times 25 & \\text{for Attack, Strength, and Defence}\n\\end{cases}"
-  },
-  {
-    "template": "math",
-    "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
-    "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
-  },
-  {
-    "template": "math",
     "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
     "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
   },
@@ -3658,6 +3743,16 @@
     "template": "math",
     "formula": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}",
     "raw": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}"
+  },
+  {
+    "template": "math",
+    "formula": "XP = \\begin{cases}\nLevel \\times 20 & \\text{for Hitpoints } \\\\\nLevel \\times 25 & \\text{for Attack, Strength, and Defence}\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\nLevel \\times 20 & \\text{for Hitpoints } \\\\\nLevel \\times 25 & \\text{for Attack, Strength, and Defence}\n\\end{cases}"
+  },
+  {
+    "template": "math",
+    "formula": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n(Level^2 \\times \\frac{1}{4}) + (7 \\times Level) & \\text{if } Level < 72 \\\\\nLevel \\times 25 & \\text{if }Level \\geq 72\n\\end{cases}"
   },
   {
     "template": "math",
@@ -3831,8 +3926,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{263}{449} + 1\\bigr), 58\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{Spell Max Hit} &= min\\bigl(floor\\bigl(\\text{Magic Level} * \\frac{263}{449} + 1\\bigr), 58\\bigr)\\\\\n\\text{Staff Max Hit} &= floor\\bigl(\\text{Spell Max Hit} * 1.15)\\\\\n\\end{align}"
+    "formula": "\\begin{align}\n\\text{Spell Max Hit} &= \\min\\left\\{ \\left\\lfloor\\ 58 * \\frac{\\text{Magic Level}}{99} + 1 \\right\\rfloor\\, 58 \\right\\} \\\\\n\\text{Staff Max Hit} &= \\left\\lfloor\\ \\text{Spell Max Hit} * 1.15 \\right\\rfloor\\ \\\\\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Spell Max Hit} &= \\min\\left\\{ \\left\\lfloor\\ 58 * \\frac{\\text{Magic Level}}{99} + 1 \\right\\rfloor\\ , 58 \\right\\} \\\\\n\\text{Staff Max Hit} &= \\left\\lfloor\\ \\text{Spell Max Hit} * 1.15 \\right\\rfloor\\ \\\\\n\\end{align}"
   },
   {
     "template": "math",
@@ -3956,8 +4051,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nP_{M} &= H + 2 \\times S & H \\in [0, \\infty) &\\land S \\in [0, \\infty) && (1) \\\\\nP_{T} &= H + 2 \\times S & H \\in [0, 400] &\\land S \\in [0, 300] && (2)\n\\end{align}",
-    "raw": "\\begin{align}\nP_{M} &= H + 2 \\times S & H \\in [0, \\infty) &\\land S \\in [0, \\infty) && (1) \\\\\nP_{T} &= H + 2 \\times S & H \\in [0, 400] &\\land S \\in [0, 300] && (2)\n\\end{align}"
+    "formula": "\\begin{align}\nP_{M} &= H + 2 \\times S \\quad H \\in [0, \\infty) &\\land S \\in [0, \\infty) && (1) \\\\\nP_{T} &= H + 2 \\times S \\quad H \\in [0, 400] &\\land S \\in [0, 300] && (2)\n\\end{align}",
+    "raw": "\\begin{align}\nP_{M} &= H + 2 \\times S \\quad H \\in [0, \\infty) &\\land S \\in [0, \\infty) && (1) \\\\\nP_{T} &= H + 2 \\times S \\quad H \\in [0, 400] &\\land S \\in [0, 300] && (2)\n\\end{align}"
   },
   {
     "template": "math",

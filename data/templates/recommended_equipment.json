@@ -51,11 +51,6 @@
     "template": "recommended equipment"
   },
   {
-    "shield1": "(for special)",
-    "shield2": "(for special)",
-    "template": "recommended equipment"
-  },
-  {
     "head1": "(on task) /",
     "head3": "(set effect)",
     "ammo2": "/",
@@ -267,6 +262,8 @@
     "head1": "(if on a Slayer task)",
     "head2": "(if on a Slayer task)",
     "head5": "/",
+    "weapon2": "/",
+    "weapon5": "/",
     "ammo1": "(if using Throwing knives)",
     "feet5": "/",
     "ring2": "/",
@@ -279,7 +276,7 @@
     "template": "recommended equipment"
   },
   {
-    "ring1": "/",
+    "ring2": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -705,7 +702,7 @@
     "ammo2": "(Lowe's Archery Emporium, Brian's Archery Supplies or Ogress Shaman, Ogress Warrior, Catablepon, Ice warrior, White Knight)",
     "ammo3": "(Lowe's Archery Emporium, Brian's Archery Supplies or Zombie, Ogress Shaman, Ogress Warrior, Guard, Hill Giant, Maze random)",
     "ammo4": "(Lowe's Archery Emporium or Minotaur, Maze random, Zombie, Hill Giant, Ogress Shaman, Ogress Warrior, Barbarian,Gunthor the brave, Moss giant)",
-    "ammo5": "(Lowe's Archery Emporium or Skeleton, Barbarian, Dark warrior, Gunthor the brave, Minotaur, Al-Kharid warrior, Guard)",
+    "ammo5": "(Lowe's Archery Emporium or Skeleton, Barbarian, Dark warrior, Gunthor the brave, Minotaur, Al Kharid warrior, Guard)",
     "hands1": "(40 Ranged and Scavvo's Rune Store.)",
     "hands2": "(11 Crafting)",
     "hands3": "(Spawn near Edgeville bank)",
@@ -831,7 +828,7 @@
     "body1": "/",
     "body2": "/",
     "body3": "/",
-    "body4": "/",
+    "body5": "/",
     "legs1": "/",
     "legs2": "/",
     "legs3": "/",
@@ -1028,10 +1025,10 @@
   },
   {
     "cape1": "/",
+    "cape4": "/",
     "shield2": "/",
     "shield3": "/",
     "ring1": "/",
-    "cape4": "/",
     "template": "recommended equipment"
   },
   {
@@ -1048,6 +1045,11 @@
   },
   {
     "ammo2": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head2": "/",
+    "cape1": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -1476,18 +1478,63 @@
     "template": "recommended equipment"
   },
   {
+    "special2": "/",
+    "head2": "/",
+    "head5": "/",
+    "weapon1": "(Slash)",
+    "weapon3": "/",
+    "weapon4": "(Slash)",
+    "shield4": "/",
+    "feet3": "/",
+    "feet5": "/",
+    "ring4": "/",
+    "ammo2": "/ /",
+    "template": "recommended equipment"
+  },
+  {
+    "special2": "/",
+    "head2": "/",
+    "head5": "/",
+    "weapon1": "(Crush)",
+    "weapon4": "(Crush) /",
+    "weapon5": "/",
+    "shield4": "/",
+    "feet3": "/",
+    "feet5": "/",
+    "ammo2": "/ /",
+    "template": "recommended equipment"
+  },
+  {
+    "head2": "/",
+    "head5": "/",
+    "weapon2": "(Slash)",
+    "weapon3": "(Stab)",
+    "weapon4": "/",
+    "shield4": "/",
+    "feet3": "/",
+    "feet5": "/",
+    "ammo2": "/ /",
+    "template": "recommended equipment"
+  },
+  {
+    "head3": "/",
+    "cape1": ">",
     "body3": "/",
     "legs3": "/",
     "weapon1": "/",
+    "weapon3": "/",
     "shield2": "(for duos/trios)",
     "shield3": "(for duos/trios)",
     "ammo1": "/",
+    "special2": "/ (for guaranteed damage)",
+    "special3": "(against reavers and minions)",
     "template": "recommended equipment"
   },
   {
     "ammo1": "(if using a Twisted bow)",
     "ammo2": "(if using a crossbow)",
-    "ring2": "/",
+    "ring2": "/ (as a switch)",
+    "ring3": "/",
     "special1": "(if not bringing a Zaryte crossbow)",
     "template": "recommended equipment"
   },
@@ -1557,12 +1604,11 @@
     "legs1": "/",
     "legs2": "/",
     "weapon2": "using or  darts",
-    "weapon5": "/ /",
     "shield1": "None",
     "shield2": "if using one-handed weapon",
     "shield5": "(defence) /",
-    "ammo1": "/ /",
-    "ammo2": "/ /2 / /",
+    "ammo1": "/",
+    "ammo2": "/ /2",
     "hands1": "/",
     "ring2": "/",
     "template": "recommended equipment"
@@ -1669,6 +1715,7 @@
   },
   {
     "weapon1": "(on crush)",
+    "weapon3": "/",
     "weapon4": "(on crush)",
     "ring1": "/",
     "ring3": "/",
@@ -1732,7 +1779,7 @@
     "shield3": "/",
     "ammo2": "/ /",
     "feet2": "/",
-    "ring1": "/ &",
+    "ring1": "/",
     "ring4": "/ /",
     "template": "recommended equipment"
   },
@@ -1943,6 +1990,14 @@
     "template": "recommended equipment"
   },
   {
+    "ammo4": "/ /",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo2": "/ /",
+    "template": "recommended equipment"
+  },
+  {
     "legs4": "/",
     "hands1": "/",
     "weapon1": "+",
@@ -2056,11 +2111,9 @@
     "template": "recommended equipment"
   },
   {
-    "shield1": "(if not using a two-handed main weapon)",
-    "shield2": "(if not using a two-handed main weapon)",
-    "shield3": "(if not using a two-handed main weapon)",
-    "shield4": "(if not using a two-handed main weapon)",
-    "shield5": "(if not using a two-handed main weapon)",
+    "weapon3": "/",
+    "weapon4": "/",
+    "weapon5": "/",
     "template": "recommended equipment"
   },
   {
@@ -2180,6 +2233,7 @@
     "hands1": "/",
     "hands2": "/",
     "hands4": "/",
+    "feet5": "/",
     "ring3": "/ (if using Blowpipe)",
     "ring5": "/ /",
     "weapon1": "/",
@@ -2303,6 +2357,7 @@
     "ammo2": "(for cave) / (for Jad)",
     "ammo3": "s (Magic shortbow (i))",
     "ammo4": "(Crystal bow)",
+    "feet3": "/",
     "cape1": "/ Ava's device",
     "hands3": "/ /",
     "hands4": "/",
@@ -2511,7 +2566,7 @@
     "cape1": "/",
     "shield4": "/",
     "weapon1": "/",
-    "weapon3": "/ (crush) /  (crush)",
+    "weapon3": "/ (crush) /  (crush) /  (crush)",
     "weapon4": "/ /  (on crush)",
     "weapon5": "[[File:Bandos godsword.png]] Godsword (any, Bandos Godsword for defence reduction) /",
     "template": "recommended equipment"
@@ -2558,6 +2613,8 @@
     "head4": "/",
     "neck1": "/",
     "neck4": "/",
+    "body4": ">",
+    "legs3": ">",
     "legs5": "/ /",
     "ammo2": "/ /",
     "template": "recommended equipment"
@@ -2573,7 +2630,7 @@
   {
     "head4": "/",
     "cape2": "/",
-    "legs1": "/",
+    "legs2": "/",
     "ring4": "/",
     "ring5": "/",
     "ammo2": "/",

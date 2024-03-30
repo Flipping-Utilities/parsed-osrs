@@ -257,6 +257,22 @@
   {
     "list": [
       "int",
+      "+4"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+3"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
       "+3"
     ],
     "echo": "2",
@@ -561,7 +577,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+28"
     ],
     "echo": "2",
     "template": "+="
@@ -1144,7 +1160,7 @@
   {
     "list": [
       "int",
-      "+5"
+      "+6"
     ],
     "echo": "2",
     "template": "+="
@@ -1160,7 +1176,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+10"
     ],
     "echo": "2",
     "template": "+="
@@ -1168,7 +1184,7 @@
   {
     "list": [
       "int",
-      "+6"
+      "+8"
     ],
     "echo": "2",
     "template": "+="
@@ -1839,6 +1855,154 @@
     "list": [
       "int",
       "+1"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "1htotal",
+      "++"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "2htotal",
+      "+"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+1"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+8"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+6"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+1"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "1htotal",
+      "++"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "2htotal",
+      "+"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+6"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+12"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+10"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+8"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+8"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+3"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+8"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+2"
     ],
     "echo": "2",
     "template": "+="
@@ -3045,6 +3209,14 @@
   {
     "list": [
       "weight",
+      "4"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
       "8"
     ],
     "echo": "2",
@@ -4078,6 +4250,14 @@
     "list": [
       "weight",
       "3"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
+      "2"
     ],
     "echo": "2",
     "template": "+="
@@ -5826,6 +6006,22 @@
   {
     "list": [
       "smithing",
+      "15,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "smithing",
+      "40,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "smithing",
       "80,000"
     ],
     "echo": "2",
@@ -6259,6 +6455,35 @@
     "list": [
       "cost",
       "+"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "Law",
+      "200"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Fire",
+      "100"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Earth",
+      "100"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "cost",
+      "+ +"
     ],
     "echo": "2",
     "template": "+="
@@ -6746,560 +6971,560 @@
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Fire",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Fire",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Air",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Mind",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Air",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Air",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Air",
-      "5000"
+      "5"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Fire",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Fire",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Banana",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Nature",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Blood",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Astral",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Earth",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Blood",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Astral",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Blood",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "10000"
+      "10"
     ],
     "template": "+="
   },
   {
     "list": [
       "Astral",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "10000"
+      "10"
     ],
     "template": "+="
   },
   {
     "list": [
       "Astral",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Blood",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Soul",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Blood",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Law",
-      "2000"
+      "2"
     ],
     "template": "+="
   },
   {
     "list": [
       "Water",
-      "8000"
+      "8"
     ],
     "template": "+="
   },
   {
     "list": [
       "Urt",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Te",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Basalt",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Efh",
-      "3000"
+      "3"
     ],
     "template": "+="
   },
   {
     "list": [
       "Te",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "Basalt",
-      "1000"
+      "1"
     ],
     "template": "+="
   },
   {
     "list": [
       "int",
-      "+5"
+      "+6"
     ],
     "echo": "2",
     "template": "+="
@@ -7315,7 +7540,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+10"
     ],
     "echo": "2",
     "template": "+="
@@ -7323,7 +7548,7 @@
   {
     "list": [
       "int",
-      "+6"
+      "+8"
     ],
     "echo": "2",
     "template": "+="
@@ -7794,6 +8019,14 @@
     "list": [
       "construction",
       "400"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "construction",
+      "800"
     ],
     "echo": "2",
     "template": "+="
@@ -8513,6 +8746,14 @@
   {
     "list": [
       "fishing",
+      "5,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "fishing",
       "7,000"
     ],
     "echo": "2",
@@ -8594,6 +8835,14 @@
     "list": [
       "herblore",
       "250"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "herblore",
+      "500"
     ],
     "echo": "2",
     "template": "+="
@@ -8802,6 +9051,30 @@
     "list": [
       "hunter",
       "2,500"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "hunter",
+      "4,500"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "hunter",
+      "5,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "hunter",
+      "15,000"
     ],
     "echo": "2",
     "template": "+="
@@ -9313,6 +9586,14 @@
   {
     "list": [
       "runecraft",
+      "5,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "runecraft",
       "6,000"
     ],
     "echo": "2",
@@ -9402,6 +9683,14 @@
     "list": [
       "slayer",
       "20,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "slayer",
+      "40,000"
     ],
     "echo": "2",
     "template": "+="
@@ -9506,6 +9795,14 @@
     "list": [
       "smithing",
       "12,725"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "smithing",
+      "15,000"
     ],
     "echo": "2",
     "template": "+="
@@ -9746,6 +10043,14 @@
     "list": [
       "thieving",
       "2,812"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "thieving",
+      "3,000"
     ],
     "echo": "2",
     "template": "+="
@@ -10460,6 +10765,20 @@
     "list": [
       "totaleasy",
       "+"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int2"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "totaleasy",
+      "+ +"
     ],
     "echo": "2",
     "template": "+="
@@ -11438,6 +11757,20 @@
   },
   {
     "list": [
+      "totalelite",
+      "+ +"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int5"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
       "totalmaster",
       "+ +  +  +"
     ],
@@ -11734,6 +12067,20 @@
     "list": [
       "totalmaster",
       "+"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int6"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "totalmaster",
+      "+ +  +"
     ],
     "echo": "2",
     "template": "+="
