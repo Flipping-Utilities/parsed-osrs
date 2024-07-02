@@ -221,7 +221,7 @@ export class RecipesExtractor {
       ticks,
       ticksNote: recipeProperties.ticksnote,
       toolIds: [],
-      facility: recipeProperties.facility,
+      facility: recipeProperties.facilities,
       name: recipeProperties.name,
       notes: recipeProperties.notes,
     };
