@@ -213,10 +213,13 @@ export class RecipesExtractor {
       : Number(recipeProperties.ticks);
     let toolIds: number[] = [];
     if (recipeProperties.tools) {
-      toolIds = recipeProperties.tools.split(',').map((v) => {
-        const item = this.itemExtractor.getItemByName(v);
-        return item?.id;
-      });
+      toolIds = recipeProperties.tools
+        .split(',')
+        .map((v) => {
+          const item = this.itemExtractor.getItemByName(v);
+          return item?.id;
+        })
+        .filter((v) => v);
     }
     const recipe: Recipe = {
       inputs,
