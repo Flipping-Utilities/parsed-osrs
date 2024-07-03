@@ -134,10 +134,28 @@ export class ItemsExtractor {
   }
 
   private itemNameMap: Map<string, Item>;
+  private aliasNameMap: Map<string, Item>;
+  private fileNameMap: Map<string, Item>;
 
+  private hasUnterminatedParenthesis(input: string): boolean {
+    let openParenthesisCount = 0;
+    let closeParenthesisCount = 0;
+
+    for (const char of input) {
+      if (char === '(') {
+        openParenthesisCount++;
+      } else if (char === ')') {
+        closeParenthesisCount++;
+      }
+    }
+
+    return closeParenthesisCount < openParenthesisCount;
+  }
   public getItemByName(candidateName: string): Item | null {
     if (!this.itemNameMap) {
       this.itemNameMap = new Map();
+      this.aliasNameMap = new Map();
+      this.fileNameMap = new Map();
       this.getAllItems().forEach((item) => {
         if (!this.itemNameMap.has(item.name)) {
           this.itemNameMap.set(item.name, item);
@@ -157,11 +175,54 @@ export class ItemsExtractor {
             this.itemNameMap.set(item.name, item);
           }
         }
+
+        item.aliases.forEach((alias) => {
+          if (!alias) return;
+          // Not really sure why, but some aliases are missing the closing parenthesis
+          const unterminated = this.hasUnterminatedParenthesis(alias);
+          if (!this.aliasNameMap.has(alias)) {
+            this.aliasNameMap.set(alias, item);
+            if (unterminated) {
+              this.aliasNameMap.set(alias + ')', item);
+            }
+          } else {
+            const otherItem = this.aliasNameMap.get(alias);
+            // Score depending on the amount of "true", with priority to being in the main game
+            const score =
+              Number(item.isInMainGame) * 3 +
+              Number(item.isOnGrandExchange) +
+              Number(item.isTradeable);
+            const otherScore =
+              Number(otherItem.isInMainGame) * 3 +
+              Number(otherItem.isOnGrandExchange) +
+              Number(otherItem.isTradeable);
+            if (score > otherScore) {
+              // Item most likely to be current and used takes the place
+              this.aliasNameMap.set(alias, item);
+              if (unterminated) {
+                this.aliasNameMap.set(alias + ')', item);
+              }
+            }
+          }
+        });
+        // Sometimes items alias list do not have the name with the parenthesis
+        // But the filename usually does
+        if (typeof item.image === 'string' && item.image.includes(')')) {
+          const potentialName =
+            item.image.replace('File:', '').replace('.png', '').split(')')[0] +
+            ')';
+          if (!this.fileNameMap.has(potentialName)) {
+            this.fileNameMap.set(potentialName, item);
+          }
+        }
       });
     }
-
     if (!this.itemNameMap.has(candidateName)) {
-      return null;
+      if (this.aliasNameMap.has(candidateName)) {
+        return this.aliasNameMap.get(candidateName);
+      } else if (this.fileNameMap.has(candidateName)) {
+        return this.fileNameMap.get(candidateName);
+      }
     }
     return this.itemNameMap.get(candidateName);
   }
