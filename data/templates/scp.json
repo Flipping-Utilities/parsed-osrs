@@ -1361,6 +1361,42 @@
   },
   {
     "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Combat",
       "20"
     ],
@@ -3037,12 +3073,14 @@
       "Defence",
       "65"
     ],
+    "sort": "yes",
     "template": "scp"
   },
   {
     "list": [
       "Defence",
-      "70"
+      "70",
+      "sort"
     ],
     "template": "scp"
   },
@@ -4949,18 +4987,6 @@
   },
   {
     "list": [
-      "Combat"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Prayer",
       "70"
     ],
@@ -4971,12 +4997,6 @@
     "list": [
       "Defence",
       "70"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer"
     ],
     "template": "scp"
   },
@@ -5249,6 +5269,7 @@
       "Ranged",
       "50"
     ],
+    "sort": "yes",
     "template": "scp"
   },
   {
@@ -13902,12 +13923,6 @@
   },
   {
     "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -14052,12 +14067,6 @@
   },
   {
     "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -14095,12 +14104,6 @@
   {
     "list": [
       "Quest"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
     ],
     "template": "scp"
   },
@@ -14178,12 +14181,6 @@
   },
   {
     "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -14197,18 +14194,6 @@
   {
     "list": [
       "Quest"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
     ],
     "template": "scp"
   },
@@ -14263,18 +14248,6 @@
   },
   {
     "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -14293,7 +14266,7 @@
   },
   {
     "list": [
-      "Diary"
+      "Quest"
     ],
     "template": "scp"
   },
@@ -14318,18 +14291,6 @@
   {
     "list": [
       "Quest"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
     ],
     "template": "scp"
   },
@@ -14373,6 +14334,12 @@
     "list": [
       "Mining",
       "78"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -14734,6 +14701,55 @@
   },
   {
     "list": [
+      "Smithing",
+      "+4"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "-4"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "-4"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "-4"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "+4"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "-2 to 5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "-2 to 5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Slayer",
       "+2"
     ],
@@ -15030,6 +15046,12 @@
   },
   {
     "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Crafting"
     ],
     "template": "scp"
@@ -15061,7 +15083,7 @@
   {
     "list": [
       "Slayer",
-      "66"
+      "82"
     ],
     "template": "scp"
   },
@@ -15351,12 +15373,6 @@
       "3,000"
     ],
     "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Quest"
-    ],
     "template": "scp"
   },
   {
@@ -16274,6 +16290,20 @@
   },
   {
     "list": [
+      "Strength",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Attack",
       "80"
     ],
@@ -16786,7 +16816,7 @@
   {
     "list": [
       "Magic",
-      "75"
+      "70"
     ],
     "template": "scp"
   },
@@ -17516,6 +17546,20 @@
   },
   {
     "list": [
+      "Defence",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic",
       "80"
     ],
@@ -17567,6 +17611,20 @@
     "list": [
       "Magic",
       "85"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "77"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "70"
     ],
     "template": "scp"
   },
@@ -18372,6 +18430,20 @@
   },
   {
     "list": [
+      "Ranged",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Defence",
       "60"
     ],
@@ -18567,6 +18639,13 @@
     "list": [
       "Attack",
       "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "85"
     ],
     "template": "scp"
   },
@@ -18786,6 +18865,14 @@
   {
     "list": [
       "Prayer",
+      "70"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
       "70"
     ],
     "link": "yes",
@@ -20596,6 +20683,20 @@
   },
   {
     "list": [
+      "Ranged",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Diary"
     ],
     "template": "scp"
@@ -20711,6 +20812,32 @@
   },
   {
     "list": [
+      "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Strength",
       "35"
     ],
@@ -20724,8 +20851,22 @@
   },
   {
     "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Strength",
       "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "75"
     ],
     "template": "scp"
   },
@@ -20815,20 +20956,6 @@
   {
     "list": [
       "Strength",
-      "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Magic",
-      "60"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Strength",
       "90"
     ],
     "template": "scp"
@@ -20868,6 +20995,20 @@
   {
     "list": [
       "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "80"
     ],
     "template": "scp"
   },
@@ -20958,7 +21099,21 @@
   },
   {
     "list": [
+      "Magic",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Strength",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
       "50"
     ],
     "template": "scp"
@@ -22040,12 +22195,6 @@
   {
     "list": [
       "Construction"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Quest"
     ],
     "template": "scp"
   },
@@ -23777,6 +23926,24 @@
   },
   {
     "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -23793,6 +23960,14 @@
     "list": [
       "Smithing"
     ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "43"
+    ],
+    "link": "yes",
     "template": "scp"
   },
   {
@@ -23820,6 +23995,12 @@
     "list": [
       "Magic",
       "59"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -24324,6 +24505,13 @@
   },
   {
     "list": [
+      "Defence",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic",
       "75"
     ],
@@ -24730,13 +24918,37 @@
   },
   {
     "list": [
+      "Agility",
+      "85"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Attack"
     ],
     "template": "scp"
   },
   {
     "list": [
+      "Agility",
+      "85"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "85"
     ],
     "link": "yes",
     "template": "scp"
@@ -26977,20 +27189,6 @@
   },
   {
     "list": [
-      "Agility"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Construction"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
       "Construction"
     ],
     "link": "yes",
@@ -27151,6 +27349,55 @@
       "Woodcutting"
     ],
     "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "70+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "70+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "70+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "70+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints",
+      "70+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "44+"
+    ],
     "template": "scp"
   },
   {
@@ -27919,20 +28166,6 @@
   {
     "list": [
       "Slayer",
-      "15"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
       "40"
     ],
     "template": "scp"
@@ -27995,27 +28228,6 @@
   },
   {
     "list": [
-      "Combat",
-      "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Slayer",
       "58"
     ],
@@ -28046,41 +28258,6 @@
     "list": [
       "Magic",
       "50"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "17"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "15"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "25"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "25"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "20"
     ],
     "template": "scp"
   },
@@ -28184,50 +28361,8 @@
   },
   {
     "list": [
-      "Slayer",
-      "33"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "45"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Firemaking",
-      "33"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Combat",
       "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "45"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "40"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "80"
     ],
     "template": "scp"
   },
@@ -28290,48 +28425,6 @@
   {
     "list": [
       "Slayer",
-      "22"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "44"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "32"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "30"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "39"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "50"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
       "57"
     ],
     "template": "scp"
@@ -28354,34 +28447,6 @@
     "list": [
       "Combat",
       "85"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "30"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "25"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "20"
     ],
     "template": "scp"
   },
@@ -28456,13 +28521,6 @@
   {
     "list": [
       "Combat",
-      "85"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
       "60"
     ],
     "template": "scp"
@@ -28478,27 +28536,6 @@
     "list": [
       "Combat",
       "60"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "35"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "30"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "5"
     ],
     "template": "scp"
   },
@@ -30225,6 +30262,24 @@
   },
   {
     "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -31244,13 +31299,6 @@
   },
   {
     "list": [
-      "Hunter",
-      "46"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Attack",
       "20"
     ],
@@ -31319,6 +31367,13 @@
       "76"
     ],
     "sort": "y",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "68"
+    ],
     "template": "scp"
   },
   {
@@ -31820,6 +31875,14 @@
   },
   {
     "list": [
+      "Hunter",
+      "79"
+    ],
+    "sort": "y",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Attack",
       "75"
     ],
@@ -31848,6 +31911,13 @@
       "50"
     ],
     "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "76"
+    ],
     "template": "scp"
   },
   {
@@ -34199,6 +34269,7 @@
       "Construction",
       "5"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34248,6 +34319,7 @@
       "Construction",
       "5"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34269,6 +34341,7 @@
       "Construction",
       "10"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34276,6 +34349,7 @@
       "Construction",
       "10"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34311,6 +34385,7 @@
       "Construction",
       "20"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34339,7 +34414,7 @@
       "Construction",
       "26"
     ],
-    "sort": "yes",
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34354,6 +34429,7 @@
       "Construction",
       "27"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34375,6 +34451,7 @@
       "Construction",
       "30"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34396,6 +34473,7 @@
       "Construction",
       "34"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34428,9 +34506,10 @@
   },
   {
     "list": [
-      "construction",
+      "Construction",
       "35"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34459,6 +34538,7 @@
       "Construction",
       "50"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34518,40 +34598,54 @@
     "template": "scp"
   },
   {
-    "1": "Construction",
-    "2": "60",
-    "template": "scp"
-  },
-  {
-    "1": "Firemaking",
-    "2": "75",
-    "template": "scp"
-  },
-  {
-    "1": "Magic",
-    "2": "75",
-    "template": "scp"
-  },
-  {
-    "1": "Thieving",
-    "2": "70",
-    "template": "scp"
-  },
-  {
-    "1": "Herblore",
-    "2": "62",
-    "template": "scp"
-  },
-  {
-    "1": "Runecraft",
-    "2": "60",
+    "list": [
+      "Construction",
+      "60"
+    ],
+    "sort": "y",
     "template": "scp"
   },
   {
     "list": [
-      "construction",
+      "Firemaking",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving",
       "70"
     ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "62"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "70"
+    ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34608,6 +34702,7 @@
       "Construction",
       "5"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34629,6 +34724,7 @@
       "Construction",
       "27"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34650,6 +34746,7 @@
       "Construction",
       "10"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34657,6 +34754,7 @@
       "Construction",
       "34"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34689,9 +34787,10 @@
   },
   {
     "list": [
-      "construction",
+      "Construction",
       "5"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34741,6 +34840,7 @@
       "Construction",
       "30"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34777,6 +34877,7 @@
       "Construction",
       "20"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34802,9 +34903,10 @@
   },
   {
     "list": [
-      "construction",
+      "Construction",
       "35"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -34833,6 +34935,7 @@
       "Construction",
       "70"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -35576,30 +35679,6 @@
   },
   {
     "list": [
-      "Fishing"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Fishing"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Fishing"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Fishing"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -36339,7 +36418,7 @@
   {
     "list": [
       "Cooking",
-      "70"
+      "70 (Boostable)"
     ],
     "template": "scp"
   },
@@ -36940,6 +37019,12 @@
   {
     "list": [
       "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting"
     ],
     "template": "scp"
   },
@@ -38939,32 +39024,7 @@
   },
   {
     "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "73"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Diary"
+      "Quest"
     ],
     "template": "scp"
   },
@@ -38978,6 +39038,37 @@
   {
     "list": [
       "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "73"
     ],
     "template": "scp"
   },
@@ -39124,6 +39215,12 @@
     "list": [
       "Farming",
       "85"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -39881,6 +39978,20 @@
   {
     "list": [
       "Crafting",
+      "76"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "76"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
       "78"
     ],
     "template": "scp"
@@ -40176,6 +40287,13 @@
     "list": [
       "Prayer",
       "45+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "agility",
+      "85+"
     ],
     "template": "scp"
   },
@@ -41379,6 +41497,34 @@
     "list": [
       "Magic",
       "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "75"
     ],
     "template": "scp"
   },
@@ -45392,6 +45538,34 @@
   },
   {
     "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "9"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "13"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Slayer",
       "432"
     ],
@@ -46083,6 +46257,246 @@
   },
   {
     "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Agility"
     ],
     "link": "yes",
@@ -46201,14 +46615,6 @@
     "list": [
       "Combat",
       "50"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Farming",
-      "30"
     ],
     "link": "yes",
     "template": "scp"
@@ -48055,6 +48461,12 @@
   },
   {
     "list": [
+      "Hunter"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Fishing"
     ],
     "template": "scp"
@@ -48316,6 +48728,13 @@
   {
     "list": [
       "Smithing"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
     ],
     "link": "yes",
     "template": "scp"
@@ -50919,6 +51338,20 @@
   {
     "list": [
       "Fishing",
+      "15"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing",
+      "15"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing",
       "16"
     ],
     "template": "scp"
@@ -51241,6 +51674,12 @@
   {
     "list": [
       "Construction"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching"
     ],
     "template": "scp"
   },
@@ -51935,6 +52374,20 @@
   },
   {
     "list": [
+      "Cooking",
+      "23"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "23"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic",
       "60"
     ],
@@ -51992,6 +52445,20 @@
   {
     "list": [
       "Cooking",
+      "31"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "31"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
       "40"
     ],
     "template": "scp"
@@ -52014,6 +52481,20 @@
     "list": [
       "Fishing",
       "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "32"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "33"
     ],
     "template": "scp"
   },
@@ -52069,6 +52550,20 @@
   {
     "list": [
       "Cooking",
+      "41"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "41"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
       "50"
     ],
     "template": "scp"
@@ -52118,6 +52613,20 @@
   {
     "list": [
       "Cooking",
+      "51"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
       "55"
     ],
     "template": "scp"
@@ -52140,6 +52649,20 @@
     "list": [
       "Cooking",
       "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "59"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "57"
     ],
     "template": "scp"
   },
@@ -52175,6 +52698,20 @@
     "list": [
       "Fishing",
       "79"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "68"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "72"
     ],
     "template": "scp"
   },
@@ -52245,6 +52782,34 @@
     "list": [
       "Fishing",
       "82"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "82"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "69"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "92"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "91"
     ],
     "template": "scp"
   },
@@ -53573,6 +54138,69 @@
   {
     "list": [
       "Construction"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "85+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "97+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "94+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints",
+      "95+"
     ],
     "template": "scp"
   },
@@ -55317,6 +55945,13 @@
   {
     "list": [
       "Magic",
+      "17"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
       "19"
     ],
     "template": "scp"
@@ -55374,6 +56009,13 @@
     "list": [
       "Magic",
       "37"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "41"
     ],
     "template": "scp"
   },
@@ -56466,6 +57108,102 @@
     "list": [
       "Hitpoints",
       "High"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
     ],
     "template": "scp"
   },
@@ -58500,13 +59238,6 @@
   },
   {
     "list": [
-      "Agility",
-      "73"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Magic",
       "78"
     ],
@@ -58621,6 +59352,12 @@
   {
     "list": [
       "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "combatachievement"
     ],
     "template": "scp"
   },
@@ -59835,6 +60572,174 @@
   {
     "list": [
       "Smithing",
+      "81"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "79/80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "79/80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "71"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "59"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "48"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "52"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "51"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "69"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "48"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "61"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "59"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "71"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "52"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "69"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "51"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
       "50"
     ],
     "template": "scp"
@@ -59955,6 +60860,54 @@
     "list": [
       "Farming",
       "85"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
     ],
     "template": "scp"
   },
@@ -60094,6 +61047,27 @@
     "list": [
       "Defence",
       "10"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "70"
     ],
     "template": "scp"
   },
@@ -61224,13 +62198,6 @@
   {
     "list": [
       "Hunter",
-      "49"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
       "51"
     ],
     "template": "scp"
@@ -61246,13 +62213,6 @@
     "list": [
       "Hunter",
       "53"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "57"
     ],
     "template": "scp"
   },
@@ -61294,21 +62254,21 @@
   {
     "list": [
       "Hunter",
+      "79"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "85"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
       "29"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "33"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "37"
     ],
     "template": "scp"
   },
@@ -61378,14 +62338,21 @@
   {
     "list": [
       "Hunter",
-      "31"
+      "63"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Hunter",
-      "33"
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "31"
     ],
     "template": "scp"
   },
@@ -61399,21 +62366,7 @@
   {
     "list": [
       "Hunter",
-      "37"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
       "39"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "41"
     ],
     "template": "scp"
   },
@@ -61455,14 +62408,14 @@
   {
     "list": [
       "Hunter",
-      "47"
+      "59"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Hunter",
-      "49"
+      "63"
     ],
     "template": "scp"
   },
@@ -61497,13 +62450,6 @@
   {
     "list": [
       "Hunter",
-      "57"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
       "59"
     ],
     "template": "scp"
@@ -61512,48 +62458,6 @@
     "list": [
       "Hunter",
       "63"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "69"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "72"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "57"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "59"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "63"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "65"
     ],
     "template": "scp"
   },
@@ -61581,6 +62485,41 @@
   {
     "list": [
       "Hunter",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "59"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "63"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "69"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "72"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
       "79"
     ],
     "template": "scp"
@@ -61589,6 +62528,13 @@
     "list": [
       "Hunter",
       "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "85"
     ],
     "template": "scp"
   },
@@ -62452,6 +63398,12 @@
     "list": [
       "Herblore",
       "44"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -63672,6 +64624,7 @@
       "Herblore",
       "30"
     ],
+    "sort": "y",
     "template": "scp"
   },
   {
@@ -64090,6 +65043,12 @@
   {
     "list": [
       "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -65352,6 +66311,14 @@
   },
   {
     "list": [
+      "Prayer",
+      "40"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -65360,14 +66327,6 @@
     "list": [
       "Combat",
       "50"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer",
-      "40"
     ],
     "link": "yes",
     "template": "scp"
@@ -66565,13 +67524,6 @@
   {
     "list": [
       "Hunter",
-      "65"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
       "69"
     ],
     "template": "scp"
@@ -66607,6 +67559,13 @@
   {
     "list": [
       "Hunter",
+      "85"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
       "91"
     ],
     "template": "scp"
@@ -66614,230 +67573,62 @@
   {
     "list": [
       "Hunter",
-      "2,550-5,200"
+      "46"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Hunter",
-      "3,100-5,200"
+      "2,550–5,200"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Hunter",
-      "4,235-5,720"
+      "57"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Hunter",
-      "5,760-6,240"
+      "3,100–5,200"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "72"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "4,235–5,720"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "91"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "5,760–6,240"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Quest"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "19"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "23"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "25"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "29"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "31"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "33"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "35"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "37"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "39"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "41"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "43"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "45"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "47"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "49"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "51"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "53"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "53"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "57"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "57"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "59"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "63"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "65"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "69"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "72"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "79"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "80"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "91"
     ],
     "template": "scp"
   },
@@ -68466,6 +69257,13 @@
   },
   {
     "list": [
+      "Prayer",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Attack",
       "90"
     ],
@@ -69411,6 +70209,13 @@
   },
   {
     "list": [
+      "Magic",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Woodcutting",
       "50"
     ],
@@ -69455,6 +70260,34 @@
     "list": [
       "Magic",
       "71"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "85"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "55"
     ],
     "template": "scp"
   },
@@ -69629,12 +70462,6 @@
   },
   {
     "list": [
-      "Combat"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -69686,6 +70513,12 @@
       "Crafting"
     ],
     "link": "y",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
     "template": "scp"
   },
   {
@@ -72066,6 +72899,30 @@
   },
   {
     "list": [
+      "Hitpoints"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Construction"
     ],
     "template": "scp"
@@ -73907,6 +74764,12 @@
   },
   {
     "list": [
+      "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Construction"
     ],
     "template": "scp"
@@ -73985,7 +74848,7 @@
   {
     "list": [
       "Magic",
-      "75+"
+      "70+"
     ],
     "template": "scp"
   },
@@ -74658,13 +75521,6 @@
   },
   {
     "list": [
-      "Agility",
-      "1"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Construction"
     ],
     "template": "scp"
@@ -74799,6 +75655,30 @@
   },
   {
     "list": [
+      "Hitpoints"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Crafting",
       "31"
     ],
@@ -74833,14 +75713,6 @@
       "Fletching",
       "40"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "10"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -74887,14 +75759,6 @@
     "list": [
       "Woodcutting",
       "15"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "10"
     ],
     "link": "yes",
     "template": "scp"
@@ -75739,62 +76603,6 @@
   },
   {
     "list": [
-      "Woodcutting",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Mining",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Crafting",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Construction",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Crafting",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Construction",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Attack",
       "99"
     ],
@@ -75803,53 +76611,6 @@
   {
     "list": [
       "Strength",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Attack"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Strength"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Woodcutting",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Mining",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Crafting",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Construction",
-      "99"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
       "99"
     ],
     "template": "scp"
@@ -75924,6 +76685,53 @@
   },
   {
     "list": [
+      "Woodcutting",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Attack",
       "99"
     ],
@@ -75945,6 +76753,62 @@
   {
     "list": [
       "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "99"
     ],
     "template": "scp"
   },
@@ -77334,6 +78198,19 @@
   },
   {
     "list": [
+      "Attack",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Slayer",
       "55"
     ],
@@ -77380,6 +78257,12 @@
   {
     "list": [
       "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -77766,7 +78649,21 @@
   {
     "list": [
       "Defence",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
       "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "70"
     ],
     "template": "scp"
   },
@@ -77883,6 +78780,20 @@
   {
     "list": [
       "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "80"
     ],
     "template": "scp"
   },
@@ -78032,6 +78943,223 @@
   {
     "list": [
       "Hunter"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "25"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "65"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "22"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "78"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "65"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "10"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "10"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "75"
     ],
     "template": "scp"
   },
@@ -78206,41 +79334,27 @@
   {
     "list": [
       "Magic",
-      "80"
+      "60"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Defence",
-      "80"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer",
-      "80"
+      "60"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Magic",
-      "50"
+      "70"
     ],
     "template": "scp"
   },
   {
     "list": [
-      "Magic",
-      "50"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hitpoints",
+      "Defence",
       "75"
     ],
     "template": "scp"
@@ -78248,140 +79362,119 @@
   {
     "list": [
       "Magic",
-      "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Magic",
-      "70"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Attack",
-      "70"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Magic",
-      "70"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "70"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Attack",
-      "42"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Strength",
-      "42"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "42"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Magic",
-      "42"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hitpoints",
-      "42"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Ranged",
-      "42"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer",
-      "22"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "40"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Strength",
-      "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Magic",
-      "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
       "65"
     ],
     "template": "scp"
   },
   {
     "list": [
+      "Defence",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic",
-      "78"
+      "80"
     ],
     "template": "scp"
   },
   {
     "list": [
       "Defence",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints",
       "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "27"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "45"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "77"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "70"
     ],
     "template": "scp"
   },
@@ -79519,6 +80612,12 @@
   },
   {
     "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -79932,6 +81031,27 @@
     "list": [
       "Magic"
     ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
     "template": "scp"
   },
   {
@@ -80042,13 +81162,6 @@
   {
     "list": [
       "Combat",
-      "35"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
       "15"
     ],
     "template": "scp"
@@ -80113,6 +81226,13 @@
     "list": [
       "Slayer",
       "22"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "44"
     ],
     "template": "scp"
   },
@@ -82523,7 +83643,7 @@
   {
     "list": [
       "Magic",
-      "125,000-130,000"
+      "130,000"
     ],
     "template": "scp"
   },
@@ -83274,6 +84394,61 @@
   },
   {
     "list": [
+      "Attack",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "90+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints",
+      "95+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "90+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "94+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "77+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Cooking",
       "35"
     ],
@@ -83365,6 +84540,13 @@
   {
     "list": [
       "Cooking",
+      "68"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
       "45"
     ],
     "template": "scp"
@@ -83427,6 +84609,13 @@
   },
   {
     "list": [
+      "Agility",
+      "74"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Mining",
       "78"
     ],
@@ -83435,7 +84624,7 @@
   {
     "list": [
       "Agility",
-      "74 or 93"
+      "93"
     ],
     "template": "scp"
   },
@@ -83682,7 +84871,7 @@
   {
     "list": [
       "Crafting",
-      "56+"
+      "56"
     ],
     "template": "scp"
   },
@@ -83761,7 +84950,7 @@
   {
     "list": [
       "Crafting",
-      "29+"
+      "29"
     ],
     "template": "scp"
   },
@@ -83781,7 +84970,7 @@
   {
     "list": [
       "Crafting",
-      "5+"
+      "5"
     ],
     "template": "scp"
   },
@@ -83931,7 +85120,7 @@
   {
     "list": [
       "Crafting",
-      "50+"
+      "50"
     ],
     "template": "scp"
   },
@@ -83996,7 +85185,7 @@
   {
     "list": [
       "Crafting",
-      "20+"
+      "20"
     ],
     "template": "scp"
   },
@@ -84043,6 +85232,20 @@
   {
     "list": [
       "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "99"
     ],
     "template": "scp"
   },
@@ -84239,6 +85442,19 @@
     "list": [
       "Herblore",
       "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "89"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
     ],
     "template": "scp"
   },
@@ -85698,6 +86914,28 @@
   {
     "list": [
       "Fletching",
+      "72"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "91"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching",
+      "5+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching",
       "63"
     ],
     "template": "scp"
@@ -85899,6 +87137,13 @@
   {
     "list": [
       "Magic",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
       "53,000"
     ],
     "template": "scp"
@@ -85948,6 +87193,27 @@
   {
     "list": [
       "Hunter",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "31+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
       "83+"
     ],
     "template": "scp"
@@ -85975,6 +87241,34 @@
     "list": [
       "Magic",
       "50+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "91"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching",
+      "72"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "43"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "54"
     ],
     "template": "scp"
   },
@@ -87320,6 +88614,122 @@
   },
   {
     "list": [
+      "Attack",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "90+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "90+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "90+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "60+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Ranged",
       "40+"
     ],
@@ -88413,6 +89823,26 @@
   },
   {
     "list": [
+      "Ranged",
+      "50+"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "37"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "",
       "750+ Total level"
     ],
@@ -88567,6 +89997,13 @@
     "list": [
       "Herblore",
       "97"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "5000"
     ],
     "template": "scp"
   },
@@ -88762,6 +90199,13 @@
     "list": [
       "Crafting",
       "12,750"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "65"
     ],
     "template": "scp"
   },
@@ -89097,7 +90541,7 @@
   {
     "list": [
       "Mining",
-      "72"
+      "57"
     ],
     "template": "scp"
   },
@@ -89610,6 +91054,13 @@
   },
   {
     "list": [
+      "Herblore",
+      "99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic",
       "51"
     ],
@@ -89625,7 +91076,7 @@
   {
     "list": [
       "Smithing",
-      "1+"
+      "1"
     ],
     "template": "scp"
   },
@@ -89639,7 +91090,7 @@
   {
     "list": [
       "Smithing",
-      "85+"
+      "85"
     ],
     "template": "scp"
   },
@@ -90287,6 +91738,475 @@
   },
   {
     "list": [
+      "Crafting",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "15"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "35"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving",
+      "25"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "25"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "47"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "45"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "31"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "25"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "25"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "15"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "7"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "33"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "32"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "26"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "48"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "45"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "38"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting",
+      "62"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "56"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "52"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "49"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting",
+      "62"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fletching",
+      "60"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
+      "56"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "52"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "49"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Herblore",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming",
+      "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "31"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -90451,6 +92371,14 @@
     "list": [
       "Woodcutting",
       "45"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming",
+      "40"
     ],
     "link": "yes",
     "template": "scp"
@@ -91090,7 +93018,7 @@
   {
     "list": [
       "Agility",
-      "65+"
+      "75+"
     ],
     "link": "yes",
     "template": "scp"
@@ -91833,14 +93761,6 @@
       "Hitpoints",
       "2,000"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "58"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -94524,6 +96444,27 @@
   },
   {
     "list": [
+      "Runecraft",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "180"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "250"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Hitpoints"
     ],
     "template": "scp"
@@ -95721,6 +97662,76 @@
   },
   {
     "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "72–79"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "80–87"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "88–95"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking",
+      "96–99"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Cooking",
       "31"
     ],
@@ -96306,6 +98317,12 @@
   },
   {
     "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Thieving",
       "14"
     ],
@@ -96623,12 +98640,6 @@
     "list": [
       "Hitpoints",
       "50"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer"
     ],
     "template": "scp"
   },
@@ -97029,6 +99040,30 @@
   },
   {
     "list": [
+      "Runecraft"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Mining"
     ],
     "template": "scp"
@@ -97105,7 +99140,8 @@
   },
   {
     "list": [
-      "Runecraft"
+      "Agility",
+      "79"
     ],
     "template": "scp"
   },
@@ -98240,6 +100276,38 @@
   },
   {
     "list": [
+      "Slayer",
+      "40,000"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "5,000"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "5,000"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing",
+      "5,000"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "minigame"
     ],
     "template": "scp"
@@ -98532,13 +100600,6 @@
     "list": [
       "Quest"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -100282,14 +102343,6 @@
     "list": [
       "Construction"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Mining",
-      "72"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -103584,6 +105637,7 @@
       "Hunter",
       "52"
     ],
+    "sort": "52",
     "template": "scp"
   },
   {
@@ -104994,6 +107048,13 @@
   },
   {
     "list": [
+      "Mining",
+      "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Runecraft",
       "55"
     ],
@@ -105217,13 +107278,6 @@
   },
   {
     "list": [
-      "Slayer",
-      "56"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Thieving",
       "56"
     ],
@@ -105321,13 +107375,6 @@
       "69"
     ],
     "sort": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "69"
-    ],
     "template": "scp"
   },
   {
@@ -105565,6 +107612,7 @@
       "Smithing",
       "55"
     ],
+    "sort": "yes",
     "template": "scp"
   },
   {
@@ -106417,14 +108465,6 @@
   },
   {
     "list": [
-      "Woodcutting",
-      "15"
-    ],
-    "sort": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
       "Quest",
       "55"
     ],
@@ -106456,6 +108496,14 @@
       "Mining",
       "50"
     ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting",
+      "15"
+    ],
+    "sort": "yes",
     "template": "scp"
   },
   {
@@ -107097,7 +109145,7 @@
   {
     "list": [
       "Thieving",
-      "72"
+      "70"
     ],
     "template": "scp"
   },
@@ -107889,7 +109937,7 @@
   {
     "list": [
       "Cooking",
-      "1"
+      "10"
     ],
     "template": "scp"
   },
@@ -112681,6 +114729,13 @@
   },
   {
     "list": [
+      "Strength",
+      "30"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Defence",
       "40"
     ],
@@ -112696,6 +114751,13 @@
   {
     "list": [
       "Minigame"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "50"
     ],
     "template": "scp"
   },
@@ -112737,6 +114799,12 @@
     "list": [
       "Defence",
       "45"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter"
     ],
     "template": "scp"
   },
@@ -112869,6 +114937,27 @@
   {
     "list": [
       "Defence",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
       "30"
     ],
     "template": "scp"
@@ -112891,6 +114980,20 @@
     "list": [
       "Agility",
       "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "80"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "80"
     ],
     "template": "scp"
   },
@@ -113074,7 +115177,7 @@
   {
     "list": [
       "Ranged",
-      "75"
+      "80"
     ],
     "template": "scp"
   },
@@ -113248,6 +115351,30 @@
   {
     "list": [
       "quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
     ],
     "template": "scp"
   },
@@ -114351,6 +116478,48 @@
   },
   {
     "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Cooking"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -114706,6 +116875,24 @@
   {
     "list": [
       "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
     ],
     "template": "scp"
   },
@@ -116148,6 +118335,24 @@
   },
   {
     "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Hitpoints",
       "65+"
     ],
@@ -116193,20 +118398,6 @@
       "Prayer",
       "43+"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Prayer"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -116610,6 +118801,12 @@
   {
     "list": [
       "Construction"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },
@@ -133061,6 +135258,13 @@
   },
   {
     "list": [
+      "Crafting",
+      "87"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Firemaking",
       "60"
     ],
@@ -133537,6 +135741,13 @@
   {
     "list": [
       "Agility",
+      "15"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
       "16"
     ],
     "template": "scp"
@@ -133705,6 +135916,13 @@
   {
     "list": [
       "Agility",
+      "35"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
       "36"
     ],
     "template": "scp"
@@ -133790,6 +136008,13 @@
     "list": [
       "Agility",
       "42"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "43"
     ],
     "template": "scp"
   },
@@ -133943,6 +136168,13 @@
   {
     "list": [
       "Agility",
+      "56"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
       "57"
     ],
     "template": "scp"
@@ -134006,7 +136238,7 @@
   {
     "list": [
       "Agility",
-      "62"
+      "61"
     ],
     "template": "scp"
   },
@@ -134021,6 +136253,13 @@
     "list": [
       "Agility",
       "62"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "63"
     ],
     "template": "scp"
   },
@@ -134063,6 +136302,13 @@
     "list": [
       "Agility",
       "65"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "66"
     ],
     "template": "scp"
   },
@@ -134160,6 +136406,27 @@
   {
     "list": [
       "Agility",
+      "71"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "72"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "72"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
       "72"
     ],
     "template": "scp"
@@ -134196,13 +136463,6 @@
     "list": [
       "Agility",
       "74"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "75"
     ],
     "template": "scp"
   },
@@ -134244,6 +136504,13 @@
   {
     "list": [
       "Agility",
+      "79"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
       "80"
     ],
     "template": "scp"
@@ -134265,7 +136532,7 @@
   {
     "list": [
       "Agility",
-      "83"
+      "82"
     ],
     "template": "scp"
   },
@@ -134273,6 +136540,20 @@
     "list": [
       "Agility",
       "84"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "84"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "85"
     ],
     "template": "scp"
   },
@@ -134322,6 +136603,13 @@
     "list": [
       "Agility",
       "93"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility",
+      "96"
     ],
     "template": "scp"
   },
@@ -136071,6 +138359,12 @@
   },
   {
     "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Farming"
     ],
     "template": "scp"
@@ -136533,13 +138827,6 @@
   },
   {
     "list": [
-      "Construction"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
       "Cooking"
     ],
     "link": "yes",
@@ -136548,13 +138835,6 @@
   {
     "list": [
       "Crafting"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Firemaking"
     ],
     "link": "yes",
     "template": "scp"
@@ -136590,6 +138870,20 @@
   {
     "list": [
       "Agility"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Firemaking"
     ],
     "link": "yes",
     "template": "scp"
@@ -137793,6 +140087,13 @@
   },
   {
     "list": [
+      "Ranged",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic",
       "50"
     ],
@@ -137800,7 +140101,7 @@
   },
   {
     "list": [
-      "Ranged",
+      "Magic",
       "50"
     ],
     "template": "scp"
@@ -138826,6 +141127,41 @@
     "list": [
       "Slayer",
       "40"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "48"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Runecraft",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Construction",
+      "10"
     ],
     "template": "scp"
   },
@@ -140291,6 +142627,19 @@
   {
     "list": [
       "Crafting",
+      "71"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Crafting",
       "72"
     ],
     "template": "scp"
@@ -140739,6 +143088,12 @@
   },
   {
     "list": [
+      "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Agility",
       "70"
     ],
@@ -140892,6 +143247,20 @@
   {
     "list": [
       "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "overall",
+      "500"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "combat",
+      "40"
     ],
     "template": "scp"
   },
@@ -141254,6 +143623,18 @@
   {
     "list": [
       "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
     ],
     "template": "scp"
   },
@@ -142054,6 +144435,13 @@
   },
   {
     "list": [
+      "Slayer",
+      "44"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Combat",
       "7"
     ],
@@ -142351,9 +144739,8 @@
   },
   {
     "list": [
-      "Agility"
+      "Thieving"
     ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -143459,6 +145846,13 @@
   },
   {
     "list": [
+      "Ranged",
+      "55"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Agility",
       "32"
     ],
@@ -143645,6 +146039,20 @@
   },
   {
     "list": [
+      "Attack",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Ranged",
+      "75"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
@@ -143756,6 +146164,20 @@
   {
     "list": [
       "Diary"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack",
+      "70"
     ],
     "template": "scp"
   },
@@ -144095,6 +146517,94 @@
   {
     "list": [
       "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "58"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "70"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "82"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "94"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "35"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "56"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "79"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "20"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "79"
     ],
     "template": "scp"
   },
@@ -144647,13 +147157,6 @@
     "list": [
       "Construction"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Woodcutting"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -147086,6 +149589,41 @@
   },
   {
     "list": [
+      "Smithing"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Magic"
     ],
     "link": "yes",
@@ -147549,6 +150087,41 @@
   {
     "list": [
       "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Smithing"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
     ],
     "link": "yes",
     "template": "scp"
@@ -148277,6 +150850,76 @@
   {
     "list": [
       "Strength"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Attack"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Strength"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
     ],
     "link": "yes",
     "template": "scp"
@@ -152479,13 +155122,6 @@
   },
   {
     "list": [
-      "Agility"
-    ],
-    "link": "yes",
-    "template": "scp"
-  },
-  {
-    "list": [
       "Prayer"
     ],
     "link": "yes",
@@ -152847,6 +155483,20 @@
   {
     "list": [
       "Strength"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
     ],
     "link": "yes",
     "template": "scp"
@@ -156962,6 +159612,27 @@
   },
   {
     "list": [
+      "Farming",
+      "34"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming",
+      "54"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Farming",
+      "74"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Herblore",
       "34"
     ],
@@ -156978,6 +159649,300 @@
     "list": [
       "Herblore",
       "81"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "dd"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Mining"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Fishing"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Prayer"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hitpoints"
     ],
     "template": "scp"
   },
@@ -186423,13 +189388,6 @@
   {
     "list": [
       "Agility",
-      "52"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
       "76"
     ],
     "template": "scp"
@@ -186507,13 +189465,6 @@
     "list": [
       "Agility",
       "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Hunter",
-      "46"
     ],
     "template": "scp"
   },
@@ -186718,14 +189669,6 @@
     "list": [
       "Construction"
     ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Construction",
-      "75"
-    ],
-    "link": "yes",
     "template": "scp"
   },
   {
@@ -187257,6 +190200,13 @@
     "list": [
       "Slayer",
       "22"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Slayer",
+      "44"
     ],
     "template": "scp"
   },
@@ -190761,6 +193711,14 @@
   },
   {
     "list": [
+      "Construction",
+      "33"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Crafting"
     ],
     "template": "scp"
@@ -192054,12 +195012,6 @@
   },
   {
     "list": [
-      "Quest"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Crafting"
     ],
     "template": "scp"
@@ -192511,20 +195463,6 @@
   {
     "list": [
       "Slayer",
-      "15"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
       "40"
     ],
     "template": "scp"
@@ -192580,48 +195518,6 @@
   },
   {
     "list": [
-      "Combat",
-      "75"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "7"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "10"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "17"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "15"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
       "Slayer",
       "25"
     ],
@@ -192638,13 +195534,6 @@
     "list": [
       "Defence",
       "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "5"
     ],
     "template": "scp"
   },
@@ -192673,20 +195562,6 @@
     "list": [
       "Combat",
       "70"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "35"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "15"
     ],
     "template": "scp"
   },
@@ -192736,13 +195611,6 @@
     "list": [
       "Combat",
       "25"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "52"
     ],
     "template": "scp"
   },
@@ -192847,20 +195715,6 @@
   {
     "list": [
       "Slayer",
-      "37"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "50"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
       "70"
     ],
     "template": "scp"
@@ -192869,20 +195723,6 @@
     "list": [
       "Combat",
       "65"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "22"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "44"
     ],
     "template": "scp"
   },
@@ -192973,27 +195813,6 @@
   {
     "list": [
       "Slayer",
-      "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "20"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "30"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
       "40"
     ],
     "template": "scp"
@@ -193002,6 +195821,13 @@
     "list": [
       "Combat",
       "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Combat",
+      "30"
     ],
     "template": "scp"
   },
@@ -193098,27 +195924,6 @@
     "list": [
       "Combat",
       "35"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Slayer",
-      "35"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Combat",
-      "30"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Defence",
-      "5"
     ],
     "template": "scp"
   },
@@ -194309,6 +197114,41 @@
   {
     "list": [
       "Quest"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "9"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "13"
     ],
     "template": "scp"
   },
@@ -195531,6 +198371,42 @@
   },
   {
     "list": [
+      "Magic"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Thieving"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Agility"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Summoning"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
       "Hunter"
     ],
     "template": "scp"
@@ -195551,6 +198427,22 @@
     "list": [
       "Quest"
     ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Hunter",
+      "99"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Woodcutting",
+      "57"
+    ],
+    "link": "yes",
     "template": "scp"
   },
   {
@@ -195922,16 +198814,22 @@
   },
   {
     "list": [
+      "Agility",
+      "64"
+    ],
+    "link": "y",
+    "template": "scp"
+  },
+  {
+    "list": [
       "Quest"
     ],
     "template": "scp"
   },
   {
     "list": [
-      "Agility",
-      "64"
+      "combatachievement"
     ],
-    "link": "y",
     "template": "scp"
   },
   {
@@ -195956,20 +198854,6 @@
       "25"
     ],
     "link": "y",
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "74"
-    ],
-    "template": "scp"
-  },
-  {
-    "list": [
-      "Agility",
-      "82"
-    ],
     "template": "scp"
   },
   {
@@ -196175,6 +199059,48 @@
   {
     "list": [
       "Defence"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic"
+    ],
+    "link": "yes",
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "1"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "5"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "9"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Magic",
+      "13"
     ],
     "template": "scp"
   },
@@ -197360,6 +200286,12 @@
     "list": [
       "Farming",
       "50"
+    ],
+    "template": "scp"
+  },
+  {
+    "list": [
+      "Quest"
     ],
     "template": "scp"
   },

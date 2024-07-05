@@ -102,6 +102,7 @@
   },
   {
     "name": "Fishing spot",
+    "level": "1",
     "xp": "7.5",
     "bait": "Nothing",
     "smw": "No",
@@ -138,6 +139,13 @@
     "xp": "0",
     "bait": "Nothing",
     "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "20",
+    "xp": "20",
+    "bait": "No",
     "template": "fishing info"
   },
   {
@@ -478,6 +486,14 @@
     "level": "45",
     "xp": "29",
     "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw bream",
+    "level": "20",
+    "xp": "20",
+    "spot": "Fishing spot (Streambound Cavern)",
+    "bait": "No",
     "template": "fishing info"
   },
   {

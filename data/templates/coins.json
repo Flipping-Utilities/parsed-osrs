@@ -13,6 +13,12 @@
   },
   {
     "list": [
+      "floor"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "floor( + )"
     ],
     "template": "coins"
@@ -355,6 +361,30 @@
   },
   {
     "list": [
+      "floor( - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( - 116.3333)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( - 116.3333)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "3250"
     ],
     "template": "coins"
@@ -397,6 +427,30 @@
   },
   {
     "list": [
+      "/3 round 0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/10 round 0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/800 round 0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/60 round 0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "10,000"
     ],
     "template": "coins"
@@ -422,6 +476,54 @@
   {
     "list": [
       "/800 round 0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(4.5 * 8 * ( + + ) + 1.5 * 7 * ) / 31 + ( + 2 *  +  +  +  +  + 2 *  + ) / 10"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + 2 * +  +  +  +  + 2 *  + ) / 10"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(8.5 * 8 * ( + + ) + 2.5 * 7 * ) / 31 + ( +  +  +  +  +  +  +  + ) / 9"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + +  +  +  +  +  +  + ) / 9"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(13 * 8 * ( + + ) + 4.5 * 7 * ) / 31 + ( +  +  +  +  + 2 *  + 2 *  + ) / 10"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + +  +  +  + 2 *  + 2 *  + ) / 10"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(17 * 8 * ( + + ) + 6 * 7 * ) / 31 + ( + 2 *  +  +  +  + 6 *  + 6 *  + 2 * ) / 20"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + 2 * +  +  +  + 6 *  + 6 *  + 2 * ) / 20"
     ],
     "template": "coins"
   },
@@ -1489,12 +1591,6 @@
   },
   {
     "list": [
-      "1000"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "1"
     ],
     "template": "coins"
@@ -2066,37 +2162,43 @@
   },
   {
     "list": [
-      "* 19.96 + * 13.85 +  * 4.73 +  * 1.24 +  * 0.22"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "* 19.96 / 20 + * 13.85 / 20 +  * 4.73 / 20 +  * 1.24 / 20 +  * 0.22 / 20"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "* 19.96 / 40 + * 13.85 / 40 +  * 4.73 / 40 +  * 1.24 / 40 +  * 0.22 / 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "* 19.96 / 300 + * 13.85 / 300 +  * 4.73 / 300 +  * 1.24 / 300 +  * 0.22 / 300"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "/ 2500000"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "/150"
+      "/ 300"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 40"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 20"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 150"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 10"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 10"
     ],
     "template": "coins"
   },
@@ -5882,307 +5984,43 @@
   },
   {
     "list": [
-      "-/"
+      "500,000"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/"
+      "-"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/"
+      "- - 1,500,000 +"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/"
+      "-"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/"
+      "- - 1,500,000 +"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/"
+      "-"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-/"
+      "- - 1,500,000 +"
     ],
     "template": "coins"
   },
@@ -6219,6 +6057,42 @@
   {
     "list": [
       "56.875"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- - 1,500,000 +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- - 1,500,000 +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- - 1,500,000 +"
     ],
     "template": "coins"
   },
@@ -6345,6 +6219,18 @@
   {
     "list": [
       "10,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5000000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "50000000"
     ],
     "template": "coins"
   },
@@ -7130,6 +7016,12 @@
   },
   {
     "list": [
+      "/60 round 0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "/3 round 0"
     ],
     "template": "coins"
@@ -7251,6 +7143,12 @@
   {
     "list": [
       "/50"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "15,512.54"
     ],
     "template": "coins"
   },
@@ -7594,6 +7492,12 @@
   },
   {
     "list": [
+      "floor( * 600)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "- /256 round 0"
     ],
     "template": "coins"
@@ -7805,18 +7709,6 @@
   {
     "list": [
       "/2"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "- ( / 256) round 0"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(*25+*21.875+*17.96875+*15.625+*11.71875+*7.8125)/100- round 0"
     ],
     "template": "coins"
   },
@@ -8777,6 +8669,12 @@
   {
     "list": [
       "/1000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/894.4"
     ],
     "template": "coins"
   },
@@ -10432,6 +10330,12 @@
   },
   {
     "list": [
+      "(/10)--"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "900,000"
     ],
     "template": "coins"
@@ -11442,13 +11346,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -11461,6 +11359,30 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -11473,6 +11395,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -11611,6 +11539,18 @@
   {
     "list": [
       "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "500,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "500,000"
     ],
     "template": "coins"
   },
@@ -14682,13 +14622,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -14701,6 +14635,30 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -14713,6 +14671,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -15168,6 +15132,42 @@
   },
   {
     "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/6000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "round 0"
     ],
     "template": "coins"
@@ -15210,13 +15210,31 @@
   },
   {
     "list": [
-      "-"
+      "- - 1,500,000 +"
     ],
     "template": "coins"
   },
   {
     "list": [
       "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- - 1,500,000 +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- - 1,500,000 +"
     ],
     "template": "coins"
   },
@@ -15271,6 +15289,12 @@
   {
     "list": [
       "-/100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-/120"
     ],
     "template": "coins"
   },
@@ -16224,13 +16248,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -16248,7 +16266,19 @@
   },
   {
     "list": [
-      "+++"
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
     ],
     "template": "coins"
   },
@@ -16267,6 +16297,36 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -16338,6 +16398,12 @@
   },
   {
     "list": [
+      "/10"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "(/4)/20"
     ],
     "template": "coins"
@@ -16345,6 +16411,12 @@
   {
     "list": [
       "(/4)/20"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/20"
     ],
     "template": "coins"
   },
@@ -17316,6 +17388,18 @@
   },
   {
     "list": [
+      "99000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "0"
     ],
     "template": "coins"
@@ -17395,6 +17479,18 @@
   {
     "list": [
       "/8"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "99000"
     ],
     "template": "coins"
   },
@@ -17526,6 +17622,12 @@
   },
   {
     "list": [
+      "500 *"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "+"
     ],
     "template": "coins"
@@ -17557,6 +17659,36 @@
   {
     "list": [
       "59"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
     ],
     "template": "coins"
   },
@@ -18372,6 +18504,12 @@
   },
   {
     "list": [
+      "/8"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "(( * 2)+( * 4)+( * 4))/ 10 / 8"
     ],
     "template": "coins"
@@ -18414,7 +18552,7 @@
   },
   {
     "list": [
-      "/12"
+      "/11"
     ],
     "template": "coins"
   },
@@ -18427,6 +18565,18 @@
   {
     "list": [
       "/12"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/12"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/11"
     ],
     "template": "coins"
   },
@@ -18462,6 +18612,12 @@
   },
   {
     "list": [
+      "/14"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "/15"
     ],
     "template": "coins"
@@ -18493,6 +18649,12 @@
   {
     "list": [
       "/16"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/17"
     ],
     "template": "coins"
   },
@@ -18516,6 +18678,12 @@
   },
   {
     "list": [
+      "/19"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "/20"
     ],
     "template": "coins"
@@ -18523,6 +18691,12 @@
   {
     "list": [
       "/20"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/21"
     ],
     "template": "coins"
   },
@@ -18577,6 +18751,18 @@
   {
     "list": [
       "/3"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/23"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/26"
     ],
     "template": "coins"
   },
@@ -21426,37 +21612,13 @@
   },
   {
     "list": [
-      "(-( + ))/600"
+      "(-( + ))/1573"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "((-( + ))/600)/85"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-( + )"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-( + ))/973"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "((-( + ))/973)/85"
+      "((-( + ))/1573)/85"
     ],
     "template": "coins"
   },
@@ -21540,7 +21702,19 @@
   },
   {
     "list": [
+      "(-)/71"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-)/248155"
     ],
     "template": "coins"
   },
@@ -21553,6 +21727,12 @@
   {
     "list": [
       "+-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(+-)/248226"
     ],
     "template": "coins"
   },
@@ -23005,6 +23185,12 @@
   {
     "list": [
       "( + ) / 17895"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "500 * ( +  +  +  +  +  +  +  +  )"
     ],
     "template": "coins"
   },
@@ -25656,6 +25842,12 @@
   },
   {
     "list": [
+      "250,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "(2* ) + (2 * ) + (4 * )"
     ],
     "template": "coins"
@@ -25756,13 +25948,13 @@
   },
   {
     "list": [
-      "(++++)/40"
+      "/40"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "++++ round 0"
+      "/10"
     ],
     "template": "coins"
   },
@@ -25812,7 +26004,7 @@
   },
   {
     "list": [
-      "+  +  +  +  +  +  +  + 2277000"
+      "+ +  +  +  +  +  +  + 2277000"
     ],
     "template": "coins"
   },
@@ -25824,7 +26016,7 @@
   },
   {
     "list": [
-      "+  +  +  +  +  +  +  + 2277000"
+      "+ +  +  +  +  +  +  + 2277000"
     ],
     "template": "coins"
   },
@@ -25885,6 +26077,12 @@
   {
     "list": [
       "500000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200000"
     ],
     "template": "coins"
   },
@@ -28116,12 +28314,6 @@
   },
   {
     "list": [
-      "32134"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "32640"
     ],
     "template": "coins"
@@ -28225,6 +28417,24 @@
   {
     "list": [
       "(38400-(+))*"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5616"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5616-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(5616-(+))*"
     ],
     "template": "coins"
   },
@@ -28704,6 +28914,24 @@
   },
   {
     "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2295"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2295-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "+++"
     ],
     "template": "coins"
@@ -28722,6 +28950,42 @@
   },
   {
     "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2520"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2520-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "11475"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "11475-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "+++"
     ],
     "template": "coins"
@@ -28735,6 +28999,96 @@
   {
     "list": [
       "12624-(+++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "12624"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "12624-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "4680"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "4680-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5616"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5616-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "6738"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "6738-(++)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "8088"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "8088-(++)"
     ],
     "template": "coins"
   },
@@ -28950,6 +29304,18 @@
   },
   {
     "list": [
+      "500"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "500,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "+"
     ],
     "template": "coins"
@@ -29029,6 +29395,24 @@
   {
     "list": [
       "150,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "250,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "250,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "250,000"
     ],
     "template": "coins"
   },
@@ -29581,66 +29965,6 @@
   {
     "list": [
       "3,200,000"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "/ 40"
     ],
     "template": "coins"
   },
@@ -31002,13 +31326,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -31021,6 +31339,30 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -31033,6 +31375,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -33048,7 +33396,13 @@
   },
   {
     "list": [
-      "floor(+)"
+      "floor"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( - )"
     ],
     "template": "coins"
   },
@@ -33060,13 +33414,31 @@
   },
   {
     "list": [
-      "floor(3*)"
+      "floor( - )"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "floor(++3*)"
+      "floor( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( + -   - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor( + -  - )"
     ],
     "template": "coins"
   },
@@ -33978,7 +34350,7 @@
   },
   {
     "list": [
-      "-(+)"
+      "300 * ( +  )"
     ],
     "template": "coins"
   },
@@ -33990,7 +34362,7 @@
   },
   {
     "list": [
-      "-"
+      "-(+)"
     ],
     "template": "coins"
   },
@@ -34003,6 +34375,36 @@
   {
     "list": [
       "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(100 * ) + (200 * )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(200 * ) + (100 * )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(160 * ) + (140 * )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(60 * ) + (120 * )"
     ],
     "template": "coins"
   },
@@ -34014,7 +34416,13 @@
   },
   {
     "list": [
-      "1/20 * (1/12 * + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 * ) + \n19/20 * (6 * 1/6 * (72+120)/2 *  + \n         6 * 1/7.5 * (79+119)/2 *  + \n         6 * 1/10 * (6+12)/2 *  + \n         6 * 1/10 * (15+25)/2 *  + \n         6 * 1/10 * (12+18)/2 *  + \n         6 * 1/15 * (30+45)/2 *  + \n         6 * 1/15 * (1+2)/2 *  + \n         6 * 1/30 * (42+54)/2 *  + \n         6 * 1/30 * (12+18)/2 *  + \n         6 * 1/30 * 1 * )"
+      "3/56 * (1/12 * + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 *  + \n        1/12 * ) + \n53/56 * (6 * 1/6 * (72+120)/2 *  + \n         6 * 1/7.5 * (79+119)/2 *  + \n         6 * 1/10 * (6+12)/2 *  + \n         6 * 1/10 * (15+25)/2 *  + \n         6 * 1/10 * (12+18)/2 *  + \n         6 * 1/15 * (30+45)/2 *  + \n         6 * 1/15 * (1+2)/2 *  + \n         6 * 1/30 * (42+54)/2 *  + \n         6 * 1/30 * (12+18)/2 *  + \n         6 * 1/30 * 1 * )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "53/56 * (6 * 1/6 * (72+120)/2 * + \n         6 * 1/7.5 * (79+119)/2 *  + \n         6 * 1/10 * (6+12)/2 *  + \n         6 * 1/10 * (15+25)/2 *  + \n         6 * 1/10 * (12+18)/2 *  + \n         6 * 1/15 * (30+45)/2 *  + \n         6 * 1/15 * (1+2)/2 *  + \n         6 * 1/30 * (42+54)/2 *  + \n         6 * 1/30 * (12+18)/2 *  + \n         6 * 1/30 * 1 * )"
     ],
     "template": "coins"
   },
@@ -34299,6 +34707,26 @@
   {
     "list": [
       "2277000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "250,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "",
+      "2"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++",
+      "2"
     ],
     "template": "coins"
   },
@@ -36020,6 +36448,30 @@
   },
   {
     "list": [
+      "20,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "20,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "17,500"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "20,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "(-)/17.5"
     ],
     "template": "coins"
@@ -36644,6 +37096,12 @@
   },
   {
     "list": [
+      "500000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "100000"
     ],
     "template": "coins"
@@ -36710,7 +37168,13 @@
   },
   {
     "list": [
-      "*10000"
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1200*(+)"
     ],
     "template": "coins"
   },
@@ -37095,6 +37559,108 @@
   {
     "list": [
       "- ( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1,000,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1* + 2* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 1* - 2* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1* + 2* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 1* - 2* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1* + 2* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 1* - 2* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2* + 2* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 2* - 2* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2* + 2* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 2* - 2* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "3* + 3* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 3* - 3* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "3* + 3* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 3* - 3* -"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "3* + 3* +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 3* - 3* -"
     ],
     "template": "coins"
   },
@@ -37682,6 +38248,12 @@
   },
   {
     "list": [
+      "5000000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "10000"
     ],
     "template": "coins"
@@ -37772,6 +38344,12 @@
   },
   {
     "list": [
+      "294"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "12624"
     ],
     "template": "coins"
@@ -37796,7 +38374,7 @@
   },
   {
     "list": [
-      "10,000,000"
+      "20,000,000"
     ],
     "template": "coins"
   },
@@ -37977,6 +38555,18 @@
   {
     "list": [
       "100000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
     ],
     "template": "coins"
   },
@@ -38302,6 +38892,12 @@
   },
   {
     "list": [
+      "170"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "17"
     ],
     "template": "coins"
@@ -38495,6 +39091,24 @@
   {
     "list": [
       "102"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+ +  +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+ +  +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+ +  +"
     ],
     "template": "coins"
   },
@@ -39859,13 +40473,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -39878,6 +40486,30 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -39890,6 +40522,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -40011,6 +40649,12 @@
   {
     "list": [
       "3"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2000"
     ],
     "template": "coins"
   },
@@ -41354,6 +41998,18 @@
   },
   {
     "list": [
+      "(*32980-*37900)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*32980-*37900)/(216.3*43840)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "-"
     ],
     "template": "coins"
@@ -41534,133 +42190,121 @@
   },
   {
     "list": [
-      "+/5"
+      "+"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "--/5"
+      "--"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(--/5)/186"
+      "(--)/186"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "---/5"
+      "---"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(---/5)/186"
+      "(---)/186"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "+/5"
+      "+"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "--/5"
+      "--"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(--/5)/210"
+      "(--)/210"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "---/5"
+      "---"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(---/5)/210"
+      "(---)/210"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "+/5"
+      "+"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "--/5"
+      "--"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(--/5)/234"
+      "(--)/234"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "---/5"
+      "---"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(---/5)/234"
+      "(---)/234"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "-/5"
+      "-"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "--/5"
+      "--"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(--/5)/258"
+      "(--)/258"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "---/5"
+      "---"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(---/5)/258"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "1000*(--)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(--)/55"
+      "(---)/258"
     ],
     "template": "coins"
   },
@@ -42021,6 +42665,18 @@
   {
     "list": [
       "(---)/110"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1000*(--)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(--)/55"
     ],
     "template": "coins"
   },
@@ -42615,18 +43271,6 @@
   {
     "list": [
       "- / 205275"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "116299*(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "116299*(++14*/260000)"
     ],
     "template": "coins"
   },
@@ -44534,19 +45178,7 @@
   },
   {
     "list": [
-      "(-----------)/350*101333"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "(-----------)/420"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-----------)/420*101333"
     ],
     "template": "coins"
   },
@@ -44558,31 +45190,13 @@
   },
   {
     "list": [
-      "(-----------)/455*101333"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "(-----------)/490"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "(-----------)/490*101333"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "(-----------)/560"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-----------)/560*101333"
     ],
     "template": "coins"
   },
@@ -44649,264 +45263,6 @@
   {
     "list": [
       "-7000000/155000"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/25"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/27.5"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/30"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/32.5"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/35"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/37.5"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/42.5"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/45"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/50"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/52.5"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/40"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "+"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "-(+)"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "(-(+))/60"
     ],
     "template": "coins"
   },
@@ -45224,43 +45580,31 @@
   },
   {
     "list": [
-      "*45"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "*50"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "*55"
     ],
     "template": "coins"
   },
   {
     "list": [
-      "*1.6"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "*45*1.6"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "*50*1.6"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "*55*1.6"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "*120"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "*120*1.6"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
     ],
     "template": "coins"
   },
@@ -45945,6 +46289,12 @@
   {
     "list": [
       "* 0.15"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(+)/27"
     ],
     "template": "coins"
   },
@@ -47784,6 +48134,12 @@
   },
   {
     "list": [
+      "0"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "*2147483647"
     ],
     "template": "coins"
@@ -48276,13 +48632,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -48295,6 +48645,30 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -48307,6 +48681,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -48349,6 +48729,186 @@
   {
     "list": [
       "3750"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.7539 - -  - )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(*0.5039 - -  - )"
     ],
     "template": "coins"
   },
@@ -48976,13 +49536,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -48995,6 +49549,36 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1440"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1440----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -49007,6 +49591,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -49157,6 +49747,282 @@
   {
     "list": [
       "20800"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "400"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "- 400"
     ],
     "template": "coins"
   },
@@ -49763,13 +50629,7 @@
   },
   {
     "list": [
-      "++"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
-      "---"
+      "----"
     ],
     "template": "coins"
   },
@@ -49782,6 +50642,30 @@
   {
     "list": [
       "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "++"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "---"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "----"
     ],
     "template": "coins"
   },
@@ -49794,6 +50678,12 @@
   {
     "list": [
       "----"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-----"
     ],
     "template": "coins"
   },
@@ -50151,6 +51041,12 @@
   {
     "list": [
       "+ +  +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(10 * + (5 * ) )"
     ],
     "template": "coins"
   },
@@ -50756,6 +51652,120 @@
   },
   {
     "list": [
+      "50"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "50-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "75"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "75-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "100"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "100-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "150"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "150-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "175"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "175-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "200-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "750"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "750-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1000-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1250"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "1250-"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "10000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "-((*3)++)/40.5"
     ],
     "template": "coins"
@@ -50811,6 +51821,18 @@
   {
     "list": [
       "-(+)/135"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-((*3)++)/189"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)/189"
     ],
     "template": "coins"
   },
@@ -51008,12 +52030,6 @@
   },
   {
     "list": [
-      "+ +  +  +  +  +  +  +  +  +"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "+ +  +  +  +  +  +  +"
     ],
     "template": "coins"
@@ -51021,6 +52037,12 @@
   {
     "list": [
       "+ +  +  +  +  +  +"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+ +  +  +  +  +  +  +  +  +"
     ],
     "template": "coins"
   },
@@ -52988,6 +54010,24 @@
   },
   {
     "list": [
+      "/ 300"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 300"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/ 150"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "+"
     ],
     "template": "coins"
@@ -53890,7 +54930,7 @@
   },
   {
     "list": [
-      "50"
+      "20"
     ],
     "template": "coins"
   },
@@ -54760,12 +55800,6 @@
   },
   {
     "list": [
-      "75000"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "+ 20 +"
     ],
     "template": "coins"
@@ -54988,6 +56022,240 @@
   },
   {
     "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/25"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/27.5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/30"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/32.5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/35"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/37.5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/40"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/42.5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/45"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/50"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/52.5"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/40"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-(+)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "(-(+))/60"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "*30/140"
     ],
     "template": "coins"
@@ -55097,6 +56365,36 @@
   {
     "list": [
       "1,000,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "+"
     ],
     "template": "coins"
   },
@@ -56428,12 +57726,6 @@
   },
   {
     "list": [
-      "250000"
-    ],
-    "template": "coins"
-  },
-  {
-    "list": [
       "+"
     ],
     "template": "coins"
@@ -56800,6 +58092,12 @@
   },
   {
     "list": [
+      "500 *"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "/645 round 3"
     ],
     "template": "coins"
@@ -57059,6 +58357,24 @@
   {
     "list": [
       "3000000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "2,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "30,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "60,000"
     ],
     "template": "coins"
   },
@@ -57400,7 +58716,33 @@
   },
   {
     "list": [
+      "/ 10",
+      "c"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( / 20)",
+      "c"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/20"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
       "round 2"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "/10"
     ],
     "template": "coins"
   },
@@ -57425,6 +58767,12 @@
   {
     "list": [
       "floor( + * )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "-"
     ],
     "template": "coins"
   },
@@ -57617,6 +58965,36 @@
   {
     "list": [
       "( * 2)+( * 5)"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + + )"
     ],
     "template": "coins"
   },
@@ -57862,6 +59240,62 @@
   },
   {
     "list": [
+      "10,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "1": "15*10,000",
+    "template": "coins"
+  },
+  {
+    "1": "15*10,000",
+    "template": "coins"
+  },
+  {
+    "list": [
+      "20,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "1": "15*20,000",
+    "template": "coins"
+  },
+  {
+    "1": "15*20,000+15*10,000",
+    "template": "coins"
+  },
+  {
+    "list": [
+      "30,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "1": "30*30,000",
+    "template": "coins"
+  },
+  {
+    "1": "30*30,000+15*20,000+15*10,000",
+    "template": "coins"
+  },
+  {
+    "list": [
+      "40,000"
+    ],
+    "template": "coins"
+  },
+  {
+    "1": "15*40,000",
+    "template": "coins"
+  },
+  {
+    "1": "15*40,000+15*30,000+15*20,000+15*10,000",
+    "template": "coins"
+  },
+  {
+    "list": [
       "-(+)"
     ],
     "template": "coins"
@@ -57875,6 +59309,36 @@
   {
     "list": [
       "+"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + )"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "( + )"
     ],
     "template": "coins"
   },
@@ -58247,6 +59711,18 @@
   {
     "list": [
       "(-840000)*30"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "600000"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "100000"
     ],
     "template": "coins"
   },
@@ -58763,6 +60239,18 @@
   {
     "list": [
       "------"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor(( - (1/20000) * ))"
+    ],
+    "template": "coins"
+  },
+  {
+    "list": [
+      "floor((*0.3))"
     ],
     "template": "coins"
   }
