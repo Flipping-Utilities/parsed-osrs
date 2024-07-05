@@ -83501,6 +83501,39 @@
     "outputs": [
       {
         "id": 0,
+        "quantity": 1,
+        "notes": "toy horsey"
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 43,
+        "name": "Crafting",
+        "xp": 40
+      },
+      {
+        "boostable": true,
+        "lvl": 16,
+        "name": "Construction",
+        "xp": 0
+      }
+    ],
+    "ticks": 6,
+    "toolIds": [],
+    "facility": "Shield easel"
+  },
+  {
+    "inputs": [
+      {
+        "id": 1201,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 0,
         "quantity": 1
       }
     ],
@@ -86832,7 +86865,14 @@
       }
     ],
     "members": true,
-    "skills": [],
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Fletching",
+        "xp": 160
+      }
+    ],
     "ticks": null,
     "toolIds": [
       946

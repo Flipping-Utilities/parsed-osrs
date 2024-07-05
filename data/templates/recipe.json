@@ -49,6 +49,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "61",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -185,6 +186,20 @@
     "output1txt": "A stone bowl",
     "output1pic": "A stone bowl (full)",
     "output1cost": "No",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "0",
+    "facilities": "The Overseer",
+    "notes": "The Overseer is only used for the first bludgeon created.",
+    "mat1": "Bludgeon axon",
+    "mat1cost": "No",
+    "mat2": "Bludgeon claw",
+    "mat2cost": "No",
+    "mat3": "Bludgeon spine",
+    "mat3cost": "No",
+    "output1": "Abyssal bludgeon",
     "template": "recipe"
   },
   {
@@ -656,6 +671,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "31",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -2593,6 +2609,56 @@
     "template": "recipe"
   },
   {
+    "ticks": "0",
+    "facilities": "Friendly Forester",
+    "members": "Yes",
+    "mat1": "Pheasant tail feathers",
+    "output1": "Anima-infused bark",
+    "output1quantity": "5",
+    "output1subtxt": "Pheasant tail feathers",
+    "template": "recipe"
+  },
+  {
+    "ticks": "0",
+    "facilities": "Friendly Forester",
+    "members": "Yes",
+    "mat1": "Sturdy beehive parts",
+    "output1": "Anima-infused bark",
+    "output1quantity": "25",
+    "output1subtxt": "Sturdy beehive parts",
+    "template": "recipe"
+  },
+  {
+    "ticks": "0",
+    "facilities": "Friendly Forester",
+    "members": "Yes",
+    "mat1": "Petal garland",
+    "output1": "Anima-infused bark",
+    "output1quantity": "150",
+    "output1subtxt": "Petal garland",
+    "template": "recipe"
+  },
+  {
+    "ticks": "0",
+    "facilities": "Friendly Forester",
+    "members": "Yes",
+    "mat1": "Golden pheasant egg",
+    "output1": "Anima-infused bark",
+    "output1quantity": "250",
+    "output1subtxt": "Golden pheasant egg",
+    "template": "recipe"
+  },
+  {
+    "ticks": "0",
+    "facilities": "Friendly Forester",
+    "members": "Yes",
+    "mat1": "Fox whistle",
+    "output1": "Anima-infused bark",
+    "output1quantity": "250",
+    "output1subtxt": "Fox whistle",
+    "template": "recipe"
+  },
+  {
     "skill1": "Magic",
     "skill1lvl": "90",
     "skill1boostable": "Yes",
@@ -3081,6 +3147,7 @@
     "skill1": "Crafting",
     "skill1lvl": "80",
     "skill1exp": "400",
+    "skill1boostable": "Yes",
     "tools": "Chisel",
     "members": "Yes",
     "mat1": "Archers ring",
@@ -4714,7 +4781,7 @@
     "skill1boostable": "Yes",
     "skill1exp": "9.5",
     "members": "Yes",
-    "ticks": "0",
+    "ticks": "2",
     "mat1": "Bronze bolts",
     "mat2": "Barb bolttips",
     "output1": "Barbed bolts",
@@ -4722,6 +4789,7 @@
   },
   {
     "skill1": "Cooking",
+    "skill1lvl": "1",
     "skill1exp": "0",
     "members": "Yes",
     "ticks": "4",
@@ -5259,6 +5327,7 @@
     "skill1": "Crafting",
     "skill1lvl": "80",
     "skill1exp": "400",
+    "skill1boostable": "Yes",
     "tools": "Chisel",
     "members": "Yes",
     "mat1": "Berserker ring",
@@ -5764,6 +5833,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "11",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -5930,7 +6000,7 @@
     "mat1": "Black warlock (item)",
     "mat2": "Raw wild kebbit",
     "output1": "Black warlock mix (2)",
-    "output1subtxt": "Raw Wild Kebbit",
+    "output1subtxt": "Wild kebbit",
     "template": "recipe"
   },
   {
@@ -5952,7 +6022,7 @@
     "mat1": "Black warlock (item)",
     "mat2": "Raw barb-tailed kebbit",
     "output1": "Black warlock mix (2)",
-    "output1subtxt": "Barb-tailed Kebbit",
+    "output1subtxt": "Barb-tailed kebbit",
     "template": "recipe"
   },
   {
@@ -5996,7 +6066,7 @@
     "mat1": "Black warlock (item)",
     "mat2": "Raw sunlight antelope",
     "output1": "Black warlock mix (2)",
-    "output1subtxt": "Sunlight Antelope",
+    "output1subtxt": "Sunlight antelope",
     "template": "recipe"
   },
   {
@@ -6007,7 +6077,7 @@
     "mat1": "Black warlock (item)",
     "mat2": "Raw dashing kebbit",
     "output1": "Black warlock mix (2)",
-    "output1subtxt": "Dashing Kebbit",
+    "output1subtxt": "Dashing kebbit",
     "template": "recipe"
   },
   {
@@ -6018,7 +6088,7 @@
     "mat1": "Black warlock (item)",
     "mat2": "Raw moonlight antelope",
     "output1": "Black warlock mix (2)",
-    "output1subtxt": "Moonlight Antelope",
+    "output1subtxt": "Moonlight antelope",
     "template": "recipe"
   },
   {
@@ -6953,12 +7023,13 @@
     "template": "recipe"
   },
   {
+    "notes": "Partial completion of Animal Magnetism",
     "members": "Yes",
     "ticks": "0",
-    "ticksnote": "All bones are blessed at once.",
-    "facilities": "Exposed altar",
-    "mat1": "Bat bones",
-    "output1": "Blessd bat bones",
+    "facilities": "Turael",
+    "mat1": "Mithril axe",
+    "mat2": "Holy symbol",
+    "output1": "Blessed axe",
     "output1cost": "No",
     "template": "recipe"
   },
@@ -6987,6 +7058,16 @@
     "ticks": "0",
     "ticksnote": "All bones are blessed at once.",
     "facilities": "Exposed altar",
+    "mat1": "Bat bones",
+    "output1": "Blessed bat bones",
+    "output1cost": "No",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "All bones are blessed at once.",
+    "facilities": "Exposed altar",
     "mat1": "Big bones",
     "output1": "Blessed big bones",
     "output1cost": "No",
@@ -6998,7 +7079,7 @@
     "skill1exp": "5",
     "members": "Yes",
     "ticks": "0",
-    "ticksnote": "Auto-crushing blessed bones is 0, then 4 ticks.",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
     "tools": "Chisel",
     "mat1": "Blessed bones",
     "output1": "Blessed bone shards",
@@ -7011,7 +7092,229 @@
     "skill1exp": "5",
     "members": "Yes",
     "ticks": "0",
-    "ticksnote": "Auto-crushing blessed bones is 0, then 4 ticks.",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed bat bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "5",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed big bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "12",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed zogre bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "18",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed babywyrm bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "21",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed babydragon bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "24",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed wyrm bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "42",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Sun-kissed bones",
+    "mat1pic": "Sun-kissed bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "45",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed wyvern bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "58",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed dragon bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "58",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed drake bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "64",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed fayrg bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "67",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed lava dragon bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "68",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed raurg bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "77",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed hydra bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "93",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Dagannoth bones (blessed)",
+    "output1": "Blessed bone shards",
+    "output1quantity": "100",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed ourg bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "115",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
+    "tools": "Chisel",
+    "mat1": "Blessed superior dragon bones",
+    "output1": "Blessed bone shards",
+    "output1quantity": "121",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "1",
+    "skill1exp": "5",
+    "members": "Yes",
+    "ticks": "0",
+    "ticksnote": "Auto-crushing is 0, then 4 ticks.",
     "tools": "Chisel",
     "mat1": "Blessed bone statuette",
     "mat1pic": "Blessed bone statuette (eagle)",
@@ -7137,6 +7440,9 @@
     "template": "recipe"
   },
   {
+    "skill1": "Prayer",
+    "skill1lvl": "70",
+    "skill1exp": "0",
     "members": "Yes",
     "ticks": "0",
     "ticksnote": "All bones are blessed at once.",
@@ -9477,6 +9783,14 @@
     "mat1cost": "No",
     "output1": "Breadcrumbs",
     "output1cost": "No",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "0",
+    "tools": "Knife",
+    "mat1": "Raw bream",
+    "output1": "Bream scales",
     "template": "recipe"
   },
   {
@@ -13036,7 +13350,7 @@
     "notes": "Completion of Twilight's Promise",
     "members": "Yes",
     "ticks": "4",
-    "facilities": "Teak eagle lectern",
+    "facilities": "Mahogany eagle lectern",
     "mat1": "Law rune",
     "mat1quantity": "2",
     "mat2": "Fire rune",
@@ -17368,7 +17682,7 @@
   },
   {
     "members": "Yes",
-    "ticks": "1",
+    "ticks": "0",
     "mat1": "Loop half of key",
     "mat2": "Tooth half of key",
     "output1": "Crystal key",
@@ -18673,7 +18987,7 @@
     "skill1": "Construction",
     "skill1lvl": "28",
     "skill1boostable": "Yes",
-    "skill1exp": "135",
+    "skill1exp": "150",
     "members": "Yes",
     "ticks": "5",
     "tools": "Saw, Hammer",
@@ -18958,6 +19272,7 @@
   },
   {
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Infinity bottoms",
     "mat2": "Dark infinity colour kit",
     "output1": "Dark infinity bottoms",
@@ -18966,6 +19281,7 @@
   },
   {
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Infinity hat",
     "mat2": "Dark infinity colour kit",
     "output1": "Dark infinity hat",
@@ -18974,6 +19290,7 @@
   },
   {
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Infinity top",
     "mat2": "Dark infinity colour kit",
     "output1": "Dark infinity top",
@@ -18982,7 +19299,7 @@
   },
   {
     "members": "Yes",
-    "ticks": "1",
+    "ticks": "0",
     "mat1": "Dark totem top",
     "mat1cost": "No",
     "mat2": "Dark totem middle",
@@ -20481,6 +20798,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "61",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -21858,6 +22176,14 @@
     "template": "recipe"
   },
   {
+    "members": "Yes",
+    "mat1": "Guardian boots",
+    "mat2": "Echo crystal",
+    "output1": "Echo boots",
+    "output1quantity": "1",
+    "template": "recipe"
+  },
+  {
     "skill1": "Magic",
     "skill1lvl": "1",
     "skill1exp": "30",
@@ -23011,6 +23337,19 @@
     "template": "recipe"
   },
   {
+    "tools": "Knife",
+    "members": "Yes",
+    "ticks": "0",
+    "mat1": "Basic quetzal whistle",
+    "mat1cost": "No",
+    "mat2": "Torn enhanced quetzal whistle blueprint",
+    "mat2cost": "No",
+    "mat3": "Yew logs",
+    "output1": "Enhanced quetzal whistle",
+    "output1cost": "No",
+    "template": "recipe"
+  },
+  {
     "members": "yes",
     "tools": "Knife",
     "mat1": "Kbd heads",
@@ -23125,13 +23464,13 @@
     "ticks": "1",
     "facilities": "Belona",
     "mat1": "Mining gloves",
-    "mat1cost": "60",
+    "mat1cost": "40",
     "mat1currency": "Unidentified minerals",
     "mat2": "Superior mining gloves",
-    "mat2cost": "120",
+    "mat2cost": "100",
     "mat2currency": "Unidentified minerals",
     "mat3": "Unidentified minerals",
-    "mat3quantity": "60",
+    "mat3quantity": "40",
     "mat3cost": "1",
     "mat3currency": "Unidentified minerals",
     "output1": "Expert mining gloves",
@@ -23868,6 +24207,25 @@
     "template": "recipe"
   },
   {
+    "skill1": "Construction",
+    "skill1lvl": "24",
+    "skill1boostable": "Yes",
+    "skill1exp": "800",
+    "members": "Yes",
+    "tools": "Hammer, tinderbox",
+    "mat1": "Soft clay",
+    "mat1quantity": "3",
+    "mat2": "Iron bar",
+    "mat2quantity": "1",
+    "mat3": "Logs",
+    "mat3quantity": "2",
+    "output1": "Cooking pot (Museum Camp)",
+    "output1txt": "Cooking Pot",
+    "output1pic": "Cooking range icon",
+    "output1cost": "0",
+    "template": "recipe"
+  },
+  {
     "skill1": "Runecraft",
     "skill1lvl": "14",
     "skill1boostable": "yes",
@@ -24155,6 +24513,14 @@
     "template": "recipe"
   },
   {
+    "members": "Yes",
+    "mat1": "Big fishing net",
+    "mat2": "Empty fishbowl",
+    "output1": "Fishbowl and net",
+    "output1cost": "No",
+    "template": "recipe"
+  },
+  {
     "skill1": "Crafting",
     "skill1lvl": "30",
     "skill1exp": "Crafting level 4",
@@ -24166,6 +24532,69 @@
     "ticksnote": "An attempt to repair the crane is made on the first tick, and then every ten ticks thereafter.",
     "tools": "Hammer",
     "mat1": "Plank",
+    "mat1quantity": "3",
+    "mat2": "Bronze nails",
+    "mat2quantity": "9",
+    "mat2quantitynote": "At least nine nails are required to repair the crane, in addition to any that are bent in the process.",
+    "output1": "Fishing Crane#Repaired",
+    "output1pic": "Bank filler",
+    "output1cost": "0",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "30",
+    "skill1exp": "Crafting level 4",
+    "skill2": "Construction",
+    "skill2lvl": "30",
+    "skill2exp": "Construction level  4",
+    "members": "Yes",
+    "ticks": "10",
+    "ticksnote": "An attempt to repair the crane is made on the first tick, and then every ten ticks thereafter.",
+    "tools": "Hammer",
+    "mat1": "Oak plank",
+    "mat1quantity": "3",
+    "mat2": "Bronze nails",
+    "mat2quantity": "9",
+    "mat2quantitynote": "At least nine nails are required to repair the crane, in addition to any that are bent in the process.",
+    "output1": "Fishing Crane#Repaired",
+    "output1pic": "Bank filler",
+    "output1cost": "0",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "30",
+    "skill1exp": "Crafting level 4",
+    "skill2": "Construction",
+    "skill2lvl": "30",
+    "skill2exp": "Construction level  4",
+    "members": "Yes",
+    "ticks": "10",
+    "ticksnote": "An attempt to repair the crane is made on the first tick, and then every ten ticks thereafter.",
+    "tools": "Hammer",
+    "mat1": "Teak plank",
+    "mat1quantity": "3",
+    "mat2": "Bronze nails",
+    "mat2quantity": "9",
+    "mat2quantitynote": "At least nine nails are required to repair the crane, in addition to any that are bent in the process.",
+    "output1": "Fishing Crane#Repaired",
+    "output1pic": "Bank filler",
+    "output1cost": "0",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Crafting",
+    "skill1lvl": "31",
+    "skill1exp": "Crafting level 4",
+    "skill2": "Construction",
+    "skill2lvl": "30",
+    "skill2exp": "Construction level  4",
+    "members": "Yes",
+    "ticks": "10",
+    "ticksnote": "An attempt to repair the crane is made on the first tick, and then every ten ticks thereafter.",
+    "tools": "Hammer",
+    "mat1": "Mahogany plank",
     "mat1quantity": "3",
     "mat2": "Bronze nails",
     "mat2quantity": "9",
@@ -24277,7 +24706,7 @@
     "skill1": "Fletching",
     "skill1lvl": "5",
     "skill1boostable": "Yes",
-    "skill1exp": "9",
+    "skill1exp": "5.4",
     "notes": "Started Big Chompy Bird Hunting",
     "members": "Yes",
     "ticks": "2",
@@ -24323,9 +24752,11 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "35",
+    "skill1boostable": "Yes",
     "skill1exp": "51.1",
     "skill2": "Woodcutting",
     "skill2lvl": "35",
+    "skill2boostable": "Yes",
     "skill2exp": "0",
     "members": "Yes",
     "ticks": "3",
@@ -24340,9 +24771,11 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "35",
+    "skill1boostable": "Yes",
     "skill1exp": "51.1",
     "skill2": "Woodcutting",
     "skill2lvl": "35",
+    "skill2boostable": "Yes",
     "skill2exp": "0",
     "members": "Yes",
     "ticks": "3",
@@ -24357,9 +24790,11 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "35",
+    "skill1boostable": "Yes",
     "skill1exp": "51.1",
     "skill2": "Woodcutting",
     "skill2lvl": "35",
+    "skill2boostable": "Yes",
     "skill2exp": "0",
     "members": "Yes",
     "ticks": "3",
@@ -24374,9 +24809,11 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "35",
+    "skill1boostable": "Yes",
     "skill1exp": "51.1",
     "skill2": "Woodcutting",
     "skill2lvl": "35",
+    "skill2boostable": "Yes",
     "skill2exp": "0",
     "members": "Yes",
     "ticks": "3",
@@ -24391,9 +24828,11 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "35",
+    "skill1boostable": "Yes",
     "skill1exp": "51.1",
     "skill2": "Woodcutting",
     "skill2lvl": "35",
+    "skill2boostable": "Yes",
     "skill2exp": "0",
     "members": "Yes",
     "ticks": "3",
@@ -24408,9 +24847,11 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "35",
+    "skill1boostable": "Yes",
     "skill1exp": "51.1",
     "skill2": "Woodcutting",
     "skill2lvl": "35",
+    "skill2boostable": "Yes",
     "skill2exp": "0",
     "members": "Yes",
     "ticks": "3",
@@ -27039,7 +27480,7 @@
   {
     "skill1": "Cooking",
     "skill1lvl": "1",
-    "skill1exp": "1",
+    "skill1exp": "0",
     "members": "Yes",
     "ticks": "0",
     "ticksnote": "Auto-crushing seaweed is 0, then 2, then 3 ticks.",
@@ -28710,7 +29151,7 @@
   {
     "skill1": "Fletching",
     "skill1lvl": "60",
-    "skill1boostable": "Yes",
+    "skill1boostable": "No",
     "skill1exp": "9.5",
     "members": "Yes",
     "ticks": "3",
@@ -28939,6 +29380,7 @@
     "skill1exp": "5",
     "members": "Yes",
     "ticks": "1",
+    "facilities": "Altar (Zalcano)",
     "mat1": "Refined tephra",
     "mat1cost": "No",
     "output1": "Imbued tephra",
@@ -30560,6 +31002,7 @@
     "mat1quantity": "1",
     "output1": "Jug of blessed sunfire wine",
     "output1quantity": "1",
+    "tools": "Pestle and mortar",
     "template": "recipe"
   },
   {
@@ -30573,8 +31016,8 @@
   },
   {
     "members": "Yes",
-    "ticks": "0",
-    "ticksnote": "Auto-crushing blessed bones is 0, then 4 ticks.",
+    "ticks": "1",
+    "ticksnote": "Crushing sunfire splinters is 1, then 4 ticks.",
     "tools": "Pestle and mortar",
     "mat1": "Sunfire splinters",
     "mat1quantity": "2",
@@ -31333,6 +31776,22 @@
     "template": "recipe"
   },
   {
+    "notes": "Completion of Twilight's Promise",
+    "members": "Yes",
+    "ticks": "6",
+    "facilities": "Unbuilt Landing Site",
+    "mat1": "Quetzal feed",
+    "mat1quantity": "10",
+    "mat2": "Limestone brick",
+    "mat2quantity": "3",
+    "mat3": "Soft clay",
+    "mat3quantity": "4",
+    "output1": "Landing Site",
+    "output1pic": "Quetzin",
+    "output1cost": "No",
+    "template": "recipe"
+  },
+  {
     "skill1": "Herblore",
     "skill1lvl": "67",
     "skill1boostable": "Yes",
@@ -31493,6 +31952,7 @@
   {
     "skill1": "Crafting",
     "skill1lvl": "65",
+    "skill1boostable": "yes",
     "skill1exp": "60",
     "tools": "Needle",
     "members": "yes",
@@ -31997,16 +32457,6 @@
   },
   {
     "members": "Yes",
-    "tools": "Hammer",
-    "mat1": "Infernal eel",
-    "mat1cost": "No",
-    "output1": "Lava scale shard",
-    "output1quantity": "3",
-    "output1quantitynote": "Yields between 1-5 lava scale shards",
-    "template": "recipe"
-  },
-  {
-    "members": "Yes",
     "mat1": "Earth nerve",
     "mat1cost": "No",
     "mat2": "Mind nerve",
@@ -32423,6 +32873,7 @@
   },
   {
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Infinity bottoms",
     "mat2": "Light infinity colour kit",
     "output1": "Light infinity bottoms",
@@ -32431,6 +32882,7 @@
   },
   {
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Infinity hat",
     "mat2": "Light infinity colour kit",
     "output1": "Light infinity hat",
@@ -32439,6 +32891,7 @@
   },
   {
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Infinity top",
     "mat2": "Light infinity colour kit",
     "output1": "Light infinity top",
@@ -36729,6 +37182,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "21",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -37757,7 +38211,7 @@
     "mat1": "Moonlight moth (item)",
     "mat2": "Raw wild kebbit",
     "output1": "Moonlight moth mix (2)",
-    "output1subtxt": "Raw Wild Kebbit",
+    "output1subtxt": "Wild kebbit",
     "template": "recipe"
   },
   {
@@ -37779,7 +38233,7 @@
     "mat1": "Moonlight moth (item)",
     "mat2": "Raw barb-tailed kebbit",
     "output1": "Moonlight moth mix (2)",
-    "output1subtxt": "Barb-tailed Kebbit",
+    "output1subtxt": "Barb-tailed kebbit",
     "template": "recipe"
   },
   {
@@ -37823,7 +38277,7 @@
     "mat1": "Moonlight moth (item)",
     "mat2": "Raw sunlight antelope",
     "output1": "Moonlight moth mix (2)",
-    "output1subtxt": "Sunlight Antelope",
+    "output1subtxt": "Sunlight antelope",
     "template": "recipe"
   },
   {
@@ -37834,7 +38288,7 @@
     "mat1": "Moonlight moth (item)",
     "mat2": "Raw dashing kebbit",
     "output1": "Moonlight moth mix (2)",
-    "output1subtxt": "Dashing Kebbit",
+    "output1subtxt": "Dashing kebbit",
     "template": "recipe"
   },
   {
@@ -37845,7 +38299,7 @@
     "mat1": "Moonlight moth (item)",
     "mat2": "Raw moonlight antelope",
     "output1": "Moonlight moth mix (2)",
-    "output1subtxt": "Moonlight Antelope",
+    "output1subtxt": "Moonlight antelope",
     "template": "recipe"
   },
   {
@@ -37878,6 +38332,14 @@
     "output1pic": "Morytania (painting) icon",
     "output1txt": "Morytania",
     "output1cost": "0",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "0",
+    "tools": "Knife",
+    "mat1": "Raw moss lizard",
+    "output1": "Moss lizard tail",
     "template": "recipe"
   },
   {
@@ -39223,6 +39685,111 @@
     "template": "recipe"
   },
   {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy avantoe",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy kwuarm",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy snapdragon",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy cadantine",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy lantadyme",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy dwarf weed",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Farming",
+    "skill1lvl": "50",
+    "skill1exp": "0",
+    "skill2": "Woodcutting",
+    "skill2lvl": "68",
+    "skill2exp": "0",
+    "ticks": "3",
+    "members": "Yes",
+    "mat1": "Ritual mulch",
+    "mat2": "Grimy torstol",
+    "output1": "Nature offerings",
+    "output1quantity": "40",
+    "template": "recipe"
+  },
+  {
     "skill1": "Runecraft",
     "skill1lvl": "44",
     "skill1boostable": "yes",
@@ -39369,7 +39936,7 @@
     "skill1": "Cooking",
     "skill1lvl": "20",
     "skill1boostable": "Yes",
-    "skill1exp": "1",
+    "skill1exp": "0",
     "members": "Yes",
     "ticks": "2",
     "mat1": "Nettles",
@@ -41128,7 +41695,7 @@
     "tools": "Knife",
     "mat1": "Achey tree logs",
     "output1": "Ogre arrow shaft",
-    "output1quantity": "4",
+    "output1quantity": "3",
     "template": "recipe"
   },
   {
@@ -42924,7 +43491,20 @@
     "mat2": "Perfected quetzal whistle blueprint",
     "mat3": "Redwood logs",
     "output1": "Perfected quetzal whistle",
-    "outputcost": "No",
+    "output1cost": "No",
+    "template": "recipe"
+  },
+  {
+    "tools": "Knife",
+    "members": "Yes",
+    "ticks": "0",
+    "mat1": "Enhanced quetzal whistle",
+    "mat1cost": "No",
+    "mat2": "Torn perfected quetzal whistle blueprint",
+    "mat2cost": "No",
+    "mat3": "Redwood logs",
+    "output1": "Perfected quetzal whistle",
+    "output1cost": "No",
     "template": "recipe"
   },
   {
@@ -43568,6 +44148,27 @@
     "template": "recipe"
   },
   {
+    "skill1": "Construction",
+    "skill1lvl": "65",
+    "skill1boostable": "Yes",
+    "skill1exp": "474",
+    "skill2": "Farming",
+    "skill2lvl": "1",
+    "skill2exp": "474",
+    "members": "Yes",
+    "ticks": "5",
+    "tools": "Watering can",
+    "mat1": "Bagged nice tree",
+    "mat2": "Pink dye",
+    "mat2cost": "20",
+    "mat3": "Bucket of sand",
+    "mat3quantity": "6",
+    "output1": "Zen theme",
+    "output1pic": "Zen theme icon",
+    "output1cost": "0",
+    "template": "recipe"
+  },
+  {
     "members": "Yes",
     "ticks": "1",
     "mat1": "Goblin mail",
@@ -43802,7 +44403,6 @@
     "ticks": "1",
     "mat1": "Fish food",
     "mat2": "Poison (item)",
-    "mat2cost": "No",
     "output1": "Poisoned fish food",
     "output1cost": "No",
     "template": "recipe"
@@ -44282,6 +44882,7 @@
     "mat1": "Prototype dart tip",
     "mat1cost": "No",
     "mat2": "Feather",
+    "mat2quantity": "10",
     "output1": "Prototype dart",
     "output1cost": "No",
     "template": "recipe"
@@ -45524,6 +46125,7 @@
     "skill1exp": "10",
     "members": "Yes",
     "ticks": "1",
+    "facilities": "Furnace (Zalcano)",
     "mat1": "Tephra",
     "mat1cost": "No",
     "output1": "Refined tephra",
@@ -45849,6 +46451,27 @@
     "template": "recipe"
   },
   {
+    "skill1": "Construction",
+    "skill1lvl": "22",
+    "skill1boostable": "Yes",
+    "skill1exp": "500",
+    "members": "Yes",
+    "tools": "Hammer",
+    "mat1": "Oak plank",
+    "mat1quantity": "2",
+    "mat2": "Bronze nails",
+    "mat2quantity": "5",
+    "mat3": "Rope",
+    "mat3quantity": "1",
+    "mat4": "Bucket",
+    "mat4quantity": "1",
+    "output1": "Well",
+    "output1txt": "Well",
+    "output1pic": "Water source icon",
+    "output1cost": "0",
+    "template": "recipe"
+  },
+  {
     "skill1": "Magic",
     "skill1lvl": "27",
     "skill1boostable": "Yes",
@@ -46161,7 +46784,7 @@
     "skill1": "Cooking",
     "skill1lvl": "16",
     "skill1boostable": "Yes",
-    "skill1exp": "72",
+    "skill1exp": "72.5",
     "members": "Yes",
     "ticks": "3",
     "facilities": "Fire",
@@ -46687,7 +47310,7 @@
     "mat1": "Ruby harvest (item)",
     "mat2": "Raw wild kebbit",
     "output1": "Ruby harvest mix (2)",
-    "output1subtxt": "Raw Wild Kebbit",
+    "output1subtxt": "Wild kebbit",
     "template": "recipe"
   },
   {
@@ -46709,7 +47332,7 @@
     "mat1": "Ruby harvest (item)",
     "mat2": "Raw barb-tailed kebbit",
     "output1": "Ruby harvest mix (2)",
-    "output1subtxt": "Barb-tailed Kebbit",
+    "output1subtxt": "Barb-tailed kebbit",
     "template": "recipe"
   },
   {
@@ -46753,7 +47376,7 @@
     "mat1": "Ruby harvest (item)",
     "mat2": "Raw sunlight antelope",
     "output1": "Ruby harvest mix (2)",
-    "output1subtxt": "Sunlight Antelope",
+    "output1subtxt": "Sunlight antelope",
     "template": "recipe"
   },
   {
@@ -46764,7 +47387,7 @@
     "mat1": "Ruby harvest (item)",
     "mat2": "Raw dashing kebbit",
     "output1": "Ruby harvest mix (2)",
-    "output1subtxt": "Dashing Kebbit",
+    "output1subtxt": "Dashing kebbit",
     "template": "recipe"
   },
   {
@@ -46775,7 +47398,7 @@
     "mat1": "Ruby harvest (item)",
     "mat2": "Raw moonlight antelope",
     "output1": "Ruby harvest mix (2)",
-    "output1subtxt": "Moonlight Antelope",
+    "output1subtxt": "Moonlight antelope",
     "template": "recipe"
   },
   {
@@ -47253,6 +47876,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "41",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -49274,7 +49898,7 @@
     "mat1": "Sapphire glacialis (item)",
     "mat2": "Raw wild kebbit",
     "output1": "Sapphire glacialis mix (2)",
-    "output1subtxt": "Raw Wild Kebbit",
+    "output1subtxt": "Wild kebbit",
     "template": "recipe"
   },
   {
@@ -49296,7 +49920,7 @@
     "mat1": "Sapphire glacialis (item)",
     "mat2": "Raw barb-tailed kebbit",
     "output1": "Sapphire glacialis mix (2)",
-    "output1subtxt": "Barb-tailed Kebbit",
+    "output1subtxt": "Barb-tailed kebbit",
     "template": "recipe"
   },
   {
@@ -49340,7 +49964,7 @@
     "mat1": "Sapphire glacialis (item)",
     "mat2": "Raw sunlight antelope",
     "output1": "Sapphire glacialis mix (2)",
-    "output1subtxt": "Sunlight Antelope",
+    "output1subtxt": "Sunlight antelope",
     "template": "recipe"
   },
   {
@@ -49351,7 +49975,7 @@
     "mat1": "Sapphire glacialis (item)",
     "mat2": "Raw dashing kebbit",
     "output1": "Sapphire glacialis mix (2)",
-    "output1subtxt": "Dashing Kebbit",
+    "output1subtxt": "Dashing kebbit",
     "template": "recipe"
   },
   {
@@ -49362,7 +49986,7 @@
     "mat1": "Sapphire glacialis (item)",
     "mat2": "Raw moonlight antelope",
     "output1": "Sapphire glacialis mix (2)",
-    "output1subtxt": "Moonlight Antelope",
+    "output1subtxt": "Moonlight antelope",
     "template": "recipe"
   },
   {
@@ -49373,6 +49997,7 @@
     "output1": "Sapphire lantern",
     "output1pic": "Sapphire lantern (empty)",
     "output1cost": "No",
+    "crafting": "20",
     "template": "recipe"
   },
   {
@@ -49595,12 +50220,13 @@
     "template": "recipe"
   },
   {
+    "skill1": "Fletching",
+    "skill1lvl": "1",
+    "skill1exp": "160",
     "members": "Yes",
     "tools": "Knife",
     "mat1": "Scrapey tree logs",
-    "mat1cost": "No",
     "output1": "Scrapey bark",
-    "output1cost": "No",
     "template": "recipe"
   },
   {
@@ -49683,6 +50309,7 @@
     "skill1": "Crafting",
     "skill1lvl": "80",
     "skill1exp": "400",
+    "skill1boostable": "Yes",
     "tools": "Chisel",
     "members": "Yes",
     "mat1": "Seers ring",
@@ -49863,8 +50490,8 @@
     "mat1quantity": "2",
     "mat2": "Bolt of cloth",
     "mat3": "Gold leaf",
-    "output1": "Servant's moneybag",
-    "output1pic": "Servant's moneybag icon",
+    "output1": "Servant's money bag",
+    "output1pic": "Servant's money bag icon",
     "output1cost": "0",
     "template": "recipe"
   },
@@ -52433,6 +53060,7 @@
   {
     "skill1": "Crafting",
     "skill1lvl": "35",
+    "skill1boostable": "yes",
     "skill1exp": "30",
     "tools": "Needle",
     "members": "yes",
@@ -53109,7 +53737,7 @@
     "mat1": "Snowy knight (item)",
     "mat2": "Raw wild kebbit",
     "output1": "Snowy knight mix (2)",
-    "output1subtxt": "Raw Wild Kebbit",
+    "output1subtxt": "Wild kebbit",
     "template": "recipe"
   },
   {
@@ -53131,7 +53759,7 @@
     "mat1": "Snowy knight (item)",
     "mat2": "Raw barb-tailed kebbit",
     "output1": "Snowy knight mix (2)",
-    "output1subtxt": "Barb-tailed Kebbit",
+    "output1subtxt": "Barb-tailed kebbit",
     "template": "recipe"
   },
   {
@@ -53175,7 +53803,7 @@
     "mat1": "Snowy knight (item)",
     "mat2": "Raw sunlight antelope",
     "output1": "Snowy knight mix (2)",
-    "output1subtxt": "Sunlight Antelope",
+    "output1subtxt": "Sunlight antelope",
     "template": "recipe"
   },
   {
@@ -53186,7 +53814,7 @@
     "mat1": "Snowy knight (item)",
     "mat2": "Raw dashing kebbit",
     "output1": "Snowy knight mix (2)",
-    "output1subtxt": "Dashing Kebbit",
+    "output1subtxt": "Dashing kebbit",
     "template": "recipe"
   },
   {
@@ -53197,7 +53825,7 @@
     "mat1": "Snowy knight (item)",
     "mat2": "Raw moonlight antelope",
     "output1": "Snowy knight mix (2)",
-    "output1subtxt": "Moonlight Antelope",
+    "output1subtxt": "Moonlight antelope",
     "template": "recipe"
   },
   {
@@ -53326,6 +53954,23 @@
     "mat3": "Water rune",
     "mat3quantity": "3",
     "mat4": "Astral rune",
+    "output1": "Soft clay",
+    "output1quantity": "27",
+    "output1subtxt": "Humidify inventory",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Magic",
+    "skill1lvl": "68",
+    "skill1boostable": "yes",
+    "skill1exp": "65",
+    "notes": "Completion of Dream Mentor",
+    "members": "Yes",
+    "ticks": "3",
+    "ticksnote": "A single cast waters all clay in the inventory.",
+    "mat1": "Clay",
+    "mat1quantity": "27",
+    "mat2": "Astral rune",
     "output1": "Soft clay",
     "output1quantity": "27",
     "output1subtxt": "Humidify inventory",
@@ -53809,6 +54454,7 @@
     "mat1cost": "0",
     "mat2": "Mushroom",
     "mat2quantity": "10",
+    "mat2quantitynote": "Mushrooms must be unnoted.",
     "mat3": "Fairy enchantment",
     "mat3cost": "100",
     "output1": "Spirit tree & fairy ring",
@@ -55014,6 +55660,7 @@
   {
     "skill1": "Smithing",
     "skill1lvl": "6",
+    "skill1boostable": "Yes",
     "skill1exp": "5",
     "members": "Yes",
     "tools": "Hammer",
@@ -56544,7 +57191,7 @@
     "skill1": "Runecraft",
     "skill1lvl": "33",
     "skill1boostable": "yes",
-    "skill1exp": "4.5",
+    "skill1exp": "9",
     "members": "yes",
     "ticks": "1",
     "facilities": "Shrine of Ralos",
@@ -56552,14 +57199,13 @@
     "mat2": "Sunfire splinters",
     "mat3": "Fire rune",
     "output1": "Sunfire rune",
-    "output1quantitynote": "60% extra runes while wearing Raiments of the Eye set.",
     "template": "recipe"
   },
   {
     "skill1": "Runecraft",
     "skill1lvl": "33",
     "skill1boostable": "yes",
-    "skill1exp": "unknown",
+    "skill1exp": "13.5",
     "members": "yes",
     "ticks": "1",
     "facilities": "Shrine of Ralos",
@@ -56567,7 +57213,25 @@
     "mat2": "Sunfire splinters",
     "mat3": "Fire rune",
     "output1": "Sunfire rune",
-    "output1quantitynote": "60% extra runes while wearing Raiments of the Eye set.",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Runecraft",
+    "skill1lvl": "60",
+    "notes": "Started Desert Treasure II - The Fallen Empire",
+    "skill1boostable": "no",
+    "skill1exp": "9",
+    "members": "yes",
+    "ticks": "1",
+    "facilities": "Shrine of Ralos",
+    "mat1": "Pure essence",
+    "mat2": "Sunfire splinters",
+    "mat3": "Fire rune",
+    "mat4": "Twisted extract",
+    "mat4cost": "6000",
+    "output1": "Sunfire rune",
+    "output1quantity": "62",
+    "output1quantitynote": "Raiments of the Eye will not stack with the additional 60 runes from the extract.",
     "template": "recipe"
   },
   {
@@ -56608,7 +57272,7 @@
     "mat1": "Sunlight moth (item)",
     "mat2": "Raw wild kebbit",
     "output1": "Sunlight moth mix (2)",
-    "output1subtxt": "Raw Wild Kebbit",
+    "output1subtxt": "Wild kebbit",
     "template": "recipe"
   },
   {
@@ -56630,7 +57294,7 @@
     "mat1": "Sunlight moth (item)",
     "mat2": "Raw barb-tailed kebbit",
     "output1": "Sunlight moth mix (2)",
-    "output1subtxt": "Barb-tailed Kebbit",
+    "output1subtxt": "Barb-tailed kebbit",
     "template": "recipe"
   },
   {
@@ -56674,7 +57338,7 @@
     "mat1": "Sunlight moth (item)",
     "mat2": "Raw sunlight antelope",
     "output1": "Sunlight moth mix (2)",
-    "output1subtxt": "Sunlight Antelope",
+    "output1subtxt": "Sunlight antelope",
     "template": "recipe"
   },
   {
@@ -56685,7 +57349,7 @@
     "mat1": "Sunlight moth (item)",
     "mat2": "Raw dashing kebbit",
     "output1": "Sunlight moth mix (2)",
-    "output1subtxt": "Dashing Kebbit",
+    "output1subtxt": "Dashing kebbit",
     "template": "recipe"
   },
   {
@@ -56696,7 +57360,7 @@
     "mat1": "Sunlight moth (item)",
     "mat2": "Raw moonlight antelope",
     "output1": "Sunlight moth mix (2)",
-    "output1subtxt": "Moonlight Antelope",
+    "output1subtxt": "Moonlight antelope",
     "template": "recipe"
   },
   {
@@ -59628,7 +60292,7 @@
   },
   {
     "skill1": "Fletching",
-    "skill1lvl": "53",
+    "skill1lvl": "78",
     "skill1boostable": "Yes",
     "skill1exp": "120",
     "members": "Yes",
@@ -59918,6 +60582,7 @@
   {
     "facilities": "Lieve McCracken",
     "members": "Yes",
+    "ticks": "1",
     "mat1": "Uncharged toxic trident",
     "mat2": "Kraken tentacle",
     "mat2quantity": "10",
@@ -60525,22 +61190,6 @@
     "mat1": "Unstrung symbol",
     "mat2": "Ball of wool",
     "output1": "Unblessed symbol",
-    "template": "recipe"
-  },
-  {
-    "notes": "Completion of Twilight's Promise",
-    "members": "Yes",
-    "ticks": "6",
-    "facilities": "Unbuilt Landing Site",
-    "mat1": "Quetzal feed",
-    "mat1quantity": "10",
-    "mat2": "Limestone brick",
-    "mat2quantity": "3",
-    "mat3": "Soft clay",
-    "mat3quantity": "4",
-    "output1": "Landing Site",
-    "output1pic": "Quetzin",
-    "output1cost": "No",
     "template": "recipe"
   },
   {
@@ -62732,6 +63381,7 @@
     "skill2exp": "2.5",
     "notes": "Partial completion of Big Chompy Bird Hunting",
     "members": "Yes",
+    "ticks": "2",
     "tools": "Chisel",
     "mat1": "Wolf bones",
     "output1": "Wolfbone arrowtips",

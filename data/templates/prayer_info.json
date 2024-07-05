@@ -92,6 +92,7 @@
   {
     "name": "Babydragon bones",
     "level": "1",
+    "shardqty": "24",
     "xp": "30",
     "type": "bone",
     "template": "prayer info"
@@ -122,6 +123,7 @@
   {
     "name": "Bat bones",
     "level": "1",
+    "shardqty": "5",
     "xp": "5.3",
     "type": "bone",
     "template": "prayer info"
@@ -159,6 +161,7 @@
   {
     "name": "Big bones",
     "level": "1",
+    "shardqty": "12",
     "xp": "15",
     "type": "bone",
     "template": "prayer info"
@@ -191,6 +194,19 @@
     "template": "prayer info"
   },
   {
+    "version1": "Jug of blessed wine",
+    "version2": "Jug of blessed sunfire wine",
+    "name": "Blessed bone statuette",
+    "level": "30",
+    "xpnote1": "Requires 1 jug of blessed wine and 8 Prayer points per 400 shards.",
+    "xpnote2": "Requires 1 jug of blessed sunfire wine and 8 Prayer points per 400 shards.",
+    "xp": "625",
+    "xp2": "750",
+    "type": "other",
+    "facility": "Libation bowl",
+    "template": "prayer info"
+  },
+  {
     "name": "Bonemeal",
     "level": "1",
     "xp": "18",
@@ -201,6 +217,7 @@
   {
     "name": "Bones",
     "level": "1",
+    "shardqty": "4",
     "xp": "4.5",
     "type": "bone",
     "template": "prayer info"
@@ -293,8 +310,16 @@
   {
     "name": "Dagannoth bones",
     "level": "1",
+    "shardqty": "100",
     "xp": "125",
     "type": "bone",
+    "template": "prayer info"
+  },
+  {
+    "name": "Dark Ankou",
+    "level": "40",
+    "xp": "12",
+    "type": "spectral",
     "template": "prayer info"
   },
   {
@@ -329,6 +354,7 @@
   {
     "name": "Dragon bones",
     "level": "1",
+    "shardqty": "58",
     "xp": "72",
     "type": "bone",
     "template": "prayer info"
@@ -344,6 +370,7 @@
   {
     "name": "Drake bones",
     "level": "1",
+    "shardqty": "64",
     "xp": "80",
     "type": "bone",
     "template": "prayer info"
@@ -373,6 +400,7 @@
   {
     "name": "Fayrg bones",
     "level": "1",
+    "shardqty": "67",
     "xp": "84",
     "type": "bone",
     "template": "prayer info"
@@ -489,6 +517,7 @@
   {
     "name": "Hydra bones",
     "level": "1",
+    "shardqty": "93",
     "xp": "110",
     "type": "bone",
     "template": "prayer info"
@@ -594,6 +623,7 @@
   {
     "name": "Lava dragon bones",
     "level": "1",
+    "shardqty": "68",
     "xp": "85",
     "type": "bone",
     "template": "prayer info"
@@ -700,6 +730,7 @@
   {
     "name": "Ourg bones",
     "level": "1",
+    "shardqty": "115",
     "xp": "140",
     "type": "bone",
     "template": "prayer info"
@@ -759,6 +790,7 @@
   {
     "name": "Raurg bones",
     "level": "1",
+    "shardqty": "77",
     "xp": "96",
     "type": "bone",
     "template": "prayer info"
@@ -1183,6 +1215,25 @@
     "template": "prayer info"
   },
   {
+    "level": "40",
+    "xp": "20",
+    "type": "spectral",
+    "template": "prayer info"
+  },
+  {
+    "version1": "Jug of blessed wine",
+    "version2": "Jug of blessed sunfire wine",
+    "name": "Sun-kissed bones",
+    "level": "30",
+    "xpnote1": "Requires 1 jug of blessed wine and 8 Prayer points per 400 shards.",
+    "xpnote2": "Requires 1 jug of blessed sunfire wine and 8 Prayer points per 400 shards.",
+    "xp": "225",
+    "xp2": "270",
+    "type": "other",
+    "facility": "Libation bowl",
+    "template": "prayer info"
+  },
+  {
     "name": "Superior dragon bonemeal",
     "level": "70",
     "xp": "600",
@@ -1193,6 +1244,7 @@
   {
     "name": "Superior dragon bones",
     "level": "70",
+    "shardqty": "121",
     "xp": "150",
     "type": "bone",
     "template": "prayer info"
@@ -1334,6 +1386,7 @@
   {
     "name": "Wyrm bones",
     "level": "1",
+    "shardqty": "42",
     "xp": "50",
     "type": "bone",
     "template": "prayer info"
@@ -1341,6 +1394,7 @@
   {
     "name": "Wyrmling bones",
     "level": "1",
+    "shardqty": "21",
     "xp": "21",
     "type": "bone",
     "template": "prayer info"
@@ -1356,6 +1410,7 @@
   {
     "name": "Wyvern bones",
     "level": "1",
+    "shardqty": "58",
     "xp": "72",
     "type": "bone",
     "template": "prayer info"
@@ -1371,6 +1426,7 @@
   {
     "name": "Zogre bones",
     "level": "1",
+    "shardqty": "18",
     "xp": "22.5",
     "type": "bone",
     "template": "prayer info"

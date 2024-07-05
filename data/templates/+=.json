@@ -65,7 +65,7 @@
   {
     "list": [
       "xp",
-      "10"
+      "12"
     ],
     "echo": "2",
     "template": "+="
@@ -73,7 +73,7 @@
   {
     "list": [
       "xp",
-      "30"
+      "36"
     ],
     "echo": "2",
     "template": "+="
@@ -81,7 +81,7 @@
   {
     "list": [
       "xp",
-      "40"
+      "48"
     ],
     "echo": "2",
     "template": "+="
@@ -89,7 +89,7 @@
   {
     "list": [
       "xp",
-      "40"
+      "48"
     ],
     "echo": "2",
     "template": "+="
@@ -97,7 +97,7 @@
   {
     "list": [
       "xp",
-      "10"
+      "12"
     ],
     "echo": "2",
     "template": "+="
@@ -105,7 +105,7 @@
   {
     "list": [
       "xp",
-      "5"
+      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -113,7 +113,7 @@
   {
     "list": [
       "xp",
-      "15"
+      "18"
     ],
     "echo": "2",
     "template": "+="
@@ -121,7 +121,7 @@
   {
     "list": [
       "xp",
-      "30"
+      "36"
     ],
     "echo": "2",
     "template": "+="
@@ -233,7 +233,7 @@
   {
     "list": [
       "xp",
-      "529"
+      "625"
     ],
     "echo": "2",
     "template": "+="
@@ -1090,7 +1090,7 @@
   {
     "list": [
       "int",
-      "+2"
+      "+3"
     ],
     "echo": "2",
     "template": "+="
@@ -1098,7 +1098,7 @@
   {
     "list": [
       "int",
-      "+10"
+      "+5"
     ],
     "echo": "2",
     "template": "+="
@@ -1106,7 +1106,7 @@
   {
     "list": [
       "int",
-      "+2"
+      "+3"
     ],
     "echo": "2",
     "template": "+="
@@ -1114,7 +1114,15 @@
   {
     "list": [
       "int",
-      "+2"
+      "+3"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int",
+      "+1"
     ],
     "echo": "2",
     "template": "+="
@@ -1146,14 +1154,14 @@
   {
     "list": [
       "1htotal",
-      "++"
+      "+++"
     ],
     "template": "+="
   },
   {
     "list": [
       "2htotal",
-      "(+)*3"
+      "+(+)*3"
     ],
     "template": "+="
   },
@@ -2977,14 +2985,6 @@
   {
     "list": [
       "weight",
-      "5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "7"
     ],
     "echo": "2",
@@ -3025,22 +3025,6 @@
   {
     "list": [
       "weight",
-      "11"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "10"
     ],
     "echo": "2",
@@ -3050,22 +3034,6 @@
     "list": [
       "weight",
       "12"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -3137,31 +3105,7 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "9"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "12"
     ],
     "echo": "2",
     "template": "+="
@@ -3225,30 +3169,6 @@
   {
     "list": [
       "weight",
-      "5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "7"
     ],
     "echo": "2",
@@ -3258,22 +3178,6 @@
     "list": [
       "weight",
       "12"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "5"
     ],
     "echo": "2",
     "template": "+="
@@ -3298,14 +3202,6 @@
     "list": [
       "weight",
       "12"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "9"
     ],
     "echo": "2",
     "template": "+="
@@ -3330,14 +3226,6 @@
     "list": [
       "weight",
       "8"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -3673,7 +3561,7 @@
   {
     "list": [
       "weight",
-      "5"
+      "7"
     ],
     "echo": "2",
     "template": "+="
@@ -3865,7 +3753,7 @@
   {
     "list": [
       "xp",
-      "8"
+      "11"
     ],
     "echo": "2",
     "template": "+="
@@ -3873,7 +3761,7 @@
   {
     "list": [
       "xp",
-      "17"
+      "22"
     ],
     "echo": "2",
     "template": "+="
@@ -3881,7 +3769,7 @@
   {
     "list": [
       "xp",
-      "45"
+      "61"
     ],
     "echo": "2",
     "template": "+="
@@ -3889,7 +3777,7 @@
   {
     "list": [
       "xp",
-      "20"
+      "27"
     ],
     "echo": "2",
     "template": "+="
@@ -3897,7 +3785,7 @@
   {
     "list": [
       "xp",
-      "20"
+      "26"
     ],
     "echo": "2",
     "template": "+="
@@ -3905,7 +3793,7 @@
   {
     "list": [
       "xp",
-      "45"
+      "61"
     ],
     "echo": "2",
     "template": "+="
@@ -3913,7 +3801,7 @@
   {
     "list": [
       "xp",
-      "40"
+      "53"
     ],
     "echo": "2",
     "template": "+="
@@ -3921,7 +3809,47 @@
   {
     "list": [
       "xp",
-      "25"
+      "30"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "14"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "13"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "13"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "14"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "241"
     ],
     "echo": "2",
     "template": "+="
@@ -3945,7 +3873,7 @@
   {
     "list": [
       "xp",
-      "10"
+      "6.5"
     ],
     "echo": "2",
     "template": "+="
@@ -3961,7 +3889,15 @@
   {
     "list": [
       "xp",
-      "180"
+      "6.5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "10"
     ],
     "echo": "2",
     "template": "+="
@@ -3977,55 +3913,7 @@
   {
     "list": [
       "xp",
-      "7.5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "7.5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "7.5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "7.5"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "39"
+      "50"
     ],
     "echo": "2",
     "template": "+="
@@ -5278,14 +5166,6 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "7"
     ],
     "echo": "2",
@@ -6134,7 +6014,7 @@
   {
     "list": [
       "xp",
-      "540"
+      "666"
     ],
     "echo": "2",
     "template": "+="
@@ -7195,6 +7075,27 @@
   {
     "list": [
       "Earth",
+      "1"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Fire",
+      "1"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Law",
+      "2"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "Earth",
       "2"
     ],
     "template": "+="
@@ -7714,7 +7615,7 @@
   {
     "list": [
       "agility",
-      "1,000"
+      "1,000.5"
     ],
     "echo": "2",
     "template": "+="
@@ -7730,7 +7631,7 @@
   {
     "list": [
       "agility",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -7930,7 +7831,7 @@
   {
     "list": [
       "attack",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -8378,7 +8279,7 @@
   {
     "list": [
       "crafting",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -8522,7 +8423,7 @@
   {
     "list": [
       "defence",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -8730,7 +8631,7 @@
   {
     "list": [
       "fishing",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -8810,7 +8711,7 @@
   {
     "list": [
       "fletching",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -8858,7 +8759,7 @@
   {
     "list": [
       "herblore",
-      "1,000"
+      "1,000.5"
     ],
     "echo": "2",
     "template": "+="
@@ -8962,7 +8863,7 @@
   {
     "list": [
       "hitpoints",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -9362,7 +9263,7 @@
   {
     "list": [
       "prayer",
-      "1,000"
+      "1,000.5"
     ],
     "echo": "2",
     "template": "+="
@@ -9850,7 +9751,7 @@
   {
     "list": [
       "strength",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -10042,7 +9943,7 @@
   {
     "list": [
       "thieving",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -10162,7 +10063,7 @@
   {
     "list": [
       "woodcutting",
-      "1,500"
+      "1,575"
     ],
     "echo": "2",
     "template": "+="
@@ -10170,7 +10071,7 @@
   {
     "list": [
       "woodcutting",
-      "1,575"
+      "2,000"
     ],
     "echo": "2",
     "template": "+="
@@ -10202,7 +10103,7 @@
   {
     "list": [
       "woodcutting",
-      "2,812"
+      "2,812.4"
     ],
     "echo": "2",
     "template": "+="
@@ -11758,7 +11659,7 @@
   {
     "list": [
       "totalelite",
-      "+ +"
+      "0"
     ],
     "echo": "2",
     "template": "+="
@@ -12142,7 +12043,23 @@
   {
     "list": [
       "xp",
-      "4"
+      "5.5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "8"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "9"
     ],
     "echo": "2",
     "template": "+="
@@ -12158,7 +12075,23 @@
   {
     "list": [
       "xp",
-      "8"
+      "9"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "9"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "106"
     ],
     "echo": "2",
     "template": "+="
@@ -12182,7 +12115,7 @@
   {
     "list": [
       "xp",
-      "8"
+      "9"
     ],
     "echo": "2",
     "template": "+="
@@ -12190,47 +12123,7 @@
   {
     "list": [
       "xp",
-      "92.2"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "4"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "8"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "20"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "xp",
-      "16"
+      "23"
     ],
     "echo": "2",
     "template": "+="
@@ -12246,7 +12139,7 @@
   {
     "list": [
       "xp",
-      "20"
+      "21"
     ],
     "echo": "2",
     "template": "+="
@@ -12254,7 +12147,15 @@
   {
     "list": [
       "xp",
-      "381.3"
+      "23"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "400"
     ],
     "echo": "2",
     "template": "+="
@@ -12366,7 +12267,7 @@
   {
     "list": [
       "weight",
-      "6"
+      "7"
     ],
     "echo": "2",
     "template": "+="
@@ -12374,7 +12275,7 @@
   {
     "list": [
       "weight",
-      "7"
+      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -12901,14 +12802,6 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "7"
     ],
     "echo": "2",
@@ -12949,14 +12842,6 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "8"
     ],
     "echo": "2",
@@ -12966,38 +12851,6 @@
     "list": [
       "weight",
       "8"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "7"
     ],
     "echo": "2",
     "template": "+="
@@ -13037,14 +12890,6 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "7"
     ],
     "echo": "2",
@@ -13054,14 +12899,6 @@
     "list": [
       "weight",
       "8"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -13109,14 +12946,6 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "8"
     ],
     "echo": "2",
@@ -13182,22 +13011,6 @@
     "list": [
       "weight",
       "8"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "6"
     ],
     "echo": "2",
     "template": "+="
@@ -13285,22 +13098,6 @@
   {
     "list": [
       "weight",
-      "7"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
-      "8"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "6"
     ],
     "echo": "2",
@@ -13325,6 +13122,14 @@
   {
     "list": [
       "weight",
+      "8"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
       "6"
     ],
     "echo": "2",
@@ -13357,14 +13162,6 @@
   {
     "list": [
       "weight",
-      "6"
-    ],
-    "echo": "2",
-    "template": "+="
-  },
-  {
-    "list": [
-      "weight",
       "7"
     ],
     "echo": "2",
@@ -13373,7 +13170,7 @@
   {
     "list": [
       "xp",
-      "12"
+      "13.5"
     ],
     "echo": "2",
     "template": "+="
@@ -13381,7 +13178,7 @@
   {
     "list": [
       "xp",
-      "21"
+      "23"
     ],
     "echo": "2",
     "template": "+="
@@ -13389,7 +13186,7 @@
   {
     "list": [
       "xp",
-      "17"
+      "19"
     ],
     "echo": "2",
     "template": "+="
@@ -13397,7 +13194,7 @@
   {
     "list": [
       "xp",
-      "25"
+      "28"
     ],
     "echo": "2",
     "template": "+="
@@ -13405,7 +13202,7 @@
   {
     "list": [
       "xp",
-      "9"
+      "10"
     ],
     "echo": "2",
     "template": "+="
@@ -13413,7 +13210,7 @@
   {
     "list": [
       "xp",
-      "22"
+      "24.5"
     ],
     "echo": "2",
     "template": "+="
@@ -13421,7 +13218,7 @@
   {
     "list": [
       "xp",
-      "4"
+      "4.5"
     ],
     "echo": "2",
     "template": "+="
@@ -13429,7 +13226,7 @@
   {
     "list": [
       "xp",
-      "3"
+      "3.5"
     ],
     "echo": "2",
     "template": "+="
@@ -13437,7 +13234,7 @@
   {
     "list": [
       "xp",
-      "125"
+      "143.7"
     ],
     "echo": "2",
     "template": "+="

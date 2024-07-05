@@ -37,6 +37,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -45,6 +46,7 @@
     "xp": "26",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -147,6 +149,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -278,6 +281,15 @@
     "template": "thieving info"
   },
   {
+    "version1": "Regular",
+    "version2": "Flashing arrow",
+    "name": "Chest",
+    "level": "50",
+    "xp1": "45",
+    "xp2": "630",
+    "template": "thieving info"
+  },
+  {
     "name": "Chest",
     "level": "47",
     "xp": "150",
@@ -292,6 +304,14 @@
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Citizen",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
     "template": "thieving info"
   },
   {
@@ -313,7 +333,7 @@
   {
     "name": "Crafting stall",
     "level": "5",
-    "xp": "16",
+    "xp": "20",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -632,6 +652,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -652,7 +673,7 @@
   {
     "name": "Fur stall",
     "level": "35",
-    "xp": "36",
+    "xp": "45",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -691,14 +712,14 @@
   {
     "name": "Gem stall",
     "level": "75",
-    "xp": "160",
+    "xp": "408",
     "type": "Stall",
     "template": "thieving info"
   },
   {
     "name": "General stall",
     "level": "5",
-    "xp": "16",
+    "xp": "25",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -714,7 +735,7 @@
   {
     "name": "Gnome",
     "level": "75",
-    "xp": "198.3",
+    "xp": "133.5",
     "type": "Pickpocket",
     "tool": "None",
     "template": "thieving info"
@@ -722,7 +743,7 @@
   {
     "name": "Gnome Child",
     "level": "75",
-    "xp": "198.3",
+    "xp": "133.5",
     "type": "Pickpocket",
     "tool": "None",
     "template": "thieving info"
@@ -730,7 +751,7 @@
   {
     "name": "Gnome woman",
     "level": "75",
-    "xp": "198.3",
+    "xp": "133.5",
     "type": "Pickpocket",
     "tool": "None",
     "template": "thieving info"
@@ -792,6 +813,7 @@
     "xp": "46.8",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -804,6 +826,14 @@
   },
   {
     "name": "Kourend Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
     "level": "40",
     "xp": "46.8",
     "type": "Pickpocket",
@@ -856,10 +886,10 @@
   {
     "name": "Hero",
     "level": "80",
-    "xp": "273.3",
+    "xp": "163.3",
     "type": "Pickpocket",
     "tool": "None",
-    "damage": "4",
+    "damage": "3",
     "template": "thieving info"
   },
   {
@@ -904,6 +934,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -946,6 +977,16 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Regular",
+    "version2": "Flashing arrow",
+    "name": "Jewellery case",
+    "level": "50",
+    "xp1": "45",
+    "xp2": "630",
     "template": "thieving info"
   },
   {
@@ -981,6 +1022,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -998,6 +1040,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -1019,6 +1062,12 @@
     "template": "thieving info"
   },
   {
+    "name": "Locked Door",
+    "level": "50",
+    "xp": "1",
+    "template": "thieving info"
+  },
+  {
     "name": "Maeglin",
     "level": "85",
     "xp": "353.3",
@@ -1030,7 +1079,7 @@
   {
     "name": "Magic stall",
     "level": "65",
-    "xp": "100",
+    "xp": "90",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -1290,7 +1339,7 @@
   {
     "name": "Paladin",
     "level": "70",
-    "xp": "151.8",
+    "xp": "131.8",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "3",
@@ -1311,6 +1360,7 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
@@ -1377,12 +1427,13 @@
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
     "name": "Scimitar stall",
     "level": "65",
-    "xp": "160",
+    "xp": "210",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -1403,7 +1454,7 @@
   {
     "name": "Shop Counter",
     "level": "82",
-    "xp": "180",
+    "xp": "350",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -1425,14 +1476,14 @@
   {
     "name": "Silver stall",
     "level": "50",
-    "xp": "54",
+    "xp": "205",
     "type": "Stall",
     "template": "thieving info"
   },
   {
     "name": "Spice stall",
     "level": "65",
-    "xp": "81",
+    "xp": "92",
     "type": "Stall",
     "template": "thieving info"
   },
@@ -1670,11 +1721,21 @@
     "template": "thieving info"
   },
   {
+    "version1": "Regular",
+    "version2": "Flashing arrow",
+    "name": "Wardrobe",
+    "level": "50",
+    "xp1": "45",
+    "xp2": "630",
+    "template": "thieving info"
+  },
+  {
     "name": "Warrior",
     "level": "25",
     "xp": "26",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
