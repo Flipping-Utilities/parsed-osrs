@@ -961,8 +961,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}",
-    "raw": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}"
+    "formula": "\\text{Damage per hit} =\\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)",
+    "raw": "\\text{Damage per hit} =\\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)"
   },
   {
     "template": "math",
@@ -986,8 +986,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Average damage per attack} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}",
-    "raw": "\\text{Average damage per attack} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}"
+    "formula": "\\text{Average damage per attack} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)",
+    "raw": "\\text{Average damage per attack} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)"
   },
   {
     "template": "math",
@@ -1016,8 +1016,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}",
-    "raw": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}"
+    "formula": "\\text{Damage per hit} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)",
+    "raw": "\\text{Damage per hit} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)"
   },
   {
     "template": "math",
@@ -1516,6 +1516,26 @@
   },
   {
     "template": "math",
+    "formula": "2.3362x + 60.852",
+    "raw": "2.3362x + 60.852"
+  },
+  {
+    "template": "math",
+    "formula": "Correct\\, Steps\\, \\times (2x + 55)",
+    "raw": "Correct\\, Steps\\, \\times (2x + 55)"
+  },
+  {
+    "template": "math",
+    "formula": "18 * X",
+    "raw": "18 * X"
+  },
+  {
+    "template": "math",
+    "formula": "\\frac{16!}{5!(16-5)!} = \\frac{16!}{5!(11)!} = 4,368",
+    "raw": "\\frac{16!}{5!(16-5)!} = \\frac{16!}{5!(11)!} = 4,368"
+  },
+  {
+    "template": "math",
     "formula": "L(\\text{weight}) = 67 + \\left\\lfloor \\frac{67 \\,\\cdot\\, \\text{clamp}_{[0,64]}(\\text{weight})}{64} \\right\\rfloor,",
     "raw": "L(\\text{weight}) = 67 + \\left\\lfloor \\frac{67 \\,\\cdot\\, \\text{clamp}_{[0,64]}(\\text{weight})}{64} \\right\\rfloor,"
   },
@@ -1741,11 +1761,6 @@
   },
   {
     "template": "math",
-    "formula": "(2 * Damage) + 22.5",
-    "raw": "(2 * Damage) + 22.5"
-  },
-  {
-    "template": "math",
     "formula": "X= \\frac {Fishing \\ level \\times 2 + Hunter \\ level}{3}",
     "raw": "X= \\frac {Fishing \\ level \\times 2 + Hunter \\ level}{3}"
   },
@@ -1868,11 +1883,6 @@
     "template": "math",
     "formula": "1 + \\lfloor Level \\cdot 0.05 \\rfloor",
     "raw": "1 + \\lfloor Level \\cdot 0.05 \\rfloor "
-  },
-  {
-    "template": "math",
-    "formula": "\\sqrt{2}",
-    "raw": "\\sqrt{2}"
   },
   {
     "template": "math",
@@ -2461,11 +2471,6 @@
   },
   {
     "template": "math",
-    "formula": "1 + {Max Hit}",
-    "raw": "1 + {Max Hit}"
-  },
-  {
-    "template": "math",
     "formula": "1.1\\overline{6}",
     "raw": "1.1\\overline{6}"
   },
@@ -2588,6 +2593,11 @@
     "template": "math",
     "formula": "\\lfloor DefenceLevel \\times \\frac{2}{10} \\rfloor + 7",
     "raw": "\\lfloor DefenceLevel \\times \\frac{2}{10} \\rfloor + 7"
+  },
+  {
+    "template": "math",
+    "formula": "Current Health\\over100",
+    "raw": "Current Health\\over100"
   },
   {
     "template": "math",
@@ -3081,6 +3091,16 @@
   },
   {
     "template": "math",
+    "formula": "Woodcutting\\, Level\\, \\times 0.55",
+    "raw": "Woodcutting\\, Level\\, \\times 0.55"
+  },
+  {
+    "template": "math",
+    "formula": "(Woodcutting\\, Level\\, + 8) \\times 1.2",
+    "raw": "(Woodcutting\\, Level\\, + 8) \\times 1.2 "
+  },
+  {
+    "template": "math",
     "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1",
     "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1"
   },
@@ -3486,6 +3506,26 @@
   },
   {
     "template": "math",
+    "formula": "Max\\, Hitpoints\\, (HP) = x \\times 900, \\, \\, HP \\leq 9,000",
+    "raw": "Max\\, Hitpoints\\, (HP) = x \\times 900, \\, \\, HP \\leq 9,000"
+  },
+  {
+    "template": "math",
+    "formula": "X \\times [((Y \\times 100) \\div 2.5)]",
+    "raw": "X \\times [((Y \\times 100) \\div 2.5)]"
+  },
+  {
+    "template": "math",
+    "formula": "X",
+    "raw": "X"
+  },
+  {
+    "template": "math",
+    "formula": "Y",
+    "raw": "Y "
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 5",
     "raw": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 5"
   },
@@ -3806,6 +3846,16 @@
   },
   {
     "template": "math",
+    "formula": "X^2 - 16",
+    "raw": "X^2 - 16"
+  },
+  {
+    "template": "math",
+    "formula": "X",
+    "raw": "X"
+  },
+  {
+    "template": "math",
     "formula": "Scales = \\frac{10}{3} * Darts",
     "raw": "Scales = \\frac{10}{3} * Darts"
   },
@@ -4103,6 +4153,31 @@
     "template": "math",
     "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
     "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "y = [8\\times x^{0.65}] + z",
+    "raw": "y = [8\\times x^{0.65}] + z"
+  },
+  {
+    "template": "math",
+    "formula": "x",
+    "raw": "x"
+  },
+  {
+    "template": "math",
+    "formula": "y",
+    "raw": "y"
+  },
+  {
+    "template": "math",
+    "formula": "z",
+    "raw": "z"
+  },
+  {
+    "template": "math",
+    "formula": "y",
+    "raw": "y"
   },
   {
     "template": "math",

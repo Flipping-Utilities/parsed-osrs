@@ -13,26 +13,9 @@
       "3rd age full helmet",
       "3rd age platebody",
       "3rd age platelegs",
-      "3rd age kiteshield"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
-      "3rd age full helmet",
-      "3rd age platebody",
-      "3rd age plateskirt",
-      "3rd age kiteshield"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "3rd age kiteshield",
       "3rd age longsword"
     ],
-    "noheader": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -1538,9 +1521,9 @@
       "Mithril claws",
       "Adamant claws",
       "Rune claws",
-      "Dragon claws"
+      "Dragon claws",
+      "Bone claws"
     ],
-    "sort": "aslash",
     "nototals": "yes",
     "template": "infotable bonuses"
   },
@@ -1730,6 +1713,14 @@
   },
   {
     "list": [
+      "Dark squall hood",
+      "Dark squall robe top",
+      "Dark squall robe bottom"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Bronze dart#(unp)",
       "Iron dart#(unp)",
       "Steel dart#(unp)",
@@ -1826,6 +1817,20 @@
       "Avernic defender (beta)"
     ],
     "sort": "aslash",
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Silverlight#Normal",
+      "Darklight",
+      "Arclight",
+      "Emberlight"
+    ],
+    "comment1": "Quest reward from Demon Slayer \nDamage bonus: 60% \nAttack speed: 5 ticks",
+    "comment2": "Upgraded during Shadow of the Storm quest \nDamage bonus: 60% \nAttack speed: 5 ticks \nSpecial attack melee stats lowering: 10% + 1",
+    "comment3": "Upgraded using three ancient shards on the altar in the Catacombs of Kourend \nDamage and accuracy bonus: 70% \nAttack speed: 4 ticks \nSpecial attack melee stats lowering: 10% + 1",
+    "comment4": "Upgraded using a tormented synapse and a fully charged and/or imbued arclight (10,000 charges/imbued) on an anvil, requiring 74 Smithing \nDamage and accuracy bonus: 70% \nAttack speed: 4 ticks \nSpecial attack melee stats lowering: 15% + 1",
     "nototals": "yes",
     "template": "infotable bonuses"
   },
@@ -1973,6 +1978,14 @@
     "list": [
       "Elite void top#Normal",
       "Elite void robe#Normal"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Elite black full helm",
+      "Elite black platebody",
+      "Elite black platelegs"
     ],
     "template": "infotable bonuses"
   },
@@ -4750,7 +4763,8 @@
       "Staff of bob the cat",
       "Bryophyta's staff#Charged",
       "Toktz-mej-tal",
-      "Harmonized nightmare staff"
+      "Harmonized nightmare staff",
+      "Purging staff"
     ],
     "sort": "mdmg,amagic",
     "nototals": "yes",

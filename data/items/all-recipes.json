@@ -15999,6 +15999,24 @@
   {
     "inputs": [
       {
+        "id": 29574,
+        "quantity": 2
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29577,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": null,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 9013,
         "quantity": 1
       }
@@ -37219,6 +37237,24 @@
   {
     "inputs": [
       {
+        "id": 28951,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28924,
+        "quantity": 4000
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 0,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
         "id": 21090,
         "quantity": 1
       },
@@ -41910,6 +41946,38 @@
     "ticks": null,
     "toolIds": [],
     "facility": "Abbot Langley"
+  },
+  {
+    "inputs": [
+      {
+        "id": 29580,
+        "quantity": 1
+      },
+      {
+        "id": 19675,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29589,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 74,
+        "name": "Smithing",
+        "xp": 730
+      }
+    ],
+    "ticks": 5,
+    "toolIds": [
+      2347
+    ],
+    "facility": "Anvil"
   },
   {
     "inputs": [
@@ -59278,6 +59346,34 @@
     "ticks": 4,
     "toolIds": [],
     "facility": "Cooking range"
+  },
+  {
+    "inputs": [
+      {
+        "id": 28134,
+        "quantity": 3000,
+        "notes": "Secateurs attachment"
+      },
+      {
+        "id": 1517,
+        "quantity": 300
+      },
+      {
+        "id": 1515,
+        "quantity": 300
+      }
+    ],
+    "outputs": [
+      {
+        "id": 28146,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [],
+    "ticks": 1,
+    "toolIds": [],
+    "facility": "Forestry Shop"
   },
   {
     "inputs": [
@@ -77187,6 +77283,46 @@
   {
     "inputs": [
       {
+        "id": 29580,
+        "quantity": 1
+      },
+      {
+        "id": 2351,
+        "quantity": 1
+      },
+      {
+        "id": 1391,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29594,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 74,
+        "name": "Crafting",
+        "xp": 730
+      },
+      {
+        "boostable": true,
+        "lvl": 1,
+        "name": "Unknown",
+        "xp": 13
+      }
+    ],
+    "ticks": null,
+    "toolIds": [],
+    "facility": "Anvil"
+  },
+  {
+    "inputs": [
+      {
         "id": 1019,
         "quantity": 1
       },
@@ -86823,6 +86959,35 @@
     "toolIds": [],
     "facility": "Extract orifice",
     "notes": "Desert Treasure II"
+  },
+  {
+    "inputs": [
+      {
+        "id": 29580,
+        "quantity": 1
+      },
+      {
+        "id": 70,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29591,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 74,
+        "name": "Fletching",
+        "xp": 730
+      }
+    ],
+    "ticks": 6,
+    "toolIds": []
   },
   {
     "inputs": [
@@ -100296,6 +100461,35 @@
       }
     ],
     "ticks": 2,
+    "toolIds": []
+  },
+  {
+    "inputs": [
+      {
+        "id": 0,
+        "quantity": 1
+      },
+      {
+        "id": 29530,
+        "quantity": 1
+      }
+    ],
+    "outputs": [
+      {
+        "id": 29531,
+        "quantity": 1
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 65,
+        "name": "Herblore",
+        "xp": 0
+      }
+    ],
+    "ticks": 1,
     "toolIds": []
   },
   {

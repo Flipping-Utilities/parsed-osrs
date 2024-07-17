@@ -32,9 +32,16 @@
     "template": "efn"
   },
   {
-    "name": "offhand",
+    "name": "bloodbark",
     "list": [
-      "with 1 handed staffs"
+      "with Ancient blood sceptre for additional healing"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "bloodbark",
+    "list": [
+      "with Ancient blood sceptre for additional healing"
     ],
     "template": "efn"
   },
@@ -49,6 +56,20 @@
     "name": "offhand",
     "list": [
       "with 1 handed staffs"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "offhand",
+    "list": [
+      "with 1 handed staffs"
+    ],
+    "template": "efn"
+  },
+  {
+    "name": "gauntlets",
+    "list": [
+      "If blood barrage's max hit is >39 with Ancient blood sceptre, will give 1 more hp"
     ],
     "template": "efn"
   },
@@ -63,10 +84,6 @@
     "list": [
       "For special attack"
     ],
-    "template": "efn"
-  },
-  {
-    "name": "spec",
     "template": "efn"
   },
   {
@@ -615,7 +632,7 @@
   },
   {
     "list": [
-      "Effective experience ranges based on runs taking between 73 - 90 seconds. Note that birdhouses are an intermittent source of experience with a 50 minute wait between each run. If other Hunter training methods earn more than this rate, these methods should not be interrupted by birdhouse runs."
+      "Total XP per 4 bird houses. Note that birdhouses are an intermittent source of experience with a 50 minute wait between each run."
     ],
     "template": "efn"
   },
@@ -762,14 +779,16 @@
     "template": "efn"
   },
   {
-    "name": "1h",
     "list": [
-      "When using a two-handed weapon, it is advisable to bring a one-handed weapon if using the spectral spirit shield as it cannot be worn with a two-handed weapon. This is to deal extra damage when the Summoned Souls are present."
+      "Replace with Inquisitor's hauberk if using a bloodfury amulet."
     ],
     "template": "efn"
   },
   {
     "name": "1h",
+    "list": [
+      "When using a two-handed weapon, it is advisable to bring a one-handed weapon if using the spectral spirit shield as it cannot be worn with a two-handed weapon. This is to deal extra damage when the Summoned Souls are present."
+    ],
     "template": "efn"
   },
   {
@@ -2815,6 +2834,12 @@
   },
   {
     "list": [
+      "During While Guthix Sleeps, Mazchna is temporarily replaced by Achtryn, but otherwise retains the existing dialogue."
+    ],
+    "template": "efn"
+  },
+  {
+    "list": [
       "After completion of Beneath Cursed Sands, Selim will be contacted instead of Osman. The actual conversation however remains almost the same."
     ],
     "template": "efn"
@@ -3779,6 +3804,13 @@
     "template": "efn"
   },
   {
+    "name": "Damage",
+    "list": [
+      "Take granite only if you get extra max hit from it"
+    ],
+    "template": "efn"
+  },
+  {
     "list": [
       "Only with a bow."
     ],
@@ -4110,13 +4142,6 @@
   },
   {
     "list": [
-      "Two-handed staff."
-    ],
-    "name": "expensiveShadow",
-    "template": "efn"
-  },
-  {
-    "list": [
       "Only if using a Tumeken's shadow. Better to bring than primordials if not bringing both."
     ],
     "name": "shadow",
@@ -4128,8 +4153,265 @@
   },
   {
     "list": [
-      "Reduces magic level, which can be useful whem combined with a Tumeken's shadow for high invocation raids"
+      "Reduces magic level, which can be useful when combined with a Tumeken's shadow for high invocation raids"
     ],
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "The Saradomin godsword's special attack will neither heal nor restore your prayer for the bonus damage done"
+    ],
+    "name": "SGS",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "When on a Greater demon slayer task."
+    ],
+    "name": "task",
+    "template": "efn"
+  },
+  {
+    "name": "inq",
+    "template": "efn"
+  },
+  {
+    "name": "inq",
+    "template": "efn"
+  },
+  {
+    "name": "inq",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to stab"
+    ],
+    "name": "stab",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to stab"
+    ],
+    "name": "stab",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "On crush with full inquisitor's."
+    ],
+    "name": "inq",
+    "template": "efn"
+  },
+  {
+    "name": "inq",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to crush"
+    ],
+    "name": "crush",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Set to stab"
+    ],
+    "name": "stab",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "When on a Greater demon slayer task."
+    ],
+    "name": "task",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only if bringing full crystal armour and the bow of Faerdhinen."
+    ],
+    "name": "crys",
+    "template": "efn"
+  },
+  {
+    "name": "crys",
+    "template": "efn"
+  },
+  {
+    "name": "crys",
+    "template": "efn"
+  },
+  {
+    "name": "crys",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only if bringing a crossbow."
+    ],
+    "name": "xbow",
+    "template": "efn"
+  },
+  {
+    "name": "xbow",
+    "template": "efn"
+  },
+  {
+    "name": "xbow",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If bringing a twisted bow or Scorching bow."
+    ],
+    "name": "darrows",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "If using the Hunters' sunlight crossbow"
+    ],
+    "name": "hunter",
+    "template": "efn"
+  },
+  {
+    "name": "xbow",
+    "template": "efn"
+  },
+  {
+    "name": "xbow",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Only if using a bow of Faerdhinen or toxic blowpipe."
+    ],
+    "name": "radabless",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "On accurate when hitting the shield"
+    ],
+    "name": "shield2",
+    "template": "efn"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "name": "shield2",
+    "template": "efn"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "name": "shield2",
+    "template": "efn"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "name": "shield2",
+    "template": "efn"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "name": "shield2",
+    "template": "efn"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "name": "shield2",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "When on a Greater demon slayer task."
+    ],
+    "name": "task",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "Using demonbane spells and Mark of darkness"
+    ],
+    "name": "demonbane",
+    "template": "efn"
+  },
+  {
+    "name": "demonbane",
+    "template": "efn"
+  },
+  {
+    "name": "demonbane",
+    "template": "efn"
+  },
+  {
+    "name": "demonbane",
+    "template": "efn"
+  },
+  {
+    "name": "demonbane",
+    "template": "efn"
+  },
+  {
+    "name": "demonbane",
+    "template": "efn"
+  },
+  {
+    "name": "demonbane",
     "template": "efn"
   },
   {
@@ -4345,6 +4627,12 @@
       "If hard Ardougne Diary has been completed."
     ],
     "group": "L",
+    "template": "efn"
+  },
+  {
+    "list": [
+      "There is no Defence requirement listed for the Old School version, however, 40 Defence is required for the prerequisite quest Lunar Diplomacy."
+    ],
     "template": "efn"
   },
   {

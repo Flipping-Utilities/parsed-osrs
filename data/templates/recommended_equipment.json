@@ -27,7 +27,7 @@
   },
   {
     "shield2": "/",
-    "shield3": "/",
+    "shield3": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -37,6 +37,11 @@
   },
   {
     "cape4": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "shield3": "/ /",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -346,9 +351,11 @@
   },
   {
     "body4": "/",
-    "weapon2": "(4 stacks or higher, on crush) >",
-    "weapon3": "(on stab)",
-    "weapon4": ">",
+    "weapon1": "(on crush)",
+    "weapon2": "(on stab)",
+    "weapon3": "(4 stacks or higher, on crush) >",
+    "weapon4": "(on stab)",
+    "weapon5": ">",
     "ammo2": "/",
     "ring5": "/",
     "special1": ">",
@@ -629,6 +636,7 @@
     "legs2": "/",
     "legs4": "/",
     "legs5": "See: Ranged equipment",
+    "weapon1": "/",
     "weapon3": "/ /",
     "weapon4": "(2+ stacks)",
     "weapon5": "> /",
@@ -649,6 +657,7 @@
     "legs1": "/",
     "legs4": "/",
     "legs5": "See: Melee equipment",
+    "weapon1": "/",
     "weapon2": "/ (with full crystal)",
     "weapon5": "/ /",
     "shield1": "None if using a 2h weapon",
@@ -695,12 +704,14 @@
   {
     "head1": "or",
     "cape3": "/",
+    "weapon2": "/",
     "ammo1": "/",
     "ammo2": "/",
     "hands3": "/",
     "ring1": "/",
     "ring3": "/",
     "special4": "/",
+    "special5": "/",
     "template": "recommended equipment"
   },
   {
@@ -710,8 +721,9 @@
     "body5": "/ /",
     "legs4": "/",
     "legs5": "/ /",
+    "weapon5": "/",
     "shield5": "/ (charged)",
-    "ring5": "/",
+    "ring5": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -810,8 +822,8 @@
     "legs5": "(Ranael's Super Skirt Store. or 45+1 Smithing)",
     "weapon1": "(89+1 Smithing)",
     "weapon2": "(Ruins of Camdozaal)",
-    "weapon3": "(Scavvo's Rune Store. or Bryophyta)",
-    "weapon4": "(Ogress, 94+1 Smithing)",
+    "weapon3": "(Scavvo's Rune Store. or 88+1 Smithing or Bryophyta)",
+    "weapon4": "(Ogress or 94+1 Smithing)",
     "weapon5": "(74+1 Smithing) (Varrock Swordshop or ornate lockbox)",
     "weapon6": "(Zeke's Superior Scimitars)",
     "shield1": "(96+1 Smithing or Obor)",
@@ -905,25 +917,40 @@
     "template": "recommended equipment"
   },
   {
+    "head1": "/",
+    "head3": "/",
+    "neck4": "/",
+    "cape1": "Any cape with stats (,, , etc.)",
+    "body1": "/",
+    "legs2": "/",
+    "weapon1": "(30 Attack and Magic)",
+    "weapon2": "/ /  /",
+    "shield1": "(started Dragon Slayer I)",
+    "shield2": "/",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "(20 Ranged)",
     "head3": "(40 Defence)",
     "head4": "(30 Defence)",
     "head5": "(20 Defence)",
     "neck3": "or",
     "cape1": "Any cape with stats (,, , etc.)",
-    "body1": "/ (40 Ranged, 40 Defence, Dragon Slayer I)",
-    "body2": "(20 Ranged, 20 Defence)",
-    "body3": "(10 Defence)",
-    "body5": "(40 Defence)",
-    "legs1": "/ (40 Ranged)",
-    "legs2": "(20 Ranged)",
+    "body1": "(40 Ranged, 40 Defence, Dragon Slayer I)",
+    "body2": "(40 Ranged, 40 Defence, Dragon Slayer I)",
+    "body3": "(20 Ranged, 20 Defence)",
+    "body4": "(10 Defence)",
+    "legs1": "(40 Ranged)",
+    "legs2": "(40 Ranged)",
+    "legs3": "(20 Ranged)",
     "weapon1": "(30 Ranged)",
     "weapon2": "(20 Ranged)",
     "weapon3": "(5 Ranged)",
     "ammo1": "(Maple shortbow only)",
     "ammo2": "(Willow shortbow or higher)",
     "ammo3": "(Oak shortbow or higher)",
-    "hands1": "/ (40 Ranged)",
+    "hands1": "(40 Ranged)",
+    "hands2": "(40 Ranged)",
     "feet2": "(30 Defence)",
     "feet3": "(20 Defence)",
     "feet4": "(5 Defence)",
@@ -938,6 +965,7 @@
     "head5": "(5 Defence)",
     "neck1": "or depending on Strength, weapon, and attack style",
     "neck3": "/",
+    "cape1": "Any cape with stats (,, , etc.)",
     "body1": "Crush defence (40 Defence) \nStab or slash defence  (+1 Prayer bonus) /  (40 Defence)",
     "body2": "Crush defence (30 Defence) \nStab or slash defence  (800 Castle wars tickets) /  (30 Defence)",
     "body3": "Crush defence (20 Defence) \nStab or slash defence  (20 Defence)",
@@ -1261,11 +1289,11 @@
     "head1": "(task only) /",
     "body3": "/",
     "legs3": "/",
-    "weapon3": "/",
+    "weapon4": "/",
     "shield2": "/",
     "feet3": "/",
     "ring3": "/",
-    "special5": "/",
+    "special5": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -1274,12 +1302,13 @@
     "head3": "(Crystal set)",
     "body4": "(Crystal set)",
     "legs4": "(Crystal set)",
-    "weapon2": "(Crystal set)",
+    "weapon3": "(Crystal set)",
     "ammo2": "(Crystal set)",
     "hands1": "/",
     "template": "recommended equipment"
   },
   {
+    "rows": "6",
     "head1": "(task only) /",
     "head2": "(If using full set)",
     "template": "recommended equipment"
@@ -1291,6 +1320,7 @@
   {
     "head1": "(task only) /",
     "cape3": "or",
+    "special4": "/",
     "template": "recommended equipment"
   },
   {
@@ -1299,16 +1329,17 @@
     "head4": "(Bow of faerdhinen)",
     "body3": "(Bow of faerdhinen)",
     "legs3": "(Bow of faerdhinen)",
-    "weapon2": "(Crystal set)",
+    "weapon3": "(Crystal set)",
     "ammo2": "(Crystal set)",
     "hidecol5": "yes",
     "template": "recommended equipment"
   },
   {
+    "rows": "6",
     "head1": "or",
     "body4": "/",
     "legs4": "/",
-    "weapon5": "/ /",
+    "weapon6": "/ /",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
@@ -1907,7 +1938,7 @@
   {
     "rows": "6",
     "head4": "/",
-    "weapon1": "(on crush)",
+    "weapon2": "(on crush)",
     "weapon3": "(on crush)",
     "weapon5": "(on crush)",
     "weapon6": "/ /  /  (on crush)",
@@ -2095,7 +2126,7 @@
     "legs2": "/",
     "legs4": "/ (if using void)",
     "legs5": "/ /",
-    "weapon4": "/ /",
+    "weapon5": "/ /",
     "shield4": "/",
     "hands3": "(if using void)",
     "hands4": "/",
@@ -2152,7 +2183,7 @@
     "weapon1": "(crush)",
     "weapon3": "/",
     "weapon4": "/ (crush)",
-    "weapon5": "/ /  (crush)",
+    "weapon5": "(crush) / /  /  (crush)",
     "ammo2": "/",
     "ring3": "/",
     "ring4": "/",
@@ -2225,6 +2256,7 @@
     "weapon2": ">",
     "weapon3": "/ /",
     "ammo2": "/ /",
+    "feet3": "/",
     "template": "recommended equipment"
   },
   {
@@ -2462,6 +2494,53 @@
     "weapon1": "+ +",
     "weapon2": "+ +",
     "weapon3": "+ +  /",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "/",
+    "head2": "/",
+    "head4": "/",
+    "body2": "/",
+    "body3": "/",
+    "legs2": "/",
+    "legs3": "/",
+    "weapon1": ">",
+    "weapon2": ">",
+    "weapon3": "/",
+    "weapon5": "> /",
+    "feet2": "/",
+    "special3": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "/",
+    "body4": "/",
+    "body5": "/",
+    "legs4": "/",
+    "legs5": "/",
+    "weapon3": "/",
+    "weapon5": ">>",
+    "ammo2": "/",
+    "ring1": "/",
+    "special1": "(Ruby Spec)\n/",
+    "special2": ">",
+    "special3": "(Default attack)",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "/",
+    "head3": "/",
+    "head4": "/\n /",
+    "body3": "/",
+    "body4": "/\n /",
+    "legs3": "/",
+    "legs4": "/\n /",
+    "weapon3": "/ /",
+    "weapon4": "> >",
+    "weapon5": "/ /",
+    "shield2": "/",
+    "shield3": "/ /",
+    "shield4": "/",
     "template": "recommended equipment"
   },
   {
@@ -2839,12 +2918,12 @@
     "template": "recommended equipment"
   },
   {
-    "special1": "or",
+    "special1": "or or",
     "special3": "/",
     "special4": "/",
     "head1": "or",
     "neck5": "or",
-    "body2": "or",
+    "body3": "or",
     "legs2": "or",
     "legs3": "or",
     "weapon4": "or",

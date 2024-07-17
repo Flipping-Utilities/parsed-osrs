@@ -3471,42 +3471,42 @@
   {
     "name": "Amulet mould",
     "quantity": "1",
+    "rarity": "13/60",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Bracelet mould",
     "quantity": "1",
+    "rarity": "13/60",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Chisel",
     "quantity": "1",
-    "rarity": "1/3",
-    "approx": "Yes",
+    "rarity": "1/10",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Gold bar",
     "quantity": "1",
+    "rarity": "1/30",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Necklace mould",
     "quantity": "1",
-    "rarity": "1/3",
-    "approx": "Yes",
+    "rarity": "13/60",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Ring mould",
     "quantity": "1",
-    "rarity": "1/3",
-    "approx": "Yes",
+    "rarity": "13/60",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -3583,36 +3583,35 @@
   {
     "name": "Bronze bolts",
     "quantity": "3",
-    "rarity": "7/10",
-    "approx": "Yes",
+    "rarity": "23/40",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Bronze limbs",
     "quantity": "1",
-    "rarity": "2/10",
-    "approx": "Yes",
+    "rarity": "9/40",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril bolts",
-    "quantity": "1",
+    "quantity": "3",
+    "rarity": "3/80",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril limbs",
     "quantity": "1",
+    "rarity": "1/80",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Wooden stock",
     "quantity": "1",
-    "rarity": "1/10",
-    "approx": "Yes",
+    "rarity": "3/20",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -8354,6 +8353,13 @@
     "template": "dropslineskill"
   },
   {
+    "name": "Enriched snapdragon",
+    "quantity": "1",
+    "rarity": "Always",
+    "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
     "name": "Grimy guam leaf",
     "quantity": "1",
     "rarity": "Always",
@@ -9200,33 +9206,35 @@
   {
     "name": "Air rune",
     "quantity": "1",
-    "rarity": "1/3",
+    "rarity": "3/10",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Earth rune",
     "quantity": "1",
-    "rarity": "1/3",
+    "rarity": "3/10",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Fire rune",
     "quantity": "1",
-    "rarity": "1/3",
+    "rarity": "3/10",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Law rune",
     "quantity": "1",
+    "rarity": "1/20",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Nature rune",
     "quantity": "1",
+    "rarity": "1/20",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -12915,19 +12923,21 @@
   {
     "name": "Adamant scimitar",
     "quantity": "1",
+    "rarity": "1/45",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Iron scimitar",
     "quantity": "1",
-    "rarity": "2/3",
+    "rarity": "5/9",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Mithril scimitar",
     "quantity": "1",
+    "rarity": "1/15",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -13289,18 +13299,21 @@
   {
     "name": "Silver ore",
     "quantity": "1",
+    "rarity": "4/5",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Silver bar",
     "quantity": "1",
+    "rarity": "3/20",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
   {
     "name": "Tiara",
     "quantity": "1",
+    "rarity": "1/20",
     "skill": "Thieving",
     "template": "dropslineskill"
   },
@@ -14187,6 +14200,48 @@
     "quantity": "1",
     "rarity": "Always",
     "skill": "Farming",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Oak leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Willow leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Maple leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Yew leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
+    "template": "dropslineskill"
+  },
+  {
+    "name": "Magic leaves",
+    "quantity": "20",
+    "rarity": "1/6",
+    "skill": "Woodcutting",
     "template": "dropslineskill"
   },
   {
