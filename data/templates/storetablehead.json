@@ -886,7 +886,7 @@
   },
   {
     "hidebuy": "y",
-    "hidestock": "n",
+    "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
     "smw": "No",
@@ -1216,6 +1216,15 @@
     "hiderestock": "y",
     "hidecaption": "y",
     "smw": "n",
+    "column1": "/",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Brimhaven voucher",
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "column1": "/",
     "template": "storetablehead"
   },
@@ -3276,6 +3285,13 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "30",
+    "smw": "no",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1200",
     "buymultiplier": "700",
     "delta": "20",
@@ -3758,6 +3774,14 @@
     "hidebuy": "yes",
     "hidecaption": "yes",
     "hidestock": "yes",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -6151,12 +6175,14 @@
   {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
+    "delta": "30",
     "smw": "No",
     "template": "storetablehead"
   },
   {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
+    "delta": "30",
     "template": "storetablehead"
   },
   {
@@ -6501,9 +6527,9 @@
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1000",
-    "buymultiplier": "600",
-    "delta": "10",
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
     "template": "storetablehead"
   },
   {
@@ -7480,6 +7506,14 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
     "hidege": "y",
     "hidecaption": "y",
     "hidestock": "y",
@@ -7551,13 +7585,6 @@
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1000",
-    "buymultiplier": "700",
-    "delta": "20",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
     "delta": "30",
@@ -7590,6 +7617,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {

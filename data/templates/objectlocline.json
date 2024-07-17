@@ -703,6 +703,16 @@
     "name": "Regular",
     "mtype": "pin",
     "members": "Yes",
+    "location": "Entrana church",
+    "list": [
+      "2853,3348"
+    ],
+    "template": "objectlocline"
+  },
+  {
+    "name": "Regular",
+    "mtype": "pin",
+    "members": "Yes",
     "location": "Paterdomus",
     "list": [
       "x:3416,y:3488"
@@ -2371,7 +2381,7 @@
     "template": "objectlocline"
   },
   {
-    "name": "Table",
+    "name": "Ball",
     "location": "Tower of Magic prison",
     "members": "Yes",
     "mapid": "-1",
@@ -2383,10 +2393,10 @@
     "template": "objectlocline"
   },
   {
-    "name": "Table",
-    "location": "Ardougne prison",
+    "name": "Ball",
+    "location": "East Ardougne prison",
     "members": "Yes",
-    "mapid": "10190",
+    "mapid": "-1",
     "plane": "0",
     "list": [
       "x:2575,y:9712"
@@ -2395,13 +2405,37 @@
     "template": "objectlocline"
   },
   {
-    "name": "Table",
-    "location": "Shayzien prison",
+    "name": "Ball",
+    "location": "Shayzien Prison",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
     "list": [
       "x:1435,y:9942"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Ball",
+    "location": "Enakhra's Temple prison",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3102,y:9247"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Ball",
+    "location": "Movario's Base",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:4129,y:4933"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -17703,18 +17737,6 @@
     "plane": "0",
     "list": [
       "x:2781,y:2794"
-    ],
-    "mtype": "pin",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Craft stall",
-    "location": "Sophanem",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:3312,y:2779"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -44995,6 +45017,139 @@
     "template": "objectlocline"
   },
   {
+    "name": "Plaque",
+    "location": "Yanille Agility Dungeon entrance",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "2572,3118"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Port Khazard",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "2655,3161",
+      "2656,3150"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Ranging Guild",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "2657,3430"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Brimhaven",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "2799,3159"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Entrana",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "2813,3342",
+      "2814,3342",
+      "2829,3351",
+      "2829,3352",
+      "2834,3350"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Catherby",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "2802,3439",
+      "2817,3452",
+      "2825,3442"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Taverley Dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2894,9694",
+      "2895,9694",
+      "2922,9699",
+      "2923,9705"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Magic axe hut",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "3194,3960"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Edgeville Dungeon",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3146,9869"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Rogues' Castle",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "3282,3933"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Plaque",
+    "location": "Exam Centre",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "3350,3337"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Platform",
     "location": "Hallowed Sepulchre Floor 5, Lower level",
     "members": "Yes",
@@ -54403,6 +54558,30 @@
     "template": "objectlocline"
   },
   {
+    "name": "Statue of Duradel",
+    "location": "Slayer Tower",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3432, 3533"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Duradel",
+    "location": "Falador Park",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3020, 3384"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Statue of Emperor Imafore",
     "location": "Civitas illa Fortis",
     "members": "Yes",
@@ -54426,6 +54605,54 @@
       "1839,3081",
       "1843,3128",
       "1843,3084"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Ghommal",
+    "location": "Warriors' Guild",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "2878, 3543"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Ghommal",
+    "location": "Falador Park",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3022, 3380"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Hazelmere",
+    "location": "Tree Gnome Stronghold",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "2424, 3394"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Hazelmere",
+    "location": "Falador Park",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3020, 3376"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -54647,6 +54874,30 @@
     "template": "objectlocline"
   },
   {
+    "name": "Statue of Sloane",
+    "location": "Warriors' Guild",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "2878, 3549"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Sloane",
+    "location": "Falador Park",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3016, 3376"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Statue of Taur",
     "location": "Civitas illa Fortis",
     "members": "Yes",
@@ -54737,6 +54988,30 @@
     "plane": "2",
     "list": [
       "x:1573,y:9567"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Turael",
+    "location": "Slayer Tower",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3425, 3533"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Turael",
+    "location": "Falador Park",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3014, 3380"
     ],
     "mtype": "pin",
     "template": "objectlocline"

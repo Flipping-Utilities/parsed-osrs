@@ -8462,6 +8462,13 @@
     "template": "recipe"
   },
   {
+    "members": "Yes",
+    "mat1": "Bone claw",
+    "mat1quantity": "2",
+    "output1": "Bone claws",
+    "template": "recipe"
+  },
+  {
     "ticks": "0",
     "members": "No",
     "tools": "Chisel",
@@ -20327,6 +20334,15 @@
     "template": "recipe"
   },
   {
+    "members": "Yes",
+    "ticks": "0",
+    "mat1": "Dizana's quiver",
+    "mat1cost": "No",
+    "output1": "Sunfire splinters",
+    "output1quantity": "4000",
+    "template": "recipe"
+  },
+  {
     "skill1": "Construction",
     "skill1lvl": "1",
     "skill1exp": "31",
@@ -22622,6 +22638,20 @@
     "mat3quantity": "1500000",
     "output1": "Elysian spirit shield",
     "output1subtxt": "Abbot Langley",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "5",
+    "tools": "Hammer",
+    "skill1": "Smithing",
+    "skill1lvl": "74",
+    "skill1boostable": "yes",
+    "skill1exp": "730",
+    "facilities": "Anvil",
+    "mat1": "Tormented synapse",
+    "mat2": "Arclight",
+    "output1": "Emberlight",
     "template": "recipe"
   },
   {
@@ -33001,6 +33031,21 @@
     "facilities": "Cooking range",
     "mat1": "Raw lobster",
     "output1": "Lobster",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "1",
+    "facilities": "Forestry Shop",
+    "mat1": "Anima-infused bark",
+    "mat1quantity": "3000",
+    "mat1cost": "(*50 -  - 5*  - 10*)/20",
+    "mat1itemnote": "Value based on the potential profit of using the Anima-infused bark to create Secateurs attachments",
+    "mat2": "Maple logs",
+    "mat2quantity": "300",
+    "mat3": "Yew logs",
+    "mat3quantity": "300",
+    "output1": "Log brace",
     "template": "recipe"
   },
   {
@@ -44962,6 +45007,21 @@
     "template": "recipe"
   },
   {
+    "members": "Yes",
+    "skill1": "Crafting",
+    "skill1lvl": "74",
+    "skill1boostable": "Yes",
+    "skill1exp": "730",
+    "skill2exp": "13",
+    "facilities": "Anvil",
+    "mat1": "Tormented synapse",
+    "mat2": "Iron bar",
+    "mat3": "Battlestaff",
+    "output1": "Purging staff",
+    "tools": "hammer",
+    "template": "recipe"
+  },
+  {
     "skill1": "Crafting",
     "skill1lvl": "1",
     "skill1exp": "2.5",
@@ -47080,7 +47140,7 @@
     "template": "recipe"
   },
   {
-    "notes": "Partial completion of The Hand in the Sand",
+    "notes": "Partial completion of The Hand in the Sand or While Guthix Sleeps",
     "members": "Yes",
     "ticks": "1",
     "mat1": "Pink dye",
@@ -50204,6 +50264,18 @@
     "mat2cost": "1",
     "output1": "Scarred extract",
     "output1cost": "No",
+    "template": "recipe"
+  },
+  {
+    "members": "Yes",
+    "ticks": "6",
+    "skill1": "Fletching",
+    "skill1lvl": "74",
+    "skill1boostable": "Yes",
+    "skill1exp": "730",
+    "mat1": "Tormented synapse",
+    "mat2": "Magic longbow (u)",
+    "output1": "Scorching bow",
     "template": "recipe"
   },
   {
@@ -57552,6 +57624,17 @@
     "mat1": "Kwuarm potion (unf)",
     "mat2": "Limpwurt root",
     "output1": "Super strength(3)",
+    "template": "recipe"
+  },
+  {
+    "skill1": "Herblore",
+    "skill1lvl": "65",
+    "skill1exp": "0",
+    "members": "Yes",
+    "ticks": "1",
+    "mat1": "Truth serum (While Guthix Sleeps)",
+    "mat2": "Enriched snapdragon",
+    "output1": "Super truth serum",
     "template": "recipe"
   },
   {
