@@ -138,18 +138,25 @@ export class ItemsExtractor {
   private fileNameMap: Map<string, Item>;
 
   private hasUnterminatedParenthesis(input: string): boolean {
-    let openParenthesisCount = 0;
-    let closeParenthesisCount = 0;
-
+    let depth = 0;
     for (const char of input) {
       if (char === '(') {
-        openParenthesisCount++;
+        depth += 1;
       } else if (char === ')') {
-        closeParenthesisCount++;
+        depth -= 1;
+        if (depth < 0) {
+          return true;
+        }
       }
+      return depth !== 0;
     }
-
-    return closeParenthesisCount < openParenthesisCount;
+  }
+  private weightScore(item: Item): number {
+    return (
+      Number(item.isInMainGame) * 3 +
+      Number(item.isOnGrandExchange) +
+      Number(item.isTradeable)
+    );
   }
   public getItemByName(candidateName: string): Item | null {
     if (!this.itemNameMap) {
@@ -162,14 +169,8 @@ export class ItemsExtractor {
         } else {
           const otherItem = this.itemNameMap.get(item.name);
           // Score depending on the amount of "true", with priority to being in the main game
-          const score =
-            Number(item.isInMainGame) * 3 +
-            Number(item.isOnGrandExchange) +
-            Number(item.isTradeable);
-          const otherScore =
-            Number(otherItem.isInMainGame) * 3 +
-            Number(otherItem.isOnGrandExchange) +
-            Number(otherItem.isTradeable);
+          const score = this.weightScore(item);
+          const otherScore = this.weightScore(otherItem);
           if (score > otherScore) {
             // Item most likely to be current and used takes the place
             this.itemNameMap.set(item.name, item);
@@ -188,14 +189,8 @@ export class ItemsExtractor {
           } else {
             const otherItem = this.aliasNameMap.get(alias);
             // Score depending on the amount of "true", with priority to being in the main game
-            const score =
-              Number(item.isInMainGame) * 3 +
-              Number(item.isOnGrandExchange) +
-              Number(item.isTradeable);
-            const otherScore =
-              Number(otherItem.isInMainGame) * 3 +
-              Number(otherItem.isOnGrandExchange) +
-              Number(otherItem.isTradeable);
+            const score = this.weightScore(item);
+            const otherScore = this.weightScore(otherItem);
             if (score > otherScore) {
               // Item most likely to be current and used takes the place
               this.aliasNameMap.set(alias, item);
