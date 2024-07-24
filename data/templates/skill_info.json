@@ -52,6 +52,13 @@
     "template": "skill info"
   },
   {
+    "name": "Barren patch",
+    "skill1name": "Farming",
+    "skill1lvl": "10",
+    "skill1exp": "0.1",
+    "template": "skill info"
+  },
+  {
     "skill1name": "Smithing",
     "skill1lvl": "14",
     "skill1exp": "30",
@@ -78,7 +85,7 @@
     "skill1name2": "Fishing",
     "skill1lvl2": "7",
     "skill1exp2": "8",
-    "tool1": "Pickaxe, Varrock Armor does not apply bonus.",
+    "tool1": "Pickaxe (Varrock armour bonus does not apply)",
     "tool2": "Small fishing net, Big fishing net",
     "facility1": "Rocks (Barronite)",
     "facility2": "Fishing spot (Camdozaal)",
@@ -237,8 +244,31 @@
     "template": "skill info"
   },
   {
+    "name": "Chest",
+    "skill1name": "Agility",
+    "skill2name": "Thieving",
+    "skill1lvl": "1",
+    "skill2lvl": "1",
+    "skill1exp": "4.5",
+    "skill2exp": "4.5",
+    "loc": "Underwater Agility and Thieving",
+    "template": "skill info"
+  },
+  {
+    "name": "Clam",
+    "skill1name": "Agility",
+    "skill2name": "Thieving",
+    "skill1lvl": "1",
+    "skill2lvl": "1",
+    "skill1exp": "4.5",
+    "skill2exp": "4.5",
+    "loc": "Underwater Agility and Thieving",
+    "template": "skill info"
+  },
+  {
     "smwname": "Broken",
     "skill1name": "Crafting",
+    "skill1lvl": "30",
     "skill1exp": "50",
     "tool": "Hammer",
     "template": "skill info"
@@ -317,6 +347,13 @@
     "skill1lvl": "30",
     "skill1exp": "50",
     "tool": "Hammer",
+    "template": "skill info"
+  },
+  {
+    "name": "Dry patch",
+    "skill1name": "Farming",
+    "skill1lvl": "10",
+    "skill1exp": "0.1",
     "template": "skill info"
   },
   {
@@ -441,6 +478,13 @@
     "template": "skill info"
   },
   {
+    "name": "Herbs",
+    "skill1name": "Farming",
+    "skill1lvl": "10",
+    "skill1exp": "0.1",
+    "template": "skill info"
+  },
+  {
     "skill1name": "Ranged",
     "skill1lvl": "1",
     "skill1exp": "2.5",
@@ -520,6 +564,18 @@
     "template": "skill info"
   },
   {
+    "name": "Experience per stolen egg",
+    "skill1name": "Woodcutting",
+    "skill2name": "Thieving",
+    "skill1lvl": "1",
+    "skill2lvl": "1",
+    "skill1exp": "1.2",
+    "skill2exp": "0.5",
+    "skill1note": "1.2 experience is awarded per Woodcutting Level up to 118.8 at level 99.",
+    "skill2note": "0.5 experience is awarded per Hunter Level up to 49.5 at level 99.",
+    "template": "skill info"
+  },
+  {
     "smwname": "Broken",
     "skill1name": "Crafting",
     "skill1lvl": "30",
@@ -538,6 +594,18 @@
     "tool1": "N/A",
     "tool2": "Hammer",
     "loc": "Hosidius",
+    "template": "skill info"
+  },
+  {
+    "name": "Experience per disarmed fox trap",
+    "skill1name": "Woodcutting",
+    "skill2name": "Hunter",
+    "skill1lvl": "1",
+    "skill2lvl": "1",
+    "skill1exp": "1.5",
+    "skill2exp": "0.5",
+    "skill1note": "1.5 experience is awarded per Woodcutting Level up to 148.5 at level 99.",
+    "skill2note": "0.5 experience is awarded per Hunter Level up to 49.5 at level 99.",
     "template": "skill info"
   },
   {
@@ -761,6 +829,13 @@
     "loc": "Any weedy farming patch",
     "tool": "Rake",
     "time": "5 minutes",
+    "template": "skill info"
+  },
+  {
+    "name": "Weedy patch",
+    "skill1name": "Farming",
+    "skill1lvl": "10",
+    "skill1exp": "0.1",
     "template": "skill info"
   }
 ]

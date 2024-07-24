@@ -13,26 +13,9 @@
       "3rd age full helmet",
       "3rd age platebody",
       "3rd age platelegs",
-      "3rd age kiteshield"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
-      "3rd age full helmet",
-      "3rd age platebody",
-      "3rd age plateskirt",
-      "3rd age kiteshield"
-    ],
-    "itemwidth": "150px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
+      "3rd age kiteshield",
       "3rd age longsword"
     ],
-    "noheader": "yes",
     "itemwidth": "150px",
     "template": "infotable bonuses"
   },
@@ -343,6 +326,35 @@
       "Ahrim's robeskirt#Undamaged",
       "Ahrim's staff#Undamaged"
     ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Ahrim's hood#Undamaged",
+      "Ahrim's robetop#Undamaged",
+      "Ahrim's robeskirt#Undamaged"
+    ],
+    "itemwidth": "110px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Blue moon helm#New",
+      "Blue moon chestplate#New",
+      "Blue moon tassets#New"
+    ],
+    "itemwidth": "110px",
+    "noheader": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Bloodbark helm",
+      "Bloodbark body",
+      "Bloodbark legs"
+    ],
+    "itemwidth": "110px",
+    "noheader": "yes",
     "template": "infotable bonuses"
   },
   {
@@ -697,14 +709,6 @@
       "Crystal bow (attuned)",
       "Crystal halberd (attuned)",
       "Crystal staff (attuned)"
-    ],
-    "nototals": "yes",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
-      "Dragon defender#Normal",
-      "Avernic defender#Normal"
     ],
     "nototals": "yes",
     "template": "infotable bonuses"
@@ -1250,6 +1254,24 @@
   },
   {
     "list": [
+      "Ahrim's hood#Undamaged",
+      "Ahrim's robetop#Undamaged",
+      "Ahrim's robeskirt#Undamaged"
+    ],
+    "itemwidth": "110px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Blue moon helm#New",
+      "Blue moon chestplate#New",
+      "Blue moon tassets#New"
+    ],
+    "itemwidth": "110px",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Blue wizard hat (t)",
       "Blue wizard robe (t)",
       "Blue skirt (t)"
@@ -1499,9 +1521,9 @@
       "Mithril claws",
       "Adamant claws",
       "Rune claws",
-      "Dragon claws"
+      "Dragon claws",
+      "Bone claws"
     ],
-    "sort": "aslash",
     "nototals": "yes",
     "template": "infotable bonuses"
   },
@@ -1691,6 +1713,14 @@
   },
   {
     "list": [
+      "Dark squall hood",
+      "Dark squall robe top",
+      "Dark squall robe bottom"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Bronze dart#(unp)",
       "Iron dart#(unp)",
       "Steel dart#(unp)",
@@ -1792,6 +1822,20 @@
   },
   {
     "list": [
+      "Silverlight#Normal",
+      "Darklight",
+      "Arclight",
+      "Emberlight"
+    ],
+    "comment1": "Quest reward from Demon Slayer \nDamage bonus: 60% \nAttack speed: 5 ticks",
+    "comment2": "Upgraded during Shadow of the Storm quest \nDamage bonus: 60% \nAttack speed: 5 ticks \nSpecial attack melee stats lowering: 10% + 1",
+    "comment3": "Upgraded using three ancient shards on the altar in the Catacombs of Kourend \nDamage and accuracy bonus: 70% \nAttack speed: 4 ticks \nSpecial attack melee stats lowering: 10% + 1",
+    "comment4": "Upgraded using a tormented synapse and a fully charged and/or imbued arclight (10,000 charges/imbued) on an anvil, requiring 74 Smithing \nDamage and accuracy bonus: 70% \nAttack speed: 4 ticks \nSpecial attack melee stats lowering: 15% + 1",
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Dharok's helm#Undamaged",
       "Dharok's platebody#Undamaged",
       "Dharok's platelegs#Undamaged",
@@ -1866,7 +1910,6 @@
       "Dragon kiteshield",
       "Dragon defender#Normal"
     ],
-    "sort": "dslash",
     "nototals": "yes",
     "template": "infotable bonuses"
   },
@@ -1935,6 +1978,14 @@
     "list": [
       "Elite void top#Normal",
       "Elite void robe#Normal"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Elite black full helm",
+      "Elite black platebody",
+      "Elite black platelegs"
     ],
     "template": "infotable bonuses"
   },
@@ -2040,10 +2091,10 @@
       "Willow comp bow",
       "Cursed goblin hammer"
     ],
-    "comment1": "Provides unlimited supplies of air runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting air combat spells.",
-    "comment2": "Provides unlimited supplies of water runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting water combat spells.",
-    "comment3": "Provides unlimited supplies of earth runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting earth combat spells.",
-    "comment4": "Provides unlimited supplies of fire runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting fire combat spells.",
+    "comment1": "Provides unlimited supplies of air runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Commonly used by magic pures casting combat spells.",
+    "comment2": "Provides unlimited supplies of water runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Can be used to save on runes and improve the accuracy when casting binding spells such as Bind or Snare.",
+    "comment3": "Provides unlimited supplies of earth runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses. Can be used to save on runes and improve the accuracy when casting binding spells such as Bind or Snare.",
+    "comment4": "Provides unlimited supplies of fire runes, on top of the ability to autocast spells at 5-tick speed (3 seconds per cast). Offers the highest magic accuracy boost and considerable defensive bonuses.",
     "comment5": "Offers the highest magic accuracy and defence bonuses, along with considerable melee attack bonuses. Stores up to 1,000 nature runes. Although expensive, it is the strongest magic weapon that can also double as a backup melee switch.",
     "comment6": "Along with the regular crossbow, it is one of the only one-handed ranged weapon available in the free-to-play worlds. Allows to shoot bronze bolts with +10 ranged strength at 6-tick speed (3.6 seconds per attack), which goes down to 5 ticks on rapid (3 seconds). While this is a slow and relatively weak weapon, it is sometimes used by tanks due to its long range and the ability to use a shield. Note: regular crossbow provides the same bonuses, but weights slightly more (around 8 kg).",
     "comment7": "Allows to teleport to the Barbarian Village from most locations including the Wilderness up to the 20 level. It also allows to autocast the Crumble Undead spell. While not particularly useful in PvP, it can be used to train magic as it gives more experience per cast than Fire Bolt with a similar runes cost.",
@@ -2455,6 +2506,7 @@
       "Silver speedrun trophy",
       "Gold speedrun trophy",
       "Platinum speedrun trophy",
+      "Diamond speedrun trophy",
       "Trailblazer reloaded adamant trophy",
       "Trailblazer reloaded rune trophy",
       "Trailblazer reloaded dragon trophy"
@@ -2638,10 +2690,10 @@
   },
   {
     "list": [
-      "Group iron helm",
-      "Group iron platebody#II",
-      "Group iron platelegs",
-      "Group iron bracers"
+      "Group ironman helm",
+      "Group ironman platebody#II",
+      "Group ironman platelegs",
+      "Group ironman bracers"
     ],
     "template": "infotable bonuses"
   },
@@ -2678,7 +2730,6 @@
       "Guthix d'hide body",
       "Guthix chaps",
       "Guthix bracers",
-      "Guthix d'hide boots",
       "Guthix d'hide shield"
     ],
     "template": "infotable bonuses"
@@ -2741,10 +2792,10 @@
   },
   {
     "list": [
-      "Hardcore group iron helm",
-      "Hardcore group iron platebody#II",
-      "Hardcore group iron platelegs",
-      "Hardcore group iron bracers"
+      "Hardcore group ironman helm",
+      "Hardcore group ironman platebody#II",
+      "Hardcore group ironman platelegs",
+      "Hardcore group ironman bracers"
     ],
     "template": "infotable bonuses"
   },
@@ -2799,10 +2850,11 @@
       "Ardougne cloak 4",
       "Hitpoints cape#Trimmed",
       "Prayer cape#Trimmed",
-      "Obsidian cape"
+      "Obsidian cape",
+      "Mixed hide cape"
     ],
-    "comment5": "When equipped, doubles the player's natural Hitpoints regeneration rate to 2 Hitpoints per minute",
-    "comment6": "When equipped or in the inventory, acts as a holy wrench",
+    "comment6": "When equipped, doubles the player's natural Hitpoints regeneration rate to 2 Hitpoints per minute",
+    "comment7": "When equipped or in the inventory, acts as a holy wrench",
     "sort": "str,prayer",
     "order": "desc,desc",
     "nototals": "yes",
@@ -2976,7 +3028,8 @@
       "3rd age range top",
       "Guthix d'hide body",
       "Void knight top#Normal",
-      "Elite void top#Normal"
+      "Elite void top#Normal",
+      "Mixed hide top"
     ],
     "sort": "drange,dslash",
     "order": "desc,desc",
@@ -3254,10 +3307,10 @@
       "Gilded boots",
       "Spiked menacles",
       "Dragon boots",
-      "Dragon boots (g)",
       "Primordial boots",
       "Bandos boots",
-      "Guardian boots"
+      "Guardian boots",
+      "Echo boots"
     ],
     "sort": "str",
     "nototals": "yes",
@@ -3396,6 +3449,34 @@
   },
   {
     "list": [
+      "Blood moon helm#New",
+      "Blood moon chestplate#New",
+      "Blood moon tassets#New",
+      "Dual macuahuitl"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Blue moon helm#New",
+      "Blue moon chestplate#New",
+      "Blue moon tassets#New",
+      "Blue moon spear"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Eclipse moon helm#New",
+      "Eclipse moon chestplate#New",
+      "Eclipse moon tassets#New",
+      "Eclipse atlatl"
+    ],
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Moonclan hat",
       "Moonclan helm",
       "Moonclan armour",
       "Moonclan skirt",
@@ -4644,9 +4725,9 @@
       "Kodai wand",
       "Master wand",
       "Thammaron's sceptre (a)#Charged",
-      "Accursed sceptre (a)#Charged"
+      "Accursed sceptre (a)#Charged",
+      "Blue moon spear"
     ],
-    "sort": "mdmg,amagic",
     "nototals": "yes",
     "template": "infotable bonuses"
   },
@@ -4682,7 +4763,8 @@
       "Staff of bob the cat",
       "Bryophyta's staff#Charged",
       "Toktz-mej-tal",
-      "Harmonized nightmare staff"
+      "Harmonized nightmare staff",
+      "Purging staff"
     ],
     "sort": "mdmg,amagic",
     "nototals": "yes",
@@ -4901,7 +4983,6 @@
     ],
     "nototals": "yes",
     "sort": "dmagic",
-    "noheader": "yes",
     "itemwidth": "190px",
     "template": "infotable bonuses"
   },
@@ -4913,7 +4994,6 @@
     ],
     "nototals": "yes",
     "sort": "dmagic",
-    "noheader": "yes",
     "itemwidth": "190px",
     "template": "infotable bonuses"
   },
@@ -5041,10 +5121,10 @@
   },
   {
     "list": [
-      "Group iron helm (unranked)",
-      "Group iron platebody (unranked)#II",
-      "Group iron platelegs (unranked)",
-      "Group iron bracers (unranked)"
+      "Group ironman helm (unranked)",
+      "Group ironman platebody (unranked)#II",
+      "Group ironman platelegs (unranked)",
+      "Group ironman bracers (unranked)"
     ],
     "template": "infotable bonuses"
   },
@@ -5059,7 +5139,8 @@
       "Inquisitor's plateskirt",
       "Justiciar legguards",
       "Elite void robe#Normal",
-      "Torva platelegs#Restored"
+      "Torva platelegs#Restored",
+      "Sunfire fanatic chausses"
     ],
     "sort": "dslash,prayer",
     "order": "desc,desc",
@@ -5333,6 +5414,8 @@
   },
   {
     "list": [
+      "Wooden Shield",
+      "Wooden shield (g)",
       "Oak shield",
       "Willow shield",
       "Maple shield",

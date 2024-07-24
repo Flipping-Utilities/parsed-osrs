@@ -3,7 +3,21 @@
     "tier": "master",
     "emote": "Angry",
     "location": "Behind Miss Schism in Draynor Village",
-    "item1": "abyssal whip",
+    "item1": "Abyssal tentacle",
+    "variation": "Abyssal whip",
+    "cost1": "+",
+    "item2": "cape of legends",
+    "item3": "spined chaps",
+    "cost2": "675",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Angry",
+    "location": "Behind Miss Schism in Draynor Village",
+    "item1": "Abyssal tentacle (or)",
+    "variation": "Abyssal whip",
+    "cost1": "++",
     "item2": "cape of legends",
     "item3": "spined chaps",
     "cost2": "675",
@@ -23,7 +37,8 @@
     "tier": "master",
     "emote": "Angry",
     "location": "Behind Miss Schism in Draynor Village",
-    "item1": "abyssal whip",
+    "item1": "abyssal whip (or)",
+    "cost1": "+",
     "item2": "cape of legends",
     "item3": "spined chaps",
     "cost2": "675",
@@ -163,6 +178,28 @@
     "location": "Inside Aubury's Rune Shop",
     "item1": "air tiara",
     "item2": "staff of water",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "elite",
+    "emote": "Bow",
+    "location": "Outside the Legends' Guild building",
+    "item1": "amulet of eternal glory",
+    "item2": "cape of legends",
+    "item3": "dragon battleaxe",
+    "variation": "amulet of glory",
+    "cost2": "675",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "elite",
+    "emote": "Dance",
+    "location": "South-east corner of the Fishing Platform",
+    "item1": "amulet of eternal glory",
+    "item2": "barrows gloves",
+    "item3": "dragon med helm",
+    "cost2": "130000",
+    "variation": "amulet of glory",
     "template": "emoteclue"
   },
   {
@@ -321,6 +358,7 @@
     "variation": "dragon defender",
     "item2": "Dragon battleaxe",
     "item3": "Slayer helmet",
+    "cost3": "++++",
     "template": "emoteclue"
   },
   {
@@ -454,6 +492,26 @@
     "emote": "Dance",
     "location": "South-east corner of the King Black Dragon Lair",
     "item1": "Black d'hide body",
+    "item2": "black d'hide vambraces",
+    "item3": "black dragon mask",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Dance",
+    "location": "South-east corner of the King Black Dragon Lair",
+    "item1": "Black d'hide body (g)",
+    "variation": "Black d'hide body",
+    "item2": "black d'hide vambraces",
+    "item3": "black dragon mask",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Dance",
+    "location": "South-east corner of the King Black Dragon Lair",
+    "item1": "Black d'hide body (t)",
+    "variation": "Black d'hide body",
     "item2": "black d'hide vambraces",
     "item3": "black dragon mask",
     "template": "emoteclue"
@@ -638,10 +696,10 @@
   {
     "tier": "hard",
     "emote": "Shrug",
-    "location": "Chaos Temple in the Wilderness",
-    "item1": "Blue d'hide vambraces",
-    "item2": "rune platelegs",
-    "item3": "iron platebody",
+    "location": "North of Chaos Temple in the Wilderness",
+    "item1": "Rune platelegs",
+    "item2": "iron platebody",
+    "item3": "blue d'hide vambraces",
     "template": "emoteclue"
   },
   {
@@ -681,7 +739,6 @@
     "item2": "Blue moon chestplate",
     "item3": "Blue moon tassets",
     "item4": "Blue moon spear",
-    "cost": "+++",
     "template": "emoteclue"
   },
   {
@@ -692,7 +749,6 @@
     "item2": "Blue moon chestplate",
     "item3": "Blue moon tassets",
     "item4": "Blue moon spear",
-    "cost": "+++",
     "template": "emoteclue"
   },
   {
@@ -703,7 +759,6 @@
     "item2": "Blue moon chestplate",
     "item3": "Blue moon tassets",
     "item4": "Blue moon spear",
-    "cost": "+++",
     "template": "emoteclue"
   },
   {
@@ -714,7 +769,16 @@
     "item2": "Blue moon chestplate",
     "item3": "Blue moon tassets",
     "item4": "Blue moon spear",
-    "cost": "+++",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Salute",
+    "location": "South of Cam Torum entrance",
+    "item1": "Blue moon helm",
+    "item2": "Blue moon chestplate",
+    "item3": "Blue moon tassets",
+    "item4": "Blue moon spear",
     "template": "emoteclue"
   },
   {
@@ -1446,10 +1510,34 @@
     "template": "emoteclue"
   },
   {
+    "tier": "elite",
+    "emote": "Laugh",
+    "location": "Fountain of Heroes under the Heroes' Guild",
+    "item1": "Dragon boots (g)",
+    "variation": "Dragon boots",
+    "cost1": "+",
+    "item2": "splitbark legs",
+    "item3": "rune longsword",
+    "template": "emoteclue"
+  },
+  {
     "tier": "master",
     "emote": "Bull Roarer",
     "location": "Top of the Watchtower in Yanille",
     "item1": "Dragon chainbody",
+    "item2": "Bullroarer",
+    "cost2": "0",
+    "item3": "Dragon plateskirt",
+    "item4": "Climbing boots",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Bull Roarer",
+    "location": "Top of the Watchtower in Yanille",
+    "item1": "Dragon chainbody (g)",
+    "variation": "Dragon chainbody",
+    "cost1": "+",
     "item2": "Bullroarer",
     "cost2": "0",
     "item3": "Dragon plateskirt",
@@ -1463,15 +1551,17 @@
     "cost": "0",
     "item2": "Dragon battleaxe",
     "item3": "Slayer helmet",
+    "cost3": "++++",
     "template": "emoteclue"
   },
   {
     "tier": "master",
     "emote": "Raspberry",
-    "item1": "Dragon defender",
+    "item1": "Dragon defender (t)",
     "variation": "dragon defender",
     "item2": "Dragon battleaxe",
     "item3": "Slayer helmet",
+    "cost3": "++++",
     "template": "emoteclue"
   },
   {
@@ -1538,9 +1628,10 @@
     "tier": "master",
     "emote": "Spin",
     "location": "West of the Soul Altar",
-    "item1": "Dragon pickaxe",
+    "item1": "Dragon pickaxe (or) (Trailblazer)",
     "item2": "helm of neitiznot",
     "item3": "rune boots",
+    "cost1": "+",
     "variation": "dragon pickaxe",
     "template": "emoteclue"
   },
@@ -1564,6 +1655,19 @@
     "cost2": "0",
     "item3": "Climbing boots",
     "item4": "Dragon chainbody",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Bull Roarer",
+    "location": "Top of the Watchtower in Yanille",
+    "item1": "Dragon chainbody",
+    "item2": "Bullroarer",
+    "cost2": "0",
+    "item3": "Dragon plateskirt (g)",
+    "variation": "Dragon plateskirt",
+    "cost3": "+",
+    "item4": "Climbing boots",
     "template": "emoteclue"
   },
   {
@@ -1595,6 +1699,19 @@
     "template": "emoteclue"
   },
   {
+    "tier": "master",
+    "emote": "Wave",
+    "location": "Northern wall of Castle Drakan, by the sickle marking on the floor",
+    "item1": "dragon sq shield (g)",
+    "variation": "Dragon sq shield",
+    "cost1": "+",
+    "item2": "splitbark body",
+    "item3": "boater",
+    "img3": "red boater",
+    "cost3": "0",
+    "template": "emoteclue"
+  },
+  {
     "tier": "elite",
     "emote": "Laugh",
     "location": "Behind the Ardougne Gem Stall.",
@@ -1614,12 +1731,33 @@
     "template": "emoteclue"
   },
   {
+    "tier": "master",
+    "emote": "Jump for Joy",
+    "location": "West of the pier in Zul-Andra, next to a tree",
+    "item1": "Echo boots",
+    "variation": "Bandos boots",
+    "cost1": "+",
+    "item2": "dragon 2h sword",
+    "item3": "obsidian cape",
+    "template": "emoteclue"
+  },
+  {
     "tier": "hard",
     "emote": "Raspberry",
     "location": "Inside the Fishing Guild bank",
     "item1": "Elemental shield",
     "item2": "blue d'hide chaps",
     "item3": "rune warhammer",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
+    "emote": "Slap Head",
+    "location": "Centre of the Catacombs of Kourend",
+    "item1": "Emberlight",
+    "cost": "0",
+    "item2": "amulet of the damned",
+    "variation": "Arclight",
     "template": "emoteclue"
   },
   {
@@ -1851,7 +1989,7 @@
     "tier": "medium",
     "emote": "Beckon",
     "emote2": "Clap",
-    "location": "West of the Tai Bwo Wannai hardwood grove, south-east of the Tribal Statue",
+    "location": "South of the shrine in Tai Bwo Wannai Village, west of the hardwood grove",
     "item1": "Green d'hide chaps",
     "item2": "ring of dueling(8)",
     "img2": "ring of dueling",
@@ -1862,7 +2000,7 @@
     "tier": "medium",
     "emote": "Cheer",
     "emote2": "Angry",
-    "location": "Inside the ogre enclosure in the Combat Training Camp",
+    "location": "Outside the Ogre cage in the Ardougne Training Camp",
     "item1": "Green d'hide chaps",
     "item2": "green d'hide body",
     "item3": "steel sq shield",
@@ -1872,7 +2010,7 @@
     "tier": "medium",
     "emote": "Cry",
     "emote2": "No",
-    "location": "Top of platform in the Gnome Stronghold Agility Course",
+    "location": "Next to the Gnome Stronghold Agility Course balancing rope, on the top of the platform",
     "item1": "Green d'hide chaps",
     "item2": "steel kiteshield",
     "item3": "ring of forging",
@@ -1882,7 +2020,7 @@
     "tier": "medium",
     "emote": "Shrug",
     "emote2": "Yawn",
-    "location": "Outside the bank in Catherby",
+    "location": "Outside Catherby bank",
     "item1": "Green d'hide chaps",
     "item2": "maple longbow",
     "item3": "iron med helm",
@@ -1983,6 +2121,7 @@
     "emote": "Jump for Joy",
     "location": "West of the pier in Zul-Andra, next to a tree",
     "item1": "Guardian boots",
+    "variation": "Bandos boots",
     "item2": "dragon 2h sword",
     "item3": "obsidian cape",
     "template": "emoteclue"
@@ -2161,6 +2300,7 @@
     "emote": "Stamp",
     "location": "Western side of the Enchanted Valley",
     "item1": "Infernal axe",
+    "variation": "Dragon axe",
     "cost": "+",
     "template": "emoteclue"
   },
@@ -2299,9 +2439,9 @@
   {
     "tier": "hard",
     "emote": "Shrug",
-    "location": "Chaos Temple in the Wilderness",
-    "item1": "iron platebody",
-    "item2": "rune platelegs",
+    "location": "North of Chaos Temple in the Wilderness",
+    "item1": "Rune platelegs",
+    "item2": "iron platebody",
     "item3": "blue d'hide vambraces",
     "template": "emoteclue"
   },
@@ -2354,6 +2494,17 @@
     "emote": "Yawn",
     "location": "Top of Trollheim",
     "item1": "Lava battlestaff",
+    "item2": "black d'hide vambraces",
+    "item3": "mind shield",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "elite",
+    "emote": "Yawn",
+    "location": "Top of Trollheim",
+    "item1": "Lava battlestaff (or)",
+    "variation": "Lava battlestaff",
+    "cost1": "+",
     "item2": "black d'hide vambraces",
     "item3": "mind shield",
     "template": "emoteclue"
@@ -2849,6 +3000,16 @@
   },
   {
     "tier": "master",
+    "emote": "Jump for Joy",
+    "location": "West of the pier in Zul-Andra, next to a tree",
+    "item1": "Obsidian cape (r)",
+    "variation": "Obsidian cape",
+    "item2": "dragon 2h sword",
+    "item3": "Bandos boots",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "master",
     "emote": "Wave",
     "location": "Northern wall of Castle Drakan, by the sickle marking on the floor",
     "item1": "Orange boater",
@@ -3168,7 +3329,7 @@
   {
     "tier": "elite",
     "emote": "Blow Kiss",
-    "location": "By the eastern entrance to the Lava Maze Dungeon (Bring a knife if you don't have access to the shortcut — 82 Agility and Wilderness Hard Diary required)",
+    "location": "By the eastern entrance to the Lava Maze Dungeon (Bring a knife if you don't have access to the shortcut — 82 Agility required)",
     "item1": "Rolling pin",
     "item2": "black d'hide chaps",
     "item3": "spotted cape",
@@ -3443,7 +3604,7 @@
   {
     "tier": "hard",
     "emote": "Shrug",
-    "location": "Chaos Temple in the Wilderness",
+    "location": "North of Chaos Temple in the Wilderness",
     "item1": "Rune platelegs",
     "item2": "iron platebody",
     "item3": "blue d'hide vambraces",
@@ -3964,10 +4125,14 @@
     "tier": "Elite",
     "emote": "Bow",
     "location": "Temple in Civitas illa Fortis",
-    "item1": "Sunfire fanatic helm",
-    "item2": "Sunfire fanatic cuirass",
-    "item3": "Sunfire fanatic chausses",
-    "cost": "++",
+    "item1": "Sunfire fanatic chausses",
+    "template": "emoteclue"
+  },
+  {
+    "tier": "Elite",
+    "emote": "Bow",
+    "location": "Temple in Civitas illa Fortis",
+    "item1": "Sunfire fanatic cuirass",
     "template": "emoteclue"
   },
   {
@@ -3975,19 +4140,6 @@
     "emote": "Bow",
     "location": "Temple in Civitas illa Fortis",
     "item1": "Sunfire fanatic helm",
-    "item2": "Sunfire fanatic cuirass",
-    "item3": "Sunfire fanatic chausses",
-    "cost": "++",
-    "template": "emoteclue"
-  },
-  {
-    "tier": "Elite",
-    "emote": "Bow",
-    "location": "Temple in Civitas illa Fortis",
-    "item1": "Sunfire fanatic helm",
-    "item2": "Sunfire fanatic cuirass",
-    "item3": "Sunfire fanatic chausses",
-    "cost": "++",
     "template": "emoteclue"
   },
   {

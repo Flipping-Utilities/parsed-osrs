@@ -191,6 +191,21 @@
   },
   {
     "template": "math",
+    "formula": "\\frac{1}{B-(Lvl*25)}",
+    "raw": "\\frac{1}{B-(Lvl*25)}"
+  },
+  {
+    "template": "math",
+    "formula": "B",
+    "raw": "B"
+  },
+  {
+    "template": "math",
+    "formula": "Lvl",
+    "raw": "Lvl"
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor MagicLevel \\times \\frac{1}{20} \\rfloor + 2",
     "raw": "\\lfloor MagicLevel \\times \\frac{1}{20} \\rfloor + 2"
   },
@@ -233,6 +248,11 @@
     "template": "math",
     "formula": "0.6 * \\text{Magic Level}",
     "raw": "0.6 * \\text{Magic Level}"
+  },
+  {
+    "template": "math",
+    "formula": "level-20/10",
+    "raw": "level-20/10"
   },
   {
     "template": "math",
@@ -441,6 +461,11 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor StrengthLevel \\times \\frac{15}{100} \\rfloor + 4",
+    "raw": "\\lfloor StrengthLevel \\times \\frac{15}{100} \\rfloor + 4"
+  },
+  {
+    "template": "math",
     "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
     "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
@@ -473,11 +498,6 @@
     "template": "math",
     "formula": "\\left \\lceil{\\frac{44}{30}}\\right \\rceil = \\left \\lceil{1.46}\\right \\rceil = 2",
     "raw": "\\left \\lceil{\\frac{44}{30}}\\right \\rceil = \\left \\lceil{1.46}\\right \\rceil = 2"
-  },
-  {
-    "template": "math",
-    "formula": "\\text{Agility experience per ticket} = \\text{Base experience} + 5 \\times \\max(\\text{Agility level} - 40, 0)",
-    "raw": "\\text{Agility experience per ticket} = \\text{Base experience} + 5 \\times \\max(\\text{Agility level} - 40, 0)"
   },
   {
     "template": "math",
@@ -581,8 +601,13 @@
   },
   {
     "template": "math",
-    "formula": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1",
-    "raw": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1"
+    "formula": "\\begin{align}\n\\text{Max Points} &= max(4500, \\lfloor totalThievingLevel / 6\\rfloor * 150) \\\\\n\\text{Max Grubs} &= \\lceil maxPoints / 115\\rceil\n\\end{align}",
+    "raw": "\\begin{align}\n\\text{Max Points} &= max(4500, \\lfloor totalThievingLevel / 6\\rfloor * 150) \\\\\n\\text{Max Grubs} &= \\lceil maxPoints / 115\\rceil\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 1",
+    "raw": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 1"
   },
   {
     "template": "math",
@@ -591,13 +616,23 @@
   },
   {
     "template": "math",
-    "formula": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 2",
-    "raw": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 2"
+    "formula": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 2",
+    "raw": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 2"
   },
   {
     "template": "math",
     "formula": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 3",
     "raw": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1",
+    "raw": "\\lfloor CookingLevel \\times \\frac{5}{100} \\rfloor + 1"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 2",
+    "raw": "\\lfloor Level \\times \\frac{5}{100} \\rfloor + 2"
   },
   {
     "template": "math",
@@ -906,6 +941,11 @@
   },
   {
     "template": "math",
+    "formula": "\\left\\lfloor \\frac{26}{79} \\text{Hitpoints} \\right\\rfloor",
+    "raw": "\\left\\lfloor \\frac{26}{79} \\text{Hitpoints} \\right\\rfloor"
+  },
+  {
+    "template": "math",
     "formula": "\\text{Defence Roll} =(9+ \\text{NPC magic level}) * (\\text{NPC magic defence} + 64)",
     "raw": "\\text{Defence Roll} =(9+ \\text{NPC magic level}) * (\\text{NPC magic defence} + 64)"
   },
@@ -921,8 +961,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}",
-    "raw": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}"
+    "formula": "\\text{Damage per hit} =\\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)",
+    "raw": "\\text{Damage per hit} =\\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)"
   },
   {
     "template": "math",
@@ -946,8 +986,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Average damage per attack} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}",
-    "raw": "\\text{Average damage per attack} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}"
+    "formula": "\\text{Average damage per attack} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)",
+    "raw": "\\text{Average damage per attack} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)"
   },
   {
     "template": "math",
@@ -976,8 +1016,8 @@
   },
   {
     "template": "math",
-    "formula": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}",
-    "raw": "\\text{Damage per hit} =\\frac{\\text{Maximum hit}*\\text{Hit Chance}}{2}"
+    "formula": "\\text{Damage per hit} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)",
+    "raw": "\\text{Damage per hit} = \\text{Hit Chance} * \\Biggl(\\frac{\\text{Maximum hit}}{2} + \\frac{1}{\\text{Maximum hit} + 1}\\Biggr)"
   },
   {
     "template": "math",
@@ -1131,8 +1171,8 @@
   },
   {
     "template": "math",
-    "formula": "(1-P)^{n-1}",
-    "raw": "(1-P)^{n-1}"
+    "formula": "(1-P)^{n}",
+    "raw": "(1-P)^{n}"
   },
   {
     "template": "math",
@@ -1146,8 +1186,8 @@
   },
   {
     "template": "math",
-    "formula": "\\left(1-\\frac{2}{128}\\right)^{6-1} = 92.43\\%",
-    "raw": "\\left(1-\\frac{2}{128}\\right)^{6-1} = 92.43\\%"
+    "formula": "\\left(1-\\frac{2}{128}\\right)^{4} = 93.89\\%",
+    "raw": "\\left(1-\\frac{2}{128}\\right)^{4} = 93.89\\%"
   },
   {
     "template": "math",
@@ -1456,6 +1496,11 @@
   },
   {
     "template": "math",
+    "formula": "\\begin{align}\n \\text{Damage} = \\text{Base Damage} \\times (1 + \\text{Magic Damage} \\% + \\text{Elemental Weakness} \\%)\n\\end{align}",
+    "raw": "\\begin{align}\n \\text{Damage} =  \\text{Base Damage} \\times (1 + \\text{Magic Damage} \\% + \\text{Elemental Weakness} \\%)\n\\end{align}"
+  },
+  {
+    "template": "math",
     "formula": "S(x)",
     "raw": "S(x)"
   },
@@ -1468,6 +1513,26 @@
     "template": "math",
     "formula": "S(x) = x \\sum_{n=0}^{\\infty} 10^{-n} = 1.1\\bar{1}x",
     "raw": "S(x) = x \\sum_{n=0}^{\\infty} 10^{-n} = 1.1\\bar{1}x"
+  },
+  {
+    "template": "math",
+    "formula": "2.3362x + 60.852",
+    "raw": "2.3362x + 60.852"
+  },
+  {
+    "template": "math",
+    "formula": "Correct\\, Steps\\, \\times (2x + 55)",
+    "raw": "Correct\\, Steps\\, \\times (2x + 55)"
+  },
+  {
+    "template": "math",
+    "formula": "18 * X",
+    "raw": "18 * X"
+  },
+  {
+    "template": "math",
+    "formula": "\\frac{16!}{5!(16-5)!} = \\frac{16!}{5!(11)!} = 4,368",
+    "raw": "\\frac{16!}{5!(16-5)!} = \\frac{16!}{5!(11)!} = 4,368"
   },
   {
     "template": "math",
@@ -1696,11 +1761,6 @@
   },
   {
     "template": "math",
-    "formula": "(2 * Damage) + 22.5",
-    "raw": "(2 * Damage) + 22.5"
-  },
-  {
-    "template": "math",
     "formula": "X= \\frac {Fishing \\ level \\times 2 + Hunter \\ level}{3}",
     "raw": "X= \\frac {Fishing \\ level \\times 2 + Hunter \\ level}{3}"
   },
@@ -1826,11 +1886,6 @@
   },
   {
     "template": "math",
-    "formula": "\\sqrt{2}",
-    "raw": "\\sqrt{2}"
-  },
-  {
-    "template": "math",
     "formula": "\\Delta rank = 50 + \\frac{rank_{loser}-rank_{winner}}{16}",
     "raw": "\\Delta rank = 50 + \\frac{rank_{loser}-rank_{winner}}{16}"
   },
@@ -1916,8 +1971,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nE_{A} &= \\frac{3 \\times A^2 \\times \\frac{9}{10}}{150} = 0.018 \\times A^2 \\\\\nE_{T} &= \\frac{11 \\times T^2 \\times \\frac{9}{10}}{150} = 0.066 \\times T^2\n\\end{align}",
-    "raw": "\\begin{align}\nE_{A} &= \\frac{3 \\times A^2 \\times \\frac{9}{10}}{150} = 0.018 \\times A^2  \\\\\nE_{T} &= \\frac{11 \\times T^2 \\times \\frac{9}{10}}{150} = 0.066 \\times T^2\n\\end{align}"
+    "formula": "\\begin{align}\n\\underset{\\lfloor0.1\\rfloor}{E_{A}} = \\frac{3 \\times A^2 \\times \\frac{9}{10}}{150} = 0.018 \\times A^2 \n\\qquad \\qquad \\qquad\n \\ \\underset{\\lfloor0.1\\rfloor}{E_{T}} \\ = \\frac{11 \\times T^2 \\times \\frac{9}{10}}{150} = 0.066 \\times T^2\n\\end{align}",
+    "raw": "\\begin{align}\n\\underset{\\lfloor0.1\\rfloor}{E_{A}} = \\frac{3 \\times A^2 \\times \\frac{9}{10}}{150} = 0.018 \\times A^2 \n\\qquad \\qquad \\qquad\n \\ \\underset{\\lfloor0.1\\rfloor}{E_{T}} \\ = \\frac{11 \\times T^2 \\times \\frac{9}{10}}{150} = 0.066 \\times T^2\n\\end{align}"
   },
   {
     "template": "math",
@@ -2016,8 +2071,8 @@
   },
   {
     "template": "math",
-    "formula": "Experience = (HunterLvl + 5) * Tier",
-    "raw": "Experience = (HunterLvl + 5) * Tier"
+    "formula": "Experience = (HunterLvl + 5) * Modifier",
+    "raw": "Experience = (HunterLvl + 5) * Modifier"
   },
   {
     "template": "math",
@@ -2026,8 +2081,23 @@
   },
   {
     "template": "math",
-    "formula": "Tier",
-    "raw": "Tier"
+    "formula": "Modifier",
+    "raw": "Modifier"
+  },
+  {
+    "template": "math",
+    "formula": "Experience = (HunterLvl + 5) * Modifier",
+    "raw": "Experience = (HunterLvl + 5) * Modifier"
+  },
+  {
+    "template": "math",
+    "formula": "HunterLvl",
+    "raw": "HunterLvl"
+  },
+  {
+    "template": "math",
+    "formula": "Modifier",
+    "raw": "Modifier"
   },
   {
     "template": "math",
@@ -2036,8 +2106,8 @@
   },
   {
     "template": "math",
-    "formula": "\\frac{1}{8* \\left(200-\\left\\lfloor\\frac{\\left(\\text{Slayer Req} + 55\\right)^2}{125}\\right\\rfloor\\right)}",
-    "raw": "\\frac{1}{8* \\left(200-\\left\\lfloor\\frac{\\left(\\text{Slayer Req} + 55\\right)^2}{125}\\right\\rfloor\\right)} "
+    "formula": "\\frac{1}{8 \\times \\left(200-\\left\\lfloor\\frac{\\left(\\text{Slayer Req} + 55\\right)^2}{125}\\right\\rfloor\\right)}",
+    "raw": "\\frac{1}{8 \\times \\left(200-\\left\\lfloor\\frac{\\left(\\text{Slayer Req} + 55\\right)^2}{125}\\right\\rfloor\\right)} "
   },
   {
     "template": "math",
@@ -2153,6 +2223,11 @@
     "template": "math",
     "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
     "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
+  },
+  {
+    "template": "math",
+    "formula": "1 - \\left ( \\tfrac{55}{56} \\right )^3",
+    "raw": "1 - \\left ( \\tfrac{55}{56} \\right )^3"
   },
   {
     "template": "math",
@@ -2356,8 +2431,8 @@
   },
   {
     "template": "math",
-    "formula": "\\lfloor MagicLevel \\times 0.02\\rfloor + 3",
-    "raw": "\\lfloor MagicLevel \\times 0.02\\rfloor + 3"
+    "formula": "\\lfloor Level \\times 0.02\\rfloor + 3",
+    "raw": "\\lfloor Level \\times 0.02\\rfloor + 3"
   },
   {
     "template": "math",
@@ -2366,8 +2441,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{array}{lcr}\nBaseDamageModifier = floor(BaseMaxDamage + ChaosGauntlets + Charge)\\\\\nPrimaryMagicDamage = floor(BaseDamageModifier * (1 + minimum(1,(VisibleBonuses - Void) * ShadowBonus) + Void + Salve + Avarice + SmokeBattlestaff + VirtusRobesAncientBonus))\\\\\nSecondaryMagicDamage = floor(PrimaryMagicDamage * (1 + AhrimsDamned + Slayer + SceptreWilderness))\\\\\nTertiaryMagicDamage = floor(SecondaryMagicDamage * (1 + AccursedSceptreSpecialAttack))\\\\\nHitRoll = floor(random(0,TertiaryMagicDamage))\\\\\nPostHitRoll = floor(HitRoll * (1 + TomeOfFire + TomeOfWater + MarkOfDarkness))\\\\\nAppliedHit = floor(PostHitRoll * (1 + CastleWarsBraclet))\\\\\n\\end{array}",
-    "raw": "\\begin{array}{lcr}\nBaseDamageModifier = floor(BaseMaxDamage + ChaosGauntlets + Charge)\\\\\nPrimaryMagicDamage = floor(BaseDamageModifier * (1 + minimum(1,(VisibleBonuses - Void) * ShadowBonus) + Void + Salve + Avarice + SmokeBattlestaff + VirtusRobesAncientBonus))\\\\\nSecondaryMagicDamage = floor(PrimaryMagicDamage * (1 + AhrimsDamned + Slayer + SceptreWilderness))\\\\\nTertiaryMagicDamage = floor(SecondaryMagicDamage * (1 + AccursedSceptreSpecialAttack))\\\\\nHitRoll = floor(random(0,TertiaryMagicDamage))\\\\\nPostHitRoll = floor(HitRoll * (1 + TomeOfFire + TomeOfWater + MarkOfDarkness))\\\\\nAppliedHit = floor(PostHitRoll * (1 + CastleWarsBraclet))\\\\\n\\end{array}\n"
+    "formula": "\\begin{array}{lcr}\nBaseDamageModifier = floor(BaseMaxDamage + ChaosGauntlets + Charge)\\\\\nPrimaryMagicDamage = floor(BaseDamageModifier * (1 + minimum(1,(VisibleBonuses - Void) * ShadowBonus) + Void + Salve + Avarice + SmokeBattlestaff + VirtusRobesAncientBonus + Prayer))\\\\\nPreHitRoll = floor( floor( floor( floor(PrimaryMagicDamage * (1 + Slayer)) * (1 + SceptreWilderness)) * (1 + AccursedSceptreSpecialAttack)) * (1 + Tomes))\\\\\nHitRoll = floor(minimum(1,random(0,PreHitRoll)))\\\\\nPostHitRoll = floor( floor( floor(HitRoll * (1 + MarkOfDarkness)) * (1 + AhrimsDamned)) * (1 + CastleWarsBraclet))\\\\\n\\end{array}",
+    "raw": "\\begin{array}{lcr}\nBaseDamageModifier = floor(BaseMaxDamage + ChaosGauntlets + Charge)\\\\\nPrimaryMagicDamage = floor(BaseDamageModifier * (1 + minimum(1,(VisibleBonuses - Void) * ShadowBonus) + Void + Salve + Avarice + SmokeBattlestaff + VirtusRobesAncientBonus + Prayer))\\\\\nPreHitRoll = floor( floor( floor( floor(PrimaryMagicDamage * (1 + Slayer)) * (1 + SceptreWilderness)) * (1 + AccursedSceptreSpecialAttack)) * (1 + Tomes))\\\\\nHitRoll = floor(minimum(1,random(0,PreHitRoll)))\\\\\nPostHitRoll = floor( floor( floor(HitRoll * (1 + MarkOfDarkness)) * (1 + AhrimsDamned)) * (1 + CastleWarsBraclet))\\\\\n\\end{array}\n"
   },
   {
     "template": "math",
@@ -2393,11 +2468,6 @@
     "template": "math",
     "formula": "1 + {\\text{Max HP} - \\text{Current HP} \\over 100} \\times {\\text{Max HP} \\over 100}",
     "raw": "1 + {\\text{Max HP} - \\text{Current HP} \\over 100} \\times {\\text{Max HP} \\over 100}"
-  },
-  {
-    "template": "math",
-    "formula": "1 + {Max Hit}",
-    "raw": "1 + {Max Hit}"
   },
   {
     "template": "math",
@@ -2461,6 +2531,16 @@
   },
   {
     "template": "math",
+    "formula": "\\text{Cost}_{AS} = \\text{Cost}_{NPC} \\times \\left(1-\\frac{\\text{Smithing Level}}{200}\\right)",
+    "raw": "\\text{Cost}_{AS} = \\text{Cost}_{NPC} \\times \\left(1-\\frac{\\text{Smithing Level}}{200}\\right)"
+  },
+  {
+    "template": "math",
+    "formula": "1-\\frac{60}{200} = \\frac{70}{100}",
+    "raw": "1-\\frac{60}{200} = \\frac{70}{100}"
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor PrayerLevel \\times 0.25 \\rfloor + 7",
     "raw": "\\lfloor PrayerLevel \\times 0.25 \\rfloor + 7"
   },
@@ -2513,6 +2593,16 @@
     "template": "math",
     "formula": "\\lfloor DefenceLevel \\times \\frac{2}{10} \\rfloor + 7",
     "raw": "\\lfloor DefenceLevel \\times \\frac{2}{10} \\rfloor + 7"
+  },
+  {
+    "template": "math",
+    "formula": "Current Health\\over100",
+    "raw": "Current Health\\over100"
+  },
+  {
+    "template": "math",
+    "formula": "level-20/10",
+    "raw": "level-20/10"
   },
   {
     "template": "math",
@@ -2703,6 +2793,16 @@
     "template": "math",
     "formula": "\\lfloor x \\rfloor",
     "raw": "\\lfloor x \\rfloor"
+  },
+  {
+    "template": "math",
+    "formula": "Bonus = {450 + 14*Woodcutting\\, Level}",
+    "raw": "Bonus = {450 + 14*Woodcutting\\, Level}"
+  },
+  {
+    "template": "math",
+    "formula": "Bonus = \\begin{cases} 11*n, & \\text{if }n\\text{ is less than 14 traps} \\\\ 160, & \\text{if }n\\text{ is all 14 traps disarmed} \\end{cases}",
+    "raw": "Bonus = \\begin{cases} 11*n, & \\text{if }n\\text{ is less than 14 traps} \\\\ 160, & \\text{if }n\\text{ is all 14 traps disarmed} \\end{cases}"
   },
   {
     "template": "math",
@@ -2991,6 +3091,16 @@
   },
   {
     "template": "math",
+    "formula": "Woodcutting\\, Level\\, \\times 0.55",
+    "raw": "Woodcutting\\, Level\\, \\times 0.55"
+  },
+  {
+    "template": "math",
+    "formula": "(Woodcutting\\, Level\\, + 8) \\times 1.2",
+    "raw": "(Woodcutting\\, Level\\, + 8) \\times 1.2 "
+  },
+  {
+    "template": "math",
     "formula": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1",
     "raw": "\\left\\lfloor \\text{Hitpoints} \\cdot \\frac{5}{100}\\right\\rfloor + 1"
   },
@@ -3001,8 +3111,8 @@
   },
   {
     "template": "math",
-    "formula": "2 * SpellLevel + 20",
-    "raw": "2 * SpellLevel + 20"
+    "formula": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 4",
+    "raw": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 4"
   },
   {
     "template": "math",
@@ -3033,6 +3143,11 @@
     "template": "math",
     "formula": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 1\\\\\n\\end{align}",
     "raw": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 1\\\\\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{15}{100} \\rfloor + 4",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{15}{100} \\rfloor + 4"
   },
   {
     "template": "math",
@@ -3391,6 +3506,26 @@
   },
   {
     "template": "math",
+    "formula": "Max\\, Hitpoints\\, (HP) = x \\times 900, \\, \\, HP \\leq 9,000",
+    "raw": "Max\\, Hitpoints\\, (HP) = x \\times 900, \\, \\, HP \\leq 9,000"
+  },
+  {
+    "template": "math",
+    "formula": "X \\times [((Y \\times 100) \\div 2.5)]",
+    "raw": "X \\times [((Y \\times 100) \\div 2.5)]"
+  },
+  {
+    "template": "math",
+    "formula": "X",
+    "raw": "X"
+  },
+  {
+    "template": "math",
+    "formula": "Y",
+    "raw": "Y "
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 5",
     "raw": "\\lfloor AttackLevel \\times \\frac{15}{100} \\rfloor + 5"
   },
@@ -3711,6 +3846,16 @@
   },
   {
     "template": "math",
+    "formula": "X^2 - 16",
+    "raw": "X^2 - 16"
+  },
+  {
+    "template": "math",
+    "formula": "X",
+    "raw": "X"
+  },
+  {
+    "template": "math",
     "formula": "Scales = \\frac{10}{3} * Darts",
     "raw": "Scales = \\frac{10}{3} * Darts"
   },
@@ -3986,6 +4131,11 @@
   },
   {
     "template": "math",
+    "formula": "\\lfloor Level \\times 0.05\\rfloor + 1",
+    "raw": "\\lfloor Level \\times 0.05\\rfloor + 1"
+  },
+  {
+    "template": "math",
     "formula": "\\lfloor MagicLevel \\times 0.02\\rfloor + 2",
     "raw": "\\lfloor MagicLevel \\times 0.02\\rfloor + 2"
   },
@@ -4003,6 +4153,31 @@
     "template": "math",
     "formula": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3",
     "raw": "\\lfloor AttackLevel \\times \\frac{2}{100} \\rfloor + 3"
+  },
+  {
+    "template": "math",
+    "formula": "y = [8\\times x^{0.65}] + z",
+    "raw": "y = [8\\times x^{0.65}] + z"
+  },
+  {
+    "template": "math",
+    "formula": "x",
+    "raw": "x"
+  },
+  {
+    "template": "math",
+    "formula": "y",
+    "raw": "y"
+  },
+  {
+    "template": "math",
+    "formula": "z",
+    "raw": "z"
+  },
+  {
+    "template": "math",
+    "formula": "y",
+    "raw": "y"
   },
   {
     "template": "math",

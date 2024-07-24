@@ -7,7 +7,25 @@
   },
   {
     "list": [
+      "2^31-1"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
       "ceil(15*/)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil(0.15*/)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil(0.15*/(120*))/10"
     ],
     "template": "formatexpr"
   },
@@ -422,6 +440,12 @@
   {
     "list": [
       "65*68"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "294-"
     ],
     "template": "formatexpr"
   },

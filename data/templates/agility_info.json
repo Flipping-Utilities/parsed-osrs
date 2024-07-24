@@ -41,7 +41,7 @@
   {
     "name": "Balancing rope",
     "level": "1",
-    "xp": "7.5",
+    "xp": "10",
     "course": "Gnome Stronghold Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -56,8 +56,8 @@
   },
   {
     "name": "Bar",
-    "level": "5",
-    "xp": "6",
+    "level": "1",
+    "xp": "7",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -87,8 +87,8 @@
   },
   {
     "name": "Beam",
-    "level": "48",
-    "xp": "20",
+    "level": "45",
+    "xp": "23",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -166,6 +166,14 @@
   {
     "name": "Broken bridge",
     "level": "1",
+    "xp": "1",
+    "failxp": "0.7",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Broken bridge",
+    "level": "1",
     "xp": "0.5",
     "type": "Obstacle",
     "template": "agility info"
@@ -190,7 +198,7 @@
   {
     "name": "Cable",
     "level": "20",
-    "xp": "40",
+    "xp": "48",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -252,6 +260,13 @@
   },
   {
     "name": "Climbing rocks",
+    "level": "66",
+    "xp": "25",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Climbing rocks",
     "level": "32",
     "xp": "0",
     "type": "Obstacle",
@@ -274,7 +289,7 @@
   {
     "name": "Clothes line",
     "level": "30",
-    "xp": "21",
+    "xp": "23",
     "course": "Varrock Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -295,7 +310,7 @@
   },
   {
     "name": "Crate",
-    "level": "10",
+    "level": "1",
     "xp": "79",
     "course": "Draynor Village Rooftop Course",
     "type": "Obstacle",
@@ -317,7 +332,7 @@
   },
   {
     "name": "Narrow crevice",
-    "level": "62",
+    "level": "61",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -333,6 +348,27 @@
     "name": "Crevice",
     "level": "86",
     "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "96",
+    "xp": "7.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "81",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Climbing rocks",
+    "level": "77",
+    "xp": "10",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -404,6 +440,13 @@
     "template": "agility info"
   },
   {
+    "name": "Dry stone wall",
+    "level": "72",
+    "xp": "25",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "name": "Drying line",
     "level": "70",
     "xp": "540",
@@ -414,7 +457,7 @@
   {
     "name": "Edge",
     "level": "50",
-    "xp": "180",
+    "xp": "241",
     "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -429,15 +472,7 @@
   },
   {
     "name": "Edge",
-    "level": "48",
-    "xp": "16",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Edge",
-    "level": "48",
+    "level": "45",
     "xp": "18",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
@@ -445,8 +480,16 @@
   },
   {
     "name": "Edge",
+    "level": "45",
+    "xp": "21",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Edge",
     "level": "30",
-    "xp": "125",
+    "xp": "143.7",
     "course": "Varrock Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -518,7 +561,7 @@
   {
     "name": "Gap",
     "level": "20",
-    "xp": "30",
+    "xp": "36",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -536,7 +579,7 @@
     "xp1": "65",
     "xp2": "21",
     "xp3": "28",
-    "xp4": "529",
+    "xp4": "625",
     "course": "Ardougne Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -562,7 +605,7 @@
   },
   {
     "name": "Gap",
-    "level": "10",
+    "level": "1",
     "xp": "4",
     "course": "Draynor Village Rooftop Course",
     "type": "Obstacle",
@@ -574,9 +617,9 @@
     "version3": "3",
     "name": "Gap",
     "level": "50",
-    "xp1": "20",
-    "xp2": "20",
-    "xp3": "25",
+    "xp1": "27",
+    "xp2": "26",
+    "xp3": "30",
     "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -626,8 +669,8 @@
   },
   {
     "name": "Gap",
-    "level": "5",
-    "xp": "92.2",
+    "level": "1",
+    "xp": "106",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -639,12 +682,11 @@
     "version4": "4",
     "name": "Gap",
     "skill1lvl": "30",
-    "skill1exp1": "17",
-    "skill1exp2": "9",
-    "skill1exp3": "22",
-    "skill1exp4": "4",
+    "skill1exp1": "19",
+    "skill1exp2": "10",
+    "skill1exp3": "24.5",
+    "skill1exp4": "4.5",
     "level": "30",
-    "xp": "9",
     "course": "Varrock Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -675,7 +717,7 @@
   {
     "name": "Hand holds",
     "level": "50",
-    "xp": "45",
+    "xp": "61",
     "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -797,8 +839,8 @@
   },
   {
     "name": "Ladder",
-    "level": "5",
-    "xp": "4",
+    "level": "1",
+    "xp": "5.5",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -902,7 +944,7 @@
   {
     "name": "Log balance",
     "level": "20",
-    "xp": "8",
+    "xp": "8.5",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -924,7 +966,7 @@
   {
     "name": "Log balance",
     "level": "1",
-    "xp": "7.5",
+    "xp": "10",
     "course": "Gnome Stronghold Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1035,8 +1077,8 @@
   },
   {
     "name": "Monkeybars",
-    "level": "5",
-    "xp": "7",
+    "level": "1",
+    "xp": "8",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1075,7 +1117,7 @@
   },
   {
     "name": "Narrow wall",
-    "level": "10",
+    "level": "1",
     "xp": "7",
     "course": "Draynor Village Rooftop Course",
     "type": "Obstacle",
@@ -1092,7 +1134,7 @@
   {
     "name": "Obstacle net",
     "level": "1",
-    "xp": "7.5",
+    "xp": "10",
     "course": "Gnome Stronghold Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1114,7 +1156,7 @@
   {
     "name": "Obstacle pipe",
     "level": "1",
-    "xp": "7.5",
+    "xp": "10",
     "course": "Gnome Stronghold Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1159,6 +1201,7 @@
     "name": "Pile of fish",
     "level": "1",
     "xp": "475",
+    "xpnote": "This value is increased to 615 upon completion of the hard Fremennik Diary.",
     "course": "Rellekka Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1232,8 +1275,11 @@
     "template": "agility info"
   },
   {
+    "version1": "Toward Moss giants",
+    "version2": "Toward entrance",
     "name": "Pipe squeeze",
-    "level": "22",
+    "level1": "22",
+    "level2": "1",
     "xp": "8.5",
     "type": "Shortcut",
     "template": "agility info"
@@ -1419,6 +1465,13 @@
   },
   {
     "name": "Rocks",
+    "level": "84",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
     "level": "25",
     "xp": "1",
     "type": "Shortcut",
@@ -1468,6 +1521,13 @@
   },
   {
     "name": "Rocks",
+    "level": "79",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
     "level": "70",
     "xp": "0",
     "type": "Shortcut",
@@ -1510,7 +1570,7 @@
   },
   {
     "name": "Rocks",
-    "level": "47",
+    "level": "44",
     "xp": "8",
     "type": "Shortcut",
     "template": "agility info"
@@ -1524,7 +1584,7 @@
   },
   {
     "name": "Rocks",
-    "level": "44",
+    "level": "47",
     "xp": "8",
     "type": "Shortcut",
     "template": "agility info"
@@ -1546,6 +1606,13 @@
   {
     "name": "Rocks",
     "level": "91",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "85",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -1650,7 +1717,7 @@
   {
     "name": "Roof top beams",
     "level": "20",
-    "xp": "5",
+    "xp": "6",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1744,14 +1811,14 @@
   {
     "name": "Rough wall",
     "level": "20",
-    "xp": "5",
+    "xp": "12",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
     "name": "Rough wall",
-    "level": "10",
+    "level": "1",
     "xp": "5",
     "course": "Draynor Village Rooftop Course",
     "type": "Obstacle",
@@ -1760,7 +1827,7 @@
   {
     "name": "Rough wall",
     "level": "50",
-    "xp": "8",
+    "xp": "11",
     "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1784,7 +1851,7 @@
   {
     "name": "Rough wall",
     "level": "30",
-    "xp": "12",
+    "xp": "13.5",
     "course": "Varrock Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -1986,6 +2053,13 @@
   },
   {
     "name": "Stepping stone",
+    "level": "71",
+    "xp": "25",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
     "level": "62",
     "xp": "0",
     "type": "Shortcut",
@@ -1993,7 +2067,7 @@
   },
   {
     "name": "Stepping stone",
-    "level": "77",
+    "level": "32",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -2015,6 +2089,13 @@
     "template": "agility info"
   },
   {
+    "name": "Climbing rocks",
+    "level": "72",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "name": "Stepping stone",
     "level": "76",
     "xp": "0",
@@ -2022,8 +2103,11 @@
     "template": "agility info"
   },
   {
+    "version1": "Toward island",
+    "version2": "Away from island",
     "name": "Stepping stones",
-    "level": "83",
+    "level1": "56",
+    "level2": "1",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -2052,8 +2136,11 @@
     "template": "agility info"
   },
   {
+    "version1": "From the north",
+    "version2": "From the south",
     "name": "Stepping stone",
-    "level": "12",
+    "level1": "12",
+    "level2": "1",
     "xp": "7.5",
     "type": "Shortcut",
     "template": "agility info"
@@ -2075,7 +2162,7 @@
   },
   {
     "name": "Strange floor",
-    "level": "75",
+    "level": "63",
     "xp": "10",
     "failxp": "5",
     "type": "Shortcut",
@@ -2083,7 +2170,7 @@
   },
   {
     "name": "Spiked blades",
-    "level": "81",
+    "level": "43",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -2130,9 +2217,21 @@
     "template": "agility info"
   },
   {
-    "name": "Darts",
-    "level": "40",
-    "xp": "30",
+    "name": "Ticket Dispenser",
+    "level": "1",
+    "xp": "Varies",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Tagging",
+    "version2": "Darts",
+    "name": "Ticket Dispenser",
+    "level1": "1",
+    "xp1": "Varies",
+    "level2": "40",
+    "xp2": "30",
     "course": "Brimhaven Agility Arena",
     "type": "Obstacle",
     "template": "agility info"
@@ -2164,8 +2263,8 @@
     "name1": "Tightrope 1",
     "name2": "Tightrope 2",
     "level": "20",
-    "xp1": "30",
-    "xp2": "15",
+    "xp1": "36",
+    "xp2": "18",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2175,7 +2274,7 @@
     "version2": "Tightrope 2",
     "name1": "Tightrope 1",
     "name2": "Tightrope 2",
-    "level": "10",
+    "level": "1",
     "xp1": "8",
     "xp2": "7",
     "course": "Draynor Village Rooftop Course",
@@ -2188,9 +2287,9 @@
     "version3": "3",
     "name": "Tightrope",
     "level": "50",
-    "xp1": "17",
-    "xp2": "45",
-    "xp3": "40",
+    "xp1": "22",
+    "xp2": "61",
+    "xp3": "53",
     "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2233,8 +2332,8 @@
   },
   {
     "name": "Tightrope",
-    "level": "5",
-    "xp": "8",
+    "level": "1",
+    "xp": "9",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2304,7 +2403,7 @@
   {
     "name": "Tree branch",
     "level": "1",
-    "xp": "5",
+    "xp": "6.5",
     "course": "Gnome Stronghold Agility Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2318,7 +2417,7 @@
   {
     "name": "Tropical tree",
     "level": "20",
-    "xp": "10",
+    "xp": "12",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2337,6 +2436,13 @@
   {
     "name": "Tunnel",
     "level": "72",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Tunnel",
+    "level": "82",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -2420,7 +2526,7 @@
   },
   {
     "name": "Wall",
-    "level": "10",
+    "level": "1",
     "xp": "10",
     "course": "Draynor Village Rooftop Course",
     "type": "Obstacle",
@@ -2453,7 +2559,7 @@
   {
     "name": "Wall",
     "level": "30",
-    "xp": "25",
+    "xp": "28",
     "course": "Varrock Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2510,7 +2616,7 @@
   {
     "name": "Zip line",
     "level": "20",
-    "xp": "40",
+    "xp": "48",
     "course": "Al Kharid Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
@@ -2526,8 +2632,8 @@
   },
   {
     "name": "Zipline",
-    "level": "48",
-    "xp": "381.3",
+    "level": "45",
+    "xp": "400",
     "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"

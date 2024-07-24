@@ -8,7 +8,7 @@
     "template": "cryptics"
   },
   {
-    "clue": "Buried beneath the ground, who knows where it's found.\n\nLucky for you, A man called Reldo may have a clue.",
+    "clue": "[[Clue scroll (beginner) - Buried beneath the ground|Buried beneath the ground, who knows where it's found.\n\nLucky for you, A man called Reldo may have a clue.]]",
     "note": "Speak to Reldo to receive a strange device used by Hot and Cold clues to locate the location of the next clue.\nPlayers can immediately start the search without speaking to Reldo if they already own a strange device.",
     "task": "hotcold",
     "image": "Cryptic clue - speak to Reldo.png",
@@ -112,7 +112,7 @@
     "template": "cryptics"
   },
   {
-    "clue": "I'd like to hear some music. Come and see me on the bridge in Falador Park, and play:  \n\nThanks, Cecilia",
+    "clue": "[[Cecilia|I'd like to hear some music. Come and see me on the bridge in Falador Park, and play:  \n\nThanks, Cecilia]]",
     "note": "Speak to Cecilia on the bridge in Falador Park.",
     "task": "talk",
     "image": "Cryptic clue - talk to Cecilia.png",
@@ -250,10 +250,10 @@
     "template": "cryptics"
   },
   {
-    "clue": "Search the bookshelf with a skull on it inside the Burrow.",
-    "note": "In the Hunter Guild basement (requires ), search the bookshelf in the east room with a skull on it.",
+    "clue": "Search the food barrel at the top of the Hunter Guild.",
+    "note": "Search the filled food barrel at the top of the tree within the Hunter Guild, accessed from climbing the rope inside.",
     "task": "search",
-    "image": "Cryptic clue - search Burrow bookcase.png",
+    "image": "Cryptic clue - search Hunter Guild food barrel.png",
     "level": "1",
     "template": "cryptics"
   },
@@ -755,7 +755,7 @@
   },
   {
     "clue": "Speak to Gaius in Taverley.",
-    "note": "Gaius is found at the north-west corner in Taverley.",
+    "note": "Gaius is found in his shop in the north-west corner in Taverley, just south of Taverley's house portal.",
     "task": "talk",
     "image": "Cryptic clue - speak gaius taverley.png",
     "level": "1",
@@ -1838,7 +1838,7 @@
   },
   {
     "clue": "When you get tired of fighting, go deep, deep down until you need an antidote.",
-    "note": "Go to Yanille Agility dungeon and fall into the place with the poison spiders, either by repeatedly walking across the balancing ledge (level 40 Agility required) or praying at the altar of Zamorak. Search the crate by the stairs leading up.",
+    "note": "Go to Yanille Agility dungeon and fall into the place with the poison spiders, either by repeatedly walking across the balancing ledge (level 40 Agility required) or praying at the altar of Zamorak. Search the crate by the stairs leading up. Note: Falling by praying at the altar will result in 15 unavoidable damage. Falling from the ledge results in significantly less (around 3 or 4).",
     "task": "search",
     "image": "Cryptic clue - When you get tired of fighting.png",
     "level": "3",
@@ -1989,8 +1989,8 @@
     "template": "cryptics"
   },
   {
-    "clue": "Ghommal wishes to be impressed by how strong your equipment is.",
-    "note": "Speak to Ghommal with a total Melee Strength bonus of 100 or more. (Note: Amulet of strength gives +10, even better than a fury for this clue. A dragon battleaxe gives +85 and is relatively easy to obtain for earlier-game players. A Godsword or Barrelchest anchor on its own is over 100 Strength bonus.)",
+    "clue": "The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is.",
+    "note": "Speak to Ghommal (or Laidee Gnonock after While Guthix Sleeps) with a total Melee Strength bonus of 100 or more. (Note: Amulet of strength gives +10, even better than a fury for this clue. A dragon battleaxe gives +85 and is relatively easy to obtain for earlier-game players. A Godsword or Barrelchest anchor on its own is over 100 Strength bonus.)",
     "image": "Cryptic clue - talk ghommal warrior's guild.png",
     "task": "talk",
     "level": "5",

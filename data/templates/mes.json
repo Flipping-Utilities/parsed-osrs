@@ -164,6 +164,13 @@
   },
   {
     "list": [
+      "You have nothing in your worn quiver to fill your Dizana's Quiver with."
+    ],
+    "color": "tomato",
+    "template": "mes"
+  },
+  {
+    "list": [
       "A low hum resonates from the Amulet of Nature - it seeks audience with you."
     ],
     "template": "mes"
@@ -234,13 +241,6 @@
   },
   {
     "list": [
-      "You hear a quiet humming from the strange shape"
-    ],
-    "colour": "Red",
-    "template": "mes"
-  },
-  {
-    "list": [
       "You find a rare piece of the creature! You should take it back to the Hunter Guild."
     ],
     "color": "#229628",
@@ -278,6 +278,19 @@
     "template": "mes"
   },
   {
+    "colour": "#800000",
+    "list": [
+      "You hear the shifting of books due to a mysterious force...or are you just hearing things?"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The archer won't talk whilst on duty."
+    ],
+    "template": "mes"
+  },
+  {
     "list": [
       "You require additional power from the catacombs altar to create Arclight."
     ],
@@ -292,6 +305,13 @@
   {
     "list": [
       "You drop the coin into the ale and watch it dissolve."
+    ],
+    "template": "mes"
+  },
+  {
+    "colour": "#a53fff",
+    "list": [
+      "You notice an urchin distract a wealthy citizen nearby."
     ],
     "template": "mes"
   },
@@ -610,6 +630,12 @@
   },
   {
     "list": [
+      "You find a small token while breaking down bones."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "The blighted anglerfish can be eaten only in the Wilderness."
     ],
     "template": "mes"
@@ -785,6 +811,13 @@
   },
   {
     "list": [
+      "You cannot change ammo from your bolt pouch with Dizana's quiver on your person."
+    ],
+    "color": "tomato",
+    "template": "mes"
+  },
+  {
+    "list": [
       "The dwarven pouch resists your magic."
     ],
     "template": "mes"
@@ -821,25 +854,7 @@
   },
   {
     "list": [
-      "This tablet cannot be used on bones from the Mage Training Arena."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "You aren't holding any bones!"
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "This tablet cannot be used on bones from the Mage Training Arena."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "You aren't holding any bones!"
+      "You have to unlock that spell to use it inside of Mage Training Arena."
     ],
     "template": "mes"
   },
@@ -918,6 +933,12 @@
   },
   {
     "list": [
+      "The buffalo drops a small token."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You feel a bit silly at first, but soon it makes an interesting sound."
     ],
     "template": "mes"
@@ -950,7 +971,25 @@
   },
   {
     "list": [
+      "Nothing interesting happens."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You heat the bones over the fire, but they don't look any different."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The bush has been disturbed recently. Something came this way."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Nothing seems out of place here."
     ],
     "template": "mes"
   },
@@ -1007,6 +1046,12 @@
   },
   {
     "list": [
+      "You crush the moth, releasing the energy inside..."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "Some cracks around the cave begin to ooze water."
     ],
     "color": "purple",
@@ -1017,6 +1062,12 @@
       "Your pickaxe keeps slipping on the rocks as it's still wet from the last deposit."
     ],
     "color": "red",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You find a small token while mining."
+    ],
     "template": "mes"
   },
   {
@@ -1074,7 +1125,7 @@
   },
   {
     "list": [
-      "He doesn't approve of your ears."
+      "The dog doesn't approve of your ears."
     ],
     "template": "mes"
   },
@@ -1183,6 +1234,13 @@
   },
   {
     "list": [
+      "You notice something shine somewhere else in the house."
+    ],
+    "colour": "#a53fff",
+    "template": "mes"
+  },
+  {
+    "list": [
       "You unlock the chest."
     ],
     "template": "mes"
@@ -1278,6 +1336,12 @@
   },
   {
     "list": [
+      "Nothing interesting happens."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "It's always sad to see a grown [man/woman] cry."
     ],
     "template": "mes"
@@ -1312,6 +1376,18 @@
   {
     "list": [
       "You drink the cider. You feel slightly reinvigorated... ...and slightly dizzy too."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You find a small token while pickpocketing."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Miner Magnus is already mining that."
     ],
     "template": "mes"
   },
@@ -1401,6 +1477,30 @@
   },
   {
     "list": [
+      "The calf doesn't want that."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Nothing interesting happens."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Calves are too young to be milked."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Calves aren't really used to drinking milk from buckets!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You search the crate...."
     ],
     "template": "mes"
@@ -1408,6 +1508,18 @@
   {
     "list": [
       "...and find plenty of valuables, but decide to leave it alone; they're not yours."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You search the crate."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You can't find anything else here."
     ],
     "template": "mes"
   },
@@ -1425,6 +1537,18 @@
   },
   {
     "list": [
+      "You try to go up the crevice, but it's slippery and you slide back down. Looks like this is one way only."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You crawl through the narrow crevice."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "This spell only affects skeletons, zombies, ghosts and shades"
     ],
     "template": "mes"
@@ -1434,6 +1558,42 @@
       "You have enabled additional drops from activities across the game. To disable these speak to Sir Pear Visor in the Falador museum."
     ],
     "color": "#ef1020",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "It's growing just fine."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "That's not diseased."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Bins don't often get diseased."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The weeds are healthy enough already."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "There's nothing there to cure."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "It says 'Cure' not 'Resurrect'. Although death may arise from disease, it is not in itself a disease and hence cannot be cured. So there."
+    ],
     "template": "mes"
   },
   {
@@ -1475,6 +1635,12 @@
   {
     "list": [
       "There is nothing to gain from chopping down this tree."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Oh dear, you are dead!"
     ],
     "template": "mes"
   },
@@ -1591,6 +1757,13 @@
   },
   {
     "list": [
+      "You have nothing in your worn quiver to fill your Dizana's Quiver with."
+    ],
+    "color": "tomato",
+    "template": "mes"
+  },
+  {
+    "list": [
       "He tries to lick your hands as you pet him."
     ],
     "template": "mes"
@@ -1640,6 +1813,18 @@
   {
     "list": [
       "Sweets? You do know they rot your teeth?"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The spirit of the druid grants you some items with a whisper of thanks."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You hear a whisper of thanks as the spirit of the druid fades away."
     ],
     "template": "mes"
   },
@@ -1935,6 +2120,12 @@
   },
   {
     "list": [
+      "An ancient power won't let you set up a cannon here."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "The TzHaar won't be happy if you set up a cannon here."
     ],
     "template": "mes"
@@ -2077,6 +2268,34 @@
   },
   {
     "list": [
+      "WARNING:"
+    ],
+    "color": "red",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Elder Chaos druids can ignore the immunity period and cast"
+    ],
+    "color": "black",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Tele Block"
+    ],
+    "color": "purple",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "on you before it expires."
+    ],
+    "color": "black",
+    "template": "mes"
+  },
+  {
+    "list": [
       "This furnace is not hot enough to smelt elemental ore."
     ],
     "template": "mes"
@@ -2120,6 +2339,12 @@
   {
     "list": [
       "You can't do that on a sled."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The Dryad also hands you a Petal garland."
     ],
     "template": "mes"
   },
@@ -2187,6 +2412,12 @@
   {
     "list": [
       "You should speak to Matthias to get this removed safely."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "As you leave, Matthias' falcon flies back to him."
     ],
     "template": "mes"
   },
@@ -2282,6 +2513,12 @@
   },
   {
     "list": [
+      "An ancient power won't let you light a fire here."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "The dwarves won't be happy if you light a fire here."
     ],
     "template": "mes"
@@ -2312,6 +2549,12 @@
   },
   {
     "list": [
+      "You search the food barrel, but nothing inside looks particularly tasty."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "There's a Forester's Campfire nearby, help tend to that one or move further away."
     ],
     "template": "mes"
@@ -2325,6 +2568,19 @@
   {
     "list": [
       "You consume a Forester's ration and feel energised."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The sapling withers due to a lack of nutrients."
+    ],
+    "colour": "red",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Unfortunately you weren't able to save the fox from the poachers..."
     ],
     "template": "mes"
   },
@@ -2449,6 +2705,13 @@
   },
   {
     "list": [
+      "This sword is too damaged to keep working. You should give it to Kovac and try again."
+    ],
+    "colour": "red",
+    "template": "mes"
+  },
+  {
+    "list": [
       "They already have a ball in play, an egg would just confuse them.."
     ],
     "template": "mes"
@@ -2486,6 +2749,12 @@
   {
     "list": [
       "By some miracle you hit the target!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You can't equip this item at the time."
     ],
     "template": "mes"
   },
@@ -2589,6 +2858,12 @@
   {
     "list": [
       "Talk to either the Guard or Goblin recruiter to take part in this event."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "The guard won't talk whilst on duty."
     ],
     "template": "mes"
   },
@@ -2801,6 +3076,18 @@
   },
   {
     "list": [
+      "You can't equip this item at the time."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "As you open your huntsman's kit, the chinchompas hidden away within escape into your inventory."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "The Huntsman's Kit cannot hold itself! How weird would that be?"
     ],
     "template": "mes"
@@ -2831,6 +3118,12 @@
   },
   {
     "list": [
+      "You are already here. You don't want to burn to ashes then reconstitute, just to travel to the same place do you?"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have a funny feeling like you're being followed."
     ],
     "color": "red",
@@ -2851,7 +3144,13 @@
   },
   {
     "list": [
-      "You have fallen as a Hardcore Iron Man, your Hardcore status has been revoked."
+      "Your infinite money bag needs more time to restore its power."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You have fallen as a Hardcore Ironman, your Hardcore status has been revoked."
     ],
     "template": "mes"
   },
@@ -2897,7 +3196,21 @@
   },
   {
     "list": [
+      "You notice something shine somewhere else in the house."
+    ],
+    "colour": "#a53fff",
+    "template": "mes"
+  },
+  {
+    "list": [
       "You can't find out their stats."
+    ],
+    "template": "mes"
+  },
+  {
+    "colour": "#a53fff",
+    "list": [
+      "You notice an urchin distract a wealthy citizen nearby."
     ],
     "template": "mes"
   },
@@ -2953,7 +3266,7 @@
   },
   {
     "list": [
-      "It heals some health."
+      "Wow, that was an amazing kebab! You feel really invigorated."
     ],
     "template": "mes"
   },
@@ -2966,6 +3279,18 @@
   {
     "list": [
       "That was a good kebab. You feel a lot better."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You eat the kebab."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "It heals some health."
     ],
     "template": "mes"
   },
@@ -3014,18 +3339,6 @@
   {
     "list": [
       "Eating the kebab has done damage to some of your stats."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "You eat the kebab."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "Wow, that was an amazing kebab! You feel really invigorated."
     ],
     "template": "mes"
   },
@@ -3148,6 +3461,12 @@
   },
   {
     "list": [
+      "The contents of the pouch fell out as you dropped it!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You find a rare piece of the creature! You should take it back to the Hunter Guild."
     ],
     "color": "#229628",
@@ -3156,6 +3475,13 @@
   {
     "list": [
       "Ironic..."
+    ],
+    "template": "mes"
+  },
+  {
+    "colour": "#a53fff",
+    "list": [
+      "You notice an urchin distract a wealthy citizen nearby."
     ],
     "template": "mes"
   },
@@ -3269,13 +3595,13 @@
   },
   {
     "list": [
-      "You have reached the limit of 5 loot keys."
+      "The loot is worth too much for you to destroy it here. Go somewhere safe first."
     ],
     "template": "mes"
   },
   {
     "list": [
-      "Get to a safe area first!"
+      "You have reached the limit of 5 loot keys."
     ],
     "template": "mes"
   },
@@ -3734,6 +4060,18 @@
   },
   {
     "list": [
+      "Your bonds pouch is full. Please empty it before buying more."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Your Bond Pouch is too full to hold your recent purchase. The game will try again next time you log in, if there is space then."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have a funny feeling like you're being followed."
     ],
     "color": "red",
@@ -4063,6 +4401,30 @@
   },
   {
     "list": [
+      "The plant has been disturbed recently. Something came this way."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Nothing seems out of place here."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Unfortunately you weren't able to save the fox from the poachers..."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You successfully disarm the fox trap."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You eat the Karambwan."
     ],
     "template": "mes"
@@ -4077,6 +4439,18 @@
     "colour": "#7f00ff",
     "list": [
       "There's a poll running - head to the community section of the account management menu to cast your vote!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Postie Pete is preparing to teleport somewhere else, distracting him could have some terrible side effects."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Postie Pete is talking to someone - don't you know it's rude to interrupt?"
     ],
     "template": "mes"
   },
@@ -4405,6 +4779,18 @@
   },
   {
     "list": [
+      "The ground around the rocks has been disturbed recently. Something came this way."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Nothing seems out of place here."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You slip and fall on the wet rocks."
     ],
     "template": "mes"
@@ -4425,7 +4811,25 @@
   },
   {
     "list": [
+      "You manage to ease some logs off the roots."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You already have some logs. Taking more could risk the stability of the cavern."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have a quick look through the diary. It contains years of private thoughts from Kourend's last princess. However, nothing obvious jumps out at you. Maybe Martin will be able to work something out."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You have no need for a rose-tinted lens right now."
     ],
     "template": "mes"
   },
@@ -4438,6 +4842,12 @@
   {
     "list": [
       "I'm not going to throw fruit at that player, they might hit me!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You don't have space to hold a rotten tomato, squishy though it may be."
     ],
     "template": "mes"
   },
@@ -4606,6 +5016,12 @@
   },
   {
     "list": [
+      "Scorching shackles won't work against a non-demon enemy."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "You have a funny feeling like you're being followed."
     ],
     "color": "red",
@@ -4691,6 +5107,12 @@
   },
   {
     "list": [
+      "You climb back up the rope to the Shaman Caves.. [sic]"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "The sheep manages to get away from you!"
     ],
     "color": "black",
@@ -4723,6 +5145,42 @@
   {
     "list": [
       "This isn't a very safe world for reading signposts!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "This site is for training purposes only."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Level 1 digs only."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Level 2 digs only."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Level 3 digs only."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Private dig."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Digsite information and exam centre."
     ],
     "template": "mes"
   },
@@ -4847,6 +5305,12 @@
   {
     "list": [
       "Nothing interesting happens."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "It is stinky."
     ],
     "template": "mes"
   },
@@ -5090,6 +5554,12 @@
   },
   {
     "list": [
+      "You are already here. You don't want to burn to ashes then reconstitute, just to travel to the same place do you?"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "That's disgusting - you can't give it to the poor dog!"
     ],
     "template": "mes"
@@ -5117,7 +5587,7 @@
   {
     "colour": "#ef1020",
     "list": [
-      "The temporary beehive was made so well you could repurpose parts of it to build a permanent hive."
+      "The temporary beehive was made so well you take some parts for building a permanent hive."
     ],
     "template": "mes"
   },
@@ -5130,6 +5600,12 @@
   {
     "list": [
       "The resources from Neypotzli fizzle to dust as they are severed from its magic."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "AColdOne is speedrunning Cox CM over on Summer Games Done Quick! Watch it here"
     ],
     "template": "mes"
   },
@@ -5250,7 +5726,7 @@
   },
   {
     "list": [
-      "The salamander is fully grown, you could use this as a weapon."
+      "The salamander is fully grown, you could use this as a weapon"
     ],
     "template": "mes"
   },
@@ -5313,6 +5789,12 @@
   },
   {
     "list": [
+      "Ironic..."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
       "Sotetseg chooses you..."
     ],
     "template": "mes"
@@ -5326,6 +5808,42 @@
   {
     "list": [
       "Although Brieve will allow you to kill this boss off-task for the Achievement Diary, the level 93 requirement still applies. Stat-boosts are not accepted."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You don't have to go through all this fruit picking business anymore."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "No need, you already have one of these."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "One piece of the White Pearl fruit is enough for you."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You're content with having the seed of the fruit."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "One seed should be enough."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "was the first to tag the pillar!"
     ],
     "template": "mes"
   },
@@ -5399,7 +5917,7 @@
   },
   {
     "list": [
-      "Magical orbs begin to materalise behind you!"
+      "Magical orbs begin to materialise around you!"
     ],
     "template": "mes"
   },
@@ -5412,18 +5930,6 @@
   {
     "list": [
       "You sense an issue somewhere in the room."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "Ba-Ba throws a large boulder at you."
-    ],
-    "template": "mes"
-  },
-  {
-    "list": [
-      "Ba-Ba screams and knocks you back!"
     ],
     "template": "mes"
   },
@@ -5486,6 +5992,12 @@
   {
     "list": [
       "Treats should be earned by Trick-or-Treating, you can't sneak your own in!"
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Nothing seems out of place here."
     ],
     "template": "mes"
   },
@@ -5562,6 +6074,12 @@
   {
     "list": [
       "I would rather wrestle a black dragon bare-handed."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "\"I lost my weapon fighting the Blue Moon. Could I have it back?\""
     ],
     "template": "mes"
   },
@@ -5740,6 +6258,13 @@
   },
   {
     "list": [
+      "You notice something shine somewhere else in the house."
+    ],
+    "colour": "#a53fff",
+    "template": "mes"
+  },
+  {
+    "list": [
       "Warmhandz probably doesn't want me interfering with their fire."
     ],
     "template": "mes"
@@ -5748,6 +6273,13 @@
     "list": [
       "I'm sure this door is locked for a reason. I'll leave it be."
     ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You notice an urchin distract a wealthy citizen nearby."
+    ],
+    "color": "#a53fff",
     "template": "mes"
   },
   {
@@ -5781,6 +6313,18 @@
   {
     "list": [
       "You have found a rare item. If you lose it, you will  be able to get a replacement."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "Nothing seems out of place here."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "It seems the winch is jammed - I can't move it."
     ],
     "template": "mes"
   },
@@ -5835,6 +6379,18 @@
       "You must wait a moment before your pet can do another emote."
     ],
     "color": "#ff0000",
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You feel more in touch with the trees after standing in the rainbow."
+    ],
+    "template": "mes"
+  },
+  {
+    "list": [
+      "You use the last of your leprechaun's luck to gather some Anima-infused bark."
+    ],
     "template": "mes"
   },
   {

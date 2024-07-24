@@ -118,6 +118,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Ashes",
+    "location": "Bandits' camp north-east of Ralos' Rise",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1494,3177"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Astronomy book",
     "location": "Observatory reception west of Tree Gnome Village",
     "members": "Yes",
@@ -301,6 +311,16 @@
     "list": [
       "3148,3645"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Beer",
+    "location": "Old School Museum - Lower floor (Telegrab only)",
+    "members": "No",
+    "list": [
+      "2952,9962"
+    ],
+    "mapid": "-1",
     "template": "itemspawnline"
   },
   {
@@ -700,7 +720,7 @@
   },
   {
     "name": "Blue hat",
-    "location": "Viyeldi Caves (lower level)",
+    "location": "Viyeldi Caves",
     "members": "Yes",
     "mapid": "10173",
     "list": [
@@ -1571,6 +1591,26 @@
   },
   {
     "name": "Bones",
+    "location": "North of the Fortis Colosseum",
+    "members": "Yes",
+    "list": [
+      "1828,3139"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bones",
+    "location": "Lovakengj - north-west of the Kourend Castle",
+    "members": "Yes",
+    "list": [
+      "1588,3765",
+      "1593,3767",
+      "1594,3764"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bones",
     "location": "Ape Atoll Dungeon",
     "members": "Yes",
     "mapid": "10014",
@@ -1732,7 +1772,7 @@
   },
   {
     "name": "Box trap",
-    "location": "Isle of Souls - near spinning wheel",
+    "location": "Isle of Souls - near spinning wheel (telegrab)",
     "members": "Yes",
     "list": [
       "2164,2983"
@@ -1750,7 +1790,7 @@
   },
   {
     "name": "Box trap",
-    "location": "Civitas illa Fortis - upstairs on a table in the small building in southwest corner",
+    "location": "Civitas illa Fortis - upstairs on a table in the small building in southwest corner. Note: Ironmen cannot loot it.",
     "members": "Yes",
     "list": [
       "1631,3092"
@@ -1847,6 +1887,26 @@
       "1672,3159"
     ],
     "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bread",
+    "location": "Outer Fortis",
+    "members": "Yes",
+    "list": [
+      "1770,3072"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bread",
+    "location": "Cam Torum - basement of the south-western homes",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1415,9555"
+    ],
     "template": "itemspawnline"
   },
   {
@@ -2260,6 +2320,24 @@
     "list": [
       "2825,3088",
       "2826,3083"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze axe",
+    "location": "Mountain Camp - in the cave",
+    "members": "Yes",
+    "list": [
+      "2805,3703"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze axe",
+    "location": "Avium Savannah - near Marcellus's house",
+    "members": "Yes",
+    "list": [
+      "1683,2975"
     ],
     "template": "itemspawnline"
   },
@@ -2977,6 +3055,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Bucket",
+    "location": "Blast mine - in the south building",
+    "members": "Yes",
+    "list": [
+      "1486,3861"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Bucket of milk",
     "location": "Rellekka",
     "members": "Yes",
@@ -3287,6 +3375,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Burnt bones",
+    "location": "Cave south of Colosseum(inaccessible)",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1809,9466"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Burnt bread",
     "location": "Corsair Cove Resource Area",
     "members": "No",
@@ -3329,7 +3427,7 @@
   },
   {
     "name": "Burnt fish",
-    "location": "Crash Site Cavern entrance",
+    "location": "Crash Site Cavern entrance (unreachable)",
     "members": "Yes",
     "mapid": "10151",
     "list": [
@@ -3434,7 +3532,7 @@
   },
   {
     "name": "Candle",
-    "location": "Hosidius - eastern house with Fruit Stalls",
+    "location": "Hosidius - eastern house with Fruit Stalls (telekinetic grab)",
     "members": "Yes",
     "list": [
       "1794,3613"
@@ -5280,6 +5378,31 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Gold ring",
+    "location": "Hallowed Sepulchre - floor 3",
+    "mapid": "-1",
+    "list": [
+      "2398,5867",
+      "2419,5826",
+      "2384,5846"
+    ],
+    "plane": "2",
+    "members": "Yes",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Gold ring",
+    "location": "Hallowed Sepulchre - floor 4",
+    "mapid": "-1",
+    "list": [
+      "2553,5855",
+      "2419,5826"
+    ],
+    "plane": "2",
+    "members": "Yes",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Grain",
     "location": "Hosidius - grain storage",
     "members": "Yes",
@@ -5777,6 +5900,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Iron battleaxe",
+    "location": "Civitas illa Fortis",
+    "members": "Yes",
+    "list": [
+      "1700,3185,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Iron dagger",
     "location": "Lumbridge - goblin house",
     "members": "No",
@@ -5830,6 +5962,16 @@
     "list": [
       "3192,2838"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron dagger",
+    "location": "Ortus Farm",
+    "members": "Yes",
+    "list": [
+      "1573,3140"
+    ],
+    "plane": "1",
     "template": "itemspawnline"
   },
   {
@@ -5935,6 +6077,17 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Iron med helm",
+    "location": "Hallowed Sepulchre - floor 2",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "2562,5985"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Iron nails",
     "location": "Shayzien - Secluded Chapel",
     "members": "Yes",
@@ -5980,6 +6133,16 @@
     "mapid": "11",
     "list": [
       "2843,10337"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron pickaxe",
+    "location": "Blast mine",
+    "members": "Yes",
+    "list": [
+      "1499,3860",
+      "1481,3868"
     ],
     "template": "itemspawnline"
   },
@@ -6040,6 +6203,15 @@
   },
   {
     "name": "Iron sword",
+    "location": "Bandits' camp north-east of Ralos' Rise",
+    "members": "Yes",
+    "list": [
+      "1494,3177"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron sword",
     "location": "Shayzien - Briget's Weapons",
     "members": "Yes",
     "list": [
@@ -6055,6 +6227,17 @@
     "list": [
       "3425,9951"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron sword",
+    "location": "Hallowed Sepulchre - floor 2",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "2561,5983"
+    ],
+    "plane": "1",
     "template": "itemspawnline"
   },
   {
@@ -6707,6 +6890,25 @@
     "plane": "1",
     "list": [
       "3112,3155,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Leather boots",
+    "location": "Ortus Farm",
+    "members": "Yes",
+    "plane": "1",
+    "list": [
+      "1590,3128"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Leather boots",
+    "location": "Civitas illa Fortis",
+    "members": "Yes",
+    "list": [
+      "1701,3186,qty:1"
     ],
     "template": "itemspawnline"
   },
@@ -7903,6 +8105,16 @@
   },
   {
     "name": "Pot",
+    "location": "Outer Fortis",
+    "members": "Yes",
+    "list": [
+      "1705,3070"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Pot",
     "location": "Ortus Farm",
     "members": "Yes",
     "list": [
@@ -8405,7 +8617,8 @@
     "location": "Civitas illa Fortis",
     "members": "Yes",
     "list": [
-      "1765,3103"
+      "1765,3103",
+      "1768,3156"
     ],
     "template": "itemspawnline"
   },
@@ -8425,6 +8638,16 @@
     "members": "Yes",
     "list": [
       "1518,2996"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Rope",
+    "location": "Blast mine - in the south building",
+    "members": "Yes",
+    "list": [
+      "1493,3859"
     ],
     "plane": "1",
     "template": "itemspawnline"
@@ -8743,7 +8966,18 @@
       "1787,3028",
       "1788,3024",
       "1789,3019",
-      "1786,3016"
+      "1786,3016",
+      "1784,3048",
+      "1786,3047",
+      "1788,3051",
+      "1792,3051",
+      "1793,3049",
+      "1795,3050",
+      "1796,3048",
+      "1799,3050",
+      "1802,3051",
+      "1805,3052",
+      "1806,3054"
     ],
     "template": "itemspawnline"
   },
@@ -8932,6 +9166,15 @@
     "mapid": "14",
     "list": [
       "3752,9781,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Skull",
+    "location": "Lovakengj - north-west of the Kourend Castle",
+    "members": "Yes",
+    "list": [
+      "1591,3760,qty:1"
     ],
     "template": "itemspawnline"
   },
@@ -9374,6 +9617,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Steel knife",
+    "location": "Mountain Camp - in the cave",
+    "members": "Yes",
+    "list": [
+      "2805,3703"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Steel longsword",
     "location": "Abandoned Mine - level 2",
     "members": "Yes",
@@ -9448,6 +9700,17 @@
     "mapid": "-1",
     "list": [
       "3258,6057"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Steel spear",
+    "location": "Neypotzli",
+    "members": "Yes",
+    "plane": "0",
+    "mapid": "-1",
+    "list": [
+      "1349,9565"
     ],
     "template": "itemspawnline"
   },

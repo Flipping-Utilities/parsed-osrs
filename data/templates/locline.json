@@ -2924,6 +2924,53 @@
   },
   {
     "name": "Black demon",
+    "location": "Catacombs of Kourend",
+    "levels": "178, 184",
+    "members": "Yes",
+    "mapid": "32",
+    "plane": "0",
+    "list": [
+      "x:1718,y:10086",
+      "x:1719,y:10079",
+      "x:1720,y:10090",
+      "x:1721,y:10083"
+    ],
+    "mtype": "pin",
+    "dropversion": "Regular",
+    "template": "locline"
+  },
+  {
+    "name": "Black demon",
+    "location": "Chasm of Fire (Bottom Level)",
+    "levels": "172",
+    "members": "Yes",
+    "mapid": "32",
+    "plane": "0",
+    "list": [
+      "x:1356,y:9879",
+      "x:1359,y:9885",
+      "x:1360,y:9899",
+      "x:1364,y:9895",
+      "x:1365,y:9874",
+      "x:1366,y:9901",
+      "x:1370,y:9880",
+      "x:1372,y:9875",
+      "x:1376,y:9899",
+      "x:1377,y:9873",
+      "x:1377,y:9894",
+      "x:1382,y:9869",
+      "x:1383,y:9876",
+      "x:1383,y:9886",
+      "x:1383,y:9897",
+      "x:1388,y:9882",
+      "x:1389,y:9890"
+    ],
+    "mtype": "pin",
+    "dropversion": "Regular",
+    "template": "locline"
+  },
+  {
+    "name": "Black demon",
     "location": "Edgeville Dungeon (Wilderness)",
     "levels": "172",
     "members": "Yes",
@@ -2990,53 +3037,6 @@
     ],
     "mtype": "pin",
     "dropversion": "Wilderness Slayer Cave",
-    "template": "locline"
-  },
-  {
-    "name": "Black demon",
-    "location": "Chasm of Fire (Bottom Level)",
-    "levels": "172",
-    "members": "Yes",
-    "mapid": "32",
-    "plane": "0",
-    "list": [
-      "x:1356,y:9879",
-      "x:1359,y:9885",
-      "x:1360,y:9899",
-      "x:1364,y:9895",
-      "x:1365,y:9874",
-      "x:1366,y:9901",
-      "x:1370,y:9880",
-      "x:1372,y:9875",
-      "x:1376,y:9899",
-      "x:1377,y:9873",
-      "x:1377,y:9894",
-      "x:1382,y:9869",
-      "x:1383,y:9876",
-      "x:1383,y:9886",
-      "x:1383,y:9897",
-      "x:1388,y:9882",
-      "x:1389,y:9890"
-    ],
-    "mtype": "pin",
-    "dropversion": "Regular",
-    "template": "locline"
-  },
-  {
-    "name": "Black demon",
-    "location": "Catacombs of Kourend",
-    "levels": "178, 184",
-    "members": "Yes",
-    "mapid": "32",
-    "plane": "0",
-    "list": [
-      "x:1718,y:10086",
-      "x:1719,y:10079",
-      "x:1720,y:10090",
-      "x:1721,y:10083"
-    ],
-    "mtype": "pin",
-    "dropversion": "Regular",
     "template": "locline"
   },
   {
@@ -3158,7 +3158,7 @@
   },
   {
     "name": "Black jaguar",
-    "location": "Varlamore",
+    "location": "South of Ralos' Rise",
     "levels": "67",
     "members": "Yes",
     "mapid": "-1",
@@ -4134,8 +4134,6 @@
     "location": "Ortus Farm",
     "levels": "9",
     "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
     "list": [
       "x:1568,y:3112",
       "x:1568,y:3112",
@@ -4159,6 +4157,32 @@
       "x:1612,y:3091",
       "x:1611,y:3098",
       "x:1613,y:3095"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Buffalo",
+    "location": "South of Ralos' Rise",
+    "levels": "N/A",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1466,y:3051"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Buffalo",
+    "location": "Cam Torum - The Lost Pickaxe",
+    "levels": "N/A",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:1425,y:9578"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -5674,6 +5698,19 @@
   },
   {
     "name": "Chicken",
+    "location": "South western Outer Fortis",
+    "levels": "1",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1653,y:3067"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Chicken",
     "location": "Tutorial Island",
     "levels": "3",
     "members": "No",
@@ -5739,7 +5776,7 @@
   },
   {
     "name": "Chinchompa",
-    "location": "Piscatoris Hunter area",
+    "location": "Piscatoris Hunter area (A.K.Q)",
     "levels": "1",
     "members": "Yes",
     "mapid": "0",
@@ -5789,7 +5826,7 @@
   },
   {
     "name": "Chinchompa",
-    "location": "Isle of Souls",
+    "location": "Isle of Souls (B.J.P)",
     "levels": "1",
     "members": "Yes",
     "mapid": "0",
@@ -5891,7 +5928,7 @@
   },
   {
     "name": "Common Kebbit",
-    "location": "Piscatoris falconry area",
+    "location": "Piscatoris hunter area",
     "levels": "N/A",
     "members": "Yes",
     "mapid": "0",
@@ -7039,6 +7076,12 @@
     "template": "locline"
   },
   {
+    "location": "Waterbirth Island",
+    "members": "yes",
+    "name": "Dagannoth",
+    "template": "locline"
+  },
+  {
     "name": "Dagannoth",
     "location": "Jormungand's Prison",
     "levels": "74, 92",
@@ -7545,7 +7588,7 @@
   },
   {
     "name": "Dark Kebbit",
-    "location": "Piscatoris falconry area",
+    "location": "Piscatoris falconry area (A.K.Q)",
     "levels": "N/A",
     "members": "Yes",
     "mapid": "0",
@@ -7972,7 +8015,7 @@
   },
   {
     "name": "Death wing",
-    "location": "Viyeldi caves",
+    "location": "Shaman Caves",
     "levels": "83",
     "members": "Yes",
     "mapid": "10174",
@@ -8645,7 +8688,7 @@
   },
   {
     "name": "Duck",
-    "location": "Lumbridge, behind Fred's Farm",
+    "location": "Lumbridge pond",
     "levels": "1",
     "members": "No",
     "mapid": "0",
@@ -10147,7 +10190,7 @@
   },
   {
     "name": "Farmer",
-    "location": "East Lumbridge farm",
+    "location": "Groats farm",
     "levels": "7",
     "members": "No",
     "mapid": "0",
@@ -10218,6 +10261,20 @@
       "x:3319,y:9832",
       "x:3319,y:9849",
       "x:3323,y:9842"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Feldip Weasel",
+    "location": "Feldip Hunter area",
+    "levels": "N/A",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:2525,y:2889",
+      "x:2554,y:2882"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -15601,43 +15658,27 @@
     "template": "locline"
   },
   {
-    "name": "Green skink (large)",
+    "name": "Green skink",
     "location": "Avium Savannah",
     "levels": "N/A",
     "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
     "list": [
       "x:1737,y:2939",
       "x:1549,y:2975",
       "x:1753,y:2988",
       "x:1706,y:2967",
-      "x:1710,y:2969"
-    ],
-    "mtype": "pin",
-    "id": "12972",
-    "template": "locline"
-  },
-  {
-    "name": "Green skink (small)",
-    "location": "Avium Savannah",
-    "levels": "N/A",
-    "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
-    "list": [
+      "x:1710,y:2969",
       "x:1735,y:2940",
       "x:1549,y:2972",
       "x:1758,y:2989",
       "x:1708,y:2970"
     ],
     "mtype": "pin",
-    "id": "12973",
     "template": "locline"
   },
   {
     "name": "Grimy Lizard",
-    "location": "Streambound Cavern of Cam Torum",
+    "location": "Neypotzli - Streambound Cavern",
     "levels": "50",
     "members": "Yes",
     "mapid": "-1",
@@ -19462,6 +19503,38 @@
   },
   {
     "name": "Imp",
+    "location": "South of Stonecutter Outpost",
+    "levels": "2",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1727,y:2930",
+      "x:1721,y:2936",
+      "x:1742,y:2937",
+      "x:1771,y:2945",
+      "x:1768,y:2947",
+      "x:1758,y:2936"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Imp",
+    "location": "Southwest Civitas illa Fortis",
+    "levels": "2",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1671,y:3073",
+      "x:1651,y:3086"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Imp",
     "location": "North of Kourend Castle",
     "levels": "2",
     "members": "Yes",
@@ -21497,14 +21570,11 @@
     "template": "locline"
   },
   {
-    "name": "Moonlight antelope",
-    "location": "Civitas illa Fortis",
+    "name": "Knight of Varlamore",
+    "location": "Kualti Headquarters",
     "levels": "46",
     "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
     "list": [
-      "x:1684,y:3173",
       "x:1641,y:3144",
       "x:1648,y:3141",
       "x:1652,y:3158",
@@ -21512,9 +21582,20 @@
       "x:1659,y:3150",
       "x:1649,y:3155",
       "x:1643,y:3148",
-      "x:1676,y:3169",
       "x:1643,y:3159",
       "x:1657,y:3144"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Knight of Varlamore",
+    "location": "Sunrise Palace",
+    "levels": "46",
+    "members": "Yes",
+    "list": [
+      "x:1676,y:3169",
+      "x:1684,y:3173"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -22631,7 +22712,7 @@
   },
   {
     "name": "Scarab Mage",
-    "location": "The Forgotten Tomb",
+    "location": "Scabaras Dungeon",
     "levels": "93",
     "members": "Yes",
     "mapid": "-1",
@@ -22654,7 +22735,7 @@
   },
   {
     "name": "Locust rider",
-    "location": "Sophanem Dungeon cavern",
+    "location": "Sophanem Dungeon (cavern level)",
     "levels": "98, 106",
     "members": "yes",
     "mapid": "-1",
@@ -22693,7 +22774,7 @@
   },
   {
     "name": "Locust rider",
-    "location": "Sophanem Dungeon maze",
+    "location": "Sophanem Dungeon (maze level)",
     "levels": "98",
     "members": "yes",
     "mapid": "-1",
@@ -24110,6 +24191,19 @@
     "plane": "0",
     "list": [
       "x:3240,y:3345"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Master Farmer",
+    "location": "South of Ortus Farm",
+    "levels": "N/A",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1584,y:3087"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -25545,19 +25639,6 @@
     "template": "locline"
   },
   {
-    "name": "Mountain toucan",
-    "location": "Ralos' Rise",
-    "levels": "N/A",
-    "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
-    "list": [
-      "x:1469,y:3073"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
     "name": "Mountain troll",
     "location": "South of Mount Quidamortem",
     "levels": "69",
@@ -25950,7 +26031,7 @@
   },
   {
     "name": "Mugger",
-    "location": "East of the Vinery (only drops bones)",
+    "location": "Northeast of the Vinery",
     "levels": "6",
     "members": "Yes",
     "mapid": "0",
@@ -26936,7 +27017,7 @@
   },
   {
     "name": "Orange salamander",
-    "location": "Uzer Hunter area",
+    "location": "Uzer Hunter area (D.L.Q.)",
     "levels": "N/A",
     "members": "Yes",
     "mapid": "0",
@@ -28570,7 +28651,7 @@
   },
   {
     "name": "Rabbit",
-    "location": "Next to saltpetre in Hosidius",
+    "location": "West of the saltpetre in Hosidius",
     "levels": "2",
     "members": "y",
     "mapid": "0",
@@ -31574,7 +31655,7 @@
   },
   {
     "name": "Sabre-toothed kebbit",
-    "location": "Rellekka Hunter area",
+    "location": "Rellekka Hunter area (D.K.S)",
     "levels": "N/A",
     "members": "Yes",
     "mapid": "0",
@@ -31598,7 +31679,7 @@
   },
   {
     "name": "Sabre-toothed kyatt",
-    "location": "Rellekka Hunter area",
+    "location": "Rellekka Hunter area (D.K.S)",
     "levels": "60",
     "members": "Yes",
     "mapid": "0",
@@ -32008,28 +32089,6 @@
   },
   {
     "name": "Scarab Mage",
-    "location": "Sophanem Dungeon (maze level)",
-    "levels": "93",
-    "members": "Yes",
-    "mapid": "-1",
-    "plane": "2",
-    "list": [
-      "x:2124,y:4404",
-      "x:2125,y:4388",
-      "x:2125,y:4411",
-      "x:2127,y:4370",
-      "x:2137,y:4372",
-      "x:2144,y:4392",
-      "x:2149,y:4411",
-      "x:2153,y:4392",
-      "x:2156,y:4357",
-      "x:2159,y:4362"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Scarab Mage",
     "location": "Sophanem Dungeon (cavern level)",
     "levels": "93",
     "members": "Yes",
@@ -32054,6 +32113,28 @@
       "2413,4273",
       "2420,4263",
       "2421,4248"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Scarab Mage",
+    "location": "Sophanem Dungeon (maze level)",
+    "levels": "93",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "2",
+    "list": [
+      "x:2124,y:4404",
+      "x:2125,y:4388",
+      "x:2125,y:4411",
+      "x:2127,y:4370",
+      "x:2137,y:4372",
+      "x:2144,y:4392",
+      "x:2149,y:4411",
+      "x:2153,y:4392",
+      "x:2156,y:4357",
+      "x:2159,y:4362"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -32419,7 +32500,7 @@
   },
   {
     "name": "Scorpion",
-    "location": "Southeast of Stonecutter Outpost",
+    "location": "Southwest of Stonecutter Outpost",
     "levels": "14",
     "members": "Yes",
     "mapid": "-1",
@@ -33862,22 +33943,6 @@
   },
   {
     "name": "Skeleton",
-    "location": "Wilderness Agility Course",
-    "levels": "25",
-    "members": "yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:2982,y:3947",
-      "x:2989,y:3944",
-      "x:2992,y:3942"
-    ],
-    "mtype": "pin",
-    "dropversion": "Armed",
-    "template": "locline"
-  },
-  {
-    "name": "Skeleton",
     "location": "Wilderness, north of Edgeville",
     "levels": "22, 25",
     "members": "no",
@@ -33941,6 +34006,20 @@
       "x:3246,y:3745",
       "x:3252,y:3737",
       "x:3261,y:3736"
+    ],
+    "mtype": "pin",
+    "dropversion": "Armed",
+    "template": "locline"
+  },
+  {
+    "name": "Skeleton",
+    "location": "Frozen Waste Plateau, in the Wilderness",
+    "levels": "25",
+    "members": "yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:2982,y:3947"
     ],
     "mtype": "pin",
     "dropversion": "Armed",
@@ -34267,6 +34346,34 @@
     "template": "locline"
   },
   {
+    "name": "Skeleton",
+    "location": "Wilderness Agility Course",
+    "levels": "18",
+    "members": "yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:2998,y:3952",
+      "x:2993,y:3955",
+      "x:2996,y:3958",
+      "x:2995,y:3959",
+      "x:2995,y:3961",
+      "x:3004,y:3960",
+      "x:3006,y:3959",
+      "x:3003,y:3951",
+      "x:3006,y:3951",
+      "x:2994,y:3946",
+      "x:2994,y:3944",
+      "x:2990,y:3940",
+      "x:2997,y:3939",
+      "x:2993,y:3932",
+      "x:2995,y:3933",
+      "x:2996,y:3932"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
     "name": "Skeleton (mage)",
     "location": "Tarn's Lair",
     "levels": "94",
@@ -34500,7 +34607,7 @@
   },
   {
     "name": "Wyrmling",
-    "location": "Earthbound Cavern",
+    "location": "Earthbound Cavern in Neypotzli",
     "levels": "55",
     "members": "Yes",
     "mapid": "-1",
@@ -34725,19 +34832,6 @@
       "x:2879,y:3151",
       "x:2881,y:3157",
       "x:2889,y:3146"
-    ],
-    "mtype": "pin",
-    "template": "locline"
-  },
-  {
-    "name": "Snake",
-    "location": "Outside Tithe Farm",
-    "levels": "5",
-    "members": "Yes",
-    "mapid": "0",
-    "plane": "0",
-    "list": [
-      "x:1816,y:3482"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -39294,12 +39388,10 @@
     "template": "locline"
   },
   {
-    "name": "Sunbeam skink (large)",
+    "name": "Sunbeam skink",
     "location": "Around the base of Ralos' Rise",
     "levels": "N/A",
     "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
     "list": [
       "x:1443,y:3061",
       "x:1491,y:3141",
@@ -39311,20 +39403,6 @@
       "x:1397,y:3133",
       "x:1399,y:3117",
       "x:1403,y:3107",
-      "x:1405,y:3159"
-    ],
-    "mtype": "pin",
-    "id": "12974",
-    "template": "locline"
-  },
-  {
-    "name": "Sunbeam skink (small)",
-    "location": "Around the base of Ralos' Rise",
-    "levels": "N/A",
-    "members": "Yes",
-    "mapid": "-1",
-    "plane": "0",
-    "list": [
       "x:1436,y:3069",
       "x:1484,y:3136",
       "x:1487,y:3088",
@@ -39332,7 +39410,6 @@
       "x:1398,y:3150"
     ],
     "mtype": "pin",
-    "id": "12975",
     "template": "locline"
   },
   {
@@ -41954,7 +42031,7 @@
   },
   {
     "name": "Ungadulu",
-    "location": "In the Fire Octagram located inside the Viyeldi caves",
+    "location": "In the Fire Octagram located inside the Shaman Caves",
     "levels": "70",
     "members": "Yes",
     "mapid": "10174",
@@ -44238,18 +44315,17 @@
   },
   {
     "name": "Wyrmling",
-    "location": "Earthbound Cavern",
+    "location": "Neypotzli - Earthbound Cavern",
     "levels": "55",
     "members": "Yes",
     "mapid": "-1",
-    "plane": "0",
     "list": [
-      "x:1366,y:9708,icon:redPin",
-      "x:1364,y:9706,icon:redPin",
-      "x:1368,y:9706,icon:redPin",
-      "x:1366,y:9694,icon:redPin",
-      "x:1370,y:9695,icon:redPin",
-      "x:1367,y:9698,icon:redPin"
+      "x:1366,y:9708",
+      "x:1364,y:9706",
+      "x:1368,y:9706",
+      "x:1366,y:9694",
+      "x:1370,y:9695",
+      "x:1367,y:9698"
     ],
     "mtype": "pin",
     "template": "locline"
@@ -45177,25 +45253,48 @@
   },
   {
     "name": "Zombie pirate",
-    "location": "Harmony Island Underground",
-    "levels": "57",
+    "location": "Chaos Temple (Wilderness)",
+    "levels": "22, 28, 34",
     "members": "Yes",
-    "mapid": "10077",
-    "plane": "1",
-    "list": [
-      "x:3792,y:9254",
-      "x:3797,y:9253",
-      "x:3798,y:9258",
-      "x:3799,y:9247",
-      "x:3803,y:9249",
-      "x:3805,y:9255",
-      "x:3809,y:9253",
-      "x:3814,y:9250",
-      "x:3817,y:9259",
-      "x:3819,y:9253",
-      "x:3823,y:9254"
-    ],
+    "mapid": "0",
+    "plane": "0",
     "mtype": "pin",
+    "list": [
+      "x:3234,y:3621,levels:28,icon:bluePin",
+      "x:3235,y:3626,levels:34,icon:redPin",
+      "x:3243,y:3621,levels:28,icon:bluePin",
+      "x:3248,y:3614,levels:34,icon:redPin",
+      "x:3239,y:3622,levels:34,icon:redPin",
+      "x:3243,y:3617,levels:34,icon:redPin",
+      "x:3252,y:3610,levels:28,icon:bluePin",
+      "x:3242,y:3607,levels:34,icon:redPin",
+      "x:3237,y:3607,levels:34,icon:redPin",
+      "x:3249,y:3603,levels:34,icon:redPin",
+      "x:3236,y:3599,levels:34,icon:redPin",
+      "x:3245,y:3598,levels:34,icon:redPin",
+      "x:3250,y:3606,levels:22,icon:greenPin",
+      "x:3237,y:3618,levels:34,icon:redPin",
+      "x:3227,y:3610,levels:28,icon:bluePin",
+      "x:3226,y:3608,levels:28,icon:bluePin",
+      "x:3240,y:3599,levels:28,icon:bluePin",
+      "x:3244,y:3619,levels:22,icon:greenPin",
+      "x:3251,y:3607,levels:28,icon:bluePin",
+      "x:3233,y:3620,levels:28,icon:bluePin",
+      "x:3227,y:3606,levels:34,icon:redPin",
+      "x:3231,y:3616,levels:34,icon:redPin",
+      "x:3229,y:3605,levels:34,icon:redPin",
+      "x:3251,y:3613,levels:34,icon:redPin",
+      "x:3245,y:3603,levels:28,icon:bluePin",
+      "x:3248,y:3599,levels:34,icon:redPin",
+      "x:3242,y:3598,levels:22,icon:greenPin",
+      "x:3234,y:3599,levels:34,icon:redPin",
+      "x:3230,y:3603,levels:22,icon:greenPin",
+      "x:3239,y:3601,levels:28,icon:bluePin",
+      "x:3245,y:3600,levels:28,icon:bluePin",
+      "x:3225,y:3614,levels:34,icon:redPin",
+      "x:3226,y:3612,levels:22,icon:greenPin",
+      "x:3235,y:3624,levels:22,icon:greenPin"
+    ],
     "template": "locline"
   },
   {
@@ -45218,6 +45317,29 @@
       "x:2158,y:5079",
       "x:2160,y:5078",
       "x:2162,y:5079"
+    ],
+    "mtype": "pin",
+    "template": "locline"
+  },
+  {
+    "name": "Zombie pirate",
+    "location": "Harmony Island Underground",
+    "levels": "57",
+    "members": "Yes",
+    "mapid": "10077",
+    "plane": "1",
+    "list": [
+      "x:3792,y:9254",
+      "x:3797,y:9253",
+      "x:3798,y:9258",
+      "x:3799,y:9247",
+      "x:3803,y:9249",
+      "x:3805,y:9255",
+      "x:3809,y:9253",
+      "x:3814,y:9250",
+      "x:3817,y:9259",
+      "x:3819,y:9253",
+      "x:3823,y:9254"
     ],
     "mtype": "pin",
     "template": "locline"

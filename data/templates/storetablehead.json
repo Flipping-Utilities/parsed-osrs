@@ -36,6 +36,31 @@
     "sellmultiplier": "1000",
     "buymultiplier": "700",
     "delta": "10",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Brimhaven voucher",
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "column1": "/",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Agility arena ticket",
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "hidege": "y",
     "template": "storetablehead"
   },
   {
@@ -466,6 +491,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "650",
     "delta": "20",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "650",
+    "delta": "20",
     "template": "storetablehead"
   },
   {
@@ -633,6 +665,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "800",
     "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -853,7 +886,7 @@
   },
   {
     "hidebuy": "y",
-    "hidestock": "n",
+    "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
     "smw": "No",
@@ -942,6 +975,13 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -1159,7 +1199,7 @@
     "template": "storetablehead"
   },
   {
-    "currency": "Agility arena ticket",
+    "currency": "Brimhaven voucher",
     "hidebuy": "y",
     "hidestock": "y",
     "hiderestock": "y",
@@ -1170,7 +1210,17 @@
   },
   {
     "delta": "0",
-    "currency": "Agility arena ticket",
+    "currency": "Agility arena ticket (discontinued)",
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "smw": "n",
+    "column1": "/",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Brimhaven voucher",
     "hidebuy": "y",
     "hidestock": "y",
     "hiderestock": "y",
@@ -1444,6 +1494,13 @@
     "currency": "Honour points",
     "column1": "Queen",
     "column2": "Value",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "20",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2014,8 +2071,10 @@
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1000",
-    "hidebuy": "yes",
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hiderestock": "y",
+    "hidestock": "y",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2331,6 +2390,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "550",
+    "delta": "10",
     "template": "storetablehead"
   },
   {
@@ -2477,6 +2543,12 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1300",
     "buymultiplier": "700",
     "delta": "30",
@@ -2552,6 +2624,7 @@
     "sellmultiplier": "1200",
     "buymultiplier": "950",
     "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -2685,7 +2758,7 @@
     "sellmultiplier": "1500",
     "buymultiplier": "800",
     "delta": "30",
-    "smw": "n",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -3212,6 +3285,13 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "30",
+    "smw": "no",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1200",
     "buymultiplier": "700",
     "delta": "20",
@@ -3694,6 +3774,14 @@
     "hidebuy": "yes",
     "hidecaption": "yes",
     "hidestock": "yes",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -4558,7 +4646,8 @@
   {
     "sellmultiplier": "1000",
     "buymultiplier": "600",
-    "delta": "10",
+    "delta": "1",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -4862,6 +4951,12 @@
     "buymultiplier": "550",
     "delta": "20",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
     "template": "storetablehead"
   },
   {
@@ -5826,6 +5921,7 @@
     "sellmultiplier": "1300",
     "buymultiplier": "400",
     "delta": "30",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -5883,6 +5979,7 @@
     "sellmultiplier": "500",
     "buymultiplier": "500",
     "delta": "0",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -5923,13 +6020,6 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "10",
-    "template": "storetablehead"
-  },
-  {
-    "hidestock": "y",
-    "hiderestock": "y",
-    "hidecaption": "y",
-    "hidesell": "y",
     "template": "storetablehead"
   },
   {
@@ -6072,6 +6162,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "700",
     "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -6084,12 +6175,14 @@
   {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
+    "delta": "30",
     "smw": "No",
     "template": "storetablehead"
   },
   {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
+    "delta": "30",
     "template": "storetablehead"
   },
   {
@@ -6320,7 +6413,7 @@
   },
   {
     "hidebuy": "y",
-    "hidestock": "n",
+    "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
     "template": "storetablehead"
@@ -6341,7 +6434,7 @@
   {
     "sellmultiplier": "1000",
     "buymultiplier": "600",
-    "delta": "10",
+    "delta": "1",
     "template": "storetablehead"
   },
   {
@@ -6408,7 +6501,7 @@
   {
     "sellmultiplier": "11500",
     "buymultiplier": "500",
-    "delta": "10",
+    "delta": "1",
     "template": "storetablehead"
   },
   {
@@ -6430,12 +6523,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "10",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1000",
-    "buymultiplier": "600",
-    "delta": "10",
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
     "template": "storetablehead"
   },
   {
@@ -6489,6 +6583,13 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -7405,10 +7506,25 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
     "hidege": "y",
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "550",
+    "delta": "10",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -7469,13 +7585,6 @@
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1000",
-    "buymultiplier": "700",
-    "delta": "20",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
     "delta": "30",
@@ -7508,6 +7617,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
