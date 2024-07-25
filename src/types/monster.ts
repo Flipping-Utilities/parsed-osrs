@@ -43,6 +43,8 @@ export interface Monster {
   image: string;
   release: string;
   update: string;
+  removal?: string;
+  removalUpdate?: string;
   members: boolean;
   level: number; // combat
   size: number;

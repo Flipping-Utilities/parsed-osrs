@@ -15,6 +15,8 @@ interface WikiMonster {
   image: string;
   release: string;
   update: string;
+  removal: string;
+  removalupdate: string;
   members: 'Yes' | 'No' | boolean;
   combat: string;
   size: string;
@@ -62,6 +64,8 @@ const WikiToMonsterKeys: Partial<
   image: 'image',
   release: 'release',
   update: 'update',
+  removal: 'removal',
+  removalupdate: 'removalUpdate',
   members: 'members',
   combat: 'level',
   size: 'size',
@@ -121,7 +125,7 @@ export class MonstersExtractor {
     const monstersPage = this.pageListDumper.getMonsters();
     const length = monstersPage.length;
     const monsters = monstersPage
-      .filter((i) => i.pageid === 11672)
+      // .filter((i) => i.pageid === 11672)
       .map((page, i) => {
         if (i % 100 === 0) {
           this.logger.debug(`Monsters: ${i}/${length}`);
@@ -210,7 +214,7 @@ export class MonstersExtractor {
         .filter((r) => r.name) as MonsterDrop[];
       allDrops.push(...sectionDrops);
     });
-    this.logger.log(monsterInfoBox);
+
     const idList = monsterInfoBox.id?.split(',').map((i) => Number(i)) || [0];
     const baseItem: Monster = {
       id: idList[0],
@@ -234,7 +238,7 @@ export class MonstersExtractor {
       slayXp: Number(monsterInfoBox.slayxp),
       category: monsterInfoBox.cat,
       hitpoints: Number(monsterInfoBox.hitpoints),
-      assignedBy: monsterInfoBox.assignedby.split(','),
+      assignedBy: monsterInfoBox.assignedby?.split(',') || [],
       combatStats: {
         attack: Number(monsterInfoBox.att),
         strength: Number(monsterInfoBox.str),
@@ -299,6 +303,8 @@ export class MonstersExtractor {
         case 'image':
         case 'name':
         case 'examine':
+        case 'removal':
+        case 'removalupdate':
           value = (monsterInfoBox as any)[key];
           break;
         case 'members':
@@ -355,7 +361,6 @@ export class MonstersExtractor {
         variants[endIndex][WikiToMonsterKeys[baseKey]] = value;
       }
       if (cbValue) {
-        this.logger.log('Setting', baseKey, cbValue);
         // @ts-ignore
         variants[endIndex].combatStats[WikiToMonsterCombatStatsKeys[baseKey]] =
           cbValue;
