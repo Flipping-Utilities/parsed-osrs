@@ -30,7 +30,10 @@ export interface MonsterDrop {
   quantity?: string;
   rarity?: string;
 }
-
+export interface MonsterDropTable {
+  name: string;
+  drops: MonsterDrop[];
+}
 export interface Monster {
   id: number;
   ids: number[];
@@ -56,7 +59,6 @@ export interface Monster {
   assignedBy: string[];
   combatStats: MonsterCombatStats;
   respawnTime: number;
-
+  dropTable: string;
   aliases: string[];
-  drops: MonsterDrop[];
 }
