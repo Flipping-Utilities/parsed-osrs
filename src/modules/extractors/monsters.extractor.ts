@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { load } from 'cheerio';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ALL_MONSTERS } from '../../constants/paths';
-import { Monster, MonsterDrop } from '../../types';
+import { Monster, MonsterCombatStats, MonsterDrop } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 // @ts-ignore
@@ -20,11 +20,11 @@ interface WikiMonster {
   size: string;
   examine: string;
   xpbonus: string;
-  'max hit': string;
+  maxHit: string;
   aggressive: 'Yes' | 'No' | boolean;
   poisonous: 'Yes' | 'No' | boolean;
-  'attack style': string;
-  'attack speed': string;
+  attackStyle: string;
+  attackSpeed: string;
   slayxp: string;
   cat: string;
   assignedby: string;
@@ -67,11 +67,11 @@ const WikiToMonsterKeys: Partial<
   size: 'size',
   examine: 'examine',
   xpbonus: 'xpBonus',
-  'max hit': 'maxHit',
+  maxHit: 'maxHit',
   aggressive: 'aggressive',
   poisonous: 'poisonous',
-  'attack style': 'attackStyle',
-  'attack speed': 'attackSpeed',
+  attackStyle: 'attackStyle',
+  attackSpeed: 'attackSpeed',
   slayxp: 'slayXp',
   cat: 'category',
   assignedby: 'assignedBy',
@@ -79,7 +79,30 @@ const WikiToMonsterKeys: Partial<
   respawn: 'respawnTime',
   dropversion: 'dropTable',
 };
-
+const WikiToMonsterCombatStatsKeys: Partial<
+  Record<Partial<keyof WikiMonster>, Partial<keyof MonsterCombatStats>>
+> = {
+  att: 'attack',
+  str: 'strength',
+  def: 'defence',
+  mage: 'magic',
+  range: 'ranged',
+  attbns: 'attackBonus',
+  strbns: 'strengthBonus',
+  amagic: 'attackMagic',
+  mbns: 'magicBonus',
+  arange: 'attackRanged',
+  rngbns: 'rangedBonus',
+  dstab: 'defenceStab',
+  dslash: 'defenceSlash',
+  dcrush: 'defenceCrush',
+  dmagic: 'defenceMagic',
+  drange: 'defenceRanged',
+  immunepoison: 'immunePosion',
+  immunevenom: 'immuneVenom',
+  immunecannon: 'immuneCannon',
+  immunethrall: 'immuneThrall',
+};
 @Injectable()
 export class MonstersExtractor {
   private logger: Logger = new Logger(MonstersExtractor.name);
@@ -203,11 +226,11 @@ export class MonstersExtractor {
       size: Number(monsterInfoBox.size),
       examine: monsterInfoBox.examine,
       xpBonus: Number(monsterInfoBox.xpbonus),
-      maxHit: Number(monsterInfoBox['max hit']),
+      maxHit: Number(monsterInfoBox['maxHit']),
       aggressive: monsterInfoBox.aggressive === 'Yes',
       poisonous: monsterInfoBox.poisonous === 'Yes',
-      attackStyle: monsterInfoBox['attack style'],
-      attackSpeed: Number(monsterInfoBox['attack speed']),
+      attackStyle: monsterInfoBox['attackStyle'],
+      attackSpeed: Number(monsterInfoBox['attackSpeed']),
       slayXp: Number(monsterInfoBox.slayxp),
       category: monsterInfoBox.cat,
       hitpoints: Number(monsterInfoBox.hitpoints),
@@ -252,16 +275,28 @@ export class MonstersExtractor {
       }
 
       if (!variants[endIndex]) {
-        variants[endIndex] = { ...baseItem };
+        variants[endIndex] = {
+          ...baseItem,
+          combatStats: { ...baseItem.combatStats },
+        };
       }
       let value;
+      let cbValue;
       switch (baseKey as keyof WikiMonster) {
         case 'id':
+          // Because we're saving both the id and the list, we need to split the value
           value = (monsterInfoBox as any)[key]
             .split(',')
             .map((i: string) => Number(i));
           variants[endIndex]['id'] = value[0];
           break;
+        case 'dropversion':
+        case 'hitpoints':
+        case 'cat':
+        case 'release':
+        case 'update':
+        case 'version':
+        case 'image':
         case 'name':
         case 'examine':
           value = (monsterInfoBox as any)[key];
@@ -271,12 +306,59 @@ export class MonstersExtractor {
             (monsterInfoBox as any)[key] === 'Yes' ||
             (monsterInfoBox as any)[key] === true;
           break;
+        case 'slayxp':
+        case 'xpbonus':
+        case 'maxHit':
+        case 'attackSpeed':
+        case 'combat':
+        case 'size':
+        case 'hitpoints':
+
+        case 'respawn':
+          value = Number((monsterInfoBox as any)[key]);
+          break;
+        case 'assignedby':
+          value = (monsterInfoBox as any)[key].split(',');
+          break;
+
+        // Combat Stats
+        case 'att':
+        case 'str':
+        case 'def':
+        case 'mage':
+        case 'range':
+        case 'attbns':
+        case 'strbns':
+        case 'amagic':
+        case 'mbns':
+        case 'arange':
+        case 'rngbns':
+        case 'dstab':
+        case 'dslash':
+        case 'dcrush':
+        case 'dmagic':
+        case 'drange':
+          cbValue = Number((monsterInfoBox as any)[key]);
+          break;
+        case 'immunepoison':
+        case 'immunevenom':
+        case 'immunecannon':
+        case 'immunethrall':
+          const kv = (monsterInfoBox as any)[key];
+          cbValue = ['Yes', 'Immune', true].includes(kv);
+          break;
         default:
           break;
       }
       if (value) {
         // @ts-ignore
         variants[endIndex][WikiToMonsterKeys[baseKey]] = value;
+      }
+      if (cbValue) {
+        this.logger.log('Setting', baseKey, cbValue);
+        // @ts-ignore
+        variants[endIndex].combatStats[WikiToMonsterCombatStatsKeys[baseKey]] =
+          cbValue;
       }
     });
     // If there are multiple ids: 12, 34
