@@ -6,7 +6,6 @@ import * as parseInfo from 'infobox-parser';
 import { ALL_ITEMS } from '../../constants/paths';
 import { EquipmentStats, Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
-import * as wtf from 'wtf_wikipedia';
 
 const GELimitsModuleUrl =
   'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
@@ -46,8 +45,8 @@ const WikiToEquipmentStatsKeys: Record<
   dcrush: 'defendCrush',
   dmagic: 'defendMagic',
   drange: 'defendRanged',
-  str: 'str',
-  rstr: 'rangedStr',
+  str: 'strength',
+  rstr: 'rangedStrength',
   mdmg: 'magicDamage',
   prayer: 'prayer',
   slot: 'slot',
@@ -261,8 +260,8 @@ export class ItemsExtractor {
         defendCrush: Number(combatInfoBox.dcrush),
         defendMagic: Number(combatInfoBox.dmagic),
         defendRanged: Number(combatInfoBox.drange),
-        str: Number(combatInfoBox.str),
-        rangedStr: Number(combatInfoBox.rstr),
+        strength: Number(combatInfoBox.str),
+        rangedStrength: Number(combatInfoBox.rstr),
         magicDamage: Number(combatInfoBox.mdmg),
         prayer: Number(combatInfoBox.prayer),
         slot: combatInfoBox.slot,

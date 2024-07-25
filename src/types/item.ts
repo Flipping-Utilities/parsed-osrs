@@ -13,8 +13,8 @@ export interface EquipmentStats {
   defendMagic: number;
   defendRanged: number;
 
-  str: number;
-  rangedStr: number;
+  strength: number;
+  rangedStrength: number;
   magicDamage: number;
   prayer: number;
   slot: string; // TODO: Enum
