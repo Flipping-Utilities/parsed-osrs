@@ -4,12 +4,56 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 // @ts-ignore
 import * as parseInfo from 'infobox-parser';
 import { ALL_ITEMS } from '../../constants/paths';
-import { Item } from '../../types';
+import { EquipmentStats, Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 
 const GELimitsModuleUrl =
   'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
 
+interface WikiEquipmentStats {
+  astab: string;
+  aslash: string;
+  acrush: string;
+  amagic: string;
+  arange: string;
+  dstab: string;
+  dslash: string;
+  dcrush: string;
+  dmagic: string;
+  drange: string;
+  str: string;
+  rstr: string;
+  mdmg: string;
+  prayer: string;
+  slot: string;
+  speed: string;
+  attackrange: string;
+  combatstyle: string;
+}
+
+const WikiToEquipmentStatsKeys: Record<
+  Partial<keyof WikiEquipmentStats>,
+  keyof EquipmentStats
+> = {
+  astab: 'attackStab',
+  aslash: 'attackSlash',
+  acrush: 'attackCrush',
+  amagic: 'attackMagic',
+  arange: 'attackRanged',
+  dstab: 'defendStab',
+  dslash: 'defendSlash',
+  dcrush: 'defendCrush',
+  dmagic: 'defendMagic',
+  drange: 'defendRanged',
+  str: 'strength',
+  rstr: 'rangedStrength',
+  mdmg: 'magicDamage',
+  prayer: 'prayer',
+  slot: 'slot',
+  speed: 'speed',
+  attackrange: 'attackRange',
+  combatstyle: 'combatStyle',
+};
 interface WikiItem {
   gemwname?: string;
   name: string;
@@ -133,8 +177,15 @@ export class ItemsExtractor {
     return this.cachedGEItems;
   }
 
-  private itemNameMap: Map<string, Item>;
+  private weightScoreMap(item: Item) {
+    return (
+      Number(item.isInMainGame) * 3 +
+      Number(item.isOnGrandExchange) +
+      Number(item.isTradeable)
+    );
+  }
 
+  private itemNameMap: Map<string, Item>;
   public getItemByName(candidateName: string): Item | null {
     if (!this.itemNameMap) {
       this.itemNameMap = new Map();
@@ -144,14 +195,8 @@ export class ItemsExtractor {
         } else {
           const otherItem = this.itemNameMap.get(item.name);
           // Score depending on the amount of "true", with priority to being in the main game
-          const score =
-            Number(item.isInMainGame) * 3 +
-            Number(item.isOnGrandExchange) +
-            Number(item.isTradeable);
-          const otherScore =
-            Number(otherItem.isInMainGame) * 3 +
-            Number(otherItem.isOnGrandExchange) +
-            Number(otherItem.isTradeable);
+          const score = this.weightScoreMap(item);
+          const otherScore = this.weightScoreMap(otherItem);
           if (score > otherScore) {
             // Item most likely to be current and used takes the place
             this.itemNameMap.set(item.name, item);
@@ -173,23 +218,23 @@ export class ItemsExtractor {
     }
 
     const candidateItems: Item[] = [];
-
-    const parsed: WikiItem = parseInfo(
+    const itemInfoBox: WikiItem = parseInfo(
       page.rawContent.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
     ).general;
-    if (Object.keys(parsed).length === 0) {
+
+    if (Object.keys(itemInfoBox).length === 0) {
       console.warn(`Page not parsed: (${page.pageid}) ${page.title}`);
       return null;
     }
 
     // One page can have multiple variants of the item
-    const hasMultiple = Object.keys(parsed).some((v) => v.endsWith('2'));
+    const hasMultiple = Object.keys(itemInfoBox).some((v) => v.endsWith('2'));
 
     let isInMainGame = true;
 
     // Skip removed items and jmod items
     if (
-      'removal' in parsed ||
+      'removal' in itemInfoBox ||
       page.title.includes('Redundant') ||
       page.pagename.startsWith('Sigil') ||
       page.rawContent.includes('{{Deadman seasonal}}') ||
@@ -198,31 +243,63 @@ export class ItemsExtractor {
     ) {
       isInMainGame = false;
     }
+    let equipmentStats: EquipmentStats = null;
+    if (page.rawContent.includes('==Combat stats==')) {
+      const cbSplit = page.rawContent.split('==Combat stats==')[1];
+      const combatStats = cbSplit.slice(0, cbSplit.indexOf('}}'));
 
+      const combatInfoBox: WikiEquipmentStats = parseInfo(combatStats).general;
+      equipmentStats = {
+        attackStab: Number(combatInfoBox.astab),
+        attackSlash: Number(combatInfoBox.aslash),
+        attackCrush: Number(combatInfoBox.acrush),
+        attackMagic: Number(combatInfoBox.amagic),
+        attackRanged: Number(combatInfoBox.arange),
+        defendStab: Number(combatInfoBox.dstab),
+        defendSlash: Number(combatInfoBox.dslash),
+        defendCrush: Number(combatInfoBox.dcrush),
+        defendMagic: Number(combatInfoBox.dmagic),
+        defendRanged: Number(combatInfoBox.drange),
+        strength: Number(combatInfoBox.str),
+        rangedStrength: Number(combatInfoBox.rstr),
+        magicDamage: Number(combatInfoBox.mdmg),
+        prayer: Number(combatInfoBox.prayer),
+        slot: combatInfoBox.slot,
+        speed: Number(combatInfoBox.speed),
+        attackRange: Number(combatInfoBox.attackrange),
+        combatStyle: combatInfoBox.combatstyle,
+      };
+    }
     const baseItem: Item = {
-      id: Number(parsed.id),
+      id: Number(itemInfoBox.id),
       aliases: page.redirects || [],
-      name: parsed.gemwname || parsed.name,
-      examine: parsed.examine,
-      image: parsed.image,
-      isEquipable: parsed.equipable === 'Yes' || parsed.equipable === true,
-      isAlchable: parsed.alchable === 'Yes' || parsed.alchable === true,
-      isOnGrandExchange: parsed.exchange === 'Yes' || parsed.exchange === true,
-      isTradeable: parsed.tradeable === 'Yes' || parsed.tradeable === true,
-      isMembers: parsed.members === 'Yes' || parsed.members === true,
-      isStackable: parsed.stackable === 'Yes' || parsed.stackable === true,
-      drop: parsed.destroy,
+      name: itemInfoBox.gemwname || itemInfoBox.name,
+      examine: itemInfoBox.examine,
+      image: itemInfoBox.image,
+      isEquipable:
+        itemInfoBox.equipable === 'Yes' || itemInfoBox.equipable === true,
+      isAlchable:
+        itemInfoBox.alchable === 'Yes' || itemInfoBox.alchable === true,
+      isOnGrandExchange:
+        itemInfoBox.exchange === 'Yes' || itemInfoBox.exchange === true,
+      isTradeable:
+        itemInfoBox.tradeable === 'Yes' || itemInfoBox.tradeable === true,
+      isMembers: itemInfoBox.members === 'Yes' || itemInfoBox.members === true,
+      isStackable:
+        itemInfoBox.stackable === 'Yes' || itemInfoBox.stackable === true,
+      drop: itemInfoBox.destroy,
       options: [],
       relatedItems: [],
-      value: Number(parsed.value),
-      weight: Number(parsed.weight),
-      limit: this.GELimitsRecord[parsed.gemwname || parsed.name] || 0,
+      value: Number(itemInfoBox.value),
+      weight: Number(itemInfoBox.weight),
+      limit: this.GELimitsRecord[itemInfoBox.gemwname || itemInfoBox.name] || 0,
+      equipmentStats,
       isInMainGame,
     };
 
     if (hasMultiple) {
       let allVariants: Item[] = [];
-      Object.keys(parsed).forEach((key: string) => {
+      Object.keys(itemInfoBox).forEach((key: string) => {
         const candidateKey = key.match(/\d+$/);
         const endIndex = candidateKey ? Number(candidateKey[0]) : 0;
         const baseKey = key.replace(/\d+$/, '');
@@ -239,13 +316,13 @@ export class ItemsExtractor {
           case 'id':
           case 'value':
           case 'weight':
-            value = Number((parsed as any)[key]);
+            value = Number((itemInfoBox as any)[key]);
             break;
           case 'name':
           case 'gemwname':
           case 'examine':
           case 'destroy':
-            value = (parsed as any)[key];
+            value = (itemInfoBox as any)[key];
             break;
           case 'equipable':
           case 'alchable':
@@ -254,7 +331,8 @@ export class ItemsExtractor {
           case 'stackable':
           case 'members':
             value =
-              (parsed as any)[key] === 'Yes' || (parsed as any)[key] === true;
+              (itemInfoBox as any)[key] === 'Yes' ||
+              (itemInfoBox as any)[key] === true;
             break;
           default:
             break;

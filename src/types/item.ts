@@ -1,3 +1,28 @@
+export interface EquipmentStats {
+  attackStab: number;
+  attackSlash: number;
+  attackCrush: number;
+
+  attackMagic: number;
+  attackRanged: number;
+
+  defendStab: number;
+  defendSlash: number;
+  defendCrush: number;
+
+  defendMagic: number;
+  defendRanged: number;
+
+  strength: number;
+  rangedStrength: number;
+  magicDamage: number;
+  prayer: number;
+  slot: string; // TODO: Enum
+  speed: number;
+  attackRange: number;
+  combatStyle: string; // TODO: Enum
+}
+
 export interface Item {
   // The item id
   id: number;
@@ -21,6 +46,7 @@ export interface Item {
   isStackable: boolean;
   // Can this item be equiped
   isEquipable: boolean;
+  equipmentStats?: EquipmentStats;
   // OSRS Cost: used to compute the other values such as alch
   value: number;
   // Can this item be high alched
