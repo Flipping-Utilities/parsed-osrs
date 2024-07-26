@@ -26,9 +26,15 @@ export interface MonsterCombatStats {
 
 export interface MonsterDrop {
   name: string;
+  nameNotes?: string;
   itemId: number | null;
-  quantity?: string;
-  rarity?: string;
+  quantity: string;
+  quantityNotes?: string;
+
+  rarity: string;
+  rarityNotes?: string;
+  gemw: string;
+  version: string;
 }
 export interface MonsterDropTable {
   name: string;
