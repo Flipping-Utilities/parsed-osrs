@@ -202,11 +202,14 @@ export class MonstersExtractor {
   ): MonsterDropTable[] {
     const dropTables = {};
     let remainingStr = page.rawContent;
+    let version = 'Main';
     while (true) {
       const nextHead = remainingStr.indexOf('{{DropsTableHead');
       const nextTail = remainingStr.indexOf('{{DropsTableBottom');
       let workingStr = remainingStr.slice(nextHead, nextTail);
-      let version = 'Main';
+      if (workingStr === '') {
+        break;
+      }
       if (workingStr.slice(0, workingStr.indexOf('}}')).includes('version=')) {
         version = workingStr
           .slice(workingStr.indexOf('version'), workingStr.indexOf('}}'))
@@ -241,8 +244,8 @@ export class MonstersExtractor {
         workingStr = workingStr.slice(nextLineEnd);
         dropTables[version].push(drop);
       }
-      remainingStr = remainingStr.slice(nextTail);
-      break;
+      // Give it a little space so we don't find it again
+      remainingStr = remainingStr.slice(nextTail + 5);
     }
     return Object.keys(dropTables).map((key) => {
       return { name: key, drops: dropTables[key] };
