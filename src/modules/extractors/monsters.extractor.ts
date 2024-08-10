@@ -1,7 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { load } from 'cheerio';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_MONSTERS, ALL_MONSTER_DROPS } from '../../constants/paths';
+import {
+  ALL_MONSTERS,
+  ALL_MONSTER_DROPS,
+  ALL_MONSTER_SPAWNS,
+} from '../../constants/paths';
 import {
   Monster,
   MonsterCombatStats,
@@ -154,13 +158,18 @@ export class MonstersExtractor {
     const monstersPage = this.pageListDumper.getMonsters();
     const length = monstersPage.length;
     const monsterDrops = {};
+    const monsterSpawns = {};
     const monsters = monstersPage
       // .filter((i) => i.pageid === 11672)
       .map((page, i) => {
         if (i % 100 === 0) {
           this.logger.debug(`Monsters: ${i}/${length}`);
         }
-        return this.extractMonstersFromPageId(page.pageid, monsterDrops);
+        return this.extractMonstersFromPageId(
+          page.pageid,
+          monsterDrops,
+          monsterSpawns
+        );
       })
       .flat()
       .filter((v) => v);
@@ -171,6 +180,10 @@ export class MonstersExtractor {
 
     if (monsterDrops) {
       writeFileSync(ALL_MONSTER_DROPS, JSON.stringify(monsterDrops, null, 2));
+    }
+
+    if (monsterSpawns) {
+      writeFileSync(ALL_MONSTER_SPAWNS, JSON.stringify(monsterSpawns, null, 2));
     }
 
     this.logger.log('Finished extracting monsters');
@@ -251,6 +264,47 @@ export class MonstersExtractor {
       return { name: key, drops: dropTables[key] };
     });
   }
+  private extractMonsterSpawnsFromPage(page: WikiPageWithContent): any[] {
+    const spawns = [];
+    let remainingStr = page.rawContent;
+    let version = 'Main';
+    const nextHead = remainingStr.indexOf('{{LocTableHead');
+    const nextTail = remainingStr.indexOf('{{LocTableBottom');
+    let workingStr = remainingStr.slice(nextHead, nextTail);
+    if (workingStr === '') {
+      return null;
+    }
+    while (workingStr.indexOf('{{LocLine') !== -1) {
+      const nextLine = workingStr.indexOf('{{LocLine');
+      const nextLineEnd = workingStr.indexOf('}}', nextLine);
+      const line = workingStr.slice(nextLine, nextLineEnd);
+      const dropsLine = parseInfo(line).general;
+      // A bit brittle
+      const position = line.slice(line.indexOf('|x:'), line.indexOf('|mtype'));
+      if (dropsLine.mtype && dropsLine.mtype !== 'pin') {
+        this.logger.log(dropsLine.mtype, 'is not a pin');
+      }
+      // Position looks like |x:2564,y:3456|x:2564,y:3456|
+      const positions = position
+        .split('|')
+        .map((p) => {
+          if (!p) {
+            return null;
+          }
+          const [x, y] = p.split(',');
+          if (!x || !y) {
+            this.logger.log('Could not parse position', p);
+            return null;
+          }
+          return { x: Number(x.split(':')[1]), y: Number(y.split(':')[1]) };
+        })
+        .filter((p) => p);
+      dropsLine.positions = positions;
+      spawns.push(dropsLine);
+      workingStr = workingStr.slice(nextLineEnd + 5);
+    }
+    return spawns;
+  }
   private extractInfoBoxFromPage(
     page: WikiPageWithContent
   ): WikiMonster | null {
@@ -263,7 +317,8 @@ export class MonstersExtractor {
   }
   private extractMonstersFromPageId(
     pageId: number,
-    monsterDrops: { [key: string]: MonsterDropTable[] }
+    monsterDrops: { [key: string]: MonsterDropTable[] },
+    monsterSpawns: { [key: string]: any[] }
   ): Monster[] | null {
     const page = this.pageContentDumper.getPageFromId(pageId);
     if (!page) {
@@ -477,7 +532,9 @@ export class MonstersExtractor {
       return [null];
     }
     const drops = this.extractMonsterDropsFromPage(page);
+    const spawns = this.extractMonsterSpawnsFromPage(page);
     monsterDrops[baseItem.name] = drops;
+    monsterSpawns[baseItem.name] = spawns;
     // const monster: Monster = {
     //   id: realId,
     //   name: page.title,
