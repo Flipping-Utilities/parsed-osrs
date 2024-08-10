@@ -26,4 +26,6 @@ export const ALL_SHOPS = `${ITEMS_FOLDER}/all-shops.json`;
 export const ALL_SHOPS_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-shops-page-list.json`;
 
 export const ALL_MONSTERS = `${MONSTERS_FOLDER}/all-monsters.json`;
+export const ALL_MONSTER_DROPS = `${MONSTERS_FOLDER}/all-monster-drops.json`;
+export const ALL_MONSTER_SPAWNS = `${MONSTERS_FOLDER}/all-monster-spawns.json`;
 export const ALL_MONSTERS_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-monsters-page-list.json`;
