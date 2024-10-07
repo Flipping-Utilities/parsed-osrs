@@ -21,8 +21,10 @@
   },
   {
     "cape2": "(Or best Ava's device)",
-    "weapon2": "(with s or better)",
-    "ring4": "(for special)",
+    "body3": "/",
+    "legs3": "/",
+    "weapon3": "(with s or better)",
+    "weapon4": "/",
     "template": "recommended equipment"
   },
   {
@@ -47,9 +49,9 @@
   {
     "cape2": "(Or best Ava's device)",
     "cape5": "/ (for special)",
-    "weapon2": "/ (s or better)",
-    "shield1": "(for special)",
-    "shield2": "(for special)",
+    "weapon3": "(Dragon darts)",
+    "weapon4": "(With Crystal armour)",
+    "weapon5": "(Amethyst or Rune darts)",
     "ring4": "(for special)",
     "special1": "/",
     "template": "recommended equipment"
@@ -70,6 +72,7 @@
   {
     "head1": "(on task)",
     "cape5": "/",
+    "feet2": "/",
     "ammo2": "/",
     "hidecol5": "yes",
     "template": "recommended equipment"
@@ -79,6 +82,8 @@
     "cape5": "/",
     "weapon3": "/swamp",
     "weapon4": "(on task)",
+    "hands1": "/",
+    "feet2": "/",
     "ammo2": "/",
     "hidecol5": "yes",
     "template": "recommended equipment"
@@ -86,34 +91,39 @@
   {
     "cape3": "/",
     "cape4": "/",
-    "weapon3": "(with rune/amethyst or dragon darts)",
+    "weapon2": "/",
     "ammo1": "(Twisted bow)",
     "ammo2": "(crossbow)",
     "ammo3": "(blowpipe or bow of Faerdhinen)",
     "ammo4": "/ (blowpipe or bow of Faerdhinen)",
-    "feet1": "(after Kebos elite diary)",
-    "feet2": "(after Kebos elite diary)",
-    "feet3": "(after Kebos elite diary)",
     "ring1": "(with a Zaryte crossbow switch)",
     "special1": "(Ruby dragon bolts (e))",
     "hidecol5": "yes",
     "template": "recommended equipment"
   },
   {
-    "neck2": "(HP sustain)",
+    "neck3": "(HP sustain)",
     "body2": "/",
     "legs2": "/",
     "weapon5": "/ (on stab)",
     "ammo2": "/",
-    "feet1": "(after Kebos elite diary)",
-    "feet2": "(after Kebos elite diary)",
-    "feet4": "(after Kebos elite diary)",
-    "ring2": "/",
-    "special1": "/ (faster kills)",
+    "feet2": "> /",
+    "ring1": "/",
+    "special1": "/ (on stab)",
     "special2": "(HP and Prayer sustain)",
-    "special3": "/ (to lower defence)",
     "hidecol4": "no",
     "hidecol5": "no",
+    "template": "recommended equipment"
+  },
+  {
+    "special1": "/",
+    "head1": "/",
+    "body3": "/ /",
+    "legs3": "/",
+    "feet2": "/ /",
+    "feet3": "/ /",
+    "ammo1": "/",
+    "ammo2": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -121,6 +131,7 @@
     "head2": "(only on Fossil island wyvern task) / (When in full set)",
     "head4": "/",
     "neck1": "(Only with full best in slot.)",
+    "neck2": "/",
     "body2": "/",
     "body3": "/",
     "legs2": "/ /",
@@ -143,6 +154,7 @@
     "head2": "(only on Fossil Island wyvern task)",
     "cape4": "/",
     "ammo2": "/",
+    "feet2": "/",
     "ring4": "/",
     "ring5": "/",
     "template": "recommended equipment"
@@ -165,8 +177,32 @@
     "template": "recommended equipment"
   },
   {
+    "body4": "/",
+    "weapon2": ">",
+    "weapon3": ">",
+    "weapon4": "> >",
+    "weapon5": "> >",
+    "shield3": "/",
+    "ammo2": "/ /",
+    "feet2": "/",
+    "feet3": "/",
+    "feet4": "/",
+    "special1": "/",
+    "special2": "/",
+    "special5": "/  /",
+    "template": "recommended equipment"
+  },
+  {
+    "cape2": "(Best Ava's device)",
+    "cape3": "/",
+    "feet3": "/",
+    "ring3": "/",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "(only on task)",
-    "weapon1": "/",
+    "head5": "/ /",
+    "weapon1": ">",
     "weapon3": "/ /",
     "shield1": "None if using a 2 handed weapon",
     "shield3": "/",
@@ -174,8 +210,8 @@
     "ammo1": "(if using Webweaver/Craw's bow)",
     "ammo2": "/ (if using Webweaver/Craw's bow)",
     "ammo3": "(if using Dragon crossbow or better) /",
-    "ammo4": "/ (if using a bow)",
-    "ammo5": "/ (if using crossbow)",
+    "ammo4": "/ (if using crossbow)",
+    "ammo5": "/ (if using a bow)",
     "template": "recommended equipment"
   },
   {
@@ -236,46 +272,34 @@
     "template": "recommended equipment"
   },
   {
-    "ammo2": "/",
-    "hidecol4": "yes",
-    "hidecol5": "yes",
-    "template": "recommended equipment"
-  },
-  {
-    "ammo2": "/",
-    "hidecol5": "yes",
-    "template": "recommended equipment"
-  },
-  {
-    "ammo2": "/",
-    "hidecol5": "yes",
-    "template": "recommended equipment"
-  },
-  {
-    "body1": "/",
-    "legs2": "/",
-    "legs3": "/",
+    "head3": "/ /",
+    "neck2": "/",
+    "neck3": "/",
+    "body3": "/ /",
+    "body5": "/",
+    "legs3": "/ /",
+    "legs5": "/",
+    "weapon3": "/",
+    "weapon5": "/",
+    "shield1": "/ (To remove prayer drain)",
     "shield2": "/",
-    "hidecol4": "yes",
-    "hidecol5": "yes",
+    "shield3": "/ /",
+    "ammo2": "/",
+    "feet2": "/",
     "template": "recommended equipment"
   },
   {
-    "legs1": "/",
-    "hidecol4": "yes",
-    "hidecol5": "yes",
-    "template": "recommended equipment"
-  },
-  {
-    "hidecol4": "yes",
-    "hidecol5": "yes",
+    "body4": "(Or best Dragonhide body)",
+    "legs4": "(or best Dragonhide chaps)",
+    "weapon3": "/ >",
+    "shield1": "(To remove prayer drain)",
     "template": "recommended equipment"
   },
   {
     "head1": "(if on a Slayer task) / /",
     "head2": "(if on a Slayer task)",
     "head5": ">",
-    "neck2": "/",
+    "neck3": "/",
     "body1": "/",
     "body4": "/ /",
     "legs1": "/",
@@ -302,7 +326,7 @@
   {
     "head1": "(if on a Slayer task)",
     "head2": "(if on a Slayer task)",
-    "cape2": "(Or best Ava's device)",
+    "cape3": "(Or best Ava's device)",
     "ammo1": "(only if using hunters' sunlight crossbow)",
     "template": "recommended equipment"
   },
@@ -351,18 +375,17 @@
   },
   {
     "body4": "/",
-    "weapon1": "(on crush)",
-    "weapon2": "(on stab)",
-    "weapon3": "(4 stacks or higher, on crush) >",
-    "weapon4": "(on stab)",
-    "weapon5": ">",
+    "weapon1": ">",
+    "weapon2": "/",
+    "shield1": "/",
     "ammo2": "/",
     "ring5": "/",
-    "special1": ">",
+    "special2": "/ /",
     "template": "recommended equipment"
   },
   {
     "cape3": "or",
+    "weapon2": "/",
     "ammo4": "&",
     "ammo5": "(only with blowpipe)",
     "template": "recommended equipment"
@@ -448,9 +471,9 @@
   },
   {
     "weapon1": "//",
-    "weapon2": "/ (with )/",
+    "weapon2": "/(with )/",
     "weapon3": "//",
-    "weapon4": "/ /",
+    "weapon4": "//",
     "template": "recommended equipment"
   },
   {
@@ -463,7 +486,7 @@
     "template": "recommended equipment"
   },
   {
-    "neck4": "/",
+    "neck5": "/",
     "cape2": "/",
     "weapon4": "/",
     "ring1": "/ (unless safespotting)",
@@ -471,10 +494,12 @@
     "template": "recommended equipment"
   },
   {
+    "head1": "/",
     "weapon1": "/",
-    "shield1": "None if using Webweaver/Craw's bow, Toxic blowpipe, Magic shortbow (i), or Crystal bow",
+    "weapon5": ">",
+    "shield1": "None if using Webweaver/Craw's bow, Toxic blowpipe, or Twisted bow",
     "ammo1": "Any Rada's Blessing if using Webweaver/Craw's bow, Toxic blowpipe, or Crystal bow",
-    "ammo2": "if using Magic shortbow (i)",
+    "ammo2": "//",
     "template": "recommended equipment"
   },
   {
@@ -494,6 +519,7 @@
   },
   {
     "weapon1": "/",
+    "feet2": "/",
     "template": "recommended equipment"
   },
   {
@@ -511,7 +537,8 @@
     "weapon5": ">",
     "hands3": "/",
     "feet2": "/",
-    "special3": "/ /",
+    "special3": "/",
+    "special4": "/",
     "template": "recommended equipment"
   },
   {
@@ -529,12 +556,12 @@
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(With best defender)",
+    "weapon3": "(With best defender)",
     "special3": "(to negate stat regeneration)",
     "template": "recommended equipment"
   },
   {
-    "weapon2": "(With best defender)",
+    "weapon3": "(With best defender)",
     "special3": "(to negate stat regeneration)",
     "template": "recommended equipment"
   },
@@ -556,6 +583,7 @@
   {
     "head5": "/",
     "weapon1": "/",
+    "weapon5": "/",
     "shield1": "/",
     "ring1": "/",
     "ammo2": "/",
@@ -563,28 +591,20 @@
   },
   {
     "head1": "/ (if on task)",
-    "neck4": "/",
-    "body2": "/",
-    "legs5": "/plateskirt",
-    "weapon2": "/",
-    "ammo2": "/ /2",
-    "feet4": "/",
-    "ring1": "/",
-    "ring2": "/",
-    "ring5": "/",
-    "template": "recommended equipment"
-  },
-  {
-    "head1": "/ (if on task)",
+    "head2": "/",
     "neck1": "+ +",
+    "neck3": "/",
     "neck4": "/",
     "cape1": "+",
     "cape2": "+",
-    "body2": "/ +",
-    "legs2": "+ /",
+    "body1": "+",
+    "body2": "+",
+    "legs1": "+",
+    "legs2": "+",
+    "legs4": "+",
     "weapon1": "+ +",
     "weapon2": "/ /  /  +  +",
-    "weapon3": "+ +",
+    "weapon3": "/ +  +",
     "weapon4": "+ +",
     "weapon5": "+ / +",
     "shield5": "/",
@@ -592,34 +612,49 @@
     "ammo3": "/ /2",
     "hands1": "+ +",
     "feet1": "/",
-    "feet2": "/",
+    "feet2": "/ /",
     "feet3": "/",
     "feet5": "/ /",
     "template": "recommended equipment"
   },
   {
     "head1": "/ (if on task)",
-    "neck1": "/",
-    "cape1": "/3",
-    "body1": "/ /",
-    "legs1": "/ /",
+    "neck4": "/",
+    "cape2": "/",
+    "body1": "/",
+    "body2": "/",
+    "legs1": "/",
+    "legs2": "/",
+    "weapon1": "(Provides passive healing)",
+    "weapon2": "/",
+    "weapon4": ">",
+    "shield1": "/",
+    "shield2": "/",
+    "shield3": "/",
+    "shield4": "/",
+    "shield5": "/",
     "ammo2": "/ /2",
-    "hands4": "/",
-    "special1": "(optional)",
+    "feet1": "/",
+    "feet2": "/",
+    "feet5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "/ (if on task)",
-    "neck1": "/",
+    "head2": "/",
     "cape2": "/",
-    "body1": "/ /  /",
-    "legs1": "/ /",
+    "body1": "+",
+    "body2": "+",
+    "body3": "/",
+    "legs1": "+",
+    "legs2": "+",
+    "legs3": "/",
     "weapon1": "/",
-    "weapon2": "/",
+    "shield1": "/",
+    "shield2": "/",
+    "ammo1": "/",
     "ammo2": "/ /2",
-    "hands4": "/",
     "ring2": "/",
-    "special1": "(optional)",
     "template": "recommended equipment"
   },
   {
@@ -641,7 +676,6 @@
     "weapon4": "(2+ stacks)",
     "weapon5": "> /",
     "ammo3": "See: Ranged equipment",
-    "feet5": "/",
     "ring3": "(If extra defence and/or Prayer is needed)",
     "template": "recommended equipment"
   },
@@ -659,6 +693,7 @@
     "legs5": "See: Melee equipment",
     "weapon1": "/",
     "weapon2": "/ (with full crystal)",
+    "weapon4": "/",
     "weapon5": "/ /",
     "shield1": "None if using a 2h weapon",
     "ammo1": "(With Twisted bow)",
@@ -675,7 +710,6 @@
     "ammo2": "/",
     "hands4": "/",
     "hands5": "/ /",
-    "feet5": "/",
     "template": "recommended equipment"
   },
   {
@@ -693,6 +727,8 @@
   },
   {
     "neck2": "/",
+    "ammo1": "/",
+    "ammo2": "/",
     "ring5": "/",
     "template": "recommended equipment"
   },
@@ -704,12 +740,14 @@
   {
     "head1": "or",
     "cape3": "/",
-    "weapon2": "/",
+    "weapon2": ">",
+    "weapon3": ">",
     "ammo1": "/",
     "ammo2": "/",
     "hands3": "/",
     "ring1": "/",
     "ring3": "/",
+    "special3": "/",
     "special4": "/",
     "special5": "/",
     "template": "recommended equipment"
@@ -722,7 +760,9 @@
     "legs4": "/",
     "legs5": "/ /",
     "weapon5": "/",
-    "shield5": "/ (charged)",
+    "shield3": "/ /",
+    "shield5": "/ (charged) /",
+    "feet1": "/",
     "ring5": "/ /",
     "template": "recommended equipment"
   },
@@ -738,6 +778,7 @@
     "head1": "/",
     "head2": "/",
     "head3": "/",
+    "head4": "/",
     "neck1": "/",
     "cape1": "+",
     "cape2": "+",
@@ -749,14 +790,14 @@
     "legs3": "+",
     "weapon1": "+ +  &",
     "weapon2": "/ +  +  &",
-    "weapon3": "+ +  &",
+    "weapon3": "/ +  +  &",
     "shield1": "/ (if using a 1H weapon)",
     "shield2": "/ (if using a 1H weapon)",
     "hands1": "+",
-    "feet3": "/",
+    "feet4": "/",
     "ring1": "/",
     "special1": "/",
-    "special2": "/ /  /",
+    "special2": "/ /  /  /",
     "template": "recommended equipment"
   },
   {
@@ -773,30 +814,29 @@
     "legs2": "+",
     "weapon1": "+ +",
     "weapon2": "+ / +",
-    "weapon3": "+ +",
+    "weapon3": "+ / +",
     "shield1": "/ (if using a 1H weapon)",
     "shield2": "/ (if using a 1H weapon)",
     "hands1": "+",
     "hands2": "+",
     "feet1": "/",
-    "feet3": "/",
     "ring1": "/",
     "ring2": "/",
     "special1": "/",
-    "special2": "/ /  /",
+    "special2": "/ /  /  /",
     "template": "recommended equipment"
   },
   {
     "head2": "/",
     "body3": "/",
     "weapon1": "+ +",
-    "weapon2": "/ +  +",
-    "weapon3": "+ +  +",
+    "weapon2": "+ +",
+    "weapon3": "+ /   +  +",
     "shield1": "/",
     "shield2": "/",
     "ring1": "/ (if not using a scythe of vitur)",
     "special1": "/",
-    "special2": "/ /  /",
+    "special2": "/ /  /  /",
     "template": "recommended equipment"
   },
   {
@@ -919,14 +959,15 @@
   {
     "head1": "/",
     "head3": "/",
-    "neck4": "/",
+    "neck4": "Defence Prayer",
     "cape1": "Any cape with stats (,, , etc.)",
     "body1": "/",
-    "legs2": "/",
+    "legs2": "Defence Prayer",
     "weapon1": "(30 Attack and Magic)",
     "weapon2": "/ /  /",
     "shield1": "(started Dragon Slayer I)",
     "shield2": "/",
+    "hands1": "Stab or slash defence Crush defence",
     "template": "recommended equipment"
   },
   {
@@ -959,20 +1000,19 @@
   },
   {
     "head1": "(+1 Prayer bonus) / (40 Defence)",
-    "head2": "(500 Castle wars tickets) / (30 Defence)",
+    "head2": "/ (30 Defence)",
     "head3": "(20 Defence)",
     "head4": "(10 Defence)",
     "head5": "(5 Defence)",
-    "neck1": "or depending on Strength, weapon, and attack style",
-    "neck3": "/",
+    "neck1": "or depending on Strength, weapon, and attack style.",
     "cape1": "Any cape with stats (,, , etc.)",
-    "body1": "Crush defence (40 Defence) \nStab or slash defence  (+1 Prayer bonus) /  (40 Defence)",
-    "body2": "Crush defence (30 Defence) \nStab or slash defence  (800 Castle wars tickets) /  (30 Defence)",
+    "body1": "Crush defence (40 Defence) \nStab or slash defence  (+1 Prayer bonus) /  (40 Defence, Dragon Slayer I)",
+    "body2": "Crush defence (30 Defence) \nStab or slash defence  /  (30 Defence)",
     "body3": "Crush defence (20 Defence) \nStab or slash defence  (20 Defence)",
     "body4": "Crush defence (10 Defence) \nStab or slash defence  (10 Defence)",
     "body5": "Crush defence (5 Defence) \nStab or slash defence  (5 Defence)",
     "legs1": "(+1 Prayer bonus) / (40 Defence)",
-    "legs2": "(600 Castle wars tickets) / (30 Defence)",
+    "legs2": "/ (30 Defence)",
     "legs3": "(20 Defence)",
     "legs4": "(10 Defence)",
     "legs5": "(20 Ranged)",
@@ -982,16 +1022,16 @@
     "weapon4": "(20 Attack)",
     "weapon5": "(10 Attack)",
     "shield1": "(+1 Prayer bonus) / (40 Defence)",
-    "shield2": "(600 Castle wars tickets) / (30 Defence)",
+    "shield2": "/ (30 Defence)",
     "shield3": "(20 Defence)",
     "shield4": "(10 Defence)",
     "shield5": "(5 Defence)",
     "hands1": "(40 Ranged)",
-    "hands2": "Stab or slash defence Crush, slash, or magic defence  (40 Ranged)",
-    "feet1": "(400 Castle wars tickets, 30 Defence)",
-    "feet2": "(40 Castle wars tickets), 20 Defence)",
-    "feet3": "(4 Castle wars tickets), 5 Defence)",
-    "feet4": "/ (Stronghold of Security)",
+    "hands2": "Stab defence Crush or magic defence  (40 Ranged)",
+    "feet1": "(30 Defence)",
+    "feet2": "(20 Defence)",
+    "feet3": "(5 Defence)",
+    "feet4": "/",
     "template": "recommended equipment"
   },
   {
@@ -1032,6 +1072,7 @@
   },
   {
     "head5": "/",
+    "neck3": "/",
     "cape4": "/",
     "body4": "/",
     "body5": "/",
@@ -1040,6 +1081,7 @@
     "ring1": "/",
     "special1": "/",
     "special2": "/",
+    "special3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1059,6 +1101,7 @@
     "weapon3": "/ /",
     "feet5": "/",
     "ring1": "/",
+    "special3": "/",
     "template": "recommended equipment"
   },
   {
@@ -1072,6 +1115,7 @@
     "legs5": "/",
     "weapon1": "/ (If using Crystal set)",
     "ammo4": "/",
+    "special1": "/",
     "template": "recommended equipment"
   },
   {
@@ -1086,12 +1130,14 @@
     "shield5": "/",
     "ammo1": "/",
     "special2": "(great combined with Lightbearer)",
+    "special4": "/",
     "special5": "(Ironman)",
     "template": "recommended equipment"
   },
   {
     "head1": "(on task)",
     "shield5": "/ /",
+    "feet2": "/",
     "ring4": "/",
     "special1": "(for minions)",
     "template": "recommended equipment"
@@ -1123,11 +1169,13 @@
   },
   {
     "head1": "/",
-    "weapon3": "/",
+    "weapon3": ">",
+    "weapon5": "/",
     "shield1": "/",
     "shield2": "/",
     "shield3": "/ /",
     "ammo2": "/ /2",
+    "feet2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1174,6 +1222,7 @@
     "template": "recommended equipment"
   },
   {
+    "neck1": "/",
     "cape3": ", 3, 2 or 1",
     "legs2": "/",
     "ammo2": "/",
@@ -1190,18 +1239,20 @@
     "template": "recommended equipment"
   },
   {
-    "neck2": "/",
+    "neck3": "/",
     "body3": "/",
     "body4": "/",
     "legs2": ">",
     "legs3": "/",
-    "weapon2": "/ /",
+    "weapon3": "/ /",
     "weapon4": "/",
+    "weapon5": "/ /",
     "ammo1": "/ /  /",
     "ammo2": "/ /  /",
     "ring2": "/ /",
     "ring4": "/",
     "ring5": "/ /",
+    "special1": ">",
     "template": "recommended equipment"
   },
   {
@@ -1282,6 +1333,8 @@
   },
   {
     "head1": "(task only)",
+    "shield3": "/ /  /",
+    "feet2": "/",
     "ring2": "/",
     "template": "recommended equipment"
   },
@@ -1331,22 +1384,27 @@
     "legs3": "(Bow of faerdhinen)",
     "weapon3": "(Crystal set)",
     "ammo2": "(Crystal set)",
+    "hands3": "/",
     "hidecol5": "yes",
     "template": "recommended equipment"
   },
   {
     "rows": "6",
-    "head1": "or",
+    "head1": ">",
     "body4": "/",
     "legs4": "/",
-    "weapon6": "/ /",
+    "weapon2": ">",
+    "weapon4": "/",
+    "weapon5": "> /",
+    "shield3": "/",
+    "feet2": "/",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
   {
     "head1": "(on kalphite task only)",
     "head2": "/",
-    "neck2": "/",
+    "neck3": "/",
     "cape2": "/",
     "cape4": "/ /",
     "ammo2": "/",
@@ -1373,6 +1431,7 @@
   {
     "head1": "(on kalphite task only)",
     "ammo2": "/",
+    "feet2": "/",
     "ring1": "/",
     "special1": "/",
     "template": "recommended equipment"
@@ -1405,7 +1464,6 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "(if on task)",
     "cape1": "/",
     "ammo2": "/2",
     "template": "recommended equipment"
@@ -1439,19 +1497,22 @@
     "cape3": "/",
     "body5": "/ /",
     "legs5": "/ /",
-    "weapon4": "/",
-    "weapon5": "/ If using Fire Surge with tome of fire",
+    "weapon5": "/",
     "shield1": "/",
     "shield2": "/",
     "shield3": "/ /",
     "shield4": "/",
     "hands1": "/",
+    "feet2": "/",
+    "feet4": "/",
+    "feet5": "/",
     "ring5": "/",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
   {
     "ammo2": "/\n/2",
+    "feet2": "/",
     "feet3": "/",
     "ring1": "/",
     "template": "recommended equipment"
@@ -1501,7 +1562,7 @@
   {
     "head3": "/ or",
     "head5": "/",
-    "neck1": "or",
+    "neck1": "/ or",
     "neck3": "/",
     "neck4": "/",
     "cape1": "/",
@@ -1570,6 +1631,10 @@
     "template": "recommended equipment"
   },
   {
+    "ammo2": "/",
+    "template": "recommended equipment"
+  },
+  {
     "head1": "(with hard diary completed)",
     "cape3": "/ (if using Bow of faerdhinen)",
     "cape4": "[[File:Ranging cape(t).png]] Ranging cape (trimmed)",
@@ -1600,14 +1665,22 @@
     "template": "recommended equipment"
   },
   {
-    "head4": "/",
+    "head3": "/ >",
+    "head5": "/",
     "neck5": "/",
     "cape3": "(or best cloak variant)",
     "ammo2": "/",
+    "body3": "/ >",
+    "body4": "/",
+    "legs3": "/ >",
+    "legs4": "/",
     "weapon2": "/ /",
-    "weapon3": "(no autocast) / (autocast, less Magic damage bonus)",
+    "weapon3": "(no autocast) / (autocast, less Magic damage)",
+    "shield2": ">",
+    "shield3": "/ /",
     "shield5": "/",
-    "feet3": "/",
+    "feet1": "/",
+    "feet2": "/",
     "feet4": "/",
     "template": "recommended equipment"
   },
@@ -1654,6 +1727,7 @@
     "ring4": "/",
     "ring5": "/ /",
     "weapon5": "/",
+    "feet2": "/",
     "template": "recommended equipment"
   },
   {
@@ -1666,9 +1740,11 @@
   },
   {
     "head1": "(task only) /",
-    "shield1": "/",
+    "weapon3": "/",
+    "weapon4": "/",
     "shield2": "/",
     "ammo2": "/",
+    "feet2": "/",
     "ring5": "/",
     "template": "recommended equipment"
   },
@@ -1691,13 +1767,16 @@
     "special3": "Other weapon switches may be warranted than special weapons - see notes",
     "head2": "/",
     "head5": "/",
-    "weapon2": "(Slash)",
-    "weapon3": "(Stab)",
-    "weapon4": "(Stab)",
-    "weapon5": "(Stab) > >",
+    "body5": "/",
+    "legs5": ">",
+    "weapon4": ">",
+    "weapon5": "> >  >",
     "shield4": "/",
+    "shield5": "/ >",
+    "hands5": "/",
     "feet1": "/",
     "feet5": "/",
+    "ring5": ">",
     "ammo2": "/ /",
     "template": "recommended equipment"
   },
@@ -1705,29 +1784,37 @@
     "special2": "/",
     "head2": "/",
     "head5": "/",
-    "weapon1": "(Crush)",
-    "weapon2": "(Crush)",
-    "weapon4": "/ (Crush) /",
-    "weapon5": "/ (Crush)",
+    "body5": "/",
+    "legs5": ">",
+    "weapon2": ">",
+    "weapon4": "/ /",
+    "weapon5": "/ >",
     "shield4": "/",
+    "shield5": "/ >",
+    "hands5": "/",
     "feet1": "/",
     "feet5": "/",
+    "ring5": ">",
     "ammo2": "/ /",
     "template": "recommended equipment"
   },
   {
+    "special1": "/",
     "special2": "/",
     "head2": "/",
     "head5": "/",
-    "weapon1": "(Slash)",
-    "weapon2": "> (Slash)",
+    "body5": "/",
+    "legs5": ">",
+    "weapon2": ">",
     "weapon3": "/",
-    "weapon4": "(Slash)",
-    "weapon5": "(Slash)",
+    "weapon5": "> >",
     "shield4": "/",
+    "shield5": "/ >",
+    "hands5": "/",
     "feet1": "/",
     "feet5": "/",
     "ring4": "/",
+    "ring5": ">",
     "ammo2": "/ /",
     "template": "recommended equipment"
   },
@@ -1751,6 +1838,7 @@
     "head3": "/",
     "ammo1": "(if using a Twisted bow)",
     "ammo2": "(if using a crossbow)",
+    "feet1": "(if using a ranged boots switch)",
     "ring3": "/",
     "template": "recommended equipment"
   },
@@ -1796,11 +1884,10 @@
     "template": "recommended equipment"
   },
   {
-    "head5": "/",
+    "neck1": "/",
     "cape4": "/",
     "weapon2": "/ /",
-    "weapon4": "(Attack or Defence) / (Strength)",
-    "weapon5": "/ /",
+    "weapon5": "(Attack or Defence) / (Strength)",
     "weapon6": "/",
     "ammo2": "/",
     "ring2": "/",
@@ -1916,8 +2003,8 @@
     "shield3": "/",
     "hands1": "&",
     "feet1": "&",
-    "feet2": "&",
     "feet3": "&",
+    "feet4": "&",
     "ring4": "/",
     "ammo1": "& /",
     "ammo2": "/ &",
@@ -1984,7 +2071,7 @@
     "template": "recommended equipment"
   },
   {
-    "neck4": "/",
+    "neck5": "/",
     "weapon1": "/",
     "weapon2": "> >",
     "template": "recommended equipment"
@@ -1992,6 +2079,7 @@
   {
     "head1": "(on task)",
     "head3": "(set effect)",
+    "weapon3": ">",
     "ammo2": "/",
     "template": "recommended equipment"
   },
@@ -2003,9 +2091,10 @@
   {
     "head1": "(on task)",
     "cape5": "/",
-    "weapon3": "/swamp",
-    "weapon4": "(on task)",
+    "weapon4": "/swamp",
+    "weapon5": "(on task)",
     "shield5": "/",
+    "feet3": "/",
     "ammo2": "/",
     "hidecol5": "yes",
     "template": "recommended equipment"
@@ -2016,12 +2105,13 @@
     "legs2": "/",
     "legs4": "/",
     "weapon2": "/",
-    "weapon3": "/",
-    "weapon4": "/",
-    "weapon5": "/",
+    "weapon3": "/ /",
+    "weapon4": "/ /",
+    "weapon5": "/ /",
     "shield3": "/",
     "ammo2": "/ /",
     "feet2": "/",
+    "feet3": "/",
     "ring1": "/",
     "ring4": "/ /",
     "template": "recommended equipment"
@@ -2031,13 +2121,19 @@
     "template": "recommended equipment"
   },
   {
+    "ammo2": "/ /",
+    "feet1": "/",
+    "feet2": "/",
+    "template": "recommended equipment"
+  },
+  {
     "ammo2": "/",
     "feet1": "/",
-    "shield1": "(with harmonised nightmare staff)",
+    "shield2": "/ /",
     "weapon1": "/",
     "hands2": "/",
     "hands3": "/",
-    "ring2": "/",
+    "ring1": "/",
     "template": "recommended equipment"
   },
   {
@@ -2056,7 +2152,8 @@
     "template": "recommended equipment"
   },
   {
-    "weapon3": "/ /  /",
+    "weapon2": ">",
+    "weapon3": "/ /",
     "weapon4": ">",
     "ammo2": "/",
     "ring4": "/",
@@ -2072,6 +2169,7 @@
   },
   {
     "ammo2": "/",
+    "feet2": "/",
     "ring2": "/",
     "template": "recommended equipment"
   },
@@ -2079,7 +2177,9 @@
     "head1": "/ (if on a Slayer task)",
     "head2": "/  (if on a Slayer task)",
     "body1": "/",
+    "body3": "/",
     "legs1": "/",
+    "legs2": ">",
     "weapon1": "(on Pound)",
     "template": "recommended equipment"
   },
@@ -2094,17 +2194,21 @@
     "ammo3": "(if using standard crossbow)",
     "ammo4": "(if using crossbow) / (if using crossbow)",
     "ammo5": "(if using crossbow)",
+    "feet5": "/",
     "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "cape2": "(Or best Ava's device)",
     "ammo3": "/",
+    "feet5": "/",
     "ring4": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(if on a Slayer task)",
+    "feet2": "/",
+    "feet4": "/",
     "template": "recommended equipment"
   },
   {
@@ -2115,8 +2219,10 @@
   },
   {
     "head1": "/ (if on task, imbue optional)",
+    "head3": ">",
+    "head4": ">",
     "head5": "/ /  (if using void)",
-    "cape4": "/",
+    "cape5": "/",
     "ammo2": "/ /",
     "body1": "/",
     "body2": "/",
@@ -2134,6 +2240,7 @@
     "feet2": "/",
     "feet3": "/",
     "feet4": "/ /",
+    "special5": ">",
     "template": "recommended equipment"
   },
   {
@@ -2147,26 +2254,31 @@
     "legs3": "(with Bow of faerdhinen)",
     "legs4": "/",
     "legs5": "/ (if using void)",
-    "shield1": "None if using Twisted bow/Bow of faerdhinen/blowpipe",
+    "weapon5": "/",
+    "shield1": "None if using a two-handed weapon",
     "hands3": "/",
     "hands5": "/ (if using void)",
-    "feet4": "/",
+    "feet5": "/",
     "ammo1": "/ /",
     "ammo2": "/ /",
     "ammo3": "/ /",
     "ammo4": "(if using Bow of faerdhinen/blowpipe)",
     "ammo5": "/ /  (if using Bow of faerdhinen/blowpipe)",
+    "special5": ">",
     "template": "recommended equipment"
   },
   {
     "neck2": "/",
-    "shield6": "/",
+    "cape5": "/",
+    "weapon5": ">",
+    "shield4": ">",
+    "shield5": "/",
     "hands4": "/",
     "feet4": "/ /  /",
     "ring1": "/",
     "ring3": "/",
     "ring4": "/",
-    "ring5": "/",
+    "ring5": ">",
     "template": "recommended equipment"
   },
   {
@@ -2177,13 +2289,70 @@
     "template": "recommended equipment"
   },
   {
-    "head1": "(on task)",
+    "head1": "(only on Fossil island wyvern task) /",
+    "head2": "(only on Fossil island wyvern task) / (When in full set)",
+    "head4": "/",
+    "neck1": "(Only with full best in slot.)",
+    "neck2": "/",
+    "body2": "/",
+    "body3": "/",
+    "legs2": "/ /",
+    "ammo2": "/",
+    "feet5": "/",
+    "ring2": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(only on Fossil island wyvern task)",
+    "head2": "(only on Fossil island wyvern task)",
+    "head3": "/",
+    "cape1": "(4/3/2)",
+    "ammo2": "/",
+    "ring1": "or",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(only on Fossil Island wyvern task)",
+    "head2": "(only on Fossil Island wyvern task)",
+    "cape4": "/",
+    "ammo2": "/",
+    "feet2": "/",
+    "ring4": "/",
+    "ring5": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(only on Fossil Island wyvern task)",
+    "head2": "(only on Fossil Island wyvern task)",
+    "head4": "/",
+    "head5": "/",
+    "body3": "/",
     "body5": "/",
-    "legs4": "/ /",
-    "weapon1": "(crush)",
-    "weapon3": "/",
-    "weapon4": "/ (crush)",
-    "weapon5": "(crush) / /  /  (crush)",
+    "legs3": "/",
+    "legs5": "/",
+    "weapon5": "/",
+    "ammo2": "/",
+    "ammo3": "/",
+    "hands3": "/",
+    "ring3": "/",
+    "ring4": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "(on task)",
+    "head2": "/",
+    "body1": "/",
+    "body2": "> >",
+    "body3": "/",
+    "legs1": "/",
+    "legs2": ">",
+    "legs3": "/ /",
+    "legs4": "> /",
+    "weapon1": "(crush) > (crush)",
+    "weapon2": "(crush)",
+    "weapon4": "> >",
+    "weapon5": "(crush) > (crush) >  >  >  (crush)",
+    "shield4": "/",
     "ammo2": "/",
     "ring3": "/",
     "ring4": "/",
@@ -2231,6 +2400,7 @@
     "head1": "(on task)",
     "weapon1": "/",
     "weapon4": "/",
+    "weapon5": "/",
     "ammo2": "/",
     "feet3": "/",
     "feet5": "/",
@@ -2239,6 +2409,7 @@
   },
   {
     "head1": "(task only)",
+    "cape2": "/",
     "ammo2": "or",
     "hands1": "(task only)",
     "template": "recommended equipment"
@@ -2247,12 +2418,13 @@
     "body3": "/",
     "legs3": "/",
     "weapon4": "(Or best available crossbow)",
+    "ammo3": "/",
     "template": "recommended equipment"
   },
   {
     "body2": "/",
     "legs2": "/",
-    "weapon1": ">",
+    "weapon1": "> /",
     "weapon2": ">",
     "weapon3": "/ /",
     "ammo2": "/ /",
@@ -2269,13 +2441,14 @@
     "template": "recommended equipment"
   },
   {
+    "weapon3": "/",
     "shield2": "/",
     "shield3": "/ /",
     "ammo2": "/",
     "body3": "/",
-    "body4": "/",
+    "body5": "/",
     "legs3": "/",
-    "legs4": "/",
+    "legs5": "/",
     "hands1": "/",
     "feet1": "/",
     "feet2": "/",
@@ -2285,7 +2458,7 @@
   },
   {
     "neck2": "/",
-    "ammo2": "/",
+    "ammo3": "/",
     "hands1": "/",
     "template": "recommended equipment"
   },
@@ -2295,7 +2468,15 @@
   },
   {
     "neck3": "/",
+    "cape4": "/",
+    "shield1": "/",
+    "shield3": "/",
+    "ammo2": "/",
     "hands4": "/",
+    "hands5": "/ /",
+    "feet2": "/",
+    "feet4": "/",
+    "feet5": "/",
     "ring4": "/ /",
     "template": "recommended equipment"
   },
@@ -2321,7 +2502,6 @@
     "cape1": "/",
     "cape3": "/",
     "weapon1": "/",
-    "weapon3": "/",
     "feet3": "/",
     "ring2": "/",
     "template": "recommended equipment"
@@ -2333,6 +2513,26 @@
   },
   {
     "shield1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": ">",
+    "head3": "/",
+    "head4": "/",
+    "head5": "/",
+    "body1": ">",
+    "body2": "/ /",
+    "body3": "/",
+    "body5": "/",
+    "legs1": ">",
+    "legs2": "/",
+    "legs3": "/",
+    "legs5": "/",
+    "weapon2": ">   /",
+    "weapon4": "/ /",
+    "weapon5": "//",
+    "ammo1": "/",
+    "ammo2": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -2356,6 +2556,7 @@
     "shield4": "/",
     "ammo2": "/",
     "hands2": "(if using Void Knight equipment)",
+    "feet2": "/",
     "feet3": "/",
     "ring5": "/",
     "template": "recommended equipment"
@@ -2388,53 +2589,127 @@
   },
   {
     "head1": "or",
-    "head3": "/ /",
-    "head4": "/",
-    "body3": "or",
-    "legs3": "or",
+    "head3": "/ >",
+    "head5": "/",
+    "neck2": "/",
+    "body3": "/ >",
+    "body5": "/",
+    "legs3": "/ >",
+    "legs5": "/",
     "weapon1": "/ (for souls)",
     "weapon2": "/",
-    "weapon3": "/ /",
-    "shield1": "/",
-    "shield2": "/",
+    "shield2": "> /",
     "shield3": "/ /",
+    "feet2": "/",
     "ring1": "(with shadow)",
+    "special3": "/",
     "special4": "(only for lost souls)",
     "ammo1": "/ Any arrow (if using Venator bow)",
     "ammo2": "/ /2",
     "template": "recommended equipment"
   },
   {
-    "weapon2": "/ (Sotetseg only, see notes)",
-    "special1": "and",
-    "special2": "and /",
-    "template": "recommended equipment"
-  },
-  {
     "head2": "/",
-    "weapon2": "(need to maintain 3 stacks or higher)",
-    "weapon3": "/ (Sotetseg only, see notes)",
+    "body2": "/",
+    "legs2": "/",
+    "weapon3": "&",
+    "ammo1": "/",
+    "ammo2": "/",
     "ammo3": "/",
     "special1": "and",
     "special2": "and /",
     "template": "recommended equipment"
   },
   {
-    "head2": "/",
-    "weapon2": "(need to maintain 3 stacks or higher)",
-    "weapon3": "/ (Sotetseg only, see notes)",
+    "head1": "Melee Helmet",
+    "cape1": "Melee cape",
+    "body1": "/",
+    "legs1": "/",
+    "weapon1": "&",
+    "weapon2": "&",
+    "weapon3": "&",
+    "ammo1": "/",
+    "ammo2": "/",
+    "ammo3": "/",
+    "special1": "and /",
+    "special2": "and /",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon1": "&",
+    "ammo1": "/",
+    "ammo2": "/",
     "ammo3": "/",
     "special1": "and",
     "special2": "and /",
     "template": "recommended equipment"
   },
   {
+    "weapon1": "/",
+    "special1": "and /",
+    "special2": "and",
+    "template": "recommended equipment"
+  },
+  {
     "head2": "/",
-    "weapon2": "(need to maintain 3 stacks or higher)",
-    "weapon3": "/ (Sotetseg only, see notes)",
+    "head3": "/",
+    "body2": "/",
+    "legs2": "/",
+    "weapon3": "/",
+    "weapon4": "/",
+    "ammo1": "/",
+    "ammo2": "/",
     "ammo3": "/",
-    "special1": "and",
+    "special1": "and /",
+    "special2": "and",
+    "template": "recommended equipment"
+  },
+  {
+    "head1": "Melee Helmet",
+    "cape1": "Melee cape",
+    "body1": "/",
+    "legs1": "/",
+    "weapon1": "&",
+    "weapon2": "&",
+    "weapon3": "&",
+    "ammo1": "/",
+    "ammo2": "/",
+    "ammo3": "/",
+    "special1": "and /",
     "special2": "and /",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon1": "&",
+    "ammo1": "/",
+    "ammo2": "/",
+    "ammo3": "/",
+    "special1": "and /",
+    "special2": "and",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon4": "(5 stacks)",
+    "weapon5": ">",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon3": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon2": "(5 stacks)",
+    "weapon5": ">",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon4": "(5 stacks)",
+    "weapon5": ">",
+    "template": "recommended equipment"
+  },
+  {
+    "weapon2": "(5 stacks)",
+    "weapon4": "/",
     "template": "recommended equipment"
   },
   {
@@ -2442,6 +2717,7 @@
     "shield1": "/",
     "shield4": "/",
     "ammo2": "/ /2",
+    "feet2": "/",
     "feet3": "/",
     "ring5": "/ /",
     "template": "recommended equipment"
@@ -2464,7 +2740,7 @@
     "weapon3": "(stab) /",
     "weapon5": "/",
     "ammo1": "See Ranged",
-    "feet2": "/",
+    "feet2": "/\n /",
     "ring1": "&",
     "special1": "and",
     "special2": "/",
@@ -2499,32 +2775,32 @@
   {
     "head1": "/",
     "head2": "/",
-    "head4": "/",
     "body2": "/",
     "body3": "/",
     "legs2": "/",
-    "legs3": "/",
     "weapon1": ">",
     "weapon2": ">",
-    "weapon3": "/",
-    "weapon5": "> /",
+    "weapon4": ">",
     "feet2": "/",
-    "special3": "/",
+    "special3": "(When attacks are 100% accurate)",
+    "special5": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "/",
+    "head4": "/",
     "body4": "/",
     "body5": "/",
     "legs4": "/",
     "legs5": "/",
-    "weapon3": "/",
-    "weapon5": ">>",
-    "ammo2": "/",
+    "weapon3": "> (Better on high defence)",
+    "weapon5": ">",
+    "ammo4": "/",
+    "ammo5": "/",
     "ring1": "/",
-    "special1": "(Ruby Spec)\n/",
-    "special2": ">",
-    "special3": "(Default attack)",
+    "special1": "(Ruby Spec)",
+    "special2": "(When attacks are 100% accurate)",
+    "special3": ">",
     "template": "recommended equipment"
   },
   {
@@ -2535,12 +2811,13 @@
     "body4": "/\n /",
     "legs3": "/",
     "legs4": "/\n /",
-    "weapon3": "/ /",
-    "weapon4": "> >",
-    "weapon5": "/ /",
+    "weapon2": "/",
+    "weapon4": "/ >",
+    "weapon5": "> >",
     "shield2": "/",
     "shield3": "/ /",
     "shield4": "/",
+    "feet2": "/",
     "template": "recommended equipment"
   },
   {
@@ -2575,7 +2852,6 @@
     "hands1": "/",
     "hands2": "/",
     "hands4": "/",
-    "feet5": "/",
     "ring3": "/ (if using Blowpipe)",
     "ring5": "/ /",
     "weapon1": "/",
@@ -2593,7 +2869,7 @@
     "head2": "(for melee specials) / (for blood magic healing)",
     "neck2": "/",
     "cape2": "(Or best Ava's device)",
-    "feet3": "/",
+    "feet5": "/",
     "weapon1": "/ /",
     "weapon5": "/",
     "shield4": "/",
@@ -2655,15 +2931,19 @@
   },
   {
     "head1": "/",
+    "head3": ">",
     "head4": "/",
     "head5": "/",
-    "neck2": "/",
-    "body2": "/",
+    "neck3": "/",
+    "neck4": "/",
+    "body2": "/ /",
     "body3": "/",
     "body4": "/",
+    "legs2": "/",
     "legs4": "/",
     "feet2": "/",
     "weapon2": "/ /",
+    "weapon3": "/",
     "weapon5": ">",
     "ring1": "(If using Voidwaker/Claws)",
     "ammo2": "/ /",
@@ -2679,7 +2959,7 @@
     "legs1": "/",
     "legs2": ">",
     "feet2": "/",
-    "feet3": "/",
+    "feet3": "/ /",
     "weapon2": "/ /",
     "shield5": "/",
     "ring2": "/",
@@ -2693,7 +2973,7 @@
     "ammo3": "s (only if using Karil's crossbow)",
     "ammo4": "(Webweaver bow / (Magic shortbow (i))",
     "body4": "",
-    "feet4": "/",
+    "feet5": "/",
     "hands2": "",
     "hands4": "",
     "head3": "",
@@ -2707,22 +2987,21 @@
     "ammo2": "(for cave) / (for Jad)",
     "ammo3": "s (Magic shortbow (i))",
     "ammo4": "(Crystal bow)",
-    "feet3": "/",
+    "feet4": "/",
     "cape1": "/ Ava's device",
-    "hands3": "/ /",
+    "hands2": "/ /",
     "hands4": "/",
     "shield2": "/ /",
-    "shield4": "(or the highest level shield available to you)",
     "template": "recommended equipment"
   },
   {
     "head3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "head4": "Shop, STASH",
     "head5": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*/Shop",
-    "neck2": "<span title=\"Might not be worth keeping this item if you intend to obtain Zenyte Jewelery and an Occult Necklace.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
-    "neck3": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
-    "neck4": "<span title=\"This can be stored in the quest hall of a player-owned house by building/removing a Mounted glory as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, STASH/<span title=\"The trimmed version obtained through Treasure Trails can be stored in the costume room of the player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
-    "neck5": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck3": "<span title=\"Might not be worth keeping this item if you intend to obtain Zenyte Jewelery and an Occult Necklace.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "neck4": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck5": "<span title=\"This can be stored in the quest hall of a player-owned house by building/removing a Mounted glory as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*, STASH/<span title=\"The trimmed version obtained through Treasure Trails can be stored in the costume room of the player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
+    "neck6": "/ <span title=\"While the regular version can not be easily stored, the trimmed version obtained through Treasure Trails can be stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "cape1": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
     "cape2": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH, STASH",
     "cape3": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH",
@@ -2801,7 +3080,7 @@
   {
     "head1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "head2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
-    "head3": "Shop",
+    "head3": "STASH/Shop",
     "head4": "<span title=\"This item can stored in the player's player-owned house.\" style=\"cursor:help;border-bottom:2px dotted;\">POH/<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "head5": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "neck2": "<span title=\"Might not be worth keeping this item if you intend to obtain Zenyte Jewelery and an Occult Necklace.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
@@ -2815,19 +3094,19 @@
     "cape5": "Shop",
     "body1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "body2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
-    "body3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "body3": "STASH/<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "body4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "body5": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "legs1": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "legs2": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
-    "legs3": "<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "legs3": "STASH/<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "legs4": "<span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "legs5": "Shop, <span title=\"This item can stored in the player's player-owned house but can't be withdrawn without the full set.\" style=\"cursor:help;border-bottom:2px dotted;\">POH*",
     "weapon1": "//",
     "weapon2": "//<span title=\"This item can't be bagged, STASHed or stored in the POH and is not easily reobtainable.\" style=\"cursor:help;border-bottom:2px dotted;\">storage concerns/",
     "weapon3": "<span title=\"While autocasting Undead Grasp from the Arceuus spellbook.\" style=\"cursor:help;border-bottom:2px dotted;\">Undead grasp, Shop/<span title=\"This item can retrieved from Koftik outside of the underground pass, but must be repaired for a fee of 400,000 coins with the nearby Dark mage as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC, <span title=\"Might not be worth keeping this item after gaining access to undead grasp.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "weapon5": "Shop",
-    "shield1": "<span title=\"Might not be worth obtaining/keeping this item, as it stays in the inventory on death and is untradable. This results in a permanently occupied inventory space.\" style=\"cursor:help;border-bottom:2px dotted;\">*//<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
+    "shield1": "<span title=\"Might not be worth obtaining/keeping this item, as it stays in the inventory on death and is untradeable. This results in a permanently occupied inventory space.\" style=\"cursor:help;border-bottom:2px dotted;\">*//<span title=\"Might not be worth keeping this item if bag space is a concern.\" style=\"cursor:help;border-bottom:2px dotted;\">*",
     "shield2": "<span title=\"This item can be bought from Perdu as needed or reclaimed from Jossik.\" style=\"cursor:help;border-bottom:2px dotted;\">Shop/<span title=\"This item can be bought from Perdu as needed or reclaimed from Jossik.\" style=\"cursor:help;border-bottom:2px dotted;\">Shop",
     "shield3": "<span title=\"This item can retrieved from Commander Fullore in Kourend Castle as needed.\" style=\"cursor:help;border-bottom:2px dotted;\">NPC, <span title=\"While using thralls from the Arceuus spellbook.\" style=\"cursor:help;border-bottom:2px dotted;\">thralls",
     "hands2": "Shop, STASH",
@@ -2922,15 +3201,14 @@
     "special3": "/",
     "special4": "/",
     "head1": "or",
-    "neck5": "or",
     "body3": "or",
     "legs2": "or",
     "legs3": "or",
-    "weapon4": "or",
-    "weapon5": "or",
+    "weapon3": "/ /",
+    "weapon5": ">",
     "feet3": "/",
     "feet4": "/",
-    "ammo2": "/ /",
+    "ammo3": "/ /",
     "template": "recommended equipment"
   },
   {
@@ -2944,27 +3222,31 @@
     "shield4": "/",
     "shield5": "/",
     "hands3": "/",
+    "feet1": "/",
     "ammo2": "/",
     "template": "recommended equipment"
   },
   {
     "head1": "(only on task)",
-    "ammo1": "(if using Craw's bow)",
-    "ammo2": "/  (if using Craw's bow)",
-    "ammo3": "(if using Armadyl crossbow)",
-    "ammo4": "(if using Armadyl crossbow)",
+    "body1": "/ (if using Bow of faerdhinen)",
+    "legs1": "/ (if using Bow of faerdhinen)",
+    "weapon1": "/",
+    "weapon2": "/ /",
+    "ammo1": "(if using Craw's bow/Webweaver bow/Bow of faerdhinen)",
+    "ammo2": "/ (if using Craw's bow/Webweaver bow/Bow of faerdhinen) /  (if using Zaryte crossbow) /  (if using twisted bow)",
     "template": "recommended equipment"
   },
   {
     "legs4": "/",
     "ammo2": "/",
+    "smw": "y",
     "cape1": "/",
     "shield4": "/",
     "shield5": "/",
     "weapon1": "/",
     "weapon3": "/ (crush) /  (crush) /  (crush)",
-    "weapon4": "/ /  (crush)",
-    "weapon5": "[[File:Bandos godsword.png]] Godsword (any, Bandos Godsword for defence reduction) /",
+    "weapon4": "/ /",
+    "weapon5": "(crush) /",
     "template": "recommended equipment"
   },
   {
@@ -2978,6 +3260,22 @@
     "shield3": "/",
     "ammo3": "/ / 2",
     "hands4": "/",
+    "ring1": "/",
+    "ring5": "/ 3 / 2 / 1",
+    "template": "recommended equipment"
+  },
+  {
+    "neck1": "/",
+    "neck3": "/",
+    "cape5": "/",
+    "body2": "/",
+    "legs4": "/",
+    "weapon1": "/",
+    "weapon2": "/ /",
+    "shield1": "/ 3",
+    "shield3": "/",
+    "ammo3": "/ / 2",
+    "hands5": "/",
     "ring1": "/",
     "ring5": "/ 3 / 2 / 1",
     "template": "recommended equipment"
@@ -3008,9 +3306,9 @@
   {
     "head5": "/",
     "neck1": "/",
-    "body2": "/",
     "body3": ">",
     "ammo2": "/ /",
+    "special1": "(on stab)",
     "template": "recommended equipment"
   },
   {
@@ -3039,7 +3337,8 @@
     "template": "recommended equipment"
   },
   {
-    "weapon2": "/",
+    "weapon1": "/",
+    "shield1": "/",
     "template": "recommended equipment"
   },
   {
@@ -3063,6 +3362,7 @@
     "weapon5": "/",
     "shield1": "/",
     "shield3": "/",
+    "feet2": "/",
     "ring1": "+",
     "ammo2": "/ /2",
     "template": "recommended equipment"
@@ -3086,15 +3386,15 @@
     "legs4": "&",
     "weapon1": "&",
     "weapon2": "&",
-    "weapon3": "/ /  &",
+    "weapon3": "/ /  &  /",
     "weapon4": "/",
     "weapon5": "/",
     "shield1": "/",
     "shield3": "/",
     "hands1": "&",
     "feet1": "&",
-    "feet2": "&",
     "feet3": "&",
+    "feet4": "&",
     "ammo5": "/ /2",
     "template": "recommended equipment"
   },

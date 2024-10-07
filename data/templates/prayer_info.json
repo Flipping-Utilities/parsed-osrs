@@ -44,6 +44,13 @@
     "template": "prayer info"
   },
   {
+    "name": "Amoxliatl",
+    "level": "40",
+    "xp": "104",
+    "type": "spectral",
+    "template": "prayer info"
+  },
+  {
     "name": "Angry barbarian spirit",
     "level": "40",
     "xp": "38",
@@ -294,7 +301,7 @@
   {
     "name": "Curved bone",
     "level": "1",
-    "xp": "15",
+    "xp": "15.1",
     "bonecrusher": "no",
     "type": "bone",
     "template": "prayer info"
@@ -435,6 +442,13 @@
     "template": "prayer info"
   },
   {
+    "name": "Frost Nagua",
+    "level": "40",
+    "xp": "24",
+    "type": "spectral",
+    "template": "prayer info"
+  },
+  {
     "name": "Ghast",
     "version1": "Level 30",
     "version2": "Level 79",
@@ -458,14 +472,12 @@
   },
   {
     "version1": "Level 19",
-    "version2": "Level 29",
-    "version3": "Level 76",
-    "version4": "Level 77",
+    "version2": "Level 76",
+    "version3": "Level 77",
     "level": "40",
     "xp1": "5",
-    "xp2": "5.4",
-    "xp3": "15",
-    "xp4": "16",
+    "xp2": "15",
+    "xp3": "16",
     "type": "spectral",
     "template": "prayer info"
   },
@@ -1221,19 +1233,6 @@
     "template": "prayer info"
   },
   {
-    "version1": "Jug of blessed wine",
-    "version2": "Jug of blessed sunfire wine",
-    "name": "Sun-kissed bones",
-    "level": "30",
-    "xpnote1": "Requires 1 jug of blessed wine and 8 Prayer points per 400 shards.",
-    "xpnote2": "Requires 1 jug of blessed sunfire wine and 8 Prayer points per 400 shards.",
-    "xp": "225",
-    "xp2": "270",
-    "type": "other",
-    "facility": "Libation bowl",
-    "template": "prayer info"
-  },
-  {
     "name": "Superior dragon bonemeal",
     "level": "70",
     "xp": "600",
@@ -1317,7 +1316,7 @@
     "name": "Vampyre Juvenile",
     "level": "1",
     "xp": "100",
-    "xpnote": "Only upon killing the Juvenile",
+    "xpnote": "Only upon killing the Juvenile with the use of a Guthix balance",
     "type": "Other",
     "template": "prayer info"
   },
@@ -1325,7 +1324,7 @@
     "name": "Vampyre Juvinate",
     "level": "1",
     "xp": "100",
-    "xpnote": "Only upon killing the juvinate",
+    "xpnote": "Only upon killing the juvinate with the use of a Guthix balance",
     "type": "Other",
     "template": "prayer info"
   },
@@ -1333,7 +1332,7 @@
     "name": "Vampyre dust",
     "level": "54",
     "xp": "200",
-    "xpnote": "Requires two vampyre dust at a time, or one vampyre dust when wearing the Hallowed symbol",
+    "xpnote": "Requires two vampyre dust at a time, or one vampyre dust when wearing the hallowed symbol",
     "type": "other",
     "facility": "Saradomin Brazier",
     "template": "prayer info"

@@ -13,6 +13,7 @@
       "3rd age full helmet",
       "3rd age platebody",
       "3rd age platelegs",
+      "3rd age plateskirt",
       "3rd age kiteshield",
       "3rd age longsword"
     ],
@@ -379,7 +380,8 @@
       "Amulet of glory#Uncharged",
       "Amulet of fury",
       "Amulet of strength",
-      "Amulet of torture"
+      "Amulet of torture",
+      "Amulet of rancour"
     ],
     "sort": "str,aslash",
     "order": "desc,desc",
@@ -1065,6 +1067,16 @@
   },
   {
     "list": [
+      "Elite black full helm",
+      "Elite black platebody",
+      "Elite black platelegs"
+    ],
+    "sort": "dslash",
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
       "Black full helm (g)",
       "Black platebody (g)",
       "Black platelegs (g)",
@@ -1250,24 +1262,6 @@
       "Blue moon tassets#New",
       "Blue moon spear"
     ],
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
-      "Ahrim's hood#Undamaged",
-      "Ahrim's robetop#Undamaged",
-      "Ahrim's robeskirt#Undamaged"
-    ],
-    "itemwidth": "110px",
-    "template": "infotable bonuses"
-  },
-  {
-    "list": [
-      "Blue moon helm#New",
-      "Blue moon chestplate#New",
-      "Blue moon tassets#New"
-    ],
-    "itemwidth": "110px",
     "template": "infotable bonuses"
   },
   {
@@ -1522,7 +1516,7 @@
       "Adamant claws",
       "Rune claws",
       "Dragon claws",
-      "Bone claws"
+      "Burning claws"
     ],
     "nototals": "yes",
     "template": "infotable bonuses"
@@ -1697,10 +1691,20 @@
       "Kitchen knife",
       "Keris#(unp)",
       "Toktz-xil-ek",
-      "Abyssal dagger#(unp)"
+      "Dragon dagger (cr)#(unp)",
+      "Abyssal dagger#(unp)",
+      "Abyssal dagger (bh)#(unp)"
     ],
     "sort": "astab",
     "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "nototals": "yes",
+    "list": [
+      "Dragon candle dagger",
+      "Giant bronze dagger"
+    ],
     "template": "infotable bonuses"
   },
   {
@@ -1750,6 +1754,28 @@
     "comment4": "Requires",
     "comment5": "Requires &",
     "comment6": "Requires",
+    "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Corrupted voidwaker",
+      "Corrupted dragon claws",
+      "Corrupted armadyl godsword",
+      "Corrupted twisted bow",
+      "Corrupted scythe of vitur#Charged",
+      "Corrupted tumeken's shadow#Charged",
+      "Corrupted dark bow",
+      "Corrupted volatile nightmare staff"
+    ],
+    "comment1": "Requires",
+    "comment2": "Requires",
+    "comment3": "Requires",
+    "comment4": "Requires",
+    "comment5": "Requires &",
+    "comment6": "Requires",
+    "comment7": "Requires",
+    "comment8": "Requires &",
     "nototals": "yes",
     "template": "infotable bonuses"
   },
@@ -2022,10 +2048,11 @@
       "Ardougne cloak 4",
       "Hitpoints cape#Trimmed",
       "Prayer cape#Trimmed",
-      "Obsidian cape"
+      "Obsidian cape",
+      "Mixed hide cape"
     ],
-    "comment5": "When equipped, doubles the player's natural Hitpoints regeneration rate to 2 Hitpoints per minute",
-    "comment6": "When equipped or in the inventory, acts as a holy wrench",
+    "comment6": "When equipped, doubles the player's natural Hitpoints regeneration rate to 2 Hitpoints per minute",
+    "comment7": "When equipped or in the inventory, acts as a holy wrench",
     "sort": "str,prayer",
     "order": "desc,desc",
     "nototals": "yes",
@@ -2730,6 +2757,7 @@
       "Guthix d'hide body",
       "Guthix chaps",
       "Guthix bracers",
+      "Guthix d'hide boots",
       "Guthix d'hide shield"
     ],
     "template": "infotable bonuses"
@@ -2784,7 +2812,8 @@
   },
   {
     "list": [
-      "Crystal halberd#Active"
+      "Crystal halberd#Active",
+      "Noxious halberd"
     ],
     "sort": "aslash",
     "nototals": "yes",
@@ -2840,6 +2869,15 @@
     ],
     "sort": "astab",
     "nototals": "yes",
+    "template": "infotable bonuses"
+  },
+  {
+    "list": [
+      "Hueycoatl hide coif",
+      "Hueycoatl hide body",
+      "Hueycoatl hide chaps",
+      "Hueycoatl hide vambraces"
+    ],
     "template": "infotable bonuses"
   },
   {
@@ -3245,7 +3283,7 @@
       "Gadderhammer",
       "Hill giant club",
       "Granite maul#Normal",
-      "Granite maul (or)#Normal",
+      "Granite maul (ornate handle)#Normal",
       "Tzhaar-ket-om",
       "Elder maul"
     ],
@@ -5268,6 +5306,7 @@
   },
   {
     "list": [
+      "Dragon hunter wand",
       "3rd age wand",
       "Kodai wand"
     ],

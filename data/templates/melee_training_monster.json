@@ -26,7 +26,7 @@
     "hitpoints": "6, 10",
     "requirements": "None",
     "recommendations": "The start of The Corsair Curse to train on seagulls at the Corsair Cove.",
-    "advantages": "* 10 HP (40xp) per kill from the level 3 seagulls.",
+    "advantages": "* 10 HP (40xp) per kill from the level 3 seagulls.\n* Seagulls cannot hit you, making it viable for no-damage accounts.",
     "disadvantages": "* No drops other than bones.\n*A long death animation before dropping bones.\n*Non-aggressive.",
     "template": "melee training monster"
   },
@@ -47,8 +47,8 @@
     "combat": "13",
     "hitpoints": "23",
     "requirements": "None",
-    "recommendations": "Bring your best armour (chainbody recommended) and weapons.",
-    "advantages": "* High HP (23 HP for 92 melee experience per kill), low defence, and they deal little damage.\n*Always drops big bones which can be sold for guaranteed profit or used for Prayer experience while training.\n*They rarely drop beginner clue scrolls.",
+    "recommendations": "Bring your best armour (chainbody recommended) and weapons. If food is needed, bring an axe and a tinderbox to kill nearby giant rats and cut down dead trees to cook their meat.",
+    "advantages": "* High HP (23 HP for 92 melee experience per kill), low defence, and they deal little damage.\n*Always drops big bones which can be sold for guaranteed profit or used for Prayer experience while training.\n*They rarely drop beginner clue scrolls.\n*For lower level players, food isn't required if an axe and tinderbox is brought (kill nearby giant rats for raw rat meat and make a fire using a nearby dead tree)",
     "disadvantages": "* Sometimes crowded.\n*No valuable drops other than a beginner clue scroll to solve.",
     "template": "melee training monster"
   },
@@ -308,13 +308,13 @@
   },
   {
     "name": "Sand Crab",
-    "locations": "Beach south of Hosidius, Crabclaw Isle, Crabclaw Caves",
+    "locations": "Beach south of Hosidius, Crabclaw Isle, Crabclaw Caves, beach on the Avium Savannah",
     "combat": "15",
     "hitpoints": "60",
     "requirements": "10,000 coins to enter Crabclaw Isle, or have started The Depths of Despair to enter the Crabclaw Caves. There are also spots with no requirements",
-    "recommendations": "Armour and food for low levels. If you are farming on the beach south of Hosidius there is a bank chest nearby so inventory space is not a concern. Using a full inventory of super attack and super strength potions increases your DPS considerably, which ultimately increases the experiences rates per hour",
+    "recommendations": "Armour and food for low levels. If you are farming on the beach south of Hosidius there is a bank chest nearby so inventory space is not a concern. Using a full inventory of super attack and super strength potions increases your DPS considerably, which ultimately increases the experiences rates per hour. The spots on the Avium Savannah are also significantly less congested, so may be preferable.",
     "advantages": "* Very high health targets with low Defence and Attack ability\n*High in number, easy to group and kill in groups\n*Automatic aggro, meaning there are many AFK spots",
-    "disadvantages": "* Often very crowded\n*Stops aggro after about 10 minutes, must be reset by walking about one screen away",
+    "disadvantages": "* Often very crowded in Hosidius, but not the Avium Savannah\n*Stops aggro after about 10 minutes, must be reset by walking about one screen away",
     "template": "melee training monster"
   },
   {
@@ -348,6 +348,17 @@
     "advantages": "*Barrage tasks are the most efficient way to train Defence and Magic\n*Melee tasks offer good experience rates due to the damage and accuracy bonuses of the slayer helm\n*Trains the Slayer skill at the same time\n*Can be profitable depending on the task list",
     "disadvantages": "*Overall, efficient Slayer training gives relatively low amount of experience in Attack and Strength, as most of the Slayer experience is gained by barraging\n*Efficient Slayer training has many requirements, including already having high Melee stats, completing most of the game's quests to unlock teleports and blocking bad tasks\n*Profitable Melee tasks do not give good experience rates in Slayer\n*Only doing cannonable Melee tasks will result in a loss.\n*Many Slayer spots can often be crowded\n*Worse Melee experience per hour than using Dharok the Wretched's equipment in Nightmare Zone\n*Much less AFK compared to using normal customisable rumble setup with absorption potions in Nightmare Zone",
     "locations": "Varies",
+    "template": "melee training monster"
+  },
+  {
+    "name": "Sulphur Nagua",
+    "locations": "Neypotzli",
+    "combat": "98",
+    "hitpoints": "100",
+    "requirements": "48 Slayer \n20 Hunter\n20 Fishing \n20 Runecraft \n10 Construction (Requirements for Perilous Moons, partial completion for access to Sulphur Nagua)\n55 Attack for Glacial temotli. Sulphur blades are a cheaper alternative.\n43 Prayer for Protect from Melee",
+    "recommendations": "70 Attack and 75 Strength for Dual Macuahuitl \nHigh Herblore\n70 Prayer for Piety\nFull Blood Moon set",
+    "advantages": "*Moonlight potion restores prayer and boosts combat stats, and are made in Neypotzli requiring no materials\n* >100k xp/hr due to the Sulphur Nagua's negative flat armour and double hit weapons. If praying Piety with dual macuahuitl and full blood moon set, expect up to 170k xp/hr.\n*Passive low amounts of runecraft from turning in Sulphur Essence that are dropped, and prayer experience if carrying an ectoplasmator. \n*Decent profit made up of noted ores and runes",
+    "disadvantages": "*Dual macuahuitl are required for the best rates, a concern for Ironmen. However, glacial temotli and sulphur blades only perform marginally worse, roughly 10% less xp per hour.",
     "template": "melee training monster"
   },
   {
@@ -444,7 +455,7 @@
     "requirements": "None",
     "recommendations": "Slayer helm, Dragon defender, many Slayer points to block bad tasks, food, burning amulet, amulet of glory, high ranged for dragonhide armour",
     "advantages": "*The damage and accuracy bonuses of the Slayer helm often make killing your Slayer task great melee experience\n*Trains the Slayer skill at the same time, letting you work towards the profitable slayer monsters and bosses\n*Many Slayer monsters have good drops\n*Accumulates Slayer points much quicker than normal Slayer. You can save up a lot of these very quickly before starting normal Slayer later on\n*Far fewer requirements than normal Slayer. Not many quests help navigate the Wilderness\n*All monsters killed on Wilderness Slayer assignments have a chance of dropping a valuable Larran's key. Players with average luck can expect to get about one per task",
-    "disadvantages": "*Some Slayer tasks do not give good experience per hour. If the player has not accumulated enough points to block those tasks yet they may be stuck training slowly for a while\n*The player is constantly in danger of being killed by another player, especially in greater than level 30 Wilderness. It is highly recommended to set player attack options to \"Hidden\" so they don't accidentally Skull\n*The player cannot bring their most expensive gear. Only ever bring three valuable items in the Wilderness: a weapon, a dragon defender, and the Slayer helm. The player can bring an additional item without losing it upon death if the prayer Protect Item is used at the time of death, bringing the total items protected up to four\n*The player should use cheap items like climbing boots, dragonhide armour, and the amulet of glory\n*Some common slayer tasks cannot be killed with melee, such as lava dragons",
+    "disadvantages": "*Some Slayer tasks do not give good experience per hour. If the player has not accumulated enough points to block those tasks yet they may be stuck training slowly for a while\n*The player is constantly in danger of being killed by another player, especially in greater than level 30 Wilderness. It is highly recommended to set player attack options to \"Hidden\" so they don't accidentally Skull\n*The player cannot bring their most expensive gear. Only ever bring three valuable items in the Wilderness: a weapon, a dragon defender, and the Slayer helm. The player can bring an additional item without losing it upon death if the prayer Protect Item is used at the time of death, bringing the total items protected up to four\n*The player should use cheap items like climbing boots, dragonhide armour, and the amulet of glory\n*Some common Slayer tasks cannot be killed with melee, such as lava dragons",
     "locations": "Wilderness",
     "template": "melee training monster"
   },

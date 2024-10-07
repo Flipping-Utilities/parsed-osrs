@@ -25,13 +25,19 @@
   },
   {
     "list": [
-      "If a player adds \"the stuff\" to a brewing vat, then proceeds to enter the waiting area for the Trouble Brewing minigame while the vat is fermenting, or to log in or out of the game while in the vicinity of the minigame area, the fermentation process will continue as if no \"stuff\" has been added, essentially reducing the chance of a mature vat back to 5%. Hence, it is highly advisable to avoid the immediate area surrounding the Trouble Brewing minigame – that is to say both the lobby and the minigame arena itself – while brewing a vat of ale containing \"the stuff\"."
+      "A blue egg that hits a monster with zero hitpoints can cancel its death animation, making it immune to attacks until it has regenerated health."
     ],
     "template": "bug"
   },
   {
     "list": [
       "Rather than reverting to the base rate of 1/10, the drop rate of the thread of Elidinis is set to 1/50 after one has been received for the first time."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "When the Colossal Hydra begins its lightning special attack, the player will lose aggression. If the Aggression Timer is yet to run out, the hydra in the area will attack the player."
     ],
     "template": "bug"
   },
@@ -49,7 +55,7 @@
   },
   {
     "list": [
-      "The Cursed banana is known to cause graphical glitches with some equipment."
+      "The cursed banana is known to cause graphical glitches with some equipment."
     ],
     "template": "bug"
   },
@@ -73,6 +79,18 @@
   },
   {
     "list": [
+      "Equipping a mith grapple in the extra ammo slot will cause all mith grapples in the inventory to drop to the floor."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The Keris partisan will fail this challenge, it is unclear why."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
       "An instance of accidental variable reuse can sometimes cause the player's Fremennik name to be replaced with an empty string, a character, or even a piece of dialogue from elsewhere in the game."
     ],
     "template": "bug"
@@ -85,7 +103,7 @@
   },
   {
     "list": [
-      "Notably, impling defenders' aggression decreases as server time increases, and only resets on an update. Their aggression is believed to tail off rather quickly, perhaps as soon as five minutes after the server has come back online. In practice, each imp defender seems to rescue only one captured impling per server restart before turning docile; the reduced aggression is likely to impact the cooldown period after a successful liberation."
+      "Testing in game reveals that imp defenders permanently stop being aggressive after freeing only one captured impling, only resetting their behaviour upon a server restart. Trapping them to force respawn has no effect on aggression, nor does time elapsed since a server restart, despite statements by Jagex Moderators."
     ],
     "template": "bug"
   },
@@ -97,7 +115,13 @@
   },
   {
     "list": [
-      "The threat posed by imp defenders is significantly curtailed by a bug affecting their aggression, which steeply decreases as server time increases. In practice, imp defenders seem to become docile after freeing one captured impling every game update, effectively eliminating the need for players to carry around imp repellent, or worry about their Thieving level."
+      "The threat posed by imp defenders is significantly curtailed by a bug affecting their aggression, which steeply decreases as server time increases. In practice, imp defenders seem to become docile after freeing one captured impling every game update, effectively eliminating the need for players to carry around imp repellent."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The Keris partisan does not count as a melee weapon for the purposes of Facing Jad Head-on, other melee-only Combat Achievements will need to be tested."
     ],
     "template": "bug"
   },
@@ -121,18 +145,6 @@
   },
   {
     "list": [
-      "If a player adds \"the stuff\" to a brewing vat, then proceeds to enter the waiting area for the Trouble Brewing minigame while the vat is fermenting, or to log in or out of the game while in the vicinity of the minigame area, the fermentation process will continue as if no \"stuff\" has been added, essentially resetting to the regular unadulterated brewing odds. Hence, it is highly advisable to avoid the immediate area surrounding the Trouble Brewing arena while using this money making method."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "If a player adds \"the stuff\" to a brewing vat, then proceeds to enter the waiting area for the Trouble Brewing minigame while the vat is fermenting, or to log in or out of the game while in the vicinity of the minigame area, the fermentation process will continue as if no \"stuff\" has been added, essentially resetting to the regular unadulterated brewing odds. Hence, it is highly advisable to avoid the immediate area surrounding the Trouble Brewing arena while using this money making method."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
       "Even though Ultimate Iron players cannot use the bank or Grand Exchange, Odovacar will still take 100 coins from any player who asks to open either of those interfaces, if they have it on them."
     ],
     "template": "bug"
@@ -140,18 +152,6 @@
   {
     "list": [
       "If the growth-time reward would put the cat into the next stage of growth, the cat's growth may sometimes not advance, and instead show a negative time remaining."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Rick is missing a section of his dialogue related to Escape crystals."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "The ring cannot be charged with stamina mixes: attempting to do so will prompt the game to ask the number of charges that should be added, but it only accepts 0."
     ],
     "template": "bug"
   },
@@ -188,6 +188,12 @@
   {
     "list": [
       "When the chest or clam position resets, the arrow sometimes points to a wrong one for a brief moment."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Zahur cannot make unfinished huasca potions."
     ],
     "template": "bug"
   }

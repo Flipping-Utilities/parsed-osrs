@@ -146,11 +146,6 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 6\\\\\n\\end{align}",
-    "raw": "\\begin{align}\n\\text{Max Hit} &= \\frac{\\text{Magic}}{3} - 6\\\\\n\\end{align}"
-  },
-  {
-    "template": "math",
     "formula": "X= \\frac {Fishing \\ level \\times 2 + Hunter \\ level}{3}",
     "raw": "X= \\frac {Fishing \\ level \\times 2 + Hunter \\ level}{3}"
   },
@@ -386,6 +381,11 @@
   },
   {
     "template": "math",
+    "formula": "\\text{DropRate} = \\frac{1}{\\text{BaseChance} - (\\text{SkillLevel} * 25)}",
+    "raw": "\\text{DropRate} = \\frac{1}{\\text{BaseChance} - (\\text{SkillLevel} * 25)}"
+  },
+  {
+    "template": "math",
     "formula": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2",
     "raw": "\\left\\lfloor \\frac{ \\text{Hitpoints} \\cdot 5}{100} \\right\\rfloor + 2"
   },
@@ -433,6 +433,16 @@
     "template": "math",
     "formula": "\\frac{1}{B - (Level * 25)}",
     "raw": "\\frac{1}{B - (Level * 25)}"
+  },
+  {
+    "template": "math",
+    "formula": "L = x \\times 5, x \\leq 10",
+    "raw": "L = x \\times 5, x \\leq 10"
+  },
+  {
+    "template": "math",
+    "formula": "5.45x - 0.02x^2",
+    "raw": "5.45x - 0.02x^2"
   },
   {
     "template": "math",
@@ -1496,8 +1506,8 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n \\text{Damage} = \\text{Base Damage} \\times (1 + \\text{Magic Damage} \\% + \\text{Elemental Weakness} \\%)\n\\end{align}",
-    "raw": "\\begin{align}\n \\text{Damage} =  \\text{Base Damage} \\times (1 + \\text{Magic Damage} \\% + \\text{Elemental Weakness} \\%)\n\\end{align}"
+    "formula": "\\begin{align}\n \\text{Max Hit} = \\biggl\\lfloor \\lfloor \\text{Base Max} \\times (1 + \\text{Magic Damage} \\% ) \\rfloor \\times (1 + \\text{Slayer or Salve} \\%) \\biggr\\rfloor + \\lfloor \\text{Base Max} \\times \\text{Elemental Weakness} \\% \\rfloor\n\\end{align}",
+    "raw": "\\begin{align}\n \\text{Max Hit} =  \\biggl\\lfloor \\lfloor \\text{Base Max} \\times (1 + \\text{Magic Damage} \\% ) \\rfloor \\times (1 + \\text{Slayer or Salve} \\%) \\biggr\\rfloor + \\lfloor \\text{Base Max} \\times \\text{Elemental Weakness} \\% \\rfloor\n\\end{align}"
   },
   {
     "template": "math",
@@ -1516,18 +1526,18 @@
   },
   {
     "template": "math",
-    "formula": "2.3362x + 60.852",
-    "raw": "2.3362x + 60.852"
+    "formula": "2x + 60",
+    "raw": "2x + 60"
   },
   {
     "template": "math",
-    "formula": "Correct\\, Steps\\, \\times (2x + 55)",
-    "raw": "Correct\\, Steps\\, \\times (2x + 55)"
+    "formula": "Correct\\, Steps\\, \\times (2 * Woodcutting\\, Level) + 55",
+    "raw": "Correct\\, Steps\\, \\times (2 * Woodcutting\\, Level) + 55"
   },
   {
     "template": "math",
-    "formula": "18 * X",
-    "raw": "18 * X"
+    "formula": "18 * Correct\\, Steps",
+    "raw": "18 * Correct\\, Steps"
   },
   {
     "template": "math",
@@ -1648,6 +1658,11 @@
     "template": "math",
     "formula": "\\gamma",
     "raw": "\\gamma"
+  },
+  {
+    "template": "math",
+    "formula": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}",
+    "raw": "XP = \\begin{cases}\n\\left \\lfloor\\frac{5}{4}\\times\\left (Level^{2} \\times \\frac{1}{4} + \\left(7 * Level\\right) \\right) \\right \\rfloor & \\text{if } Level < 72 \\\\\n\\left \\lfloor\\frac{5}{4}\\times\\left (25 \\times Level\\right) \\right \\rfloor & \\text{if }Level \\geq 72\n\\end{cases}"
   },
   {
     "template": "math",
@@ -1791,6 +1806,21 @@
   },
   {
     "template": "math",
+    "formula": "Experience\\, = \\left ( \\frac{Woodcutting\\,Level}{5} \\right ) + 3",
+    "raw": "Experience\\, = \\left ( \\frac{Woodcutting\\,Level}{5} \\right ) + 3  "
+  },
+  {
+    "template": "math",
+    "formula": "Bonus\\, Experience\\, = \\left ( \\frac{Woodcutting\\,Level}{2} \\right ) + 3",
+    "raw": "Bonus\\, Experience\\, = \\left ( \\frac{Woodcutting\\,Level}{2} \\right ) + 3  "
+  },
+  {
+    "template": "math",
+    "formula": "Bonus\\, Bark\\, = \\frac{Total\\, Bark\\, Collected\\, \\times 3}{4}",
+    "raw": "Bonus\\, Bark\\, = \\frac{Total\\, Bark\\, Collected\\, \\times 3}{4}  "
+  },
+  {
+    "template": "math",
     "formula": "Hitpoints * \\frac{15}{100} + 2",
     "raw": "Hitpoints * \\frac{15}{100} + 2"
   },
@@ -1883,6 +1913,16 @@
     "template": "math",
     "formula": "1 + \\lfloor Level \\cdot 0.05 \\rfloor",
     "raw": "1 + \\lfloor Level \\cdot 0.05 \\rfloor "
+  },
+  {
+    "template": "math",
+    "formula": "(Fully\\, pruned\\, Entlings\\, \\times 25) - Wrong\\, prune\\, attempts",
+    "raw": "(Fully\\, pruned\\, Entlings\\, \\times 25) - Wrong\\, prune\\, attempts"
+  },
+  {
+    "template": "math",
+    "formula": "Base\\, Woodcutting\\, Level\\, \\times (Fully\\, pruned\\, Entlings\\, \\times 3)",
+    "raw": "Base\\, Woodcutting\\, Level\\, \\times (Fully\\, pruned\\, Entlings\\, \\times 3)"
   },
   {
     "template": "math",
@@ -1993,6 +2033,11 @@
     "template": "math",
     "formula": "\\begin{align}\nD &= \\frac{(50 + M + P)}{150} && (1) \\\\\nH &= 151 \\times (1 + \\lfloor T \\times \\frac{1}{2} \\rfloor) + \\lfloor \\overline{M} \\rfloor \\times T && (2)\n\\end{align}",
     "raw": "\\begin{align}\nD &= \\frac{(50 + M + P)}{150} && (1) \\\\\nH &= 151 \\times (1 + \\lfloor T \\times \\frac{1}{2} \\rfloor) + \\lfloor \\overline{M} \\rfloor \\times T && (2)\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "CraftingLevel / 10",
+    "raw": "CraftingLevel / 10"
   },
   {
     "template": "math",
@@ -2361,8 +2406,8 @@
   },
   {
     "template": "math",
-    "formula": "H_{c} = 1 - (R_{d} + 2) / (2 \\times (R_{a} + 1))",
-    "raw": "H_{c} = 1 - (R_{d} + 2) / (2 \\times (R_{a} + 1))"
+    "formula": "H_{c} = 1 - ((R_{d} + 2) / (2 \\times (R_{a} + 1))",
+    "raw": "H_{c} = 1 - ((R_{d} + 2) / (2 \\times (R_{a} + 1))"
   },
   {
     "template": "math",
@@ -2596,8 +2641,13 @@
   },
   {
     "template": "math",
-    "formula": "Current Health\\over100",
-    "raw": "Current Health\\over100"
+    "formula": "\\left({n + k - 1 \\atop k}\\right)",
+    "raw": "\\left({n + k - 1 \\atop k}\\right)"
+  },
+  {
+    "template": "math",
+    "formula": "\\left({5 + 3 - 1 \\atop 3}\\right) = 35",
+    "raw": "\\left({5 + 3 - 1 \\atop 3}\\right) = 35"
   },
   {
     "template": "math",
@@ -2976,13 +3026,18 @@
   },
   {
     "template": "math",
-    "formula": "10*4=40",
-    "raw": "10*4=40"
+    "formula": "4x+20=2(x+10)",
+    "raw": "4x+20=2(x+10)"
   },
   {
     "template": "math",
-    "formula": "\\frac{(40+20)}{2}=10+20",
-    "raw": "\\frac{(40+20)}{2}=10+20"
+    "formula": "\\left ( \\frac{4x+20=2(x+20)}{2} \\right )=\\bigl((2x+10)-10=(x+20)-10\\bigr)=\\bigl(2x=x+10\\bigr)",
+    "raw": "\\left ( \\frac{4x+20=2(x+20)}{2} \\right )=\\bigl((2x+10)-10=(x+20)-10\\bigr)=\\bigl(2x=x+10\\bigr)"
+  },
+  {
+    "template": "math",
+    "formula": "x=10",
+    "raw": "x=10"
   },
   {
     "template": "math",
@@ -3276,6 +3331,21 @@
   },
   {
     "template": "math",
+    "formula": "x",
+    "raw": "x"
+  },
+  {
+    "template": "math",
+    "formula": "\\,\\left\\lceil\\displaystyle\\frac{x}{10}\\right\\rceil",
+    "raw": "\\,\\left\\lceil\\displaystyle\\frac{x}{10}\\right\\rceil"
+  },
+  {
+    "template": "math",
+    "formula": "\\,\\,\\displaystyle\\frac{100\\left\\lceil\\displaystyle\\frac{x}{10}\\right\\rceil}{x}\\,\\%",
+    "raw": "\\,\\,\\displaystyle\\frac{100\\left\\lceil\\displaystyle\\frac{x}{10}\\right\\rceil}{x}\\,\\%"
+  },
+  {
+    "template": "math",
     "formula": "0.6 * MagicLevel",
     "raw": "0.6 * MagicLevel"
   },
@@ -3291,33 +3361,33 @@
   },
   {
     "template": "math",
-    "formula": "P(\\text{Level}) = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{low \\times (99-\\text{Level})}{\\displaystyle 98}\\right\\rfloor + \\left\\lfloor\\dfrac{high \\times (\\text{Level}-1)}{98}\\right\\rfloor\\right)}{256}",
-    "raw": "P(\\text{Level}) = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{low \\times (99-\\text{Level})}{\\displaystyle 98}\\right\\rfloor + \\left\\lfloor\\dfrac{high \\times (\\text{Level}-1)}{98}\\right\\rfloor\\right)}{256}"
+    "formula": "P(\\text{Level}) = \\dfrac{1 + \\left\\lfloor\\dfrac{low \\times (99-\\text{Level})}{98} + \\dfrac{high \\times (\\text{Level}-1)}{98} + 0.5\\right\\rfloor}{256}",
+    "raw": "P(\\text{Level}) = \\dfrac{1 + \\left\\lfloor\\dfrac{low \\times (99-\\text{Level})}{98} + \\dfrac{high \\times (\\text{Level}-1)}{98} + 0.5\\right\\rfloor}{256}"
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\n\\mbox{low-scaled value at 74} &= \\left\\lfloor\\dfrac{48 \\times 25}{98}\\right\\rfloor = \\lfloor 12.244 \\rfloor = 12 & \\mbox{low-scaled value at 75} =& \\left\\lfloor\\dfrac{48 \\times 24}{98}\\right\\rfloor = \\lfloor 11.755 \\rfloor = 11\\\\\n\\mbox{high-scaled value at 74} &= \\left\\lfloor\\dfrac{90 \\times 73}{98}\\right\\rfloor = \\lfloor 67.041 \\rfloor = 67 & \\mbox{high-scaled value at 75} =& \\left\\lfloor\\dfrac{90 \\times 74}{98}\\right\\rfloor = \\lfloor 67.959 \\rfloor = 67\\\\ \\\\\n\\mbox{total } P(74) &= \\dfrac{1+12+67}{256} = 0.3125 & \\mbox{total } P(75) =& \\dfrac{1+11+67}{256} = 0.3085\n\\end{align}",
-    "raw": "\\begin{align}\n\\mbox{low-scaled value at 74} &= \\left\\lfloor\\dfrac{48 \\times 25}{98}\\right\\rfloor = \\lfloor 12.244 \\rfloor = 12 & \\mbox{low-scaled value at 75} =& \\left\\lfloor\\dfrac{48 \\times 24}{98}\\right\\rfloor = \\lfloor 11.755 \\rfloor = 11\\\\\n\\mbox{high-scaled value at 74} &= \\left\\lfloor\\dfrac{90 \\times 73}{98}\\right\\rfloor = \\lfloor 67.041 \\rfloor = 67 & \\mbox{high-scaled value at 75} =& \\left\\lfloor\\dfrac{90 \\times 74}{98}\\right\\rfloor = \\lfloor 67.959 \\rfloor = 67\\\\ \\\\\n\\mbox{total } P(74) &= \\dfrac{1+12+67}{256} = 0.3125 & \\mbox{total } P(75) =& \\dfrac{1+11+67}{256} = 0.3085\n\\end{align}"
+    "formula": "\\begin{align}\n\\mbox{low-scaled value at 74} &= \\dfrac{48 \\times 25}{98} = 12.245\\\\\n\\mbox{high-scaled value at 74} &= \\dfrac{90 \\times 73}{98} = 67.041\\\\\n\\mbox{total } P(74) &= \\dfrac{1 + \\left\\lfloor12.245+67.041+0.5\\right\\rfloor}{256} = \\dfrac{80}{256} = 0.3125\n\\end{align}",
+    "raw": "\\begin{align}\n\\mbox{low-scaled value at 74} &= \\dfrac{48 \\times 25}{98} = 12.245\\\\\n\\mbox{high-scaled value at 74} &= \\dfrac{90 \\times 73}{98} = 67.041\\\\\n\\mbox{total } P(74) &= \\dfrac{1 + \\left\\lfloor12.245+67.041+0.5\\right\\rfloor}{256} = \\dfrac{80}{256} = 0.3125\n\\end{align}"
   },
   {
     "template": "math",
-    "formula": "P_{\\text{sturgeon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{8 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{64 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{112}{98}\\right\\rfloor + \\left\\lfloor\\dfrac{5376}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 1 + 54}{256} = 0.21875",
-    "raw": " P_{\\text{sturgeon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{8 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{64 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor\\dfrac{112}{98}\\right\\rfloor + \\left\\lfloor\\dfrac{5376}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 1 + 54}{256} = 0.21875 "
+    "formula": "P_{\\text{sturgeon}}(85) = \\dfrac{1 + \\left\\lfloor \\dfrac{8 \\times (99-85)}{98} + \\dfrac{64 \\times (85-1)}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + \\left\\lfloor\\dfrac{112 + 5376}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + 56}{256} = 0.2227",
+    "raw": " P_{\\text{sturgeon}}(85) = \\dfrac{1 + \\left\\lfloor \\dfrac{8 \\times (99-85)}{98} + \\dfrac{64 \\times (85-1)}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + \\left\\lfloor\\dfrac{112 + 5376}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + 56}{256} = 0.2227 "
   },
   {
     "template": "math",
-    "formula": "P_{\\text{salmon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{16 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{96 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{224}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{8064}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 2 + 82}{256} \\approx 0.33203",
-    "raw": " P_{\\text{salmon}}(85) = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{16 \\times (99-85)}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{96 \\times (85-1)}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + \\left(\\left\\lfloor \\dfrac{224}{98}\\right\\rfloor + \\left\\lfloor \\dfrac{8064}{98}\\right\\rfloor\\right)}{256} = \\dfrac{1 + 2 + 82}{256} \\approx 0.33203 "
+    "formula": "P_{\\text{salmon}}(85) = \\dfrac{1 + \\left\\lfloor \\dfrac{16 \\times (99-85)}{98} + \\dfrac{96 \\times (85-1)}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + \\left\\lfloor\\dfrac{224 + 8064}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + 85}{256} = 0.3359",
+    "raw": " P_{\\text{salmon}}(85) = \\dfrac{1 + \\left\\lfloor \\dfrac{16 \\times (99-85)}{98} + \\dfrac{96 \\times (85-1)}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + \\left\\lfloor\\dfrac{224 + 8064}{98} + 0.5\\right\\rfloor}{256} = \\dfrac{1 + 85}{256} = 0.3359 "
   },
   {
     "template": "math",
-    "formula": "(1-P_{\\text{sturgeon}}(85)) \\times P_{\\text{salmon}}(85) \\approx (1-0.21875) \\times 0.33203 \\approx 0.2594",
-    "raw": " (1-P_{\\text{sturgeon}}(85)) \\times P_{\\text{salmon}}(85) \\approx (1-0.21875) \\times 0.33203 \\approx 0.2594 "
+    "formula": "(1-P_{\\text{sturgeon}}(85)) \\times P_{\\text{salmon}}(85) \\approx (1-0.2227) \\times 0.3359 \\approx 0.2611",
+    "raw": " (1-P_{\\text{sturgeon}}(85)) \\times P_{\\text{salmon}}(85) \\approx (1-0.2227) \\times 0.3359 \\approx 0.2611 "
   },
   {
     "template": "math",
-    "formula": "(1-P_{\\text{sturgeon}}(85)) \\times (1-P_{\\text{salmon}}(85)) \\times P_{\\text{trout}}(85) \\approx 0.3445",
-    "raw": " (1-P_{\\text{sturgeon}}(85)) \\times (1-P_{\\text{salmon}}(85)) \\times P_{\\text{trout}}(85) \\approx 0.3445 "
+    "formula": "(1-P_{\\text{sturgeon}}(85)) \\times (1-P_{\\text{salmon}}(85)) \\times P_{\\text{trout}}(85) \\approx 0.3428",
+    "raw": " (1-P_{\\text{sturgeon}}(85)) \\times (1-P_{\\text{salmon}}(85)) \\times P_{\\text{trout}}(85) \\approx 0.3428 "
   },
   {
     "template": "math",
@@ -3511,8 +3581,8 @@
   },
   {
     "template": "math",
-    "formula": "X \\times [((Y \\times 100) \\div 2.5)]",
-    "raw": "X \\times [((Y \\times 100) \\div 2.5)]"
+    "formula": "X \\times \\frac{Y \\times 100}{2.5}",
+    "raw": "X \\times \\frac{Y \\times 100}{2.5}"
   },
   {
     "template": "math",
@@ -3756,6 +3826,21 @@
   },
   {
     "template": "math",
+    "formula": "36.5 + (3.5 * c)",
+    "raw": "36.5 + (3.5 * c)"
+  },
+  {
+    "template": "math",
+    "formula": "(damage+5) / 1",
+    "raw": "(damage+5) / 1"
+  },
+  {
+    "template": "math",
+    "formula": "10 + (2 * c)",
+    "raw": "10 + (2 * c)"
+  },
+  {
+    "template": "math",
     "formula": "0.6 * CurrentMagicLevel",
     "raw": "0.6 * CurrentMagicLevel"
   },
@@ -3941,8 +4026,13 @@
   },
   {
     "template": "math",
-    "formula": "\\frac{N\\cdot \\left ( N - 1 \\right )}{2}",
-    "raw": "\\frac{N\\cdot \\left ( N  - 1 \\right )}{2}"
+    "formula": "2 + 4 + 6 + ...",
+    "raw": "2 + 4 + 6 + ..."
+  },
+  {
+    "template": "math",
+    "formula": "N\\cdot \\left ( N + 1 \\right )",
+    "raw": "N\\cdot \\left ( N  + 1 \\right )"
   },
   {
     "template": "math",
@@ -3963,6 +4053,11 @@
     "template": "math",
     "formula": "\\frac{(\\text{level}-1)*150/98+91}{256}",
     "raw": "\\frac{(\\text{level}-1)*150/98+91}{256}"
+  },
+  {
+    "template": "math",
+    "formula": "L = x \\times 5, x \\leq 10",
+    "raw": "L = x \\times 5, x \\leq 10"
   },
   {
     "template": "math",
@@ -4156,8 +4251,8 @@
   },
   {
     "template": "math",
-    "formula": "y = [8\\times x^{0.65}] + z",
-    "raw": "y = [8\\times x^{0.65}] + z"
+    "formula": "y",
+    "raw": "y"
   },
   {
     "template": "math",
@@ -4166,18 +4261,13 @@
   },
   {
     "template": "math",
-    "formula": "y",
-    "raw": "y"
-  },
-  {
-    "template": "math",
     "formula": "z",
     "raw": "z"
   },
   {
     "template": "math",
-    "formula": "y",
-    "raw": "y"
+    "formula": "y = [8\\times x^{0.65}] + z",
+    "raw": "y = [8\\times x^{0.65}] + z"
   },
   {
     "template": "math",
@@ -4226,8 +4316,28 @@
   },
   {
     "template": "math",
-    "formula": "\\begin{align}\nP_{M} &= H + 2 \\times S \\quad H \\in [0, \\infty) &\\land S \\in [0, \\infty) && (1) \\\\\nP_{T} &= H + 2 \\times S \\quad H \\in [0, 400] &\\land S \\in [0, 300] && (2)\n\\end{align}",
-    "raw": "\\begin{align}\nP_{M} &= H + 2 \\times S \\quad H \\in [0, \\infty) &\\land S \\in [0, \\infty) && (1) \\\\\nP_{T} &= H + 2 \\times S \\quad H \\in [0, 400] &\\land S \\in [0, 300] && (2)\n\\end{align}"
+    "formula": "\\begin{align}\nP_{M} &= H + 2 \\times S \\\\\nP_{T} &= \\min(H, 400) + 2 \\times \\min(S, 300)\n\\end{align}",
+    "raw": "\\begin{align}\nP_{M} &= H + 2 \\times S \\\\\nP_{T} &= \\min(H, 400) + 2 \\times \\min(S, 300)\n\\end{align}"
+  },
+  {
+    "template": "math",
+    "formula": "P_{M}",
+    "raw": "P_{M}"
+  },
+  {
+    "template": "math",
+    "formula": "P_{T}",
+    "raw": "P_{T}"
+  },
+  {
+    "template": "math",
+    "formula": "H",
+    "raw": "H"
+  },
+  {
+    "template": "math",
+    "formula": "S",
+    "raw": "S"
   },
   {
     "template": "math",
@@ -4243,6 +4353,16 @@
     "template": "math",
     "formula": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor",
     "raw": "\\lfloor PrayerLevel \\times \\frac{1}{10} \\rfloor"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor +2",
+    "raw": "\\lfloor DefenceLevel \\times \\frac{1}{10} \\rfloor +2"
+  },
+  {
+    "template": "math",
+    "formula": "\\lfloor HitpointsLevel \\times \\frac{12}{100} \\rfloor",
+    "raw": "\\lfloor HitpointsLevel \\times \\frac{12}{100} \\rfloor"
   },
   {
     "template": "math",

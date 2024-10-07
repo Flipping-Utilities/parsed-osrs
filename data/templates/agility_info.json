@@ -109,6 +109,12 @@
     "template": "agility info"
   },
   {
+    "level": "10",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
     "name": "Boulder",
     "level": "49",
     "xp": "0",
@@ -455,6 +461,21 @@
     "template": "agility info"
   },
   {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Edge",
+    "level1": "50",
+    "level2": "50",
+    "level3": "62",
+    "xp1": "37.2",
+    "xp2": "37.2",
+    "xp3": "62",
+    "course": "Colossal Wyrm Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
     "name": "Edge",
     "level": "50",
     "xp": "241",
@@ -750,6 +771,13 @@
     "template": "agility info"
   },
   {
+    "name": "House window",
+    "level": "32",
+    "xp": "1",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
     "name": "Hurdle",
     "level": "60",
     "xp": "60",
@@ -814,6 +842,21 @@
     "level": "35",
     "xp": "22",
     "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Ladder",
+    "level1": "50",
+    "level2": "62",
+    "level3": "50",
+    "xp1": "37.2",
+    "xp2": "62",
+    "xp3": "37.2",
+    "course": "Colossal Wyrm Agility Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -1425,6 +1468,13 @@
   },
   {
     "name": "Rocks",
+    "level": "54",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
     "skill2name": "Strength",
     "skill3name": "Ranged",
     "skill1lvl": "32",
@@ -1536,7 +1586,7 @@
   {
     "version1": "Easy",
     "version2": "Medium",
-    "version3": "Hard",
+    "version3": "Advanced",
     "name": "Rocks",
     "level1": "59",
     "level2": "68",
@@ -1727,6 +1777,18 @@
     "level": "48",
     "xp": "100",
     "course": "Ape Atoll Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "name": "Rope",
+    "level1": "50",
+    "level2": "62",
+    "xp1": "37.2",
+    "xp2": "62",
+    "course": "Colossal Wyrm Agility Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -2270,6 +2332,21 @@
     "template": "agility info"
   },
   {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Tightrope",
+    "level1": "50",
+    "level2": "50",
+    "level3": "62",
+    "xp1": "37.2",
+    "xp2": "37.2",
+    "xp3": "62",
+    "course": "Colossal Wyrm Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
     "version1": "Tightrope 1",
     "version2": "Tightrope 2",
     "name1": "Tightrope 1",
@@ -2627,6 +2704,18 @@
     "xp": "200",
     "xpnote": "The zip line gives a variable amount of experience. The earlier you fall (if you fall) you will only receive 180, 160 or 140 experience per zip line, and the farther you go before you fall the larger the amount of experience gained.",
     "course": "Werewolf Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Basic",
+    "version2": "Advanced",
+    "name": "Zipline",
+    "level1": "50",
+    "level2": "62",
+    "xp1": "243.7",
+    "xp2": "325",
+    "course": "Colossal Wyrm Agility Course",
     "type": "Obstacle",
     "template": "agility info"
   },

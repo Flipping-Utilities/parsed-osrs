@@ -467,6 +467,18 @@
   },
   {
     "name": "Adamantite rocks",
+    "location": "South Salvager Overlook mine",
+    "members": "Yes",
+    "list": [
+      "x:1630,y:3276",
+      "x:1634,y:3274"
+    ],
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Adamantite rocks",
     "location": "Trahaearn mine",
     "members": "Yes",
     "list": [
@@ -1117,7 +1129,22 @@
   },
   {
     "name": "Animal skull",
-    "location": "Canifis",
+    "location": "Edgeville Dungeon",
+    "members": "No",
+    "list": [
+      "3124,9893",
+      "3124,9890",
+      "3110,9824",
+      "3107,9824"
+    ],
+    "mtype": "pin",
+    "mapid": "12",
+    "plane": "0",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Animal skull",
+    "location": "Canifis inside Tannery",
     "members": "yes",
     "list": [
       "3481,3481"
@@ -1129,7 +1156,7 @@
   },
   {
     "name": "Animal skull",
-    "location": "Near the Kalphite Hive entrance",
+    "location": "Near the Kalphite Lair entrance",
     "members": "yes",
     "list": [
       "3214,3118",
@@ -1144,12 +1171,10 @@
   },
   {
     "name": "Animal skull",
-    "location": "Fight Arena (location)",
+    "location": "Northwest of the Fight Arena",
     "members": "yes",
     "list": [
-      "2575,3186",
-      "2584,3169",
-      "2599,3170"
+      "2575,3186"
     ],
     "mtype": "pin",
     "mapid": "0",
@@ -1158,7 +1183,7 @@
   },
   {
     "name": "Animal skull",
-    "location": "Ourania Cave entrance",
+    "location": "Near Grave of Scorpius",
     "members": "yes",
     "list": [
       "2459,3231",
@@ -1173,7 +1198,7 @@
   },
   {
     "name": "Animal skull",
-    "location": "West Ardougne",
+    "location": "West Ardougne near entrance to Underground Pass",
     "members": "yes",
     "list": [
       "2459,3311",
@@ -1188,15 +1213,39 @@
   },
   {
     "name": "Animal skull",
-    "location": "Digsite",
-    "members": "yes",
+    "location": "Ogre Enclave",
+    "members": "Yes",
     "list": [
-      "3372,3440",
-      "3362,3412"
+      "2616,9441",
+      "2614,9435"
+    ],
+    "mtype": "pin",
+    "mapid": "10123",
+    "plane": "0",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Animal skull",
+    "location": "Yanille Agility dungeon",
+    "members": "Yes",
+    "list": [
+      "2562,9509"
+    ],
+    "mtype": "pin",
+    "mapid": "27",
+    "plane": "0",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Animal skull",
+    "location": "Kourend Castle",
+    "members": "Yes",
+    "list": [
+      "1619,3670"
     ],
     "mtype": "pin",
     "mapid": "0",
-    "plane": "0",
+    "plane": "2",
     "template": "objectlocline"
   },
   {
@@ -1225,12 +1274,42 @@
   },
   {
     "name": "Animal skull",
-    "location": "Mynydd",
-    "members": "Yes",
+    "location": "Crandor and Karamja Dungeon",
+    "members": "No",
     "list": [
-      "2153,3431",
-      "2166,3431",
-      "2159,3422"
+      "2859,9644",
+      "2860,9639",
+      "2848,9634",
+      "2859,9633",
+      "2835,9570",
+      "2840,9562",
+      "2836,9557"
+    ],
+    "mtype": "pin",
+    "mapid": "9",
+    "plane": "0",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Animal skull",
+    "location": "Old School Museum",
+    "members": "No",
+    "list": [
+      "3059,9977",
+      "3060,9977"
+    ],
+    "mtype": "pin",
+    "mapid": "10124",
+    "plane": "0",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Animal skull",
+    "location": "Inside the Fight Arena",
+    "members": "yes",
+    "list": [
+      "2584,3169",
+      "2599,3170"
     ],
     "mtype": "pin",
     "mapid": "0",
@@ -1239,14 +1318,15 @@
   },
   {
     "name": "Animal skull",
-    "location": "Kourend Castle",
+    "location": "Lava Maze Dungeon",
     "members": "Yes",
     "list": [
-      "1619,3670"
+      "3040,10262",
+      "3040,10248"
     ],
     "mtype": "pin",
-    "mapid": "0",
-    "plane": "2",
+    "mapid": "26",
+    "plane": "0",
     "template": "objectlocline"
   },
   {
@@ -1284,19 +1364,6 @@
   },
   {
     "name": "Animal skull",
-    "location": "Ogre Enclave",
-    "members": "Yes",
-    "list": [
-      "2616,9441",
-      "2614,9435"
-    ],
-    "mtype": "pin",
-    "mapid": "10123",
-    "plane": "0",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Animal skull",
     "location": "Brimhaven Dungeon (task-only area)",
     "members": "Yes",
     "list": [
@@ -1312,72 +1379,28 @@
   },
   {
     "name": "Animal skull",
-    "location": "Yanille Agility dungeon",
+    "location": "Mynydd",
     "members": "Yes",
     "list": [
-      "2562,9509"
+      "2153,3431",
+      "2166,3431",
+      "2159,3422"
     ],
     "mtype": "pin",
-    "mapid": "27",
+    "mapid": "0",
     "plane": "0",
     "template": "objectlocline"
   },
   {
     "name": "Animal skull",
-    "location": "Crandor and Karamja Dungeon",
-    "members": "No",
+    "location": "Digsite",
+    "members": "yes",
     "list": [
-      "2859,9644",
-      "2860,9639",
-      "2848,9634",
-      "2859,9633",
-      "2835,9570",
-      "2840,9562",
-      "2836,9557"
+      "3372,3440",
+      "3362,3412"
     ],
     "mtype": "pin",
-    "mapid": "9",
-    "plane": "0",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Animal skull",
-    "location": "Edgeville Dungeon",
-    "members": "No",
-    "list": [
-      "3124,9893",
-      "3124,9890",
-      "3110,9824",
-      "3107,9824"
-    ],
-    "mtype": "pin",
-    "mapid": "12",
-    "plane": "0",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Animal skull",
-    "location": "Old School Museum",
-    "members": "No",
-    "list": [
-      "3059,9977",
-      "3060,9977"
-    ],
-    "mtype": "pin",
-    "mapid": "10124",
-    "plane": "0",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Animal skull",
-    "location": "Lava Maze Dungeon",
-    "members": "Yes",
-    "list": [
-      "3040,10262",
-      "3040,10248"
-    ],
-    "mtype": "pin",
-    "mapid": "26",
+    "mapid": "0",
     "plane": "0",
     "template": "objectlocline"
   },
@@ -1413,6 +1436,18 @@
     "plane": "1",
     "list": [
       "x:2914,y:10192"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Apple Press",
+    "location": "Moonrise Brewery and Winery",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1356,y:2923"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -4451,6 +4486,307 @@
     "template": "objectlocline"
   },
   {
+    "name": "Bar pumps",
+    "location": "Burthorpe Games Room",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2202,4941",
+      "2202,4943"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Fight Arena",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2553,3077",
+      "2554,3078",
+      "2555,3078",
+      "2564,3141",
+      "2565,3141",
+      "2566,3141",
+      "2569,3141"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Ardougne",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2572,3319",
+      "2575,3319"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Brimhaven",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2795,3156",
+      "2796,3156",
+      "2797,3156"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Burthorpe",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2905,3538",
+      "2908,3538"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Yanille",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2937,4677",
+      "2938,4678",
+      "2939,4678"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Port Sarim",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3046,3256",
+      "3046,3257",
+      "3046,3258"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Bandit Camp",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3160,2981",
+      "3160,2982",
+      "3160,2983",
+      "3160,2984",
+      "3160,2985"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Pollnivneach",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3362,2956",
+      "3362,2957"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Burthorpe Games Room",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2200,4939",
+      "2201,4939",
+      "2202,4940",
+      "2202,4942"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Pollnivneach",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3362,2955"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Rellekka",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2661,3672",
+      "2661,3674"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "The Warrens",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1762,10130"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Port Phasmatys",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3680,3493",
+      "3680,3495",
+      "3680,3496",
+      "3680,3498"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Varrock Rat Pits",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2910,5076"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Port Sarim Rat Pits",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2982,9655",
+      "2983,9655",
+      "2984,9655",
+      "2985,9655",
+      "2986,9655"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Burgh de Rott",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3494,3228"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Musa Point",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2924,3144",
+      "2925,3144"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Miscellania Dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2527,10258"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Falador",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2955,3370",
+      "2955,3372",
+      "2955,3374"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Prifdinnas",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3237,6126",
+      "3238,6126"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bar pumps",
+    "location": "Seers' Village",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2690,3490",
+      "2692,3493",
+      "2692,3496"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Barbarian anvil",
     "location": "Otto's Grotto",
     "members": "Yes",
@@ -4652,9 +4988,33 @@
   },
   {
     "list": [
+      "x:2152,y:3335"
+    ],
+    "location": "Prifddinas",
+    "mapid": "0",
+    "members": "Yes",
+    "mtype": "pin",
+    "name": "Barrel",
+    "plane": "1",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
       "x:1519,y:2966"
     ],
     "location": "Sunset Coast",
+    "mapid": "0",
+    "members": "Yes",
+    "mtype": "pin",
+    "name": "Barrel",
+    "plane": "1",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "x:1460,y:2973"
+    ],
+    "location": "Aldarin",
     "mapid": "0",
     "members": "Yes",
     "mtype": "pin",
@@ -5986,6 +6346,80 @@
     "template": "objectlocline"
   },
   {
+    "name": "Bookcase (Chemist's house, large)",
+    "location": "Chemist's house",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2927,3210",
+      "2927,3207"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Chemist's house, large)",
+    "location": "Chemist's house",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2929,3211",
+      "2936,3211"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Chemist's house, large)",
+    "location": "Rimmington -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "2968,3209"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Chemist's house, large)",
+    "location": "Falador",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3048,3364"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Chemist's house, large)",
+    "location": "Draynor Manor -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "3118,3360"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Chemist's house, large)",
+    "location": "Varrock (Juliet's mansion) -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "3162,3437"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Bookcase",
     "location": "Fenkenstrain's Castle,",
     "members": "Yes",
@@ -6015,6 +6449,48 @@
     ],
     "mtype": "pin",
     "ptype": "object",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Wizards Tower)",
+    "location": "Land's End",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1496,3423"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Wizards Tower)",
+    "location": "Wizards' Tower -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3108,3155",
+      "3109,3155",
+      "3113,3158",
+      "3113,3160",
+      "3114,3158",
+      "3114,3160",
+      "3103,3167"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Bookcase (Wizards Tower)",
+    "location": "Wizards' Tower -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "3110,3163"
+    ],
+    "mtype": "pin",
     "template": "objectlocline"
   },
   {
@@ -7159,6 +7635,36 @@
       "2572,9846",
       "2579,9853",
       "2581,9834"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Boxes",
+    "location": "Sophanem -",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3279,2786",
+      "3280,2782",
+      "3280,2787",
+      "3312,2776",
+      "3312,2777"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Boxes",
+    "location": "Sophanem -",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "3312,2769",
+      "3314,2759",
+      "3315,2771"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -8350,7 +8856,7 @@
   },
   {
     "name": "Bullrushes",
-    "location": "Taverly",
+    "location": "Taverley",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
@@ -11080,7 +11586,7 @@
   },
   {
     "name": "Bush",
-    "location": "Misthalin Mystery Mansion",
+    "location": "Misthalin Manor",
     "members": "No",
     "mapid": "10109",
     "plane": "0",
@@ -11568,7 +12074,7 @@
   },
   {
     "name": "Bush",
-    "location": "Beekeeper Random event",
+    "location": "Beekeeper random event",
     "members": "No",
     "mapid": "-1",
     "plane": "0",
@@ -12758,6 +13264,52 @@
     "template": "objectlocline"
   },
   {
+    "name": "Cabbage",
+    "location": "South Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1403,y:2946",
+      "x:1404,y:2946",
+      "x:1405,y:2946",
+      "x:1403,y:2945",
+      "x:1404,y:2945",
+      "x:1403,y:2944",
+      "x:1404,y:2944",
+      "x:1405,y:2944"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Cabbage",
+    "location": "North Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1398,y:2965",
+      "x:1399,y:2965",
+      "x:1400,y:2965",
+      "x:1399,y:2964",
+      "x:1400,y:2964",
+      "x:1401,y:2964",
+      "x:1399,y:2963",
+      "x:1400,y:2963",
+      "x:1401,y:2963",
+      "x:1399,y:2962",
+      "x:1400,y:2962",
+      "x:1401,y:2962",
+      "x:1398,y:2961",
+      "x:1399,y:2961",
+      "x:1400,y:2961",
+      ""
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Cabbage (Draynor Manor)",
     "location": "Draynor Manor",
     "members": "No",
@@ -13689,6 +14241,19 @@
     "template": "objectlocline"
   },
   {
+    "name": "Campsite bed",
+    "location": "Iorwerth Dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3183,12413",
+      "3186,12413"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Candelabrum",
     "location": "Wise Old Man's house,",
     "members": "No",
@@ -13709,6 +14274,172 @@
     "list": [
       "3087,3251",
       "3094,3255"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lithkren,",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3551,3991",
+      "3554,3997",
+      "3557,3999"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lithkren,",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "1",
+    "list": [
+      "3551,3996",
+      "3556,3998",
+      "3553,4015",
+      "3568,4017",
+      "3571,4012"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Karuulm Slayer Dungeon",
+    "members": "Yes",
+    "mapid": "33",
+    "plane": "0",
+    "list": [
+      "1350,10244",
+      "1353,10244"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Slayer Tower, basement",
+    "members": "Yes",
+    "mapid": "14",
+    "plane": "0",
+    "list": [
+      "3419,9949",
+      "3419,9954",
+      "3421,9947",
+      "3421,9950",
+      "3421,9953",
+      "3421,9956",
+      "3422,9954",
+      "3425,9954",
+      "3426,9947",
+      "3426,9950",
+      "3426,9953",
+      "3426,9956",
+      "3428,9949",
+      "3428,9954"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lassar Undercity,",
+    "members": "Yes",
+    "mapid": "41",
+    "plane": "0",
+    "list": [
+      "2595,6405",
+      "2595,6408",
+      "2615,6428",
+      "2618,6428"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lassar Undercity,",
+    "members": "Yes",
+    "mapid": "41",
+    "plane": "1",
+    "list": [
+      "2595,6405",
+      "2595,6408",
+      "2598,6405",
+      "2598,6408",
+      "2615,6425",
+      "2615,6428",
+      "2618,6425",
+      "2618,6428"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lassar Undercity,",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "2",
+    "list": [
+      "2595,6405",
+      "2595,6408",
+      "2615,6428",
+      "2618,6428"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lassar Undercity (Shadow Realm),",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2339,6405",
+      "2339,6408",
+      "2359,6428",
+      "2362,6428"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lassar Undercity (Shadow Realm),",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "2339,6405",
+      "2339,6408",
+      "2342,6405",
+      "2342,6408",
+      "2359,6425",
+      "2359,6428",
+      "2362,6425",
+      "2362,6428"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Candle",
+    "location": "Lassar Undercity (Shadow Realm),",
+    "members": "Yes",
+    "mapid": "41",
+    "plane": "2",
+    "list": [
+      "2339,6405",
+      "2339,6408",
+      "2359,6428",
+      "2362,6428"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -13994,6 +14725,30 @@
     "template": "objectlocline"
   },
   {
+    "name": "Cauldron",
+    "location": "Hetty's house in Rimmington",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:2967,y:3205"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Cauldron",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1384,y:2916"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Cave in",
     "location": "First part of Ah Za Rhoon",
     "members": "Yes",
@@ -14112,7 +14867,7 @@
   },
   {
     "name": "Chaise lounge",
-    "location": "Al-Kharid General Store,",
+    "location": "Al Kharid General Store,",
     "members": "No",
     "mapid": "0",
     "plane": "1",
@@ -14365,6 +15120,34 @@
     "members": "Yes",
     "list": [
       "3423,2905"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Chest",
+    "location": "of Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "1",
+    "list": [
+      "x:1378,y:2960",
+      "x:1375,y:2958",
+      "x:1350,y:2947"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Chest",
+    "location": "of Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "2",
+    "list": [
+      "x:1381,y:2953",
+      "x:1350,y:2951",
+      "x:1351,y:2953"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -15486,6 +16269,100 @@
     "template": "objectlocline"
   },
   {
+    "name": "Clothes equipment",
+    "location": "Oziach's hut",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3071,y:3519"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Clothes equipment",
+    "location": "Witch's House shed",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2934,y:3466"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Clothes equipment",
+    "location": "Hemenster",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2638,y:3423",
+      "x:2635,y:3418",
+      "x:2948,y:3202"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Clothes equipment",
+    "location": "Rommik's shop",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2948,y:3202"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Clothes equipment",
+    "location": "Miscellania and Etceteria dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2508,y:10253",
+      "x:2511,y:10249"
+    ],
+    "mtype": "pin",
+    "group": "2",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Clothes equipment",
+    "location": "Osten's clothing shop",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1504,y:3594"
+    ],
+    "mtype": "pin",
+    "group": "3",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Clothes equipment",
+    "location": "Barker's clothing shop",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3504,y:3504"
+    ],
+    "mtype": "pin",
+    "group": "3",
+    "template": "objectlocline"
+  },
+  {
     "name": "Coal Truck",
     "location": "West of McGrubor's Wood",
     "members": "Yes",
@@ -16440,6 +17317,23 @@
       "x:2504,y:5066",
       "x:2499,y:5065",
       "x:2502,y:5065"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Coal rocks",
+    "location": "South Salvager Overlook mine",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "x:1629,y:3278",
+      "x:1629,y:3275",
+      "x:1630,y:3279",
+      "x:1630,y:3274",
+      "x:1632,y:3277",
+      "x:1635,y:3276",
+      "x:1636,y:3275"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -17844,7 +18738,7 @@
   },
   {
     "name": "Crate",
-    "location": "Miscellenia",
+    "location": "Miscellania",
     "members": "Yes",
     "mapid": "-1",
     "plane": "0",
@@ -18259,6 +19153,31 @@
     "list": [
       "2653,2665",
       "2653,2666"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Crevice",
+    "location": "Brimhaven Dungeon (passageway)",
+    "members": "Yes",
+    "mapid": "9",
+    "plane": "0",
+    "list": [
+      "2685,9436",
+      "2696,9436"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Crevice",
+    "location": "Brimhaven Dungeon (exit)",
+    "members": "Yes",
+    "mapid": "9",
+    "plane": "0",
+    "list": [
+      "2734,9477"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -19862,7 +20781,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Black Knights' Fortress (location)",
+    "location": "Black Knights' Fortress",
     "members": "No",
     "mapid": "0",
     "plane": "0",
@@ -20056,7 +20975,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Temple of Ikov (dungeon)",
+    "location": "Temple of Ikov",
     "members": "Yes",
     "mapid": "10147",
     "plane": "0",
@@ -20877,6 +21796,18 @@
       "2679,10410"
     ],
     "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "1387,2870"
+    ],
+    "location": "Mistrock",
+    "mapid": "0",
+    "members": "Yes",
+    "mtype": "pin",
+    "name": "Drill",
+    "plane": "1",
     "template": "objectlocline"
   },
   {
@@ -21982,6 +22913,18 @@
     "plane": "0",
     "list": [
       "x:3679,y:9889"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fermenting Vat",
+    "location": "Ground Floor of the Moonrise Brewery and Meadery on Aldarin island in Varlamore.",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1359,y:2924"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -24238,6 +25181,24 @@
     "template": "objectlocline"
   },
   {
+    "name": "Flax",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1487,3256",
+      "1488,3258",
+      "1489,3259",
+      "1489,3254",
+      "1490,3256",
+      "1491,3258",
+      "1491,3255"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Fleshy growth",
     "location": "The Scar",
     "members": "Yes",
@@ -24954,7 +25915,7 @@
   },
   {
     "name": "Font",
-    "location": "Palace of Al-Kharid",
+    "location": "Al Kharid Palace",
     "members": "No",
     "mapid": "0",
     "plane": "1",
@@ -25641,6 +26602,93 @@
       "1705,3951"
     ],
     "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fungus doormat",
+    "location": "Dorgesh-Kaan",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2700,y:5262"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fungus doormat",
+    "location": "Dorgesh-Kaan",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:2698,y:5300",
+      "x:2737,y:5295"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fungus doormat",
+    "location": "Dorgesh-Kaan",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2737,y:5291",
+      "x:2742,y:5260"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fungus doormat",
+    "location": "Dorgesh-Kaan",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:2739,y:5360",
+      "x:2697,y:5336",
+      "x:2698,y:5289"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fungus doormat",
+    "location": "Dorgesh-Kaan",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2699,y:5297",
+      "x:2694,y:5293"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Fungus doormat",
+    "location": "Dorgesh-Kaan",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:2704,y:5362",
+      "x:2701,y:5354",
+      "x:2736,y:5353",
+      "x:2699,y:5317",
+      "x:2737,y:5285"
+    ],
+    "mtype": "pin",
+    "group": "1",
     "template": "objectlocline"
   },
   {
@@ -26358,6 +27406,21 @@
       "x:3049,y:9760"
     ],
     "members": "No",
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Gold rocks",
+    "location": "East Salvager Overlook mine",
+    "list": [
+      "x:1670,y:3285",
+      "x:1671,y:3286",
+      "x:1672,y:3285",
+      "x:1673,y:3282",
+      "x:1674,y:3285"
+    ],
+    "members": "Yes",
     "mtype": "pin",
     "mapid": "-1",
     "template": "objectlocline"
@@ -28204,7 +29267,8 @@
       "2571,4316",
       "2574,4310",
       "2574,4311",
-      "2576,43382576,4339",
+      "2576,4338",
+      "2576,4339",
       "2577,4327",
       "2577,4328",
       "2580,4325",
@@ -28673,6 +29737,78 @@
     "plane": "0",
     "list": [
       "x:2969,y:3146"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Gull",
+    "location": "Aldarin",
+    "levels": "N/A",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:0000,y:0000"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Naughty Gull",
+    "location": "Aldarin",
+    "levels": "N/A",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:0000,y:0000"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Hairstyles Poster",
+    "location": "Varrock",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3255,y:3462"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Hairstyles Poster",
+    "location": "Varrock instance",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3959,y:4934"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Hairstyles Poster",
+    "location": "Varrock",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3261,y:3461"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Hairstyles Poster",
+    "location": "Varrock instance",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3965,y:4933"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -31039,6 +32175,21 @@
       "x:3036,y:9775",
       "x:3045,y:9771",
       "x:3044,y:9769"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Iron rocks",
+    "location": "East Salvager Overlook mine",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "x:1669,y:3283",
+      "x:1670,y:3282",
+      "x:1671,y:3283",
+      "x:1675,y:3283",
+      "x:1676,y:3284"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -38824,6 +39975,19 @@
     "template": "objectlocline"
   },
   {
+    "name": "Loom",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1346,y:2950"
+    ],
+    "mtype": "pin",
+    "version": "8717",
+    "template": "objectlocline"
+  },
+  {
     "name": "Loose Mud",
     "location": "Underground Pass prison cell",
     "members": "Yes",
@@ -39242,6 +40406,20 @@
     "template": "objectlocline"
   },
   {
+    "name": "Magic tree",
+    "location": "North-west shore of Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1320,2971",
+      "1323,2974",
+      "1327,2974"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Magical Barrier",
     "location": "Myths' Guild",
     "members": "Yes",
@@ -39338,7 +40516,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Black Knights' Fortress (location)",
+    "location": "Black Knights' Fortress",
     "members": "No",
     "mapid": "0",
     "plane": "0",
@@ -39544,7 +40722,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Temple of Ikov (dungeon)",
+    "location": "Temple of Ikov",
     "members": "Yes",
     "mapid": "10147",
     "plane": "0",
@@ -39600,7 +40778,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Underground Pass (dungeon)",
+    "location": "Underground Pass",
     "members": "Yes",
     "mapid": "1",
     "plane": "1",
@@ -39864,6 +41042,18 @@
     "list": [
       "2191,2994",
       "2207,2990"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Mahogany tree",
+    "location": "Locus Oasis (hardwood patch)",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1686,2971"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -40211,6 +41401,42 @@
       "x:2712,y:3381",
       "x:2714,y:3383",
       "x:2715,y:3367"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Maple tree",
+    "location": "South of Aldarin",
+    "members": "Yes",
+    "list": [
+      "x:1403,y:2884",
+      "x:1399,y:2876",
+      "x:1418,y:2862",
+      "x:1415,y:2853",
+      "x:1409,y:2850",
+      "x:1403,y:2852",
+      "x:1400,y:2859",
+      "x:1399,y:2876",
+      "x:1396,y:2857",
+      "x:1395,y:2889",
+      "x:1394,y:2873",
+      "x:1386,y:2879",
+      "x:1384,y:2878",
+      "x:1381,y:2872",
+      "x:1378,y:2872",
+      "x:1375,y:2874",
+      "x:1368,y:2866",
+      "x:1370,y:2859",
+      "x:1364,y:2864",
+      "x:1359,y:2866",
+      "x:1359,y:2860",
+      "x:1358,y:2858",
+      "x:1359,y:2866",
+      "x:1368,y:2855",
+      "x:1371,y:2851",
+      "x:1378,y:2849",
+      "x:1395,y:2869"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -40698,6 +41924,19 @@
   },
   {
     "name": "Mithril rocks",
+    "location": "South Salvager Overlook mine",
+    "members": "Yes",
+    "list": [
+      "x:1626,y:3278",
+      "x:1632,y:3280",
+      "x:1634,y:3278"
+    ],
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Mithril rocks",
     "location": "Stonecutter Outpost",
     "members": "Yes",
     "list": [
@@ -40795,6 +42034,36 @@
     ],
     "mtype": "pin",
     "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Moonlight Antelope Trophy",
+    "location": "Cam Torum",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1466,y:9573",
+      "x:1409,y:9560",
+      "x:1415,y:9560",
+      "x:1466,y:9552"
+    ],
+    "mtype": "pin",
+    "group": "1",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Moonlight Antelope Trophy",
+    "location": "Cam Torum",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "x:1436,y:9584",
+      "x:1475,y:9572"
+    ],
+    "mtype": "pin",
+    "group": "2",
     "template": "objectlocline"
   },
   {
@@ -40936,7 +42205,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Black Knights' Fortress (location)",
+    "location": "Black Knights' Fortress",
     "members": "No",
     "mapid": "0",
     "plane": "0",
@@ -41130,7 +42399,7 @@
   },
   {
     "name": "Magical Symbol",
-    "location": "Temple of Ikov (dungeon)",
+    "location": "Temple of Ikov",
     "members": "Yes",
     "mapid": "10147",
     "plane": "0",
@@ -41202,7 +42471,8 @@
       "3554,3441",
       "3557,3438",
       "3557,3444",
-      "3562,34343677,3403",
+      "3562,3434",
+      "3677,3403",
       "3677,3417",
       "3680,3413",
       "3681,3409",
@@ -42662,6 +43932,121 @@
     "template": "objectlocline"
   },
   {
+    "name": "Onion",
+    "location": "Outer Fortis",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1619,3069",
+      "1620,3070",
+      "1622,3068",
+      "1623,3065",
+      "1624,3068",
+      "1626,3070",
+      "1627,3065",
+      "1628,3068",
+      "1629,3065",
+      "1687,3049",
+      "1687,3052",
+      "1687,3056",
+      "1688,3051",
+      "1688,3053",
+      "1689,3052",
+      "1689,3056",
+      "1690,3047",
+      "1690,3049",
+      "1690,3055",
+      "1691,3050",
+      "1691,3052",
+      "1691,3054",
+      "1692,3047",
+      "1692,3049",
+      "1692,3053",
+      "1692,3055",
+      "1693,3048",
+      "1693,3050",
+      "1693,3052",
+      "1694,3054",
+      "1695,3051",
+      "1696,3047",
+      "1696,3052",
+      "1697,3048",
+      "1697,3051",
+      "1698,3050",
+      "1698,3052",
+      "1699,3051",
+      "1699,3054",
+      "1700,3048",
+      "1701,3047",
+      "1701,3049",
+      "1701,3052",
+      "1702,3048",
+      "1703,3050",
+      "1618,3068",
+      "1618,3070",
+      "1619,3067",
+      "1620,3068",
+      "1621,3067",
+      "1621,3069",
+      "1622,3066",
+      "1623,3067",
+      "1623,3069",
+      "1624,3064",
+      "1624,3066",
+      "1624,3070",
+      "1625,3063",
+      "1625,3065",
+      "1625,3067",
+      "1625,3069",
+      "1626,3062",
+      "1626,3064",
+      "1626,3066",
+      "1626,3068",
+      "1627,3063",
+      "1627,3067",
+      "1627,3069",
+      "1628,3062",
+      "1628,3064",
+      "1628,3066",
+      "1628,3070",
+      "1629,3063",
+      "1629,3067",
+      "1629,3069",
+      "1630,3064",
+      "1630,3070",
+      "1684,3055",
+      "1685,3051",
+      "1685,3054",
+      "1686,3050",
+      "1686,3053",
+      "1688,3055",
+      "1689,3050",
+      "1689,3054",
+      "1690,3053",
+      "1691,3048",
+      "1692,3051",
+      "1693,3055",
+      "1694,3047",
+      "1694,3049",
+      "1694,3051",
+      "1695,3048",
+      "1695,3053",
+      "1695,3055",
+      "1696,3049",
+      "1697,3053",
+      "1698,3047",
+      "1698,3051",
+      "1699,3049",
+      "1700,3050",
+      "1700,3053",
+      "1702,3051",
+      "1618,3068"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Onion basket",
     "location": "Tithe Farm",
     "members": "Yes",
@@ -42993,6 +44378,37 @@
     "list": [
       "x:3221,y:3497",
       "x:3223,y:3497"
+    ],
+    "template": "objectlocline"
+  },
+  {
+    "name": "Oven",
+    "location": "Civitas illa Fortis",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1420,y:3177",
+      "x:1558,y:3033",
+      "x:1561,y:2958",
+      "x:1584,y:3131",
+      "x:1590,y:3105",
+      "x:1607,y:3100",
+      "x:1634,y:3114",
+      "x:1643,y:3096",
+      "x:1640,y:3056",
+      "x:1665,y:3121",
+      "x:1674,y:3084",
+      "x:1677,y:3063",
+      "x:1689,y:3130",
+      "x:1688,y:3069",
+      "x:1716,y:3127",
+      "x:1731,y:3091",
+      "x:1735,y:3059",
+      "x:1734,y:2966",
+      "x:1755,y:3095",
+      "x:1774,y:3068",
+      "x:1752,y:3075"
     ],
     "template": "objectlocline"
   },
@@ -43477,7 +44893,7 @@
   },
   {
     "name": "Painting (scenery)",
-    "location": "Almera house",
+    "location": "Almera's house",
     "members": "Yes",
     "mapid": "0",
     "plane": "0",
@@ -43911,7 +45327,7 @@
   },
   {
     "name": "Painting (scenery)",
-    "location": "Misthalin Mystery Mansion",
+    "location": "Misthalin Manor",
     "members": "No",
     "mapid": "10109",
     "plane": "0",
@@ -44975,10 +46391,10 @@
     "mapid": "0",
     "plane": "0",
     "list": [
-      "x:1559,3048",
-      "x:1559,3048",
-      "x:1559,3048",
-      "x:1559,3048"
+      "x:1559,y:3048",
+      "x:1559,y:3048",
+      "x:1559,y:3048",
+      "x:1559,y:3048"
     ],
     "mtype": "pin",
     "version": "Moonlight Antelope",
@@ -45705,7 +47121,7 @@
   },
   {
     "name": "Poll booth",
-    "location": "Barbarian Assault",
+    "location": "Barbarian Outpost",
     "members": "Yes",
     "mapid": "0",
     "plane": "0",
@@ -46651,7 +48067,7 @@
   },
   {
     "name": "Portrait",
-    "location": "Misthalin Mystery",
+    "location": "Misthalin Manor",
     "members": "No",
     "mapid": "10109",
     "plane": "0",
@@ -48914,6 +50330,20 @@
     "template": "objectlocline"
   },
   {
+    "name": "Potter's Wheel",
+    "location": "Civitas illa Fortis",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1763,y:3096",
+      "x:1769,y:3096"
+    ],
+    "mtype": "pin",
+    "version": "50732",
+    "template": "objectlocline"
+  },
+  {
     "name": "Pottery Oven",
     "location": "Rellekka",
     "members": "Yes",
@@ -49262,6 +50692,30 @@
       "x:2542,y:10287",
       "x:2545,y:10287",
       "x:2539,y:10286"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Rocks (bronze pickaxe)",
+    "location": "Miscellania and Etceteria dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2506,10279"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Rocks (bronze pickaxe)",
+    "location": "Crandor and Karamja Dungeon",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2840,9643"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -49638,6 +51092,16 @@
     "list": [
       "3466,5770",
       "3470,5774"
+    ],
+    "template": "objectlocline"
+  },
+  {
+    "name": "Rope",
+    "location": "Colossal Wyrm Agility Course",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1645,2917"
     ],
     "template": "objectlocline"
   },
@@ -50293,6 +51757,18 @@
     "template": "objectlocline"
   },
   {
+    "name": "Runite rocks",
+    "location": "Ruins of Tapoyauik",
+    "members": "Yes",
+    "list": [
+      "x:1581,y:9659",
+      "x:1582,9660"
+    ],
+    "mtype": "pin",
+    "mapid": "-1",
+    "template": "objectlocline"
+  },
+  {
     "location": "Barbarian Assault, Waves 1-9",
     "members": "yes",
     "mapid": "-1",
@@ -50310,6 +51786,139 @@
     "list": [
       "x:1901,y:5410",
       "x:1871,y:5409"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Shayzia Ruin",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1583,3594",
+      "1587,3593",
+      "1587,3598",
+      "1587,3601",
+      "1589,3592"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Lovakengj",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1551,3747",
+      "1552,3747"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Feldip Hills",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2485,2930",
+      "2487,2932"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Dark Warriors' Fortress -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3025,3632",
+      "3026,3633",
+      "3038,3638"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Dark Warriors' Fortress -",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "3024,3623"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Deep Wilderness Dungeon",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3022,10356"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Outside Mage Arena bank",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3093,3956"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Ruins (east)",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3146,3738",
+      "3163,3734",
+      "3167,3736"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "South of Silk Chasm",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3313,3768",
+      "3314,3769",
+      "3314,3770"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Sack (Wilderness)",
+    "location": "Rogues' Castle",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3282,3932",
+      "3283,3932"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -51246,7 +52855,7 @@
   },
   {
     "name": "Shrine of Ralos",
-    "location": "On the southern edge of Outer Fortis",
+    "location": "The temple on the southern edge of Outer Fortis",
     "members": "Yes",
     "list": [
       "x:1681,y:3031"
@@ -51468,6 +53077,18 @@
     "plane": "0",
     "list": [
       "x:3281,y:6094"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Silk stall",
+    "location": "Civitas illa Fortis Bazaar",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1676,y:3114"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -52947,6 +54568,142 @@
     "template": "objectlocline"
   },
   {
+    "list": [
+      "1374,3694",
+      "1367,3743",
+      "1382,3733"
+    ],
+    "name": "Spade (scenery, common)",
+    "location": "Battlefront",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "1728,3102"
+    ],
+    "name": "Spade (scenery, common)",
+    "location": "Civitas illa Fortis",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "2979,3241"
+    ],
+    "name": "Spade (scenery, common)",
+    "location": "Rimmington mine",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "2552,2846"
+    ],
+    "name": "Spade (scenery, Corsair Cove)",
+    "location": "Corsair Cove",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "3379,2797"
+    ],
+    "name": "Spade (scenery, Ruins of Ullek)",
+    "location": "Ruins of Ullek",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "list": [
+      "3203,3170"
+    ],
+    "name": "Tools (gardening)",
+    "location": "Lumbridge Swamp - A set of tools in the Lumbridge Swamp shed",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Spade (scenery, common)",
+    "location": "Battlefront",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1374,3694",
+      "1367,3743",
+      "1382,3733"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Spade (scenery, common)",
+    "location": "Civitas illa Fortis",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1728,3102"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Spade (scenery, common)",
+    "location": "Rimmington mine",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2979,3241"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Spade (scenery, Corsair Cove)",
+    "location": "Corsair Cove",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2552,2846"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Spade (scenery, Ruins of Ullek)",
+    "location": "Ruins of Ullek",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3379,2797"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Spice stall",
     "location": "Prifddinas",
     "members": "Yes",
@@ -53304,6 +55061,19 @@
     "template": "objectlocline"
   },
   {
+    "name": "Spinning wheel",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1498,y:3252,icon:redPin"
+    ],
+    "mtype": "pin",
+    "version": "55330",
+    "template": "objectlocline"
+  },
+  {
     "name": "Spiny bush",
     "location": "Lumbridge Swamp",
     "members": "No",
@@ -53316,19 +55086,6 @@
       "x:3209,y:3160",
       "x:3220,y:3154",
       "x:3233,y:3164"
-    ],
-    "mtype": "pin",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Spiny bush",
-    "location": "Temple Trekking, bog event",
-    "members": "Yes",
-    "mapid": "10149",
-    "plane": "0",
-    "list": [
-      "x:2062,y:5002",
-      "x:2055,y:5011"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -53610,11 +55367,49 @@
     "mapid": "-1",
     "plane": "0",
     "list": [
-      "x:1727,y:3092",
-      "x:1730,y:3096",
-      "x:1737,y:3097",
-      "x:1743,y:3095",
-      "x:1744,y:3091"
+      "x:1726,y:3094",
+      "x:1736,y:3097",
+      "x:1737,y:3099",
+      "x:1740,y:3097",
+      "x:1743,y:3090",
+      "x:1770,y:3094",
+      "x:1766,y:3086"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Squirrel",
+    "location": "Around the Hailstorm Mountains",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1480,y:3303",
+      "x:1536,y:3299",
+      "x:1489,y:3235",
+      "x:1518,y:3215"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Squirrel",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1425,y:2992",
+      "x:1363,y:2869",
+      "x:1365,y:2854",
+      "x:1401,y:2852",
+      "x:1347,y:2957",
+      "x:1401,y:2992",
+      "x:1347,y:2914",
+      "x:1409,y:2918",
+      "x:1321,y:2956",
+      "x:1338,y:2975"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -54499,6 +56294,30 @@
     "template": "objectlocline"
   },
   {
+    "name": "Statue of Cyrisus",
+    "location": "Heroes' Guild",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "2907, 3512"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Cyrisus",
+    "location": "Falador Park",
+    "members": "No",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "3016, 3384"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Statue of Dizana",
     "location": "Civitas illa Fortis",
     "members": "Yes",
@@ -54785,6 +56604,18 @@
       "1825,3134",
       "1852,3104",
       "1807,3082"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Statue of Quoatlos",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:1404,y:2956"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -55114,6 +56945,186 @@
     ],
     "mtype": "pin",
     "version": "2",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stepping stone",
+    "location": "Castle Wars",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2418,y:3125",
+      "x:2419,y:3125",
+      "x:2419,y:3124",
+      "x:2419,y:3123",
+      "x:2420,y:3123",
+      "x:2377,y:3088",
+      "x:2377,y:3087",
+      "x:2377,y:3086",
+      "x:2377,y:3085",
+      "x:2378,y:3085",
+      "x:2378,y:3084"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stepping stone",
+    "location": "Castle Wars, Lletya's Song of the Elves instance",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:2866,y:6069",
+      "x:2867,y:6069",
+      "x:2867,y:6068",
+      "x:2867,y:6067",
+      "x:2868,y:6067",
+      "x:2825,y:6032",
+      "x:2825,y:6031",
+      "x:2825,y:6030",
+      "x:2825,y:6029",
+      "x:2826,y:6029",
+      "x:2826,y:6028"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Ardougne farm",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2638,3350",
+      "2647,3375",
+      "2655,3347"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Catherby beehives",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2761,3436"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Taverley",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2917,3438"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Death Plateau",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2817,3562"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "South Falador Farm",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3043,3305",
+      "3063,3282"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Watson's house",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1632,3570"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Fred's farm",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3197,3276"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Piscatoris falconry area",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2371,3620"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile",
+    "location": "Rellekka",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2675,3707"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile (South Falador Farm)",
+    "location": "South Falador Farm",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3043,3305",
+      "3063,3282"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Stile (South Falador Farm)",
+    "location": "Watson's house",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1632,3570"
+    ],
+    "mtype": "pin",
     "template": "objectlocline"
   },
   {
@@ -59801,17 +61812,17 @@
     "members": "Yes",
     "mapid": "0",
     "list": [
-      "x : 2524,y : 3312,plane : 0",
-      "x : 2527,y : 3312,plane : 0",
-      "x : 2530,y : 3315,plane : 0",
-      "x : 2523,y : 3310,plane : 1",
-      "x : 2523,y : 3319,plane : 1",
-      "x : 2528,y : 3310,plane : 1",
-      "x : 2528,y : 3319,plane : 1",
-      "x : 2530,y : 3312,plane : 1",
-      "x : 2530,y : 3314,plane : 1",
-      "x : 2539,y : 3312,plane : 1",
-      "x : 2539,y : 3314,plane : 1"
+      "2524,3312",
+      "2527,3312",
+      "2530,3315",
+      "2523:3310,plane:1",
+      "2523:3319,plane:1",
+      "2528:3310,plane:1",
+      "2528:3319,plane:1",
+      "2530:3312,plane:1",
+      "2530:3314,plane:1",
+      "2539:3312,plane:1",
+      "2539:3314,plane:1"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59823,8 +61834,8 @@
     "mapid": "0",
     "plane": "2",
     "list": [
-      "x : 2701,y : 3401,plane : 2",
-      "x : 2703,y : 3401,plane : 2"
+      "2701:3401,plane:2",
+      "2703:3401,plane:2"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59835,7 +61846,7 @@
     "members": "Yes",
     "mapid": "0",
     "list": [
-      "x : 2861,y : 3542,plane : 0"
+      "2861,3542"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59846,7 +61857,7 @@
     "members": "Yes",
     "mapid": "10134",
     "list": [
-      "x : 2838,y : 5087,plane : 0"
+      "2838,5087"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59857,8 +61868,8 @@
     "members": "No",
     "mapid": "0",
     "list": [
-      "x : 3139,y : 3638,plane : 0",
-      "x : 3144,y : 3638,plane : 0"
+      "3139,3638",
+      "3144,3638"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59869,15 +61880,15 @@
     "members": "Yes",
     "mapid": "0",
     "list": [
-      "x : 3278,y : 3936,plane : 0",
-      "x : 3278,y : 3937,plane : 0",
-      "x : 3282,y : 3926,plane : 0",
-      "x : 3283,y : 3936,plane : 0",
-      "x : 3283,y : 3937,plane : 0",
-      "x : 3284,y : 3926,plane : 0",
-      "x : 3287,y : 3926,plane : 0",
-      "x : 3288,y : 3935,plane : 0",
-      "x : 3290,y : 3926,plane : 0"
+      "3278,3936",
+      "3278,3937",
+      "3282,3926",
+      "3283,3936",
+      "3283,3937",
+      "3284,3926",
+      "3287,3926",
+      "3288,3935",
+      "3290,3926"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59889,8 +61900,8 @@
     "mapid": "0",
     "plane": "1",
     "list": [
-      "x : 3290,y : 3929,plane : 1",
-      "x : 3290,y : 3932,plane : 1"
+      "3290:3929,plane:1",
+      "3290:3932,plane:1"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59901,44 +61912,44 @@
     "members": "Yes",
     "mapid": "0",
     "list": [
-      "x : 3406,y : 3534,plane : 0",
-      "x : 3406,y : 3539,plane : 0",
-      "x : 3410,y : 3544,plane : 0",
-      "x : 3410,y : 3552,plane : 0",
-      "x : 3410,y : 3567,plane : 0",
-      "x : 3412,y : 3552,plane : 0",
-      "x : 3413,y : 3544,plane : 0",
-      "x : 3413,y : 3567,plane : 0",
-      "x : 3416,y : 3552,plane : 0",
-      "x : 3418,y : 3552,plane : 0",
-      "x : 3419,y : 3534,plane : 0",
-      "x : 3419,y : 3541,plane : 0",
-      "x : 3419,y : 3561,plane : 0",
-      "x : 3421,y : 3541,plane : 0",
-      "x : 3424,y : 3534,plane : 0",
-      "x : 3424,y : 3549,plane : 0",
-      "x : 3425,y : 3541,plane : 0",
-      "x : 3425,y : 3561,plane : 0",
-      "x : 3425,y : 3564,plane : 0",
-      "x : 3425,y : 3570,plane : 0",
-      "x : 3426,y : 3546,plane : 0",
-      "x : 3427,y : 3541,plane : 0",
-      "x : 3428,y : 3568,plane : 0",
-      "x : 3429,y : 3546,plane : 0",
-      "x : 3431,y : 3550,plane : 0",
-      "x : 3431,y : 3554,plane : 0",
-      "x : 3432,y : 3568,plane : 0",
-      "x : 3436,y : 3543,plane : 0",
-      "x : 3436,y : 3544,plane : 0",
-      "x : 3436,y : 3568,plane : 0",
-      "x : 3437,y : 3550,plane : 0",
-      "x : 3438,y : 3557,plane : 0",
-      "x : 3440,y : 3568,plane : 0",
-      "x : 3441,y : 3550,plane : 0",
-      "x : 3442,y : 3557,plane : 0",
-      "x : 3445,y : 3564,plane : 0",
-      "x : 3445,y : 3568,plane : 0",
-      "x : 3446,y : 3557,plane : 0"
+      "3406,3534",
+      "3406,3539",
+      "3410,3544",
+      "3410,3552",
+      "3410,3567",
+      "3412,3552",
+      "3413,3544",
+      "3413,3567",
+      "3416,3552",
+      "3418,3552",
+      "3419,3534",
+      "3419,3541",
+      "3419,3561",
+      "3421,3541",
+      "3424,3534",
+      "3424,3549",
+      "3425,3541",
+      "3425,3561",
+      "3425,3564",
+      "3425,3570",
+      "3426,3546",
+      "3427,3541",
+      "3428,3568",
+      "3429,3546",
+      "3431,3550",
+      "3431,3554",
+      "3432,3568",
+      "3436,3543",
+      "3436,3544",
+      "3436,3568",
+      "3437,3550",
+      "3438,3557",
+      "3440,3568",
+      "3441,3550",
+      "3442,3557",
+      "3445,3564",
+      "3445,3568",
+      "3446,3557"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -59950,47 +61961,47 @@
     "mapid": "0",
     "plane": "1",
     "list": [
-      "x : 3405,y : 3574,plane : 1",
-      "x : 3408,y : 3562,plane : 1",
-      "x : 3409,y : 3545,plane : 1",
-      "x : 3409,y : 3566,plane : 1",
-      "x : 3411,y : 3531,plane : 1",
-      "x : 3411,y : 3556,plane : 1",
-      "x : 3414,y : 3566,plane : 1",
-      "x : 3415,y : 3555,plane : 1",
-      "x : 3416,y : 3570,plane : 1",
-      "x : 3417,y : 3534,plane : 1",
-      "x : 3417,y : 3576,plane : 1",
-      "x : 3418,y : 3556,plane : 1",
-      "x : 3420,y : 3546,plane : 1",
-      "x : 3420,y : 3550,plane : 1",
-      "x : 3420,y : 3570,plane : 1",
-      "x : 3422,y : 3533,plane : 1",
-      "x : 3424,y : 3546,plane : 1",
-      "x : 3428,y : 3570,plane : 1",
-      "x : 3428,y : 3576,plane : 1",
-      "x : 3429,y : 3546,plane : 1",
-      "x : 3429,y : 3557,plane : 1",
-      "x : 3429,y : 3564,plane : 1",
-      "x : 3430,y : 3562,plane : 1",
-      "x : 3430,y : 3570,plane : 1",
-      "x : 3430,y : 3575,plane : 1",
-      "x : 3432,y : 3543,plane : 1",
-      "x : 3432,y : 3566,plane : 1",
-      "x : 3432,y : 3576,plane : 1",
-      "x : 3433,y : 3553,plane : 1",
-      "x : 3437,y : 3541,plane : 1",
-      "x : 3439,y : 3534,plane : 1",
-      "x : 3439,y : 3554,plane : 1",
-      "x : 3439,y : 3566,plane : 1",
-      "x : 3439,y : 3576,plane : 1",
-      "x : 3440,y : 3541,plane : 1",
-      "x : 3443,y : 3553,plane : 1",
-      "x : 3445,y : 3547,plane : 1",
-      "x : 3446,y : 3533,plane : 1",
-      "x : 3446,y : 3539,plane : 1",
-      "x : 3446,y : 3547,plane : 1",
-      "x : 3448,y : 3556,plane : 1"
+      "3405:3574,plane:1",
+      "3408:3562,plane:1",
+      "3409:3545,plane:1",
+      "3409:3566,plane:1",
+      "3411:3531,plane:1",
+      "3411:3556,plane:1",
+      "3414:3566,plane:1",
+      "3415:3555,plane:1",
+      "3416:3570,plane:1",
+      "3417:3534,plane:1",
+      "3417:3576,plane:1",
+      "3418:3556,plane:1",
+      "3420:3546,plane:1",
+      "3420:3550,plane:1",
+      "3420:3570,plane:1",
+      "3422:3533,plane:1",
+      "3424:3546,plane:1",
+      "3428:3570,plane:1",
+      "3428:3576,plane:1",
+      "3429:3546,plane:1",
+      "3429:3557,plane:1",
+      "3429:3564,plane:1",
+      "3430:3562,plane:1",
+      "3430:3570,plane:1",
+      "3430:3575,plane:1",
+      "3432:3543,plane:1",
+      "3432:3566,plane:1",
+      "3432:3576,plane:1",
+      "3433:3553,plane:1",
+      "3437:3541,plane:1",
+      "3439:3534,plane:1",
+      "3439:3554,plane:1",
+      "3439:3566,plane:1",
+      "3439:3576,plane:1",
+      "3440:3541,plane:1",
+      "3443:3553,plane:1",
+      "3445:3547,plane:1",
+      "3446:3533,plane:1",
+      "3446:3539,plane:1",
+      "3446:3547,plane:1",
+      "3448:3556,plane:1"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60002,51 +62013,51 @@
     "mapid": "0",
     "plane": "2",
     "list": [
-      "x : 3405,y : 3574,plane : 2",
-      "x : 3408,y : 3560,plane : 2",
-      "x : 3410,y : 3545,plane : 2",
-      "x : 3410,y : 3546,plane : 2",
-      "x : 3410,y : 3565,plane : 2",
-      "x : 3410,y : 3579,plane : 2",
-      "x : 3411,y : 3531,plane : 2",
-      "x : 3414,y : 3546,plane : 2",
-      "x : 3414,y : 3555,plane : 2",
-      "x : 3416,y : 3554,plane : 2",
-      "x : 3417,y : 3534,plane : 2",
-      "x : 3417,y : 3573,plane : 2",
-      "x : 3418,y : 3545,plane : 2",
-      "x : 3420,y : 3558,plane : 2",
-      "x : 3421,y : 3556,plane : 2",
-      "x : 3422,y : 3562,plane : 2",
-      "x : 3423,y : 3546,plane : 2",
-      "x : 3423,y : 3561,plane : 2",
-      "x : 3424,y : 3545,plane : 2",
-      "x : 3425,y : 3536,plane : 2",
-      "x : 3427,y : 3576,plane : 2",
-      "x : 3429,y : 3552,plane : 2",
-      "x : 3429,y : 3562,plane : 2",
-      "x : 3430,y : 3536,plane : 2",
-      "x : 3430,y : 3542,plane : 2",
-      "x : 3430,y : 3546,plane : 2",
-      "x : 3430,y : 3552,plane : 2",
-      "x : 3430,y : 3561,plane : 2",
-      "x : 3431,y : 3567,plane : 2",
-      "x : 3431,y : 3574,plane : 2",
-      "x : 3432,y : 3544,plane : 2",
-      "x : 3434,y : 3554,plane : 2",
-      "x : 3434,y : 3561,plane : 2",
-      "x : 3437,y : 3545,plane : 2",
-      "x : 3440,y : 3534,plane : 2",
-      "x : 3440,y : 3554,plane : 2",
-      "x : 3440,y : 3557,plane : 2",
-      "x : 3440,y : 3576,plane : 2",
-      "x : 3442,y : 3555,plane : 2",
-      "x : 3446,y : 3531,plane : 2",
-      "x : 3448,y : 3544,plane : 2",
-      "x : 3448,y : 3556,plane : 2",
-      "x : 3448,y : 3566,plane : 2",
-      "x : 3448,y : 3568,plane : 2",
-      "x : 3452,y : 3536,plane : 2"
+      "3405:3574,plane:2",
+      "3408:3560,plane:2",
+      "3410:3545,plane:2",
+      "3410:3546,plane:2",
+      "3410:3565,plane:2",
+      "3410:3579,plane:2",
+      "3411:3531,plane:2",
+      "3414:3546,plane:2",
+      "3414:3555,plane:2",
+      "3416:3554,plane:2",
+      "3417:3534,plane:2",
+      "3417:3573,plane:2",
+      "3418:3545,plane:2",
+      "3420:3558,plane:2",
+      "3421:3556,plane:2",
+      "3422:3562,plane:2",
+      "3423:3546,plane:2",
+      "3423:3561,plane:2",
+      "3424:3545,plane:2",
+      "3425:3536,plane:2",
+      "3427:3576,plane:2",
+      "3429:3552,plane:2",
+      "3429:3562,plane:2",
+      "3430:3536,plane:2",
+      "3430:3542,plane:2",
+      "3430:3546,plane:2",
+      "3430:3552,plane:2",
+      "3430:3561,plane:2",
+      "3431:3567,plane:2",
+      "3431:3574,plane:2",
+      "3432:3544,plane:2",
+      "3434:3554,plane:2",
+      "3434:3561,plane:2",
+      "3437:3545,plane:2",
+      "3440:3534,plane:2",
+      "3440:3554,plane:2",
+      "3440:3557,plane:2",
+      "3440:3576,plane:2",
+      "3442:3555,plane:2",
+      "3446:3531,plane:2",
+      "3448:3544,plane:2",
+      "3448:3556,plane:2",
+      "3448:3566,plane:2",
+      "3448:3568,plane:2",
+      "3452:3536,plane:2"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60058,34 +62069,34 @@
     "mapid": "-1",
     "plane": "3",
     "list": [
-      "x : 3401,y : 9935,plane : 3",
-      "x : 3402,y : 9966,plane : 3",
-      "x : 3403,y : 9946,plane : 3",
-      "x : 3403,y : 9974,plane : 3",
-      "x : 3406,y : 9953,plane : 3",
-      "x : 3408,y : 9928,plane : 3",
-      "x : 3409,y : 9929,plane : 3",
-      "x : 3409,y : 9954,plane : 3",
-      "x : 3409,y : 9960,plane : 3",
-      "x : 3409,y : 9973,plane : 3",
-      "x : 3412,y : 9943,plane : 3",
-      "x : 3417,y : 9973,plane : 3",
-      "x : 3418,y : 9929,plane : 3",
-      "x : 3418,y : 9947,plane : 3",
-      "x : 3426,y : 9934,plane : 3",
-      "x : 3426,y : 9942,plane : 3",
-      "x : 3428,y : 9967,plane : 3",
-      "x : 3429,y : 9949,plane : 3",
-      "x : 3430,y : 9939,plane : 3",
-      "x : 3430,y : 9973,plane : 3",
-      "x : 3431,y : 9929,plane : 3",
-      "x : 3435,y : 9952,plane : 3",
-      "x : 3439,y : 9974,plane : 3",
-      "x : 3440,y : 9953,plane : 3",
-      "x : 3443,y : 9962,plane : 3",
-      "x : 3444,y : 9928,plane : 3",
-      "x : 3445,y : 9936,plane : 3",
-      "x : 3445,y : 9966,plane : 3"
+      "3401:9935,plane:3",
+      "3402:9966,plane:3",
+      "3403:9946,plane:3",
+      "3403:9974,plane:3",
+      "3406:9953,plane:3",
+      "3408:9928,plane:3",
+      "3409:9929,plane:3",
+      "3409:9954,plane:3",
+      "3409:9960,plane:3",
+      "3409:9973,plane:3",
+      "3412:9943,plane:3",
+      "3417:9973,plane:3",
+      "3418:9929,plane:3",
+      "3418:9947,plane:3",
+      "3426:9934,plane:3",
+      "3426:9942,plane:3",
+      "3428:9967,plane:3",
+      "3429:9949,plane:3",
+      "3430:9939,plane:3",
+      "3430:9973,plane:3",
+      "3431:9929,plane:3",
+      "3435:9952,plane:3",
+      "3439:9974,plane:3",
+      "3440:9953,plane:3",
+      "3443:9962,plane:3",
+      "3444:9928,plane:3",
+      "3445:9936,plane:3",
+      "3445:9966,plane:3"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60096,22 +62107,22 @@
     "members": "Yes",
     "mapid": "0",
     "list": [
-      "x : 3538,y : 3543,plane : 0",
-      "x : 3538,y : 3561,plane : 0",
-      "x : 3539,y : 3549,plane : 0",
-      "x : 3542,y : 3561,plane : 0",
-      "x : 3543,y : 3543,plane : 0",
-      "x : 3545,y : 3552,plane : 0",
-      "x : 3546,y : 3539,plane : 0",
-      "x : 3546,y : 3556,plane : 0",
-      "x : 3551,y : 3539,plane : 0",
-      "x : 3551,y : 3556,plane : 0",
-      "x : 3552,y : 3552,plane : 0",
-      "x : 3554,y : 3543,plane : 0",
-      "x : 3555,y : 3561,plane : 0",
-      "x : 3558,y : 3549,plane : 0",
-      "x : 3559,y : 3543,plane : 0",
-      "x : 3559,y : 3561,plane : 0"
+      "3538,3543",
+      "3538,3561",
+      "3539,3549",
+      "3542,3561",
+      "3543,3543",
+      "3545,3552",
+      "3546,3539",
+      "3546,3556",
+      "3551,3539",
+      "3551,3556",
+      "3552,3552",
+      "3554,3543",
+      "3555,3561",
+      "3558,3549",
+      "3559,3543",
+      "3559,3561"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60123,20 +62134,20 @@
     "mapid": "0",
     "plane": "1",
     "list": [
-      "x : 3539,y : 3541,plane : 1",
-      "x : 3541,y : 3558,plane : 1",
-      "x : 3542,y : 3544,plane : 1",
-      "x : 3543,y : 3558,plane : 1",
-      "x : 3545,y : 3555,plane : 1",
-      "x : 3547,y : 3537,plane : 1",
-      "x : 3547,y : 3541,plane : 1",
-      "x : 3550,y : 3537,plane : 1",
-      "x : 3550,y : 3541,plane : 1",
-      "x : 3552,y : 3555,plane : 1",
-      "x : 3554,y : 3558,plane : 1",
-      "x : 3555,y : 3544,plane : 1",
-      "x : 3556,y : 3558,plane : 1",
-      "x : 3558,y : 3544,plane : 1"
+      "3539:3541,plane:1",
+      "3541:3558,plane:1",
+      "3542:3544,plane:1",
+      "3543:3558,plane:1",
+      "3545:3555,plane:1",
+      "3547:3537,plane:1",
+      "3547:3541,plane:1",
+      "3550:3537,plane:1",
+      "3550:3541,plane:1",
+      "3552:3555,plane:1",
+      "3554:3558,plane:1",
+      "3555:3544,plane:1",
+      "3556:3558,plane:1",
+      "3558:3544,plane:1"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60148,10 +62159,10 @@
     "mapid": "0",
     "plane": "2",
     "list": [
-      "x : 3538,y : 3543,plane : 2",
-      "x : 3543,y : 3543,plane : 2",
-      "x : 3554,y : 3543,plane : 2",
-      "x : 3559,y : 3543,plane : 2"
+      "3538:3543,plane:2",
+      "3543:3543,plane:2",
+      "3554:3543,plane:2",
+      "3559:3543,plane:2"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60162,11 +62173,11 @@
     "members": "Yes",
     "mapid": "27",
     "list": [
-      "x : 2566,y : 9525,plane : 0",
-      "x : 2566,y : 9527,plane : 0",
-      "x : 2571,y : 9533,plane : 0",
-      "x : 2573,y : 9533,plane : 0",
-      "x : 2580,y : 9522,plane : 0"
+      "2566,9525",
+      "2566,9527",
+      "2571,9533",
+      "2573,9533",
+      "2580,9522"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -60177,9 +62188,9 @@
     "members": "Yes",
     "mapid": "10176",
     "list": [
-      "x : 2566,y : 9884,plane : 0",
-      "x : 2572,y : 9895,plane : 0",
-      "x : 2584,y : 9895,plane : 0"
+      "2566,9884",
+      "2572,9895",
+      "2584,9895"
     ],
     "mtype": "pin",
     "template": "objectlocline"
@@ -61040,7 +63051,7 @@
   },
   {
     "name": "Table",
-    "location": "Ah Za Roon",
+    "location": "Ah Za Rhoon",
     "members": "Yes",
     "mapid": "10008",
     "plane": "0",
@@ -62580,6 +64591,120 @@
     "template": "objectlocline"
   },
   {
+    "name": "Tools (gardening)",
+    "location": "Lumbridge Swamp - Lumbridge Swamp shed",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3203,3170"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Prifddinas - Branwen's Farming Shop",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3297,6089"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Farming Guild",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1243,3739"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Ortus Farm",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1593,3100"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Hosidius",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1700,3534",
+      "1807,3505",
+      "1820,3502",
+      "1829,3486",
+      "1834,3486",
+      "1835,3508"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Hosidius -",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "1785,3590"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Catherby",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "2821,3459"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "South Falador Farm",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3025,3296",
+      "3038,3296"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Tools (gardening)",
+    "location": "Slepe",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3708,3302"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Rack",
     "location": "Ardougne Castle",
     "members": "Yes",
@@ -63284,8 +65409,8 @@
     "template": "objectlocline"
   },
   {
-    "name": "Tree (Morytania Spider Nest)",
-    "location": "Morytania Spider Nest",
+    "name": "Tree (Morytania Spider Cave)",
+    "location": "Morytania Spider Cave",
     "members": "Yes",
     "mapid": "0",
     "plane": "0",
@@ -65607,6 +67732,52 @@
     "template": "objectlocline"
   },
   {
+    "name": "Vanity dresser",
+    "location": "Varrock",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3258,y:3459"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Vanity dresser",
+    "location": "Varrock instance",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3962,y:4931"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Vanity dresser",
+    "location": "Varrock",
+    "members": "No",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3255,y:3459"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Vanity dresser",
+    "location": "Varrock instance",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "x:3959,y:4931"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Veg stall",
     "location": "Miscellania Castle courtyard",
     "members": "Yes",
@@ -67767,7 +69938,7 @@
       "x:2570,y:3118",
       "x:2574,y:3124"
     ],
-    "mtype": "pin-polygon",
+    "mtype": "pin",
     "template": "objectlocline"
   },
   {
@@ -69380,6 +71551,7 @@
     "template": "objectlocline"
   },
   {
+    "name": "Willow tree",
     "location": "South-east of Hosidius Town square",
     "members": "Yes",
     "mapid": "0",
@@ -69402,6 +71574,25 @@
     "template": "objectlocline"
   },
   {
+    "name": "Willow tree",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1315,2964",
+      "1317,2958",
+      "1318,2967",
+      "1425,2998",
+      "1427,2994",
+      "1426,2991",
+      "1428,2988",
+      "1432,2988"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Wilting wheat",
     "location": "Puro-Puro",
     "members": "Yes",
@@ -69418,7 +71609,8 @@
       "2571,4316",
       "2574,4310",
       "2574,4311",
-      "2576,43382576,4339",
+      "2576,4338",
+      "2576,4339",
       "2577,4327",
       "2577,4328",
       "2580,4325",
@@ -69624,6 +71816,18 @@
     "template": "objectlocline"
   },
   {
+    "name": "Flour bin",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1398,y:2893"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
     "name": "Window",
     "location": "Civitas illa Fortis",
     "members": "Yes",
@@ -69633,6 +71837,52 @@
       "1637,3094",
       "1638,3124"
     ],
+    "template": "objectlocline"
+  },
+  {
+    "name": "Windswept Tree",
+    "location": "Lunar Isle",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:2192,y:3807",
+      "x:2141,y:3861",
+      "x:2135,y:3858",
+      "x:2132,y:3860",
+      "x:2119,y:3847",
+      "x:2129,y:3871",
+      "x:2121,y:3880",
+      "x:2092,y:3874",
+      "x:2085,y:3880",
+      "x:2064,y:3876",
+      "x:2080,y:3945",
+      "x:2103,y:3945",
+      "x:2113,y:3950",
+      "x:2120,y:3953",
+      "x:2119,y:3934",
+      "x:2164,y:3933"
+    ],
+    "mtype": "pin",
+    "version": "16639",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Windswept Tree",
+    "location": "Island of Stone",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:2448,y:3999",
+      "x:2459,y:4014",
+      "x:2461,y:4005",
+      "x:2472,y:4005",
+      "x:2476,y:4009",
+      "x:2476,y:4005"
+    ],
+    "mtype": "pin",
+    "version": "16639",
     "template": "objectlocline"
   },
   {
@@ -70942,10 +73192,40 @@
     "mapid": "0",
     "plane": "0",
     "list": [
-      "x:2142,y:2970",
-      "x:2146,y:2965",
-      "x:2146,y:2974",
-      "x:2158,y:2977"
+      "2142,2970",
+      "2146,2965",
+      "2146,2974",
+      "2158,2977"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Yew tree",
+    "location": "Aldarin",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1411,2994",
+      "1410,2987",
+      "1416,2990",
+      "1378,2877",
+      "1383,2876"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Yew tree",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "1495,3244",
+      "1502,3243",
+      "1500,3247"
     ],
     "mtype": "pin",
     "template": "objectlocline"

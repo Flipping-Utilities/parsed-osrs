@@ -481,7 +481,7 @@
   {
     "list": [
       "int",
-      "+15"
+      "+25"
     ],
     "echo": "2",
     "template": "+="
@@ -559,7 +559,7 @@
   {
     "list": [
       "int",
-      "+15"
+      "+25"
     ],
     "echo": "2",
     "template": "+="
@@ -621,7 +621,7 @@
   {
     "list": [
       "int",
-      "+15"
+      "+25"
     ],
     "echo": "2",
     "template": "+="
@@ -1245,7 +1245,7 @@
   {
     "list": [
       "int",
-      "+10"
+      "+12"
     ],
     "echo": "2",
     "template": "+="
@@ -3681,6 +3681,134 @@
   {
     "list": [
       "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
+      "243.7"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "37.2"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "62"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "62"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "62"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "62"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp2",
+      "325"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "xp",
       "*150"
     ],
     "echo": "2",
@@ -3858,6 +3986,14 @@
     "list": [
       "weight",
       "5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
+      "10"
     ],
     "echo": "2",
     "template": "+="
@@ -5025,6 +5161,14 @@
   {
     "list": [
       "weight",
+      "10"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
       "8"
     ],
     "echo": "2",
@@ -6111,6 +6255,14 @@
     "list": [
       "weight",
       "5"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "weight",
+      "8"
     ],
     "echo": "2",
     "template": "+="
@@ -9111,6 +9263,14 @@
   {
     "list": [
       "crafting",
+      "5,000"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "crafting",
       "7,000"
     ],
     "echo": "2",
@@ -10983,7 +11143,7 @@
   {
     "list": [
       "int",
-      "+8"
+      "+18"
     ],
     "echo": "2",
     "template": "+="
@@ -11147,7 +11307,7 @@
   {
     "list": [
       "xp",
-      "475"
+      "615"
     ],
     "echo": "2",
     "template": "+="
@@ -12010,6 +12170,34 @@
   },
   {
     "list": [
+      "totalmedium",
+      "+ +"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int3"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "totalmedium",
+      "+"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int3"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
       "totalhard",
       "+ +"
     ],
@@ -12208,6 +12396,20 @@
     "list": [
       "totalhard",
       "+"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int4"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "totalhard",
+      "+ +"
     ],
     "echo": "2",
     "template": "+="
@@ -12782,6 +12984,20 @@
     "list": [
       "totalmaster",
       "+ +  +"
+    ],
+    "echo": "2",
+    "template": "+="
+  },
+  {
+    "list": [
+      "int6"
+    ],
+    "template": "+="
+  },
+  {
+    "list": [
+      "totalmaster",
+      "+"
     ],
     "echo": "2",
     "template": "+="
@@ -14074,7 +14290,7 @@
   {
     "list": [
       "total",
-      "32.000"
+      "30.000"
     ],
     "echo": "2",
     "template": "+="

@@ -20,7 +20,7 @@
   },
   {
     "name": "Air rune",
-    "location": "Draynor Village - east of the jail",
+    "location": "East of Draynor jail",
     "members": "No",
     "list": [
       "3150,3247"
@@ -324,6 +324,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Beer",
+    "location": "Stick Your Ore Inn",
+    "members": "Yes",
+    "list": [
+      "1388,2859"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Beer glass",
     "location": "Citharede Abbey mine",
     "members": "No",
@@ -433,13 +442,42 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Trapper&#39;s tipple",
+    "name": "Beer glass",
     "location": "Hunter Guild - basement",
     "members": "Yes",
     "list": [
       "1555,9461"
     ],
     "mapid": "-1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Beer glass",
+    "location": "Aldarin - Sunlight's Sanctum",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1380, 2932",
+      "1381, 2925"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron bar",
+    "location": "Stick Your Ore Inn",
+    "members": "Yes",
+    "list": [
+      "1392,2860"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Beer glass",
+    "location": "Quetzacalli Gorge - The Windbreaker",
+    "members": "Yes",
+    "list": [
+      "1502, 3228"
+    ],
     "template": "itemspawnline"
   },
   {
@@ -506,6 +544,19 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Big bones",
+    "location": "Colossal Wyrm Remains (one requires telegrab)",
+    "members": "Yes",
+    "list": [
+      "1626,2930",
+      "1631,2908",
+      "1657,2914",
+      "1658,2922",
+      "1646,2907"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Big fishing net",
     "location": "Port Piscarilius",
     "list": [
@@ -538,6 +589,16 @@
     "members": "Yes",
     "list": [
       "1507,2984"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Big fishing net",
+    "location": "Shipwreck Cove",
+    "members": "Yes",
+    "list": [
+      "1578,3307",
+      "1565,3324"
     ],
     "template": "itemspawnline"
   },
@@ -715,6 +776,38 @@
       "2120,9309",
       "2121,9301",
       "2126,9298"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Blue dragon scale",
+    "location": "Ruins of Tapoyauik - east blue dragon room",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1643,9612",
+      "1649,9618",
+      "1654,9615",
+      "1649,9605",
+      "1659,9603",
+      "1662,9613"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Blue dragon scale",
+    "location": "Ruins of Tapoyauik - west blue dragon room",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1602,9613",
+      "1604,9604",
+      "1597,9608",
+      "1591,9622",
+      "1585,9612",
+      "1585,9621",
+      "1577,9617",
+      "1582,9605"
     ],
     "template": "itemspawnline"
   },
@@ -1207,7 +1300,7 @@
   },
   {
     "name": "Bones",
-    "location": "Melzar's Maze, upstairs",
+    "location": "Melzar's Maze,",
     "members": "No",
     "plane": "2",
     "list": [
@@ -1611,6 +1704,60 @@
   },
   {
     "name": "Bones",
+    "location": "Shipwreck Cove",
+    "members": "Yes",
+    "list": [
+      "1545,3327",
+      "1556,3311",
+      "1575,3294"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bones",
+    "location": "Ruins of Tapoyauik",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "2",
+    "list": [
+      "1683,9604",
+      "1685,9603",
+      "1688,9606",
+      "1690,9602"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bones",
+    "location": "East of Mistrock",
+    "members": "Yes",
+    "list": [
+      "1411, 2858",
+      "1413,2855",
+      "1418,2861",
+      "1421,2857",
+      "1421,2852"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bones",
+    "location": "Colossal Wyrm (2 require telegrab)",
+    "members": "Yes",
+    "list": [
+      "1636,2934",
+      "1625,2924",
+      "1643,2905",
+      "1653,2910",
+      "1652,2914",
+      "1655,2923",
+      "1657,2925",
+      "1627,2912"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bones (Ape Atoll)",
     "location": "Ape Atoll Dungeon",
     "members": "Yes",
     "mapid": "10014",
@@ -1719,6 +1866,16 @@
     "members": "Yes",
     "list": [
       "1764,3100"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bowl",
+    "location": "Aldarin",
+    "members": "Yes",
+    "list": [
+      "1431,2962"
     ],
     "plane": "1",
     "template": "itemspawnline"
@@ -1910,6 +2067,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Bread",
+    "location": "Varlamore - near the Twilight Temple",
+    "members": "Yes",
+    "plane": "0",
+    "list": [
+      "1669,3250,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Brewin' Guide",
     "location": "Trouble Brewing",
     "members": "Yes",
@@ -2021,6 +2188,17 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Broken arrow",
+    "location": "Northeast of Quetzacalli Gorge",
+    "members": "Yes",
+    "list": [
+      "1522,3247",
+      "1522,3253",
+      "1529,3253"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Broken fishing rod",
     "location": "Mudskipper Point",
     "members": "Yes",
@@ -2111,16 +2289,16 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Logs",
+    "name": "Broken glass",
     "location": "Outer Fortis (inaccessible)",
     "members": "Yes",
     "list": [
-      "1735,3079"
+      "1725,3079"
     ],
     "template": "itemspawnline"
   },
   {
-    "name": "Logs",
+    "name": "Broken glass",
     "location": "Outer Fortis - (inaccessible)",
     "members": "Yes",
     "list": [
@@ -2342,12 +2520,30 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Bronze axe",
+    "location": "The Proudspire",
+    "members": "Yes",
+    "list": [
+      "1582,3273"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Bronze bar",
     "location": "Brimhaven Dungeon (task-only area)",
     "members": "Yes",
     "mapid": "9",
     "list": [
       "2636,9463"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze bar",
+    "location": "Salius' Armour Shop",
+    "members": "Yes",
+    "list": [
+      "1620,3292"
     ],
     "template": "itemspawnline"
   },
@@ -2388,6 +2584,15 @@
     "mapid": "6",
     "list": [
       "2985,9817"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze chainbody",
+    "location": "Northeast of Twilight Temple",
+    "members": "Yes",
+    "list": [
+      "1694,3270"
     ],
     "template": "itemspawnline"
   },
@@ -2451,6 +2656,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Bronze dagger",
+    "location": "Mons Gratia",
+    "members": "Yes",
+    "list": [
+      "1425,3280"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Bronze mace",
     "location": "Al Kharid - Sorceress' house",
     "members": "No",
@@ -2460,7 +2674,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Bronze Med Helm",
+    "name": "Bronze med helm",
     "location": "Draynor Manor",
     "members": "No",
     "list": [
@@ -2469,7 +2683,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Bronze Med Helm",
+    "name": "Bronze med helm",
     "location": "Draynor Manor (Count Draynor's basement)",
     "members": "No",
     "mapid": "12",
@@ -2488,13 +2702,12 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Bronze nails",
     "location": "Necropolis",
-    "list": [
-      "3325,2727"
-    ],
-    "mapid": "0",
     "members": "Yes",
-    "name": "Bronze nails(5)",
+    "list": [
+      "3325,2727,qty:5"
+    ],
     "template": "itemspawnline"
   },
   {
@@ -2642,6 +2855,15 @@
     "members": "Yes",
     "list": [
       "1731,2973"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bronze pickaxe",
+    "location": "The Darkfrost - Hueycoatl base camp",
+    "members": "Yes",
+    "list": [
+      "1535,3290"
     ],
     "template": "itemspawnline"
   },
@@ -3065,6 +3287,35 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Bucket",
+    "location": "Clan Wars - Free for all",
+    "members": "No",
+    "mapid": "-1",
+    "list": [
+      "3359,4777"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bucket",
+    "location": "Moonrise Brewery and Winery",
+    "members": "Yes",
+    "mapid": "-1",
+    "list": [
+      "1354,2914"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bucket",
+    "location": "Stick Your Ore Inn",
+    "members": "Yes",
+    "list": [
+      "1388,2851"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Bucket of milk",
     "location": "Rellekka",
     "members": "Yes",
@@ -3189,6 +3440,20 @@
     "name": "Bucket of water",
     "location": "Shayzien Basic Course - just before the final obstacle",
     "members": "Yes",
+    "list": [
+      "1533,3643"
+    ],
+    "plane": "2",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bucket of water",
+    "location": "Shayzien Advanced Course - just before the final obstacle",
+    "members": "Yes",
+    "list": [
+      "1522,3618"
+    ],
+    "plane": "2",
     "template": "itemspawnline"
   },
   {
@@ -3216,6 +3481,44 @@
     "members": "Yes",
     "list": [
       "1545,3037"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bucket of water",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "list": [
+      "1500,3236"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bucket of water",
+    "location": "Aldarin",
+    "members": "Yes",
+    "list": [
+      "1352,2946"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Bucket of water",
+    "location": "Shields of Mistrock",
+    "members": "Yes",
+    "list": [
+      "1388,2866"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Unlit bug lantern",
+    "location": "Ruins of Tapoyauik",
+    "mapid": "-1",
+    "members": "Yes",
+    "list": [
+      "1689,9661"
     ],
     "template": "itemspawnline"
   },
@@ -3396,7 +3699,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Burn Chicken",
+    "name": "Burnt Chicken",
     "location": "Cam Torum",
     "members": "Yes",
     "plane": "1",
@@ -3465,7 +3768,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Butterfly Net",
+    "name": "Butterfly net",
     "location": "Land's End - Crate",
     "members": "Yes",
     "list": [
@@ -3498,6 +3801,24 @@
     "members": "Yes",
     "list": [
       "1376,3750,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Candle",
+    "location": "Salvager Overlook - East Tower",
+    "members": "Yes",
+    "list": [
+      "1645,3285"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Cabbages(2)",
+    "location": "Salvager Overlook - General Store",
+    "members": "Yes",
+    "list": [
+      "1625,3288"
     ],
     "template": "itemspawnline"
   },
@@ -3547,6 +3868,26 @@
     "list": [
       "1635,3621",
       "1639,3622"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Candle",
+    "location": "Salvager Overlook",
+    "members": "Yes",
+    "plane": "1",
+    "list": [
+      "1644,3284",
+      "1630,3298"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Candle",
+    "location": "South of Twilight Temple",
+    "members": "Yes",
+    "list": [
+      "1680,3232"
     ],
     "template": "itemspawnline"
   },
@@ -3631,6 +3972,15 @@
     "members": "Yes",
     "list": [
       "2547,3114"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Candle lantern",
+    "location": "Northeast of Twilight Temple",
+    "members": "Yes",
+    "list": [
+      "1700,3272"
     ],
     "template": "itemspawnline"
   },
@@ -3749,6 +4099,17 @@
     "members": "No",
     "list": [
       "3039,3707"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Chichilihui rosé",
+    "location": "Aldarin",
+    "members": "Yes",
+    "plane": "0",
+    "mapid": "-1",
+    "list": [
+      "1387,2950"
     ],
     "template": "itemspawnline"
   },
@@ -3876,7 +4237,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Chocolate Bar",
+    "name": "Chocolate bar",
     "location": "Cooks' Guild",
     "members": "No",
     "list": [
@@ -3885,7 +4246,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Chocolate Bar",
+    "name": "Chocolate bar",
     "location": "Zanaris - south of the bank",
     "members": "Yes",
     "mapid": "28",
@@ -4318,6 +4679,17 @@
   },
   {
     "name": "Coins",
+    "location": "Shipwreck Cove",
+    "members": "Yes",
+    "list": [
+      "1569,3321,qty:1",
+      "1580,3313,qty:1",
+      "1586,3297,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Coins",
     "location": "Rashiliyia's Tomb",
     "members": "Yes",
     "mapid": "10133",
@@ -4432,7 +4804,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Cosmic Rune",
+    "name": "Cosmic rune",
     "location": "Frozen Waste Plateau - south of the gate",
     "members": "No",
     "list": [
@@ -4486,7 +4858,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Cup of Tea",
+    "name": "Cup of tea",
     "location": "Varrock - Ye olde Tea Shoppe.",
     "members": "Yes",
     "list": [
@@ -4495,7 +4867,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Cup of Tea",
+    "name": "Cup of tea",
     "location": "Taverley - building directly west of the tree patch",
     "members": "Yes",
     "list": [
@@ -4504,7 +4876,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Cup of Tea",
+    "name": "Cup of tea",
     "location": "Taverley - south-west of Jatix's Herblore Shop",
     "members": "Yes",
     "list": [
@@ -4513,7 +4885,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Cup of Tea",
+    "name": "Cup of tea",
     "location": "Woodcutting Guild - inside Sawmill operator building",
     "members": "Yes",
     "list": [
@@ -4522,7 +4894,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Cup of Tea",
+    "name": "Cup of tea",
     "location": "Uzer Oasis - inside Ali the Tea Seller's house",
     "members": "Yes",
     "list": [
@@ -4541,7 +4913,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Damaged Armour",
+    "name": "Damaged armour",
     "location": "Ranging Guild - shooting range",
     "members": "Yes",
     "list": [
@@ -4550,7 +4922,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Damaged Armour",
+    "name": "Damaged armour",
     "location": "Kebos Lowlands - Battlefront",
     "members": "Yes",
     "list": [
@@ -4570,7 +4942,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Dark Fishing Bait",
+    "name": "Dark fishing bait",
     "location": "Wilderness - western Ruins",
     "members": "Yes",
     "list": [
@@ -4781,7 +5153,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Eclipse wine",
+    "name": "Eclipse red",
     "location": "Guildmaster Apatura's quarters, top floor",
     "members": "Yes",
     "list": [
@@ -5528,11 +5900,22 @@
   },
   {
     "name": "Hammer",
-    "location": "Civitas illa Fortis",
+    "location": "Cam Torum Blacksmith",
+    "mapid": "-1",
+    "list": [
+      "1452,9587"
+    ],
+    "plane": "1",
     "members": "Yes",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Hammer",
+    "location": "Civitas illa Fortis",
     "list": [
       "1770,3114"
     ],
+    "members": "Yes",
     "template": "itemspawnline"
   },
   {
@@ -5583,10 +5966,10 @@
   {
     "name": "Hammer",
     "location": "Falador - upstairs of the furnace building",
-    "plane": "1",
     "list": [
       "2975,3368"
     ],
+    "plane": "1",
     "members": "No",
     "template": "itemspawnline"
   },
@@ -5603,14 +5986,14 @@
     "name": "Hammer",
     "location": "Isle of Souls",
     "list": [
-      "2157,2803,qty:1"
+      "2157,2803"
     ],
     "members": "Yes",
     "template": "itemspawnline"
   },
   {
     "name": "Hammer",
-    "location": "Karamja- Ship Yard",
+    "location": "Karamja - Ship Yard",
     "list": [
       "2954,3060",
       "2963,3058",
@@ -5652,11 +6035,11 @@
   {
     "name": "Hammer",
     "location": "Outer Fortis",
-    "members": "Yes",
     "list": [
       "1773,3060",
       "1696,3070"
     ],
+    "members": "Yes",
     "template": "itemspawnline"
   },
   {
@@ -5703,18 +6086,29 @@
   {
     "name": "Hammer",
     "location": "Ralos' Rise",
-    "members": "Yes",
     "list": [
       "1420,3186"
     ],
+    "members": "Yes",
     "template": "itemspawnline"
   },
   {
     "name": "Hammer",
     "location": "Sunset Coast",
-    "members": "Yes",
     "list": [
       "1513,2996"
+    ],
+    "members": "Yes",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Hammer",
+    "location": "Mistrock",
+    "members": "Yes",
+    "plane": "0",
+    "mapid": "-1",
+    "list": [
+      "1401,2866"
     ],
     "template": "itemspawnline"
   },
@@ -5900,6 +6294,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Iron bar",
+    "location": "Shields of Mistrock",
+    "members": "Yes",
+    "list": [
+      "1385,2868"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Iron battleaxe",
     "location": "Civitas illa Fortis",
     "members": "Yes",
@@ -5975,6 +6379,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Iron dagger",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "list": [
+      "1519,3225"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Iron dart",
     "location": "Civitas illa Fortis",
     "members": "Yes",
@@ -6003,7 +6417,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Iron Knife",
+    "name": "Iron knife",
     "location": "Mynydd summit",
     "members": "Yes",
     "list": [
@@ -6085,6 +6499,15 @@
       "2562,5985"
     ],
     "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron med helm",
+    "location": "Avium Savannah",
+    "members": "Yes",
+    "list": [
+      "1616,2963"
+    ],
     "template": "itemspawnline"
   },
   {
@@ -6190,6 +6613,16 @@
     "list": [
       "1500,3131"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Iron scimitar",
+    "location": "Northern most villa in Aldarin -",
+    "members": "yes",
+    "list": [
+      "1398,2977"
+    ],
+    "plane": "2",
     "template": "itemspawnline"
   },
   {
@@ -6354,11 +6787,31 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Jug",
+    "location": "Moonrise Brewery and Winery cellar",
+    "members": "Yes",
+    "mapid": "43",
+    "list": [
+      "1372,9312"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Jug",
+    "location": "Moonrise Brewery and Winery",
+    "members": "Yes",
+    "plane": "1",
+    "list": [
+      "1358,2920,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Jug of water",
     "location": "Yanille - Frenita's Cookery Shop",
     "members": "Yes",
     "list": [
-      "2568,3102,qty:1"
+      "2568,3102"
     ],
     "template": "itemspawnline"
   },
@@ -6367,7 +6820,7 @@
     "location": "Hosidius - eastern house with Fruit Stalls",
     "members": "Yes",
     "list": [
-      "1794,3611,qty:1"
+      "1794,3611"
     ],
     "template": "itemspawnline"
   },
@@ -6376,7 +6829,7 @@
     "location": "Uzer Oasis - Ali the Tea Seller's house",
     "members": "Yes",
     "list": [
-      "3485,3056,qty:1"
+      "3485,3056"
     ],
     "template": "itemspawnline"
   },
@@ -6385,7 +6838,36 @@
     "location": "Al Kharid Palace - eastern room",
     "members": "No",
     "list": [
-      "3302,3170,qty:1"
+      "3302,3170"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Jug of water",
+    "location": "Colossal Wyrm Agility Course - advanced route",
+    "members": "Yes",
+    "list": [
+      "1649,2906"
+    ],
+    "plane": "2",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Jug of water",
+    "location": "Aldarin - Aldarin General Store",
+    "members": "Yes",
+    "plane": "1",
+    "list": [
+      "1414,2973"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Jug of water",
+    "location": "Varlamore - near the Twilight Temple",
+    "members": "Yes",
+    "list": [
+      "1667,3249"
     ],
     "template": "itemspawnline"
   },
@@ -6453,6 +6935,25 @@
       "1712,3115"
     ],
     "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Jug of wine",
+    "location": "Aldarin - Sunlight's Sanctum",
+    "members": "Yes",
+    "list": [
+      "1376,2925"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Jug of wine",
+    "location": "Darkmoon Ravine (inaccessible)",
+    "members": "Yes",
+    "list": [
+      "1315,2917"
+    ],
     "template": "itemspawnline"
   },
   {
@@ -6808,6 +7309,33 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Knife",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "list": [
+      "1497,3254"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Knife",
+    "location": "Salvager Overlook",
+    "members": "Yes",
+    "list": [
+      "1629,3302"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Knife",
+    "location": "The Proudspire",
+    "members": "Yes",
+    "list": [
+      "1587,3277"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Lamp",
     "location": "Nardah - Genie Cave",
     "members": "Yes",
@@ -6913,6 +7441,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Leather boots",
+    "location": "Salvager Overlook",
+    "members": "Yes",
+    "plane": "1",
+    "list": [
+      "1629,3302,qty:1"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Leather gloves",
     "location": "Edgeville - south of the bank",
     "members": "No",
@@ -6966,6 +7504,16 @@
       "1718,3115"
     ],
     "plane": "2",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Leather gloves",
+    "location": "Aldarin",
+    "members": "Yes",
+    "list": [
+      "1354,2965"
+    ],
+    "plane": "1",
     "template": "itemspawnline"
   },
   {
@@ -7201,6 +7749,35 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Logs",
+    "location": "Salius' Armour Shop",
+    "members": "Yes",
+    "list": [
+      "1619,3292"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Logs",
+    "location": "The Darkfrost - Hueycoatl base camp",
+    "members": "Yes",
+    "list": [
+      "153,3293",
+      "1525,3289"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Logs",
+    "location": "Shields of Mistrock",
+    "members": "Yes",
+    "list": [
+      "1388,2869"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
     "name": "Longbow",
     "location": "Ranging Guild",
     "members": "Yes",
@@ -7222,7 +7799,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Mahogany log",
+    "name": "Mahogany logs",
     "location": "Prifddinas",
     "members": "Yes",
     "list": [
@@ -7487,6 +8064,16 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Oil Lantern",
+    "location": "Salvager Overlook - East Tower",
+    "members": "Yes",
+    "plane": "2",
+    "list": [
+      "1645,3285"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Old Journal",
     "location": "Underground Pass - first level",
     "members": "Yes",
@@ -7521,7 +8108,16 @@
     "members": "No",
     "plane": "1",
     "list": [
-      "3211,3247,qty:1"
+      "3211,3247"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Onion",
+    "location": "Mistrock",
+    "members": "Yes",
+    "list": [
+      "1376,2865"
     ],
     "template": "itemspawnline"
   },
@@ -7626,6 +8222,15 @@
     "members": "Yes",
     "list": [
       "1452,3193"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Pat of butter",
+    "location": "Salvager Overlook",
+    "members": "Yes",
+    "list": [
+      "1647,3286"
     ],
     "template": "itemspawnline"
   },
@@ -7943,6 +8548,20 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Plank",
+    "location": "Shipwreck Cove",
+    "members": "Yes",
+    "list": [
+      "1563,3316",
+      "1572,3321",
+      "1574,3317",
+      "1583,3315",
+      "1579,3305",
+      "1567,3309"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Poison (item)",
     "location": "Draynor Manor",
     "members": "No",
@@ -8132,6 +8751,38 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Pot",
+    "location": "Aldarin windmill",
+    "members": "Yes",
+    "plane": "2",
+    "mapid": "-1",
+    "list": [
+      "1395,2895"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Pot",
+    "location": "Stick Your Ore Inn",
+    "members": "Yes",
+    "list": [
+      "1391,2859"
+    ],
+    "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Pot of flour",
+    "location": "Aldarin",
+    "members": "Yes",
+    "plane": "0",
+    "mapid": "-1",
+    "list": [
+      "1432,2960"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Potato",
     "location": "Darkmeyer - middle tier",
     "members": "Yes",
@@ -8146,6 +8797,15 @@
     "members": "Yes",
     "list": [
       "1659,3121"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Potato",
+    "location": "Salvager Overlook - East Tower",
+    "members": "Yes",
+    "list": [
+      "1645,3284"
     ],
     "template": "itemspawnline"
   },
@@ -8245,7 +8905,7 @@
   },
   {
     "name": "Rat poison",
-    "location": "East Ardougne - Clock Tower basement",
+    "location": "East Ardougne - Clock Tower dungeon",
     "members": "Yes",
     "mapid": "2",
     "list": [
@@ -8448,7 +9108,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Rock",
+    "name": "Rock (elemental)",
     "location": "Underground Pass - first level fail area",
     "members": "Yes",
     "mapid": "10167",
@@ -8654,6 +9314,37 @@
   },
   {
     "name": "Rope",
+    "location": "Aldarin",
+    "members": "Yes",
+    "plane": "0",
+    "mapid": "-1",
+    "list": [
+      "1442,2959"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Rope",
+    "location": "Mistrock",
+    "members": "Yes",
+    "list": [
+      "1383,2862"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Rope",
+    "location": "Shipwreck Cove",
+    "members": "Yes",
+    "list": [
+      "1574,3312",
+      "1568,3317",
+      "1581,3299"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Rope",
     "location": "Brine Rat Cavern",
     "members": "Yes",
     "mapid": "10026",
@@ -8704,6 +9395,16 @@
     "list": [
       "3752,3297"
     ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Rotten tomato",
+    "location": "Colossal Wyrm Agility Course",
+    "members": "Yes",
+    "list": [
+      "1623,2933"
+    ],
+    "plane": "2",
     "template": "itemspawnline"
   },
   {
@@ -8996,6 +9697,65 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Seaweed",
+    "location": "Shipwreck Cove (one requires telegrab)",
+    "members": "Yes",
+    "list": [
+      "1557,3324",
+      "1560,3327",
+      "1564,3311",
+      "1565,3318",
+      "1570,3323",
+      "1575,3316",
+      "1576,3309",
+      "1579,3315",
+      "1582,3311",
+      "1581,3305",
+      "1588,3299",
+      "1592,3294",
+      "1597,3293",
+      "1588,3316"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Seaweed",
+    "location": "Around Salvager Overlook",
+    "mapid": "-1",
+    "members": "Yes",
+    "list": [
+      "1628,3313",
+      "1637,3305",
+      "1646,3302",
+      "1655,3304",
+      "1663,3305",
+      "1648,3311"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Seaweed",
+    "location": "North of Darkmoon Ravine (1 telegrabbable, rest inaccessible)",
+    "members": "Yes",
+    "list": [
+      "1308,2934",
+      "1303,2940",
+      "1289,2930"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Seaweed",
+    "location": "South of Darkmoon Ravine (inaccessible)",
+    "members": "Yes",
+    "list": [
+      "1315,2885",
+      "1306,2884",
+      "1307,2896"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Shaman robe",
     "location": "Ogre Enclave",
     "members": "Yes",
@@ -9281,6 +10041,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Small fishing net",
+    "location": "Shipwreck Cove",
+    "members": "Yes",
+    "list": [
+      "1572,3319"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Smashed glass",
     "location": "Mort'ton",
     "members": "Yes",
@@ -9530,6 +10299,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Spade",
+    "location": "Aldarin",
+    "members": "Yes",
+    "list": [
+      "1405,2938"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Staff",
     "location": "Giants' Plateau",
     "members": "No",
@@ -9575,6 +10353,27 @@
     ],
     "plane": "2",
     "mapid": "-1",
+    "template": "itemspawnline"
+  },
+  {
+    "list": [
+      "1389, 2857"
+    ],
+    "location": "Aldarin - on the bar of Stick Your Ore Inn in Mistrock",
+    "mapid": "0",
+    "members": "Yes",
+    "name": "Steamforge brew",
+    "plane": "0",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Steel arrow",
+    "location": "Colossal Wyrm Agility Course advanced route",
+    "members": "Yes",
+    "list": [
+      "1633,2906,qty:1"
+    ],
+    "plane": "2",
     "template": "itemspawnline"
   },
   {
@@ -9676,7 +10475,7 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Steel Platebody",
+    "name": "Steel platebody",
     "location": "Wilderness - Lava Maze",
     "members": "No",
     "list": [
@@ -9775,11 +10574,39 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Candle",
+    "location": "Salvager Overlook - East Tower",
+    "members": "Yes",
+    "plane": "2",
+    "list": [
+      "1646,3283"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Sunbeam ale",
     "location": "Civitas illa Fortis - The Flaming Arrow",
     "members": "Yes",
     "list": [
       "1716,3117"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Sunbeam ale",
+    "location": "Aldarin - Sunlight's Sanctum",
+    "members": "Yes",
+    "list": [
+      "1378,2934"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Sunbeam ale",
+    "location": "Aldarin -",
+    "members": "Yes",
+    "list": [
+      "1376,2960"
     ],
     "template": "itemspawnline"
   },
@@ -10064,6 +10891,15 @@
     "template": "itemspawnline"
   },
   {
+    "name": "Thread",
+    "location": "Quetzacalli Gorge",
+    "members": "Yes",
+    "list": [
+      "1499,3251"
+    ],
+    "template": "itemspawnline"
+  },
+  {
     "name": "Tiara mould",
     "location": "Crafting Guild –",
     "members": "No",
@@ -10263,13 +11099,31 @@
     "template": "itemspawnline"
   },
   {
-    "name": "Unlit torch",
+    "name": "Tinderbox",
     "location": "Sunset Coast",
     "members": "Yes",
     "list": [
       "1520,2982"
     ],
     "plane": "1",
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Tinderbox",
+    "location": "Salvager Overlook - General Store",
+    "members": "Yes",
+    "list": [
+      "1625,3287"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Tinderbox",
+    "location": "East of Twilight Temple",
+    "members": "Yes",
+    "list": [
+      "1715,3268"
+    ],
     "template": "itemspawnline"
   },
   {
@@ -10425,6 +11279,15 @@
     "mapid": "10136",
     "list": [
       "2472,4941"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Vial",
+    "location": "Aldarin - Alchemical Society",
+    "members": "Yes",
+    "list": [
+      "1393,2917"
     ],
     "template": "itemspawnline"
   },
@@ -10636,6 +11499,15 @@
     "members": "No",
     "list": [
       "3204,3515"
+    ],
+    "template": "itemspawnline"
+  },
+  {
+    "name": "Wooden shield",
+    "location": "Avium Savannah",
+    "members": "Yes",
+    "list": [
+      "1619,2957"
     ],
     "template": "itemspawnline"
   },

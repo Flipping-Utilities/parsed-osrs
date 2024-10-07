@@ -38,6 +38,8 @@ export class PageContentDumper {
     // Todo: Use recentchanges + find the latest date to only update the ones that were changed
     const now = Date.now() / 1000;
     for (let i = 0; i < allPages.length; i++) {
+      // Sleep for 1 second
+      await new Promise((r) => setTimeout(r, 1000));
       if (i % 10 === 0) {
         this.logger.log(
           `Request ${i} / ${allPages.length} - ${Math.round(
