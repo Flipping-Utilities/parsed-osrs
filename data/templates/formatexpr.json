@@ -67,6 +67,42 @@
   },
   {
     "list": [
+      "ceil(/(5*))"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil(( + )/(5*))"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil( /(5*+(/15)))"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil( /(5*))"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil(/(/15))"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil( /((/15)))"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
       "4 * 1200"
     ],
     "template": "formatexpr"
@@ -218,6 +254,30 @@
   {
     "list": [
       "8*(36+192*8.8) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "5*(87) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "8*(87) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "5*(36+30.5*8.8) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "8*(36+30.5*8.8) round 0"
     ],
     "template": "formatexpr"
   },
@@ -614,6 +674,12 @@
   {
     "list": [
       "floor(151.8* 638.15)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "-"
     ],
     "template": "formatexpr"
   },

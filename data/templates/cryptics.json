@@ -64,6 +64,14 @@
     "template": "cryptics"
   },
   {
+    "clue": "Dig at a waterfall by the pines in the serpent's shadow.",
+    "note": "Dig in the flax field at Quetzacalli Gorge.",
+    "task": "dig",
+    "image": "Cryptic clue - dig Quetzacalli Gorge.png",
+    "level": "1",
+    "template": "cryptics"
+  },
+  {
     "clue": "Dig between some ominous stones in Falador.",
     "note": "Three standing stones inside a walled area. East of Falador's northern gate.",
     "task": "dig",
@@ -92,6 +100,14 @@
     "note": "Dig near the red mushrooms northwest of the Grand Tree's doors.",
     "task": "dig",
     "image": "Cryptic clue - dig mushrooms.png",
+    "level": "1",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Dig outside the bank on Aldarin.",
+    "note": "Dig west of the Aldarin bank.",
+    "task": "dig",
+    "image": "Cryptic clue - dig aldarin bank.png",
     "level": "1",
     "template": "cryptics"
   },
@@ -1026,6 +1042,14 @@
     "template": "cryptics"
   },
   {
+    "clue": "Banish a chilling spirit.",
+    "note": "Kill a Frost Nagua.",
+    "task": "kill",
+    "image": "Cryptic clue - banish a chilling spirit.png",
+    "level": "4",
+    "template": "cryptics"
+  },
+  {
     "clue": "Desert insects is what I see. Taking care of them was my responsibility. Your solution is found by digging near me.",
     "note": "Dig next to the entomologist, in the Kalphite Cave east of Shantay Pass.",
     "task": "dig",
@@ -1910,7 +1934,7 @@
   },
   {
     "clue": "Anger Abbot Langley.",
-    "note": "Speak to Abbot Langley while you have a negative prayer bonus (currently only possible with an Ancient staff, an Ancient sceptre, or Ruinous Powers book in Trailblazer Reloaded League).",
+    "note": "Speak to Abbot Langley while you have a negative prayer bonus (currently only possible with an Ancient staff or an Ancient sceptre).",
     "task": "talk",
     "image": "Cryptic clue - anger Abbot Langley.png",
     "level": "5",
@@ -2288,14 +2312,6 @@
     "template": "cryptics"
   },
   {
-    "clue": "Speak to Hazelmere.",
-    "note": "Hazelmere is located east of Yanille. The code will take you directly next to his house. Answer: 6859",
-    "task": "talk",
-    "image": "Cryptic clue - speak hazelmere.png",
-    "level": "2",
-    "template": "cryptics"
-  },
-  {
     "clue": "Speak to Kangai Mau.",
     "note": "Kangai Mau is found in the Shrimp and Parrot in Brimhaven.",
     "task": "talk",
@@ -2308,6 +2324,13 @@
     "note": "Talk to Roavar in the Canifis tavern.",
     "task": "talk",
     "image": "Cryptic clue - talk roavar canifis.png",
+    "level": "2",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Speak to Uglug Nar.",
+    "note": "Uglug Nar is an ogre shaman outside of Jiggig, south of Castle Wars. You will receive a challenge scroll that you have to answer.\nAnswer: 6859",
+    "task": "talk",
     "level": "2",
     "template": "cryptics"
   },

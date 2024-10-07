@@ -69,7 +69,7 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
-    "smw": "n",
+    "smw": "No",
     "column1": "/",
     "template": "storetablehead"
   },
@@ -128,6 +128,13 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1200",
     "buymultiplier": "700",
     "delta": "20",
@@ -138,6 +145,13 @@
     "sellmultiplier": "1200",
     "buymultiplier": "700",
     "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -262,6 +276,7 @@
     "hidege": "y",
     "hidecaption": "y",
     "currency": "Molch pearl",
+    "namenotes": "With Barbarian Training",
     "template": "storetablehead"
   },
   {
@@ -322,6 +337,13 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "0",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
@@ -333,7 +355,6 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
-    "namenotes": "?",
     "column1": "Items required",
     "column2": "Total cost",
     "column3": "Profit",
@@ -642,7 +663,6 @@
     "sellmultiplier": "1000",
     "buymultiplier": "800",
     "delta": "20",
-    "namenotes": "(east)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -650,7 +670,6 @@
     "sellmultiplier": "1000",
     "buymultiplier": "800",
     "delta": "20",
-    "namenotes": "(west)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -698,6 +717,8 @@
     "hidestock": "y",
     "hiderestock": "y",
     "namenotes": "(Ring of charos)",
+    "shopversion": "(Ring of charos)",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -845,13 +866,6 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
-    "smw": "n",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1000",
-    "buymultiplier": "0",
-    "hidebuy": "yes",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -866,6 +880,22 @@
     "sellmultiplier": "1000",
     "buymultiplier": "0",
     "hidebuy": "yes",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -882,6 +912,28 @@
     "hiderestock": "y",
     "hidecaption": "y",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "0",
+    "hidebuy": "yes",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -962,6 +1014,7 @@
     "hiderestock": "y",
     "hidestock": "y",
     "hidege": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -1035,6 +1088,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "250",
     "delta": "10",
+    "shopversion": "(1),(2)",
     "template": "storetablehead"
   },
   {
@@ -1104,7 +1158,6 @@
     "hidecaption": "y",
     "currency": "Archaic emblem",
     "column1": "GP per point",
-    "namenotes": "(old stock)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -1215,16 +1268,7 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
-    "smw": "n",
-    "column1": "/",
-    "template": "storetablehead"
-  },
-  {
-    "currency": "Brimhaven voucher",
-    "hidebuy": "y",
-    "hidestock": "y",
-    "hiderestock": "y",
-    "hidecaption": "y",
+    "smw": "No",
     "column1": "/",
     "template": "storetablehead"
   },
@@ -1234,6 +1278,7 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -1335,7 +1380,6 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
-    "smw": "n",
     "template": "storetablehead"
   },
   {
@@ -1344,7 +1388,7 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
-    "smw": "n",
+    "namenotes": "(Ring of charos)",
     "template": "storetablehead"
   },
   {
@@ -1353,7 +1397,6 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
-    "smw": "n",
     "template": "storetablehead"
   },
   {
@@ -1362,7 +1405,7 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
-    "smw": "n",
+    "namenotes": "(Ring of charos)",
     "template": "storetablehead"
   },
   {
@@ -1371,7 +1414,6 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
-    "smw": "n",
     "template": "storetablehead"
   },
   {
@@ -1380,7 +1422,7 @@
     "hiderestock": "y",
     "hidebuy": "y",
     "hidege": "y",
-    "smw": "n",
+    "namenotes": "(Ring of charos)",
     "template": "storetablehead"
   },
   {
@@ -1514,6 +1556,7 @@
     "sellmultiplier": "1300",
     "buymultiplier": "500",
     "delta": "0",
+    "shopversion": "(1),(2),(3)",
     "template": "storetablehead"
   },
   {
@@ -1805,7 +1848,6 @@
     "sellmultiplier": "1100",
     "buymultiplier": "1000",
     "delta": "20",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -1836,6 +1878,13 @@
     "hidecaption": "y",
     "currency": "Archaic emblem",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Deadman Points",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
     "template": "storetablehead"
   },
   {
@@ -2029,6 +2078,7 @@
     "hidebuy": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "shopversion": "(After quest)",
     "template": "storetablehead"
   },
   {
@@ -2098,7 +2148,7 @@
     "hidecaption": "y",
     "hiderestock": "y",
     "hidege": "y",
-    "smw": "n",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -2153,8 +2203,11 @@
     "hidecaption": "y",
     "currency": "Archaic emblem",
     "column1": "GP per point",
-    "namenotes": "(old stock)",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidecaption": "y",
     "template": "storetablehead"
   },
   {
@@ -2163,6 +2216,13 @@
     "hiderestock": "y",
     "hidecaption": "y",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "yes",
+    "hidecaption": "yes",
+    "hiderestock": "y",
+    "hidestock": "yes",
     "template": "storetablehead"
   },
   {
@@ -2177,6 +2237,58 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "shopversion": "(1)",
+    "location": "Varrock",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "shopversion": "(2)",
+    "location": "Falador",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "shopversion": "(3)",
+    "location": "Seers' Village",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "shopversion": "(4)",
+    "location": "Ardougne",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "shopversion": "(5)",
+    "location": "Hosidius",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "shopversion": "(6)",
+    "location": "Civitas illa Fortis",
     "template": "storetablehead"
   },
   {
@@ -2280,6 +2392,19 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "10",
+    "template": "storetablehead"
+  },
+  {
     "hidebuy": "yes",
     "hidecaption": "yes",
     "hidestock": "yes",
@@ -2296,7 +2421,6 @@
     "sellmultiplier": "1000",
     "buymultiplier": "800",
     "delta": "10",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2453,6 +2577,20 @@
     "template": "storetablehead"
   },
   {
+    "currency": "Anima-infused bark",
+    "hidestock": "no",
+    "hiderestock": "y",
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "column1": "Logs Required",
+    "column2": "Materials needed to craft",
+    "column3": "Skill Requirements",
+    "column4": "Members",
+    "shopversion": "(1),(2),(3)",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "800",
     "delta": "20",
@@ -2546,6 +2684,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -2571,6 +2710,20 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Anima-infused bark",
+    "hidestock": "no",
+    "hiderestock": "y",
+    "hidebuy": "y",
+    "hidege": "y",
+    "hidecaption": "y",
+    "column1": "Logs Required",
+    "column2": "Materials needed to craft",
+    "column3": "Skill Requirements",
+    "column4": "Members",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -2654,7 +2807,6 @@
     "buymultiplier": "800",
     "delta": "20",
     "currency": "Trading sticks",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2671,7 +2823,6 @@
     "buymultiplier": "700",
     "delta": "20",
     "currency": "Trading sticks",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -2711,6 +2862,7 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -2730,6 +2882,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "400",
     "delta": "30",
+    "shopversion": "(1),(2)",
     "template": "storetablehead"
   },
   {
@@ -2919,7 +3072,7 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
-    "smw": "n",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -3079,6 +3232,7 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -3232,6 +3386,8 @@
   {
     "sellmultiplier": "10000",
     "hidebuy": "yes",
+    "hidestock": "yes",
+    "hiderestock": "yes",
     "hidege": "yes",
     "hidecaption": "yes",
     "currency": "Pieces of eight",
@@ -3324,6 +3480,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -3499,7 +3662,6 @@
     "sellmultiplier": "1300",
     "buymultiplier": "550",
     "delta": "20",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -3768,6 +3930,8 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
+    "members": "Yes",
+    "location": "Giants' Foundry",
     "template": "storetablehead"
   },
   {
@@ -4152,6 +4316,7 @@
     "hiderestock": "y",
     "hidege": "y",
     "hidecaption": "y",
+    "shopversion": "(1),(2),(3),(4),(5),(6),(7)",
     "template": "storetablehead"
   },
   {
@@ -4184,6 +4349,13 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "yes",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
     "template": "storetablehead"
   },
   {
@@ -4368,6 +4540,7 @@
     "column2": "Run energy restoration rate",
     "column3": "Reduction (kg/)",
     "column4": "Restoration (%/)",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -4442,6 +4615,7 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -4472,6 +4646,14 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "550",
+    "delta": "10",
+    "namenotes": "(menaphite gear)",
     "template": "storetablehead"
   },
   {
@@ -4554,6 +4736,22 @@
   },
   {
     "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "currency1": "Mox resin",
+    "hidege": "yes",
+    "hidebuy": "yes",
+    "hidesell": "yes",
+    "hidestock": "yes",
+    "hiderestock": "yes",
+    "hidecaption": "yes",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
     "smw": "No",
@@ -4569,6 +4767,24 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
+    "template": "storetablehead"
+  },
+  {
+    "hidebuy": "n",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "800",
+    "delta": "0",
+    "currency": "Golden nugget",
+    "column1": "Exp boost",
+    "column2": "Boost per nugget",
+    "hidege": "yes",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -4690,6 +4906,13 @@
   },
   {
     "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
     "buymultiplier": "200",
     "delta": "20",
     "smw": "No",
@@ -4699,7 +4922,6 @@
     "sellmultiplier": "900",
     "buymultiplier": "200",
     "delta": "20",
-    "namenotes": "Fremennik Isles",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -4721,7 +4943,7 @@
     "sellmultiplier": "900",
     "buymultiplier": "200",
     "delta": "20",
-    "namenotes": "Fremennik Isles",
+    "namenotes": "(Fremennik Isles)",
     "template": "storetablehead"
   },
   {
@@ -4748,6 +4970,14 @@
     "buymultiplier": "400",
     "delta": "20",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "currency": "Deadman Points",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidege": "y",
     "template": "storetablehead"
   },
   {
@@ -4832,7 +5062,6 @@
     "sellmultiplier": "1300",
     "buymultiplier": "600",
     "delta": "20",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -4954,6 +5183,14 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
     "delta": "30",
@@ -4990,7 +5227,7 @@
     "sellmultiplier": "1300",
     "buymultiplier": "400",
     "delta": "20",
-    "smw": "n",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -5003,6 +5240,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "550",
     "delta": "10",
+    "shopversion": "(1),(2),(3),(4),(5)",
     "template": "storetablehead"
   },
   {
@@ -5208,6 +5446,12 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "0",
     "delta": "10",
@@ -5289,7 +5533,6 @@
     "hidestock": "y",
     "hiderestock": "y",
     "hidecaption": "y",
-    "smw": "no",
     "template": "storetablehead"
   },
   {
@@ -5601,6 +5844,25 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "960",
+    "buymultiplier": "560",
+    "delta": "20",
+    "smw": "no",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "960",
+    "buymultiplier": "560",
+    "delta": "20",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "10",
@@ -5725,6 +5987,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "700",
     "delta": "10",
+    "shopversion": "(1),(2)",
     "template": "storetablehead"
   },
   {
@@ -5746,6 +6009,13 @@
     "hidestock": "y",
     "hidege": "y",
     "hiderestock": "y",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "600",
+    "delta": "20",
+    "smw": "Yes",
     "template": "storetablehead"
   },
   {
@@ -5787,7 +6057,6 @@
     "sellmultiplier": "1100",
     "buymultiplier": "600",
     "delta": "30",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -5872,7 +6141,6 @@
     "sellmultiplier": "1100",
     "buymultiplier": "600",
     "delta": "30",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -5932,7 +6200,21 @@
     "template": "storetablehead"
   },
   {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "400",
+    "delta": "30",
+    "smw": "no",
     "template": "storetablehead"
   },
   {
@@ -6035,7 +6317,6 @@
     "buymultiplier": "500",
     "delta": "0",
     "currency": "Coins",
-    "namenotes": "(Recruitment Drive)",
     "smw": "no",
     "template": "storetablehead"
   },
@@ -6071,6 +6352,7 @@
     "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "1",
+    "shopversion": "(1),(2),(3),(4),(5),(6),(7),(8),(9)",
     "template": "storetablehead"
   },
   {
@@ -6078,6 +6360,7 @@
     "buymultiplier": "600",
     "delta": "1",
     "hidecaption": "y",
+    "shopversion": "(1),(2),(3),(4),(5),(6),(7),(8),(9)",
     "template": "storetablehead"
   },
   {
@@ -6096,6 +6379,7 @@
     "hidebuy": "yes",
     "column1": "GP/point",
     "column2": "Notes",
+    "shopversion": "(1),(2),(3),(4),(5),(6),(7),(8),(9)",
     "template": "storetablehead"
   },
   {
@@ -6227,6 +6511,13 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1300",
     "buymultiplier": "500",
     "delta": "30",
@@ -6240,9 +6531,27 @@
     "template": "storetablehead"
   },
   {
+    "hidebuy": "y",
+    "hidestock": "y",
+    "hiderestock": "y",
+    "hidecaption": "y",
+    "template": "storetablehead"
+  },
+  {
     "sellmultiplier": "1300",
     "buymultiplier": "400",
     "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "currency1": "Mox resin",
+    "hidege": "yes",
+    "hidebuy": "yes",
+    "hidesell": "yes",
+    "hidestock": "yes",
+    "hiderestock": "yes",
+    "hidecaption": "yes",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -6251,6 +6560,7 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -6264,7 +6574,6 @@
     "sellmultiplier": "950",
     "buymultiplier": "850",
     "delta": "10",
-    "namenotes": "(Karamja gloves)",
     "smw": "No",
     "template": "storetablehead"
   },
@@ -6383,12 +6692,12 @@
   },
   {
     "currency": "ecto-tokens",
-    "smw": "n",
     "hidebuy": "y",
     "hidestock": "y",
     "hiderestock": "y",
     "hdiestock": "y",
     "hidecaption": "y",
+    "smw": "No",
     "template": "storetablehead"
   },
   {
@@ -6460,13 +6769,14 @@
     "sellmultiplier": "1000",
     "buymultiplier": "0",
     "delta": "10",
+    "shopversion": "(1),(2)",
     "template": "storetablehead"
   },
   {
     "hidebuy": "y",
-    "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "hidecaption": "y",
     "template": "storetablehead"
   },
   {
@@ -6517,6 +6827,7 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
     "template": "storetablehead"
   },
   {
@@ -6600,6 +6911,19 @@
   },
   {
     "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "30",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
+    "buymultiplier": "700",
+    "delta": "30",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1000",
     "buymultiplier": "600",
     "delta": "30",
     "template": "storetablehead"
@@ -6655,6 +6979,7 @@
     "sellmultiplier": "2500",
     "buymultiplier": "150",
     "delta": "20",
+    "shopversion": "(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11)",
     "template": "storetablehead"
   },
   {
@@ -6700,6 +7025,8 @@
   {
     "sellmultiplier": "10000",
     "hidebuy": "Yes",
+    "hidestock": "Yes",
+    "hiderestock": "Yes",
     "hidege": "yes",
     "currency": "Pieces of eight",
     "hidecaption": "yes",
@@ -6764,13 +7091,6 @@
     "template": "storetablehead"
   },
   {
-    "sellmultiplier": "1300",
-    "buymultiplier": "400",
-    "delta": "30",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
     "hidebuy": "y",
     "hiderestock": "y",
     "hidecaption": "y",
@@ -6793,7 +7113,6 @@
     "buymultiplier": "350",
     "delta": "20",
     "currency": "Tokkul",
-    "namenotes": "(Karamja gloves)",
     "column1": "obtained from 1 (normal stock)",
     "column2": "spent for 1 (normal stock)",
     "column3": "Price bought at (overstock)",
@@ -6834,6 +7153,53 @@
     "column3": "Price bought at (overstock)",
     "column4": "spent for 1 (overstock)",
     "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1500",
+    "buymultiplier": "150",
+    "delta": "20",
+    "currency": "Tokkul",
+    "column1": "obtained from 1 (normal stock)",
+    "column2": "spent for 1 (normal stock)",
+    "column3": "Price bought at (overstock)",
+    "column4": "spent for 1 (overstock)",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "350",
+    "delta": "20",
+    "currency": "Tokkul",
+    "column1": "obtained from 1 (normal stock)",
+    "column2": "spent for 1 (normal stock)",
+    "column3": "Price bought at (overstock)",
+    "column4": "spent for 1 (overstock)",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1300",
+    "buymultiplier": "350",
+    "delta": "20",
+    "currency": "Tokkul",
+    "column1": "obtained from 1 (normal stock)",
+    "column2": "spent for 1 (normal stock)",
+    "column3": "Price bought at (overstock)",
+    "column4": "spent for 1 (overstock)",
+    "smw": "No",
+    "template": "storetablehead"
+  },
+  {
+    "sellmultiplier": "1500",
+    "buymultiplier": "150",
+    "delta": "20",
+    "currency": "Tokkul",
+    "column1": "obtained from 1 (normal stock)",
+    "column2": "spent for 1 (normal stock)",
+    "column3": "Price bought at (overstock)",
+    "column4": "spent for 1 (overstock)",
     "template": "storetablehead"
   },
   {
@@ -6846,56 +7212,6 @@
     "column2": "spent for 1 (normal stock)",
     "column3": "Price bought at (overstock)",
     "column4": "spent for 1 (overstock)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1300",
-    "buymultiplier": "350",
-    "delta": "20",
-    "currency": "Tokkul",
-    "namenotes": "(Karamja gloves)",
-    "column1": "obtained from 1 (normal stock)",
-    "column2": "spent for 1 (normal stock)",
-    "column3": "Price bought at (overstock)",
-    "column4": "spent for 1 (overstock)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1300",
-    "buymultiplier": "350",
-    "delta": "20",
-    "currency": "Tokkul",
-    "namenotes": "(Karamja gloves, Ironman)",
-    "column1": "obtained from 1 (normal stock)",
-    "column2": "spent for 1 (normal stock)",
-    "column3": "Price bought at (overstock)",
-    "column4": "spent for 1 (overstock)",
-    "smw": "No",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1500",
-    "buymultiplier": "150",
-    "delta": "20",
-    "currency": "Tokkul",
-    "column1": "obtained from 1 (normal stock)",
-    "column2": "spent for 1 (normal stock)",
-    "column3": "Price bought at (overstock)",
-    "column4": "spent for 1 (overstock)",
-    "template": "storetablehead"
-  },
-  {
-    "sellmultiplier": "1500",
-    "buymultiplier": "150",
-    "delta": "20",
-    "currency": "Tokkul",
-    "namenotes": "(Ironman)",
-    "column1": "obtained from 1 (normal stock)",
-    "column2": "spent for 1 (normal stock)",
-    "column3": "Price bought at (overstock)",
-    "column4": "spent for 1 (overstock)",
     "template": "storetablehead"
   },
   {
@@ -6939,7 +7255,6 @@
     "buymultiplier": "350",
     "delta": "20",
     "currency": "Tokkul",
-    "namenotes": "(Karamja gloves)",
     "column1": "obtained from 1 (normal stock)",
     "column2": "spent for 1 (normal stock)",
     "column3": "Price bought at (overstock)",
@@ -6987,7 +7302,6 @@
     "buymultiplier": "350",
     "delta": "20",
     "currency": "Tokkul",
-    "namenotes": "(Karamja gloves)",
     "column1": "obtained from 1 (normal stock)",
     "column2": "spent for 1 (normal stock)",
     "column3": "Price bought at (overstock)",
@@ -7035,7 +7349,6 @@
     "buymultiplier": "350",
     "delta": "20",
     "currency": "Tokkul",
-    "namenotes": "(Karamja gloves)",
     "column1": "obtained from 1 (normal stock)",
     "column2": "spent for 1 (normal stock)",
     "column3": "Price bought at (overstock)",
@@ -7430,6 +7743,8 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
+    "location": "Draynor Village",
     "template": "storetablehead"
   },
   {
@@ -7489,6 +7804,16 @@
     "hidecaption": "y",
     "hidestock": "y",
     "hiderestock": "y",
+    "members": "Yes",
+    "template": "storetablehead"
+  },
+  {
+    "hiderestock": "y",
+    "hidebuy": "y",
+    "hidecaption": "y",
+    "hidestock": "y",
+    "currency": "Termites",
+    "column1": "/",
     "template": "storetablehead"
   },
   {

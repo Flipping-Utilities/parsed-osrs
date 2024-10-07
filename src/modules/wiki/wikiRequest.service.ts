@@ -68,11 +68,15 @@ export class WikiRequestService {
   public async query<T>(
     params: { action: string } & Record<string, string>
   ): Promise<T> {
+    if (!process.env.DISCORD_USERNAME) {
+      throw new Error('DISCORD_USERNAME is not set');
+    }
+
     const response = await axios
       .get<T>(this.baseUrl, {
         params,
         headers: {
-          'User-Agent': 'Anyny0#4452 - Wiki tools',
+          'User-Agent': `${process.env.DISCORD_USERNAME} - Parsed osrs`,
         },
       })
       .catch((e) => {

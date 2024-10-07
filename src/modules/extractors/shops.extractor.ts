@@ -22,7 +22,17 @@ export class ShopsExtractor {
 
     const shopPages = this.pageListDumper.getShops();
     const shops = shopPages
-      .map((page) => this.extractShopFromPageId(page.pageid))
+      .map((page) => {
+        try {
+          return this.extractShopFromPageId(page.pageid);
+        } catch (e) {
+          this.logger.error(
+            'Error extracting shop from page id',
+            page.pageid,
+            e
+          );
+        }
+      })
       .filter((v) => v);
 
     if (shops.length) {
