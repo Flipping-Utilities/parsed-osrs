@@ -9,9 +9,11 @@ import {
   GE_ITEM_PAGE_LIST,
   WIKI_PAGE_LIST,
 } from '../../constants/paths';
+import { eq, inArray } from 'drizzle-orm';
 import { DatabaseService } from '../database/database.service';
 import { PageTag, WikiPage } from '../database/schema';
 import { WikiPageSlim, WikiRequestService } from '../wiki/wikiRequest.service';
+import { PageTags } from '../../constants/tags';
 
 @Injectable()
 export class PageListDumper {
@@ -34,6 +36,7 @@ export class PageListDumper {
       list: 'allpages',
       aplimit: 'max',
       format: 'json',
+      // Todo: Copy this but only get redirects, add them to the original pages
       apfilterredir: 'nonredirects',
       apminsize: '5',
     };
@@ -151,7 +154,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      'item'
+      PageTags.ITEM
     );
     // await this.saveFile(ALL_ITEM_PAGE_LIST, pages);
   }
@@ -170,7 +173,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      'ge-item'
+      PageTags.GE_ITEM
     );
     await this.saveFile(GE_ITEM_PAGE_LIST, pages);
   }
@@ -189,7 +192,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      'set'
+      PageTags.SET
     );
     // await this.saveFile(ALL_SETS_PAGE_LIST, pages);
   }
@@ -208,7 +211,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      'shop'
+      PageTags.SHOP
     );
     // await this.saveFile(ALL_SHOPS_PAGE_LIST, pages);
   }
@@ -227,7 +230,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      'monster'
+      PageTags.MONSTER
     );
     // await this.saveFile(ALL_MONSTERS_PAGE_LIST, pages);
   }
@@ -273,7 +276,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      'item-spawn'
+      PageTags.ITEM_SPAWN
     );
     // await this.saveFile(ALL_ITEM_SPAWNS_PAGE_LIST, pages);
   }
@@ -285,13 +288,15 @@ export class PageListDumper {
   async getPagesFromTag(
     tag: string
   ): Promise<Array<typeof WikiPage.$inferSelect>> {
-    const tags = await this.db.query.PageTag.findMany({
-      where: (pageTag, { eq }) => eq(pageTag.tag, tag),
-    });
+    const tags = await this.db
+      .select()
+      .from(PageTag)
+      .where(eq(PageTag.tag, tag));
     const pageIds = tags.map((tag) => tag.wikiPageId);
-    const pages = await this.db.query.WikiPage.findMany({
-      where: (wikiPage, { inArray }) => inArray(wikiPage.id, pageIds),
-    });
+    const pages = await this.db
+      .select()
+      .from(WikiPage)
+      .where(inArray(WikiPage.id, pageIds));
     return pages;
   }
 

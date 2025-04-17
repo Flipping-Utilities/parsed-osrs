@@ -8,6 +8,7 @@ import { SetsExtractor } from './sets.extractor';
 
 // @ts-ignore
 import * as parse from 'infobox-parser';
+import { PageTags } from 'src/constants/tags';
 
 type WikiMaterialKey = '' | 'quantity' | 'cost' | 'itemnote' | 'txt' | 'subtxt';
 const WikiMaterialKeyToRecipeMaterialKey: Record<
@@ -45,17 +46,19 @@ export class RecipesExtractor {
   public async extractAllRecipes() {
     this.logger.log('Starting to extract recipes');
 
-    const itemPages = this.pageListDumper.getAllItems();
+    const itemPages = await this.pageListDumper.getPagesFromTag(PageTags.ITEM);
     const recipes = itemPages
-      .map((page) => this.extractRecipesFromPageId(page.pageid))
+      .map((page) => this.extractRecipesFromPageId(page.id))
       .filter((v) => v)
       .reduce((acc, r) => {
         acc.push(...r);
         return acc;
       }, [])
       .filter((v) => v);
+    // Todo: Add all decant
+
     // Add all sets
-    const sets = this.setsExtractor.getAllSets();
+    const sets = await this.setsExtractor.getAllSets();
     if (sets) {
       sets
         .filter((s) => s.id)

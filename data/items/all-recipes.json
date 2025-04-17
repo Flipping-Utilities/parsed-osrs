@@ -3758,6 +3758,33 @@
   {
     "inputs": [
       {
+        "id": 22443,
+        "quantity": 1,
+        "notes": "Refiner"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 30007,
+        "quantity": 34
+      }
+    ],
+    "members": true,
+    "skills": [
+      {
+        "boostable": true,
+        "lvl": 60,
+        "name": "Herblore",
+        "xp": 6
+      }
+    ],
+    "ticks": 1,
+    "toolIds": [],
+    "facility": "Refiner"
+  },
+  {
+    "inputs": [
+      {
         "id": 2483,
         "quantity": 1
       }
@@ -5060,7 +5087,7 @@
         "xp": 17.5
       }
     ],
-    "ticks": 1,
+    "ticks": 3,
     "ticksNote": "Manual casting is 3 ticks, auto-casting is 7 ticks",
     "toolIds": []
   },
@@ -32951,17 +32978,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23941,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Amlodd)"
       }
@@ -32974,17 +33001,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23933,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Cadarn)"
       }
@@ -32997,17 +33024,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23935,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Crwys)"
       }
@@ -33020,17 +33047,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23939,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Hefin)"
       }
@@ -33043,17 +33070,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23929,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Iorwerth)"
       }
@@ -33066,17 +33093,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23927,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Ithell)"
       }
@@ -33089,17 +33116,17 @@
   {
     "inputs": [
       {
-        "id": 0,
+        "id": 23971,
         "quantity": 1
       },
       {
-        "id": 23937,
+        "id": 23931,
         "quantity": 1
       }
     ],
     "outputs": [
       {
-        "id": 23971,
+        "id": 0,
         "quantity": 1,
         "subText": "Recolour (Trahaearn)"
       }
@@ -41933,7 +41960,7 @@
     "skills": [
       {
         "boostable": true,
-        "lvl": 1,
+        "lvl": 5,
         "name": "Herblore",
         "xp": 84
       }
@@ -52322,7 +52349,7 @@
         "boostable": true,
         "lvl": 1,
         "name": "Crafting",
-        "xp": 5
+        "xp": null
       }
     ],
     "ticks": 1,
@@ -62470,7 +62497,7 @@
         "id": 13391,
         "quantity": 100,
         "subText": "Pet rock",
-        "notes": "Using a pet rock on the Xeric's talisman gives a unique chat message compared to dismantling it with the right click option."
+        "notes": "Using a pet rock on the Xeric's talisman gives a unique chat message compared to dismantling it with the right click option. \"You bash the talisman with the rock, smashing it into fang-like shards.\""
       }
     ],
     "members": true,
@@ -68514,7 +68541,7 @@
         "xp": 120
       }
     ],
-    "ticks": 2,
+    "ticks": 1,
     "toolIds": []
   },
   {
@@ -75470,7 +75497,7 @@
     "outputs": [
       {
         "id": 2864,
-        "quantity": 3
+        "quantity": 4
       }
     ],
     "members": true,
@@ -75479,7 +75506,7 @@
         "boostable": true,
         "lvl": 5,
         "name": "Fletching",
-        "xp": 7.2
+        "xp": 6.4
       }
     ],
     "ticks": 3,
@@ -114505,13 +114532,13 @@
         "boostable": true,
         "lvl": 5,
         "name": "Crafting",
-        "xp": 2.5
+        "xp": 10
       },
       {
         "boostable": true,
         "lvl": 5,
         "name": "Fletching",
-        "xp": 2.5
+        "xp": 10
       }
     ],
     "ticks": 2,

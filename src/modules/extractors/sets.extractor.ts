@@ -1,9 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { load } from 'cheerio';
-
-// @ts-ignore
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ALL_SETS } from '../../constants/paths';
+import { PageTags } from '../../constants/tags';
 import { Set } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
@@ -20,13 +19,20 @@ export class SetsExtractor {
   ) {}
 
   public async extractAllSets() {
-    const setPages = this.pageListDumper.getItemSets();
-    const sets = setPages
-      .map((page) => this.extractSetFromPageId(page.pageid))
-      .filter((v) => v);
+    this.logger.log('Starting to extract sets');
+    const setPages = await this.pageListDumper.getPagesFromTag(PageTags.SET);
+    const sets: Set[] = [];
+    for await (const page of setPages) {
+      const set = await this.extractSetFromPageId(page.id);
+      if (set) {
+        sets.push(set);
+      }
+    }
+    sets.sort((a, b) => a.id - b.id);
     if (sets.length) {
       writeFileSync(ALL_SETS, JSON.stringify(sets, null, 2));
     }
+    this.logger.log('DOne extracting sets');
     return sets;
   }
 
@@ -50,8 +56,8 @@ export class SetsExtractor {
     return this.cachedSets;
   }
 
-  private extractSetFromPageId(pageId: number): Set | null {
-    const page = this.pageContentDumper.getPageFromId(pageId);
+  private async extractSetFromPageId(pageId: number): Promise<Set | null> {
+    const page = await this.pageContentDumper.getDBPageFromId(pageId);
     const title = load(page.title).text();
 
     /*
@@ -65,9 +71,9 @@ export class SetsExtractor {
      */
 
     const matcher = /\{\{CostLine\|(.+)\}\}/gm;
-    const components = Array.from(page.rawContent.matchAll(matcher));
+    const components = Array.from(page.text.matchAll(matcher));
     if (!components.length) {
-      this.logger.log('No components', title, page.pageid);
+      this.logger.warn('No components', title, page.id);
       return null;
     }
     // Blue mystic sets has |disambiguation, strip it
