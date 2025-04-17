@@ -4,6 +4,7 @@ import { ALL_SPAWNS } from '../../constants/paths';
 import { ItemSpawn } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import * as wtf from 'wtf_wikipedia';
+import { PageTags } from 'src/constants/tags';
 
 @Injectable()
 export class SpawnExtractor {
@@ -15,23 +16,25 @@ export class SpawnExtractor {
   ) {}
 
   public async extractAllItemSpawns() {
-    const itemsPageList = this.pageListDumper.getItemSpawns();
+    this.logger.log('Start: extracting spawns');
+    const itemsPageList = await this.pageListDumper.getPagesFromTag(
+      PageTags.ITEM_SPAWN
+    );
 
-    const spawns = itemsPageList
-      .map((item) => this.extractSpawnsFromPageId(item.pageid))
-      .filter((v) => v)
-      .reduce((acc, spawns) => {
-        acc.push(...spawns);
-        return acc;
-      }, [])
-      .filter((v) => v);
-
-    this.logger.error(spawns.length);
+    const spawns: ItemSpawn[] = [];
+    for await (const page of itemsPageList) {
+      const spawnsFromPage = await this.extractSpawnsFromPageId(page.id);
+      if (spawnsFromPage) {
+        spawns.push(...spawnsFromPage.filter((v) => v));
+      }
+    }
+    spawns.sort((a, b) => a.id - b.id);
+    this.logger.log('End: extracting spawns');
 
     writeFileSync(ALL_SPAWNS, JSON.stringify(spawns, null, 2));
   }
 
-  public getAllItems(): ItemSpawn[] | null {
+  public getAllSpawns(): ItemSpawn[] | null {
     if (!this.cachedSpawns) {
       const candidatePath = ALL_SPAWNS;
       if (!existsSync(candidatePath)) {
@@ -51,12 +54,14 @@ export class SpawnExtractor {
     return this.cachedSpawns;
   }
 
-  private extractSpawnsFromPageId(pageId: number): ItemSpawn[] | null {
-    const page = this.pageContentDumper.getPageFromId(pageId);
+  private async extractSpawnsFromPageId(
+    pageId: number
+  ): Promise<ItemSpawn[] | null> {
+    const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page) {
       return null;
     }
-    const meta = wtf(page.rawContent);
+    const meta = wtf(page.text);
 
     const itemInfobox = meta
       .infoboxes()
@@ -73,7 +78,7 @@ export class SpawnExtractor {
       const id = itemIds[name.toLowerCase()];
       if (!id) {
         this.logger.warn(
-          'Item spawn id not found: ' + page.pagename,
+          'Item spawn id not found: ' + page.title,
           name,
           itemIds
         );
