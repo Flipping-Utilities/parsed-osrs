@@ -66,13 +66,16 @@ export class ItemsExtractor {
   ) {}
 
   public async extractAllItems() {
-    const itemsPageList = this.pageListDumper.getAllItems();
+    this.logger.log('Starting to extract all items');
+    const itemsPageList = await this.pageListDumper.getPagesFromTag('item');
 
     const GELimits = (await axios.get(GELimitsModuleUrl)).data;
     this.GELimitsRecord = GELimits;
 
-    const items = itemsPageList
-      .map((item) => this.extractItemFromPageId(item.pageid))
+    const itemsFromPage = await Promise.all(
+      itemsPageList.map((item) => this.extractItemFromPageId(item.id))
+    );
+    const items = itemsFromPage
       .filter((v) => v)
       .reduce((acc, items) => {
         acc.push(...items);
@@ -80,7 +83,7 @@ export class ItemsExtractor {
       }, [])
       .filter((v) => v);
 
-    this.logger.debug(items.length);
+    this.logger.log('Completed extracting all items');
 
     writeFileSync(ALL_ITEMS, JSON.stringify(items, null, 2));
   }
@@ -166,8 +169,8 @@ export class ItemsExtractor {
     return this.itemNameMap.get(candidateName);
   }
 
-  private extractItemFromPageId(pageId: number): Item[] | null {
-    const page = this.pageContentDumper.getPageFromId(pageId);
+  private async extractItemFromPageId(pageId: number): Promise<Item[] | null> {
+    const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page) {
       return null;
     }
@@ -175,10 +178,10 @@ export class ItemsExtractor {
     const candidateItems: Item[] = [];
 
     const parsed: WikiItem = parseInfo(
-      page.rawContent.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
+      page.text.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
     ).general;
     if (Object.keys(parsed).length === 0) {
-      console.warn(`Page not parsed: (${page.pageid}) ${page.title}`);
+      console.warn(`Page not parsed: (${page.id}) ${page.title}`);
       return null;
     }
 
@@ -191,17 +194,17 @@ export class ItemsExtractor {
     if (
       'removal' in parsed ||
       page.title.includes('Redundant') ||
-      page.pagename.startsWith('Sigil') ||
-      page.rawContent.includes('{{Deadman seasonal}}') ||
-      page.rawContent.includes('{{Beta}}') ||
-      page.rawContent.includes('{{Gone')
+      page.title.startsWith('Sigil') ||
+      page.text.includes('{{Deadman seasonal}}') ||
+      page.text.includes('{{Beta}}') ||
+      page.text.includes('{{Gone')
     ) {
       isInMainGame = false;
     }
 
     const baseItem: Item = {
       id: Number(parsed.id),
-      aliases: page.redirects || [],
+      aliases: [],
       name: parsed.gemwname || parsed.name,
       examine: parsed.examine,
       image: parsed.image,
