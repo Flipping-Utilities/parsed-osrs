@@ -1,0 +1,50 @@
+[
+  {
+    "list": [
+      "view"
+    ],
+    "view": "limit",
+    "template": "#invoke:exchange"
+  },
+  {
+    "list": [
+      "price"
+    ],
+    "format": "no",
+    "template": "#invoke:exchange"
+  },
+  {
+    "list": [
+      "view"
+    ],
+    "view": "value",
+    "template": "#invoke:exchange"
+  },
+  {
+    "list": [
+      "view"
+    ],
+    "view": "hialch",
+    "template": "#invoke:exchange"
+  },
+  {
+    "list": [
+      "view"
+    ],
+    "template": "#invoke:exchange"
+  },
+  {
+    "list": [
+      "view"
+    ],
+    "view": "volume",
+    "template": "#invoke:exchange"
+  },
+  {
+    "list": [
+      "price"
+    ],
+    "format": "no",
+    "template": "#invoke:exchange"
+  }
+]

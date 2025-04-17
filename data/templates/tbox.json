@@ -1,5 +1,41 @@
 [
   {
+    "list": [
+      "\"Although you'd like nothing more than to rip the envelope off this message and read the highly secret details inside, your conscience gets the better of you, and you decide instead to deliver it to Veliaf intact.\""
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Al kharid flyer detail.png",
+    "template": "tbox"
+  },
+  {
+    "pic": "Royal accord of twill detail.png",
+    "list": [
+      "Despite its age, the scroll is in near perfect condition. It's likely that some sort of magic was used to ensure it remained preserved."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Shaman's tome detail.png",
+    "list": [
+      "You read the ancient shamans tome. It is written in a strange sort of language but you manage a rough translation."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "...scattered are my hopes that I will ever be released from this flaming Octagram, it is the only thing which will contain this beast within. Although its grip over me is weakened with magic, it is hopeless to know if a saviour would guess this. I am doomed..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "As you inspect the inscription on the tomb, you notice that the plaque it is on is loose. You remove the plaque, revealing a second inscription."
+    ],
+    "template": "tbox"
+  },
+  {
     "pic": "Map part (Lozar) detail.png",
     "list": [
       "This is a piece of map that you got from Wormbrain, the goblin thief. You will need to join it to the other two map pieces before you can see the route to Crandor."
@@ -7,16 +43,19 @@
     "template": "tbox"
   },
   {
-    "pic": "Map part (Melzar) detail.png",
+    "pic": "Rune pouch detail.png",
+    "template": "tbox"
+  },
+  {
     "list": [
-      "This is a piece of map that you found Melzar's Maze. You will need to join it to the other two map pieces before you can see the route to Crandor."
+      "You already have one of those."
     ],
     "template": "tbox"
   },
   {
-    "pic": "Map part (Thalzar) detail.png",
+    "pic": "Rune pouch detail.png",
     "list": [
-      "This is a piece of map that you found in a secret chest in the Dwarven Mine. You will need to join it to the other two map pieces before you can see the route to Crandor."
+      "You exchange the promissory note."
     ],
     "template": "tbox"
   },
@@ -40,25 +79,1875 @@
   },
   {
     "list": [
-      "\"Although you'd like nothing more than to rip the envelope off this message and read the highly secret details inside, your conscience gets the better of you, and you decide instead to deliver it to Veliaf intact.\""
+      "You pick up a new looking book: 'The Times of Lathas'. You skim over the heavy book. It talks about the heritage of the line of kings who carry the name Ardignas. They only came into power 68 years ago, but in which time there have been five kings, the current being King Lathas."
     ],
     "template": "tbox"
   },
   {
     "list": [
-      "You scramble through the dark and dangerous tunnel..."
+      "You pick on a new looking book: 'The Times of Ardignas'. You skim over the heavy book, it talks about the heritage of the line of Kings who carry the name Ardignas. They only came into power 68 years ago, but in which time there have been six kings, the current being King Thoros."
     ],
     "template": "tbox"
   },
   {
     "list": [
-      "You push yourself through countless jagged rocks..."
+      "As you open the chest, you notice an inscription on the lid:"
     ],
     "template": "tbox"
   },
   {
     "list": [
-      "You see bright torchlight on the other side..."
+      "Here I rest the map to my beloved home. To whoever finds it, I beg of you, let it be. I was honour-bound not to destroy the map piece, but I have used all my magical skill to keep it from being recovered."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "This map leads to the lair of the beast that destroyed my home, devoured my family, and burned to a cinder all that I love. But revenge would not benefit me now, and to disturb this beast is to risk bringing its wrath down upon another land."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "I cannot stop you from taking this map piece now, but think of this: if you can slay the Dragon of Crandor, you are a greater hero than my land ever produced. There is no shame in backing out now."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Slepey tablet detail.png",
+    "list": [
+      "You inspect the tablet, and sense a magical power, running your fingers over the inscriptions, they tingle as you get a feel for Drakan's power."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Slepey tablet detail.png",
+    "list": [
+      "He must have stored one of his best spells in this tablet, perhaps he has some sort of device which could utilise it?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Drakan's medallion detail.png",
+    "pic2": "Slepey tablet detail.png",
+    "list": [
+      "As the medallion and tablet are held together, a surge of power connects the two. After a brief moment, the tablet crumbles, and the medallion feels somehow different."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Tarnished locket detail.png",
+    "list": [
+      "The locket opens, revealing a note inside."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Abyssal needle detail.png",
+    "list": [
+      "The needle looks like it could handle the strange fabric that essence pouches are made of. Its magic might even expand their essence holding capabilities."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Large pouch detail.png",
+    "list": [
+      "It would be best to empty all your pouches before attempting to combine them."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Large pouch detail.png",
+    "list": [
+      "You need a small, medium, large and giant pouch in order to combine them together."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You are attempting to combine all your essence pouches into one colossal pouch. All of your essence pouches will be consumed in the process."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Colossal pouch detail.png",
+    "list": [
+      "You attempt to stitch together all of the pouches. It's difficult, but you eventually craft a strange, kind of gross, fleshy container. It seems capable of storing up to [amount] essence at the moment."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Parasitic egg detail.png",
+    "list": [
+      "You feed the egg to Little Nightmare. It starts to change..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Uncharged trident detail.png",
+    "pic2": "Magic fang detail.png",
+    "list": [
+      "You wrench the fang off the trident. Both items seem to be unharmed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You adapt the visage to fit on a human head."
+    ],
+    "pic": "Serpentine helm (uncharged) detail.png",
+    "template": "tbox"
+  },
+  {
+    "pic": "Sanguine dust detail.png",
+    "list": [
+      "You sprinkle the dust over Lil' Zik. Congratulations! You may now metamorphise them."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Metamorphic dust detail.png",
+    "list": [
+      "You sprinkle the dust over Olmlet. Congratulations! You may now metamorphise them."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Eldritch nightmare staff detail.png",
+    "list": [
+      "You add the orb to the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Harmonised nightmare staff detail.png",
+    "list": [
+      "You add the orb to the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Volatile nightmare staff detail.png",
+    "list": [
+      "You add the orb to the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Eldritch nightmare staff detail.png",
+    "list": [
+      "You add the orb to the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Harmonised nightmare staff detail.png",
+    "list": [
+      "You add the orb to the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Volatile nightmare staff detail.png",
+    "list": [
+      "You add the orb to the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Nightmare staff detail.png",
+    "pic2": "Eldritch orb detail.png",
+    "list": [
+      "You remove the orb from the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Nightmare staff detail.png",
+    "pic2": "Harmonised orb detail.png",
+    "list": [
+      "You remove the orb from the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Nightmare staff detail.png",
+    "pic2": "Volatile orb detail.png",
+    "list": [
+      "You remove the orb from the staff."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Basilisk jaw detail.png",
+    "list": [
+      "It's the jaw of a Basilisk Knight. Perhaps Olaf the Bard knows a good story about it."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Basilisk jaw detail.png",
+    "list": [
+      "It's the jaw of a Basilisk Knight. It looks like it could be attached to a Helm of Neitiznot."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Neitiznot faceguard detail.png",
+    "list": [
+      "You attach the Basilisk Jaw to the Helm of Neitiznot."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Helm of neitiznot detail.png",
+    "pic2": "Basilisk jaw detail.png",
+    "list": [
+      "You remove the Basilisk Jaw from the Neitiznot Faceguard."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Neitiznot faceguard detail.png",
+    "list": [
+      "You attach the Basilisk Jaw to the Helm of Neitiznot."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Amulet of glory detail.png",
+    "list": [
+      "Your scroll disintegrates as it recharges your jewellery."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Combat bracelet detail.png",
+    "list": [
+      "Your scroll disintegrates as it recharges your jewellery."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Skills necklace detail.png",
+    "list": [
+      "Your scroll disintegrates as it recharges your jewellery."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Are you sure you wish to combine the"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Brimstone ring detail.png",
+    "list": [
+      "You successfully combine the Hydra Heart, the Hydra Eye, and the Hydra Fang into the Brimstone Ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Are you sure you wish to combine the"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Brimstone ring detail.png",
+    "list": [
+      "You successfully combine the Hydra Heart, the Hydra Eye, and the Hydra Fang into the Brimstone Ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Are you sure you wish to combine the"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Brimstone ring detail.png",
+    "list": [
+      "You successfully combine the Hydra Heart, the Hydra Eye, and the Hydra Fang into the Brimstone Ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Holy sandals detail.png",
+    "pic2": "Drake's tooth detail.png",
+    "list": [
+      "Are you sure you wish to alchemically combine the Holy sandals and Drake's tooth to create Devout boots? This cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Devout boots detail.png",
+    "list": [
+      "You successfully combine the Holy sandals and Drake's tooth to create Devout boots."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Scarab dung detail.png",
+    "pic2": "Dawn scarab egg detail.png",
+    "list": [
+      "You use the water to help you sift through the dung. In doing so, you find a strange egg."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Mask of rebirth detail.png",
+    "list": [
+      "You search the chest and discover a mask inside."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Mask of rebirth detail.png",
+    "list": [
+      "You search the chest and discover a mask inside. However, you do not have enough room to take it."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You search the chest, but find nothing of note inside."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Lunch by the lancalliums detail.png",
+    "list": [
+      "You add an entry to Kharedst's Memoirs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You find a key hidden under the flower pot."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Charged ice detail.png",
+    "list": [
+      "Congratulations! You've unlocked new metamorphosis options for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Hydra leather detail.png",
+    "list": [
+      "This leather looks pretty tough to work with... Maybe the dragonkin had a way."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Venator shard detail.png",
+    "list": [
+      "Creating a venator bow requires five venator shards. You need [number] more."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Do you wish to use five venator shards to create a venator bow? This process is non-reversible."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Venator bow (uncharged) detail.png",
+    "list": [
+      "You use five venator shards to create a venator bow."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "The sign has some rough text carved into it: 'Here lies the Dungeon of Tolna! Since the rescue of Tolna from this rift, the monsters below have improved their combat strengths - so beware! Just because you found the monsters easy to kill last time, doesn't mean they will be easy this time!'"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Rod of ivandis detail.png",
+    "list": [
+      "It's an ancient coffin with a strange rod fused to the top. The rod gives out a mixture of both mortal and divine energies and seems to be made out of a unique silver and mithril alloy."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Map part (Thalzar) detail.png",
+    "list": [
+      "This is a piece of map that you found in a secret chest in the Dwarven Mine. You will need to join it to the other two map pieces before you can see the route to Crandor."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Map part (Melzar) detail.png",
+    "list": [
+      "This is a piece of map that you found Melzar's Maze. You will need to join it to the other two map pieces before you can see the route to Crandor."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "In sunrise's wealthy glow, the security of my feelings will grow."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Where a good king sits his throne, my lover's heart becomes my own."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Just South of town can my champion be found, tending cautiously to fertile ground."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "To the West where waters roar, a barbaric heart begins to thaw."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Frozen tablet detail.png",
+    "list": [
+      "You touch the frozen tablet. You feel a surge of energy run through your body, hearing the word 'Ghorrock' echo in your mind."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Frozen tablet detail.png",
+    "pic2": "Ring of shadows detail.png",
+    "list": [
+      "You hold the frozen tablet against the ring of shadows causing the tablet to shatter, transferring its power into the ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Strangled tablet detail.png",
+    "list": [
+      "You touch the strangled tablet. You feel a surge of energy run through your body, hearing the word 'Stranglewood' echo in your mind."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Strangled tablet detail.png",
+    "pic2": "Ring of shadows detail.png",
+    "list": [
+      "You hold the strangled tablet against the ring of shadows causing the tablet to shatter, transferring its power into the ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Sirenic tablet detail.png",
+    "list": [
+      "You touch the sirenic tablet. You feel a surge of energy run through your body, hearing the word 'Lassar' echo in your mind."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Sirenic tablet detail.png",
+    "pic2": "Ring of shadows detail.png",
+    "list": [
+      "You hold the sirenic tablet against the ring of shadows causing the tablet to shatter, transferring its power into the ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You search through the camping equipment, but find nothing of interest."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Secateurs detail.png",
+    "list": [
+      "You search through the camping equipment and find some secateurs. However, you don't have enough room to take them."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Secateurs detail.png",
+    "list": [
+      "You search through the camping equipment and find some secateurs. You take them."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Scarred tablet detail.png",
+    "list": [
+      "You touch the scarred tablet. You feel a surge of energy run through your body, hearing the word 'Scar' echo in your mind."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Scarred tablet detail.png",
+    "pic2": "Ring of shadows detail.png",
+    "list": [
+      "You hold the scarred tablet against the ring of shadows causing the tablet to shatter, transferring its power into the ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Smoke quartz detail.png",
+    "list": [
+      "It's a strange chunk of quartz filled with an ancient magical power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Smoke quartz detail.png",
+    "pic2": "Ancient sceptre detail.png",
+    "list": [
+      "Are you sure you wish to combine the Smoke quartz and Ancient sceptre to create a Smoke ancient sceptre?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Smoke ancient sceptre detail.png",
+    "list": [
+      "You successfully combine the Smoke quartz and Ancient sceptre to create a Smoke ancient sceptre."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Shadow quartz detail.png",
+    "list": [
+      "It's a strange chunk of quartz filled with an ancient magical power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Shadow quartz detail.png",
+    "pic2": "Ancient sceptre detail.png",
+    "list": [
+      "Are you sure you wish to combine the Shadow quartz and Ancient sceptre to create a Shadow ancient sceptre?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Shadow ancient sceptre detail.png",
+    "list": [
+      "You successfully combine the Shadow quartz and Ancient sceptre to create a Shadow ancient sceptre."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Blood quartz detail.png",
+    "list": [
+      "It's a strange chunk of quartz filled with an ancient magical power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Blood quartz detail.png",
+    "pic2": "Ancient sceptre detail.png",
+    "list": [
+      "Are you sure you wish to combine the Blood quartz and Ancient sceptre to create a Blood ancient sceptre?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Blood ancient sceptre detail.png",
+    "list": [
+      "You successfully combine the Blood quartz and Ancient sceptre to create a Blood ancient sceptre."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ice quartz detail.png",
+    "list": [
+      "It's a strange chunk of quartz filled with an ancient magical power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ice quartz detail.png",
+    "pic2": "Ancient sceptre detail.png",
+    "list": [
+      "Are you sure you wish to combine the Ice quartz and Ancient sceptre to create an Ice ancient sceptre?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ice ancient sceptre detail.png",
+    "list": [
+      "You successfully combine the Ice quartz and Ancient sceptre to create an Ice ancient sceptre."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Magus vestige detail.png",
+    "list": [
+      "It's an ancient vestige filled with power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Magus icon detail.png",
+    "list": [
+      "It's an ancient icon filled with power. You might be able to use it to craft a powerful ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Chromium ingot detail.png",
+    "pic2": "Magus icon detail.png",
+    "list": [
+      "Craft a Magus ring? This process cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Magus ring detail.png",
+    "list": [
+      "You successfully craft a Magus ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ultor vestige detail.png",
+    "list": [
+      "It's an ancient vestige filled with power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Bellator vestige detail.png",
+    "list": [
+      "It's an ancient vestige filled with power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Venator vestige detail.png",
+    "list": [
+      "It's an ancient vestige filled with power. You might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ultor icon detail.png",
+    "list": [
+      "It's an ancient icon filled with power. You might be able to use it to craft a powerful ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Chromium ingot detail.png",
+    "pic2": "Ultor icon detail.png",
+    "list": [
+      "Craft an Ultor ring? This process cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ultor ring detail.png",
+    "list": [
+      "You successfully craft an Ultor ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Bellator icon detail.png",
+    "list": [
+      "It's an ancient icon filled with power. You might be able to use it to craft a powerful ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Chromium ingot detail.png",
+    "pic2": "Bellator icon detail.png",
+    "list": [
+      "Craft a Bellator ring? This process cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Bellator ring detail.png",
+    "list": [
+      "You successfully craft a Bellator ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Venator icon detail.png",
+    "list": [
+      "It's an ancient icon filled with power. You might be able to use it to craft a powerful ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Chromium ingot detail.png",
+    "pic2": "Venator icon detail.png",
+    "list": [
+      "Craft a Venator ring? This process cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Venator ring detail.png",
+    "list": [
+      "You successfully craft a Venator ring."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You need a Combat level of 85 to start this quest."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Runescroll of bloodbark detail.png",
+    "list": [
+      "Reading through the scroll reveals the secret to infusing Splitbark armour with Blood runes at a Blood Altar to create Bloodbark armour!"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Runescroll of bloodbark detail.png",
+    "list": [
+      "You've already gained the knowledge to infuse Splitbark armour with Blood runes."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Runescroll of swampbark detail.png",
+    "list": [
+      "Reading through the scroll reveals the secret to infusing Splitbark armour with Nature runes at a Nature altar to create Swampbark armour!"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Runescroll of swampbark detail.png",
+    "list": [
+      "You've already gained the knowledge to infuse Splitbark armour with Nature runes."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Eye amulet detail.png",
+    "list": [
+      "The amulet is giving off unfamiliar magical energies."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Strong cup of tea detail.png",
+    "list": [
+      "You should give this to the Mage of Zamorak instead of drinking it."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Abyssal incantation detail.png",
+    "list": [
+      "You don't understand the incantation. It needs the knowledge of a wizard."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Orange egg sac detail.png",
+    "pic2": "Blue egg sac detail.png",
+    "list": [
+      "You find treasure, supplies, and a weirdly coloured egg sac within the chest."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Shark detail.png",
+    "pic2": "Red dragonhide detail.png",
+    "list": [
+      "You find treasure and supplies within the chest."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ancient remnant detail.png",
+    "list": [
+      "Congratulations! You've unlocked a new metamorphosis option for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Remnant of zebak detail.png",
+    "list": [
+      "Congratulations! You've unlocked a new metamorphosis option for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Remnant of kephri detail.png",
+    "list": [
+      "Congratulations! You've unlocked a new metamorphosis option for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Remnant of ba-ba detail.png",
+    "list": [
+      "Congratulations! You've unlocked a new metamorphosis option for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Remnant of akkha detail.png",
+    "list": [
+      "Congratulations! You've unlocked a new metamorphosis option for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cursed phalanx detail.png",
+    "list": [
+      "A magical piece of bone, turned strong and hard over the course of time. It looks like it could fit Osmumten's Fang."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Osmumten's fang (or) detail.png",
+    "list": [
+      "You carefully attach the phalanx to the fang. Its bony structure expands, completely overtaking the weapon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "The Phalanx only looks compatible with Osmumten's Fang."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Berserker ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "Are you sure you wish to break down the Berserker ring into a Berserker icon? This cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Berserker icon detail.png",
+    "list": [
+      "You successfully break down the Berserker ring into a Berserker icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Berserker ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "You have no reason to do that."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Archers ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "Are you sure you wish to break down the Archers ring into a Archer icon? This cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Archer icon detail.png",
+    "list": [
+      "You successfully break down the Archers ring into a [sic] Archer icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Archers ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "You have no reason to do that."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Seers ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "Are you sure you wish to break down the Seers ring into a Seers icon? This cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Seers icon detail.png",
+    "list": [
+      "You successfully break down the Seers ring into a Seers icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Seers ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "You have no reason to do that."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Warrior ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "Are you sure you wish to break down the Warrior ring into a Warrior icon? This cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Warrior icon detail.png",
+    "list": [
+      "You successfully break down the Warrior ring into a Warrior icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Warrior ring detail.png",
+    "pic2": "Chisel detail.png",
+    "list": [
+      "You have no reason to do that."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Arcane prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods! Would you like to absorb its power?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Arcane prayer scroll detail.png",
+    "list": [
+      "You study the scroll and learn a new prayer:"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Arcane prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods. However there's nothing more for you to learn."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Torn prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods! Would you like to absorb its power?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Torn prayer scroll detail.png",
+    "list": [
+      "You study the scroll and learn a new prayer:"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Torn prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It's an archaic invocation of the gods. However there's nothing more for you to learn."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dexterous prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods! Would you like to absorb its power?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dexterous prayer scroll detail.png",
+    "list": [
+      "You study the scroll and learn a new prayer:"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dexterous prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods. However there's nothing more for you to learn."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Crypt map detail.png",
+    "list": [
+      "It's a map of the Barrows Crypt. You carefully study it and memorise all the details. You then discard it."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Knife detail.png",
+    "list": [
+      "You find a knife inside the old tattered backpack."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Long vine detail.png",
+    "list": [
+      "You twist the vines together to make a long vine."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Haemalchemy volume 2 detail.png",
+    "list": [
+      "The book is written in a language that you don't understand. Safalaan will know what to do with it."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Old note (Sins of the Father) detail.png",
+    "list": [
+      "You find an old note on the shelves."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "It's Fox's report. It details the creature he was tracking, his attack, and my help."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Willow logs detail.png",
+    "list": [
+      "This whistle requires a knife and one set of willow logs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Basic quetzal whistle detail.png",
+    "list": [
+      "You craft yourself a basic quetzal whistle."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Yew logs detail.png",
+    "list": [
+      "This whistle requires a knife and one set of yew logs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Enhanced quetzal whistle detail.png",
+    "list": [
+      "You craft yourself an enhanced quetzal whistle."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Redwood logs detail.png",
+    "list": [
+      "This whistle requires a knife and one set of redwood logs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Enhanced quetzal whistle detail.png",
+    "list": [
+      "You craft yourself a perfected quetzal whistle."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Hunters' sunlight crossbow detail.png",
+    "list": [
+      "You create a Sunlight Hunters' Crossbow."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Teleport anchoring scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment, revealing the secrets of teleport negation. Would you like to absorb their power?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Teleport anchoring scroll detail.png",
+    "list": [
+      "You study the scroll and become immune to the Abyssal demon and Elder Chaos druid teleportation attacks."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Teleport anchoring scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment, but there's nothing more for you to learn."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Message (Vertida) detail.png",
+    "list": [
+      "It's a short message from Vertida to Veliaf. It confirms that the Sanguinesti order of the Myreque is operational, but in need of support."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Target teleport scroll detail.png",
+    "list": [
+      "The 'Teleport to Target' spell requires level 85 Magic, and can be cast only within the Wilderness, while you have a Target. This scroll will be destroyed when it has been read."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Target teleport scroll detail.png",
+    "list": [
+      "You have learnt the 'Teleport to Target' spell."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Target teleport scroll detail.png",
+    "list": [
+      "You have already unlocked the spell. The scroll can be sold if you no longer need it."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Duradel's notes detail.png",
+    "list": [
+      "You flick through a lifetime of notes on demon slaying, absorbing what you can. One passage catches your eye..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Duradel's notes detail.png",
+    "list": [
+      "You flick through the old notes, but don't learn anything new."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Burning claws detail.png",
+    "list": [
+      "You bring the two claws together and combine them."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Amulet of fury detail.png",
+    "pic2": "Blood shard detail.png",
+    "list": [
+      "The Amulet of fury will consume your Blood shard to make the Amulet of blood fury and you won't be able to get it back."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Amulet of fury detail.png",
+    "pic2": "Blood shard detail.png",
+    "list": [
+      "The Amulet of blood fury is untradeable."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Amulet of blood fury detail.png",
+    "list": [
+      "You have successfully created an Amulet of blood fury."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Amulet of blood fury detail.png",
+    "list": [
+      "You have successfully added 10,000 hits to your Amulet of blood fury. It will now work for (amount of charges) more hits."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Armageddon_cape_fabric_detail.png",
+    "list": [
+      "You can use this on Nigel in Lumbridge to unlock the Deadman: Armageddon ornament theme for your capes."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Armageddon weapon scroll detail.png",
+    "list": [
+      "You can use this on Nigel in Lumbridge to unlock the Deadman: Armageddon ornament theme for your weapons."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Armageddon teleport scroll detail.png",
+    "list": [
+      "This scroll will unlock a new Home Teleport animation from Deadman: Armageddon. Would you like to read the scroll?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Armageddon teleport scroll detail.png",
+    "list": [
+      "You feel empowered by the scroll and learn the . This can be toggled by right-clicking on the Home Teleport in your spellbook."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Armageddon teleport scroll detail.png",
+    "list": [
+      "This scroll contains an incantation which unlocks the animation. However you have already unlocked this animation."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You read the wall plaque: 'Blessings on Efaritay, our icyene queen from far off lands and her loving children of Hallowed name.'"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "The fisher's flute detail.png",
+    "list": [
+      "You add an entry to Kharedst's Memoirs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "History and hearsay detail.png",
+    "list": [
+      "You add an entry to Kharedst's Memoirs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Jewellery of jubilation detail.png",
+    "list": [
+      "You add an entry to Kharedst's Memoirs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "A dark disposition detail.png",
+    "list": [
+      "You add an entry to Kharedst's Memoirs."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Seers icon detail.png",
+    "list": [
+      "It's an icon from an old ring. With the help of a Fremennik, you might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Seers icon detail.png",
+    "pic2": "Magus vestige detail.png",
+    "list": [
+      "Are you sure you wish to combine the Seers icon, Magus vestige and 500 blood runes to create a Magus icon?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Magus icon detail.png",
+    "list": [
+      "You successfully combine the Seers icon, Magus vestige and 500 blood runes to create a Magus icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You reach over to pick up the bowl of water..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Boots_of_stone_detail.png",
+    "pic2": "Drake's_claw_detail.png",
+    "list": [
+      "Are you sure you wish to alchemically combine the Boots of stone and Drake's claw to create Boots of brimstone? This cannot be reversed."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Boots_of_brimstone_detail.png",
+    "list": [
+      "You successfully combine the Boots of stone and Drake's claw to create Boots of brimstone."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Do you wish to use the araxyte fang on your amulet of torture? This process is non-reversible and will consume both items."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Amulet of rancour detail.png",
+    "list": [
+      "You successfully create a [sic] amulet of rancour."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Do you wish to combine all three pieces to create a noxious halberd? This process is non-reversible."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Noxious halberd detail.png",
+    "list": [
+      "You successfully create a noxious halberd."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Creating a Noxious Halberd requires level 72 crafting & smithing. [sic]"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Noxious pommel detail.png",
+    "list": [
+      "Creating a noxious halberd requires at least one noxious [point/pommel/blade] [sic]"
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Do you wish to combine all three pieces to create a noxious halberd? This process is non-reversible."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Noxious halberd detail.png",
+    "list": [
+      "You successfully create a noxious halberd."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Creating a Noxious Halberd requires level 72 crafting & smithing. [sic]"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Noxious point detail.png",
+    "list": [
+      "Creating a noxious halberd requires at least one noxious [point/pommel/blade] [sic]"
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Do you wish to combine all three pieces to create a noxious halberd? This process is non-reversible."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Noxious halberd detail.png",
+    "list": [
+      "You successfully create a noxious halberd."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Creating a Noxious Halberd requires level 72 crafting & smithing. [sic]"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Noxious blade detail.png",
+    "list": [
+      "Creating a noxious halberd requires at least one noxious [point/pommel/blade] [sic]"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Coagulated venom detail.png",
+    "list": [
+      "Congratulations! You've unlocked a new metamorphosis option for your pet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "A strange wall which appears to have rubble blocking it, perhaps it can be cleared away?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You reveal a tunnel behind the wall."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Odium ward (or) detail.png",
+    "pic2": "Ward upgrade kit detail.png",
+    "list": [
+      "The upgraded version has the same stats and behaviour, but is untradeable. Although you can revert it to its original form, you will not get the upgrade kit back."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Odium ward (or) detail.png",
+    "list": [
+      "You apply the upgrade."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Malediction ward (or) detail.png",
+    "pic2": "Ward upgrade kit detail.png",
+    "list": [
+      "The upgraded version has the same stats and behaviour, but is untradeable. Although you can revert it to its original form, you will not get the upgrade kit back."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Malediction ward (or) detail.png",
+    "list": [
+      "You apply the upgrade."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Odium ward detail.png",
+    "list": [
+      "You remove the upgrade."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Malediction ward detail.png",
+    "list": [
+      "You remove the upgrade."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Black tourmaline core detail.png",
+    "list": [
+      "Fallen from the centre of a Grotesque Guardian. This could be attached to a pair of Bandos boots..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Bandos boots detail.png",
+    "pic2": "Black tourmaline core detail.png",
+    "list": [
+      "Do you really want to combine these items together into Guardian boots? You cannot undo this process."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Guardian boots detail.png",
+    "list": [
+      "The second you hold your tourmaline core by the Bandos boots, the core is absorbed rapidly. Perhaps there is some link between the metal in Bandos and tourmaline..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon base detail.png",
+    "list": [
+      "You remove the Shattered Relics League appearance from the Cannon base."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon stand detail.png",
+    "list": [
+      "You remove the Shattered Relics League appearance from the Cannon stand."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon barrels detail.png",
+    "list": [
+      "You remove the Shattered Relics League appearance from the Cannon barrels."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon furnace detail.png",
+    "list": [
+      "You remove the Shattered Relics League appearance from the Cannon furnace."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon base (or) detail.png",
+    "list": [
+      "You apply the Shattered Relics League appearance to the Cannon base."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon stand (or) detail.png",
+    "list": [
+      "You apply the Shattered Relics League appearance to the Cannon stand."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon barrels (or) detail.png",
+    "list": [
+      "You apply the Shattered Relics League appearance to the Cannon barrels."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Cannon furnace (or) detail.png",
+    "list": [
+      "You apply the Shattered Relics League appearance to the Cannon furnace."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Warrior icon detail.png",
+    "list": [
+      "It's an icon from an old ring. With the help of a Fremennik, you might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Warrior icon detail.png",
+    "pic2": "Bellator vestige detail.png",
+    "list": [
+      "Are you sure you wish to combine the Warrior icon, Bellator vestige and 500 blood runes to create a Bellator icon?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Bellator icon detail.png",
+    "list": [
+      "You successfully combine the Warrior icon, Bellator vestige and 500 blood runes to create a Bellator icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Archer icon detail.png",
+    "list": [
+      "It's an icon from an old ring. With the help of a Fremennik, you might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Archer icon detail.png",
+    "pic2": "Venator vestige detail.png",
+    "list": [
+      "Are you sure you wish to combine the Archer icon, Venator vestige and 500 blood runes to create a Venator icon?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Venator icon detail.png",
+    "list": [
+      "You successfully combine the Archer icon, Venator vestige and 500 blood runes to create a Venator icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Berserker icon detail.png",
+    "list": [
+      "It's an icon from an old ring. With the help of a Fremennik, you might be able to combine it with something else."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Berserker icon detail.png",
+    "pic2": "Ultor vestige detail.png",
+    "list": [
+      "Are you sure you wish to combine the Berserker icon, Ultor vestige and 500 blood runes to create a Ultor icon?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ultor icon detail.png",
+    "list": [
+      "You successfully combine the Berserker icon, Ultor vestige and 500 blood runes to create a Ultor icon."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Menaphite ornament kit detail.png",
+    "list": [
+      "A magical dye. It looks like it could fit a fortified version of Elidinis' Ward."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "The dye only looks compatible with the fortified version of Elidinis' Ward."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Vorkath's head detail.png",
+    "list": [
+      "Perhaps Ava would like to see this?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Vorkath's head detail.png",
+    "pic2": "Ranging cape detail.png",
+    "list": [
+      "You infuse the power of Vorkath's head into your Ranging cape."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Vorkath's head detail.png",
+    "pic2": "Ranging cape(t) detail.png",
+    "list": [
+      "You infuse the power of Vorkath's head into your Ranging cape(t)."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "The squirrel carefully crunches the calcified acorn and magically turns into a skeleton. Whoops!"
+    ],
+    "pic": "Calcified acorn detail.png",
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "The squirrel happily eats the dark acorn and magically turns into a darker colour. How unexpected."
+    ],
+    "pic": "Dark acorn detail.png",
+    "template": "tbox"
+  },
+  {
+    "pic": "Rotten tomato detail.png",
+    "list": [
+      "You open the box and find a rotten tomato."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Smelly sock detail.png",
+    "list": [
+      "You open the box and find a smelly sock."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Zombie helmet detail.png",
+    "list": [
+      "You successfully repair your zombie helmet."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Brittle key detail.png",
+    "list": [
+      "You use the key and it is absorbed by the gateway as it activates..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You enter the passageway, and it takes you to the roof of the tower."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Brittle key detail.png",
+    "list": [
+      "You use the key and it is absorbed by the gateway as it activates..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You ring the bell, the sound echoes out across the roof..."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Bloody mourner top detail.png",
+    "list": [
+      "The top is coated in blood from your fight with the mourner. It will need cleaning before it can be used."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Ripped mourner trousers detail.png",
+    "list": [
+      "The trousers are ripped from your fight with the mourner. They will need fixing before they can be used."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "WARNING: You will not be able to re-obtain the Avernic hilt. It will become too damaged in the process and you will be left with only a Dragon defender."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You dismantle your Avernic defender and are left with only a Dragon defender."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Broken zombie axe detail.png",
+    "list": [
+      "The axe isn't in a great state, but it should be possible to repair it. However, you unfortunately don't feel you have the skills needed to do so yourself. To repair the axe, you'll need 70 Smithing."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Broken zombie axe detail.png",
+    "list": [
+      "The axe isn't in a great state, but it should be possible to repair it. You reckon you have the skills needed to do so yourself. You'll just need a hammer and an anvil."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dark totem detail.png",
+    "list": [
+      "You bring the totem pieces together with a click. It looks kind of like an arcane key and pulses with dark power in your hand."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dark totem detail.png",
+    "list": [
+      "You bring the totem pieces together with a click. It looks kind of like an arcane key and pulses with dark power in your hand."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dark totem detail.png",
+    "list": [
+      "You bring the totem pieces together with a click. It looks kind of like an arcane key and pulses with dark power in your hand."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Dark totem detail.png",
+    "list": [
+      "You bring the totem pieces together with a click. It looks kind of like an arcane key and pulses with dark power in your hand."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Skull (item) detail.png",
+    "pic2": "Bones detail.png",
+    "list": [
+      "You search the skeleton carefully, and discover that it's made of bones."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Skull (item) detail.png",
+    "pic2": "Bones detail.png",
+    "list": [
+      "You check for a wallet or watch, but someone must have looted them already."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Skull (item) detail.png",
+    "pic2": "Bones detail.png",
+    "list": [
+      "You check for a pulse, but she's dead."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Deadeye prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods! Would you like to absorb its power?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Deadeye prayer scroll detail.png",
+    "list": [
+      "You study the scroll and learn a new prayer:"
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "You'll need a key to open this chest."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Apatura's note detail.png",
+    "list": [
+      "You take a note from the chest."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Mystic vigour prayer scroll detail.png",
+    "list": [
+      "You can make out some faded words on the ancient parchment. It appears to be an archaic invocation of the gods! Would you like to absorb its power?"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Mystic vigour prayer scroll detail.png",
+    "list": [
+      "You study the scroll and learn a new prayer:"
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Crowbar detail.png",
+    "list": [
+      "Steve Beanie on the Pandemonium can tell you more about what to do with this."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Crowbar detail.png",
+    "list": [
+      "This crowbar can be used to pry open crates full of drinks while out at sea. You can then add them to your sea charts by sampling the drinks."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Anti-rust tonic detail.png",
+    "list": [
+      "This tonic can be used to remove rust from Meaty Aura Logist's weather station when helping her to chart weather patterns in the sea. It can also be used to remove rust from swords."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Deep sea helmet detail.png",
+    "list": [
+      "This diving equipment works in place of the non- upgraded version. Higher level dives whilst charting the sea floor with mermaids will require this upgraded equipment."
+    ],
+    "template": "tbox"
+  },
+  {
+    "pic": "Deep sea apparatus detail.png",
+    "list": [
+      "This diving equipment works in place of the non- upgraded version. Higher level dives whilst charting the sea floor with mermaids will require this upgraded equipment."
+    ],
+    "template": "tbox"
+  },
+  {
+    "list": [
+      "Mudskipper Point. WARNING! BEWARE OF THE MUDSKIPPERS!"
     ],
     "template": "tbox"
   }

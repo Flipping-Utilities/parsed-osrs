@@ -1,12 +1,18 @@
 [
   {
-    "irs": "at the chest located north-west of the noticeboard",
-    "cost": "20000",
+    "optional": "true",
     "template": "instance"
   },
   {
-    "irs": "Orrvor quo Maten",
-    "cost": "100000",
+    "optional": "yes",
+    "template": "instance"
+  },
+  {
+    "optional": "yes",
+    "template": "instance"
+  },
+  {
+    "optional": "yes",
     "template": "instance"
   },
   {
@@ -18,6 +24,20 @@
     "template": "instance"
   },
   {
+    "irs": "at a chest in the Ancient Prison's safe rooms",
+    "cost": "100000",
+    "template": "instance"
+  },
+  {
+    "optional": "true",
+    "template": "instance"
+  },
+  {
+    "irs": "Priestess Zul-Gwenwynig",
+    "cost": "100000",
+    "template": "instance"
+  },
+  {
     "irs": "at the Item Chest near the brazier",
     "cost": "100000",
     "template": "instance"
@@ -25,6 +45,16 @@
   {
     "irs": "Torfinn",
     "cost": "100000",
+    "template": "instance"
+  },
+  {
+    "irs": "Torfinn",
+    "cost": "100000",
+    "template": "instance"
+  },
+  {
+    "irs": "the Magical Chest",
+    "cost": "50000",
     "template": "instance"
   },
   {
@@ -58,11 +88,27 @@
     "template": "instance"
   },
   {
-    "optional": "yes",
+    "irs": "at the chest located north-west of the noticeboard",
+    "cost": "20000",
     "template": "instance"
   },
   {
-    "irs": "the Magical Chest",
+    "irs": "Rebel Scout",
+    "cost": "80000",
+    "template": "instance"
+  },
+  {
+    "irs": "Rebel Scout",
+    "cost": "80000",
+    "template": "instance"
+  },
+  {
+    "irs": "Rebel Scout",
+    "cost": "80000",
+    "template": "instance"
+  },
+  {
+    "irs": "Brundt the Chieftain",
     "cost": "50000",
     "template": "instance"
   },
@@ -72,68 +118,8 @@
     "template": "instance"
   },
   {
-    "optional": "yes",
-    "template": "instance"
-  },
-  {
-    "optional": "true",
-    "template": "instance"
-  },
-  {
-    "optional": "true",
-    "template": "instance"
-  },
-  {
-    "optional": "yes",
-    "template": "instance"
-  },
-  {
-    "irs": "at a chest in the Ancient Prison's safe rooms",
+    "irs": "Orrvor quo Maten",
     "cost": "100000",
-    "template": "instance"
-  },
-  {
-    "irs": "Sister Senga",
-    "cost": "60000",
-    "template": "instance"
-  },
-  {
-    "optional": "yes",
-    "template": "instance"
-  },
-  {
-    "irs": "Veliaf",
-    "cost": "50000",
-    "template": "instance"
-  },
-  {
-    "irs": "Veliaf Hurtz",
-    "cost": "50000",
-    "template": "instance"
-  },
-  {
-    "irs": "Rebel Scout",
-    "cost": "80000",
-    "template": "instance"
-  },
-  {
-    "irs": "Rebel Scout",
-    "cost": "80000",
-    "template": "instance"
-  },
-  {
-    "irs": "Rebel Scout",
-    "cost": "80000",
-    "template": "instance"
-  },
-  {
-    "irs": "Brundt the Chieftain",
-    "cost": "50000",
-    "template": "instance"
-  },
-  {
-    "irs": "Brundt the Chieftain",
-    "cost": "50000",
     "template": "instance"
   },
   {
@@ -142,8 +128,13 @@
     "template": "instance"
   },
   {
-    "irs": "Strange casket",
-    "cost": "90000",
+    "irs": "Brundt the Chieftain",
+    "cost": "50000",
+    "template": "instance"
+  },
+  {
+    "irs": "Veliaf",
+    "cost": "50000",
     "template": "instance"
   },
   {
@@ -152,13 +143,22 @@
     "template": "instance"
   },
   {
-    "irs": "Torfinn",
-    "cost": "100000",
+    "irs": "Sister Senga",
+    "cost": "60000",
     "template": "instance"
   },
   {
-    "irs": "Priestess Zul-Gwenwynig",
-    "cost": "100000",
+    "irs": "Veliaf Hurtz",
+    "cost": "50000",
+    "template": "instance"
+  },
+  {
+    "irs": "Strange casket",
+    "cost": "90000",
+    "template": "instance"
+  },
+  {
+    "optional": "yes",
     "template": "instance"
   }
 ]

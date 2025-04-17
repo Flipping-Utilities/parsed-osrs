@@ -1,43 +1,37 @@
 [
   {
     "list": [
-      "* Before the player has given the thick dye to Gregg or learned about the intent to paint Ned's door, the player can ask Ned one step too early for his permission to paint the door.\n* After the player has given the thick dye to Gregg, Ned will thank the player for painting his door with extra colours and exclaims the door to be missing something, before the door is actually painted.\n* Before the player has learned Gregg didn't do the decorations when he got back to Draynor and Ned did this, the player praises Ned for his excellent work on the decorations.\n* Immediately after painting Ned's door but before being offered by Gregg to be teleported to Lumbridge, if the player asks the Cook about the Easter event, the player will question prematurely if the eggs the Cook gave to Gregg were rotten ones, in spite of the fact Gregg has not made it to the kitchen, the player hasn't asked the Cook for \"fancy eggs\", and Gregg has not received any \"colourful eggs\" from the Cook yet. \n* If the player and Gregg teleport from the Lumber Yard to Draynor together, Thessalia's dialogue will change to tell the player Gregg is at Draynor (as evidently intended). However, if the player skips teleporting with Gregg from the Lumber Yard, travels to Draynor Village manually and talks to Gregg there at this time (as may be unintended), Gregg will not be seen at the Lumber Yard again (as evidently intended), but the script updating Thessalia's dialogue to tell the player Gregg is at Draynor will not trigger, thus her dialogue will continue to incorrectly hint Gregg to be at the Lumber Yard instead of Draynor Village. Thessalia's dialogue will be glitched, but the event can be completed as normal without softlocking. The technical explanation for this is that the player's state of progression of the 2021 Easter event is tracked as an enumerated value, while a hint if the player should go to the Lumber Yard is tracked separately as a boolean value. The event state of progression is observed to control the primary flow of the event and the appearance of Gregg's persona at various places at any time. The hint boolean value is observed to have small adjustments to Gregg's choice of hints at Draynor and Thessalia's choice of the hint of Gregg's next location. These two values can become out of sync with each other. \n When Thessalia instructs the player's best bet is to talk to the sawmill operator at the Lumber Yard, the event's enumerated state changes to value 79 and the Lumber Yard hint will be enabled (changes to value 1 ). \n When Gregg will be ready to return to Draynor from the Lumber Yard, the event state's value will be 104 ; the value of the Lumber Yard hint will be unchanged at this time as 1 . Gregg can be found at the Lumber Yard as normal, while his dialogue at Draynor Village will be changed.\n If the player teleports with Gregg as offered, the event's enumerated value will be changed to 105, Gregg will no longer be seen at the Lumber Yard, and the Lumber Yard hint will be disabled (changed to 0 ), and the event stays in sync. After this, talking to Gregg at Draynor Village would then change the value 105 → 125 to progress in the event. \n However, if Gregg will be ready to return to Draynor and the player doesn't teleport from the Lumberyard to Draynor with Gregg, the event state's value will be 104 as before. Talking to Gregg at Draynor will then change the enumerated value 104 → 125 , which will progress the event and removes Gregg's persona from the Lumber Yard. In this scenario, 104 → 105 → 125 won't be observed and the Lumber Yard value will stay enabled (unchanged as 1 )."
+      "As of December 26 2023, this quest's quest log entry still refers to GPDT employees as R.P.D.T. men and the depot as R.P.D.T. incorrectly after the 11 October 2018 update."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "In the cinematic action scene south of the Edgeville Monastery where the player and Iffie both desire to climb the trees to scare Oziach, if the player attempts to climb the evergreen trees on Iffie's side or too far down the path, Oziach cannot spot the player anymore. Leaving the instance or climbing the next correct tree resolves this."
+      "The threat posed by imp defenders is significantly curtailed by a bug affecting their aggression, which steeply decreases as server time increases. In practice, imp defenders seem to become docile after freeing one captured impling every game update, effectively eliminating the need for players to carry around imp repellent."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "Once Iffie has returned to Thessalia's Fine Clothes. store, if Iffie attempted to give the player their rewards but the player didn't have enough free inventory space, and the player then chooses to say they're not ready for the rewards, Iffie's dialogue abruptly continues to her being busy knitting: \n* Iffie: Hello [player name]! Are you ready for your rewards now?\n** Yes!\n*** \n*** \n** Not yet.\n*** Player: Not yet.\n*** Iffie: Come back when you are, I have something for you!\n*** [sic]\n* Iffie: Sorry, dearie, if I stop to chat I'll lose count.\n*"
+      "If the growth-time reward would put the cat into the next stage of growth, the cat's growth may sometimes not advance, and instead show a negative time remaining."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "There is a bug that may prevent Ultimate Ironmen death pile from appearing should they die in this instance. It is strongly recommended to bring extra supplies or a one-click teleport to prevent this. Bug can also happen to regular players, who may then reclaim items from death"
+      "The in-game chatbox message incorrectly states that Tiadeche teaches you how to cook karambwan; this is not true. Tinsay is the one that teaches you how."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "A blue egg that hits a monster with zero hitpoints can cancel its death animation, making it immune to attacks until it has regenerated health."
+      "Talking to Felkrash with an overgrown cat in the inventory will cause her to train it into a wily cat, which will automatically be set as your follower. Doing so will automatically delete your current follower, such as a kitten."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "Rather than reverting to the base rate of 1/10, the drop rate of the thread of Elidinis is set to 1/50 after one has been received for the first time."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "When the Colossal Hydra begins its lightning special attack, the player will lose aggression. If the Aggression Timer is yet to run out, the hydra in the area will attack the player."
+      "There is currently a glitch right before the Sigmund fight that can cause the player to lose their pet if they have one out when trying to leave the area. Players are thus advised not to bring a pet during this quest."
     ],
     "template": "bug"
   },
@@ -49,19 +43,109 @@
   },
   {
     "list": [
-      "If the player has charged the corrupted Tumeken's shadow and adds more charges, uncharging the staff will only return the latest batch of runes — eg. charging 500 charges then 250 charges will only return 250 charges worth of runes when uncharged."
+      "If the player attempts to set up a cannon without all four necessary parts in their inventory, the chat will show as if the cannon has decayed, even though it has not. Nulodion will not be of help unless the cannon truly decays."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "The cursed banana is known to cause graphical glitches with some equipment."
+      "Due to a bug, it is currently impossible to encounter the campsite event."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "There is currently a glitch right before the Sigmund fight that can cause the player to lose their pet if they have one out when trying to leave the area. Players are thus advised not to bring a pet during this quest."
+      "Kurasks and turoths are currently vulnerable to damage from ghostly thralls (magic) and skeletal thralls (ranged). They are still immune to damage from zombie thralls (melee)."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "An instance of accidental variable reuse can sometimes cause the player's Fremennik name to be replaced with an empty string, a character, or even a piece of dialogue from elsewhere in the game."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Turoths and kurasks are currently vulnerable to damage from ghostly thralls (magic) and skeletal thralls (ranged). They are still immune to damage from zombie thralls (melee)."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "If a player teleports while on the \"depositing to your bank\" part of talking to Advisor Ghrim, after teleporting, the \"subject distribution\" interface will appear, and players are able to change distribution from their teleport point."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The repellent's usefulness is severely limited by a bug affecting the imp defender's aggression. Testing in game reveals that imp defenders permanently stop being aggressive after freeing only one captured impling, only resetting their behaviour upon a server restart. Trapping them to force respawn has no effect on aggression, nor does time elapsed since a server restart, despite statements by Jagex Moderators."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "All elemental wizards currently only take damage from elemental spells when hit by their own element."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "All elemental wizards currently only take damage from elemental spells when hit by their own element."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The cathead model was not updated in August 2024 when the item's appearance was changed."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The baby dragon bone is not dropped by baby blue dragons in Ruins of Tapoyauik."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "All elemental wizards currently only take damage from elemental spells when hit by their own element."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "All elemental wizards currently only take damage from elemental spells when hit by their own element."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Currently, skulls do not take into account the value of untradeable items, such as degraded Barrows equipment."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Testing in game reveals that imp defenders permanently stop being aggressive after freeing only one captured impling, only resetting their behaviour upon a server restart. Trapping them to force respawn has no effect on aggression, nor does time elapsed since a server restart, despite statements by Jagex Moderators."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Even though Ultimate Iron players cannot use the bank or Grand Exchange, Odovacar will still take 100 coins from any player who asks to open either of those interfaces, if they have it on them."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The tome is supposed to be obtained by searching the desk inside the octogram of Fire walls, but the desk instead only produces descriptive text. The tome can still be obtained from a player-owned house bookcase after completion of the quest."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "A blue egg that hits a monster with zero hitpoints can cancel its death animation, making it immune to attacks until it has regenerated health."
     ],
     "template": "bug"
   },
@@ -79,79 +163,73 @@
   },
   {
     "list": [
-      "Equipping a mith grapple in the extra ammo slot will cause all mith grapples in the inventory to drop to the floor."
+      "The +10% damage bonus from the Tome of fire is not included when calculating the minimum hit gained from Searing pages."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Mobile players may not be able to click on or move the mirror during this part of the quest. Logging out and back in or unequipping your weapon may temporarily solve it."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "On a successful hit two charges are consumed. For an unsuccessful hit one charge is consumed."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "There is a bug that may prevent Ultimate Ironmen death pile from appearing should they die in this instance. It is strongly recommended to bring extra supplies or a one-click teleport to prevent this. Bug can also happen to regular players, who may then reclaim items from death"
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The damage dealt by the lightning ball will not be capped in Normal Mode if there is only one player left alive in a team of multiple people."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Using Jane's Last contract option does not check the player's farming level and allows farming contracts to be assigned without skill boosts."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "When the chest or clam position resets, the arrow sometimes points to a wrong one for a brief moment."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "If the strange old lockpick is in a looting bag and the player dies, the lockpick will remain in the looting bag until it is obtained again, where it will be stored. The only way to retrieve it as an ultimate ironman is to obtain a new looting bag and destroy it in the wilderness, dropping the strange old lockpick to the ground."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "When the Colossal Hydra begins its lightning special attack, the player will lose aggression. If the Aggression Timer is yet to run out, the hydra in the area will attack the player."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The cursed banana is known to cause graphical glitches with some equipment."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "* Before the player has given the thick dye to Gregg or learned about the intent to paint Ned's door, the player can ask Ned one step too early for his permission to paint the door.\n* After the player has given the thick dye to Gregg, Ned will thank the player for painting his door with extra colours and exclaims the door to be missing something, before the door is actually painted.\n* Before the player has learned Gregg didn't do the decorations when he got back to Draynor and Ned did this, the player praises Ned for his excellent work on the decorations.\n* Immediately after painting Ned's door but before being offered by Gregg to be teleported to Lumbridge, if the player asks the Cook about the Easter event, the player will question prematurely if the eggs the Cook gave to Gregg were rotten ones, in spite of the fact Gregg has not made it to the kitchen, the player hasn't asked the Cook for \"fancy eggs\", and Gregg has not received any \"colourful eggs\" from the Cook yet. \n* If the player and Gregg teleport from the Lumber Yard to Draynor together, Thessalia's dialogue will change to tell the player Gregg is at Draynor (as evidently intended). However, if the player skips teleporting with Gregg from the Lumber Yard, travels to Draynor Village manually and talks to Gregg there at this time (as may be unintended), Gregg will not be seen at the Lumber Yard again (as evidently intended), but the script updating Thessalia's dialogue to tell the player Gregg is at Draynor will not trigger, thus her dialogue will continue to incorrectly hint Gregg to be at the Lumber Yard instead of Draynor Village. Thessalia's dialogue will be glitched, but the event can be completed as normal without softlocking. The technical explanation for this is that the player's state of progression of the 2021 Easter event is tracked as an enumerated value, while a hint if the player should go to the Lumber Yard is tracked separately as a boolean value. The event state of progression is observed to control the primary flow of the event and the appearance of Gregg's persona at various places at any time. The hint boolean value is observed to have small adjustments to Gregg's choice of hints at Draynor and Thessalia's choice of the hint of Gregg's next location. These two values can become out of sync with each other. \n When Thessalia instructs the player's best bet is to talk to the sawmill operator at the Lumber Yard, the event's enumerated state changes to value 79 and the Lumber Yard hint will be enabled (changes to value 1 ). \n When Gregg will be ready to return to Draynor from the Lumber Yard, the event state's value will be 104 ; the value of the Lumber Yard hint will be unchanged at this time as 1 . Gregg can be found at the Lumber Yard as normal, while his dialogue at Draynor Village will be changed.\n If the player teleports with Gregg as offered, the event's enumerated value will be changed to 105, Gregg will no longer be seen at the Lumber Yard, and the Lumber Yard hint will be disabled (changed to 0 ), and the event stays in sync. After this, talking to Gregg at Draynor Village would then change the value 105 → 125 to progress in the event. \n However, if Gregg will be ready to return to Draynor and the player doesn't teleport from the Lumberyard to Draynor with Gregg, the event state's value will be 104 as before. Talking to Gregg at Draynor will then change the enumerated value 104 → 125 , which will progress the event and removes Gregg's persona from the Lumber Yard. In this scenario, 104 → 105 → 125 won't be observed and the Lumber Yard value will stay enabled (unchanged as 1 )."
     ],
     "template": "bug"
   },
   {
     "list": [
       "The Keris partisan will fail this challenge, it is unclear why."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "An instance of accidental variable reuse can sometimes cause the player's Fremennik name to be replaced with an empty string, a character, or even a piece of dialogue from elsewhere in the game."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Rada's blessing and spirit flakes are reported by Jagex Moderators not to provide an extra golden tench. However, players have reported this to occur, likely due to a bug."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Testing in game reveals that imp defenders permanently stop being aggressive after freeing only one captured impling, only resetting their behaviour upon a server restart. Trapping them to force respawn has no effect on aggression, nor does time elapsed since a server restart, despite statements by Jagex Moderators."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "The repellent's usefulness is severely limited by a bug affecting the imp defender's aggression, which steeply decreases as server time increases. In practice, imp defenders seem to become docile after freeing one captured impling every game update, effectively eliminating the need for players to carry imp repellent."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "The threat posed by imp defenders is significantly curtailed by a bug affecting their aggression, which steeply decreases as server time increases. In practice, imp defenders seem to become docile after freeing one captured impling every game update, effectively eliminating the need for players to carry around imp repellent."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "The Keris partisan does not count as a melee weapon for the purposes of Facing Jad Head-on, other melee-only Combat Achievements will need to be tested."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "As of 30 August 2023, when asked about the rewards for each tier, Lesser Fanatic states an incorrect number of free daily runes. The awarded amount has been increased on 30 August 2023, but he still references the old rewards."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "If a player teleports while on the \"depositing to your bank\" part of talking to Advisor Ghrim, after teleporting, the \"subject distribution\" interface will appear, and players are able to change distribution from their teleport point."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Mobile players may not be able to click on or move the mirror during this part of the quest. Logging out and back in or unequipping the a weapon slot may temporarily solve it."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "Even though Ultimate Iron players cannot use the bank or Grand Exchange, Odovacar will still take 100 coins from any player who asks to open either of those interfaces, if they have it on them."
-    ],
-    "template": "bug"
-  },
-  {
-    "list": [
-      "If the growth-time reward would put the cat into the next stage of growth, the cat's growth may sometimes not advance, and instead show a negative time remaining."
     ],
     "template": "bug"
   },
@@ -169,31 +247,109 @@
   },
   {
     "list": [
-      "The in-game chatbox message incorrectly states that Tiadeche teaches you how to cook karambwan; this is not true. Tinsay is the one that teaches you how."
+      "The Keris partisan does not count as a melee weapon for the purposes of Facing Jad Head-on, other melee-only Combat Achievements will need to be tested."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "Due to a bug, it is currently impossible to encounter the campsite event."
+      "The desk previously yielded the Shaman's tome when searched, but it currently does not, neither during nor after the quest. The tome can still be obtained from a player-owned house bookcase after the quest is completed."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "As of December 26 2023, this quest's quest log entry still refers to GPDT employees as R.P.D.T. men and the depot as R.P.D.T. incorrectly after the 11 October 2018 update."
+      "In the cinematic action scene south of the Edgeville Monastery where the player and Iffie both desire to climb the trees to scare Oziach, if the player attempts to climb the evergreen trees on Iffie's side or too far down the path, Oziach cannot spot the player anymore. Leaving the instance or climbing the next correct tree resolves this."
     ],
     "template": "bug"
   },
   {
     "list": [
-      "When the chest or clam position resets, the arrow sometimes points to a wrong one for a brief moment."
+      "Once Iffie has returned to Thessalia's Fine Clothes. store, if Iffie attempted to give the player their rewards but the player didn't have enough free inventory space, and the player then chooses to say they're not ready for the rewards, Iffie's dialogue abruptly continues to her being busy knitting: \n* Iffie: Hello [player name]! Are you ready for your rewards now?\n** Yes!\n*** \n*** \n** Not yet.\n*** Player: Not yet.\n*** Iffie: Come back when you are, I have something for you!\n*** [sic]\n* Iffie: Sorry, dearie, if I stop to chat I'll lose count.\n*"
     ],
     "template": "bug"
   },
   {
     "list": [
-      "Zahur cannot make unfinished huasca potions."
+      "Prices shown for this item are highly inaccurate due to faulty logic in Jagex's Grand Exchange database. See the wiki's real-time prices for more accurate information."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Prices shown for this item are highly inaccurate due to faulty logic in Jagex's Grand Exchange database. See the wiki's real-time prices for more accurate information."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "If the player has charged the corrupted Tumeken's shadow and adds more charges, uncharging the staff will only return the latest batch of runes — eg. charging 500 charges then 250 charges will only return 250 charges worth of runes when uncharged."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Prices shown for this item are highly inaccurate due to faulty logic in Jagex's Grand Exchange database. See the wiki's real-time prices for more accurate information."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The blood jaguar's attacks can become randomly desynced from the animation, leading to their attack coming out 1 tick after the animation plays. To prevent damage from these desynced attacks, wait until the attack animation starts to step away."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "It is not possible to attack Mezan with autocasted spells. Manually casted spells will work."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The pouch does not work at bank chests or other non-standard banks (eg. Emerald Benedict) when making potions."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Lily of the Sands does not work while in Reagent Pouch."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "If the player finishes the potion via clicking on the machine precisely and steps away immediately, the potion can sometimes be withdrawn from the alembic as unfinished, and the next time the player uses the alembic they will not receive an opportunity to progress it faster until after a potion is completed normally. Due to the consistent timing for the alembic however, this can only occur if the player had misclicked at least once."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "If the player finishes the potion using the double-click method precisely and steps away immediately, the potion can sometimes be withdrawn from the agitator as unfinished, and the next time the player uses the agitator they will not receive an opportunity to progress it faster until after a potion is completed normally."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The achievement may not always be awarded in some private instances. The cause is unknown."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "Only 100 is required."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The damage bonus from the Slayer helmet while having this relic currently applies to all combat encounters in the game, such as all enemies in the Theatre of Blood and The Nightmare, despite these not being able to be assigned as a slayer task normally."
+    ],
+    "template": "bug"
+  },
+  {
+    "list": [
+      "The +10% damage bonus from the Tome of fire is not included when calculating the minimum hit for Searing pages."
     ],
     "template": "bug"
   }

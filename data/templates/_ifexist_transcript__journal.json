@@ -1,0 +1,14 @@
+[
+  {
+    "list": [
+      "Click here for a transcript of the quest's journal entry."
+    ],
+    "template": "#ifexist:transcript:/journal"
+  },
+  {
+    "list": [
+      "Click here for a transcript of the miniquest's journal entry."
+    ],
+    "template": "#ifexist:transcript:/journal"
+  }
+]

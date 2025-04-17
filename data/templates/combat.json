@@ -3,6 +3,107 @@
     "name": "Main account",
     "caption": "Combat skills of a maxed main account",
     "attack": "99",
+    "defence": "99",
+    "strength": "99",
+    "hitpoints": "99",
+    "prayer": "99",
+    "ranged": "99",
+    "magic": "99",
+    "template": "combat"
+  },
+  {
+    "name": "Pay-to-play pure",
+    "caption": "An example of a pay-to-play 1 defence combat pure with a comparable combat level to maxed free-to-play combat pures.",
+    "attack": "60",
+    "defence": "1",
+    "strength": "89",
+    "hitpoints": "92",
+    "prayer": "52",
+    "ranged": "99",
+    "magic": "99",
+    "template": "combat"
+  },
+  {
+    "name": "Main account",
+    "caption": "Combat skills of a maxed main account",
+    "attack": "99",
+    "defence": "99",
+    "strength": "99",
+    "hitpoints": "99",
+    "prayer": "99",
+    "ranged": "99",
+    "magic": "99",
+    "template": "combat"
+  },
+  {
+    "name": "Melee pure",
+    "caption": "An example of a melee combat pure build commonly used in 1-vs-1 combat",
+    "attack": "40",
+    "defence": "1",
+    "strength": "99",
+    "hitpoints": "99",
+    "prayer": "31",
+    "ranged": "40",
+    "magic": "85",
+    "template": "combat"
+  },
+  {
+    "name": "1 defence pure",
+    "caption": "A maxed combat pure with 1 defence level",
+    "attack": "50",
+    "defence": "1",
+    "strength": "99",
+    "hitpoints": "99",
+    "prayer": "45",
+    "ranged": "99",
+    "magic": "99",
+    "template": "combat"
+  },
+  {
+    "name": "Rune pure",
+    "caption": "Maxed rune pures are very effective in multicombat areas",
+    "attack": "50",
+    "defence": "40",
+    "strength": "99",
+    "hitpoints": "99",
+    "prayer": "45",
+    "ranged": "99",
+    "magic": "99",
+    "template": "combat"
+  },
+  {
+    "name": "Teleblocker",
+    "caption": "A magic pure with access to the Tele Block spell on a low combat level",
+    "magic": "85",
+    "template": "combat"
+  },
+  {
+    "name": "Tank",
+    "caption": "A maxed defence tank with a relatively low combat level",
+    "attack": "40",
+    "defence": "99",
+    "strength": "40",
+    "hitpoints": "88",
+    "prayer": "43",
+    "ranged": "50",
+    "magic": "50",
+    "template": "combat"
+  },
+  {
+    "name": "Skiller",
+    "caption": "Skillers tend not to train any combat skills",
+    "template": "combat"
+  },
+  {
+    "name": "Prayer pure",
+    "caption": "A skiller with a maxed prayer level",
+    "prayer": "99",
+    "template": "combat"
+  },
+  {
+    "name": "Main account",
+    "caption": "Combat skills of a maxed main account",
+    "attack": "99",
     "strength": "99",
     "defence": "99",
     "hitpoints": "99",
@@ -178,95 +279,6 @@
     "template": "combat"
   },
   {
-    "name": "Main account",
-    "caption": "Combat skills of a maxed main account",
-    "attack": "99",
-    "defence": "99",
-    "strength": "99",
-    "hitpoints": "99",
-    "prayer": "99",
-    "ranged": "99",
-    "magic": "99",
-    "template": "combat"
-  },
-  {
-    "name": "Melee pure",
-    "caption": "An example of a melee combat pure build commonly used in 1-vs-1 combat",
-    "attack": "40",
-    "defence": "1",
-    "strength": "99",
-    "hitpoints": "99",
-    "prayer": "31",
-    "ranged": "40",
-    "magic": "85",
-    "template": "combat"
-  },
-  {
-    "name": "1 defence pure",
-    "caption": "A maxed combat pure with 1 defence level",
-    "attack": "50",
-    "defence": "1",
-    "strength": "99",
-    "hitpoints": "99",
-    "prayer": "45",
-    "ranged": "99",
-    "magic": "99",
-    "template": "combat"
-  },
-  {
-    "name": "Rune pure",
-    "caption": "Maxed rune pures are very effective in multicombat areas",
-    "attack": "50",
-    "defence": "40",
-    "strength": "99",
-    "hitpoints": "99",
-    "prayer": "45",
-    "ranged": "99",
-    "magic": "99",
-    "template": "combat"
-  },
-  {
-    "name": "Teleblocker",
-    "caption": "A magic pure with access to the Tele Block spell on a low combat level",
-    "magic": "85",
-    "template": "combat"
-  },
-  {
-    "name": "Tank",
-    "caption": "A maxed defence tank with a relatively low combat level",
-    "attack": "40",
-    "defence": "99",
-    "strength": "40",
-    "hitpoints": "88",
-    "prayer": "43",
-    "ranged": "50",
-    "magic": "50",
-    "template": "combat"
-  },
-  {
-    "name": "Skiller",
-    "caption": "Skillers tend not to train any combat skills",
-    "template": "combat"
-  },
-  {
-    "name": "Prayer pure",
-    "caption": "A skiller with a maxed prayer level",
-    "prayer": "99",
-    "template": "combat"
-  },
-  {
-    "name": "Pay-to-play pure",
-    "caption": "An example of a pay-to-play 1 defence combat pure with a comparable combat level to maxed free-to-play combat pures.",
-    "attack": "60",
-    "defence": "1",
-    "strength": "89",
-    "hitpoints": "92",
-    "prayer": "52",
-    "ranged": "99",
-    "magic": "99",
-    "template": "combat"
-  },
-  {
     "name": "Maxed combat pure",
     "attack": "99",
     "strength": "99",
@@ -276,18 +288,6 @@
     "hitpoints": "99",
     "prayer": "99",
     "caption": "With over 100 combat level, dealing damage to this account yields 12.5% extra experience, making it ideal to train on.",
-    "template": "combat"
-  },
-  {
-    "name": "Main account",
-    "caption": "Combat skills of a maxed main account",
-    "attack": "99",
-    "defence": "99",
-    "strength": "99",
-    "hitpoints": "99",
-    "prayer": "99",
-    "ranged": "99",
-    "magic": "99",
     "template": "combat"
   }
 ]

@@ -1,0 +1,244 @@
+[
+  {
+    "category": "Player spoofs",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "category": "Unfinished potions",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "category": "updates",
+    "uses": "Template:Update¦Template:Patch Notes",
+    "ordermethod": "sortkey",
+    "order": "descending",
+    "include": "{Update¦Date page dpl},{Patch Notes¦Date page dpl}",
+    "format": ",\\n* ,,",
+    "template": "#dpl:"
+  },
+  {
+    "namespace": "Update",
+    "category": "%s",
+    "include": "{Update}:date,{Patch Notes}:date,{DevBlog}:date",
+    "format": ",¦UD¦%%PAGE%%@D@,,",
+    "ordermethod": "sortkey",
+    "template": "#dpl:"
+  },
+  {
+    "category": "Unfinished potions",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "category": "Unfinished bolts",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(lg)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(sk)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(t)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(g)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(dusk)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(dark)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "nottitlematch": "Demon's heart (light)",
+    "titlematch": "%(light)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(beginner)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "items",
+    "titlematch": "%(easy)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "non-player characters",
+    "titlematch": "%(easy)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "items",
+    "titlematch": "%(medium)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "non-player characters",
+    "titlematch": "%(medium)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "items",
+    "titlematch": "%(hard)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "non-player characters",
+    "titlematch": "%(hard)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(elite)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "items",
+    "titlematch": "%(master)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "category": "non-player characters",
+    "titlematch": "%(Master)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "category": "Items accessible in Twisted League",
+    "uses": "Template:Infobox Bonuses",
+    "notuses": "Template:Gone",
+    "ordermethod": "title",
+    "include": "{Infobox Bonuses}:astab:aslash:acrush:amagic:arange:dstab:dslash:dcrush:dmagic:drange:str:rstr:mdmg:prayer",
+    "table": "class=\"wikitable sortable\",Name,White dagger.png,White scimitar.png,White warhammer.png,Magic icon.png,Ranged icon.png,White dagger.pngDefence icon.png]],[[File:White scimitar.pngDefence icon.png]],[[File:White warhammer.pngDefence icon.png]],[[File:Magic icon.pngDefence icon.png]],[[File:Ranged icon.pngDefence icon.png]],[[File:Strength icon.png,Ranged Strength icon.png,Magic Damage icon.png,Prayer icon.png",
+    "tablerow": "align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²,align=right¦²{Format eq stat¦%%}²",
+    "count": "{%DPL_count:500%}",
+    "offset": "{%DPL_offset:0%}",
+    "resultsheader": "²{Extension DPL scroll¦count={%DPL_count:500%}¦offset={%DPL_offset:0%}¦total=%TOTALPAGES%¦page=²{PAGENAME}²}²\\n",
+    "resultsfooter": "\\n²{Extension DPL scroll¦count={%DPL_count:500%}¦offset={%DPL_offset:0%}¦total=%TOTALPAGES%¦page=²{PAGENAME}²}²",
+    "template": "#dpl:"
+  },
+  {
+    "noresultsheader": "@@",
+    "count": "%s",
+    "offset": "%s",
+    "list": [
+      "%s"
+    ],
+    "table": ",",
+    "listseparators": ",\\n¦-\\n¦%%PAGE%%¦,,",
+    "tablerow": "%s",
+    "secseparators": "%s",
+    "template": "#dpl:"
+  },
+  {
+    "noresultsheader": "@@",
+    "count": "%s",
+    "offset": "%s",
+    "list": [
+      "%s"
+    ],
+    "format": ",¦-¦%%PAGE%%¦,,",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(f)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  },
+  {
+    "namespace": "File",
+    "category": "Media created by",
+    "format": "«gallery mode=\"packed\"»,%PAGE%\\n,,«/gallery»",
+    "noresultsheader": "No media found in category.",
+    "template": "#dpl:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "titlematch": "%(deadman)",
+    "ordermethod": "title",
+    "template": "#dpl:"
+  }
+]

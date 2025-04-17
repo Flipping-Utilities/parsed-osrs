@@ -13,79 +13,31 @@
   },
   {
     "list": [
-      "ceil(15*/)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil(0.15*/)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil(0.15*/(120*))/10"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil(15*/)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil((-)/65)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
       "2^31-1"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2^31-1"
+      "ceil(/)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2^31-1"
+      "ceil(/)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2^31-1"
+      "ceil( /(+(/15)))"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "ceil(/(5*))"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil(( + )/(5*))"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil( /(5*+(/15)))"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil( /(5*))"
+      "ceil( /)"
     ],
     "template": "formatexpr"
   },
@@ -103,7 +55,49 @@
   },
   {
     "list": [
-      "4 * 1200"
+      "2^31-1"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "2^31-1"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "140*4*40"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "140*1.33*40"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "300*29*4"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "300*29*1.33"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "240*"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "60*"
     ],
     "template": "formatexpr"
   },
@@ -121,7 +115,19 @@
   },
   {
     "list": [
-      "459* round -5"
+      "65*1000"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "65*1000"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "65*1200"
     ],
     "template": "formatexpr"
   },
@@ -133,49 +139,91 @@
   },
   {
     "list": [
-      "3.8*5000"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
       "27*30*(-)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2*53*45*(-)"
+      "950*25"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "1154*61"
+      "floor(43*)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "60*2750"
+      "floor(43*)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "60*2750"
+      "floor(43*)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "360*100"
+      "floor(43*)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "180*380"
+      "floor(43*)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "floor(43*)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "floor(43*)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "floor(43*)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "floor(43*)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "floor(43*3000)"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "600*24"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "240*25"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "240*(+3)"
     ],
     "template": "formatexpr"
   },
@@ -187,13 +235,7 @@
   },
   {
     "list": [
-      "-(+)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "-"
+      "360*100"
     ],
     "template": "formatexpr"
   },
@@ -254,30 +296,6 @@
   {
     "list": [
       "8*(36+192*8.8) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "5*(87) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "8*(87) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "5*(36+30.5*8.8) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "8*(36+30.5*8.8) round 0"
     ],
     "template": "formatexpr"
   },
@@ -367,30 +385,6 @@
   },
   {
     "list": [
-      "5*(36+30.5*8.8) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "8*(36+30.5*8.8) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "5*(87) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "8*(87) round 0"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
       "5*(36+98.5*8.8) round 0"
     ],
     "template": "formatexpr"
@@ -463,7 +457,91 @@
   },
   {
     "list": [
-      "1000* + 1000*"
+      "5*(36+30.5*8.8) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "8*(36+30.5*8.8) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "5*(87) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "8*(87) round 0"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "65*1200"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "3.8*5000"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "180*380"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "950*62.5"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "950*50"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "950*75"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "2^21-1"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "1154*61"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "2^21-1"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "60*2750"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "60*2750"
     ],
     "template": "formatexpr"
   },
@@ -475,199 +553,61 @@
   },
   {
     "list": [
-      "3*180000"
+      "459* round -5"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "65*1000"
+      "ceil(15*/)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "65*1000"
+      "ceil(0.15*/)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "65*68"
+      "ceil(0.15*/(120*))/10"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "65*68"
+      "ceil(15*/)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "294-"
+      "ceil((-)/65)"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "12624-"
+      "950*50"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "25500-"
+      "950*62.5"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "25500-"
+      "2^31-1"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "25500-"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "ceil(15*/)*65+166636"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "240-"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "9600-"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "9700-"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "300-"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "240*"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "60*"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "300*29*4"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "300*29*1.33"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "140*4*40"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "140*1.33*40"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "240*25"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "240*(+3)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*)"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "floor(43*3000)"
+      "2^31-1"
     ],
     "template": "formatexpr"
   },
@@ -679,7 +619,235 @@
   },
   {
     "list": [
-      "-"
+      "2^31-1"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "65*68"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "65*68"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "3*180000"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "+++++++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "+++++++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "+++++++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "+++++++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "+++++++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "+++++++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "++++"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "1000* + 1000*"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "14 * + 14 *"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "14 * + 14 *"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "19 * + 9 *"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "4 * 1200"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "ceil(15*/)*65+166636"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "300-"
+    ],
+    "template": "formatexpr"
+  },
+  {
+    "list": [
+      "-(+)"
     ],
     "template": "formatexpr"
   },
@@ -703,241 +871,85 @@
   },
   {
     "list": [
-      "950*62.5"
+      "240-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "950*25"
+      "25500-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "950*50"
+      "25500-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "950*75"
+      "25500-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "950*62.5"
+      "9600-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "950*50"
+      "9700-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "600*24"
+      "12624-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "65*1200"
+      "-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "65*1200"
+      "294-"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2^21-1"
+      "5*(36+30.5*8.8) round 0"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2^31-1"
+      "8*(36+30.5*8.8) round 0"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "2^31-1"
+      "5*(87) round 0"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "+++++++++"
+      "8*(87) round 0"
     ],
     "template": "formatexpr"
   },
   {
     "list": [
-      "+++++++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "+++++++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "+++++++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "+++++++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "+++++++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "++++"
-    ],
-    "template": "formatexpr"
-  },
-  {
-    "list": [
-      "2^21-1"
+      "-"
     ],
     "template": "formatexpr"
   }

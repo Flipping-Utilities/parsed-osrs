@@ -1,110 +1,33 @@
 [
   {
-    "location": "Ancient Pyramid",
-    "north": "Bandit Camp (Kharidian Desert)",
-    "list": [
-      "Bandit Camp",
-      "Quarry"
-    ],
-    "west": "Bandit Camp Quarry",
-    "south": "Menaphos",
+    "location": "Meiyerditch",
+    "north": "Darkmeyer",
+    "west": "Burgh de Rott",
+    "south": "Mos Le'Harmless",
+    "east": "Slepe",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Menaphos",
+    "north": "Jaldraocht",
+    "west": "Ruins of Unkah",
+    "east": "Sophanem",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Sophanem",
+    "north": "Agility Pyramid",
+    "west": "Menaphos",
+    "south": "Necropolis",
+    "east": "Ruins of Ullek",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Pollnivneach",
+    "north": "Shantay Pass",
+    "west": "Desert Mining Camp",
+    "south": "Agility Pyramid",
     "east": "Nardah",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Ancient Vault",
-    "north": "Uzer Oasis",
-    "east": "Eastern Sea",
-    "south": "Nardah",
-    "west": "River Elid",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Ape Atoll",
-    "east": "Kharidian Desert",
-    "north": "Karamja",
-    "west": "Feldip Hills",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Apple orchard",
-    "north": "Tree Gnome Stronghold",
-    "west": "Outpost",
-    "south": "West Ardougne",
-    "east": "Combat Training Camp",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Kingdom of Asgarnia",
-    "north": "Wilderness",
-    "west": "Kingdom of Kandarin",
-    "south": "Karamja",
-    "east": "Kingdom of Misthalin",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Bandit Camp",
-    "north": "Bedabin Camp",
-    "east": "Pollnivneach",
-    "south": "Bandit Camp Quarry",
-    "list": [
-      "Quarry"
-    ],
-    "west": "Karamja",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Bandit Camp",
-    "north": "Wilderness God Wars Dungeon",
-    "west": "Ruins (west)",
-    "south": "Dark Warriors' Fortress",
-    "east": "Graveyard of Shadows",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Quarry",
-    "north": "Bandit Camp (Kharidian Desert)",
-    "list": [
-      "Bandit Camp"
-    ],
-    "east": "Ancient Pyramid",
-    "south": "Ruins of Unkah",
-    "west": "Southern Sea",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Barbarian Outpost",
-    "north": "Lighthouse",
-    "west": "Tree Gnome Stronghold",
-    "south": "Otto's Grotto",
-    "east": "Coal Trucks",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Barbarian Outpost",
-    "north": "Lighthouse",
-    "west": "Tree Gnome Stronghold",
-    "south": "Otto's Grotto",
-    "east": "Coal Trucks",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Barbarian Village",
-    "north": "Edgeville",
-    "east": "Varrock",
-    "south": "Draynor Village",
-    "west": "Falador",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Battlefield",
-    "north": "West Ardougne",
-    "south": "Tree Gnome Village (location)",
-    "list": [
-      "Tree Gnome Village",
-      "Clock Tower"
-    ],
-    "east": "Clock Tower (building)",
     "template": "relativelocation"
   },
   {
@@ -119,59 +42,22 @@
     "template": "relativelocation"
   },
   {
-    "location": "Black Knights' Fortress",
-    "north": "Wilderness",
-    "west": "Goblin Village",
-    "south": "Ice Mountain",
-    "east": "Edgeville",
+    "location": "Bandit Camp",
+    "north": "Bedabin Camp",
+    "east": "Pollnivneach",
+    "south": "Bandit Camp Quarry",
+    "list": [
+      "Quarry"
+    ],
+    "west": "Karamja",
     "template": "relativelocation"
   },
   {
-    "location": "Bone Yard",
-    "north": "Lava Dragon Isle",
-    "west": "Ruins (east)",
-    "south": "Chaos Temple (Wilderness)",
-    "east": "Unknown",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Boneyard Hunter area",
-    "north": "Bone Yard",
-    "west": "Graveyard of Shadows",
-    "south": "Lumber Yard",
-    "east": "Unknown",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Brimhaven",
-    "north": "Fishing Platform",
-    "east": "Musa Point",
-    "south": "Tai Bwo Wannai",
-    "west": "Port Khazard",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Burthorpe",
-    "north": "Trollheim",
-    "west": "Warriors' Guild",
-    "south": "Taverley",
-    "east": "Wilderness",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Agility course",
-    "north": "Mausoleum",
-    "west": "Canifis",
-    "south": "Mort Myre Swamp",
-    "east": "Haunted Woods",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Castle Drakan",
-    "north": "Morytania Graveyard",
-    "west": "The Hollows",
-    "south": "Barrows",
-    "east": "Darkmeyer",
+    "location": "Uzer",
+    "north": "Burgh de Rott",
+    "east": "Eastern Sea",
+    "south": "Uzer Oasis",
+    "west": "River Elid",
     "template": "relativelocation"
   },
   {
@@ -183,410 +69,11 @@
     "template": "relativelocation"
   },
   {
-    "location": "Champions' Guild",
-    "north": "Varrock",
-    "east": "Exam Centre",
-    "south": "Mill Lane Mill",
-    "west": "Draynor Manor",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Chaos Druid Tower",
-    "north": "Coal Trucks",
-    "east": "Legends' Guild",
-    "south": "Ardougne",
-    "west": "Combat Training Camp",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Chaos Temple",
-    "north": "Wilderness",
-    "west": "Taverley",
-    "south": "Falador",
-    "east": "Goblin Village",
-    "template": "relativelocation"
-  },
-  {
-    "north": "Frozen Waste Plateau",
-    "west": "Ice Path",
-    "location": "Chaos Temple (hut)",
-    "east": "Lava Maze",
-    "south": "Forgotten Cemetery",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Clock Tower",
-    "north": "East Ardougne",
-    "west": "Observatory",
-    "south": "Tree Gnome Village (location)",
-    "list": [
-      "Tree Gnome Village"
-    ],
-    "east": "Ardougne Zoo",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Coal Trucks",
-    "north": "Barbarian Outpost",
-    "west": "Baxtorian Falls",
-    "south": "Fishing Guild",
-    "east": "McGrubor's Wood",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Combat Training Camp",
-    "north": "Baxtorian Falls",
-    "west": "Outpost",
-    "south": "West Ardougne",
-    "east": "Fishing Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Corsair Cove",
-    "north": "Feldip Hunter area",
-    "east": "Southern Sea",
-    "south": "Southern Sea",
-    "west": "Myths' Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Crafting Guild",
-    "north": "Dark Wizards' Tower",
-    "east": "Falador",
-    "south": "Melzar's Maze",
-    "west": "Entrana",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Crandor",
-    "north": "Entrana",
-    "west": "Fishing Platform",
-    "south": "Karamja Volcano",
-    "east": "Crafting Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Dark Wizards' Tower",
-    "north": "Taverley",
-    "west": "Entrana",
-    "south": "Crafting Guild",
-    "east": "Falador",
-    "template": "relativelocation"
-  },
-  {
-    "north": "Shantay Pass",
-    "west": "Bedabin Camp",
-    "location": "Desert Mining Camp",
-    "east": "Pollnivneach",
-    "south": "Ancient Pyramid",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Deserted Keep",
-    "north": "Northern Sea",
-    "west": "Mage Arena",
-    "south": "Lava Dragon Isle",
-    "east": "Resource Area",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Doric's Hut",
-    "north": "Goblin Village",
-    "east": "Ice Mountain",
-    "south": "Falador",
-    "west": "Taverley",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Dragontooth Island",
-    "north": "Fossil Island",
-    "east": "Eastern Sea",
-    "south": "Eastern Sea",
-    "west": "Port Phasmatys",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Draynor Village",
-    "north": "Draynor Manor",
-    "west": "Port Sarim",
-    "south": "Wizards' Tower",
-    "east": "Fred's farm",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Agility course",
-    "north": "Draynor Manor",
-    "west": "Port Sarim",
-    "south": "Wizards' Tower",
-    "east": "Lumbridge",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Draynor jail",
-    "north": "Draynor farm",
-    "south": "Wizards' Tower",
-    "west": "Draynor Village",
-    "east": "Lumbridge farm",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Eagles' Peak (mountain)",
-    "north": "Piscatoris Hunter Area",
-    "west": "Great Kourend",
-    "south": "Arandar",
-    "east": "Gnome Stronghold",
-    "template": "relativelocation"
-  },
-  {
-    "west": "Salvager Overlook",
-    "location": "East Salvager Overlook Mine",
-    "south": "Twilight Temple",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Edgeville",
-    "north": "Wilderness",
-    "east": "Varrock",
-    "south": "Barbarian Village",
-    "west": "Ice Mountain",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Monastery",
-    "north": "Dark Warriors' Fortress",
-    "east": "Edgeville",
-    "south": "Barbarian Village",
-    "west": "Ice Mountain",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Entrana Dungeon",
-    "north": "Catherby",
-    "east": "Falador",
-    "south": "Crandor",
-    "west": "Legends' Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Etceteria",
-    "north": "Iceberg",
-    "east": "Trollweiss Mountain",
-    "south": "Waterbirth Island",
-    "west": "Miscellania",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Exam Centre",
-    "north": "Digsite",
-    "west": "Varrock",
-    "south": "Mage Training Arena",
-    "east": "Morytania",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Falador",
-    "north": "Ice Mountain",
-    "east": "Draynor Manor",
-    "south": "Rimmington",
-    "west": "Dark Wizards' Tower",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Agility course",
-    "north": "Party Room",
-    "west": "Mining Guild",
-    "south": "Falador",
-    "east": "Falador",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Feldip Hills",
-    "north": "Kingdom of Kandarin",
-    "west": "Isle of Souls",
-    "east": "Karamja",
-    "south": "Ape Atoll",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Feldip Jungle",
-    "north": "Gu'Tanoth",
-    "east": "Karamja",
-    "south": "Corsair Cove",
-    "west": "Gu'Tanoth",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fenkenstrain's Castle",
-    "north": "Eastern Sea",
-    "east": "Ectofuntus",
-    "south": "Haunted Woods",
-    "west": "Mausoleum",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fight Arena",
-    "north": "Ardougne Sewers",
-    "west": "Tree Gnome Village (location)",
-    "list": [
-      "Tree Gnome Village"
-    ],
-    "south": "Yanille",
-    "east": "Port Khazard",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fishing Guild",
-    "north": "Coal Trucks",
-    "west": "Tree Gnome Stronghold",
-    "south": "East Ardougne",
-    "east": "Hemenster",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fishing Hamlet",
-    "north": "Lunar Sea",
-    "west": "Wintertodt Camp",
-    "south": "Dark Altar",
-    "east": "Lunar Sea",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fishing Platform",
-    "north": "Entrana",
-    "west": "Witchaven",
-    "south": "Brimhaven",
-    "east": "Crandor",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Forthos Ruin",
-    "north": "Hosidius kitchen",
-    "west": "Shayzien",
-    "south": "Woodcutting Guild",
-    "east": "Hosidius",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fossil Island",
-    "west": "Wilderness",
-    "south": "Morytania",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fremennik Isles",
-    "east": "Fremennik Province",
-    "south": "Kingdom of Kandarin",
-    "west": "Lunar Isle",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Fremennik Province",
-    "west": "Fremennik Isles",
-    "south": "Kingdom of Kandarin",
-    "east": "Troll Country",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Frozen Waste Plateau",
-    "north": "Northern Sea",
-    "west": "Ghorrock",
-    "south": "Chaos Temple (hut)",
-    "east": "Wilderness Agility Course",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Ghorrock",
-    "north": "Northern Sea",
-    "west": "Weiss",
-    "south": "Chaos Temple (hut)",
-    "east": "Frozen Waste Plateau",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Giant Pit",
-    "north": "Chasm of Fire",
-    "west": "Kebos Lowlands",
-    "south": "Secluded Chapel",
-    "east": "Woodcutting Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Giants' Plateau",
-    "north": "Emir's Arena",
-    "east": "River Salve",
-    "south": "Uzer mine",
-    "west": "Al Kharid",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Goblin Village",
-    "north": "Wilderness",
-    "west": "Taverley",
-    "south": "Falador",
-    "east": "Ice Mountain",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Goblin settlement",
-    "north": "Ourania Altar",
-    "west": "Observatory",
-    "south": "Castle Wars",
-    "east": "Gnome Maze",
-    "template": "relativelocation"
-  },
-  {
-    "location": "God Wars Dungeon",
-    "north": "Ice Plateau",
-    "west": "Ice Path",
-    "south": "Trollheim",
-    "east": "Forgotten Cemetery",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Gorlah",
-    "north": "Piscatoris Hunter area",
-    "west": "Gwenith",
-    "south": "Prifddinas",
-    "east": "Tree Gnome Stronghold",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Grand Tree",
-    "north": "Barbarian Outpost",
-    "east": "Baxtorian Falls",
-    "south": "Gnome Stronghold Agility Course",
-    "west": "Eagles' Peak (mountain)",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Graveyard of Shadows",
-    "north": "Ruins (east)",
-    "west": "Dark Warriors' Fortress",
-    "south": "Ferox Enclave",
-    "east": "Chaos Temple (Wilderness)",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Kingdom of Great Kourend",
-    "east": "Lunar Isle",
-    "west": "Kebos Lowlands",
-    "south": "Varlamore",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Gu'Tanoth",
-    "north": "Yanille",
-    "west": "Jiggig",
-    "south": "Feldip Jungle",
-    "east": "Karamja",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Harmony Island",
-    "north": "Mos Le'Harmless",
-    "east": "Eastern Sea",
-    "south": "Eastern Sea",
-    "west": "Kharidian Desert",
+    "location": "Seers' Village",
+    "north": "Sinclair Mansion",
+    "west": "Hemenster",
+    "south": "Keep Le Faye",
+    "east": "Catherby",
     "template": "relativelocation"
   },
   {
@@ -598,346 +85,19 @@
     "template": "relativelocation"
   },
   {
-    "location": "Heroes' Guild",
-    "north": "Burthorpe",
-    "west": "White Wolf Mountain",
-    "south": "Taverley",
-    "east": "Goblin Village",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Hobgoblin Peninsula",
-    "south": "Melzar's Maze",
-    "north": "Dark Wizards' Tower",
-    "west": "Crandor",
-    "east": "Crafting Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Hosidius Kitchen",
-    "north": "Mess",
-    "west": "Shayzien",
-    "south": "Woodcutting Guild",
-    "east": "Tithe Farm",
-    "template": "relativelocation"
-  },
-  {
-    "location": "House on the Hill",
-    "north": "Northern Sea",
-    "east": "Unknown",
-    "south": "Fossil Island Volcano",
-    "west": "Mushroom Forest",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Ice Mountain",
-    "north": "Black Knights' Fortress (location)",
-    "list": [
-      "Black Knights' Fortress"
-    ],
-    "west": "Goblin Village",
-    "south": "Dwarven Mine",
-    "east": "Edgeville Monastery",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Ice Path",
-    "north": "Weiss",
-    "west": "Trollweiss Mountain",
-    "south": "Trollheim",
-    "east": "Wilderness",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Iceberg",
-    "north": "Lunar Sea",
-    "east": "Lunar Sea",
-    "south": "Rellekka",
-    "west": "Lunar Sea",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Infirmary",
-    "north": "Lizardman Canyon",
-    "south": "Shayzien",
-    "east": "Combat Ring (Shayzien)",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Isafdar",
-    "south": "Poison Waste",
-    "north": "Prifddinas",
-    "west": "Western Sea",
-    "east": "Lletya",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Isle of Souls",
-    "north": "Tirannwn",
-    "east": "Feldip Hills",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Jiggig",
-    "north": "Castle Wars",
-    "east": "Gu'Tanoth",
-    "south": "Feldip Hills",
+    "location": "Yanille",
+    "north": "Port Khazard",
     "west": "Castle Wars",
+    "south": "Gu'Tanoth",
+    "east": "Karamja",
     "template": "relativelocation"
   },
   {
-    "location": "Kingdom of Kandarin",
-    "north": "Fremennik Province",
-    "west": "Tirannwn",
-    "south": "Feldip Hills",
-    "east": "Kingdom of Asgarnia",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Karamja",
-    "north": "Kingdom of Asgarnia",
-    "west": "Feldip Hills",
-    "east": "Kharidian Desert",
-    "south": "Ape Atoll",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Karamja Hunter area",
-    "north": "Tai Bwo Wannai",
-    "west": "Cairn Isle",
-    "south": "Kharazi Jungle",
-    "east": "Shilo Village (location)",
-    "list": [
-      "Shilo Village"
-    ],
-    "template": "relativelocation"
-  },
-  {
-    "location": "Karamja Volcano",
-    "north": "Crandor",
-    "east": "Musa Point",
-    "south": "Karamja",
-    "west": "Brimhaven",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Kebos Lowlands",
-    "east": "Great Kourend",
-    "south": "Varlamore",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Kharazi Jungle",
-    "north": "Shilo Village (location)",
-    "list": [
-      "Shilo Village"
-    ],
-    "west": "Feldip Hills",
-    "south": "Ape Atoll",
-    "east": "Kharidian Desert",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Kharidian Desert",
-    "north": "Kingdom of Misthalin",
-    "west": "Karamja",
-    "east": "Mos Le'Harmless",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Lava Dragon Isle",
-    "north": "Resource Area",
-    "west": "Lava Maze",
-    "south": "Ruins (east)",
-    "east": "Callisto's Den",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Legends' Guild",
-    "north": "Sorcerer's Tower",
-    "west": "Hemenster",
-    "south": "Witchaven",
-    "east": "Entrana",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Lizardman Settlement",
-    "north": "Kebos Swamp",
-    "west": "Mount Quidamortem",
-    "south": "The Stranglewood",
-    "east": "Shayziens' Wall",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Lumbridge cow field",
-    "north": "Varrock",
-    "west": "Champions' Guild",
-    "south": "Lumbridge",
-    "east": "Al Kharid mine",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Lunar Isle",
-    "east": "Fremennik Isles",
-    "south": "Tirannwn",
-    "west": "Kingdom of Great Kourend",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Mausoleum",
-    "north": "Fenkenstrain's Castle",
-    "west": "Slayer Tower",
-    "south": "Canifis",
-    "east": "Ectofuntus",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Meiyerditch",
-    "north": "Darkmeyer",
-    "west": "Burgh de Rott",
-    "south": "Mos Le'Harmless",
-    "east": "Slepe",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Melzar's Maze",
-    "north": "Crafting Guild",
-    "west": "Crandor",
-    "south": "Rimmington",
-    "east": "Port Sarim",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Menaphos",
-    "north": "Jaldraocht",
-    "west": "Ruins of Unkah",
-    "east": "Sophanem",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Miscellania",
-    "north": "Iceberg",
-    "west": "Jatizso",
-    "south": "Waterbirth Island",
-    "east": "Etceteria",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Kingdom of Misthalin",
-    "north": "Wilderness",
-    "west": "Kingdom of Asgarnia",
-    "south": "Kharidian Desert",
-    "east": "Morytania",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Mons Gratia",
-    "north": "Unknown",
-    "west": "Unknown",
-    "south": "Ralos' Rise",
-    "east": "Quetzacalli Gorge",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Mos Le'Harmless",
-    "north": "Morytania",
-    "east": "Eastern Sea",
-    "south": "Harmony Island",
-    "west": "Kharidian Desert",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Mountain Camp",
-    "north": "Trollweiss Mountain",
-    "east": "Troll Stronghold (location)",
-    "south": "Sinclair Mansion",
-    "west": "Rellekka",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Mudskipper Point",
-    "north": "Port Sarim",
-    "west": "Musa Point",
-    "south": "Ship Yard",
-    "east": "Tutorial Island",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Musa Point",
-    "north": "Rimmington",
-    "west": "Brimhaven",
-    "south": "Shilo Village (location)",
-    "list": [
-      "Shilo Village"
-    ],
-    "east": "Mudskipper Point",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Myths' Guild",
-    "north": "Corsair Cove Resource Area",
-    "east": "Corsair Cove",
-    "south": "Southern Sea",
-    "west": "Southern Sea",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Necropolis",
-    "north": "Sophanem",
-    "west": "Menaphos",
-    "south": "Eastern Sea",
-    "east": "Eastern Sea",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Pest Control",
-    "north": "Void Knights' Outpost",
-    "south": "Pest Control Island",
-    "east": "Unknown",
-    "west": "Unknown",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Pest Control Island",
-    "north": "Void Knights' Outpost",
-    "south": "Unknown",
-    "east": "Unknown",
-    "west": "Unknown",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Piscatoris Woodland",
-    "north": "Piscatoris Fishing Colony",
-    "west": "Western Sea",
-    "south": "Eagles' Peak (mountain)",
-    "east": "Tree Gnome Stronghold",
-    "template": "relativelocation"
-  },
-  {
-    "north": "Isafdar",
-    "west": "Tyras Camp",
-    "location": "Poison Waste",
-    "east": "Castle Wars",
-    "south": "Zul-Andra",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Pollnivneach",
-    "north": "Shantay Pass",
-    "west": "Desert Mining Camp",
-    "south": "Agility Pyramid",
-    "east": "Nardah",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Agility course",
-    "north": "Shantay Pass",
-    "west": "Bandit Camp (Kharidian Desert)",
-    "list": [
-      "Bandit Camp"
-    ],
-    "south": "Agility Pyramid",
-    "east": "Nardah",
+    "location": "White Wolf Mountain",
+    "north": "Warriors' Guild",
+    "east": "Heroes' Guild",
+    "south": "Catherby",
+    "west": "Camelot",
     "template": "relativelocation"
   },
   {
@@ -952,27 +112,35 @@
     "template": "relativelocation"
   },
   {
-    "location": "Port Sarim",
-    "north": "Falador",
-    "east": "Draynor Village",
-    "south": "Mudskipper Point",
-    "west": "Rimmington",
+    "location": "Piscatoris Fishing Colony",
+    "north": "Neitiznot",
+    "west": "Western Sea",
+    "south": "Piscatoris Hunter area",
+    "east": "Lighthouse",
     "template": "relativelocation"
   },
   {
-    "location": "Port Sarim Jail",
-    "north": "Port Sarim",
-    "south": "Mudskipper Point",
-    "west": "Musa Point",
-    "east": "Wizards' Tower",
+    "location": "Witchaven",
+    "north": "Legends' Guild",
+    "west": "East Ardougne",
+    "south": "Port Khazard",
+    "east": "Karamja",
     "template": "relativelocation"
   },
   {
-    "location": "Port Tyras",
-    "south": "Zul-Andra",
-    "north": "Tyras Camp",
-    "west": "Unknown",
-    "east": "Isafdar",
+    "location": "Tirannwn",
+    "north": "Lunar Isle",
+    "west": "Varlamore",
+    "south": "Isle of Souls",
+    "east": "Kingdom of Kandarin",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Isafdar",
+    "south": "Poison Waste",
+    "north": "Prifddinas",
+    "west": "Western Sea",
+    "east": "Lletya",
     "template": "relativelocation"
   },
   {
@@ -984,185 +152,65 @@
     "template": "relativelocation"
   },
   {
-    "location": "Rellekka",
-    "north": "Etceteria",
-    "west": "Waterbirth Island",
-    "south": "Sinclair Mansion",
-    "east": "Mountain Camp",
+    "location": "Port Tyras",
+    "south": "Zul-Andra",
+    "north": "Tyras Camp",
+    "west": "Western Sea",
+    "east": "Isafdar",
     "template": "relativelocation"
   },
   {
-    "location": "Rellekka Hunter area",
-    "north": "Iceberg",
-    "west": "Etceteria",
-    "south": "Rellekka",
-    "east": "Trollweiss Mountain",
+    "location": "Brimhaven",
+    "north": "Fishing Platform",
+    "east": "Musa Point",
+    "south": "Tai Bwo Wannai",
+    "west": "Port Khazard",
     "template": "relativelocation"
   },
   {
-    "location": "Agility course",
-    "west": "Lighthouse",
-    "south": "Seers' Village",
-    "east": "Fremennik Slayer Dungeon",
+    "location": "Kharazi Jungle",
+    "north": "Shilo Village (location)",
+    "list": [
+      "Shilo Village"
+    ],
+    "west": "Feldip Hills",
+    "south": "Ape Atoll",
+    "east": "Kharidian Desert",
     "template": "relativelocation"
   },
   {
-    "location": "Rimmington",
-    "north": "Falador",
-    "east": "Port Sarim",
-    "south": "Karamja",
-    "west": "Crandor",
+    "location": "Feldip Hills",
+    "north": "Kingdom of Kandarin",
+    "west": "Isle of Souls",
+    "east": "Karamja",
+    "south": "Ape Atoll",
     "template": "relativelocation"
   },
   {
-    "location": "Ruins (east)",
-    "north": "Lava Dragon Isle",
-    "west": "Wilderness God Wars Dungeon",
-    "south": "Graveyard of Shadows",
-    "east": "Bone Yard",
+    "location": "Gu'Tanoth",
+    "north": "Yanille",
+    "west": "Jiggig",
+    "south": "Feldip Jungle",
+    "east": "Karamja",
     "template": "relativelocation"
   },
   {
-    "location": "Ruins (west)",
-    "north": "Forgotten Cemetery",
-    "west": "Trollheim",
-    "south": "Dark Warriors' Fortress",
-    "east": "Bandit Camp (Wilderness)",
+    "location": "Jiggig",
+    "north": "Castle Wars",
+    "east": "Gu'Tanoth",
+    "south": "Feldip Hills",
+    "west": "Castle Wars",
     "template": "relativelocation"
   },
   {
-    "location": "Ruins of Morra",
-    "north": "Chasm of Fire",
-    "west": "Shayziens' Wall",
-    "east": "Kourend Woodland",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Secluded Chapel",
-    "north": "Giant Pit",
-    "west": "Giants' Den",
-    "south": "Shayziens' Wall",
-    "east": "Shayzien",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Seers' Village",
-    "north": "Sinclair Mansion",
-    "west": "Hemenster",
-    "south": "Keep Le Faye",
-    "east": "Catherby",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Agility course",
-    "north": "Sinclair Mansion",
-    "west": "McGrubor's Wood",
-    "south": "Sorcerer's Tower",
-    "east": "Camelot",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Senntisten (Digsite)",
-    "north": "Wilderness",
-    "west": "Varrock",
-    "south": "Exam Centre",
-    "east": "Morytania",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Settlement Ruins",
-    "north": "Unmarked Grave",
-    "west": "Blast mine",
-    "south": "Lovakengj",
-    "east": "Wintertodt Camp",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Shade Catacombs",
-    "north": "Mort Myre Swamp",
-    "east": "Meiyerditch",
-    "south": "Mort'ton",
-    "west": "Mage Training Arena",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Shayzia Ruin",
-    "north": "Kourend Castle",
-    "west": "Shayzien",
-    "south": "Xeric's Lookout",
-    "east": "Hosidius",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Shayzien Encampment",
-    "north": "Lizardman Canyon",
-    "west": "Chasm of Fire",
-    "south": "Shayzien",
-    "east": "Hosidius",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Shayziens' Wall",
-    "north": "Lizardman Canyon",
-    "west": "Lizardman Settlement",
-    "south": "Lacerta Falls",
-    "east": "Shayzien",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Sinclair Mansion",
-    "north": "Rellekka",
-    "west": "Barbarian Outpost",
-    "south": "Seers' Village",
-    "east": "Warriors' Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Sophanem",
-    "north": "Agility Pyramid",
-    "west": "Menaphos",
-    "south": "Necropolis",
-    "east": "Ruins of Ullek",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Sorcerer's Tower",
-    "north": "Ranging Guild",
-    "west": "Hemenster",
-    "south": "Legends' Guild",
-    "east": "Keep Le Faye",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Sourhog Cave",
-    "north": "Cooks' Guild",
-    "east": "Champions' Guild",
-    "south": "Draynor Village",
-    "west": "Draynor Manor",
-    "template": "relativelocation"
-  },
-  {
-    "north": "Varrock",
-    "west": "Champions' Guild",
-    "location": "South-east Varrock Mine",
-    "east": "Exam Centre",
-    "south": "Al Kharid Mine",
-    "template": "relativelocation"
-  },
-  {
-    "north": "Salvager Overlook",
-    "west": "The Proudspire",
-    "location": "South Salvager Overlook Mine",
-    "east": "Twilight Temple",
-    "south": "Tower of Ascension",
-    "template": "relativelocation"
-  },
-  {
-    "north": "Edgeville Dungeon",
-    "west": "Falador",
-    "location": "Stronghold of Security",
-    "east": "Varrock",
-    "south": "Draynor Manor",
+    "location": "Burthorpe",
+    "north": "Death Plateau (location)",
+    "list": [
+      "Death Plateau"
+    ],
+    "west": "Warriors' Guild",
+    "south": "Taverley",
+    "east": "Wilderness",
     "template": "relativelocation"
   },
   {
@@ -1182,59 +230,98 @@
     "template": "relativelocation"
   },
   {
-    "location": "Forgotten Cemetery",
-    "north": "King Black Dragon Lair",
-    "west": "God Wars Dungeon",
-    "south": "Ruins (west)",
-    "east": "Wilderness God Wars Dungeon",
+    "location": "Fremennik Province",
+    "west": "Fremennik Isles",
+    "south": "Kingdom of Kandarin",
+    "east": "Troll Country",
     "template": "relativelocation"
   },
   {
-    "location": "The Node",
-    "north": "Tutorial Island",
-    "west": "Karamja",
-    "south": "Kharidian Desert",
+    "location": "Rellekka",
+    "north": "Etceteria",
+    "west": "Waterbirth Island",
+    "south": "Sinclair Mansion",
+    "east": "Mountain Camp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Mountain Camp",
+    "north": "Trollweiss Mountain",
+    "east": "Troll Stronghold (location)",
+    "list": [
+      "Troll Stronghold"
+    ],
+    "south": "Golden Apple Tree",
+    "west": "Rellekka",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Waterbirth Island",
+    "north": "Miscellania",
+    "west": "Jatizso",
+    "south": "Lighthouse",
+    "east": "Rellekka",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Miscellania",
+    "north": "Iceberg",
+    "west": "Jatizso",
+    "south": "Waterbirth Island",
+    "east": "Etceteria",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Etceteria",
+    "north": "Iceberg",
+    "east": "Trollweiss Mountain",
+    "south": "Waterbirth Island",
+    "west": "Miscellania",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Lunar Isle",
+    "east": "Fremennik Isles",
+    "south": "Tirannwn",
+    "west": "Kingdom of Great Kourend",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Fremennik Isles",
+    "east": "Fremennik Province",
+    "south": "Kingdom of Kandarin",
+    "west": "Lunar Isle",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Jatizso",
+    "north": "Island of Stone",
+    "west": "Neitiznot",
+    "south": "Piscatoris Fishing Colony",
+    "east": "Miscellania",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Neitiznot",
+    "north": "Ungael",
+    "west": "Pirates' Cove",
+    "south": "Piscatoris Fishing Colony",
+    "east": "Jatizso",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Iceberg",
+    "north": "Lunar Sea",
+    "east": "Lunar Sea",
+    "south": "Etceteria",
+    "west": "Island of Stone",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ape Atoll",
     "east": "Kharidian Desert",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Tirannwn",
-    "north": "Lunar Isle",
-    "west": "Varlamore",
-    "south": "Isle of Souls",
-    "east": "Kingdom of Kandarin",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Tourist Information Centre",
-    "north": "Baxtorian Falls",
-    "west": "Tree Gnome Stronghold",
-    "south": "West Ardougne",
-    "east": "Fishing Guild",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Tower of Life",
-    "north": "Necromancer Tower",
-    "west": "Kandarin Monastery",
-    "south": "Port Khazard",
-    "east": "Brimhaven",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Tower of Magic",
-    "north": "Settlement Ruins",
-    "west": "Lovakengj",
-    "south": "Arceuus",
-    "east": "Arceuus Library",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Tree Gnome Village",
-    "north": "Battlefield",
-    "west": "Observatory",
-    "south": "Yanille",
-    "east": "Fight Arena (location)",
+    "north": "Karamja",
+    "west": "Feldip Hills",
     "template": "relativelocation"
   },
   {
@@ -1245,53 +332,122 @@
     "template": "relativelocation"
   },
   {
+    "location": "Trollweiss Mountain",
+    "north": "Northern Sea",
+    "west": "Rellekka Hunter area",
+    "south": "Mountain Camp",
+    "east": "Ice Path",
+    "template": "relativelocation"
+  },
+  {
     "location": "Trollheim",
     "north": "Ice Path",
-    "east": "Wilderness",
-    "south": "Burthorpe",
-    "west": "Troll Stronghold (location)",
+    "east": "Ruins (west)",
+    "south": "Death Plateau (location)",
     "list": [
+      "Death Plateau",
       "Troll Stronghold"
     ],
+    "west": "Troll Stronghold (location)",
     "template": "relativelocation"
   },
   {
-    "location": "Tutorial Island",
-    "north": "Wizards' Tower",
-    "west": "Karamja",
-    "south": "The Node",
-    "east": "Kharidian Desert",
+    "location": "Troll Stronghold",
+    "north": "Ice Path",
+    "west": "Mountain Camp",
+    "south": "Death Plateau (location)",
+    "list": [
+      "Death Plateau"
+    ],
+    "east": "Trollheim",
     "template": "relativelocation"
   },
   {
-    "location": "Underwater",
-    "east": "House on the Hill",
-    "south": "Museum Camp",
-    "west": "Mushroom Forest",
+    "location": "Death Plateau",
+    "north": "Trollheim",
+    "east": "Burthorpe",
+    "south": "Warrior's Guild",
+    "west": "Fremennik Slayer Dungeon",
     "template": "relativelocation"
   },
   {
-    "location": "Unmarked Grave",
-    "north": "Unknown",
-    "west": "Unknown",
-    "south": "Settlement Ruins",
-    "east": "Wintertodt Camp",
+    "location": "Fishing Guild",
+    "north": "Coal Trucks",
+    "west": "Tree Gnome Stronghold",
+    "south": "Chaos Druid Tower",
+    "east": "Hemenster",
     "template": "relativelocation"
   },
   {
-    "location": "Uzer",
-    "north": "Burgh de Rott",
+    "location": "Coal Trucks",
+    "north": "Barbarian Outpost",
+    "west": "Baxtorian Falls",
+    "south": "Fishing Guild",
+    "east": "McGrubor's Wood",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Heroes' Guild",
+    "north": "Burthorpe",
+    "west": "White Wolf Mountain",
+    "south": "Taverley",
+    "east": "Goblin Village",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Port Sarim",
+    "north": "Falador",
+    "east": "Draynor Village",
+    "south": "Mudskipper Point",
+    "west": "Rimmington",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Void Knight Outpost",
+    "north": "Ape Atoll",
+    "west": "Southern Sea",
+    "south": "Pest Control Island",
+    "east": "Marim",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Barbarian Village",
+    "north": "Edgeville",
+    "east": "Varrock",
+    "south": "Draynor Village",
+    "west": "Falador",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Rimmington",
+    "north": "Falador",
+    "east": "Port Sarim",
+    "south": "Karamja",
+    "west": "Crandor",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Mos Le'Harmless",
+    "north": "Morytania",
     "east": "Eastern Sea",
-    "south": "Uzer Oasis",
-    "west": "River Elid",
+    "south": "Harmony Island",
+    "west": "Kharidian Desert",
     "template": "relativelocation"
   },
   {
-    "location": "Uzer Oasis",
-    "north": "Uzer",
+    "location": "Crafting Guild",
+    "north": "Dark Wizards' Tower",
+    "east": "Falador",
+    "south": "Melzar's Maze",
+    "west": "Entrana",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Harmony Island",
+    "north": "Mos Le'Harmless",
     "east": "Eastern Sea",
-    "south": "Ancient Vault",
-    "west": "River Elid",
+    "south": "Eastern Sea",
+    "west": "Kharidian Desert",
     "template": "relativelocation"
   },
   {
@@ -1303,19 +459,359 @@
     "template": "relativelocation"
   },
   {
-    "location": "Agility course",
-    "north": "Varrock Palace",
-    "west": "Barbarian Village",
-    "south": "Champions' Guild",
-    "east": "Digsite",
+    "location": "Falador",
+    "north": "Ice Mountain",
+    "east": "Draynor Manor",
+    "south": "Rimmington",
+    "west": "Dark Wizards' Tower",
     "template": "relativelocation"
   },
   {
-    "location": "Void Knight Outpost",
-    "north": "Ape Atoll",
-    "west": "Unknown",
+    "location": "Pest Control",
+    "north": "Void Knights' Outpost",
     "south": "Pest Control Island",
-    "east": "Marim",
+    "east": "Unknown",
+    "west": "Unknown",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Tutorial Island",
+    "north": "Wizards' Tower",
+    "west": "Karamja",
+    "south": "The Node",
+    "east": "Kharidian Desert",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Champions' Guild",
+    "north": "Varrock",
+    "east": "Exam Centre",
+    "south": "Mill Lane Mill",
+    "west": "Draynor Manor",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Crandor",
+    "north": "Entrana",
+    "west": "Fishing Platform",
+    "south": "Karamja Volcano",
+    "east": "Crafting Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Wizards' Tower",
+    "north": "Draynor Village",
+    "west": "Port Sarim",
+    "south": "Tutorial Island",
+    "east": "Lumbridge Swamp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Karamja",
+    "north": "Kingdom of Asgarnia",
+    "west": "Feldip Hills",
+    "east": "Kharidian Desert",
+    "south": "Ape Atoll",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Wilderness",
+    "west": "Troll Country",
+    "south": "Kingdom of Misthalin",
+    "east": "Fossil Island",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Draynor Village",
+    "north": "Draynor Manor",
+    "west": "Port Sarim",
+    "south": "Wizards' Tower",
+    "east": "Fred's farm",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Edgeville",
+    "north": "Wilderness",
+    "east": "Varrock",
+    "south": "Barbarian Village",
+    "west": "Ice Mountain",
+    "template": "relativelocation"
+  },
+  {
+    "north": "Edgeville Dungeon",
+    "west": "Falador",
+    "location": "Stronghold of Security",
+    "east": "Varrock",
+    "south": "Draynor Manor",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ice Mountain",
+    "north": "Black Knights' Fortress (location)",
+    "list": [
+      "Black Knights' Fortress"
+    ],
+    "west": "Goblin Village",
+    "south": "Dwarven Mine",
+    "east": "Edgeville Monastery",
+    "template": "relativelocation"
+  },
+  {
+    "location": "White Knights' Castle",
+    "north": "Ice Mountain",
+    "west": "Dark Wizards' Tower",
+    "south": "Port Sarim",
+    "east": "Draynor Manor",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Barbarian Outpost",
+    "north": "Lighthouse",
+    "west": "Tree Gnome Stronghold",
+    "south": "Otto's Grotto",
+    "east": "Coal Trucks",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Exam Centre",
+    "north": "Digsite",
+    "west": "Varrock",
+    "south": "Mage Training Arena",
+    "east": "River Salve",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Tree Gnome Village",
+    "north": "Battlefield",
+    "west": "Observatory",
+    "south": "Yanille",
+    "east": "Fight Arena (location)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Legends' Guild",
+    "north": "Sorcerer's Tower",
+    "west": "Hemenster",
+    "south": "Witchaven",
+    "east": "Entrana",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Wizards' Guild",
+    "north": "Port Khazard",
+    "west": "Yanille",
+    "south": "Gu'Tanoth",
+    "east": "Tai Bwo Wannai",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Goblin Village",
+    "north": "Wilderness",
+    "west": "Taverley",
+    "south": "Falador",
+    "east": "Ice Mountain",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Sorcerer's Tower",
+    "north": "Ranging Guild",
+    "west": "Hemenster",
+    "south": "Legends' Guild",
+    "east": "Keep Le Faye",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Bone Yard",
+    "north": "Lava Dragon Isle",
+    "west": "Ruins (east)",
+    "south": "Chaos Temple (Wilderness)",
+    "east": "Unknown",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Entrana Dungeon",
+    "north": "Catherby",
+    "east": "Falador",
+    "south": "Crandor",
+    "west": "Legends' Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Waterfall Dungeon",
+    "north": "Otto's Grotto",
+    "east": "Coal Trucks",
+    "south": "Combat Training Camp",
+    "west": "Tree Gnome Stronghold",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Kharidian Desert",
+    "north": "Kingdom of Misthalin",
+    "west": "Karamja",
+    "east": "Mos Le'Harmless",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Feldip Jungle",
+    "north": "Gu'Tanoth",
+    "east": "Karamja",
+    "south": "Corsair Cove",
+    "west": "Gu'Tanoth",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Hobgoblin Peninsula",
+    "south": "Melzar's Maze",
+    "north": "Dark Wizards' Tower",
+    "west": "Crandor",
+    "east": "Crafting Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Kingdom of Kandarin",
+    "north": "Fremennik Province",
+    "west": "Tirannwn",
+    "south": "Feldip Hills",
+    "east": "Kingdom of Asgarnia",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Kingdom of Asgarnia",
+    "north": "Wilderness",
+    "west": "Kingdom of Kandarin",
+    "south": "Karamja",
+    "east": "Kingdom of Misthalin",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Kingdom of Misthalin",
+    "north": "Wilderness",
+    "west": "Kingdom of Asgarnia",
+    "south": "Kharidian Desert",
+    "east": "Morytania",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Grand Tree",
+    "north": "Barbarian Outpost",
+    "east": "Baxtorian Falls",
+    "south": "Gnome Stronghold Agility Course",
+    "west": "Eagles' Peak (mountain)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Fenkenstrain's Castle",
+    "north": "Eastern Sea",
+    "east": "Ectofuntus",
+    "south": "Haunted Woods",
+    "west": "Mausoleum",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Fishing Platform",
+    "north": "Entrana",
+    "west": "Witchaven",
+    "south": "Brimhaven",
+    "east": "Crandor",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Lighthouse",
+    "north": "Waterbirth Island",
+    "west": "Piscatoris Fishing Colony",
+    "south": "Barbarian Outpost",
+    "east": "Rellekka",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Sinclair Mansion",
+    "north": "Rellekka",
+    "west": "Barbarian Outpost",
+    "south": "Seers' Village",
+    "east": "Mac's island",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ice Path",
+    "north": "Zemouregal's Fort",
+    "west": "Trollweiss Mountain",
+    "south": "Trollheim",
+    "east": "Lucien's camp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Melzar's Maze",
+    "north": "Crafting Guild",
+    "west": "Crandor",
+    "south": "Rimmington",
+    "east": "Port Sarim",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Musa Point",
+    "north": "Rimmington",
+    "west": "Brimhaven",
+    "south": "Shilo Village (location)",
+    "list": [
+      "Shilo Village"
+    ],
+    "east": "Mudskipper Point",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Mudskipper Point",
+    "north": "Port Sarim",
+    "west": "Musa Point",
+    "south": "Ship Yard",
+    "east": "Tutorial Island",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Karamja Volcano",
+    "north": "Crandor",
+    "east": "Musa Point",
+    "south": "Karamja",
+    "west": "Brimhaven",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Dragontooth Island",
+    "north": "Fossil Island",
+    "east": "Eastern Sea",
+    "south": "Eastern Sea",
+    "west": "Port Phasmatys",
+    "template": "relativelocation"
+  },
+  {
+    "location": "God Wars Dungeon",
+    "north": "Lucien's camp",
+    "west": "Ice Path",
+    "south": "Trollheim",
+    "east": "Forgotten Cemetery",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Senntisten (Digsite)",
+    "north": "Wilderness",
+    "west": "Varrock",
+    "south": "Exam Centre",
+    "east": "Morytania",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Tower of Life",
+    "north": "Necromancer Tower",
+    "west": "Kandarin Monastery",
+    "south": "Port Khazard",
+    "east": "Brimhaven",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Frozen Waste Plateau",
+    "north": "Northern Sea",
+    "west": "Ghorrock",
+    "south": "Chaos Temple (hut)",
+    "east": "Wilderness Agility Course",
     "template": "relativelocation"
   },
   {
@@ -1330,19 +826,173 @@
     "template": "relativelocation"
   },
   {
-    "location": "Waterfall Dungeon",
-    "north": "Otto's Grotto",
-    "east": "Coal Trucks",
-    "south": "Combat Training Camp",
-    "west": "Tree Gnome Stronghold",
+    "location": "Piscatoris Woodland",
+    "north": "Piscatoris Fishing Colony",
+    "west": "Western Sea",
+    "south": "Eagles' Peak (mountain)",
+    "east": "Tree Gnome Stronghold",
     "template": "relativelocation"
   },
   {
-    "location": "Weiss",
-    "north": "Northern Sea",
-    "west": "Northern Sea",
-    "south": "Ice Path",
-    "east": "Ghorrock",
+    "location": "Lava Dragon Isle",
+    "north": "Resource Area",
+    "west": "Lava Maze",
+    "south": "Ruins (east)",
+    "east": "Callisto's Den",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Bandit Camp",
+    "north": "Wilderness God Wars Dungeon",
+    "west": "Ruins (west)",
+    "south": "Dark Warriors' Fortress",
+    "east": "Graveyard of Shadows",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Shade Catacombs",
+    "north": "Mort Myre Swamp",
+    "east": "Meiyerditch",
+    "south": "Mort'ton",
+    "west": "Mage Training Arena",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "north": "Mausoleum",
+    "west": "Canifis",
+    "south": "Mort Myre Swamp",
+    "east": "Haunted Woods",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "north": "Draynor Manor",
+    "west": "Port Sarim",
+    "south": "Wizards' Tower",
+    "east": "Lumbridge",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "north": "Shantay Pass",
+    "west": "Bandit Camp (Kharidian Desert)",
+    "list": [
+      "Bandit Camp"
+    ],
+    "south": "Agility Pyramid",
+    "east": "Nardah",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "north": "Varrock Palace",
+    "west": "Barbarian Village",
+    "south": "Champions' Guild",
+    "east": "Digsite",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "north": "Party Room",
+    "west": "Mining Guild",
+    "south": "Falador",
+    "east": "Falador",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "north": "Sinclair Mansion",
+    "west": "McGrubor's Wood",
+    "south": "Sorcerer's Tower",
+    "east": "Camelot",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Agility course",
+    "west": "Lighthouse",
+    "south": "Seers' Village",
+    "east": "Fremennik Slayer Dungeon",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Clock Tower",
+    "north": "East Ardougne",
+    "west": "Observatory",
+    "south": "Tree Gnome Village (location)",
+    "list": [
+      "Tree Gnome Village"
+    ],
+    "east": "Ardougne Zoo",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Battlefield",
+    "north": "West Ardougne",
+    "west": "Ourania Cave",
+    "south": "Tree Gnome Village (location)",
+    "list": [
+      "Tree Gnome Village",
+      "Clock Tower"
+    ],
+    "east": "Clock Tower (building)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Dark Wizards' Tower",
+    "north": "Taverley",
+    "west": "Entrana",
+    "south": "Crafting Guild",
+    "east": "Falador",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Castle Drakan",
+    "north": "Morytania Graveyard",
+    "west": "The Hollows",
+    "south": "Barrows",
+    "east": "Darkmeyer",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Pest Control Island",
+    "north": "Void Knights' Outpost",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Monastery",
+    "north": "Dark Warriors' Fortress",
+    "east": "Edgeville",
+    "south": "Barbarian Village",
+    "west": "Ice Mountain",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ancient Pyramid",
+    "north": "Bandit Camp (Kharidian Desert)",
+    "list": [
+      "Bandit Camp",
+      "Quarry"
+    ],
+    "west": "Bandit Camp Quarry",
+    "south": "Menaphos",
+    "east": "Nardah",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Graveyard of Shadows",
+    "north": "Ruins (east)",
+    "west": "Dark Warriors' Fortress",
+    "south": "Ferox Enclave",
+    "east": "Chaos Temple (Wilderness)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Forgotten Cemetery",
+    "north": "King Black Dragon Lair",
+    "west": "God Wars Dungeon",
+    "south": "Ruins (west)",
+    "east": "Wilderness God Wars Dungeon",
     "template": "relativelocation"
   },
   {
@@ -1354,50 +1004,19 @@
     "template": "relativelocation"
   },
   {
-    "location": "White Knights' Castle",
-    "north": "Ice Mountain",
-    "west": "Dark Wizards' Tower",
-    "south": "Port Sarim",
-    "east": "Draynor Manor",
+    "location": "Deserted Keep",
+    "north": "Northern Sea",
+    "west": "Mage Arena",
+    "south": "Lava Dragon Isle",
+    "east": "Resource Area",
     "template": "relativelocation"
   },
   {
-    "location": "White Wolf Mountain",
-    "north": "Warriors' Guild",
-    "east": "Heroes' Guild",
-    "south": "Catherby",
-    "west": "Camelot",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Wilderness",
-    "west": "Troll Country",
-    "south": "Kingdom of Misthalin",
-    "east": "Fossil Island",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Witchaven",
-    "north": "Legends' Guild",
-    "west": "East Ardougne",
-    "south": "Port Khazard",
-    "east": "Karamja",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Wizards' Guild",
-    "north": "Port Khazard",
-    "west": "Yanille",
-    "south": "Gu'Tanoth",
-    "east": "Tai Bwo Wannai",
-    "template": "relativelocation"
-  },
-  {
-    "location": "Wizards' Tower",
-    "north": "Draynor Village",
-    "west": "Port Sarim",
-    "south": "Tutorial Island",
-    "east": "Lumbridge Swamp",
+    "location": "Rellekka Hunter area",
+    "north": "Iceberg",
+    "west": "Etceteria",
+    "south": "Rellekka",
+    "east": "Trollweiss Mountain",
     "template": "relativelocation"
   },
   {
@@ -1409,6 +1028,199 @@
     "template": "relativelocation"
   },
   {
+    "location": "Eagles' Peak (mountain)",
+    "north": "Piscatoris Hunter Area",
+    "west": "Great Kourend",
+    "south": "Arandar",
+    "east": "Gnome Stronghold",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Combat Training Camp",
+    "north": "Baxtorian Falls",
+    "west": "Outpost",
+    "south": "West Ardougne",
+    "east": "Fishing Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ruins (west)",
+    "north": "Forgotten Cemetery",
+    "west": "Trollheim",
+    "south": "Dark Warriors' Fortress",
+    "east": "Bandit Camp (Wilderness)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ruins (east)",
+    "north": "Lava Dragon Isle",
+    "west": "Wilderness God Wars Dungeon",
+    "south": "Graveyard of Shadows",
+    "east": "Bone Yard",
+    "template": "relativelocation"
+  },
+  {
+    "north": "Shantay Pass",
+    "west": "Bedabin Camp",
+    "location": "Desert Mining Camp",
+    "east": "Pollnivneach",
+    "south": "Ancient Pyramid",
+    "template": "relativelocation"
+  },
+  {
+    "north": "Isafdar",
+    "west": "Tyras Camp",
+    "location": "Poison Waste",
+    "east": "Castle Wars",
+    "south": "Zul-Andra",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Fight Arena",
+    "north": "Ardougne Sewers",
+    "west": "Tree Gnome Village (location)",
+    "list": [
+      "Tree Gnome Village"
+    ],
+    "south": "Yanille",
+    "east": "Port Khazard",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Doric's Hut",
+    "north": "Goblin Village",
+    "east": "Ice Mountain",
+    "south": "Falador",
+    "west": "Taverley",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Lumbridge cow field",
+    "north": "Varrock",
+    "west": "Champions' Guild",
+    "south": "Lumbridge",
+    "east": "Al Kharid mine",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Quarry",
+    "north": "Bandit Camp (Kharidian Desert)",
+    "list": [
+      "Bandit Camp"
+    ],
+    "east": "Ancient Pyramid",
+    "south": "Ruins of Unkah",
+    "west": "Southern Sea",
+    "template": "relativelocation"
+  },
+  {
+    "north": "Varrock",
+    "west": "Champions' Guild",
+    "location": "South-east Varrock Mine",
+    "east": "Exam Centre",
+    "south": "Al Kharid Mine",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Black Knights' Fortress",
+    "north": "Wilderness",
+    "west": "Goblin Village",
+    "south": "Ice Mountain",
+    "east": "Edgeville",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Port Sarim jail",
+    "north": "Port Sarim",
+    "south": "Mudskipper Point",
+    "west": "Musa Point",
+    "east": "Wizards' Tower",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Tourist Information Centre",
+    "north": "Baxtorian Falls",
+    "west": "Tree Gnome Stronghold",
+    "south": "West Ardougne",
+    "east": "Fishing Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Mausoleum",
+    "north": "Fenkenstrain's Castle",
+    "west": "Slayer Tower",
+    "south": "Canifis",
+    "east": "Ectofuntus",
+    "template": "relativelocation"
+  },
+  {
+    "north": "Frozen Waste Plateau",
+    "west": "Lucien's camp",
+    "location": "Chaos Temple (hut)",
+    "east": "Lava Maze",
+    "south": "Forgotten Cemetery",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Chaos Temple",
+    "north": "Wilderness",
+    "west": "Taverley",
+    "south": "Falador",
+    "east": "Goblin Village",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Kingdom of Great Kourend",
+    "east": "Lunar Isle",
+    "west": "Kebos Lowlands",
+    "south": "Varlamore",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Chaos Druid Tower",
+    "north": "Coal Trucks",
+    "east": "Legends' Guild",
+    "south": "Ardougne",
+    "west": "Combat Training Camp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Infirmary",
+    "north": "Lizardman Canyon",
+    "south": "Shayzien",
+    "east": "Combat Ring (Shayzien)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Tower of Magic",
+    "north": "Settlement Ruins",
+    "west": "Lovakengj",
+    "south": "Arceuus",
+    "east": "Arceuus Library",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Unmarked Grave",
+    "south": "Settlement Ruins",
+    "east": "Wintertodt Camp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Settlement Ruins",
+    "north": "Unmarked Grave",
+    "west": "Blast mine",
+    "south": "Lovakengj",
+    "east": "Wintertodt Camp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Fishing Hamlet",
+    "west": "Wintertodt Camp",
+    "south": "Dark Altar",
+    "east": "River of Souls",
+    "template": "relativelocation"
+  },
+  {
     "location": "Xeric's Lookout",
     "north": "Shayzien",
     "west": "Shayzien",
@@ -1417,11 +1229,328 @@
     "template": "relativelocation"
   },
   {
-    "location": "Yanille",
-    "north": "Port Khazard",
-    "west": "Castle Wars",
-    "south": "Gu'Tanoth",
-    "east": "Karamja",
+    "location": "Fossil Island",
+    "west": "Wilderness",
+    "south": "Morytania",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Lizardman Settlement",
+    "north": "Kebos Swamp",
+    "west": "Mount Quidamortem",
+    "south": "The Stranglewood",
+    "east": "Shayziens' Wall",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Shayziens' Wall",
+    "north": "Lizardman Canyon",
+    "west": "Lizardman Settlement",
+    "south": "Lacerta Falls",
+    "east": "Shayzien",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Hosidius Kitchen",
+    "north": "Mess",
+    "west": "Shayzien",
+    "south": "Woodcutting Guild",
+    "east": "Tithe Farm",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ghorrock",
+    "north": "Northern Sea",
+    "west": "Weiss",
+    "south": "Lucien's camp",
+    "east": "Frozen Waste Plateau",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Boneyard Hunter area",
+    "north": "Bone Yard",
+    "west": "Graveyard of Shadows",
+    "south": "Lumber Yard",
+    "east": "Eastern Sea",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Karamja Hunter area",
+    "north": "Tai Bwo Wannai",
+    "west": "Cairn Isle",
+    "south": "Kharazi Jungle",
+    "east": "Shilo Village (location)",
+    "list": [
+      "Shilo Village"
+    ],
+    "template": "relativelocation"
+  },
+  {
+    "location": "House on the Hill",
+    "north": "Northern Sea",
+    "east": "Eastern Sea",
+    "south": "Fossil Island Volcano",
+    "west": "Mushroom Forest",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Underwater",
+    "east": "House on the Hill",
+    "south": "Museum Camp",
+    "west": "Mushroom Forest",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Varlamore",
+    "north": "Great Kourend",
+    "west": "Kebos Lowlands",
+    "east": "Tirannwn",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Corsair Cove",
+    "north": "Feldip Hunter area",
+    "east": "Southern Sea",
+    "south": "Southern Sea",
+    "west": "Myths' Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Myths' Guild",
+    "north": "Corsair Cove Resource Area",
+    "east": "Corsair Cove",
+    "south": "Southern Sea",
+    "west": "Southern Sea",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Kebos Lowlands",
+    "east": "Great Kourend",
+    "south": "Varlamore",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Civitas illa Fortis",
+    "north": "Twilight Temple",
+    "west": "Ralos' Rise",
+    "south": "Locus Oasis",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Weiss",
+    "north": "Northern Sea",
+    "west": "Northern Sea",
+    "south": "Zemouregal's Fort",
+    "east": "Ghorrock",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Forthos Ruin",
+    "north": "Hosidius kitchen",
+    "west": "Shayzien",
+    "south": "Woodcutting Guild",
+    "east": "Hosidius",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Gorlah",
+    "north": "Piscatoris Hunter area",
+    "west": "Gwenith",
+    "south": "Prifddinas",
+    "east": "Tree Gnome Stronghold",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Barbarian Outpost",
+    "north": "Lighthouse",
+    "west": "Tree Gnome Stronghold",
+    "south": "Otto's Grotto",
+    "east": "Coal Trucks",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Island of Stone",
+    "north": "Lunar Sea",
+    "west": "Ungael",
+    "south": "Miscellania",
+    "east": "Iceberg",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Goblin settlement",
+    "north": "Ourania Altar",
+    "west": "Observatory",
+    "south": "Castle Wars",
+    "east": "Gnome Maze",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Sourhog Cave",
+    "north": "Cooks' Guild",
+    "east": "Champions' Guild",
+    "south": "Draynor Village",
+    "west": "Draynor Manor",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Giants' Plateau",
+    "north": "Emir's Arena",
+    "east": "River Salve",
+    "south": "Uzer mine",
+    "west": "Al Kharid",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Isle of Souls",
+    "north": "Tirannwn",
+    "east": "Feldip Hills",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Apple orchard",
+    "north": "Tree Gnome Stronghold",
+    "west": "Outpost",
+    "south": "West Ardougne",
+    "east": "Combat Training Camp",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Giant Pit",
+    "north": "Chasm of Fire",
+    "west": "Lake Molch",
+    "south": "Secluded Chapel",
+    "east": "Shayzien Encampment",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Secluded Chapel",
+    "north": "Giant Pit",
+    "west": "Giants' Den",
+    "south": "Shayziens' Wall",
+    "east": "Shayzien",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ruins of Morra",
+    "north": "Chasm of Fire",
+    "west": "Shayziens' Wall",
+    "east": "Kourend Woodland",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Shayzia Ruin",
+    "north": "Kourend Castle",
+    "west": "Shayzien",
+    "south": "Xeric's Lookout",
+    "east": "Hosidius",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Shayzien Encampment",
+    "north": "Lizardman Canyon",
+    "west": "Chasm of Fire",
+    "south": "Shayzien",
+    "east": "Hosidius",
+    "template": "relativelocation"
+  },
+  {
+    "location": "The Node",
+    "north": "Tutorial Island",
+    "west": "Karamja",
+    "south": "Kharidian Desert",
+    "east": "Kharidian Desert",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Draynor jail",
+    "north": "Draynor farm",
+    "south": "Wizards' Tower",
+    "west": "Draynor Village",
+    "east": "Lumbridge farm",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Mac's island",
+    "north": "Fremennik Slayer Dungeon",
+    "west": "Sinclair Mansion",
+    "south": "Camelot",
+    "east": "Warriors' Guild",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Necropolis",
+    "north": "Sophanem",
+    "west": "Menaphos",
+    "south": "Eastern Sea",
+    "east": "Eastern Sea",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Uzer Oasis",
+    "north": "Uzer",
+    "east": "Eastern Sea",
+    "south": "Ancient Vault",
+    "west": "River Elid",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Ancient Vault",
+    "north": "Uzer Oasis",
+    "east": "Eastern Sea",
+    "south": "Nardah",
+    "west": "River Elid",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Zemouregal's Fort",
+    "north": "Weiss",
+    "west": "Trollweiss Mountain",
+    "south": "Ice Path",
+    "east": "Ghorrock",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Lucien's camp",
+    "north": "Ghorrock",
+    "west": "Ice Path",
+    "south": "God Wars Dungeon",
+    "east": "Chaos Temple (hut)",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Mons Gratia",
+    "north": "Unknown",
+    "west": "Unknown",
+    "south": "Ralos' Rise",
+    "east": "Quetzacalli Gorge",
+    "template": "relativelocation"
+  },
+  {
+    "north": "Salvager Overlook",
+    "west": "The Proudspire",
+    "location": "South Salvager Overlook Mine",
+    "east": "Twilight Temple",
+    "south": "Tower of Ascension",
+    "template": "relativelocation"
+  },
+  {
+    "west": "Salvager Overlook",
+    "location": "East Salvager Overlook Mine",
+    "south": "Twilight Temple",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Uzer Mastaba",
+    "north": "Uzer Oasis",
+    "west": "River Elid",
+    "south": "Ancient Vault",
+    "east": "Eastern Sea",
+    "template": "relativelocation"
+  },
+  {
+    "location": "Charred Island",
+    "north": "Void Knight Outpost",
+    "east": "Last Light",
     "template": "relativelocation"
   }
 ]

@@ -1,22 +1,12 @@
 [
   {
-    "slot": "ammo",
+    "slot": "weapon",
     "members": "all",
     "template": "slottable"
   },
   {
-    "slot": "ammo",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
-    "slot": "body",
+    "slot": "head",
     "members": "all",
-    "template": "slottable"
-  },
-  {
-    "slot": "body",
-    "members": "f2p",
     "template": "slottable"
   },
   {
@@ -25,73 +15,93 @@
     "template": "slottable"
   },
   {
-    "slot": "cape",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
-    "slot": "feet",
-    "members": "all",
-    "template": "slottable"
-  },
-  {
-    "slot": "feet",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
-    "slot": "hands",
-    "members": "all",
-    "template": "slottable"
-  },
-  {
-    "slot": "hands",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
-    "slot": "head",
-    "members": "all",
-    "template": "slottable"
-  },
-  {
-    "slot": "head",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
-    "slot": "legs",
-    "members": "all",
-    "template": "slottable"
-  },
-  {
-    "slot": "legs",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
     "slot": "neck",
     "members": "all",
     "template": "slottable"
   },
   {
-    "slot": "neck",
-    "members": "f2p",
-    "template": "slottable"
-  },
-  {
-    "slot": "ring",
+    "slot": "ammo",
     "members": "all",
     "template": "slottable"
   },
   {
-    "slot": "ring",
-    "members": "f2p",
+    "slot": "body",
+    "members": "all",
     "template": "slottable"
   },
   {
     "slot": "shield",
     "members": "all",
+    "template": "slottable"
+  },
+  {
+    "slot": "legs",
+    "members": "all",
+    "template": "slottable"
+  },
+  {
+    "slot": "hands",
+    "members": "all",
+    "template": "slottable"
+  },
+  {
+    "slot": "feet",
+    "members": "all",
+    "template": "slottable"
+  },
+  {
+    "slot": "2h",
+    "members": "all",
+    "template": "slottable"
+  },
+  {
+    "slot": "ring",
+    "members": "all",
+    "template": "slottable"
+  },
+  {
+    "slot": "ammo",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "body",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "cape",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "feet",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "hands",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "head",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "legs",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "neck",
+    "members": "f2p",
+    "template": "slottable"
+  },
+  {
+    "slot": "ring",
+    "members": "f2p",
     "template": "slottable"
   },
   {
@@ -101,88 +111,16 @@
   },
   {
     "slot": "2h",
-    "members": "all",
+    "members": "f2p",
     "template": "slottable"
   },
   {
-    "slot": "2h",
+    "slot": "weapon",
     "members": "f2p",
     "template": "slottable"
   },
   {
     "slot": "ammo",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "body",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "cape",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "feet",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "hands",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "head",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "legs",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "neck",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "ring",
-    "members": "all",
-    "uim": "yes",
-    "gauntlet": "no",
-    "lms": "no",
-    "template": "slottable"
-  },
-  {
-    "slot": "shield",
     "members": "all",
     "uim": "yes",
     "gauntlet": "no",
@@ -206,13 +144,75 @@
     "template": "slottable"
   },
   {
-    "slot": "weapon",
+    "slot": "body",
     "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
     "template": "slottable"
   },
   {
-    "slot": "weapon",
-    "members": "f2p",
+    "slot": "cape",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "feet",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "hands",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "head",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "legs",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "neck",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "ring",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
+    "template": "slottable"
+  },
+  {
+    "slot": "shield",
+    "members": "all",
+    "uim": "yes",
+    "gauntlet": "no",
+    "lms": "no",
     "template": "slottable"
   }
 ]

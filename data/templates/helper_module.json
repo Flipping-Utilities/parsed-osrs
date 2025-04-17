@@ -1,0 +1,85 @@
+[
+  {
+    "name": "Yesno",
+    "fname1": "(arg)",
+    "ftype1": "Any value",
+    "fuse1": "Reads arg for yes/no and returns the appropriate boolean or nil",
+    "fname2": "(arg1,arg2)",
+    "ftype2": "Any value, Any value",
+    "fuse2": "Reads arg1 for yes/no and returns the appropriate boolean; returns arg2 if arg1 was not an applicable value",
+    "template": "helper module"
+  },
+  {
+    "name": "Paramtest",
+    "fname1": "is_empty(arg)",
+    "ftype1": "String",
+    "fuse1": "Returns true if arg is not defined or contains only whitespace",
+    "fname2": "has_content(arg)",
+    "ftype2": "String",
+    "fuse2": "Returns true if arg exists and does not only contain whitespace",
+    "fname3": "default_to(arg1,arg2)",
+    "ftype3": "String, Any value",
+    "fuse3": "If arg1 exists and does not only contain whitespace, the function returns arg1, otherwise returns arg2",
+    "fname4": "defaults{ {arg1,arg2},...}",
+    "ftype4": "{String, Any value}...",
+    "fuse4": "Does the same as  run over every table passed; for technical reasons, all   are replaced with",
+    "template": "helper module"
+  },
+  {
+    "name": "Addcommas",
+    "fname1": "_add(arg)",
+    "ftype1": "Number",
+    "fuse1": "Formats the number arg with commas",
+    "fname2": "_strip(arg)",
+    "ftype2": "Number",
+    "fuse2": "Removes all commas from arg",
+    "template": "helper module"
+  },
+  {
+    "name": "Exchange",
+    "fname1": "_price(arg)",
+    "ftype1": "String",
+    "fuse1": "Gets the current median price of item named arg",
+    "fname2": "_value(arg)",
+    "ftype2": "String",
+    "fuse2": "Gets the value of item named arg",
+    "template": "helper module"
+  },
+  {
+    "name": "Number",
+    "fname1": "_round(num, dp)",
+    "ftype1": "float, int",
+    "fuse1": "Rounds  to a precision given by , if   is not specified, it defaults to zero.",
+    "fname2": "_short(str)",
+    "ftype2": "String",
+    "fuse2": "Convert numbers ending in k, m or b to the actual correct number. Example: 3.5k -> 3500",
+    "template": "helper module"
+  },
+  {
+    "name": "Mainonly",
+    "fname1": "_main(arg)",
+    "ftype1": "Any value",
+    "fuse1": "If the module is invoked in the content namespace, it will return arg, otherwise, it will return an empty string",
+    "fname2": "on_main",
+    "ftype2": "N/A",
+    "fuse2": "Returns true if invoked in the content namespace, otherwise false",
+    "template": "helper module"
+  },
+  {
+    "name": "Edit button",
+    "fname1": "(text)",
+    "ftype1": "string",
+    "fuse1": "Creates an edit button for the current page that the module is invoked on  defaults to \"edit\"",
+    "template": "helper module"
+  },
+  {
+    "name": "Tables",
+    "fname1": "_row(row, elts, header)",
+    "ftype1": "mw.html object, table/string, boolean",
+    "fuse1": "Adds  or   cells to the html object with the cells data specified by  . If   =   then all cells added will have the   tag.",
+    "fname2": "_table(table, data)",
+    "ftype2": "mw.html object, table",
+    "fuse2": "Adds  rows and  /  cells to the html object, the data for the rows and cells is specified by.",
+    "template": "helper module"
+  }
+]

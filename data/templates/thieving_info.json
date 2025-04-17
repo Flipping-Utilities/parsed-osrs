@@ -1,5 +1,176 @@
 [
   {
+    "name": "H.A.M Member",
+    "level": "15",
+    "xp": "22.2",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "4s",
+    "damage": "1-3",
+    "template": "thieving info"
+  },
+  {
+    "name": "Farmer",
+    "level": "10",
+    "xp": "14.5",
+    "type": "Pickpocket",
+    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "1",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Man",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "1",
+    "template": "thieving info"
+  },
+  {
+    "name": "Lanzig",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Al Kharid warrior",
+    "level": "25",
+    "xp": "26",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Hero",
+    "level": "80",
+    "xp": "163.3",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "3",
+    "template": "thieving info"
+  },
+  {
+    "name": "Narf",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Woman",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "1",
+    "template": "thieving info"
+  },
+  {
+    "name": "Master Farmer",
+    "level": "38",
+    "xp": "43",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "3",
+    "template": "thieving info"
+  },
+  {
+    "name": "Sigmund",
+    "level": "13",
+    "xp": "0",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Dr Fenkenstrain",
+    "level": "25",
+    "xp": "0",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Wall safe",
+    "level": "50",
+    "xp": "70",
+    "type": "Chest",
+    "tool": "Stethoscope",
+    "template": "thieving info"
+  },
+  {
+    "name": "TzHaar-Hur",
+    "level": "90",
+    "xp": "103.4",
+    "type": "Pickpocket",
+    "tool": "Ice gloves (highly recommended)",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "4",
+    "template": "thieving info"
+  },
+  {
+    "version": "Bearded",
+    "name": "Bandit (bearded)",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "Blackjack",
+    "dropversion": "Bearded",
+    "template": "thieving info"
+  },
+  {
+    "version": "No beard",
+    "name": "Bandit (no beard)",
+    "level": "55",
+    "xp": "84.3",
+    "type": "Pickpocket",
+    "tool": "Blackjack",
+    "dropversion": "No beard",
+    "template": "thieving info"
+  },
+  {
+    "name": "Bandit",
+    "level": "53",
+    "xp": "79.4",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "3",
+    "template": "thieving info"
+  },
+  {
+    "name": "Master Farmer",
+    "level": "38",
+    "xp": "43",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
     "name": "Black-eye",
     "level": "1",
     "xp": "8",
@@ -8,11 +179,64 @@
     "template": "thieving info"
   },
   {
-    "name": "'Gummy'",
-    "level": "1",
-    "xp": "8",
+    "name": "Veg stall",
+    "level": "2",
+    "xp": "10",
+    "type": "Stall",
+    "time": "1.2 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Menaphite Thug",
+    "level": "65",
+    "xp": "137.5",
+    "type": "Pickpocket",
+    "tool": "Blackjack",
+    "template": "thieving info"
+  },
+  {
+    "name": "Sandy",
+    "level": "17",
+    "xp": "0",
     "type": "Pickpocket",
     "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gnome",
+    "level": "75",
+    "xp": "133.5",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "1",
+    "template": "thieving info"
+  },
+  {
+    "name": "Tea stall",
+    "level": "5",
+    "xp": "16",
+    "type": "Stall",
+    "time": "2.4 seconds",
+    "template": "thieving info"
+  },
+  {
+    "level": "25",
+    "xp": "10.4",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "4s",
+    "damage": "1",
+    "template": "thieving info"
+  },
+  {
+    "name": "Paladin",
+    "level": "70",
+    "xp": "131.8",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "3",
     "template": "thieving info"
   },
   {
@@ -32,355 +256,13 @@
     "template": "thieving info"
   },
   {
-    "name": "Agnar",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Al Kharid warrior",
-    "level": "25",
-    "xp": "26",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Alek Constantine",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Anaire",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Anja",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Aranwe",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Aredhel",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Mawrth",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Bakery stall",
-    "level": "5",
-    "xp": "16",
-    "type": "Stall",
-    "time": "2.4 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Bandit",
-    "level": "53",
-    "xp": "79.4",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "version": "Bearded",
-    "name": "Bandit (bearded)",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "Blackjack",
-    "template": "thieving info"
-  },
-  {
-    "version": "No beard",
-    "name": "Bandit (no beard)",
+    "name": "Knight of Ardougne",
     "level": "55",
     "xp": "84.3",
     "type": "Pickpocket",
-    "tool": "Blackjack",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "20",
-    "template": "thieving info"
-  },
-  {
-    "name": "Borrokar",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Candles",
-    "level": "20",
-    "xp": "20",
-    "type": "Stall",
-    "tool": "None",
-    "time": "0",
-    "template": "thieving info"
-  },
-  {
-    "name": "Caninelle Draynar",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Garanthir",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Carnivus Belamorta",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Cave goblin",
-    "level": "36",
-    "xp": "40",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Celebrian",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Celegorm",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "13",
-    "xp": "7.8",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "43",
-    "xp": "125",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "36",
-    "xp": "200",
-    "type": "Chest",
-    "time": "1.8 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "72",
-    "xp": "500",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "59",
-    "xp": "250",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "52",
-    "xp": "200",
-    "type": "Chest",
-    "tool": "Lockpick",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "78",
-    "xp": "650",
-    "type": "Chest",
-    "tool": "Lockpick",
-    "boostable": "No",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "28",
-    "xp": "150",
-    "type": "Chest",
-    "tool": "Lockpick (optional)",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "84",
-    "xp": "701.7",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "28",
-    "xp": "25",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Regular",
-    "version2": "Flashing arrow",
-    "name": "Chest",
-    "level": "50",
-    "xp1": "45",
-    "xp2": "630",
-    "template": "thieving info"
-  },
-  {
-    "name": "Chest",
-    "level": "47",
-    "xp": "150",
-    "type": "Chest",
-    "tool": "Lockpick",
-    "template": "thieving info"
-  },
-  {
-    "name": "Cirdan",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Citizen",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "Nothing",
-    "template": "thieving info"
-  },
-  {
-    "name": "Citizen",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "Nothing",
-    "template": "thieving info"
-  },
-  {
-    "name": "Coffin",
-    "level": "66",
-    "xp": "200",
-    "tool": "Lockpick or Strange Old Lockpick",
-    "type": "Chest",
-    "dropversion": "Low,Mid,High",
-    "template": "thieving info"
-  },
-  {
-    "name": "Counter",
-    "level": "15",
-    "xp": "6.4",
-    "type": "Stall",
-    "time": "7.2 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Crafting stall",
-    "level": "5",
-    "xp": "20",
-    "type": "Stall",
-    "time": "4.8 seconds",
-    "timename": "Restock time",
-    "template": "thieving info"
-  },
-  {
-    "name": "Crimsonette van Marr",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Crossbow stall",
-    "level": "49",
-    "xp": "52",
-    "type": "Stall",
-    "time": "4.8 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Cuffs",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "3",
     "template": "thieving info"
   },
   {
@@ -392,289 +274,41 @@
     "template": "thieving info"
   },
   {
-    "name": "Curufin",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Dark Chest",
-    "level": "28",
-    "xp": "1500",
-    "type": "Chest",
-    "tool": "Dark key",
-    "template": "thieving info"
-  },
-  {
-    "level": "25",
-    "xp": "10.4",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Diphylla Bechstein",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "61",
-    "xp": "50",
-    "type": "Door",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "46",
-    "xp": "37.5",
-    "type": "Door",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "1",
-    "xp": "4",
-    "skill2label": "Failure XP",
-    "skill2exp": "0.5",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "23",
-    "xp": "22.5",
-    "type": "Door",
-    "tool": "Lockpick",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "39",
-    "xp": "35",
-    "type": "Door",
-    "tool": "Lockpick",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "1",
-    "xp": "4",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Door",
-    "level": "13",
-    "xp": "15",
-    "type": "Door",
-    "template": "thieving info"
-  },
-  {
-    "name": "Gate",
-    "level": "82",
-    "xp": "50",
-    "type": "Door",
-    "tool": "Lockpick",
-    "template": "thieving info"
-  },
-  {
-    "name": "Dr Fenkenstrain",
-    "level": "25",
-    "xp": "0",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Draconis Sanguine",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Drunken man",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Earwen",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Edrahil",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Elenwe",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Elf",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Elladan",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Enel",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Enelye",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Enerdhil",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Episcula Helsing",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Erestor",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Eyes",
-    "level": "1",
-    "xp": "25",
-    "tool": "No",
-    "time": "0",
-    "template": "thieving info"
-  },
-  {
-    "name": "Farmer",
-    "level": "10",
-    "xp": "14.5",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "1",
-    "template": "thieving info"
-  },
-  {
-    "name": "Feanor",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Findis",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Finduilas",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Fingolfin",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Fingon",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Fish stall",
-    "level": "42",
-    "xp": "42",
+    "name": "Silver stall",
+    "level": "50",
+    "xp": "205",
     "type": "Stall",
-    "time": "7.2 seconds",
+    "time": "19.2 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Food Stall",
-    "level": "5",
-    "xp": "16",
-    "type": "Stall",
-    "time": "4 seconds",
+    "name": "Mawrth",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Kelyn",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Mawrth",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
     "template": "thieving info"
   },
   {
@@ -687,92 +321,73 @@
     "template": "thieving info"
   },
   {
-    "name": "Fremennik citizen",
+    "name": "Inga",
     "level": "45",
     "xp": "65",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "2",
     "template": "thieving info"
   },
   {
-    "name": "Fruit stall",
-    "level": "25",
-    "xp": "28.5",
+    "name": "Borrokar",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Lensa",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Monkey",
+    "level": "1",
+    "xp": "2 * Level",
+    "type": "Other",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Pontak",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Sassilik",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Agnar",
+    "level": "45",
+    "xp": "65",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Seed stall",
+    "level": "27",
+    "xp": "10",
     "type": "Stall",
     "time": "2.4 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Fur stall",
-    "level": "35",
-    "xp": "45",
-    "type": "Stall",
-    "time": "7.2 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Galathil",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Gate",
-    "level": "31",
-    "xp": "25",
-    "type": "Door",
-    "template": "thieving info"
-  },
-  {
-    "name": "Gate",
-    "level": "50",
-    "xp": "3",
-    "type": "Door",
-    "template": "thieving info"
-  },
-  {
-    "name": "Gelmir",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Gem stall",
-    "level": "75",
-    "xp": "408",
-    "type": "Stall",
-    "time": "60 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "General stall",
-    "level": "5",
-    "xp": "25",
-    "type": "Stall",
-    "time": "4.8 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Glorfindel",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Gnome",
-    "level": "75",
-    "xp": "133.5",
-    "type": "Pickpocket",
-    "tool": "None",
     "template": "thieving info"
   },
   {
@@ -784,11 +399,40 @@
     "template": "thieving info"
   },
   {
-    "name": "Gnome woman",
-    "level": "75",
-    "xp": "133.5",
+    "name": "Chest",
+    "level": "52",
+    "xp": "200",
+    "type": "Chest",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Standalone (closed)",
+    "version2": "Recessed (closed)",
+    "level": "20",
+    "xp": "27",
+    "skill2label": "XP on failure",
+    "skill2exp": "0.5",
+    "tool": "Lockpick",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Warrior",
+    "level": "25",
+    "xp": "26",
     "type": "Pickpocket",
-    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "84",
+    "xp": "701.7",
+    "type": "Chest",
+    "dropversion": "Medium Wilderness Diary,Hard Wilderness Diary",
     "template": "thieving info"
   },
   {
@@ -796,75 +440,167 @@
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
-    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "6s",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Grand Hallowed Coffin",
-    "level": "66",
-    "xp": "200",
-    "tool": "Lockpick or Strange Old Lockpick",
+    "name": "Chest",
+    "level": "78",
+    "xp": "650",
     "type": "Chest",
+    "tool": "Lockpick",
+    "boostable": "No",
     "template": "thieving info"
   },
   {
-    "name": "Grigor Rasputin",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Drunken man",
+    "level": "1",
+    "xp": "8",
     "type": "Pickpocket",
     "tool": "None",
-    "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Guard",
-    "level": "40",
-    "xp": "46.8",
+    "name": "Movario",
+    "level": "42",
+    "xp": "0",
     "type": "Pickpocket",
     "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "'Gummy'",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "10",
+    "tool1": "Lockpick",
+    "tool2": "None",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "15",
+    "tool1": "Lockpick",
+    "tool2": "None",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "20",
+    "tool1": "Lockpick",
+    "tool2": "None",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "10",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "12.5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Market stall (wine)",
+    "level": "22",
+    "xp": "27",
+    "type": "Stall",
+    "time": "4.8 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Villager",
+    "level": "30",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "None, Blackjack",
+    "template": "thieving info"
+  },
+  {
+    "name": "Rogue",
+    "level": "32",
+    "xp": "36.5",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
     "damage": "2",
     "template": "thieving info"
   },
   {
-    "name": "Guard",
-    "level": "40",
-    "xp": "46.8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Guard",
-    "level": "40",
-    "xp": "46.8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Guard",
+    "name": "Silk stall",
     "level": "20",
-    "xp": "22.2",
-    "type": "Pickpocket",
-    "tool": "None",
+    "xp": "24",
+    "type": "Stall",
+    "time": "4.8 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Guard",
-    "level": "40",
-    "xp": "46.8",
+    "name": "Steel cage",
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "17.5",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "17.5",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Pick-lock",
+    "version2": "Force",
+    "level": "1",
+    "skill1name2": "Strength",
+    "xp": "20",
+    "template": "thieving info"
+  },
+  {
+    "name": "Fremennik citizen",
+    "level": "45",
+    "xp": "65",
     "type": "Pickpocket",
-    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "5s",
     "damage": "2",
     "template": "thieving info"
   },
   {
-    "name": "Guard",
-    "level": "40",
-    "xp": "46.8",
+    "name": "Watchman",
+    "level": "65",
+    "xp": "137.5",
     "type": "Pickpocket",
-    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "3",
     "template": "thieving info"
   },
   {
@@ -876,50 +612,15 @@
     "template": "thieving info"
   },
   {
-    "name": "Guard",
-    "level": "40",
-    "xp": "46.8",
-    "type": "Pickpocket",
-    "tool": "None",
+    "name": "Fish stall",
+    "level": "42",
+    "xp": "42",
+    "type": "Stall",
+    "time": "7.2 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Guilin",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "H.A.M Member",
-    "level": "15",
-    "xp": "22.2",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Haemas Lamescus",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Hendor",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Hengel",
+    "name": "Cuffs",
     "level": "1",
     "xp": "8",
     "type": "Pickpocket",
@@ -927,83 +628,28 @@
     "template": "thieving info"
   },
   {
-    "name": "Hero",
-    "level": "80",
-    "xp": "163.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "3",
+    "name": "Magic stall",
+    "level": "65",
+    "xp": "90",
+    "type": "Stall",
+    "time": "7.2 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Idril",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
+    "name": "Scimitar stall",
+    "level": "65",
+    "xp": "210",
+    "type": "Stall",
+    "time": "19.2 seconds",
+    "timename": "Restock time",
     "template": "thieving info"
   },
   {
-    "name": "Imin",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Iminye",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Indis",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Inga",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Ingwe",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Ingwion",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Istoria",
-    "level": "52",
-    "xp": "0",
-    "type": "Pickpocket",
-    "tool": "None",
+    "name": "Fruit stall",
+    "level": "25",
+    "xp": "28.5",
+    "type": "Stall",
+    "time": "2.4 seconds",
     "template": "thieving info"
   },
   {
@@ -1024,183 +670,197 @@
     "template": "thieving info"
   },
   {
-    "version1": "Regular",
-    "version2": "Flashing arrow",
-    "name": "Jewellery case",
-    "level": "50",
-    "xp1": "45",
-    "xp2": "630",
-    "template": "thieving info"
-  },
-  {
-    "name": "Kelyn",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Knight of Ardougne",
-    "level": "55",
-    "xp": "84.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "3",
-    "template": "thieving info"
-  },
-  {
-    "name": "Knight of Varlamore",
-    "level": "55",
-    "xp": "84.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "3",
-    "template": "thieving info"
-  },
-  {
-    "name": "Lanzig",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Lasenna Rasputin",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Lensa",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Lenwe",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Lindir",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Locked Door",
-    "level": "50",
-    "xp": "1",
-    "template": "thieving info"
-  },
-  {
-    "name": "Maeglin",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Magic stall",
-    "level": "65",
-    "xp": "90",
+    "name": "Gem stall",
+    "level": "75",
+    "xp": "408",
     "type": "Stall",
-    "time": "7.2 seconds",
+    "time": "60 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Mahtan",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Man",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "Nothing",
-    "template": "thieving info"
-  },
-  {
-    "name": "Man",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "Nothing",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "20",
-    "tool1": "Lockpick",
-    "tool2": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Market stall (wine)",
-    "level": "22",
-    "xp": "27",
+    "name": "Crossbow stall",
+    "level": "49",
+    "xp": "52",
     "type": "Stall",
     "time": "4.8 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Master Farmer",
-    "level": "38",
-    "xp": "43",
+    "name": "Fur stall",
+    "level": "35",
+    "xp": "45",
+    "type": "Stall",
+    "time": "7.2 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Istoria",
+    "level": "52",
+    "xp": "0",
     "type": "Pickpocket",
     "tool": "None",
     "template": "thieving info"
   },
   {
-    "name": "Master Farmer",
-    "level": "38",
-    "xp": "43",
+    "name": "Bakery stall",
+    "level": "5",
+    "xp": "16",
+    "type": "Stall",
+    "time": "2.4 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Spice stall",
+    "level": "65",
+    "xp": "92",
+    "type": "Stall",
+    "time": "6 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Crafting stall",
+    "level": "5",
+    "xp": "20",
+    "type": "Stall",
+    "time": "4.8 seconds",
+    "timename": "Restock time",
+    "template": "thieving info"
+  },
+  {
+    "name": "Tourist",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
+    "template": "thieving info"
+  },
+  {
+    "name": "Cave goblin",
+    "level": "36",
+    "xp": "40",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "5s",
+    "damage": "1",
+    "template": "thieving info"
+  },
+  {
+    "name": "Shop Counter",
+    "level": "82",
+    "xp": "350",
+    "type": "Stall",
+    "time": "30 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Anja",
+    "level": "1",
+    "xp": "8",
     "type": "Pickpocket",
     "tool": "None",
     "template": "thieving info"
   },
   {
-    "name": "Mawrth",
+    "name": "Hengel",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gnome woman",
+    "level": "75",
+    "xp": "133.5",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
+    "level": "20",
+    "xp": "22.2",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Stone chest",
+    "level": "64",
+    "xp": "280",
+    "type": "Chest",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "28",
+    "xp": "25",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "13",
+    "xp": "7.8",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "59",
+    "xp": "250",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "72",
+    "xp": "500",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "47",
+    "xp": "150",
+    "type": "Chest",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "43",
+    "xp": "125",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Elf",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "2",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guilin",
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Menaphite Thug",
-    "level": "65",
-    "xp": "137.5",
-    "type": "Pickpocket",
-    "tool": "Blackjack",
     "template": "thieving info"
   },
   {
@@ -1213,16 +873,7 @@
     "template": "thieving info"
   },
   {
-    "name": "Misdrievus Shadum",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Mithrellas",
+    "name": "Enerdhil",
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
@@ -1231,60 +882,126 @@
     "template": "thieving info"
   },
   {
-    "name": "Monkey",
-    "level": "1",
-    "xp": "2 * Level",
-    "type": "Other",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Mort Nightshade",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Tatie",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Mortina Daubenton",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Idril",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Movario",
-    "level": "42",
-    "xp": "0",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Nakasa Jovkai",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Thingol",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Narf",
-    "level": "1",
-    "xp": "8",
+    "name": "Elenwe",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
+    "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Natalidae Shadum",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Vaire",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Elladan",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Ingwe",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Cirdan",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Aredhel",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Glorfindel",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Celegorm",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Saeros",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Maeglin",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Edrahil",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
@@ -1300,148 +1017,7 @@
     "template": "thieving info"
   },
   {
-    "name": "Nerdanel",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Nimloth",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Noctillion Lugosi",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "12.5",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "10",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "10",
-    "tool1": "Lockpick",
-    "tool2": "None",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Standalone (closed)",
-    "version2": "Recessed (closed)",
-    "level": "20",
-    "xp": "27",
-    "skill2label": "XP on failure",
-    "skill2exp": "0.5",
-    "tool": "Lockpick",
-    "type": "Chest",
-    "template": "thieving info"
-  },
-  {
-    "name": "Oropher",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Orophin",
-    "level": "85",
-    "xp": "353.3",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Paladin",
-    "level": "70",
-    "xp": "131.8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "3",
-    "template": "thieving info"
-  },
-  {
-    "name": "Pipistrelle Draynar",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Pontak",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Priest",
-    "level": "45",
-    "xp": "0",
-    "type": "Pickpocket",
-    "template": "thieving info"
-  },
-  {
-    "name": "Remus Kaninus",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Rogue",
-    "level": "32",
-    "xp": "36.5",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Rusty",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Saeros",
+    "name": "Imin",
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
@@ -1459,132 +1035,7 @@
     "template": "thieving info"
   },
   {
-    "name": "Citizen",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "Nothing",
-    "template": "thieving info"
-  },
-  {
-    "name": "Sandy",
-    "level": "17",
-    "xp": "0",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Sassilik",
-    "level": "45",
-    "xp": "65",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Scimitar stall",
-    "level": "65",
-    "xp": "210",
-    "type": "Stall",
-    "time": "19.2 seconds",
-    "timename": "Restock time",
-    "template": "thieving info"
-  },
-  {
-    "name": "Seed stall",
-    "level": "27",
-    "xp": "10",
-    "type": "Stall",
-    "time": "2.4 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Shop Counter",
-    "level": "75",
-    "xp": "408",
-    "type": "Stall",
-    "time": "105 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Shop Counter",
-    "level": "82",
-    "xp": "350",
-    "type": "Stall",
-    "time": "30 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Sigmund",
-    "level": "13",
-    "xp": "0",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Silk stall",
-    "level": "20",
-    "xp": "24",
-    "type": "Stall",
-    "time": "4.8 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Silver stall",
-    "level": "50",
-    "xp": "205",
-    "type": "Stall",
-    "time": "19.2 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Spice stall",
-    "level": "65",
-    "xp": "92",
-    "type": "Stall",
-    "time": "6 seconds",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "17.5",
-    "template": "thieving info"
-  },
-  {
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "15",
-    "tool1": "Lockpick",
-    "tool2": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Steel cage",
-    "version1": "Pick-lock",
-    "version2": "Force",
-    "level": "1",
-    "skill1name2": "Strength",
-    "xp": "17.5",
-    "template": "thieving info"
-  },
-  {
-    "name": "Stone chest",
-    "level": "64",
-    "xp": "280",
-    "type": "Chest",
-    "tool": "Lockpick",
-    "template": "thieving info"
-  },
-  {
-    "name": "Tatie",
+    "name": "Mahtan",
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
@@ -1593,15 +1044,7 @@
     "template": "thieving info"
   },
   {
-    "name": "Tea stall",
-    "level": "5",
-    "xp": "16",
-    "type": "Stall",
-    "time": "2.4 seconds",
-    "template": "thieving info"
-  },
-  {
-    "name": "Thingol",
+    "name": "Indis",
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
@@ -1610,19 +1053,102 @@
     "template": "thieving info"
   },
   {
-    "name": "Tourist",
-    "level": "1",
-    "xp": "8",
+    "name": "Fingolfin",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
-    "tool": "Nothing",
+    "tool": "None",
+    "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Trapdoor",
-    "level": "1",
-    "xp": "3.8",
-    "type": "Trapdoor",
-    "tool": "Lockpick",
+    "name": "Curufin",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Iminye",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Finduilas",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Mithrellas",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gelmir",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Feanor",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Ingwion",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Celebrian",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Fingon",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Earwen",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
     "template": "thieving info"
   },
   {
@@ -1635,15 +1161,7 @@
     "template": "thieving info"
   },
   {
-    "name": "TzHaar-Hur",
-    "level": "90",
-    "xp": "103.4",
-    "type": "Pickpocket",
-    "tool": "Ice gloves (highly recommended)",
-    "template": "thieving info"
-  },
-  {
-    "name": "Vaire",
+    "name": "Galathil",
     "level": "85",
     "xp": "353.3",
     "type": "Pickpocket",
@@ -1652,126 +1170,180 @@
     "template": "thieving info"
   },
   {
-    "name": "Valentin Rasputin",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Nerdanel",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Valentina Diaemus",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Enelye",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vallessia Dracyula",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Findis",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vallessia von Pitt",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Aranwe",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vampyressa van Von",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Lenwe",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vampyrus Diaemus",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Nimloth",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Veg stall",
-    "level": "2",
-    "xp": "10",
+    "name": "Enel",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Lindir",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Hendor",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Garanthir",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Anaire",
+    "level": "85",
+    "xp": "353.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Candles",
+    "level": "20",
+    "xp": "20",
     "type": "Stall",
-    "time": "1.2 seconds",
+    "tool": "None",
+    "time": "0",
     "template": "thieving info"
   },
   {
-    "name": "Villager",
-    "level": "30",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "None, Blackjack",
-    "template": "thieving info"
-  },
-  {
-    "name": "Violetta Sanguine",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Oropher",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vlad Bechstein",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Erestor",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vlad Diaemus",
-    "level": "82",
-    "xp": "306.9",
+    "name": "Orophin",
+    "level": "85",
+    "xp": "353.3",
     "type": "Pickpocket",
     "tool": "None",
     "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Von van Von",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
+    "name": "Door",
+    "level": "1",
+    "xp": "4",
     "tool": "None",
-    "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vonnetta Varnis",
-    "level": "82",
-    "xp": "306.9",
-    "type": "Pickpocket",
+    "name": "Door",
+    "level": "1",
+    "xp": "4",
+    "skill2label": "Failure XP",
+    "skill2exp": "0.5",
     "tool": "None",
-    "damage": "5",
     "template": "thieving info"
   },
   {
-    "name": "Vormar Vakan",
+    "name": "Trapdoor",
+    "level": "1",
+    "xp": "3.8",
+    "type": "Trapdoor",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Wire machine",
+    "level": "44",
+    "xp": "22",
+    "type": "Chest",
+    "tool": "None",
+    "time": "6 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Natalidae Shadum",
     "level": "82",
     "xp": "306.9",
     "type": "Pickpocket",
-    "tool": "None",
+    "timename": "Stun Timer",
+    "time": "6s",
     "damage": "5",
     "template": "thieving info"
   },
@@ -1780,15 +1352,514 @@
     "level": "82",
     "xp": "306.9",
     "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Mortina Daubenton",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Crimsonette van Marr",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vormar Vakan",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Grigor Rasputin",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Carnivus Belamorta",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Caninelle Draynar",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Pipistrelle Draynar",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vlad Diaemus",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Mort Nightshade",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Valentin Rasputin",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Lasenna Rasputin",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Violetta Sanguine",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vallessia Dracyula",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Draconis Sanguine",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vampyrus Diaemus",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vonnetta Varnis",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Diphylla Bechstein",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vlad Bechstein",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vampyressa van Von",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Remus Kaninus",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Vallessia von Pitt",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Noctillion Lugosi",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Valentina Diaemus",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Alek Constantine",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Episcula Helsing",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Von van Von",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Nakasa Jovkai",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Misdrievus Shadum",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Haemas Lamescus",
+    "level": "82",
+    "xp": "306.9",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "6s",
+    "damage": "5",
+    "template": "thieving info"
+  },
+  {
+    "name": "Coffin",
+    "level": "66",
+    "xp": "200",
+    "tool": "Lockpick or Strange Old Lockpick",
+    "type": "Chest",
+    "dropversion": "Low,Mid,High",
+    "template": "thieving info"
+  },
+  {
+    "name": "Grand Hallowed Coffin",
+    "level": "66",
+    "xp": "200",
+    "tool": "Lockpick or Strange Old Lockpick",
+    "type": "Chest",
+    "template": "thieving info"
+  },
+  {
+    "name": "Counter",
+    "level": "15",
+    "xp": "6.4",
+    "type": "Stall",
+    "time": "7.2 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "General stall",
+    "level": "5",
+    "xp": "25",
+    "type": "Stall",
+    "time": "4.8 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Food Stall",
+    "level": "5",
+    "xp": "16",
+    "type": "Stall",
+    "time": "4 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Shop Counter",
+    "level": "75",
+    "xp": "408",
+    "type": "Stall",
+    "time": "105 seconds",
+    "template": "thieving info"
+  },
+  {
+    "name": "Dark Chest",
+    "level": "28",
+    "xp": "1500",
+    "type": "Chest",
+    "tool": "Dark key",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "28",
+    "xp": "150",
+    "type": "Chest",
+    "tool": "Lockpick (optional)",
+    "template": "thieving info"
+  },
+  {
+    "name": "Priest",
+    "level": "45",
+    "xp": "0",
+    "type": "Pickpocket",
+    "template": "thieving info"
+  },
+  {
+    "name": "Eyes",
+    "level": "1",
+    "xp": "25",
+    "tool": "No",
+    "time": "0",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
     "tool": "None",
     "template": "thieving info"
   },
   {
-    "name": "Wall safe",
+    "name": "Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Light leech",
+    "level": "70",
+    "xp": "1",
+    "type": "Pickpocket",
+    "damage": "2-6",
+    "template": "thieving info"
+  },
+  {
+    "name": "Rusty",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Man",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gate",
     "level": "50",
-    "xp": "70",
-    "type": "Chest",
-    "tool": "Stethoscope",
+    "xp": "3",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gate",
+    "level": "82",
+    "xp": "50",
+    "type": "Door",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "23",
+    "xp": "22.5",
+    "type": "Door",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "39",
+    "xp": "35",
+    "type": "Door",
+    "tool": "Lockpick",
+    "template": "thieving info"
+  },
+  {
+    "name": "Gate",
+    "level": "31",
+    "xp": "25",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "46",
+    "xp": "37.5",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "13",
+    "xp": "15",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Woman",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
+    "template": "thieving info"
+  },
+  {
+    "name": "Wealthy citizen",
+    "level": "50",
+    "xp": "96",
+    "type": "Pickpocket",
+    "timename": "Stun Timer",
+    "time": "4s",
+    "damage": "3",
+    "template": "thieving info"
+  },
+  {
+    "name": "Knight of Varlamore",
+    "level": "55",
+    "xp": "84.3",
+    "type": "Pickpocket",
+    "tool": "None",
+    "damage": "3",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Citizen",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
     "template": "thieving info"
   },
   {
@@ -1801,54 +1872,71 @@
     "template": "thieving info"
   },
   {
-    "name": "Warrior",
-    "level": "25",
-    "xp": "26",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "2",
-    "template": "thieving info"
-  },
-  {
-    "name": "Watchman",
-    "level": "65",
-    "xp": "137.5",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Wealthy citizen",
+    "name": "Locked Door",
     "level": "50",
-    "xp": "96",
-    "type": "Pickpocket",
-    "tool": "None",
-    "damage": "3",
+    "xp": "1",
     "template": "thieving info"
   },
   {
-    "name": "Wire machine",
-    "level": "44",
-    "xp": "22",
+    "version1": "Regular",
+    "version2": "Flashing arrow",
+    "name": "Chest",
+    "level": "50",
+    "xp1": "45",
+    "xp2": "630",
+    "template": "thieving info"
+  },
+  {
+    "version1": "Regular",
+    "version2": "Flashing arrow",
+    "name": "Jewellery case",
+    "level": "50",
+    "xp1": "45",
+    "xp2": "630",
+    "template": "thieving info"
+  },
+  {
+    "name": "Door",
+    "level": "61",
+    "xp": "50",
+    "type": "Door",
+    "template": "thieving info"
+  },
+  {
+    "name": "Chest",
+    "level": "36",
+    "xp": "200",
     "type": "Chest",
-    "tool": "None",
-    "time": "5 seconds",
+    "time": "1.8 seconds",
     "template": "thieving info"
   },
   {
-    "name": "Woman",
-    "level": "1",
-    "xp": "8",
-    "type": "Pickpocket",
-    "tool": "None",
-    "template": "thieving info"
-  },
-  {
-    "name": "Woman",
+    "name": "Citizen",
     "level": "1",
     "xp": "8",
     "type": "Pickpocket",
     "tool": "Nothing",
+    "template": "thieving info"
+  },
+  {
+    "name": "Citizen",
+    "level": "1",
+    "xp": "8",
+    "type": "Pickpocket",
+    "tool": "Nothing",
+    "template": "thieving info"
+  },
+  {
+    "name": "Guard",
+    "level": "40",
+    "xp": "46.8",
+    "type": "Pickpocket",
+    "tool": "None",
+    "template": "thieving info"
+  },
+  {
+    "name": "Urn",
+    "xp": "5",
     "template": "thieving info"
   }
 ]

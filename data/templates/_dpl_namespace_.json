@@ -1,0 +1,27 @@
+[
+  {
+    "uses": "Template:Quest details",
+    "include": "{Quest details}",
+    "format": ",\\n",
+    "count": "1",
+    "noresultsheader": ":''No page that uses Template:Quest details found named .",
+    "template": "#dpl:namespace="
+  },
+  {
+    "uses": "Template:Quest rewards",
+    "include": "{Quest rewards}",
+    "format": ",\\n",
+    "count": "1",
+    "noresultsheader": ":''No page that uses Template:Quest rewards found named .",
+    "template": "#dpl:namespace="
+  },
+  {
+    "uses": "Template:Farming info",
+    "include": "{Farming info}",
+    "format": ",\\n",
+    "count": "1",
+    "noresultsheader": ":''No page that uses Template:Farming info found named .",
+    "cacheperiod": "172800",
+    "template": "#dpl:namespace="
+  }
+]

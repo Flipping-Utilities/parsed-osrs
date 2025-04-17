@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import * as wtf from 'wtf_wikipedia';
 
-import { TEMPLATE_FOLDER } from '../../constants/paths';
-import { PageContentDumper, PageListDumper } from '../dumpers';
 import path from 'path';
+import { TEMPLATE_FOLDER } from '../../constants/paths';
+import { PageListDumper } from '../dumpers';
 
 interface Template {
   template: string;
@@ -14,27 +14,24 @@ interface Template {
 @Injectable()
 export class TemplateExtractor {
   private logger: Logger = new Logger(TemplateExtractor.name);
-  constructor(
-    private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
-  ) {}
+  constructor(private readonly pageListDumper: PageListDumper) {}
 
   public async extractAllTemplates() {
-    const allPageList = this.pageListDumper.getWikiPageList();
+    this.logger.log('Start: extracting templates');
+    const allPageList = await this.pageListDumper.getWikiPageListDB();
     const templateRecord: Record<string, Array<any>> = {};
 
     const l = allPageList.length;
     for (let i = 0; i < l; i++) {
-      if (i % 100 === 99) {
+      if (i % 1000 === 999) {
         this.logger.verbose(`${i + 1}/${l}`);
       }
-      const pageMeta = allPageList[i];
-      const page = this.pageContentDumper.getPageFromId(pageMeta.pageid);
+      const page = allPageList[i];
       if (!page) {
-        this.logger.warn('Could not find page with id', pageMeta.pageid);
+        this.logger.warn('Could not find page with id', page.id);
         continue;
       }
-      const meta = wtf(page.rawContent);
+      const meta = wtf(page.text);
       const pageTemplates = meta
         .templates()
         .map((v) => v.json()) as Array<Template>;
@@ -56,15 +53,7 @@ export class TemplateExtractor {
       }
       const location =
         TEMPLATE_FOLDER +
-        `/${template
-          .replaceAll('.', '·')
-          .replaceAll('\n', '')
-          .replaceAll(':', '-')
-          .replaceAll(' ', '_')
-          .replaceAll('>', 'lt')
-          .replaceAll('<', 'gt')
-          .replaceAll('*', 'x')
-          .replaceAll('#', '')}.json`;
+        `/${template.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`;
       try {
         const dir = path.dirname(location);
         if (!existsSync(dir)) {
@@ -79,5 +68,6 @@ export class TemplateExtractor {
         this.logger.error(e, template, location);
       }
     });
+    this.logger.log('End: extracting templates');
   }
 }

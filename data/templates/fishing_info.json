@@ -1,9 +1,261 @@
 [
   {
-    "name": "Big bass",
+    "name": "Raw trout",
+    "level": "20",
+    "xp": "50",
+    "spot": "Rod Fishing spot (lure, bait)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw sardine",
+    "level": "5",
+    "xp": "20",
+    "spot": "Fishing spot (small net, bait)",
+    "tool": "Fishing rod",
+    "bait": "Fishing bait",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw herring",
+    "level": "10",
+    "xp": "30",
+    "spot": "Fishing spot (small net, bait)",
+    "tool": "Fishing rod",
+    "bait": "Fishing bait",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw shrimps",
+    "level": "1",
+    "xp": "10",
+    "spot": "Fishing spot (small net, bait)",
+    "tool": "Small fishing net",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw anchovies",
+    "level": "15",
+    "xp": "40",
+    "spot": "Fishing spot (small net, bait)",
+    "tool": "Small fishing net",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "version1": "Harpoon",
+    "version2": "Bare-handed",
+    "name": "Raw tuna",
+    "skill2name2": "Strength",
+    "skill1lvl1": "35",
+    "skill1lvl2": "55",
+    "skill2lvl2": "35",
+    "skill1exp": "80",
+    "skill2exp1": "-1",
+    "skill2exp2": "8",
+    "skill1note2": "Requires Barbarian Fishing training.",
+    "spot": "Fishing spot (cage, harpoon)",
+    "tool1": "Harpoon",
+    "tool2": "None",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw salmon",
+    "level": "30",
+    "xp": "70",
+    "spot": "Rod Fishing spot (lure, bait)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw lobster",
+    "level": "40",
+    "xp": "90",
+    "spot": "Fishing spot (cage, harpoon)",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw rainbow fish",
+    "level": "38",
+    "xp": "80",
+    "spot": "Rod Fishing spot (lure, bait)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw cave eel",
+    "level": "38",
+    "xp": "80",
+    "spot": "Fishing spot (frogspawn)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw mackerel",
+    "level": "16",
+    "xp": "20",
+    "spot": "Fishing spot (big net, harpoon)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Panning tray",
+    "version": "Mud",
+    "skill2name": "Mining",
+    "level": "1",
+    "skill2lvl": "1",
+    "xp": "2",
+    "skill2exp": "2",
+    "tool": "Empty panning tray",
+    "spot": "Panning point",
+    "bait": "None",
+    "dropversion": "Mud",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw slimy eel",
+    "level": "28",
+    "xp": "80",
+    "spot": "Fishing spot (frogspawn), Fishing spot (Camdozaal)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw slimy eel",
+    "level": "28",
+    "xp": "65",
+    "spot": "Fishing spot (swamp)",
+    "template": "fishing info"
+  },
+  {
+    "version1": "Harpoon",
+    "version2": "Bare-handed",
+    "name": "Raw shark",
+    "skill2name2": "Strength",
+    "skill1lvl1": "76",
+    "skill1lvl2": "96",
+    "skill2lvl2": "76",
+    "skill1exp": "110",
+    "skill2exp1": "-1",
+    "skill2exp2": "11",
+    "skill1note2": "Requires Barbarian Fishing training.",
+    "spot": "Fishing spot (big net, harpoon)",
+    "tool1": "Harpoon",
+    "tool2": "None",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw monkfish",
+    "level": "62",
+    "xp": "120",
+    "spot": "Fishing spot (Piscatoris Fishing Colony)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "level": "33",
+    "xp": "1",
+    "tool": "Small fishing net",
+    "bait": "None",
+    "spot": "Fishing spot (frogspawn)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw pike",
+    "level": "25",
+    "xp": "60",
+    "spot": "Rod Fishing spot (lure, bait)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Leaping trout",
+    "skill2name": "Strength",
+    "skill3name": "Agility",
+    "skill1lvl": "48",
+    "skill2lvl": "15",
+    "skill3lvl": "15",
+    "skill1exp": "50",
+    "skill2exp": "5",
+    "skill3exp": "5",
+    "spot": "Fishing spot (barbarian)",
+    "bait": ",, , , or",
+    "template": "fishing info"
+  },
+  {
+    "version1": "Harpoon",
+    "version2": "Bare-handed",
+    "name": "Raw swordfish",
+    "skill2name2": "Strength",
+    "skill1lvl1": "50",
+    "skill1lvl2": "70",
+    "skill2lvl2": "50",
+    "skill1exp": "100",
+    "skill2exp1": "-1",
+    "skill2exp2": "10",
+    "skill1note2": "Requires Barbarian Fishing training.",
+    "spot": "Fishing spot (cage, harpoon)",
+    "tool1": "Harpoon",
+    "tool2": "None",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw cod",
+    "level": "23",
+    "xp": "45",
+    "spot": "Fishing spot (big net, harpoon)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw karambwanji",
+    "level": "5",
+    "xp": "5",
+    "spot": "Fishing spot (karambwanji)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw bass",
     "level": "46",
     "xp": "100",
     "spot": "Fishing spot (big net, harpoon)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishlike thing",
+    "level": "1",
+    "xp": "0",
+    "spot": "Fishing spot (ScapeRune)",
+    "bait": "Nothing",
+    "template": "fishing info"
+  },
+  {
+    "name": "Leaping sturgeon",
+    "skill2name": "Strength",
+    "skill3name": "Agility",
+    "skill1lvl": "70",
+    "skill2lvl": "45",
+    "skill3lvl": "45",
+    "skill1exp": "80",
+    "skill2exp": "7",
+    "skill3exp": "7",
+    "spot": "Fishing spot (barbarian)",
+    "bait": ",, , , or",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw lava eel",
+    "level": "53",
+    "xp": "60",
+    "spot": "Fishing spot (lava eel)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Big swordfish",
+    "level": "50",
+    "xp": "100",
+    "spot": "Fishing spot (cage, harpoon)",
     "bait": "No",
     "template": "fishing info"
   },
@@ -16,10 +268,173 @@
     "template": "fishing info"
   },
   {
-    "name": "Big swordfish",
-    "level": "50",
+    "name": "Big bass",
+    "level": "46",
     "xp": "100",
-    "spot": "Fishing spot (cage, harpoon)",
+    "spot": "Fishing spot (big net, harpoon)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fresh monkfish",
+    "level": "62",
+    "xp": "1",
+    "spot": "Fishing spot (Swan Song)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Frog spawn",
+    "level": "33",
+    "xp": "75",
+    "spot": "Fishing spot (frogspawn)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Leaping salmon",
+    "skill2name": "Strength",
+    "skill3name": "Agility",
+    "skill1lvl": "58",
+    "skill2lvl": "30",
+    "skill3lvl": "30",
+    "skill1exp": "70",
+    "skill2exp": "6",
+    "skill3exp": "6",
+    "spot": "Fishing spot (barbarian)",
+    "bait": ",, , , or",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw manta ray",
+    "level": "81",
+    "xp": "69",
+    "spot": "Fishing Trawler",
+    "tool": "No",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw karambwan",
+    "level": "65",
+    "xp": "50",
+    "spot": "Fishing spot (karambwan)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw dark crab",
+    "level": "85",
+    "xp": "130",
+    "spot": "Fishing spot (dark crab)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw sea turtle",
+    "level": "79",
+    "xp": "57",
+    "spot": "Fishing Trawler",
+    "tool": "No",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw giant carp",
+    "level": "10",
+    "xp": "0",
+    "spot": "Fishing spot (Hemenster)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Sluglings",
+    "level": "50",
+    "xp": "0",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishbowl",
+    "level": "10",
+    "xp": "1",
+    "spot": "Aquarium",
+    "tool": "Tiny net",
+    "bait": "Fishbowl (seaweed)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Sacred eel",
+    "level": "87",
+    "xp": "105",
+    "spot": "Fishing spot (sacred eel)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw anglerfish",
+    "level": "82",
+    "xp": "120",
+    "spot": "Rod Fishing spot (anglerfish)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw roqed fish (5)",
+    "level": "75",
+    "xp": "35",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw pysk fish (0)",
+    "level": "1",
+    "xp": "20",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw suphi fish (1)",
+    "level": "15",
+    "xp": "23",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw leckish fish (2)",
+    "level": "30",
+    "xp": "26",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw brawk fish (3)",
+    "level": "45",
+    "xp": "29",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw mycil fish (4)",
+    "level": "60",
+    "xp": "32",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw kyren fish (6)",
+    "level": "90",
+    "xp": "38",
+    "spot": "Bubbles",
+    "template": "fishing info"
+  },
+  {
+    "name": "Infernal eel",
+    "level": "80",
+    "xp": "95",
+    "spot": "Rod Fishing spot (infernal eel)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Minnow",
+    "level": "82",
+    "xp": "26.1",
+    "spot": "Fishing spot (minnow)",
     "bait": "No",
     "template": "fishing info"
   },
@@ -35,14 +450,6 @@
     "template": "fishing info"
   },
   {
-    "name": "Rod Fishing spot (lure, bait)",
-    "level": "1",
-    "xp": "Varies",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
     "name": "Common tench",
     "skill2name": "Hunter",
     "skill1lvl": "56",
@@ -54,131 +461,135 @@
     "template": "fishing info"
   },
   {
-    "name": "Fishbowl",
-    "level": "10",
-    "xp": "1",
-    "spot": "Aquarium",
-    "tool": "Tiny net",
-    "bait": "Fishbowl (seaweed)",
+    "name": "Mottled eel",
+    "skill2name": "Hunter",
+    "skill1lvl": "73",
+    "skill2lvl": "68",
+    "skill1exp": "65",
+    "skill2exp": "90",
+    "spot": "Fishing spot (aerial fishing)",
+    "bait": "or",
+    "template": "fishing info"
+  },
+  {
+    "name": "Greater siren",
+    "skill2name": "Hunter",
+    "skill1lvl": "91",
+    "skill2lvl": "87",
+    "skill1exp": "100",
+    "skill2exp": "130",
+    "spot": "Fishing spot (aerial fishing)",
+    "bait": "or",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw tuna",
+    "level": "1",
+    "xp": "10",
+    "spot": "Fishing Spot (The Gauntlet)",
+    "tool": "Crystal harpoon, Corrupted harpoon",
+    "bait": "None",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing Spot",
+    "level": "1",
+    "xp": "10",
+    "bait": "no",
+    "tool": "Crystal harpoon (The Gauntlet)",
+    "time": "N/A",
+    "smw": "No",
     "template": "fishing info"
   },
   {
     "name": "Fishing spot",
     "level": "1",
-    "xp": "0",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "50",
-    "xp": "0",
-    "bait": "None",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "7",
     "xp": "Varies",
-    "bait": "No",
+    "bait": "Nothing",
     "smw": "No",
+    "dropversion": "Small net",
     "template": "fishing info"
   },
   {
     "name": "Fishing spot",
-    "level": "33",
+    "level": "5",
     "xp": "Varies",
-    "bait": "No",
+    "tool": "OR",
     "smw": "No",
+    "dropversion": "Bait",
     "template": "fishing info"
   },
   {
     "name": "Fishing spot",
     "level": "28",
-    "xp": "80",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "1",
-    "xp": "7.5",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "10",
-    "xp": "N/A",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "62",
-    "xp": "120",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "35",
-    "xp": "Varies",
-    "tool": "OR",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "1",
-    "xp": "0",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "20",
-    "xp": "20",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "62",
-    "xp": "1",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot (Tempoross Cove)",
-    "level": "35",
-    "xp": "Varies",
-    "tool": ",\n,\n,\nOR",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "1",
-    "xp": "7.5",
+    "xp": "65",
     "tool": "OR",
     "smw": "No",
     "template": "fishing info"
   },
   {
     "name": "Rod Fishing spot (lure, bait)",
-    "level": "1",
-    "xp": "10",
+    "level": "20",
+    "xp": "Varies",
+    "tool": "OR",
+    "smw": "No",
+    "dropversion": "Fly fishing",
+    "template": "fishing info"
+  },
+  {
+    "name": "Rod Fishing spot (lure, bait)",
+    "level": "25",
+    "xp": "60",
+    "tool": "OR",
+    "smw": "No",
+    "dropversion": "Bait",
+    "template": "fishing info"
+  },
+  {
+    "name": "Rod Fishing spot (lure, bait)",
+    "level": "38",
+    "xp": "80",
+    "tool": "OR",
+    "smw": "No",
+    "dropversion": "Stripy feathers",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot (cage, harpoon)",
+    "level": "40",
+    "xp": "90",
     "bait": "Nothing",
     "smw": "No",
+    "dropversion": "Cage",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot (cage, harpoon)",
+    "level": "35",
+    "xp": "Varies",
+    "tool": "OR",
+    "bait": "Nothing",
+    "smw": "No",
+    "dropversion": "Harpoon",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot (big net, harpoon)",
+    "level": "16",
+    "xp": "Varies",
+    "bait": "Nothing",
+    "smw": "No",
+    "dropversion": "Big net",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot (big net, harpoon)",
+    "level": "76",
+    "xp": "110",
+    "tool": "or",
+    "bait": "Nothing",
+    "smw": "No",
+    "dropversion": "Harpoon",
     "template": "fishing info"
   },
   {
@@ -207,19 +618,10 @@
     "template": "fishing info"
   },
   {
-    "name": "Fishing spot (big net, harpoon)",
-    "level": "16",
-    "xp": "Varies",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot (big net, harpoon)",
-    "level": "76",
-    "xp": "110",
-    "tool": "or",
-    "bait": "Nothing",
+    "name": "Fishing spot",
+    "level": "50",
+    "xp": "0",
+    "bait": "None",
     "smw": "No",
     "template": "fishing info"
   },
@@ -229,23 +631,7 @@
     "xp": "90",
     "bait": "Nothing",
     "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot (cage, harpoon)",
-    "level": "35",
-    "xp": "Varies",
-    "tool": "OR",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot (cage, harpoon)",
-    "level": "40",
-    "xp": "90",
-    "bait": "Nothing",
-    "smw": "No",
+    "dropversion": "No bait",
     "template": "fishing info"
   },
   {
@@ -253,20 +639,13 @@
     "level": "85",
     "xp": "130",
     "smw": "No",
+    "dropversion": "Dark bait",
     "template": "fishing info"
   },
   {
     "name": "Fishing spot",
-    "level": "33",
-    "xp": "75",
-    "bait": "Nothing",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "28",
-    "xp": "80",
+    "level": "10",
+    "xp": "N/A",
     "tool": "OR",
     "smw": "No",
     "template": "fishing info"
@@ -300,6 +679,25 @@
     "xp": "26.1",
     "bait": "Nothing",
     "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "62",
+    "xp": "120",
+    "bait": "Nothing",
+    "smw": "No",
+    "dropversion": "Small net",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "35",
+    "xp": "Varies",
+    "tool": "OR",
+    "bait": "Nothing",
+    "smw": "No",
+    "dropversion": "Harpoon,Harpoon",
     "template": "fishing info"
   },
   {
@@ -311,9 +709,33 @@
     "template": "fishing info"
   },
   {
-    "name": "Fishing spot",
+    "name": "Rod Fishing spot (lure, bait)",
     "level": "1",
-    "xp": "Varies",
+    "xp": "10",
+    "bait": "Nothing",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "82",
+    "xp": "120",
+    "tool": "OR",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "80",
+    "xp": "95",
+    "tool": "OR",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "33",
+    "xp": "75",
     "bait": "Nothing",
     "smw": "No",
     "dropversion": "Small net",
@@ -321,241 +743,11 @@
   },
   {
     "name": "Fishing spot",
-    "level": "10",
-    "xp": "Varies",
+    "level": "28",
+    "xp": "80",
     "tool": "OR",
     "smw": "No",
     "dropversion": "Bait",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "28",
-    "xp": "65",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishlike thing",
-    "level": "1",
-    "xp": "0",
-    "spot": "Fishing spot (ScapeRune)",
-    "bait": "Nothing",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fresh monkfish",
-    "level": "62",
-    "xp": "1",
-    "spot": "Fishing spot (Swan Song)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Frog spawn",
-    "level": "33",
-    "xp": "75",
-    "spot": "Fishing spot (frogspawn)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Greater siren",
-    "skill2name": "Hunter",
-    "skill1lvl": "91",
-    "skill2lvl": "87",
-    "skill1exp": "100",
-    "skill2exp": "130",
-    "spot": "Fishing spot (aerial fishing)",
-    "bait": "or",
-    "template": "fishing info"
-  },
-  {
-    "name": "Infernal eel",
-    "level": "80",
-    "xp": "95",
-    "spot": "Rod Fishing spot (infernal eel)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Leaping salmon",
-    "skill2name": "Strength",
-    "skill3name": "Agility",
-    "skill1lvl": "58",
-    "skill2lvl": "30",
-    "skill3lvl": "30",
-    "skill1exp": "70",
-    "skill2exp": "6",
-    "skill3exp": "6",
-    "spot": "Fishing spot (barbarian)",
-    "bait": ",, , , or",
-    "template": "fishing info"
-  },
-  {
-    "name": "Leaping sturgeon",
-    "skill2name": "Strength",
-    "skill3name": "Agility",
-    "skill1lvl": "70",
-    "skill2lvl": "45",
-    "skill3lvl": "45",
-    "skill1exp": "80",
-    "skill2exp": "7",
-    "skill3exp": "7",
-    "spot": "Fishing spot (barbarian)",
-    "bait": ",, , , or",
-    "template": "fishing info"
-  },
-  {
-    "name": "Leaping trout",
-    "skill2name": "Strength",
-    "skill3name": "Agility",
-    "skill1lvl": "48",
-    "skill2lvl": "15",
-    "skill3lvl": "15",
-    "skill1exp": "50",
-    "skill2exp": "5",
-    "skill3exp": "5",
-    "spot": "Fishing spot (barbarian)",
-    "bait": ",, , , or",
-    "template": "fishing info"
-  },
-  {
-    "name": "Minnow",
-    "level": "82",
-    "xp": "26.1",
-    "spot": "Fishing spot (minnow)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Mottled eel",
-    "skill2name": "Hunter",
-    "skill1lvl": "73",
-    "skill2lvl": "68",
-    "skill1exp": "65",
-    "skill2exp": "90",
-    "spot": "Fishing spot (aerial fishing)",
-    "bait": "or",
-    "template": "fishing info"
-  },
-  {
-    "name": "Panning tray",
-    "version": "Mud",
-    "skill2name": "Mining",
-    "level": "1",
-    "skill2lvl": "1",
-    "xp": "2",
-    "skill2exp": "2",
-    "tool": "Empty panning tray",
-    "bait": "None",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Panning tray",
-    "version": "Mud",
-    "skill2name": "Mining",
-    "level": "1",
-    "skill2lvl": "1",
-    "xp": "2",
-    "skill2exp": "2",
-    "tool": "Empty panning tray",
-    "spot": "Panning point",
-    "bait": "None",
-    "dropversion": "Mud",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw anchovies",
-    "level": "15",
-    "xp": "40",
-    "spot": "Fishing spot (small net, bait)",
-    "tool": "Small fishing net",
-    "bait": "None",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw anglerfish",
-    "level": "82",
-    "xp": "120",
-    "spot": "Rod Fishing spot (anglerfish)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw bass",
-    "level": "46",
-    "xp": "100",
-    "spot": "Fishing spot (big net, harpoon)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw brawk fish (3)",
-    "level": "45",
-    "xp": "29",
-    "spot": "Bubbles",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw bream",
-    "level": "20",
-    "xp": "20",
-    "spot": "Fishing spot (Streambound Cavern)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "level": "46",
-    "xp": "33",
-    "bait": "N/A",
-    "tool": "Big fishing net",
-    "spot": "Fishing spot (Camdozaal)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw cave eel",
-    "level": "38",
-    "xp": "80",
-    "spot": "Fishing spot (frogspawn)",
-    "template": "fishing info"
-  },
-  {
-    "level": "20",
-    "xp": "16",
-    "bait": "No",
-    "tool": "Small fishing net",
-    "spot": "Fishing spot",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw cod",
-    "level": "23",
-    "xp": "45",
-    "spot": "Fishing spot (big net, harpoon)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw dark crab",
-    "level": "85",
-    "xp": "130",
-    "spot": "Fishing spot (dark crab)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw giant carp",
-    "level": "10",
-    "xp": "0",
-    "spot": "Fishing spot (Hemenster)",
-    "template": "fishing info"
-  },
-  {
-    "level": "7",
-    "xp": "8",
-    "bait": "No",
-    "tool": "Small fishing net",
-    "spot": "Fishing spot",
     "template": "fishing info"
   },
   {
@@ -567,177 +759,91 @@
     "template": "fishing info"
   },
   {
-    "name": "Raw herring",
-    "level": "10",
-    "xp": "30",
-    "spot": "Fishing spot (small net, bait)",
-    "tool": "Fishing rod",
-    "bait": "Fishing bait",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw karambwan",
-    "level": "65",
-    "xp": "50",
-    "spot": "Fishing spot (karambwan)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw karambwanji",
-    "level": "5",
-    "xp": "5",
-    "spot": "Fishing spot (karambwanji)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw kyren fish (6)",
-    "level": "90",
-    "xp": "38",
-    "spot": "Bubbles",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw lava eel",
-    "level": "53",
-    "xp": "60",
-    "spot": "Fishing spot (lava eel)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw leckish fish (2)",
-    "level": "30",
-    "xp": "26",
-    "spot": "Bubbles",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw lobster",
-    "level": "40",
-    "xp": "90",
-    "spot": "Fishing spot (cage, harpoon)",
-    "bait": "None",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw mackerel",
-    "level": "16",
-    "xp": "20",
-    "spot": "Fishing spot (big net, harpoon)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw manta ray",
-    "level": "81",
-    "xp": "69",
-    "spot": "Fishing Trawler",
-    "tool": "No",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw monkfish",
-    "level": "62",
-    "xp": "120",
-    "spot": "Fishing spot (Piscatoris Fishing Colony)",
-    "bait": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw mycil fish (4)",
-    "level": "60",
-    "xp": "32",
-    "spot": "Bubbles",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw tuna",
+    "name": "Fishing spot",
     "level": "1",
-    "xp": "10",
-    "spot": "Fishing Spot (The Gauntlet)",
-    "tool": "Crystal harpoon, Corrupted harpoon",
-    "bait": "None",
+    "xp": "0",
+    "bait": "Nothing",
+    "smw": "No",
     "template": "fishing info"
   },
   {
-    "name": "Raw pike",
-    "level": "25",
-    "xp": "60",
-    "spot": "Rod Fishing spot (lure, bait)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw pysk fish (0)",
+    "name": "Panning tray",
+    "version": "Mud",
+    "skill2name": "Mining",
     "level": "1",
-    "xp": "20",
-    "spot": "Bubbles",
+    "skill2lvl": "1",
+    "xp": "2",
+    "skill2exp": "2",
+    "tool": "Empty panning tray",
+    "bait": "None",
+    "smw": "No",
     "template": "fishing info"
   },
   {
-    "name": "Raw rainbow fish",
-    "level": "38",
-    "xp": "80",
-    "spot": "Rod Fishing spot (lure, bait)",
+    "name": "Fishing spot (Tempoross Cove)",
+    "level": "35",
+    "xp": "Varies",
+    "tool": ",\n,\n,\nOR",
+    "bait": "Nothing",
+    "smw": "No",
     "template": "fishing info"
   },
   {
-    "name": "Raw roqed fish (5)",
-    "level": "75",
-    "xp": "35",
-    "spot": "Bubbles",
+    "name": "Rod Fishing spot (lure, bait)",
+    "level": "1",
+    "xp": "Varies",
+    "tool": "OR",
+    "smw": "No",
     "template": "fishing info"
   },
   {
-    "name": "Raw salmon",
-    "level": "30",
-    "xp": "70",
-    "spot": "Rod Fishing spot (lure, bait)",
+    "level": "46",
+    "xp": "33",
+    "bait": "N/A",
+    "tool": "Big fishing net",
+    "spot": "Fishing spot (Camdozaal)",
     "template": "fishing info"
   },
   {
-    "name": "Raw sardine",
-    "level": "5",
-    "xp": "20",
-    "spot": "Fishing spot (small net, bait)",
-    "tool": "Fishing rod",
-    "bait": "Fishing bait",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw sea turtle",
-    "level": "79",
-    "xp": "57",
-    "spot": "Fishing Trawler",
-    "tool": "No",
+    "level": "33",
+    "xp": "24",
     "bait": "No",
+    "tool": "Small or big fishing net",
+    "spot": "Fishing spot",
     "template": "fishing info"
   },
   {
-    "version1": "Harpoon",
-    "version2": "Bare-handed",
-    "name": "Raw shark",
-    "skill2name2": "Strength",
-    "skill1lvl1": "76",
-    "skill1lvl2": "96",
-    "skill2lvl2": "76",
-    "skill1exp": "110",
-    "skill2exp1": "-1",
-    "skill2exp2": "11",
-    "skill1note2": "Requires Barbarian Fishing training.",
-    "spot": "Fishing spot (big net, harpoon)",
-    "tool1": "Harpoon",
-    "tool2": "None",
-    "bait": "None",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw shrimps",
-    "level": "1",
-    "xp": "10",
-    "spot": "Fishing spot (small net, bait)",
+    "level": "20",
+    "xp": "16",
+    "bait": "No",
     "tool": "Small fishing net",
-    "bait": "None",
+    "spot": "Fishing spot",
+    "template": "fishing info"
+  },
+  {
+    "level": "7",
+    "xp": "8",
+    "bait": "No",
+    "tool": "Small fishing net",
+    "spot": "Fishing spot",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "7",
+    "xp": "Varies",
+    "bait": "No",
+    "smw": "No",
+    "dropversion": "Small net",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "33",
+    "xp": "Varies",
+    "bait": "No",
+    "smw": "No",
+    "dropversion": "Big net",
     "template": "fishing info"
   },
   {
@@ -750,144 +856,66 @@
     "template": "fishing info"
   },
   {
-    "name": "Raw slimy eel",
-    "level": "28",
-    "xp": "80",
-    "spot": "Fishing spot (frogspawn), Fishing spot (Camdozaal)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw slimy eel",
-    "level": "28",
-    "xp": "65",
-    "spot": "Fishing spot (swamp)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw suphi fish (1)",
-    "level": "15",
-    "xp": "23",
-    "spot": "Bubbles",
-    "template": "fishing info"
-  },
-  {
-    "version1": "Harpoon",
-    "version2": "Bare-handed",
-    "name": "Raw swordfish",
-    "skill2name2": "Strength",
-    "skill1lvl1": "50",
-    "skill1lvl2": "70",
-    "skill2lvl2": "50",
-    "skill1exp": "100",
-    "skill2exp1": "-1",
-    "skill2exp2": "10",
-    "skill1note2": "Requires Barbarian Fishing training.",
-    "spot": "Fishing spot (cage, harpoon)",
-    "tool1": "Harpoon",
-    "tool2": "None",
-    "bait": "None",
-    "template": "fishing info"
-  },
-  {
-    "level": "33",
-    "xp": "24",
-    "bait": "No",
-    "tool": "Small or big fishing net",
-    "spot": "Fishing spot",
-    "template": "fishing info"
-  },
-  {
-    "name": "Raw trout",
-    "level": "20",
-    "xp": "50",
-    "spot": "Rod Fishing spot (lure, bait)",
-    "template": "fishing info"
-  },
-  {
-    "version1": "Harpoon",
-    "version2": "Bare-handed",
-    "name": "Raw tuna",
-    "skill2name2": "Strength",
-    "skill1lvl1": "35",
-    "skill1lvl2": "55",
-    "skill2lvl2": "35",
-    "skill1exp": "80",
-    "skill2exp1": "-1",
-    "skill2exp2": "8",
-    "skill1note2": "Requires Barbarian Fishing training.",
-    "spot": "Fishing spot (cage, harpoon)",
-    "tool1": "Harpoon",
-    "tool2": "None",
-    "bait": "None",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "82",
-    "xp": "120",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Fishing spot",
-    "level": "80",
-    "xp": "95",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Rod Fishing spot (lure, bait)",
-    "level": "20",
-    "xp": "Varies",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Rod Fishing spot (lure, bait)",
-    "level": "25",
-    "xp": "60",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Rod Fishing spot (lure, bait)",
-    "level": "38",
-    "xp": "80",
-    "tool": "OR",
-    "smw": "No",
-    "template": "fishing info"
-  },
-  {
-    "name": "Sacred eel",
-    "level": "87",
-    "xp": "105",
-    "spot": "Fishing spot (sacred eel)",
-    "template": "fishing info"
-  },
-  {
-    "name": "Sluglings",
-    "level": "50",
-    "xp": "0",
-    "bait": "None",
-    "template": "fishing info"
-  },
-  {
-    "level": "33",
-    "xp": "1",
-    "tool": "Small fishing net",
-    "bait": "None",
-    "spot": "Fishing spot (frogspawn)",
-    "template": "fishing info"
-  },
-  {
     "name": "Whitefish",
     "level": "40",
     "xp": "70",
     "spot": "Fishing spot (Hemenster)",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "1",
+    "xp": "0",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Corrupt Fishing Spot",
+    "level": "1",
+    "xp": "10",
+    "bait": "no",
+    "tool": "Corrupted harpoon",
+    "time": "N/A",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "1",
+    "xp": "7.5",
+    "tool": "OR",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Raw bream",
+    "level": "20",
+    "xp": "20",
+    "spot": "Fishing spot (Streambound Cavern)",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "1",
+    "xp": "7.5",
+    "bait": "Nothing",
+    "smw": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "20",
+    "xp": "20",
+    "bait": "No",
+    "template": "fishing info"
+  },
+  {
+    "name": "Fishing spot",
+    "level": "62",
+    "xp": "1",
+    "bait": "Nothing",
+    "smw": "No",
     "template": "fishing info"
   }
 ]

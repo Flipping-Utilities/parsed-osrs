@@ -1,116 +1,5 @@
 [
   {
-    "format": "none",
-    "coins": "f",
-    "link": "p",
-    "var": "cheaprune",
-    "list": [
-      "Air rune",
-      "Mind rune",
-      "Water rune",
-      "Earth rune",
-      "Fire rune",
-      "Body rune",
-      "Cosmic rune",
-      "Chaos rune",
-      "Nature rune",
-      "Law rune",
-      "Death rune",
-      "Astral rune",
-      "Blood rune",
-      "Soul rune"
-    ],
-    "template": "minprice"
-  },
-  {
-    "list": [
-      "Iron scimitar",
-      "Iron sword",
-      "Iron longsword",
-      "Iron 2h sword",
-      "Iron dagger",
-      "Knife"
-    ],
-    "format": "item",
-    "link": "n",
-    "template": "minprice"
-  },
-  {
-    "list": [
-      "Wizard's mind bomb",
-      "Asgarnian ale",
-      "Dwarven stout",
-      "Beer"
-    ],
-    "format": "item",
-    "link": "n",
-    "var": "drink",
-    "template": "minprice"
-  },
-  {
-    "format": "none",
-    "coins": "f",
-    "link": "p",
-    "var": "cheaprune",
-    "list": [
-      "Air rune",
-      "Mind rune",
-      "Water rune",
-      "Earth rune",
-      "Fire rune",
-      "Body rune",
-      "Cosmic rune",
-      "Chaos rune",
-      "Nature rune",
-      "Law rune",
-      "Death rune",
-      "Astral rune",
-      "Blood rune",
-      "Soul rune"
-    ],
-    "template": "minprice"
-  },
-  {
-    "list": [
-      "White firelighter",
-      "Red firelighter",
-      "Purple firelighter",
-      "Green firelighter",
-      "Blue firelighter"
-    ],
-    "format": "none",
-    "link": "n",
-    "var": "firelighter",
-    "template": "minprice"
-  },
-  {
-    "var": "stole",
-    "list": [
-      "Saradomin stole",
-      "Guthix stole",
-      "Zamorak stole",
-      "Armadyl stole",
-      "Bandos stole",
-      "Ancient stole"
-    ],
-    "format": "item",
-    "link": "n",
-    "template": "minprice"
-  },
-  {
-    "var": "hshield",
-    "list": [
-      "Rune shield (h1)",
-      "Rune shield (h2)",
-      "Rune shield (h3)",
-      "Rune shield (h4)",
-      "Rune shield (h5)"
-    ],
-    "format": "item",
-    "link": "n",
-    "template": "minprice"
-  },
-  {
     "link": "p",
     "coins": "y",
     "list": [
@@ -165,6 +54,131 @@
       "Team-49 cape",
       "Team-50 cape"
     ],
+    "template": "minprice"
+  },
+  {
+    "list": [
+      "White firelighter",
+      "Red firelighter",
+      "Purple firelighter",
+      "Green firelighter",
+      "Blue firelighter"
+    ],
+    "format": "none",
+    "link": "n",
+    "var": "firelighter",
+    "template": "minprice"
+  },
+  {
+    "var": "stole",
+    "list": [
+      "Saradomin stole",
+      "Guthix stole",
+      "Zamorak stole",
+      "Armadyl stole",
+      "Bandos stole",
+      "Ancient stole"
+    ],
+    "format": "item",
+    "link": "n",
+    "template": "minprice"
+  },
+  {
+    "var": "hshield",
+    "list": [
+      "Rune shield (h1)",
+      "Rune shield (h2)",
+      "Rune shield (h3)",
+      "Rune shield (h4)",
+      "Rune shield (h5)"
+    ],
+    "format": "item",
+    "link": "n",
+    "template": "minprice"
+  },
+  {
+    "format": "none",
+    "coins": "f",
+    "link": "p",
+    "var": "cheaprune",
+    "list": [
+      "Air rune",
+      "Mind rune",
+      "Water rune",
+      "Earth rune",
+      "Fire rune",
+      "Body rune",
+      "Cosmic rune",
+      "Chaos rune",
+      "Nature rune",
+      "Law rune",
+      "Death rune",
+      "Astral rune",
+      "Blood rune",
+      "Soul rune"
+    ],
+    "template": "minprice"
+  },
+  {
+    "format": "none",
+    "coins": "f",
+    "link": "p",
+    "var": "cheaprune",
+    "list": [
+      "Air rune",
+      "Mind rune",
+      "Water rune",
+      "Earth rune",
+      "Fire rune",
+      "Body rune",
+      "Cosmic rune",
+      "Chaos rune",
+      "Nature rune",
+      "Law rune",
+      "Death rune",
+      "Astral rune",
+      "Blood rune",
+      "Soul rune"
+    ],
+    "template": "minprice"
+  },
+  {
+    "list": [
+      "Bronze nails",
+      "Iron nails",
+      "Steel nails",
+      "Black nails",
+      "Mithril nails",
+      "Adamantite nails",
+      "Rune nails"
+    ],
+    "format": "price",
+    "link": "n",
+    "template": "minprice"
+  },
+  {
+    "list": [
+      "Wizard's mind bomb",
+      "Asgarnian ale",
+      "Dwarven stout",
+      "Beer"
+    ],
+    "format": "item",
+    "link": "n",
+    "var": "drink",
+    "template": "minprice"
+  },
+  {
+    "list": [
+      "Iron scimitar",
+      "Iron sword",
+      "Iron longsword",
+      "Iron 2h sword",
+      "Iron dagger",
+      "Knife"
+    ],
+    "format": "item",
+    "link": "n",
     "template": "minprice"
   }
 ]

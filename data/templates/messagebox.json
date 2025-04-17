@@ -1,11 +1,338 @@
 [
   {
+    "class": "stub noexcerpt navigation-not-searchable",
+    "img": "Stub.png",
+    "list": [
+      "This is a  stub.",
+      "A stub is an article which does not cover all information available about the topic. You can help by [ expanding] it."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "disambig noexcerpt navigation-not-searchable",
+    "img": "Disambig gray.svg",
+    "imgwidth": "45px",
+    "list": [
+      "This page is used to distinguish between articles with similar names.",
+      "If an internal link led you to this disambiguation page, you may wish to change the link to point directly to the intended article."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "Some sections might not be fully accurate or complete. You can help by [ contributing] small edits to the page, to avoid conflicting with the work of other editors.",
+    "img": "Saw.png",
+    "list": [
+      "This is currently in the middle of a major update or expansion."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Monkey nuts.png",
+    "list": [
+      "in a nutshell:"
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "obsolete",
+    "img": "Cabbage rune.png",
+    "list": [
+      "after.",
+      "As the contents of this page in Old School RuneScape, this article is preserved for historical purposes."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "You can [ edit] this page to improve it.",
+    "img": "Mop (2015 Halloween event).png",
+    "list": [
+      "This article or section requires a cleanup in order to meet the Old School RuneScape Wiki's quality standards."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "It does not meet the Old School RuneScape Wiki's quality standards; you can [ edit] this page to improve it.",
+    "img": "Enchanted quill.png",
+    "list": [
+      "This article or section may need to be wikified."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "You can discuss this issue on the [ talk page] or [ edit] this to improve it.",
+    "img": "Headless arrow.png",
+    "list": [
+      "This or section is incomplete and could do with improvement."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "You can help improve it by [ updating] the information.",
+    "class": "obsolete plainlinks",
+    "img": "Bucket (historical, v1).png",
+    "list": [
+      "Due to an, the information in this may be out-of-date."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "action",
+    "img": "Bucket.png",
+    "list": [
+      "This is being considered for deletion.",
+      "Please discuss this nomination at this  at Requests for deletion. Do not remove this tag until this issue has been resolved."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "Please [ insert] an existing image or if necessary, upload a new one.",
+    "img": "Isafdar (painting) icon.png",
+    "list": [
+      "This could be improved by adding an image of."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Invasion plans.png",
+    "list": [
+      "This article has a |strategy guide.",
+      "All information on mechanics and strategy will be on this page."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Future_update.png",
+    "list": [
+      "This article or section contains information about a scheduled future release or update.",
+      "The information is subject to change. As the wiki is not a crystal ball, this article should consist only of facts included in official Jagex releases and not speculation."
+    ],
+    "template": "messagebox"
+  },
+  {
     "list": [
       "Heavily contested area",
       "Due to the small amount of Bounty Hunter worlds, it is common for 1 account to trap the emblem trader deep in the Revenant Caves. Attempting to interact with the emblem trader here will result the account attacking you and the possiblity of several other accounts logging in to spec-trade you."
     ],
     "class": "warn",
     "img": "Octagon-warning.png",
+    "template": "messagebox"
+  },
+  {
+    "img": "Instruction manual.png",
+    "list": [
+      "This quest has a quick guide.",
+      "It briefly summarises the steps needed to complete the quest."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Instruction manual.png",
+    "list": [
+      "This quest has an |in-depth guide.",
+      "It contains a more detailed description of dialogue, cutscenes, and storyline."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Clockwork.png",
+    "list": [
+      "This is a static calculator.",
+      "It does not take user inputs, but it does use changing prices from the Grand Exchange Market Watch. If prices appear to be outdated, [ purge the page by clicking here]."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "info",
+    "img": "Information icon.svg",
+    "list": [
+      "This item cannot be obtained.",
+      "cannot be acquired through regular gameplay."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Instruction manual.png",
+    "list": [
+      "This quest has a quick guide found here.",
+      "It briefly summarises the steps needed to complete the quest."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "beta",
+    "img": "Justiciar faceguard (beta).png",
+    "list": [
+      "is a temporary piece of content found only in unrestricted worlds.",
+      "The contents of this page refer to a piece of content only available on temporary unrestricted worlds as a means to test it before release. Its design is subject to change, and the graphics are used as a placeholder."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Barcrawl card.png",
+    "list": [
+      "This topic name is not found in-game.",
+      "While the name or title of this topic is not officially recognised in-game, the information contained on this page is still considered to be canon and is based on official sources."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Postbag from the Hedge icon.jpg",
+    "list": [
+      "This article contains information only featured in Postbag from the Hedge.",
+      "Postbags released during the RuneScape 2 era (2005-07) are generally not considered canon, unless otherwise mentioned. Postbags released during the Old School era (since 2021) are generally considered canon."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Clockwork.png",
+    "list": [
+      "This article has a calculator |here.",
+      "Calculators determine experience and costs based on real-time prices from the Grand Exchange Market Watch."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "info",
+    "img": "Empty box.png",
+    "list": [
+      "This article contains information about a subject known only to exist in the game APIs or cache.",
+      "The content is not known to be accessible in game, or may be reserved for use in a future update."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Lores and Histories - L.png",
+    "list": [
+      "This article contains information only featured in Lores and Histories.",
+      "Lores and Histories are generally considered canon, unless directly conflicting with in-game lore, in which case the latter has precedence."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "warn mmg-warn",
+    "img": "Blood money 10000.png",
+    "list": [
+      "The methods in this guide may involve considerable risk",
+      "Risks including, but not limited to: loss of money/items, unstable prices, and/or slow GE resale. Test sales and prices with small amounts. Use this method at your own risk."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "plainlinks",
+    "img": "Clockwork.png",
+    "imgwidth": "40px",
+    "list": [
+      "This dynamic calculator requires JavaScript.",
+      "This page takes user input via JavaScript and may use changing prices from the Grand Exchange Market Watch."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "1": "This page is maintained in part by a collaboration with the [ ] Discord server.",
+    "2": "The wiki |has partnered with this server to improve the quality of our content. You can join the [ server] on Discord for more help with this activity. For more information, see RuneScape:Discord Affiliates.",
+    "class": "discord",
+    "img": "Discord logo icon.svg",
+    "template": "messagebox"
+  },
+  {
+    "class": "warn",
+    "img": "Items kept on death center icon only.png",
+    "list": [
+      "This is a dangerous activity.",
+      "On death, Hardcore Ironmen will lose their status."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "noexcerpt navigation-not-searchable",
+    "img": "Failed poll.png",
+    "list": [
+      "This contains information on content that did not pass a poll.",
+      "As such, the information presented here does not pertain to the live game, and is preserved for archival."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "safe",
+    "img": "Bandages.png",
+    "list": [
+      "This is a safe activity.",
+      "If you die here, you will not lose any of your items, including those stored inside an Item Retrieval Service (deathbank)."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Meeting notes.png",
+    "list": [
+      "This article lacks references.",
+      "This page has unsourced or disputed statements. Please cite relevant sources. For more information, see here."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Items kept on death center icon only.png",
+    "list": [
+      "",
+      "Any items left on the ground will be lost."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Music.png",
+    "list": [
+      "This is a map page for",
+      "This map is intended as a transclusion onto the main article for this music track."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Slayer icon.png",
+    "list": [
+      "",
+      "Information comparing locations for Slayer tasks will be on this page."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "info plainlinks",
+    "img": "World map icon.png",
+    "list": [
+      "This page has an interactive map associated with it. to view  in more detail."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Bloody notes.png",
+    "list": [
+      "This page is about an approved third-party Old School RuneScape client.",
+      "Using this specific third-party client is not a bannable offence. However, using third-party clients that are not on Jagex's approved list is a bannable offence. Always use third-party clients at your own risk. The wiki does not endorse any particular third-party client."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "2": "Due to the recent addition of this content, some information may still be missing. Please [ edit this page] to add more information about it.",
+    "class": "construction",
+    "img": "Newcomer map screen.png",
+    "list": [
+      "This is about a recent addition to the game."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "God letters icon.jpg",
+    "list": [
+      "This article contains information only featured in the God letters.",
+      "The content of the letters is not considered canon by Jagex."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "hasskillguide",
+    "img": "Stats icon.png",
+    "list": [
+      "This article has skill training guides:",
+      "Skill training guides document optimal XP/hour methods to train a skill, as well as alternate passive or less expensive methods."
+    ],
     "template": "messagebox"
   },
   {
@@ -18,10 +345,61 @@
     "template": "messagebox"
   },
   {
-    "img": "Instruction manual.png",
+    "class": "warn",
+    "img": "Jagex_moderator_gold_crown.png",
     "list": [
-      "This quest has a quick guide found here.",
-      "It briefly summarises the steps needed to complete the quest."
+      "This item cannot be obtained by regular players.",
+      "can only be acquired by Jagex Moderators. The Old School RuneScape Wiki does not condone rule-breaking actions."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Diamond speedrun trophy.png",
+    "list": [
+      "This guide is for Quest Speedrunning worlds.",
+      "For main game guides, please use the |in-depth guide."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Cake of guidance.png",
+    "list": [
+      "This page is a supplemental guide.",
+      "External links are allowed and the formatting does not have to match the wiki's style guide."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "warn",
+    "img": "Octagon-warning.png",
+    "list": [
+      "Boosting in is a bannable offence.",
+      "Colluding with other players, or using alternate accounts to boost point gain may result in a ban from Old School RuneScape."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "img": "Platinum token 5.png",
+    "list": [
+      "This item is expensive!",
+      "This item has reached the maximum Grand Exchange guide price of 2,147,483,647 coins and could be worth significantly more than than this."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "sailing",
+    "img": "Sailing icon.png",
+    "list": [
+      "was part of the March 2025 Sailing Alpha.",
+      "It was only available on temporary alpha worlds, and can't be found in the main version of Old School RuneScape."
+    ],
+    "template": "messagebox"
+  },
+  {
+    "class": "info",
+    "img": "Ball.png",
+    "list": [
+      "This is a non-combat activity."
     ],
     "template": "messagebox"
   }

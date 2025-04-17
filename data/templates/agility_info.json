@@ -1,17 +1,195 @@
 [
   {
-    "name": "A wooden log",
+    "name": "Toy mouse",
     "level": "1",
-    "xp": "4",
+    "xp": "3",
+    "type": "Clockwork toy",
+    "template": "agility info"
+  },
+  {
+    "name": "Clockwork suit",
+    "level": "1",
+    "xp": "3",
+    "type": "Clockwork toy",
+    "template": "agility info"
+  },
+  {
+    "version1": "Level 17",
+    "version2": "Level 20",
+    "name": "Mosquito swarm",
+    "level": "1",
+    "xp1": "35",
+    "xp2": "75",
+    "type1": "Other",
+    "type2": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Toy soldier",
+    "level": "1",
+    "xp": "0",
+    "type": "Clockwork toy",
+    "template": "agility info"
+  },
+  {
+    "name": "Toy doll",
+    "level": "1",
+    "xp": "2.5",
+    "type": "Clockwork toy",
+    "template": "agility info"
+  },
+  {
+    "level": "1",
+    "xp": "5",
+    "course": "POH dungeon",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "level": "1",
+    "xp": "7.5",
+    "course": "POH dungeon",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "level": "1",
+    "xp": "10",
+    "course": "POH dungeon",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "level": "1",
+    "xp": "15",
+    "course": "POH dungeon",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "level": "1",
+    "xp": "20",
+    "course": "POH dungeon",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Large mosquito",
+    "level": "1",
+    "xp": "17.5",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Hole",
+    "xp": "4.5",
+    "course": "Underwater Agility and Thieving",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Basalt rock",
+    "level": "1",
+    "xp": "2",
+    "failxp": "0.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Bridge",
+    "level": "1",
+    "xp": "15",
     "failxp": "2",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Balancing ledge",
-    "level": "35",
-    "xp": "22",
-    "course": "Barbarian Outpost Agility Course",
+    "name": "Tunnel",
+    "level": "40",
+    "xp": "1",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "50",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Ropeswing",
+    "level": "10",
+    "xp": "3",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Gap",
+    "level": "25",
+    "xp": "5",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "level": "18",
+    "xp": "31",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Ticket Dispenser",
+    "level": "1",
+    "xp": "Varies",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Blade",
+    "level": "1",
+    "xp": "0",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rope Swing",
+    "level": "1",
+    "xp": "20",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Low Wall",
+    "level": "1",
+    "xp": "8",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Plank",
+    "level": "1",
+    "xp": "6",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Balancing Rope",
+    "level": "1",
+    "xp": "10",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Log Balance",
+    "level": "1",
+    "xp": "12",
+    "course": "Brimhaven Agility Arena",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -24,530 +202,26 @@
     "template": "agility info"
   },
   {
-    "name": "Balancing ledge",
-    "level": "40",
-    "xp": "22.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Balancing Rope",
+    "name": "Monkey bars",
     "level": "1",
-    "xp": "10",
+    "xp": "14",
     "course": "Brimhaven Agility Arena",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Balancing rope",
+    "name": "Pillar",
     "level": "1",
-    "xp": "10",
-    "course": "Gnome Stronghold Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Banner",
-    "level": "70",
-    "xp": "65",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Bar",
-    "level": "1",
-    "xp": "7",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Basalt rock",
-    "level": "1",
-    "xp": "2",
-    "failxp": "0.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Basket",
-    "level": "70",
-    "xp": "10",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Beach",
-    "level": "1",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Beam",
-    "level": "45",
-    "xp": "23",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Big window",
-    "level": "70",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Blade",
-    "level": "1",
-    "xp": "0",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "level": "10",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Boulder",
-    "level": "49",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Floor 1",
-    "version2": "Floor 4",
-    "version3": "Floor 5",
-    "name": "Bridge",
-    "level": "52",
-    "xp1": "50",
-    "xp2": "75",
-    "xp3": "80",
-    "course": "Hallowed Sepulchre",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Bridge",
-    "level": "1",
-    "xp": "0",
-    "failxp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Bridge",
-    "level": "1",
-    "xp": "15",
-    "failxp": "2",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Broken fence",
-    "level": "57",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Broken Raft",
-    "level": "8",
-    "skill2name": "Strength",
-    "skill3name": "Ranged",
-    "skill2lvl": "19",
-    "skill3lvl": "37",
-    "xp": "0",
-    "tool": "Crossbow and",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Broken bridge",
-    "level": "1",
-    "xp": "1",
-    "failxp": "0.7",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Broken bridge",
-    "level": "1",
-    "xp": "0.5",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Broken wall",
-    "level": "70",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "To the basement",
-    "version2": "From the basement",
-    "name": "Broken wall",
-    "level1": "10",
-    "level2": "1",
-    "xp": "0.5",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Cable",
-    "level": "20",
-    "xp": "48",
-    "course": "Al Kharid Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Walk-across",
-    "version2": "Swing",
-    "name": "Cable",
-    "level": "70",
-    "xp1": "25",
-    "xp2": "22",
-    "course": "Dorgesh-Kaan Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Cave",
-    "level": "93",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Cave",
-    "level": "74",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Cave",
-    "level": "93",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Loose rocks",
-    "level": "0",
-    "xp": "1",
-    "type": "Other",
-    "template": "agility info"
-  },
-  {
-    "name": "Chimney",
-    "level": "75",
-    "xp": "28.1",
-    "course": "Prifddinas Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Climbing rocks",
-    "level": "30",
-    "xp": "0",
-    "course": "Agility Pyramid",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Climbing rocks",
-    "level": "66",
-    "xp": "25",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Climbing rocks",
-    "level": "32",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Climbing rocks",
-    "level": "5",
-    "xp": "25",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Clockwork suit",
-    "level": "1",
-    "xp": "3",
-    "type": "Clockwork toy",
-    "template": "agility info"
-  },
-  {
-    "name": "Clothes line",
-    "level": "30",
-    "xp": "23",
-    "course": "Varrock Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Crack",
-    "level": "34",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crack",
-    "level": "17",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crate",
-    "level": "1",
-    "xp": "79",
-    "course": "Draynor Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "18",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "46",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Narrow crevice",
-    "level": "61",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "67",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "86",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "96",
-    "xp": "7.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "81",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Climbing rocks",
-    "level": "77",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crossbow Tree",
-    "skill2name": "Strength",
-    "skill3name": "Ranged",
-    "skill1lvl": "36",
-    "skill2lvl": "22",
-    "skill3lvl": "39",
-    "xp": "0",
-    "tool": "Crossbow and",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crumbling wall",
-    "level": "35",
-    "xp": "13.7",
-    "course": "Barbarian Outpost Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Crumbling wall",
-    "level": "5",
-    "xp": "0.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crumbling Wall",
-    "level": "71",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crusher",
-    "level": "30",
-    "xp": "55",
-    "course": "Penguin Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "name": "Dark hole",
-    "level": "1",
-    "xp1": "11.5",
-    "xp2": "1037.1",
-    "course": "Prifddinas Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Dark tunnel",
-    "level": "54",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Doorway",
-    "level": "30",
-    "course": "Agility Pyramid",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Dry stone wall",
-    "level": "72",
-    "xp": "25",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Drying line",
-    "level": "70",
-    "xp": "540",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "version3": "3",
-    "name": "Edge",
-    "level1": "50",
-    "level2": "50",
-    "level3": "62",
-    "xp1": "37.2",
-    "xp2": "37.2",
-    "xp3": "62",
-    "course": "Colossal Wyrm Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Edge",
-    "level": "50",
-    "xp": "241",
-    "course": "Falador Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Edge",
-    "level": "60",
-    "xp": "435",
-    "course": "Seers' Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Edge",
-    "level": "45",
     "xp": "18",
-    "course": "Shayzien Agility Course",
+    "course": "Brimhaven Agility Arena",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Edge",
-    "level": "45",
-    "xp": "21",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Edge",
-    "level": "30",
-    "xp": "143.7",
-    "course": "Varrock Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Fallen Tree",
-    "level": "1",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Fence",
-    "level": "13",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Fence",
-    "level": "1",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Fissure",
-    "level": "32",
-    "xp": "3",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Floating Book",
-    "level": "70",
-    "xp": "0",
-    "failxp": "0",
+    "name": "Pressure pad",
+    "level": "20",
+    "xp": "26",
+    "course": "Brimhaven Agility Arena",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -560,11 +234,222 @@
     "template": "agility info"
   },
   {
-    "name": "Other",
+    "name": "Hand holds",
+    "level": "20",
+    "xp": "22",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Spinning blades",
+    "level": "40",
+    "xp": "28",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Tagging",
+    "version2": "Darts",
+    "name": "Ticket Dispenser",
+    "level1": "1",
+    "xp1": "Varies",
+    "level2": "40",
+    "xp2": "30",
+    "course": "Brimhaven Agility Arena",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
     "level": "1",
-    "xp": "25",
-    "time": "0",
-    "type": "Other",
+    "xp": "10",
+    "course": "Gnome Stronghold Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle net",
+    "level": "1",
+    "xp": "10",
+    "course": "Gnome Stronghold Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tree branch",
+    "level": "1",
+    "xp": "6.5",
+    "course": "Gnome Stronghold Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Balancing rope",
+    "level": "1",
+    "xp": "10",
+    "course": "Gnome Stronghold Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "1",
+    "xp": "10",
+    "course": "Gnome Stronghold Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Underwall tunnel",
+    "level": "42",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rough wall",
+    "level": "1",
+    "xp": "5",
+    "course": "Draynor Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Tightrope 1",
+    "version2": "Tightrope 2",
+    "name1": "Tightrope 1",
+    "name2": "Tightrope 2",
+    "level": "1",
+    "xp1": "8",
+    "xp2": "7",
+    "course": "Draynor Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Narrow wall",
+    "level": "1",
+    "xp": "7",
+    "course": "Draynor Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Wall",
+    "level": "1",
+    "xp": "10",
+    "course": "Draynor Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Gap",
+    "level": "1",
+    "xp": "4",
+    "course": "Draynor Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Crate",
+    "level": "1",
+    "xp": "79",
+    "course": "Draynor Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rough wall",
+    "level": "20",
+    "xp": "12",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Tightrope 1",
+    "version2": "Tightrope 2",
+    "name1": "Tightrope 1",
+    "name2": "Tightrope 2",
+    "level": "20",
+    "xp1": "36",
+    "xp2": "18",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Cable",
+    "level": "20",
+    "xp": "48",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Zip line",
+    "level": "20",
+    "xp": "48",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tropical tree",
+    "level": "20",
+    "xp": "12",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Roof top beams",
+    "level": "20",
+    "xp": "6",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Gap",
+    "level": "20",
+    "xp": "36",
+    "course": "Al Kharid Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stone block",
+    "level": "30",
+    "xp": "12",
+    "course": "Agility Pyramid",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Low wall",
+    "level": "30",
+    "xp": "8",
+    "course": "Agility Pyramid",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ledge",
+    "level": "30",
+    "xp": "52",
+    "course": "Agility Pyramid",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Plank",
+    "level": "30",
+    "xp": "56.4",
+    "course": "Agility Pyramid",
+    "type": "Obstacle",
     "template": "agility info"
   },
   {
@@ -580,10 +465,33 @@
     "template": "agility info"
   },
   {
-    "name": "Gap",
-    "level": "20",
-    "xp": "36",
-    "course": "Al Kharid Rooftop Course",
+    "name": "Climbing rocks",
+    "level": "30",
+    "xp": "0",
+    "course": "Agility Pyramid",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Doorway",
+    "level": "30",
+    "course": "Agility Pyramid",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rough wall",
+    "level": "30",
+    "xp": "13.5",
+    "course": "Varrock Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Clothes line",
+    "level": "30",
+    "xp": "23",
+    "course": "Varrock Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -593,15 +501,140 @@
     "version3": "3",
     "version4": "4",
     "name": "Gap",
-    "level1": "90",
-    "level2": "90",
-    "level3": "1",
-    "level4": "1",
-    "xp1": "65",
-    "xp2": "21",
-    "xp3": "28",
-    "xp4": "625",
-    "course": "Ardougne Rooftop Course",
+    "skill1lvl": "30",
+    "skill1exp1": "19",
+    "skill1exp2": "10",
+    "skill1exp3": "24.5",
+    "skill1exp4": "4.5",
+    "level": "30",
+    "course": "Varrock Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Wall",
+    "level": "30",
+    "xp": "28",
+    "course": "Varrock Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ledge",
+    "level": "30",
+    "xp": "3",
+    "course": "Varrock Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Edge",
+    "level": "30",
+    "xp": "143.7",
+    "course": "Varrock Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Crusher",
+    "level": "30",
+    "xp": "55",
+    "course": "Penguin Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "30",
+    "xp": "80",
+    "course": "Penguin Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Icicles",
+    "level": "30",
+    "xp": "40",
+    "course": "Penguin Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ice",
+    "level": "30",
+    "xp": "180",
+    "course": "Penguin Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Gate",
+    "level": "30",
+    "xp": "65",
+    "course": "Penguin Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "35",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Ropeswing",
+    "level": "35",
+    "xp": "22",
+    "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
+    "level": "35",
+    "xp": "13.7",
+    "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle net",
+    "level": "35",
+    "xp": "8.2",
+    "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Balancing ledge",
+    "level": "35",
+    "xp": "22",
+    "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ladder",
+    "level": "35",
+    "xp": "22",
+    "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Crumbling wall",
+    "level": "35",
+    "xp": "13.7",
+    "course": "Barbarian Outpost Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tall tree",
+    "level": "40",
+    "xp": "10",
+    "course": "Canifis Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -625,10 +658,82 @@
     "template": "agility info"
   },
   {
-    "name": "Gap",
-    "level": "1",
-    "xp": "4",
-    "course": "Draynor Village Rooftop Course",
+    "name": "Pole-vault",
+    "level": "40",
+    "xp": "10",
+    "course": "Canifis Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "48",
+    "xp": "40",
+    "course": "Ape Atoll Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Tree",
+    "version2": "Vine",
+    "name": "Tropical tree",
+    "level": "48",
+    "xp1": "40",
+    "xp2": "100",
+    "course": "Ape Atoll Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Monkeybars",
+    "level": "48",
+    "xp": "40",
+    "course": "Ape Atoll Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Skull slope",
+    "level": "48",
+    "xp": "60",
+    "course": "Ape Atoll Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rope",
+    "level": "48",
+    "xp": "100",
+    "course": "Ape Atoll Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rough wall",
+    "level": "50",
+    "xp": "11",
+    "course": "Falador Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Tightrope",
+    "level": "50",
+    "xp1": "22",
+    "xp2": "61",
+    "xp3": "53",
+    "course": "Falador Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Hand holds",
+    "level": "50",
+    "xp": "61",
+    "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -646,17 +751,306 @@
     "template": "agility info"
   },
   {
-    "name": "Gap",
-    "level": "25",
-    "xp": "5",
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "version4": "4",
+    "name": "Ledge",
+    "level": "50",
+    "xp": "10",
+    "course": "Falador Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Gap",
+    "name": "Edge",
+    "level": "50",
+    "xp": "241",
+    "course": "Falador Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "49",
+    "xp": "12.5",
+    "course": "Wilderness Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ropeswing",
+    "level": "1",
+    "xp": "20",
+    "course": "Wilderness Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "1",
+    "xp": "20",
+    "course": "Wilderness Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
+    "level": "1",
+    "xp": "20",
+    "course": "Wilderness Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "1",
+    "xp": "498.9",
+    "course": "Wilderness Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "60",
+    "xp": "50",
+    "course": "Werewolf Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Hurdle",
+    "level": "60",
+    "xp": "60",
+    "course": "Werewolf Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Pipe",
+    "level": "60",
+    "xp": "15",
+    "course": "Werewolf Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Skull slope",
+    "level": "60",
+    "xp": "25",
+    "course": "Werewolf Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Zip line",
+    "level": "60",
+    "xp": "200",
+    "xpnote": "The zip line gives a variable amount of experience. The earlier you fall (if you fall) you will only receive 180, 160 or 140 experience per zip line, and the farther you go before you fall the larger the amount of experience gained.",
+    "course": "Werewolf Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "name": "Ladder",
+    "level1": "75",
+    "level2": "1",
+    "xp1": "11.5",
+    "xp2": "0",
+    "course": "Prifddinas Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "version4": "4",
+    "name": "Tightrope",
+    "level1": "75",
+    "level2": "75",
+    "level3": "1",
+    "level4": "1",
+    "xp": "30.7",
+    "course": "Prifddinas Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Chimney",
+    "level": "75",
+    "xp": "28.1",
+    "course": "Prifddinas Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Roof edge",
+    "level": "1",
+    "xp": "23",
+    "course": "Prifddinas Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "name": "Dark hole",
+    "level": "1",
+    "xp1": "11.5",
+    "xp2": "1037.1",
+    "course": "Prifddinas Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "name": "Rope Bridge",
+    "level1": "75",
+    "level2": "1",
+    "xp": "25.6",
+    "course": "Prifddinas Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Portal",
+    "level": "75",
+    "xp": "82",
+    "course": "Prifddinas Agility Course",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Walk-across",
+    "version2": "Swing",
+    "name": "Cable",
     "level": "70",
-    "xp": "35",
-    "course": "Pollnivneach Rooftop Course",
+    "xp1": "25",
+    "xp2": "22",
+    "course": "Dorgesh-Kaan Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ladder",
+    "level": "70",
+    "xp": "25",
+    "course": "Dorgesh-Kaan Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Jutting wall",
+    "level": "70",
+    "xp": "7.5",
+    "course": "Dorgesh-Kaan Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tunnel",
+    "level": "70",
+    "xp": "7.5",
+    "course": "Dorgesh-Kaan Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Pylon",
+    "level": "70",
+    "xp": "18",
+    "course": "Dorgesh-Kaan Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Wall",
+    "level": "60",
+    "xp": "45",
+    "course": "Seers' Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Gap",
+    "level": "60",
+    "xp1": "20",
+    "xp2": "35",
+    "xp3": "15",
+    "course": "Seers' Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tightrope",
+    "level": "60",
+    "xp": "20",
+    "course": "Seers' Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Edge",
+    "level": "60",
+    "xp": "435",
+    "course": "Seers' Village Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Wooden Beams",
+    "level": "90",
+    "xp": "43",
+    "course": "Ardougne Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "version4": "4",
+    "name": "Gap",
+    "level1": "90",
+    "level2": "90",
+    "level3": "1",
+    "level4": "1",
+    "xp1": "65",
+    "xp2": "21",
+    "xp3": "28",
+    "xp4": "625",
+    "course": "Ardougne Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Plank",
+    "level": "1",
+    "xp": "50",
+    "course": "Ardougne Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Steep roof",
+    "level": "1",
+    "xp": "57",
+    "course": "Ardougne Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rough wall",
+    "level": "80",
+    "xp": "20",
+    "course": "Rellekka Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -678,566 +1072,14 @@
   {
     "version1": "1",
     "version2": "2",
-    "version3": "3",
-    "name": "Gap",
-    "level": "60",
-    "xp1": "20",
-    "xp2": "35",
-    "xp3": "15",
-    "course": "Seers' Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Gap",
-    "level": "1",
-    "xp": "106",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "version3": "3",
-    "version4": "4",
-    "name": "Gap",
-    "skill1lvl": "30",
-    "skill1exp1": "19",
-    "skill1exp2": "10",
-    "skill1exp3": "24.5",
-    "skill1exp4": "4.5",
-    "level": "30",
-    "course": "Varrock Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Gap",
-    "level": "60",
-    "xp": "18",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Gate",
-    "level": "30",
-    "xp": "65",
-    "course": "Penguin Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Hand holds",
-    "level": "20",
-    "xp": "22",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Hand holds",
-    "level": "50",
-    "xp": "61",
-    "course": "Falador Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Hole",
-    "level": "70",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Hole",
-    "xp": "4.5",
-    "course": "Underwater Agility and Thieving",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Floor 2",
-    "version2": "Floor 3",
-    "version3": "Floor 4",
-    "name": "Saradomin brazier",
-    "level": "52",
-    "xp1": "50",
-    "xp2": "75",
-    "xp3": "75",
-    "course": "Hallowed Sepulchre",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "House window",
-    "level": "32",
-    "xp": "1",
-    "type": "Other",
-    "template": "agility info"
-  },
-  {
-    "name": "Hurdle",
-    "level": "60",
-    "xp": "60",
-    "course": "Werewolf Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Hurdle",
-    "level": "0",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ice",
-    "level": "30",
-    "xp": "180",
-    "course": "Penguin Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Icicles",
-    "level": "30",
-    "xp": "40",
-    "course": "Penguin Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Jutting wall",
-    "level": "70",
-    "xp": "7.5",
-    "course": "Dorgesh-Kaan Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Jutting wall",
-    "level": "60",
-    "xp": "5.5",
-    "xpnote": "Only going into the hallway.",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Medium",
-    "version2": "Advanced",
-    "name": "Jutting wall",
-    "level1": "46",
-    "xp1": "10",
-    "failxp1": "6",
-    "level2": "66",
-    "xp2": "10",
-    "failxp2": "6",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Ladder",
-    "level": "35",
-    "xp": "22",
-    "course": "Barbarian Outpost Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "version3": "3",
-    "name": "Ladder",
-    "level1": "50",
-    "level2": "62",
-    "level3": "50",
-    "xp1": "37.2",
-    "xp2": "62",
-    "xp3": "37.2",
-    "course": "Colossal Wyrm Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ladder",
-    "level": "70",
-    "xp": "25",
-    "course": "Dorgesh-Kaan Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "name": "Ladder",
-    "level1": "75",
+    "name1": "Tightrope 1",
+    "name2": "Tightrope 2",
+    "level1": "80",
     "level2": "1",
-    "xp1": "11.5",
-    "xp2": "0",
-    "course": "Prifddinas Agility Course",
+    "xp1": "40",
+    "xp2": "105",
+    "course": "Rellekka Rooftop Course",
     "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ladder",
-    "level": "1",
-    "xp": "5.5",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ladder",
-    "level": "1",
-    "xp": "3",
-    "failxp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Large mosquito",
-    "level": "1",
-    "xp": "17.5",
-    "type": "Other",
-    "template": "agility info"
-  },
-  {
-    "name": "Ledge",
-    "level": "30",
-    "xp": "52",
-    "course": "Agility Pyramid",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "version3": "3",
-    "version4": "4",
-    "name": "Ledge",
-    "level": "50",
-    "xp": "10",
-    "course": "Falador Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ledge",
-    "level": "30",
-    "xp": "3",
-    "course": "Varrock Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Climbing up",
-    "version2": "Climbing down",
-    "name": "Ledge",
-    "level1": "68",
-    "level2": "1",
-    "xp1": "2",
-    "failxp1": "0",
-    "xp2": "0",
-    "failxp2": "N/A",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Little boulder",
-    "level": "1",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Little crack",
-    "level": "60",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "35",
-    "xp": "13.7",
-    "course": "Barbarian Outpost Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Log Balance",
-    "level": "1",
-    "xp": "12",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "To the dragons",
-    "version2": "To the giants",
-    "name": "Log balance",
-    "level1": "30",
-    "level2": "1",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "20",
-    "xp": "8.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "33",
-    "xp": "4",
-    "failxp": "2",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "48",
-    "xp": "4",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "1",
-    "xp": "10",
-    "course": "Gnome Stronghold Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "45",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Log balance",
-    "level": "52",
-    "xp": "20",
-    "course": "Wilderness Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Loose railing",
-    "level": "63",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Loose rocks",
-    "xp": "1",
-    "type": "Other",
-    "template": "agility info"
-  },
-  {
-    "name": "Low fence",
-    "level": "25",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Low wall",
-    "level": "30",
-    "xp": "8",
-    "course": "Agility Pyramid",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Low Wall",
-    "level": "1",
-    "xp": "8",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "level": "1",
-    "xp": "7.5",
-    "course": "POH dungeon",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "level": "1",
-    "xp": "15",
-    "course": "POH dungeon",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Market Stall",
-    "level": "70",
-    "xp": "45",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Monkey bars",
-    "level": "1",
-    "xp": "14",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Monkeybars",
-    "level": "48",
-    "xp": "40",
-    "course": "Ape Atoll Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Monkey bars",
-    "level": "15",
-    "xp": "20",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Monkeybars",
-    "level": "70",
-    "xp": "55",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Monkeybars",
-    "level": "1",
-    "xp": "8",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Monkeybars",
-    "level": "57",
-    "xp": "20",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Level 17",
-    "version2": "Level 20",
-    "name": "Mosquito swarm",
-    "level": "1",
-    "xp1": "35",
-    "xp2": "75",
-    "type1": "Other",
-    "type2": "Other",
-    "template": "agility info"
-  },
-  {
-    "name": "Mysterious pipe",
-    "level": "88",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Narrow crevice",
-    "level": "42",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Narrow wall",
-    "level": "1",
-    "xp": "7",
-    "course": "Draynor Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle net",
-    "level": "35",
-    "xp": "8.2",
-    "course": "Barbarian Outpost Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle net",
-    "level": "1",
-    "xp": "10",
-    "course": "Gnome Stronghold Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "35",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "51",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "1",
-    "xp": "10",
-    "course": "Gnome Stronghold Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "70",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "52",
-    "xp": "12.5",
-    "course": "Wilderness Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Obstacle pipe",
-    "level": "49",
-    "xp": "7.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Ornate railing",
-    "level": "65",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "level": "30",
-    "xp": "1",
-    "xpnote": "1 experience per tick (0.6 seconds), costing 0.5% run energy per tick.",
-    "type": "Other",
     "template": "agility info"
   },
   {
@@ -1250,26 +1092,203 @@
     "template": "agility info"
   },
   {
-    "version": "Below",
-    "name": "Pile of rubble",
-    "level": "67",
-    "xp": "5.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Pillar",
-    "level": "1",
-    "xp": "18",
-    "course": "Brimhaven Agility Arena",
+    "name": "Basket",
+    "level": "70",
+    "xp": "10",
+    "course": "Pollnivneach Rooftop Course",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Pillar",
-    "level": "15",
-    "xp": "1.5",
+    "name": "Market Stall",
+    "level": "70",
+    "xp": "45",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Banner",
+    "level": "70",
+    "xp": "65",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Gap",
+    "level": "70",
+    "xp": "35",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Jump-to",
+    "version2": "Jump-on",
+    "name1": "Tree (Jump-to)",
+    "name2": "Tree (Jump-on)",
+    "level": "70",
+    "xp1": "75",
+    "xp2": "60",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rough wall",
+    "level": "70",
+    "xp": "5",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Monkeybars",
+    "level": "70",
+    "xp": "55",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Drying line",
+    "level": "70",
+    "xp": "540",
+    "course": "Pollnivneach Rooftop Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "32",
+    "xp": "0",
     "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Grapple",
+    "version2": "Jump",
+    "name": "Wall",
+    "skill2name1": "Strength",
+    "skill3name1": "Ranged",
+    "skill1lvl1": "11",
+    "skill2lvl1": "37",
+    "skill3lvl1": "19",
+    "skill1lvl2": "4",
+    "xp": "0",
+    "tool1": "Crossbow and",
+    "tool2": "None",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Tunnel",
+    "level": "72",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Broken Raft",
+    "level": "8",
+    "skill2name": "Strength",
+    "skill3name": "Ranged",
+    "skill2lvl": "19",
+    "skill3lvl": "37",
+    "xp": "0",
+    "tool": "Crossbow and",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Fence",
+    "level": "13",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "10",
+    "xp": "1",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "31",
+    "xp": "3",
+    "failxp": "1",
+    "xpnote": "Experience stated is for each stepping stone.",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Hole",
+    "level": "70",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "70",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Strange floor",
+    "level": "80",
+    "xp": "12.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Underwall Tunnel",
+    "level": "21",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
+    "level": "33",
+    "xp": "4",
+    "failxp": "2",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Lower",
+    "version2": "Upper",
+    "name1": "Rocks (Lower)",
+    "name2": "Rocks (Upper)",
+    "level1": "29",
+    "level2": "62",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
+    "level": "20",
+    "xp": "8.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Floor 1",
+    "version2": "Floor 4",
+    "version3": "Floor 5",
+    "name": "Bridge",
+    "level": "52",
+    "xp1": "50",
+    "xp2": "75",
+    "xp3": "80",
+    "course": "Hallowed Sepulchre",
+    "type": "Obstacle",
     "template": "agility info"
   },
   {
@@ -1291,88 +1310,16 @@
     "template": "agility info"
   },
   {
-    "version1": "Easy",
-    "version2": "Medium",
-    "version3": "Hard",
-    "name": "Pillar",
-    "level1": "65",
-    "level2": "75",
-    "level3": "89",
-    "xp1": "6.5",
-    "xp2": "7.5",
-    "xp3": "8.9",
-    "failxp1": "3.5",
-    "failxp2": "3.8",
-    "failxp3": "4.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "To the demons",
-    "version2": "To the dragons",
-    "name": "Pipe",
-    "level1": "34",
-    "level2": "1",
-    "xp": "10",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Toward Moss giants",
-    "version2": "Toward entrance",
-    "name": "Pipe squeeze",
-    "level1": "22",
-    "level2": "1",
-    "xp": "8.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Pipe",
-    "level": "1",
-    "xp": "3",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Pipe",
-    "level": "60",
-    "xp": "15",
-    "course": "Werewolf Agility Course",
+    "version1": "Floor 3",
+    "version2": "Floor 4",
+    "version3": "Floor 5",
+    "name": "Portal Frame",
+    "level": "72",
+    "xp1": "75",
+    "xp2": "75",
+    "xp3": "80",
+    "course": "Hallowed Sepulchre",
     "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Plank",
-    "level": "30",
-    "xp": "56.4",
-    "course": "Agility Pyramid",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Plank",
-    "level": "1",
-    "xp": "50",
-    "course": "Ardougne Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Plank",
-    "level": "1",
-    "xp": "6",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Thieving area",
-    "version2": "Drift net fishing",
-    "xp": "4.5",
-    "xpnote1": "Only provides experience for the first time passing through.",
-    "xpnote2": "Only provides experience for the first time passing through.",
-    "type": "Other",
     "template": "agility info"
   },
   {
@@ -1393,82 +1340,210 @@
     "template": "agility info"
   },
   {
-    "name": "Pole-vault",
-    "level": "40",
-    "xp": "10",
-    "course": "Canifis Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Portal",
-    "level": "75",
-    "xp": "82",
-    "course": "Prifddinas Agility Course",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Floor 3",
-    "version2": "Floor 4",
-    "version3": "Floor 5",
-    "name": "Portal Frame",
-    "level": "72",
-    "xp1": "75",
-    "xp2": "75",
-    "xp3": "80",
+    "name": "Stairs",
+    "level": "52",
+    "xp": "25",
     "course": "Hallowed Sepulchre",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Pressure pad",
-    "level": "20",
-    "xp": "26",
-    "course": "Brimhaven Agility Arena",
+    "version1": "Level 1",
+    "version2": "Level 2",
+    "version3": "Level 3",
+    "version4": "Level 4",
+    "name": "Stairs",
+    "level1": "62",
+    "level2": "72",
+    "level3": "82",
+    "level4": "92",
+    "xp1": "500",
+    "xp2": "850",
+    "xp3": "1425",
+    "xp4": "2625",
+    "course": "Hallowed Sepulchre",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Pylon",
-    "level": "70",
-    "xp": "18",
-    "course": "Dorgesh-Kaan Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rock",
-    "level": "70",
+    "name": "Broken fence",
+    "level": "57",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Rock",
-    "level": "25",
-    "xp": "10",
-    "failxp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "15",
-    "xp": "1",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "38",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
+    "name": "Dark tunnel",
     "level": "54",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crumbling wall",
+    "level": "5",
+    "xp": "0.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Underwall tunnel",
+    "level": "26",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Boulder",
+    "level": "49",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "69",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "66",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
+    "level": "48",
+    "xp": "4",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "52",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "41",
+    "xp": "8",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "44",
+    "xp": "8",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "73",
+    "xp": "0",
+    "type": "One-way shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "47",
+    "xp": "8",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Spiked blades",
+    "level": "43",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "43",
+    "xp": "8",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stones",
+    "level": "45",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "73",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping sontes",
+    "level": "40",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Narrow crevice",
+    "level": "61",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "37",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Strange floor",
+    "level": "63",
+    "xp": "10",
+    "failxp": "5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stones",
+    "level": "28",
+    "xp": "2",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "55",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Gap",
+    "level": "60",
+    "xp": "18",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Mysterious pipe",
+    "level": "88",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Broken wall",
+    "level": "70",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -1487,61 +1562,8 @@
   },
   {
     "name": "Rocks",
-    "level": "15",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "10",
-    "xp": "1",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "30",
-    "xp": "2",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Crevice",
-    "level": "18",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "84",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
     "level": "25",
     "xp": "1",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "68",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Lower",
-    "version2": "Upper",
-    "name1": "Rocks (Lower)",
-    "name2": "Rocks (Upper)",
-    "level1": "29",
-    "level2": "62",
-    "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -1563,22 +1585,229 @@
     "template": "agility info"
   },
   {
+    "name": "Underwall tunnel",
+    "level": "16",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Ornate railing",
+    "level": "65",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Grappled Wall",
+    "version2": "Jump Wall",
+    "name": "Wall",
+    "skill2name": "Strength",
+    "skill3name": "Ranged",
+    "skill1lvl1": "39",
+    "skill2lvl1": "38",
+    "skill3lvl1": "21",
+    "skill1lvl2": "4",
+    "xp1": "0",
+    "xp2": "0",
+    "tool1": "Crossbow and",
+    "tool2": "None",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Balancing ledge",
+    "level": "40",
+    "xp": "22.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Weathered wall",
+    "level": "58",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "49",
+    "xp": "7.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Monkeybars",
+    "level": "57",
+    "xp": "20",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version": "Below",
+    "name": "Pile of rubble",
+    "level": "67",
+    "xp": "5.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crossbow Tree",
+    "skill2name": "Strength",
+    "skill3name": "Ranged",
+    "skill1lvl": "36",
+    "skill2lvl": "22",
+    "skill3lvl": "39",
+    "xp": "0",
+    "tool": "Crossbow and",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Little crack",
+    "level": "60",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Medium",
+    "version2": "Advanced",
+    "name": "Jutting wall",
+    "level1": "46",
+    "xp1": "10",
+    "failxp1": "6",
+    "level2": "66",
+    "xp2": "10",
+    "failxp2": "6",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Medium",
+    "version2": "Advanced",
+    "name": "Spikey chain",
+    "level1": "61",
+    "xp1": "3",
+    "failxp1": "6",
+    "level2": "71",
+    "xp2": "3",
+    "failxp2": "6",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "86",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "67",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "74",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Monkey bars",
+    "level": "15",
+    "xp": "20",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "82",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Obstacle pipe",
+    "level": "51",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "name": "Rocks",
-    "level": "47",
+    "level": "15",
+    "xp": "1",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "1",
+    "xp": "3",
+    "failxp": "1",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "64",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rope",
+    "level": "64",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Loose railing",
+    "level": "63",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "60",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Toward Moss giants",
+    "version2": "Toward entrance",
+    "name": "Pipe squeeze",
+    "level1": "22",
+    "level2": "1",
+    "xp": "8.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocky handholds",
+    "level": "60",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Narrow crevice",
+    "level": "42",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
     "name": "Rocks",
-    "level": "79",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "70",
+    "level": "38",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -1598,15 +1827,245 @@
     "template": "agility info"
   },
   {
+    "name": "Strong Tree",
+    "skill2name": "Strength",
+    "skill3name": "Ranged",
+    "skill1lvl": "53",
+    "skill2lvl": "21",
+    "skill3lvl": "42",
+    "xp": "0",
+    "tool": "Crossbow and",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "From the north",
+    "version2": "From the south",
+    "name": "Stepping stone",
+    "level1": "12",
+    "level2": "1",
+    "xp": "7.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Vine",
+    "level": "87",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Vine",
+    "level": "79",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Ropeswing",
+    "level": "10",
+    "xp": "3",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
     "name": "Rocks",
-    "level": "37",
+    "level": "30",
+    "xp": "2",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "To the demons",
+    "version2": "To the dragons",
+    "name": "Pipe",
+    "level1": "34",
+    "level2": "1",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "76",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Pillar",
+    "level": "15",
+    "xp": "1.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crumbling Wall",
+    "level": "71",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Toward island",
+    "version2": "Away from island",
+    "name": "Stepping stones",
+    "level1": "56",
+    "level2": "1",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Log balance",
+    "level": "45",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "46",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "version1": "Easy",
+    "version2": "Medium",
+    "version3": "Hard",
+    "name": "Pillar",
+    "level1": "65",
+    "level2": "75",
+    "level3": "89",
+    "xp1": "6.5",
+    "xp2": "7.5",
+    "xp3": "8.9",
+    "failxp1": "3.5",
+    "failxp2": "3.8",
+    "failxp3": "4.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Tight Gap",
+    "level": "78",
+    "xp": "1",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Tight Gap",
+    "level": "84",
+    "xp": "1.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Shortcut",
+    "level": "30",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "A wooden log",
+    "level": "1",
+    "xp": "4",
+    "failxp": "2",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crack",
+    "level": "17",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stones",
+    "level": "30",
+    "xp": "3",
+    "xpnote": "Experience stated is for each stepping stone.",
+    "failxp": "1",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rope bridge",
+    "level": "40",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Crack",
+    "level": "34",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Low fence",
+    "level": "25",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Pipe",
+    "level": "1",
+    "xp": "3",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "18",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "18",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "18",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Wall",
+    "level": "63",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
     "name": "Rocks",
-    "level": "73",
+    "level": "70",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "15",
+    "xp": "1",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rock",
+    "level": "70",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
@@ -1620,37 +2079,40 @@
   },
   {
     "name": "Rocks",
-    "level": "44",
-    "xp": "8",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "41",
-    "xp": "8",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "47",
-    "xp": "8",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "43",
-    "xp": "8",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
     "level": "15",
-    "xp": "1",
+    "xp": "0",
     "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "level": "30",
+    "xp": "1",
+    "xpnote": "1 experience per tick (0.6 seconds), costing 0.5% run energy per tick.",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "version1": "Thieving area",
+    "version2": "Drift net fishing",
+    "xp": "4.5",
+    "xpnote1": "Only provides experience for the first time passing through.",
+    "xpnote2": "Only provides experience for the first time passing through.",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "lvl": "55",
+    "xp": "2",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Level 2 digs",
+    "version2": "Private dig",
+    "level": "10",
+    "xp": "2",
+    "type": "Obstacle",
+    "tool2": "None",
     "template": "agility info"
   },
   {
@@ -1661,46 +2123,304 @@
     "template": "agility info"
   },
   {
-    "name": "Rocks",
-    "level": "85",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "64",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocks",
-    "level": "52",
-    "xp": "498.9",
-    "course": "Wilderness Agility Course",
+    "name": "Ladder",
+    "level": "1",
+    "xp": "5.5",
+    "course": "Shayzien Agility Course",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Rocks",
+    "name": "Monkeybars",
+    "level": "1",
+    "xp": "8",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tightrope",
+    "level": "1",
+    "xp": "9",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Gap",
+    "level": "1",
+    "xp": "106",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Bar",
+    "level": "1",
+    "xp": "7",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Beam",
+    "level": "45",
+    "xp": "23",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Edge",
+    "level": "45",
+    "xp": "18",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Edge",
+    "level": "45",
+    "xp": "21",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Beach",
+    "level": "1",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Big window",
+    "level": "70",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Loose rocks",
+    "level": "0",
+    "xp": "1",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Zipline",
+    "level": "45",
+    "xp": "400",
+    "course": "Shayzien Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Little boulder",
+    "level": "1",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Loose rocks",
+    "xp": "1",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Tight-gap",
+    "level": "14",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Crevice",
+    "level": "96",
+    "xp": "7.5",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Fissure",
+    "level": "32",
+    "xp": "3",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "0",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "Floor 2",
+    "version2": "Floor 3",
+    "version3": "Floor 4",
+    "name": "Saradomin brazier",
     "level": "52",
+    "xp1": "50",
+    "xp2": "75",
+    "xp3": "75",
+    "course": "Hallowed Sepulchre",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Tree",
+    "level": "25",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "To the dragons",
+    "version2": "To the giants",
+    "name": "Log balance",
+    "level1": "30",
+    "level2": "1",
+    "xp": "10",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Tunnel",
+    "level": "72",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Rocks",
-    "level": "69",
+    "version1": "Climbing up",
+    "version2": "Climbing down",
+    "name1": "Rope",
+    "name2": "Roped tree",
+    "level1": "68",
+    "level2": "1",
+    "xp1": "4",
+    "failxp1": "0",
+    "xp2": "0",
+    "failxp2": "N/A",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rubble",
+    "level": "56",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Rocks",
-    "level": "73",
+    "name": "Stepping stone",
+    "level": "62",
     "xp": "0",
-    "type": "One-way shortcut",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Cave",
+    "level": "93",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Other",
+    "level": "1",
+    "xp": "25",
+    "time": "0",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Slope",
+    "level": "27",
+    "xp": "25",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Hurdle",
+    "level": "0",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Jutting wall",
+    "level": "60",
+    "xp": "5.5",
+    "xpnote": "Only going into the hallway.",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Climbing rocks",
+    "level": "5",
+    "xp": "25",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Climbing rocks",
+    "level": "32",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Stepping stone",
+    "level": "62",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rock",
+    "level": "25",
+    "xp": "10",
+    "failxp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Broken bridge",
+    "level": "1",
+    "xp": "1",
+    "failxp": "0.7",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Broken bridge",
+    "level": "1",
+    "xp": "0.5",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocky shore",
+    "level": "1",
+    "xp": "0",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocky handholds",
+    "level": "35",
+    "xp": "1",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Fence",
+    "level": "1",
+    "xp": "0",
+    "type": "Shortcut",
     "template": "agility info"
   },
   {
@@ -1736,92 +2456,56 @@
     "template": "agility info"
   },
   {
-    "name": "Rocky handholds",
-    "level": "60",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocky handholds",
-    "level": "35",
-    "xp": "1",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rocky shore",
+    "name": "Fallen Tree",
     "level": "1",
     "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Roof edge",
-    "level": "1",
-    "xp": "23",
-    "course": "Prifddinas Agility Course",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Roof top beams",
-    "level": "20",
-    "xp": "6",
-    "course": "Al Kharid Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rope",
-    "level": "48",
-    "xp": "100",
-    "course": "Ape Atoll Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "name": "Rope",
-    "level1": "50",
-    "level2": "62",
-    "xp1": "37.2",
-    "xp2": "62",
-    "course": "Colossal Wyrm Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rope",
-    "level": "64",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Rope bridge",
-    "level": "40",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "name": "Rope Bridge",
-    "level1": "75",
+    "version1": "Climbing up",
+    "version2": "Climbing down",
+    "name": "Ledge",
+    "level1": "68",
     "level2": "1",
-    "xp": "25.6",
-    "course": "Prifddinas Agility Course",
+    "xp1": "2",
+    "failxp1": "0",
+    "xp2": "0",
+    "failxp2": "N/A",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Trap",
+    "level": "1",
+    "xp": "5",
+    "failxp": "0",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Rope Swing",
+    "name": "Wall support",
     "level": "1",
-    "xp": "20",
-    "course": "Brimhaven Agility Arena",
+    "xp": "0",
+    "failxp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ladder",
+    "level": "1",
+    "xp": "3",
+    "failxp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "To the basement",
+    "version2": "From the basement",
+    "name": "Broken wall",
+    "level1": "10",
+    "level2": "1",
+    "xp": "0.5",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -1834,282 +2518,66 @@
     "template": "agility info"
   },
   {
-    "name": "Ropeswing",
-    "level": "35",
-    "xp": "22",
-    "course": "Barbarian Outpost Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ropeswing",
-    "level": "10",
-    "xp": "3",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Ropeswing",
-    "level": "40",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ropeswing",
-    "level": "10",
-    "xp": "3",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Ropeswing",
-    "level": "52",
-    "xp": "20",
-    "course": "Wilderness Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rough wall",
-    "level": "20",
-    "xp": "12",
-    "course": "Al Kharid Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rough wall",
-    "level": "1",
-    "xp": "5",
-    "course": "Draynor Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rough wall",
-    "level": "50",
-    "xp": "11",
-    "course": "Falador Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rough wall",
-    "level": "70",
-    "xp": "5",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rough wall",
-    "level": "80",
-    "xp": "20",
-    "course": "Rellekka Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rough wall",
-    "level": "30",
-    "xp": "13.5",
-    "course": "Varrock Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Rubble",
-    "level": "56",
+    "name": "Cave",
+    "level": "93",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Shortcut",
-    "level": "30",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Skull slope",
-    "level": "48",
-    "xp": "60",
-    "course": "Ape Atoll Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Skull slope",
-    "level": "60",
-    "xp": "25",
-    "course": "Werewolf Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Slope",
-    "level": "27",
-    "xp": "25",
-    "type": "Other",
-    "template": "agility info"
-  },
-  {
-    "level": "1",
-    "xp": "5",
-    "course": "POH dungeon",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Medium",
-    "version2": "Advanced",
-    "name": "Spikey chain",
-    "level1": "61",
-    "xp1": "3",
-    "failxp1": "6",
-    "level2": "71",
-    "xp2": "3",
-    "failxp2": "6",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Spinning blades",
-    "level": "40",
-    "xp": "28",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Stairs",
-    "level": "52",
-    "xp": "25",
-    "course": "Hallowed Sepulchre",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Level 1",
-    "version2": "Level 2",
-    "version3": "Level 3",
-    "version4": "Level 4",
-    "name": "Stairs",
-    "level1": "62",
-    "level2": "72",
-    "level3": "82",
-    "level4": "92",
-    "xp1": "500",
-    "xp2": "850",
-    "xp3": "1425",
-    "xp4": "2625",
-    "course": "Hallowed Sepulchre",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Steep roof",
-    "level": "1",
-    "xp": "57",
-    "course": "Ardougne Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
-    "level": "30",
-    "xp": "80",
-    "course": "Penguin Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
-    "level": "0",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
-    "level": "48",
-    "xp": "40",
-    "course": "Ape Atoll Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
-    "level": "31",
-    "xp": "3",
-    "failxp": "1",
-    "xpnote": "Experience stated is for each stepping stone.",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
-    "level": "18",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
+    "name": "Cave",
     "level": "74",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "82",
+    "name": "Floating Book",
+    "level": "70",
     "xp": "0",
-    "type": "Shortcut",
+    "failxp": "0",
+    "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "66",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
+    "name": "Bridge",
     "level": "1",
-    "xp": "3",
-    "failxp": "1",
-    "type": "Shortcut",
+    "xp": "0",
+    "failxp": "0",
+    "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "55",
+    "name": "Rocks",
+    "level": "68",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "50",
+    "level": "10",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Ropeswing",
+    "level": "40",
+    "xp": "0",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "47",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "60",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stone",
-    "level": "62",
-    "xp": "0",
+    "name": "Climbing rocks",
+    "level": "66",
+    "xp": "25",
     "type": "Shortcut",
     "template": "agility info"
   },
@@ -2121,33 +2589,38 @@
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "62",
+    "name": "Dry stone wall",
+    "level": "72",
+    "xp": "25",
+    "type": "Shortcut",
+    "template": "agility info"
+  },
+  {
+    "name": "Rocks",
+    "level": "79",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "32",
+    "name": "Rocks",
+    "level": "85",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "60",
-    "xp": "50",
-    "course": "Werewolf Agility Course",
-    "type": "Obstacle",
+    "name": "Rocks",
+    "level": "84",
+    "xp": "0",
+    "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "52",
-    "xp": "20",
-    "course": "Wilderness Agility Course",
-    "type": "Obstacle",
+    "name": "Tunnel",
+    "level": "82",
+    "xp": "0",
+    "type": "Shortcut",
     "template": "agility info"
   },
   {
@@ -2158,176 +2631,44 @@
     "template": "agility info"
   },
   {
-    "name": "Stepping stone",
-    "level": "76",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Toward island",
-    "version2": "Away from island",
-    "name": "Stepping stones",
-    "level1": "56",
-    "level2": "1",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stones",
-    "level": "45",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping stones",
-    "level": "30",
-    "xp": "3",
-    "xpnote": "Experience stated is for each stepping stone.",
-    "failxp": "1",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stepping sontes",
-    "level": "40",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "From the north",
-    "version2": "From the south",
-    "name": "Stepping stone",
-    "level1": "12",
-    "level2": "1",
-    "xp": "7.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Stone block",
-    "level": "30",
-    "xp": "12",
-    "course": "Agility Pyramid",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Stones",
-    "level": "28",
-    "xp": "2",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Strange floor",
-    "level": "63",
+    "name": "Climbing rocks",
+    "level": "77",
     "xp": "10",
-    "failxp": "5",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Spiked blades",
-    "level": "43",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Strange floor",
-    "level": "80",
-    "xp": "12.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Strong Tree",
-    "skill2name": "Strength",
-    "skill3name": "Ranged",
-    "skill1lvl": "53",
-    "skill2lvl": "21",
-    "skill3lvl": "42",
-    "xp": "0",
-    "tool": "Crossbow and",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Tall tree",
-    "level": "40",
+    "name": "Crevice",
+    "level": "81",
     "xp": "10",
-    "course": "Canifis Rooftop Course",
-    "type": "Obstacle",
+    "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "level": "1",
+    "name": "Ledge",
     "xp": "10",
-    "course": "POH dungeon",
     "type": "Obstacle",
     "template": "agility info"
   },
   {
-    "level": "1",
-    "xp": "20",
-    "course": "POH dungeon",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Ticket Dispenser",
-    "level": "1",
-    "xp": "Varies",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Tagging",
-    "version2": "Darts",
-    "name": "Ticket Dispenser",
-    "level1": "1",
-    "xp1": "Varies",
-    "level2": "40",
-    "xp2": "30",
-    "course": "Brimhaven Agility Arena",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tight-gap",
-    "level": "14",
+    "name": "Rocks",
+    "level": "54",
     "xp": "0",
     "type": "Shortcut",
     "template": "agility info"
   },
   {
-    "name": "Tight gap",
-    "level": "78",
-    "xp": "1",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Tight gap",
-    "level": "84",
-    "xp": "1.5",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Tightrope 1",
-    "version2": "Tightrope 2",
-    "name1": "Tightrope 1",
-    "name2": "Tightrope 2",
-    "level": "20",
-    "xp1": "36",
-    "xp2": "18",
-    "course": "Al Kharid Rooftop Course",
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Ladder",
+    "level1": "50",
+    "level2": "62",
+    "level3": "50",
+    "xp1": "37.2",
+    "xp2": "62",
+    "xp3": "37.2",
+    "course": "Colossal Wyrm Agility Course",
     "type": "Obstacle",
     "template": "agility info"
   },
@@ -2347,367 +2688,6 @@
     "template": "agility info"
   },
   {
-    "version1": "Tightrope 1",
-    "version2": "Tightrope 2",
-    "name1": "Tightrope 1",
-    "name2": "Tightrope 2",
-    "level": "1",
-    "xp1": "8",
-    "xp2": "7",
-    "course": "Draynor Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "version3": "3",
-    "name": "Tightrope",
-    "level": "50",
-    "xp1": "22",
-    "xp2": "61",
-    "xp3": "53",
-    "course": "Falador Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "version3": "3",
-    "version4": "4",
-    "name": "Tightrope",
-    "level1": "75",
-    "level2": "75",
-    "level3": "1",
-    "level4": "1",
-    "xp": "30.7",
-    "course": "Prifddinas Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "1",
-    "version2": "2",
-    "name1": "Tightrope 1",
-    "name2": "Tightrope 2",
-    "level1": "80",
-    "level2": "1",
-    "xp1": "40",
-    "xp2": "105",
-    "course": "Rellekka Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tightrope",
-    "level": "60",
-    "xp": "20",
-    "course": "Seers' Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tightrope",
-    "level": "1",
-    "xp": "9",
-    "course": "Shayzien Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Toy doll",
-    "level": "1",
-    "xp": "2.5",
-    "type": "Clockwork toy",
-    "template": "agility info"
-  },
-  {
-    "name": "Toy mouse",
-    "level": "1",
-    "xp": "3",
-    "type": "Clockwork toy",
-    "template": "agility info"
-  },
-  {
-    "name": "Toy soldier",
-    "level": "1",
-    "xp": "0",
-    "type": "Clockwork toy",
-    "template": "agility info"
-  },
-  {
-    "name": "Trap",
-    "level": "1",
-    "xp": "5",
-    "failxp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Jump-to",
-    "version2": "Jump-on",
-    "name1": "Tree (Jump-to)",
-    "name2": "Tree (Jump-on)",
-    "level": "70",
-    "xp1": "75",
-    "xp2": "60",
-    "course": "Pollnivneach Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tree",
-    "level": "25",
-    "xp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Climbing up",
-    "version2": "Climbing down",
-    "name1": "Rope",
-    "name2": "Roped tree",
-    "level1": "68",
-    "level2": "1",
-    "xp1": "4",
-    "failxp1": "0",
-    "xp2": "0",
-    "failxp2": "N/A",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Tree branch",
-    "level": "1",
-    "xp": "6.5",
-    "course": "Gnome Stronghold Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "level": "18",
-    "xp": "31",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Tropical tree",
-    "level": "20",
-    "xp": "12",
-    "course": "Al Kharid Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Tree",
-    "version2": "Vine",
-    "name": "Tropical tree",
-    "level": "48",
-    "xp1": "40",
-    "xp2": "100",
-    "course": "Ape Atoll Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tunnel",
-    "level": "72",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Tunnel",
-    "level": "82",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Tunnel",
-    "level": "70",
-    "xp": "7.5",
-    "course": "Dorgesh-Kaan Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tunnel",
-    "level": "40",
-    "xp": "1",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Tunnel",
-    "level": "72",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Underwall tunnel",
-    "level": "42",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Underwall tunnel",
-    "level": "26",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Underwall Tunnel",
-    "level": "21",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Underwall tunnel",
-    "level": "16",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Vine",
-    "level": "87",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Vine",
-    "level": "79",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "lvl": "55",
-    "xp": "2",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Wall",
-    "level": "63",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Wall",
-    "level": "1",
-    "xp": "10",
-    "course": "Draynor Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Grapple",
-    "version2": "Jump",
-    "name": "Wall",
-    "skill2name1": "Strength",
-    "skill3name1": "Ranged",
-    "skill1lvl1": "11",
-    "skill2lvl1": "37",
-    "skill3lvl1": "19",
-    "skill1lvl2": "4",
-    "xp": "0",
-    "tool1": "Crossbow and",
-    "tool2": "None",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Wall",
-    "level": "60",
-    "xp": "45",
-    "course": "Seers' Village Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Wall",
-    "level": "30",
-    "xp": "28",
-    "course": "Varrock Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "version1": "Grappled Wall",
-    "version2": "Jump Wall",
-    "name": "Wall",
-    "skill2name": "Strength",
-    "skill3name": "Ranged",
-    "skill1lvl1": "39",
-    "skill2lvl1": "38",
-    "skill3lvl1": "21",
-    "skill1lvl2": "4",
-    "xp1": "15",
-    "xp2": "0",
-    "tool1": "Crossbow and",
-    "tool2": "None",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "name": "Wall support",
-    "level": "1",
-    "xp": "0",
-    "failxp": "0",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Weathered wall",
-    "level": "58",
-    "xp": "0",
-    "type": "Shortcut",
-    "template": "agility info"
-  },
-  {
-    "version1": "Level 2 digs",
-    "version2": "Private dig",
-    "level": "10",
-    "xp": "2",
-    "type": "Obstacle",
-    "tool2": "None",
-    "template": "agility info"
-  },
-  {
-    "name": "Wooden Beams",
-    "level": "90",
-    "xp": "43",
-    "course": "Ardougne Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Zip line",
-    "level": "20",
-    "xp": "48",
-    "course": "Al Kharid Rooftop Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
-    "name": "Zip line",
-    "level": "60",
-    "xp": "200",
-    "xpnote": "The zip line gives a variable amount of experience. The earlier you fall (if you fall) you will only receive 180, 160 or 140 experience per zip line, and the farther you go before you fall the larger the amount of experience gained.",
-    "course": "Werewolf Agility Course",
-    "type": "Obstacle",
-    "template": "agility info"
-  },
-  {
     "version1": "Basic",
     "version2": "Advanced",
     "name": "Zipline",
@@ -2720,11 +2700,50 @@
     "template": "agility info"
   },
   {
-    "name": "Zipline",
-    "level": "45",
-    "xp": "400",
-    "course": "Shayzien Agility Course",
+    "version1": "1",
+    "version2": "2",
+    "version3": "3",
+    "name": "Edge",
+    "level1": "50",
+    "level2": "50",
+    "level3": "62",
+    "xp1": "37.2",
+    "xp2": "37.2",
+    "xp3": "62",
+    "course": "Colossal Wyrm Agility Course",
     "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "version1": "1",
+    "version2": "2",
+    "name": "Rope",
+    "level1": "50",
+    "level2": "62",
+    "xp1": "37.2",
+    "xp2": "62",
+    "course": "Colossal Wyrm Agility Course",
+    "type": "Obstacle",
+    "template": "agility info"
+  },
+  {
+    "name": "House window",
+    "level": "32",
+    "xp": "1",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Loose rocks",
+    "xp": "0",
+    "type": "Other",
+    "template": "agility info"
+  },
+  {
+    "name": "Tunnel",
+    "level": "60",
+    "xp": "0",
+    "type": "Shortcut",
     "template": "agility info"
   }
 ]

@@ -1,24 +1,5 @@
 [
   {
-    "skill": "Agility",
-    "members": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Attack",
-    "strict": "yes",
-    "images": "icons",
-    "facilities": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Construction",
-    "images": "icons",
-    "members": "no",
-    "batchsize": "70",
-    "template": "skill table"
-  },
-  {
     "skill": "Cooking",
     "images": "icons",
     "template": "skill table"
@@ -26,36 +7,6 @@
   {
     "skill": "Crafting",
     "images": "icons",
-    "template": "skill table"
-  },
-  {
-    "skill": "Defence",
-    "strict": "yes",
-    "images": "icons",
-    "facilities": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Farming",
-    "images": "icons",
-    "members": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Firemaking",
-    "images": "icons",
-    "template": "skill table"
-  },
-  {
-    "skill": "Fishing",
-    "images": "icons",
-    "template": "skill table"
-  },
-  {
-    "skill": "Fletching",
-    "images": "icons",
-    "facilities": "no",
-    "members": "no",
     "template": "skill table"
   },
   {
@@ -68,58 +19,20 @@
     "template": "skill table"
   },
   {
-    "skill": "Hitpoints",
-    "materials": "no",
-    "tools": "no",
-    "facilities": "no",
-    "template": "skill table"
-  },
-  {
     "skill": "Hunter",
     "members": "no",
     "template": "skill table"
   },
   {
-    "skill": "Magic",
-    "query": "Spellbook::Standard spells",
+    "skill": "Fletching",
     "images": "icons",
-    "tools": "no",
     "facilities": "no",
+    "members": "no",
     "template": "skill table"
   },
   {
-    "skill": "Magic",
-    "query": "Spellbook::Ancient Magick",
-    "images": "icons",
-    "tools": "no",
-    "facilities": "no",
-    "other skills": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Magic",
-    "query": "Spellbook::Lunar spells",
-    "images": "icons",
-    "tools": "no",
-    "facilities": "no",
-    "other skills": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Magic",
-    "query": "Spellbook::Arceuus spellbook",
-    "images": "icons",
-    "tools": "no",
-    "facilities": "no",
-    "other skills": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Magic",
-    "query": "Uses infobox::!Spell",
-    "strict": "yes",
-    "images": "icons",
-    "tools": "no",
+    "skill": "Agility",
+    "members": "no",
     "template": "skill table"
   },
   {
@@ -128,18 +41,7 @@
     "template": "skill table"
   },
   {
-    "skill": "Prayer",
-    "template": "skill table"
-  },
-  {
-    "skill": "Ranged",
-    "strict": "yes",
-    "images": "icons",
-    "facilities": "no",
-    "template": "skill table"
-  },
-  {
-    "skill": "Runecraft",
+    "skill": "Woodcutting",
     "images": "icons",
     "template": "skill table"
   },
@@ -225,14 +127,13 @@
   },
   {
     "skill": "Smithing",
-    "query": "Smithing experience::>0",
+    "query": "Smithing experience::>1",
     "exclude material": "bar%], elemental metal, crystal shard, corrupted shard, ore, ahrim, dharok, guthan, karil, torag, verac",
     "images": "icons",
     "template": "skill table"
   },
   {
-    "skill": "Strength",
-    "strict": "yes",
+    "skill": "Fishing",
     "images": "icons",
     "template": "skill table"
   },
@@ -243,8 +144,107 @@
     "template": "skill table"
   },
   {
-    "skill": "Woodcutting",
+    "skill": "Prayer",
+    "template": "skill table"
+  },
+  {
+    "skill": "Firemaking",
     "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Runecraft",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Construction",
+    "images": "icons",
+    "members": "no",
+    "batchsize": "70",
+    "template": "skill table"
+  },
+  {
+    "skill": "Farming",
+    "images": "icons",
+    "members": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Standard spells",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Ancient Magick",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Lunar spells",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Spellbook::Arceuus spellbook",
+    "images": "icons",
+    "tools": "no",
+    "facilities": "no",
+    "other skills": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Magic",
+    "query": "Uses infobox::!Spell",
+    "strict": "yes",
+    "images": "icons",
+    "tools": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Attack",
+    "strict": "yes",
+    "images": "icons",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Strength",
+    "strict": "yes",
+    "images": "icons",
+    "template": "skill table"
+  },
+  {
+    "skill": "Defence",
+    "strict": "yes",
+    "images": "icons",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Ranged",
+    "strict": "yes",
+    "images": "icons",
+    "facilities": "no",
+    "template": "skill table"
+  },
+  {
+    "skill": "Hitpoints",
+    "materials": "no",
+    "tools": "no",
+    "facilities": "no",
     "template": "skill table"
   }
 ]

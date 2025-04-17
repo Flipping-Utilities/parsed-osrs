@@ -1,50 +1,269 @@
 [
   {
-    "clue": "Always walking around the castle grounds and somehow knows everyone's age.",
-    "note": "Talk to Hans walking around Lumbridge Castle.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to Hans.png",
-    "level": "0",
+    "clue": "2 musical birds. Dig in front of the spinning light.",
+    "note": "Dig in front of the spinning light in Ping and Pong's room inside the Iceberg. A clockwork suit is required to enter the iceberg.",
+    "task": "dig",
+    "image": "Cryptic clue - dig ping and pong's room.png",
+    "level": "5",
     "template": "cryptics"
   },
   {
-    "clue": "[[Clue scroll (beginner) - Buried beneath the ground|Buried beneath the ground, who knows where it's found.\n\nLucky for you, A man called Reldo may have a clue.]]",
-    "note": "Speak to Reldo to receive a strange device used by Hot and Cold clues to locate the location of the next clue.\nPlayers can immediately start the search without speaking to Reldo if they already own a strange device.",
+    "clue": "A chisel and hammer reside in his home, strange for one of magic. Impress him with your magical equipment.",
+    "note": "Wizard Cromperty at the north-east corner of East Ardougne. Speak to him while wearing equipment adding up to at least +100 in magical attack bonus. The passive magic attack multiplication effect of Tumeken's shadow does not count towards the +100 requirement, but its base magic attack bonus of +35 will.",
+    "task": "talk",
+    "image": "Cryptic clue - speak to wizard cromperty.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "A dwarf, approaching death, but very much in the light.",
+    "note": "Thorgel at the entrance to the Death Altar. Requires partial completion of Mourning's End Part II. Easily reached by entering the Death Altar via the Abyss and then leaving.",
+    "task": "talk",
+    "image": "Cryptic clue - a dwarf approaching death.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "A massive battle rages beneath so be careful when you dig by the large broken crossbow.",
+    "note": "North-east of the God Wars Dungeon entrance, climb the rocky handholds and dig by the large crossbow.",
+    "task": "dig",
+    "image": "Cryptic clue - dig by the large broken crossbow.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Anger Abbot Langley.",
+    "note": "Speak to Abbot Langley while you have a negative prayer bonus (currently only possible with an Ancient staff or an Ancient sceptre).",
+    "task": "talk",
+    "image": "Cryptic clue - anger Abbot Langley.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Anger those who adhere to Saradomin's edicts to prevent travel.",
+    "note": "Port Sarim docks, try to charter a ship to Entrana with armour or weapons equipped.",
+    "task": "talk",
+    "image": "Cryptic clue - entrana monks port sarim.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Buried beneath the ground, who knows where it's found.\n\nLucky for you, A man called Jorral may have a clue.",
+    "note": "Speak to Jorral to receive a strange device, which works similarly to the enchanted key (must have Making History quest completed).\n\nFor a list of all possible locations, see here.",
     "task": "hotcold",
-    "image": "Cryptic clue - speak to Reldo.png",
-    "level": "0",
+    "image": "Cryptic clue - speak to Jorral.png",
+    "level": "5",
     "template": "cryptics"
   },
   {
-    "clue": "In the place Duke Horacio calls home, talk to a man with a hat dropped by goblins.",
-    "note": "Talk to the Cook in Lumbridge Castle.",
+    "clue": "Come brave adventurer, your sense is on fire. If you talk to me, it's an old god you desire.",
+    "note": "Speak to Viggora. Note that he can be found (is visible) in 3 locations, but you can only speak to (and continue the clue) the version of him that you spoke to during Curse of the Empty Lord miniquest. You can check your quest log to find out which location. \n*Paddewwa, Edgeville Dungeon, near the earth warriors.\n* of the Rogues' Castle in the deep Wilderness.\n* of the Canifis Slayer Tower, just before the Infernal Mage.\n\nA ring of visibility or a ring of shadows and ghostspeak amulet are required to make progress through the clue.",
     "task": "talk",
-    "image": "Cryptic clue - talk to Lumbridge Cook.png",
-    "level": "0",
+    "image": "Cryptic clue - talk to Viggora.png",
+    "level": "5",
     "template": "cryptics"
   },
   {
-    "clue": "In a village of barbarians, I am the one who guards the village from up high.",
-    "note": "Talk to Hunding atop the tower on the east side of Barbarian Village.",
+    "clue": "Darkness wanders around me, but fills my mind with knowledge.",
+    "note": "Speak to Biblia on the Arceuus Library's top floor.",
     "task": "talk",
-    "image": "Cryptic clue - talk hunding barbarian village.png",
-    "level": "0",
+    "image": "Cryptic clue - talk to biblia.png",
+    "level": "5",
     "template": "cryptics"
   },
   {
-    "clue": "Talk to Charlie the Tramp in Varrock.",
-    "note": "Talk to Charlie the Tramp by the southern entrance to Varrock. He will give you a task.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to charlie the tramp.png",
-    "level": "0",
+    "clue": "Dig in front of the icy arena where 1 of 4 was fought.",
+    "note": "Where you fought Kamil from Desert Treasure I, dig north-east of the first small rock just past the wolves.",
+    "task": "dig",
+    "image": "Cryptic clue - dig icy path.png",
+    "level": "5",
     "template": "cryptics"
   },
   {
-    "clue": "Near the open desert I reside, to get past me you must abide. Go forward if you dare, for when you pass me, you'll be sweating by your hair.",
-    "note": "Talk to Shantay at the Shantay Pass south of Al Kharid.",
+    "clue": "Faint sounds of 'Arr', fire giants found deep, the eastern tip of a lake, are the rewards you could reap.",
+    "note": "Dig south of the pillar at the end of the Deep Wilderness Dungeon.",
+    "task": "dig",
+    "image": "Cryptic clue - dig deep wilderness dungeon end.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Falo the bard wants to see you.",
+    "note": "Speak to Falo the Bard, who is located on the road to the Fremennik Province.",
     "task": "talk",
-    "image": "Cryptic clue - talk shantay shantay pass.png",
-    "level": "0",
+    "image": "Cryptic clue - talk to falo.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Elvish onions.",
+    "note": "Dig in the onion patch east of the allotment patches in the east part of Prifddinas. Requires completion of Song of the Elves.",
+    "task": "dig",
+    "image": "Cryptic clue - elvish onion.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Fiendish cooks probably won't dig the dirty dishes.",
+    "note": "Dig by the fire in the Rogues' Den.",
+    "task": "dig",
+    "image": "Cryptic clue - dig rogues' den fire.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is.",
+    "note": "Speak to Ghommal (or Laidee Gnonock after While Guthix Sleeps) with a total Melee Strength bonus of 100 or more. (Note: Amulet of strength gives +10, even better than a fury for this clue. A dragon battleaxe gives +85 and is relatively easy to obtain for earlier-game players. A Godsword or Barrelchest anchor on its own is over 100 Strength bonus.)",
+    "image": "Cryptic clue - talk ghommal warrior's guild.png",
+    "task": "talk",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Great demons, dragons, and spiders protect this blue rock, beneath which, you may find what you seek.",
+    "note": "Dig by the runite rock in the Lava Maze Dungeon.",
+    "task": "dig",
+    "image": "Cryptic clue - dig lava maze dungeon.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Guthix left his mark in a fiery lake, dig at the tip of it.",
+    "note": "Dig at the tip of the lava lake that is shaped like a Guthixian symbol, west of the Mage Arena.",
+    "task": "dig",
+    "image": "Cryptic clue - dig guthix lava lake.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Here, there are tears, but nobody is crying. Speak to the guardian and show off your alignment to balance.",
+    "note": "Talk to Juna while wearing three Guthix-affiliated items. All Void Knight equipment is Guthix-affiliated.",
+    "task": "talk",
+    "image": "Cryptic clue - speak to Juna.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Hopefully this set of armour will help you to keep surviving.",
+    "note": "Speak to Sir Vyvin while wearing white platebody and white platelegs/white plateskirt (white full helm is not needed).",
+    "task": "talk",
+    "image": "Cryptic clue - speak to Sir Vyvin.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "If you're feeling brave, dig beneath the dragon's eye.",
+    "note": "Dig below the mossy rock under the Viyeldi caves. Requires progress or completion of Legends' Quest. Items needed: Pickaxe, woodcutting axe, machete, unpowered orb, lockpick (multiple recommended), a spade, and any Charge Orb spell. A bravery potion and rope are also required if the quest is not completed (You also need any Axe and a Machete to get through the jungle).\n\nPlayers with level 91 Agility can attach a long rope, purchased from the Darkmeyer General Store, to the rock next to the blue hat to instantly climb down the large cliff.",
+    "task": "dig",
+    "image": "Cryptic clue - dig dragon's eye.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "I lie beneath the first descent to the holy encampment.",
+    "note": "Dig immediately after climbing down the first set of rocks towards Saradomin's Encampment within the God Wars Dungeon. Two ropes are needed; one to enter the dungeon and another to enter Saradomin's Encampment (not required if you've used once before already). 70 Agility is also required (cannot be boosted).",
+    "task": "dig",
+    "image": "Cryptic clue - dig sara gwd.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "My life was spared but these voices remain, now guarding these iron gates is my bane.",
+    "note": "Speak to the Key Master in Cerberus' Lair.",
+    "task": "talk",
+    "image": "Cryptic clue - talk to key master.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "One of several rhyming brothers, in business attire with an obsession for paper work.",
+    "note": "Speak to Piles in the Resource Area. An entry fee of 7,500 coins is required (6,000 if the medium Wilderness Diary is completed, 3,750 if the hard diary is completed, or free if the elite diary is completed).",
+    "task": "talk",
+    "image": "Cryptic clue - talk to piles.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Pentagrams and demons, burnt bones and remains, I wonder what the blood contains.",
+    "note": "Dig under the blood rune spawn next to the Demonic Ruins.",
+    "task": "dig",
+    "image": "Cryptic clue - dig blood rune spawn.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Robin wishes to see your finest ranged equipment.",
+    "note": "Robin at the inn in Port Phasmatys. Speak to him while wearing equipment adding up to 181 ranged attack bonus or over ( crystal bow gives +100 ranged attack bonus on its own). The bonuses from a toxic blowpipe does not count.",
+    "task": "talk",
+    "image": "Cryptic clue - speak to robin.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "She's small but can build both literally and figuratively.",
+    "note": "Speak to Lovada south of the Lovakengj blast mine.",
+    "task": "talk",
+    "image": "Cryptic clue - talk to lovada.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Shhhh!",
+    "note": "Speak to Logosia in the Arceuus Library's ground floor.",
+    "task": "talk",
+    "image": "Cryptic clue - talk to logosia.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Show this to Sherlock.",
+    "note": "Sherlock can be found south of Seers' Village. Players will have to perform one of the Sherlock tasks in order to complete this challenge.",
+    "image": "Cryptic clue - talk sherlock.png",
+    "task": "sherlock",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "South of a river in a town surrounded by the undead, what lies beneath the furnace?",
+    "note": "Dig in front of the Shilo Village furnace.",
+    "task": "dig",
+    "image": "Cryptic clue - dig shilo furnace.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "The far north eastern corner where 1 of 4 was defeated, the shadows still linger.",
+    "note": "Dig on the north-eastern-most corner of the Shadow Dungeon. Bring a ring of visibility or a ring of shadows.",
+    "task": "dig",
+    "image": "Cryptic clue - dig shadow dungeon.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "This place sure is a mess.",
+    "note": "Ewesey is located in the Hosidius mess hall.",
+    "task": "talk",
+    "image": "Cryptic clue - talk ewesey.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "list": [
+      "-"
+    ],
+    "clue": "Under a giant robotic bird that cannot fly.",
+    "note": "Dig next to the terrorbird display in the south exhibit of Varrock Museum's basement.",
+    "task": "dig",
+    "image": "Cryptic clue - under a giant robotic bird.png",
+    "level": "5",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Where safe to speak, the man who offers the pouch of smallest size wishes to see your alignment.",
+    "note": "Speak to the Mage of Zamorak in the Zamorakian chapel south of Aubury's Rune Shop in East Varrock while wearing three items aligned to Zamorak.",
+    "task": "talk",
+    "image": "Cryptic clue - speak to Mage of Zamorak.png",
+    "level": "5",
     "template": "cryptics"
   },
   {
@@ -81,7 +300,7 @@
   },
   {
     "clue": "Dig by the Giant's Den entrance, looking out over Lake Molch.",
-    "note": "Southeast of Lake Molch. Just south of the Shayzien rowboat, outside the dungeon entrance.",
+    "note": "South-east of Lake Molch. Just south of the Shayzien rowboat, outside the dungeon entrance.",
     "task": "dig",
     "image": "Cryptic clue - Dig by the Giant's Den.png",
     "level": "1",
@@ -259,7 +478,7 @@
   },
   {
     "clue": "Search the bookcase in the monastery.",
-    "note": "Search the southeastern bookcase at Edgeville Monastery.",
+    "note": "Search the south-eastern bookcase at Edgeville Monastery.",
     "task": "search",
     "image": "Cryptic clue - search bookcase monastery.png",
     "level": "1",
@@ -267,7 +486,7 @@
   },
   {
     "clue": "Search the food barrel at the top of the Hunter Guild.",
-    "note": "Search the filled food barrel at the top of the tree within the Hunter Guild, accessed from climbing the rope inside.",
+    "note": "Search the filled food pot at the top of the tree within the Hunter Guild, accessed from climbing the rope inside.",
     "task": "search",
     "image": "Cryptic clue - search Hunter Guild food barrel.png",
     "level": "1",
@@ -339,7 +558,7 @@
   },
   {
     "clue": "Search the bucket in the Port Sarim jail.",
-    "note": "Talk to Shantay at the Shantay Pass, ask what this place is, and identify yourself as an outlaw. After you're jailed, refuse to pay the 5gp fine twice and you'll be sent to the Port Sarim Jail.",
+    "note": "Talk to Shantay at the Shantay Pass, ask what this place is, and identify yourself as an outlaw. After you're jailed, refuse to pay the 5gp fine twice and you'll be sent to the Port Sarim jail.",
     "task": "search",
     "image": "Cryptic clue - search bucket port sarim jail.png",
     "level": "1",
@@ -515,7 +734,7 @@
   },
   {
     "clue": "Search the crates in the most north-western house in Al Kharid.",
-    "note": "The house southeast of the gnome glider and the gem stall.",
+    "note": "The house south-east of the gnome glider and the gem stall.",
     "task": "search",
     "image": "Cryptic clue - search crates north-west house al kharid.png",
     "level": "1",
@@ -851,7 +1070,7 @@
   },
   {
     "clue": "Strength potions with red spiders' eggs? He is quite a herbalist.",
-    "note": "Talk to Apothecary in South-western Varrock. (The) Apothecary is just north-west of the Varrock Swordshop.",
+    "note": "Talk to Apothecary in south-western Varrock. (The) Apothecary is just north-west of the Varrock Swordshop.",
     "task": "talk",
     "image": "Cryptic clue - talk apothecary varrock.png",
     "level": "1",
@@ -1043,7 +1262,7 @@
   },
   {
     "clue": "Banish a chilling spirit.",
-    "note": "Kill a Frost Nagua.",
+    "note": "Kill a Frost Nagua. Amoxliatl also counts for this.",
     "task": "kill",
     "image": "Cryptic clue - banish a chilling spirit.png",
     "level": "4",
@@ -1278,7 +1497,7 @@
   },
   {
     "clue": "With a name like that, you'd expect a little more than just a few scimitars.",
-    "note": "Speak to Daga on Ape Atoll. Note: If Monkey Madness II has not been completed, you must be wielding any Monkey Greegree to speak to Daga.",
+    "note": "Speak to Daga on Ape Atoll. Note: If Monkey Madness II has not been completed, you must be wielding any Monkey Greegree to speak to Daga. Either way, you do NOT need a M'speak amulet",
     "task": "talk",
     "image": "Cryptic clue - speak to daga.png",
     "level": "4",
@@ -1589,7 +1808,7 @@
     "template": "cryptics"
   },
   {
-    "clue": "I am a token of the greatest love. I have no beginning or end. My eye is red, I can fit like a glove. Go to the place where it's money they lend,\nAnd dig by the gate to be my friend.",
+    "clue": "[[Clue scroll (hard) - I am a token of the greatest love|I am a token of the greatest love. I have no beginning or end. My eye is red, I can fit like a glove. Go to the place where it's money they lend,\nAnd dig by the gate to be my friend.]]",
     "note": "Dig by the gate in the basement of the West Varrock bank.",
     "task": "dig",
     "image": "Cryptic clue - dig west varrock bank basement.png",
@@ -1629,7 +1848,7 @@
     "template": "cryptics"
   },
   {
-    "clue": "I lie lonely and forgotten in mid wilderness, where the dead rise from their beds.\nFeel free to quarrel and wind me up and dig while you shoot their heads.",
+    "clue": "[[Clue scroll (hard) - I lie lonely and forgotten in mid wilderness|I lie lonely and forgotten in mid wilderness, where the dead rise from their beds.\nFeel free to quarrel and wind me up and dig while you shoot their heads.]]",
     "note": "Directly under the crossbow respawn in the Graveyard of Shadows in level 18 Wilderness.",
     "task": "dig",
     "image": "Cryptic clue - dig graveyard wilderness.png",
@@ -1701,7 +1920,7 @@
     "template": "cryptics"
   },
   {
-    "clue": "My name is like a tree, yet it is spelt with a 'g'.\nCome see the fur which is right near me.",
+    "clue": "[[Clue scroll (hard) - My name is like a tree, yet it is spelt with a 'g'|My name is like a tree, yet it is spelt with a 'g'.\nCome see the fur which is right near me.]]",
     "note": "Speak to Wilough, next to the fur merchant in Varrock Square.",
     "task": "puzzle",
     "image": "Cryptic clue - speak wilough varrock.png",
@@ -1901,273 +2120,6 @@
     "template": "cryptics"
   },
   {
-    "clue": "2 musical birds. Dig in front of the spinning light.",
-    "note": "Dig in front of the spinning light in Ping and Pong's room inside the Iceberg. A clockwork suit is required to enter the iceberg.",
-    "task": "dig",
-    "image": "Cryptic clue - dig ping and pong's room.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "A chisel and hammer reside in his home, strange for one of magic. Impress him with your magical equipment.",
-    "note": "Wizard Cromperty at the north-east corner of East Ardougne. Speak to him while wearing equipment adding up to at least +100 in magical attack bonus. The passive magic attack multiplication effect of Tumeken's shadow does not count towards the +100 requirement, but its base magic attack bonus of +35 will.",
-    "task": "talk",
-    "image": "Cryptic clue - speak to wizard cromperty.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "A dwarf, approaching death, but very much in the light.",
-    "note": "Thorgel at the entrance to the Death Altar. Requires partial completion of Mourning's End Part II.",
-    "task": "talk",
-    "image": "Cryptic clue - a dwarf approaching death.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "A massive battle rages beneath so be careful when you dig by the large broken crossbow.",
-    "note": "North-east of the God Wars Dungeon entrance, climb the rocky handholds and dig by the large crossbow.",
-    "task": "dig",
-    "image": "Cryptic clue - dig by the large broken crossbow.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Anger Abbot Langley.",
-    "note": "Speak to Abbot Langley while you have a negative prayer bonus (currently only possible with an Ancient staff or an Ancient sceptre).",
-    "task": "talk",
-    "image": "Cryptic clue - anger Abbot Langley.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Anger those who adhere to Saradomin's edicts to prevent travel.",
-    "note": "Port Sarim docks, try to charter a ship to Entrana with armour or weapons equipped.",
-    "task": "talk",
-    "image": "Cryptic clue - entrana monks port sarim.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Buried beneath the ground, who knows where it's found.\n\nLucky for you, A man called Jorral may have a clue.",
-    "note": "Speak to Jorral to receive a strange device, which works similarly to the enchanted key (must have Making History quest completed).\n\nFor a list of all possible locations, see here.",
-    "task": "hotcold",
-    "image": "Cryptic clue - speak to Jorral.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Come brave adventurer, your sense is on fire. If you talk to me, it's an old god you desire.",
-    "note": "Speak to Viggora. Note that he can be found (is visible) in 3 locations, but you can only speak to (and continue the clue) the version of him that you spoke to during Curse of the Empty Lord miniquest. You can check your quest log to find out which location. \n*Paddewwa, Edgeville Dungeon, near the earth warriors.\n* of the Rogues' Castle in the deep Wilderness.\n* of the Canifis Slayer Tower, just before the Infernal Mage.\n\nA ring of visibility or a ring of shadows and ghostspeak amulet are required to make progress through the clue.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to Viggora.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Darkness wanders around me, but fills my mind with knowledge.",
-    "note": "Speak to Biblia on the Arceuus Library's top floor.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to biblia.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Dig in front of the icy arena where 1 of 4 was fought.",
-    "note": "Where you fought Kamil from Desert Treasure I, dig north-east of the first small rock just past the wolves.",
-    "task": "dig",
-    "image": "Cryptic clue - dig icy path.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Faint sounds of 'Arr', fire giants found deep, the eastern tip of a lake, are the rewards you could reap.",
-    "note": "Dig south of the pillar at the end of the Deep Wilderness Dungeon.",
-    "task": "dig",
-    "image": "Cryptic clue - dig deep wilderness dungeon end.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Falo the bard wants to see you.",
-    "note": "Speak to Falo the Bard, who is located on the road to the Fremennik Province.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to falo.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Elvish onions.",
-    "note": "Dig in the onion patch east of the allotment patches in the east part of Prifddinas. Requires completion of Song of the Elves.",
-    "task": "dig",
-    "image": "Cryptic clue - elvish onion.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Fiendish cooks probably won't dig the dirty dishes.",
-    "note": "Dig by the fire in the Rogues' Den.",
-    "task": "dig",
-    "image": "Cryptic clue - dig rogues' den fire.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is.",
-    "note": "Speak to Ghommal (or Laidee Gnonock after While Guthix Sleeps) with a total Melee Strength bonus of 100 or more. (Note: Amulet of strength gives +10, even better than a fury for this clue. A dragon battleaxe gives +85 and is relatively easy to obtain for earlier-game players. A Godsword or Barrelchest anchor on its own is over 100 Strength bonus.)",
-    "image": "Cryptic clue - talk ghommal warrior's guild.png",
-    "task": "talk",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Great demons, dragons, and spiders protect this blue rock, beneath which, you may find what you seek.",
-    "note": "Dig by the runite rock in the Lava Maze Dungeon.",
-    "task": "dig",
-    "image": "Cryptic clue - dig lava maze dungeon.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Guthix left his mark in a fiery lake, dig at the tip of it.",
-    "note": "Dig at the tip of the lava lake that is shaped like a Guthixian symbol, west of the Mage Arena.",
-    "task": "dig",
-    "image": "Cryptic clue - dig guthix lava lake.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Here, there are tears, but nobody is crying. Speak to the guardian and show off your alignment to balance.",
-    "note": "Talk to Juna while wearing three Guthix-affiliated items. All Void Knight equipment is Guthix-affiliated.",
-    "task": "talk",
-    "image": "Cryptic clue - speak to Juna.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Hopefully this set of armour will help you to keep surviving.",
-    "note": "Speak to Sir Vyvin while wearing white platebody and white platelegs/white plateskirt (white full helm is not needed).",
-    "task": "talk",
-    "image": "Cryptic clue - speak to Sir Vyvin.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "If you're feeling brave, dig beneath the dragon's eye.",
-    "note": "Dig below the mossy rock under the Viyeldi caves. Requires progress or completion of Legends' Quest. Items needed: Pickaxe, woodcutting axe, machete, unpowered orb, lockpick (multiple recommended), a spade, and any Charge Orb spell. A bravery potion and rope are also required if the quest is not completed (You also need any Axe and a Machete to get through the jungle).\n\nPlayers with level 91 Agility can attach a long rope, purchased from the Darkmeyer General Store, to the rock next to the blue hat to instantly climb down the large cliff.",
-    "task": "dig",
-    "image": "Cryptic clue - dig dragon's eye.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "I lie beneath the first descent to the holy encampment.",
-    "note": "Dig immediately after climbing down the first set of rocks towards Saradomin's Encampment within the God Wars Dungeon. Two ropes are needed; one to enter the dungeon and another to enter Saradomin's Encampment (not required if you've used once before already). 70 Agility is also required (cannot be boosted).",
-    "task": "dig",
-    "image": "Cryptic clue - dig sara gwd.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "My life was spared but these voices remain, now guarding these iron gates is my bane.",
-    "note": "Speak to the Key Master in Cerberus' Lair.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to key master.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "One of several rhyming brothers, in business attire with an obsession for paper work.",
-    "note": "Speak to Piles in the Resource Area. An entry fee of 7,500 coins is required (6,000 if the medium Wilderness Diary is completed, 3,750 if the hard diary is completed, or free if the elite diary is completed).",
-    "task": "talk",
-    "image": "Cryptic clue - talk to piles.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Pentagrams and demons, burnt bones and remains, I wonder what the blood contains.",
-    "note": "Dig under the blood rune spawn next to the Demonic Ruins.",
-    "task": "dig",
-    "image": "Cryptic clue - dig blood rune spawn.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Robin wishes to see your finest ranged equipment.",
-    "note": "Robin at the inn in Port Phasmatys. Speak to him while wearing equipment adding up to 181 ranged attack bonus or over ( crystal bow gives +100 ranged attack bonus on its own). The bonuses from a toxic blowpipe does not count.",
-    "task": "talk",
-    "image": "Cryptic clue - speak to robin.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "She's small but can build both literally and figuratively.",
-    "note": "Speak to Lovada south of the Lovakengj blast mine.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to lovada.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Shhhh!",
-    "note": "Speak to Logosia in the Arceuus Library's ground floor.",
-    "task": "talk",
-    "image": "Cryptic clue - talk to logosia.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Show this to Sherlock.",
-    "note": "Sherlock can be found south of Seers' Village. Players will have to perform one of the Sherlock tasks in order to complete this challenge.",
-    "image": "Cryptic clue - talk sherlock.png",
-    "task": "sherlock",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "South of a river in a town surrounded by the undead, what lies beneath the furnace?",
-    "note": "Dig in front of the Shilo Village furnace.",
-    "task": "dig",
-    "image": "Cryptic clue - dig shilo furnace.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "The far north eastern corner where 1 of 4 was defeated, the shadows still linger.",
-    "note": "Dig on the north-eastern-most corner of the Shadow Dungeon. Bring a ring of visibility or a ring of shadows.",
-    "task": "dig",
-    "image": "Cryptic clue - dig shadow dungeon.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "This place sure is a mess.",
-    "note": "Ewesey is located in the Hosidius mess hall.",
-    "task": "talk",
-    "image": "Cryptic clue - talk ewesey.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "list": [
-      "-"
-    ],
-    "clue": "Under a giant robotic bird that cannot fly.",
-    "note": "Dig next to the terrorbird display in the south exhibit of Varrock Museum's basement.",
-    "task": "dig",
-    "image": "Cryptic clue - under a giant robotic bird.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
-    "clue": "Where safe to speak, the man who offers the pouch of smallest size wishes to see your alignment.",
-    "note": "Speak to the Mage of Zamorak in the Zamorakian chapel south of Aubury's Rune Shop in East Varrock while wearing three items aligned to Zamorak.",
-    "task": "talk",
-    "image": "Cryptic clue - speak to Mage of Zamorak.png",
-    "level": "5",
-    "template": "cryptics"
-  },
-  {
     "clue": "A graceful man of many colours, his crates must be full of many delights.",
     "note": "Kill a hill giant to obtain the key. Search the crate on the of Osten's shop in Shayzien.",
     "task": "key",
@@ -2282,7 +2234,7 @@
   {
     "clue": "Search the upstairs drawers of a house in a village where pirates are known to have a good time.",
     "note": "The house in the south-east corner of Brimhaven, north-east of Davon's Amulet Store.\nKill any pirate located around Brimhaven to obtain the key.",
-    "task": "search",
+    "task": "key",
     "image": "Cryptic clue - search drawers brimhaven.png",
     "level": "2",
     "template": "cryptics"
@@ -2380,6 +2332,54 @@
     "task": "key",
     "image": "Cryptic clue - search chest varrock church.png",
     "level": "2",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Always walking around the castle grounds and somehow knows everyone's age.",
+    "note": "Talk to Hans walking around Lumbridge Castle.",
+    "task": "talk",
+    "image": "Cryptic clue - talk to Hans.png",
+    "level": "0",
+    "template": "cryptics"
+  },
+  {
+    "clue": "[[Clue scroll (beginner) - Buried beneath the ground|Buried beneath the ground, who knows where it's found.\n\nLucky for you, A man called Reldo may have a clue.]]",
+    "note": "Speak to Reldo to receive a strange device used by Hot and Cold clues to locate the location of the next clue.\nPlayers can immediately start the search without speaking to Reldo if they already own a strange device.",
+    "task": "hotcold",
+    "image": "Cryptic clue - speak to Reldo.png",
+    "level": "0",
+    "template": "cryptics"
+  },
+  {
+    "clue": "In the place Duke Horacio calls home, talk to a man with a hat dropped by goblins.",
+    "note": "Talk to the Cook in Lumbridge Castle.",
+    "task": "talk",
+    "image": "Cryptic clue - talk to Lumbridge Cook.png",
+    "level": "0",
+    "template": "cryptics"
+  },
+  {
+    "clue": "In a village of barbarians, I am the one who guards the village from up high.",
+    "note": "Talk to Hunding atop the tower on the east side of Barbarian Village.",
+    "task": "talk",
+    "image": "Cryptic clue - talk hunding barbarian village.png",
+    "level": "0",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Talk to Charlie the Tramp in Varrock.",
+    "note": "Talk to Charlie the Tramp by the southern entrance to Varrock. He will give you a task.",
+    "task": "talk",
+    "image": "Cryptic clue - talk to charlie the tramp.png",
+    "level": "0",
+    "template": "cryptics"
+  },
+  {
+    "clue": "Near the open desert I reside, to get past me you must abide. Go forward if you dare, for when you pass me, you'll be sweating by your hair.",
+    "note": "Talk to Shantay at the Shantay Pass south of Al Kharid.",
+    "task": "talk",
+    "image": "Cryptic clue - talk shantay shantay pass.png",
+    "level": "0",
     "template": "cryptics"
   },
   {

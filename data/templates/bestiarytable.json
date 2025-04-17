@@ -1,5 +1,30 @@
 [
   {
+    "fromlevel": "31",
+    "tolevel": "40",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "10",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "11",
+    "tolevel": "20",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "21",
+    "tolevel": "30",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "41",
+    "tolevel": "50",
+    "template": "bestiarytable"
+  },
+  {
     "fromlevel": "1",
     "tolevel": "10",
     "mems": "F2P",
@@ -39,106 +64,6 @@
     "fromlevel": "101",
     "tolevel": "200",
     "mems": "F2P",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "101",
-    "tolevel": "110",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "111",
-    "tolevel": "120",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "11",
-    "tolevel": "20",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "121",
-    "tolevel": "130",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "131",
-    "tolevel": "140",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "141",
-    "tolevel": "150",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "151",
-    "tolevel": "160",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "161",
-    "tolevel": "170",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "171",
-    "tolevel": "180",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "181",
-    "tolevel": "190",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "191",
-    "tolevel": "200",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "10",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "201",
-    "tolevel": "250",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "251",
-    "tolevel": "300",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "301",
-    "tolevel": "350",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "351",
-    "tolevel": "400",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "21",
-    "tolevel": "30",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "31",
-    "tolevel": "40",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "41",
-    "tolevel": "50",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "51",
-    "tolevel": "60",
     "template": "bestiarytable"
   },
   {
@@ -147,8 +72,8 @@
     "template": "bestiarytable"
   },
   {
-    "fromlevel": "71",
-    "tolevel": "80",
+    "fromlevel": "91",
+    "tolevel": "100",
     "template": "bestiarytable"
   },
   {
@@ -157,43 +82,93 @@
     "template": "bestiarytable"
   },
   {
-    "fromlevel": "91",
-    "tolevel": "100",
+    "fromlevel": "71",
+    "tolevel": "80",
     "template": "bestiarytable"
   },
   {
-    "fromlevel": "401",
-    "tolevel": "500",
+    "fromlevel": "51",
+    "tolevel": "60",
     "template": "bestiarytable"
   },
   {
-    "fromlevel": "501",
-    "tolevel": "600",
+    "fromletter": "A",
+    "toletter": "Z",
+    "levelselect": "no",
+    "levelsort": "no",
+    "attribute": "undead",
     "template": "bestiarytable"
   },
   {
-    "fromlevel": "601",
-    "tolevel": "700",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "701",
-    "tolevel": "800",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "801",
-    "tolevel": "900",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "901",
-    "tolevel": "1000",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1001",
+    "fromlevel": "1",
     "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "penance",
+    "template": "bestiarytable"
+  },
+  {
+    "fromletter": "A",
+    "toletter": "Z",
+    "levelselect": "no",
+    "levelsort": "no",
+    "attribute": "dragon",
+    "template": "bestiarytable"
+  },
+  {
+    "fromletter": "A",
+    "toletter": "Z",
+    "levelselect": "no",
+    "levelsort": "no",
+    "attribute": "demon",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "kalphite",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "leafy",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "vampyre1",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "vampyre2",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "vampyre3",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "fiery",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "shade",
     "template": "bestiarytable"
   },
   {
@@ -909,6 +884,148 @@
     "template": "bestiarytable"
   },
   {
+    "fromletter": "A",
+    "toletter": "Z",
+    "levelselect": "no",
+    "levelsort": "no",
+    "attribute": "xerician",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "101",
+    "tolevel": "110",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "111",
+    "tolevel": "120",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "121",
+    "tolevel": "130",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "131",
+    "tolevel": "140",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "141",
+    "tolevel": "150",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "151",
+    "tolevel": "160",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "161",
+    "tolevel": "170",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "171",
+    "tolevel": "180",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "181",
+    "tolevel": "190",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "191",
+    "tolevel": "200",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "spectral",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "spectral",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "2000",
+    "levelsort": "no",
+    "attribute": "golem",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1",
+    "tolevel": "10000",
+    "levelsort": "yes",
+    "verbose": "yes",
+    "onlycat": "+",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "201",
+    "tolevel": "250",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "251",
+    "tolevel": "300",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "301",
+    "tolevel": "350",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "351",
+    "tolevel": "400",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "401",
+    "tolevel": "500",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "501",
+    "tolevel": "600",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "601",
+    "tolevel": "700",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "701",
+    "tolevel": "800",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "801",
+    "tolevel": "900",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "901",
+    "tolevel": "1000",
+    "template": "bestiarytable"
+  },
+  {
+    "fromlevel": "1001",
+    "tolevel": "2000",
+    "template": "bestiarytable"
+  },
+  {
     "fromlevel": "1",
     "tolevel": "2000",
     "levelsort": "yes",
@@ -1093,127 +1210,10 @@
     "template": "bestiarytable"
   },
   {
-    "fromletter": "A",
-    "toletter": "Z",
-    "levelselect": "no",
-    "levelsort": "no",
-    "attribute": "demon",
-    "template": "bestiarytable"
-  },
-  {
-    "fromletter": "A",
-    "toletter": "Z",
-    "levelselect": "no",
-    "levelsort": "no",
-    "attribute": "dragon",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "spectral",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "fiery",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "golem",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "kalphite",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "leafy",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "penance",
-    "template": "bestiarytable"
-  },
-  {
     "fromlevel": "1",
     "tolevel": "2000",
     "levelsort": "no",
     "attribute": "rat",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "shade",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "10000",
-    "levelsort": "yes",
-    "verbose": "yes",
-    "onlycat": "+",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "spectral",
-    "template": "bestiarytable"
-  },
-  {
-    "fromletter": "A",
-    "toletter": "Z",
-    "levelselect": "no",
-    "levelsort": "no",
-    "attribute": "undead",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "vampyre1",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "vampyre2",
-    "template": "bestiarytable"
-  },
-  {
-    "fromlevel": "1",
-    "tolevel": "2000",
-    "levelsort": "no",
-    "attribute": "vampyre3",
-    "template": "bestiarytable"
-  },
-  {
-    "fromletter": "A",
-    "toletter": "Z",
-    "levelselect": "no",
-    "levelsort": "no",
-    "attribute": "xerician",
     "template": "bestiarytable"
   }
 ]
