@@ -4,6 +4,7 @@ import { ALL_SHOPS } from '../../constants/paths';
 import { Shop, ShopItem } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
+import { PageTags } from 'src/constants/tags';
 
 @Injectable()
 export class ShopsExtractor {
@@ -20,20 +21,15 @@ export class ShopsExtractor {
   public async extractAllShops() {
     this.logger.log('Starting to extract shops');
 
-    const shopPages = this.pageListDumper.getShops();
-    const shops = shopPages
-      .map((page) => {
-        try {
-          return this.extractShopFromPageId(page.pageid);
-        } catch (e) {
-          this.logger.error(
-            'Error extracting shop from page id',
-            page.pageid,
-            e
-          );
-        }
-      })
-      .filter((v) => v);
+    const shopPages = await this.pageListDumper.getPagesFromTag(PageTags.SHOP);
+    const shops: Shop[] = [];
+    for await (const page of shopPages) {
+      const shop = await this.extractShopFromPageId(page.id);
+      if (shop) {
+        shops.push(shop);
+      }
+    }
+    shops.sort((a, b) => a.name.localeCompare(b.name));
 
     if (shops.length) {
       writeFileSync(ALL_SHOPS, JSON.stringify(shops, null, 2));
@@ -64,10 +60,10 @@ export class ShopsExtractor {
     return this.cachedShops;
   }
 
-  private extractShopFromPageId(pageId: number): Shop | null {
-    const page = this.pageContentDumper.getPageFromId(pageId);
+  private async extractShopFromPageId(pageId: number): Promise<Shop | null> {
+    const page = await this.pageContentDumper.getDBPageFromId(pageId);
 
-    const hasShop = page.rawContent.includes('{{StoreTableHead');
+    const hasShop = page.text.includes('{{StoreTableHead');
     if (!hasShop) {
       // Item has no shops
       return null;
@@ -83,9 +79,9 @@ export class ShopsExtractor {
      */
 
     const shopHeadRegex = /\{\{StoreTableHead\|(.+)\}\}/g;
-    const shopHead = page.rawContent.match(shopHeadRegex);
+    const shopHead = page.text.match(shopHeadRegex);
     if (shopHead?.length === 0 || !shopHead) {
-      this.logger.debug('No shop head', page.title, page.pageid);
+      this.logger.debug('No shop head', page.title, page.id);
       return null;
     }
 
@@ -125,7 +121,7 @@ export class ShopsExtractor {
 
     // @ts-ignore
     const inventory = (
-      page.rawContent.match(shopLineRegex)?.map((v) =>
+      page.text.match(shopLineRegex)?.map((v) =>
         v
           .replace('{{StoreLine|', '')
           .replace(/\}\}$/, '')
@@ -147,7 +143,7 @@ export class ShopsExtractor {
           .filter((v) => v)
       ) as [string, string | number][][]
     )
-      .map((v) => {
+      ?.map((v) => {
         const name = v.find((v) => v[0] === 'name') || '';
         const item = this.itemExtractor.getItemByName(name[1]?.toString())?.id;
         if (!item) {
@@ -167,7 +163,7 @@ export class ShopsExtractor {
 
     const shop: Shop = {
       name: page.title,
-      pageId: page.pageid,
+      pageId: page.id,
       buyPercent,
       sellPercent,
       buyChangePercent,
