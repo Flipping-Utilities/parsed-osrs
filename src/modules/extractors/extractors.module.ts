@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { DatabaseModule } from '../database/database.module';
 import { DumpersModule } from '../dumpers/dumpers.module';
 import { WikiModule } from '../wiki/wiki.module';
 import { ItemsExtractor } from './items.extractor';
@@ -10,7 +11,7 @@ import { SpawnExtractor } from './spawn.extractor';
 import { TemplateExtractor } from './template.extractor';
 
 @Module({
-  imports: [WikiModule, DumpersModule],
+  imports: [WikiModule, DumpersModule, DatabaseModule],
   providers: [
     ItemsExtractor,
     MonstersExtractor,

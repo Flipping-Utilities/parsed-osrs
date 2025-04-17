@@ -7,21 +7,23 @@ import {
   ALL_SETS_PAGE_LIST,
   ALL_SHOPS_PAGE_LIST,
   GE_ITEM_PAGE_LIST,
-  WIKI_PAGES_FOLDER,
   WIKI_PAGE_LIST,
 } from '../../constants/paths';
-
-import {
-  WikiPageSlim,
-  WikiPageWithContent,
-  WikiRequestService,
-} from '../wiki/wikiRequest.service';
+import { DatabaseService } from '../database/database.service';
+import { PageTag, WikiPage } from '../database/schema';
+import { WikiPageSlim, WikiRequestService } from '../wiki/wikiRequest.service';
 
 @Injectable()
 export class PageListDumper {
   private logger = new Logger(PageListDumper.name);
+  private db: ReturnType<DatabaseService['getDb']>;
 
-  constructor(private readonly wikiRequestService: WikiRequestService) {}
+  constructor(
+    private readonly wikiRequestService: WikiRequestService,
+    private readonly databaseService: DatabaseService
+  ) {
+    this.db = this.databaseService.getDb();
+  }
 
   /**
    * Dumps all of the wiki page name + ids
@@ -58,6 +60,10 @@ export class PageListDumper {
     await this.saveFile(WIKI_PAGE_LIST, pages);
   }
 
+  async getWikiPageListDB(): Promise<Array<typeof WikiPage.$inferSelect>> {
+    return this.db.select().from(WikiPage);
+  }
+
   getWikiPageList(): WikiPageSlim[] {
     return this.getPageList(WIKI_PAGE_LIST);
   }
@@ -69,29 +75,36 @@ export class PageListDumper {
   async dumpRedirectList(): Promise<void> {
     this.logger.log('Dumping all redirect list');
     const allPages = this.getWikiPageList();
+    const pagesToUpdate: typeof WikiPage[] = [];
     allPages.forEach((slimPage, i) => {
       if (i % 100 === 0) {
         console.log(`${i} / ${allPages.length}`);
       }
       try {
-        const page: WikiPageWithContent = JSON.parse(
-          readFileSync(`${WIKI_PAGES_FOLDER}/${slimPage.pageid}.json`, {
-            encoding: 'utf8',
-          })
-        );
-        const redirects = page?.redirects || [];
-        slimPage.redirects = redirects;
+        // const page: typeof WikiPage = this.db.query.WikiPage.findFirst({
+        //   where: (page, { eq }) => eq(page.id, slimPage.pageid),
+        // });
+        // Todo: Get all redirects in some other way
+        // JSON.parse(
+        //   readFileSync(`${WIKI_PAGES_FOLDER}/${slimPage.pageid}.json`, {
+        //     encoding: 'utf8',
+        //   })
+        // );
+        // const redirects = page?.redirects || [];
+        // slimPage.redirects = redirects;
       } catch (e) {
         console.error(slimPage, e);
       }
     });
-    await this.saveFile(WIKI_PAGE_LIST, allPages);
+    // // this.db.insert(WikiPage).values(allPages);
+    // await this.saveFile(WIKI_PAGE_LIST, allPages);
 
     this.logger.log('Dumping all redirect list - Completed');
   }
 
   /**
    * Fetches the list of all items
+   * From the wiki itself, and returns a list of slim pages.
    */
   async fetchAllItemPageList(category = 'Items'): Promise<WikiPageSlim[]> {
     this.logger.log('Dump all item page list');
@@ -135,7 +148,12 @@ export class PageListDumper {
    */
   async dumpAllItemPageList(): Promise<void> {
     const pages = await this.fetchAllItemPageList();
-    await this.saveFile(ALL_ITEM_PAGE_LIST, pages);
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      'item'
+    );
+    // await this.saveFile(ALL_ITEM_PAGE_LIST, pages);
   }
 
   getAllItems(): WikiPageSlim[] {
@@ -150,6 +168,10 @@ export class PageListDumper {
     const pages = await this.fetchGEItemPageList();
     this.logger.log('Dump GE item page list - Done');
 
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      'ge-item'
+    );
     await this.saveFile(GE_ITEM_PAGE_LIST, pages);
   }
 
@@ -164,7 +186,12 @@ export class PageListDumper {
     this.logger.log('Dump item set page list');
     const pages = await this.fetchItemSetsPageList();
     this.logger.log('Dump item set page list - Completed');
-    await this.saveFile(ALL_SETS_PAGE_LIST, pages);
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      'set'
+    );
+    // await this.saveFile(ALL_SETS_PAGE_LIST, pages);
   }
 
   getItemSets(): WikiPageSlim[] {
@@ -178,7 +205,12 @@ export class PageListDumper {
     this.logger.log('Dump shop page list');
     const pages = await this.fetchShopPageList();
     this.logger.log('Dump shop page list - Completed');
-    await this.saveFile(ALL_SHOPS_PAGE_LIST, pages);
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      'shop'
+    );
+    // await this.saveFile(ALL_SHOPS_PAGE_LIST, pages);
   }
 
   getShops(): WikiPageSlim[] {
@@ -192,7 +224,12 @@ export class PageListDumper {
     this.logger.log('Dump monster page list');
     const pages = await this.fetchMonstersPageList();
     this.logger.log('Dump monster page list');
-    await this.saveFile(ALL_MONSTERS_PAGE_LIST, pages);
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      'monster'
+    );
+    // await this.saveFile(ALL_MONSTERS_PAGE_LIST, pages);
   }
 
   getMonsters(): WikiPageSlim[] {
@@ -233,15 +270,50 @@ export class PageListDumper {
     this.logger.log('Dump item spawn page list');
     const pages = await this.fetchItemSpawnPageList();
     this.logger.log('Dump item spawn page list - Completed');
-    await this.saveFile(ALL_ITEM_SPAWNS_PAGE_LIST, pages);
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      'item-spawn'
+    );
+    // await this.saveFile(ALL_ITEM_SPAWNS_PAGE_LIST, pages);
   }
 
   getItemSpawns(): WikiPageSlim[] {
     return this.getPageList(ALL_ITEM_SPAWNS_PAGE_LIST);
   }
 
+  async getPagesFromTag(
+    tag: string
+  ): Promise<Array<typeof WikiPage.$inferSelect>> {
+    const tags = await this.db.query.PageTag.findMany({
+      where: (pageTag, { eq }) => eq(pageTag.tag, tag),
+    });
+    const pageIds = tags.map((tag) => tag.wikiPageId);
+    const pages = await this.db.query.WikiPage.findMany({
+      where: (wikiPage, { inArray }) => inArray(wikiPage.id, pageIds),
+    });
+    return pages;
+  }
+
   private saveFile(path: string, content: unknown) {
     writeFileSync(path, JSON.stringify(content, null, 2));
+  }
+  private async addTag(pagesId: number[], tag: string) {
+    try {
+      await this.db.batch(
+        // @ts-ignore
+        pagesId.map((pageId) =>
+          this.db
+            .insert(PageTag)
+            .values({ wikiPageId: pageId, tag })
+            .onConflictDoNothing()
+        )
+      );
+    } catch (e) {
+      // This can happen if the page doesn't exist
+      // Not optimal as it'll fail the batch, should fix
+      console.error(e);
+    }
   }
 
   private getPageList(path: string): WikiPageSlim[] {
