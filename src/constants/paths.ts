@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 export const DATA_FOLDER = process.env.DATA_FOLDER_PATH || './data';
 export const WIKI_DATA_FOLDER = process.env.WIKI_FOLDER_PATH || './wiki-data';
 
@@ -10,6 +11,12 @@ export const META_FILE = `${DATA_FOLDER}/meta.json`;
 export const ITEMS_FOLDER = `${DATA_FOLDER}/items`;
 export const MONSTERS_FOLDER = `${DATA_FOLDER}/monsters`;
 export const TEMPLATE_FOLDER = `${DATA_FOLDER}/templates`;
+
+fs.mkdirSync(WIKI_PAGES_FOLDER, { recursive: true });
+fs.mkdirSync(WIKI_PAGE_LIST_FOLDER, { recursive: true });
+fs.mkdirSync(ITEMS_FOLDER, { recursive: true });
+fs.mkdirSync(MONSTERS_FOLDER, { recursive: true });
+fs.mkdirSync(TEMPLATE_FOLDER, { recursive: true });
 
 export const ALL_SPAWNS = `${ITEMS_FOLDER}/all-spawns.json`;
 export const ALL_ITEMS = `${ITEMS_FOLDER}/all-items.json`;
