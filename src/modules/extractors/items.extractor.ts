@@ -136,12 +136,12 @@ export class ItemsExtractor {
     return this.cachedGEItems;
   }
 
-  private itemNameMap: Map<string, Item>;
+  private itemNameMap: Map<string, Item> = new Map();
 
   public getItemByName(candidateName: string): Item | null {
     if (!this.itemNameMap) {
       this.itemNameMap = new Map();
-      this.getAllItems().forEach((item) => {
+      this.getAllItems()!.forEach((item) => {
         if (!this.itemNameMap.has(item.name)) {
           this.itemNameMap.set(item.name, item);
         } else {
@@ -152,9 +152,9 @@ export class ItemsExtractor {
             Number(item.isOnGrandExchange) +
             Number(item.isTradeable);
           const otherScore =
-            Number(otherItem.isInMainGame) * 3 +
-            Number(otherItem.isOnGrandExchange) +
-            Number(otherItem.isTradeable);
+            Number(otherItem?.isInMainGame) * 3 +
+            Number(otherItem?.isOnGrandExchange) +
+            Number(otherItem?.isTradeable);
           if (score > otherScore) {
             // Item most likely to be current and used takes the place
             this.itemNameMap.set(item.name, item);
@@ -166,7 +166,7 @@ export class ItemsExtractor {
     if (!this.itemNameMap.has(candidateName)) {
       return null;
     }
-    return this.itemNameMap.get(candidateName);
+    return this.itemNameMap.get(candidateName) || null;
   }
 
   private async extractItemFromPageId(pageId: number): Promise<Item[] | null> {
@@ -178,7 +178,7 @@ export class ItemsExtractor {
     const candidateItems: Item[] = [];
 
     const parsed: WikiItem = parseInfo(
-      page.text.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
+      page.text!.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
     ).general;
     if (Object.keys(parsed).length === 0) {
       console.warn(`Page not parsed: (${page.id}) ${page.title}`);
@@ -195,9 +195,9 @@ export class ItemsExtractor {
       'removal' in parsed ||
       page.title.includes('Redundant') ||
       page.title.startsWith('Sigil') ||
-      page.text.includes('{{Deadman seasonal}}') ||
-      page.text.includes('{{Beta}}') ||
-      page.text.includes('{{Gone')
+      page.text!.includes('{{Deadman seasonal}}') ||
+      page.text!.includes('{{Beta}}') ||
+      page.text!.includes('{{Gone')
     ) {
       isInMainGame = false;
     }

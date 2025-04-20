@@ -117,7 +117,11 @@ export class PageContentDumper {
       writeFileSync(outputPath, Buffer.from(response.data));
       this.logger.log(`Saved XML export to: ${outputPath}`);
     } catch (error) {
-      this.logger.error('Failed to export wiki pages:', error.message, error);
+      this.logger.error(
+        'Failed to export wiki pages:',
+        (error as any)?.message,
+        error
+      );
     }
   }
   private async parseWikiDump() {

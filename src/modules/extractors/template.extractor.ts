@@ -27,11 +27,7 @@ export class TemplateExtractor {
         this.logger.verbose(`${i + 1}/${l}`);
       }
       const page = allPageList[i];
-      if (!page) {
-        this.logger.warn('Could not find page with id', page.id);
-        continue;
-      }
-      const meta = wtf(page.text);
+      const meta = wtf(page.text!);
       const pageTemplates = meta
         .templates()
         .map((v) => v.json()) as Array<Template>;

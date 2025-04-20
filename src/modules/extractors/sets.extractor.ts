@@ -71,18 +71,18 @@ export class SetsExtractor {
      */
 
     const matcher = /\{\{CostLine\|(.+)\}\}/gm;
-    const components = Array.from(page.text.matchAll(matcher));
+    const components = Array.from(page.text!.matchAll(matcher));
     if (!components.length) {
       this.logger.warn('No components', title, page.id);
       return null;
     }
     // Blue mystic sets has |disambiguation, strip it
     const componentNames = components.map((c) => c[1].split('|')[0]);
-    const componentIds = componentNames.map(
-      (name) => this.itemExtractor.getItemByName(name)?.id
-    );
+    const componentIds: number[] = componentNames
+      .map((name) => this.itemExtractor.getItemByName(name)?.id)
+      .filter((v) => v !== undefined);
     const set: Set = {
-      id: this.itemExtractor.getItemByName(title)?.id,
+      id: this.itemExtractor.getItemByName(title)?.id || 0,
       name: title,
       componentIds,
     };

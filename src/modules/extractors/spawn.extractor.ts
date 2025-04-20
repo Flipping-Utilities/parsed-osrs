@@ -9,7 +9,7 @@ import { PageTags } from 'src/constants/tags';
 @Injectable()
 export class SpawnExtractor {
   private logger: Logger = new Logger(SpawnExtractor.name);
-  private cachedSpawns: ItemSpawn[];
+  private cachedSpawns: ItemSpawn[] | null = null;
   constructor(
     private readonly pageListDumper: PageListDumper,
     private readonly pageContentDumper: PageContentDumper
@@ -42,7 +42,7 @@ export class SpawnExtractor {
       }
 
       const pageContent = readFileSync(candidatePath, 'utf8');
-      let parsed = null;
+      let parsed: ItemSpawn[] | null = null;
       try {
         parsed = JSON.parse(pageContent);
       } catch (e) {
@@ -61,7 +61,7 @@ export class SpawnExtractor {
     if (!page) {
       return null;
     }
-    const meta = wtf(page.text);
+    const meta = wtf(page.text!);
 
     const itemInfobox = meta
       .infoboxes()

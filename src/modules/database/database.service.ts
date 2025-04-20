@@ -1,15 +1,15 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { drizzle } from 'drizzle-orm/libsql';
 import { createClient } from '@libsql/client';
-import * as schema from './schema';
+import { Injectable } from '@nestjs/common';
+import { drizzle } from 'drizzle-orm/libsql';
 import * as path from 'path';
+import * as schema from './schema';
 
 @Injectable()
 export class DatabaseService {
   private db: ReturnType<typeof drizzle<typeof schema>>;
 
   constructor() {
-    const dbPath = path.join(process.cwd(), process.env.DB_PATH);
+    const dbPath = path.join(process.cwd(), process.env.DB_PATH as string);
     const client = createClient({
       url: `file:/${dbPath}`,
     });

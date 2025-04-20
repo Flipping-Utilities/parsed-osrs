@@ -7,14 +7,15 @@ import {
 
 export const WikiPage = sqliteTable('wiki_page', {
   id: integer('id').primaryKey({ autoIncrement: false }).notNull(),
-  title: text('title').notNull(),
-  namespace: integer('namespace'),
-  revisionId: integer('revision_id'),
-  parentId: integer('parent_id'),
-  timestamp: integer('timestamp', { mode: 'timestamp' }),
-  model: text('model'),
-  text: text('text'),
+  aliases: text('aliases', { mode: 'json' }).$type<string[]>().default([]),
   html: text('html'),
+  model: text('model'),
+  namespace: integer('namespace'),
+  parentId: integer('parent_id'),
+  revisionId: integer('revision_id'),
+  text: text('text'),
+  timestamp: integer('timestamp', { mode: 'timestamp' }),
+  title: text('title').notNull(),
 });
 
 export const PageTag = sqliteTable(

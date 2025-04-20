@@ -28,7 +28,7 @@ export class DevService {
 
   async testTheThing() {
     // await this.recipesExtractor.extractAllRecipes();
-    this.dumpEverything();
+    // this.dumpEverything();
   }
 
   async dumpEverything() {

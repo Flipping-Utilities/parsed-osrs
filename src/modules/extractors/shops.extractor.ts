@@ -63,7 +63,7 @@ export class ShopsExtractor {
   private async extractShopFromPageId(pageId: number): Promise<Shop | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
 
-    const hasShop = page.text.includes('{{StoreTableHead');
+    const hasShop = page.text!.includes('{{StoreTableHead');
     if (!hasShop) {
       // Item has no shops
       return null;
@@ -79,7 +79,7 @@ export class ShopsExtractor {
      */
 
     const shopHeadRegex = /\{\{StoreTableHead\|(.+)\}\}/g;
-    const shopHead = page.text.match(shopHeadRegex);
+    const shopHead = page.text!.match(shopHeadRegex);
     if (shopHead?.length === 0 || !shopHead) {
       this.logger.debug('No shop head', page.title, page.id);
       return null;
@@ -91,6 +91,7 @@ export class ShopsExtractor {
       .replace('}}', '')
       .split('|')
       .map((v) => {
+        // eslint-disable-next-line prefer-const
         let [key, value]: [string, string | number] = v.split('=') as [
           string,
           string
@@ -121,12 +122,13 @@ export class ShopsExtractor {
 
     // @ts-ignore
     const inventory = (
-      page.text.match(shopLineRegex)?.map((v) =>
+      page.text!.match(shopLineRegex)?.map((v) =>
         v
           .replace('{{StoreLine|', '')
           .replace(/\}\}$/, '')
           .split('|')
           .map((v) => {
+            // eslint-disable-next-line prefer-const
             let [key, value]: [string, string | number] = v.split('=') as [
               string,
               string

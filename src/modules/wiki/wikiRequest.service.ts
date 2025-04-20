@@ -6,8 +6,8 @@ export interface ApiQueryBase {
   continue: {
     continue: string;
   };
-  limits: {};
-  query: {};
+  limits: unknown;
+  query: unknown;
 }
 
 export interface CategorySearch extends ApiQueryBase {
@@ -67,7 +67,7 @@ export class WikiRequestService {
 
   public async query<T>(
     params: { action: string } & Record<string, string>
-  ): Promise<T> {
+  ): Promise<T | undefined> {
     if (!process.env.DISCORD_USERNAME) {
       throw new Error('DISCORD_USERNAME is not set');
     }
@@ -89,8 +89,8 @@ export class WikiRequestService {
   }
 
   public async queryAllPagesPromise<T>(
-    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue',
-    resultKey: 'categorymembers' | 'allpages' | 'embeddedin',
+    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue' | 'rdcontinue',
+    resultKey: 'categorymembers' | 'allpages' | 'embeddedin' | 'pages',
     params: { action: string } & Record<string, string>
   ) {
     const result: T[] = [];
@@ -98,8 +98,18 @@ export class WikiRequestService {
     const query = this.queryAllPages(paginationKey, resultKey, params);
     do {
       const { value, done } = await query.next();
+      await new Promise((r) => setTimeout(r, 1000));
       if (value) {
-        result.push(...value);
+        if (Array.isArray(value)) {
+          result.push(...value);
+        } else {
+          if (resultKey === 'pages') {
+            // @ts-ignore
+            result.push(...Object.values(value));
+          } else {
+            result.push(value);
+          }
+        }
       }
       isDone = Boolean(done);
     } while (!isDone);
@@ -107,8 +117,8 @@ export class WikiRequestService {
   }
 
   public queryAllPages = async function* <T>(
-    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue',
-    resultKey: 'categorymembers' | 'allpages' | 'embeddedin',
+    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue' | 'rdcontinue',
+    resultKey: 'categorymembers' | 'allpages' | 'embeddedin' | 'pages',
     params: { action: string } & Record<string, string>
   ): AsyncGenerator<T[]> {
     let next: string | undefined = undefined;
@@ -116,7 +126,7 @@ export class WikiRequestService {
     let i = 0;
     do {
       if (i++ % 10 === 0) {
-        this.logger.log(`Querying pages: ${i}`);
+        this.logger.log(`Querying pages: ${i - 1}`);
       }
       const response = await axios.get<PageSearch & CategorySearch>(
         this.baseUrl,
@@ -134,7 +144,7 @@ export class WikiRequestService {
       next = response.data.continue?.[paginationKey];
       hasNext = Boolean(next);
       // @ts-ignore
-      const values = response.data.query[resultKey] as T[];
+      const values = response.data.query?.[resultKey] as T[];
       yield values;
     } while (hasNext);
     this.logger.log('Done!');

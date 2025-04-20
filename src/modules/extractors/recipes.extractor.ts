@@ -47,9 +47,12 @@ export class RecipesExtractor {
     this.logger.log('Starting to extract recipes');
 
     const itemPages = await this.pageListDumper.getPagesFromTag(PageTags.ITEM);
+    if (!itemPages) {
+      return;
+    }
     const recipes = itemPages
       .map((page) => this.extractRecipesFromPageId(page.id))
-      .filter((v) => v)
+      .filter((v) => v !== null)
       .reduce((acc, r) => {
         acc.push(...r);
         return acc;
@@ -78,7 +81,7 @@ export class RecipesExtractor {
             ],
             skills: [],
             // Todo: Find if set is f2p/p2p
-            members: setItem.isMembers || false,
+            members: setItem?.isMembers || false,
             ticks: 1,
             toolIds: [],
           };

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Redirect } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import {
   ALL_ITEM_PAGE_LIST,
@@ -14,6 +14,12 @@ import { DatabaseService } from '../database/database.service';
 import { PageTag, WikiPage } from '../database/schema';
 import { WikiPageSlim, WikiRequestService } from '../wiki/wikiRequest.service';
 import { PageTags } from '../../constants/tags';
+
+type WikiRedirectResponse = {
+  pageid: number;
+  title: string;
+  redirects?: Array<{ pageid: number; ns: number; title: string }>;
+};
 
 @Injectable()
 export class PageListDumper {
@@ -76,33 +82,83 @@ export class PageListDumper {
    * Must be run after at least 1 run of `dumpAllWikiPages`
    */
   async dumpRedirectList(): Promise<void> {
-    this.logger.log('Dumping all redirect list');
-    const allPages = this.getWikiPageList();
-    const pagesToUpdate: typeof WikiPage[] = [];
-    allPages.forEach((slimPage, i) => {
-      if (i % 100 === 0) {
-        console.log(`${i} / ${allPages.length}`);
-      }
-      try {
-        // const page: typeof WikiPage = this.db.query.WikiPage.findFirst({
-        //   where: (page, { eq }) => eq(page.id, slimPage.pageid),
-        // });
-        // Todo: Get all redirects in some other way
-        // JSON.parse(
-        //   readFileSync(`${WIKI_PAGES_FOLDER}/${slimPage.pageid}.json`, {
-        //     encoding: 'utf8',
-        //   })
-        // );
-        // const redirects = page?.redirects || [];
-        // slimPage.redirects = redirects;
-      } catch (e) {
-        console.error(slimPage, e);
-      }
-    });
-    // // this.db.insert(WikiPage).values(allPages);
-    // await this.saveFile(WIKI_PAGE_LIST, allPages);
+    this.logger.log('Start: Dumping redirect list');
+    const allPages = await this.getWikiPageListDB();
 
-    this.logger.log('Dumping all redirect list - Completed');
+    // https://oldschool.runescape.wiki/api.php?action=query&format=json&prop=redirects&rdcontinue=Members%7C478393&titles=Minigames%7CMembers&rdlimit=20
+
+    // By chunks of 50
+    // Placeholder
+    const titles = 'Members|Minigames';
+    const properties = {
+      action: 'query',
+      format: 'json',
+      prop: 'redirects',
+      rdlimit: 'max',
+      titles,
+    };
+
+    // Process titles in chunks of 50
+    const allTitles = allPages.map((p) => p.title);
+    const titleChunks: string[][] = [];
+    for (let i = 0; i < allTitles.length; i += 50) {
+      titleChunks.push(allTitles.slice(i, i + 50));
+    }
+
+    // Query each chunk and combine results
+    const pages: WikiRedirectResponse[] = [];
+    for (const titleChunk of titleChunks) {
+      this.logger.verbose(
+        `Querying next chunk: ${titleChunks.indexOf(titleChunk) + 1} / ${
+          titleChunks.length
+        }`
+      );
+      const chunkProperties = {
+        ...properties,
+        titles: titleChunk.join('|'),
+      };
+      const chunkResults =
+        await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
+          'rdcontinue',
+          'pages',
+          chunkProperties
+        );
+      // @ts-ignore - Weird querying, that's normal
+      pages.push(...chunkResults);
+    }
+
+    const impactedPages = new Set<number>();
+
+    pages.forEach((redirectPage, i) => {
+      impactedPages.add(redirectPage.pageid);
+      if (i % 1000 === 0) {
+        this.logger.verbose(`Page update progress: ${i} / ${pages.length}`);
+      }
+      const page = allPages.find((p) => p.id === redirectPage.pageid);
+      if (!page) {
+        return;
+      }
+      const redirects = redirectPage?.redirects?.map((v) => v.title) || [];
+      page.aliases = [
+        ...(page.aliases || []),
+        ...redirects.filter((r) => !page.aliases?.includes(r)),
+      ];
+    });
+
+    const pageIds = Array.from(impactedPages.values());
+    const toUpdate = allPages.filter((p) => pageIds.includes(p.id));
+    // const page = toUpdate[0];
+
+    this.db.batch(
+      // @ts-ignore
+      toUpdate.map((page) => {
+        return this.db
+          .update(WikiPage)
+          .set({ aliases: page.aliases })
+          .where(eq(WikiPage.id, page.id));
+      })
+    );
+    this.logger.log('End: Dumping redirect list');
   }
 
   /**
