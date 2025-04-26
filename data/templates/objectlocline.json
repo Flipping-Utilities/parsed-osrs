@@ -19443,6 +19443,24 @@
     "template": "objectlocline"
   },
   {
+    "name": "Pitfall",
+    "location": "Avium Savannah",
+    "members": "Yes",
+    "mapid": "0",
+    "plane": "0",
+    "list": [
+      "x:1749,y:3014",
+      "x:1744,y:3010",
+      "x:1751,y:3009",
+      "x:1738,y:3000",
+      "x:1749,y:2999"
+    ],
+    "mtype": "pin",
+    "version": "Sunlight Antelope",
+    "leagueregion": "Varlamore",
+    "template": "objectlocline"
+  },
+  {
     "name": "Haystack",
     "location": "North of Lumbridge",
     "members": "Yes",
@@ -26876,7 +26894,7 @@
     "name": "Standing stone",
     "location": "South of Settlement Ruins",
     "leagueregion": "Kourend",
-    "members": "No",
+    "members": "Yes",
     "mapid": "-1",
     "plane": "0",
     "list": [
@@ -30800,21 +30818,6 @@
   },
   {
     "name": "Fishing spot (big net, harpoon)",
-    "location": "Prifddinas Coast (post SotE)",
-    "members": "Yes",
-    "mapid": "29",
-    "plane": "0",
-    "list": [
-      "x:3189,y:6020",
-      "x:3189,y:6038",
-      "x:3189,y:6018"
-    ],
-    "mtype": "pin",
-    "leagueregion": "tirannwn",
-    "template": "objectlocline"
-  },
-  {
-    "name": "Fishing spot (big net, harpoon)",
     "location": "Rellekka",
     "members": "Yes",
     "mapid": "0",
@@ -30930,7 +30933,11 @@
     "plane": "0",
     "list": [
       "x:1266,y:3541",
-      "x:1272,y:3546"
+      "x:1272,y:3546",
+      "x:1272,y:3547",
+      "",
+      "x:1261,y:3542",
+      "x:1253,y:3542"
     ],
     "mtype": "pin",
     "leagueregion": "kourend",
@@ -35861,6 +35868,115 @@
     ],
     "mtype": "pin",
     "leagueregion": "Kandarin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Lovakengj,",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1443,3785",
+      "1445,3785",
+      "1443,3781",
+      "1445,3781",
+      "1457,3760",
+      "1487,3756",
+      "1527,3748",
+      "1564,3762",
+      "1564,3764",
+      "1556,3787",
+      "1558,3787"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Lovakengj,",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "1",
+    "list": [
+      "1454,3747",
+      "1505,3772",
+      "1507,3772",
+      "1507,3768",
+      "1549,3749",
+      "1562,3765",
+      "1569,3761",
+      "1543,3782",
+      "1544,3782",
+      "1559,3783",
+      "1559,3780"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Watson's house",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1640,3579",
+      "1641,3576"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Kingstown,",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1671,3668",
+      "1673,3668",
+      "1671,3666",
+      "1673,3666"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Library Historical Archive",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "1548,10220"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Slepe,",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3734,3359"
+    ],
+    "mtype": "pin",
+    "template": "objectlocline"
+  },
+  {
+    "name": "Velvet round chair",
+    "location": "Slepe,",
+    "members": "Yes",
+    "mapid": "-1",
+    "plane": "0",
+    "list": [
+      "3702,3338",
+      "3749,3335"
+    ],
+    "mtype": "pin",
     "template": "objectlocline"
   },
   {
@@ -62529,7 +62645,7 @@
   },
   {
     "name": "Church pew",
-    "location": "Varrock Palace,",
+    "location": "Varrock Palace, ⌊undefined⌋",
     "members": "No",
     "mapid": "0",
     "plane": "1",

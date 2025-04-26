@@ -3349,6 +3349,30 @@
   },
   {
     "list": [
+      "(Update)",
+      "- Update Unknown"
+    ],
+    "template": "#if:"
+  },
+  {
+    "list": [
+      "",
+      "Unknown"
+    ],
+    "template": "#if:"
+  },
+  {
+    "list": [
+      "! colspan=\"2\"",
+      "Removal",
+      "",
+      "-"
+    ],
+    "colspan": "\"3\"",
+    "template": "#if:"
+  },
+  {
+    "list": [
       "Is members only::",
       "Unknown"
     ],
@@ -3389,6 +3413,16 @@
     "list": [
       "! colspan=\"2\"",
       "Instruments",
+      "",
+      "-"
+    ],
+    "colspan": "\"3\"",
+    "template": "#if:"
+  },
+  {
+    "list": [
+      "! colspan=\"2\"",
+      "Tempo",
       "",
       "-"
     ],
@@ -3448,6 +3482,21 @@
       "-"
     ],
     "class": "\"infobox-full-width-content\" colspan=\"5\"",
+    "template": "#if:"
+  },
+  {
+    "list": [
+      "",
+      "Advanced data",
+      "",
+      "Cache ID",
+      "",
+      "",
+      "-"
+    ],
+    "- class": "\"advanced-data\"",
+    "class": "\"infobox-padding\" colspan=\"5\"",
+    "colspan": "\"3\"",
     "template": "#if:"
   },
   {
@@ -4369,6 +4418,18 @@
   },
   {
     "list": [
+      ""
+    ],
+    "template": "#if:"
+  },
+  {
+    "list": [
+      ""
+    ],
+    "template": "#if:"
+  },
+  {
+    "list": [
       "background:;padding:2px 5px;border-radius:1.5px;"
     ],
     "template": "#if:"
@@ -5129,7 +5190,7 @@
   {
     "list": [
       "As a safe PvP activity it is safe for Hardcore group iron players.",
-      " It is still dangerous for Hardcore group iron players."
+      "Warning: It is still dangerous for Hardcore group iron players."
     ],
     "template": "#if:"
   },
@@ -5404,6 +5465,13 @@
     "list": [
       "",
       "N/A"
+    ],
+    "template": "#if:"
+  },
+  {
+    "list": [
+      "clue interface",
+      "interface of the corresponding clue tier"
     ],
     "template": "#if:"
   },

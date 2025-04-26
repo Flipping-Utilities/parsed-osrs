@@ -53,8 +53,8 @@ export class RecipesExtractor {
     const recipes = itemPages
       .map((page) => this.extractRecipesFromPageId(page.id))
       .filter((v) => v !== null)
-      .reduce((acc, r) => {
-        acc.push(...r);
+      .reduce((acc: Recipe[], r) => {
+        acc.push(...r!);
         return acc;
       }, [])
       .filter((v) => v);

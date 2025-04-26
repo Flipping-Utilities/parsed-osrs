@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import * as wtf from 'wtf_wikipedia';
+import wtf from 'wtf_wikipedia';
 
 import path from 'path';
 import { TEMPLATE_FOLDER } from '../../constants/paths';

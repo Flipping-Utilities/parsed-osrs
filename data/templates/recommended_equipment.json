@@ -1211,7 +1211,18 @@
   {
     "ammo2": "/",
     "feet2": "/",
-    "body2": "/",
+    "feet3": "/",
+    "body2": "(or:",
+    "legs2": "(or:)",
+    "weapon3": ">",
+    "special1": "/",
+    "template": "recommended equipment"
+  },
+  {
+    "ammo2": "/",
+    "feet1": "/",
+    "feet3": "/",
+    "weapon4": ">",
     "template": "recommended equipment"
   },
   {
@@ -1429,6 +1440,7 @@
     "legs2": "/",
     "legs4": "/",
     "weapon2": "/",
+    "weapon3": "/",
     "weapon4": "/",
     "weapon5": "/",
     "ammo1": "See Ranged",
@@ -1459,11 +1471,13 @@
     "template": "recommended equipment"
   },
   {
+    "weapon3": "/",
     "weapon5": "/",
     "template": "recommended equipment"
   },
   {
-    "weapon2": "set on stab",
+    "weapon1": "/",
+    "weapon2": "/",
     "weapon5": ">",
     "template": "recommended equipment"
   },
@@ -2678,6 +2692,7 @@
     "head4": "/",
     "cape2": "/",
     "legs2": "/",
+    "feet2": "/",
     "ring1": "/",
     "ring4": "/",
     "ring5": "/",
@@ -2794,10 +2809,13 @@
   },
   {
     "head1": "(on task)",
+    "neck3": "/",
     "body1": "/",
     "body2": "(with a Crush weapon)",
     "legs5": "/",
     "weapon2": "/ /",
+    "weapon3": "> >",
+    "weapon4": "> >",
     "ammo2": "/",
     "feet3": "/",
     "feet5": "/",

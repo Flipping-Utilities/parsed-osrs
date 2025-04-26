@@ -1,4 +1,5 @@
-import { Injectable, Logger, Redirect } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { eq, inArray } from 'drizzle-orm';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import {
   ALL_ITEM_PAGE_LIST,
@@ -9,11 +10,10 @@ import {
   GE_ITEM_PAGE_LIST,
   WIKI_PAGE_LIST,
 } from '../../constants/paths';
-import { eq, inArray } from 'drizzle-orm';
+import { PageTags } from '../../constants/tags';
 import { DatabaseService } from '../database/database.service';
 import { PageTag, WikiPage } from '../database/schema';
 import { WikiPageSlim, WikiRequestService } from '../wiki/wikiRequest.service';
-import { PageTags } from '../../constants/tags';
 
 type WikiRedirectResponse = {
   pageid: number;
@@ -42,7 +42,6 @@ export class PageListDumper {
       list: 'allpages',
       aplimit: 'max',
       format: 'json',
-      // Todo: Copy this but only get redirects, add them to the original pages
       apfilterredir: 'nonredirects',
       apminsize: '5',
     };
@@ -66,6 +65,8 @@ export class PageListDumper {
    */
   async dumpWikiPageList(): Promise<void> {
     const pages = await this.fetchWikiPageList();
+    const [page] = pages;
+    this.db.insert(WikiPage).values({ id: page.pageid, title: page.title });
     await this.saveFile(WIKI_PAGE_LIST, pages);
   }
 
@@ -279,6 +280,7 @@ export class PageListDumper {
   async fetchMonstersPageList() {
     return this.fetchAllItemPageList('Monsters');
   }
+
   async dumpMonstersPageList() {
     this.logger.log('Dump monster page list');
     const pages = await this.fetchMonstersPageList();
@@ -288,7 +290,6 @@ export class PageListDumper {
       pages.map((p) => p.pageid),
       PageTags.MONSTER
     );
-    // await this.saveFile(ALL_MONSTERS_PAGE_LIST, pages);
   }
 
   getMonsters(): WikiPageSlim[] {

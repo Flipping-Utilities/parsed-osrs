@@ -13,6 +13,9 @@ export const WikiPage = sqliteTable('wiki_page', {
   namespace: integer('namespace'),
   parentId: integer('parent_id'),
   revisionId: integer('revision_id'),
+  // The revision id from which the last full page was fetched
+  // To avoid re-downloading pages that are already up-to-date.
+  fullfetchRevisionId: integer('full_revision_id'),
   text: text('text'),
   timestamp: integer('timestamp', { mode: 'timestamp' }),
   title: text('title').notNull(),

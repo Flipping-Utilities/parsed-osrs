@@ -62,6 +62,9 @@ export class ShopsExtractor {
 
   private async extractShopFromPageId(pageId: number): Promise<Shop | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
+    if (!page) {
+      return null;
+    }
 
     const hasShop = page.text!.includes('{{StoreTableHead');
     if (!hasShop) {
@@ -122,7 +125,7 @@ export class ShopsExtractor {
 
     // @ts-ignore
     const inventory = (
-      page.text!.match(shopLineRegex)?.map((v) =>
+      page!.text!.match(shopLineRegex)?.map((v) =>
         v
           .replace('{{StoreLine|', '')
           .replace(/\}\}$/, '')
@@ -164,8 +167,8 @@ export class ShopsExtractor {
       .filter((v) => v);
 
     const shop: Shop = {
-      name: page.title,
-      pageId: page.id,
+      name: page!.title,
+      pageId: page!.id,
       buyPercent,
       sellPercent,
       buyChangePercent,

@@ -5,6 +5,8 @@ import { ALL_MONSTERS } from '../../constants/paths';
 import { Monster, MonsterDrop } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
+import { PageTags } from 'src/constants/tags';
+import wtf from 'wtf_wikipedia';
 
 @Injectable()
 export class MonstersExtractor {
@@ -19,25 +21,29 @@ export class MonstersExtractor {
   ) {}
 
   public async extractAllMonsters() {
-    this.logger.log('Starting to extract monsters');
+    this.logger.log('Start: Extracting monsters');
 
-    const monstersPage = this.pageListDumper.getMonsters();
+    const monstersPage = await this.pageListDumper.getPagesFromTag(
+      PageTags.MONSTER
+    );
     const length = monstersPage.length;
-    const monsters = monstersPage
-      .map((page, i) => {
-        if (i % 100 === 0) {
-          this.logger.debug(`Monsters: ${i}/${length}`);
-        }
-        return this.extractMonsterFromPageId(page.pageid);
-      })
-      .filter((v) => v);
+    const monsters: Monster[] = [];
+    let i = 0;
+    for await (const page of monstersPage) {
+      if (i++ % 100 === 0) {
+        this.logger.debug(`Monsters: ${i}/${length}`);
+      }
+      const monster = await this.extractMonsterFromPageId(page.id);
+      if (monster) {
+        monsters.push(monster);
+      }
+    }
 
     if (monsters.length) {
       writeFileSync(ALL_MONSTERS, JSON.stringify(monsters, null, 2));
     }
 
-    this.logger.log('Finished extracting monsters');
-
+    this.logger.log('Done: Extracting monsters');
     return monsters;
   }
 
@@ -61,14 +67,19 @@ export class MonstersExtractor {
     return this.cachedMonsters;
   }
 
-  private extractMonsterFromPageId(pageId: number): Monster | null {
-    const page = this.pageContentDumper.getPageFromId(pageId);
+  private async extractMonsterFromPageId(
+    pageId: number
+  ): Promise<Monster | null> {
+    const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page) {
       this.logger.warn('Could not fetch page content from id', pageId);
       return null;
     }
 
-    const html = page.content;
+    const html = page.html;
+    if (html === null) {
+      return null;
+    }
     const dom = load(html);
 
     const allDrops: MonsterDrop[] = [];
@@ -85,15 +96,18 @@ export class MonstersExtractor {
           const name = dom(nameElement.childNodes[0] || nameElement)
             .text()
             ?.split('[')[0]
-            .replace(/,/g, '');
+            .replace(/,/g, '')
+            .trim();
           const quantity = dom(qtyElement.childNodes[0] || qtyElement)
             .text()
             ?.split('[')[0]
-            .replace(/,/g, '');
+            .replace(/,/g, '')
+            .trim();
           const rarity = dom(rarityElement.childNodes[0] || rarityElement)
             .text()
             ?.split('[')[0]
-            .replace(/,/g, '');
+            .replace(/,/g, '')
+            .trim();
 
           const itemId = this.itemExtractor.getItemByName(name)?.id || null;
 
@@ -118,18 +132,28 @@ export class MonstersExtractor {
 
     const realId = Number(candidateId);
     if (!candidateId || isNaN(realId)) {
-      console.debug(candidateId);
-      this.logger.warn('no id for monster', page.title, page.pageid);
+      this.logger.warn('no id for monster', page.title, page.id);
       return null;
+    }
+    let examine = '';
+    const text = page.text;
+
+    if (text) {
+      const potentialExamine: string = wtf(text)
+        .infobox()
+        // @ts-ignore
+        ?.data?.examine?.text();
+      if (potentialExamine) {
+        examine = potentialExamine;
+      }
     }
 
     const monster: Monster = {
       id: realId,
       name: page.title,
-      aliases: page.redirects || [],
+      aliases: page.aliases || [],
       drops: allDrops,
-      examine:
-        page.properties.find((p) => p.name === 'description')?.value || '',
+      examine,
     };
 
     return monster;

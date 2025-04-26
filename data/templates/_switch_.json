@@ -257,13 +257,13 @@
     "template": "#switch:"
   },
   {
-    "0": " for the next days",
+    "0": "active for the next days",
     "1": "inactive",
     "template": "#switch:"
   },
   {
     "0": "inactive",
-    "1": " and will change to A in days",
+    "1": "active and will change to A in days",
     "template": "#switch:"
   },
   {
@@ -546,6 +546,12 @@
     "template": "#switch:"
   },
   {
+    "list": [
+      "#default ="
+    ],
+    "template": "#switch:"
+  },
+  {
     "no": "png",
     "yes": "gif",
     "template": "#switch:"
@@ -755,6 +761,7 @@
       "This item can be stored in the of a costume room"
     ],
     "toy box space": "If destroyed, a replacement can be obtained from Diango in Draynor Village or from the toy box of a costume room",
+    "treasure chest": "This item can be stored in the Treasure chest of a Costume room, provided that the is opened before attempting to store the item. Alternatively, the item can be used on the opened treasure chest to insert it without viewing the interface",
     "template": "#switch:"
   },
   {
@@ -1014,7 +1021,7 @@
     "template": "#switch:"
   },
   {
-    "yes": "Players should not expect to take damage or risk death from this activity directly. This activity may send the player to areas where they can take damage, or risk death from secondary sources. Any resulting death is always considered dangerous for the purposes of hardcore status and item retrieval services.",
+    "yes": "Players should not expect to take damage or risk death from this activity directly. Warning: This activity may send the player to areas where they can take damage, or risk death from secondary sources. Any resulting death is always considered dangerous for the purposes of hardcore status and item retrieval services.",
     "list": [
       "#default=Players should not expect to take damage or risk death from this activity. However, any death is still considered dangerous for the purposes of hardcore status and item retrieval services."
     ],

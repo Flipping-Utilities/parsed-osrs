@@ -47,7 +47,9 @@ export interface WikiPageWithContent {
   title: string;
   pageid: number;
   revid: number;
+  // Html
   content: string;
+  // Mediawiki text
   rawContent: string;
   displaytitle: string;
   redirects?: string[];

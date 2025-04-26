@@ -42251,10 +42251,14 @@
   },
   {
     "list": [
-      "3328,3328",
       "3328,3392",
       "3392,3392",
-      "3392,3328"
+      "3392,3328",
+      "3337,3328",
+      "3336,3329",
+      "3335,3329",
+      "3334,3330",
+      "3328,3330"
     ],
     "plane": "0",
     "mapid": "-1",
@@ -43413,7 +43417,7 @@
   },
   {
     "list": [
-      "3337,3325",
+      "3338,3324",
       "3341,3321",
       "3341,3311",
       "3339,3309",
@@ -43441,7 +43445,7 @@
       "3385,3273",
       "3392,3273",
       "3392,3328",
-      "3337,3328"
+      "3338,3328"
     ],
     "plane": "0",
     "mapid": "-1",
@@ -72661,6 +72665,96 @@
     "template": "map"
   },
   {
+    "ptype": "object",
+    "name": "Lumbridge",
+    "list": [
+      "x:3238,y:3194"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "250",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Falador",
+    "list": [
+      "x:2964,y:3331"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "250",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Seers' Village",
+    "list": [
+      "x:2715,y:3466"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Edgeville",
+    "list": [
+      "x:3096,y:3475"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "250",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Ferox Enclave",
+    "list": [
+      "x:3127,y:3630"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Kourend Castle",
+    "list": [
+      "x:1622,y:3663"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Prifddinas",
+    "list": [
+      "x:3256,y:6118"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "plane": "0",
+    "mapid": "-1",
+    "template": "map"
+  },
+  {
+    "ptype": "object",
+    "name": "Outer Fortis",
+    "list": [
+      "x:1654,y:3135"
+    ],
+    "mtype": "pin",
+    "width": "250",
+    "height": "200",
+    "template": "map"
+  },
+  {
     "name": "Sticks (trap)",
     "list": [
       "2181,3209",
@@ -86339,17 +86433,6 @@
     "template": "map"
   },
   {
-    "name": "Velvet round chair",
-    "list": [
-      "3734,3359",
-      "3702,3338",
-      "3749,3335"
-    ],
-    "mapid": "0",
-    "mtype": "pin",
-    "template": "map"
-  },
-  {
     "name": "Vase set",
     "x": "2705",
     "y": "3293",
@@ -88840,6 +88923,9 @@
     "template": "map"
   },
   {
+    "x": "3035",
+    "y": "2980",
+    "zoom": "2",
     "list": [
       "3033,2979",
       "3048,2987",

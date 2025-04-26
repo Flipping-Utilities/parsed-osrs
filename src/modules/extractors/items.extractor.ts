@@ -1,8 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-// @ts-ignore
-import * as parseInfo from 'infobox-parser';
+import parseInfo from 'infobox-parser';
 import { ALL_ITEMS } from '../../constants/paths';
 import { Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
@@ -76,9 +75,9 @@ export class ItemsExtractor {
       itemsPageList.map((item) => this.extractItemFromPageId(item.id))
     );
     const items = itemsFromPage
-      .filter((v) => v)
-      .reduce((acc, items) => {
-        acc.push(...items);
+      .filter((v) => v !== null)
+      .reduce((acc: Item[], items) => {
+        acc.push(...items!);
         return acc;
       }, [])
       .filter((v) => v);
@@ -108,19 +107,20 @@ export class ItemsExtractor {
     return this.cachedItems;
   }
 
-  private itemIdMap: Map<number, Item>;
+  private itemIdMap: Map<number, Item> | null = null;
   public getItemById(itemId: number): Item | undefined {
     if (!this.itemIdMap) {
       this.fillItemIdMap();
     }
 
-    return this.itemIdMap.get(itemId);
+    return this.itemIdMap?.get(itemId);
   }
 
   private fillItemIdMap() {
     const m: Map<number, Item> = new Map();
-    this.getAllItems().forEach((i) => m.set(i.id, i));
+    this.getAllItems()?.forEach((i) => m.set(i.id, i));
     this.itemIdMap = m;
+    return m;
   }
 
   public getGEItems() {
@@ -139,7 +139,7 @@ export class ItemsExtractor {
   private itemNameMap: Map<string, Item> = new Map();
 
   public getItemByName(candidateName: string): Item | null {
-    if (!this.itemNameMap) {
+    if (this.itemNameMap.size === 0) {
       this.itemNameMap = new Map();
       this.getAllItems()!.forEach((item) => {
         if (!this.itemNameMap.has(item.name)) {

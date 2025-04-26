@@ -58,6 +58,9 @@ export class SetsExtractor {
 
   private async extractSetFromPageId(pageId: number): Promise<Set | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
+    if (!page) {
+      return null;
+    }
     const title = load(page.title).text();
 
     /*
@@ -80,7 +83,7 @@ export class SetsExtractor {
     const componentNames = components.map((c) => c[1].split('|')[0]);
     const componentIds: number[] = componentNames
       .map((name) => this.itemExtractor.getItemByName(name)?.id)
-      .filter((v) => v !== undefined);
+      .filter((v) => v !== undefined) as number[];
     const set: Set = {
       id: this.itemExtractor.getItemByName(title)?.id || 0,
       name: title,

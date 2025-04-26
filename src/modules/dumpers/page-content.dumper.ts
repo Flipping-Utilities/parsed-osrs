@@ -1,18 +1,20 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
+import { eq } from 'drizzle-orm';
 import { load } from 'cheerio';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import * as fs from 'fs';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import { WIKI_PAGES_FOLDER } from '../../constants/paths';
 import { DatabaseService } from '../database/database.service';
-import { WikiPage } from '../database/schema';
+import { PageTag, WikiPage } from '../database/schema';
 import {
   WikiPageWithContent,
   WikiRequestService,
 } from '../wiki/wikiRequest.service';
 import { PageListDumper } from './page-list.dumper';
+import { PageTags } from 'src/constants/tags';
 
 interface WikiPageResponse {
   title: string;
@@ -73,10 +75,14 @@ export class PageContentDumper {
     this.logger.log('Dump All Wiki Pages: Completed');
   }
 
+  /**
+   * This uses the special:export to dump all the pages via one request.
+   * You might have to update the wpEditToken from the browser / root page.
+   * This downloads a fairly large file with content of all pages, but only the raw wiki source, not the html output / aliases, so it's not fully complete.
+   */
   async dumpAllWikiPagesFast(): Promise<void> {
     const pageList = this.PageListDumper.getWikiPageList();
     const pageTitles = pageList.map((p) => p.title).join('\n');
-    fs.writeFileSync('./page-titles.txt', pageTitles);
     const formData = new FormData();
     formData.append('pages', pageTitles);
     formData.append('curonly', '1'); // Only get current revision
@@ -124,6 +130,122 @@ export class PageContentDumper {
       );
     }
   }
+
+  async dumpAllPages() {
+    this.logger.log(`Start: Dumping All pages`);
+    const pages = await this.db.select().from(WikiPage);
+
+    const toUpdate = pages.filter(
+      (p) => p.revisionId !== p.fullfetchRevisionId
+    );
+
+    const pageMeta: WikiPageWithContent[] = [];
+
+    const savePages = async () => {
+      try {
+        await this.db.batch(
+          // @ts-ignore
+          pageMeta
+            .filter((p) => p.content)
+            .map((page) =>
+              this.db
+                .update(WikiPage)
+                .set({
+                  html: page.content,
+                  fullfetchRevisionId: page.revid,
+                  text: page.rawContent,
+                  revisionId: page.revid,
+                })
+                .where(eq(WikiPage.id, page.pageid))
+            )
+        );
+        this.logger.debug(`Updated ${pageMeta.length} pages!`);
+        // Reset list
+        pageMeta.length = 0;
+      } catch (e) {
+        this.logger.error('Error inserting html to monster page!');
+      }
+    };
+
+    let i = 0;
+
+    this.logger.debug(`Dumping All pages: ${toUpdate.length} pages to update!`);
+    let requestDelay = Promise.resolve();
+    for await (const page of toUpdate) {
+      if (i++ % 25 === 0) {
+        this.logger.debug(`Dumping All pages: ${i} / ${toUpdate.length}`);
+        await savePages();
+      }
+      await requestDelay;
+      const wikiMetadata = await this.dumpWikiPageById(page.id);
+      if (wikiMetadata) {
+        requestDelay = new Promise((r) => setTimeout(r, 1000));
+        pageMeta.push(wikiMetadata);
+        // Wait 1 second
+      }
+    }
+    await savePages();
+
+    this.logger.log(`Done: Dumping All pages`);
+  }
+
+  async dumpMonstersPages() {
+    this.logger.log(`Start: Dumping monster pages`);
+    const monsterPages = await this.db
+      .select()
+      .from(PageTag)
+      .where(eq(PageTag.tag, PageTags.MONSTER));
+
+    // Todo: Only update if the page revision id is not the page that was last fetched by the html
+    // Make a col for `last_fullpage_fetch_id` and update it when we dump the full page
+    // Only fetch the page if that page revision is different from the revision it was last saved from.
+    const monsterPageMetadata: WikiPageWithContent[] = [];
+    const saveMonsterPages = async () => {
+      try {
+        await this.db.batch(
+          // @ts-ignore
+          monsterPageMetadata
+            .filter((p) => p.content)
+            .map((page) =>
+              this.db
+                .update(WikiPage)
+                .set({
+                  html: page.content,
+                  fullfetchRevisionId: page.revid,
+                  revisionId: page.revid,
+                })
+                .where(eq(WikiPage.id, page.pageid))
+            )
+        );
+        this.logger.debug(`Updated ${monsterPageMetadata.length} pages!`);
+        // Reset list
+        monsterPageMetadata.length = 0;
+      } catch (e) {
+        this.logger.error('Error inserting html to monster page!');
+      }
+    };
+
+    let i = 0;
+
+    for await (const page of monsterPages) {
+      if (i++ % 100 === 99) {
+        this.logger.debug(
+          `Dumping monster pages: ${i} / ${monsterPages.length}`
+        );
+        await saveMonsterPages();
+      }
+      const wikiMetadata = await this.dumpWikiPageById(page.wikiPageId);
+      if (wikiMetadata) {
+        monsterPageMetadata.push(wikiMetadata);
+        // Wait 1 second
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+    }
+    await saveMonsterPages();
+
+    this.logger.log(`Done: Dumping monster pages`);
+  }
+
   private async parseWikiDump() {
     await new Promise((r) => setTimeout(r, 1000));
     // Todo: Get the dump from the latest file / query
@@ -131,14 +253,13 @@ export class PageContentDumper {
       './output/wiki-export-2025-04-15T01-21-04-783Z.xml',
       'utf-8'
     );
-    const db = this.DatabaseService.getDb();
     const dom = load(content);
     const total = dom('page').length;
 
     // Map all pages to entities
     const pageEntities = Array.from(dom('page')).map((pageThing, i) => {
-      if (i % 1000 === 0) {
-        console.log(`Processed ${i} / ${total} pages`);
+      if (i === 0 || i % 1000 === 0) {
+        this.logger.log(`Processed ${i} / ${total} pages`);
       }
 
       const page = load(pageThing);
@@ -165,10 +286,10 @@ export class PageContentDumper {
       const chunkSize = 1000;
       for (let i = 0; i < pageEntities.length; i += chunkSize) {
         const chunk = pageEntities.slice(i, i + chunkSize);
-        await db.batch(
+        await this.db.batch(
           // @ts-ignore
           chunk.map((page) =>
-            db.insert(WikiPage).values(page).onConflictDoUpdate({
+            this.db.insert(WikiPage).values(page).onConflictDoUpdate({
               target: WikiPage.id,
               set: page,
             })
@@ -187,6 +308,19 @@ export class PageContentDumper {
   }
 
   async dumpWikiPageById(pageId: number) {
+    const [currentPage] = await this.db
+      .select()
+      .from(WikiPage)
+      .where(eq(WikiPage.id, pageId));
+    if (
+      !currentPage ||
+      currentPage.revisionId === currentPage.fullfetchRevisionId
+    ) {
+      this.logger.verbose(
+        `Not refreshing page: ${currentPage?.title} (${pageId}) Already have latest version!`
+      );
+      return;
+    }
     const redirects = this.WikiRequestService.getRedirectsToPage(pageId);
     let response;
     try {
@@ -225,16 +359,19 @@ export class PageContentDumper {
       rawContent: result.wikitext['*'],
     };
 
-    writeFileSync(this.getPathFromPageId(pageId), JSON.stringify(newPage));
+    // writeFileSync(this.getPathFromPageId(pageId), JSON.stringify(newPage));
+    return newPage;
   }
 
   public async getDBPageFromId(
     pageId: number
-  ): Promise<typeof WikiPage.$inferSelect> {
-    const page = await this.db.query.WikiPage.findFirst({
-      where: (wikiPage, { eq }) => eq(wikiPage.id, pageId),
-    });
-    return page;
+  ): Promise<typeof WikiPage.$inferSelect | undefined> {
+    const pages = await this.db
+      .select()
+      .from(WikiPage)
+      .where(eq(WikiPage.id, pageId))
+      .limit(1);
+    return pages?.[0];
   }
 
   public getPageFromId(pageId: number): WikiPageWithContent | null {
