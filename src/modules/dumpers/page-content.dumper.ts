@@ -48,7 +48,7 @@ export class PageContentDumper {
    */
   async dumpAllWikiPages(): Promise<void> {
     // this.dumpAllWikiPagesFast();
-    this.parseWikiDump();
+    await this.parseWikiDump();
     return;
     this.logger.log('Dump All Wiki Pages');
     const allPages = this.PageListDumper.getWikiPageList();
@@ -105,7 +105,6 @@ export class PageContentDumper {
           },
         }
       );
-      console.log('Got response');
 
       this.logger.log(
         `Export successful. Response size: ${response.data.length} bytes`
@@ -115,11 +114,7 @@ export class PageContentDumper {
       fs.mkdirSync(this.outputDir, { recursive: true });
 
       // Save the raw XML response
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const outputPath = path.join(
-        this.outputDir,
-        `wiki-export-${timestamp}.xml`
-      );
+      const outputPath = path.join(this.outputDir, `wiki-export.xml`);
       writeFileSync(outputPath, Buffer.from(response.data));
       this.logger.log(`Saved XML export to: ${outputPath}`);
     } catch (error) {
@@ -246,13 +241,11 @@ export class PageContentDumper {
     this.logger.log(`Done: Dumping monster pages`);
   }
 
-  private async parseWikiDump() {
+  async parseWikiDump() {
     await new Promise((r) => setTimeout(r, 1000));
+    const outputPath = path.join(this.outputDir, `wiki-export.xml`);
     // Todo: Get the dump from the latest file / query
-    const content = readFileSync(
-      './output/wiki-export-2025-04-15T01-21-04-783Z.xml',
-      'utf-8'
-    );
+    const content = readFileSync(outputPath, 'utf-8');
     const dom = load(content);
     const total = dom('page').length;
 
@@ -289,10 +282,20 @@ export class PageContentDumper {
         await this.db.batch(
           // @ts-ignore
           chunk.map((page) =>
-            this.db.insert(WikiPage).values(page).onConflictDoUpdate({
-              target: WikiPage.id,
-              set: page,
-            })
+            this.db
+              .insert(WikiPage)
+              .values(page)
+              .onConflictDoUpdate({
+                target: WikiPage.id,
+                set: {
+                  id: page.id,
+                  title: page.title,
+                  revisionId: page.revisionId,
+                  parentId: page.parentId,
+                  text: page.text,
+                  timestamp: page.timestamp,
+                },
+              })
           )
         );
         console.log(

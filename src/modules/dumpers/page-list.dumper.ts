@@ -65,8 +65,11 @@ export class PageListDumper {
    */
   async dumpWikiPageList(): Promise<void> {
     const pages = await this.fetchWikiPageList();
-    const [page] = pages;
-    this.db.insert(WikiPage).values({ id: page.pageid, title: page.title });
+    // const [page] = pages;
+    // await this.db
+    //   .insert(WikiPage)
+    //   .values({ id: page.pageid, title: page.title })
+    //   .onConflictDoUpdate({ target: WikiPage.id, set: { title: page.title } });
     await this.saveFile(WIKI_PAGE_LIST, pages);
   }
 
