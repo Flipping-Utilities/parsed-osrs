@@ -1,14 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import parse from 'infobox-parser';
+import { PageTags } from 'src/constants/tags';
 import { ALL_RECIPES } from '../../constants/paths';
 import { Recipe, RecipeMaterial, RecipeSkill, Set } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 import { SetsExtractor } from './sets.extractor';
-
-// @ts-ignore
-import * as parse from 'infobox-parser';
-import { PageTags } from 'src/constants/tags';
+import wtf from 'wtf_wikipedia';
 
 type WikiMaterialKey = '' | 'quantity' | 'cost' | 'itemnote' | 'txt' | 'subtxt';
 const WikiMaterialKeyToRecipeMaterialKey: Record<
@@ -44,26 +43,29 @@ export class RecipesExtractor {
   ) {}
 
   public async extractAllRecipes() {
+    // await this.extractRecipesFromPageId(565302);
+    // return;
+
     this.logger.log('Starting to extract recipes');
 
     const itemPages = await this.pageListDumper.getPagesFromTag(PageTags.ITEM);
     if (!itemPages) {
       return;
     }
-    const recipes = itemPages
-      .map((page) => this.extractRecipesFromPageId(page.id))
-      .filter((v) => v !== null)
-      .reduce((acc: Recipe[], r) => {
-        acc.push(...r!);
-        return acc;
-      }, [])
-      .filter((v) => v);
+    const recipes: Recipe[] = [];
+    for await (const page of itemPages) {
+      const pageRecipes = await this.extractRecipesFromPageId(page.id);
+      if (pageRecipes === null) {
+        continue;
+      }
+      recipes.push(...pageRecipes);
+    }
     // Todo: Add all decant
 
     // Add all sets
     const sets = await this.setsExtractor.getAllSets();
-    if (sets) {
-      sets
+    if (sets !== null) {
+      sets!
         .filter((s) => s.id)
         .map((set) => {
           const setItem = this.itemExtractor.getItemById(set.id);
@@ -134,39 +136,40 @@ export class RecipesExtractor {
     return this.cachedRecipes;
   }
 
-  private extractRecipesFromPageId(pageId: number): Recipe[] | null {
-    const page = this.pageContentDumper.getPageFromId(pageId);
+  private async extractRecipesFromPageId(
+    pageId: number
+  ): Promise<Recipe[] | null> {
+    const page = await this.pageContentDumper.getDBPageFromId(pageId);
 
-    const hasRecipe = page?.rawContent.includes('{{Recipe');
+    const hasRecipe = page?.text?.includes('{{Recipe');
     if (!page || !hasRecipe) {
+      this.logger.verbose(`No recipe for page ${pageId}`);
       // Item has no recipes
       return null;
     }
 
-    const recipesText = page.rawContent
-      .split('{{Recipe')
-      .map((v) => '{{Recipe' + v)
-      // End at the end of the recipe, not at the end of the file.
-      .map((v) => v.split('\n}}')[0] + '\n}}');
-    // Remove the first one: It's before the first recipe
-    recipesText.shift();
+    const text = page.text!;
+    const tfPage = wtf(text);
+    // @ts-ignore
+    const recipes: Record<string, string | boolean>[] = tfPage
+      .templates()
+      .map((t) => t.json())
+      // @ts-ignore
+      .filter((t) => Object.hasOwn(t, 'template') && t?.template === 'recipe');
 
-    const newRecipes: Recipe[] = recipesText
-      .map((text) => this.parseRecipe(text))
+    this.logger.verbose(
+      `Parsing ${recipes.length} recipes on page ${page.title}`
+    );
+    const newRecipes: Recipe[] = recipes
+      .map((value) => this.parseRecipe(value))
       .filter((v) => v) as Recipe[];
 
     return newRecipes;
   }
 
-  private parseRecipe(recipeText: string): Recipe | null {
-    const rawRecipe = parse(recipeText);
-    if (!rawRecipe || !rawRecipe.general) {
-      console.warn('Could not parse recipe!');
-      return null;
-    }
-
-    const recipeProperties = rawRecipe.general;
-
+  private parseRecipe(
+    recipeProperties: Record<string, string | boolean>
+  ): Recipe | null {
     const skills: RecipeSkill[] = [];
     const skillKeys = Object.keys(recipeProperties).filter((k) =>
       k.startsWith('skill')
@@ -186,7 +189,7 @@ export class RecipesExtractor {
       if (!skills[index]) {
         skills[index] = { ...baseSkill };
       }
-      let value = recipeProperties[key];
+      let value: string | number | boolean = recipeProperties[key];
       switch (property) {
         case 'lvl':
         case 'exp':
@@ -206,11 +209,11 @@ export class RecipesExtractor {
     });
 
     const inputs: RecipeMaterial[] = this.convertMaterialsToObject(
-      recipeProperties,
+      recipeProperties as Record<string, string>,
       'mat'
     );
     const outputs: RecipeMaterial[] = this.convertMaterialsToObject(
-      recipeProperties,
+      recipeProperties as Record<string, string>,
       'output'
     );
 
@@ -219,7 +222,8 @@ export class RecipesExtractor {
       : Number(recipeProperties.ticks);
     let toolIds: number[] = [];
     if (recipeProperties.tools) {
-      toolIds = recipeProperties.tools
+      // @ts-ignore
+      toolIds = (recipeProperties.tools as string)
         .split(',')
         .map((v) => {
           const item = this.itemExtractor.getItemByName(v);
@@ -234,11 +238,11 @@ export class RecipesExtractor {
         recipeProperties.members === 'Yes' || recipeProperties.members === true,
       skills,
       ticks,
-      ticksNote: recipeProperties.ticksnote,
+      ticksNote: recipeProperties.ticksnote as string,
       toolIds,
-      facility: recipeProperties.facilities,
-      name: recipeProperties.name,
-      notes: recipeProperties.notes,
+      facility: recipeProperties.facilities as string,
+      name: recipeProperties.name as string,
+      notes: recipeProperties.notes as string,
     };
 
     return recipe;
