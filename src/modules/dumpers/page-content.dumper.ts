@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
-import { eq } from 'drizzle-orm';
+import { eq, ne } from 'drizzle-orm';
 import { load } from 'cheerio';
 import FormData from 'form-data';
 import * as fs from 'fs';
@@ -128,11 +128,14 @@ export class PageContentDumper {
 
   async dumpAllPages() {
     this.logger.log(`Start: Dumping All pages`);
-    const pages = await this.db.select().from(WikiPage);
-
-    const toUpdate = pages.filter(
-      (p) => p.revisionId !== p.fullfetchRevisionId
-    );
+    const toUpdate = await this.db
+      .select({
+        id: WikiPage.id,
+        revisionId: WikiPage.revisionId,
+        fullfetchRevisionId: WikiPage.fullfetchRevisionId,
+      })
+      .from(WikiPage)
+      .where(ne(WikiPage.revisionId, WikiPage.fullfetchRevisionId));
 
     const pageMeta: WikiPageWithContent[] = [];
 
@@ -158,7 +161,7 @@ export class PageContentDumper {
         // Reset list
         pageMeta.length = 0;
       } catch (e) {
-        this.logger.error('Error inserting html to monster page!');
+        this.logger.error('Error saving full pages to db!', e);
       }
     };
 

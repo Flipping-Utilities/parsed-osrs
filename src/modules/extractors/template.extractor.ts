@@ -58,7 +58,7 @@ export class TemplateExtractor {
 
         writeFileSync(
           path.resolve(location),
-          JSON.stringify(templateRecord[template], null, 2)
+          JSON.stringify(templateRecord[template])
         );
       } catch (e) {
         this.logger.error(e, template, location);

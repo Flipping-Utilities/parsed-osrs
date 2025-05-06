@@ -32,7 +32,7 @@ export class ShopsExtractor {
     shops.sort((a, b) => a.name.localeCompare(b.name));
 
     if (shops.length) {
-      writeFileSync(ALL_SHOPS, JSON.stringify(shops, null, 2));
+      writeFileSync(ALL_SHOPS, JSON.stringify(shops));
     }
 
     this.logger.log('Finished extracting shops');

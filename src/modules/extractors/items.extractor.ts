@@ -84,7 +84,8 @@ export class ItemsExtractor {
 
     this.logger.log('Completed extracting all items');
 
-    writeFileSync(ALL_ITEMS, JSON.stringify(items, null, 2));
+    items.sort((a, b) => a?.name?.localeCompare(b.name) || 0);
+    writeFileSync(ALL_ITEMS, JSON.stringify(items));
   }
 
   public getAllItems(): Item[] | null {
@@ -204,7 +205,7 @@ export class ItemsExtractor {
 
     const baseItem: Item = {
       id: Number(parsed.id),
-      aliases: [],
+      aliases: page.aliases || [],
       name: parsed.gemwname || parsed.name,
       examine: parsed.examine,
       image: parsed.image,

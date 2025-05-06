@@ -111,7 +111,8 @@ export class RecipesExtractor {
         });
     }
     if (recipes.length) {
-      writeFileSync(ALL_RECIPES, JSON.stringify(recipes, null, 2));
+      recipes.sort((a, b) => a?.name?.localeCompare(b.name || '') || 0);
+      writeFileSync(ALL_RECIPES, JSON.stringify(recipes));
     }
 
     this.logger.log('End of recipes extraction');

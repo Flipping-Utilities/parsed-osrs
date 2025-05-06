@@ -31,7 +31,7 @@ export class SpawnExtractor {
     spawns.sort((a, b) => a.id - b.id);
     this.logger.log('End: extracting spawns');
 
-    writeFileSync(ALL_SPAWNS, JSON.stringify(spawns, null, 2));
+    writeFileSync(ALL_SPAWNS, JSON.stringify(spawns));
   }
 
   public getAllSpawns(): ItemSpawn[] | null {

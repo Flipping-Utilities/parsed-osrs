@@ -40,7 +40,7 @@ export class MonstersExtractor {
     }
 
     if (monsters.length) {
-      writeFileSync(ALL_MONSTERS, JSON.stringify(monsters, null, 2));
+      writeFileSync(ALL_MONSTERS, JSON.stringify(monsters));
     }
 
     this.logger.log('Done: Extracting monsters');

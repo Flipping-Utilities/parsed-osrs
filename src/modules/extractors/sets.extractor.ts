@@ -30,9 +30,9 @@ export class SetsExtractor {
     }
     sets.sort((a, b) => a.id - b.id);
     if (sets.length) {
-      writeFileSync(ALL_SETS, JSON.stringify(sets, null, 2));
+      writeFileSync(ALL_SETS, JSON.stringify(sets));
     }
-    this.logger.log('DOne extracting sets');
+    this.logger.log('Done extracting sets');
     return sets;
   }
 
