@@ -28,7 +28,7 @@ export class DevService {
 
   async testTheThing() {
     // await this.recipesExtractor.extractAllRecipes();
-    // this.dumpEverything();
+    await this.extractWikiContent();
   }
 
   async dumpEverything() {
@@ -37,8 +37,15 @@ export class DevService {
   }
 
   async dumpWikiContent() {
+    // Dumps the list of pages and some basic metadata
     await this.pageListDumper.dumpWikiPageList();
+    // Uses the special:export feature to dump all pages and their raw content within an xml file
+    await this.pageContentDumper.dumpAllWikiPagesFast();
+    // Parses the xml file and extracts the content of each page
     await this.pageContentDumper.dumpAllWikiPages();
+    // Dumps the additional content of the pages that were changed since the last run.
+    await this.pageContentDumper.dumpAllPages();
+    // Dumps the page list matching the various tags
     await this.pageListDumper.dumpAllItemPageList();
     await this.pageListDumper.dumpGEItemPageList();
     await this.pageListDumper.dumpItemSetsPageList();

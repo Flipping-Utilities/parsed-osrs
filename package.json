@@ -18,11 +18,11 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:debug": "node --6nspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@libsql/client": "^0.15.3",
+    "@libsql/client": "^0.15.6",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^8.0.0",
@@ -41,6 +41,7 @@
     "wtf_wikipedia": "^10.4.0"
   },
   "devDependencies": {
+    "@libsql/win32-arm64-msvc": "https://registry.npmjs.org/@strongtz/win32-arm64-msvc/-/win32-arm64-msvc-0.4.7.tgz",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",

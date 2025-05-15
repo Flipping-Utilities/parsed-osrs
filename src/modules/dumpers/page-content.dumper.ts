@@ -175,11 +175,13 @@ export class PageContentDumper {
         await savePages();
       }
       await requestDelay;
+      requestDelay = new Promise((r) => setTimeout(r, 1000));
       const wikiMetadata = await this.dumpWikiPageById(page.id);
       if (wikiMetadata) {
-        requestDelay = new Promise((r) => setTimeout(r, 1000));
         pageMeta.push(wikiMetadata);
         // Wait 1 second
+      } else {
+        requestDelay = Promise.resolve();
       }
     }
     await savePages();
