@@ -76,7 +76,9 @@ export class SetsExtractor {
     const matcher = /\{\{CostLine\|(.+)\}\}/gm;
     const components = Array.from(page.text!.matchAll(matcher));
     if (!components.length) {
-      this.logger.warn('No components', title, page.id);
+      this.logger.warn(
+        `Page set has no components! Page "${title}" (${page.id})`
+      );
       return null;
     }
     // Blue mystic sets has |disambiguation, strip it
