@@ -248,6 +248,7 @@ export class PageListDumper {
   async dumpItemSetsPageList() {
     this.logger.log('Dump item set page list');
     const pages = await this.fetchItemSetsPageList();
+    console.log(pages.length, pages.slice(60));
     this.logger.log('Dump item set page list - Completed');
 
     await this.addTag(

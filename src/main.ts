@@ -11,7 +11,7 @@ bootstrap();
 
 process
   .on('unhandledRejection', (reason, p) => {
-    Logger.error(reason, 'Unhandled Rejection at Promise', p);
+    Logger.error(reason, 'Unhandled Rejection at Promise', JSON.stringify(p));
   })
   .on('uncaughtException', (err) => {
     Logger.error(err, 'Uncaught Exception thrown');
