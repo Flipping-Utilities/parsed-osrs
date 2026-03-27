@@ -3,12 +3,56 @@ import axios from 'axios';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import parseInfo from 'infobox-parser';
 import { ALL_ITEMS } from '../../constants/paths';
-import { Item } from '../../types';
+import { EquipmentStats, Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 
 const GELimitsModuleUrl =
   'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
 
+interface WikiEquipmentStats {
+  astab: string;
+  aslash: string;
+  acrush: string;
+  amagic: string;
+  arange: string;
+  dstab: string;
+  dslash: string;
+  dcrush: string;
+  dmagic: string;
+  drange: string;
+  str: string;
+  rstr: string;
+  mdmg: string;
+  prayer: string;
+  slot: string;
+  speed: string;
+  attackrange: string;
+  combatstyle: string;
+}
+
+const WikiToEquipmentStatsKeys: Record<
+  Partial<keyof WikiEquipmentStats>,
+  keyof EquipmentStats
+> = {
+  astab: 'attackStab',
+  aslash: 'attackSlash',
+  acrush: 'attackCrush',
+  amagic: 'attackMagic',
+  arange: 'attackRanged',
+  dstab: 'defendStab',
+  dslash: 'defendSlash',
+  dcrush: 'defendCrush',
+  dmagic: 'defendMagic',
+  drange: 'defendRanged',
+  str: 'strength',
+  rstr: 'rangedStrength',
+  mdmg: 'magicDamage',
+  prayer: 'prayer',
+  slot: 'slot',
+  speed: 'speed',
+  attackrange: 'attackRange',
+  combatstyle: 'combatStyle',
+};
 interface WikiItem {
   gemwname?: string;
   name: string;
@@ -202,7 +246,33 @@ export class ItemsExtractor {
     ) {
       isInMainGame = false;
     }
+    let equipmentStats: EquipmentStats | null = null;
+    if (page.text!.includes('==Combat stats==')) {
+      const cbSplit = page.text!.split('==Combat stats==')[1];
+      const combatStats = cbSplit.slice(0, cbSplit.indexOf('}}'));
 
+      const combatInfoBox: WikiEquipmentStats = parseInfo(combatStats).general;
+      equipmentStats = {
+        attackStab: Number(combatInfoBox.astab),
+        attackSlash: Number(combatInfoBox.aslash),
+        attackCrush: Number(combatInfoBox.acrush),
+        attackMagic: Number(combatInfoBox.amagic),
+        attackRanged: Number(combatInfoBox.arange),
+        defendStab: Number(combatInfoBox.dstab),
+        defendSlash: Number(combatInfoBox.dslash),
+        defendCrush: Number(combatInfoBox.dcrush),
+        defendMagic: Number(combatInfoBox.dmagic),
+        defendRanged: Number(combatInfoBox.drange),
+        strength: Number(combatInfoBox.str),
+        rangedStrength: Number(combatInfoBox.rstr),
+        magicDamage: Number(combatInfoBox.mdmg),
+        prayer: Number(combatInfoBox.prayer),
+        slot: combatInfoBox.slot,
+        speed: Number(combatInfoBox.speed),
+        attackRange: Number(combatInfoBox.attackrange),
+        combatStyle: combatInfoBox.combatstyle,
+      };
+    }
     const baseItem: Item = {
       id: Number(parsed.id),
       aliases: page.aliases || [],
@@ -223,6 +293,10 @@ export class ItemsExtractor {
       limit: this.GELimitsRecord[parsed.gemwname || parsed.name] || 0,
       isInMainGame,
     };
+
+    if (equipmentStats) {
+      baseItem.equipmentStats = equipmentStats;
+    }
 
     if (hasMultiple) {
       let allVariants: Item[] = [];
