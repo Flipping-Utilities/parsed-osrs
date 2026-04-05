@@ -1,0 +1,17 @@
+export const TestPages = {
+  Bucket15ths: 13809,
+  ThirdAgeFellingAxe: 386331,
+  AdamantSetLg: 45369,
+  AdamantGoldTrimmedSetLg: 45373,
+  AdamantGoldTrimmedSetSk: 45374,
+  RuneArmourSetLg: 45376,
+  StoneBowl: 10164,
+  BronzeBar: 9874,
+  Mixture: 119243,
+  AberrantSpectre: 12869,
+  ADoubt: 27806,
+  AbhorrentSpectre: 80108,
+  AaronsArcheryAppendages: 29644,
+  UnusedShops: 333174,
+  FarmingShops: 22523,
+} as const;

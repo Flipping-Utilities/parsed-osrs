@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
+import { DatabaseModule } from '../database/database.module';
 import { DumpersModule } from '../dumpers/dumpers.module';
 import { ExtractorsModule } from '../extractors/extractors.module';
 import { AppController } from './app.controller';
 import { DevService } from './dev.service';
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
-import { DatabaseModule } from 'src/modules/database/database.module';
 
 @Module({
   imports: [

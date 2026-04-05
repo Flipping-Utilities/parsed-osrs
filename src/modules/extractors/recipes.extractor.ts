@@ -1,13 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import parse from 'infobox-parser';
-import { PageTags } from 'src/constants/tags';
 import { ALL_RECIPES } from '../../constants/paths';
 import { Recipe, RecipeMaterial, RecipeSkill, Set } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 import { SetsExtractor } from './sets.extractor';
 import wtf from 'wtf_wikipedia';
+import { PageTags } from '@/constants/tags';
 
 type WikiMaterialKey = '' | 'quantity' | 'cost' | 'itemnote' | 'txt' | 'subtxt';
 const WikiMaterialKeyToRecipeMaterialKey: Record<
@@ -29,6 +28,145 @@ const WikiSkillKeyToRecipeSkillKey: Record<WikiSkillKeys, keyof RecipeSkill> = {
   lvl: 'lvl',
 };
 
+export function convertMaterialsToObject(
+  rawRecipe: Record<string, string>,
+  prefix: string,
+  itemLookup: (name: string) => { id: number } | null
+): RecipeMaterial[] {
+  const baseMaterial: RecipeMaterial = {
+    id: 0,
+    quantity: 1,
+  };
+  const materials: RecipeMaterial[] = [];
+  const materialKeys = Object.keys(rawRecipe).filter((k) =>
+    k.startsWith(prefix)
+  );
+
+  materialKeys.forEach((key) => {
+    const withoutMat = key.split(prefix)[1];
+    const property = withoutMat.split(/^\d+/)[1] as WikiMaterialKey;
+    const index = Number(withoutMat.replace(property, '')) - 1;
+
+    if (!materials[index]) {
+      materials[index] = { ...baseMaterial };
+    }
+    let value: any = rawRecipe[key];
+    switch (property) {
+      case '':
+        const id = value === 'Coins' ? 995 : itemLookup(value)?.id;
+        if (!id) {
+          return;
+        }
+        value = id;
+        break;
+      case 'quantity':
+      case 'cost':
+        const nb = Number(value);
+        // Ignore default strings
+        if (!isNaN(nb)) {
+          value = nb;
+        } else {
+          value = baseMaterial[WikiMaterialKeyToRecipeMaterialKey[property]];
+        }
+        break;
+      case 'itemnote':
+      case 'txt':
+      case 'subtxt':
+        // Keep string
+        break;
+      default:
+        return;
+    }
+    // @ts-ignore
+    materials[index][WikiMaterialKeyToRecipeMaterialKey[property]] = value;
+  });
+
+  return materials;
+}
+
+export function parseRecipeProperties(
+  recipeProperties: Record<string, string | boolean>,
+  itemLookup: (name: string) => { id: number } | null
+): Recipe | null {
+  const skills: RecipeSkill[] = [];
+  const skillKeys = Object.keys(recipeProperties).filter((k) =>
+    k.startsWith('skill')
+  );
+  const baseSkill: RecipeSkill = {
+    boostable: true,
+    lvl: 1,
+    name: 'Unknown',
+    xp: 0,
+  };
+
+  skillKeys.forEach((key) => {
+    const withoutSkill = key.split('skill')[1];
+    const property = withoutSkill.split(/^\d+/)[1] as WikiSkillKeys;
+    const index = Number(withoutSkill.replace(property, '')) - 1;
+
+    if (!skills[index]) {
+      skills[index] = { ...baseSkill };
+    }
+    let value: string | number | boolean = recipeProperties[key] as string;
+    switch (property) {
+      case 'lvl':
+      case 'exp':
+        value = Number(value);
+        break;
+      case 'boostable':
+        value = Boolean(value);
+        break;
+      case '':
+        break;
+      default:
+        break;
+    }
+    // @ts-ignore
+    skills[index][WikiSkillKeyToRecipeSkillKey[property]] = value;
+  });
+
+  const inputs: RecipeMaterial[] = convertMaterialsToObject(
+    recipeProperties as Record<string, string>,
+    'mat',
+    itemLookup
+  );
+  const outputs: RecipeMaterial[] = convertMaterialsToObject(
+    recipeProperties as Record<string, string>,
+    'output',
+    itemLookup
+  );
+
+  const ticks = isNaN(Number(recipeProperties.ticks))
+    ? null
+    : Number(recipeProperties.ticks);
+  let toolIds: number[] = [];
+  if (recipeProperties.tools) {
+    toolIds = recipeProperties.tools
+      .toString()
+      .split(',')
+      .map((v) => {
+        const item = itemLookup(v);
+        return item?.id;
+      })
+      .filter((v): v is number => v !== undefined);
+  }
+  const recipe: Recipe = {
+    inputs,
+    outputs,
+    members:
+      recipeProperties.members === 'Yes' || recipeProperties.members === true,
+    skills,
+    ticks,
+    ticksNote: recipeProperties.ticksnote as string,
+    toolIds,
+    facility: recipeProperties.facilities as string,
+    name: recipeProperties.name as string,
+    notes: recipeProperties.notes as string,
+  };
+
+  return recipe;
+}
+
 @Injectable()
 export class RecipesExtractor {
   private logger: Logger = new Logger(RecipesExtractor.name);
@@ -43,9 +181,6 @@ export class RecipesExtractor {
   ) {}
 
   public async extractAllRecipes() {
-    // await this.extractRecipesFromPageId(565302);
-    // return;
-
     this.logger.log('Starting to extract recipes');
 
     const itemPages = await this.pageListDumper.getPagesFromTag(PageTags.ITEM);
@@ -60,7 +195,6 @@ export class RecipesExtractor {
       }
       recipes.push(...pageRecipes);
     }
-    // Todo: Add all decant
 
     // Add all sets
     const sets = await this.setsExtractor.getAllSets();
@@ -82,7 +216,6 @@ export class RecipesExtractor {
               },
             ],
             skills: [],
-            // Todo: Find if set is f2p/p2p
             members: setItem?.isMembers || false,
             ticks: 1,
             toolIds: [],
@@ -99,7 +232,6 @@ export class RecipesExtractor {
               },
             ],
             skills: [],
-            // Todo: Find if set is f2p/p2p
             members: true,
             ticks: 1,
             toolIds: [],
@@ -145,7 +277,6 @@ export class RecipesExtractor {
     const hasRecipe = page?.text?.includes('{{Recipe');
     if (!page || !hasRecipe) {
       this.logger.verbose(`No recipe for page ${pageId}`);
-      // Item has no recipes
       return null;
     }
 
@@ -162,151 +293,13 @@ export class RecipesExtractor {
       `Parsing ${recipes.length} recipes on page ${page.title}`
     );
     const newRecipes: Recipe[] = recipes
-      .map((value) => this.parseRecipe(value))
+      .map((value) =>
+        parseRecipeProperties(value, (name) =>
+          this.itemExtractor.getItemByName(name)
+        )
+      )
       .filter((v) => v) as Recipe[];
 
     return newRecipes;
-  }
-
-  private parseRecipe(
-    recipeProperties: Record<string, string | boolean>
-  ): Recipe | null {
-    const skills: RecipeSkill[] = [];
-    const skillKeys = Object.keys(recipeProperties).filter((k) =>
-      k.startsWith('skill')
-    );
-    const baseSkill: RecipeSkill = {
-      boostable: true,
-      lvl: 1,
-      name: 'Unknown',
-      xp: 0,
-    };
-
-    skillKeys.forEach((key) => {
-      const withoutSkill = key.split('skill')[1];
-      const property = withoutSkill.split(/^\d+/)[1] as WikiSkillKeys;
-      const index = Number(withoutSkill.replace(property, '')) - 1;
-
-      if (!skills[index]) {
-        skills[index] = { ...baseSkill };
-      }
-      let value: string | number | boolean = recipeProperties[key];
-      switch (property) {
-        case 'lvl':
-        case 'exp':
-          value = Number(value);
-          break;
-        case 'boostable':
-          value = Boolean(value);
-          break;
-        case '':
-          break;
-        default:
-          console.warn(`Unknown recipe skill property: ${property}`);
-          break;
-      }
-      // @ts-ignore
-      skills[index][WikiSkillKeyToRecipeSkillKey[property]] = value;
-    });
-
-    const inputs: RecipeMaterial[] = this.convertMaterialsToObject(
-      recipeProperties as Record<string, string>,
-      'mat'
-    );
-    const outputs: RecipeMaterial[] = this.convertMaterialsToObject(
-      recipeProperties as Record<string, string>,
-      'output'
-    );
-
-    const ticks = isNaN(Number(recipeProperties.ticks))
-      ? null
-      : Number(recipeProperties.ticks);
-    let toolIds: number[] = [];
-    if (recipeProperties.tools) {
-      // @ts-ignore
-      toolIds = (recipeProperties.tools as string)
-        .split(',')
-        .map((v) => {
-          const item = this.itemExtractor.getItemByName(v);
-          return item?.id;
-        })
-        .filter((v) => v);
-    }
-    const recipe: Recipe = {
-      inputs,
-      outputs,
-      members:
-        recipeProperties.members === 'Yes' || recipeProperties.members === true,
-      skills,
-      ticks,
-      ticksNote: recipeProperties.ticksnote as string,
-      toolIds,
-      facility: recipeProperties.facilities as string,
-      name: recipeProperties.name as string,
-      notes: recipeProperties.notes as string,
-    };
-
-    return recipe;
-  }
-
-  private convertMaterialsToObject(
-    rawRecipe: Record<string, string>,
-    prefix: string
-  ): RecipeMaterial[] {
-    const baseMaterial: RecipeMaterial = {
-      id: 0,
-      quantity: 1,
-    };
-    const materials: RecipeMaterial[] = [];
-    const materialKeys = Object.keys(rawRecipe).filter((k) =>
-      k.startsWith(prefix)
-    );
-
-    materialKeys.forEach((key) => {
-      const withoutMat = key.split(prefix)[1];
-      const property = withoutMat.split(/^\d+/)[1] as WikiMaterialKey;
-      const index = Number(withoutMat.replace(property, '')) - 1;
-
-      if (!materials[index]) {
-        materials[index] = { ...baseMaterial };
-      }
-      let value: any = rawRecipe[key];
-      switch (property) {
-        case '':
-          const id =
-            value === 'Coins'
-              ? 995
-              : this.itemExtractor.getItemByName(value)?.id;
-          if (!id) {
-            console.warn(`Recipe uses an unknown item: ${value}`);
-            return;
-          }
-          value = id;
-          break;
-        case 'quantity':
-        case 'cost':
-          const nb = Number(value);
-          // Ignore default strings
-          if (!isNaN(nb)) {
-            value = nb;
-          } else {
-            value = baseMaterial[WikiMaterialKeyToRecipeMaterialKey[property]];
-          }
-          break;
-        case 'itemnote':
-        case 'txt':
-        case 'subtxt':
-          // Keep string
-          break;
-        default:
-          console.warn(`Unknown recipe material property: ${property}!`);
-          // Skip this recipe component: it's not a known property
-          return;
-      }
-      // @ts-ignore
-      materials[index][WikiMaterialKeyToRecipeMaterialKey[property]] = value;
-    });
-
-    return materials;
   }
 }

@@ -1,7 +1,8 @@
+import { PageTags } from '@/constants/tags';
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
-import { eq, ne } from 'drizzle-orm';
 import { load } from 'cheerio';
+import { eq, ne } from 'drizzle-orm';
 import FormData from 'form-data';
 import * as fs from 'fs';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -14,7 +15,6 @@ import {
   WikiRequestService,
 } from '../wiki/wikiRequest.service';
 import { PageListDumper } from './page-list.dumper';
-import { PageTags } from 'src/constants/tags';
 
 interface WikiPageResponse {
   title: string;

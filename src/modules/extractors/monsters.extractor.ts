@@ -5,8 +5,85 @@ import { ALL_MONSTERS } from '../../constants/paths';
 import { Monster, MonsterDrop } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
-import { PageTags } from 'src/constants/tags';
+import { PageTags } from '../../constants/tags';
 import wtf from 'wtf_wikipedia';
+
+export function parseMonsterFromHtml(
+  html: string,
+  pageTitle: string,
+  pageText: string | null,
+  pageAliases: string[],
+  itemLookup: (name: string) => { id: number } | null
+): Monster | null {
+  const dom = load(html);
+
+  const allDrops: MonsterDrop[] = [];
+  Array.from(dom('.item-drops')).forEach((table) => {
+    const rows = load(table)('tr').filter((i, e) => {
+      return dom(e).children()[0]?.tagName === 'td';
+    });
+
+    const sectionDrops: MonsterDrop[] = Array.from(rows)
+      .map((row) => {
+        const element = dom(row);
+        const [_, nameElement, qtyElement, rarityElement] = element.children();
+        const name = dom(nameElement.childNodes[0] || nameElement)
+          .text()
+          ?.split('[')[0]
+          .replace(/,/g, '')
+          .trim();
+        const quantity = dom(qtyElement.childNodes[0] || qtyElement)
+          .text()
+          ?.split('[')[0]
+          .replace(/,/g, '')
+          .trim();
+        const rarity = dom(rarityElement.childNodes[0] || rarityElement)
+          .text()
+          ?.split('[')[0]
+          .replace(/,/g, '')
+          .trim();
+
+        const itemId = itemLookup(name)?.id ?? null;
+
+        return { name: name, quantity: quantity, rarity: rarity, itemId };
+      })
+      .filter((r) => r.name) as MonsterDrop[];
+    allDrops.push(...sectionDrops);
+  });
+
+  const candidateIdElement = dom(
+    dom('.advanced-data')
+      .filter((i, e) => {
+        return dom(e).children().first().text().includes('Monster ID');
+      })
+      .first()
+  )?.children('td');
+
+  const candidateId = dom(candidateIdElement)?.text()?.split(',')[0];
+  const realId = Number(candidateId);
+  if (!candidateId || isNaN(realId)) {
+    return null;
+  }
+
+  let examine = '';
+  if (pageText) {
+    const potentialExamine: string = wtf(pageText)
+      .infobox()
+      // @ts-ignore
+      ?.data?.examine?.text();
+    if (potentialExamine) {
+      examine = potentialExamine;
+    }
+  }
+
+  return {
+    id: realId,
+    name: pageTitle,
+    aliases: pageAliases,
+    drops: allDrops,
+    examine,
+  };
+}
 
 @Injectable()
 export class MonstersExtractor {
@@ -71,90 +148,22 @@ export class MonstersExtractor {
     pageId: number
   ): Promise<Monster | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
-    if (!page) {
+    if (!page || page.html === null) {
       this.logger.warn('Could not fetch page content from id', pageId);
       return null;
     }
 
-    const html = page.html;
-    if (html === null) {
-      return null;
-    }
-    const dom = load(html);
+    const monster = parseMonsterFromHtml(
+      page.html,
+      page.title,
+      page.text,
+      page.aliases || [],
+      (name) => this.itemExtractor.getItemByName(name)
+    );
 
-    const allDrops: MonsterDrop[] = [];
-    Array.from(dom('.item-drops')).forEach((table) => {
-      const rows = load(table)('tr').filter((i, e) => {
-        return dom(e).children()[0]?.tagName === 'td';
-      });
-
-      const sectionDrops: MonsterDrop[] = Array.from(rows)
-        .map((row) => {
-          const element = dom(row);
-          const [_, nameElement, qtyElement, rarityElement] =
-            element.children();
-          const name = dom(nameElement.childNodes[0] || nameElement)
-            .text()
-            ?.split('[')[0]
-            .replace(/,/g, '')
-            .trim();
-          const quantity = dom(qtyElement.childNodes[0] || qtyElement)
-            .text()
-            ?.split('[')[0]
-            .replace(/,/g, '')
-            .trim();
-          const rarity = dom(rarityElement.childNodes[0] || rarityElement)
-            .text()
-            ?.split('[')[0]
-            .replace(/,/g, '')
-            .trim();
-
-          const itemId = this.itemExtractor.getItemByName(name)?.id || null;
-
-          return { name: name, quantity: quantity, rarity: rarity, itemId };
-        })
-        .filter((r) => r.name) as MonsterDrop[];
-      allDrops.push(...sectionDrops);
-    });
-
-    // If there are multiple ids: 12, 34
-    // The data-attr-param is present
-    // Otherwise, it is not there
-    const candidateIdElement = dom(
-      dom('.advanced-data')
-        .filter((i, e) => {
-          return dom(e).children().first().text().includes('Monster ID');
-        })
-        .first()
-    )?.children('td');
-
-    const candidateId = dom(candidateIdElement)?.text()?.split(',')[0];
-
-    const realId = Number(candidateId);
-    if (!candidateId || isNaN(realId)) {
+    if (!monster) {
       this.logger.warn('no id for monster', page.title, page.id);
-      return null;
     }
-    let examine = '';
-    const text = page.text;
-
-    if (text) {
-      const potentialExamine: string = wtf(text)
-        .infobox()
-        // @ts-ignore
-        ?.data?.examine?.text();
-      if (potentialExamine) {
-        examine = potentialExamine;
-      }
-    }
-
-    const monster: Monster = {
-      id: realId,
-      name: page.title,
-      aliases: page.aliases || [],
-      drops: allDrops,
-      examine,
-    };
 
     return monster;
   }

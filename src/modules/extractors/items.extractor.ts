@@ -9,7 +9,7 @@ import { PageContentDumper, PageListDumper } from '../dumpers';
 const GELimitsModuleUrl =
   'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
 
-interface WikiItem {
+export interface WikiItem {
   gemwname?: string;
   name: string;
   // format: "File:1-3rds full jug.png"
@@ -33,7 +33,7 @@ interface WikiItem {
   id: string;
 }
 
-const WikiToItemKeys: Record<Partial<keyof WikiItem>, keyof Item> = {
+export const WikiToItemKeys: Record<Partial<keyof WikiItem>, keyof Item> = {
   gemwname: 'name',
   name: 'name',
   image: 'image',
@@ -49,6 +49,113 @@ const WikiToItemKeys: Record<Partial<keyof WikiItem>, keyof Item> = {
   weight: 'weight',
   id: 'id',
 };
+
+export function parseItemFromWikiData(
+  parsed: WikiItem,
+  pageTitle: string,
+  pageText: string,
+  pageAliases: string[],
+  geLimitsRecord: Record<string, number>
+): Item[] {
+  const hasMultiple = Object.keys(parsed).some((v) => v.endsWith('2'));
+
+  let isInMainGame = true;
+
+  // Skip removed items and jmod items
+  if (
+    'removal' in parsed ||
+    pageTitle.includes('Redundant') ||
+    pageTitle.startsWith('Sigil') ||
+    pageText.includes('{{Deadman seasonal}}') ||
+    pageText.includes('{{Beta}}') ||
+    pageText.includes('{{Gone')
+  ) {
+    isInMainGame = false;
+  }
+
+  const baseItem: Item = {
+    id: Number(parsed.id),
+    aliases: pageAliases || [],
+    name: parsed.gemwname || parsed.name,
+    examine: parsed.examine,
+    image: parsed.image,
+    isEquipable: parsed.equipable === 'Yes' || parsed.equipable === true,
+    isAlchable: parsed.alchable === 'Yes' || parsed.alchable === true,
+    isOnGrandExchange: parsed.exchange === 'Yes' || parsed.exchange === true,
+    isTradeable: parsed.tradeable === 'Yes' || parsed.tradeable === true,
+    isMembers: parsed.members === 'Yes' || parsed.members === true,
+    isStackable: parsed.stackable === 'Yes' || parsed.stackable === true,
+    drop: parsed.destroy,
+    options: [],
+    relatedItems: [],
+    value: Number(parsed.value),
+    weight: Number(parsed.weight),
+    limit: geLimitsRecord[parsed.gemwname || parsed.name] || 0,
+    isInMainGame,
+  };
+
+  const candidateItems: Item[] = [];
+
+  if (hasMultiple) {
+    let allVariants: Item[] = [];
+    Object.keys(parsed).forEach((key: string) => {
+      const candidateKey = key.match(/\d+$/);
+      const endIndex = candidateKey ? Number(candidateKey[0]) : 0;
+      const baseKey = key.replace(/\d+$/, '');
+      if (key === baseKey || endIndex === 0) {
+        return;
+      }
+
+      if (!allVariants[endIndex]) {
+        allVariants[endIndex] = { ...baseItem };
+      }
+
+      let value;
+      switch (baseKey as keyof WikiItem) {
+        case 'id':
+        case 'value':
+        case 'weight':
+          value = Number((parsed as any)[key]);
+          break;
+        case 'name':
+        case 'gemwname':
+        case 'examine':
+        case 'destroy':
+          value = (parsed as any)[key];
+          break;
+        case 'equipable':
+        case 'alchable':
+        case 'exchange':
+        case 'tradeable':
+        case 'stackable':
+        case 'members':
+          value =
+            (parsed as any)[key] === 'Yes' || (parsed as any)[key] === true;
+          break;
+        default:
+          break;
+      }
+      if (value) {
+        // @ts-ignore
+        allVariants[endIndex][WikiToItemKeys[baseKey]] = value;
+      }
+    });
+
+    allVariants = allVariants.filter((v) => v.id);
+
+    const itemIds = allVariants.map((v) => v.id);
+    allVariants.forEach((v) => {
+      v.relatedItems = itemIds.filter((id) => v.id !== id);
+      v.limit = v.limit || geLimitsRecord[v.name] || 0;
+    });
+
+    candidateItems.push(...allVariants);
+  } else if (baseItem.id) {
+    candidateItems.push(baseItem);
+  }
+
+  return candidateItems;
+}
 
 @Injectable()
 export class ItemsExtractor {
@@ -176,8 +283,6 @@ export class ItemsExtractor {
       return null;
     }
 
-    const candidateItems: Item[] = [];
-
     const parsed: WikiItem = parseInfo(
       page.text!.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
     ).general;
@@ -186,102 +291,12 @@ export class ItemsExtractor {
       return null;
     }
 
-    // One page can have multiple variants of the item
-    const hasMultiple = Object.keys(parsed).some((v) => v.endsWith('2'));
-
-    let isInMainGame = true;
-
-    // Skip removed items and jmod items
-    if (
-      'removal' in parsed ||
-      page.title.includes('Redundant') ||
-      page.title.startsWith('Sigil') ||
-      page.text!.includes('{{Deadman seasonal}}') ||
-      page.text!.includes('{{Beta}}') ||
-      page.text!.includes('{{Gone')
-    ) {
-      isInMainGame = false;
-    }
-
-    const baseItem: Item = {
-      id: Number(parsed.id),
-      aliases: page.aliases || [],
-      name: parsed.gemwname || parsed.name,
-      examine: parsed.examine,
-      image: parsed.image,
-      isEquipable: parsed.equipable === 'Yes' || parsed.equipable === true,
-      isAlchable: parsed.alchable === 'Yes' || parsed.alchable === true,
-      isOnGrandExchange: parsed.exchange === 'Yes' || parsed.exchange === true,
-      isTradeable: parsed.tradeable === 'Yes' || parsed.tradeable === true,
-      isMembers: parsed.members === 'Yes' || parsed.members === true,
-      isStackable: parsed.stackable === 'Yes' || parsed.stackable === true,
-      drop: parsed.destroy,
-      options: [],
-      relatedItems: [],
-      value: Number(parsed.value),
-      weight: Number(parsed.weight),
-      limit: this.GELimitsRecord[parsed.gemwname || parsed.name] || 0,
-      isInMainGame,
-    };
-
-    if (hasMultiple) {
-      let allVariants: Item[] = [];
-      Object.keys(parsed).forEach((key: string) => {
-        const candidateKey = key.match(/\d+$/);
-        const endIndex = candidateKey ? Number(candidateKey[0]) : 0;
-        const baseKey = key.replace(/\d+$/, '');
-        if (key === baseKey || endIndex === 0) {
-          return;
-        }
-
-        if (!allVariants[endIndex]) {
-          allVariants[endIndex] = { ...baseItem };
-        }
-
-        let value;
-        switch (baseKey as keyof WikiItem) {
-          case 'id':
-          case 'value':
-          case 'weight':
-            value = Number((parsed as any)[key]);
-            break;
-          case 'name':
-          case 'gemwname':
-          case 'examine':
-          case 'destroy':
-            value = (parsed as any)[key];
-            break;
-          case 'equipable':
-          case 'alchable':
-          case 'exchange':
-          case 'tradeable':
-          case 'stackable':
-          case 'members':
-            value =
-              (parsed as any)[key] === 'Yes' || (parsed as any)[key] === true;
-            break;
-          default:
-            break;
-        }
-        if (value) {
-          // @ts-ignore
-          allVariants[endIndex][WikiToItemKeys[baseKey]] = value;
-        }
-      });
-
-      allVariants = allVariants.filter((v) => v.id);
-
-      const itemIds = allVariants.map((v) => v.id);
-      allVariants.forEach((v) => {
-        v.relatedItems = itemIds.filter((id) => v.id !== id);
-        v.limit = v.limit || this.GELimitsRecord[v.name] || 0;
-      });
-
-      candidateItems.push(...allVariants);
-    } else if (baseItem.id) {
-      candidateItems.push(baseItem);
-    }
-
-    return candidateItems;
+    return parseItemFromWikiData(
+      parsed,
+      page.title,
+      page.text!,
+      page.aliases || [],
+      this.GELimitsRecord
+    );
   }
 }

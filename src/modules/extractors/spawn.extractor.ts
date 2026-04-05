@@ -1,10 +1,10 @@
+import { PageTags } from '@/constants/tags';
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import wtf from 'wtf_wikipedia';
 import { ALL_SPAWNS } from '../../constants/paths';
 import { ItemSpawn } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
-import wtf from 'wtf_wikipedia';
-import { PageTags } from 'src/constants/tags';
 
 @Injectable()
 export class SpawnExtractor {

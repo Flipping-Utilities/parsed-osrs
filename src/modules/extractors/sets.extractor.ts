@@ -63,42 +63,45 @@ export class SetsExtractor {
     }
     const title = load(page.title).text();
 
-    /*
-     * Set format:
-     * {{CostTableHead}}
-     * {{CostLine|Ancient page 1}}
-     * {{CostLine|Ancient page 2}}
-     * {{CostLine|Ancient page 3}}
-     * {{CostLine|Ancient page 4}}
-     * {{CostTableBottom|total=y|compare={{PAGENAME}}}};
-     */
+    const set = parseSetFromContent(page.text!, title, (name) =>
+      this.itemExtractor.getItemByName(name)
+    );
 
-    const matcher = /\{\{CostLine\|(.+)\}\}/gm;
-    const components = Array.from(page.text!.matchAll(matcher));
-    if (!components.length) {
+    if (!set) {
       this.logger.warn(
         `Page set has no components! Page "${title}" (${page.id})`
       );
       return null;
     }
-    // Blue mystic sets has |disambiguation, strip it
-    const componentNames = components.map((c) => c[1].split('|')[0]);
-    const componentIds: number[] = componentNames
-      .map((name) => this.itemExtractor.getItemByName(name)?.id)
-      .filter((v) => v !== undefined) as number[];
-    const set: Set = {
-      id: this.itemExtractor.getItemByName(title)?.id || 0,
-      name: title,
-      componentIds,
-    };
     if (!set.id) {
       this.logger.warn(`No set id!`, title);
     }
-    if (!componentIds.every((c) => c)) {
-      this.logger.log(
-        `Missing a component id: ${componentNames} ${componentIds}`
-      );
+    if (set.componentIds.length !== set.componentIds.filter((c) => c).length) {
+      this.logger.log(`Missing a component id: ${set.componentIds}`);
     }
     return set;
   }
+}
+
+export function parseSetFromContent(
+  pageText: string,
+  title: string,
+  itemLookup: (name: string) => { id: number } | null
+): Set | null {
+  const matcher = /\{\{CostLine\|(.+)\}\}/gm;
+  const components = Array.from(pageText.matchAll(matcher));
+  if (!components.length) {
+    return null;
+  }
+  // Blue mystic sets has |disambiguation, strip it
+  const componentNames = components.map((c) => c[1].split('|')[0]);
+  const componentIds: number[] = componentNames
+    .map((name) => itemLookup(name)?.id)
+    .filter((v) => v !== undefined) as number[];
+  const set: Set = {
+    id: itemLookup(title)?.id || 0,
+    name: title,
+    componentIds,
+  };
+  return set;
 }
