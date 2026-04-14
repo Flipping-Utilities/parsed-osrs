@@ -18,4 +18,8 @@ export const TestPages = {
   BandosChestplate: 23830,
   AncestralHat: 82463,
   FireGiant: 2075,
+  SurokMagis: 27433,
+  JalImKot: 99600,
+  KingBlackDragon: 11870,
+  WovenTopBrown: 100086,
 } as const;

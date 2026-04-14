@@ -30,7 +30,10 @@
  * wikiBool('');         // false
  * ```
  */
-export function wikiBool(val: unknown): boolean {
+export function wikiBool(val: unknown, fallback = false): boolean {
+  if (val === null || val === undefined || val === '') {
+    return fallback;
+  }
   if (val === true) {
     return true;
   }
@@ -155,4 +158,12 @@ export function wikiString(val: unknown): string {
   str = str.replace(/'''([^']+)'''/g, '$1');
 
   return str.trim();
+}
+
+export function parseListValue(value: unknown): string[] {
+  if (!value) return [];
+  return String(value)
+    .split(',')
+    .map((v) => v.trim())
+    .filter(Boolean);
 }

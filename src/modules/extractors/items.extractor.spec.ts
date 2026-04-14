@@ -236,6 +236,93 @@ describe('parseItemFromWikiData', () => {
   });
 });
 
+describe('parseItemFromWikiData additional fields', () => {
+  it('extracts quest association from 1/5ths full bucket', () => {
+    const page = loadTestPage(TestPages.Bucket15ths);
+    const parsed = parseFixtureInfo(page);
+
+    const items = parseItemFromWikiData(
+      parsed,
+      page.title,
+      page.text,
+      page.aliases,
+      {}
+    );
+
+    expect(items).toHaveLength(1);
+    expect(items[0]).toMatchObject({
+      quest: 'The Fremennik Trials',
+      isPlaceholder: false,
+      isNoteable: false,
+      isBankable: true,
+      isEdible: false,
+      options: ['Destroy'],
+    });
+  });
+
+  it('extracts geName from gemwname on Woven top (brown)', () => {
+    const page = loadTestPage(TestPages.WovenTopBrown);
+    const parsed = parseFixtureInfo(page);
+
+    const items = parseItemFromWikiData(
+      parsed,
+      page.title,
+      page.text,
+      page.aliases,
+      {}
+    );
+
+    expect(items).toHaveLength(1);
+    expect(items[0].geName).toBe('Woven top (brown)');
+    expect(items[0].id).toBe(5024);
+    expect(items[0].isTradeable).toBe(true);
+    expect(items[0].isOnGrandExchange).toBe(true);
+  });
+
+  it('extracts wornOptions from equipable item with default empty list when absent', () => {
+    const page = loadTestPage(TestPages.AbyssalWhip);
+    const parsed = parseFixtureInfo(page);
+
+    const items = parseItemFromWikiData(
+      parsed,
+      page.title,
+      page.text,
+      page.aliases,
+      {}
+    );
+
+    expect(items).toHaveLength(1);
+    expect(items[0].isEquipable).toBe(true);
+    expect(items[0].wornOptions).toEqual([]);
+    expect(items[0].options).toEqual(['Wield', 'Drop']);
+  });
+
+  it('keeps existing item parsing behavior while adding new defaults', () => {
+    const page = loadTestPage(TestPages.BronzeBar);
+    const parsed = parseFixtureInfo(page);
+
+    const items = parseItemFromWikiData(
+      parsed,
+      page.title,
+      page.text,
+      page.aliases,
+      {}
+    );
+
+    expect(items).toHaveLength(1);
+    expect(items[0]).toMatchObject({
+      id: 2349,
+      name: 'Bronze bar',
+      isTradeable: true,
+      isOnGrandExchange: true,
+      isPlaceholder: true,
+      isNoteable: true,
+      respawnTime: 100,
+      options: ['Drop'],
+    });
+  });
+});
+
 describe('parseEquipmentStats', () => {
   it('extracts weapon stats from Abyssal whip', () => {
     const page = loadTestPage(TestPages.AbyssalWhip);

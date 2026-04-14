@@ -6,7 +6,12 @@ import { ALL_ITEMS } from '../../constants/paths';
 import { EquipmentStats, Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { parseWikitext } from '../../utils/wikitext-parser';
-import { wikiBool, wikiNumber } from '../../utils/wiki-coercion';
+import {
+  parseListValue,
+  wikiBool,
+  wikiNumber,
+  wikiString,
+} from '../../utils/wiki-coercion';
 
 const GELimitsModuleUrl =
   'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
@@ -53,7 +58,7 @@ export function parseEquipmentStats(pageText: string): EquipmentStats | null {
 }
 
 export const WikiToItemKeys: Record<string, keyof Item> = {
-  gemwname: 'name',
+  gemwname: 'geName',
   name: 'name',
   image: 'image',
   members: 'isMembers',
@@ -61,10 +66,19 @@ export const WikiToItemKeys: Record<string, keyof Item> = {
   equipable: 'isEquipable',
   stackable: 'isStackable',
   exchange: 'isOnGrandExchange',
+  quest: 'quest',
+  edible: 'isEdible',
+  bankable: 'isBankable',
+  noteable: 'isNoteable',
+  stacksinbank: 'stacksInBank',
+  placeholder: 'isPlaceholder',
+  wornoptions: 'wornOptions',
+  options: 'options',
   destroy: 'drop',
   examine: 'examine',
   value: 'value',
   alchable: 'isAlchable',
+  respawn: 'respawnTime',
   weight: 'weight',
   id: 'id',
 };
@@ -93,25 +107,35 @@ export function parseItemFromWikiData(
   }
 
   const equipmentStats = parseEquipmentStats(pageText);
+  const preferredName = parsed.gemwname || parsed.name;
 
   const baseItem: Item = {
     id: wikiNumber(parsed.id),
     aliases: pageAliases || [],
-    name: parsed.gemwname || parsed.name,
+    name: preferredName,
+    geName: wikiString(parsed.gemwname),
     examine: parsed.examine,
     image: parsed.image,
     isEquipable: wikiBool(parsed.equipable),
     isAlchable: wikiBool(parsed.alchable),
+    quest: wikiString(parsed.quest),
+    isEdible: wikiBool(parsed.edible),
+    isBankable: wikiBool(parsed.bankable, true),
+    isNoteable: wikiBool(parsed.noteable),
+    stacksInBank: wikiBool(parsed.stacksinbank, true),
+    isPlaceholder: wikiBool(parsed.placeholder),
+    wornOptions: parseListValue(parsed.wornoptions),
     isOnGrandExchange: wikiBool(parsed.exchange),
     isTradeable: wikiBool(parsed.tradeable),
     isMembers: wikiBool(parsed.members),
     isStackable: wikiBool(parsed.stackable),
     drop: parsed.destroy,
-    options: [],
+    options: parseListValue(parsed.options),
+    respawnTime: wikiNumber(parsed.respawn),
     relatedItems: [],
     value: wikiNumber(parsed.value),
     weight: wikiNumber(parsed.weight, 0),
-    limit: geLimitsRecord[parsed.gemwname || parsed.name] || 0,
+    limit: geLimitsRecord[preferredName] || 0,
     isInMainGame,
     ...(equipmentStats && { equipmentStats }),
   };
@@ -137,14 +161,27 @@ export function parseItemFromWikiData(
         case 'id':
         case 'value':
         case 'weight':
+        case 'respawn':
           value = wikiNumber(parsed[key]);
           break;
         case 'name':
-        case 'gemwname':
+          value = parsed[`gemwname${endIndex}`] || parsed[key];
+          break;
         case 'examine':
         case 'destroy':
         case 'image':
           value = parsed[key];
+          break;
+        case 'quest':
+          value = wikiString(parsed[key]);
+          break;
+        case 'gemwname':
+          value = wikiString(parsed[key]);
+          allVariants[endIndex].name = parsed[key] || allVariants[endIndex].name;
+          break;
+        case 'options':
+        case 'wornoptions':
+          value = parseListValue(parsed[key]);
           break;
         case 'equipable':
         case 'alchable':
@@ -152,7 +189,14 @@ export function parseItemFromWikiData(
         case 'tradeable':
         case 'stackable':
         case 'members':
+        case 'edible':
+        case 'noteable':
+        case 'placeholder':
           value = wikiBool(parsed[key]);
+          break;
+        case 'bankable':
+        case 'stacksinbank':
+          value = wikiBool(parsed[key], true);
           break;
         default:
           break;

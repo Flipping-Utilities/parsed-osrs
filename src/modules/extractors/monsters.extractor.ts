@@ -1,13 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { load } from 'cheerio';
 import { ALL_MONSTERS } from '../../constants/paths';
 import { DropTable, Monster, MonsterDrop } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 import { PageTags } from '../../constants/tags';
 import { parseWikitext } from '../../utils/wikitext-parser';
-import { wikiNumber } from '../../utils/wiki-coercion';
+import {
+  parseListValue,
+  wikiBool,
+  wikiNumber,
+  wikiString,
+} from '../../utils/wiki-coercion';
 import { expandDropTables } from '../../data/drop-tables';
 
 const DROP_ROW_TEMPLATES = [
@@ -130,20 +134,85 @@ function collectDropTables(
   return tables;
 }
 
+function parsePoisonous(val: unknown): string | boolean {
+  const lower = String(val ?? '').toLowerCase().trim();
+  if (lower === 'yes' || val === true) return true;
+  if (lower === 'no' || val === false) return false;
+  return wikiString(val);
+}
+
+function parseImmunity(val: unknown): boolean {
+  if (!val) return false;
+  const lower = String(val).toLowerCase().trim();
+  if (lower === 'not immune') return false;
+  if (lower === 'immune') return true;
+  return wikiBool(val);
+}
+
+const wikiToMonsterKeyMap: Record<string, keyof Monster> = {
+  id: 'id',
+  name: 'name',
+  combat: 'combatLevel',
+  hitpoints: 'hitpoints',
+  att: 'attackLevel',
+  str: 'strengthLevel',
+  def: 'defenceLevel',
+  mage: 'magicLevel',
+  range: 'rangedLevel',
+  'attack speed': 'attackSpeed',
+  'attack style': 'attackStyle',
+  'max hit': 'maxHit',
+  size: 'size',
+  aggressive: 'aggressive',
+  poisonous: 'poisonous',
+  attributes: 'attributes',
+  elementalweaknesstype: 'elementalWeaknessType',
+  elementalweaknesspercent: 'elementalWeaknessPercent',
+  attbns: 'attackBonus',
+  strbns: 'strengthBonus',
+  amagic: 'magicAttackBonus',
+  mbns: 'magicDamageBonus',
+  arange: 'rangedAttackBonus',
+  rngbns: 'rangedStrengthBonus',
+  dstab: 'stabDefence',
+  dslash: 'slashDefence',
+  dcrush: 'crushDefence',
+  dmagic: 'magicDefence',
+  dlight: 'lightRangedDefence',
+  dstandard: 'standardRangedDefence',
+  dheavy: 'heavyRangedDefence',
+  flatarmour: 'flatArmour',
+  xpbonus: 'xpBonus',
+  members: 'isMembers',
+  slaylvl: 'slayerLevel',
+  slayxp: 'slayerXp',
+  cat: 'slayerCategory',
+  assignedby: 'assignedBy',
+  immunepoison: 'immuneToPoison',
+  immunevenom: 'immuneToVenom',
+  immunecannon: 'immuneToCannon',
+  immunethrall: 'immuneToThrall',
+  immuneburn: 'immuneToBurn',
+  freezeresistance: 'freezeResistance',
+  examine: 'examine',
+};
+
+function wikiToMonsterKey(baseKey: string): keyof Monster | null {
+  return wikiToMonsterKeyMap[baseKey] ?? null;
+}
+
 export function parseMonsterFromContent(
   pageText: string,
   pageTitle: string,
   pageAliases: string[],
   itemLookup: (name: string) => { id: number } | null
-): Monster | null {
+): Monster[] {
   const parsed = parseWikitext(pageText);
   const monsterData = parsed.getInfobox('monster');
-  if (!monsterData) return null;
+  if (!monsterData) return [];
 
-  const monsterId = wikiNumber(monsterData.id) || wikiNumber(monsterData.id1);
-  if (!monsterId) return null;
+  const hasMultiple = Object.keys(monsterData).some((v) => v.endsWith('2'));
 
-  const examine = monsterData.examine ?? '';
   const dropTemplates = collectDropRowTemplates(parsed);
 
   const drops: MonsterDrop[] = dropTemplates
@@ -162,7 +231,9 @@ export function parseMonsterFromContent(
   const dropTables = collectDropTables(parsed);
 
   const herbTemplate = parsed.getTemplates('herbdroplines')[0];
-  const herbQuantity = herbTemplate?.quantity ? String(herbTemplate.quantity) : undefined;
+  const herbQuantity = herbTemplate?.quantity
+    ? String(herbTemplate.quantity)
+    : undefined;
   const expandedDrops = expandDropTables(dropTables, herbQuantity);
 
   const subTableDrops: MonsterDrop[] = expandedDrops.map((d) => ({
@@ -174,81 +245,160 @@ export function parseMonsterFromContent(
 
   const expandedNames = new Set(subTableDrops.map((d) => d.name));
   const uniqueDrops = drops.filter((d) => !expandedNames.has(d.name));
+  const allDrops = [...uniqueDrops, ...subTableDrops];
 
-  return {
-    id: monsterId,
+  const baseMonster: Monster = {
+    id: 0,
     name: pageTitle,
     aliases: pageAliases,
-    drops: [...uniqueDrops, ...subTableDrops],
+    combatLevel: wikiNumber(monsterData.combat),
+    hitpoints: wikiNumber(monsterData.hitpoints),
+    attackLevel: wikiNumber(monsterData.att),
+    strengthLevel: wikiNumber(monsterData.str),
+    defenceLevel: wikiNumber(monsterData.def),
+    magicLevel: wikiNumber(monsterData.mage),
+    rangedLevel: wikiNumber(monsterData.range),
+    attackSpeed: wikiNumber(monsterData['attack speed']),
+    attackStyle: wikiString(monsterData['attack style']),
+    maxHit: wikiString(monsterData['max hit']),
+    size: wikiNumber(monsterData.size),
+    aggressive: wikiBool(monsterData.aggressive),
+    poisonous: parsePoisonous(monsterData.poisonous),
+    attributes: wikiString(monsterData.attributes),
+    elementalWeaknessType: wikiString(monsterData.elementalweaknesstype),
+    elementalWeaknessPercent: wikiNumber(monsterData.elementalweaknesspercent),
+    attackBonus: wikiNumber(monsterData.attbns),
+    strengthBonus: wikiNumber(monsterData.strbns),
+    magicAttackBonus: wikiNumber(monsterData.amagic),
+    magicDamageBonus: wikiNumber(monsterData.mbns),
+    rangedAttackBonus: wikiNumber(monsterData.arange),
+    rangedStrengthBonus: wikiNumber(monsterData.rngbns),
+    stabDefence: wikiNumber(monsterData.dstab),
+    slashDefence: wikiNumber(monsterData.dslash),
+    crushDefence: wikiNumber(monsterData.dcrush),
+    magicDefence: wikiNumber(monsterData.dmagic),
+    lightRangedDefence: wikiNumber(monsterData.dlight),
+    standardRangedDefence: wikiNumber(monsterData.dstandard),
+    heavyRangedDefence: wikiNumber(monsterData.dheavy),
+    flatArmour: wikiNumber(monsterData.flatarmour),
+    xpBonus: wikiNumber(monsterData.xpbonus),
+    isMembers: wikiBool(monsterData.members),
+    slayerLevel: wikiNumber(monsterData.slaylvl),
+    slayerXp: wikiNumber(monsterData.slayxp),
+    slayerCategory: wikiString(monsterData.cat),
+    assignedBy: parseListValue(monsterData.assignedby),
+    immuneToPoison: parseImmunity(monsterData.immunepoison),
+    immuneToVenom: parseImmunity(monsterData.immunevenom),
+    immuneToCannon: wikiBool(monsterData.immunecannon),
+    immuneToThrall: wikiBool(monsterData.immunethrall),
+    immuneToBurn: wikiString(monsterData.immuneburn),
+    freezeResistance: wikiNumber(monsterData.freezeresistance),
+    drops: allDrops,
     dropTables,
-    examine,
+    examine: monsterData.examine ?? '',
   };
-}
 
-export function parseMonsterFromHtml(
-  html: string,
-  pageTitle: string,
-  pageAliases: string[],
-  itemLookup: (name: string) => { id: number } | null
-): Monster | null {
-  const dom = load(html);
+  const candidateMonsters: Monster[] = [];
 
-  const allDrops: MonsterDrop[] = [];
-  Array.from(dom('.item-drops')).forEach((table) => {
-    const rows = load(table)('tr').filter((i, e) => {
-      return dom(e).children()[0]?.tagName === 'td';
+  if (hasMultiple) {
+    let allVariants: Monster[] = [];
+    Object.keys(monsterData).forEach((key: string) => {
+      const candidateKey = key.match(/\d+$/);
+      const endIndex = candidateKey ? Number(candidateKey[0]) : 0;
+      const baseKey = key.replace(/\d+$/, '');
+      if (key === baseKey || endIndex === 0) return;
+
+      if (!allVariants[endIndex]) {
+        allVariants[endIndex] = { ...baseMonster };
+      }
+
+      let value: unknown;
+      switch (baseKey) {
+        // Numeric fields
+        case 'id':
+        case 'combat':
+        case 'hitpoints':
+        case 'att':
+        case 'str':
+        case 'def':
+        case 'mage':
+        case 'range':
+        case 'attbns':
+        case 'strbns':
+        case 'amagic':
+        case 'mbns':
+        case 'arange':
+        case 'rngbns':
+        case 'dstab':
+        case 'dslash':
+        case 'dcrush':
+        case 'dmagic':
+        case 'dlight':
+        case 'dstandard':
+        case 'dheavy':
+        case 'flatarmour':
+        case 'xpbonus':
+        case 'slaylvl':
+        case 'slayxp':
+        case 'freezeresistance':
+        case 'elementalweaknesspercent':
+          value = wikiNumber(monsterData[key]);
+          break;
+        // String fields (wikiString)
+        case 'examine':
+        case 'attack style':
+        case 'max hit':
+        case 'attributes':
+        case 'elementalweaknesstype':
+        case 'immuneburn':
+        case 'cat':
+          value = wikiString(monsterData[key]);
+          break;
+        // Boolean fields (wikiBool)
+        case 'aggressive':
+        case 'members':
+        case 'immunecannon':
+        case 'immunethrall':
+          value = wikiBool(monsterData[key]);
+          break;
+        // Immunity fields (parseImmunity)
+        case 'immunepoison':
+        case 'immunevenom':
+          value = parseImmunity(monsterData[key]);
+          break;
+        // Poisonous field (parsePoisonous)
+        case 'poisonous':
+          value = parsePoisonous(monsterData[key]);
+          break;
+        // List fields (parseListValue)
+        case 'assignedby':
+          value = parseListValue(monsterData[key]);
+          break;
+        // Name — keep raw string
+        case 'name':
+          value = String(monsterData[key] ?? '');
+          break;
+        default:
+          break;
+      }
+
+      const fieldName = wikiToMonsterKey(baseKey);
+      if (value !== undefined && value !== '' && fieldName) {
+        (allVariants[endIndex] as unknown as Record<string, unknown>)[fieldName] = value;
+      }
     });
 
-    const sectionDrops: MonsterDrop[] = Array.from(rows)
-      .map((row) => {
-        const element = dom(row);
-        const [_, nameElement, qtyElement, rarityElement] = element.children();
-        const name = dom(nameElement.childNodes[0] || nameElement)
-          .text()
-          ?.split('[')[0]
-          .replace(/,/g, '')
-          .trim();
-        const quantity = dom(qtyElement.childNodes[0] || qtyElement)
-          .text()
-          ?.split('[')[0]
-          .replace(/,/g, '')
-          .trim();
-        const rarity = dom(rarityElement.childNodes[0] || rarityElement)
-          .text()
-          ?.split('[')[0]
-          .replace(/,/g, '')
-          .trim();
-
-        const itemId = itemLookup(name)?.id || null;
-
-        return { name: name, quantity: quantity, rarity: rarity, itemId };
-      })
-      .filter((r) => r.name) as MonsterDrop[];
-    allDrops.push(...sectionDrops);
-  });
-
-  const candidateIdElement = dom(
-    dom('.advanced-data')
-      .filter((i, e) => {
-        return dom(e).children().first().text().includes('Monster ID');
-      })
-      .first()
-  )?.children('td');
-
-  const candidateId = dom(candidateIdElement)?.text()?.split(',')[0];
-  const realId = Number(candidateId);
-  if (!candidateId || isNaN(realId)) {
-    return null;
+    allVariants = allVariants.filter((v) => v.id);
+    candidateMonsters.push(...allVariants);
+  } else {
+    const monsterId = wikiNumber(monsterData.id);
+    if (monsterId) {
+      baseMonster.id = monsterId;
+      candidateMonsters.push(baseMonster);
+    }
   }
 
-  return {
-    id: realId,
-    name: pageTitle,
-    aliases: pageAliases,
-    drops: allDrops,
-    dropTables: [],
-    examine: '',
-  };
+  return candidateMonsters;
 }
 
 @Injectable()
@@ -276,10 +426,8 @@ export class MonstersExtractor {
       if (i++ % 100 === 0) {
         this.logger.debug(`Monsters: ${i}/${length}`);
       }
-      const monster = await this.extractMonsterFromPageId(page.id);
-      if (monster) {
-        monsters.push(monster);
-      }
+      const monstersFromPage = await this.extractMonsterFromPageId(page.id);
+      monsters.push(...monstersFromPage);
     }
 
     if (monsters.length) {
@@ -312,42 +460,29 @@ export class MonstersExtractor {
 
   private async extractMonsterFromPageId(
     pageId: number
-  ): Promise<Monster | null> {
+  ): Promise<Monster[]> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page) {
       this.logger.warn('Could not fetch page content from id', pageId);
-      return null;
+      return [];
     }
 
     const lookup = (name: string) => this.itemExtractor.getItemByName(name);
 
-    if (page.text) {
-      const monster = parseMonsterFromContent(
-        page.text,
-        page.title,
-        page.aliases || [],
-        lookup
-      );
-      if (!monster) {
-        this.logger.warn('no id for monster', page.title, page.id);
-      }
-      return monster;
+    if (!page.text) {
+      this.logger.warn('No text for monster', page.title, page.id);
+      return [];
     }
 
-    if (page.html) {
-      const monster = parseMonsterFromHtml(
-        page.html,
-        page.title,
-        page.aliases || [],
-        lookup
-      );
-      if (monster) {
-        this.logger.debug('parsed monster from HTML fallback', page.title);
-      }
-      return monster;
+    const monsters = parseMonsterFromContent(
+      page.text,
+      page.title,
+      page.aliases || [],
+      lookup
+    );
+    if (!monsters.length) {
+      this.logger.warn('no id for monster', page.title, page.id);
     }
-
-    this.logger.warn('No text or html for monster', page.title, page.id);
-    return null;
+    return monsters;
   }
 }

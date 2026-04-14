@@ -50,12 +50,26 @@ export interface Item {
   value: number;
   // Can this item be high alched
   isAlchable: boolean;
-  // // Low alch value
-  // lowalch: number;
-  // // High alch value
-  // highalch: number;
+  // Quest this item is associated with
+  quest: string;
+  // Can this item be eaten
+  isEdible: boolean;
+  // Can this item be stored in the bank (defaults to true when absent)
+  isBankable: boolean;
+  // Can this item be noted
+  isNoteable: boolean;
+  // Whether noted versions stack in the bank (defaults to true when absent)
+  stacksInBank: boolean;
+  // Is this a placeholder item on the GE
+  isPlaceholder: boolean;
+  // Options available when worn (for equipable items)
+  wornOptions: string[];
   // Available left click options
   options: string[];
+  // Respawn time in game ticks, 0 if not applicable
+  respawnTime: number;
+  // GE name override, if different from the wiki page name
+  geName: string;
   // Can this item be dropped, or does it have a special action like "Destroy"
   drop: string;
   // Weight when carried
