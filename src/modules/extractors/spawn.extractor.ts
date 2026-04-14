@@ -1,10 +1,11 @@
-import { PageTags } from '@/constants/tags';
+import { PageTags } from '../../constants/tags';
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import wtf from 'wtf_wikipedia';
 import { ALL_SPAWNS } from '../../constants/paths';
 import { ItemSpawn } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
+import { wikiBool, wikiNumber } from '../../utils/wiki-coercion';
+import { parseWikitext } from '../../utils/wikitext-parser';
 
 @Injectable()
 export class SpawnExtractor {
@@ -61,16 +62,13 @@ export class SpawnExtractor {
     if (!page) {
       return null;
     }
-    const meta = wtf(page.text!);
+    const meta = parseWikitext(page.text!);
 
-    const itemInfobox = meta
-      .infoboxes()
-      .find((infobox) => infobox.type() === 'item');
+    const itemInfobox = meta.getInfobox('item');
     if (!itemInfobox) {
       this.logger.warn('No item infobox for page: ' + pageId);
       return null;
     }
-    const itemInfoboxData: any = itemInfobox.data;
 
     const itemIds: Record<string, number> = {};
 
@@ -87,49 +85,48 @@ export class SpawnExtractor {
       return id;
     };
 
-    if (itemInfoboxData.id) {
-      itemIds[itemInfoboxData.name.text().toLowerCase()] = parseInt(
-        itemInfoboxData.id.text()
+    if (itemInfobox.id) {
+      itemIds[(itemInfobox.name ?? '').toLowerCase()] = wikiNumber(
+        itemInfobox.id
       );
     } else {
       // Item variations
-      Object.keys(itemInfoboxData)
+      Object.keys(itemInfobox)
         .filter((key) => key.startsWith('id'))
         .forEach((idKey) => {
           const postfix = idKey.substring('id'.length);
           let nameKey = 'name' + postfix;
-          if (!itemInfoboxData[nameKey]) {
+          if (!itemInfobox[nameKey]) {
             nameKey = 'name';
           }
-          itemIds[itemInfoboxData[nameKey].text().toLowerCase()] = parseInt(
-            itemInfoboxData[idKey].text()
+          itemIds[(itemInfobox[nameKey] ?? '').toLowerCase()] = wikiNumber(
+            itemInfobox[idKey]
           );
         });
     }
 
-    const itemSpawnLines: any[] = meta
-      .templates()
-      .filter(
-        (template: any) =>
-          template.data.template === 'itemspawnline' && template.data.list
-      );
+    const itemSpawnLines = meta.getTemplates('itemspawnline');
 
     return itemSpawnLines.flatMap((itemSpawnLine): ItemSpawn[] => {
-      const plane = parseInt(itemSpawnLine.data.plane || 0);
-      return itemSpawnLine.data.list.map((spawnLine: string): ItemSpawn => {
-        const name: string = itemSpawnLine.data.name;
+      const data = itemSpawnLine as Record<string, unknown>;
+      const plane = wikiNumber(data.plane);
+      const spawnList = data.list;
+      if (!Array.isArray(spawnList)) return [];
+      return spawnList.map((spawnLine: string): ItemSpawn => {
+        const name: string = String(data.name ?? '');
         const id = getItemId(name);
         const split = spawnLine.split(',');
-        const quantity = split.length === 3 ? parseInt(split[2].slice(4)) : 1;
+        const quantity =
+          split.length === 3 ? wikiNumber(split[2].slice(4), 1) : 1;
         return {
           id,
           name,
           quantity: quantity,
-          x: parseInt(split[0]),
-          y: parseInt(split[1]),
+          x: wikiNumber(split[0]),
+          y: wikiNumber(split[1]),
           plane,
-          location: itemSpawnLine.data.location,
-          members: itemSpawnLine.data.members !== 'No',
+          location: String(data.location ?? ''),
+          members: wikiBool(data.members),
         };
       });
     });

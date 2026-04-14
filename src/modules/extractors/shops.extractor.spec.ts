@@ -1,5 +1,5 @@
 import { loadTestPage, type TestPage } from '../../../test/test-utils';
-import { TestPages } from '@/constants/test-pages';
+import { TestPages } from '../../constants/test-pages';
 import { parseShopFromContent } from './shops.extractor';
 
 const KNOWN_ITEMS: Record<string, { id: number }> = {

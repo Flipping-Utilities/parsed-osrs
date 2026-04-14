@@ -1,39 +1,58 @@
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
-import parseInfo from 'infobox-parser';
+import { load } from 'cheerio';
 import { ALL_ITEMS } from '../../constants/paths';
-import { Item } from '../../types';
+import { EquipmentStats, Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
+import { parseWikitext } from '../../utils/wikitext-parser';
+import { wikiBool, wikiNumber } from '../../utils/wiki-coercion';
 
 const GELimitsModuleUrl =
   'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
 
-export interface WikiItem {
-  gemwname?: string;
-  name: string;
-  // format: "File:1-3rds full jug.png"
-  image: string;
-  // format: ['2 November', '2004']
-  // release: [string, string];
-  // update: string;
-  members: 'Yes' | 'No' | boolean;
-  // quest: string;
-  tradeable: 'Yes' | 'No' | boolean;
-  // placeholder: "Yes" | "No" | boolean;
-  equipable: 'Yes' | 'No' | boolean;
-  stackable: 'Yes' | 'No' | boolean;
-  // noteable: "Yes" | "No" | boolean;
-  exchange: 'Yes' | 'No' | boolean;
-  destroy: string;
-  examine: string;
-  value: string;
-  alchable: 'Yes' | 'No' | boolean;
-  weight: string;
-  id: string;
+const STRING_STAT_KEYS = new Set<keyof EquipmentStats>(['slot', 'combatStyle']);
+
+const WikiToEquipmentStatsKeys: Record<string, keyof EquipmentStats> = {
+  astab: 'attackStab',
+  aslash: 'attackSlash',
+  acrush: 'attackCrush',
+  amagic: 'attackMagic',
+  arange: 'attackRanged',
+  dstab: 'defendStab',
+  dslash: 'defendSlash',
+  dcrush: 'defendCrush',
+  dmagic: 'defendMagic',
+  drange: 'defendRanged',
+  str: 'strength',
+  rstr: 'rangedStrength',
+  mdmg: 'magicDamage',
+  prayer: 'prayer',
+  slot: 'slot',
+  speed: 'speed',
+  attackrange: 'attackRange',
+  combatstyle: 'combatStyle',
+};
+
+export function parseEquipmentStats(pageText: string): EquipmentStats | null {
+  const parsed = parseWikitext(pageText);
+  const bonusData = parsed.getInfobox('bonuses');
+  if (!bonusData) return null;
+
+  const stats: Partial<EquipmentStats> = {};
+  for (const [wikiKey, ourKey] of Object.entries(WikiToEquipmentStatsKeys)) {
+    const rawValue = bonusData[wikiKey];
+    if (STRING_STAT_KEYS.has(ourKey)) {
+      (stats as Record<string, unknown>)[ourKey] = rawValue ?? '';
+    } else {
+      (stats as Record<string, unknown>)[ourKey] = wikiNumber(rawValue);
+    }
+  }
+
+  return stats as EquipmentStats;
 }
 
-export const WikiToItemKeys: Record<Partial<keyof WikiItem>, keyof Item> = {
+export const WikiToItemKeys: Record<string, keyof Item> = {
   gemwname: 'name',
   name: 'name',
   image: 'image',
@@ -51,7 +70,7 @@ export const WikiToItemKeys: Record<Partial<keyof WikiItem>, keyof Item> = {
 };
 
 export function parseItemFromWikiData(
-  parsed: WikiItem,
+  parsed: Record<string, string>,
   pageTitle: string,
   pageText: string,
   pageAliases: string[],
@@ -73,25 +92,28 @@ export function parseItemFromWikiData(
     isInMainGame = false;
   }
 
+  const equipmentStats = parseEquipmentStats(pageText);
+
   const baseItem: Item = {
-    id: Number(parsed.id),
+    id: wikiNumber(parsed.id),
     aliases: pageAliases || [],
     name: parsed.gemwname || parsed.name,
     examine: parsed.examine,
     image: parsed.image,
-    isEquipable: parsed.equipable === 'Yes' || parsed.equipable === true,
-    isAlchable: parsed.alchable === 'Yes' || parsed.alchable === true,
-    isOnGrandExchange: parsed.exchange === 'Yes' || parsed.exchange === true,
-    isTradeable: parsed.tradeable === 'Yes' || parsed.tradeable === true,
-    isMembers: parsed.members === 'Yes' || parsed.members === true,
-    isStackable: parsed.stackable === 'Yes' || parsed.stackable === true,
+    isEquipable: wikiBool(parsed.equipable),
+    isAlchable: wikiBool(parsed.alchable),
+    isOnGrandExchange: wikiBool(parsed.exchange),
+    isTradeable: wikiBool(parsed.tradeable),
+    isMembers: wikiBool(parsed.members),
+    isStackable: wikiBool(parsed.stackable),
     drop: parsed.destroy,
     options: [],
     relatedItems: [],
-    value: Number(parsed.value),
-    weight: Number(parsed.weight),
+    value: wikiNumber(parsed.value),
+    weight: wikiNumber(parsed.weight, 0),
     limit: geLimitsRecord[parsed.gemwname || parsed.name] || 0,
     isInMainGame,
+    ...(equipmentStats && { equipmentStats }),
   };
 
   const candidateItems: Item[] = [];
@@ -111,17 +133,18 @@ export function parseItemFromWikiData(
       }
 
       let value;
-      switch (baseKey as keyof WikiItem) {
+      switch (baseKey) {
         case 'id':
         case 'value':
         case 'weight':
-          value = Number((parsed as any)[key]);
+          value = wikiNumber(parsed[key]);
           break;
         case 'name':
         case 'gemwname':
         case 'examine':
         case 'destroy':
-          value = (parsed as any)[key];
+        case 'image':
+          value = parsed[key];
           break;
         case 'equipable':
         case 'alchable':
@@ -129,15 +152,14 @@ export function parseItemFromWikiData(
         case 'tradeable':
         case 'stackable':
         case 'members':
-          value =
-            (parsed as any)[key] === 'Yes' || (parsed as any)[key] === true;
+          value = wikiBool(parsed[key]);
           break;
         default:
           break;
       }
-      if (value) {
-        // @ts-ignore
-        allVariants[endIndex][WikiToItemKeys[baseKey]] = value;
+      if (value !== undefined && value !== '') {
+        allVariants[endIndex][WikiToItemKeys[baseKey] as keyof Item] =
+          value as never;
       }
     });
 
@@ -155,6 +177,43 @@ export function parseItemFromWikiData(
   }
 
   return candidateItems;
+}
+
+export function extractImagesFromHtml(html: string): Map<number, string> {
+  const images = new Map<number, string>();
+  if (!html) return images;
+
+  const dom = load(html);
+  const infoboxRows = dom('.infobox-item tr, table.infobox tr');
+  let pendingImage: string | null = null;
+
+  infoboxRows.each((_, row) => {
+    const el = dom(row);
+    const th = el.find('th');
+    const td = el.find('td');
+
+    // Check for an image row — it appears BEFORE the ID row in the HTML
+    const img = el.find('img').first();
+    if (img.length) {
+      const src = img.attr('src') || '';
+      const match = src.match(/\/([^/]+?\.(?:png|jpg|gif))/i);
+      if (match) {
+        pendingImage = 'File:' + decodeURIComponent(match[1]);
+      }
+    }
+
+    // When we hit an ID row, associate the pending image with this ID
+    if (th.text().trim() === 'ID' && td.length && pendingImage) {
+      const idText = td.text().trim();
+      const firstId = Number(idText.split(',')[0].trim());
+      if (!isNaN(firstId)) {
+        images.set(firstId, pendingImage);
+      }
+      pendingImage = null;
+    }
+  });
+
+  return images;
 }
 
 @Injectable()
@@ -283,20 +342,32 @@ export class ItemsExtractor {
       return null;
     }
 
-    const parsed: WikiItem = parseInfo(
-      page.text!.replace(/\{\|/g, '{a|').replace(/\{\{sic\}\}/g, '')
-    ).general;
-    if (Object.keys(parsed).length === 0) {
+    const wikiParsed = parseWikitext(page.text!);
+    const itemData = wikiParsed.getInfobox('item');
+    if (!itemData) {
       console.warn(`Page not parsed: (${page.id}) ${page.title}`);
       return null;
     }
 
-    return parseItemFromWikiData(
-      parsed,
+    const items = parseItemFromWikiData(
+      itemData,
       page.title,
       page.text!,
       page.aliases || [],
       this.GELimitsRecord
     );
+
+    if (items.length > 0 && !items[0].image && page.html) {
+      const htmlImages = extractImagesFromHtml(page.html);
+      if (htmlImages.size > 0) {
+        for (const item of items) {
+          if (!item.image && htmlImages.has(item.id)) {
+            item.image = htmlImages.get(item.id);
+          }
+        }
+      }
+    }
+
+    return items;
   }
 }

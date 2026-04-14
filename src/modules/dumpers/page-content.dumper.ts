@@ -1,8 +1,8 @@
-import { PageTags } from '@/constants/tags';
+import { PageTags } from '../../constants/tags';
 import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { load } from 'cheerio';
-import { eq, ne } from 'drizzle-orm';
+import { eq, isNull, ne } from 'drizzle-orm';
 import FormData from 'form-data';
 import * as fs from 'fs';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -244,6 +244,65 @@ export class PageContentDumper {
     await saveMonsterPages();
 
     this.logger.log(`Done: Dumping monster pages`);
+  }
+
+  async dumpPagesWithMissingContent() {
+    this.logger.log(`Start: Dumping pages with missing text`);
+    const toUpdate = await this.db
+      .select({ id: WikiPage.id })
+      .from(WikiPage)
+      .where(isNull(WikiPage.text));
+
+    this.logger.debug(`Found ${toUpdate.length} pages with missing text`);
+
+    const pageMeta: WikiPageWithContent[] = [];
+
+    const savePages = async () => {
+      try {
+        await this.db.batch(
+          // @ts-ignore
+          pageMeta
+            .filter((p) => p.content)
+            .map((page) =>
+              this.db
+                .update(WikiPage)
+                .set({
+                  html: page.content,
+                  fullfetchRevisionId: page.revid,
+                  text: page.rawContent,
+                  revisionId: page.revid,
+                })
+                .where(eq(WikiPage.id, page.pageid))
+            )
+        );
+        this.logger.debug(`Updated ${pageMeta.length} pages!`);
+        pageMeta.length = 0;
+      } catch (e) {
+        this.logger.error('Error saving pages with missing text!', e);
+      }
+    };
+
+    let i = 0;
+    let requestDelay = Promise.resolve();
+    for await (const page of toUpdate) {
+      if (i++ % 25 === 0) {
+        this.logger.debug(
+          `Dumping missing-text pages: ${i} / ${toUpdate.length}`
+        );
+        await savePages();
+      }
+      await requestDelay;
+      requestDelay = new Promise((r) => setTimeout(r, 1000));
+      const wikiMetadata = await this.dumpWikiPageById(page.id);
+      if (wikiMetadata) {
+        pageMeta.push(wikiMetadata);
+      } else {
+        requestDelay = Promise.resolve();
+      }
+    }
+    await savePages();
+
+    this.logger.log(`Done: Dumping pages with missing text`);
   }
 
   async parseWikiDump() {

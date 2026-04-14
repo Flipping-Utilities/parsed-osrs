@@ -1,6 +1,6 @@
-import wtf from 'wtf_wikipedia';
+import { parseWikitext } from '../../utils/wikitext-parser';
 import { loadTestPage, type TestPage } from '../../../test/test-utils';
-import { TestPages } from '@/constants/test-pages';
+import { TestPages } from '../../constants/test-pages';
 import {
   convertMaterialsToObject,
   parseRecipeProperties,
@@ -30,14 +30,7 @@ const itemLookup = (name: string): { id: number } | null => {
 function extractRecipeTemplates(pageId: number): RecipeTemplate[] {
   const page = loadTestPage(pageId);
 
-  return wtf(page.text)
-    .templates()
-    .map((template) => template.json())
-    .filter((template): template is RecipeTemplate => {
-      const candidate = template as Record<string, unknown>;
-
-      return candidate.template === 'recipe';
-    });
+  return parseWikitext(page.text).getTemplates('recipe') as RecipeTemplate[];
 }
 
 describe('parseRecipeProperties', () => {

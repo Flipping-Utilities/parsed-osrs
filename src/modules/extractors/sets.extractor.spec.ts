@@ -1,5 +1,5 @@
 import { loadTestPage, type TestPage } from '../../../test/test-utils';
-import { TestPages } from '@/constants/test-pages';
+import { TestPages } from '../../constants/test-pages';
 import { parseSetFromContent } from './sets.extractor';
 
 describe('parseSetFromContent', () => {

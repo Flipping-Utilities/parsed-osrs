@@ -1,12 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ALL_RECIPES } from '../../constants/paths';
+import { PageTags } from '../../constants/tags';
 import { Recipe, RecipeMaterial, RecipeSkill, Set } from '../../types';
+import { wikiBool, wikiNumber } from '../../utils/wiki-coercion';
+import { parseWikitext } from '../../utils/wikitext-parser';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 import { SetsExtractor } from './sets.extractor';
-import wtf from 'wtf_wikipedia';
-import { PageTags } from '@/constants/tags';
 
 type WikiMaterialKey = '' | 'quantity' | 'cost' | 'itemnote' | 'txt' | 'subtxt';
 const WikiMaterialKeyToRecipeMaterialKey: Record<
@@ -61,9 +62,9 @@ export function convertMaterialsToObject(
         break;
       case 'quantity':
       case 'cost':
-        const nb = Number(value);
+        const nb = wikiNumber(value);
         // Ignore default strings
-        if (!isNaN(nb)) {
+        if (nb !== 0) {
           value = nb;
         } else {
           value = baseMaterial[WikiMaterialKeyToRecipeMaterialKey[property]];
@@ -111,10 +112,10 @@ export function parseRecipeProperties(
     switch (property) {
       case 'lvl':
       case 'exp':
-        value = Number(value);
+        value = wikiNumber(value, 1);
         break;
       case 'boostable':
-        value = Boolean(value);
+        value = wikiBool(value);
         break;
       case '':
         break;
@@ -136,9 +137,7 @@ export function parseRecipeProperties(
     itemLookup
   );
 
-  const ticks = isNaN(Number(recipeProperties.ticks))
-    ? null
-    : Number(recipeProperties.ticks);
+  const ticks = wikiNumber(recipeProperties.ticks, 0) || null;
   let toolIds: number[] = [];
   if (recipeProperties.tools) {
     toolIds = recipeProperties.tools
@@ -153,8 +152,7 @@ export function parseRecipeProperties(
   const recipe: Recipe = {
     inputs,
     outputs,
-    members:
-      recipeProperties.members === 'Yes' || recipeProperties.members === true,
+    members: wikiBool(recipeProperties.members),
     skills,
     ticks,
     ticksNote: recipeProperties.ticksnote as string,
@@ -281,12 +279,10 @@ export class RecipesExtractor {
     }
 
     const text = page.text!;
-    const tfPage = wtf(text);
-    // @ts-ignore
+    const tfPage = parseWikitext(text);
     const recipes: Record<string, string | boolean>[] = tfPage
-      .templates()
-      .map((t) => t.json())
-      // @ts-ignore
+      .getTemplates('recipe')
+      .map((t) => t as Record<string, string | boolean>)
       .filter((t) => Object.hasOwn(t, 'template') && t?.template === 'recipe');
 
     this.logger.verbose(

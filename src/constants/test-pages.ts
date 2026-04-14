@@ -14,4 +14,8 @@ export const TestPages = {
   AaronsArcheryAppendages: 29644,
   UnusedShops: 333174,
   FarmingShops: 22523,
+  AbyssalWhip: 10123,
+  BandosChestplate: 23830,
+  AncestralHat: 82463,
+  FireGiant: 2075,
 } as const;

@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { load } from 'cheerio';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { parseWikitext } from '../../utils/wikitext-parser';
 import { ALL_SETS } from '../../constants/paths';
 import { PageTags } from '../../constants/tags';
 import { Set } from '../../types';
@@ -61,20 +61,19 @@ export class SetsExtractor {
     if (!page) {
       return null;
     }
-    const title = load(page.title).text();
 
-    const set = parseSetFromContent(page.text!, title, (name) =>
+    const set = parseSetFromContent(page.text!, page.title, (name) =>
       this.itemExtractor.getItemByName(name)
     );
 
     if (!set) {
       this.logger.warn(
-        `Page set has no components! Page "${title}" (${page.id})`
+        `Page set has no components! Page "${page.title}" (${page.id})`
       );
       return null;
     }
     if (!set.id) {
-      this.logger.warn(`No set id!`, title);
+      this.logger.warn(`No set id!`, page.title);
     }
     if (set.componentIds.length !== set.componentIds.filter((c) => c).length) {
       this.logger.log(`Missing a component id: ${set.componentIds}`);
@@ -88,18 +87,19 @@ export function parseSetFromContent(
   title: string,
   itemLookup: (name: string) => { id: number } | null
 ): Set | null {
-  const matcher = /\{\{CostLine\|(.+)\}\}/gm;
-  const components = Array.from(pageText.matchAll(matcher));
-  if (!components.length) {
+  const parsed = parseWikitext(pageText);
+  const costLines = parsed.getTemplates('costline');
+  if (!costLines.length) {
     return null;
   }
-  // Blue mystic sets has |disambiguation, strip it
-  const componentNames = components.map((c) => c[1].split('|')[0]);
+
+  const componentNames = costLines.map((t) => String(t.item ?? ''));
   const componentIds: number[] = componentNames
     .map((name) => itemLookup(name)?.id)
-    .filter((v) => v !== undefined) as number[];
+    .filter((v): v is number => v !== undefined);
+
   const set: Set = {
-    id: itemLookup(title)?.id || 0,
+    id: itemLookup(title)?.id ?? 0,
     name: title,
     componentIds,
   };

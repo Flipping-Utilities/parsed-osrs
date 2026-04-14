@@ -4,7 +4,9 @@ import { ALL_SHOPS } from '../../constants/paths';
 import { Shop, ShopItem } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
-import { PageTags } from '@/constants/tags';
+import { PageTags } from '../../constants/tags';
+import { parseWikitext } from '../../utils/wikitext-parser';
+import { wikiNumber } from '../../utils/wiki-coercion';
 
 export function parseShopFromContent(
   pageText: string,
@@ -12,88 +14,32 @@ export function parseShopFromContent(
   pageId: number,
   itemLookup: (name: string) => { id: number } | null
 ): Shop | null {
-  const hasShop = pageText.includes('{{StoreTableHead');
-  if (!hasShop) {
-    return null;
-  }
+  const parsed = parseWikitext(pageText);
 
-  const shopHeadRegex = /\{\{StoreTableHead\|(.+)\}\}/g;
-  const shopHead = pageText.match(shopHeadRegex);
-  if (shopHead?.length === 0 || !shopHead) {
-    return null;
-  }
+  const headTemplates = parsed.getTemplates('storetablehead');
+  if (!headTemplates.length) return null;
 
-  const shopMeta: [string, string | number][] = shopHead[0]
-    .replace('{{StoreTableHead|', '')
-    .replace('}}', '')
-    .split('|')
-    .map((v) => {
-      let [key, value]: [string, string | number] = v.split('=') as [
-        string,
-        string
-      ];
-      if (!value) {
-        return;
-      }
-      if (!isNaN(Number(value))) {
-        value = Number(value);
-      }
-      return [key, value];
-    })
-    .filter((v) => Boolean(v)) as [string, string | number][];
+  const headData = headTemplates[0];
 
-  const buyPercent =
-    (shopMeta.find(
-      (v) => v[0].toLowerCase() === 'buymultiplier'
-    )?.[1] as number) / 1000 || 0;
-  const sellPercent =
-    (shopMeta.find(
-      (v) => v[0].toLowerCase() === 'sellmultiplier'
-    )?.[1] as number) / 1000 || 0;
-  const buyChangePercent =
-    (shopMeta.find((v) => v[0].toLowerCase() === 'delta')?.[1] as number) /
-      1000 || 0;
+  const buyPercent = wikiNumber(headData.buymultiplier) / 1000;
+  const sellPercent = wikiNumber(headData.sellmultiplier) / 1000;
+  const buyChangePercent = wikiNumber(headData.delta) / 1000;
 
-  const shopLineRegex = /\{\{StoreLine\|(.+)\}\}$/gm;
+  const lineTemplates = parsed.getTemplates('storeline');
 
-  const inventory = (
-    pageText.match(shopLineRegex)?.map((v) =>
-      v
-        .replace('{{StoreLine|', '')
-        .replace(/\}\}$/, '')
-        .split('|')
-        .map((v) => {
-          let [key, value]: [string, string | number] = v.split('=') as [
-            string,
-            string
-          ];
-          if (!value) {
-            return;
-          }
-          if (!isNaN(Number(value))) {
-            value = Number(value);
-          }
-          return [key, value];
-        })
-        .filter((v) => v)
-    ) as [string, string | number][][]
-  )
-    ?.map((v) => {
-      const name = v.find((v) => v[0] === 'name') || '';
-      const item = itemLookup(name[1]?.toString())?.id;
-      if (!item) {
-        return;
-      }
-      const stock = v.find((v) => v[0] === 'stock') || ['stock', 0];
-      const restock = v.find((v) => v[0] === 'restock') || ['restock', 0];
-      const shopItem: ShopItem = {
-        baseQuantity: stock[1] as number,
+  const inventory: ShopItem[] = lineTemplates
+    .map((lineData): ShopItem | undefined => {
+      const name = String(lineData.name ?? '');
+      const item = itemLookup(name)?.id;
+      if (!item) return undefined;
+
+      return {
+        baseQuantity: wikiNumber(lineData.stock),
         itemId: item,
-        restockTime: restock[1] as number,
+        restockTime: wikiNumber(lineData.restock),
       };
-      return shopItem;
     })
-    .filter((v) => v);
+    .filter((v): v is ShopItem => v !== undefined);
 
   const shop: Shop = {
     name: pageTitle,
@@ -101,7 +47,7 @@ export function parseShopFromContent(
     buyPercent,
     sellPercent,
     buyChangePercent,
-    inventory: inventory as ShopItem[],
+    inventory,
   };
 
   return shop;

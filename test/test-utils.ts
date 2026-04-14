@@ -9,7 +9,9 @@ export interface TestPage {
   aliases: string[];
 }
 
+const pagesDir = path.resolve(__dirname, 'pages');
+
 export function loadTestPage(pageId: number): TestPage {
-  const filePath = path.join(process.cwd(), 'test/pages', `${pageId}.json`);
+  const filePath = path.join(pagesDir, `${pageId}.json`);
   return JSON.parse(readFileSync(filePath, 'utf8')) as TestPage;
 }
