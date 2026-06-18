@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import axios from 'axios';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { load } from 'cheerio';
 import { ALL_ITEMS } from '../../constants/paths';
 import { EquipmentStats, Item } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
+import { WikiRequestService } from '../wiki/wikiRequest.service';
 import { parseWikitext } from '../../utils/wikitext-parser';
 import {
   parseListValue,
@@ -13,8 +13,7 @@ import {
   wikiString,
 } from '../../utils/wiki-coercion';
 
-const GELimitsModuleUrl =
-  'https://oldschool.runescape.wiki/w/Module:GELimits/data.json?action=raw';
+const GELimitsModulePath = '/w/Module:GELimits/data.json';
 
 const STRING_STAT_KEYS = new Set<keyof EquipmentStats>(['slot', 'combatStyle']);
 
@@ -177,7 +176,8 @@ export function parseItemFromWikiData(
           break;
         case 'gemwname':
           value = wikiString(parsed[key]);
-          allVariants[endIndex].name = parsed[key] || allVariants[endIndex].name;
+          allVariants[endIndex].name =
+            parsed[key] || allVariants[endIndex].name;
           break;
         case 'options':
         case 'wornoptions':
@@ -271,15 +271,32 @@ export class ItemsExtractor {
 
   constructor(
     private pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
+    private readonly wikiRequestService: WikiRequestService
   ) {}
 
   public async extractAllItems() {
     this.logger.log('Starting to extract all items');
     const itemsPageList = await this.pageListDumper.getPagesFromTag('item');
 
-    const GELimits = (await axios.get(GELimitsModuleUrl)).data;
-    this.GELimitsRecord = GELimits;
+    const GELimits = await this.wikiRequestService.getRawText(
+      GELimitsModulePath,
+      { action: 'raw' }
+    );
+    if (GELimits) {
+      try {
+        this.GELimitsRecord = JSON.parse(GELimits);
+      } catch (e) {
+        this.logger.warn(
+          `Failed to parse GELimits module JSON; proceeding without GE limits`,
+          e
+        );
+      }
+    } else {
+      this.logger.warn(
+        `GELimits module fetch returned empty; proceeding without GE limits`
+      );
+    }
 
     const itemsFromPage = await Promise.all(
       itemsPageList.map((item) => this.extractItemFromPageId(item.id))

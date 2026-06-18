@@ -1,8 +1,7 @@
 import { PageTags } from '../../constants/tags';
 import { Injectable, Logger } from '@nestjs/common';
-import axios from 'axios';
 import { load } from 'cheerio';
-import { eq, isNull, ne } from 'drizzle-orm';
+import { and, eq, inArray, isNull, ne } from 'drizzle-orm';
 import FormData from 'form-data';
 import * as fs from 'fs';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -15,6 +14,10 @@ import {
   WikiRequestService,
 } from '../wiki/wikiRequest.service';
 import { PageListDumper } from './page-list.dumper';
+
+// Chunk size for batched page fetches; must match MAX_PAGEIDS_PER_REQUEST
+// in WikiRequestService. Kept here as a local constant for clarity.
+const PAGE_FETCH_CHUNK = 50;
 
 interface WikiPageResponse {
   title: string;
@@ -94,97 +97,41 @@ export class PageContentDumper {
       ''
     );
 
-    try {
-      const response = await axios.post(
-        'https://oldschool.runescape.wiki/w/Special:Export',
-        formData,
-        {
-          headers: {
-            ...formData.getHeaders(),
-            'User-Agent': `parsed-osrs 0.1 - ${process.env.DISCORD_USERNAME}`,
-          },
-        }
-      );
-
-      this.logger.log(
-        `Export successful. Response size: ${response.data.length} bytes`
-      );
-
-      // Create output directory if it doesn't exist
-      fs.mkdirSync(this.outputDir, { recursive: true });
-
-      // Save the raw XML response
-      const outputPath = path.join(this.outputDir, `wiki-export.xml`);
-      writeFileSync(outputPath, Buffer.from(response.data));
-      this.logger.log(`Saved XML export to: ${outputPath}`);
-    } catch (error) {
-      this.logger.error(
-        'Failed to export wiki pages:',
-        (error as any)?.message,
-        error
-      );
+    const response = await this.WikiRequestService.post<string>(
+      '/w/Special:Export',
+      formData,
+      formData.getHeaders()
+    );
+    if (!response) {
+      this.logger.error('Failed to export wiki pages: no response');
+      return;
     }
+
+    this.logger.log(
+      `Export successful. Response size: ${response.length} bytes`
+    );
+
+    // Create output directory if it doesn't exist
+    fs.mkdirSync(this.outputDir, { recursive: true });
+
+    // Save the raw XML response
+    const outputPath = path.join(this.outputDir, `wiki-export.xml`);
+    writeFileSync(outputPath, Buffer.from(response));
+    this.logger.log(`Saved XML export to: ${outputPath}`);
   }
 
   async dumpAllPages() {
     this.logger.log(`Start: Dumping All pages`);
     const toUpdate = await this.db
-      .select({
-        id: WikiPage.id,
-        revisionId: WikiPage.revisionId,
-        fullfetchRevisionId: WikiPage.fullfetchRevisionId,
-      })
+      .select({ id: WikiPage.id })
       .from(WikiPage)
       .where(ne(WikiPage.revisionId, WikiPage.fullfetchRevisionId));
 
-    const pageMeta: WikiPageWithContent[] = [];
-
-    const savePages = async () => {
-      try {
-        await this.db.batch(
-          // @ts-ignore
-          pageMeta
-            .filter((p) => p.content)
-            .map((page) =>
-              this.db
-                .update(WikiPage)
-                .set({
-                  html: page.content,
-                  fullfetchRevisionId: page.revid,
-                  text: page.rawContent,
-                  revisionId: page.revid,
-                })
-                .where(eq(WikiPage.id, page.pageid))
-            )
-        );
-        this.logger.debug(`Updated ${pageMeta.length} pages!`);
-        // Reset list
-        pageMeta.length = 0;
-      } catch (e) {
-        this.logger.error('Error saving full pages to db!', e);
-      }
-    };
-
-    let i = 0;
-
     this.logger.debug(`Dumping All pages: ${toUpdate.length} pages to update!`);
-    let requestDelay = Promise.resolve();
-    for await (const page of toUpdate) {
-      if (i++ % 25 === 0) {
-        this.logger.debug(`Dumping All pages: ${i} / ${toUpdate.length}`);
-        await savePages();
-      }
-      await requestDelay;
-      requestDelay = new Promise((r) => setTimeout(r, 1000));
-      const wikiMetadata = await this.dumpWikiPageById(page.id);
-      if (wikiMetadata) {
-        pageMeta.push(wikiMetadata);
-        // Wait 1 second
-      } else {
-        requestDelay = Promise.resolve();
-      }
-    }
-    await savePages();
+    await this.dumpPagesByIds(
+      toUpdate.map((p) => p.id),
+      'Dumping All pages'
+    );
 
     this.logger.log(`Done: Dumping All pages`);
   }
@@ -192,56 +139,14 @@ export class PageContentDumper {
   async dumpMonstersPages() {
     this.logger.log(`Start: Dumping monster pages`);
     const monsterPages = await this.db
-      .select()
+      .select({ id: PageTag.wikiPageId })
       .from(PageTag)
       .where(eq(PageTag.tag, PageTags.MONSTER));
 
-    // Todo: Only update if the page revision id is not the page that was last fetched by the html
-    // Make a col for `last_fullpage_fetch_id` and update it when we dump the full page
-    // Only fetch the page if that page revision is different from the revision it was last saved from.
-    const monsterPageMetadata: WikiPageWithContent[] = [];
-    const saveMonsterPages = async () => {
-      try {
-        await this.db.batch(
-          // @ts-ignore
-          monsterPageMetadata
-            .filter((p) => p.content)
-            .map((page) =>
-              this.db
-                .update(WikiPage)
-                .set({
-                  html: page.content,
-                  fullfetchRevisionId: page.revid,
-                  revisionId: page.revid,
-                })
-                .where(eq(WikiPage.id, page.pageid))
-            )
-        );
-        this.logger.debug(`Updated ${monsterPageMetadata.length} pages!`);
-        // Reset list
-        monsterPageMetadata.length = 0;
-      } catch (e) {
-        this.logger.error('Error inserting html to monster page!');
-      }
-    };
-
-    let i = 0;
-
-    for await (const page of monsterPages) {
-      if (i++ % 100 === 99) {
-        this.logger.debug(
-          `Dumping monster pages: ${i} / ${monsterPages.length}`
-        );
-        await saveMonsterPages();
-      }
-      const wikiMetadata = await this.dumpWikiPageById(page.wikiPageId);
-      if (wikiMetadata) {
-        monsterPageMetadata.push(wikiMetadata);
-        // Wait 1 second
-        await new Promise((r) => setTimeout(r, 1000));
-      }
-    }
-    await saveMonsterPages();
+    await this.dumpPagesByIds(
+      monsterPages.map((p) => p.id),
+      'Dumping monster pages'
+    );
 
     this.logger.log(`Done: Dumping monster pages`);
   }
@@ -254,55 +159,89 @@ export class PageContentDumper {
       .where(isNull(WikiPage.text));
 
     this.logger.debug(`Found ${toUpdate.length} pages with missing text`);
-
-    const pageMeta: WikiPageWithContent[] = [];
-
-    const savePages = async () => {
-      try {
-        await this.db.batch(
-          // @ts-ignore
-          pageMeta
-            .filter((p) => p.content)
-            .map((page) =>
-              this.db
-                .update(WikiPage)
-                .set({
-                  html: page.content,
-                  fullfetchRevisionId: page.revid,
-                  text: page.rawContent,
-                  revisionId: page.revid,
-                })
-                .where(eq(WikiPage.id, page.pageid))
-            )
-        );
-        this.logger.debug(`Updated ${pageMeta.length} pages!`);
-        pageMeta.length = 0;
-      } catch (e) {
-        this.logger.error('Error saving pages with missing text!', e);
-      }
-    };
-
-    let i = 0;
-    let requestDelay = Promise.resolve();
-    for await (const page of toUpdate) {
-      if (i++ % 25 === 0) {
-        this.logger.debug(
-          `Dumping missing-text pages: ${i} / ${toUpdate.length}`
-        );
-        await savePages();
-      }
-      await requestDelay;
-      requestDelay = new Promise((r) => setTimeout(r, 1000));
-      const wikiMetadata = await this.dumpWikiPageById(page.id);
-      if (wikiMetadata) {
-        pageMeta.push(wikiMetadata);
-      } else {
-        requestDelay = Promise.resolve();
-      }
-    }
-    await savePages();
+    await this.dumpPagesByIds(
+      toUpdate.map((p) => p.id),
+      'Dumping missing-text pages'
+    );
 
     this.logger.log(`Done: Dumping pages with missing text`);
+  }
+
+  /**
+   * Fetch content for the given page IDs in batches of
+   * {@link PAGE_FETCH_CHUNK} (≤50 per API request) and persist each batch
+   * before moving on. Pages whose stored revision already matches their last
+   * full-fetch revision are skipped. Throttling is handled centrally in
+   * {@link WikiRequestService}.
+   */
+  async dumpPagesByIds(
+    pageIds: number[],
+    label = 'Dumping pages'
+  ): Promise<WikiPageWithContent[]> {
+    if (pageIds.length === 0) return [];
+
+    const upToDate = await this.db
+      .select({ id: WikiPage.id })
+      .from(WikiPage)
+      .where(
+        and(
+          inArray(WikiPage.id, pageIds),
+          eq(WikiPage.revisionId, WikiPage.fullfetchRevisionId)
+        )
+      );
+    const upToDateSet = new Set(upToDate.map((p) => p.id));
+    const toFetch = pageIds.filter((id) => !upToDateSet.has(id));
+
+    if (toFetch.length === 0) {
+      this.logger.debug(
+        `${label}: nothing to do (${pageIds.length} already up to date)`
+      );
+      return [];
+    }
+
+    const allFetched: WikiPageWithContent[] = [];
+    for (let i = 0; i < toFetch.length; i += PAGE_FETCH_CHUNK) {
+      const chunk = toFetch.slice(i, i + PAGE_FETCH_CHUNK);
+      const fetched = await this.WikiRequestService.queryPagesByIds(chunk);
+      await this.persistPages(fetched);
+      allFetched.push(...fetched);
+      this.logger.debug(
+        `${label}: ${i + chunk.length} / ${toFetch.length} (fetched ${
+          fetched.length
+        })`
+      );
+    }
+    return allFetched;
+  }
+
+  private async persistPages(pages: WikiPageWithContent[]): Promise<void> {
+    if (pages.length === 0) return;
+    try {
+      await this.db.batch(
+        // @ts-expect-error - drizzle batch typing is overly strict across versions
+        pages
+          .filter((p) => p.rawContent || p.content)
+          .map((page) => {
+            const updates: Record<string, unknown> = {
+              text: page.rawContent,
+              revisionId: page.revid,
+              fullfetchRevisionId: page.revid,
+            };
+            // Only overwrite html when we actually fetched it (batched
+            // queryPagesByIds intentionally returns empty content).
+            if (page.content) {
+              updates.html = page.content;
+            }
+            return this.db
+              .update(WikiPage)
+              .set(updates as never)
+              .where(eq(WikiPage.id, page.pageid));
+          })
+      );
+      this.logger.debug(`Persisted ${pages.length} pages`);
+    } catch (e) {
+      this.logger.error('Error saving fetched pages to db!', e);
+    }
   }
 
   async parseWikiDump() {
@@ -388,20 +327,16 @@ export class PageContentDumper {
       );
       return;
     }
-    const redirects = this.WikiRequestService.getRedirectsToPage(pageId);
-    let response;
-    try {
-      response = await this.WikiRequestService.query<{
-        parse: WikiPageResponse;
-      }>({
-        action: 'parse',
-        pageid: pageId.toString(),
-        format: 'json',
-        prop: 'properties|wikitext|displaytitle|subtitle|revid|text',
-      }).catch((e) => this.logger.error(e));
-    } catch (e) {
-      this.logger.error(e);
-    }
+    // Redirects/aliases are resolved in bulk by PageListDumper.dumpRedirectList;
+    // no per-page redirect lookup is needed here.
+    const response = await this.WikiRequestService.query<{
+      parse: WikiPageResponse;
+    }>({
+      action: 'parse',
+      pageid: pageId.toString(),
+      format: 'json',
+      prop: 'properties|wikitext|displaytitle|subtitle|revid|text',
+    }).catch((e) => this.logger.error(e));
     if (!response) return;
     const result = response.parse as WikiPageResponse;
 
@@ -417,7 +352,6 @@ export class PageContentDumper {
       title: result.displaytitle,
       displaytitle: result.displaytitle,
       revid: result.revid,
-      redirects: await redirects,
       properties: result.properties.map((p) => ({
         name: p.name,
         value: p['*'],
