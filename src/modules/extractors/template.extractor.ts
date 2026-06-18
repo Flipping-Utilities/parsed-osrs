@@ -23,7 +23,7 @@ export class TemplateExtractor {
 
     const l = allPageList.length;
     for (let i = 0; i < l; i++) {
-      if (i % 1000 === 999) {
+      if (i % 5000 === 4999) {
         this.logger.verbose(`${i + 1}/${l}`);
       }
       const page = allPageList[i];
