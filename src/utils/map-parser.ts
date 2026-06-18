@@ -22,6 +22,14 @@ const POLYGON_IGNORED_KEYS = new Set([
   'recty',
 ]);
 
+// Matches a single coordinate value, e.g. "2633" or "2633.7". The optional
+// decimal fraction is required because OSRS wiki polygons use sub-tile
+// precision for curved/irregular boundaries. Without it, an input like
+// "2633.7" leaves the trailing "7" to be picked up as a stray vertex,
+// corrupting the bounding box.
+const COORD_TOKEN = String.raw`\d+(?:\.\d+)?`;
+const COORD_PAIR_RE = new RegExp(`(${COORD_TOKEN})[,:](${COORD_TOKEN})`, 'g');
+
 function toNumber(value: unknown): number | null {
   if (value === null || value === undefined) return null;
   const n = Number(value);
@@ -60,9 +68,9 @@ function parsePolygon(tmpl: Record<string, unknown>): MapPolygon | null {
   const joined = parts.join(',');
 
   const vertices: Array<{ x: number; y: number }> = [];
-  const re = /(\d+)[,:](\d+)/g;
+  COORD_PAIR_RE.lastIndex = 0;
   let m: RegExpExecArray | null;
-  while ((m = re.exec(joined)) !== null) {
+  while ((m = COORD_PAIR_RE.exec(joined)) !== null) {
     vertices.push({ x: Number(m[1]), y: Number(m[2]) });
   }
   if (!vertices.length) return null;
@@ -88,7 +96,8 @@ function parsePoint(tmpl: Record<string, unknown>): MapPoint | null {
     return { x, y };
   }
   for (const value of getPositionalValues(tmpl)) {
-    const m = value.match(/(\d+)[,:](\d+)/);
+    COORD_PAIR_RE.lastIndex = 0;
+    const m = COORD_PAIR_RE.exec(value);
     if (m) {
       return { x: Number(m[1]), y: Number(m[2]) };
     }
