@@ -181,12 +181,22 @@ export class RecipesExtractor {
   public async extractAllRecipes() {
     this.logger.log('Starting to extract recipes');
 
-    const itemPages = await this.pageListDumper.getPagesFromTag(PageTags.ITEM);
-    if (!itemPages) {
-      return;
-    }
+    // Recipe templates can live on item pages OR dedicated skill pages.
+    // Scan both ITEM-tagged pages and RECIPE-tagged pages (which transclude
+    // {{Recipe}}), deduplicated by page id.
+    const [itemPages, recipePages] = await Promise.all([
+      this.pageListDumper.getPagesFromTag(PageTags.ITEM),
+      this.pageListDumper.getPagesFromTag(PageTags.RECIPE),
+    ]);
+    const seenPageIds = new Set<number>();
+    const pagesToScan = [...itemPages, ...recipePages].filter((page) => {
+      if (seenPageIds.has(page.id)) return false;
+      seenPageIds.add(page.id);
+      return true;
+    });
+
     const recipes: Recipe[] = [];
-    for await (const page of itemPages) {
+    for await (const page of pagesToScan) {
       const pageRecipes = await this.extractRecipesFromPageId(page.id);
       if (pageRecipes === null) {
         continue;
@@ -274,7 +284,6 @@ export class RecipesExtractor {
 
     const hasRecipe = page?.text?.includes('{{Recipe');
     if (!page || !hasRecipe) {
-      this.logger.verbose(`No recipe for page ${pageId}`);
       return null;
     }
 
@@ -285,9 +294,6 @@ export class RecipesExtractor {
       .map((t) => t as Record<string, string | boolean>)
       .filter((t) => Object.hasOwn(t, 'template') && t?.template === 'recipe');
 
-    this.logger.verbose(
-      `Parsing ${recipes.length} recipes on page ${page.title}`
-    );
     const newRecipes: Recipe[] = recipes
       .map((value) =>
         parseRecipeProperties(value, (name) =>
