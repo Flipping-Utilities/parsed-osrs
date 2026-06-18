@@ -146,4 +146,56 @@ describe('parseShopFromContent', () => {
     expect(shop!.buyChangePercent).toBe(0);
     expect(shop!.inventory.length).toBeGreaterThan(0);
   });
+
+  describe('shop metadata enrichment', () => {
+    const lumbridgeLookup = (name: string) => {
+      const items: Record<string, { id: number }> = {
+        Pot: { id: 1931 },
+        Jug: { id: 1935 },
+        'Empty jug pack': { id: 20330 },
+        Shears: { id: 1735 },
+        Bucket: { id: 1925 },
+        'Empty bucket pack': { id: 20331 },
+      };
+      return items[name] || null;
+    };
+
+    it('parses Infobox Shop metadata (location, owner, members, specialty)', () => {
+      const page = loadTestPage(TestPages.LumbridgeGeneralStore);
+      const shop = parseShopFromContent(
+        page.text,
+        page.title,
+        page.id,
+        lumbridgeLookup
+      );
+
+      expect(shop).not.toBeNull();
+      expect(shop!.location).toBe('Lumbridge');
+      expect(shop!.owner).toBe('Shop keeper, Shop assistant');
+      expect(shop!.isMembers).toBe(false);
+      expect(shop!.specialty).toBe('General store');
+      // No currency specified on this shop
+      expect(shop!.currency).toBe('');
+    });
+
+    it('captures per-item gemw flag from StoreLine', () => {
+      const page = loadTestPage(TestPages.LumbridgeGeneralStore);
+      const shop = parseShopFromContent(
+        page.text,
+        page.title,
+        page.id,
+        lumbridgeLookup
+      );
+
+      expect(shop).not.toBeNull();
+      const jugPack = shop!.inventory.find((i) => i.itemId === 20330);
+      expect(jugPack).toBeDefined();
+      expect(jugPack!.isOnGrandExchange).toBe(false);
+
+      // Items without an explicit gemw param do not carry the flag
+      const pot = shop!.inventory.find((i) => i.itemId === 1931);
+      expect(pot).toBeDefined();
+      expect(pot!.isOnGrandExchange).toBeUndefined();
+    });
+  });
 });

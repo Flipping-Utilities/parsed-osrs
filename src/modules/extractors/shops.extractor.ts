@@ -6,7 +6,23 @@ import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 import { PageTags } from '../../constants/tags';
 import { parseWikitext } from '../../utils/wikitext-parser';
-import { wikiNumber } from '../../utils/wiki-coercion';
+import { wikiBool, wikiNumber, wikiString } from '../../utils/wiki-coercion';
+
+function parseStoreItemGemw(val: unknown): boolean | undefined {
+  if (val === null || val === undefined || val === '') return undefined;
+  const lower = String(val).toLowerCase();
+  if (lower === 'no') return false;
+  if (lower === 'yes') return true;
+  return undefined;
+}
+
+function parseStoreItemBuy(val: unknown): number | undefined {
+  if (val === null || val === undefined || val === '') return undefined;
+  const n = wikiNumber(val);
+  // wikiNumber falls back to 0 for non-numerics like "N/A"; treat as absent
+  if (n === 0 && !/^\s*\d/.test(String(val))) return undefined;
+  return n;
+}
 
 export function parseShopFromContent(
   pageText: string,
@@ -33,13 +49,29 @@ export function parseShopFromContent(
       const item = itemLookup(name)?.id;
       if (!item) return undefined;
 
-      return {
+      const shopItem: ShopItem = {
         baseQuantity: wikiNumber(lineData.stock),
         itemId: item,
         restockTime: wikiNumber(lineData.restock),
       };
+
+      const buy = parseStoreItemBuy(lineData.buy);
+      if (buy !== undefined) shopItem.buyPrice = buy;
+
+      const cost = wikiNumber(lineData.cost);
+      if (cost) shopItem.cost = cost;
+
+      const gemw = parseStoreItemGemw(lineData.gemw);
+      if (gemw !== undefined) shopItem.isOnGrandExchange = gemw;
+
+      return shopItem;
     })
     .filter((v): v is ShopItem => v !== undefined);
+
+  // Enrich with {{Infobox Shop}} metadata (location, owner, members, etc.)
+  const shopInfobox = parsed.getInfobox('shop');
+
+  const currencyFromHead = wikiString(headData.currency);
 
   const shop: Shop = {
     name: pageTitle,
@@ -47,6 +79,12 @@ export function parseShopFromContent(
     buyPercent,
     sellPercent,
     buyChangePercent,
+    location: shopInfobox ? wikiString(shopInfobox.location) : '',
+    owner: shopInfobox ? wikiString(shopInfobox.owner) : '',
+    isMembers: shopInfobox ? wikiBool(shopInfobox.members) : null,
+    currency:
+      currencyFromHead || (shopInfobox ? wikiString(shopInfobox.currency) : ''),
+    specialty: shopInfobox ? wikiString(shopInfobox.special) : '',
     inventory,
   };
 
