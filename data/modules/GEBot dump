@@ -1,0 +1,59 @@
+local p = {}
+
+function p.get(frame)
+	return p._get(frame.args[1], frame.args[2]=='yes')
+end
+
+function p._get(offset, allowhistorical)
+	local dpl = [=[
+{{#dpl:
+|namespace=Module
+|titlematch=Exchange/%%
+|nottitlematch=Exchange/%%/Data
+|nottitlematch=Exchange/%%/doc
+|nottitlematch=Exchange/%%/annotations.json
+|ordermethod=title
+|format=,@%%TITLE%%@,,
+|replaceintitle=/^Exchange\//,
+|offset=%s
+}}
+]=]
+	dpl = dpl:format(offset)
+	local res = mw.getCurrentFrame():preprocess(dpl)
+	local out = {}
+	for v in mw.ustring.gmatch(res, '@(.-)@') do
+		local data_good, data = pcall(mw.loadData, 'Module:Exchange/'..v)
+		if data_good then
+			local allowpage = true
+			if data.historical then
+				if not allowhistorical then
+					allowpage = false
+				end
+			end
+			if allowpage then
+				local out_data = {
+					id=data.itemId,
+					name=v,
+					limit=data.limit,
+					value=data.value,
+					icon=data.icon,
+					members=data.members,
+					examine=data.examine
+				}
+				local val = tonumber(data.value)
+				if (data.alchable == nil or data.alchable == true) and val then
+					local mult = 0.6
+					if type(data.alchmultiplier) == 'number' then
+						mult = data.alchmultiplier
+					end
+					out_data.highalch = math.max(1, math.floor(mult * val))
+					out_data.lowalch = math.max(1, math.floor(mult * val * 2/3))
+				end
+				table.insert(out, out_data)
+			end
+		end
+	end
+	return mw.text.jsonEncode(out)
+end
+
+return p

@@ -1,0 +1,10 @@
+Currently the only options are "20, 40, 60, 80, 99" for the levels and "total20", "total40", "total60", "total80", and "total99" for the average per key thanks to it being 1/20.
+
+Also i've added "all" as an option which creates a small table with the values in.
+
+I will add more options for levels later and will maybe import the graph data so you can use any level. Additionally I'm going to maybe add an option for Larran's key value + fish table avg value to give the total value at each fishing level. This will give a more accurate loot value from each key.
+
+I am going to make it more versatile in the future but keep the current options so I don't break anything.
+
+I've updated the labels on all to be more accurate but I'm still not a fan of it - this is not customisable so if you use it on a page, you can't edit it. Therefore I think it's better to make the table manually.
+{{#invoke:LarransFishRoll|calcValue|all}}

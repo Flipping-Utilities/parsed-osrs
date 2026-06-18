@@ -1,0 +1,6 @@
+{{documentation}}
+{{Helper module|name=MergeArgs
+|fname1=merge
+|ftype1=Frame
+|fuse1=Merges the parent and frame args returning a table containing the arg values instead of an empty table with an attached metatable.  Parent args overwrite invoke args allowing invoke args to be used as a "default" value for an argument.
+}}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 30576,
+    icon       = "Bounty supply crate (unobtainable item).png",
+    item       = "Bounty supply crate",
+    alchable   = true,
+    value      = 10000,
+    limit      = nil,
+    members    = true,
+    category   = nil,
+    examine    = "A crate full of supplies.",
+    usage      = {}
+}

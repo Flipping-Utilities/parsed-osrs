@@ -1,0 +1,78 @@
+-- <pre>
+-- Implements {{MDamage}}
+
+
+local p = {}
+
+local function amount(a)
+	-- convert used globals to locals where possible to improve performance
+	local math = math
+	local string = string
+	local table = table
+	local mw = mw
+        local expr = mw.ext.ParserFunctions.expr
+
+	local ret = {true, true, true, true, '</span>'}
+
+	ret[1] = '<span class="MDamage Mdamage-'
+
+	-- strip commas from input
+	-- @example {{GEPrice|Foo}} -> '1,000'
+	a = string.gsub(a, ',', '')
+
+	-- for performance reasons, only calculate expr if required
+	local a2 = tonumber(a)
+	if a2 == nil then
+		a = expr(a)
+		a2 = tonumber(a) or '0'
+	end
+
+	-- round to 2 d.p.
+	a = math.floor(a2 * 100 + 0.5) / 100
+
+	local num = math.abs(a)
+	local amounts = {1000, 250, 100, 25, 5, 4, 3, 2, 1}
+	local result = 0
+	for _, amount in ipairs(amounts) do
+		result = amount
+		if num >= amount then
+			break
+		end
+	end
+
+	ret[2] = tostring(result)
+
+	-- set a class to denote positive or negative (css sets the colour)
+	if a > 0 then
+		ret[3] = ' Mdamage-pos">'
+	elseif a < 0 then
+		ret[3] = ' Mdamage-neg">'
+	else
+		ret[3] = '">'
+	end
+
+	-- format number with commas
+	ret[4] = mw.language.getContentLanguage():formatNum(a)
+
+	return table.concat( ret )
+end
+
+--
+-- {{MDamage}} access point
+--
+function p.amount(frame)
+	local args = frame:getParent().args
+	-- for {{Mdamage|111}}
+	local a = args[1] or '0'
+	return amount(a)
+end
+
+--
+-- Module access point
+--
+function p._amount(a)
+	a = tostring(a) or '0'
+	return amount(a)
+end
+
+return p

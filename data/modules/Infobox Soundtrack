@@ -1,0 +1,54 @@
+-- <pre>
+
+local p = {}
+
+local pagename = mw.title.getCurrentTitle().fullText
+local onmain = require('Module:Mainonly').on_main
+local bucket_data = {}
+
+
+function p.bucket(frame)
+	if not onmain() then
+		return ''
+	end
+	local args = frame:getParent().args
+	return p.categories {
+			frame = frame,
+			name = args.name,
+			file = args.file,
+			release = args.release,
+			image = args.image,
+			tidal = args.tidal,
+			bandcamp = args.bandcamp,
+			qobuz = args.qobuz,
+			itunes = args.itunes,
+			spotify = args.spotify,
+			youtube = args.youtube,
+			amazon = args.amazon,
+			deezer = args.deezer,
+			soundcloud = args.soundcloud
+			}
+end
+
+
+function p.categories(...)
+	
+	local args = ...
+
+	bucket_data["title"] = args.name
+	bucket_data["cover"] = string.match(args.image, '^..(.*)|')
+	bucket_data["release_date"] = string.gsub(args.release, '[%[%]]', '')
+	bucket_data["link_tidal"] = args.tidal
+	bucket_data["link_bandcamp"] = args.bandcamp
+	bucket_data["link_qobuz"] = args.qobuz
+	bucket_data["link_itunes"] = args.itunes
+	bucket_data["link_spotify"] = args.spotify
+	bucket_data["link_youtube"] = args.youtube
+	bucket_data["link_amazon"] = args.amazon
+	bucket_data["link_deezer"] = args.deezer
+	bucket_data["link_soundcloud"] = args.soundcloud
+	bucket("soundtrack").put(bucket_data)
+	
+end
+
+return p

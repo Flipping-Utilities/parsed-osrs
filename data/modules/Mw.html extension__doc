@@ -1,0 +1,235 @@
+{{Documentation}}
+{{Helper module
+|name = Mw.html extension
+
+|fname1 = addClassIf(cond, class)
+|ftype1 = boolean, string
+|fuse1 = If <code>cond</code> = <code>true</code> it behaves the same as the normal <code>addClass</code> function, otherwise it's a no-op. Ex.: <code>mw.html.create('div'):addClassIf(true, 'align-left-1')</code>
+
+|fname2 = attrIf(cond, name, value)
+|ftype2 = boolean, string/table, string/nil
+|fuse2 = Similar to <code>addClassIf</code>
+
+|fname3 = cssIf(cond, name, value)
+|ftype3 = boolean, string/table, string/nil
+|fuse3 = Similar to <code>addClassIf</code>
+
+|fname4 = doneIf(cond)
+|ftype4 = boolean
+|fuse4 = Similar to <code>addClassIf</code>
+
+|fname5 = tagIf(cond, tag)
+|ftype5 = boolean, string
+|fuse5 = Similar to <code>addClassIf</code>
+
+|fname6 = wikitextIf(cond, text)
+|ftype6 = boolean, string
+|fuse6 = Similar to <code>addClassIf</code>
+
+|fname7 = na()
+|ftype7 = N/A
+|fuse7 = Shortcut for <code><nowiki>:tag('td'):attr('data-sort-value', 0):attr('class','table-na'):wikitext('<small>N/A</small>'):done()</nowiki></code>
+
+|fname8 = naIf(cond)
+|ftype8 = boolean
+|fuse8 = Similar to <code>addClassIf</code>
+
+|fname9 = <nowiki>tr([settings])</nowiki>
+|ftype9 = table/nil
+|fuse9 = Shortcut for <code>:tag('tr')</code> but also auto closes the previous 'tr', 'th' or 'td' tag (so you don't need to add :done() before it). <samp>settings</samp> is a table with keys:
+
+* <code>class</code> or <code>addClass</code> - A string passed to <code>:addClass()</code> 
+* <code>attr</code> - A table passed to <code>:attr()</code>
+* <code>css</code> - A table passed to <code>:css()</code>
+* <code>cssText</code> - A string passed to <code>:cssText()</code>
+
+|fname10 = <nowiki>th([settings])</nowiki>
+|ftype10 = string/table/nil
+|fuse10 = Shortcut for <code>:tag('th'):wikitext(settings)</code> if <samp>settings</samp> is a string. Also auto closes the previous 'th' or 'td' tag. <samp>settings</samp> can also be a table with keys:
+
+* <code>[1]</code> (array) or <code>wikitext</code> - A string passed to <code>:wikitext()</code>
+* <code>class</code> or <code>addClass</code> - A string passed to <code>:addClass()</code> 
+* <code>attr</code> - A table passed to <code>:attr()</code>
+* <code>css</code> - A table passed to <code>:css()</code>
+* <code>cssText</code> - A string passed to <code>:cssText()</code>
+
+|fname11 = <nowiki>td([settings])</nowiki>
+|ftype11 = string/table/nil
+|fuse11 = Same as <code>:th()</code>. Example:
+
+<syntaxhighlight lang='lua'>
+local tbl = mw.html.create('table')
+tbl:tr{ class='sortable' }
+        :th{'foo', attr={'data-sort-type', 'number'}}
+        :th('bar')
+    :tr()
+        :td('buz')
+            :attr('data-sort-value', 10)
+        :td{'N/A', class='table-na'}
+</syntaxhighlight>
+
+|fname12 = IF(cond)
+|ftype12 = boolean
+|fuse12 = Allows for if-blocks without breaking the chain. If the condition is true it is a no-op, if false everything inside the balanced IF-END block will be ignored. Can be nested. Ex.:
+<syntaxhighlight lang="lua">
+mw.html.create('div')
+    :IF(true)
+        :wikitext('Conditional text')
+    :END()
+    :...
+</syntaxhighlight>
+Note: This only prevents elements from being added to your html object, it does not protect against statements that throw errors. I.e
+<syntaxhighlight lang='lua'>
+mw.html.create('div')
+    :IF(false)
+        :wikitext(5 * nil) -- This will still throw an error
+    :END()
+</syntaxhighlight>
+
+|fname13 = ELSEIF(cond)
+|ftype13 = boolean
+|fuse13 = Used together with <code>IF()</code>.
+
+|fname14 = ELSE()
+|ftype14 = N/A
+|fuse14 = Used together with <code>IF()</code>.
+
+|fname15 = END()
+|ftype15 = N/A
+|fuse15 = Used together with <code>IF()</code>. Make sure the IF-END tags are balanced, it wont throw an error if they are not.
+
+|fname16 = exec(func, ...)
+|ftype16 = function, any
+|fuse16 = Call a function without breaking the chain. See module docs for more info.
+
+|fname17 = addFunction(func, name)
+|ftype17 = function, string
+|fuse17 = Add a function to the mw.html class that can then be used on mw.html object. See module docs for more info.
+}}
+
+==Usage==
+For all functions other than <code>addFunction()</code> all you need to do is simply require this module:
+<syntaxhighlight lang="lua">
+require('Module:Mw.html extension')
+local p = {}
+
+function p.main()
+    ...
+    local tbl = mw.html.create('div')
+        :IF(true)
+            :wikitext('Conditional text')
+        :ELSE()
+            :wikitext('something else')
+        :END()
+        :addClassIf(true, 'wikitable')
+        :tag('span)'
+            :wikitext('normal wikitext')
+        :done()
+    ...
+end
+
+return p
+</syntaxhighlight>
+
+You can mix the normal old functions with the newly added ones.
+
+===attrIf===
+This accepts either a name-value pair or a table
+* <code>:attrIf(true, 'data-sort-value', '0')</code>
+* <code>:attrIf(true, {'data-sort-value' = '0', ...})</code>
+
+===cssIf===
+This accepts either a name-value pair or a table similar to <code>attrIf</code>
+
+===exec===
+The first parameter of the function will have the current state of the mw.html object passed into it, usually we call this parameter <code>self</code>, the rest of the parameters can be anything you want. To not break the chaining the function must also return a mw.html object. Example:
+<syntaxhighlight lang="lua">
+local function repNa(self, times)
+    for i = 1,times do
+        self:na()
+    end
+    return self
+end
+</syntaxhighlight>
+
+This function can then be used as follows
+<syntaxhighlight lang="lua">
+mw.html.create('div'):exec(repNa, 5)
+</syntaxhighlight>
+
+===addFunction===
+The function you want to add has to be of the same structure as in <code>exec()</code>. Example:
+<syntaxhighlight lang="lua">
+local htmlExtension = require('Module:Mw.html extension')
+local p = {}
+
+local function repNa(self, times)
+    for i = 1,times do
+        self:na()
+    end
+    return self
+end
+htmlExtension.addFunction(repNa, 'repNaName')
+
+function p.main()
+    ...
+    local tbl = mw.html.create('div'):repNaName(5)
+    ...
+end
+
+return p
+</syntaxhighlight>
+
+===tr, th and td===
+The following three tables are the same:
+<syntaxhighlight lang='lua'>
+local tbl = mw.html.create('table')
+tbl:tr{ class='sortable' }
+        :th{'foo', attr={['data-sort-type']='number'}} -- or attr={'data-sort-type', 'number'}
+        :th('bar')
+            :IF(expression)
+                :addClass('table-na')
+            :END()
+    :tr()
+        :td('buz')
+        :td{'N/A', class='table-na'}
+
+local tbl2 = mw.html.create('table')
+tbl2:tag('tr')
+        :addClass('sortable')
+        :tag('th')
+            :attr('data-sort-type', 'number')
+            :wikitext('foo')
+        :done()
+        :tag('th')
+            :wikitext('bar')
+            :IF(expression)
+                :addClass('table-na')
+            :END()
+        :done() -- This is needed because "tag('tr')" is used after this instead of "tr()"
+    :done()
+    :tag('tr')
+        :tag('td')
+            :wikitext('buz')
+        :done()
+        :tag('td')
+            :wikitext('N/A')
+            :addClass('table-na')
+
+local tbl3 = mw.html.create('table')
+tbl3:tag('tr')
+        :addClass('sortable')
+        :tag('th')
+            :attr('data-sort-type', 'number')
+            :wikitext('foo')
+        :th('bar')
+            :IF(expression)
+                :addClass('table-na')
+            :END()
+        :done()
+    :done()
+    :tag('tr')
+        :td('buz')
+        :td('N/A')
+            :addClass('table-na')
+</syntaxhighlight>

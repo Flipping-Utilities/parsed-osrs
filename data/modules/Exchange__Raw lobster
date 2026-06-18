@@ -1,0 +1,12 @@
+return {
+    itemId     = 377,
+    icon       = 'Raw lobster.png',
+    item       = 'Raw lobster',
+    value      = 70,
+    limit      = 15000,
+    members    = false,
+    category   = nil,
+    examine    = 'I should try cooking this.',
+    hialch     = 42,
+    lowalch    = 28
+}

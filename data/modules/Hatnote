@@ -1,0 +1,79 @@
+-- repurposed from                                                            --
+-- https://en.wikipedia.org/w/index.php?title=Module:Hatnote&oldid=1063743122 --
+--                                                                            --
+-- Implements {{hatnote}} template                                            --
+
+local libraryUtil = require('libraryUtil')
+local checkType = libraryUtil.checkType
+
+local p = {}
+
+-- Helper functions                                                           --
+local function removeInitialColon(s)
+	-- Removes the initial colon from a string, if present.
+	return s:match('^:?(.*)')
+end
+
+function p.findNamespaceId(link, removeColon)
+	-- Finds the namespace id (namespace number) of a link or a pagename. This
+	-- function will not work if the link is enclosed in double brackets. Colons
+	-- are trimmed from the start of the link by default. To skip colon
+	-- trimming, set the removeColon parameter to false.
+	checkType('findNamespaceId', 1, link, 'string')
+	checkType('findNamespaceId', 2, removeColon, 'boolean', true)
+	if removeColon ~= false then
+		link = removeInitialColon(link)
+	end
+	local namespace = link:match('^(.-):')
+	if namespace then
+		local nsTable = mw.site.namespaces[namespace]
+		if nsTable then
+			return nsTable.id
+		end
+	end
+	return 0
+end
+
+function p.disambiguate(page, disambiguator)
+	-- Formats a page title with a disambiguation parenthetical,
+	-- i.e. "Example" → "Example (disambiguation)".
+	checkType('disambiguate', 1, page, 'string')
+	checkType('disambiguate', 2, disambiguator, 'string', true)
+	disambiguator = disambiguator or 'disambiguation'
+	return mw.ustring.format('%s (%s)', page, disambiguator)
+end
+
+-- Produces standard hatnote text                                             --
+function p.hatnote(frame)
+	local args = frame:getParent().args
+	local s = args[1]
+	if not s then
+		return '<strong class="error">No text specified for hatnote</strong>'
+	end
+	return p._hatnote(s, {
+		extraclasses = args.extraclasses
+	})
+end
+
+function p._hatnote(s, options)
+	checkType('_hatnote', 1, s, 'string')
+	checkType('_hatnote', 2, options, 'table', true)
+	options = options or {}
+	local inline = options.inline
+	local hatnote = mw.html.create(inline == 1 and 'span' or 'div')
+	local extraclasses
+	if type(options.extraclasses) == 'string' then
+		extraclasses = options.extraclasses
+	end
+
+	hatnote
+		:attr('role', 'note')
+		:addClass(inline == 1 and 'hatnote-inline' or 'hatnote')
+		:addClass(extraclasses)
+		:addClass('navigation-not-searchable')
+		:wikitext(s)
+	
+	return tostring(hatnote)
+end
+
+return p

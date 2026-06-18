@@ -1,0 +1,12 @@
+return {
+    itemId     = 4525,
+    icon       = 'Empty oil lamp.png',
+    item       = 'Empty oil lamp',
+    value      = 25,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'An oil lamp with no oil in it.',
+    hialch     = 15,
+    lowalch    = 10
+}

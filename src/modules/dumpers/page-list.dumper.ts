@@ -5,8 +5,18 @@ import {
   ALL_ITEM_PAGE_LIST,
   ALL_ITEM_SPAWNS_PAGE_LIST,
   ALL_MONSTERS_PAGE_LIST,
+  ALL_NEWS_PAGE_LIST,
+  ALL_PRAYERS_PAGE_LIST,
+  ALL_RECIPES_PAGE_LIST,
   ALL_SETS_PAGE_LIST,
   ALL_SHOPS_PAGE_LIST,
+  ALL_SPELLS_PAGE_LIST,
+  ALL_LOCATIONS_PAGE_LIST,
+  ALL_NPCS_PAGE_LIST,
+  ALL_SCENERY_PAGE_LIST,
+  ALL_QUESTS_PAGE_LIST,
+  ALL_ACTIVITIES_PAGE_LIST,
+  ALL_MUSIC_PAGE_LIST,
   GE_ITEM_PAGE_LIST,
   WIKI_PAGE_LIST,
 } from '../../constants/paths';
@@ -20,6 +30,75 @@ type WikiRedirectResponse = {
   title: string;
   redirects?: Array<{ pageid: number; ns: number; title: string }>;
 };
+
+// Number of UPDATE statements per drizzle `db.batch()` call. SQLite has a
+// hard limit on SQL variables per statement (999 by default, 32766 with
+// SQLITE_MAX_VARIABLE_NUMBER); chunking well below that keeps transactions
+// short and avoids holding a write lock for seconds at a time.
+const REDIRECT_DB_BATCH_SIZE = 1000;
+
+// MediaWiki caps `titles=A|B|...` at 50 per request for anonymous/bot users.
+const REDIRECT_TITLES_PER_REQUEST = 50;
+
+/**
+ * Pure helper: given every DB page row and every redirect-list response from
+ * the wiki, return the set of pages whose `aliases` actually need writing.
+ *
+ * This replaces the old inline loop, which was O(n·m) due to `allPages.find()`
+ * inside a `forEach`. It also implements the **delta skip**: a page whose
+ * computed alias set is identical to its existing aliases is omitted from the
+ * return value, so the caller doesn't waste a DB UPDATE on it.
+ *
+ * Behaviour preserved from the original:
+ * - Aliases only ever grow — entries that are missing from the current
+ *   response are NOT pruned. This matches the historical "additive" contract.
+ * - A response with no `redirects` property is a no-op for that page.
+ * - Responses targeting pageids that aren't in `pages` are dropped silently
+ *   (matches the old `if (!page) return;`).
+ *
+ * @returns Array of `{ id, aliases }` for every page whose aliases changed.
+ *          Caller should issue a single `UPDATE ... SET aliases = ?` per entry.
+ */
+export function mergeRedirects(
+  pages: Array<{ id: number; aliases?: string[] | null }>,
+  responses: WikiRedirectResponse[]
+): Array<{ id: number; aliases: string[] }> {
+  // Local working copy keyed by page id so multiple responses for the same
+  // pageid (pagination) accumulate correctly without mutating the input.
+  const work = new Map<
+    number,
+    { aliases: string[]; aliasSet: Set<string>; changed: boolean }
+  >();
+  for (const page of pages) {
+    const aliases = page.aliases ?? [];
+    work.set(page.id, {
+      aliases: [...aliases],
+      aliasSet: new Set(aliases),
+      changed: false,
+    });
+  }
+
+  for (const resp of responses) {
+    const entry = work.get(resp.pageid);
+    if (!entry) continue;
+    const incoming = resp.redirects?.map((r) => r.title) ?? [];
+    for (const title of incoming) {
+      if (!entry.aliasSet.has(title)) {
+        entry.aliasSet.add(title);
+        entry.aliases.push(title);
+        entry.changed = true;
+      }
+    }
+  }
+
+  const result: Array<{ id: number; aliases: string[] }> = [];
+  for (const [id, entry] of work) {
+    if (entry.changed) {
+      result.push({ id, aliases: entry.aliases });
+    }
+  }
+  return result;
+}
 
 @Injectable()
 export class PageListDumper {
@@ -82,86 +161,88 @@ export class PageListDumper {
   }
 
   /**
-   * Extract the Page redirects from the page content and augment the page list with them.
-   * Must be run after at least 1 run of `dumpAllWikiPages`
+   * Resolves and persists the redirect/alias list for every wiki page in the
+   * DB. Must be run after at least one run of the page-content dumper, so
+   * that `WikiPage` rows exist.
+   *
+   * Algorithm:
+   * 1. Load all pages from DB (title + current aliases).
+   * 2. Query the wiki in chunks of {@link REDIRECT_TITLES_PER_REQUEST} titles,
+   *    using `prop=redirects&rdlimit=max`. Pagination (`rdcontinue`) is
+   *    handled inside `WikiRequestService.queryAllPagesPromise`.
+   * 3. Merge responses into pages via {@link mergeRedirects}, which is O(n)
+   *    (Map-based) and returns only the rows whose aliases actually changed.
+   * 4. Persist the changed rows in batches of {@link REDIRECT_DB_BATCH_SIZE}.
+   *
+   * Improvements over the original implementation:
+   * - O(n·m) `allPages.find()` replaced with an O(n) Map lookup inside
+   *   {@link mergeRedirects}.
+   * - `db.batch(...)` is now `await`ed (the original dropped the promise on
+   *   the floor, so the function resolved before the DB writes finished).
+   * - The DB batch is chunked at 1000 UPDATEs/transaction to stay under
+   *   SQLite's variable limit and to keep write-lock duration reasonable.
+   * - Delta skip: rows whose aliases haven't changed are never sent to the DB.
+   * - Dead `titles = 'Members|Minigames'` placeholder removed.
    */
   async dumpRedirectList(): Promise<void> {
     this.logger.log('Start: Dumping redirect list');
     const allPages = await this.getWikiPageListDB();
 
-    // https://oldschool.runescape.wiki/api.php?action=query&format=json&prop=redirects&rdcontinue=Members%7C478393&titles=Minigames%7CMembers&rdlimit=20
-
-    // By chunks of 50
-    // Placeholder
-    const titles = 'Members|Minigames';
-    const properties = {
-      action: 'query',
-      format: 'json',
-      prop: 'redirects',
-      rdlimit: 'max',
-      titles,
-    };
-
-    // Process titles in chunks of 50
     const allTitles = allPages.map((p) => p.title);
-    const titleChunks: string[][] = [];
-    for (let i = 0; i < allTitles.length; i += 50) {
-      titleChunks.push(allTitles.slice(i, i + 50));
-    }
+    const totalTitleChunks = Math.ceil(
+      allTitles.length / REDIRECT_TITLES_PER_REQUEST
+    );
 
-    // Query each chunk and combine results
-    const pages: WikiRedirectResponse[] = [];
-    for (const titleChunk of titleChunks) {
-      this.logger.verbose(
-        `Querying next chunk: ${titleChunks.indexOf(titleChunk) + 1} / ${
-          titleChunks.length
-        }`
-      );
-      const chunkProperties = {
-        ...properties,
-        titles: titleChunk.join('|'),
-      };
+    const responses: WikiRedirectResponse[] = [];
+    for (
+      let i = 0, chunkIdx = 0;
+      i < allTitles.length;
+      i += REDIRECT_TITLES_PER_REQUEST, chunkIdx++
+    ) {
+      if (chunkIdx % 20 === 0) {
+        this.logger.verbose(
+          `Querying redirect chunk ${chunkIdx + 1} / ${totalTitleChunks}`
+        );
+      }
+      const titles = allTitles
+        .slice(i, i + REDIRECT_TITLES_PER_REQUEST)
+        .join('|');
       const chunkResults =
-        await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
+        await this.wikiRequestService.queryAllPagesPromise<WikiRedirectResponse>(
           'rdcontinue',
           'pages',
-          chunkProperties
+          {
+            action: 'query',
+            format: 'json',
+            prop: 'redirects',
+            rdlimit: 'max',
+            titles,
+          }
         );
-      // @ts-ignore - Weird querying, that's normal
-      pages.push(...chunkResults);
+      responses.push(...chunkResults);
     }
 
-    const impactedPages = new Set<number>();
-
-    pages.forEach((redirectPage, i) => {
-      impactedPages.add(redirectPage.pageid);
-      if (i % 1000 === 0) {
-        this.logger.verbose(`Page update progress: ${i} / ${pages.length}`);
-      }
-      const page = allPages.find((p) => p.id === redirectPage.pageid);
-      if (!page) {
-        return;
-      }
-      const redirects = redirectPage?.redirects?.map((v) => v.title) || [];
-      page.aliases = [
-        ...(page.aliases || []),
-        ...redirects.filter((r) => !page.aliases?.includes(r)),
-      ];
-    });
-
-    const pageIds = Array.from(impactedPages.values());
-    const toUpdate = allPages.filter((p) => pageIds.includes(p.id));
-    // const page = toUpdate[0];
-
-    this.db.batch(
-      // @ts-ignore
-      toUpdate.map((page) => {
-        return this.db
-          .update(WikiPage)
-          .set({ aliases: page.aliases })
-          .where(eq(WikiPage.id, page.id));
-      })
+    const toUpdate = mergeRedirects(allPages, responses);
+    this.logger.verbose(
+      `${toUpdate.length} / ${allPages.length} pages have new aliases to persist`
     );
+
+    const totalDbChunks = Math.ceil(toUpdate.length / REDIRECT_DB_BATCH_SIZE);
+    for (let i = 0; i < toUpdate.length; i += REDIRECT_DB_BATCH_SIZE) {
+      const chunk = toUpdate.slice(i, i + REDIRECT_DB_BATCH_SIZE);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await this.db.batch(
+        // @ts-expect-error - drizzle batch typing is overly strict across versions
+        chunk.map(({ id, aliases }) =>
+          this.db.update(WikiPage).set({ aliases }).where(eq(WikiPage.id, id))
+        )
+      );
+      const chunkNo = Math.floor(i / REDIRECT_DB_BATCH_SIZE) + 1;
+      this.logger.debug(
+        `Persisted redirect chunk ${chunkNo} / ${totalDbChunks} (${chunk.length} rows)`
+      );
+    }
+
     this.logger.log('End: Dumping redirect list');
   }
 
@@ -300,6 +381,189 @@ export class PageListDumper {
     return this.getPageList(ALL_MONSTERS_PAGE_LIST);
   }
 
+  async fetchPrayersPageList() {
+    return this.fetchAllItemPageList('Prayers');
+  }
+
+  async dumpPrayersPageList() {
+    this.logger.log('Dump prayer page list');
+    const pages = await this.fetchPrayersPageList();
+    this.logger.log('Dump prayer page list - Completed');
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.PRAYER
+    );
+  }
+
+  getPrayers(): WikiPageSlim[] {
+    return this.getPageList(ALL_PRAYERS_PAGE_LIST);
+  }
+
+  async fetchSpellsPageList() {
+    return this.fetchAllItemPageList('Spells');
+  }
+
+  async dumpSpellsPageList() {
+    this.logger.log('Dump spell page list');
+    const pages = await this.fetchSpellsPageList();
+    this.logger.log('Dump spell page list - Completed');
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.SPELL
+    );
+  }
+
+  getSpells(): WikiPageSlim[] {
+    return this.getPageList(ALL_SPELLS_PAGE_LIST);
+  }
+
+  /**
+   * Fetches all pages transcluding {{Infobox Location}} — regions, cities,
+   * settlements, dungeons, and other named places.
+   */
+  fetchLocationPageList(): Promise<WikiPageSlim[]> {
+    return this.fetchTemplatePageList('Infobox Location');
+  }
+
+  async dumpLocationPageList() {
+    this.logger.log('Dump location page list');
+    const pages = await this.fetchLocationPageList();
+    this.logger.log('Dump location page list - Completed');
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.LOCATION
+    );
+    await this.saveFile(ALL_LOCATIONS_PAGE_LIST, pages);
+  }
+
+  getLocations(): WikiPageSlim[] {
+    return this.getPageList(ALL_LOCATIONS_PAGE_LIST);
+  }
+
+  async fetchInfoboxPageList(template: string) {
+    return this.fetchTemplatePageList(template);
+  }
+
+  async dumpNpcPageList() {
+    this.logger.log('Dump NPC page list');
+    const pages = await this.fetchInfoboxPageList('Infobox NPC');
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.NPC
+    );
+    this.logger.log('Dump NPC page list - Completed');
+  }
+
+  getNpcs(): WikiPageSlim[] {
+    return this.getPageList(ALL_NPCS_PAGE_LIST);
+  }
+
+  async dumpSceneryPageList() {
+    this.logger.log('Dump scenery page list');
+    const pages = await this.fetchInfoboxPageList('Infobox Scenery');
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.SCENERY
+    );
+    this.logger.log('Dump scenery page list - Completed');
+  }
+
+  getScenery(): WikiPageSlim[] {
+    return this.getPageList(ALL_SCENERY_PAGE_LIST);
+  }
+
+  async dumpQuestPageList() {
+    this.logger.log('Dump quest page list');
+    const pages = await this.fetchInfoboxPageList('Infobox Quest');
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.QUEST
+    );
+    this.logger.log('Dump quest page list - Completed');
+  }
+
+  getQuests(): WikiPageSlim[] {
+    return this.getPageList(ALL_QUESTS_PAGE_LIST);
+  }
+
+  async dumpActivityPageList() {
+    this.logger.log('Dump activity page list');
+    const pages = await this.fetchInfoboxPageList('Infobox Activity');
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.ACTIVITY
+    );
+    this.logger.log('Dump activity page list - Completed');
+  }
+
+  getActivities(): WikiPageSlim[] {
+    return this.getPageList(ALL_ACTIVITIES_PAGE_LIST);
+  }
+
+  async dumpMusicPageList() {
+    this.logger.log('Dump music page list');
+    const pages = await this.fetchInfoboxPageList('Infobox Music');
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.MUSIC
+    );
+    await this.saveFile(ALL_MUSIC_PAGE_LIST, pages);
+    this.logger.log('Dump music page list - Completed');
+  }
+
+  getMusic(): WikiPageSlim[] {
+    return this.getPageList(ALL_MUSIC_PAGE_LIST);
+  }
+
+  /**
+   * Fetches every page in the `Update:` namespace (ns=112). These are the
+   * historical Jagex newsposts (game updates, patch notes, developer blogs,
+   * behind the scenes, etc.). Uses `allpages` scoped to ns=112 because the
+   * main wiki dump (`fetchWikiPageList`) only covers the main namespace.
+   */
+  fetchNewsPageList(): Promise<WikiPageSlim[]> {
+    const properties = {
+      action: 'query',
+      list: 'allpages',
+      apnamespace: '112',
+      aplimit: 'max',
+      format: 'json',
+      apfilterredir: 'nonredirects',
+    };
+
+    return this.wikiRequestService
+      .queryAllPagesPromise<WikiPageSlim>('apcontinue', 'allpages', properties)
+      .then((pages) =>
+        pages.map((p) => ({ pageid: p.pageid, title: p.title, redirects: [] }))
+      );
+  }
+
+  async dumpNewsPageList() {
+    this.logger.log('Dump news page list');
+    const pages = await this.fetchNewsPageList();
+    this.logger.log(`Dump news page list - ${pages.length} articles found`);
+
+    // The Update namespace is not part of the main dump, so seed the WikiPage
+    // rows here. Once they exist with null text, `dumpPagesWithMissingContent`
+    // will fetch their bodies on the next pass.
+    await this.upsertWikiPages(
+      pages.map((p) => ({ id: p.pageid, title: p.title, namespace: 112 }))
+    );
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.NEWS
+    );
+    await this.saveFile(ALL_NEWS_PAGE_LIST, pages);
+    this.logger.log('Dump news page list - Completed');
+  }
+
+  getNews(): WikiPageSlim[] {
+    return this.getPageList(ALL_NEWS_PAGE_LIST);
+  }
+
   async fetchTemplatePageList(template: string): Promise<WikiPageSlim[]> {
     const properties = {
       action: 'query',
@@ -346,6 +610,30 @@ export class PageListDumper {
     return this.getPageList(ALL_ITEM_SPAWNS_PAGE_LIST);
   }
 
+  /**
+   * Fetches all pages transcluding {{Recipe}}. This captures recipes that live
+   * on skill pages and other non-item pages, expanding coverage beyond items.
+   */
+  fetchRecipePageList(): Promise<WikiPageSlim[]> {
+    return this.fetchTemplatePageList('Recipe');
+  }
+
+  async dumpRecipePageList() {
+    this.logger.log('Dump recipe page list');
+    const pages = await this.fetchRecipePageList();
+    this.logger.log('Dump recipe page list - Completed');
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.RECIPE
+    );
+    await this.saveFile(ALL_RECIPES_PAGE_LIST, pages);
+  }
+
+  getRecipes(): WikiPageSlim[] {
+    return this.getPageList(ALL_RECIPES_PAGE_LIST);
+  }
+
   async getPagesFromTag(
     tag: string
   ): Promise<Array<typeof WikiPage.$inferSelect>> {
@@ -364,6 +652,40 @@ export class PageListDumper {
   private saveFile(path: string, content: unknown) {
     writeFileSync(path, JSON.stringify(content, null, 2));
   }
+
+  /**
+   * Inserts slim WikiPage rows (id + title + namespace) for pages that live
+   * outside the main namespace and therefore aren't part of the bulk XML dump.
+   * The remaining fields (text, revisionId, ...) are filled in later by the
+   * content dumper.
+   */
+  private async upsertWikiPages(
+    pages: { id: number; title: string; namespace: number }[]
+  ): Promise<void> {
+    if (pages.length === 0) return;
+    try {
+      await this.db.batch(
+        // @ts-ignore - drizzle batch typing is overly strict across versions
+        pages.map((page) =>
+          this.db
+            .insert(WikiPage)
+            .values({
+              id: page.id,
+              title: page.title,
+              namespace: page.namespace,
+            })
+            .onConflictDoUpdate({
+              target: WikiPage.id,
+              set: { title: page.title, namespace: page.namespace },
+            })
+        )
+      );
+    } catch (e) {
+      // A failed batch shouldn't abort the whole dump; rows may already exist.
+      this.logger.error(e);
+    }
+  }
+
   private async addTag(pagesId: number[], tag: string) {
     try {
       await this.db.batch(

@@ -1,0 +1,352 @@
+{
+	"iceAndFire": [
+		"doorsOfDinh",
+		"none"
+	],
+	"doorsOfDinh": [
+		"notAMomentOfRelief",
+		"arcane",
+		"dwarvenDomain",
+		"outAtTheMines",
+		[
+			"none",
+			1
+		],
+		"iceAndFire",
+		[
+			"none",
+			2
+		]
+	],
+	"outAtTheMines": [
+		"ruggedTerrain",
+		"dwarvenDomain",
+		"doorsOfDinh",
+		"none"
+	],
+	"dwarvenDomain": [
+		"outAtTheMines",
+		"doorsOfDinh",
+		"arcane",
+		"ruggedTerrain",
+		[
+			"marchOfTheShayzien",
+			1
+		],
+		"forestsOfShayzien",
+		[
+			"marchOfTheShayzien",
+			2
+		],
+		"onTheFrontline",
+		"ruggedTerrain"
+	],
+	"arcane": [
+		"notAMomentOfRelief",
+		"none",
+		"downByTheDocks",
+		"kourendTheMagnificent",
+		"ruggedTerrain",
+		"dwarvenDomain",
+		"doorsOfDinh"
+	],
+	"notAMomentOfRelief": [
+		[
+			"doorsOfDinh",
+			[
+				"none",
+				1
+			],
+			"soulFall",
+			[
+				"none",
+				2
+			],
+			"arcane"
+		],
+		[
+			[
+				"none",
+				3
+			]
+		]
+	],
+	"soulFall": [
+		"notAMomentOfRelief",
+		"none"
+	],
+	"downByTheDocks": [
+		"arcane",
+		"kourendTheMagnificent",
+		"none"
+	],
+	"burningDesire": [
+		"gettingDownToBusiness",
+		"ruggedTerrain",
+		"none"
+	],
+	"ruggedTerrain": [
+		[
+			"burningDesire",
+			"gettingDownToBusiness",
+			"onTheFrontline",
+			"dwarvenDomain",
+			"outAtTheMines",
+			[
+				"none",
+				1
+			],
+			"forsakenTower",
+			[
+				"none",
+				2
+			]
+		],
+		[
+			[
+				"marchOfTheShayzien",
+				1
+			],
+			"dwarvenDomain",
+			"arcane",
+			"kourendTheMagnificent",
+			"forestsOfShayzien",
+			"militaryLife"
+		],
+		[
+			"overTheMountains",
+			[
+				"none",
+				1
+			],
+			"ascent",
+			[
+				"marchOfTheShayzien",
+				2
+			],
+			[
+				"none",
+				2
+			]
+		]
+	],
+	"forsakenTower": [
+		"ruggedTerrain",
+		"none"
+	],
+	"gettingDownToBusiness": [
+		[
+			"burningDesire",
+			"ruggedTerrain",
+			"onTheFrontline",
+			"servantsOfStrife",
+			"newbieFarming",
+			"none"
+		],
+		[
+			"farmingGuild"
+		]
+	],
+	"farmingGuild": [
+		"gettingDownToBusiness"
+	],
+	"rose": [
+		"gettingDownToBusiness",
+		"burningDesire"
+	],
+	"onTheFrontline": [
+		"gettingDownToBusiness",
+		"ruggedTerrain",
+		"dwarvenDomain",
+		"marchOfTheShayzien",
+		"forestsOfShayzien",
+		"none",
+		"servantsOfStrife"
+	],
+	"marchOfTheShayzien": [
+		[
+			"onTheFrontline",
+			[
+				"dwarvenDomain",
+				2
+			],
+			[
+				"forestsOfShayzien",
+				3
+			]
+		],
+		[
+			[
+				"forestsOfShayzien",
+				2
+			],
+			[
+				"dwarvenDomain",
+				1
+			],
+			[
+				"ruggedTerrain",
+				1
+			],
+			"militaryLife"
+		],
+		[
+			[
+				"ruggedTerrain",
+				2
+			],
+			"ascent",
+			"none",
+			"stuckInTheMire",
+			"none",
+			[
+				"forestsOfShayzien",
+				1
+			],
+			"none"
+		]
+	],
+	"kourendTheMagnificent": [
+		"forlornHomestead",
+		"beyondTheMeadow",
+		"forestsOfShayzien",
+		"ruggedTerrain",
+		"arcane",
+		"downByTheDocks",
+		"none"
+	],
+	"newbieFarming": [
+		"gettingDownToBusiness",
+		"servantsOfStrife",
+		"stuckInTheMire",
+		"none"
+	],
+	"servantsOfStrife": [
+		"stuckInTheMire",
+		"newbieFarming",
+		"gettingDownToBusiness",
+		"onTheFrontline",
+		"none"
+	],
+	"gillBill": [
+		"none"
+	],
+	"forestsOfShayzien": [
+		[
+			"marchOfTheShayzien",
+			1
+		],
+		[
+			"none",
+			1
+		],
+		"onTheFrontline",
+		[
+			"marchOfTheShayzien",
+			2
+		],
+		"dwarvenDomain",
+		[
+			"marchOfTheShayzien",
+			3
+		],
+		"militaryLife",
+		"ruggedTerrain",
+		"kourendTheMagnificent",
+		"beyondTheMeadow",
+		"militia",
+		"aWalkInTheWoods",
+		[
+			"none",
+			2
+		]
+	],
+	"militaryLife": [
+		"forestsOfShayzien",
+		"marchOfTheShayzien",
+		"ruggedTerrain"
+	],
+	"stuckInTheMire": [
+		"newbieFarming",
+		"servantsOfStrife",
+		[
+			"none",
+			1
+		],
+		"marchOfTheShayzien",
+		[
+			"none",
+			2
+		],
+		"ascent",
+		[
+			"none",
+			3
+		]
+	],
+	"desolateMage": [
+		"ascent",
+		"none"
+	],
+	"militia": [
+		"aWalkInTheWoods",
+		"forestsOfShayzien",
+		"beyondTheMeadow"
+	],
+	"beyondTheMeadow": [
+		"aWalkInTheWoods",
+		"militia",
+		"forestsOfShayzien",
+		"kourendTheMagnificent",
+		"forlornHomestead",
+		"countryJig"
+	],
+	"forlornHomestead": [
+		"countryJig",
+		"beyondTheMeadow",
+		"kourendTheMagnificent",
+		"none"
+	],
+	"ascent": [
+		"marchOfTheShayzien",
+		"ruggedTerrain",
+		[
+			"none",
+			1
+		],
+		"stuckInTheMire",
+		[
+			"none",
+			2
+		]
+	],
+	"aWalkInTheWoods": [
+		"forestsOfShayzien",
+		"militia",
+		"beyondTheMeadow"
+	],
+	"countryJig": [
+		[
+			"beyondTheMeadow",
+			"forlornHomestead",
+			[
+				"none",
+				1
+			]
+		],
+		[
+			[
+				"none",
+				2
+			]
+		]
+	],
+	"aldarin": [
+		"mistrock",
+		"none"
+	],
+	"mistrock": [
+		"aldarin",
+		"none"
+	]
+}

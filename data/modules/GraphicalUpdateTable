@@ -1,0 +1,33 @@
+local hc = require('Module:Paramtest').has_content
+local ds = require('Module:$').deserialize
+
+local p = {}
+
+function p._main(args)
+	local cols = hc(args.columns) and args.columns or 3 --sets how many columns wide the table is, defaults to 3
+	local tbl = mw.html.create('table'):addClass('wikitable'):css('text-align', 'center')
+
+	local i = 0	--sets up the row iterator, starting at 0
+	while (args[cols*i + 1]) do --checks if there's any remaining args, if so starts creating a row
+		header = mw.html.create('tr')
+		row = mw.html.create('tr')
+		
+		for j=cols*i+1,cols*(i+1) do --iterates through the set amount of columns, uses math to know which arg to start with
+			if args[j] then
+				header:tag('th'):wikitext(args[j]['name']):done()
+				row:tag('td'):wikitext(args[j]['files']):done()
+			end
+		end
+		tbl:node(header)
+		tbl:node(row)
+		i = i + 1 --incrememnts the row count before starting the row creation over
+	end
+	return tbl
+end
+
+function p.main(frame)
+	local args = ds(frame:getParent().args)
+	return p._main(args)
+end
+
+return p

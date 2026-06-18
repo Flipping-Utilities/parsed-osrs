@@ -1,0 +1,102 @@
+local p = {}
+
+local default = require('Module:Paramtest').default_to
+local geprice = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+local commas = require('Module:Addcommas')._add
+
+local boneTypes = {
+	{name = "Bones", shards = 4},
+	{name = "Bat bones", shards = 5},
+	{name = "Big bones", shards = 12},
+	{name = "Zogre bones", shards = 18},
+	{name = "Wyrmling bones", shards = 21},
+	{name = "Babydragon bones", shards = 24},
+	{name = "Wyrm bones", shards = 42},
+	{name = "Wyvern bones", shards = 58},
+	{name = "Dragon bones", shards = 58},
+	{name = "Drake bones", shards = 64},
+	{name = "Fayrg bones", shards = 67},
+	{name = "Lava dragon bones", shards = 68},
+	{name = "Raurg bones", shards = 77},
+	{name = "Hydra bones", shards = 93},
+	{name = "Dagannoth bones", shards = 100},
+	{name = "Ourg bones", shards = 112},
+	{name = "Superior dragon bones", shards = 121}
+}
+
+function createHeader()
+	local ret = mw.html.create('table'):addClass('wikitable sortable align-center-2'):done()
+	ret:tag('tr')
+  		:tag('th'):wikitext('Item'):attr('colspan', 2):done()
+		:tag('th'):wikitext('Shards/Bone'):done()
+        :tag('th'):wikitext('GP/Bone'):done()
+        :tag('th'):wikitext('XP/Bone'):done()
+        :tag('th'):wikitext('Shards/h'):done()
+        :tag('th'):wikitext('% of time Chiselling'):done()
+        :tag('th'):wikitext('Shards to chisel/h'):done()
+        :tag('th'):wikitext('Wine Runs/h'):done()
+        :tag('th'):wikitext('XP/h'):done()
+        :tag('th'):wikitext('GP/h'):done()
+        :tag('th'):wikitext('GP/XP'):done()
+        :tag('th'):wikitext('Bones Needed'):done()
+        :tag('th'):wikitext('GP Needed'):done()
+	return ret
+end
+
+function p._main(args)
+	local bonesChiselled = tonumber(default(args.bonesChiselled, 3000))
+	local winesPerRun = tonumber(default(args.winesPerRun, 23))
+	local secondsPerRun = tonumber(default(args.secondsPerRun, 120))
+	local totalXPNeeded = tonumber(default(args.totalXPNeeded, 100))
+	local checkboxState = 0
+	if args.sunfireWine == 'yes' then
+		checkboxState = 1
+	end
+	
+	local ret = createHeader()
+	
+    for _, unique in ipairs(boneTypes) do
+    	
+    local price = geprice(unique.name) + 10
+    local shards = unique.shards
+    local shardsperhour = shards * args.bonesChiselled
+    local timespentchiselling = 3600 / ((shardsperhour / (args.winesPerRun * 400) * secondsPerRun) + 3600)
+    local shardstochisel = shardsperhour * timespentchiselling
+    local winerunsperhour = shardstochisel / (400 * winesPerRun)
+    local xpperhour = winerunsperhour * winesPerRun * 400 * (5 + checkboxState)
+    local gpcostperhour = -((shardstochisel / shards * price)+((geprice("Sunfire splinters") * (2 * checkboxState) + geprice("Jug of wine")) * winerunsperhour))
+    local gpperxp = gpcostperhour / xpperhour 
+    local xpperbone = shards * (5 + checkboxState)
+    local bonesneeded = totalXPNeeded / xpperbone
+    local totalgpcost = bonesneeded * price
+    
+    ret:tag('tr')
+        :tag('td'):wikitext(string.format('[[File:%s.png|link=%s]]', unique.name, unique.name)):done()
+        :tag('td'):wikitext(string.format('[[%s]]', unique.name)):done()
+        :tag('td'):wikitext(unique.shards):done()
+		:tag('td'):wikitext(coins(price)):done()
+		:tag('td'):wikitext(xpperbone):done()
+		:tag('td'):wikitext(commas(shardsperhour)):done()
+		:tag('td'):wikitext(string.format('%.3f%%', 100 * timespentchiselling)):done()
+		:tag('td'):wikitext(commas(string.format('%.2f', shardstochisel))):done()
+		:tag('td'):wikitext(string.format('%.2f', winerunsperhour)):done()
+		:tag('td'):wikitext(commas(string.format('%.2f', xpperhour))):done()
+		:tag('td'):wikitext(coins(gpcostperhour)):done()
+		:tag('td'):wikitext(coins(gpperxp)):done()
+		:tag('td'):wikitext(commas(string.format('%.2f', bonesneeded))):done()
+		:tag('td'):wikitext(coins(totalgpcost)):done()
+
+
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame.args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

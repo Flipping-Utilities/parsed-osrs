@@ -1,0 +1,12 @@
+return {
+    itemId     = 993,
+    icon       = 'Sinister key.png',
+    item       = 'Sinister key',
+    value      = 80,
+    limit      = 11000,
+    members    = true,
+    category   = nil,
+    examine    = 'You get a sense of dread from this key.',
+    hialch     = 48,
+    lowalch    = 32
+}

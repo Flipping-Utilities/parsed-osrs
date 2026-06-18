@@ -1,0 +1,674 @@
+local p = {}
+
+-- For calculating experience
+local helpers = require('Module:Skill_calc/Helpers')
+local experience = require('Module:Experience')
+
+-- For rendering the tables
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+local yesno = require('Module:Yesno')
+function nocoins(num)
+	frame = mw.getCurrentFrame()
+	return frame:preprocess('{{Nocoins|' .. num .. '}}')
+end
+
+local data = {
+	-- base xp, air, mind, water, earth, fire, body, cosmic, chaos, astral, nature, law, death, blood, soul
+	{9.39, 0.5, 0.25, 0.12, 0.06, 0.03, 0.015, 0.0085, 0.006, 0.0045, 0.003, 0.0015, 0.0008, 0.0005, 0.0003},
+	{10.52, 0.15, 0.18, 0.21, 0.24, 0.12, 0.06, 0.0175, 0.008, 0.006, 0.004, 0.0024, 0.0012, 0.0006, 0.0004},
+	{11.34, 0.12, 0.13, 0.135, 0.14, 0.15, 0.16, 0.08, 0.042, 0.021, 0.011, 0.0055, 0.0032, 0.0015, 0.0009},
+	{12.27, 0.07, 0.08, 0.09, 0.11, 0.12, 0.13, 0.2, 0.1, 0.05, 0.025, 0.013, 0.006, 0.004, 0.0021},
+	{12.9, 0.06, 0.065, 0.07, 0.075, 0.08, 0.1, 0.15, 0.2, 0.1, 0.05, 0.026, 0.012, 0.008, 0.0041},
+	{13.47, 0.05, 0.055, 0.06, 0.065, 0.07, 0.075, 0.1, 0.11, 0.15, 0.135, 0.07, 0.035, 0.017, 0.0081},
+	{13.63, 0.045, 0.05, 0.055, 0.06, 0.07, 0.075, 0.095, 0.105, 0.14, 0.155, 0.08, 0.04, 0.02, 0.0101},
+	{14.59, 0.03, 0.03, 0.03, 0.04, 0.04, 0.05, 0.07, 0.09, 0.12, 0.15, 0.18, 0.1, 0.05, 0.0201},
+	{14.9, 0.01, 0.01, 0.02, 0.03, 0.09, 0.06, 0.07, 0.08, 0.105, 0.135, 0.145, 0.145, 0.06, 0.0401},
+	{15.35, 0.01, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.1, 0.135, 0.145, 0.165, 0.1, 0.0651},
+	{15.58, 0.01, 0.01, 0.02, 0.03, 0.03, 0.04, 0.05, 0.06, 0.095, 0.135, 0.145, 0.155, 0.13, 0.0901},
+}
+
+-- Capacity using rune pouch and all possible runecraft pouches
+local pouches = {
+	-- level, cumulative capacity, size
+	{1, 26 + 3, 'Small'},
+	{25, 25 + 9, 'Medium'},
+	{50, 24 + 18, 'Large'},
+	{75, 23 + 30, 'Giant'},
+	{85, 26 + 40, 'Colossal'},
+	{999, 1, 'na'},
+}
+
+local runes = {
+	-- rune, xp, diary boost in %
+	{ 'Air rune', 5, 25 },
+	{ 'Mind rune', 5.5, 25 },
+	{ 'Water rune', 6, 25 },
+	{ 'Earth rune', 6.5, 25 },
+	{ 'Fire rune', 7, 25 },
+	{ 'Body rune', 7.5, 25 },
+	{ 'Cosmic rune', 8, 25 },
+	{ 'Chaos rune', 8.5, 25 },
+	{ 'Astral rune', 8.7, 25 },
+	{ 'Nature rune', 9, 22.5 },
+	{ 'Law rune', 9.5, 20 },
+	{ 'Death rune', 10, 17.5 },
+	{ 'Blood rune', 23.8, 15 },
+	{ 'Soul rune', 29.7, 10 },
+}
+
+function p.main(frame)
+	-- Parse the args
+	local args = frame:getParent().args
+	
+	local current = tonumber(args.current)
+	local currentType = args.currentType
+	local target = tonumber(args.target)
+	local targetType = args.targetType
+	local tripSeconds = tonumber(args.tripSeconds)
+	local blockedStorage = tonumber(args.blockedStorage)
+	local diary = yesno(args.diary)
+	local raiments = tonumber(args.raiments)
+	local colossal = yesno(args.colossal)
+	
+	-- Not using a rune pouch means keeping the astral, law, and payment runes
+	-- for 
+	if args.blockedStorage ~= 'true' then
+		runePouch = true
+	end
+	
+	-- If we're targeting a level, we have a hard cap at 99
+	if targetType == 'Level' then
+		target = math.min(target, 99)
+	end
+	
+	-- Update the pouch capacities if we have manually blocked storage (e.g., no rune pouch)
+	if blockedStorage > 0 then
+		for i=1, 5, 1 do
+			pouches[i][2] = pouches[i][2] - blockedStorage
+		end
+	end
+	
+	-- Update the xp rates if we're using Daeyalt essence
+	local essenceType = 'Pure essence'
+	if args.daeyalt == 'true' then
+		essenceType = 'Daeyalt essence'
+		for i=1, 11, 1 do
+			data[i][1] = data[i][1] * 1.5
+		end
+	end
+	
+	-- Get the starting and target XP
+	local bulkLevelInformation = helpers.calculateCurrentGoalInformation(current, currentType, target, targetType)
+	local currentXP = bulkLevelInformation.currentExperience
+	local goalXP = bulkLevelInformation.goalExperience
+	
+	-- Get the total number of actions at each block to achieve the goal
+	local actions = getActions(currentXP, goalXP)
+	
+	-- Get the total number of trips at each pouch block to achieve the goal
+	local trips = getTrips(currentXP, goalXP, colossal)
+	
+	-- This calculates gp and renders the runes crafted table
+	local rcData = renderRunesCrafted(actions,diary,raiments)
+	
+	-- Render the components
+	local summary = renderSummary(essenceType, actions, trips, tripSeconds, rcData['totalGP'])
+	local arTable = renderActionsRequired(actions,diary,raiments)
+	local ptTable = renderPouchTrips(trips, tripSeconds, essenceType)
+	local rcTable = rcData['hTable']
+	
+	-- Combine the tables
+	return finalRender(summary, arTable, ptTable, rcTable)
+end
+
+-- Gets the total number of actions at each block level to achieve the goal
+function getActions(currentXP, targetXP)
+	-- Track the total amount of XP gained
+	local totalXP = 0
+
+	-- The number of actions at each block to achieve our goal
+	local totalActions = 0
+	local actions = {
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+	}
+	
+	-- Make sure we're positive on XP
+	local blockXP = getBlockXP(currentXP, targetXP)
+	if blockXP['xp'] < 0 then
+		return {
+			xp = 0,
+			actions = actions,
+			totalActions = 0
+		}
+	end
+	
+	-- Get the number of actions at each block to gain the goal XP
+	local currentBlock = blockXP['currentBlock']
+	local xpRate = 0
+	for i=currentBlock, 10, 1 do
+		-- Limit the amount of XP needed to the original goal
+		local xp = math.min(targetXP - currentXP, blockXP['xp'])
+		
+		-- We have some XP left, so update the actions for this block
+		if xp > 0 then
+			xpRate = data[currentBlock][1]
+			local blockActions = math.ceil(xp / xpRate)
+			actions[currentBlock] = actions[currentBlock] + blockActions
+			totalActions = totalActions + blockActions
+			local xpGain = math.floor(blockActions * xpRate)
+			totalXP = totalXP + xpGain
+			currentXP = currentXP + xpGain
+		else
+			break
+		end
+		
+		-- We have more XP to grab
+		if currentXP < targetXP then
+			blockXP = getBlockXP(currentXP, targetXP)
+			currentBlock = blockXP['currentBlock']
+			xpRate = data[currentBlock][1]
+		else
+			break
+		end
+	end
+	
+	-- Get the actions remaining in the current block to achieve the goal (for 99+)
+	local remainingXP = math.max(targetXP - currentXP, 0)
+	if remainingXP > 0 then
+		xpRate = data[currentBlock][1]
+		local blockActions = math.ceil(remainingXP / xpRate)
+		local xpGain = math.floor(blockActions * xpRate)
+		totalXP = totalXP + xpGain
+		currentXP = currentXP + xpGain
+		actions[currentBlock] = actions[currentBlock] + blockActions
+		totalActions = totalActions + blockActions
+	end
+	
+	return {
+		xp = totalXP,
+		actions = actions,
+		totalActions = totalActions
+	}
+end
+
+-- Gets the XP required to get to the next ZMI block (every 10 levels, or 99), or the target XP
+function getBlockXP(startingXP, targetXP)
+	if targetXP <= startingXP then
+		return { xp = -1 }
+	end
+	
+	local currentLevel = experience.level_at_xp_unr({args = {startingXP}})
+	local targetLevel = experience.level_at_xp_unr({args = {targetXP}})
+	
+	-- Get the amount of XP to the end of the current block. Level 99 is last block
+	local currentBlock = 10 -- Level 99
+	local blockLevel = 0
+	if currentLevel < 99 then
+		currentBlock = math.floor(currentLevel / 10)
+		blockLevel = math.min((currentBlock + 1) * 10, 99)
+	end
+	
+	-- There is still XP remaining to get to the next block
+	local xp = 0
+	if blockLevel > currentLevel then
+		xp = experience.xp_at_level_unr({args = {blockLevel}}) - startingXP
+	end
+	
+	-- There is no amount of XP that will get us to the next block
+	return { currentBlock = currentBlock + 1, xp = xp }
+end
+
+-- Gets the total number of trips at each pouch level to get the target XP
+function getTrips(startingXP, targetXP, colossal)
+	if targetXP <= startingXP then
+		return {
+			totalTrips = 0,
+			trips = {
+				0,
+				0,
+				0,
+				0,
+				0,
+			}
+		}
+	end
+	
+	-- Track the trips
+	local totalTrips = 0
+	local trips = {
+		0,
+		0,
+		0,
+		0,
+		0,
+	}
+	
+	-- Get the lowest level pouch that can be used
+	local minimumPouchLevel = experience.level_at_xp({args = {startingXP}})
+	minimumPouchLevel = math.floor(minimumPouchLevel / 25) + 1
+	if experience.level_at_xp({args = {startingXP}}) > 84 and colossal then
+		minimumPouchLevel = 5
+	end
+	
+	-- 4 if the colossal pouch is turned of, 5 otherwise
+	local highestPouchLevel = 4 + (colossal and 1 or 0)
+	
+	-- Run through each pouch level, excluding the colossal/giant pouch
+	local currentXP = startingXP
+	for i=minimumPouchLevel, highestPouchLevel, 1 do
+		local pouchTrips = getPouchTrips(currentXP, targetXP, colossal)
+		trips[i] = trips[i] + pouchTrips['trips']
+		totalTrips = totalTrips + pouchTrips['trips']
+		currentXP = pouchTrips['xp']
+		
+		if currentXP == targetXP then
+			break
+		end
+	end
+	
+	if currentXP < targetXP then
+		if 1 == 1 then
+			return 'ERORR'
+		end
+		local pouchTrips = getPouchTrips(currentXP, targetXP, colossal)
+		trips[highestPouchLevel] = trips[highestPouchLevel] + pouchTrips['trips']
+		totalTrips = totalTrips + pouchTrips['trips']
+	end
+	
+	return {
+		trips = trips,
+		totalTrips = totalTrips,
+	}
+end
+
+-- Gets the trips required to get to the next pouch. This will slightly overestimate
+-- the number of trips, due to the fact that it does not track XP on a per-essence
+-- basis, but rather treats all actions within a given trip at the same XP rate.
+-- In the worst case, this will miscalculate by 28 - 53 XP (depending on level).
+-- However, this is minor (<1%) for levels 20+ and negligable (<0.1%) for 40+. 
+function getPouchTrips(startingXP, targetXP, colossal)
+	local currentLevel = experience.level_at_xp({args = {startingXP}})
+	
+	-- Get the current and next pouch details
+	local pouchLevel = math.floor(currentLevel / 25) + 1
+	if experience.level_at_xp({args = {startingXP}}) > 84 and colossal then
+		pouchLevel = 5
+	end
+	local pouch = pouches[pouchLevel]
+	local currentCapacity = pouch[2]
+	local nextPouchLevel = pouches[pouchLevel + 1][1]
+	if pouchLevel == 4 and not colossal then
+		nextPouchLevel = pouches[6][1]
+	end
+	
+	-- Track the trips and xp needed
+	local trips = 0
+	
+	-- Calculate the number of actions for each level
+	local remainingXP = targetXP - startingXP
+	local currentXP = startingXP
+	while currentLevel < nextPouchLevel do
+		-- Get the block xp for the current level
+		local currentBlock = math.floor(currentLevel / 10) + 1
+		if currentLevel == 99 then
+			currentBlock = 11
+		end
+		local xpRate = data[currentBlock][1]
+		
+		-- Get the xp needed to progress
+		local nextLevelXP = experience.xp_at_level_unr({args = {currentLevel + 1}})
+		-- For 99+, xp to next level no longer matters
+		if currentLevel == 99 then
+			nextLevelXP = targetXP
+		end
+		local nextXP = math.min(nextLevelXP, targetXP) - currentXP
+		
+		-- Get the trips needed to progress
+		local currentTrips = math.ceil(nextXP / (xpRate * currentCapacity))
+		trips = trips + currentTrips
+		
+		-- Update current and remaining XP
+		local xp = math.ceil(currentTrips * currentCapacity * xpRate)
+		remainingXP = remainingXP - xp
+		remainingXP = math.max(remainingXP, 0)
+		currentXP = currentXP + xp
+		currentXP = math.min(currentXP, targetXP)
+		
+		-- Update current level
+		local nextCurrentLevel = experience.level_at_xp_unr({args = {currentXP}})
+		if nextCurrentLevel < currentLevel then
+			return 'ERROR: Broken trip level predicate'
+		elseif nextCurrentLevel == currentLevel then
+			break
+		end
+		currentLevel = nextCurrentLevel
+		
+		if remainingXP == 0 then
+			break
+		end
+	end
+	
+	return {
+		trips = trips,
+		xp = currentXP,
+	}
+end
+
+-- Formats the number of seconds into a useful time string
+function formatTime(seconds, asText)
+	local hours = math.floor(seconds / 3600)
+	local minutes = math.floor(seconds / 60) % 60
+	local fSeconds = seconds % 60
+	
+	if asText == true then
+		if hours > 1 then
+			return 'about ' .. commas(hours) .. ' hours'
+		end
+		
+		minutes = minutes + (hours * 60)
+		if minutes > 1 then
+			return 'about ' .. commas(minutes) .. ' minutes'
+		end
+		
+		if seconds == 1 then
+			return '1 second'
+		end
+		
+		return commas(seconds) .. ' seconds'
+	end
+	
+	return string.format('%02d:%02d:%02d', hours, minutes, fSeconds)
+end
+
+-- Renders the summary paragraph
+function renderSummary(essenceType, actions, trips, tripSeconds, totalGP)
+	local totalDuration = tripSeconds * trips['totalTrips']
+	local formattedTime = formatTime(totalDuration, true)
+	
+	-- To prevent NAN due to dividing by zero
+	if totalDuration == 0 then
+		totalDuration = 1
+	end
+	
+	-- Calculate gp and xp per hour
+	local hours = totalDuration / 3600
+	local hourlyGP = math.floor(totalGP / hours)
+	local hourlyXP = math.floor(actions['xp'] / hours)
+	
+	local summary = mw.html.create('p')
+	summary
+		:wikitext(
+			   'It will take '
+			.. commas(actions['totalActions'])
+			.. ' '
+			.. essenceType:lower()
+			.. ' across '
+			.. commas(trips['totalTrips'])
+			.. ' trips to reach your goal. This will take '
+			.. formattedTime
+			.. '. This will earn an average of '
+		)
+		:wikitext(coins(round(hourlyGP)))
+		:wikitext(' per hour and ')
+		:wikitext(round(hourlyXP))
+		:wikitext(' XP per hour.')
+		:done()
+	
+	return summary
+end
+
+-- Renders the Actions Required table
+function renderActionsRequired(actions,diary,raiments)
+	-- Create the table
+	local hTable = mw.html.create('table')
+		:addClass('wikitable sortable sticky-header alternating-rows align-left-1')
+		:attr('style', 'text-align:right;float:left;margin-right:1.5em')
+	
+	-- Add the headers
+	hTable
+		:tag('caption'):wikitext('Actions Required')
+		:tag('tr')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('Actions')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('GP')
+		:done()
+		
+	-- Track the total gp
+	local totalGP = 0
+		
+	-- Add the rows
+	for i=1, 11, 1 do
+		-- Calculate the block range
+		local range = '99'
+		if i < 11 then
+			range = ((i - 1) * 10) .. ' - ' .. ((i * 10) - 1)
+		end
+		
+		-- Calculate the values
+		local blockActions = actions['actions'][i]
+		local xpRate = data[i][1]
+		local xp = math.floor(blockActions * xpRate)
+		
+		-- Calculate the gp
+		local rowGP = 0
+		local rowDiaryGP = 0
+		for r=1, 14, 1 do
+			local crafted = blockActions * data[i][r + 1]
+			local gp = crafted * gePrices[runes[r][1]] * (1+(diary and runes[r][3]/100 or 0)+raiments/10+((raiments == 4) and 0.2 or 0))
+			rowGP = math.floor(rowGP + gp)
+		end
+		totalGP = totalGP + rowGP
+		
+		-- Add the row
+		if blockActions > 0 then
+			hTable:tag('tr')
+				:tag('td'):wikitext(range)
+				:tag('td'):wikitext(commas(blockActions))
+				:tag('td'):wikitext(commas(xp))
+				:tag('td'):wikitext(nocoins(rowGP))
+				:done()
+		end
+	end
+	
+	-- Add the footer
+	hTable:tag('tr')
+		:tag('th')
+			:attr('style', 'text-align:left')
+			:wikitext('Total')
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(commas(actions['totalActions']))
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(commas(actions['xp']))
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(coins(round(totalGP)))
+		:done()
+	
+	return hTable
+end
+
+-- Renders the Pouch Trips table
+function renderPouchTrips(trips, tripSeconds, essenceType)
+	frame = mw.getCurrentFrame()
+	
+	-- Create the table
+	local hTable = mw.html.create('table')
+		:addClass('wikitable sortable sticky-header alternating-rows align-center-1 align-left-2')
+		:attr('style', 'text-align:right')
+	
+	-- Add the headers
+	hTable
+		:tag('caption'):wikitext('Trips')
+		:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Pouch')
+			:tag('th'):wikitext('[[File:Runecraft_icon.png|link=Runecraft]]'):done()
+			:tag('th'):wikitext(frame:preprocess('[[File:' .. essenceType .. '.png|link=' .. essenceType .. ']] <ref>Total essence capacity for a single trip.</ref>'))
+			:tag('th'):wikitext('Trips')
+			:tag('th'):wikitext('Time')
+		:done()
+		
+	-- Add the rows
+	for i=1, 5, 1 do
+		local pouch = pouches[i]
+		local rowTrips = trips['trips'][i]
+		local formattedTime = formatTime(tripSeconds * rowTrips, false)
+			
+		-- Add the row
+		if rowTrips>0 then
+			hTable:tag('tr')
+				:tag('td'):wikitext('[[File:' .. pouch[3] .. ' pouch.png|link=' .. pouch[3] .. ' pouch]]'):done()
+				:tag('td'):wikitext(pouch[3])
+				:tag('td'):wikitext(pouch[1])
+				:tag('td'):wikitext(pouch[2])
+				:tag('td'):wikitext(round(rowTrips))
+				:tag('td'):wikitext(formattedTime)
+				:done()
+			end
+	end
+	
+	local totalTime = formatTime(tripSeconds * trips['totalTrips'], false)
+	
+	-- Add the footer
+	hTable:tag('tr')
+		:tag('th')
+			:attr('colspan', 4)
+			:attr('style', 'text-align:left')
+			:wikitext('Total')
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(round(trips['totalTrips']))
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(totalTime)
+		:done()
+		
+	-- Wrap the table in a floated div so we can have the reflist underneath it
+	local div = mw.html.create('div'):attr('style', 'float:left')
+		:node(hTable)
+		:wikitext(frame:preprocess('{{Reflist}}'))
+		:done()
+		
+	return div
+end
+
+-- Renders the Runes Crafted table
+function renderRunesCrafted(actions,diary,raiments)
+	frame = mw.getCurrentFrame()
+	
+	-- Create the table
+	local hTable = mw.html.create('table')
+		:addClass('wikitable sortable sticky-header alternating-rows align-center-1 align-left-2')
+		:attr('style', 'text-align:right')
+	
+	-- Add the headers
+	hTable
+		:tag('caption'):wikitext('Runes Crafted')
+		:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Rune')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('%')
+			:tag('th'):wikitext('Crafted')
+			:tag('th'):wikitext('GP')
+		:done()
+		
+	-- We will be adding cells to each rune row showing the relative percent
+	-- of all runes crafted for that rune. As this relies on knowing the total
+	-- crafted, which can't be known at this time, we will be saving a reference
+	-- to them so we can update later.
+	local runeRatios = {}
+		
+	-- Add the rows
+	local totalCrafted = 0
+	local totalGP = 0
+	for r=1, 14, 1 do
+		local rune = runes[r]
+	
+		-- Calculate the crafted runes
+		local crafted = 0
+		for i=1, 11, 1 do
+			local blockActions = actions['actions'][i]
+			crafted = crafted + (blockActions * data[i][r + 1]) * (1+(diary and runes[r][3]/100 or 0)+raiments/10+((raiments == 4) and 0.2 or 0))
+		end
+		totalCrafted = totalCrafted + crafted
+		
+		-- Get the prices
+		local gp = crafted * gePrices[rune[1]]
+		totalGP = totalGP + gp
+		
+		-- Keep a reference to the ratio cells so we can update it later
+		local ratioCell = mw.html.create('td')
+		table.insert(runeRatios, { ratioCell, crafted })
+			
+		-- Add the row
+		hTable:tag('tr')
+			:tag('td'):wikitext('[[File:' .. rune[1] .. '.png|link=' .. rune[1] .. ']]'):done()
+			:tag('td'):wikitext(rune[1])
+			:tag('td'):wikitext(round(crafted * rune[2]))
+			:node(ratioCell)
+			:tag('td'):wikitext(round(crafted))
+			:tag('td'):wikitext(nocoins(round(gp)))
+			:done()
+	end
+	
+	-- Update the ratios
+	for i=1, 14, 1 do
+		local cell = runeRatios[i][1]
+		local ratio = (runeRatios[i][2] / totalCrafted) * 100
+		
+		cell:wikitext(string.format('%0.2f%%', ratio))
+	end
+	
+	-- Add the footer
+	hTable:tag('tr')
+		:tag('th')
+			:attr('colspan', 4)
+			:attr('style', 'text-align:left')
+			:wikitext('Total')
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(round(totalCrafted))
+		:tag('th')
+			:attr('style', 'text-align:right')
+			:wikitext(coins(round(totalGP)))
+		:done()
+	
+	return {
+		hTable = hTable,
+		totalGP = totalGP,
+	}
+end
+
+function round(num)
+	return commas(string.format('%.2f', num))
+end
+
+function finalRender(summary, arTable, ptTable, rcTable)
+	local div = mw.html.create('div')
+	
+	div
+		:node(summary)
+		:node(arTable)
+		:node(ptTable)
+		:node(mw.html.create('br'):attr('style', 'clear:both'):done())
+		:node(rcTable)
+		:done()
+	
+	return tostring(div)
+end
+
+return p

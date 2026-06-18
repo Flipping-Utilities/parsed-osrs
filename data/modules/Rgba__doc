@@ -1,0 +1,43 @@
+{{Documentation}}
+{{Helper module
+|name = Rgba
+|fname1 = <nowiki>new(&nbsp;red, [green|0], [blue|0], [alpha|1]&nbsp;)</nowiki>;; 
+<nowiki>new(&nbsp;hex&nbsp;)</nowiki>
+|ftype1 = number/string, number/nil, number/nil, number/nil
+|fuse1 = Returns a new rgba object. Values <code>red</code>, <code>green</code> and <code>blue</code> are in the range 0-255; <code>alpha</code> is 0-1. It is also possible to give a hex string e.g. <code>#112233</code> or <code>#11223344</code>. 
+When converted to a string with <code>tostring( rgba )</code> it will return a string in the form <code>rgba(r,b,g,a)</code> where r, g, b and a are filled in with numbers.
+|fname2 = rgba:lighten(&nbsp;val&nbsp;)
+|ftype2 = number
+|fuse2 = Returns a new rgba object with its brightness changed. 1 is no change, 0 is complete black, 2 is double brightness, 1.1 is 10% more, 0.5 is halve, etc.
+|fname3 = rgba:darken(&nbsp;val&nbsp;)
+|ftype3 = number
+|fuse3 = Returns a new rgba object with its brightness changed. 1 is no change, 0 is complete white, 2 is halve brightness, 1.1 is 10% darker, 0.5 is double brightness, etc.
+|fname4 = rgba:hueRotate(&nbsp;num&nbsp;)
+|ftype4 = number
+|fuse4 = Returns a new rgba object with its hue <code>num</code> degrees rotated. Decimal values are allowed.
+|fname5 = rgba:saturate(&nbsp;val&nbsp;)
+|ftype5 = number
+|fuse5 = Returns a new rgba object with its saturation changed. 1 is no change, 0 is greyscale, 2 is double saturation, 1.5 is 50% more, etc.
+|fname6 = rgba:fade(&nbsp;val&nbsp;)
+|ftype6 = number
+|fuse6 = Returns a new rgba object with its alpha value set to <code>val</code>. <code>val</code> is clipped to the range 0-1.
+|fname7 = rgba:clone()
+|ftype7 = N/A
+|fuse7 = Returns a copy with the same values.
+|example = 
+<syntaxhighlight lang='lua'>
+local rgba = require( 'Module:Rgba' )
+
+local color1 = rgba.new( 126, 20, 6 )
+mw.log( color1 ) --> 'rgba(126,20,6,1)'
+mw.log( color1:lighten( 1.3 ) ) --> 'rgba(164,26,8,1)'
+mw.log( color1:darken( 1.3 ) ) --> 'rgba(97,15,5,1)'
+mw.log( color1:hueRotate( 50 ) ) --> 'rgba(126,120,6,1)'
+mw.log( color1:saturate( 1.1 ) ) --> 'rgba(132,15,0,1)'
+mw.log( color1:fade( 0.3 ) ) --> 'rgba(126,20,6,0.3)'
+
+local color2 = color1:lighten( 1.3 ):saturate( 1.1 ) -- Operations can be chained
+mw.log( color2 ) --> 'rgba(172,20,0,1)'
+mw.log( color1 ) --> 'rgba(126,20,6,1)' color1 is unchanged
+</syntaxhighlight>
+}}

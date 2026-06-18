@@ -1,0 +1,11 @@
+return {
+	itemId    = 32065,
+	item      = "Large oak hull parts",
+	icon      = 'Large oak hull parts.png',
+    alchable  = true,
+	value     = 3125,
+	limit     = nil,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating an oak hull for larger boats."
+}

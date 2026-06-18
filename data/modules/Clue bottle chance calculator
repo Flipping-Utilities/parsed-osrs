@@ -1,0 +1,97 @@
+local p = {}
+
+local lang = mw.language.getContentLanguage()
+
+local baseChanceArray = {
+	{fish = 'Anglerfish', chance = 78649},
+	{fish = 'Sharks', chance = 82243},
+	{fish = 'Sacred eels', chance = 99000},
+	{fish = 'Lobsters', chance = 116129},
+	{fish = 'Rainbow fish', chance = 137739},
+	{fish = 'Monkfish', chance = 138583},
+	{fish = 'Dark crabs', chance = 149434},
+	{fish = 'Infernal eels', chance = 165000},
+	{fish = 'Karambwan', chance = 170874},
+	{fish = 'Tuna/Swordfish', chance = 257770},
+	{fish = 'Cave eels', chance = 257770},
+	{fish = 'Ruins of Camdozaal', chance = 257770},
+	{fish = 'Pike', chance = 305792},
+	{fish = 'Big net fishing', chance = 1147827},
+	{fish = 'Barbarian fishing', chance = 1280862},
+	{fish = 'Shrimps/Anchovies', chance = 870330},
+	{fish = 'Karambwanji', chance = 443697},
+	{fish = 'Trout/Salmon', chance = 923616},
+	{fish = 'Sardine/Herring', chance = 1056000},
+	{fish = 'Aerial fishing', chance = 636833},
+	{fish = 'Minnows', chance = 977778}
+}
+
+local clueTierArray = {
+    {tier = 'Beginner', modifier = 0.2},
+    {tier = 'Easy', modifier = 1.7},
+    {tier = 'Medium', modifier = 2},
+    {tier = 'Hard', modifier = 3.3},
+    {tier = 'Elite', modifier = 10}
+}
+
+local caTierArray = {
+	['None'] = 0,
+	['Easy'] = 1,
+	['Medium'] = 2,
+	['Hard'] = 3,
+	['Elite+'] = 4
+}
+
+function p.buildTable(denomArray)
+	local ret = mw.html.create('table'):addClass('wikitable sortable align-center-1'):done()
+		ret:tag('tr'):tag('th'):wikitext( 'Fish type(s)'):done()
+			:tag('th'):wikitext('Beginner'):done()
+			:tag('th'):wikitext('Easy'):done()
+			:tag('th'):wikitext('Medium'):done()
+			:tag('th'):wikitext('Hard'):done()
+			:tag('th'):wikitext('Elite'):done()
+	
+	for i, denoms in ipairs(denomArray) do
+		local row = mw.html.create('tr'):tag('th'):wikitext(denoms[1]):done()
+				:tag('td'):attr('data-sort-value',1/denoms[2]):wikitext('1/' .. lang:formatNum(denoms[2])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[3]):wikitext('1/' .. lang:formatNum(denoms[3])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[4]):wikitext('1/' .. lang:formatNum(denoms[4])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[5]):wikitext('1/' .. lang:formatNum(denoms[5])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[6]):wikitext('1/' .. lang:formatNum(denoms[6])):done()
+		ret:node(row)
+	end
+	
+	return ret
+end
+
+function p.getDenom(fishingLevel, clueTier, clueMod, caTier, baseChance)
+	local caModifier = 1
+	if clueTier == 0 then
+		caModifier = 1
+	elseif caTier >= clueTier then 
+		caModifier = 0.95
+	end
+		
+	local firstNum = math.floor(baseChance * caModifier)
+	local ret = math.floor((firstNum / (100 + fishingLevel)) * clueMod)
+	return ret
+end
+
+function p._main(args)
+	local bigTable = {}
+	for _, fishArray in ipairs(baseChanceArray) do
+		local smallTable = {fishArray.fish}
+		for i, clueArray in ipairs(clueTierArray) do
+			table.insert(smallTable, p.getDenom(args.fishingLevel, i-1, clueArray.modifier, caTierArray[args.caTier], fishArray.chance))
+		end
+		table.insert(bigTable, smallTable)
+	end
+	return p.buildTable(bigTable)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

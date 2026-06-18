@@ -1,0 +1,12 @@
+return {
+    itemId     = 20275,
+    icon       = 'Gnomish firelighter.png',
+    item       = 'Gnomish firelighter',
+    value      = 1000,
+    limit      = 40,
+    members    = true,
+    category   = nil,
+    examine    = 'Fill it with firelighters to make pretty fire.',
+    hialch     = 600,
+    lowalch    = 400
+}

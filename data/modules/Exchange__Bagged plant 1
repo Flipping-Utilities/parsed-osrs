@@ -1,0 +1,12 @@
+return {
+    itemId     = 8431,
+    icon       = 'Bagged plant 1.png',
+    item       = 'Bagged plant 1',
+    value      = 1000,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'You can plant this in your garden.',
+    hialch     = 600,
+    lowalch    = 400
+}

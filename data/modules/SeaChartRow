@@ -1,0 +1,230 @@
+local p = {}
+local scp = require("Module:SCP")._main
+local map = require("Module:Map")
+local on_main = require("Module:Mainonly").on_main
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local id = args.id
+	local level = args.level
+	local type = args.type
+	local sea = args.sea
+	local ocean = args.ocean
+	local location = args.location
+	local location2 = args.location2
+	local description = args[1]
+	local hazard = args.hazard
+	local xp = args.xp
+	mw.log(mw.title.getCurrentTitle().fullText)
+	if on_main() and mw.title.getCurrentTitle().fullText == "Sea charting" then
+		bucket('seachart').put{
+			description = description,
+			id = id,
+			level = level,
+			type = type,
+			sea = sea,
+			ocean = ocean,
+			location = location,
+			location2 = location2,
+			hazard = hazard,
+			xp = xp
+		}	
+	end
+	
+	return p._main(description, id, level, type, sea, ocean, location, location2, hazard, xp)
+end
+
+function p._main(description, id, level, type, sea, ocean, location, location2, hazard, xp, mapType, hideOcean, hideType, showTwoLocations)
+	mapType = mapType or "maplink" -- show maplinks by default
+	hideOcean = hideOcean or false -- show ocean by default
+	hideType = hideType or false -- show type by default
+	showTwoLocations = showTwoLocations or false -- show just one location by default
+	
+	local row = mw.html.create('tr'):attr('data-seachartid', id)
+	
+	row:tag('td'):cssText("white-space:nowrap"):wikitext(scp('Sailing', level))
+	
+	if hideType == false then
+		local typeNameMap = {
+			["generic"] = "Captain's log",
+			["spyglass"] = "Spyglass",
+			["current"] = "Current duck",
+			["crate"] = "Crowbar",
+			["weather"] = "Portable weather station",
+			["diving"] = "Fishbowl helmet"
+		}
+		local typeImage = typeNameMap[string.lower(type)] or "Captain's log"
+		row:tag('td'):wikitext("<span class=\"plink-template\">[[File:"..typeImage..".png|22px]]</span>[[Sea_charting#Tools|"..type.."]]")
+	end
+	
+	local descCell = row:tag('td'):wikitext(description)
+	if hazard and hazard ~= '' then
+		descCell:wikitext("<br>Beware of [["..hazard.."]]!");
+	end
+	
+	local seaCell = row:tag('td')
+	if sea and sea ~= '' and string.sub(sea, 1, 5) ~= "Bonus" then
+		seaCell:wikitext("[["..sea.."]]")
+	else
+		seaCell:wikitext(sea)
+	end
+	
+	if hideOcean == false then
+		local oceanCell = row:tag('td')
+		if ocean and ocean ~= '' and ocean ~= "Miscellaneous" then
+			oceanCell:wikitext("[["..ocean.."]]")
+		end
+	end
+	
+	if showTwoLocations == false then
+		mapContent = map.buildMap({type = mapType, mtype = "pin", text = "Map", group = type, desc = description, location});
+		row:tag('td'):wikitext(mapContent)
+	else
+		local pinOne = "desc:"..description..","..location:gsub(",",":") -- location's description will be the task description ()
+		local pinTwo = nil -- no pin for location2 by default
+		if location2 and location2 ~= '' then -- if location2 value exists, add a pin for it
+			pinTwo = "desc:"..type..","..location2:gsub(",",":")..",icon:redPin" -- location2's description will be the task type (weather, currents, etc.), with a red pin instead
+		end
+		mapContent = map.buildMap({type = mapType, mtype = "pin", text = "Map", group = id, pinOne, pinTwo})
+		row:tag('td'):wikitext(mapContent)
+	end
+	
+	local completion_percent = mw.loadJsonData("Module:Sailing/Sea_charting/completion.json")[tonumber(id) + 1]
+	local compCell = row:tag('td')
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 1) then
+			color = "orange"
+		elseif (completion_percent < 10) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		compCell:addClass(string.format('table-bg-%s', color)):wikitext(completion_percent..'%')
+	else
+		compCell:addClass("table-na nohighlight"):cssText('text-align: center'):wikitext('<small>N/A</small>')
+	end
+	
+	return tostring(row)
+end
+
+function p.seaChartOcean(frame)
+	local args = frame:getParent().args
+	local ocean = args.ocean
+	local hideOcean = true
+	local hideType = false
+	local mapType = args.mapType or "maplink"
+	local showTwoLocations = args.showTwoLocations or false
+	
+	local data = bucket('seachart').select(
+		"description",
+		"id",
+		"level",
+		"type",
+		"sea",
+		"ocean",
+		"location",
+		"location2",
+		"hazard",
+		"xp"
+		).where('ocean', ocean)
+		.run()
+	
+	local rows = {}	
+	for _, entry in ipairs(data) do
+		table.insert(rows, p._main(entry.description, entry.id, entry.level, entry.type, entry.sea, entry.ocean, entry.location, entry.location2, entry.hazard, entry.xp, mapType, hideOcean, hideType, showTwoLocations))
+	end
+	
+	return table.concat(rows)
+end
+
+function p.seaChartSea(frame)
+	local args = frame:getParent().args
+	local sea = args.sea
+	local hideOcean = false
+	local hideType = false
+	local mapType = args.mapType or "maplink"
+	local showTwoLocations = args.showTwoLocations or false
+	
+	local data = bucket('seachart').select(
+		"description",
+		"id",
+		"level",
+		"type",
+		"sea",
+		"ocean",
+		"location",
+		"location2",
+		"hazard",
+		"xp"
+		).where('sea', sea)
+		.run()
+	
+	local rows = {}	
+	for _, entry in ipairs(data) do
+		table.insert(rows, p._main(entry.description, entry.id, entry.level, entry.type, entry.sea, entry.ocean, entry.location, entry.location2, entry.hazard, entry.xp, mapType, hideOcean, hideType, showTwoLocations))
+	end
+	
+	return table.concat(rows)
+end
+
+function p.seaChartTypeTwoLocations(frame)
+	local args = frame:getParent().args
+	local type = args.type
+	local hideOcean = false
+	local hideType = true
+	local mapType = args.mapType or "mapframe"
+	local showTwoLocations = true
+	
+	local data = bucket('seachart').select(
+		"description",
+		"id",
+		"level",
+		"type",
+		"sea",
+		"ocean",
+		"location",
+		"location2",
+		"hazard",
+		"xp"
+		).where('type', type)
+		.run()
+	
+	local rows = {}
+	for _, entry in ipairs(data) do
+		table.insert(rows, p._main(entry.description, entry.id, entry.level, entry.type, entry.sea, entry.ocean, entry.location, entry.location2, entry.hazard, entry.xp, mapType, hideOcean, hideType, showTwoLocations))
+	end
+	
+	return table.concat(rows)
+end
+
+function p.legacy(frame)
+	local args = frame:getParent().args
+	local id = args.id or 0
+	local completion_percent = mw.loadJsonData("Module:Sailing/Sea_charting/completion.json")[tonumber(id) + 1]
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 1) then
+			color = "orange"
+		elseif (completion_percent < 10) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		return string.format("class='table-bg-%s | %s%%", color, completion_percent)
+	else
+		return "class='table-na nohighlight' style='text-align: center;' | <small>N/A</small>"
+	end
+end
+
+return p

@@ -1,0 +1,12 @@
+return {
+    itemId     = 12411,
+    icon       = 'Mos le\'harmless teleport.png',
+    item       = 'Mos le\'harmless teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to Mos Le\'Harmless.',
+    hialch     = 6,
+    lowalch    = 4
+}

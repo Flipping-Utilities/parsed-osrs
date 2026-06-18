@@ -1,0 +1,128 @@
+-- <pre>
+local p = {}
+
+local commas = require("Module:Addcommas")._add
+local params = require('Module:Paramtest')
+local currencyImage = require("Module:Currency Image")
+local purge = require("Module:Purge")._purge
+
+function p.getLowestPrice(item)
+    local item = item.args[1]
+   
+    mw.log(string.format('Searching for shops that sell: %s', item))
+	
+    -- Get parsed bucket data
+    local data = p.getData(item)
+
+    -- Create the header of the output
+    local priceData = {}
+
+    -- Create the rows for the output table
+    for _, shop in ipairs(data) do
+    	if string.match(shop.currency, "Coins") then
+            table.insert(priceData, tonumber(shop.sellvalue))
+        end
+    end
+	
+	table.sort(priceData)
+	
+	if priceData[1] == nil then
+		return nil
+	else
+    	return priceData[1]
+    end
+end
+
+function p.getData(itemName)
+    -- Query bucket
+    mw.logObject(itemName)
+    local t1 = os.clock()
+    local data = bucket('storeline')
+    	.select('sold_item','store_sell_price', 'store_currency')
+    	.where('sold_item', itemName)
+    	.run()
+    local t2 = os.clock()
+	
+	if #data == 0 then
+		data = {
+			store_sell_price = 'N/A'
+		}
+	else
+    	mw.log(string.format('Bucket (store locations list): entries: %d, time elapsed: %.3f ms.', #data, (t2 - t1) * 1000))
+	end
+	
+    -- Iterate through each shop instance of item
+    local retData = {}
+    for _, item in ipairs(data) do
+        local dataline = p.processData(item, editbtn)
+    	table.insert(retData, dataline)
+    end
+
+    return retData
+end
+
+function p.processData(item, editbtn)
+    local currency = item['store_currency']
+    local sellvalue = item['store_sell_price'] or ''
+    local sellSortValue = 0
+    
+    if not(sellvalue == 1e10) then
+        sellvalue = tonumber(sellvalue)
+        if sellvalue then
+            sellSortValue = sellvalue
+            sellvalue = commas(sellvalue)
+            local currencyImg = currencyImage(currency, sellSortValue) or ''
+            if(params.has_content(currencyImg)) then
+                currencyImg = string.format('[[File:%s|link=%s]] ', currencyImg, currency)
+                formattedsellvalue = currencyImg .. sellvalue
+            else
+            	formattedsellvalue = sellvalue
+            end
+        else
+            sellvalue = editbtn    -- If sellvalue can't be converted to a number it will default to the edit button
+        end
+    else
+        sellSortValue = sellvalue
+        formattedsellvalue = 'N/A'
+        sellvalue = 'N/A'
+    end
+	
+    return {
+        formattedsellvalue = sellvalue,
+        sellvalue = sellvalue,
+        currency = currency
+    }
+end
+
+function editbutton(title)
+    local link = string.gsub(mw.title.getCurrentTitle():fullUrl("action=edit"), mw.title.getCurrentTitle().fullText, title)
+    link = string.gsub(link, ' ', '_')
+    link = string.format("<span class='plainlinks'>[%s '''?''' (edit)]</span>", link)
+    return link
+end
+
+function ticktime(ticks)
+    if ticks==-1 then
+        return 'unknown'
+    end
+    local ret = ''
+    local days = math.floor(ticks/144000)
+    local hours = math.floor(ticks%144000/6000)
+    local minutes = math.floor(ticks%6000/100)
+    local seconds = ticks%100*0.6
+    if days > 0 then
+        ret = ret .. days .. 'd '
+    end
+    if hours > 0 then
+        ret = ret .. hours .. 'h '
+    end
+    if minutes > 0 then
+        ret = ret .. minutes .. 'm '
+    end
+    if seconds > 0 then
+        ret = ret .. seconds .. 's'
+    end
+    return ret
+end
+
+return p

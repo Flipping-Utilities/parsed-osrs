@@ -1,0 +1,11 @@
+return {
+	itemId    = 31999,
+	item      = "Bronze keel parts",
+	icon      = 'Bronze keel parts.png',
+    alchable  = true,
+	value     = 35,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a bronze keel for a boat."
+}

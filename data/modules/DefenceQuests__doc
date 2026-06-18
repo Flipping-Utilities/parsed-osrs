@@ -1,0 +1,7 @@
+Module to detect quests that grant Defence experience based on their rewards text
+
+{{Helper module|name=DefenceQuests
+|fname1=hasDefenceXP(frame)
+|ftype1=String
+|fuse1=Checks if the provided rewards text includes Defence experience and returns "true" or "false".
+}}

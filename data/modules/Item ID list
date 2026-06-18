@@ -1,0 +1,35 @@
+local IDListUtils = require('Module:IDListUtils')
+
+local p = {}
+
+function p.render()
+	local bucketName = 'item_id'
+	local results = IDListUtils.fetchResults(bucketName)
+
+	local output = {
+		'Total number of items in this table: ' .. #results .. '.',
+		'{| class="sortable wikitable"',
+		'!Item',
+		'![[Bucket:' .. bucketName .. '|Item IDs]]'
+	}
+	
+	table.sort(results, 
+		function(a,b)
+			return a.page_name_sub < b.page_name_sub
+		end
+	)
+
+	for _, result in ipairs(results) do
+		local ids = IDListUtils.linkIds('item', result.id)
+
+		table.insert(output, '|-')
+		table.insert(output, '|[[' .. result.page_name_sub..']]')
+		table.insert(output, '|' .. ids)
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+return p

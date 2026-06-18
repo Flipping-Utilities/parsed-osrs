@@ -1,0 +1,199 @@
+--[=[ <pre>
+-- Implements [Template:Ctg]
+-- Sorts pages into a category more appropriately than pagename alone
+-- Default and custom rules are outlined at [[Template:Category handler/doc]]
+--]=]
+
+local p = {}
+
+local ucf = require('Module:Paramtest').ucfirst
+
+local curpage = mw.title.getCurrentTitle()
+
+function p.main(frame)
+	local ns = curpage.namespace
+
+	-- Just don't bother unless we're in content namespaces
+	if not (ns == 0 or ns == 120 or ns == 116) then
+		return ''
+	end
+
+	local args = frame:getParent().args 
+	local cats = {}
+
+	for _, v in ipairs(args) do
+		local cat_x = {}
+
+		-- Replace underscores with spaces
+		-- Condense and trim white-space; remove new lines (just in case)
+		v = mw.text.trim(v)
+			:gsub('[_%s]+',' ')
+			:gsub('\n','')
+
+		-- Snip category name now, up to the index of the first set of two colons
+		-- If no colons, just use the whole string
+		local cat_n = (v:match('^([^:]+)::') or v)
+				:gsub('[Cc]ategory:%s*','')
+
+		-- Set category name to the name just snipped
+		cat_x.name = cat_n
+
+		-- Page title includes matched text
+		-- Matched text is defined by ::ifmatches[text]
+		-- or if empty, defaults to category name
+		if v:find('::ifmatches') then
+			-- Look for brackets used as delimiters and capture them all
+			local match_set = v:match('::ifmatches(%[[^:]+%])')
+
+			-- If none are found, use the pagename
+			if not match_set then
+				cat_x.ifmatch = {cat_n}
+			else
+				cat_x.ifmatch = {}
+				-- Split match into table, delimited by brackets
+				match_set = mw.text.split(match_set,'[%]%[]+')
+
+				-- Add to match table; only if not blank
+				-- An empty string is created by "[" at the beginning
+				for _, w in ipairs(match_set) do
+					if w:find('%S') then
+						table.insert(cat_x.ifmatch,w)
+					end
+				end
+			end
+
+			-- Iterate through and escape all metacharacters
+			-- Prevents errors when they're passed to string.match() below
+			-- Make everything lowercase
+			for i, w in ipairs(cat_x.ifmatch) do
+				cat_x.ifmatch[i] = w:gsub(
+						-- Chars: - ^ $ * ( ) + ?
+						'([%-^$*()+?])',
+						'%%%1'):lower()
+			end
+		end
+
+		-- Text to strip from the front of the sort
+		-- Can be user defined with ::remove[text]
+		-- Defaults to category name exactly
+		-- Escape metacharacters to prevent errors when they're passed to string.match() below
+		cat_x.trim = string.gsub(
+				v:match('::remove%[%s*([^]:]+)%s*%]') or
+					cat_n,
+					-- Chars: - ^ $ * ( ) + ?
+					'([%-^$*()+?])',
+					'%%%1')
+
+		-- Add category and its rules into the list
+		table.insert(cats,cat_x)
+	end
+
+	return p._main(cats)
+end
+
+function p._main(cat_list)
+	-- Pagename, exactly, in all lowercase, and escaped (used for matching)
+	local pagename = curpage.text
+	local pagelc = pagename:lower()
+	local pageesc = pagelc:gsub(
+				-- Chars: - ^ $ * ( ) + ?
+				'([%-^$*()+?])',
+				'%%%1')
+	-- Return table
+	local ctg = {}
+
+	for _, v in ipairs(cat_list) do
+		-- Category name and in lowercase
+		local cn = v.name
+		local cnl = cn:lower()
+		-- Text to remove
+		local rmv = v.trim:lower()
+
+		-- Little thing that checks pagename against everything in the matches table
+		-- If there's no table, keep as false (it won't matter)
+		local pagematches = false
+		if v.ifmatch then
+			for _, w in ipairs(v.ifmatch) do
+				-- Look for exact match, and with faux-singular too
+				if pagelc:find(w) or
+				(w:find('s$') and 
+					pagelc:find(w:match('(.*)s$')))
+				then
+					pagematches = true
+				end
+			end
+		end
+
+		-- Create a second string that counts as the singular of the text to remove
+		-- If it works as a singular, and the page name is singular, then use it too
+		-- Otherwise, just make it the same as rmv
+		local rmvpl = rmv
+		if rmv:find('s$') then
+			rmvpl = rmv:match('(.*)s$')
+			if pagelc:find('^'..rmvpl) and
+			(not pagelc:find('^'..rmv))
+			then
+				-- Nothing
+			else
+				rmvpl = rmv
+			end
+		end
+
+		-- If v.ifmatch is not specified or
+		-- It is and the pattern matches any part of the pagename
+		-- Continue to add categories
+		if (not v.ifmatch) or
+			(v.ifmatch and pagematches)
+		then
+			-- If the pagename matches category name exactly
+			-- Or either is a simple plural of the other
+			-- Or the text to remove exactly
+			-- Sort to front
+			if pagelc:find('^'..cnl..'$') or
+				cnl:find('^'..pageesc..'s$') or
+				pagelc:find('^'..cnl..'s$') or
+				pagelc:find('^'..rmv..'$')
+			then
+				table.insert(ctg,string.format('[[Category:%s| ]]',cn))
+
+			-- If the pagename begins with the category name
+			-- Sort with beginning remove
+			elseif pagelc:find('^'..rmv) or 
+				pagelc:find('^'..rmvpl)
+			then
+				-- Offset by an extra character if it's not plural
+				-- Or the page starts with plural
+				if rmvpl == rmv then
+					offset = 1
+				else
+					offset = 0
+				end
+
+				-- Unescape metacharacters for proper length
+				local key = pagename:sub( #(rmv:gsub('%%','')) + offset )
+
+				key = ucf(mw.text.trim(key))
+
+				-- Remove punctuation from start if leftover
+				-- Such as "/" leftover on subpages
+				-- Or "(" for disambiguated pages
+				if key:find('^%p') then
+					key = ucf(key:sub(2))
+				-- Just in case, remove "s" preceding punctuation
+				elseif key:find('^S%p') then
+					key = ucf(key:sub(3))
+				end
+
+				table.insert(ctg,string.format('[[Category:%s|%s]]',cn,key))
+
+			-- Everything else just gets the category added plainly
+			else
+				table.insert(ctg,string.format('[[Category:%s]]',cn))
+			end
+		end
+	end
+
+	return table.concat(ctg)
+end
+
+return p

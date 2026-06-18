@@ -1,0 +1,377 @@
+-- <nowiki>
+local p = {}
+local chart = require( 'Module:Chart data' )
+
+function p.line()
+    local plot = chart.newChart{ type = 'line' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Line chart' )
+        :setXLabel( 'x axis label' )
+        :setYLabel( 'y axis label' )
+    plot.options.fill = true
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        set.data = { i^2, (i+1)^2, (i+2)^2, (i+3^2), (i+4)^2 }
+        set.label = 'Set ' .. i
+        set.borderDash = {5, 5}
+    end
+
+    local labels = {}
+
+    for i = 1, 5 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return 'Prefix text message' .. plot .. 'Affix text message'
+end
+
+function p.bar()
+    local plot = chart.newChart{ type = 'bar' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Bar chart' )
+        :setXLabel( 'x axis label' )
+        :setYLabel( 'y axis label' )
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.horizontalBar()
+    local plot = chart.newChart{ type = 'bar' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'HorizontalBar chart' )
+        :setXLabel( 'x axis label' )
+        :setYLabel( 'y axis label' )
+        :flipXY() -- This is the important line
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.radar()
+    local plot = chart.newChart{ type = 'radar' }
+        :setDimensions( '10vw', nil, 300, nil, true ) -- Radar chart is always square. height = width
+        :setTitle( 'Radar chart' )
+        :setRadialLimits( 0, 5 )
+
+    for i = 1, 5 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j*(math.random()+1) ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 3 then
+            set.fill = true
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.pie()
+    local plot = chart.newChart{ type = 'pie' }
+        :setDimensions( '10vw', nil, 300, nil, true ) -- Pie chart is always square. height = width
+        :setTitle( 'Pie chart' )
+
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.doughnut()
+    local plot = chart.newChart{ type = 'doughnut' }
+        :setDimensions( '10vw', nil, 300, nil, true ) -- doughnut chart is always square. height = width
+        :setTitle( 'Doughnut chart' )
+
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.polarArea()
+    local plot = chart.newChart{ type = 'polarArea' }
+        :setDimensions( '10vw', nil, 300, nil, true ) -- polarArea chart is always square. height = width
+        :setTitle( 'PolarArea chart' )
+
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.bubble()
+    local plot = chart.newChart{ type = 'bubble' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Bubble chart' )
+        :setXLabel( 'x axis label' )
+        :setYLabel( 'y axis label' )
+
+    for i = 1, 5 do
+        local set = plot:newDataSet()
+        for j = 1, 5 do
+            set:addDataPoint{ x = math.random() * 10, y = math.random() * 20, r = math.random() * 15 + 5 }
+        end
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.scatter()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Scatter chart' )
+        :setXLabel( 'x axis label' )
+        :setYLabel( 'y axis label' )
+        :setYAxisType( 'logarithmic' )
+
+    for i = 1, 5 do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return (math.sin( x/5 ) * 5 + x)^i end, 0, 100 )
+        set.label = 'Set ' .. i
+
+        if i == 2 then
+            set.fill = '+2'
+        end
+    end
+
+    return plot
+end
+
+function p.colorQualitative()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Qualitative' )
+    plot.options.colorPallet = chart.colorPallets.qualitative
+
+    for i = 1, #plot.options.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.colorBlue()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Blue' )
+    plot.options.colorPallet = chart.colorPallets.blue
+
+    for i = 1, #plot.options.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.colorGreen()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Green' )
+    plot.options.colorPallet = chart.colorPallets.green
+
+    for i = 1, #plot.options.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.colorBlueGreen()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'BlueGreen' )
+    plot.options.colorPallet = chart.colorPallets.blueGreen
+
+    for i = 1, #plot.options.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.colorOrange()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Orange' )
+    plot.options.colorPallet = chart.colorPallets.orange
+
+    for i = 1, #plot.options.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.colorOverflow()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Color overflow' )
+        :showLegend( false )
+
+    plot.options.colorPallet = chart.colorPallets.orange
+
+    for i = 1, 25 do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.customColorPallet()
+    local plot = chart.newChart{ type = 'scatter' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Custom color pallet' )
+    plot.options.colorPallet = {
+        chart.rgba.new( 0, 0, 0 ),
+        chart.rgba.new( 126, 0, 0 ),
+        chart.rgba.new( 0, 126, 0 ),
+        chart.rgba.new( 0, 0, 126 ),
+        chart.rgba.new( 255, 0, 0 ),
+        chart.rgba.new( 0, 255, 0 ),
+        chart.rgba.new( 0, 0, 255 ),
+    }
+
+    for i = 1, #plot.options.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot
+end
+
+function p.colorOptions()
+    local plot = chart.newChart{ type = 'bar' }
+        :setDimensions( '10vw', '10vh', 300, 300, true )
+        :setTitle( 'Color options' )
+    plot:setOptions{
+        backgroundAlpha = 0.8,
+        hoverLightenValue = 0.5,
+        hoverAlpha = 0.4,
+        hoverSaturateValue = 1.5,
+    }
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+function p.getFunctionText( frame )
+    local funcName = frame.args[1]
+    local text = mw.title.new('Module:Chart data/doc examples'):getContent()
+    local funcText = string.match( text, '\n(function p.' .. funcName .. '.-\nend)' )
+    return mw.getCurrentFrame():extensionTag( 'syntaxhighlight', funcText, {lang='lua'} )
+end
+
+return p
+-- </nowiki>

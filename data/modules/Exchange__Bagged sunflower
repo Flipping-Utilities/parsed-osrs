@@ -1,0 +1,12 @@
+return {
+    itemId     = 8457,
+    icon       = 'Bagged sunflower.png',
+    item       = 'Bagged sunflower',
+    value      = 5000,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'You can plant this in your garden.',
+    hialch     = 3000,
+    lowalch    = 2000
+}

@@ -1,0 +1,13 @@
+{{Documentation}}
+{{Helper module
+|name = PageListTools
+|fname1 = pagelistchecks(pages, [logging])
+|ftype1 = table, boolean/nil
+|fuse1 =  Given a list of pages, this function returns lists of pages that are either non-existing (invalid), redirects or duplicates.
+|fname2 = pageswithcatsdpl(cats, [logging])
+|ftype2 = table, boolean/nil
+|fuse2 = Returns a list of pages with the specified categories. Uses DPL.<br/>Each entry can consist of several categories AND-ed together with '&'.
+|fname3 = pageswithconditionsdpl(conditions, [logging])
+|ftype3 = table, boolean/nil
+|fuse3 = Returns a list of pages that satisfies the given DPL conditions.
+}}

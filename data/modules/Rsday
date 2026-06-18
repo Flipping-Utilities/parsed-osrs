@@ -1,0 +1,84 @@
+local p = {}
+
+local hc = require('Module:Paramtest').has_content
+local yn = require('Module:Yesno')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local lang = mw.getContentLanguage()
+	
+	local z,l
+	if hc(args[1]) then
+		z = lang:formatDate('z', args[1])
+		l = lang:formatDate('L', args[1])
+	else
+		z = lang:formatDate('z')
+		l = lang:formatDate('L')
+	end
+	
+	local rs = p._main(z, l)
+	
+	if yn(args.nolink, false) then
+		return rs
+	else
+		return string.format('[[Calendar|%s]]', rs)
+	end
+end
+
+-- calculation/module entry point
+-- params
+--		z	day of the year (jan 1 = 0) ({{#time:z}})
+--		l	1 if a leap year, 0 otherwise ({{#time:L}})
+--	both identical to #time parser function usage, use mw.language:formatDate, as above
+-- output
+--		string of the current RuneScape day, per [[Calendar]]
+
+function p._main(z, l)
+	z = tonumber(z)
+	l = tonumber(l)
+	-- Rintra: 1 Jan - 8 Feb; z=0..38
+	if z < 39 then
+		return (z+1) .. ' Rintra'
+	elseif z < 59 then
+		-- Moevyng: 9 Feb - 18 Mar, leap day in the middle
+		-- split: 9-28 Feb; z=39..58
+		return (z+1 -39) .. ' Moevyng'
+	elseif l == 1 and z == 59 then
+		-- Moevyng day: 29 Feb
+		return 'Moevyng Day'
+	end
+	-- now we can remove the leap day from z
+	z = z - l
+	if z < 77 then
+		-- Moevyng part 2: 1-18 Mar; z=59..76
+		return (z+1 -39) .. ' Moevyng'
+	elseif z < 109 then
+		-- Bennath: 19 Mar - 19 Apr; z=77..108
+		return (z+1 - 77) .. ' Bennath'
+	elseif z < 143 then
+		-- Raktuber: 20 Apr - 23 May; z=109-142
+		return (z+1 - 109) .. ' Raktuber'
+	elseif z < 181 then
+		-- Pentember: 24 May - 30 Jun; z=143..180
+		return (z+1 - 143) .. ' Pentember'
+	elseif z < 212 then
+		-- Fentuary: 1 Jul - 31 Jul; z=181..211
+		return (z+1 - 181) .. ' Fentuary'
+	elseif z < 250 then
+		-- Septober: 1 Aug - 7 Sep; z=212..249
+		return (z+1 - 212) .. ' Septober'
+	elseif z < 290 then
+		-- Ire of Phyrrys: 8 Sep - 17 Oct; z=250..289
+		return (z+1 - 250) .. ' Ire of Phyrrys'
+	elseif z < 329 then
+		-- Novtumber: 18 Oct - 25 Nov; z=290..328
+		return (z+1 - 290) .. ' Novtumber'
+	elseif z < 365 then
+		-- Wintumber: 26 Nov - 31 Dec; z=329..364
+		return (z+1 - 329) .. ' Wintumber'
+	end
+	return "''Unable to calculate date''"
+end
+
+
+return p

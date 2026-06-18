@@ -1,0 +1,80 @@
+-- <pre>
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	-- return tag
+	local ret = mw.html.create('div')
+				:addClass('seealso')
+
+	local params = {}
+	local ttl = 0
+
+	-- noplayer
+	local hasplayer = true
+
+	-- collect and count arguments
+	for _, v in ipairs(args) do
+		if string.lower(v) == 'noplayer' then
+			hasplayer = false
+		elseif string.lower(v) ~= 'player' then
+			ttl = ttl + 1
+			table.insert(params,v)
+		end
+	end
+	-- increase count if player
+	if hasplayer then
+		ttl = ttl + 1
+	end
+
+	-- main return text
+	ret:wikitext('This transcript involves dialogue with ')
+
+	-- for all arguments
+	for i, v in ipairs(params) do
+		-- add links
+		if i < ttl and ttl > 1 then
+			ret:wikitext('[['..v..']]')
+		-- if last link
+		elseif i == ttl then
+			-- if only link
+			if ttl == 1 then
+				ret:wikitext('[['..v..']]')
+			-- if final link
+			else
+				ret:wikitext(' and [['..v..']]')
+			end
+		end
+
+		-- if more to come, add commas
+		if i < ttl and ttl > 2 then
+			ret:wikitext(', ')
+		end
+	end
+
+	-- add player
+	if hasplayer then
+		if ttl == 1 then
+			ret:wikitext('[[Player character|the player]]')
+		else
+			ret:wikitext(' and [[Player character|the player]]')
+		end
+	end
+
+	-- period
+	ret:wikitext('.')
+	
+	-- transcript npcs property
+	if mw.title.getCurrentTitle().namespace == 120 then
+		npcs = {}
+		for _, v in ipairs(params) do
+			table.insert(npcs,string.match(v, "[^%|]+"))
+		end
+		bucket('transcript').put({npcs=npcs})
+	end
+
+	return ret
+end
+
+return p

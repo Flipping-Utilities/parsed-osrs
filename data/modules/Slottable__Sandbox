@@ -1,0 +1,1219 @@
+local p = {}
+
+require('Module:Mw.html extension')
+
+local yesNo = require('Module:Yesno')
+local paramTest = require('Module:Paramtest')
+local contains = require('Module:Array').contains
+local minimum = require('Module:Array').min
+local editbtn = require('Module:Edit button')
+
+local memberOptions = {'members', 'f2p', 'all'}
+local slotOptions = {'head', 'cape', 'neck', 'ammo', 'weapon', 'shield', 'body', 'legs', 'hands', 'feet', 'ring', '2h'}
+local statOptions = {'astab', 'aslash', 'acrush', 'amagic', 'arange', 'dstab', 'dslash', 'dcrush', 'dmagic', 'drange', 'str', 'rstr', 'mdmg', 'prayer'}
+
+function statFormat(_arg, default)
+	local arg = tonumber(_arg)
+	if(not arg) then return (default or _arg) end
+	if(arg < 0) then return tostring(arg) end
+	return '+' .. arg
+end
+
+function buildRow(item, attackSpeedColumn, uim)
+	local row = mw.html.create('tr')
+		:tag('td'):wikitext(item.image and '[[' .. item.image .. '|link=|' .. item.name .. ']]' or ''):done()
+		:tag('td'):wikitext('[[' .. item.name .. ']]'):done()
+		:tag('td'):wikitext(item.members and '[[File:Member icon.png|link=|Members]]' or '[[File:Free-to-play icon.png|link=|Free-to-play]]'):done()
+
+	for _, stat in ipairs(statOptions) do
+		local statNum = tonumber(item[stat])
+		row:tag('td'):wikitext((statFormat(item[stat]) or editbtn("'''?''' (edit)", item.name)) .. (stat == 'mdmg' and '%' or ''))
+			:addClassIf(statNum and (statNum > 0), 'table-positive')
+			:addClassIf(statNum and (statNum < 0), 'table-negative')
+	end
+	
+	local weightNum = tonumber(item.weight)
+	row:tag('td'):wikitext(item.weight)
+
+	if(attackSpeedColumn) then
+		if((item.speed == nil) or (item.speed < 0)) then
+			row:tag('td'):addClass('table-na nohighlight'):css('text-align', 'center'):wikitext('<small>N/A</small>')
+		else
+			row:tag('td'):wikitext(item.speed):done()
+		end
+	end
+	
+	if(uim) then
+		local storeability = 'Shop'
+		if(item.emote) then
+			storeability = 'STASH'
+		elseif(item.costume) then
+			storeability = 'POH'
+		end
+		row:tag('td'):wikitext(storeability):done()
+	end
+
+	return row
+end
+
+function createHeader(slotName, attackSpeedColumn, uim)
+	local tabl = mw.html.create('table'):addClass('wikitable lighttable sortable sticky-header align-center-1 align-left-2 align-center-3 align-right-4 align-right-5 align-right-6 align-right-7 align-right-8 align-right-9 align-right-10 align-right-11 align-right-12 align-right-13 align-right-14 align-right-15 align-right-16 align-right-17 align-center-18'):done()
+	local header = tabl:tag('tr')
+	header:tag('th'):attr('colspan', '2'):wikitext('Name'):done()
+		:tag('th'):wikitext('[[File:Member icon.png|link=|Members]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White dagger.png|link=|Stab attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White scimitar.png|link=|Slash attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White warhammer.png|link=|Crush attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Magic icon.png|link=|Magic attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Ranged icon.png|link=|Ranged attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White dagger.png|link=|Stab defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White scimitar.png|link=|Slash defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White warhammer.png|link=|Crush defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Magic icon.png|link=|Magic defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Ranged icon.png|link=|Ranged defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Strength icon.png|link=|Strength]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Ranged Strength icon.png|link=|Ranged Strength]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Magic Damage icon.png|link=|Magic Damage]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Prayer icon.png|link=|Prayer]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Weight icon.png|link=|Weight]]'):done()
+		
+	if(attackSpeedColumn) then
+		header:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Watch.png|link=|Speed]]'):done()
+	end
+	
+	if(uim) then
+		header:tag('th'):wikitext('[[File:Marble magic wardrobe icon.png|link=]]Stored/Buy'):done()
+	end
+	
+	return tabl
+end
+
+function filterData(data, slotName, options)
+
+	if(slotName == 'ammo') then slotName = 'Ammunition' end -- hacky shit until ammo/ammunition is resolved
+	slotCat =  paramTest.ucfirst(slotName) .. ' slot items'
+	if slotName == '2h' then
+		slotCat = 'Two-handed slot items'
+	end
+	
+	
+	local pagesToExclude = {
+		-- weapon slot --
+		"Falconer's glove",
+		"Ancient gorilla greegree",
+		"Bearded gorilla greegree",
+		"Gorilla greegree",
+		"Karamjan monkey greegree",
+		"Kruk monkey greegree",
+		"Ninja monkey greegree (medium)",
+		"Ninja monkey greegree (small)",
+		"Zombie monkey greegree (big)",
+		"Zombie monkey greegree (small)",
+		"Monkey talisman",
+		"Bronze staff of collection",
+		"Iron staff of collection",
+		"Steel staff of collection",
+		"Black staff of collection",
+		"Mithril staff of collection",
+		"Adamant staff of collection",
+		"Rune staff of collection",
+		"Dragon staff of collection",
+		"Gilded staff of collection",
+		"Blade of saeldor (c) (Iorwerth)",
+		"Blade of saeldor (c) (Trahaearn)",
+		"Blade of saeldor (c) (Cadarn)",
+		"Blade of saeldor (c) (Crwys)",
+		"Blade of saeldor (c) (Meilyr)",
+		"Blade of saeldor (c) (Amlodd)",
+		"Blade of saeldor (c) (Ithell)",
+		"Dragon hunter crossbow (b)",
+		"Dragon hunter crossbow (t)",
+		"Rune scimitar (guthix)",
+		"Rune scimitar (saradomin)",
+		"Rune scimitar (zamorak)",
+		"Peaceful handegg",
+		"Holy handegg",
+		"Chaotic handegg",
+		"Lunar staff - pt3",
+		"Lunar staff - pt2",
+		"Lunar staff - pt1",
+		"Banner (Arrav)",
+		"Banner (Asgarnia)",
+		"Banner (Dorgeshuun)",
+		"Banner (Dragon)",
+		"Banner (Fairy)",
+		"Banner (Guthix)",
+		"Banner (HAM)",
+		"Banner (Horse)",
+		"Banner (Jogre)",
+		"Banner (Kandarin)",
+		"Banner (Misthalin)",
+		"Banner (Money)",
+		"Banner (Saradomin)",
+		"Banner (Skull)",
+		"Banner (Varrock)",
+		"Banner (Zamorak)",
+		"Assorted flowers",
+		"Black flowers",
+		"Blue flowers",
+		"Mixed flowers",
+		"Orange flowers",
+		"Purple flowers",
+		"Red flowers",
+		"White flowers",
+		"Yellow flowers",
+		"Cutthroat flag",
+		"Gilded smile flag",
+		"Bronze fist flag",
+		"Lucky shot flag",
+		"Treasure flag",
+		"Phasmatys flag",
+		"Anger battleaxe",
+		"Anger mace",
+		"Anger sword",
+		"Gnomeball",
+		"Lyre",
+		"Enchanted lyre#Uncharged",
+		"Mouse toy",
+		"Cursed goblin staff",
+		"Cursed goblin hammer",
+		"Mud pie",
+		"Trollweiss",
+		"Snowball",
+		"Gilded scimitar",
+		"Green banner",
+		"Killer's knife",
+		"Heat-proof vessel",
+		"Fox (Recruitment Drive)",
+		"Golden tench",
+		"Cormorant's glove",
+		"Imbued tephra",
+		"Crystal grail",
+		"Enchanted lyre(i)",
+		"Severed leg",
+		"Bruma torch",
+		"Stale baguette",
+		"Dragon scimitar (or)",
+		"Undead chicken (item)	Members",
+		-- ammo --
+		"Terrifying charm",
+		"Hallowed grapple",
+		"Mith grapple",
+		-- body --
+		"Bomber jacket",
+		"Brown apron",
+		"Builder's shirt",
+		"Camo top",
+		"Medical gown",
+		"Goblin mail",
+		"Royal frog tunic",
+		"Mime top",
+		"Slave shirt",
+		"White apron",
+		"Lederhosen top",
+		"Royal frog blouse",
+		"Mourner top",
+		"Desert top",
+		"Desert top (overcoat)",
+		"Prospector jacket",
+		"Black desert shirt",
+		"Tribal top (brown)",
+		"Tribal top (pink)",
+		"Tribal top (yellow)",
+		"Tribal top (blue)",
+		"Stripy pirate shirt (beige)",
+		"Stripy pirate shirt (red)",
+		"Stripy pirate shirt (blue)",
+		"Stripy pirate shirt (brown)",
+		"Orange goblin mail",
+		"Blue goblin mail",
+		"Woven top (blue)",
+		"Shirt (lilac)",
+		"Angler top",
+		"Menaphite red top",
+		"Menaphite purple top",
+		"Deadman's chest",
+		"Blue naval shirt",
+		"Green naval shirt",
+		"Brown naval shirt",
+		"Red naval shirt",
+		"Black naval shirt",
+		"Purple naval shirt",
+		"Grey naval shirt",
+		"Farmer's jacket",
+		"Farmer's shirt",
+		"Pink goblin mail",
+		"Evil chicken wings",
+		"Pyromancer garb",
+		"Shirt (brown)",
+		"Red goblin mail",
+		"Woven top (brown)",
+		"Woven top (yellow)",
+		"Shirt (yellow)",
+		"Yellow goblin mail",
+		"Green goblin mail",
+		"Purple goblin mail",
+		"Black goblin mail",
+		"Elven top (yellow)",
+		"Elven top (white vest)",
+		"Elven top (yellow vest)",
+		"Elven top (white)",
+		"Vyre noble top",
+		"Vyre noble blazer (red)",
+		"Vyre noble blazer (purple)",
+		"Vyre noble blazer (grey)",
+		"Vyre noble vest (red)",
+		"Vyre noble vest (purple)",
+		"Vyre noble vest (grey)",
+		"Vyre noble corset (red)",
+		"Vyre noble corset (purple)",
+		"Vyre noble corset (grey)",
+		"Vyre noble dress top (red)",
+		"Vyre noble dress top (purple)",
+		"Vyre noble dress top (grey)",
+		"Carpenter's shirt",
+		"Beekeeper's top",
+		"Golden prospector jacket",
+		"Spirit angler top",
+		"White goblin mail",
+		"Robe top of the eye",
+		"Smiths tunic",
+		"Adventurer's top (t1)",
+		"Adventurer's top (t2)",
+		"Adventurer's top (t3)",
+		"Crystal body (Amlodd)",
+		"Crystal body (Cadarn)",
+		"Crystal body (Crwys)",
+		"Crystal body (Hefin)",
+		"Crystal body (Iorwerth)",
+		"Crystal body (Ithell)",
+		"Crystal body (Trahaearn)",
+		"Forestry top",
+		"Alchemist labcoat",
+		"Butler's uniform (top)",
+		"Emissary robe top",
+		"Prison uniform top",
+		"Fishy prison uniform top",
+		"Storm cruiser's coat",
+		"Storm cruiser's trousers",
+		"Swamp cruiser's jacket",
+		"Crystal glider's jacket",
+		"25th anniversary skeleton tabard",
+		"25th anniversary warrior tabard",
+		"Desert shirt",
+		"Zombie shirt",
+		"Plague jacket",
+		"Lumberjack top",
+		--cape--
+		"Diving apparatus",
+		"Clockwork suit",
+		"Mourner cloak",
+		"Eagle cape",
+		"Explorer backpack",
+		"Deadman's cape",
+		"Monkey (Monkey Madness II)",
+		"Sack of presents",
+		"Champion's cape",
+		"Snow imp costume tail",
+		"Xeric's guard",
+		"Xeric's warrior",
+		"Xeric's sentinel",
+		"Xeric's general",
+		"Xeric's champion",
+		"Sinhaza shroud tier 1",
+		"Sinhaza shroud tier 2",
+		"Sinhaza shroud tier 3",
+		"Sinhaza shroud tier 4",
+		"Sinhaza shroud tier 5",
+		"Grain (Recruitment Drive)",
+		"Scroll sack",
+		"Jester cape",
+		"Shoulder parrot",
+		"Wolf cloak	Wolf cloak",
+		"Thieving bag",
+		"Victor's cape (1)",
+		"Victor's cape (10)",
+		"Victor's cape (100)",
+		"Victor's cape (50)",
+		"Victor's cape (1000)",
+		"Victor's cape (500)",
+		"Karamjan monkey (item)",
+		"Zombie monkey (item)",
+		"Maniacal monkey (item)",
+		"Skeleton monkey (item)",
+		"Kruk jr",
+		"Princely monkey",
+		"Blue cape (Soul Wars)",
+		"Red cape (Soul Wars)",
+		"20th anniversary cape",
+		"Bronze coffin",
+		"Steel coffin",
+		"Black coffin",
+		"Silver coffin",
+		"Gold coffin",
+		"Clan cloak",
+		"Lost bag",
+		"Icthlarin's shroud (tier 1)",
+		"Icthlarin's shroud (tier 2)",
+		"Icthlarin's shroud (tier 3)",
+		"Icthlarin's shroud (tier 4)",
+		"Icthlarin's shroud (tier 5)",
+		"Infinite money bag",
+		"Cloak of ruin",
+		"Adventurer's cape",
+		"Witch cape",
+		"Sack of coal",
+		"Santa's list",
+		"10th birthday cape",
+		"Gnome child backpack",
+		"Forestry kit",
+		"Log basket",
+		"Forestry basket",
+		"Cobweb cape",
+		"Web cloak",
+		"Pheasant cape",
+		"Dizana's quiver#Broken",
+		"Dizana's quiver#Charged + Locked",
+		"Dizana's quiver#Uncharged + Locked",
+		"Rainbow cape",
+		"",
+		"Classic imp tail",
+		"Deep sea apparatus",
+		"Zamorak cloak (Castle Wars)",
+		"Deep sea apparatus (The Red Reef)",
+		-- feet--
+		"Builder's boots",
+		"Desert boots",
+		"Gardening boots",
+		"Shoes",
+		"Slave boots",
+		"Zombie boots",
+		"Pirate boots",
+		"Prospector boots",
+		"Villager sandals (blue)",
+		"Villager sandals (yellow)",
+		"Villager sandals (pink)",
+		"Villager sandals (brown)",
+		"Angler boots",
+		"Farmer's boots",
+		"Evil chicken feet",
+		"Pyromancer boots",
+		"Elven boots",
+		"Vyre noble shoes",
+		"Carpenter's boots",
+		"Beekeeper's boots",
+		"Golden prospector boots",
+		"Boots of the eye",
+		"Smiths boots",
+		"Adventurer's boots (t1)",
+		"Adventurer's boots (t2)",
+		"Adventurer's boots (t3)",
+		"Forestry boots",
+		"Pheasant boots",
+		"Guild hunter boots",
+		"Emissary sandals",
+		"Crystal glider's shoes",
+		"Storm cruiser's shoes",
+		"Swamp cruiser's shoes",
+		"Cow slippers",
+		"Brutus slippers",
+		-- hands --
+		"Bracelet of clay",
+		"Diamond bracelet",
+		"Emerald bracelet",
+		"Gold bracelet",
+		"Mime gloves",
+		"Onyx bracelet",
+		"Ruby bracelet",
+		"Sapphire bracelet",
+		"Dragonstone bracelet",
+		"Zombie gloves",
+		"Villager armband (brown)",
+		"Villager armband (blue)",
+		"Villager armband (yellow)",
+		"Villager armband (pink)",
+		"Zenyte bracelet",
+		"Warm gloves",
+		"Opal bracelet",
+		"Jade bracelet",
+		"Topaz bracelet",
+		"Mining gloves",
+		"Superior mining gloves",
+		"Expert mining gloves",
+		"Flamtaer bracelet",
+		"Beekeeper's gloves",
+		"Elven gloves",
+		"Smiths gloves",
+		"Smiths gloves (i)",
+		"Adventurer's vambraces",
+		"Alchemist gloves",
+		-- head --
+		"Air tiara",
+		"Bedsheet",
+		"Body tiara",
+		"Bomber cap",
+		"Chompy bird hat (bowman)",
+		"Chompy bird hat (bowmaster)",
+		"Camel mask",
+		"Camo helmet",
+		"Chaos tiara",
+		"Chef's hat",
+		"Cosmic tiara",
+		"Death tiara",
+		"Desert disguise",
+		"Chompy bird hat (dragon archer)",
+		"Earmuffs",
+		"Earth tiara",
+		"Chompy bird hat (expert dragon archer)",
+		"Chompy bird hat (expert)",
+		"Chompy bird hat (expert ogre dragon archer)",
+		"Right eye patch",
+		"Fez",
+		"Fire tiara",
+		"Fishbowl helmet",
+		"Chompy bird hat (forester)	Chompy bird hat (forester)",
+		"Gnome goggles",
+		"Hard hat",
+		"Law tiara",
+		"Chompy bird hat (marksman)",
+		"Mime mask",
+		"Mudskipper hat",
+		"Nature tiara",
+		"Chompy bird hat (ogre bowman)",
+		"Chompy bird hat (ogre bowmaster)",
+		"Chompy bird hat (ogre dragon archer)",
+		"Chompy bird hat (ogre expert)",
+		"Chompy bird hat (ogre forester)",
+		"Chompy bird hat (ogre marksman)",
+		"Chompy bird hat (ogre woodsman)",
+		"Chompy bird hat (ogre yeoman)",
+		"Chompy bird hat (woodsman)",
+		"Zombie mask",
+		"Gas mask",
+		"Mind tiara",
+		"Tiara",
+		"Nose peg",
+		"Frog mask",
+		"Facemask",
+		"Lumberjack hat",
+		"Lederhosen hat",
+		"Water tiara",
+		"Cap and goggles",
+		"Fake beak",
+		"Agility hood",
+		"Attack hood",
+		"Construct. hood",
+		"Cooking hood",
+		"Crafting hood",
+		"Defence hood",
+		"Farming hood",
+		"Hitpoints hood",
+		"Slayer hood",
+		"Strength hood",
+		"Ranging hood",
+		"Prayer hood",
+		"Hat eyepatch",
+		"Fedora",
+		"Woodcutting hood",
+		"Nurse hat",
+		"Doctor's hat",
+		"Cavalier mask",
+		"Firemaking hood",
+		"Prospector helmet",
+		"Villager hat (brown)",
+		"Villager hat (blue)",
+		"Villager hat (yellow)",
+		"Villager hat (pink)",
+		"Magic hood",
+		"Fishing hood",
+		"Fletching hood",
+		"Herblore hood",
+		"Hunter hood",
+		"Runecraft hood",
+		"Smithing hood",
+		"Thieving hood",
+		"Mining hood",
+		"Pirate hat",
+		"Pirate hat & patch",
+		"Pirate bandana (white)",
+		"Pirate bandana (red)",
+		"Pirate bandana (blue)",
+		"Pirate bandana (brown)",
+		"Partyhat & specs",
+		"Top hat & monocle",
+		"Greenman mask",
+		"Orange (hat)",
+		"Storm cruiser's hat",
+		"Swamp cruiser's hat",
+		"Crystal glider's hat",
+		"25th anniversary 5x5 hat",
+		"25th anniversary helmet",
+		"Deep sea helmet (The Red Reef)	Deep sea helmet (The Red Reef)",
+		"Sailing hood",
+		"Wolf mask (Death on the Isle)",
+		"Snake mask",
+		"Ram mask",
+		"Jaguar mask",
+		"Emissary hood",
+		"Bird mask",
+		"Prescription goggles",
+		"Araxyte slayer helmet",
+		"Araxyte slayer helmet (i)",
+		"Hooded slayer helmet",
+		"Hooded slayer helmet (i)",
+		"Guild hunter headwear",
+		"Dizana's max hood	Members",
+		"Pheasant hat",
+		"Adventurer's hood (t1)",
+		"Adventurer's hood (t2)",
+		"Adventurer's hood (t3)",
+		"Crystal helm (Amlodd)",
+		"Crystal helm (Cadarn)",
+		"Crystal helm (Crwys)",
+		"Crystal helm (Hefin)",
+		"Crystal helm (Iorwerth)",
+		"Crystal helm (Ithell)",
+		"Crystal helm (Trahaearn)",
+		"Forestry hat",
+		"Masori assembler max hood",
+		"Mask of rebirth",
+		"Icthlarin's hood (tier 5)",
+		"Circlet of water",
+		"Odd spectacles",
+		"Hat of the eye",
+		"Elemental tiara",
+		"Catalytic tiara",
+		"Gold tiara",
+		"Crystal crown (Amlodd)",
+		"Crystal crown (Hefin)",
+		"Crystal crown (Iorwerth)",
+		"Crystal crown (Trahaearn)",
+		"Crystal crown (Cadarn)",
+		"Crystal crown (Crwys)",
+		"Crystal crown (Meilyr)",
+		"Banana hat",
+		"Spirit angler headband",
+		"Golden prospector helmet",
+		"Beekeeper's hat",
+		"Carpenter's helmet",
+		"Mythical max hood",
+		"Crystal crown (Ithell)",
+		"Hydra slayer helmet",
+		"Hydra slayer helmet (i)",
+		"Tribal mask (combat)",
+		"Tribal mask (disease)",
+		"Tribal mask (poison)",
+		"Blood tiara",
+		"Bandana eyepatch (red)",
+		"Bandana eyepatch (brown)",
+		"Bandana eyepatch (white)	Bandana eyepatch (white)",
+		"Bandana eyepatch (blue)",
+		"Assembler max hood",
+		"Turquoise slayer helmet",
+		"Turquoise slayer helmet (i)",
+		"Wrath tiara",
+		"Imbued zamorak max hood",
+		"Imbued guthix max hood",
+		"Imbued saradomin max hood",
+		"Infernal max hood",
+		"Purple slayer helmet",
+		"Purple slayer helmet (i)",
+		"Ardougne max hood",
+		"Pyromancer hood",
+		"Five barrels",
+		"Four barrels",
+		"Three barrels",
+		"Two barrels",
+		"One barrel",
+		"Evil chicken head",
+		"Double eye patch",
+		"Red slayer helmet (i)",
+		"Green slayer helmet (i)",
+		"Black slayer helmet (i)",
+		"Red slayer helmet",
+		"Green slayer helmet",
+		"Black slayer helmet",
+		"Farmer's strawhat",
+		"Blue tricorn hat",
+		"Green tricorn hat",
+		"Red tricorn hat",
+		"Brown tricorn hat",
+		"Black tricorn hat",
+		"Purple tricorn hat",
+		"Grey tricorn hat",
+		"Guthix max hood",
+		"Zamorak max hood",
+		"Accumulator max hood",
+		"Fire max hood",
+		"Saradomin max hood",
+		"Menaphite red hat	Members",
+		"Menaphite purple hat",
+		"Max hood",
+		"Angler hat",
+		"Music hood",
+		"Progress hat",
+		"Achievement diary hood",
+		"Tanzanite helm",
+		"Magma helm",
+		"Pirate bandana (Trouble Brewing)	Pirate bandana (Trouble Brewing)",
+		"Quest point hood",
+		"Chompy bird hat (forester)",
+		-- 2h --
+		"Anger spear",
+		"Boxing gloves",
+		"Beach boxing gloves",
+		"Pet rock",
+		"Fixed device",
+		"Sled",
+		"Pugel",
+		"Crate with zanik",
+		"Oddskull",
+		"Sled (2020 Christmas event)",
+		"Protest banner",
+		"Bow of faerdhinen (c) (Iorwerth)",
+		"Bow of faerdhinen (c) (Trahaearn)",
+		"Bow of faerdhinen (c) (Cadarn)",
+		"Bow of faerdhinen (c) (Crwys)",
+		"Bow of faerdhinen (c) (Meilyr)",
+		"Bow of faerdhinen (c) (Amlodd)",
+		"Bow of faerdhinen (c) (Ithell)",
+		"Preform",
+		"Bronze speedrun trophy",
+		"Giant stopwatch",
+		"Gold speedrun trophy",
+		"Platinum speedrun trophy",
+		"Silver speedrun trophy",
+		"Diamond speedrun trophy",
+		"Butler's tray",
+		"Crate of ship parts (Pandemonium)",
+		"Humphrey Dumphrey",
+		"Crate of looty",
+		"Armadyl godsword (or)",
+		"Bandos godsword (or)",
+		"Saradomin godsword (or)",
+		"Zamorak godsword (or)",
+		-- shield --
+		"Bug lantern",
+		"Plain satchel",
+		"Black satchel",
+		"Gold satchel",
+		"Wooden shield (Weapons rack)",
+		"Damaged book (Bandos)",
+		"Damaged book (Armadyl)",
+		"Damaged book (Ancient)",
+		"Damaged book (Saradomin)",
+		"Damaged book (Zamorak)",
+		"Damaged book (Guthix)",
+		"Green satchel",
+		"Red satchel",
+		"Rune satchel",
+		"Chronicle",
+		"Cruciferous codex",
+		"Chicken (Recruitment Drive)",
+		"Hallowed focus",
+		"Ghommal's hilt 1",
+		"Ghommal's hilt 2",
+		"Ghommal's hilt 3",
+		"Ghommal's hilt 4",
+		"Ghommal's hilt 5",
+		"Ghommal's hilt 6",
+		"Abyssal lantern",
+		"Magic lantern",
+		"Bruma torch (off-hand)",
+		"Collection log (bronze)",
+		"Collection log (iron)",
+		"Collection log (steel)",
+		"Collection log (black)",
+		"Collection log (mithril)",
+		"Collection log (adamant)",
+		"Collection log (rune)",
+		"Collection log (dragon)",
+		"Collection log (gilded)",
+		"Horn of plenty",
+		-- ring --
+		"Diamond ring",
+		"Dragonstone ring",
+		"Gold ring",
+		"Onyx ring",
+		"Ruby ring",
+		"Sapphire ring",
+		"Emerald ring",
+		"Ring of forging",
+		"Opal ring",
+		"Zenyte ring",
+		"'perfect' ring",
+		"Jade ring",
+		"Topaz ring",
+		"Hallowed ring",
+		-- neck --
+		"Amulet of nature",
+		"10th squad sigil",
+		"Binding necklace",
+		"Brass necklace",
+		"Camulet",
+		"Catspeak amulet",
+		"Diamond amulet",
+		"Diamond necklace",
+		"Emerald necklace",
+		"Gnome scarf",
+		"Gold amulet",
+		"Gold necklace",
+		"Onyx necklace",
+		"Ruby amulet",
+		"Sapphire amulet",
+		"Silver necklace",
+		"Skills necklace",
+		"Yin yang amulet",
+		"Crone-made amulet",
+		"M'speak amulet",
+		"Glarial's amulet",
+		"Dragonstone amulet",
+		"Unblessed symbol",
+		"Hazeel's mark",
+		"Onyx amulet",
+		"Ham logo",
+		"Sapphire necklace",
+		"Seal of passage",
+		"Armadyl pendant",
+		"Ruby necklace",
+		"Crystal pendant",
+		"Emerald amulet",
+		"Catspeak amulet(e)",
+		"Dragon necklace",
+		"Pre-nature amulet	Pre-nature amulet",
+		"Clean necklace",
+		"Cat training medal",
+		"'perfect' necklace",
+		"Zenyte amulet",
+		"Zenyte necklace",
+		"Topaz amulet",
+		"Opal necklace",
+		"Jade necklace",
+		"Topaz necklace",
+		"Opal amulet",
+		"Jade amulet",
+		"Drakan's medallion",
+		"Hallowed symbol",
+		"Tarnished locket",
+		"Petal garland",
+		"Cowbell amulet",
+		-- legs --
+		"Builder's trousers",
+		"Camo bottoms",
+		"Desert robe",
+		"Lederhosen shorts",
+		"Royal frog leggings",
+		"Slave robe",
+		"Plague trousers",
+		"Blue skirt",
+		"Desert robes",
+		"Black skirt",
+		"Lumberjack legs",
+		"Royal frog skirt",
+		"Robe of elidinis (bottom)",
+		"Mime legs",
+		"Mourner trousers",
+		"Prospector legs",
+		"Black desert robe",
+		"Desert legs",
+		"Skirt (lilac)",
+		"Skirt (brown)",
+		"Skirt (blue)",
+		"Pirate leggings (beige)",
+		"Pirate leggings (red)",
+		"Pirate leggings (blue)",
+		"Pirate leggings (brown)",
+		"Trousers (lilac)",
+		"Trousers (blue)",
+		"Shorts (blue)",
+		"Trousers (brown)",
+		"Angler waders",
+		"Menaphite red robe",
+		"Menaphite purple robe",
+		"Menaphite red kilt",
+		"Menaphite purple kilt",
+		"Deadman's legs",
+		"Blue navy slacks",
+		"Green navy slacks",
+		"Red navy slacks",
+		"Brown navy slacks",
+		"Black navy slacks",
+		"Purple navy slacks",
+		"Grey navy slacks",
+		"Farmer's boro trousers",
+		"Evil chicken legs",
+		"Pyromancer robe",
+		"Villager robe (brown)",
+		"Villager robe (blue)",
+		"Villager robe (yellow)",
+		"Villager robe (pink)",
+		"Shorts (yellow)",
+		"Elven skirt (yellow)",
+		"Elven skirt (white)",
+		"Elven legwear",
+		"Vyre noble legs",
+		"Vyre noble coat tails (red)",
+		"Vyre noble coat tails (grey)",
+		"Vyre noble coat tails (purple)",
+		"Vyre noble pants (red)",
+		"Vyre noble pants (purple)",
+		"Vyre noble pants (grey)",
+		"Vyre noble skirt (red)",
+		"Vyre noble skirt (purple)",
+		"Vyre noble skirt (grey)",
+		"Vyre noble dress bottom (red)",
+		"Vyre noble dress bottom (purple)",
+		"Vyre noble dress bottom (grey)",
+		"Carpenter's trousers",
+		"Beekeeper's legs",
+		"Golden prospector legs",
+		"Spirit angler waders",
+		"Smiths trousers",
+		"Robe bottoms of the eye",
+		"Adventurer's trousers (t1)",
+		"Adventurer's trousers (t2)",
+		"Adventurer's trousers (t3)",
+		"Crystal legs (Amlodd)",
+		"Crystal legs (Cadarn)",
+		"Crystal legs (Crwys)",
+		"Crystal legs (Iorwerth)",
+		"Crystal legs (Hefin)",
+		"Crystal legs (Ithell",
+		"Crystal legs (Trahaearn)",
+		"Forestry legs",
+		"Pheasant legs",
+		"Guild hunter legs",
+		"Alchemist pants",
+		"Butler's uniform (bottom)",
+		"Emissary robe bottom",
+		"Prison uniform trousers",
+		"Swamp cruiser's trousers",
+		"Crystal glider's trousers",
+	}
+	
+	function split(inputstr, sep)
+    	sep=sep or '%s' local t={}
+    	for field,s in string.gmatch(inputstr, "([^"..sep.."]*)("..sep.."?)") do
+    		table.insert(t,(field:gsub("^%s*(.-)%s*$", "%1")))
+    		table.insert(t,(field:gsub("^%s*(.-)%s*$", "%1")).." (or)")
+    		if s=="" then
+    			return t
+    		end
+    	end
+	end	
+	
+if options.exclude then
+			
+    for _, p in ipairs(split(options.exclude, ';')) do
+    	table.insert(pagesToExclude, p)	
+    end
+end
+
+	local emotePagesToInclude = {}
+	local costumePagesToInclude = {}
+	local soldItems = {}
+	
+	if(options.uim) then
+				local sold = bucket("storeline")
+			.select("infobox_bonuses.page_name")
+			.join("infobox_bonuses", "infobox_bonuses.page_name", "storeline.sold_item")
+			.where("store_stock", ">", 0)
+			.run()
+		
+		for _, i in ipairs(sold) do
+			i = i["infobox_bonuses.page_name"]
+			table.insert(soldItems, i)
+		end
+		
+				local emote = bucket("infobox_bonuses")
+			.select("page_name")
+			.where("Category:Items needed for an emote clue")
+			.where("Category:".. slotCat)
+			.run()
+		
+		for _, i in ipairs(emote) do
+			i = i["page_name"]
+			table.insert(emotePagesToInclude, i)
+		end
+				local costume = bucket("infobox_bonuses")
+			.select("page_name")
+			.where("Category:Items storable in the costume room")
+			.where("Category:".. slotCat)
+			.run()
+		
+		for _, i in ipairs(costume) do
+			i = i["page_name"]
+			table.insert(costumePagesToInclude, i)
+		end
+
+	end
+	
+
+	-- Filter the data
+	local retData = {}
+	
+
+	for _, item in ipairs(data) do 
+		local keep = true
+		
+		if (contains(pagesToExclude, item['variantof'])) or (contains(pagesToExclude, item['name'])) then
+			keep = false
+		end
+	
+		if(options.uim) then
+			if((not (contains(emotePagesToInclude, item['variantof']) or (contains(emotePagesToInclude, item['name'])))) and
+				(not (contains(costumePagesToInclude, item['variantof']) or (contains(costumePagesToInclude, item['name'])))) and
+				(not (contains(soldItems, item['name'])))) then
+				keep = false
+			elseif(contains(costumePagesToInclude, item['variantof']) or (contains(costumePagesToInclude, item['name']))) then
+				item.costume = true
+			elseif(contains(emotePagesToInclude, item['variantof']) or (contains(emotePagesToInclude, item['name']))) then
+				item.emote = true
+			end
+		end
+
+
+		if(keep) then
+			table.insert(retData, item)
+		end
+		
+	end
+	
+	mw.log(string.format('Filter: exclusion list size: %i, start size: %i, end size: %i, removed %i.', #pagesToExclude, #data, #retData, #data - #retData))
+
+	return retData
+end
+
+function loadData(slotName, attackSpeed, members, options)
+	local mapping = {
+        astab = "stab_attack_bonus",
+    	aslash = "slash_attack_bonus",
+    	acrush = "crush_attack_bonus",
+    	amagic = "magic_attack_bonus",
+    	arange = "range_attack_bonus",
+    	dstab = "stab_defence_bonus",
+    	dslash = "slash_defence_bonus",
+    	dcrush = "crush_defence_bonus",
+    	dmagic = "magic_defence_bonus",
+    	drange = "range_defence_bonus",
+    	str = "strength_bonus",
+    	mdmg = "magic_damage_bonus",
+    	rstr = "ranged_strength_bonus",
+    	prayer = "prayer_bonus",
+    	weight = "infobox_item.weight",
+    	image = "infobox_item.image",
+    	members = "infobox_item.is_members_only",
+    	name = "page_name_sub",
+    	variantof = "page_name",
+    	speed = "weapon_attack_speed",
+    	defver = "infobox_item.default_version"
+    }
+		local exclusionListCategories = {
+		{ options.beta,				'Beta items' },
+		{ options.beta,				'Sailing alpha content' },
+		{ options.beta,				'Sailing beta content' },
+		{ options.cache,			'Pages using information from game APIs or cache' },
+		{ options.bounty,			'Bounty Hunter' },
+		{ options.discontinued,		'Discontinued content' },
+		{ options.dmm,				'Deadman seasonal items' },
+		{ options.event,				'Deadman: Armageddon' },
+		{ options.event,				'Deadman: Annihilation' },
+		{ options.event,				'Twisted League' },
+		{ options.event,				'Trailblazer League' },
+		{ options.event,				'Shattered Relics League' },
+		{ options.event,				'Trailblazer Reloaded League' },
+		{ options.event,				'Raging Echoes League' },
+		{ options.event,				'Demonic Pacts League' },
+		{ options.event,				'Grid Master' },
+		{ options.event,				'Event rewards' },
+		{ options.emir,				'Emir\'s Arena' },
+		{ options.failedPoll,		'Pages containing information from failed polls' },
+		{ options.gauntlet,			'The Gauntlet' },
+		{ options.lms,				'Last Man Standing in-game items' },
+		{ options.nz,				'Nightmare Zone' },
+		{ options.castleWars,				'Castle Wars' },
+		{ options.herald,				'Heraldic POH items' },
+		{ nil,				'Port tasks' },
+		}    
+local reverse_mapping = {}
+    
+    local selects = {}
+    for k, v in pairs(mapping) do
+    	table.insert(selects, v)
+    	reverse_mapping[v] = k
+    end
+
+    local b = bucket("infobox_bonuses")
+    	.select(unpack(selects))
+    	.join("infobox_item", "infobox_item.page_name_sub", "infobox_bonuses.page_name_sub")
+    	.where("equipment_slot", slotName)
+		.limit(2000)
+	--	.orderBy("infobox_bonuses.page_name_sub", "ASC")
+	for _, excl in ipairs(exclusionListCategories) do
+		if(not excl[1]) then
+			b.where(bucket.Not("Category:" .. excl[2]))
+		end			
+	end
+   if not options.allVariants then
+    b.where(bucket.Or({"infobox_item.default_version", true}, {"infobox_item.version_anchor", 'Trimmed'}, {"infobox_item.version_anchor", 'Inert'} )) 
+   	end
+	if options.members == 'members' then
+		b.where("infobox_item.is_members_only", true)
+	elseif options.members == 'f2p' then
+		b.where("infobox_item.is_members_only", false)
+		else
+		end
+		
+
+
+
+	local t1 = os.clock()
+	local data = b.run()
+	local t2 = os.clock()
+	assert(data ~= nil and #data > 0, 'Bucket query failed')
+
+	local ret_data = {}
+	for _, item in ipairs(data) do 
+    	local ret_result = {}
+    	for k, v in pairs(item) do
+	    	ret_result[reverse_mapping[k]] = v
+    	end
+    	if ret_result.image and #ret_result.image > 0 then
+    		ret_result.image = ret_result.image[1]
+    	else
+    		ret_result.image = 'File:' .. ret_result.name .. '.png'
+    	end
+    	table.insert(ret_data, ret_result)
+	end
+
+	mw.log(string.format('Bucket: entries %d, time elapsed: %.3f ms.', #data, (t2 - t1) * 1000))
+
+	return ret_data
+end
+
+-- JSON data dump entry-point
+function p.dumpData(frame)
+	local args = frame:getParent().args
+	return p._dumpData(args)
+end
+
+function p._dumpData(args)
+	local slot = args.slot
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+
+	local data = loadData(slot, true)
+
+	-- Tests indicate that JSON pretty-printing increases the size by a factor of 1.78.
+	-- Removing indenting results in an increase in size by a factor of 1.15.
+	-- The latter is a very reasonable trade-off to make the files more wiki-friendly.
+	local prefix = string.format('-- Data for item slot \'%s\' @ %s.\n-- Generated by Module:Slottable, function dumpData()\nreturn mw.text.jsonDecode([=[\n', slot, os.date('%F %T', os.time()))
+	local rawjson = mw.text.jsonEncode(data, mw.text.JSON_PRETTY)
+	local jsondata, subst = rawjson:gsub('\n%s+', '\n')
+	local postfix = '\n]=])\n'
+
+	mw.log(string.format('Dumping JSON data for item slot \'%s\'. Raw size: %d bytes, formatted size: %d bytes (factor: %.2f).', slot, rawjson:len(), jsondata:len(), jsondata:len() / rawjson:len()))
+
+	return prefix .. jsondata .. postfix
+end
+
+
+-- Turtle data dump entry-point
+function p.dumpDataTTL(frame)
+	local args = frame:getParent().args
+	return p._dumpDataTTL(args)
+end
+
+function p._dumpDataTTL(args)
+	local slot = args.slot
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+
+	local data = loadData(slot, true)
+
+    local slot_
+    if(slot == "2h") then
+    	slot_ = "zweihander"
+    else
+    	slot_ = slot
+    end
+
+	local prefix = string.format('# Data for item slot \'%s\' @ %s.\n# Generated by Module:Slottable, function dumpDataTTL()\n\n', slot, os.date('%F %T', os.time()))
+	prefix = prefix .. "@prefix " .. slot_ .. ": <http://oldschool.runescape.wiki/rdf/" .. slot_ .. "/> .\n"
+	prefix = prefix .. "@prefix prop: <http://oldschool.runescape.wiki/rdf/prop/> .\n\n"
+
+	local ttlData = ""
+	for _, i in ipairs(data) do
+		ttlData = ttlData .. slot_ .. ":" .. _ .. " " .. "prop:slot \"" .. slot_ .. "\"; "
+		local outl = {}
+		for k, v in pairs(i) do
+			if((k == "image") or (k == "name") or (k == "variantof")) then
+				table.insert(outl, "prop:" .. k .. " \"" .. tostring(v) .. "\"")
+			else
+				table.insert(outl, "prop:" .. k .. " " .. tostring(v))
+			end
+		end
+		ttlData = ttlData .. table.concat(outl, "; ") .. " .\n"
+	end
+
+	local postfix = '\n\n'
+	mw.log(string.format('Dumping Turtle data for item slot \'%s\'. Size: %d bytes.', slot, ttlData:len()))
+
+	return prefix .. ttlData .. postfix
+end
+
+function p._main(args)
+	local slot = string.lower(paramTest.default_to(args.slot, ''))
+	local members = string.lower(paramTest.default_to(args.members, 'all'))
+
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+	assert(contains(memberOptions, members), 'Invalid members status specified')
+
+	local beta = yesNo(paramTest.default_to(args.beta, false), false)
+	local bounty = yesNo(paramTest.default_to(args.bounty, false), false)
+	local discontinued = yesNo(paramTest.default_to(args.discontinued, false), false)
+	local dmm = yesNo(paramTest.default_to(args.dmm, false), false)
+	local emir = yesNo(paramTest.default_to(args.emir, false), false)
+	local event = yesNo(paramTest.default_to(args.event, false), false)	
+	local failedPoll = yesNo(paramTest.default_to(args.failedpoll, false), false)
+	local gauntlet = yesNo(paramTest.default_to(args.gauntlet, false), false)
+	local lms = yesNo(paramTest.default_to(args.lms, false), false)
+	local quest = yesNo(paramTest.default_to(args.quest, true), true)
+	local nz = yesNo(paramTest.default_to(args.nz, false), false)
+	local allVariants = yesNo(paramTest.default_to(args.allVariants, false), false)
+	local cache = yesNo(paramTest.default_to(args.cache, false), false) 
+	local castleWars = yesNo(paramTest.default_to(args.castleWars, false), false)
+	local exclude = paramTest.default_to(args.exclude, "")
+	
+	-- UIM specific tables, that only display items that can be:
+	--  purchased, stored in the POH, or stored in STASH untsi
+	local uim = yesNo(paramTest.default_to(args.uim, false), false)
+
+	local attackSpeed = false
+	if((slot == '2h') or (slot == 'weapon')) then
+		attackSpeed = true
+	end
+
+	local data = loadData(slot, attackSpeed, members, {members = members, uim = uim, beta = beta, bounty = bounty, discontinued = discontinued, dmm = dmm, emir = emir, event = event, failedPoll = failedPoll, gauntlet = gauntlet, lms = lms, quest = quest, nz = nz, cache = cache, exclude = exclud})
+	data = filterData(data, slot, {uim = uim, allVariants = allVariants})
+
+	
+	local ret = createHeader(slot, attackSpeed, uim)
+	for _, item in ipairs(data) do
+		ret:node(buildRow(item, attackSpeed, uim))
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+--[[ DEBUG
+mw.logObject(p.getData('weapon'))
+p._main({slot='weapon', members='all'})
+p._dumpData({slot='weapon'})
+p._dumpDataTTL({slot='weapon'})
+--]]
+
+return p

@@ -1,0 +1,124 @@
+local p = {}
+
+-- Preload and cache JSON data
+local cachedPrices = mw.loadJsonData('Module:GEPrices/data.json')
+local cachedLimits = mw.loadJsonData('Module:GELimits/data.json')
+local cachedMembers = mw.loadJsonData('Module:GEMembers/data.json')
+local cachedVolumes = mw.loadJsonData('Module:GEVolumes/data.json')
+
+local coins = require('Module:Coins')._amount
+
+-- Create the header of the table
+function createHeader()
+    return '<tr>' ..
+        '<th>Item</th>' ..
+        '<th>Shop Price</th>' ..
+        '<th>GE Price</th>' ..
+        '<th>Profit</th>' ..
+        '<th>ROI%</th>' ..
+        '<th>Shop Stock</th>' ..
+        '<th>Store Price Delta</th>' ..
+        '<th>Limit</th>' ..
+        '<th>Volume</th>' ..
+        '<th>Members</th>' ..
+        '<th>Shop</th>' ..
+    '</tr>'
+end
+
+-- Build a single row in the table
+function buildRow(row)
+    -- Default values for nil fields
+    local item = row.item or "Unknown Item"
+    local price = coins(row.price or 0)
+    local gePrice = coins(row.gePrice or 0)
+    local profit = coins(row.profit or 0)
+    local roi = row.roi or "N/A"
+    local stock = row.stock or "N/A"
+    local delta = row.delta or "N/A"
+    local limit = row.limit or "N/A"
+    local volume = row.volume or "N/A"
+    local membersStr = row.isMembers and '[[File:Member icon.png|link=Members]]' or '[[File:Free-to-play icon.png|link=Free-to-play]]'
+    local store = row.store or "Unknown Store"
+
+    return string.format(
+        '<tr>' ..
+        '<td>[[File:%s.png|link=%s|class=inventory-image]]</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>%s</td>' ..
+        '<td>[[%s|view]]</td>' ..
+        '</tr>',
+        item, item,
+        price,
+        gePrice,
+        profit,
+        roi,
+        stock,
+        delta,
+        limit,
+        volume,
+        membersStr,
+        store
+    )
+end
+
+
+-- Fetch and filter data in manageable chunks
+function getData(currentPage, chunkSize)
+    local offset = currentPage * chunkSize
+    local b = bucket('storeline')
+    	.select('store_currency', 'sold_item', 'store_sell_price', 'sold_by', 'store_stock', 'store_delta', 'store_currency')
+    	.where('store_currency', 'Coins')
+    	.limit(chunkSize)
+    	.offset(offset)
+    local data = b.run() or {}
+    return data
+end
+
+-- Main function to build the table
+function p.main(frame)
+    local args = frame:getParent().args
+    local currentPage = tonumber(args.page) or 0
+    local chunkSize = 5000 -- Number of items to process per page
+
+    local ret = {'<table class="wikitable sortable align-center-1">', createHeader()}
+    local continue = true
+    while continue == true do
+    	local data = getData(currentPage, chunkSize)
+    	if #data < chunkSize then
+    		continue = false
+    	end
+	    for _, item in ipairs(data) do
+	        local row = {
+	            item = item["sold_item"],
+	            store = item["sold_by"],
+	            stock = item["store_stock"],
+	            price = tonumber(item["store_sell_price"]) or 0,
+	            delta = item["store_delta"],
+	            gePrice = cachedPrices[item["sold_item"]],
+	            isMembers = cachedMembers[item["sold_item"]],
+	            limit = cachedLimits[item["sold_item"]],
+	            volume = cachedVolumes[item["sold_item"]]
+	        }
+	
+	        -- Skip invalid or irrelevant items
+	        if row.gePrice and row.price > 0 and row.price < 10000000000 then
+	            row.profit = row.gePrice - row.price
+	            row.roi = row.price > 0 and string.format('%.2f%%', 100 * row.profit / row.price) or '∞'
+	            table.insert(ret, buildRow(row))
+	        end
+	    end
+	    currentPage = currentPage + 1
+    end
+    table.insert(ret, '</table>')
+
+    return table.concat(ret)
+end
+
+return p

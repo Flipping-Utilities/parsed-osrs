@@ -1,0 +1,10 @@
+{{documentation}}
+{{Helper module
+|name = Tables
+|fname1 = _row(row, elts, header)
+|ftype1 = mw.html object, table/string, boolean
+|fuse1 = Adds <code>td</code> or <code>th</code> cells to the html object with the cells data specified by <code>elts</code>. If <code>header</code> = <code>true</code> then all cells added will have the <code>th</code> tag.
+|fname2 = _table(table, data)
+|ftype2 = mw.html object, table
+|fuse2 = Adds <code>tr</code> rows and <code>td</code>/<code>th</code> cells to the html object, the data for the rows and cells is specified by <code>data</code>.
+}}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 109,
+    icon       = 'Dwarf weed potion (unf).png',
+    item       = 'Dwarf weed potion (unf)',
+    value      = 70,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Dwarf Weed potion.',
+    hialch     = 42,
+    lowalch    = 28
+}

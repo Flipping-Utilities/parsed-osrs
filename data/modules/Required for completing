@@ -1,0 +1,162 @@
+--<nowiki>
+-- essentially the inverse of [[Module:Questreq]], though with the option of expanding into other types of reqs (eg achievements - will need bucket work for those though)
+local quests = mw.loadData('Module:Questreq/data')
+local p = {}
+local yesno = require('Module:Yesno')
+
+function _sortFunc(a,b)
+	local _a, _b
+	_a = tostring(a):lower():gsub('^full:', ''):gsub('^started:', '')
+	_b = tostring(b):lower():gsub('^full:', ''):gsub('^started:', '')
+	return _a < _b
+end
+
+function getQuests(q)
+	local qs = {}
+	q = tostring(q)
+	q = q:lower()
+	q = q:gsub('^full:', ''):gsub('^started:', '')
+	for k,v in pairs(quests) do
+		for i,l in ipairs(v['quests']) do
+			local _l = l:gsub('^Full:', ''):gsub('^Started:', '')
+			_l = _l:lower()
+			
+			if q == _l then
+				table.insert(qs, k)
+				break
+			end
+		end
+	end
+	if #qs == 0 then
+		return nil
+	end
+	table.sort(qs, _sortFunc)
+	return qs
+end
+
+function p._getQuests(q, getNested)
+	--[=[
+	-- preserves nesting structure
+	-- saving here in case we want it, but not used
+	function nest(_q)
+		local nqs = getQuests(_q)
+		local r = nil
+		if nqs ~= nil then
+			r = nqs
+			for i,v in ipairs(nqs) do
+				table.insert(nqs, nest(v))
+			end
+		end
+		return r
+	end
+	--]=]
+	-- does not preserve structure
+	local nestedQuests = {}
+	function nest(_q)
+		local nqs = getQuests(_q)
+		local r = nil
+		if nqs ~= nil then
+			r = nqs
+			for i,v in ipairs(nqs) do
+				if not nestedQuests[v] then
+					nestedQuests[v] = true
+					nest(v)
+				end
+			end
+		end
+		return r
+	end
+	local qs = getQuests(q)
+	if qs == nil then
+		return nil
+	end
+	if getNested then
+		nest(q)
+		-- unmark the direct requirements
+		for i,v in ipairs(qs) do
+			nestedQuests[v] = nil
+		end
+		local _nested = {}
+		for k,v in pairs(nestedQuests) do
+			-- remove duplicate 'Full completion of X/Started X' if X is already listed
+			-- usually applies to early quests that are required a lot
+			-- e.g. Desert Treasure is required for Children of Mah in several ways, some of which are direct requirements
+			-- (Desert Treasure -> The Temple at Senntisten -> The Light Within -> Children of Mah)
+			-- and some are through 'Full completion' requirements
+			-- (Desert Treasure -> The Temple at Senntisten -> Ritual of the Mahjarrat -> Koschei's Troubles -> Full:Children of Mah)
+			-- listing both is confusing so remove full/started requirements if the quest is just normally listed
+			if k:find('^Full:') or k:find('^Started') then
+				local _k = k:gsub('^Full:', ''):gsub('^Started:', '')
+				if not nestedQuests[_k] then
+					table.insert(_nested, k)
+				end
+			else
+				table.insert(_nested, k)
+			end
+		end
+		table.sort(_nested, _sortFunc)
+		nestedQuests = _nested
+	else
+		nestedQuests = nil
+	end
+	return qs, nestedQuests
+end
+
+function p._quests(args)
+	local q = args[1] or mw.title.getCurrentTitle().text
+	q = string.gsub(q, "/Quick guide", "")
+	if not quests[q] then
+		return string.format('"%s" is not a recognised quest name.', q)
+	end
+	local qs, indirqs = p._getQuests(q, not yesno(args.noindirect))
+	local ret = {}
+	if qs == nil or #qs == 0 then
+		table.insert(ret, string.format('%s is not currently required for any Quests, Miniquests, or Achievement Diaries.', q))
+	else
+		table.insert(ret, string.format('%s is directly required for the following Quests, Miniquests, and Achievement Diaries:', q))
+		for i,v in ipairs(qs) do
+			local repl, str
+			str = ''
+			v, repl = string.gsub(v, '^Full:', '')
+			if repl > 0 then
+				str = 'Full completion of '
+			end
+			-- doubt this will ever happen but here's support for it anyway
+			v, repl = string.gsub(v, '^Started:', '')
+			if repl > 0 then
+				str = 'Starting '
+			end
+			table.insert(ret, string.format('* %s[[%s]]', str, v))
+		end
+		if indirqs and #indirqs > 0 then
+			table.insert(ret, '')
+			table.insert(ret, '<div class="mw-collapsible mw-collapsed" style="display:inline-block;">It is therefore an indirect requirement for the following Quests, Miniquests, and Achievement Diaries:&nbsp;<div class="mw-collapsible-content">')
+			for i,v in ipairs(indirqs) do
+				local repl, str
+				str = ''
+				v, repl = string.gsub(v, '^Full:', '')
+				if repl > 0 then
+					str = 'Full completion of '
+				end
+				-- doubt this will ever happen but here's support for it anyway
+				v, repl = string.gsub(v, '^Started:', '')
+				if repl > 0 then
+					str = 'Starting '
+				end
+				table.insert(ret, string.format('* %s[[%s]]', str, v))
+			end
+			table.insert(ret, '</div></div>')
+		end
+	end
+	
+	
+	return table.concat(ret, '\n')
+end
+
+function p.quests(frame)
+	return p._quests(frame:getParent().args)
+end
+
+
+return p
+--</nowiki>

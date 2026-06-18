@@ -1,0 +1,232 @@
+local p = {}
+
+local geprice = require('Module:Exchange')._price
+local commas = require('Module:Addcommas')
+local skillpic = require('Module:SCP')._main
+local yesno = require('Module:Yesno')
+local lang = mw.getContentLanguage()
+local trim = mw.text.trim
+
+-- Sorting function for two item objects, first by name, then by sub-text
+function sortItemsByNameSubtext(item1, item2)
+	if (item1.output.name < item2.output.name) then
+		return true
+	elseif (item1.output.name > item2.output.name) then
+		return false
+	else
+		return (item1.output.subtxt or '') < (item2.output.subtxt or '')
+	end
+end
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(args)
+	local materials = {}
+	local materials_lowered = {}
+	
+	if (args == nil) then
+		table.insert(materials, mw.title.getCurrentTitle().text)
+	else
+		local i = 1
+		
+		while args[i] do
+			local arg = trim(args[i])
+			
+			table.insert(materials, arg)
+	    	materials_lowered[arg:lower()] = true
+	    	
+			i = i + 1
+		end
+	end
+
+    -- Fetch data
+    local conds = {}
+    for _, mat in ipairs(materials) do
+    	table.insert(conds, {"uses_material", mat})
+    end
+
+	local t1 = os.clock()
+    local query = bucket("recipe").select("production_json")
+    	.where(bucket.Or(conds))
+
+    local bucket_data =	query.run()
+    local t2 = os.clock()
+
+    if not bucket_data then
+        return 'Failed to find products with those materials - ensure they are spelled correctly. (ERR: no results from Bucket)[[Category:Empty drop lists]]'
+    end
+    
+    mw.log(string.format('Bucket: entries %d, time elapsed: %.3f ms.', #bucket_data, (t2 - t1) * 1000))
+
+    -- Post-process
+    local data = {}
+    for _, e in ipairs(bucket_data) do
+    	if type(e.production_json) == 'string' then
+            local json = mw.text.jsonDecode(e.production_json)
+            if json.output and json.output.name then
+            	table.insert(data, json)
+            end
+    	end
+    end
+    
+    
+    -- Items with different variants (e.g. Divine battlemage potion has (1), (2), (3), (4) variants)
+    -- or methods (e.g. "4-dose oil" vs "3-dose oil" for pyre logs) may not come in sorted, so now do a final alphabetical sort on name, sub-text
+    table.sort(data, sortItemsByNameSubtext)
+
+    -- Render page
+    local t = mw.html.create('table')
+    t:addClass('wikitable sortable products-list mw-collapsible align-center-1 align-center-3 align-center-4 align-center-5')
+    local ttlrow = t:tag('tr')
+        :tag('th')
+            :attr('colspan', '2')
+            :wikitext('Item')
+        :done()
+        :tag('th')
+            :wikitext('Members')
+            :done()
+        :tag('th')
+            :attr('data-sort-type', 'number')
+            :wikitext('Skills')
+        :done()
+        :tag('th')
+            :attr('data-sort-type', 'number')
+            :wikitext('XP')
+        :done()
+        :tag('th')
+            :wikitext('Materials')
+        :done()
+
+    local rows = 0
+
+    -- Render rows
+    for _, item in ipairs(data) do
+        local _found = false
+
+        for _, mat_info in ipairs(item.materials) do
+            if materials_lowered[mat_info.name:lower()] then
+                _found = true
+                break
+            end
+        end
+
+        if _found then
+            local name_str
+
+            if (tonumber(item.output.quantity) or 0) > 1 then
+                name_str = string.format('[[%s]] × %s', item.output.name, commas._add(item.output.quantity))
+            else
+                name_str = string.format('[[%s]]', item.output.name)
+            end
+            
+            if item.output.subtxt then
+            	name_str = string.format('%s <br /><small>(%s)</small>', name_str, item.output.subtxt)	
+            end
+            
+            local member_str
+
+            if item.members then
+				member_str = "[[File:Member icon.png|center|link=Members|alt=Members]]"	
+			else
+				member_str = "[[File:Free-to-play icon.png|center|link=Free-to-play|alt=Free-to-play]]"	
+			end
+		
+            local experience_cell = mw.html.create('td')
+            experience_cell:addClass('plainlist')
+
+            local experience_ul = experience_cell:tag('ul')
+            experience_ul:addClass('skills-list')
+
+            local skills_cell = mw.html.create('td')
+            skills_cell:addClass('plainlist')
+
+            local skills_ul = skills_cell:tag('ul')
+            skills_ul:addClass('skills-list')
+
+            if #item.skills == 0 then
+        		local skill_li = skills_ul:tag('li')
+        		local experience_li = experience_ul:tag('li')
+
+        		experience_cell:addClass('table-na'):css('text-align', 'center')
+        		experience_li:wikitext(string.format('None'))
+        		skills_cell:addClass('table-na'):css('text-align', 'center')
+        		skill_li:wikitext(string.format('None'))
+        	else
+        		for index, v in ipairs(item.skills) do
+            		local skill_li = skills_ul:tag('li')
+            		local experience_li = experience_ul:tag('li')
+            		local stripped_experience = v.experience:gsub(',', '')
+
+            		skill_li
+                        :attr('data-sort-value', index == 1 and v.level or '')
+                        :wikitext(skillpic(lang:ucfirst(v.name), v.level))
+            		experience_li
+                        :attr('data-sort-value', index == 1 and v.experience or '')
+                        :wikitext(tonumber(stripped_experience) ~= nil and skillpic(lang:ucfirst(v.name), commas._add(stripped_experience)) or v.experience)
+        		end
+        	end
+
+            local mats_ul = mw.html.create('ul'):addClass('products-materials')
+
+            local mat_sort_val = nil
+
+            for _, mat_info in ipairs(item.materials) do
+                local mat_li = mats_ul:tag('li')
+                local qty = mat_info.quantity:gsub('%-', '–')
+                local mat_name = mat_info.name
+                local mat_image = mat_info.image or mat_name .. '.png'
+                
+            	for _, mat in ipairs(materials_lowered) do
+            		if mat_name:lower() == mat then
+            			mat_li:addClass('production-selected')
+                	    mat_sort_val = qty
+            		end
+            	end
+
+                if materials_lowered[mat_name:lower()] then
+                    mat_li:addClass('production-selected')
+                	mat_sort_val = qty
+                end
+                
+                if mat_sort_val == nil then
+                	mat_sort_val = qty
+                end
+                
+                local image_txt = string.format('<span style="width:32px; display:inline-block; text-align:center;">[[File:%s|link=%s]]</span>', mat_image, mat_name)
+                mat_li:wikitext(string.format('%s × %s [[%s]]', commas._add(qty), image_txt, mat_name))
+            end
+
+            local prow = t:tag('tr')
+            	:tag('td')
+            		:wikitext(string.format('[[File:%s|class=inventory-image|link=%s]]', item.output.image, item.output.name))
+                :tag('td')
+                	:attr('data-sort-value', item.product)
+                    :wikitext(name_str)
+                :done()
+                :tag('td')
+                	:wikitext(member_str)
+                :node(skills_cell)
+                :node(experience_cell)
+                :tag('td')
+                	:attr('data-sort-value', mat_sort_val)
+                	:addClass('plainlist')
+                    :node(mats_ul)
+                :done()
+            rows = rows + 1
+        end
+    end
+
+    if rows == 0 then
+        return 'Failed to find products with those materials - ensure they are spelled correctly. (ERR: no mats found in results)[[Category:Empty drop lists]]'
+    end
+
+    return t
+end
+
+--[[ DEBUG COPYPASTA
+= p._main({'Mithril bar'})
+--]]
+
+return p

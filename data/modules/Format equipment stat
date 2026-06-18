@@ -1,0 +1,14 @@
+local p = {}
+
+function p.main(frame)
+	return p.format(frame:getParent().args[1])
+end
+
+function p.format(_arg, default)
+	local arg = tonumber(_arg)
+	if not arg then return default or _arg end
+	if arg < 0 then return tostring(arg) end
+	return '+'..arg
+end
+
+return p

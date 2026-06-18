@@ -1,0 +1,23 @@
+{{Documentation}}
+{{Helper module
+|name = Static
+
+|fname1 = n/a
+|ftype1 = 
+|fuse1 = This module returns a table that can store data that persists in between multiple <code><nowiki>{{#Invoke:}}</nowiki></code> calls.
+}}
+
+Example:
+<syntaxhighlight lang='lua'>
+local p = {}
+
+function p.main()
+    local static = require('Module:Static')
+    static.x = (static.x or 0) + 1
+    return static.x
+end
+
+return p
+</syntaxhighlight>
+
+If the above code sample was stored in <code>Module:foo</code>, then <code><nowiki>{{#Invoke:foo|main}} {{#Invoke:foo|main}}</nowiki></code> would result in <code>1 2</code>.

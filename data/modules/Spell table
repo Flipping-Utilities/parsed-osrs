@@ -1,0 +1,75 @@
+local p = {}
+
+local scp = require('Module:SCP')._main
+
+function createHeader()
+	local tabl = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1'):done()
+	local header = tabl:tag('tr')
+	header:tag('th'):attr('colspan', '2'):wikitext('Name')
+	tabl:addClass('align-center-3')
+	header:tag('th'):wikitext('[[File:Member icon.png|link=|Members]]')
+	header:tag('th'):wikitext('Required level')
+	header:tag('th'):wikitext('Magic XP')
+	header:tag('th'):wikitext('Materials used')
+	return tabl
+end
+
+function buildRow(page, members, image, level, spellbook, exp, materials, slayerlevel)
+	local row = mw.html.create('tr')
+	
+	row:tag('td'):wikitext(image)
+	row:tag('td'):wikitext(string.format("[[%s]]", page))
+	
+	if members then
+		row:tag('td'):wikitext('[[File:Member icon.png|link=|Members]]')
+	else
+		row:tag('td'):wikitext('[[File:Free-to-play icon.png|link=|Free-to-play]]')
+	end
+	
+	local level_text = scp("Magic", level, "yes")
+	if slayerlevel and slayerlevel ~= '' then
+		level_text = level_text .. "<br>" .. scp("Slayer", slayerlevel, "yes")
+	end
+	row:tag('td'):wikitext(level_text)
+	
+	row:tag('td'):wikitext(exp)
+	
+	row:tag('td'):wikitext(materials)
+	
+	return row
+end
+
+function p._main(args)
+	local spellbook = mw.text.trim(args.spellbook)
+	
+	local b = bucket("infobox_spell")
+		.select("page_name", "is_members_only", "image", "spellbook", "json")
+		.orderBy("page_name", "ASC")
+		
+	if spellbook then
+		b.where(
+			bucket.Or(
+				{"spellbook", spellbook},
+				{"spellbook", "all"}
+			)
+		)
+	end
+	
+	local data = b.run()
+	
+	local ret = createHeader()
+	
+	for _, r in pairs(data) do
+		local r_json = mw.text.jsonDecode(r.json)
+		ret:node(buildRow(r.page_name, r.is_members_only, r.image, r_json.level, r.spellbook, r_json.exp, r_json.cost, r_json.slayerlevel))
+	end
+	
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

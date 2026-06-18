@@ -1,0 +1,12 @@
+return {
+    itemId     = 4438,
+    icon       = 'Unfired pot lid.png',
+    item       = 'Unfired pot lid',
+    value      = 10,
+    limit      = 100,
+    members    = true,
+    category   = nil,
+    examine    = 'This needs firing, then it should fit on a normal-sized pot.',
+    hialch     = 6,
+    lowalch    = 4
+}

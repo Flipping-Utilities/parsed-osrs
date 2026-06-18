@@ -1,0 +1,53 @@
+local exchange = require('Module:Exchange')
+
+local p = {}
+
+function p.getPages(offset)
+	local dpl_base = [[{{#dpl:
+|namespace = Exchange
+|ordermethod = title
+|format = ,\n@@%%TITLE%%,,
+|offset = %s
+}}]]
+	local pages = {}
+	local dpl = string.format(dpl_base, offset)
+	local r = mw.getCurrentFrame():preprocess(dpl)
+	if string.match(r, "Warning: No results.") then
+		return pages
+	end
+	local split = mw.text.gsplit(r, '@@')
+	for line in split do
+		line = mw.text.trim(line)
+		if line ~= '' then
+			local values = mw.text.split(line, '\n|')
+			local page = table.remove(values, 1)
+			pages[page] = values
+		end
+	end
+	return pages
+end
+
+function p.each(page, data)
+	local limit = exchange._highalch(page, 1)
+	table.insert(data, limit)
+end
+
+function p.main(frame)
+	local offset = frame.args.offset
+	local pages = p.getPages(offset)
+	
+	for page, data in pairs(pages) do
+		p.each(page, data)
+		if #data == 0 then
+			pages[page] = nil
+		end
+		if #data == 1 then
+			pages[page] = data[1]
+		end
+	end
+	
+	local ret = mw.dumpObject(pages):gsub('table#%d+', '')
+	return ret
+end
+
+return p

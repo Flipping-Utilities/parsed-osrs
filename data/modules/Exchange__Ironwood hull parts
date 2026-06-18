@@ -1,0 +1,11 @@
+return {
+	itemId    = 32056,
+	item      = "Ironwood hull parts",
+	icon      = 'Ironwood hull parts.png',
+    alchable  = true,
+	value     = 12500,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating an ironwood hull for a boat."
+}

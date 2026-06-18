@@ -1,0 +1,88 @@
+local tabber = require('Module:Tabber').tabber
+local switch = require('Module:Switch infobox')._main
+local recipe = require('Module:Recipe').main
+
+local p = {}
+
+function p.main(frame)
+	local parent = frame:getParent()
+	local args = parent.args
+	local renderType = string.lower(args['type'] or '')
+	local childParams = {
+		title = frame:getTitle(),
+		args = {} -- contains default args
+	}
+	-- create arrays of args for each tab
+	local tabs = {}
+	local default = {}
+	local i = 1
+	while args['tab'..i] do
+		tabs['tab'..i] = {args['tab'..i], {}}
+		i = i + 1
+	end
+	if not tabs['tab1'] then
+		-- tab1 was not defined; default to just using recipe template
+		return recipe(frame)
+	end
+	for arg, val in pairs(args) do
+		local name = arg:match("^tab%d+")
+		if tabs[arg] then
+			-- do nothing for tab definitions since these were already processed at the start
+		elseif name and tabs[name] then
+			local tab = tabs[name][2]
+			-- trim off "tab1234" from the start and use that arg name to copy the arg value to the tab's values
+			tab[arg:sub(#name+1)] = val
+		else
+			-- just copy the arg directly, since this arg name does not start with "tabN" or the tab is not defined
+			default[arg] = val
+		end
+	end
+
+	local function render(values, defaults)
+		-- first, copy all defaults to the args table
+		for i, v in pairs(defaults) do
+			if not values[i] then
+				values[i] = v
+			end
+		end
+		mw.logObject(values)
+		-- then, render the recipe box with the full set of args
+		local child = parent:newChild({ -- this child is the template call frame
+			title = frame:getTitle(),
+			args = values
+		})
+		return recipe(child:newChild({ -- this child is the #invoke frame, which renders the recipe
+			title = frame:getTitle(),
+			args = values
+		}))
+	end
+	
+	if not tabs['tab2'] then
+		return render(tabs['tab1'][2], default)
+	end
+
+	local tabbers = {}
+	local i = 1
+	while tabs['tab'..i] do
+		local val = tabs['tab'..i]
+		if renderType == "switch" then
+			tabbers['text'..i] = val[1]
+			tabbers['item'..i] = render(val[2], default)
+		else
+			table.insert(tabbers, {
+				val[1],
+				render(val[2], default)
+			})
+		end
+		i = i + 1
+	end
+	if renderType:match("switch") then
+		-- use switch infobox to render tabs
+		return switch(tabbers)
+	else
+		-- default to tabber to render tabs
+		return tabber(tabbers)
+	end
+end
+
+return p

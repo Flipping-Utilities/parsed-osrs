@@ -1,0 +1,59 @@
+local IDListUtils = {}
+
+function IDListUtils.fetchResults(bucketName)
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local batchResults = bucket(bucketName)
+			.select('page_name_sub', 'id')
+			.offset(offset)
+			.limit(batchSize)
+			.run()
+			
+			for _, result in ipairs(batchResults) do
+				if result.id and #result.id > 0 then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #batchResults < batchSize then
+				break;
+			end
+	end
+	
+	return results
+end
+
+-- Given an uncertain list of IDs (either "1, 2" or ["1, 2", "3, 4"]),
+-- return it as a flat string.
+local function flatten(ids)
+	if type(ids) ~= "table" then
+		return ids or ''
+	end
+	return table.concat(ids, ", ")
+end
+
+-- Given an ID, return a URL that will open that exact version of the entity.
+local baseUrl = mw.site.server .. mw.site.scriptPath
+local function directUrl(idType, id)
+	return baseUrl .. '/Special:Lookup?utm_source=wiki&type=' .. idType .. '&id=' .. id
+end
+
+-- Given a type (like "npc") and a list of IDs (like either "1, 2" or ["1, 2", "3, 4"]),
+-- surround each ID with a link to their wiki page.
+function IDListUtils.linkIds(idType, ids)
+	local links = {}
+
+	-- Split by commas and trim whitespace.
+	for id in string.gmatch(flatten(ids), '%s*([^,%s]+)%s*') do
+		table.insert(links, '[' .. directUrl(idType, id) .. ' ' .. id .. ']')
+	end
+
+	return table.concat(links, ', ')
+end
+
+return IDListUtils

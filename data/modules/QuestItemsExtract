@@ -1,0 +1,33 @@
+local p = {}
+
+function p.extractItems(frame)
+    local questPage = frame.args[1]
+    if not questPage then
+        return "Error: Missing quest page name."
+    end
+
+    local title = mw.title.new(questPage)
+    if not title then
+        return "Error: Invalid page name."
+    end
+
+    local text = title:getContent()
+    if not text then
+        return "Error: Page not found or empty."
+    end
+
+    -- Extract the |items= field content inside the Quest details template
+    local items = text:match("{{[Qq]uest details.-|%s*items%s*=(.-)\n|")
+               or text:match("{{[Qq]uest details.-|%s*items%s*=(.-)\n}}")
+
+    if not items then
+        return "No items found for this quest."
+    end
+
+    -- Clean up whitespace on start and end
+    items = mw.text.trim(items)
+
+    return items
+end
+
+return p

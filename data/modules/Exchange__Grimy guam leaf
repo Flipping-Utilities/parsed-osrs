@@ -1,0 +1,12 @@
+return {
+    itemId     = 199,
+    icon       = 'Grimy guam leaf.png',
+    item       = 'Grimy guam leaf',
+    value      = 13,
+    limit      = 13000,
+    members    = true,
+    category   = nil,
+    examine    = 'It needs cleaning.',
+    hialch     = 7,
+    lowalch    = 5
+}

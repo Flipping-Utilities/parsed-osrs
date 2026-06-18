@@ -1,0 +1,12 @@
+return {
+    itemId     = 10008,
+    icon       = 'Box trap.png',
+    item       = 'Box trap',
+    value      = 32,
+    limit      = 250,
+    members    = true,
+    category   = nil,
+    examine    = 'If a creature goes inside, the box should then slam shut.',
+    hialch     = 19,
+    lowalch    = 12
+}

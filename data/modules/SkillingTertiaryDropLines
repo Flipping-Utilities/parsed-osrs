@@ -1,0 +1,181 @@
+local drops_line = require('Module:DropsLine')._main
+local yesno = require('Module:Yesno')
+
+local p = {}
+
+local pets = {
+	mining = 'Rock golem',
+	fishing = 'Heron',
+	woodcutting = 'Beaver'
+}
+
+local containers = {
+	mining = 'Clue geode',
+	fishing = 'Clue bottle',
+	woodcutting = 'Clue nest'
+}
+
+local clue_details = {
+	mining = '{{Section|Clue geode|Rates}}',
+	fishing = '{{Section|Clue bottle|Rates}}',
+	woodcutting = '{{Section|Clue nest|Woodcutting rates}}'
+}
+
+local clue_modifiers = {
+	beginner = 0.2,
+	easy = 1.7,
+	medium = 2,
+	hard = 3.3,
+	elite = 10
+}
+
+function titlecase(str)
+	return str:sub(1,1):upper() .. str:sub(2):lower()
+end
+
+function inverse_clue_rate(clue_tier, base_rate, level, ca)
+	local clue_modifier = clue_modifiers[clue_tier]
+	local ca_modifier = ca and clue_tier ~= 'beginner' and 0.95 or 1
+	return math.floor(math.floor(math.floor(base_rate * 0.7) * ca_modifier) * clue_modifier / (100 + level))
+end
+
+function inverse_pet_rate(base_rate, level)
+	return math.floor(base_rate - 25 * level)
+end
+
+function inverse_key_rate(base_rate)
+	return math.floor(base_rate / 150)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local skill = string.lower(args.skill)
+	local varlamore = yesno(args.varlamore or 'no')
+	local base_rate = args.baserate
+	local min_level = args.minlevel
+	local max_level = args.maxlevel
+	local include_pet = yesno(args.pet or 'yes')
+	local f2p = yesno(args.f2p or 'no')
+
+	local varla_version
+	if args.varlamoreDropVersion == nil then
+		varla_version = 'Varlamore'
+	elseif not yesno(args.varlamoreDropVersion) then
+		varla_version = nil
+	else
+		varla_version = args.varlamoreDropVersion
+	end
+
+	local f2p_note
+	if f2p then
+		f2p_note = frame:expandTemplate{title='(m)'}
+	end
+
+	local pet = pets[skill]
+	local container = containers[skill]
+	local clue_detail_page = clue_details[skill]
+
+	local key_rate = string.format('1/%d', inverse_key_rate(base_rate))
+	local clue_rate_beginner_A = string.format('1/%d', inverse_clue_rate('beginner', base_rate, min_level, false))
+	local clue_rate_beginner_Z = string.format('1/%d', inverse_clue_rate('beginner', base_rate, max_level, true))
+	local clue_rate_easy_A = string.format('1/%d', inverse_clue_rate('easy', base_rate, min_level, false))
+	local clue_rate_easy_Z = string.format('1/%d', inverse_clue_rate('easy', base_rate, max_level, true))
+	local clue_rate_medium_A = string.format('1/%d', inverse_clue_rate('medium', base_rate, min_level, false))
+	local clue_rate_medium_Z = string.format('1/%d', inverse_clue_rate('medium', base_rate, max_level, true))
+	local clue_rate_hard_A = string.format('1/%d', inverse_clue_rate('hard', base_rate, min_level, false))
+	local clue_rate_hard_Z = string.format('1/%d', inverse_clue_rate('hard', base_rate, max_level, true))
+	local clue_rate_elite_A = string.format('1/%d', inverse_clue_rate('elite', base_rate, min_level, false))
+	local clue_rate_elite_Z = string.format('1/%d', inverse_clue_rate('elite', base_rate, max_level, true))
+	local pet_rate_A = string.format('1/%d', inverse_pet_rate(base_rate, min_level))
+	local pet_rate_Z = string.format('1/%d', inverse_pet_rate(base_rate, max_level))
+
+	local key_msg = 'Key halves are only dropped in [[Varlamore]].'
+	local clue_msg = string.format(
+		'The drop rate increases with %s level; see %s for more details.',
+		titlecase(skill),
+		clue_detail_page
+	)
+	local pet_msg = string.format(
+		'The drop rate increases with %s level; see the [[Calculator:Skill pet chance|pet calculator]] for more details.',
+		titlecase(skill)
+	)
+
+	local out_rows = {}
+	table.insert(out_rows, drops_line({
+		name = container .. ' (beginner)',
+		quantity = '1',
+		rarity = clue_rate_beginner_A,
+		altrarity = clue_rate_beginner_Z,
+		altraritydash = 'yes',
+		raritynotes = frame:extensionTag('ref', clue_msg, { group = 'd', name = 'cluecontainer' }),
+		gemw = 'no'
+	}, { dtype = skill }))
+	if varlamore then
+		table.insert(out_rows, drops_line({
+			name = 'Loop half of key (moon key)',
+			quantity = '1',
+			rarity = key_rate,
+			raritynotes = frame:extensionTag('ref', key_msg, { group = 'd' }),
+			gemw = 'no',
+			dropversion = varla_version,
+			leagueRegion = 'Varlamore',
+			namenotes = f2p_note
+		}, { dtype = skill }))
+	end
+	table.insert(out_rows, drops_line({
+		name = container .. ' (easy)',
+		quantity = '1',
+		rarity = clue_rate_easy_A,
+		altrarity = clue_rate_easy_Z,
+		altraritydash = 'yes',
+		raritynotes = frame:extensionTag('ref', nil, { group = 'd', name = 'cluecontainer' }),
+		gemw = 'no',
+		namenotes = f2p_note
+	}, { dtype = skill }))
+	table.insert(out_rows, drops_line({
+		name = container .. ' (medium)',
+		quantity = '1',
+		rarity = clue_rate_medium_A,
+		altrarity = clue_rate_medium_Z,
+		altraritydash = 'yes',
+		raritynotes = frame:extensionTag('ref', nil, { group = 'd', name = 'cluecontainer' }),
+		gemw = 'no',
+		namenotes = f2p_note
+	}, { dtype = skill }))
+	table.insert(out_rows, drops_line({
+		name = container .. ' (hard)',
+		quantity = '1',
+		rarity = clue_rate_hard_A,
+		altrarity = clue_rate_hard_Z,
+		altraritydash = 'yes',
+		raritynotes = frame:extensionTag('ref', nil, { group = 'd', name = 'cluecontainer' }),
+		gemw = 'no',
+		namenotes = f2p_note
+	}, { dtype = skill }))
+	table.insert(out_rows, drops_line({
+		name = container .. ' (elite)',
+		quantity = '1',
+		rarity = clue_rate_elite_A,
+		altrarity = clue_rate_elite_Z,
+		altraritydash = 'yes',
+		raritynotes = frame:extensionTag('ref', nil, { group = 'd', name = 'cluecontainer' }),
+		gemw = 'no',
+		namenotes = f2p_note
+	}, { dtype = skill }))
+	if include_pet then
+		table.insert(out_rows, drops_line({
+			name = pet,
+			quantity = '1',
+			rarity = pet_rate_A,
+			altrarity = pet_rate_Z,
+			altraritydash = 'yes',
+			raritynotes = frame:extensionTag('ref', pet_msg, { group = 'd' }),
+			gemw = 'no',
+			namenotes = f2p_note
+		}, { dtype = skill }))
+	end
+
+	return table.concat(out_rows, '\n')
+end
+
+return p

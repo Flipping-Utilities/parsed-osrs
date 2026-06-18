@@ -1,0 +1,237 @@
+-- <nowiki>
+-- Implements {{Forumheader}}
+--
+-- @todo make types and closures easier on the eye
+-- @todo add notice to archive old forums to catch when we undelete old forums that aren't archived
+--
+-- Categories added by this module:
+-- > [[Category:Redwood Grove]]
+-- > [[Category:Active threads]]
+-- > [[Category:Forums excluded from the main page]]
+-- > [[Category:Forum archives/$type]]
+-- > [[Category:Forum archives with invalid type parameter]]
+-- > [[Category:Forum archives with missing type parameter]]
+-- > [[Category:Forum archives by date closed]]
+-- > [[Category:Forum archives by month/$year]]
+-- > [[Category:Forum archives with missing date parameter]]
+-- > [[Category:Forum archives with missing name parameter]]
+-- > [[Category:Forum archives with missing subject parameter]]
+-- > [[Category:Forum archives with invalid closure parameter]]
+-- > [[Category:Forum archives with missing closure parameter]]
+--
+
+local p = {}
+local lang = mw.getContentLanguage()
+local title = mw.title.getCurrentTitle()
+local yesno = require('Module:Yesno')
+
+-- list of type aliases
+local types = {
+    community = {
+        community = true,
+        comm = true
+    },
+    content = {
+        content = true
+    },
+    discussion = {
+        discussion = true,
+        discuss = true,
+        disc = true
+    },
+    miscellaneous = {
+        miscellaneous = true,
+        misc = true
+    },
+    policy = {
+        policy = true
+    },
+    technical = {
+        technical = true,
+        tech = true
+    },
+    ['user-related'] = {
+        ['user-related'] = true,
+        ['user related'] = true,
+        user = true
+    },
+    ['clan chat'] = {
+        ['clan chat'] = true,
+        clan = true
+    },
+    meta = {
+        meta = true
+    }
+}
+
+-- list of closure aliases
+local closures = {
+    allow = {
+        allow = true
+    },
+    disallow = {
+        disallow = true
+    },
+    ['no consensus'] = {
+        ['no consensus'] = true,
+        consensus = true,
+        ['no con'] = true
+    },
+    withdrawn = {
+        withdrawn = true,
+        with = true
+    },
+    ['no proposal'] = {
+        ['no proposal'] = true,
+        proposal = true
+    },
+    ['no formal closure'] = {
+        ['no formal closure'] = true,
+        ['no closure'] = true,
+        none = true
+    }
+}
+
+--
+-- Output archive notice
+--
+-- @todo convert {{Archive}} to a module
+--
+local function archived(frame, args)
+    local ret = ''
+
+    if yesno(args.archive) then
+        ret = '{{Archive|date=' .. (args.date  or '') ..  '|user=' .. (args.user or '') .. '}}'
+        ret = frame:preprocess(ret)
+    end
+
+    return ret
+end
+
+--
+-- Output Redwood Grove nav
+--
+local function nav(args)
+    local nav = mw.html.create('div')
+        :addClass('messagebox')
+        :css({padding = '1em', width = 'initial'})
+        :wikitext('<strong>Forums:</strong> [[Forum:Redwood Grove|Redwood Grove]] > <strong>' .. title.text .. '</strong>')
+        :done()
+    
+    return tostring(nav)
+end
+
+--
+-- Category handler
+--
+local function categories(_args)
+    local cats = {}
+    local args = {}
+    
+    -- make blank params behave like missing params
+    for k, v in pairs(_args) do
+        if v ~= '' then
+            args[k] = v
+        end
+    end
+    
+    -- Redwood grove
+    table.insert(cats, '[[Category:Redwood Grove|' .. title.text .. ']]')
+
+    -- option to hide the forum on the main page
+    if yesno(args.mainpage) == false and not yesno(args.archive) then
+        table.insert(cats, '[[Category:Forums excluded from the main page]]')
+    end
+
+    -- active/closed threads
+    if yesno(args.archive) then
+        -- handle type
+        if args.type then
+            local catType
+            local lcType = lang:lc(args.type)
+
+            for k, v in pairs(types) do
+                if v[lcType] then
+                    catType = lang:ucfirst(k)
+                    break
+                end
+            end
+    
+            if catType then
+                table.insert(cats, '[[Category:Forum archives/' .. catType .. '|'.. title.text .. ']]')
+            else
+                table.insert(cats, '[[Category:Forum archives with invalid type parameter]]')
+            end
+        else
+            table.insert(cats, '[[Category:Forum archives with missing type parameter]]')
+        end
+    
+        -- date closed
+        -- @todo default to revisiontimestamp
+        if args.date then
+            mw.log(args.date)
+            local dateStr = lang:formatDate('c', args.date)
+            table.insert(cats, '[[Category:Forum archives by date closed|*' .. dateStr .. ']]')
+        
+            local year = lang:formatDate('Y', args.date)
+            local month = lang:formatDate('n', args.date)
+            local day = lang:formatDate('d H:i', args.date)
+        
+            month = month
+                :gsub('10', 'A')
+                :gsub('11', 'B')
+                :gsub('12', 'C')
+        
+            table.insert(cats, '[[Category:Forum archives by month/' .. year .. '|' .. month .. ' ' .. day .. ']]')
+        else
+            table.insert(cats, '[[Category:Forum archives with missing date parameter]]')
+        end
+
+        
+        -- other args
+        if not args.user then
+            -- @todo Should we do anything here?
+        end
+        
+        if not args.name then
+            table.insert(cats, '[[Category:Forum archives with missing name parameter]]')
+        end
+        
+        if not args.subject then
+            table.insert(cats, '[[Category:Forum archives with missing subject parameter]]')
+        end
+        
+        if args.closure then
+            local lcClosure = lang:lc(args.closure or '')
+            local closure
+            
+            for k, v in pairs(closures) do
+                if v[lcClosure] then
+                   closure = k
+                   break
+                end
+            end
+        
+            if not closure then
+                table.insert(cats, '[[Category:Forum archives with invalid closure parameter]]')
+            end
+        else
+            table.insert(cats, '[[Category:Forum archives with missing closure parameter]]')
+        end
+    else
+        table.insert(cats, '[[Category:Active threads|'.. title.text .. ']]')
+    end
+    
+    return table.concat(cats, '')
+end
+
+--
+-- Access point
+--
+function p.main(frame)
+    local args = frame:getParent().args
+    
+    return nav(args) .. archived(frame, args) .. categories(args)
+end
+
+return p

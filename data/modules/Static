@@ -1,0 +1,3 @@
+local mwHtml = getmetatable(mw.html.create())
+mwHtml._static = mwHtml._static or {}
+return mwHtml._static

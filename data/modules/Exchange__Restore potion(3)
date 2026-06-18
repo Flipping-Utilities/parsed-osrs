@@ -1,0 +1,12 @@
+return {
+    itemId     = 127,
+    icon       = 'Restore potion(3).png',
+    item       = 'Restore potion(3)',
+    value      = 88,
+    limit      = 2000,
+    members    = true,
+    category   = nil,
+    examine    = '3 doses of restore potion.',
+    hialch     = 52,
+    lowalch    = 35
+}

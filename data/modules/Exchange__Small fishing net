@@ -1,0 +1,12 @@
+return {
+    itemId     = 303,
+    icon       = 'Small fishing net.png',
+    item       = 'Small fishing net',
+    value      = 5,
+    limit      = 40,
+    members    = false,
+    category   = nil,
+    examine    = 'Useful for catching small fish.',
+    hialch     = 3,
+    lowalch    = 2
+}

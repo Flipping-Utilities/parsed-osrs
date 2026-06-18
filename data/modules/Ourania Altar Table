@@ -1,0 +1,402 @@
+local p = {}
+
+local geprice = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+local chart = require('Module:Chart data')
+local rgba = require( 'Module:Rgba' )
+
+local rune_order = {
+    "Soul", "Blood", "Death", "Law", "Nature", "Astral", "Chaos", "Cosmic", 
+    "Body", "Fire", "Earth", "Water", "Mind", "Air"
+}
+
+local rune_colors = {
+    Air = rgba.new( 248,245,245 ),
+    Mind = rgba.new( 215,109,0 ),
+    Water = rgba.new( 43,132,234 ),
+    Earth = rgba.new( 109,73,13 ),
+    Fire = rgba.new( 255,50,30 ),
+    Body = rgba.new( 23,26,130 ),
+    Cosmic = rgba.new( 224,222,26 ),
+    Chaos = rgba.new( 224,168,26 ),
+    Astral = rgba.new( 207,182,207 ),
+    Nature = rgba.new( 17,139,21 ),
+    Law = rgba.new( 26,34,224 ),
+    Death = rgba.new( 21,17,17 ),
+    Blood = rgba.new( 139,29,17 ),
+    Soul = rgba.new( 150,151,218 )
+}
+
+local rune_exp = {
+    Air = 5,
+    Mind = 5.5,
+    Water = 6,
+    Earth = 6.5,
+    Fire = 7,
+    Body = 7.5,
+    Cosmic = 8,
+    Chaos = 8.5,
+    Astral = 8.7,
+    Nature = 9,
+    Law = 9.5,
+    Death = 10,
+    Blood = 10.5,
+    Soul = 11
+}
+
+local thresholds = {
+	["1-9"] = {
+		Soul = 2,
+        Blood = 7,
+        Death = 15,
+        Law = 30,
+        Nature = 60,
+        Astral = 105,
+        Chaos = 165,
+        Cosmic = 250,
+        Body = 400,
+        Fire = 700,
+        Earth = 1300,
+        Water = 2500,
+        Mind = 5000,
+        Air = 10000
+        },
+	["10-19"] = {
+		Soul = 3,
+        Blood = 9,
+        Death = 21,
+        Law = 45,
+        Nature = 85,
+        Astral = 145,
+        Chaos = 225,
+        Cosmic = 400,
+        Body = 1000,
+        Fire = 2200,
+        Earth = 4600,
+        Water = 6700,
+        Mind = 8500,
+        Air = 10000
+        },
+	["20-29"] = {
+		Soul = 8,
+        Blood = 23,
+        Death = 55,
+        Law = 110,
+        Nature = 220,
+        Astral = 430,
+        Chaos = 850,
+        Cosmic = 1650,
+        Body = 3250,
+        Fire = 4750,
+        Earth = 6150,
+        Water = 7500,
+        Mind = 8800,
+        Air = 10000
+        },
+	["30-39"] = {
+		Soul = 20,
+        Blood = 60,
+        Death = 120,
+        Law = 250,
+        Nature = 500,
+        Astral = 1000,
+        Chaos = 2000,
+        Cosmic = 4000,
+        Body = 5300,
+        Fire = 6500,
+        Earth = 7600,
+        Water = 8500,
+        Mind = 9300,
+        Air = 10000
+        },
+	["40-49"] = {
+		Soul = 40,
+        Blood = 120,
+        Death = 240,
+        Law = 500,
+        Nature = 1000,
+        Astral = 2000,
+        Chaos = 4000,
+        Cosmic = 5500,
+        Body = 6500,
+        Fire = 7300,
+        Earth = 8050,
+        Water = 8750,
+        Mind = 9400,
+        Air = 10000
+        },
+	["50-59"] = {
+		Soul = 80,
+        Blood = 250,
+        Death = 600,
+        Law = 1300,
+        Nature = 2650,
+        Astral = 4150,
+        Chaos = 5250,
+        Cosmic = 6250,
+        Body = 7000,
+        Fire = 7700,
+        Earth = 8350,
+        Water = 8950,
+        Mind = 9500,
+        Air = 10000
+        },
+	["60-69"] = {
+		Soul = 100,
+        Blood = 300,
+        Death = 700,
+        Law = 1500,
+        Nature = 3050,
+        Astral = 4450,
+        Chaos = 5500,
+        Cosmic = 6450,
+        Body = 7200,
+        Fire = 7900,
+        Earth = 8500,
+        Water = 9050,
+        Mind = 9550,
+        Air = 10000
+        },
+	["70-79"] = {
+		Soul = 200,
+        Blood = 700,
+        Death = 1700,
+        Law = 3500,
+        Nature = 5000,
+        Astral = 6200,
+        Chaos = 7100,
+        Cosmic = 7800,
+        Body = 8300,
+        Fire = 8700,
+        Earth = 9100,
+        Water = 9400,
+        Mind = 9700,
+        Air = 10000
+        },
+	["80-89"] = {
+		Soul = 400,
+        Blood = 1000,
+        Death = 2450,
+        Law = 3900,
+        Nature = 5250,
+        Astral = 6300,
+        Chaos = 7100,
+        Cosmic = 7800,
+        Body = 8400,
+        Fire = 8900,
+        Earth = 9300,
+        Water = 9600,
+        Mind = 9800,
+        Air = 10000
+        },
+	["90-98"] = {
+		Soul = 650,
+        Blood = 1650,
+        Death = 3300,
+        Law = 4750,
+        Nature = 6100,
+        Astral = 7100,
+        Chaos = 7800,
+        Cosmic = 8400,
+        Body = 8900,
+        Fire = 9300,
+        Earth = 9600,
+        Water = 9800,
+        Mind = 9900,
+        Air = 10000
+        },
+	["99+"] = {
+		Soul = 900,
+        Blood = 2200,
+        Death = 3750,
+        Law = 5200,
+        Nature = 6550,
+        Astral = 7500,
+        Chaos = 8100,
+        Cosmic = 8600,
+        Body = 9000,
+        Fire = 9300,
+        Earth = 9600,
+        Water = 9800,
+        Mind = 9900,
+        Air = 10000
+    }
+}
+
+local total_range = 10000
+
+function round(num, numDecimalPlaces)
+  local mult = 10^(numDecimalPlaces or 0)
+  local numStr = tostring(math.floor(num * mult + 0.5) / mult)
+  numStr, _ = numStr:gsub('%.00$', ''):gsub('%.(%d)0$', '%d')
+  return tonumber(numStr)
+end
+
+function calculate_chances(thresholds, total_range)
+    local chances = {}
+    for level_range, level_thresholds in pairs(thresholds) do
+        chances[level_range] = {}
+        local last_threshold = 0
+        for _, element in ipairs(rune_order) do
+            local threshold = level_thresholds[element]
+            local range = threshold - last_threshold
+            local percentage = (range / total_range) * 100
+            chances[level_range][element] = percentage
+            last_threshold = threshold
+        end
+    end
+    return chances
+end
+
+local function getRangeStart(range)
+    if range == "99+" then
+        return 99
+    end
+    return tonumber(string.match(range, "(%d+)"))
+end
+
+function format_chances(chances)
+    local tab = mw.html.create('table')
+        :addClass('wikitable sortable autosort=1,a align-center-2')
+    
+    -- Create header row
+    local header_row = tab:tag('tr')
+    header_row:tag('th'):wikitext(string.format('[[File:Runecraft_icon.png]] <br/> Level')):done()
+    for _, element in ipairs(rune_order) do
+        header_row:tag('th'):wikitext((string.format('[[File:%s rune.png|%s rune]] <br/> [[%s rune|%s]]', element, element, element, element))):done()
+    end
+	header_row:tag('th'):wikitext('XP/Ess'):done()
+	header_row:tag('th'):wikitext(string.format('XP/Ess<br/>(Daeyalt)')):done()
+	header_row:tag('th'):wikitext('Profit/Ess'):done()
+
+    -- Create data rows
+    local sorted_ranges = {}
+    for level_range, _ in pairs(chances) do
+        table.insert(sorted_ranges, level_range)
+    end
+    table.sort(sorted_ranges, function(a, b)
+        return getRangeStart(a) < getRangeStart(b)
+    end)
+    
+    for _, level_range in ipairs(sorted_ranges) do
+    	local element_chances = chances[level_range]
+        local row = tab:tag('tr')
+        row:tag('th'):wikitext(level_range):done()
+        local level_range_ess_value = 0
+        local level_range_ess_xp = 0
+        local level_range_daeyalt_xp = 0
+        for _, element in ipairs(rune_order) do
+            local percentage = element_chances[element]
+            local price = geprice(string.format('%s rune', element))
+            local experience = rune_exp[element]
+            if type(percentage) == "number" then
+				local value = (percentage / 100) * price
+				local exp = (percentage / 100) * (1.7 * experience)
+				local dae = (percentage / 100) * (1.5 * 1.7 * experience)
+				level_range_ess_value = level_range_ess_value + value
+				level_range_ess_xp = level_range_ess_xp + exp
+				level_range_daeyalt_xp = level_range_daeyalt_xp + dae
+                row:tag('td'):wikitext(tostring(round(percentage, 2)) .. '%'):done()
+            else
+                row:tag('td'):wikitext('N/A'):done()
+            end
+        end
+		row:tag('td'):wikitext(string.format('%.2f', level_range_ess_xp)):done()
+		row:tag('td'):wikitext(string.format('%.2f', level_range_daeyalt_xp)):done()
+		row:tag('td'):wikitext(coins(level_range_ess_value)):done()
+    end
+    
+    return tostring(tab)
+end
+
+function convertToChartJSFormat(chances)
+    local chart_data = {
+        labels = {},
+        datasets = {}
+    }
+    
+    local sorted_ranges = {}
+    for level_range, _ in pairs(chances) do
+        table.insert(sorted_ranges, level_range)
+    end
+    table.sort(sorted_ranges, function(a, b)
+        return getRangeStart(a) < getRangeStart(b)
+    end)
+    
+    for i, rune in ipairs(rune_order) do
+		local color = rune_colors[rune]
+        table.insert(chart_data.datasets, {
+            label = rune .. " rune",
+            data = {},
+            color = color,
+			barPercentage = 0.975,
+			categoryPercentage = 1.05,
+			borderWidth = 3,
+			borderSkipped = 'bottom'
+        })
+    end
+    
+    for _, level_range in ipairs(sorted_ranges) do
+        table.insert(chart_data.labels, level_range)
+        for i, rune in ipairs(rune_order) do
+            local chance = round(chances[level_range][rune], 2) or 0
+            table.insert(chart_data.datasets[i].data, chance)
+        end
+    end
+    
+    return chart_data
+end
+
+function stacked_bar()
+    local chances = calculate_chances(thresholds, total_range)
+    local chart_data = convertToChartJSFormat(chances)
+    
+    local plot = chart.newChart{ type = 'bar' }
+    
+    plot:setDimensions("50%")
+    plot:addDataLabels(chart_data.labels)
+    	:setDatasetsPerGroup(1)
+    plot:setOptions{
+    	aspectRatio = 0.6,
+    	colorPallet = 'orange',
+        responsive = true,
+        maintainAspectRatio = false,
+        plugins = {
+            legend = { position = 'top' },
+            tooltip = { mode = 'index', intersect = false }
+        },
+        scales = {
+	        x = {
+            	stacked = true,
+	        },
+            y = { 
+                stacked = true, 
+                beginAtZero = true,
+                max = 100,
+                format = 'percent',
+                ticks = {
+                    callback = function(value)
+                        return value .. '%'
+                    end
+                }
+            }
+        }
+    }
+    
+    for i, dataSet in ipairs(chart_data.datasets) do
+    	plot:newDataSet(dataSet)
+    end
+    
+	return plot
+end
+
+function p.chancetable(frame)
+    local chances = calculate_chances(thresholds, total_range)
+    return format_chances(chances)
+end
+
+function p.chart(frame)
+    return stacked_bar()
+end
+
+return p

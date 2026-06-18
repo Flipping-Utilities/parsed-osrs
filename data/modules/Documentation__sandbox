@@ -1,0 +1,93 @@
+-- <nowiki>
+local dependencyList = require( 'Module:DependencyList' )
+local yn = require( 'Module:Yesno' )
+local p = {}
+
+function p.doc( frame )
+    local title = mw.title.getCurrentTitle()
+    local args = frame:getParent().args
+    local page = args[1] or mw.ustring.gsub( title.fullText, '/doc$', '' )
+    -- local addDependencyList = yn( args.DependencyList or true )
+    local addDependencyList = true
+    local ret, cats, ret1, ret2, ret3
+    local onModule = title.namespace == 828
+    
+    -- subpage header
+    if title.subpageText == 'doc' then
+        ret = mw.html.create( 'table' )
+            :addClass( 'messagebox' )
+            :addClass( 'info' )
+            :tag( 'tr' )
+                :tag( 'td' )
+                    :css( 'width', '40px' )
+                    :wikitext( '[[File:Information icon-grey.svg|35px|center|link=]]' )
+                    :done()
+                :tag( 'td' )
+                    :tag( 'b' )
+                        :wikitext( 'This is a documentation subpage for [[' .. page .. ']].' )
+                        :done()
+                    :tag( 'div' )
+                        :css({ ['font-size'] = '0.85em', ['line-height'] = '1.4em' })
+                        :wikitext(
+                        	string.format(
+                        		'It contains usage information, categories, and other content that is not part of the original %s page.',
+                        	    onModule and 'module' or 'template'
+                        	)
+                    	)
+                        :done()
+                    :done()
+                :done()
+            :done()
+
+        if title.namespace == 10 then -- Template namespace
+            cats = '[[Category:Template documentation|' .. title.baseText .. ']]'
+            ret2 = addDependencyList and dependencyList._main() or ''
+        elseif title.namespace == 116 then -- Calculator namespace
+        	cats = ''
+        	ret2 = addDependencyList and dependencyList._main() or ''
+        elseif title.namespace == 828 then -- Module namespace
+        	cats = '[[Category:Module documentation|' .. title.baseText .. ']]'
+        	ret2 = addDependencyList and dependencyList._main() or ''
+        else
+        	cats = ''
+        	ret2 = ''
+        end
+        
+        return tostring( ret ) .. ret2 .. cats
+    end
+    
+    -- template header
+    -- don't use mw.html as we aren't closing the main div tag
+    ret1 = '<div class="documentation">'
+
+    ret2 = mw.html.create( nil )
+        :tag( 'div' )
+            :addClass( 'doc-header' )
+            :tag( 'span' )
+            	:addClass( 'doc-title' )
+            	:wikitext( string.format('%s documentation', onModule and 'Module' or 'Template') )
+            	:done()
+            :done()
+        :tag( 'div' )
+            :addClass( 'doc-transclusion' )
+            :tag( 'span' )
+            	:addClass( 'documentation-documentation' )
+            	:wikitext( 'This documentation is transcluded from [[' .. page .. '/doc]]. ' )
+            	:done()
+            :tag( 'span' )
+            	:addClass( 'doc-editlinks plainlinks' )
+            	:wikitext(
+	            	'[[' .. tostring( mw.uri.fullUrl( page .. '/doc', {action='edit'} ) ) .. ' edit]] ' ..
+	                '[<span class="jsPurgeLink">[' .. tostring( mw.uri.fullUrl( title.fullText, {action='purge'} ) ) .. ' purge]</span>]'
+	            )
+	            :done()
+            :done()
+    
+    ret3 = addDependencyList and dependencyList._main() or ''
+        
+    return ret1 .. tostring( ret2 ) .. '<div class="documentation-content">' .. ret3
+end
+
+return p
+
+-- </nowiki>

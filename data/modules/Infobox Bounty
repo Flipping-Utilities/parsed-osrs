@@ -1,0 +1,201 @@
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local commas = require('Module:Addcommas')._addt
+local infobox = require('Module:Infobox')
+VariablesLua = mw.ext.VariablesLuas
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local modargs = shallow_copy(args)
+	
+	local baseparams = {
+		{ name = 'name', func = 'name'},
+		{ name = 'icon', func = 'has_content' },
+		{ name = 'sailingreq', func = 'has_content' },
+		{ name = 'skillreq', func = 'has_content' },
+		{ name = 'otherreq', func = 'has_content' },
+        -- { name = 'usesinfobox', func = { name = tostring, params = { 'Slayer' }, flag = 'r' } },
+		{ name = 'id', func = 'has_content' }
+	}
+	local bucketdata = get_from_bucket(modargs['monstername'])
+	local i = 1
+	
+	-- iterate each notice board location
+	for name,data in pairs(bucketdata) do
+		-- create header data from first port
+		if i == 1 then
+			modargs['sailingreq'] = frame:preprocess('{{SCP|Sailing|' ..data['board_level'] .. '}}')
+			i = i+1
+		end
+		-- dynamically insert into infobox params
+		local newparam = {
+			name = data['formatted_name'], func = 'has_content'
+		}
+		table.insert(baseparams, newparam)
+		
+		
+		-- loop each task available from this notice board and add them
+		local task_line = ''
+		for i,data in ipairs(data['tasks']) do
+			task_line = task_line .. data['task_quantity'] .. ' x ' .. data['task_icon'] ..', '
+		end
+		task_line = string.sub(task_line, 1, string.len(task_line) - 2)
+		task_line = frame:preprocess(task_line)
+		
+		-- add to modified args dictionary that gets passed to infobox
+		modargs[data['formatted_name']] = task_line
+	end
+	
+	local ret = infobox.new(modargs)
+	ret:defineParams(baseparams)
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Bounty')
+	ret:addClass('infobox-bounty')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '30' }
+	}
+
+	:pad(30)
+
+	if ret:paramDefined('icon') then
+		ret:addRow{
+			{ tag = 'argd', content = 'icon', colspan = '30', class = 'infobox-full-width-content' }
+		}
+		
+		ret:pad(30)
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = 'Requirements', colspan = '30', class = 'infobox-subheader' }
+	}
+
+	:pad(30)
+	
+	:addRow{
+		{ tag = 'th', content = '[[Skills]]', colspan = '10' },
+		{ tag = 'argd', content = 'skillreq', colspan = '20' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Sailing level]]', colspan = '10' },
+		{ tag = 'argd', content = 'sailingreq', colspan = '20' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Other', colspan = '10' },
+		{ tag = 'argd', content = 'otherreq', colspan = '20' }
+	}
+
+	:pad(30)
+	
+	:addRow{
+		{ tag = 'th', content = 'Task amounts', colspan = '30', class = 'infobox-subheader' }
+	}
+
+	:pad(30)
+	
+	-- iterate each notice board data and create infobox line
+	for board_name,v in pairs(bucketdata) do
+		ret:addRow{
+			{ tag = 'th', content = '[[File:' .. board_name .. ' icon detail.png|x30px|link=' .. board_name .. ']] [[' .. board_name .. ']]', colspan = '15' },
+			{ tag = 'argd', content = format_board_name(board_name), colspan = '15' }
+		}
+	end
+	
+
+	ret:pad(30)
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '30' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(30, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Icon ID', colspan = '10' },
+		{ tag = 'argd', content = 'id',  colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	ret:pad(30, 'advanced-data')
+	
+	return ret:tostring()
+end
+
+function get_from_bucket(monster_name)
+	local query = bucket("bountytaskline")
+		.select("page_name","page_name_sub","level","xp","notice_board","monster","monster_alt","qty","item")
+		.where("monster", monster_name or '')
+	local bucketdata = query.run()
+	
+	local formatted_data = {}
+	
+	for k,line in ipairs(bucketdata) do
+		local name = line['notice_board']
+		
+		if not formatted_data[name] then
+			-- insert main board data
+			local formatted_name = format_board_name(name)
+			local detail_image = '[[File:' .. name .. ' icon detail.png]]'
+			local board_level = line['level']
+			local tasks = {}
+			formatted_data[name] = {
+				formatted_name = formatted_name,
+				detail_image = detail_image,
+				board_level = board_level,
+				tasks = {}
+			}
+		end
+		
+		local task = get_task_from_bucketline(line)
+		table.insert(formatted_data[name]['tasks'], task)
+	end
+	
+	return formatted_data
+end
+
+function get_task_from_bucketline(bucket_line)
+	local task = {
+		task_item = bucket_line['item'],
+		task_icon = '{{Plinkp|' .. bucket_line['item'] .. '}}',
+		task_quantity = bucket_line['qty']
+	}
+	return task
+end
+
+function contains(array, item)
+	for k,temp in ipairs(array) do
+		if temp == item then
+			return true
+		end
+	end
+	return false
+end
+
+function shallow_copy(t)
+	local copy = {}
+	for k, v in pairs(t) do
+		copy[k] = v
+	end
+	return copy
+end
+
+function format_board_name(boardname)
+	return boardname:lower():gsub("%s+","")
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+
+return p

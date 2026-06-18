@@ -1,0 +1,374 @@
+local p = {}
+local lang = mw.language.getContentLanguage()
+local var = mw.ext.VariablesLua
+local params = require('Module:Paramtest')
+local yesno = require('Module:Yesno')
+local currency_image = require("Module:Currency Image")
+local commas = require("Module:Addcommas")
+
+local exchange = require('Module:Exchange')
+local find_gevalue = exchange._value
+local find_geprice = exchange._price
+
+local geprices_data = mw.loadJsonData('Module:GEPrices/data.json')
+local var = mw.ext.VariablesLua
+
+local ptitle = mw.title.getCurrentTitle()
+local ns = ptitle.nsText
+local title = ptitle.fullText
+local pgTitle = ptitle.text
+
+local function ticktime(ticks)
+    local ret = ''
+    local days = math.floor(ticks/144000)
+    local hours = math.floor(ticks%144000/6000)
+    local minutes = math.floor(ticks%6000/100)
+    local seconds = ticks%100*0.6
+    if days > 0 then
+        ret = ret .. commas._add(days) .. 'd '
+    end
+    if hours > 0 then
+        ret = ret .. hours .. 'h '
+    end
+    if minutes > 0 then
+        ret = ret .. minutes .. 'm '
+    end
+    if seconds > 0 then
+        ret = ret .. seconds .. 's'
+    end
+    return ret
+end
+
+function p.main(frame)
+    local args = frame:getParent().args
+
+    -- Params and defaults
+    local name, stock, buyvalue, sellvalue, geprice, rowShopVersion = params.defaults{
+        {args.name or args.Name, ''},
+        {args.stock or args.Stock, ''},
+        {args.buy or args.Buy, ''},
+        {args.sell or args.Sell, ''},
+        {args.geprice or args.geprice, ''},
+        {args.shopversion, ''}
+    }
+    local itemvalue = ''
+    local gemwname = params.default_to(args.gemwname,name)
+    local bucketname = params.default_to(args.bucketname,name)
+    local displayname = params.default_to(args.displayname or args.DisplayName,name)
+    local image = 'File:' .. params.default_to(args.image or args.Image, name .. '.png')
+    local gemw = yesno(args.gemw or 'yes', false)
+    local restock = params.default_to(args.restock or args.Restock,-1)
+
+    -- Check precached Module:GEPrices/data
+    if gemw and geprice == '' then
+        local cached_price = geprices_data[gemwname]
+        if type(cached_price) == 'number' and cached_price > 0 then
+            geprice = cached_price
+        end
+    end
+
+    -- Lookup GE price
+    if gemw and geprice == '' then
+        local has_geprice, geprice_check = pcall(find_geprice,gemwname)
+        if has_geprice and type(geprice_check) == 'number' and geprice_check > -1 then
+            geprice = geprice_check
+        end
+    end
+
+    -- Lookup GE value
+    if gemw and itemvalue == '' then
+        local has_gevalue, gevalue = pcall(find_gevalue,gemwname)
+        if has_gevalue and type(gevalue) == 'number' and gevalue > -1 then
+            itemvalue = gevalue
+        end
+    end
+
+    -- Lookup Bucket value
+    if itemvalue == ''  then
+        itemvalue = getBucketInfo(bucketname) or ''
+    end
+
+    -- Check precached Module:DropsLine/itemData - gets GE alch so inaccurate
+    if itemvalue == '' then
+        local droppeditem_data = mw.loadJsonData('Module:DropsLine/itemData.json')
+        local cached_dropdata = droppeditem_data[name]
+        if type(cached_dropdata) == 'table' and type(cached_dropdata[2]) == 'number' then
+            itemvalue = cached_dropdata[2]/.6
+        end
+    end
+
+    -- Check precached Module:GEHighAlch/data - gets GE alch so inaccurate
+    if itemvalue == '' then
+        local highalch_data = mw.loadJsonData('Module:GEHighAlchs/data.json')
+        local cached_data = highalch_data[name]
+        if type(cached_data) == 'number' and cached_data > -1 then
+            itemvalue = cached_data/.6
+        end
+    end
+
+    local buymultiplier = var.var('BuyMultiplier', 1000)
+    local sellmultiplier = var.var('SellMultiplier', 1000)
+    local currency = var.var('Currency', 'Coins')
+    local namenotes = var.var('NameNotes', '')
+    local delta = var.var('Delta', 10)
+    local useBucket = yesno(var.var('bucket', 'yes'), true)
+    local hideimage = yesno(var.var('hideImage','no'), false)
+    local hidege = yesno(var.var('hideGE','no'), false)
+    local hidesell = yesno(var.var('hideSell','no'), false)
+    local hidebuy = yesno(var.var('hideBuy','no'), false)
+    local hidestock = yesno(var.var('hideStock','no'), false)
+    local hiderestock = yesno(var.var('hideRestock','no'), false)
+    local tableShopVersion = var.var('ShopVersion', '')
+
+    buyvalue = commas._strip(buyvalue)
+    sellvalue = commas._strip(sellvalue)
+    local buy_bucket = tonumber(buyvalue)
+    local sell_bucket = tonumber(sellvalue) or 1e10
+    local ge_sort = tonumber(geprice)
+    local buyCurrency = ''
+    local sellCurrency = ''
+
+    if buyvalue ~= 'N/A' then
+        if buyvalue == '' and itemvalue ~= '' then
+            buyvalue = math.floor(math.max(itemvalue*buymultiplier/1000,itemvalue*0.1))
+            buy_bucket = buyvalue
+        end
+        buyvalue = showCurrencyAmount(currency, buyvalue)
+    end
+    if sellvalue ~= 'N/A' then
+        if sellvalue == '' and itemvalue ~= '' then
+            sellvalue = math.floor(math.max(itemvalue*sellmultiplier/1000,1))
+            sell_bucket = sellvalue
+        end
+        sellvalue = showCurrencyAmount(currency, sellvalue)
+    end
+
+    if gemw and tonumber(geprice) ~= nil then
+        geprice = showCurrencyAmount('coins', geprice)
+    else
+        ge_sort = 0
+        geprice = 'Not sold'
+    end
+
+    if stock=='inf' then stock='∞' end --inf is easier to type
+    if stock=='∞' then restock='N/A' end --self-documenting code
+
+    local ret = mw.html.create('tr'):css('text-align','center')
+    if not hideimage then
+        ret:tag('td'):wikitext(mw.ustring.format('[[%s|link=%s]]', image, name))
+    end
+    -- no hideXXX parameter for the column that lists the actual items.
+    ret:tag('td'):css('text-align','left'):wikitext(mw.ustring.format('[[%s|%s]]', name, displayname))
+    if not hidestock then
+        if stock=='N/A' then
+            ret:tag('td'):attr('data-sort-value', 0):attr('class','table-na'):wikitext('<small>N/A</small>'):done()
+        elseif stock=='∞' then
+            ret:tag('td'):wikitext('<span style="font-size:120%;">∞</span>'):done()
+        else
+            ret:tag('td')
+                :wikitext(stock)
+            :done()
+        end
+    end
+    if not hiderestock then
+        if restock=='N/A' or stock=='N/A' or stock=='∞' then
+            ret:tag('td'):attr('data-sort-value', 0):attr('class','table-na'):wikitext('<small>N/A</small>'):done()
+        elseif restock == -1 then
+            ret:tag('td'):attr('data-sort-value', -1):wikitext('<small>unknown</small>[[Category:Needs restock time]]'):done()
+        else
+            ret:tag('td'):attr('data-sort-value', restock)
+                :wikitext(ticktime(tonumber(restock) or 0) .. ' (' .. commas._add(restock) .. 't)')
+            :done()
+        end
+    else
+        restock='N/A' -- Set restock to N/A if hideRestock is set to true in the header
+    end
+    if not hidesell then
+        if sellvalue == 'N/A' then
+            ret:tag('td'):attr('data-sort-value', 0):attr('class','table-na'):wikitext('<small>N/A</small>'):done()
+        elseif sell_bucket == 0 then
+            ret:tag('td')
+                :attr('data-sort-value', 0)
+                :wikitext('<small>Free</small>')
+            :done()
+        else
+            ret:tag('td')
+                :attr('data-sort-value', sell_bucket)
+                :wikitext(sellvalue)
+            :done()
+        end
+    end
+    if not hidebuy then
+        if buyvalue=='N/A' then
+            ret:tag('td'):attr('data-sort-value', 0):attr('class','table-na'):wikitext('<small>N/A</small>'):done()
+        else
+            ret:tag('td')
+                    :attr('data-sort-value', buy_bucket or 0)
+                    :wikitext(buyvalue)
+               :done()
+        end
+    end
+    if not hidege then
+        ret:tag('td')
+                :attr('data-sort-value', ge_sort)
+                :wikitext(geprice)
+            :done()
+    end
+
+    local i = 1
+    while args['column' .. i] do
+        if args['column' .. i]=='N/A' then
+            ret:tag('td'):attr('data-sort-value', 0):attr('class','table-na'):wikitext('<small>N/A</small>'):done()
+        else
+        ret:tag('td'):wikitext(args['column' .. i]):done()
+        end
+        i = i+1
+    end
+
+    local onMain = ns == '' or ns == 'RuneScape'
+    local unrecognizedShopVersionCategory = ''
+    if onMain and useBucket then
+        local source = title
+
+        local subobjectCount = 1
+        if var.varexists('SoldItemCount') then
+            subobjectCount = var.var('SoldItemCount', 1)
+            subobjectCount = subobjectCount + 1
+            var.vardefine('SoldItemCount', subobjectCount)
+        else
+            var.vardefine('SoldItemCount', 1)
+        end
+
+        -- shop versions
+        local shopVersionKeys = 'DEFAULT'
+        if params.has_content(tableShopVersion) then
+            -- versions applied to the entire table
+           shopVersionKeys = tableShopVersion
+        end
+        if params.has_content(rowShopVersion) then
+            -- versions applied to this row
+            shopVersionKeys = rowShopVersion
+        end
+
+        local shopVersions = {}
+        local membersValues = {}
+        local locationsValues = {}
+        local leagueRegionsValues = {}
+        for shopVersion in string.gmatch(shopVersionKeys, ' *([^,]+) *') do
+            table.insert(shopVersions, shopVersion)
+
+            local membersVar = string.format("ShopInfo_members_%s", shopVersion)
+            local locationsVar = string.format("ShopInfo_location_%s", shopVersion)
+            local leagueRegionsVar = string.format("ShopInfo_LeagueRegion_%s", shopVersion)
+            if (not var.varexists(membersVar) or not var.varexists(locationsVar) or not var.varexists(leagueRegionsVar)) and shopVersion ~= 'DEFAULT' then
+                unrecognizedShopVersionCategory = unrecognizedShopVersionCategory..'[[Category:Uses unrecognized shop version]]'
+            end
+            local curMembersValues = var.var(membersVar)
+            local curLocationsValues = var.var(locationsVar)
+            local curLeagueRegionsValues = var.var(leagueRegionsVar)
+            table.insert(membersValues, curMembersValues)
+            table.insert(locationsValues, curLocationsValues)
+            table.insert(leagueRegionsValues, curLeagueRegionsValues)
+        end
+
+        if #shopVersions == 1 then
+            membersValues = membersValues[1]
+            locationsValues = locationsValues[1]
+            leagueRegionsValues = leagueRegionsValues[1]
+        end
+
+        local tableWideMembersOverride = var.var('StoreTable_MembersOverride')
+        local tableWideLocationOverride = var.var('StoreTable_LocationOverride')
+        local tableWideLeagueRegionOverride = var.var('StoreTable_LeagueRegionOverride')
+        if tableWideMembersOverride ~= '' then
+            membersValues = tableWideMembersOverride
+        end
+        if tableWideLocationOverride ~= '' then
+            locationsValues = tableWideLocationOverride
+        end
+        if tableWideLeagueRegionOverride ~= '' then
+            leagueRegionsValues = tableWideLeagueRegionOverride
+        end
+
+        local rowWideMembersOverride = args.members or ''
+        local rowWideLocationsOverride = args.location or ''
+        local rowWideLeagueRegionsOverride = args.leagueRegion or ''
+        if rowWideMembersOverride ~= '' then
+            membersValues = rowWideMembersOverride
+        end
+        if rowWideLocationsOverride ~= '' then
+            locationsValues = rowWideLocationsOverride
+        end
+        if rowWideLeagueRegionsOverride ~= '' then
+            leagueRegionsValues = rowWideLeagueRegionsOverride
+        end
+
+        local bucket_json = {
+            ['Sold by'] = source,
+            ['Sold item image'] = image,
+            ['Sold item'] = name,
+            ['Display name'] = displayname,
+            ['Store stock'] = stock,
+            ['Restock time'] = restock,
+            ['Store sell price'] = sell_bucket,
+            ['Store buy price'] = buy_bucket or 'N/A',
+            ['Store currency'] = currency,
+            ['Store notes'] = namenotes,
+            ['Store delta'] = delta,
+            ['Store buy multiplier'] = buymultiplier,
+            ['Store sell multiplier'] = sellmultiplier,
+            ['Members'] = membersValues,
+            ['Location'] = locationsValues,
+            ['LeagueRegion'] = leagueRegionsValues,
+        }
+
+        if shopVersionKeys ~= 'DEFAULT' then
+            bucket_json['Shop version'] = shopVersions
+        end
+        
+        bucket_sub = {
+        	sold_by = source,
+        	sold_item = name,
+        	sold_item_image = image,
+        	store_stock = stock,
+        	restock_time = restock,
+        	store_sell_price = sell_bucket,
+        	store_buy_price = buy_bucket or 'N/A',
+        	store_currency = currency,
+        	store_notes = namenotes,
+        	store_delta = delta,
+        	store_buy_multiplier = buymultiplier,
+        	store_sell_multiplier = sellmultiplier,
+        	sold_item_json = mw.text.jsonEncode(bucket_json)
+        }
+        bucket("storeline").put(bucket_sub)
+    end
+    return tostring(ret)
+end
+
+local bucketData = nil
+function getBucketInfo(item)
+    if bucketData ~= nil then
+        return bucketData
+    end
+    local newData = bucket('infobox_item').select('value').where('page_name_sub', item).run()
+    if newData and newData[1] then
+        bucketData = newData[1].value
+    else
+        bucketData = ''
+    end
+    return bucketData
+end
+
+function showCurrencyAmount(currency, amount)
+    local image = currency and currency_image(currency, amount) or ''
+    if image ~= '' and currency and tonumber(amount) then
+        return string.format('[[File:%s|link=%s]] %s', image, currency, commas._add(amount))
+    elseif tonumber(amount) then
+        return commas._add(amount)
+    else
+        return amount
+    end
+end
+
+return p

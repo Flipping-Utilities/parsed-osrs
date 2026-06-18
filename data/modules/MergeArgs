@@ -1,0 +1,25 @@
+-- <pre>
+local p = {}
+
+function p.merge(frame)
+	local origArgs = frame.args
+	local parentArgs = frame:getParent().args
+	local args = {}
+	
+	for k, v in pairs(origArgs) do
+		v = mw.text.trim(tostring(v))
+		if v ~= '' then
+			args[k] = v
+		end
+	end
+ 
+	for k, v in pairs(parentArgs) do
+		v = mw.text.trim(tostring(v))
+		if v ~= '' then
+			args[k] = v
+		end
+	end
+ 
+	return args
+end
+-- </pre>

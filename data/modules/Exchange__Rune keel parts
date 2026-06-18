@@ -1,0 +1,11 @@
+return {
+	itemId    = 32014,
+	item      = "Rune keel parts",
+	icon      = 'Rune keel parts.png',
+    alchable  = true,
+	value     = 20000,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a runite keel for a boat."
+}

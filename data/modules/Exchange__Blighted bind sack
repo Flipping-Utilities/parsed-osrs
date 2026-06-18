@@ -1,0 +1,12 @@
+return {
+    itemId     = 24609,
+    icon       = "Blighted bind sack.png",
+    item       = "Blighted bind sack",
+    alchable   = true,
+    value      = 1,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = "Enough power for a Bind, blighted so it can be used only in the Wilderness.",
+    usage      = {}
+}

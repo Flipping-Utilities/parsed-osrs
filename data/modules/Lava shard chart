@@ -1,0 +1,100 @@
+local chart = require( 'Module:Chart data' )
+local idkWhatImDoingButThisWorks = require( 'Module:Skilling success chart').interp
+
+local p = {}
+
+function p._calculateDataSets(args)
+	local dataSets = {}
+	
+	local data = {}
+	local dataBoost = {}
+	local shards3, shards4, shards5, shards6
+	local roll1, roll2, roll3
+	for x = 1, 99 do
+		roll1 = interp(101, 301, x)
+		roll2 = interp(58, 251, x)
+		roll3 = interp(-14, 254, x)
+		
+		shards3 = (1-roll1) * (1-roll2) * (1-roll3)  -- need to miss all rolls
+		shards4 = roll1 * (1-roll2) * (1-roll3) + roll2 * (1-roll1) * (1-roll3) + roll3 * (1-roll1) * (1-roll2)  -- need to hit one roll
+		shards5 = roll1 * roll2 * (1-roll3) + roll2 * roll3 * (1-roll1) + roll1 * roll3 * (1-roll2)  -- need to hit two rolls
+		shards6 = roll1 * roll2 * roll3  -- need to hit all three rolls
+		
+		shardsTot = 3 * shards3 + 4 * shards4 + 5 * shards5 + 6 * shards6
+		shardsTotBoost = 4 * shards3 + 6 * shards4 + 7 * shards5 + 9 * shards6
+		
+		table.insert(data, {x=x, y=shardsTot})
+		table.insert(dataBoost, {x=x, y=shardsTotBoost})
+	end
+
+	table.insert(dataSets, {
+        data = {},
+        label = 'Standard',
+    	borderDash = {5, 5},
+        borderCapStyle = 'round',
+        pointRadius = 0,
+        baseColor = 'brown',
+        pointStyleImg = 'Lava scale.png',
+    })
+	table.insert(dataSets, {
+        data = data,
+        label = 'Standard',
+    	borderDash = {},
+        borderCapStyle = 'round',
+        pointRadius = 0,
+        baseColor = 'brown',
+    })
+    table.insert(dataSets, {})
+    
+   	table.insert(dataSets, {
+        data = {},
+        label = 'Hard Wilderness Diary',
+    	borderDash = {5, 5},
+        borderCapStyle = 'round',
+        pointRadius = 0,
+        baseColor = 'teal',
+        pointStyleImg = 'Wilderness sword 3.png',
+    })
+   	table.insert(dataSets, {
+        data = dataBoost,
+        label = 'Hard Wilderness Diary',
+    	borderDash = {},
+        borderCapStyle = 'round',
+        pointRadius = 0,
+        baseColor = 'teal',
+    })
+    table.insert(dataSets, {})
+
+	return dataSets
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	return p._main(args)
+end
+
+function p._main(args)
+
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( args.label )
+        :setDimensions( '540px', '400px', '540px', '400px', true )
+        :setXLabel( args.xlabel or 'Level' )
+        :setYLabel( args.ylabel or 'Success rate' )
+        :setXLimits( nil, nil, 1 )
+        :setYLimits( nil, nil, 1 )
+        :setTitle('Average yield')
+        :setXLabel('Herblore level')
+        :setYLabel('Lava scale shards')
+        :setTooltipFormat('harvestLives')
+        :setDatasetsPerGroup(3)
+    
+	local dataSets = p._calculateDataSets(args)
+	for i, dataSet in ipairs(dataSets) do
+		plot:newDataSet(dataSet)
+	end
+
+    return plot
+end
+
+return p

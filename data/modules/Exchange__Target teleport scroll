@@ -1,0 +1,12 @@
+return {
+    itemId     = 12846,
+    icon       = 'Target teleport scroll.png',
+    item       = 'Target teleport scroll',
+    value      = 30000,
+    limit      = 5,
+    members    = true,
+    category   = nil,
+    examine    = 'Unlocks the level 85 Target Teleport spell.',
+    hialch     = 18000,
+    lowalch    = 12000
+}

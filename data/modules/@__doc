@@ -1,0 +1,9 @@
+{{Documentation}}
+
+This module is used by {{tl|Reply to}} to trigger a [[Special:Notifications|notification]] to one or several registered user(s) you are replying to in a discussion.
+
+==Usage from wikitext==
+This module cannot be used directly from wikitext. Please use the {{tl|Reply to}} template instead.
+
+==Usage within templates==
+ <nowiki>{{#invoke:@|replyto|<noinclude></nowiki>example=''example name''<nowiki></noinclude></nowiki>|max=''maximum number of names''}}

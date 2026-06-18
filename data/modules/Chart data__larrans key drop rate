@@ -1,0 +1,116 @@
+local helper = require('Module:Chart data')
+
+
+local rate = {}
+
+for i = 1, 79 do
+	local floored = math.floor(3/10*((80-i)^2))
+	rate[i] = 1 / (100 + floored)
+end
+
+for i = 80, 349 do
+	local floored = math.floor(-5/27*i)
+	rate[i] = 1 / (floored + 115)
+end
+
+for i = 350, 400 do
+	rate[i] = 1/50
+end
+
+local rate_slayer_mob = {}
+for i = 1, 400 do
+	rate_slayer_mob[i] = rate[i] * 1.2
+end
+
+local rate_cave = {}
+for i = 1, 400 do
+	rate_cave[i] = rate[i] * 1.15
+end
+
+local rate_cave_slayer_mob = {}
+for i = 1, 400 do
+	rate_cave_slayer_mob[i] = rate_slayer_mob[i] * 1.15
+end
+
+
+local data = {
+	type = 'scatter',
+	data = {
+		datasets = {
+			{
+				label = 'No level requirement',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[1]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[1]),
+				data = helper.convertToXYFormat(rate)
+			},
+			{
+				label = 'Has level requirement',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[2]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[2]),
+				data = helper.convertToXYFormat(rate_slayer_mob)
+			},
+			{
+				label = 'No level requirement in slayer cave',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[3]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[3]),
+				data = helper.convertToXYFormat(rate_cave)
+			},
+			{
+				label = 'Has level requirement in slayer cave',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[4]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[4]),
+				data = helper.convertToXYFormat(rate_cave_slayer_mob)
+			}
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		title = {
+			display = true,
+			text = 'Larran\'s Key drop chance',
+			font = {
+				size = 18
+			}
+		},
+		tooltips = {
+			format = 'skillingSuccess',
+			intersect = false
+		},
+		elements = {
+			point = {
+				radius = 0
+			}
+		},
+		scales = {
+			x = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Combat Level'
+				}
+			},
+			y = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Drop Rate'
+				},
+				ticks = {
+					format = {
+						style = 'percent',
+						minimumSignificantDigits = 1,
+						maximumSignificantDigits = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+return data

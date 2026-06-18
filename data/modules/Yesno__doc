@@ -1,0 +1,9 @@
+{{documentation}}
+{{Helper module|name=Yesno
+|fname1=(arg)
+|ftype1=Any value
+|fuse1=Reads arg for yes/no and returns the appropriate boolean or nil
+|fname2=(arg1,arg2)
+|ftype2=Any value, Any value
+|fuse2=Reads arg1 for yes/no and returns the appropriate boolean; returns arg2 if arg1 was not an applicable value
+}}

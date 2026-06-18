@@ -1,0 +1,202 @@
+local p = {}
+local contains = require('Module:Array').contains
+local pagesWithCats = require('Module:PageListTools').pageswithcats
+local paramTest = require('Module:Paramtest')
+
+local ask = nil--mw.smw--.ask
+local decode = mw.text.jsonDecode
+local html = mw.html
+local title = mw.title
+local trim = mw.text.trim
+
+function buildRow(positions, page, tableStyle)
+	local row = html.create('tr')
+	row
+		:tag('td'):wikitext('[[' .. page .. ']]' .. (paramTest.has_content(tableStyle) and ' <small>(' .. tableStyle .. ')</small>' or '')):done()
+		:tag('td'):attr('data-sort-value', string.sub(positions, 1, 1)):wikitext(positions):done()
+	
+	return row
+end
+
+function buildRow2(filenames, positions, page, tableStyle)
+	local value = table.concat(filenames, ' ')
+	local row = html.create('tr')
+	row:tag('td'):wikitext('[[' .. page .. ']]' .. (paramTest.has_content(tableStyle) and ' <small>(' .. tableStyle .. ')</small>' or '')):done()
+		:tag('td'):attr('data-sort-value', positions):attr('data-sort-type', 'number'):attr('style', 'padding: 0;'):wikitext('<div style="display: flex; flex-wrap: wrap; gap: 4px;">' .. value .. '</div>'):done()
+	return row
+end
+
+function createHeader()
+	local tabl = html.create('table'):addClass('wikitable mw-collapsible mw-collapsed sortable align-left-2 align-left-1 autosort=2,a')
+	tabl:tag('tr'):tag('th'):wikitext('Method'):done()
+		:tag('th'):wikitext('Rank'):done()
+		
+	return tabl
+end
+
+-- Returns the input item's page name and slot type
+function loadItemData(item)
+	local query = {
+		'[[' .. item .. ']]',
+		'?=#-',
+		'?All Equipment slot = slot',
+		limit = 1,
+		offset = 0,
+	}
+	local t1 = os.clock()
+	local itemData = ask(query)
+	local t2 = os.clock()
+	--assert(itemData ~= nil and #itemData > 0, 'SMW query failed')
+	mw.log(string.format('SMW: entries %d, time elapsed: %.3f ms.', #itemData, (t2 - t1) * 1000))
+
+	return itemData[1][1], itemData[1].slot
+end
+
+-- Returns true for the exact string `Amulet of glory` will only yield uncharged amulet of glory links
+function stringContains(items, str)
+	for _, item in ipairs(items) do
+		local escapedString = string.gsub(item, "([^%w])", "%%%1")
+		if(string.find(str, escapedString .. '[%|%]%.]')) then
+			return true
+		end
+	end
+	return false
+end
+
+function loadData(items)
+	local query = {
+		'[[Recommended Equipment JSON::+]]',
+		'?=#-',
+		'?Recommended Equipment JSON = json',
+		limit = 500,
+		offset = 0,
+	}
+	local t1 = os.clock()
+	local smwData = ask(query)
+	local t2 = os.clock()
+	assert(smwData ~= nil and #smwData > 0, 'SMW query failed')
+	mw.log(string.format('SMW: entries %d, time elapsed: %.3f ms.', #smwData, (t2 - t1) * 1000))
+	
+	local newData = {}
+	
+	-- Split pages that have multiple recommended equipment templates into separate table entries
+	--  Rename the first parameter to name for clarity and ease of use
+	-- It will only return tables that contain links to the arg inputs
+	for _, page in ipairs(smwData) do
+		if(type(page.json) == 'table') then
+			for _, equipmentTable in ipairs(page.json) do
+				if(stringContains(items, equipmentTable)) then
+					table.insert(newData, { name = page[1], json = decode(equipmentTable)})
+				end
+			end
+		elseif(stringContains(items, page.json)) then
+			table.insert(newData, { name = page[1], json = decode(page.json)})
+		end
+	end
+
+	return newData
+end
+
+function matchFileNames(line)
+	local links = {}
+	for matchedLink in string.gmatch(line, "%[%[File:[^%]]+") do
+		table.insert(links, matchedLink .. "]]")
+	end
+	return links
+end
+
+function p._main(args)
+	-- CSV lists should only be used for things in the same slot that are functionally identical
+	--  This is primarily for redirect/generic linking, e.g. like `God blessing` when referring to any of the blessings
+	local itemStr = paramTest.default_to(args[1], title.getCurrentTitle().text)
+	local items = {}
+	for str in string.gmatch(itemStr, '([^,]+)') do
+		table.insert(items, trim(str))
+	end
+	
+	local data = loadData(items)
+	
+	-- Only using the primary page for slot/special info, others should never impact it
+	local itemPage, itemSlot = loadItemData(items[1])
+	
+	local ret = createHeader()
+	local rowCount = 0
+	local retSpecial
+	local rowCountSpecial = 0
+	
+	local itemHasSpecial = false
+	if(contains(pagesWithCats({ '[[Category:Weapons with Special attacks]]' }), itemPage)) then
+		itemHasSpecial = true
+		retSpecial = createHeader()
+	end
+	
+	for _, equipmentTable in ipairs(data) do
+		local slotRowsToTraverse = {}
+		if(equipmentTable.json["Recommended Equipment"][itemSlot] ~= nil) then
+			table.insert(slotRowsToTraverse, itemSlot)
+		end
+		
+		-- Weapon and 2h are used interchangably, so include both in the search.
+		if(itemSlot == 'weapon' and equipmentTable.json["Recommended Equipment"]['2h'] ~= nil) then
+			table.insert(slotRowsToTraverse, '2h')
+		elseif(itemSlot == '2h' and equipmentTable.json["Recommended Equipment"]['weapon'] ~= nil) then
+			table.insert(slotRowsToTraverse, 'weapon')
+		end
+		
+		if(itemHasSpecial and equipmentTable.json["Recommended Equipment"]['special'] ~= nil) then
+			table.insert(slotRowsToTraverse, 'special')
+		end
+		
+		-- Darts exist as weapons or ammo (and are included with blowpipe in weapon)
+		if(string.sub(itemPage, -4) == 'dart' and equipmentTable.json["Recommended Equipment"]['ammo'] ~= nil) then
+			table.insert(slotRowsToTraverse, 'ammo')
+		end
+		for _, slotRowName in ipairs(slotRowsToTraverse) do
+			local positions = nil
+			local filenames = {}
+			local actualPosition = 1
+			for i, slotEntry in ipairs(equipmentTable.json["Recommended Equipment"][slotRowName]) do
+				local matchingFileNames = matchFileNames(slotEntry)
+				local slotEntryFilenames = {}
+				local desiredCell = false
+				local desiredCellPosition = nil;
+				for _, filename in ipairs(matchingFileNames) do
+					if(stringContains(items, filename)) then
+						desiredCell = true
+						desiredCellPosition = actualPosition
+					end
+					actualPosition = actualPosition + 1
+					table.insert(slotEntryFilenames, filename)
+				end
+				if (desiredCell) then
+					table.insert(filenames, '<div style="display: flex; align-items: center; padding: 2px; border: 1px solid black; background-color: #42b642">' .. table.concat(slotEntryFilenames) .. '</div>')
+				else
+					table.insert(filenames, '<div style="display: flex; align-items: center; padding: 2px; border: 1px solid black;">' .. table.concat(slotEntryFilenames) .. '</div>')
+				end
+				if(desiredCell) then
+					positions = desiredCellPosition
+				end
+			end
+			if(positions ~= nil and slotRowName ~= 'special') then
+				ret:node(buildRow2(filenames, positions, equipmentTable.name, equipmentTable.json.style))
+				rowCount = rowCount + 1
+			elseif(positions ~= nil and slotRowName == 'special') then
+				retSpecial:node(buildRow2(filenames, positions, equipmentTable.name, equipmentTable.json.style))
+				rowCountSpecial = rowCountSpecial + 1
+			end
+		end
+	end
+
+	if rowCount == 0 and rowCountSpecial == 0 then
+        do return 'Not used in any recommended equipment.' end
+    end
+	
+	return (rowCount > 0 and tostring(ret) or '') .. (rowCountSpecial > 0 and tostring('\n===Special attack===\n') .. tostring(retSpecial) or '')
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

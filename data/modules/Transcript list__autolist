@@ -1,0 +1,27 @@
+local yesno = require("Module:Yesno")
+local p = {}
+
+function p.main(frame)
+	local name = frame:getParent().args[1]
+	
+	local bucket_data = bucket('transcript')
+		.select('page_name')
+		.where('npcs', name)
+		.orderBy('page_name', 'ASC')
+		-- .where(bucket.Not('page_name', 'Transcript:'..pagename)) --Filter out your own transcript page
+		.run()
+	
+	local out = mw.html.create()
+		:tag('table')
+		:addClass('wikitable sortable')
+		:wikitext("<th>Transcript</th>")
+	
+	for _,p in pairs(bucket_data) do
+		local page = p.page_name:match('[^:]:(.+)')
+		out:wikitext("<tr><td>[["..p.page_name..'|'..page..']]</td></tr>')	
+	end
+		
+	return out
+end
+
+return p

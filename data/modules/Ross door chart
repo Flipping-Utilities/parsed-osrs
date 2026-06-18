@@ -1,0 +1,83 @@
+local chart = require( 'Module:Chart data' )
+local _ = require( 'Module:Skilling success chart').interp
+
+local p = {}
+
+local CUTOFF_LVL = 13
+local LOW_1 = 30
+local HIGH_1 = 250
+local LOW_2 = 3
+local HIGH_2 = 38
+
+function calculateDataSets(args)
+	local lowdata = {}
+	local highdata = {}
+	local y, y99
+	for x = 1, 99 do
+		y = interp(LOW_1, HIGH_1, x) * interp(LOW_2, HIGH_2, x)
+		if x == 99 then
+			y99 = y
+		end
+		if x >= CUTOFF_LVL then
+			table.insert(highdata, {x=x, y=y})
+		end
+		if x <= CUTOFF_LVL then -- purposely overlapping at cutoff lvl
+			table.insert(lowdata, {x=x, y=y})
+		end
+	end
+
+	local dataSets = {}
+	table.insert(dataSets, {
+		data = lowdata,
+		label = 'Pick-lock',
+		borderDash = {5, 5},
+		borderCapStyle = 'round',
+		pointRadius = 0,
+		baseColor = '#90601d',
+		pointStyleImg = 'Lockpick.png'
+	})
+	table.insert(dataSets, {
+		data = highdata,
+		label = 'Pick-lock',
+		borderDash = {},
+		borderCapStyle = 'round',
+		pointRadius = 0,
+		baseColor = '#90601d'
+	})
+	table.insert(dataSets, {
+		data = {{x = 99, y = y99}},
+		borderDash = {},
+		borderCapStyle = 'round',
+		baseColor = '#90601d',
+		pointRadius = 5
+	})
+
+	return dataSets
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+function p._main(args)
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle('Pick-lock success rate')
+        :setDimensions( '550px', '400px', '550px', '400px', true )
+        :setXLimits( 1, 99, 5 )
+        :setYLimits( 0, 0.2, 0.05 )
+        :setYFormat( 'percent' )
+        :setXLabel( 'Thieving level' )
+        :setYLabel( 'Success rate' )
+        :setTooltipFormat( 'skillingSuccess' )
+        :setDatasetsPerGroup(3)
+
+	local dataSets = calculateDataSets(args)
+	for i, dataSet in ipairs(dataSets) do
+		plot:newDataSet(dataSet)
+	end
+
+    return plot
+end
+
+return p

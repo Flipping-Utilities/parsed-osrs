@@ -1,0 +1,16 @@
+local p = {}
+
+local helpers = require('Module:Skill calc/Helpers')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	-- Compute current/goal levels and experience as well as the experience remaining between the difference
+	local bulkLevelInformation = helpers.calculateCurrentGoalInformation(args.current, args.currentToggle, args.goal, args.goalToggle)
+	
+	-- Build a message for the user to show the difference between current and goal experience
+	local message = helpers.createMessage('your skill', bulkLevelInformation)
+	return tostring(message)
+end
+
+return p

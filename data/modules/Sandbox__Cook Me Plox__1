@@ -1,0 +1,14 @@
+local p = {}
+
+local geprice = require('Module:Exchange')._price
+
+function p.main(frame)
+	local total = 0
+    local args = frame:getParent().args
+    for i, arg_name in ipairs(args) do
+        total = total + geprice(arg_name)
+    end
+    return total
+end
+
+return p

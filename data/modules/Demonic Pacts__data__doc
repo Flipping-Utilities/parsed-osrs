@@ -1,0 +1,37 @@
+{{Documentation}}
+This module renders the [[Demonic Pacts League]] skill tree from data in
+[[Module:Demonic Pacts/data]]. It is invoked by [[Template:Demonic Pacts Tree]]
+and styled by [[MediaWiki:Common.less/templates.less]].
+
+== Usage ==
+Place the template anywhere on a page:
+
+<pre>{{Demonic Pacts Tree}}</pre>
+
+The renderer projects each node's raw coordinates into the canvas pixel space,
+emits absolutely-positioned <code>&lt;div&gt;</code> elements for nodes and
+rotated <code>&lt;div&gt;</code> lines for edges, then attaches a CSS-only
+hover tooltip showing the effect text for each node.
+
+== Functions ==
+;<code>p.render(frame)</code>
+:The single entry point. Reads all nodes and edges from
+:[[Module:Demonic Pacts/data]] and returns a string of HTML.
+
+== Layout constants ==
+;<code>SIZE_PX</code>
+:Display size of node containers in pixels for each <code>size</code> value
+:(<code>sm</code>, <code>md</code>, <code>lg</code>). Adjust to make icons
+:bigger or smaller. Source files are 120&#215;120 px so values up to 120 are
+:rendered crisply.
+;<code>CANVAS_W</code> and <code>CANVAS_H</code>
+:Target dimensions of the canvas in pixels. The renderer chooses a uniform
+:scale that fits the bounding box of all nodes inside this area.
+
+== Updating data ==
+To add or change a node, edit [[Module:Demonic Pacts/data]]. To upload a new
+icon, follow the existing naming convention:
+[[:File:Pact AA (Demonic Pacts League).png|Pact ID (Demonic Pacts League).png]].
+
+[[Category:Lua-based templates]]
+[[Category:Demonic Pacts League]]

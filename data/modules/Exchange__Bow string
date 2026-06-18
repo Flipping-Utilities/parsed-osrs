@@ -1,0 +1,12 @@
+return {
+    itemId     = 1777,
+    icon       = 'Bow string.png',
+    item       = 'Bow string',
+    value      = 10,
+    limit      = 13000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need a bow stave to attach this to.',
+    hialch     = 6,
+    lowalch    = 4
+}

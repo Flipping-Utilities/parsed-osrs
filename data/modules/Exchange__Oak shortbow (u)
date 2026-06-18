@@ -1,0 +1,12 @@
+return {
+    itemId     = 54,
+    icon       = 'Oak shortbow (u).png',
+    item       = 'Oak shortbow (u)',
+    value      = 50,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'An unstrung oak shortbow; I need a bowstring for this.',
+    hialch     = 30,
+    lowalch    = 20
+}

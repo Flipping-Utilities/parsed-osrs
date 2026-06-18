@@ -1,0 +1,56 @@
+local p = {}
+
+local _defaults = function(s,d) if not s or not s:find('%S') then return d else return s end end
+
+function p.make_boxes(args,infobox_params,infobox_name)
+	local all_args = {}
+	all_args.universal = {}
+	local max_i = 1
+	for i=1,20 do
+		if not args['version'..i] then
+			break
+		else
+			all_args['item_s_'..i] = { version_name = args['version'..i] }
+			max_i = i
+		end
+	end
+	all_args.max_value_i = max_i
+	local chatheads = {}
+	for _, v in ipairs(infobox_params) do
+		all_args.universal['_'..v..'_'] = _defaults(args[v],nil)
+		for i=1,max_i do
+			all_args['item_s_'..i]['_'..v..'_'] = args[v..'_'..i] or args[v..i]
+			if args['chathead'..i] then
+				chatheads[i] = args['chathead'..i]
+			end
+		end
+	end
+
+	local ret = { '{{Switch infobox' }
+	for i=1,all_args.max_value_i do
+		table.insert(ret, '|text'..i..'='..all_args['item_s_'..i].version_name..'|item'..i..'={{'..infobox_name)
+		for _, v in ipairs(infobox_params) do
+			local param_x = all_args['item_s_'..i]['_'..v..'_'] or all_args.universal['_'..v..'_']
+
+			if param_x then
+				if param_x:find('%$%d+') then
+					local p_n = param_x:match('%$(%d+)')
+					param_x = all_args['item_s_'..p_n]['_'..v..'_'] or all_args.universal[v]
+				end
+				table.insert(ret,'|'..v..'='..param_x)
+			end
+		end
+		table.insert(ret,'}}')
+		if chatheads[i] then
+			if chatheads[i]:find('%$%d+') then
+				chatheads[i] = chatheads[tonumber(chatheads[i]:match('%$(%d+)'))]
+			end
+			table.insert(ret,chatheads[i])
+		end
+	end
+	table.insert(ret,'}}')
+	ret = table.concat(ret)
+	return mw.getCurrentFrame():preprocess(ret)
+end
+
+return p

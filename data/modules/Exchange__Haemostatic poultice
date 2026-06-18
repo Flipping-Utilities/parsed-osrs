@@ -1,0 +1,11 @@
+return {
+	itemId    = 31587,
+	item      = "Haemostatic poultice",
+	icon      = 'Haemostatic poultice.png',
+    alchable  = true,
+	value     = 170,
+	limit     = 2000,
+	members   = true,
+	category  = nil,
+	examine   = "A healing poultice, can be applied to cotton yarn to create a haemostatic dressing."
+}

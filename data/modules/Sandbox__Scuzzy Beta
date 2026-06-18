@@ -1,0 +1,81 @@
+local p = {}
+
+local sites = {
+	rsc = {
+		format = '[[classicrsw:%s]]',
+		params = { 'rsc', 'classic', 'c' },
+		abbr = 'CS',
+		title = 'The RuneScape Classic Wiki also has an article on %s.',
+		},
+	rs = {
+		format = '[[rsw:%s]]',
+		params = { 'runescape', 'rs', 'rsw', 'rs3' },
+		abbr = 'RuneScape',
+		title = 'The RuneScape Wiki also has an article on %s.',
+		},
+	wp = { 
+		format = '[[wikipedia:%s]]',
+		params = { 'wikipedia', 'wp', 'w' },
+		abbr = 'Wikipedia',
+		title = 'Wikipedia also has an article on %s.',
+		},
+	wg = {
+		format = '[[meta:%s]]',
+		params = { 'meta', 'wg' },
+		abbr = 'Weird Gloop',
+		title = 'The Weird Gloop meta wiki also has an article on %s.',
+		},
+	}
+
+local order = { 'rs', 'rsc' }
+
+local allparams = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local pagename = mw.title.getCurrentTitle().fullText
+	local vals = {}
+	-- create allparams
+	for s,t in pairs(sites) do
+		for _,v in ipairs(t.params) do
+			allparams[v] = s
+		end
+	end
+	
+	-- loop named params
+	for i,v in pairs(allparams) do
+		if args[i] and not vals[v] then
+			vals[v] = args[i]
+		end
+	end
+	
+	-- loop unnamed params
+	local i = 1
+	local v
+	while args[i] do
+		v = allparams[args[i]] 
+		if v and not vals[v] then
+			vals[v] = pagename
+		end
+		i = i + 1
+	end
+	
+	local ret = mw.html.create('div')
+	ret:addClass('rs-external-header-links'):css('display', 'none')
+	for _,v in ipairs(order) do
+		if vals[v] then
+			local span = ret:tag('span')
+			span:wikitext(string.format(sites[v].format, vals[v]))
+				:addClass('rs-header-icon rs-header-icon-'..v)
+				:attr({
+						['data-title'] = string.format(sites[v].title, vals[v]),
+						['data-site'] = v,
+						['data-text'] = sites[v].abbr,
+					})
+		end
+	end
+
+	return tostring(ret)	
+end
+
+return p

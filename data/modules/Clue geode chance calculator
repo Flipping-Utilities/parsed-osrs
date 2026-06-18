@@ -1,0 +1,98 @@
+local p = {}
+
+local lang = mw.language.getContentLanguage()
+
+local baseChanceArray = {
+	{rock = 'Runite rocks', chance = 42377},
+	{rock = 'Amethyst crystals', chance = 46350},
+	{rock = 'Adamantite rocks', chance = 59328},
+	{rock = 'Blast mine', chance = 123600},
+	{rock = 'Mithril rocks', chance = 148320},
+	{rock = 'Gem rocks', chance = 211886},
+	{rock = 'Lovakite rocks', chance = 245562},
+	{rock = 'Coal rocks', chance = 290640},
+	{rock = 'Gold rocks', chance = 296640},
+	{rock = 'Crashed Star', chance = 521550},
+	{rock = 'Volcanic sulphur', chance = 710000},
+	{rock = 'Ash pile', chance = 741600},
+	{rock = 'Barronite', chance = 741600},
+	{rock = 'Blurite rocks', chance = 741600},
+	{rock = 'Clay rocks', chance = 741600},
+	{rock = 'Copper rocks', chance = 741600},
+	{rock = 'Granite rocks', chance = 741600},
+	{rock = 'Iron rocks', chance = 741600},
+	{rock = 'Limestone rocks', chance = 741600},
+	{rock = 'Sandstone rocks', chance = 741600},
+	{rock = 'Silver rocks', chance = 741600},
+	{rock = 'Tin rocks', chance = 741600},
+}
+
+local clueTierArray = {
+    {tier = 'Beginner', modifier = 0.2},
+    {tier = 'Easy', modifier = 1.7},
+    {tier = 'Medium', modifier = 2},
+    {tier = 'Hard', modifier = 3.3},
+    {tier = 'Elite', modifier = 10}
+}
+
+local caTierArray = {
+	['None'] = 0,
+	['Easy'] = 1,
+	['Medium'] = 2,
+	['Hard'] = 3,
+	['Elite+'] = 4
+}
+
+function p.buildTable(denomArray)
+	local ret = mw.html.create('table'):addClass('wikitable sortable align-center-1'):done()
+		ret:tag('tr'):tag('th'):wikitext( 'Rock type'):done()
+			:tag('th'):wikitext('Beginner'):done()
+			:tag('th'):wikitext('Easy'):done()
+			:tag('th'):wikitext('Medium'):done()
+			:tag('th'):wikitext('Hard'):done()
+			:tag('th'):wikitext('Elite'):done()
+	
+	for i, denoms in ipairs(denomArray) do
+		local row = mw.html.create('tr'):tag('th'):wikitext(denoms[1]):done()
+				:tag('td'):attr('data-sort-value',1/denoms[2]):wikitext('1/' .. lang:formatNum(denoms[2])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[3]):wikitext('1/' .. lang:formatNum(denoms[3])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[4]):wikitext('1/' .. lang:formatNum(denoms[4])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[5]):wikitext('1/' .. lang:formatNum(denoms[5])):done()
+				:tag('td'):attr('data-sort-value',1/denoms[6]):wikitext('1/' .. lang:formatNum(denoms[6])):done()
+		ret:node(row)
+	end
+	
+	return ret
+end
+
+function p.getDenom(miningLevel, clueTier, clueMod, caTier, baseChance)
+	local caModifier = 1
+	if clueTier == 0 then
+		caModifier = 1
+	elseif caTier >= clueTier then 
+		caModifier = 0.95
+	end
+		
+	local firstNum = math.floor( math.floor(baseChance * 0.7) * caModifier)
+	local ret = math.floor((firstNum / (100 + miningLevel)) * clueMod)
+	return ret
+end
+
+function p._main(args)
+	local bigTable = {}
+	for _, rockArray in ipairs(baseChanceArray) do
+		local smallTable = {rockArray.rock}
+		for i, clueArray in ipairs(clueTierArray) do
+			table.insert(smallTable, p.getDenom(args.miningLevel, i-1, clueArray.modifier, caTierArray[args.caTier], rockArray.chance))
+		end
+		table.insert(bigTable, smallTable)
+	end
+	return p.buildTable(bigTable)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

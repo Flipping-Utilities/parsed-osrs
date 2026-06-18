@@ -1,0 +1,87 @@
+-- Module:Chart data/AFK Activity Tracker
+-- Scatter chart of all individual submissions with group average bubbles.
+-- Reads data from Module:Chart data/AFK Activity Tracker/data.
+--
+-- Usage: {{Chart data|Chart data/AFK Activity Tracker|init|width=80%|height=50vh}}
+
+local p = {}
+
+function p.init()
+	local chart = require('Module:Chart data')
+	local data = mw.loadData('Module:Chart data/AFK Activity Tracker/data')
+
+	local plot = chart.newChart{ type = 'scatter' }
+
+	plot:setDimensions('80%', nil, 400, nil, true)
+	plot:setTitle('AFK Activity Tracker - All Submissions')
+	plot:setXLabel('Consistency Score')
+	plot:setYLabel('Avg Click Interval (ms)')
+	plot:setXLimits(0, 100)
+
+	plot.colorPallet = chart.colorPallets.qualitative
+
+	-- Group submissions by activity group
+	local groups = {}
+	local groupOrder = {}
+	for _, entry in ipairs(data) do
+		local g = entry.group
+		if not groups[g] then
+			groups[g] = {}
+			table.insert(groupOrder, g)
+		end
+		table.insert(groups[g], entry)
+	end
+
+	-- For each group: plot individual points then its average bubble
+	-- Keeping them adjacent so the palette assigns related colors
+	for _, g in ipairs(groupOrder) do
+		local entries = groups[g]
+
+		-- Individual submissions (points only, no lines)
+		local ds = plot:newDataSet{ showLine = false }
+		ds.label = g
+		local points = {}
+		for _, e in ipairs(entries) do
+			table.insert(points, { x = e.consistency, y = e.interval, name = e.name })
+		end
+		ds:addData(points)
+
+		-- Group average bubble
+		local sumC, sumI = 0, 0
+		for _, e in ipairs(entries) do
+			sumC = sumC + e.consistency
+			sumI = sumI + e.interval
+		end
+		local avgC = sumC / #entries
+		local avgI = sumI / #entries
+
+		local avgDs = plot:newDataSet{ showLine = false }
+		avgDs.label = g .. ' Average'
+		avgDs:addData({ { x = avgC, y = avgI } })
+		avgDs.pointRadius = 10
+		avgDs.pointHoverRadius = 12
+		avgDs.pointStyle = 'circle'
+	end
+
+	return plot
+end
+
+-- Render the data module as a wikitable for display on the main page.
+-- Usage: {{#invoke:Chart data/AFK Activity Tracker|table}}
+function p.table()
+	local data = mw.loadData('Module:Chart data/AFK Activity Tracker/data')
+
+	local rows = {}
+	table.insert(rows, '{| class="wikitable sortable"')
+	table.insert(rows, '|-')
+	table.insert(rows, '! Activity Name !! Group !! Consistency !! Avg Interval (ms) !! Clicks !! Duration (min)')
+	for _, e in ipairs(data) do
+		table.insert(rows, '|-')
+		table.insert(rows, '| ' .. e.name .. ' || ' .. e.group .. ' || ' .. e.consistency .. ' || ' .. e.interval .. ' || ' .. e.clicks .. ' || ' .. e.duration)
+	end
+	table.insert(rows, '|}')
+
+	return table.concat(rows, '\n')
+end
+
+return p

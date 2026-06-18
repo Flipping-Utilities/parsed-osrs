@@ -1,0 +1,12 @@
+return {
+    itemId     = 30,
+    icon       = 'Bucket of wax.png',
+    item       = 'Bucket of wax',
+    value      = 6,
+    limit      = 15,
+    members    = true,
+    category   = nil,
+    examine    = 'It\'s a bucket of wax.',
+    hialch     = 3,
+    lowalch    = 2
+}

@@ -1,0 +1,303 @@
+local p = {}
+
+local avgDropVal = require('Module:Average drop value').totalval
+local coins = require('Module:Coins')._amount
+local commas = require('Module:Addcommas')._add
+local default = require('Module:Paramtest').default_to
+local yesNo = require('Module:Yesno')
+local prices = mw.loadJsonData('Module:GEPrices/data.json')
+
+sortKey = {--[[allotment]] "Potato seed", "Onion seed", "Cabbage seed", "Tomato seed", "Sweetcorn seed", "Strawberry seed", "Watermelon seed", "Snape grass seed", --[[flower]] "Marigold seed", "Rosemary seed", "Nasturtium seed", "Woad seed", "Limpwurt seed", --[[herb]] "Guam seed", "Marrentill seed", "Tarromin seed", "Harralander seed", "Ranarr seed", "Toadflax seed", "Irit seed", "Avantoe seed", "Kwuarm seed", "Snapdragon seed", "Cadantine seed", "Lantadyme seed", "Dwarf weed seed", "Torstol seed", --[[hops]] "Barley seed", "Hammerstone seed", "Asgarnian seed", "Jute seed", "Yanillian seed", "Krandorian seed", "Wildblood seed", --[[bush]] "Redberry seed", "Cadavaberry seed", "Dwellberry seed", "Jangerberry seed", "Whiteberry seed", "Poison ivy seed", --[[tree]] "Acorn", "Willow seed", "Maple seed", "Yew seed", "Magic seed", --[[fruit tree]] "Apple tree seed", "Banana tree seed", "Orange tree seed", "Curry tree seed", "Pineapple seed", "Papaya tree seed", "Palm tree seed", "Dragonfruit tree seed", --[[cactus]] "Cactus seed", "Potato cactus seed", --[[hardwood]] "Teak seed", "Mahogany seed", --[[special single patches]] "Redwood tree seed", "Mushroom spore", "Belladonna seed", "Calquat tree seed", "Celastrus seed", "Hespori seed", "Spirit seed" }
+
+-- Lows are calculated
+local packTierRolls = {
+	{
+		total = 6,
+		medium = {
+			low = 1,
+			high = 3,
+		},
+		high = {
+			low = 0,
+			high = 0,
+		},
+	},
+	{
+		total = 7,
+		medium = {
+			low = 2,
+			high = 3,
+		},
+		high = (1/11),
+	},
+	{
+		total = 8,
+		medium = {
+			low = 2,
+			high = 4,
+		},
+		high = {
+			low = 0,
+			high = 1,
+		},
+	},
+	{
+		total = 9,
+		medium = {
+			low = 3,
+			high = 5,
+		},
+		high = {
+			low = 1,
+			high = 2,
+		},
+	},
+	{
+		total = 10,
+		medium = {
+			low = 4,
+			high = 6,
+		},
+		high = {
+			low = 1,
+			high = 3,
+		},
+	},
+}
+
+local taskDifficultyCount = {
+	easy = {
+		total = 31,
+		tiers = { 11, 12, 8, 0,	0 },
+	},
+	medium = {
+		total = 22,
+		tiers = { 0, 4, 10, 8, 0 },
+	},
+	hard = {
+		total = 18,
+		tiers = { 0, 0, 3, 8, 7 },
+	},
+}
+
+function averageRolls(high, low)
+	return high - ((high - low) / 2)
+end
+
+function avgTierRolls(num)
+	local tierRolls = packTierRolls[num]
+	
+	local high = 0
+	if(type(tierRolls.high) == 'table') then
+		high = averageRolls(tierRolls.high.high, tierRolls.high.low)
+	else
+		high = tierRolls.high or 0
+	end
+	
+	local medium = averageRolls(tierRolls.medium.high, tierRolls.medium.low) or 0
+	local low = (tierRolls.total - high - medium) or 0
+	
+	return { low = low, medium = medium, high = high }
+end
+
+function difficultyRolls(type)
+	local low, medium, high = 0, 0, 0
+	
+	local tierTaskTotal = taskDifficultyCount[type].total
+	local tiersTable = taskDifficultyCount[type].tiers
+
+	for tierNum, tierTaskCount in ipairs(tiersTable) do
+		local avgRollCount = avgTierRolls(tierNum)
+		high = high + ((tierTaskCount / tierTaskTotal) * avgRollCount.high)
+		medium = medium + ((tierTaskCount / tierTaskTotal) * avgRollCount.medium)
+		low = low + ((tierTaskCount / tierTaskTotal) * avgRollCount.low)
+	end
+	return { low = low, medium = medium, high = high }
+end
+
+function createRow(seedTable)
+	local priceText = nil
+	local profitText = nil
+	local cellClass = nil
+	local cellCss = nil
+	if(seedTable.price == nil) then
+		priceText = '<small>N/A</small>'
+		profitText = '<small>N/A</small>'
+		cellClass = 'table-na nohighlight'
+		cellCss = 'text-align:center'
+	else
+		priceText = coins(seedTable.price)
+		profitText = coins(seedTable.profit)
+	end
+
+	return mw.html.create('tr')
+		:tag('td'):wikitext('[[File:' .. seedTable.name .. '_5.png|link=|' .. seedTable.name .. ']]'):done()
+		:tag('td'):wikitext('[[' .. seedTable.name .. ']]'):done()
+		:tag('td'):wikitext(priceText):addClass(cellClass):cssText(cellCss):done()
+		:tag('td'):wikitext(string.format("%.3f", seedTable.quantityOutput)):done()
+		:tag('td'):wikitext(profitText):addClass(cellClass):cssText(cellCss):done()
+end
+
+function createTable(ret, tier, difficulty, useSpiritSeed, useHesporiSeed)
+	local wikitable = mw.html.create('table'):addClass('wikitable sortable align-center-1 align-center-2 align-center-3 align-center-4 align-center-5')
+	wikitable:tag('tr')
+		:tag('th'):wikitext('Seed'):attr('colspan', '2'):done()
+		:tag('th'):wikitext('Price'):done()
+		:tag('th'):wikitext('Quantity'):done()
+		:tag('th'):wikitext('Value'):done()
+	
+	for _,v in ipairs(sortKey) do
+		wikitable:node(createRow(ret.seedsCalculated[v]))
+	end
+	
+	ret['wikitable'] = tostring(wikitable) .. '\n\nThe average expected value of ' .. (tier and 'Tier ' .. tier or '') .. ' seed packs ' .. (difficulty and 'from ' .. difficulty .. ' Farming contracts' or '') .. ' is ' .. coins(string.format("%.2f", ret.totalProfit)) .. ' coins.'
+	if(tier == nil or tier > 1) then
+		ret.wikitable = ret.wikitable .. ((useSpiritSeed and ret.spiritSeedProfit > 0) and '\n\nTrading in spirits seeds for tier 5 seed packs increases the profit by '.. coins(string.format("%.2f", ret.spiritSeedProfit)) .. ' coins.' or '')
+		ret.wikitable = ret.wikitable .. ((useHesporiSeed and ret.hesporiSeedProfit > 0) and '\n\nPlanting hespori seeds and killing hespori increases the average profit by '.. coins(string.format("%.2f", ret.hesporiSeedProfit)) .. ' coins.' or '')
+		ret.wikitable = ret.wikitable .. ((useSpiritSeed or useHesporiSeed) and '\n\nThese increase the profit' .. ((useSpiritSeed and useHesporiSeed) and ' by ' .. coins(string.format("%.2f", ret.spiritSeedProfit + ret.hesporiSeedProfit)) or '') .. ' to ' .. coins(string.format("%.2f", ret.totalProfit + ret.spiritSeedProfit + ret.hesporiSeedProfit)) .. ' coins.' or '')
+	end
+	return ret.wikitable
+end
+
+function calc(tables, rolls)
+	local seedsCalculated = {}
+	local totalProfit = 0
+	local totalSpiritSeeds = 0
+	local totalHesporiSeeds = 0
+	for level, seedTable in pairs(tables) do
+		for _, drop in ipairs(seedTable) do
+			local item = drop['Dropped item']
+			seedsCalculated[item] = {}
+			seedsCalculated[item]['name'] = item
+			seedsCalculated[item]['price'] = prices[item]
+			
+			local rarityStr = drop['Rarity']
+			local numer, divis = string.match(rarityStr, '([%d%.]+)/([%d%.]+)')
+			if numer ~= nil and divis ~= nil then
+				seedsCalculated[item]['rarityValue'] = numer / divis
+			else
+				error("Invalid rarity format for item '" .. tostring(item) .. "': " .. tostring(rarityStr))
+			end
+
+			
+			seedsCalculated[item]['quantityAvg'] = drop['Quantity High'] - ((drop['Quantity High'] - drop['Quantity Low']) / 2)
+			seedsCalculated[item]['quantityOutput'] = rolls[level] * seedsCalculated[item].quantityAvg * seedsCalculated[item].rarityValue
+			seedsCalculated[item]['profit'] = ((seedsCalculated[item].price ~= nil) and (seedsCalculated[item].quantityOutput * seedsCalculated[item].price) or 0)
+			seedsCalculated[item]['totalWithoutSpiritSeed'] = seedsCalculated[item].profit or 0
+			
+			totalProfit = totalProfit + (seedsCalculated[item].profit or 0)
+			if(item == 'Spirit seed') then
+				totalSpiritSeeds = totalSpiritSeeds + seedsCalculated[item].quantityOutput
+			end
+			if(item == 'Hespori seed') then
+				totalHesporiSeeds = totalHesporiSeeds + seedsCalculated[item].quantityOutput
+			end
+		end
+	end
+	return {
+		seedsCalculated = seedsCalculated,
+		totalProfit = totalProfit,
+		totalSpiritSeeds = totalSpiritSeeds,
+		totalHesporiSeeds = totalHesporiSeeds,
+	}
+end
+
+function p.getSeedDropTables(includeWhiteLily)
+	local t1 = os.clock()
+    local bucketData = bucket("dropsline")
+		.select("drop_json")
+		.where("page_name", "Seed pack")
+		.run()
+    local t2 = os.clock()
+
+	assert(bucketData ~= nil and #bucketData > 0, 'Bucket query failed  to find seed pack drops')
+	mw.log(string.format('Bucket: entries %d, time elapsed: %.3f ms.', #bucketData, (t2 - t1) * 1000))
+
+	local low, medium, high = {}, {}, {}
+   for _, drop in ipairs(bucketData) do
+    	local json = mw.text.jsonDecode(drop["drop_json"])
+    	local str = string.lower(json['Dropped from'])
+		local item = json["Dropped item"]
+		if includeWhiteLily or item ~= "White lily seed" then
+			local str = string.lower(json['Dropped from'])
+			if(str == 'seed pack#low seed') then
+				table.insert(low, json)
+			elseif(str == 'seed pack#medium seed') then
+				table.insert(medium, json)
+			elseif(str == 'seed pack#high seed') then
+				table.insert(high, json)
+			end
+		end
+    end
+	return { low = low, medium = medium, high = high }
+end
+
+function p._main(args, frameArgs)
+	local filter = string.lower(default(args[1], ''))
+	local tier = (packTierRolls[tonumber(filter:sub(-1))] and tonumber(filter:sub(-1)) or nil)
+	local difficulty = (taskDifficultyCount[filter] and filter or nil)
+	
+	local useSpiritSeed = yesNo(default(args.spiritseed, false))
+
+	local displayTable = yesNo(default(args['table'] or frameArgs['table'], false))
+
+	local useHesporiSeed = yesNo(default(args.hespori, false))
+	local hesporiValue = (useHesporiSeed and avgDropVal('Hespori', nil, nil, nil, nil, nil, false) or 0)
+	
+	-- Checks to see if the white lily seed should be included, used for tithe farm packs.
+    local includeWhiteLily = yesNo(default(args.whitelily or frameArgs.whitelily, false))
+    if includeWhiteLily then
+    	table.insert(sortKey, "White lily seed")
+    end	
+	local seedTables = p.getSeedDropTables(includeWhiteLily)
+	
+	local tier5Data = {}
+	if(useSpiritSeed) then
+		tier5Data = calc(seedTables, avgTierRolls(5))
+	
+		local p = tier5Data.seedsCalculated['Spirit seed'].quantityOutput -- e.g., 1/22
+		local V = tier5Data.totalProfit -- base value of a tier 5 seed pack
+	
+		-- Calculate only the additional profit without recursion
+		tier5Data.spiritSeedProfit = (V / (1 - p)) - V
+		-- This is effectively a short-circuit to avoid additional processing
+		if(tier == 5) then
+			tier5Data['hesporiSeedProfit'] = tier5Data.totalHesporiSeeds * hesporiValue
+			if(displayTable) then
+				return createTable(tier5Data, tier, difficulty, useSpiritSeed, useHesporiSeed)
+			else
+				return tier5Data.totalProfit + tier5Data.spiritSeedProfit + tier5Data.hesporiSeedProfit
+			end
+		end
+	end
+	
+	local ret = {}
+	if(taskDifficultyCount[difficulty] ~= nil) then
+		ret = calc(seedTables, difficultyRolls(difficulty))
+	elseif(packTierRolls[tier] ~= nil) then
+		ret = calc(seedTables, avgTierRolls(tier))
+	end
+	
+	ret['spiritSeedProfit'] = (useSpiritSeed and (ret.totalSpiritSeeds * (tier5Data.spiritSeedProfit + tier5Data.totalProfit)) or 0)
+	ret['hesporiSeedProfit'] = ret.totalHesporiSeeds * hesporiValue
+	
+	if(displayTable) then
+		return createTable(ret, tier, difficulty, useSpiritSeed, useHesporiSeed)
+	else
+		return ret.totalProfit + ret.spiritSeedProfit + ret.hesporiSeedProfit
+	end
+end
+
+--[[ DEBUG
+mw.log(p._main({'1',['spiritseed']='No',['Hespori']='Yes',['table']='Yes'}))
+mw.log(p._main({'1',['spiritseed']='Yes',['Hespori']='No',['table']='No'}))
+--]]
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local frameArgs = frame.args
+	--mw.logObject(args)
+	return p._main(args, frameArgs)
+end
+
+return p

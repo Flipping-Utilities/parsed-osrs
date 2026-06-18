@@ -1,0 +1,11 @@
+return {
+	itemId    = 32002,
+	item      = "Iron keel parts",
+	icon      = 'Iron keel parts.png',
+    alchable  = true,
+	value     = 125,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating an iron keel for a boat."
+}

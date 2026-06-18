@@ -1,0 +1,44 @@
+{{Documentation}}
+The '''Profitable alchemy''' Module is used to display profitable items when alchemising them or selling to shops. 
+
+==Usage==
+<pre>
+{{#invoke:Profitable alchemy|main
+|alchtype    = <!-- The action type to use in profit calculations. See below. Defaults to 'fire staff'. -->
+|minbuylimit = <!-- The minimum buy limit items should have for them to be listed. Defaults to 0. -->
+|minvolume = <!-- The minimum volume items should have for them to be listed. Defaults to 0. -->
+|maxitems = <!-- Limits the total number of items listed, note that the most profitable items will be selected. Defaults to no limit. -->
+}}
+</pre>
+
+{| class="wikitable"
+!alchtype !! Cost !! Items per hour !! Item value multiplier !! Column 4 text
+|-
+|general store||0|| 50,000 || 0.1 || Sell price
+|-
+|general store single||0|| 300 || 0.6 || Sell price
+|-
+|low alch||1 [[Nature rune]]<br/>{{Coins|{{GEP|Nature rune}}}}|| 2,000 || 0.4 || [[Low Alch]]
+|-
+|fire staff||1 [[Nature rune]]<br/>{{Coins|{{GEP|Nature rune}}}}|| 1,200 || 0.6 || [[High Alch]]
+|-
+|no staff||1 [[Nature rune]]<br/>5 [[Fire rune]]s<br/>{{Coins|{{GEP|Nature rune}} + {{GEP|Fire rune|5}}}}|| 1,200 || 0.6 || [[High Alch]]
+|}
+
+==Common Settings==
+minbuylimit = 50
+
+minvolume = 30000
+
+maxitems=20
+
+<pre>
+{{#invoke:Profitable_alchemy|main|alchtype=fire staff|minbuylimit=50|minvolume=30000|maxitems=20}}
+</pre>
+{{#invoke:Profitable_alchemy|main|alchtype=fire staff|minbuylimit=50|minvolume=30000|maxitems=20}}
+
+==Full Table==
+<pre>
+{{#invoke:Profitable alchemy|main|alchtype=fire staff}}
+</pre>
+{{#invoke:Profitable alchemy|main|alchtype=fire staff}}

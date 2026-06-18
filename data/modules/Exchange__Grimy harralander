@@ -1,0 +1,12 @@
+return {
+    itemId     = 205,
+    icon       = 'Grimy harralander.png',
+    item       = 'Grimy harralander',
+    value      = 16,
+    limit      = 13000,
+    members    = true,
+    category   = nil,
+    examine    = 'It needs cleaning.',
+    hialch     = 9,
+    lowalch    = 6
+}

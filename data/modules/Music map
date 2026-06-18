@@ -1,0 +1,172 @@
+local var = mw.ext.VariablesLua
+
+local p = {}
+
+function p.main( frame )
+    return p._main( frame:getParent().args )
+end
+
+function p._main( args )
+	-- Collect data from the Music track pages themselves
+	local b = bucket("music")
+		.select("map.features", "page_name", "number", "track", "title", "map.is_historic", "map.page_name_sub", "map.options")
+		.join("map", "map.page_name", "music.page_name")
+		.limit(5000)
+	if args.categories then
+		local cat = args.categories:gsub("[%[%]]+", '')
+		b.where(cat)
+	end
+	
+	if args.bucket == 'onlyhist' then
+		--Filter to historical tracks
+		b.where("map.is_historic", true)
+	elseif args.bucket == 'hist' then
+		-- No additional where clause, grab everything
+	else
+		-- Only show non-historical tracks
+		b.where("map.is_historic", false)
+	end
+	local polys = b.run()
+	
+	local trackData = {}
+	local hasHistoric = {}
+	for _, track in ipairs(polys) do
+		local location_hash = mw.hash.hashValue('md5', track['map.features'] or '')
+		if track['map.page_name_sub'] then
+			-- only process this track if the map bucket has data
+			local trackObj = {
+				['track'] = track['track'],
+				['title'] = track['title'],
+				['page'] = track['page_name'],
+				['number'] = track['number'],
+				['mapname'] = track['map.page_name_sub']:match('#(.*)') or track['map.page_name_sub'],
+				['linktext'] = mw.text.jsonDecode(track['map.options'] or '{}')['linktext'] or track['title']
+			}
+			-- mw.logObject(trackObj, 'trackObj')
+			if not trackData[location_hash] then
+				trackData[location_hash] = {
+					['tracks'] = {},
+					['location_json'] = track['map.features'],
+					['is_historic'] = track['map.is_historic']
+				}
+			end
+			table.insert(trackData[location_hash]['tracks'], trackObj)
+			if track['map.is_historic'] then 
+				hasHistoric[track['number']] = true
+			end
+		end
+	end
+	
+	local noid = -1
+	local tracklistNumber = 0
+	local tracklist = {}
+	local jsonObj = {
+		type = "FeatureCollection",
+		features = {},
+	}
+	local feat = jsonObj['features']
+	for _, group in pairs(trackData) do
+		local shouldDraw = true
+		if args.bucket == 'onlyhist' and not group.is_historic then
+			shouldDraw = false
+		end
+			
+		-- mw.logObject(group, "group")
+		local trackLinks = {}
+		local link
+		if shouldDraw then
+			for _, coords in ipairs(group["tracks"]) do
+				-- mw.logObject(coords, "coords")
+				local track = coords['track']
+				local name = coords['title']
+				local page = coords['page']
+				local musicID = coords['number']
+				local mapname = coords['mapname']
+				local linktext = coords['linktext']
+				
+				-- mw.logObject({args.bucket, musicID, page, hasHistoric[musicID], group.is_historic}, 'Check if historic')
+				if args.bucket == 'hist' and hasHistoric[musicID] and not group.is_historic then
+					-- if there is at least one historical map for the track, then draw only the hist entries; otherwise draw anything
+					-- so the remainder should only happen if the above condition is not met
+					shouldDraw = false
+				else
+					-- List of tracks if part of an area, or link to file with |Play track
+					if mapname and mapname ~= page then
+						table.insert(trackLinks, "<div>[[:"..track.."|"..name.."]]</div>")
+					else
+						table.insert(trackLinks, "<div>[[:"..page.."|Play track]]</div>")
+					end
+					if musicID then
+						musicID = tonumber(musicID)
+						tracklist[musicID] = {}
+					else
+						musicID = noid
+						tracklist[musicID] = {}
+						noid = noid - 1
+					end
+					local paren = track:find(' %(music track%)')
+					local colon = track:find(':') or 0
+					-- mw.logObject({mapname, track, linktext}, "mapname linktext")
+					if mapname and mapname ~= track and linktext then
+						link = string.format('[[%s|%s]]', mapname, linktext)
+					elseif paren then
+						base = track:sub(colon, paren)
+						link = string.format('[[%s (music track)|%s]]', base, name and '(?)' or base)
+					else
+						link = string.format('[[%s|%s]]', track, name and '(?)' or track)
+					end
+					-- if name then
+					-- 	link = string.format('[[%s|%s]] <sup>%s</sup>', page, name, link)
+					-- end
+					table.insert(tracklist[musicID], tracklistNumber)
+				end
+			end
+		end
+		-- re-check shouldDraw to see if all conditions are still met
+		if shouldDraw then
+			local json = group['location_json']
+			if json then
+				-- each feature is technically an array of features
+				-- but there should always be exactly one entry (no multipolygons)
+				-- mw.logObject(json, 'JSON data')
+				local obj = mw.text.jsonDecode(json)[1]
+				if obj then
+					local prop = obj['properties']
+					
+					if prop then
+						prop['title'] = link
+						prop['description'] = table.concat(trackLinks, ' ')
+						prop['mapID'] = "-1"
+						prop['plane'] = 0
+						-- mw.logObject(prop, 'adding prop')
+						table.insert(feat, obj)
+					end
+					tracklistNumber = tracklistNumber + 1
+				end
+			end
+		end
+	end
+	var.vardefine('tracklist', trackdata(tracklist))
+	-- mw.logObject(jsonObj)
+	local jsonstr = mw.text.jsonEncode(jsonObj)
+	jsonstr = jsonstr:gsub('}}', '} }'):gsub('}}', '} }') -- why?
+	
+	return jsonstr
+end
+
+function trackdata(tracklist)
+	if tracklist == nil then
+		return ''
+	end
+	local div = mw.html.create('div'):css('display', 'none')
+	for track, ids in pairs(tracklist) do
+		div:tag('data'):attr('value', table.concat(ids, ' ')):wikitext(track)
+	end
+	return tostring(div)
+end
+
+return p
+
+--[[Debug copypaste:
+="{{#tag:mapframe|"..p._main({width=1000, height=850, zoom=0, bucket="onlyhist"}).."|width=500|height=500|mapid=-1}}"
+--]]

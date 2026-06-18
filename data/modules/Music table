@@ -1,0 +1,109 @@
+
+local p = {}
+
+function p.musicpage(e)
+		local args = e:getParent().args
+		members = args[1]
+	return p.print()
+end
+
+function p.fetchResults()
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local b = bucket('music')
+			.select('title', 'page_name', 'track', 'duration', 'is_members_only', 'sort_name', 'is_event', 'unlock_detail',  "Category:Old School-exclusive music", 'release_date')
+			.orderBy('sort_name', 'asc')
+			.where(bucket.Not("Category:Jingles"), bucket.Not("Category:Unlisted music tracks"), bucket.Not("Category:Removed music"), bucket.Not("Category:Unused music"))
+			.limit(batchSize)
+			.offset(offset)
+
+			
+			if members == 'f2p' then
+				b.where('is_members_only', false)
+				elseif members == 'members' then
+				b.where('is_members_only', true)
+			end
+				
+local data = b.run()			
+			for _, result in ipairs(data) do
+				
+				if result.title ~= nil then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #b < batchSize then
+				break;
+			end
+
+	end
+	
+	return results
+end
+
+function p.print()
+	local results = p.fetchResults()
+	local output = {
+		'{| class="wikitable sortable lighttable embed-audio-links qc-active music-tracks sticky-header align-center-3 style="width:100%;"',
+		'! Name',
+		'! Unlock details',
+		'! Length',
+		'',
+		'! Release',
+		'! class="unsortable" style="width: 312px | Music track'
+	}
+
+	
+	if members == nil then
+		table.insert(output, 6, '! P2P')
+	end
+	
+		for _, result in ipairs(results) do
+			
+	local title = result.title
+	local detail = result.unlock_detail or 'Unknown'
+
+	
+	
+	if result['Category:Old School-exclusive music'] then
+			title = '\'\'\'' .. title .. '\'\'\''
+	end
+
+		if result.is_event then
+		title = '\'\'' .. title .. '\'\''
+	end
+
+
+	local day, year = string.match(result.release_date, '(%d+%s%a+)%s(%d+)')
+	local release = '[[' .. day .. ']] [[' .. year .. ']]'
+	local releasesort = ''
+	if string.find(result.release_date, "-") then
+		day1, month = string.match(result.release_date, '(%d+%s%p%s%d+)%s(%a+)')	
+		release = day1 ..' [['.. month ..']] [[ ' .. year .. ']]'
+		releasesort =  'data-sort-value="' .. day .. ' ' .. year .. '"|'
+	end
+
+		table.insert(output, '|- data-music-track-name="' .. result.title .. '"')
+		table.insert(output, '|[[' .. result.page_name.. '|' .. title ..']]')
+		table.insert(output, '|' .. detail)
+		table.insert(output, '|' .. result.duration)
+				if result.is_members_only == true and members == nil then
+			table.insert(output, '|<span style="display:none;">1</span>[[File:Member icon.png|center|link=Members]]')
+			elseif result.is_members_only == false and members == nil then
+			table.insert(output, '|<span style="display:none;">0</span>[[File:Free-to-play icon.png|center|link=Free-to-play]]')
+			end
+		table.insert(output, '|' .. releasesort .. release)
+		table.insert(output, '|' .. '[[:' .. result.track .. '| Play Track ]]')
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+return p

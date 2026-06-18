@@ -1,0 +1,74 @@
+local p = {}
+local slayerCat = {}
+
+slayerCat["AB"]={"Aberrant spectre", "Abyssal demon", "Ankou", "Aviansie", 
+                 "Bandit", "Banshee", "Basilisk", "Bat", "Bear", "Bird", "Black demon", "Black dragon", 
+                 "Black Knights", "Bloodveld", "Blue dragon", "Boss", "Brine rat"}
+slayerCat["CD"]={"Catablepon", "Cave bug", "Cave crawler", "Cave horror", "Cave kraken", 
+                 "Cave slime", "Chaos druid", "Cockatrice", "Cow", "Crawling Hand", "Crocodile", 
+                 "Dagannoth", "Dark Beast", "Dark warrior", "Dog", "Drake", "Dust devil", "Dwarf"}
+slayerCat["EH"]={"Earth warrior", "Elves", "Ent", "Fever spider", "Fire giant", 
+                 "Flesh crawler", "Fossil Island Wyvern", "Gargoyle", "Ghost", "Ghoul", "Goblin", 
+                 "Greater demon", "Green dragon", "Harpie Bug Swarm", "Hellhound", "Hill giant", 
+                 "Hobgoblin", "Hydras"}
+slayerCat["IM"]={"Ice giant", "Ice warrior", "Icefiend", "Infernal Mage", "Jelly", 
+                 "Jungle horror", "Kalphite", "Killerwatt", "Kurask", "Lava dragon", "Lesser demon", 
+                 "Lizard", "Lizardmen", "Magic Axe", "Mammoth", "Metal dragons", "Minotaur", "Mogre", 
+                 "Molanisk", "Monkey", "Moss giant", "Mutated Zygomite"}
+slayerCat["NZ"]={"Nechryael", "Ogre", "Otherworldly being", "Pirates", "Pyrefiend", "Rat", 
+                 "Red dragon", "Revenant", "Rockslug", "Rogue", "Scabarites", "Scorpion", "Sea snake", 
+                 "Shades", "Shadow warrior", "Skeletal Wyvern", "Skeleton", "Smoke devil", "Sourhogs",
+                 "Spider", "Spiritual creatures", "Suqah", "Terror dog", "Troll", "Turoth", "TzHaar",
+                 "Vampyre", "Wall beasts", "Waterfiend", "Werewolf", "Wolf", "Wyrms", "Zombie"}
+
+function CreateWikiCode(name)
+    local wikicode = string.format("==%s==\n{{Bestiarytable|fromlevel=1|tolevel=2000|levelsort=yes|verbose=yes|onlycat=%s}}\n", name, name)
+
+    return wikicode 
+end
+
+function p.CreateTablesAtoB()
+    local wikiCode = ""
+    for _, value in ipairs(slayerCat["AB"]) do
+        wikiCode = wikiCode .. CreateWikiCode(value)
+    end
+    return wikiCode
+end
+
+function p.CreateTablesCtoD()
+    local wikiCode = ""
+    for _, value in ipairs(slayerCat["CD"]) do
+        wikiCode = wikiCode .. CreateWikiCode(value)
+    end
+    return wikiCode
+end
+
+function p.CreateTablesEtoH()
+    local wikiCode = ""
+    for _, value in ipairs(slayerCat["EH"]) do
+        wikiCode = wikiCode .. CreateWikiCode(value)
+    end
+    return wikiCode
+end
+
+function p.CreateTablesItoM()
+    local wikiCode = ""
+    for _, value in ipairs(slayerCat["IM"]) do
+        wikiCode = wikiCode .. CreateWikiCode(value)
+    end
+    return wikiCode
+end
+
+function p.CreateTablesNtoZ()
+    local wikiCode = ""
+    for _, value in ipairs(slayerCat["NZ"]) do
+        wikiCode = wikiCode .. CreateWikiCode(value)
+    end
+    return wikiCode
+end
+
+--[[ DEBUG COPYPASTA
+=p.CreateTablesAtoB()
+--]]
+
+return p

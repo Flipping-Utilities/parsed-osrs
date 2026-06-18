@@ -1,0 +1,17 @@
+local p = {}
+
+local commas = require('Module:Addcommas')
+local paramTest = require('Module:Paramtest')
+
+function p._main(args)
+	local quality = paramTest.default_to(tonumber(args.quality), 0)
+	local experience = (math.floor(quality^2 / 73) + math.floor(1.5 * quality) + 1) * 30
+	return 'Turning in a sword with ' .. quality .. ' quality rewards ' .. commas._add(experience) .. ' [[Smithing]] [[experience]].' 
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

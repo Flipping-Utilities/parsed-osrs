@@ -1,0 +1,12 @@
+return {
+    itemId     = 331,
+    icon       = 'Raw salmon.png',
+    item       = 'Raw salmon',
+    value      = 30,
+    limit      = 15000,
+    members    = false,
+    category   = nil,
+    examine    = 'I should try cooking this.',
+    hialch     = 18,
+    lowalch    = 12
+}

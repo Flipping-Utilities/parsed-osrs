@@ -1,0 +1,48 @@
+local xp = mw.loadData('Module:Experience/dataunr')
+local helper = require('Module:Chart data')
+
+local data = {
+	type = 'scatter',
+	data = {
+		datasets = {
+			{
+				label = 'Standard skill',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[1]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[1]),
+				data = helper.convertToXYFormat(xp)
+			}
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		tooltips = {
+			mode = 'x',
+			position = 'nearest',
+			intersect = false
+		},
+		scales = {
+			x = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Level'
+				},
+				ticks = {
+                    beginAtZero = true
+                }
+			},
+			y = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Experience'
+				},
+				ticks = {
+                    beginAtZero = true
+                }
+			}
+		}
+	}
+}
+
+return data

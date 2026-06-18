@@ -1,0 +1,12 @@
+return {
+    itemId     = 12402,
+    icon       = 'Nardah teleport.png',
+    item       = 'Nardah teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to Nardah.',
+    hialch     = 6,
+    lowalch    = 4
+}

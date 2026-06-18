@@ -1,0 +1,11 @@
+return {
+	itemId    = 31235,
+	item      = "Gryphon feather",
+	icon      = 'Gryphon feather.png',
+    alchable  = true,
+	value     = 15,
+	limit     = 11000,
+	members   = true,
+	category  = nil,
+	examine   = "A feather from a gryphon."
+}

@@ -1,0 +1,314 @@
+local p = {}
+
+local commas = require('Module:Addcommas')._add
+local helpers = require('Module:Skill calc/Helpers')
+
+local pets = {
+	['Baby chinchompa'] = {
+		['Grey chinchompa'] = { base = 131395, level = 53, link = 'Chinchompa (Hunter)' },
+		['Red chinchompa'] = { base = 98373, level = 63, link = 'Carnivorous chinchompa' },
+		['Black chinchompa'] = { base = 82758, level = 73, link = 'Black chinchompa (Hunter)' }
+	},
+	['Beaver'] = {
+		['Achey'] = { base = 317647, level = 1, link = 'Achey tree'},
+		['Normal'] = { base = 317647, level = 1, link = 'Tree' },
+		['Oak'] = { base = 361146, level = 15, link =  'Oak tree'},
+		['Willow'] = { base = 289286, level = 30, link =  'Willow tree'},
+		['Teak'] = { base = 264336, level = 35, link =  'Teak tree'},
+		['Jatoba'] = { base = 264336, level = 40, link =  'Jatoba tree'},
+		['Juniper'] = { base = 360000, level = 42, link =  'Juniper tree'},
+		['Maple'] = { base = 221918, level = 45, link =  'Maple tree'},
+		['Hollow'] = { base = 214367, level = 45, link =  'Hollow tree'},
+		['Mahogany'] = { base = 220623, level = 50, link =  'Mahogany tree'},
+		['Arctic pine'] = { base = 145758, level = 54, link =  'Arctic pine tree'},
+		['Yew'] = { base = 145013, level = 60, link =  'Yew tree'},
+		['Blisterwood'] = { base = 289286, level = 62, link =  'Blisterwood tree'},
+		['Sulliusceps'] = { base = 343000, level = 65, link =  'Sulliusceps'},
+		['Camphor'] = { base = 145013, level = 66, link =  'Camphor tree'},
+		['Magic'] = { base = 72321, level = 75, link =  'Magic tree'},
+		['Ironwood'] = { base = 72321, level = 80, link =  'Ironwood tree'},
+		['Redwood'] = { base = 72321, level = 90, link =  'Redwood tree'},
+		['Rosewood'] = { base = 72321, level = 92, link =  'Rosewood tree'},
+	},
+	['Giant squirrel'] = {
+		['Gnome Stronghold'] = { base = 35609, level = 1, link = 'Gnome Stronghold Agility Course'},
+		['Shayzien (basic)'] = { base = 31804, level = 1, link = 'Shayzien Agility Course#Basic course'},
+		['Shayzien (advanced)'] = { base = 29738, level = 45, link = 'Shayzien Agility Course#Advanced course'},
+		['Agility Pyramid'] = { base = 9901, level = 30, link = 'Agility Pyramid'},
+		['Penguin'] = { base = 9779, level = 30, link = 'Penguin agility course'},
+		['Barbarian Outpost'] = { base = 44376, level = 35, link = 'Barbarian Outpost Agility Course'},
+		['Brimhaven Agility Arena'] = { base = 26404, level = 1, link = 'Brimhaven Agility Arena'},
+		['Ape Atoll'] = { base = 37720, level = 48, link = 'Ape Atoll Agility Course'},
+		['Colossal Wyrm Remains (basic)'] = { base = 28503, level = 50, link = 'Colossal Wyrm Agility Course#Basic course obstacles'},
+		['Colossal Wyrm Remains (advanced)'] = { base = 25406, level = 62, link = 'Colossal Wyrm Agility Course#Advanced course obstacles'},
+		['Wilderness'] = { base = 34666, level = 52, link = 'Wilderness Agility Course'},
+		['Werewolf'] = { base = 32597, level = 60, link = 'Werewolf Agility Course'},
+		['Dorgesh-Kaan'] = { base = 10561, level = 70, link = 'Dorgesh-Kaan Agility Course'},
+		['Prifddinas'] = { base = 25146, level = 75, link = 'Prifddinas Agility Course'},
+		['Draynor Village Rooftop'] = { base = 33005, level = 1, link = 'Draynor Village Rooftop Course'},
+		['Al Kharid Rooftop'] = { base = 26648, level = 20, link = 'Al Kharid Rooftop Course'},
+		['Varrock Rooftop'] = { base = 24410, level = 30, link = 'Varrock Rooftop Course'},
+		['Canifis Rooftop'] = { base = 36842, level = 40, link = 'Canifis Rooftop Course'},
+		['Falador Rooftop'] = { base = 26806, level = 50, link = 'Falador Rooftop Course'},
+		['Seers\' Village Rooftop'] = { base = 35205, level = 60, link = 'Seers\' Village Rooftop Course'},
+		['Pollnivneach Rooftop'] = { base = 33422, level = 70, link = 'Pollnivneach Rooftop Course'},
+		['Rellekka Rooftop'] = { base = 31063, level = 80, link = 'Rellekka Rooftop Course'},
+		['Ardougne Rooftop'] = { base = 34440, level = 90, link = 'Ardougne Rooftop Course'},
+	},
+	['Heron'] = {
+		['Shrimps'] = { base = 870330, level = 1, link = 'Raw shrimps'},
+		['Anchovies'] = { base = 870330, level = 15, link = 'Raw anchovies'},
+		['Karambwanji'] = { base = 443697, level = 5, link = 'Raw karambwanji'},
+		['Sardine'] = { base = 1056000, level = 5, link = 'Raw sardine'},
+		['Herring'] = { base = 1056000, level = 10, link = 'Raw herring'},
+		['Big net fishing'] = { base = 1147827, level = 16, link = 'Big fishing net'},
+		['Trout'] = { base = 923616, level = 20, link = 'Raw trout'},
+		['Salmon'] = { base = 923616, level = 30, link = 'Raw salmon'},
+		['Pike'] = { base = 305792, level = 25, link = 'Raw pike'},
+		['Rainbow fish'] = { base = 137739, level = 38, link = 'Raw rainbow fish'},
+		['Tuna'] = { base = 257770, level = 35, link = 'Raw tuna'},
+		['Swordfish'] = { base = 257770, level = 50, link = 'Raw swordfish'},
+		['Lobster'] = { base = 116129, level = 40, link = 'Raw lobster'},
+		['Aerial fishing'] = { base = 636833, level = 43, link = 'Aerial fishing'},
+		['Cave eels'] = { base = 257770, level = 38, link = 'Raw cave eel'},
+		['Monkfish'] = { base = 138583, level = 62, link = 'Raw monkfish'},
+		['Karambwan'] = { base = 170874, level = 65, link = 'Raw karambwan'},
+		['Leaping trout'] = { base = 1280862, level = 48, link = 'Leaping trout'},
+		['Leaping salmon'] = { base = 1280862, level = 58, link = 'Leaping salmon'},
+		['Leaping sturgeon'] = { base = 1280862, level = 70, link = 'Leaping sturgeon'},
+		['Shark'] = { base = 82243, level = 76, link = 'Raw shark'},
+		['Infernal eel'] = { base = 165000, level = 80, link = 'Infernal eel'},
+		['Anglerfish'] = { base = 78649, level = 82, link = 'Raw anglerfish'},
+		['Minnow'] = { base = 977778, level = 82, link = 'Minnow'},
+		['Dark crab'] = { base = 149434, level = 85, link = 'Raw dark crab'},
+		['Sacred eel'] = { base = 99000, level = 87, link = 'Sacred eel'},
+		['Fishing Trawler'] = { base = 5000, level = 15, link = 'Fishing Trawler'},
+		['Guppies'] = { base = 820330, level = 7, link = 'Raw guppy'},
+		['Cavefish'] = { base = 300792, level = 20, link = 'Raw cavefish'},
+		['Tetra'] = { base = 257770, level = 33, link = 'Raw tetra'},
+		['Catfish'] = { base = 152120, level = 46, link = 'Raw catfish'},
+		['Swordtip squid'] = { base = 257770, level = 52, link = 'Raw swordtip squid'},
+		['Jumbo squid'] = { base = 257770, level = 69, link = 'Raw jumbo squid'},
+		['Giant krill'] = { base = 257770, level = 69, link = 'Raw giant krill'},
+		['Haddock'] = { base = 247770, level = 73, link = 'Raw haddock'},
+		['Yellowfin'] = { base = 237770, level = 79, link = 'Raw yellowfin'},
+		['Halibut'] = { base = 227770, level = 83, link = 'Raw halibut'},
+		['Bluefin'] = { base = 217770, level = 87, link = 'Raw bluefin'},
+		['Marlin'] = { base = 207770, level = 91, link = 'Raw marlin'},
+	},
+	['Rift guardian'] = {
+		['Blood rune (Arceuus)'] = { base = 804984, level = 77, link =  'Blood_rune#False_Blood_Altar'},
+		['Soul rune'] = { base = 782999, level = 90, link =  'Soul_rune#Runecraft_info'},
+		['Ourania Altar'] = { base = 1487213, level = 1, link =  'Ourania Altar'},
+		['Everything else'] = { base = 1795758, level = 1, link =  'Runic_altar'},
+	},
+	['Rock golem'] = {
+		['Clay'] = { base = 741600, level = 1, link = 'Clay rocks'},
+		['Copper'] = { base = 741600, level = 1, link = 'Copper rocks'},
+		['Tin'] = { base = 741600, level = 1, link = 'Tin rocks'},
+		['Blurite'] = { base = 741600, level = 10, link = 'Blurite rocks'},
+		['Limestone'] = { base = 741600, level = 10, link = 'Limestone rock'},
+		['Barronite rocks'] = { base = 741600, level = 14, link = 'Barronite'},
+		['Iron'] = { base = 741600, level = 15, link = 'Iron rocks'},
+		['Silver'] = { base = 741600, level = 20, link = 'Silver rocks'},
+		['Ash pile'] = { base = 741600, level = 22, link = 'Ash pile'},
+		['Coal'] = { base = 290640, level = 30, link = 'Coal rocks'},
+		['Motherlode Mine'] = { base = 247200, level = 30, link = 'Motherlode Mine'},
+		['Sandstone'] = { base = 741600, level = 35, link = 'Sandstone rocks'},
+		['Gold'] = { base = 296640, level = 40, link = 'Gold rocks'},
+		['Gem'] = { base = 211886, level = 40, link = 'Gem rocks'},
+		['Calcified rocks'] = { base = 741600, level = 41, link = 'Calcified rocks'},
+		['Volcanic sulphur'] = { base = 710000, level = 42, link = 'Volcanic sulphur'},
+		['Blast mine'] = { base = 123600, level = 43, link = 'Blast mine'},
+		['Granite'] = { base = 741600, level = 45, link = 'Granite rocks'},
+		['Volcanic Mine'] = { base = 60000, level = 50, link = 'Volcanic Mine'},
+		['Mithril'] = { base = 148320, level = 55, link = 'Mithril rocks'},
+		['Lovakite'] = { base = 245562, level = 65, link = 'Lovakite rocks'},
+		['Adamantite'] = { base = 59328, level = 70, link = 'Adamantite rocks'},
+		['Runite'] = { base = 42377, level = 85, link = 'Runite rocks'},
+		['Amethyst crystal'] = { base = 46350, level = 92, link = 'Amethyst crystals'},
+		['Crashed Star (size 1)'] = { base = 521550, level = 10, link = 'Crashed Star'},
+		['Crashed Star (size 2)'] = { base = 521550, level = 20, link = 'Crashed Star'},
+		['Crashed Star (size 3)'] = { base = 521550, level = 30, link = 'Crashed Star'},
+		['Crashed Star (size 4)'] = { base = 521550, level = 40, link = 'Crashed Star'},
+		['Crashed Star (size 5)'] = { base = 521550, level = 50, link = 'Crashed Star'},
+		['Crashed Star (size 6)'] = { base = 521550, level = 60, link = 'Crashed Star'},
+		['Crashed Star (size 7)'] = { base = 521550, level = 70, link = 'Crashed Star'},
+		['Crashed Star (size 8)'] = { base = 521550, level = 80, link = 'Crashed Star'},
+		['Crashed Star (size 9)'] = { base = 521550, level = 90, link = 'Crashed Star'},
+		['Lead rocks'] = { base = 741600, level = 25, link = 'Lead rocks'},
+		['Nickel rocks'] = { base = 247200, level = 74, link = 'Nickel rocks'},
+	},
+	['Rocky'] = {
+		['Vegetable stall'] = { base = 206777, level = 2, link = 'Veg stall'},
+		['Bakery stall'] = { base = 124066, level = 5, link = 'Bakery stall'},
+		['Crafting stall'] = { base = 47718, level = 5, link = 'Crafting stall'},
+		['Tea stall'] = { base = 68926, level = 5, link = 'Tea stall'},
+		['Silk stall'] = { base = 68926, level = 20, link = 'Silk stall'},
+		['Wine stall'] = { base = 36490, level = 22, link = 'Market stall (wine)'},
+		['Fruit stall'] = { base = 124066, level = 25, link = 'Fruit Stall'},
+		['Seed stall'] = { base = 36490, level = 27, link = 'Seed Stall'},
+		['Fur stall'] = { base = 36490, level = 35, link = 'Fur stall'},
+		['Fish stall'] = { base = 36490, level = 42, link = 'Fish stall'},
+		['Crossbow stall'] = { base = 36490, level = 49, link = 'Crossbow stall'},
+		['Silver stall'] = { base = 36490, level = 50, link = 'Silver stall'},
+		['Magic stall'] = { base = 36490, level = 65, link = 'Magic Stall'},
+		['Scimitar stall'] = { base = 36490, level = 65, link = 'Scimitar Stall'},
+		['Spice stall'] = { base = 36490, level = 65, link = 'Spice stall'},
+		['Gem stall'] = { base = 36490, level = 75, link = 'Gem stall'},
+		['Ore stall'] = { base = 36490, level = 82, link = 'Ore stall'},
+		['Sorceress\'s Garden'] = { base = 10339, level = 1, link = 'Sq\'irk tree'},
+		['Watchman'] = { base = 134625, level = 65, link = 'Watchman#Pickpocketing'},
+		['Paladin'] = { base = 127056, level = 70, link = 'Paladin#Pickpocketing'},
+		['Gnome'] = { base = 108718, level = 75, link = 'Gnome#Pickpocketing'},
+		['Hero'] = { base = 99175, level = 80, link = 'Hero#Pickpocketing'},
+		['Vyre'] = { base = 99175, level = 82, link = 'Vyre#Pickpocketing'},
+		['Elf'] = { base = 99175, level = 85, link = 'Elf (Thieving)#Pickpocketing'},
+		['TzHaar-Hur'] = { base = 176743, level = 90, link = 'TzHaar-Hur#Pickpocketing'},
+		['Pickpocketing (not specified)'] = { base = 257211, level = 1, link = 'Thieving#Pickpocketing'},
+		['Pyramid Plunder (Room 1)'] = { base = 41355, level = 21, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 2)'] = { base = 29540, level = 31, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 3)'] = { base = 25847, level = 41, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 4)'] = { base = 20678, level = 51, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 5)'] = { base = 20678, level = 61, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 6)'] = { base = 20678, level = 71, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 7)'] = { base = 10339, level = 81, link = 'Grand Gold Chest'},
+		['Pyramid Plunder (Room 8)'] = { base = 6893, level = 91, link = 'Grand Gold Chest'},
+		['Stealing valuables'] = { base = 206777, level = 50, link = 'Stealing valuables'},
+		['Cannonball stall'] = { base = 36490, level = 87, link = 'Cannonball stall'},
+	},
+	['Tangleroot'] = {
+		['Potato'] = { base = 281040, level = 1, link = 'Potato seed' },
+		['Marigolds'] = { base = 281040, level = 2, link = 'Marigold seed' },
+		['Barley'] = { base = 112416, level = 3, link = 'Barley seed' },
+		['Hammerstone hops'] = { base = 112416, level = 4, link = 'Hammerstone seed' },
+		['Onion'] = { base = 281040, level = 5, link = 'Onion seed' },
+		['Cabbage'] = { base = 281040, level = 7, link = 'Cabbage seed' },
+		['Asgarnian hops'] = { base = 89933, level = 8, link = 'Asgarnian seed' },
+		['Guam'] = { base = 98364, level = 9, link = 'Guam seed' },
+		['Redberries'] = { base = 44966, level = 10, link = 'Redberry seed' },
+		['Rosemary'] = { base = 281040, level = 11, link = 'Rosemary seed' },
+		['Tomato'] = { base = 281040, level = 12, link = 'Tomato seed' },
+		['Jute fibre'] = { base = 89933, level = 13, link = 'Jute seed' },
+		['Marrentill'] = { base = 98364, level = 14, link = 'Marrentill seed' },
+		['Oak tree'] = { base = 22483, level = 15, link = 'Acorn' },
+		['Yanillian hops'] = { base = 74944, level = 16, link = 'Yanillian seed' },
+		['Tarromin'] = { base = 98364, level = 19, link = 'Tarromin seed' },
+		['Sweetcorn'] = { base = 224832, level = 20, link = 'Sweetcorn seed' },
+		['Krandorian hops'] = { base = 64238, level = 21, link = 'Krandorian seed' },
+		['Cadava berries'] = { base = 37472, level = 22, link = 'Cadava berry seed' },
+		['Giant seaweed'] = { base = 7500, level = 23, link = 'Seaweed seed' },
+		['Nasturtiums'] = { base = 281040, level = 24, link = 'Nasturtium seed' },
+		['Woad leaf'] = { base = 281040, level = 25, link = 'Woad seed' },
+		['Limpwurt root'] = { base = 224832, level = 26, link = 'Limpwurt seed' },
+		['Harralander'] = { base = 98364, level = 26, link = 'Harralander seed' },
+		['Apple tree'] = { base = 9000, level = 27, link = 'Apple tree seed' },
+		['Wildblood hops'] = { base = 56208, level = 28, link = 'Wildblood seed' },
+		['Goutweed'] = { base = 98364, level = 29, link = 'Gout tuber' },
+		['Willow tree'] = { base = 16059, level = 30, link = 'Willow seed' },
+		['Strawberry'] = { base = 187360, level = 31, link = 'Strawberry seed' },
+		['Ranarr'] = { base = 98364, level = 32, link = 'Ranarr seed' },
+		['Banana tree'] = { base = 9000, level = 33, link = 'Banana tree seed' },
+		['Tithe Farm'] = { base = 7494389, level = 34, link = 'Tithe Farm' },
+		['Teak tree'] = { base = 5000, level = 35, link = 'Teak seed' },
+		['Dwellberries'] = { base = 32119, level = 36, link = 'Dwellberry seed' },
+		['Grapes'] = { base = 385426, level = 36, link = 'Grape seed' },
+		['Toadflax'] = { base = 98364, level = 38, link = 'Toadflax seed' },
+		['Orange tree'] = { base = 9000, level = 39, link = 'Orange tree seed' },
+		['Curry tree'] = { base = 9000, level = 42, link = 'Curry tree seed' },
+		['Irit'] = { base = 98364, level = 44, link = 'Irit seed' },
+		['Maple tree'] = { base = 14052, level = 45, link = 'Maple seed' },
+		['Watermelon'] = { base = 160594, level = 47, link = 'Watermelon seed' },
+		['Jangerberries'] = { base = 28104, level = 48, link = 'Jangerberry seed' },
+		['Avantoe'] = { base = 98364, level = 50, link = 'Avantoe seed' },
+		['Pineapple plant'] = { base = 9000, level = 51, link = 'Pineapple seed' },
+		['Mushroom'] = { base = 7500, level = 53, link = 'Mushroom spore' },
+		['Cactus'] = { base = 7000, level = 55, link = 'Cactus seed' },
+		['Mahogany tree'] = { base = 5000, level = 55, link = 'Mahogany seed' },
+		['Kwuarm'] = { base = 98364, level = 56, link = 'Kwuarm seed' },
+		['Papaya tree'] = { base = 9000, level = 57, link = 'Papaya tree seed' },
+		['White lily'] = { base = 281040, level = 58, link = 'White lily seed' },
+		['White berries'] = { base = 28104, level = 59, link = 'White berry seed' },
+		['Yew tree'] = { base = 11242, level = 60, link = 'Yew seed' },
+		['Snape grass'] = { base = 173977, level = 61, link = 'Snape grass seed' },
+		['Snapdragon'] = { base = 98364, level = 62, link = 'Snapdragon seed' },
+		['Cave nightshade'] = { base = 8000, level = 63, link = 'Belladonna seed' },
+		['Potato cactus'] = { base = 160594, level = 64, link = 'Potato cactus seed' },
+		['Hespori'] = { base = 7000, level = 65, link = 'Hespori seed' },
+		['Huasca'] = { base = 98364, level = 65, link = 'Huasca seed' },
+		['Camphor tree'] = { base = 5000, level = 66, link = 'Camphor seed' },
+		['Cadantine'] = { base = 98364, level = 67, link = 'Cadantine seed' },
+		['Palm tree'] = { base = 9000, level = 68, link = 'Palm tree seed' },
+		['Poison ivy berries'] = { base = 28104, level = 70, link = 'Poison ivy seed' },
+		['Calquat tree'] = { base = 6000, level = 72, link = 'Calquat tree seed' },
+		['Lantadyme'] = { base = 98364, level = 73, link = 'Lantadyme seed' },
+		['Crystal tree'] = { base = 9000, level = 74, link = 'Crystal acorn' },
+		['Magic tree'] = { base = 9368, level = 75, link = 'Magic seed' },
+		['Dwarf weed'] = { base = 98364, level = 79, link = 'Dwarf weed seed' },
+		['Ironwood tree'] = { base = 5000, level = 80, link = 'Ironwood seed' },
+		['Dragonfruit tree'] = { base = 9000, level = 81, link = 'Dragonfruit tree seed' },
+		['Spirit tree'] = { base = 5000, level = 83, link = 'Spirit seed' },
+		['Celastrus tree'] = { base = 9000, level = 85, link = 'Celastrus seed' },
+		['Torstol'] = { base = 98364, level = 85, link = 'Torstol seed' },
+		['Redwood tree'] = { base = 5000, level = 90, link = 'Redwood tree seed' },
+		['Rosewood tree'] = { base = 5000, level = 92, link = 'Rosewood seed' },
+		['Cotton'] = { base = 56208, level = 71, link = 'Cotton seed' },
+		['Hemp'] = { base = 56208, level = 37, link = 'Hemp seed' },
+		['Flax'] = { base = 89993, level = 18, link = 'Flax seed' },
+		['Elkhorn coral'] = { base = 98364, level = 28, link = 'Elkhorn frag' },
+		['Pillar coral'] = { base = 98364, level = 52, link = 'Pillar frag' },
+		['Umbral coral'] = { base = 98364, level = 77, link = 'Umbral frag' },
+	}
+}
+
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local level = args.level
+	local pet = args.pet
+	local actionsPerHour = args.actionsPerHour or 1
+	local petData = pets[pet]
+	local maxExp = args.maxExp
+	if maxExp == "Yes" then
+		maxExp = 15
+	else
+		maxExp = 1
+	end
+
+	local ret = mw.html.create('table'):addClass('wikitable sortable autosort=2,a sticky-header align-center-2 align-center-3 align-center-4 ')
+	ret:tag('tr')
+		:tag('th'):wikitext('Method')
+		:tag('th'):wikitext('Level')
+		:tag('th'):wikitext('Chance per action')
+		:tag('th'):wikitext('Chance per hour<br />with APH')
+	
+	local sortedMethods = {}
+	for method, data in pairs(petData) do
+		table.insert(sortedMethods, {method = method, data = data})
+	end
+	
+	table.sort(sortedMethods, function(a, b)
+		return tonumber(a.data.level) < tonumber(b.data.level)
+	end)
+	
+	for _, entry in ipairs(sortedMethods) do
+		ret:node(make_row(entry.data, entry.method, level, actionsPerHour, entry.data.link, maxExp))
+	end
+	
+	return tostring(ret)
+end
+
+function make_row(data, method, level, actionsPerHour, link, maxExp)
+	local doNotCalculate = ({ Minnow = true, ['Fishing Trawler'] = true })[method]
+	local chancePerAction = doNotCalculate and data.base or tonumber(data.base) - (tonumber(level) * 25)
+	chancePerAction = helpers.jagexFloor((chancePerAction / maxExp), 2)
+	local chancePerHour = helpers.jagexFloor(1/(1-math.pow(1-1/chancePerAction, actionsPerHour)), 2)
+
+	return mw.html.create('tr')
+		:tag('td'):wikitext('[[' .. link .. '|' .. method .. ']]'):done()
+		:tag('td'):wikitext(data.level):done()
+		:tag('td'):attr('data-sort-value', 1/chancePerAction):wikitext('1/' .. commas(chancePerAction)):done()
+		:tag('td'):attr('data-sort-value', 1/chancePerHour):wikitext('1/' .. commas(chancePerHour)):done()
+end
+
+return p

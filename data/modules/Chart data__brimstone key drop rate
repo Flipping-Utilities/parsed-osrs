@@ -1,0 +1,94 @@
+local helper = require('Module:Chart data')
+
+
+local rate = {}
+
+for i = 1, 99 do
+	local floorPart = math.pow(100 - i, 2) / 5
+	local floored = math.floor(floorPart)
+	rate[i] = 1 / (100 + floored)
+end
+
+for i = 100, 350 do
+	local floored = math.floor(i / 5)
+	rate[i] = 1 / (120 - floored)
+end
+
+for i = 351, 400 do
+	rate[i] = rate[350]
+end
+
+
+local withReq = {}
+
+for i = 1, 400 do
+	withReq[i] = rate[i] / 0.8
+end
+
+
+
+local data = {
+	type = 'scatter',
+	data = {
+		datasets = {
+			{
+				label = 'No Level Requirement',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[1]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[1]),
+				data = helper.convertToXYFormat(rate)
+			},
+			{
+				label = 'Has Level Requirement',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[2]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[2]),
+				data = helper.convertToXYFormat(withReq)
+			}
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		title = {
+			display = true,
+			text = 'Brimstone Key drop chance',
+			font = {
+				size = 18
+			}
+		},
+		tooltips = {
+			format = 'skillingSuccess',
+			intersect = false
+		},
+		elements = {
+			point = {
+				radius = 0
+			}
+		},
+		scales = {
+			x = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Combat Level'
+				}
+			},
+			y = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Drop Rate'
+				},
+				ticks = {
+					format = {
+						style = 'percent',
+						minimumSignificantDigits = 1,
+						maximumSignificantDigits = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+return data

@@ -1,0 +1,55 @@
+-- A drop-in replacement for Module:Map that renders
+-- parsed arguments, raw output, and final output
+
+local p = {}
+
+function p.main(frame)
+	local _args = frame:getParent().args
+	local args = {}
+	local argStr = ''
+	
+	for k, v in pairs(_args) do
+		args[k] = v
+		
+		if tonumber(k) then
+			argStr = argStr .. '|' .. v
+		elseif k ~= 'sandbox' then
+			argStr = argStr .. '|' .. k .. '=' .. v
+		end
+	end
+	
+	local containerElem = mw.html.create('div')
+	local preElem = containerElem:tag('div')
+		:tag('pre'):wikitext(argStr)
+	
+	local moduleName = args.sandbox and 'Module:Sandbox/Map' or 'Module:Map'
+	local buildMap = require(moduleName).buildMap
+	
+	args.nopreprocess = true
+	local rawMapGood, rawMapRes = pcall(buildMap, args)
+	
+	if rawMapGood then
+		containerElem:tag('div')
+			:addClass('mw-collapsible mw-collapsed')
+			:tag('pre'):wikitext(mw.text.nowiki(rawMapRes))
+	end
+	
+	args.nopreprocess = false
+	args.align = 'left'
+	local builtMapGood, builtMapRes = pcall(buildMap, args)
+	local builtMapElem = mw.html.create('p'):wikitext(builtMapRes)
+	
+	if not builtMapGood then
+		builtMapElem:addClass('scribunto-error')
+	end
+	
+	containerElem:node(builtMapElem)
+	
+	if rawMapGood then
+		containerElem:tag('div', {selfClosing=true}):attr('style', 'clear:both;')
+	end
+	
+	return tostring(containerElem)
+end
+
+return p

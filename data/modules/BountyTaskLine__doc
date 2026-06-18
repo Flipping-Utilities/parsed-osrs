@@ -1,0 +1,7 @@
+{{Documentation}}
+
+This module writes to [[Bucket:bountytaskline]]. The task id refers to the value in column 0 of [https://abextm.github.io/cache2/#/viewer/dbtable/197 DBTable 197] &ndash; this table contains all courier and bounty tasks. Each row in the table fully characterises a task,{{Efn|Technically this is true but we hard-code the XP and the notice board coordinates into the module.}} and we are simply translating them into a wiki-friendly format using this module + bucket + [[Template:BountyTaskLine]].
+
+The idea is to have lots of {{T|BountyTaskLine}} on the page [[Bounty tasks]] and nowhere else, writing to the bucket. Then on monster pages, like [[stingray]], we can read from the bucket for that monster by doing {{T|BountyTaskList|monster=stingray}}. Same could be done on location pages, listing all the potential tasks at that location via {{T|BountyTaskList|location=aldarin}}.
+
+{{Notelist}}

@@ -1,0 +1,933 @@
+-- <nowiki>
+local p = {}
+
+local params = require('Module:Paramtest')
+local lang = mw.language.getContentLanguage()
+local coins_image = require('Module:Coins image')
+local curr_image = require('Module:Currency Image')
+local exchange = require('Module:Exchange') 
+local yesno = require('Module:Yesno')
+
+local var = mw.ext.VariablesLua
+
+-- precalculated cached data
+local droppeditem_data = mw.loadJsonData('Module:DropsLine/itemData.json')
+local geprices_data = mw.loadJsonData('Module:GEPrices/data.json')
+local highalch_data = mw.loadJsonData('Module:GEHighAlchs/data.json')
+
+local geprice = exchange._price
+local f_gealch = exchange._highalch
+local ptitle = mw.title.getCurrentTitle()
+local ns = ptitle.nsText
+local title = ptitle.fullText
+local pgTitle = ptitle.text
+
+local _noted = '&nbsp;<span class="dropsline-noted">(noted)</span>'
+
+local coins_priceString = "%s coin%s"
+local other_priceString = "%s coin%s"
+
+local cachedData = nil
+function getBucketInfo(item)
+    if cachedData ~= nil then
+        return cachedData
+    end
+    
+    -- items like [[Blighted super restore(3)]] have bucket_name set in infobox
+    -- so we need to look up their high alch value by item name. This needs to
+    -- be a post-processing filter though, if we did bucket lookup by item name
+    -- there'd be false positives from unrelated pages and it'd be a mess
+    local searchItem = item
+    local itemPage = mw.title.new(":" .. item)
+    if itemPage.isRedirect then
+    	searchItem = itemPage.redirectTarget.text
+    end
+	
+    local bucketData = bucket("infobox_item")
+    	.select("page_name_sub", "item_name", "high_alchemy_value")
+    	.where(bucket.Or(
+    		{"page_name", searchItem},
+    		{"page_name_sub", searchItem}
+    	))
+    	.run()
+
+    local filteredData = {}
+    
+    -- first look for matches based on page_name_sub (want to prioritize this
+    -- so people can fix issues using bucketname)
+    for _,v in ipairs(bucketData) do
+    	if v.page_name_sub == searchItem then
+    		table.insert(filteredData, {["high_alchemy_value"] = v.high_alchemy_value})
+    	end
+    end
+
+    -- if that fails, look for matches based on item_name
+    if #filteredData == 0 then
+    	for _,v in ipairs(bucketData) do
+    		if v.item_name == item then
+    			table.insert(filteredData, {["high_alchemy_value"] = v.high_alchemy_value})
+    		end
+    	end
+    end
+    
+    -- if we couldn't filter it at all (e.g. [[Bird nest (egg)]]), then use all items from the query
+    if #filteredData == 0 then
+    	filteredData = bucketData
+    end
+
+    if #filteredData == 1 then
+	    cachedData = { alch = filteredData[1].high_alchemy_value }
+    elseif #filteredData > 1 then
+    	-- if more than one match, see if all HA values are the same.
+    	-- if not, there is ambiguity (diff versions have diff alch values)
+    	-- and editor needs to set {{DropsLine|bucketname=}} param
+    	local firstHaVal = filteredData[1].high_alchemy_value
+    	local allMatching = true
+    	for _,v in ipairs(filteredData) do
+    		if v.high_alchemy_value ~= firstHaVal then
+    			allMatching = false
+    		end
+    	end
+
+    	if allMatching then
+    		cachedData = { alch = firstHaVal }
+    	else
+    		cachedData = false
+    	end
+    else
+    	-- should never be zero matches;
+    	-- non-alchables *do* have high_alchemy_value, set to nil
+    	cachedData = false
+    end
+    
+    return cachedData
+end
+
+--bg, txt, sort; acceptable non-quantity rarity names
+local rarities = {
+    always = { 'table-bg-blue', 1 },
+    common = { 'table-bg-green', 16 },
+    uncommon = { 'table-bg-yellow', 64 },
+    rare = { 'table-bg-orange', 128 },
+    ['very rare'] = { 'table-bg-red', 1024 },
+    random = { 'table-bg-pink', 4096 },
+    varies = { 'table-bg-pink', 4096 },
+    once = { 'table-bg-pink', 65536 },
+    conditional = { 'table-bg-pink', 65536 },
+    _default = { 'table-bg-grey', 65536 }
+}
+
+-- colour-code
+local rarities_class = {
+    { 1, 'table-bg-blue' },
+    { 1/25, 'table-bg-green' },
+    { 1/99.99, 'table-bg-yellow' },
+    { 1/999.99, 'table-bg-orange' },
+    { 1/9999999, 'table-bg-red' }
+}
+
+function get_rarity_class(val)
+    for i,v in ipairs(rarities_class) do
+        curr = v
+        if val >= v[1] then
+            break
+        end
+    end
+    return curr[2]
+end
+
+function commas(n)
+    if tonumber(n) then
+        return lang:formatNum(tonumber(n))
+    else
+        return n
+    end
+end
+
+function expr(t)
+    local noerr, val = pcall(mw.ext.ParserFunctions.expr, t)
+    if noerr then
+        return tonumber(val)
+    else
+        return false
+    end
+end
+function sigfig(n, f)
+    f = math.floor(f-1)
+    if n == 0 then return 0 end
+    local m = math.floor(math.log10(n))
+    f = math.max(m, f)
+    local v = n / (10^(m-f))
+    v = math.floor(v + 0.5) * 10^(m-f)
+    -- floor(x + 0.5) is standard rounding to one decimal place
+    return v
+end
+p.sigfig = sigfig
+p.commas = commas
+
+function p.main(frame)
+    local args = frame:getParent().args
+    local frameArgs = frame.args
+
+    return p._main(args, frameArgs)
+end
+
+function p._main(args, frameArgs)
+
+    -- Params and defaults
+    local name,namenotes,
+        quantity,quantitynotes,
+        rarity,alt_rarity,alt_rarity_endash,
+        raritynotes,citation,rowVersion,leagueRegion,level = params.defaults{
+                    {args.name or args.Name,'Item'},
+                    {args.namenotes or args.Namenotes,''},
+                    {args.quantity or args.Quantity,'Unknown'},
+                    {args.quantitynotes or args.Quantitynotes,''},
+                    {args.rarity or args.Rarity,'Unknown'},
+                    {args.altrarity or args.AltRarity,''},
+                    {args.altraritydash or args.AltRarityDash,''},
+                    {args.raritynotes or args.Raritynotes,''},
+                    {args.citation,''},
+                    {args.dropversion or args.version or args.Version,''},
+                    {args.leagueRegion,''},
+                    {args.level,nil}
+        }
+        raritynotes = raritynotes .. citation
+    local rolls = tonumber(args.rolls or args.Rolls) or false
+    local rollstext = ''
+    if rolls then
+        rollstext = rolls .. ' × '
+    end
+	if expr(rarity) == 1 then
+		rarity = 'Always'
+    end
+    local approx = yesno(args.approx or args.Approx or 'no', false)
+    local isCoins = name:lower() == 'coins'
+    local isPlat = name:lower() == 'platinum token'
+    local isNothing = name:lower() == 'nothing'
+    local altname = params.default_to(args.alt or args.Alt,name)
+    local bucketName = params.default_to(args.bucketname,name)
+    
+    local useBucket = true
+    if params.has_content(args.bucket) then
+        useBucket = args.bucket:lower() ~= 'no'
+    end
+    local var_bucket = var.var('_bucket', '')
+    if var_bucket ~= '' then
+        useBucket = var_bucket:lower() ~= 'no'
+    end
+    
+    local rarity_value
+    if rarities[rarity:lower()] then
+        rarity = params.ucflc(rarity)
+    else
+        rarity_value = rarity:gsub(',','') --temp place to put this without overriding rarity
+        local rv1, rv2 = string.match(rarity_value, '([%d%.]+)/([%d%.]+)')
+        if rv1 and rv2 then
+            rarity = commas(rv1) .. '/' .. commas(rv2)
+            rarity_value = rv1/rv2
+        else
+            rarity_value = expr(rarity)
+        end
+    end
+
+    local alt_rarity_value
+    if rarities[alt_rarity:lower()] then
+        alt_rarity = params.ucflc(alt_rarity)
+    else
+        alt_rarity_value = alt_rarity:gsub(',','') --temp place to put this without overriding rarity
+        local rv1, rv2 = string.match(alt_rarity_value, '([%d%.]+)/([%d%.]+)')
+        if rv1 and rv2 then
+            alt_rarity = commas(rv1) .. '/' .. commas(rv2)
+            alt_rarity_value = rv1/rv2
+        else
+            alt_rarity_value = expr(alt_rarity)
+        end
+    end
+
+    quantity = mw.ustring.lower(quantity)
+    local gemw = yesno(args.gemw or 'yes', false)
+    local alch = yesno(args.alch or 'yes', false)
+
+    -- Test for existance of alch value
+    local valueInfo = {
+        alch = {
+            has = false,
+            value = 0
+        },
+        ge = {
+            has = false,
+            value = 0
+        }
+    }
+    
+    local cached_dropdata = droppeditem_data[bucketName]
+    local cached_alch = nil
+    if type(cached_dropdata) == 'table' then
+        if cached_dropdata[1] ~= nil and cached_dropdata[2] ~= nil then
+            cached_alch = cached_dropdata[2]
+        elseif cached_dropdata[1] ~= nil then
+            cached_dropdata = cached_dropdata[1]
+            if type(cached_dropdata) == 'boolean' then
+            elseif type(cached_dropdata) == 'number' then
+                cached_alch = cached_dropdata
+            end
+        end
+    end
+    
+    local geprice_frombulk = geprices_data[bucketName]
+    if not (type(geprice_frombulk) == 'number' and geprice_frombulk > 0) then
+        geprice_frombulk = nil
+    end
+    
+    if cached_alch == nil then
+        cached_alch = highalch_data[bucketName]
+        if not (type(cached_alch) == 'number' and cached_alch > -1) then
+            cached_alch = nil
+        end
+    end
+    
+    local malformedAlchData = false
+    
+    if isNothing then
+        gemw = false
+    elseif isCoins then
+        -- coins override
+        valueInfo = {
+            alch = {
+                has = true,
+                value = 1
+            },
+            ge = {
+                has = true,
+                value = 1
+            }
+        }
+    elseif isPlat then
+    	-- platinum token override
+    	valueInfo = {
+            alch = {
+                has = true,
+                value = 1000
+            },
+            ge = {
+                has = true,
+                value = 1000
+            }
+        }
+    else
+        -- find alch price
+        if alch then
+            -- first check cache for alch value
+            if cached_alch ~= nil then
+                valueInfo.alch = {
+                    has = true,
+                    value = cached_alch
+                }
+            elseif gemw then
+                -- then check gemw for alch value
+                local hasgealch, gealchval = pcall(f_gealch,bucketName)
+                if hasgealch then
+                    if gealchval > -1 then
+                        valueInfo.alch = {
+                            has = true,
+                            value = tonumber(gealchval)
+                        }
+                    end
+                end
+            end
+            if not valueInfo.alch.has then
+                -- failed to find alch in GEMW or is on the no-ge list/override
+                -- lookup in Bucket
+                local bucketRet = getBucketInfo(bucketName)
+                if bucketRet and bucketRet.alch ~= nil then
+                    -- alch is defined, use it
+                    valueInfo.alch = {
+                        has = true,
+                        value = bucketRet.alch
+                    }
+                elseif bucketRet then
+                	alch = false
+                else
+                    alch = false
+                    malformedAlchData = true
+                end
+            end
+        end
+        -- find ge price
+        if gemw then
+            if geprice_frombulk ~= nil then
+                valueInfo.ge = {
+                    has = true,
+                    value = geprice_frombulk
+                }
+            else
+                gemw = false
+            end
+        end
+    end
+
+    -- Use 'File:<name>.png' if no image param
+    -- Use 'File:<image>' if image param; image param will include extension
+    -- Special catch for coins
+    local image,image_n
+    if isCoins then
+        image_n = coins_image(quantity)
+    else
+        image_n = params.default_to(args.image or args.Image, name .. '.png')
+        image_n = mw.ustring.gsub(image_n, '#.+$', '.png')
+    end
+    if image_n:lower() == 'no' or params.is_empty(args.name or args.Name) then
+        image = ''
+    elseif isNothing then
+        image = '[[File:Bank filler.png|link=Nothing|alt=This does not exist.]]'
+    else
+        image = mw.ustring.format('[[File:%s|link=%s|alt=%s: %s drops %s with rarity %s%s in quantity %s]]', image_n, name, image_n, title, name, rollstext, rarity, quantity)
+    end
+    -- this only affects the JSON
+    local rdt = string.lower(args.rdt or '') == 'yes'
+        
+    -- Table row
+    local ret = generateRow(name,
+            altname,namenotes,
+            quantity,quantitynotes,
+            rarity,rarity_value,alt_rarity,alt_rarity_endash,alt_rarity_value,
+            raritynotes,image,
+            valueInfo,gemw,alch,alt,
+            isCoins,
+            isNothing,
+            frameArgs,rowVersion,
+            bucketName,
+            rdt,useBucket,
+            approx,rolls,
+            leagueRegion,
+            level)
+
+    -- categories for mainspace
+    local cats = ''
+    local onMain = ns == '' or ns == 'RuneScape'
+    if onMain and useBucket then
+        cats = categories{name,quantity,rarity,malformedAlchData}
+    end
+    return ret..cats
+end
+
+function generateRow(name,
+        altname,namenotes,
+        quantity,quantitynotes,
+        rarity,rarity_value,alt_rarity,alt_rarity_endash,alt_rarity_value,
+        raritynotes,image,
+        valueInfo,gemw,alch,alt,
+        isCoins,
+        isNothing,
+        frameArgs,rowVersion,
+        bucketName,
+        rdt,useBucket,
+        approx, rolls,
+        leagueRegionOverride,
+        level)
+
+    -- Set _refs_used_ var if any params are defined that create refs
+    if namenotes ~= '' or quantitynotes ~= '' or raritynotes ~= '' or rowVersion ~= '' then
+    	var.vardefine('_refs_used_', 'true')
+    end
+
+    -- GE value, alch value, quantity cell contents
+    local total, alchtotal, vsort, vasort, _h, _l
+    quantity, _h, _l = qty(quantity, isNothing)
+    if valueInfo.ge.has then
+        total, vsort, totalavg = get_total(valueInfo.ge.value,_h,_l)
+        total = total or 'Not sold'
+    end
+    if valueInfo.alch.has then
+        alchtotal, vasort, alchtotalavg = get_total(valueInfo.alch.value,_h,_l)
+        alchtotal = alchtotal or 'N/A'
+    end
+    
+    -- value sorts
+    if type(vsort) ~= 'number' then
+        vsort = 0
+    end
+    if type(vasort) ~= 'number' then
+        vasort = 0
+    end
+
+    -- quantity notes
+    if #quantitynotes > 3 then
+        quantity = quantity..quantitynotes
+    end
+    
+    -- rarity cell contents
+    local rare_class, rare_sort
+    if rarity_value == undefined then
+        rare_class, rare_sort = unpack(rarities[rarity:lower()] or rarities._default)
+    elseif rarity_value == false then
+        rare_class, rare_sort = unpack(rarities._default)
+    else
+        rare_sort = 1/rarity_value
+        rare_class = get_rarity_class(rarity_value)
+    end
+    local rollstext = ''
+    if rolls then
+        rollstext = rolls .. ' × '
+        if rarity:lower() ~= 'varies' then
+	        rare_sort = rare_sort / rolls
+	        rare_class = get_rarity_class(math.min(1/rare_sort,0.99))
+	    end
+    end
+    local tilde = ''
+    if approx and type(rarity_value) == 'number' then
+        tilde = '~'
+    end
+    local alt_tilde = ''
+    if approx and type(alt_rarity_value) == 'number' then
+        alt_tilde = '~'
+    end
+    local _r = rarity
+    
+    -- drop versions
+    local versionKey = 'DEFAULT'
+    local tableVersion = var.var('Version', '')
+    local var_dropversion = var.var('_dropversion', '')
+    if var_dropversion ~= '' then
+        tableVersion = var_dropversion
+    end
+    if params.has_content(tableVersion) then
+        -- versions applied to the entire table
+       versionKey = tableVersion
+    end
+    if params.has_content(rowVersion) then
+        -- versions applied to this row
+        versionKey = rowVersion
+    end
+
+    local quantityClassOverride = isNothing and 'table-na' or nil
+    -- Table row creation
+    local ret = mw.html.create('tr')
+            -- row-wide things
+            :css('text-align','center')
+            -- inventory image
+            :tag('td')
+                :addClass('inventory-image')
+                :wikitext(image)
+            :done()
+            -- item name
+            :tag('td')
+                :css('text-align','left')
+                :addClass('item-col')
+                :wikitext(string.format('[[%s|%s]]%s',name,altname,#namenotes > 3 and namenotes or ''))
+            :done()
+            -- quantity
+            :tag('td')
+                :addClass(quantityClassOverride)
+                :attr('data-sort-value',_h)
+                :wikitext(quantity)
+            :done()
+    
+    -- rarity
+    local rarity_cell = ret:tag('td')
+    local rarity_span = rarity_cell:tag('span')
+    rarity_span:wikitext(rollstext .. tilde .. rarity)
+    rarity_cell:attr('data-sort-value',rare_sort)
+                :addClass(rare_class)
+    if type(rarity_value) == 'number' then
+        rarity_cell:attr('title', rollstext .. tilde .. string.format('%.3g%%', 100 * rarity_value))
+        rarity_span:attr({
+            ['data-drop-fraction'] = rollstext .. tilde .. rarity,
+            ['data-drop-oneover'] = rollstext .. tilde .. '1/' .. commas(sigfig(1/rarity_value, 4)),
+            ['data-drop-percent'] = rollstext .. tilde .. sigfig(100 * rarity_value, 3),
+            ['data-drop-permil'] = rollstext .. tilde .. sigfig(1000 * rarity_value, 3),
+            ['data-drop-permyriad'] = rollstext .. tilde .. sigfig(10000 * rarity_value, 3),
+        })
+    end
+    
+    if alt_rarity ~= '' then
+        if alt_rarity_endash  ~= '' then
+            rarity_cell:tag('span'):wikitext('–')
+        else
+            rarity_cell:tag('span'):wikitext('; ')
+        end
+        local alt_rarity_span = rarity_cell:tag('span')
+        alt_rarity_span:wikitext(alt_tilde .. alt_rarity)
+        if type(alt_rarity_value) == 'number' then
+            alt_rarity_span:attr({
+                ['data-drop-fraction'] = alt_tilde .. alt_rarity,
+                ['data-drop-oneover'] = alt_tilde .. '1/' .. commas(sigfig(1/alt_rarity_value, 3)),
+                ['data-drop-percent'] = alt_tilde .. sigfig(100 * alt_rarity_value, 3),
+                ['data-drop-permil'] = alt_tilde .. sigfig(1000 * alt_rarity_value, 3),
+                ['data-drop-permyriad'] = alt_tilde .. sigfig(10000 * alt_rarity_value, 3),
+            })
+        end
+    end
+
+    if #raritynotes > 3 then
+        rarity_cell:wikitext(raritynotes)
+    end
+
+    -- setup GE and alch cells
+    local ge_td = ret:tag('td')
+    local alch_td = ret:tag('td')
+
+    -- common attributes
+    ge_td   :attr('data-sort-value',vsort)
+        :addClass('ge-column')
+        :css({
+            ['text-align'] = 'right',
+            cursor = 'help'
+        })
+    alch_td :attr('data-sort-value',vasort)
+            :addClass('alch-column')
+            :css({
+                ['text-align'] = 'right',
+                cursor = 'help'
+            })
+
+    local ge_td_title, ge_td_content, alch_td_title, alch_td_content
+    --Cases for the GE, alch values, and isNothing handling
+    if isNothing then
+        ge_td_content = 'N/A'
+        ge_td_title = 'This does not exist.'
+        ge_td:addClass('table-na'):css('text-decoration', 'underline dotted')
+        alch_td_content = 'N/A'
+        alch_td_title = 'This does not exist.'
+        alch_td:addClass('table-na'):css('text-decoration', 'underline dotted')
+    elseif isCoins then
+        local coinsStr = lang:plural(vsort, '', 's')
+        ge_td_title = mw.ustring.format(coins_priceString, total, coinsStr)
+        ge_td_content = total
+        alch_td_title = mw.ustring.format(coins_priceString, total, coinsStr)
+        alch_td_content = total
+    else
+        if valueInfo.ge.has then
+            ge_td_title = mw.ustring.format(other_priceString, commas(valueInfo.ge.value), lang:plural(valueInfo.ge.value, '', 's'))
+            ge_td_content = total
+        end
+        if valueInfo.alch.has then
+            alch_td_title = mw.ustring.format(other_priceString, commas(valueInfo.alch.value), lang:plural(valueInfo.alch.value, '', 's'))
+            alch_td_content = alchtotal
+        end
+        
+        if ge_td_content == nil then
+            ge_td_content = 'Not sold'
+            ge_td_title = 'This item cannot be traded on the Grand Exchange.'
+            ge_td:addClass('table-na'):css('text-decoration', 'underline dotted')
+        end
+        if alch_td_content == nil then
+            -- nothing else triggered
+            alch_td_content = 'N/A'
+            alch_td_title = 'This item cannot be alchemised.'
+            alch_td:addClass('table-na'):css('text-decoration', 'underline dotted')
+        end
+    end
+    ge_td:wikitext(ge_td_content):attr('title', ge_td_title)
+    alch_td:wikitext(alch_td_content):attr('title', alch_td_title)
+
+    -- Bucket
+    local onMain = ns == '' or ns == 'RuneScape'
+    local unrecognizedDropVersionCategory = ''
+    if onMain and useBucket and isNothing ~= true then
+        -- check if applies to all or only a version
+        local bucketNameNote = mw.text.killMarkers(namenotes)
+        local bucketQuantity = mw.text.killMarkers(quantity)
+        bucketQuantity = bucketQuantity:gsub('<span class="dropsline%-noted">', '')
+        bucketQuantity = bucketQuantity:gsub('</span>', '')
+        bucketQuantity = bucketQuantity:gsub(',', '')
+        bucketQuantity = bucketQuantity:gsub('&nbsp;', ' ')
+        bucketQuantity = bucketQuantity:gsub(';', ',')
+        local bucketRarityNote = mw.text.killMarkers(raritynotes)
+        local bucketRolls = rolls or 1
+        local subcount = 1
+        if var.varexists('dropcount') then
+            subcount = var.var('dropcount', 1)
+            subcount = subcount + 1
+            var.vardefine('dropcount', subcount)
+        else
+            var.vardefine('dropcount', 1)
+        end
+        local subname = 'DROP_'..subcount..'_'..bucketName..'_'..bucketQuantity..'_'..rarity
+        subname = string.gsub(subname,'#','')
+        dropFrom = pgTitle
+        if versionKey ~= 'DEFAULT' then
+            dropFrom = pgTitle .. '#' .. versionKey
+        end
+        local droppedItemName = 'Dropped item'
+        local is_RDT = false
+        if rdt == true then
+            droppedItemName = 'Dropped item from RDT'
+            is_RDT = true
+        end
+        local dropType = frameArgs.dtype or 'combat'
+
+        
+        local seenLevels = {}
+        for dropVersion in string.gmatch(versionKey, ' *([^,]+) *') do
+            local dropLevelVar = string.format("DropLevel_%s_%s", dropType, dropVersion)
+            if not var.varexists(dropLevelVar) and versionKey ~= 'DEFAULT' and dropType ~= 'reward' then
+            	mw.log('Expected unset dropversion level variable: '..dropLevelVar..' for drop '..bucketName)
+                unrecognizedDropVersionCategory = unrecognizedDropVersionCategory..'[[Category:Uses unrecognized drop version]]'
+            end
+            local curDropLevelValues = var.var(dropLevelVar)
+            for curDropLevel in string.gmatch(curDropLevelValues, ' *([^,]+) *') do
+                seenLevels[curDropLevel] = true
+            end
+        end
+        local orderedLevels = {}
+        for level, _ in pairs(seenLevels) do
+            local n = tonumber(level)
+            if n ~= nil then
+                table.insert(orderedLevels, n)
+            end
+        end
+        table.sort(orderedLevels)
+        local dropLevel = table.concat(orderedLevels, ',')
+
+        -- 1: Try taking regions from LeagueRegion variables
+        local seenRegions = {}
+        for dropVersion in string.gmatch(versionKey, ' *([^,]+) *') do
+            local leagueRegionVar = string.format("LeagueRegion_%s", dropVersion)
+            if not var.varexists(leagueRegionVar) and versionKey ~= 'DEFAULT' then
+            	mw.log('Expected unset dropversion region variable: '..leagueRegionVar..' for drop '..bucketName)
+                unrecognizedDropVersionCategory = unrecognizedDropVersionCategory..'[[Category:Uses unrecognized drop region version]]'
+            end
+            local curRegionValues = var.var(leagueRegionVar)
+            for curRegion in string.gmatch(curRegionValues, ' *([^,]+) *') do
+                seenRegions[curRegion] = true
+            end
+        end
+        local orderedRegions = {}
+        for region, _ in pairs(seenRegions) do
+            table.insert(orderedRegions, region)
+        end
+        table.sort(orderedRegions)
+        local leagueRegions = table.concat(orderedRegions, ',')
+        -- 2: Try taking regions from DropsTableHead
+        local regionFromDropsTableHead = var.var('_leagueRegion')
+        if regionFromDropsTableHead ~= '' then
+            leagueRegions = regionFromDropsTableHead
+        end
+        -- 3: Try taking regions set directly on DropsLine
+        if leagueRegionOverride and leagueRegionOverride ~= '' then
+            leagueRegions = leagueRegionOverride
+        end
+        if leagueRegions == '' then
+        	unrecognizedDropVersionCategory = unrecognizedDropVersionCategory .. '[[Category:Needs League region]]'
+    	end
+
+        local bucket_json = {
+            ['Dropped item']=bucketName,
+            ['Name Notes']=bucketNameNote,
+            ['Drop Quantity']=bucketQuantity,
+            ['Quantity High']=_h,
+            ['Quantity Low']=_l,
+            ['Rarity']=rarity,
+            ['Alt Rarity']=alt_rarity,
+            ['Alt Rarity Dash'] = alt_rarity_endash,
+            ['Rarity Notes']=bucketRarityNote,
+            ['Rolls']=bucketRolls,
+            ['Drop Value'] = valueInfo.alch.value or 0,
+            ['Dropped from'] = dropFrom,
+            ['Drop level'] = level or dropLevel,
+            ['League region'] = leagueRegions,
+            ['Drop type'] = dropType,
+            ['Approx'] = approx
+        }
+        
+         local bucket_sub = {
+        	['item_name'] = bucketName,
+        	['rare_drop_table'] = is_RDT,
+        	['drop_json'] = mw.text.jsonEncode(bucket_json)
+        }
+        local subName = ''
+         if versionKey ~= 'DEFAULT' then
+            subName = versionKey
+         end
+        bucket("dropsline").sub(subName).put(bucket_sub)
+    end
+    
+    return tostring(ret) .. unrecognizedDropVersionCategory
+end
+
+function qty(quantity, isNothing)
+    -- if no quantity is given, return unknown
+    if string.lower(quantity) == 'varies' then
+        return 'Varies'
+    elseif isNothing then
+        return 'N/A'
+    elseif not quantity or string.lower(quantity) == 'unknown' then
+        return 'Unknown'
+    end
+    -- en dashes are the proper dash for number ranges
+    -- replace all hyphens and em dashes with en
+    -- strip *all* whitespace
+    -- change '(noted)' to '$n' for parsing
+    quantity = mw.ustring.gsub(quantity,'[-—]','–')
+        :gsub('%s','')
+        :gsub('%(noted%)','$n')
+    -- split list into table
+    local vals = mw.text.split(quantity,'[,;]')
+    local low = 2147483648
+    local high = 0
+    -- recreate the quantity string to ensure consistent formatting
+    local numstr = {}
+    for i, v in ipairs(vals) do
+        local clean = v:gsub('$n','')
+        -- if list element contains an en dash (indicating range)
+        -- Find the smaller/larger number (just in case)
+        -- Compare them to the current min/max
+        -- put them in order with desired format
+        if mw.ustring.find(v,'–') then
+            local splitvals = mw.text.split(clean,'–')
+            -- assume a is smaller, b is larger
+            local a = tonumber(splitvals[1])
+            local b = tonumber(splitvals[2])
+            -- Just in case
+            if a > b then
+                a,b = b,a
+            end
+            if a < low then
+                low = a
+            end
+            if b > high then
+                high = b
+            end
+            local addx = commas(a)..'–'..commas(b)
+            if v:find('$n') then
+                addx = addx.._noted
+            end
+            table.insert(numstr,addx)
+        else
+            local a = tonumber(clean)
+            if a < low then
+                low = a
+            end
+            if a > high then 
+                high = a
+            end
+            local addx = commas(a)
+            if v:find('$n') then
+                addx = addx.._noted
+            end
+            table.insert(numstr,addx)
+        end
+    end
+    -- Add a line break if there are too many elements
+    -- To keep the tables thin
+    if #numstr > 11 then
+        local mid = math.floor(#numstr/2)
+        numstr[mid] = '<br/>'..numstr[mid]
+    end
+    -- To prevent any possible confusion with formatted numbers
+    -- elements should be separated with semicolons followed by a space
+    numstr = table.concat(numstr,'; ')
+    -- If no numbers are found in the string, return unknown
+    if not numstr:find('%d') then
+        return 'Unknown', price
+    end
+
+    return numstr, high, low
+end
+
+function get_total(value,qhigh,qlow)
+    -- if no alch value is given, return unknown
+    if not value or string.lower(value) == 'unknown' then
+        return value
+    end
+    -- if value is negative (from bucket/ge) it cannot be alched
+    if tonumber(value) and tonumber(value) < 0 then
+        return false
+    end
+    -- if no numbers return not alchemisable
+    if not tonumber(value) and not value:find('%d') then
+        return false
+    end
+
+    -- en dashes are the proper dash for number ranges
+    -- replace all hyphens and em dashes with en
+    -- strip *all* whitespace
+    value = mw.ustring.gsub(value,'[-—]','–')
+        :gsub('%s','')
+    -- split list into table
+    local vals = mw.text.split(value,'[,;]')
+    -- All value ranges will be a range
+    -- e.g. if items valued at 100 coins are dropped in quantities of 1, 3, 5
+    -- the value returned will be 100–500 rather than 100; 300; 500
+    -- If low and high vars are the same in the end, only 1 value is displayed
+    local low = 2147483648
+    local high = 0
+    -- recreate the alchval string to ensure consistent formatting
+    for i, v in ipairs(vals) do
+        local clean = v:gsub('$n','')
+        -- if list element contains an en dash (indicating range)
+        -- Find the smaller/larger number (just in case)
+        -- Compare them to the current min/max
+        -- put them in order with desired format
+        if mw.ustring.find(v,'–') then
+            local splitvals = mw.text.split(clean,'–')
+            -- assume a is smaller, b is larger
+            local a = tonumber(splitvals[1])
+            local b = tonumber(splitvals[2])
+            -- Just in case
+            if a > b then
+                a,b = b,a
+            end
+            if a < low then
+                low = a
+            end
+            if b > high then
+                high = b
+            end
+        else
+            local a = tonumber(clean)
+            if a < low then
+                low = a
+            end
+            if a > high then 
+                high = a
+            end
+        end
+    end
+
+    local valret, sort, avg
+    if not qhigh or not qlow then
+        sort = high
+        avg = high
+        valret = commas(high)
+    else
+        local lower = qlow * low
+        local higher = qhigh * high
+        if higher == lower then
+            valret = commas(higher)
+            avg = higher
+        else
+            valret = commas(lower)..'–'..commas(higher)
+            avg = (lower+higher)/2
+        end
+        sort = higher
+    end
+
+    return valret, sort, avg
+end
+
+-- adding categories to mainspace
+function categories(...)
+    local name,quantity,rarity,malformedAlchData = unpack(...)
+    local ret = ''
+    name = name:lower()
+    quantity = quantity:lower()
+    if name:find('clue scroll') then
+        ret = ret .. '[[Category:Monsters that drop clues]]'
+    end
+    if rarity == nil or rarity == '' or rarity:lower() == 'unknown' then
+        ret = ret .. '[[Category:Needs drop rarity added]]'
+    end
+    if quantity:find('Unknown') then
+        ret = ret .. '[[Category:Needs drop quantity added]]'
+    end
+    if malformedAlchData then
+    	ret = ret .. '[[Category:Pages with broken high alch in drop lines]]'
+    end
+    return ret
+end
+
+return p
+-- </nowiki>

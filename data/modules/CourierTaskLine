@@ -1,0 +1,142 @@
+local p = {}
+
+local buildMap = require('Module:Map').buildMap
+
+local lang = mw.language.getContentLanguage()
+
+p.ledgerTableLocations = {
+	['Aldarin'] = {1449,2969},
+	['Ardougne'] = {2674,3269},
+	['Brimhaven'] = {2769,3225},
+	['Cairn Isle'] = {2756,2949},
+	['Catherby'] = {2799,3413},
+	['Civitas illa Fortis'] = {1781,3147},
+	['Corsair Cove'] = {2581,2848},
+	['Deepfin Point'] = {1927,2761},
+	['Entrana'] = {2874,3339},
+	['Etceteria'] = {2612,3846},
+	['Hosidius'] = {1725,3460},
+	['Jatizso'] = {2401,3788},
+	["Land's End"] = {1506,3407},
+	['Lunar Isle'] = {2146,3879},
+	['Musa Point'] = {2952,3150},
+	['Neitiznot'] = {2308,3775},
+	['Piscatoris'] = {2313,3693},
+	['Port Khazard'] = {2684,3164},
+	['Port Piscarilius'] = {1837,3691},
+	['Port Roberts'] = {1867,3306},
+	['Port Sarim'] = {3028,3194},
+	['Port Tyras'] = {2151,3123},
+	['Prifddinas'] = {2170,3328},
+	['Red Rock'] = {2802,2513},
+	['Rellekka'] = {2629,3699},
+	['Ruins of Unkah'] = {3148,2826},
+	['The Summer Shore'] = {3173,2370},
+	['Sunset Coast'] = {1515,2977},
+	['The Pandemonium'] = {3061,2985},
+	["Void Knights' Outpost"] = {2652,2673}
+}
+
+p.noticeBoardLocations = {
+	['Aldarin'] = {1438,2969},
+	['Ardougne'] = {2676,3276},
+	['Brimhaven'] = {2764,3227},
+	['Catherby'] = {2803,3418},
+	['Civitas illa Fortis'] = {1782,3142},
+	['Corsair Cove'] = {2579,2853},
+	['Deepfin Point'] = {1931,2761},
+	['Etceteria'] = {2617,3849},
+	["Land's End"] = {1502,3407},
+	['Lunar Isle'] = {2139,3884},
+	['Musa Point'] = {2940,3144},
+	['Port Khazard'] = {2678,3162},
+	['Port Piscarilius'] = {1839,3691},
+	['Port Roberts'] = {1872,3303},
+	['Port Sarim'] = {3030,3197},
+	['Port Tyras'] = {2146,3123},
+	['Prifddinas'] = {2163,3326},
+	['Red Rock'] = {2806,2511},
+	['Rellekka'] = {2629,3685},
+	['Ruins of Unkah'] = {3145,2828},
+	['The Pandemonium'] = {3058,2985},
+	['The Summer Shore'] = {3183,2368},
+	["Void Knights' Outpost"] = {2659,2672}
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	return _main(args)
+end
+
+function ucfirst(s)
+    return s:sub(1, 1):upper() .. s:sub(2)
+end
+
+function _main(args)
+	local level = tonumber(args.level)
+	local xp = tonumber(args.xp)
+	local noticeBoard = args.noticeBoard
+	local cargoLocation = args.cargoLocation
+	local destination = args.destination
+	local item = args.item
+	local qty = args.qty
+	local taskId = args.taskId
+	local transcript = args.transcript
+	local bucketArg = args.bucket
+
+	local cargoLocationNoThe, _ = string.gsub(cargoLocation, '^The ', '')
+	local destinationNoThe, _ = string.gsub(destination, '^The ', '')
+	local itemShortName = ucfirst(string.gsub(item, '^Crate of ', ''))
+
+	local transcriptLink
+	if transcript ~= nil then
+		transcriptLink = string.format('Transcript:%s', transcript)
+	end
+
+	if bucketArg == nil or bucketArg == '' then
+		bucket('couriertaskline').put({
+			["level"] = level,
+			["xp"] = xp,
+			["notice_board"] = noticeBoard,
+			["cargo_location"] = cargoLocation,
+			["destination"] = destination,
+			["item"] = item,
+			["qty"] = qty,
+			["task_id"] = taskId,
+			["transcript"] = transcriptLink
+		})
+	end
+
+	local xpCommas
+	if xp ~= nil then
+		xpCommas = lang:formatNum(xp)
+	else
+		xpCommas = 'Unknown'
+	end
+
+	local mapArgs = {
+		['type'] = 'maplink',
+		['mtype'] = 'pin',
+		['group'] = taskId,
+		['text'] = 'Map'
+	}
+	mapArgs[1] = string.format('icon:greenPin,x:%d,y:%d,title:Notice board', p.noticeBoardLocations[noticeBoard][1], p.noticeBoardLocations[noticeBoard][2])
+	mapArgs[2] = string.format('icon:yellowPin,x:%d,y:%d,title:Withdraw cargo', p.ledgerTableLocations[cargoLocation][1], p.ledgerTableLocations[cargoLocation][2])
+	mapArgs[3] = string.format('icon:redPin,x:%d,y:%d,title:Deposit cargo', p.ledgerTableLocations[destination][1], p.ledgerTableLocations[destination][2])
+
+	local row = mw.html.create('tr')
+		:tag('td'):wikitext(level):done()
+		:tag('td'):wikitext(xpCommas):done()
+		:tag('td'):wikitext(string.format('[[%s]]', noticeBoard)):done()
+		:tag('td'):wikitext(string.format('[[%s]]', cargoLocation)):done()
+		:tag('td'):wikitext(string.format('[[%s]]', destination)):done()
+		:tag('td'):addClass('plinkt-image inventory-image'):wikitext(string.format('[[File:%s (%s).png|link=%s#%s]]', item, destination, item, destination)):done()
+		:tag('td'):addClass('plinkt-link'):wikitext(string.format('[[%s#%s|%s]]', item, destination, itemShortName)):done()
+		:tag('td'):wikitext(qty):done()
+		:tag('td'):wikitext(buildMap(mapArgs)):done()
+
+	return tostring(row)
+end
+
+return p

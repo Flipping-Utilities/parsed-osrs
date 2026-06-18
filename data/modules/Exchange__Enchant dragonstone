@@ -1,0 +1,12 @@
+return {
+    itemId     = 8020,
+    icon       = 'Enchant dragonstone.png',
+    item       = 'Enchant dragonstone',
+    value      = 1,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'A tablet containing a magic spell.',
+    hialch     = 0,
+    lowalch    = 0
+}

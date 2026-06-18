@@ -1,0 +1,82 @@
+-- Helps [[RuneScape:Lua/Helper modules]] format its table with dynamic documentation
+-- See [[Template:Helper module]] for documentation and usage
+require('Module:Mw.html extension')
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local function_list = {}
+	-- Let there be no limit to number of parameters
+	local i = 1
+	while args['fname'..i] do
+		local funcname = args['fname'..i] or ''
+		local functype = args['ftype'..i] or ''
+		local funcuse = args['fuse'..i] or ''
+		function_list[i] = {
+			fname = funcname,
+			ftype = functype,
+			fdesc = funcuse
+		}
+		i = i + 1
+	end
+	local title = mw.title.getCurrentTitle()
+	if title.namespace == 828 and (title.text == args.name or title.text == args.name..'/doc') then
+		local t = mw.html.create('table')
+		t	:addClass('wikitable')
+			:tr()
+				:th('Function')
+				:th('Type')
+				:th('Use')
+			:done()
+			:node(p._main(args.name, function_list, nil, false))
+
+		local category = ''
+		if not (title.isSubpage and title.subpageText == 'doc') then
+			category = '[[Category:Helper modules]][[Category:Modules required by modules]]'
+		end
+		local reqby = ''
+		if not (title.isSubpage and title.subpageText == 'doc') then
+			local uri = mw.uri.canonicalUrl('Special:WhatLinksHere', 'target=Module:'..args.name..'&namespace=828')
+			reqby = 'For a full list of modules using this helper <span class="plainlinks">[' .. tostring(uri) .. ' click here]</span>\n'
+		end
+		local example = ''
+		if args.example then
+			example = "'''Example:'''\n" .. args.example
+		end
+		return 'This module is a helper module to be used by other modules; it may not be designed to be invoked directly. See [[RuneScape:Lua/Helper modules]] for a full list and more information.\n' .. reqby .. tostring(t) .. example .. category
+	else
+		return p._main(args.name, function_list, args.example or '', true)
+	end
+end
+
+local function formatFuncNames(list)
+	list = mw.text.split(list or '', ';;')
+	local res = {}
+
+	for _, v in ipairs(list) do
+		v = mw.text.trim(v)
+		table.insert(res, string.format("<code>%s</code>", v))
+	end
+
+	return table.concat(res, '<br>')
+end
+
+function p._main(modn, func_list, example, showModuleName)
+	local ret = mw.html.create('tr')
+	ret :IF(showModuleName)
+			:td{'[[Module:'..modn..'|'..modn..']]', attr={'rowspan', #func_list}} -- Name will group together with all functions once
+		:END()
+		:td(formatFuncNames(func_list[1].fname))
+		:td(func_list[1].ftype)
+		:td(func_list[1].fdesc)
+
+	for i = 2, #func_list do
+		ret:tr()
+			:td(formatFuncNames(func_list[i].fname))
+			:td(func_list[i].ftype)
+			:td(func_list[i].fdesc)
+	end
+	return ret
+end
+
+return p

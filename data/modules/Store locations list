@@ -1,0 +1,272 @@
+-- <pre>
+local p = {}
+
+local commas = require("Module:Addcommas")._add
+local params = require('Module:Paramtest')
+local yesNo = require("Module:Yesno")
+local currencyImage = require("Module:Currency Image")
+local purge = require("Module:Purge")._purge
+local tb = require('Module:Trailblazer Region')
+
+local p2pIcon = '[[File:Member icon.png|link=Members|alt=Members]]'
+local f2pIcon = '[[File:Free-to-play icon.png|link=Free-to-play|alt=Free-to-play]]'
+
+function p.main(frame)
+    return p._main(frame:getParent().args)
+end
+
+function p._main(args)
+    local item, limit = params.defaults{
+                            {args[1], mw.title.getCurrentTitle().text},
+                            {args.Limit, 500}
+                        }
+
+    -- Create the header of the output
+    local restbl = mw.html.create('table')
+    restbl:addClass('wikitable sortable autosort=1,a align-center-3 align-center-4 align-center-5 align-center-6 align-center-7 align-center-8 store-locations-list')
+        :tag('tr')
+            :tag('th'):wikitext('Seller'):done()
+            :tag('th'):wikitext('Location'):done()
+            :tag('th'):wikitext('Number<br/>in stock'):attr('data-sort-type', 'number'):done()
+            :tag('th'):wikitext('Restock<br/>time'):attr('data-sort-type', 'number'):done()
+            :tag('th'):wikitext('Price<br/>sold at'):attr('data-sort-type', 'number'):done()
+            :tag('th'):wikitext('Price<br/>bought at'):attr('data-sort-type', 'number'):done()
+            :tag('th'):wikitext('Change<br/>Per'):attr('data-sort-type', 'number'):done()
+            :tag('th'):wikitext('Members'):done()
+            :tag('th'):wikitext('[[Demonic Pacts League|League]] region'):addClass('leagues-global-flag'):done()
+        :done()
+
+    -- Get parsed Bucket data
+    mw.log(string.format('Searching for shops that sell: %s', item))
+    local data = p.getData(item, limit)
+    -- Create the rows for the output table
+    for _, shop in ipairs(data) do
+
+        local shopVersionValues = shop.shopVersion or { '' }
+        if type(shopVersionValues) == 'string' then
+            shopVersionValues = { shopVersionValues }
+        end
+        for i, shopVersion in ipairs(shopVersionValues) do
+            local curVersionSeller = shop.seller
+
+            local notetext = shopVersion
+            if shop.namenotes ~= '' then
+                notetext = shop.namenotes
+            end
+            if notetext ~= '' then
+                curVersionSeller = curVersionSeller..' <span class="shop-version">'..notetext..'</span>'
+            end
+
+            local membersValues = shop.members or {}
+            local curMembers = membersValues
+            if type(membersValues) == 'table' then
+                curMembers = membersValues[i] or membersValues[1] or ''
+            end
+            if curMembers == '' then
+                curMembers = '[[Category:Store locations list with empty members]]'
+            end
+            local locationValues = shop.location or {}
+            local curLocation = locationValues
+            if type(locationValues) == 'table' then
+                curLocation = locationValues[i] or locationValues[1] or ''
+            end
+            if curLocation == '' then
+                curLocation = '[[Category:Store locations list with empty location]]'
+            end
+            local leagueRegionsValues = shop.leagueRegion or {}
+            local curLeagueRegion = leagueRegionsValues
+            if type(leagueRegionsValues) == 'table' then
+                curLeagueRegion = leagueRegionsValues[i] or leagueRegionsValues[1] or ''
+            end
+
+            local restr = restbl:tag('tr')
+            restr:tag('td'):wikitext(curVersionSeller)
+            restr:tag('td'):wikitext(curLocation)
+            restr:tag('td'):attr({['data-sort-value']=shop.stockSortValue}):wikitext(shop.stock)
+            restr:tag('td'):attr({['data-sort-value']=shop.restockSortValue}):wikitext(shop.restock)
+            restr:tag('td'):attr({['data-sort-value']=shop.sellSortValue}):wikitext(shop.sellvalue)
+            restr:tag('td'):attr({['data-sort-value']=shop.buySortValue}):wikitext(shop.buyvalue)
+            restr:tag('td'):wikitext(shop.delta)
+            restr:tag('td'):wikitext(membersTextToIcon(curMembers))
+
+            local leagueIcons = leagueRegionToIcons(curLeagueRegion)
+            if leagueIcons ~= '' then
+                restr:tag('td'):wikitext(leagueIcons):addClass('leagues-global-flag')
+            else
+                restr:tag('td'):wikitext('N/A'):addClass('table-na leagues-global-flag')
+            end
+        end
+    end
+
+    return tostring(restbl)
+end
+
+function p.getData(itemName, limit)
+    
+    local b = bucket("storeline")
+    	.select("sold_item_json")
+    	.where("sold_item", itemName)
+    	.limit(tonumber(limit))
+
+    local t1 = os.clock()
+    local data = b.run()
+    local t2 = os.clock()
+
+    if data == nil then
+        error('The item "' .. itemName .. '" is not sold in any shop, please check for typos[[Category:Empty store lists]]', 0)
+    end
+    mw.log(string.format('Bucket (store locations list): entries: %d, time elapsed: %.3f ms.', #data, (t2 - t1) * 1000))
+
+    -- Iterate through each shop instance of item
+    local ret_data = {}
+    for _, item in ipairs(data) do
+        local soldItemJSON = mw.text.jsonDecode(item['sold_item_json'] or '{}')
+        local dataline = p.processData(soldItemJSON)
+        table.insert(ret_data, dataline)
+    end
+    return ret_data
+end
+
+function p.processData(item)
+    local seller = item['Sold by'] or ''
+    if not seller:match('^%[%[') then
+        seller = '[['..seller..']]'
+    end
+
+    local delta = string.format('%.1f%%',(item['Store delta'] or 10)/10)
+
+    local region = item['Region'] or ''
+
+    local stock = item['Store stock'] or ''
+    local stockSortValue = 0
+    if stock == '∞' then
+        stock = '<span style="font-size:120%;">∞</span>'
+        stockSortValue = '10e50'
+    elseif stock == 'N/A' then
+        stockSortValue = '10e99'
+    else
+        stock = tonumber(stock)
+        if stock then
+            stockSortValue = stock
+            stock = commas(stock)
+        else
+            stock = ''
+        end
+    end
+
+    local restock = item['Restock time'] or ''
+    local restockSortValue = 0
+    if restock == 'N/A' then
+        restockSortValue = '10e99'
+    else
+        restock = tonumber(restock)
+        if restock then
+            restockSortValue = restock
+            restock = ticktime(restock)
+        else
+            restock = ''
+        end
+    end
+
+    local currency = item['Store currency']
+
+    local sellvalue = item['Store sell price'] or ''
+    local sellSortValue = 0
+    if not (sellvalue == 1e10) then
+        sellvalue = tonumber(sellvalue)
+        if sellvalue then
+            sellSortValue = sellvalue
+            sellvalue = commas(sellvalue)
+            local currencyImg = currencyImage(currency, sellSortValue) or ''
+            if params.has_content(currencyImg) then
+                currencyImg = string.format('[[File:%s|link=%s]] ', currencyImg, currency)
+                sellvalue = currencyImg .. sellvalue
+            end
+        else
+            sellvalue = ''
+        end
+    else
+        sellSortValue = sellvalue
+        sellvalue = 'N/A'
+    end
+
+    local buyvalue = item['Store buy price'] or ''
+    local buySortValue = 0
+    if not (buyvalue == 'N/A') then
+        buyvalue = tonumber(buyvalue)
+        if buyvalue then
+            buySortValue = buyvalue
+            buyvalue = commas(buyvalue)
+            local currencyImg = currencyImage(currency, buySortValue) or ''
+            if params.has_content(currencyImg) then
+                currencyImg = string.format('[[File:%s|link=%s]] ', currencyImg, currency)
+                buyvalue = currencyImg .. buyvalue
+            end
+        else
+            buyvalue = ''
+        end
+    end
+
+    return {
+        seller = seller,
+        region = region,
+        stock = stock,
+        stockSortValue = stockSortValue,
+        restock = restock,
+        restockSortValue = restockSortValue,
+        sellvalue = sellvalue,
+        sellSortValue = sellSortValue,
+        buyvalue = buyvalue,
+        buySortValue = buySortValue,
+        delta = delta,
+        namenotes = item['Store notes'] or '',
+        location = item['Location'],
+        members = item['Members'],
+        shopVersion = item['Shop version'],
+        leagueRegion = item['LeagueRegion'],
+    }
+end
+
+function ticktime(ticks)
+    if ticks==-1 then
+        return 'unknown'
+    end
+    local ret = ''
+    local days = math.floor(ticks/144000)
+    local hours = math.floor(ticks%144000/6000)
+    local minutes = math.floor(ticks%6000/100)
+    local seconds = ticks%100*0.6
+    if days > 0 then
+        ret = ret .. days .. 'd '
+    end
+    if hours > 0 then
+        ret = ret .. hours .. 'h '
+    end
+    if minutes > 0 then
+        ret = ret .. minutes .. 'm '
+    end
+    if seconds > 0 then
+        ret = ret .. seconds .. 's'
+    end
+    return ret
+end
+
+function membersTextToIcon(text)
+    local lower = string.lower(text or '')
+    local hasYes = string.match(lower, 'yes')
+    local hasNo = string.match(lower, 'no')
+    if hasYes and hasNo then
+        return f2pIcon..'/'..p2pIcon
+    elseif hasYes then
+        return p2pIcon
+    elseif hasNo then
+        return f2pIcon
+    end
+    return ''
+end
+
+function leagueRegionToIcons(text)
+    return tb._badge(text, nil, nil, nil, 'Demonic Pacts League')
+end
+
+return p

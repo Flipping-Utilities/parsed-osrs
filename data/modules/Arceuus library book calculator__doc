@@ -1,0 +1,30 @@
+{{documentation}}
+{{:User:Faison/Template/Invokes|page=Calculator:Arceuus_library_book/Template}}
+
+{| class="wikitable"
+!Function
+!Type
+!Use
+|-
+|p.main(frame)
+|table
+|The main function to run if invoked from a template that is the results template for a calculator.<br>
+
+Valid arguments from the calculator:
+<code>skill = 'Magic' or 'Runecraft', inputType/targetType = 'Level' or 'Experience', currentLevel/targetLevel = 1 &ndash; 126, currentExperience/targetExperience =  1 &ndash; 200000000, leagueGroup = 'true' or 'false', leagueMultiplier = 2 &ndash; 32</code>
+|-
+|p._main(args)
+|table
+|Figures out the Level multiplier and the number of books needed to reach a target level or target XP.<br>
+
+Valid arguments:
+<code>{ skill = 'Magic' or 'Runecraft', inputType/targetType = 'Level' or 'Experience', currentLevel/targetLevel = 1 &ndash; 126, currentExperience/targetExperience =  1 &ndash; 200000000, leagueGroup = 'true' or 'false', leagueMultiplier = 2 &ndash; 32 }</code>
+|-
+|p.buildTable(skill, itemData)
+|table
+|Renders the results of <code>p._main</code> to a table.<br>
+
+Valid arguments:
+<code>{ skill = 'Magic' or 'Runecraft',  itemData { ['name'] = ' ' , ['link'] = ' ', ['file'] = ' ', ['data'] = scaledExperience.xp_to_xp_actions(currentExperience, targetExperience, levelMultiplier) } }</code>
+|-
+|}

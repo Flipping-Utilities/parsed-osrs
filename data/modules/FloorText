@@ -1,0 +1,108 @@
+local yn = require('Module:Yesno')
+
+local p = {}
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p.capitalize(str)
+    return (str:gsub("^%l", string.upper))
+end
+
+function p.ordinal(n)
+    if n == 0 then return "ground" end
+
+    local ones = { "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth" }
+    local teens = { "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth" }
+    local tens_lemma = { "tenth", "twentieth", "thirtieth", "fortieth", "fiftieth", "sixtieth", "seventieth", "eightieth", "ninetieth" }
+    local tens = { "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" }
+
+    if n < 10 then
+        return ones[n]
+    elseif n < 20 then
+        return teens[n - 10]
+    elseif n < 100 then
+        local ten_part = math.floor(n / 10)
+        local one_part = n % 10
+        
+        if one_part == 0 then
+            return tens_lemma[ten_part - 1]
+        end
+
+        local special_ones = { [1] = "first", [2] = "second", [3] = "third" }
+        if special_ones[one_part] then
+            return tens[ten_part - 1] .. "-" .. special_ones[one_part]
+        else
+            return tens[ten_part - 1] .. "-" .. ones[one_part]
+        end
+    elseif n < 1000 then
+        local hundred_part = ones[math.floor(n / 100)] .. " hundred"
+        local remainder = n % 100
+        local remainder_part = remainder > 0 and " " .. p.ordinal(remainder) or ""
+        return hundred_part .. remainder_part
+    else
+        return tostring(n) .. "th"
+    end
+end
+
+function p._main(args)
+	local nohelp = yn(args.nohelp)
+	local caps = yn(args.caps)
+	local flr = tonumber(args.uk)
+	assert(flr, "Missing parameter `uk`")
+	assert(args[1] == nil, "Unrecognised parameter")
+
+	-- Generate the UK and US floor numbering
+	local flr_gb = p.ordinal(flr)
+	local flr_us = p.ordinal(flr+1)
+
+	if caps then
+		flr_gb = p.capitalize(flr_gb)
+		flr_us = p.capitalize(flr_us)
+	end
+
+	-- Create the output container
+	local ret = mw.html.create('span')
+	ret:addClass('floornumber')
+
+	-- UK format span
+	local spn_gb = ret:tag('span')
+	spn_gb:addClass('floornumber-gb')
+	spn_gb:wikitext(flr_gb.."&nbsp;floor")
+
+	if not nohelp then
+		spn_gb:tag('sup')
+			:addClass('floornumber-help noexcerpt')
+			:wikitext('&#91;')
+			:tag('span')
+				:addClass('fact-text')
+				:addClass('floor-convention')
+				:attr('title', 'British convention; '..flr_us..' floor in the US')
+				:wikitext('UK')
+			:done()
+			:wikitext('&#93;')
+	end	
+
+	-- US format span
+	local spn_us = ret:tag('span')
+	spn_us:addClass('floornumber-us noexcerpt')
+	spn_us:wikitext(flr_us.."&nbsp;floor")
+
+	if not nohelp then
+		spn_us:tag('sup')
+			:addClass('floornumber-help noexcerpt')
+			:wikitext('&#91;')
+			:tag('span')
+				:addClass('fact-text')
+				:addClass('floor-convention')
+				:attr('title', 'US convention; '..flr_gb..' floor in the UK')
+				:wikitext('US')
+			:done()
+			:wikitext('&#93;')
+	end	
+
+	return ret
+end
+
+return p

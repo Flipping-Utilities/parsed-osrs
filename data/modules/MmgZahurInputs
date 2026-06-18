@@ -1,0 +1,51 @@
+-- This module compares buying unfinished potions from the G.E directly vs.
+-- paying Zahur a 200c fee. This is a wrapper for Mmgtable.
+
+-- (grimy herb -> clean herb for an extra 200c each is not considered, because
+-- the degrime spell probably makes this never worth doing)
+
+local p = {}
+
+local Exchange = require('Module:Exchange')
+
+function p.main(frame)
+	local args = frame.args
+	
+	local clean_herb_cost = Exchange._price('Ranarr weed')
+	local unfinished_potion_cost = Exchange._price('Ranarr potion (unf)')
+	local is_zahur_cheaper = (clean_herb_cost + 200) < unfinished_potion_cost
+	
+	local extra_args = {}
+	if is_zahur_cheaper then
+        extra_args = {
+            ['Input3'] = args.Herb,
+            ['Input3num'] = 1,
+            ['Input4'] = args.Liquid,
+            ['Input4num'] = 1,
+            ['Input5'] = 'Coins',
+            ['Input5num'] = 200,
+            ['Input5value'] = 1,
+            ['Input5note'] = '[[Zahur]]\'s fees',
+        }
+	else
+        extra_args = {
+            ['Input3'] = args.UnfinishedPotion,
+            ['Input3num'] = 1,
+        }
+	end
+
+    local final_args = {}
+    for k, v in pairs(args) do
+    	final_args[k] = v
+    end
+    for k, v in pairs(extra_args) do
+        final_args[k] = v
+    end
+
+    return frame:expandTemplate({
+        ['title'] = 'Mmgtable',
+        ['args'] = final_args,
+    })
+end
+
+return p

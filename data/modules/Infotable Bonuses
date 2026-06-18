@@ -1,0 +1,327 @@
+local p = {}
+
+local trim = mw.text.trim
+local gsplit = mw.text.gsplit
+local split = mw.text.split
+local listToText = mw.text.listToText
+
+local yesNo = require('Module:Yesno')
+local paramTest = require('Module:Paramtest')
+local contains = require('Module:Array').contains
+local pageListCheck = require('Module:PageListTools').pagelistchecks
+local equipmentStats = require('Module:FetchItemStats').equipmentStats
+local onMain = require('Module:Mainonly').on_main
+
+-- Sorting keys
+local baseSortKey = {
+	'astab', 'aslash', 'acrush', 'amagic', 'arange',
+	'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+	'str',   'mdmg',   'rstr',   'prayer', 'weight',
+	'membs'
+}
+local baseSortKeySpeed = 'speed'
+local baseSortKeyRange = 'range'
+local excludeFromTotals = { 
+	['membs'] = true, 
+	[baseSortKeySpeed] = true, 
+	[baseSortKeyRange] = true
+}
+
+-- Sorting orders
+local sortOrder = {
+	'ascending', 'asc',
+	'descending', 'desc', 'reverse',
+	'random', 'rand'
+}
+
+function totalsFooter(tabl, sortKey, totals, useComments)
+	local row = tabl:tag('tr'):addClass('sortbottom'):tag('th'):attr('colspan', '2'):wikitext('Totals'):done()
+	
+	mw.logObject(excludeFromTotals)
+	for i = 1, #sortKey, 1 do
+		mw.log("exclude " .. sortKey[i] .. ": " .. tostring(excludeFromTotals[sortKey[i]]))
+		local cell = row:tag('td'):css('text-align', 'right')
+		if(sortKey[i] == 'mdmg') then
+			cell:wikitext(totals[i] .. '%'):done()
+		elseif(sortKey[i] == 'weight') then
+			local zeroTrimmedWeight, _ = tostring(totals[i]):gsub("%.0+$", "")
+			cell:wikitext(zeroTrimmedWeight):done()
+		elseif(excludeFromTotals[sortKey[i]]) then
+			cell:addClass('table-na nohighlight'):css('text-align', 'center'):wikitext('<small>N/A</small>')
+		else
+			cell:wikitext(totals[i])
+		end
+	end
+
+	if(useComments) then
+		row:tag('td'):done()
+	end
+end
+
+function buildRow(pageData, sortKey, totals, columnWidth, itemWidth, useComments, comment, includespeed, includerange)
+	mw.logObject(pageData)
+	local row = mw.html.create('tr')
+		:tag('td'):cssText(columnWidth):wikitext(pageData['image'] and '[[' .. pageData['image'] .. '|link=|' .. split(pageData['name'], '#', true)[1] .. ']]' or ''):done()
+		:tag('td'):cssText(itemWidth):wikitext('[[' .. split(pageData['name'], '#', true)[1] .. ']]'):done()
+
+	for i = 1, #sortKey, 1 do
+		local attribute = pageData[sortKey[i]]
+		local cell = row:tag('td'):cssText(columnWidth)
+		
+		if(sortKey[i] == 'membs') then
+				cell:wikitext(yesNo(attribute, false) and '[[File:Member icon.png|link=Members|alt=Members]]' or '[[File:Free-to-play icon.png|link=Free-to-play|alt=Free-to-play]]'):done()
+		else
+			if(not attribute) then
+				cell:addClass('table-no'):addClass('nohighlight'):attr('data-sort-value', 0):wikitext('?'):done()
+			else
+				if(sortKey[i] == 'mdmg') then
+					cell:wikitext(attribute .. '%'):done()
+				elseif(sortKey[i] == 'weight') then
+					cell:wikitext(string.format('%.3f', tonumber(attribute))):done()
+				else
+					cell:wikitext(attribute):done()
+				end
+				
+				if (not excludeFromTotals[sortKey[i]]) then
+				    totals[i] = totals[i] + tonumber(attribute)
+				end
+			end
+		end
+	end
+	
+	if(useComments) then
+		local cell = row:tag('td'):wikitext(comment):done()
+	end
+	
+	return row, totals
+end
+
+function createHeader(tabl, useComments, includespeed, includerange)
+	local otherspan = 6 + (includespeed and 1 or 0) + (includerange and 1 or 0) 
+	local header = tabl:tag('tr'):tag('th'):attr({ colspan = '2', rowspan = '2' }):wikitext('Item'):done()
+		:tag('th'):attr('colspan', '5'):wikitext('Attack Bonuses'):done()
+		:tag('th'):attr('colspan', '5'):wikitext('Defence Bonuses'):done()
+		:tag('th'):attr('colspan', otherspan):wikitext('Other'):done()
+		
+	if(useComments) then
+		header:tag('th'):attr('rowspan', '2'):wikitext('Comment'):done()
+	end
+
+	local row = tabl:tag('tr'):tag('th'):wikitext('[[File:White dagger.png|link=|Stab attack]]'):done()
+		:tag('th'):wikitext('[[File:White scimitar.png|link=|Slash attack]]'):done()
+		:tag('th'):wikitext('[[File:White warhammer.png|link=|Crush attack]]'):done()
+		:tag('th'):wikitext('[[File:Magic icon.png|link=|Magic attack]]'):done()
+		:tag('th'):wikitext('[[File:Ranged icon.png|link=|Ranged attack]]'):done()
+		:tag('th'):wikitext('[[File:White dagger.png|link=|Stab defence]]'):done()
+		:tag('th'):wikitext('[[File:White scimitar.png|link=|Slash defence]]'):done()
+		:tag('th'):wikitext('[[File:White warhammer.png|link=|Crush defence]]'):done()
+		:tag('th'):wikitext('[[File:Magic icon.png|link=|Magic defence]]'):done()
+		:tag('th'):wikitext('[[File:Ranged icon.png|link=|Ranged defence]]'):done()
+		:tag('th'):wikitext('[[File:Strength icon.png|link=|Melee strength]]'):done()
+		:tag('th'):wikitext('[[File:Magic Damage icon.png|link=|Magic damage]]'):done()
+		:tag('th'):wikitext('[[File:Ranged Strength icon.png|link=|Ranged strength]]'):done()
+		:tag('th'):wikitext('[[File:Prayer icon.png|link=|Prayer bonus]]'):done()
+		:tag('th'):wikitext('[[File:Weight icon.png|link=|Weight]]'):done()
+		:tag('th'):wikitext('[[File:Member icon.png|link=|Members]]'):done()
+		
+	if (includespeed) then 
+		row:tag('th'):wikitext('[[File:Watch.png|link=|Attack speed]]'):done()
+	end
+	
+	if (includerange) then
+		row:tag('th'):wikitext('[[File:Bronze arrow 1.png|link=|Attack range]]'):done()
+	end
+end
+
+-- Is there a faster way to do this?
+function sortPagesToInputOrder(pages, data)
+	local pageLoc = {}
+	for i, page in ipairs(pages) do
+		pageLoc[page] = i
+	end
+	local ret = {}
+	for i, v in ipairs(data) do
+		if(pageLoc[v.name] == nil) then
+			error(v.name .. ' is spelled wrong or does not match any input')
+		else
+			ret[pageLoc[v.name]] = v
+		end
+	end
+	return ret
+end
+
+function p._main(args)
+	mw.logObject(args)
+	local pages = {}
+	local filters = {}
+	local hasfilter=false
+	for _, page in ipairs(args) do -- Iterates through unnamed args
+		if string.find(page, '::') then
+			local f = mw.text.split(page,'::')
+			filters[trim(f[1]:lower())] = trim(f[2])
+			hasfilter=true
+		else 
+			if(string.find(page, "_")) then
+				page = string.gsub(page, '_', " ")
+			end
+			table.insert(pages, trim(page))
+		end
+	end
+	assert(#pages > 0 or hasfilter, 'You must specify at least one item or filter')
+
+	local keys = {}
+	if(paramTest.has_content(args['sort'])) then
+		for key in gsplit(args['sort'], ',', true) do
+			table.insert(keys, trim(key))
+		end
+	end
+	
+	local includespeed = yesNo(paramTest.default_to(args.attackspeed, false), false)
+	local includerange = yesNo(paramTest.default_to(args.attackrange, false), false)
+	
+	mw.log("includespeed: " .. tostring(includespeed) .. " includerange: ".. tostring(includerange))
+	
+	local sortKey = {}
+	for _, key in ipairs(baseSortKey) do
+		table.insert(sortKey, key)
+	end
+	if includespeed then
+		table.insert(sortKey, baseSortKeySpeed)
+	end
+	if includerange then
+		table.insert(sortKey, baseSortKeyRange)
+	end
+	
+	if(yesNo(keys[1], true)) then
+		for _, key in ipairs(keys) do
+			assert(contains(sortKey, key), 'Invalid sorting key:"' .. key .. '"' .. tostring(yesNo(keys[1])))
+		end
+	end
+
+	local orders = {}
+	if(paramTest.has_content(args.order)) then
+		for order in gsplit(args.order, ',', true) do
+			table.insert(orders, trim(order))
+		end
+	end
+	for _, order in ipairs(orders) do
+		assert(contains(sortOrder, order), 'Invalid sorting order:' .. order)
+	end
+	
+	assert(#orders == #keys or #orders == 0 or #keys == 0, 'The number of sort orders must match the number of sort keys or either can be zero')
+
+	local useComments = false
+	local comments = {}
+	for i = 1, #pages, 1 do
+		comment = args['comment'..tostring(i)]
+		if(paramTest.has_content(comment)) then
+			comments[i] = comment
+			useComments = true
+		end
+	end
+
+	local noHeader = yesNo(paramTest.default_to(args.noheader, false), false)
+	local noTotals = yesNo(paramTest.default_to(args.nototals, false), false)
+	local expensive = yesNo(paramTest.default_to(args.expensive, false), false)
+	local columnWidth = paramTest.has_content(args.colwidth) and 'width:' .. args.colwidth or nil
+	local itemWidth = paramTest.has_content(args.itemwidth) and 'width:' .. args.itemwidth or nil
+	
+	-- Checks if any input pages are redirects, invalid (red links), or duplicates of other page inputs.
+	-- !!This is a resource expensive test, only use temporarily or site-wide for the purpose of maintenance.
+	if(args.expensive) then
+		local check = pageListCheck(pages)
+
+		if((#check.invalid > 0) or (#check.redirect > 0) or (#check.duplicate > 0)) then
+			local msg = string.format('Of the %d pages requested %d are non-existent (%s), %d are redirects (%s), and %d are duplicates (%s).',
+				#pages,
+				#check.invalid, (#check.invalid > 0) and listToText(check.invalid, ', ', ' and ') or '',
+				#check.redirect, (#check.redirect > 0) and listToText(check.redirect, ', ', ' and ') or '',
+				#check.duplicate, (#check.duplicate > 0) and listToText(check.duplicate, ', ', ' and ') or '')
+
+			return error(msg .. '[[Category:Infotable Bonuses with multi-variant items]]')
+		end
+	end
+
+	-- Fetch the data
+	mw.logObject(pages)
+	mw.logObject(keys)
+	mw.logObject(orders)
+	mw.logObject(filters)
+	local data = equipmentStats(pages, keys, orders, filters)
+
+	if(#data < #pages and not hasfilter) then
+		-- Find all pages not found by equipmentStats
+		local pageListing = {}
+		for _, page in ipairs(pages) do
+			pageListing[page] = ''
+		end
+		for _, pageData in ipairs(data) do
+			if(pageListing[pageData.name]) then
+				pageListing[pageData.name] = nil
+			end
+		end
+		local pageList = ''
+		for key, _ in pairs(pageListing) do
+			pageList = pageList .. key .. ' '
+		end
+	
+		local msg = string.format('Of the %i pages requested, there is %i missing.(%s)%s',
+			#pages, #pages - #data, pageList,
+			(#keys > 0) and ' Try temporarily disabling sorting to see which items might have multiple variants.' or '')
+
+		error(msg .. '[[Category:Infotable Bonuses with multi-variant items]]')
+	end
+
+	if((#orders == 0) and (#keys == 0)) then
+		data = sortPagesToInputOrder(pages, data)
+	end
+
+	local ret = mw.html.create('table'):addClass('wikitable sortable infotable-bonuses align-center-1 align-left-2 align-right-3 align-right-4 align-right-5 align-right-6 align-right-7 align-right-8 align-right-9 align-right-10 align-right-11 align-right-12 align-right-13 align-right-14 align-right-15 align-right-16 align-right-17 align-center-18')
+	if (includespeed or includerange) then
+		ret:addClass('align-right-19')
+	end
+	if (includespeed and includerange) then
+		red:addClass('align-right-20')
+	end
+
+	if(not noHeader) then
+		createHeader(ret, useComments, includespeed, includerange)
+	end
+
+	-- See sortKey for labels; members, range and speed are excluded
+	local totals = {
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0,
+	}
+
+	local rowCount = 0
+	for i, pageData in ipairs(data) do
+		row, totals = buildRow(pageData, sortKey, totals, columnWidth, itemWidth, useComments, comments[i])
+		ret:node(row)
+		rowcount = rowCount + 1
+	end
+	if(rowCount == #pages and not hasfilter) then
+		error('The number of inputs does not match the output. ' .. math.max(#pages, rowCount) - math.min(#pages, rowCount) .. ' items affected.')
+	end
+		
+	if(not noTotals) then
+		totalsFooter(ret, sortKey, totals, useComments)
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+--[[ DEBUG =
+mw.logObject( p.loadData({'Beach boxing gloves#Yellow', 'Boxing gloves#Red'}, {}, {}) )
+mw.logObject( p.loadData({'Iron pickaxe', 'Steel pickaxe'}, {'arange', 'drange'}, {'desc', 'desc'}) )
+= p._main({'Verac\'s brassard#Undamaged', 'Verac\'s flail#Undamaged', 'Verac\'s helm#Undamaged', 'Verac\'s plateskirt#Undamaged'})
+= p._main({'3rd age full helmet', '3rd age platebody', '3rd age platelegs', '3rd age kiteshield', '3rd age longsword', sort='dstab,str', order='asc,asc'})
+--]]
+
+return p

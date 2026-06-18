@@ -1,0 +1,212 @@
+local p = {}
+
+local POINTS_BY_TIER = {
+	easy = 10,
+	medium = 30,
+	hard = 80,
+	elite = 200,
+	master = 400
+}
+
+function p.main(frame)
+	local args = frame.args
+	if not next(args) and frame:getParent() then
+		args = frame:getParent().args
+	end
+	return p._main(args)
+end
+
+function p._main(args)
+	local region = args.region
+	local difficulty = args.difficulty or args.tier
+	local pactTask = args.pactTask
+	local collapsible = args.collapsible
+
+	local header = mw.html.create('tr')
+		:tag('th'):wikitext('Area'):done()
+		:tag('th'):wikitext('Task'):done()
+		:tag('th'):wikitext('Description'):done()
+		:tag('th'):wikitext('Requirements'):done()
+		:tag('th'):wikitext('Points'):done()
+		:tag('th'):wikitext('Completion'):done()
+
+	local outTable = mw.html.create('table')
+		:addClass('wikitable sortable lighttable league-tasks dpl-tasks qc-active align-center-1')
+
+	if collapsible and collapsible == 'true' then
+		outTable:addClass('mw-collapsible mw-collapsed')
+	end
+
+	outTable:node(header)
+
+	local query = bucket('demonicpactleaguetask')
+		.select('name', 'description', 'skill', 'other', 'tier', 'region', 'pact_task', 'id', 'completion')
+
+	if region ~= nil and region ~= '' then
+		query = query.where('region', region)
+	end
+
+	if difficulty ~= nil and difficulty ~= '' then
+		query = query.where('tier', string.lower(difficulty))
+	end
+
+	if pactTask ~= nil and pactTask ~= '' then
+		query = query.where('pact_task', pactTask)
+	end
+
+	local data = query.limit(2000).run()
+	table.sort(data, p.sortRows)
+
+	for _, result in ipairs(data) do
+		local name = result.name or ''
+		local description = result.description or ''
+		local skill = result.skill or ''
+		local other = result.other or ''
+		local tier = result.tier or ''
+		local rowRegion = result.region or ''
+		local id = result.id
+		local points = POINTS_BY_TIER[string.lower(tier)] or ''
+
+		local requirements
+		if skill ~= '' and other ~= '' then
+			requirements = skill .. '<br>' .. other
+		elseif skill ~= '' then
+			requirements = skill
+		elseif other ~= '' then
+			requirements = other
+		else
+			requirements = ''
+		end
+		
+		if string.lower(pactTask or '') ~= 'yes' and result.pact_task and result.pact_task:lower() == 'yes' then
+			description = description .. '<br>[[File:Demonic Pacts League combat masteries icon.png|20x20px|link=Demonic Pacts League/Demonic Pacts]] This task earns one [[Demonic Pacts League/Demonic Pacts|Demonic Pact]].'
+		end
+		
+		local class, text = p.renderCompletion(result.completion)
+
+		outTable:node(
+			mw.html.create('tr')
+				:attr('data-taskid', id or '')
+				:attr('data-region', string.lower(rowRegion))
+				:attr('data-league-area-for-filtering', string.lower(rowRegion))
+				:attr('data-tier', string.lower(tier))
+				:tag('td')
+					:attr('data-sort-value', rowRegion)
+					:wikitext(p.renderRegion(rowRegion))
+				:done()
+				:tag('td')
+					:wikitext(name)
+				:done()
+				:tag('td')
+					:wikitext(description)
+				:done()
+				:tag('td')
+					:wikitext(requirements)
+				:done()
+				:tag('td')
+					:attr('data-sort-value', points)
+					:wikitext(p.renderPoints(tier, points, result.pact_task))
+				:done()
+				:tag('td')
+					:addClass(class)
+					:attr('data-sort-value', tonumber(result.completion) or 0)
+					:wikitext(text)
+				:done()
+		)
+	end
+
+	return tostring(outTable)
+end
+
+function p.sortRows(a, b)
+	local regionA = a.region or ''
+	local regionB = b.region or ''
+	if regionA ~= regionB then
+		return regionA < regionB
+	end
+
+	local tierA = p.tierSortValue(a.tier)
+	local tierB = p.tierSortValue(b.tier)
+	if tierA ~= tierB then
+		return tierA < tierB
+	end
+
+	local nameA = a.name or ''
+	local nameB = b.name or ''
+	if nameA ~= nameB then
+		return nameA < nameB
+	end
+
+	local idA = tonumber(a.id) or 0
+	local idB = tonumber(b.id) or 0
+	return idA < idB
+end
+
+function p.tierSortValue(tier)
+	tier = string.lower(tier or '')
+	if tier == 'easy' then
+		return 1
+	elseif tier == 'medium' then
+		return 2
+	elseif tier == 'hard' then
+		return 3
+	elseif tier == 'elite' then
+		return 4
+	elseif tier == 'master' then
+		return 5
+	end
+	return 999
+end
+
+function p.renderRegion(region)
+	if region == 'General' then
+		return '[[File:Globe-icon.png|20px|link=Demonic Pacts League/Areas/General]]'
+	elseif region ~= '' then
+		return string.format('[[File:%s Area Badge.png|link=Demonic Pacts League/Areas/%s]]', region, region)
+	end
+	return ''
+end
+
+function p.renderPoints(tier, points, pact_task)
+	if tier == nil or tier == '' then
+		return tostring(points)
+	end
+
+	tier = tier:lower():gsub('^%l', string.upper)
+
+	return string.format(
+		'[[File:%s tasks - %s.png|%s%s|link=]] %s',
+		(pact_task or ''):lower() == 'yes' and 'Demonic Pacts League pact' or 'Trailblazer Reloaded League',
+		tier,
+		tier,
+		(pact_task or ''):lower() == 'yes' and ' - Demonic Pact' or '',
+		points
+	)
+end
+
+function p.renderCompletion(completion)
+	completion = tonumber(completion)
+	if completion == nil then
+		return 'table-na nohighlight', '<small>N/A</small>'
+	end
+
+	local color = ""
+	local display = completion
+
+	if completion < 0.1 then
+		display = "<0.1"
+		color = "red"
+	elseif completion < 1 then
+		color = "orange"
+	elseif completion < 10 then
+		color = "yellow"
+	elseif completion < 50 then
+		color = "green"
+	elseif completion <= 100 then
+		color = "blue"
+	end
+
+	return 'table-bg-' .. color, display .. "%"
+end
+
+return p

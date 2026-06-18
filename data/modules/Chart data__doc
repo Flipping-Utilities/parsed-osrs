@@ -1,0 +1,760 @@
+{{documentation}}
+Helps create the json to generate charts using [https://www.chartjs.org/ Chart.js] through [[MediaWiki:Gadget-Charts-core.js]].
+
+{{Helper module|name = Chart data
+|fname1 = _main(&nbsp;args&nbsp;)
+|ftype1 = table/chart
+|fuse1 = Turns a table/chart object into a json string.
+
+|fname2 = <nowiki>convertToXYFormat(&nbsp;ys, [xs|{}]&nbsp;)</nowiki>
+|ftype2 = table, table
+|fuse2 = Converts the <code>ys</code> array into an array of <code>{x = n, y = y[n]}</code> tables. If <code>xs</code> is already partially filled it will use <code>{x = x[n], y = y[n]}</code> until all values in <code>xs</code> are used, then it will use <code>{x = n, y = y[n]}</code> again for the remaining values in <code>ys</code>.
+
+|fname3 = <nowiki>generateXYFromFunc(&nbsp;func, start_x, end_x, [step|1]&nbsp;)</nowiki>
+|ftype3 = function, number, number, number
+|fuse3 = Returns an array of <code>{x = n, y = fun(n)}</code> tables where n ranges from <code>start_x</code> to <code>end_x</code> in <code>step</code> increments. Be careful when using decimal <code>step</code> values as floating point error can cause the generator to stop one element too soon.
+
+|fname4 = <nowiki>jagexInterpolation(&nbsp;low_chance, high_chance, start_level, end_level&nbsp;)</nowiki>
+|ftype4 = number, number, number, number
+|fuse4 =
+
+|fname5 = <nowiki>newChart(&nbsp;[options]&nbsp;)</nowiki>
+|ftype5 = table
+|fuse5 = Returns a new chart object. <code>options</code> is a table with options in the [https://www.chartjs.org/ Chart.js] format. Most options will be set automatically or will be set later with other functions if not already defined. Usually all you need to define here is the chart type e.g. <code>newChart{ type = 'scatter' }</code>. '''Check the modules documentation for more info'''.
+
+|fname6 = <nowiki>chart:addDataSets(&nbsp;...&nbsp;)</nowiki>
+|ftype6 = table/dataSet object
+|fuse6 = Appends all given data sets to the <code>chart.data.datasets</code> table.
+
+|fname7 = <nowiki>chart:addDataLabels(&nbsp;labels&nbsp;)</nowiki>
+|ftype7 = table
+|fuse7 = Appends all items in <code>labels</code> to the <code>chart.data.labels</code> table.
+
+|fname8 = <nowiki>chart:setDimensions(&nbsp;width, [height|width], [minWidth|400], [minHeight|400], [resizable|false]&nbsp;)</nowiki>
+|ftype8 = number/string, number/string, number/string, number/string, boolean
+|fuse8 = Sets the dimensions of the chart. If a number is given to <code>width</code>, <code>height</code>, <code>minWidth</code> and <code>minHeight</code> it will be assumed you meant pixels. You can also use strings like <code>100%</code> to fill the available space, <code>40vw</code>/<code>40vh</code> to dynamically scale the simensions to the viewport size (i.e. 40vw = 40% of browser's window width). If <code>resizable</code> is true, the chart can be dragged by the lower right corner to change its size.
+
+|fname9 = <nowiki>chart:setTitle(&nbsp;[text|nil], [position|'top']&nbsp;)</nowiki>
+|ftype9 = string, string
+|fuse9 = Sets the label title of the chart. A value of nil will remove the current title.
+
+|fname10 = <nowiki>chart:setXLabel(&nbsp;[label|nil]&nbsp;)</nowiki>
+|ftype10 = string
+|fuse10 = Sets the label for the x axis. Only works on chart types 'line', 'bar', 'horizontalBar', 'bubble' and 'scatter'. If used without arguments it will remove the current label.
+
+|fname11 = <nowiki>chart:setYLabel(&nbsp;[label|nil]&nbsp;)</nowiki>
+|ftype11 = string
+|fuse11 = Sets the label for the y axis. Only works on chart types 'line', 'bar', 'horizontalBar', 'bubble' and 'scatter'. If used without arguments it will remove the current label.
+
+|fname12 = <nowiki>chart:setXLimits(&nbsp;[min|nil], [max|nil], [step|nil]&nbsp;)</nowiki>
+|ftype12 = number, number, number
+|fuse12 = Sets the start, stop and step size of the x axis. Any argument with a value of nil will remove that setting. Only works on chart types 'horizontalBar', 'bubble' and 'scatter'.
+
+|fname13 = <nowiki>chart:setYLimits(&nbsp;[min|nil], [max|nil], [step|nil]&nbsp;)</nowiki>
+|ftype13 = number, number, number
+|fuse13 = Sets the start, stop and step size of the y axis. Any argument with a value of nil will remove that setting. Only works on chart types 'line', 'bar', 'bubble' and 'scatter'.
+
+|fname14 = <nowiki>chart:setRadialLimits(&nbsp;[min|nil], [max|nil], [step|nil]&nbsp;)</nowiki>
+|ftype14 = number, number, number
+|fuse14 = Sets the start, stop and step size of the r axis on polar plots. Any argument with a value of nil will remove that setting. Only works on chart types 'radar' and 'polarArea'.
+
+|fname15 = <nowiki>chart:setXAxisType(&nbsp;[type|nil]&nbsp;)</nowiki>
+|ftype15 = string
+|fuse15 = Sets the axis type. Supported values are 'linear', 'logarithmic', 'category' and 'time'. If called without arguments it will reset back to the default value 'linear'. Only works on chart types 'bubble', 'scatter' and 'horizontalBar'.
+
+|fname16 = <nowiki>chart:setYAxisType(&nbsp;[type|nil]&nbsp;)</nowiki>
+|ftype16 = string
+|fuse16 = Same as <code>chart:setXAxisType()</code> but for the y axis. Only works on chart types 'line', 'bubble', 'scatter' and 'bar'.
+
+|fname17 = <nowiki>chart:setOptions(&nbsp;options&nbsp;)</nowiki>
+|ftype17 = table
+|fuse17 = Sets options using [https://www.chartjs.org/ Chart.js] format but makes sure you only change the given settings and not accidentally delete already existing settings. i.e. using <code><nowiki>chart:setOptions{ options = {scales = {ticks = {max = 100}}} }</nowiki></code> while <code><nowiki>{options = {scales = {ticks = {min = 0}}}}</nowiki></code> already exists will result in <code><nowiki>{options = {scales = {ticks = {min = 0, max = 100}}}}</nowiki></code>.
+
+|fname18 = <nowiki>chart:makeMwLoadDataCompatible()</nowiki>
+|ftype18 = N/A
+|fuse18 = Strips metatables so that it can be loaded by <code>mw.loadData()</code>making it possible to display the table using {{t|Chart data|<module name>}}. This should only be used at the very end when you are done creating your chart.
+
+|fname19 = <nowiki>chart:newDataSet(&nbsp;[options]&nbsp;)</nowiki>
+|ftype19 = table
+|fuse19 = Returns a new dataSet object which is also automatically added to the chart datasets table.
+
+|fname20 = dataSet:addData(&nbsp;data&nbsp;)
+|ftype20 = table
+|fuse20 = Appends the values of <code>data</code> to the already existing data stored in the dataSet.data array. Using <code>dataset.data = data</code> will overwrite any stored data.
+
+|fname21 = dataSet:addDataPoint(&nbsp;data&nbsp;)
+|ftype21 = number/table
+|fuse21 = Append a single value to the <code>dataSet.data</code> array. Same as <code>table.insert(&nbsp;dataSet.data, data&nbsp;)</code>.
+
+|fname22 = dataSet:setOptions(&nbsp;options&nbsp;)
+|ftype22 = table
+|fuse22 = Sets options using [https://www.chartjs.org/ Chart.js] format.
+
+|fname23 = chart:setTooltipFormat(&nbsp;format&nbsp;)
+|ftype23 = string
+|fuse23 = Set the tooltip format to either 'skillingSuccess', where y values are displayed as percents, 'harvestLives', where y values are displayed as-is, or 'custom'. For custom tooltips, a property called 'label' must be included with each dataPoint, for example <code>dataSet:addDataPoint({x=99, y=13034431, label="XP at level 99"})</code>.
+
+|example =
+<syntaxhighlight lang='lua'>
+local p = {}
+local chart = require( 'Module:Chart data' )
+
+-- This chart can then be added to a page using {{Chart data|<module name>}}
+function p.pie()
+    local plot = chart.newChart{ type = 'pie' }
+    plot:setDimensions( '40vw', nil, 400, nil, true ) -- Pie chart is always square
+    plot.colorPallet = chart.colorPallets.green
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+
+return p.pie()
+
+-------------------------------------------------------------
+local p = {}
+local chart = require( 'Module:Chart data' )
+
+-- This chart cound be used by another module or drawn using {{#Invoke:<module name>|bar}}
+function p.bar()
+    local plot = chart.newChart{ type = 'bar' }
+    plot:setDimensions( '40%', 600, 400, 400, true )
+    plot:setXLabel( 'x axis label' )
+    plot:setYLabel( 'y axis label' )
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot
+end
+
+return p
+</syntaxhighlight>
+}}
+
+==Usage==
+To create a chart we need to create JSON in a format described by [https://www.chartjs.org/docs/latest/charts/line.html chart.js].
+To make this a bit easier we can write a lua table instead which is then converted to a JSON using <code>chart._main()</code>.
+An example of this is [[Module:Chart data/xp chart]], which can then be displayed on a page using {{t|Chart data|Chart data/xp chart|width=40vw|height=40vh}} resulting in:
+
+{{Chart data|Chart data/xp chart|width=40vw|height=40vh}}
+
+To make the construction of this table a bit easier, the chart class is provided which internally has the extact same structure as if we manually created the table. The chart class just sets a bunch of default settings based on what chart type you are creating; it also makes it a lot easier to deal with the colors of your data and provides a bunch of functions to easily set axis labels, axis start and stop values, axis type, etc.
+===Color pallets===
+chart.colorPallets has a few pre-defined color pallets. These pallets are made up of [[Module:Rgba]] objects. They also have a metatable set which allows them to automatically use the next color pallet in case the current pallet has less colors than your number of datasets.
+
+You can set your preferred pallet for your chart with <code>myChart.colorPallet = chart.collorPallets.blue</code>, in case of chart type bar of horizontalbar your can also set it per data set <code>myDataSet.colorPallet = chart.collorPallets.orange</code> or if you want all bars of a given set to be the same color <code>myDataSet.color = chart.collorpallets.orange[3]</code>.
+
+It is possible to define your own color pallet as an array of [[Module:Rgba]] objects.
+
+The chart class has the following color opions:
+
+* <code>backgroundAlpha</code> - sets the <code>rgba:fade()</code> value for background colors.
+* <code>hoverLightenValue</code> - sets the <code>rgba:lighten()</code> value for when you hover over a data point.
+* <code>hoverAlpha</code> - sets the <code>rgba:fade()</code> value for when you hover over a data point.
+* <code>hoverSaturateValue</code> - sets the <code>rgba:saturate()</code> value for when you hover over a data point.
+
+Their default value depend on the cart type but you can manually set them using:
+<pre>
+chart:setOptions{
+    backgroundAlpha = <number>,
+    hoverLightenValue = <number>,
+    hoverAlpha = <number>,
+    hoverSaturateValue = <number>
+}
+</pre>
+<div style="display:flex;flex-wrap:wrap;align-items:center;">
+<div>
+{{Chart data|Chart data/doc examples|colorQualitative}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorQualitative}}
+<syntaxhighlight lang="lua">
+function p.colorQualitative()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Qualitative' )
+    plot.fill = false
+    plot.colorPallet = chart.colorPallets.qualitative
+
+    for i = 1, #plot.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|colorBlue}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorBlue}}
+<syntaxhighlight lang="lua">
+function p.colorBlue()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Blue' )
+    plot.fill = false
+    plot.colorPallet = chart.colorPallets.blue
+
+    for i = 1, #plot.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|colorGreen}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorGreen}}
+<syntaxhighlight lang="lua">
+function p.colorGreen()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Green' )
+    plot.fill = false
+    plot.colorPallet = chart.colorPallets.green
+
+    for i = 1, #plot.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|colorBlueGreen}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorBlueGreen}}
+<syntaxhighlight lang="lua">
+function p.colorBlueGreen()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'BlueGreen' )
+    plot.fill = false
+    plot.colorPallet = chart.colorPallets.blueGreen
+
+    for i = 1, #plot.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|colorOrange}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorOrange}}
+<syntaxhighlight lang="lua">
+function p.colorOrange()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Orange' )
+    plot.fill = false
+    plot.colorPallet = chart.colorPallets.orange
+
+    for i = 1, #plot.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|colorOverflow}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorOverflow}}
+<syntaxhighlight lang="lua">
+function p.colorOverflow()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Color overflow' )
+    plot:setOptions{
+        options = {
+            legend = {
+                display = false
+            }
+        }
+    }
+    plot.fill = false
+    plot.colorPallet = chart.colorPallets.orange
+
+    for i = 1, 25 do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|customColorPallet}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|customColorPallet}}
+<syntaxhighlight lang="lua">
+function p.customColorPallet()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Custom color pallet' )
+    plot.fill = false
+    plot.colorPallet = {
+        chart.rgba.new(0,0,0),
+        chart.rgba.new(126,0,0),
+        chart.rgba.new(0,126,0),
+        chart.rgba.new(0,0,126),
+        chart.rgba.new(255,0,0),
+        chart.rgba.new(0,255,0),
+        chart.rgba.new(0,0,255),
+    }
+
+    for i = 1, #plot.colorPallet do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return i*x^2 end, 0, 50 )
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|colorOptions}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|colorOptions}}
+<syntaxhighlight lang="lua">
+function p.colorOptions()
+    local plot = chart.newChart{ type = 'bar' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Color options' )
+    plot:setOptions{
+        backgroundAlpha = 0.8,
+        hoverLightenValue = 0.5,
+        hoverAlpha = 0.4,
+        hoverSaturateValue = 1.5,
+    }
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+</div>
+===Examples===
+<div style="display:flex;flex-wrap:wrap;align-items:center;">
+<div>
+{{#Invoke:Chart data/doc examples|line}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+<code><nowiki>{{#Invoke:Chart data/doc examples|line}}</nowiki></code>
+<syntaxhighlight lang="lua">
+function p.line()
+    local plot = chart.newChart{ type = 'line' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Line chart' )
+    plot:setXLabel( 'x axis label' )
+    plot:setYLabel( 'y axis label' )
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        set.data = { i^2, (i+1)^2, (i+2)^2, (i+3^2), (i+4)^2 }
+        set.label = 'Set ' .. i
+        set.borderDash = {5, 5}
+    end
+
+    local labels = {}
+
+    for i = 1, 5 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return 'Prefix text message' .. plot .. 'Affix text message'
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|bar}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|bar}}
+<syntaxhighlight lang="lua">
+function p.bar()
+    local plot = chart.newChart{ type = 'bar' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Bar chart' )
+    plot:setXLabel( 'x axis label' )
+    plot:setYLabel( 'y axis label' )
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|horizontalBar}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|horizontalBar}}
+<syntaxhighlight lang="lua">
+function p.horizontalBar()
+    local plot = chart.newChart{ type = 'horizontalBar' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'HorizontalBar chart' )
+    plot:setXLabel( 'x axis label' )
+    plot:setYLabel( 'y axis label' )
+
+    for i = 1, 2 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 1 then
+            set.color = chart.colorPallets.green[3]
+        else
+            set.color = chart.colorPallets.orange[3]
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|radar}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|radar}}
+<syntaxhighlight lang="lua">
+function p.radar()
+    local plot = chart.newChart{ type = 'radar' }
+    plot:setDimensions( '10vw', nil, 300, nil, true ) -- Radar chart is always square. height = width
+    plot:setTitle( 'Radar chart' )
+    plot:setRadialLimits( 0, 5 )
+    plot.fill = false
+
+    for i = 1, 5 do
+        local set = plot:newDataSet()
+        for j = 1, 6 do
+            set:addDataPoint( math.sqrt( i*j*(math.random()+1) ) )
+        end
+        set.label = 'Set ' .. i
+
+        if i == 3 then
+            set.fill = true
+        end
+    end
+
+    local labels = {}
+
+    for i = 1, 6 do
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|pie}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|pie}}
+<syntaxhighlight lang="lua">
+function p.pie()
+    local plot = chart.newChart{ type = 'pie' }
+    plot:setDimensions( '10vw', nil, 300, nil, true ) -- Pie chart is always square. height = width
+    plot:setTitle( 'Pie chart' )
+
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|doughnut}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|doughnut}}
+<syntaxhighlight lang="lua">
+function p.doughnut()
+    local plot = chart.newChart{ type = 'doughnut' }
+    plot:setDimensions( '10vw', nil, 300, nil, true ) -- doughnut chart is always square. height = width
+    plot:setTitle( 'Doughnut chart' )
+
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|polarArea}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|polarArea}}
+<syntaxhighlight lang="lua">
+function p.polarArea()
+    local plot = chart.newChart{ type = 'polarArea' }
+    plot:setDimensions( '10vw', nil, 300, nil, true ) -- polarArea chart is always square. height = width
+    plot:setTitle( 'PolarArea chart' )
+
+    local labels = {}
+    local set = plot:newDataSet()
+
+    for i = 1, 6 do
+        set:addDataPoint( math.floor( math.sqrt( i ) * 10 + 0.5 ) / 10 )
+        table.insert( labels, 'Value ' .. i )
+    end
+
+    plot:addDataLabels( labels )
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|bubble}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|bubble}}
+<syntaxhighlight lang="lua">
+function p.bubble()
+    local plot = chart.newChart{ type = 'bubble' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Bubble chart' )
+    plot:setXLabel( 'x axis label' )
+    plot:setYLabel( 'y axis label' )
+
+    for i = 1, 5 do
+        local set = plot:newDataSet()
+        for j = 1, 5 do
+            set:addDataPoint{ x = math.random() * 10, y = math.random() * 20, r = math.random() * 15 + 5 }
+        end
+        set.label = 'Set ' .. i
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+<div>
+{{Chart data|Chart data/doc examples|scatter}}
+{| class="wikitable mw-collapsible mw-collapsed" style="width:100%"
+|-
+|Code
+|-
+|
+{{t|Chart data|Chart data/doc examples|scatter}}
+<syntaxhighlight lang="lua">
+function p.scatter()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '10vw', '10vh', 300, 300, true )
+    plot:setTitle( 'Scatter chart' )
+    plot:setXLabel( 'x axis label' )
+    plot:setYLabel( 'y axis label' )
+    plot:setYAxisType( 'logarithmic' )
+    plot.fill = false
+
+    for i = 1, 5 do
+        local set = plot:newDataSet()
+        set.data = chart.generateXYFromFunc( function(x) return (math.sin( x/5 ) * 5 + x)^i end, 0, 100 )
+        set.label = 'Set ' .. i
+
+        if i == 2 then
+            set.fill = '+2'
+        end
+    end
+
+    return plot:makeMwLoadDataCompatible()
+end
+</syntaxhighlight>
+|}
+</div>
+</div>

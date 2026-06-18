@@ -1,0 +1,285 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function interp(low, high, level)
+	local value = math.floor(low*(99-level)/98 + high*(level-1)/98 + 0.5) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function oldInterp(low, high, level)
+	local value = math.modf(low*(99-level)/98) + math.modf(high*(level-1)/98) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function bonusInterp(low, high, bonuslow, bonushigh, level)
+	local value = interp(low, high, level)
+	return value + (1-value)*interp(bonuslow, bonushigh, level)
+end
+
+function exponentInterp(low, high, exponent, level)
+	return interp(low, high, level) ^ exponent
+end
+
+function failureInterp(low, high, level)
+	return 1-interp(low,high,level)
+end
+
+function cascadeInterp(bounds, level, index)
+	local rate = 1.0
+	for i, v in ipairs(bounds) do
+		local low = (level >= v.altreq) and v.altlow or v.low
+		local high = (level >= v.altreq) and v.althigh or v.high
+		if i == index then
+			rate = rate * interp(low, high, level)
+			return rate
+		end
+		if level >= v.req then
+			rate = rate * (1 - interp(low, high, level))
+		end
+	end
+end
+
+function echoInterp(bounds, level, index)
+    if level < bounds[index].req then
+        return 0
+    end
+    local standard = cascadeInterp(bounds, level, index)
+    local echoBounds = {unpack(bounds)}
+    table.insert(echoBounds, {
+        label = "echo",
+        low = 127,
+        high = 127,
+        altreq = math.huge,
+        req = 1
+    })
+    local echo = cascadeInterp(echoBounds, level, #echoBounds)
+    local count = 0
+    for _, bound in ipairs(bounds) do
+        if level >= bound.req then    
+            count = count + 1
+        end
+    end
+    count = math.max(count, 1)
+    return standard + (echo / count)
+end
+
+function cascadeBonusInterp(inputs, level, index)
+    local rate = 1.0
+    for i, input in ipairs(inputs) do
+        if level >= input.req then
+            local mainProb = interp(input.low, input.high, level)
+            local bonusProb = 0
+            if input.bonuslow and input.bonushigh then
+                bonusProb = interp(input.bonuslow, input.bonushigh, level)
+            end
+            local combinedProb = mainProb + (1 - mainProb) * bonusProb
+            if i == index then
+                return rate * combinedProb
+            end
+            rate = rate * (1 - combinedProb)
+        elseif i == index then
+            return 0
+        end
+    end
+end
+
+function birdhouseInterp(high, level)
+	local level = math.max(50, level)
+	local value = math.modf(high*(level-1)/98)
+	return value / 1000
+end
+
+function ctsYield(low, high, level, lives)
+	return lives / (1-interp(low, high, level))
+end
+
+function scriptInterp(low, high, level)
+	local value = math.modf(low*(99-level)/98 + high*(level-1)/98)
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function caviarInterp(level, denom)
+	return math.min(level, denom) / denom
+end
+
+function p._calculateDataSets(args)
+	local dataSets = {}
+	local inputs = {}
+	local i = 1
+	while args['label' .. i] do
+		table.insert(inputs, {
+			label = args['label' .. i],
+			low = args['low' .. i] or 0,
+			high = args['high' .. i],
+			bonuslow = args['bonuslow' .. i] or nil,
+			bonushigh = args['bonushigh' .. i] or nil,
+			altlow = args['altlow' .. i] or args['low' .. i] or 0,
+			althigh = args['althigh' .. i] or args['high' .. i],
+			altreq = tonumber(args['altreq' .. i] or math.huge),
+			denom = args['denom' .. i],
+			req = tonumber(args['req' .. i] or 1),
+			image = args['image' .. i] or 'hi',
+			color = args['color' .. i] or '',
+			exponent = args['exponent' .. i] or 1,
+			lives = args['lives' .. i] or 0
+		})
+		i = i + 1
+	end
+
+	args.lowLevel = tonumber(args.lowLevel or 1)
+	args.highLevel = tonumber(args.highLevel or 99)
+
+	for i, input in ipairs(inputs) do
+		local cutoffLevelY = nil
+		local cutoffLevelX = nil
+		local data = {}
+		for x = 1, input.req do
+			local y
+			if args.cascade and input.bonuslow then
+				y = cascadeBonusInterp(inputs, x, i)
+			elseif args.echo then
+				y = echoInterp(inputs, x, i)
+			elseif args.cascade then
+				y = cascadeInterp(inputs, x, i)
+			elseif args.birdhouse then
+				y = birdhouseInterp(input.high, x)
+			elseif (input.lives ~= 0) then
+				y = ctsYield(input.low, input.high, x, input.lives)
+			elseif args.script then
+				y = scriptInterp(input.low, input.high, x)
+			elseif args.caviar then
+				y = caviarInterp(x, input.denom)
+			elseif (input.exponent ~= 1) then
+				y = exponentInterp(input.low, input.high, input.exponent, x)
+			elseif input.bonuslow then
+				y = bonusInterp(input.low, input.high, input.bonuslow, input.bonushigh, x)
+			elseif args.failure then
+				y = failureInterp(input.low, input.high, x)
+			else
+				y = interp(input.low, input.high, x)
+			end
+			if args.showbefore ~= 'no' or input.req == x or (y >= 0.999 and input.lives == 0) then
+				table.insert(data, {x=x, y=y})
+			end
+			if y >= 0.999 and input.lives == 0  then
+				cutoffLevelY = x
+				break
+			end
+		end
+
+		table.insert(dataSets, {
+	        data = data,
+	        label = input.label .. "  ",
+	        borderDash = {5, 5},
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+	        baseColor = input.color,
+	        pointStyleImg = input.image,
+	    })
+
+	    data = {}
+		for x = input.req, args.highLevel do
+			if cutoffLevelY ~= nil then
+				break
+			end
+			local y
+			if args.cascade and input.bonuslow then
+				y = cascadeBonusInterp(inputs, x, i)
+			elseif args.echo then
+				y = echoInterp(inputs, x, i)
+			elseif args.cascade then
+				y = cascadeInterp(inputs, x, i)
+			elseif args.birdhouse then
+				y = birdhouseInterp(input.high, x)
+			elseif (input.lives ~= 0) then
+				y = ctsYield(input.low, input.high, x, input.lives)
+			elseif args.script then
+				y = scriptInterp(input.low, input.high, x)
+			elseif args.caviar then
+				y = caviarInterp(x, input.denom)
+			elseif (input.exponent ~= 1) then
+				y = exponentInterp(input.low, input.high, input.exponent, x)
+			elseif input.bonuslow then
+				y = bonusInterp(input.low, input.high, input.bonuslow, input.bonushigh, x)
+			elseif args.failure then
+				y = failureInterp(input.low, input.high, x)
+			else
+				y = interp(input.low, input.high, x)
+			end
+			if y >= 0.999 and cutoffLevelY == nil and input.lives == 0 then
+				cutoffLevelY = x
+			end
+			if x >= args.highLevel and cutoffLevelX == nil and input.lives == 0 then
+				cutoffLevelX = {x = x, y = y}
+			end
+			table.insert(data, {x=x, y=y})
+		end
+
+		table.insert(dataSets, {
+	        data = data,
+	        label = input.label .. "  ",
+	        borderDash = {},
+	        borderCapStyle = 'round',
+	        baseColor = input.color,
+	        pointRadius = 0,
+	    })
+	    
+	    if cutoffLevelX ~= nil then
+	    	table.insert(dataSets, {
+		        data = {cutoffLevelX},
+		        borderDash = {},
+		        borderCapStyle = 'round',
+		        baseColor = input.color,
+		        pointRadius = 5,
+	    	})
+	    elseif cutoffLevelY ~= nil then
+	    	table.insert(dataSets, {
+		        data = {{x = cutoffLevelY, y = 1}},
+		        borderDash = {},
+		        borderCapStyle = 'round',
+		        baseColor = input.color,
+		        pointRadius = 5,
+	    	})
+	    else
+			table.insert(dataSets, {})
+	    end
+	end
+
+	return dataSets
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	return p._main(args)
+end
+
+function p._main(args)
+
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( args.label )
+        :setDimensions( 'min(540px, 100vw - 32px)', '400px', '300px', '300px', true )
+        :setXLabel( args.xlabel or 'Level' )
+        :setYLabel( args.ylabel or 'Success rate' )
+        :setXLimits( nil, nil, 1 )
+        :setDatasetsPerGroup(3)
+        
+    if args.lives1 == nil then
+    	plot:setYFormat( 'percent' )
+        :setYLimits( nil, nil, 0.1 )
+        :setTooltipFormat( 'skillingSuccess' )
+    else
+    	plot:setYLimits( nil, nil, (tonumber(args.ystep) or 5))
+        :setTooltipFormat( 'harvestLives' )
+    end
+    
+	local dataSets = p._calculateDataSets(args)
+	for i, dataSet in ipairs(dataSets) do
+		plot:newDataSet(dataSet)
+	end
+
+    return plot
+end
+
+return p

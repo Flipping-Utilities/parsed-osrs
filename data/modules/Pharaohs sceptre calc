@@ -1,0 +1,72 @@
+local p = {}
+
+-- Pharaoh's sceptre drop rates by floor (1–8)
+local floor_chances = {
+	1/4200, -- Floor 1
+	1/2800, -- Floor 2
+	1/1600, -- Floor 3
+	1/950,  -- Floor 4
+	1/800,  -- Floor 5
+	1/750,  -- Floor 6
+	1/650,  -- Floor 7
+	1/650   -- Floor 8
+}
+
+-- Calculate total chance for a run given starting floors & max floor
+function p.totalChance(chest_start, sarc_start, max_floor)
+	local total = 0
+	for floor = 1, max_floor do
+		local chance = floor_chances[floor]
+
+		-- loot chest?
+		if floor >= chest_start then
+			total = total + chance
+		end
+
+		-- loot sarcophagus?
+		if floor >= sarc_start then
+			total = total + chance
+		end
+	end
+	return total
+end
+
+-- Probability of at least one sceptre after X runs
+function p.probabilityAfterRuns(runs, singleRunChance)
+	local probability = 1 - (1 - singleRunChance) ^ runs
+	return probability
+end
+
+-- Main entrypoint
+function p.main(frame)
+	local args = frame.args
+	local chest_start = tonumber(args.chest_start) or 1
+	local sarc_start  = tonumber(args.sarc_start) or 4
+	local max_floor   = tonumber(args.max_floor)  or 8
+	local runs        = tonumber(args.runs)       or 0
+
+	if runs <= 0 then
+		return "Enter a valid number of runs (must be > 0)."
+	end
+	if max_floor < 1 or max_floor > #floor_chances then
+		return "Enter a valid max floor between 1 and " .. #floor_chances .. "."
+	end
+
+	local total_chance = p.totalChance(chest_start, sarc_start, max_floor)
+	local chance_percent = total_chance * 100
+	local probability = p.probabilityAfterRuns(runs, total_chance) * 100
+
+	local output = {}
+	table.insert(output, string.format(
+		"Total chance of getting a Pharaoh's Sceptre from floors 1–%d (chest ≥ %d, sarcophagus ≥ %d): %.4f%%\n",
+		max_floor, chest_start, sarc_start, chance_percent
+	))
+	table.insert(output, string.format(
+		"Chance of getting at least one Pharaoh's Sceptre after %d runs: %.4f%%\n",
+		runs, probability
+	))
+
+	return table.concat(output, "\n")
+end
+
+return p

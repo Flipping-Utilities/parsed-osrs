@@ -1,0 +1,32 @@
+-- <nowiki>
+--
+-- Implements {{ChangePerDay}}
+--
+
+local p = {}
+local round = require( 'Module:Number' )._round
+
+function p._change( args )
+    local lang = mw.language.getContentLanguage()
+
+    local price = tonumber( args[1] ) or 1
+    local last = tonumber( args[2] ) or 1
+    local date = args[3] or 'January 1'
+    local lastDate = args[4] or 'July 1'
+
+    local diff = lang:formatDate( 'U', date ) - lang:formatDate( 'U', lastDate )
+    local ret
+
+    diff = diff / 86400 -- diff / no. secs in a day
+
+    if diff < 1 then
+        ret = price / last - 1
+    else
+        ret = ( price / last - 1 ) / math.ceil( diff )
+    end
+
+    return round( ret, 3 )
+
+end
+
+return p

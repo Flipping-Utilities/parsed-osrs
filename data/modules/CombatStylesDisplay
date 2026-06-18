@@ -1,0 +1,136 @@
+local p = {}
+
+local contains = require('Module:Array').contains
+local paramTest = require('Module:Paramtest')
+
+local poisonableWeaponTypes = { 'Spear', 'Stab Sword', 'Thrown' }
+
+-- Remove any weapons where args.range isn't equal to bucket range
+function filterByRange(data, range)
+	local filteredData = {}
+	for _, weapon in ipairs(data) do
+		if(range == weapon.weapon_attack_range) then
+			table.insert(filteredData, weapon)
+		end
+	end
+	return filteredData
+end
+
+function loadData(weaponType, range, limit)
+	local t1 = os.clock()
+	local bucketdata = bucket("infobox_bonuses")
+		.select("page_name", "page_name_sub", "weapon_attack_range")
+		.where("combat_style", weaponType)
+		.where(bucket.Not("Category:Discontinued content"))
+		.where(bucket.Not("Category:Beta items"))
+		.where(bucket.Not("Category:Sailing alpha content"))
+		.where(bucket.Not("Category:Sailing beta content"))
+		.limit(limit or 500)
+		.orderBy("page_name", "ASC")
+		.run()
+	local t2 = os.clock()
+	mw.log(string.format('Bucket: entries %d, time elapsed: %.3f ms.', #bucketdata, (t2 - t1) * 1000))
+	
+	if(range > 0) then
+		bucketdata = filterByRange(bucketdata, range)
+	end
+	
+	return bucketdata
+end
+
+function loadPoisonableWeapons()
+	local t1 = os.clock()
+	local bucketdata = bucket('recipe')
+		.select('page_name', 'page_name_sub')
+		.where(bucket.Or(
+			{'uses_material', 'Weapon poison'},
+			{'uses_material', 'Weapon poison(+)'},
+			{'uses_material', 'Weapon poison(++)'},
+			{'uses_material', 'Karambwan paste (poison)'}
+		))
+		.run()
+	local t2 = os.clock()
+	mw.log(string.format('Bucket: entries %d, time elapsed: %.3f ms.', #bucketdata, (t2 - t1) * 1000))
+
+	local poisonables = {}
+	local pageName, pageNameSub
+	for _, weaponData in ipairs(bucketdata) do
+		pageName = weaponData.page_name
+		pageNameSub = weaponData.page_name_sub
+
+		if poisonables[pageName] == nil then
+			poisonables[pageName] = {
+				['(p)'] = false,
+				['(p+)'] = false,
+				['(p++)'] = false,
+				['(kp)'] = false
+			}
+		end
+
+		if weaponData.page_name_sub:find('Poison$') ~= nil then
+			poisonables[pageName]['(p)'] = pageNameSub
+		elseif weaponData.page_name_sub:find('Poison%+$') ~= nil then
+			poisonables[pageName]['(p+)'] = pageNameSub
+		elseif weaponData.page_name_sub:find('Poison%+%+$') ~= nil then
+			poisonables[pageName]['(p++)'] = pageNameSub
+		elseif weaponData.page_name_sub:find('Karambwan poison') ~= nil then
+			poisonables[pageName]['(kp)'] = pageNameSub
+		end
+	end
+
+	return poisonables
+end
+
+function p._main(args)
+	local weaponType = string.gsub(" " .. mw.language.getContentLanguage():lc(args[1]), "%W%l", string.upper):sub(2)
+	local range = paramTest.defaults{ {tonumber(args.range), 0} }
+
+	local data = loadData(weaponType, range, args.limit)
+	local poisonables = loadPoisonableWeapons()
+
+	-- ## Modify column-width by +1 if the columns are too small
+	local ret = mw.html.create('div'):css( {['column-fill'] = 'balance', ['column-width'] = '17em'})
+	local seenPages = {}
+	local pageName, poisonSup, poisonVariants
+	for _, weaponData in ipairs(data) do
+		pageName = weaponData.page_name
+
+		if not contains(seenPages, pageName) then
+			table.insert(seenPages, pageName)
+
+			poisonVariants = poisonables[pageName]
+			if poisonVariants ~= nil then
+				poisonSup = '<sup>'
+				if poisonVariants['(p)'] then
+					poisonSup = poisonSup .. '[[' .. pageName .. '#Poison|(p)]]'
+				end
+				if poisonVariants['(p+)'] then
+					poisonSup = poisonSup .. '[[' .. pageName .. '#Poison+|(p+)]]'
+				end
+				if poisonVariants['(p++)'] then
+					poisonSup = poisonSup .. '[[' .. pageName .. '#Poison++|(p++)]]'
+				end
+				if poisonVariants['(kp)'] then
+					poisonSup = poisonSup .. '[[' .. pageName .. '#Karambwan poison|(kp)]]'
+				end
+				poisonSup = poisonSup .. '</sup>'
+			else
+				poisonSup = ''
+			end
+
+			ret:tag('div'):wikitext('[[' .. pageName .. ']]' .. poisonSup):css( {['white-space'] = 'nowrap'}):done()
+		end
+	end
+
+	return tostring(ret)
+end
+
+--mw.log( p._main( {'Spear'} ) )
+
+function p.main(frame)
+	local args = frame:getParent().args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

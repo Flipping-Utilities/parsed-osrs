@@ -1,0 +1,11 @@
+return {
+	itemId    = 32050,
+	item      = "Mahogany hull parts",
+	icon      = 'Mahogany hull parts.png',
+    alchable  = true,
+	value     = 3750,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a mahogany hull for a boat."
+}

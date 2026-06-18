@@ -1,0 +1,61 @@
+local p = {}
+
+local prices = mw.loadJsonData('Module:GEPrices/data.json')
+local values = mw.loadJsonData('Module:GEValues/data.json')
+local limits = mw.loadJsonData('Module:GELimits/data.json')
+local volumes = mw.loadJsonData('Module:GEVolumes/data.json')
+local members = mw.loadJsonData('Module:GEMembers/data.json')
+
+local paramTest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+
+function getData(minBuyLimit, minVolume, f2pOnly)
+	local natureRunePrice = prices['Nature rune']
+	local items = {}
+	for item, price in pairs(prices) do
+		-- If it has a GE price, a valid value, a volume and buy limit over the minimum, and it is the right members/f2p distinction
+		if(tonumber(price) and values[item] and (tonumber(volumes[item]) or 1) > minVolume and (tonumber(limits[item]) or 1) > minBuyLimit) then
+			if(not f2pOnly or (f2pOnly and not members[item])) then
+				local profit = math.floor(values[item] * 0.6) - (price + natureRunePrice)
+				if(profit > 0) then
+					table.insert(items, { item, profit })
+				end
+			end
+		end
+	end
+	table.sort(items, function(itemOne, itemTwo) return itemOne[2] > itemTwo[2] end)
+	
+	return items
+end
+
+function p._main(args)
+	local numOfItems = paramTest.default_to(tonumber(args.num) or 1) --or inf
+	local minBuyLimit = paramTest.default_to(tonumber(args.buylimit) or 0)
+	local minVolume = paramTest.default_to(tonumber(args.volume) or 0)
+	local f2pOnly = yesNo(args.f2p or '', false)
+	
+	local profitableAlchs = getData(minBuyLimit, minVolume, f2pOnly)
+
+	local ret = ''
+	for i = 1, numOfItems, 1 do
+		ret = ret .. ',' .. profitableAlchs[i][1]
+	end
+	return ret
+end
+
+--[[ DEBUG
+p._main({
+  ['num'] = "1",
+  ['buylimit'] = "0",
+  ['volume'] = "0",
+  ['f2pOnly'] = "yes",
+})
+--]]
+
+function p.main(frame)
+	local args = frame:getParent().args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

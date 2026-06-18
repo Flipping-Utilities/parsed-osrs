@@ -1,0 +1,11 @@
+return {
+	itemId    = 31545,
+	item      = "Cotton seed",
+	icon      = 'Cotton seed 5.png',
+    alchable  = true,
+	value     = 5,
+	limit     = 2000,
+	members   = true,
+	category  = nil,
+	examine   = "A cotton plant seed - plant in a hops patch."
+}

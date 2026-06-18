@@ -1,0 +1,12 @@
+return {
+    itemId     = 40,
+    icon       = 'Iron arrowtips.png',
+    item       = 'Iron arrowtips',
+    value      = 2,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I can make some arrows with these.',
+    hialch     = 1,
+    lowalch    = 0
+}

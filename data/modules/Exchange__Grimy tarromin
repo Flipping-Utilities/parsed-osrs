@@ -1,0 +1,12 @@
+return {
+    itemId     = 203,
+    icon       = 'Grimy tarromin.png',
+    item       = 'Grimy tarromin',
+    value      = 15,
+    limit      = 13000,
+    members    = true,
+    category   = nil,
+    examine    = 'It needs cleaning.',
+    hialch     = 9,
+    lowalch    = 6
+}

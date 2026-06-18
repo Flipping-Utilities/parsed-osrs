@@ -1,0 +1,12 @@
+return {
+    itemId     = 215,
+    icon       = 'Grimy cadantine.png',
+    item       = 'Grimy cadantine',
+    value      = 22,
+    limit      = 11000,
+    members    = true,
+    category   = nil,
+    examine    = 'It needs cleaning.',
+    hialch     = 13,
+    lowalch    = 8
+}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 2357,
+    icon       = 'Gold bar.png',
+    item       = 'Gold bar',
+    value      = 300,
+    limit      = 10000,
+    members    = false,
+    category   = nil,
+    examine    = 'It\'s a bar of gold.',
+    hialch     = 180,
+    lowalch    = 120
+}

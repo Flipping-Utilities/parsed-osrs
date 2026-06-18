@@ -1,0 +1,12 @@
+return {
+    itemId     = 4544,
+    icon       = 'Bullseye lantern (unf).png',
+    item       = 'Bullseye lantern (unf)',
+    value      = 300,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'You need to add a lens before you can use it.',
+    hialch     = 180,
+    lowalch    = 120
+}

@@ -1,0 +1,295 @@
+local geprice = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+
+local p = {}
+
+local items = {}
+
+items.crafting = {
+	{name="Uncut diamond", minQty=1, maxQty=3, lowRoll=10, highRoll=120},
+	{name="Uncut ruby", minQty=2, maxQty=4, lowRoll=50, highRoll=140},
+	{name="Uncut emerald", minQty=1, maxQty=3, lowRoll=90, highRoll=160},
+	{name="Uncut sapphire", minQty=1, maxQty=3, lowRoll=255, highRoll=255},
+}
+
+items.herblore = {
+	{name="Grimy torstol", minQty=1, maxQty=3, lowRoll=-70, highRoll=40},
+	{name="Grimy dwarf weed", minQty=2, maxQty=4, lowRoll=-50, highRoll=50},
+	{name="Grimy lantadyme", minQty=2, maxQty=4, lowRoll=-30, highRoll=60},
+	{name="Grimy cadantine", minQty=2, maxQty=4, lowRoll=-10, highRoll=70},
+	{name="Grimy kwuarm", minQty=2, maxQty=4, lowRoll=10, highRoll=85},
+	{name="Grimy avantoe", minQty=3, maxQty=5, lowRoll=20, highRoll=100},
+	{name="Grimy irit leaf", minQty=3, maxQty=5, lowRoll=30, highRoll=115},
+	{name="Grimy ranarr weed", minQty=1, maxQty=3, lowRoll=10, highRoll=170},
+	{name="Grimy tarromin", minQty=3, maxQty=6, lowRoll=70, highRoll=-20},
+	{name="Grimy marrentill", minQty=3, maxQty=6, lowRoll=100, highRoll=-30},
+	{name="Grimy guam leaf", minQty=3, maxQty=6, lowRoll=170, highRoll=-40},
+	{name="Grimy harralander", minQty=3, maxQty=6, lowRoll=255, highRoll=255},
+}
+
+items.farming = {
+	{name="Spirit seed", minQty=1, maxQty=1, lowRoll=-20, highRoll=5},
+	{name="Dwarf weed seed", minQty=1, maxQty=3, lowRoll=-60, highRoll=25},
+	{name="Lantadyme seed", minQty=1, maxQty=3, lowRoll=-60, highRoll=30},
+	{name="Cadantine seed", minQty=1, maxQty=3, lowRoll=-40, highRoll=40},
+	{name="Snapdragon seed", minQty=1, maxQty=3, lowRoll=-15, highRoll=60},
+	{name="Yew seed", minQty=1, maxQty=2, lowRoll=-10, highRoll=70},
+	{name="Snape grass seed", minQty=3, maxQty=7, lowRoll=-8, highRoll=78},
+	{name="Kwuarm seed", minQty=1, maxQty=3, lowRoll=-10, highRoll=80},
+	{name="Ranarr seed", minQty=1, maxQty=3, lowRoll=0, highRoll=110},
+	{name="Avantoe seed", minQty=1, maxQty=3, lowRoll=0, highRoll=130},
+	{name="Watermelon seed", minQty=3, maxQty=7, lowRoll=-10, highRoll=180},
+	{name="Irit seed", minQty=1, maxQty=3, lowRoll=0, highRoll=170},
+	{name="Teak seed", minQty=1, maxQty=2, lowRoll=10, highRoll=160},
+	{name="Maple seed", minQty=1, maxQty=2, lowRoll=15, highRoll=190},
+	{name="Mahogany seed", minQty=1, maxQty=2, lowRoll=20, highRoll=190},
+	{name="Toadflax seed", minQty=1, maxQty=3, lowRoll=20, highRoll=190},
+	{name="Banana tree seed", minQty=1, maxQty=2, lowRoll=30, highRoll=180},
+	{name="Willow seed", minQty=1, maxQty=2, lowRoll=60, highRoll=120},
+	{name="Harralander seed", minQty=1, maxQty=3, lowRoll=80, highRoll=-150},
+	{name="Tarromin seed", minQty=1, maxQty=3, lowRoll=150, highRoll=-150},
+	{name="Acorn", minQty=1, maxQty=1, lowRoll=255, highRoll=255},
+}
+
+items.woodcutting = {
+	{name="Magic logs", minQty=10, maxQty=20, lowRoll=-60, highRoll=60},
+	{name="Yew logs", minQty=10, maxQty=20, lowRoll=-50, highRoll=90},
+	{name="Mahogany logs", minQty=10, maxQty=20, lowRoll=-40, highRoll=130},
+	{name="Maple logs", minQty=10, maxQty=20, lowRoll=0, highRoll=160},
+	{name="Teak logs", minQty=10, maxQty=20, lowRoll=30, highRoll=200},
+	{name="Willow logs", minQty=10, maxQty=20, lowRoll=120, highRoll=100},
+	{name="Oak logs", minQty=10, maxQty=20, lowRoll=255, highRoll=255},
+}
+
+items.mining = {
+	{name="Runite ore", minQty=1, maxQty=2, lowRoll=-60, highRoll=40},
+	{name="Adamantite ore", minQty=2, maxQty=3, lowRoll=-50, highRoll=80},
+	{name="Mithril ore", minQty=3, maxQty=5, lowRoll=-20, highRoll=140},
+	{name="Gold ore", minQty=8, maxQty=11, lowRoll=0, highRoll=160},
+	{name="Coal", minQty=10, maxQty=14, lowRoll=0, highRoll=180},
+	{name="Pure essence", minQty=20, maxQty=70, lowRoll=40, highRoll=190},
+	{name="Silver ore", minQty=10, maxQty=12, lowRoll=140, highRoll=10},
+	{name="Limestone", minQty=2, maxQty=7, lowRoll=200, highRoll=-20},
+	{name="Iron ore", minQty=5, maxQty=15, lowRoll=255, highRoll=255},
+}
+
+items.fishing = {
+	{name="Raw shark", minQty=6, maxQty=11, lowRoll=-60, highRoll=80},
+	{name="Raw swordfish", minQty=6, maxQty=11, lowRoll=-50, highRoll=100},
+	{name="Raw lobster", minQty=6, maxQty=11, lowRoll=-20, highRoll=130},
+	{name="Raw tuna", minQty=6, maxQty=11, lowRoll=10, highRoll=160},
+	{name="Raw salmon", minQty=6, maxQty=11, lowRoll=40, highRoll=180},
+	{name="Raw anchovies", minQty=6, maxQty=11, lowRoll=160, highRoll=0},
+	{name="Raw trout", minQty=6, maxQty=11, lowRoll=255, highRoll=255},
+}
+
+items.other = {
+	{name="Coins", minQty=2000, maxQty=4999, chance=5/25, price=1},
+	{name="Dynamite", minQty=3, maxQty=5, chance=1/25, price=geprice("Dynamite")},
+	{name="Saltpetre", minQty=3, maxQty=5, chance=1/25, price=geprice("Saltpetre")},
+}
+
+function p.interpolate(skillLevel, lowRoll, highRoll)
+	local unclamped = math.floor(lowRoll + (highRoll - lowRoll) * (skillLevel - 1) / 98)
+	return math.min(math.max(unclamped+1, 0), 256)
+end
+
+function p.main(frame)
+	args = frame.args
+	
+	local skills = {
+		crafting = tonumber(args.crafting),
+		farming = tonumber(args.farming),
+		fishing = tonumber(args.fishing),
+		herblore = tonumber(args.herblore),
+		mining = tonumber(args.mining),
+		woodcutting = tonumber(args.woodcutting),
+	}
+	return p._main(tonumber(args.points), skills, 
+		args.hasPhoenix=='yes', args.magicEligible=='yes',
+		args.torstolEligible=='yes', args.sellPyro=='yes')
+end
+
+function makeLine(name, minQty, maxQty, chancePerRoll, rolls, price)
+	local expectedCount = rolls * chancePerRoll * (minQty + maxQty) / 2
+	local qtyRange = tostring(minQty)
+	if minQty ~= maxQty then
+		qtyRange = tostring(minQty) .. '-' .. tostring(maxQty)
+	end
+	
+	local displayName = name
+	if name == "Pyromancer hood" then
+		displayName = "Pyromancer outfit|Pyromancer outfit piece"
+	end
+
+	return mw.html.create('tr')
+		:tag('td')
+			:wikitext('[[File:' .. name .. '.png|link=' .. name .. ']]')
+		:done()
+		:tag('td')
+			:wikitext('[[' .. displayName .. ']]')
+		:done()
+		:tag('td')
+			:wikitext(qtyRange)
+		:done()
+		:tag('td')
+			:wikitext(coins(price))
+		:done()
+		:tag('td')
+			:wikitext(string.format('%.3f%%', 100 * chancePerRoll))
+		:done()
+		:tag('td')
+			:wikitext(string.format('%.3f', expectedCount))
+		:done()
+		:tag('td')
+			:wikitext(coins(tostring(price * expectedCount) .. '/ 1'))
+		:done()
+end
+	
+function p._main(points, skills, hasPhoenix, magicEligible, torstolEligible, sellPyro)
+	if points < 500 then
+		return "You can't get rewards with less than 500 points."
+	end
+	local rolls = 1 + points / 500
+
+	local uniquesExpectation = 0
+	local uniquesTable = mw.html.create('table')
+	uniquesTable:addClass('wikitable sortable align-center-1 align-left-2 align-left-3'):css('text-align','right')
+	
+	local header = mw.html.create('tr')
+		:tag('th')
+			:wikitext('Item')
+			:attr('colspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Quantity<br/>(per roll)')
+		:done()
+		:tag('th')
+			:wikitext('Price')
+		:done()
+		:tag('th')
+			:wikitext('Chance<br/>(per roll)')
+		:done()
+		:tag('th')
+			:wikitext('Expected<br/>(per run)')
+		:done()
+		:tag('th')
+			:wikitext('Expected value')
+		:done()
+	
+	uniquesTable:node(header)
+
+	local totalProbability = 1.0
+	if not hasPhoenix then
+		uniquesTable:node(makeLine("Phoenix", 1, 1, 1/5000, rolls, 0))
+		totalProbability = totalProbability * (1 - 1/5000)
+	end
+	
+	uniquesTable:node(makeLine("Dragon axe", 1, 1, 1/10000 * totalProbability, rolls, geprice("Dragon axe")))
+	uniquesExpectation = uniquesExpectation + 1/10000 * totalProbability * rolls * geprice("Dragon axe")
+	totalProbability = totalProbability * (1 - 1/10000)
+
+	uniquesTable:node(makeLine("Tome of fire (empty)", 1, 1, 1/1000 * totalProbability, rolls, geprice("Tome of fire (empty)")))
+	uniquesExpectation = uniquesExpectation + 1/1000 * totalProbability * rolls * geprice("Tome of fire (empty)")
+	totalProbability = totalProbability * (1 - 1/1000)
+	
+	local pyroPrice = 0
+	if sellPyro then
+		pyroPrice = geprice("Burnt page") * 50
+	end
+	
+	if magicEligible then
+		uniquesTable:node(makeLine("Magic seed", 1, 1, 1/150 * totalProbability, rolls, geprice("Magic seed")))
+		uniquesExpectation = uniquesExpectation + 1/150 * totalProbability * rolls * geprice("Magic seed")
+	else
+		uniquesTable:node(makeLine("Warm gloves", 1, 1, 1/150 * totalProbability, rolls, pyroPrice))
+		uniquesExpectation = uniquesExpectation + 1/150 * totalProbability * rolls * pyroPrice
+	end
+	totalProbability = totalProbability * (1 - 1/150)
+	
+	
+	if torstolEligible then
+		uniquesTable:node(makeLine("Torstol seed", 2, 3, 1/150 * totalProbability, rolls, geprice("Torstol seed")))
+		uniquesExpectation = uniquesExpectation + 1/150 * totalProbability * rolls * geprice("Torstol seed") * 2.5
+	else
+		uniquesTable:node(makeLine("Bruma torch", 1, 1, 1/150 * totalProbability, rolls, pyroPrice))
+		uniquesExpectation = uniquesExpectation + 1/150 * totalProbability * rolls * pyroPrice
+	end
+	totalProbability = totalProbability * (1 - 1/150)
+	
+	
+	uniquesTable:node(makeLine("Pyromancer hood", 1, 1, 1/150 * totalProbability, rolls, pyroPrice))
+	uniquesExpectation = uniquesExpectation + 1/150 * totalProbability * rolls * pyroPrice
+	totalProbability = totalProbability * (1 - 1/150)
+	
+	uniquesTable:node(makeLine("Burnt page", 7, 29, 1/45 * totalProbability, rolls, geprice("Burnt page")))
+	uniquesExpectation = uniquesExpectation + 1/45 * totalProbability * rolls * geprice("Burnt page") * 18
+	totalProbability = totalProbability * (1 - 1/45)
+
+	uniquesTable:tag('tr')
+		:tag('th')
+			:attr('colspan', 6)
+			:css('text-align','right')
+			:wikitext('Total:')
+		:done()
+		:tag('td')
+			:css('text-align','right')
+			:wikitext(coins(tostring(uniquesExpectation) .. '/1'))
+		:done()
+
+	local resourcesTable = mw.html.create('table')
+	resourcesTable:addClass('wikitable sortable align-center-1 align-left-2 align-left-3'):css('text-align','right')
+		:node(header)
+	
+	local resourcesExpectation = 0
+	for skill, skillLevel in pairs(skills) do
+		local remainingProbability = 1.0
+		for _, item in ipairs(items[skill]) do
+			local subchance = p.interpolate(skillLevel, item.lowRoll, item.highRoll) / 256
+			local chancePerRoll = remainingProbability * subchance
+			remainingProbability = remainingProbability - chancePerRoll
+			chancePerRoll = chancePerRoll * totalProbability
+			
+			local price = 0
+			if item.name ~= 'Spirit seed' then
+				price = geprice(item.name)
+			end
+			local expectedCount = chancePerRoll * rolls * 3/24 * (item.minQty + item.maxQty) / 2
+			resourcesExpectation = resourcesExpectation + expectedCount * price
+			
+			local row = makeLine(item.name, item.minQty, item.maxQty, chancePerRoll * 3/25, rolls, price)
+			resourcesTable:node(row)
+		end
+	end
+	
+	for _, item in ipairs(items.other) do
+		local expectedCount = (item.minQty + item.maxQty) / 2 * item.chance
+		resourcesExpectation = resourcesExpectation + expectedCount * item.price
+		local row = makeLine(item.name, item.minQty, item.maxQty, item.chance, rolls, item.price)
+		resourcesTable:node(row)
+	end
+
+	resourcesTable:tag('tr')
+		:tag('th')
+			:attr('colspan', 6)
+			:css('text-align','right')
+			:wikitext('Total:')
+		:done()
+		:tag('td')
+			:css('text-align','right')
+			:wikitext(coins(tostring(resourcesExpectation) .. '/1'))
+		:done()
+
+	local rollsLine = "'''" 
+	.. tostring(points) 
+	.. "''' points in Wintertodt will give you in average '''"
+	.. string.format('%.3f', rolls) 
+	.. "''' rewards added to your reward pile. Ignoring untradeables, the total expected value of a run is '''"
+	.. coins(uniquesExpectation + resourcesExpectation)
+	.. "''' coins."
+	mw.log(rollsLine .. '\n\n==Uniques==\n' .. tostring(uniquesTable) .. '\n\n==Resources==\n' .. tostring(resourcesTable))
+	return rollsLine .. '\n\n==Uniques==\n' .. tostring(uniquesTable) .. '\n\n==Resources==\n' .. tostring(resourcesTable)
+		
+end
+
+return p

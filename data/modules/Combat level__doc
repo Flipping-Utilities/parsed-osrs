@@ -1,0 +1,15 @@
+{{documentation}}
+
+This module is used on [[Calculator:Combat level]], as well as being available to use from other modules.
+
+== Helper functions ==
+
+{{Helper module
+|name = Combat level
+|fname1 = _calc(attack, strength, defence, ranged, magic, hitpoints, prayer)
+|ftype1 = Number, String, Table
+|fuse1 = Returns three values:
+#The combat level given the entered stats (Number),
+#The primary combat type (String: one of 'melee', 'ranged', 'magic'),
+#And a Table containing the required <code>attackStrength</code>, <code>hitpointsDefence</code>, <code>ranged</code>, <code>magic</code> and <code>prayer</code> levels for the next combat level. These given values will be <code>nil</code> if these levels cannot give another combat levelup on their own.
+}}

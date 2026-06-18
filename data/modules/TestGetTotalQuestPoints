@@ -1,0 +1,61 @@
+local p = {}  -- create a new module table
+
+function p.countQuestPoints(frame)
+    local args = frame:getParent().args
+
+    return p._countQuestPoints(args)
+end
+
+-- create a function in the module
+function p._countQuestPoints(args)
+	
+	local html = require('Module:Mw.html extension')
+	local pageHtml = mw.getCurrentFrame():preprocess('{{:{{FULLPAGENAME}}}}')
+	local parsed = html.parse(pageHtml)
+
+	local dpl = require( 'Module:DPLlua' )
+
+	local a, b = dpl.ask( {
+			namespace = '',
+			uses = '{Infobox Quest},{Quest rewards}',
+			order = 'ascending',
+			category = 'Free-to-play quests',
+			notcategory = 'Future content'
+		},{
+			namespace = '',
+			uses = 'Template:Recipe',
+			count = 1,
+			include = '{Recipe},{Infobox Item}'
+		} )
+  
+	mw.logObject(a)
+	-- mw.logObject(b)
+	
+    -- get the content of the page
+    local content = mw.title.getCurrentTitle():getContent()
+
+    -- initialize a counter for the quest points
+    local totalQuestPoints = 0
+    
+    --local testContent = 
+
+    -- iterate over each line in the content
+    for line in content:gmatch("[^\r\n]+") do
+        -- check if the line is a table row
+        --if line:find("<tr>") then
+            -- extract the quest points from the row
+            -- local questPoints = tonumber(line:match("<td>(%d+)</td>"))
+            -- if quest points were found, add them to the total
+            --if questPoints then
+            --    totalQuestPoints = totalQuestPoints + questPoints
+            --end
+        --end
+        totalQuestPoints = totalQuestPoints + 1
+        
+    end
+
+    -- return the total quest points
+    return parsed
+end
+
+return p  -- return the module table

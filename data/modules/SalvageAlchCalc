@@ -1,0 +1,169 @@
+local p = {}
+
+-- Load salvage drop tables
+local salvageData = mw.loadJsonData("Module:ShipwreckSalvage/data.json")
+
+-- Load high alch values
+local alchData = mw.loadJsonData("Module:GEHighAlchs/data.json")
+
+------------------------------------------------------------
+-- Helpers
+------------------------------------------------------------
+
+local function normalize(str)
+	if not str then return nil end
+	str = str:lower()
+	str = str:gsub("^%s+", ""):gsub("%s+$", "")
+	return str
+end
+
+local function normalizeSalvageKey(key)
+	key = normalize(key)
+	for salvageType, _ in pairs(salvageData) do
+		if normalize(salvageType) == key then
+			return salvageType
+		end
+	end
+	return nil
+end
+
+-- Parse rarity string: "40/344" → 40, 344
+local function parseRarity(r)
+	if not r then return nil, nil end
+	local a, b = r:match("([%d%.]+)%s*/%s*([%d%.]+)")
+	if not a or not b then return nil, nil end
+	return tonumber(a), tonumber(b)
+end
+
+-- Parse quantity: "1-5" → avg = 3 ; "1" → avg = 1
+local function parseQuantity(q)
+	if not q then return 1 end
+	local a, b = q:match("(%d+)%s*-%s*(%d+)")
+	if a and b then
+		a, b = tonumber(a), tonumber(b)
+		return (a + b) / 2
+	end
+	return tonumber(q) or 1
+end
+
+------------------------------------------------------------
+-- Core: compute expected value table
+------------------------------------------------------------
+
+local function computeExpectedTable(t)
+	local out = {}
+
+	for _, entry in ipairs(t) do
+		local item = entry.name
+		local alch = alchData[item]
+		local qAvg = parseQuantity(entry.quantity)
+		local rNum, rDen = parseRarity(entry.rarity)
+
+		local probability = (rNum and rDen) and (rNum / rDen) or 0
+		local expectedHA = 0
+
+		if alch and probability > 0 then
+			expectedHA = qAvg * probability * alch
+		end
+
+		table.insert(out, {
+			item = item,
+			quantity_avg = qAvg,
+			rarity = entry.rarity,
+			probability = probability,
+			high_alch = alch or 0,
+			expected_high_alch = expectedHA
+		})
+	end
+
+	return out
+end
+
+------------------------------------------------------------
+-- Public API
+------------------------------------------------------------
+
+function p.getSalvage(frame)
+	local args = frame.args or frame
+	local key = args.mobname or args[1]
+	local real = normalizeSalvageKey(key)
+
+	if not real then
+		return mw.text.jsonEncode({ error = "Unknown salvage type: " .. tostring(key) })
+	end
+
+	return mw.text.jsonEncode(salvageData[real])
+end
+
+function p.getExpected(frame)
+	local args = frame.args or frame
+	local key = args.mobname or args[1]
+	local real = normalizeSalvageKey(key)
+
+	if not real then
+		return mw.text.jsonEncode({ error = "Unknown salvage type: " .. tostring(key) })
+	end
+
+	local salvage = salvageData[real]
+	local expected = computeExpectedTable(salvage)
+
+	return mw.text.jsonEncode(expected)
+end
+
+-- Template wrapper
+function p.main(frame)
+	return p.getExpected(frame)
+end
+
+-- Returns a flat list of items with {name, alch, quantity, rarity}
+function p.getAlchDrops(frame)
+    local args = frame and frame.args or frame or {}
+    local salvageKey = args.mobname or args[1]
+    if not salvageKey then
+        return "[]"
+    end
+
+    local realKey = normalizeSalvageKey(salvageKey)
+    if not realKey then
+        return "[]"
+    end
+
+    local salvage = salvageData[realKey]
+    if type(salvage) ~= "table" then
+        return "[]"
+    end
+
+    local flat = {}
+
+    for _, drops in pairs(salvage) do
+        if type(drops) == "table" then
+            for _, entry in ipairs(drops) do
+                if entry.name then
+                    local name = entry.name
+                    local alch = alchData[name] or 0
+                    local qtyAvg = parseQuantity(entry.quantity)
+                    local rNum, rDen = parseRarity(entry.rarity)
+                    local prob = (rNum and rDen and rDen ~= 0) and (rNum / rDen) or 0
+                    local effectiveRate = prob * qtyAvg
+
+                    table.insert(flat, {
+                        name      = name,
+                        alchValue = alch,
+                        rate      = effectiveRate,
+                        quantity  = entry.quantity or "1",
+                        rarity    = entry.rarity or ""
+                    })
+                end
+            end
+        end
+    end
+
+    -- JSON → escaped JSON safe for HTML attribute
+    local json = mw.text.jsonEncode(flat)
+    json = mw.text.encode(json, '"')   -- ⭐ THE CRITICAL FIX ⭐
+
+    return json
+end
+
+
+return p

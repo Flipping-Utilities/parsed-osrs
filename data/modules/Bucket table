@@ -1,0 +1,147 @@
+local p = {}
+
+local yesno = require('Module:Yesno')
+
+function header(tbl, cols, fmts, imgs, types)
+	local tr = tbl:tag('tr')
+	if cols[0] ~= nil then
+		tr:tag('th'):addClass('unsortable')
+	end
+    tr:tag('th'):attr('data-sort-type', 'text'):css('text-align', 'left'):wikitext('Name')
+	for i=1,#cols do
+		local ctype = types[i] or types['def']
+		local img = imgs[i] or imgs['def']
+		local fmt = fmts[i] or fmts['def']
+		tr:tag('th'):attr('data-sort-type', ctype):wikitext(string.format(fmt, img, cols[i]))
+	end
+end
+
+function row(tbl, data, cols, seps)
+	local tr = tbl:tag('tr')
+	name = mw.text.split(data.page_name_sub, '#', true)
+	if name[2] then name[2] = name[2]:gsub('_', ' ') else name[2] = '&nbsp;' end
+	if cols[0] then
+		local col0 = tr:tag('td'):css('max-height', '64px')
+		-- seps[0] stores the type of col0, because data0 doesn't get passed to this function.
+		if seps[0] == nil or seps[0] == 'image' then
+			local subject = data[1] or ''
+			if type(data[cols[0]]) == 'string' then
+				col0:wikitext(string.format('[[%s|x64px|link=|%s]]', data[cols[0]], subject))
+			elseif type(data['All '..cols[0]]) == 'string' then
+				col0:wikitext(string.format('[[%s|x64px|link=|%s]]', data['All '..cols[0]], subject))
+			elseif type(data[cols[0]]) == 'table' then -- last image to show the image for 5, if possible.
+				col0:wikitext(string.format('[[%s|x64px|link=|%s]]', data[cols[0]][#data[cols[0]]], subject))
+			elseif type(data['All '..cols[0]]) == 'table' then
+				col0:wikitext(string.format('[[%s|x64px|link=|%s]]', data['All '..cols[0]][#data['All '..cols[0]]], subject))
+			else
+				col0:wikitext('error')
+				mw.log('error')
+				mw.logObject({data, cols[0]})
+			end
+		elseif seps[0] == 'link' then
+			col0:wikitext('[[:'..data[cols[0]]..']]')
+		else
+			col0:wikitext(data[cols[0]])
+		end
+	end
+	tr:tag('td'):wikitext(string.format('[[%s|%s]]<br/>\'\'%s\'\'', data.page_name_sub, name[1], name[2]))
+	for i, col in ipairs(cols) do
+		local val = data[col]
+		td = tr:tag('td')
+		if col == 'Is members only' then
+			if yesno(val, true) then
+				td:wikitext('[[File:Member icon.png|link=|Members]]')
+			else
+				td:wikitext('[[File:Free-to-play icon.png|link=|Free-to-play]]')
+			end
+		elseif type(val) == 'table' then
+			-- multiple values provided; join using the provided separator
+			td:wikitext(table.concat(val, seps[i] or seps['def']))
+		else
+			td:wikitext(val)
+		end
+	end
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local cols = {}
+	local headers = {['def'] = '[[File:%s|link=|%s]]'} -- default header format: image with img and page query
+	local imgs = {['def'] = 'Unknown NPC.png|x30px'} -- default image: question marks; 30px high
+	local coltypes = {['def'] = 'number'} -- default sort: string
+	local seps = {['def'] = ', '} -- default array separator string: comma
+	local category = args.category
+	local bucket_name = args.bucket
+	-- parse all expected parameters
+	for param, arg in pairs(args) do
+		local col = string.match(param, "col(%d+)")
+		local header = string.match(param, "header(%d*)")
+		local img = string.match(param, "img(%d+)")
+		local coltype = string.match(param, "data(%d*)")
+		local sep = string.match(param, "sep(%d*)")
+		if col then
+			-- property to add to a col X
+			cols[tonumber(col)] = arg
+		elseif img then
+			-- column header img X
+			imgs[tonumber(img)] = arg
+		elseif header == '' then
+			-- default header format
+			headers['def'] = arg
+		elseif header then
+			-- header X format
+			headers[tonumber(header)] = arg
+		elseif coltype == '' then
+			-- default sorting type
+			coltypes['def'] = arg
+		elseif coltype then
+			-- sorting type for col X
+			coltypes[tonumber(coltype)] = arg
+		elseif sep == '' then
+			-- default array string separator
+			seps['def'] = arg
+		elseif sep then
+			-- array X string separator
+			seps[tonumber(sep)] = arg
+		end
+	end
+	-- store col type for column 0 in seps because that is passed on to the row() function
+	seps[0] = coltypes[0]
+
+	local tbl = mw.html.create('table'):addClass('wikitable sortable sticky-header')
+	if args.class then
+		tbl:addClass(args.class)
+	end
+
+	-- Set header
+	header(tbl, cols, headers, imgs, coltypes)
+
+	local b = bucket(bucket_name).limit(tonumber(args.limit) or 100)
+	
+	if category then
+		b.where(category)
+	end
+	
+	local selects = {'page_name_sub'}
+	-- col 0 is a special col for images and the like
+	if cols[0] ~= nil then
+		table.insert(selects, cols[0])
+	end
+	for _, col in ipairs(cols) do
+		table.insert(selects, col)
+	end
+
+	-- Get all Bucket data
+	local obj = b.select(unpack(selects)).run()
+	mw.logObject(obj)
+	
+	assert(obj, "No pages were found matching your query")
+	
+	for _, page in ipairs(obj) do
+		row(tbl, page, cols, seps)
+	end
+	
+	return tbl
+end
+
+return p

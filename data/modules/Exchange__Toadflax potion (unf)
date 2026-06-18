@@ -1,0 +1,12 @@
+return {
+    itemId     = 3002,
+    icon       = 'Toadflax potion (unf).png',
+    item       = 'Toadflax potion (unf)',
+    value      = 48,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Toadflax potion.',
+    hialch     = 28,
+    lowalch    = 19
+}

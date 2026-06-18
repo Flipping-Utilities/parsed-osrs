@@ -1,0 +1,981 @@
+-- <nowiki>
+---@class chart
+local chart = {}
+
+---@class dataSet
+local dataSet = {}
+
+local libraryUtil = require( 'Module:libraryUtil' )
+local rgba = require( 'Module:Rgba' )
+local isEmpty = require( 'Module:Paramtest' ).is_empty
+local arr = require( 'Module:Array' )
+
+---@alias xyData table<string, number>
+---@alias xyDataSet xyData[]
+---@alias dataArr number[]
+---@alias options_t table<string, string|number|options_t>
+
+---@param val any
+---@param default any
+---@return any
+local function default( val, default )
+    if val == nil or (type( val ) == 'string' and isEmpty( val )) then
+        return default
+    else
+        return val
+    end
+end
+
+---@param obj chart | dataSet
+---@param options options_t
+local function defaultOptions( obj, options )
+     local function _setOptions( tbl, options )
+        for k, v in pairs( options ) do
+            if type( v ) == 'table' and type( tbl[k] ) == 'table' then
+                _setOptions( tbl[k], v )
+            else
+                tbl[k] = default( tbl[k], v )
+            end
+        end
+    end
+
+    _setOptions( obj, options )
+end
+
+local function stripNonChartJsVariables( tbl )
+    local stripVarNames = {
+        colorPallet = true,
+        backgroundAlpha = true,
+        hoverLightenValue = true,
+        hoverSaturateValue = true,
+        hoverAlpha = true,
+        widthVal = true,
+        heightVal = true,
+        flippedXY = true
+    }
+
+    local function _strip( tbl )
+        for k, v in pairs( tbl ) do
+            if stripVarNames[k] then
+                tbl[k] = nil
+            elseif type( v ) == 'table' then
+                _strip( v )
+            end
+        end
+    end
+
+    _strip( tbl )
+end
+
+---@param tbl table
+---@param seen table | nil @Only for internal use
+local function stripInvalidValues( tbl, seen )
+    seen = seen or {}
+    seen[tbl] = true
+
+    for k, v in pairs( tbl ) do
+        if type( k ) == 'table' or type( k ) == 'function' then
+            tbl[k] = nil
+        elseif type( v ) == 'function' then
+            tbl[k] = nil
+        elseif seen[v] then
+            tbl[k] = nil
+        elseif type( v ) == 'table' then
+            local mt = getmetatable( v )
+            if mt and mt.__tostring then
+                tbl[k] = tostring( v )
+            else
+                stripInvalidValues( v, seen )
+            end
+        end
+    end
+
+    setmetatable( tbl, nil )
+    stripNonChartJsVariables( tbl )
+end
+
+-- =====================
+--      Chart class
+-- =====================
+local checkChartClass = libraryUtil.makeCheckClassFunction( 'Module:Chart data' , 'chart', chart, 'chart object' )
+chart.rgba = rgba
+chart.colorPallets = {
+    qualitative = {
+        name = 'qualitative',
+        rgba.new( 166,206,227 ),
+        rgba.new( 31,120,180 ),
+        rgba.new( 178,223,138 ),
+        rgba.new( 51,160,44 ),
+        rgba.new( 251,154,153 ),
+        rgba.new( 227,26,28 ),
+        rgba.new( 253,191,111 ),
+        rgba.new( 255,127,0 ),
+        rgba.new( 202,178,214 ),
+        rgba.new( 106,61,154 )
+    },
+    blue = {
+        name = 'blue',
+        rgba.new( 208,209,230 ),
+        rgba.new( 166,189,219 ),
+        rgba.new( 103,169,207 ),
+        rgba.new( 54,144,192 ),
+        rgba.new( 2,129,138 ),
+        rgba.new( 1,108,89 ),
+        rgba.new( 1,70,54 )
+    },
+    green = {
+        name = 'green',
+        rgba.new( 217,240,163 ),
+        rgba.new( 173,221,142 ),
+        rgba.new( 120,198,121 ),
+        rgba.new( 65,171,93 ),
+        rgba.new( 35,132,67 ),
+        rgba.new( 0,104,55 ),
+        rgba.new( 0,69,41 )
+    },
+    blueGreen = {
+        name = 'blueGreen',
+        rgba.new( 204,236,230 ),
+        rgba.new( 153,216,201 ),
+        rgba.new( 102,194,164 ),
+        rgba.new( 65,174,118 ),
+        rgba.new( 35,139,69 ),
+        rgba.new( 0,109,44 ),
+        rgba.new( 0,68,27 )
+    },
+    orange = {
+        name = 'orange',
+        rgba.new( 254,227,145 ),
+        rgba.new( 254,196,79 ),
+        rgba.new( 254,153,41 ),
+        rgba.new( 236,112,20 ),
+        rgba.new( 204,76,2 ),
+        rgba.new( 153,52,4 ),
+        rgba.new( 102,37,6 )
+    }
+}
+
+local colorPalletMt = {
+    __index = function ( self, i )  -- Use the next color pallet if one pallet is too small for all the lines
+        local pallet = next( chart.colorPallets, self.name ) or next( chart.colorPallets )
+        pallet = chart.colorPallets[ pallet ]
+        return pallet[ i - #self ]
+    end,
+    __tostring = function ( t ) return t.name end
+}
+
+for _, set in pairs( chart.colorPallets ) do
+    if type( set ) == 'table' then
+        setmetatable( set, colorPalletMt )
+    end
+end
+
+function chart.main( frame )
+    return chart._main( (frame:getParent() or frame).args )
+end
+
+---@param args options_t
+---@return string
+function chart._main( args )
+    libraryUtil.checkType( 'Module:Chart_data._main', 1, args, 'table' )
+
+    local data = args
+
+    if not data.isChartObj then
+        local moduleName = args.dataModule or args[1]
+        local funcName = args['function'] or args[2]
+
+        if isEmpty( moduleName ) then
+            error( 'Data module was not provided or is empty' )
+        end
+
+        if moduleName:find( '[Mm]odule:' ) == nil then
+            moduleName = 'Module:' .. moduleName
+        end
+
+        if funcName then
+            data = require( moduleName )[ funcName ]( args )
+
+            assert( type( data )=='table', string.format(
+                "Error: function '%s' from module '%s' returned an invalid type (table expected, got %s)",
+                funcName, moduleName, type( data ) ) )
+
+            if data.isChartObj and not data.isFinished then
+                data:finish()
+            end
+        else
+            data = mw.loadData( moduleName )
+        end
+    end
+
+    local width = args.width or data.width or '60vw'
+    local height = args.height or data.height or '60vh'
+    local minWidth = args.minWidth or args.min_width or data.minWidth or '400px'
+    local minHeight = args.minHeight or args.min_height or data.minHeight or '400px'
+
+    return string.format(
+        '<div class="rsw-chartjs rsw-chartjs-config" style="position:relative; margin:1em 0; width:%s; height:%s; min-width:%s; min-height:%s;%s"><pre>%s</pre></div>',
+        width,
+        height,
+        minWidth,
+        minHeight,
+        data.resizable and ' resize:both; overflow:hidden; padding:0 5px 5px 0;' or '',
+        mw.text.jsonEncode( data )
+    )
+end
+
+---@param ys number[]
+---@param xs number[] | nil
+---@return xyDataSet
+function chart.convertToXYFormat( ys, xs )
+    libraryUtil.checkType( 'Module:Chart_data.convertToXYFormat', 1, ys, 'table' )
+    libraryUtil.checkType( 'Module:Chart_data.convertToXYFormat', 2, xs, 'table', true )
+
+    xs = xs or {}
+    local ret = {}
+
+    for i,v in ipairs( ys ) do
+        table.insert( ret, { x=(xs[i] or i), y=v } )
+    end
+
+    return ret
+end
+
+---@param func function
+---@param start_x number
+---@param end_x number
+---@param step number
+---@return xyDataSet
+function chart.generateXYFromFunc( func, start_x, end_x, step )
+    libraryUtil.checkType( 'Module:Chart_data.generateXYFromFunc', 1, func, 'function' )
+    libraryUtil.checkType( 'Module:Chart_data.generateXYFromFunc', 2, start_x, 'number' )
+    libraryUtil.checkType( 'Module:Chart_data.generateXYFromFunc', 3, end_x, 'number' )
+    libraryUtil.checkType( 'Module:Chart_data.generateXYFromFunc', 4, step, 'number',  true )
+
+    step = step or 1
+    local ret = {}
+
+    for i = start_x, end_x, step do
+        table.insert( ret, { x=i, y=func( i ) } )
+    end
+
+    return ret
+end
+
+---@param low_chance number
+---@param high_chance number
+---@param start_level number
+---@param end_level number
+---@return xyDataSet
+function chart.jagexInterpolation( low_chance, high_chance, start_level, end_level )
+    libraryUtil.checkType( 'Module:Chart_data.jagexInterpolation', 1, low_chance, 'number' )
+    libraryUtil.checkType( 'Module:Chart_data.jagexInterpolation', 2, high_chance, 'number' )
+    libraryUtil.checkType( 'Module:Chart_data.jagexInterpolation', 3, start_level, 'number' )
+    libraryUtil.checkType( 'Module:Chart_data.jagexInterpolation', 4, end_level, 'number' )
+
+    local function interpolate( x )
+        return math.floor( ( (99-x)*low_chance + (x-1)*high_chance ) / 98 )
+    end
+
+    return chart.generateXYFromFunc( interpolate, start_level, end_level )
+end
+
+---@param setup options_t
+---@return chart
+function chart.newChart( setup )
+    libraryUtil.checkType( 'Module:Chart_data.newChart', 1, setup, 'table', true )
+    local obj = setup or {}
+
+    if obj.type == 'bar' then
+        defaultOptions( obj, {
+            options = {
+                fill = true,
+                backgroundAlpha = 0.4,
+                hoverLightenValue = 0.95,
+                hoverAlpha = 0.5,
+                hoverSaturateValue = 1,
+                scales = {
+                    x = { -- This is used for horizontal bar graphs
+                        ticks = {
+                            beginAtZero = true
+                        }
+                    },
+                    y = {
+                        ticks = {
+                            beginAtZero = true
+                        }
+                    }
+                }
+            }
+        } )
+    elseif obj.type == 'bubble' then
+        defaultOptions( obj, {
+            options = {
+                fill = true,
+                backgroundAlpha = 0.4,
+                hoverLightenValue = 0.95,
+                hoverAlpha = 0.5,
+                hoverSaturateValue = 1
+            }
+        } )
+    elseif obj.type == 'radar' then
+        defaultOptions( obj, {
+            options = {
+                scale = {
+                    ticks = {
+                        showLabelBackdrop = false,
+                        z = 1
+                    }
+                }
+            }
+        } )
+    elseif obj.type == 'pie' or obj.type == 'doughnut' then
+        defaultOptions( obj, {
+            options = {
+                fill = true,
+                backgroundAlpha = 0.8,
+                hoverLightenValue = 0.95,
+                hoverAlpha = 0.9,
+                hoverSaturateValue = 1
+            }
+        } )
+    elseif obj.type == 'polarArea' then
+        defaultOptions( obj, {
+            options = {
+                fill = true,
+                backgroundAlpha = 0.5,
+                hoverLightenValue = 0.95,
+                hoverAlpha = 0.6,
+                hoverSaturateValue = 1,
+                scale = {
+                    ticks = {
+                        showLabelBackdrop = false,
+                        z = 1
+                    }
+                }
+            }
+        } )
+    end
+
+    defaultOptions( obj, {
+        isChartObj = true,
+        type = 'scatter',
+        widthVal = '60vw',
+        heightVal = '60vh',
+        minWidth = 400,
+        resizable = true,
+        data = {
+            datasets = {}
+        },
+        options = {
+            fill = false,
+            colorPallet = chart.colorPallets.qualitative,
+            backgroundAlpha = 0.3,
+            hoverLightenValue = 0.95,
+            hoverAlpha = 0.5,
+            hoverSaturateValue = 1,
+            maintainAspectRatio = false,
+            title = {
+                font = {
+                    size = 18
+                }
+            },
+            tooltips = {
+                intersect = false
+            }
+        }
+    } )
+
+    setmetatable( obj, chart )
+
+    obj:setDimensions( obj.widthVal, obj.heightVal, obj.minWidth, obj.minHeight, obj.resizable )
+
+    return obj
+end
+
+---@vararg xyDataSet | dataArr
+---@return chart
+function chart:addDataSets( ... )
+    checkChartClass( self, 'addDataSets' )
+    local sets = { ... }
+
+    for i, set in ipairs( sets ) do
+        libraryUtil.checkType( 'chart.addDataSets', i, set, 'table' )
+
+        if not arr.contains( self.data.datasets, set, false ) then
+            table.insert( self.data.datasets, set )
+        end
+    end
+
+    return self
+end
+
+---@param labels string
+---@return chart
+function chart:addDataLabels( labels )
+    checkChartClass( self, 'addDataLabels' )
+    libraryUtil.checkType( 'Module:Chart_data.addDataLabels', 1, labels, 'table' )
+
+    self.data.labels = default( self.data.labels, {} )
+
+    for _, label in ipairs( labels ) do
+        table.insert( self.data.labels, label )
+    end
+
+    return self
+end
+
+---@param width number | string
+---@param height number | string | nil
+---@param minWidth number | string | nil
+---@param minHeight number | string | nil
+---@param resizable boolean | nil
+---@return chart
+function chart:setDimensions( width, height, minWidth, minHeight, resizable )
+    checkChartClass( self, 'setDimensions' )
+    libraryUtil.checkTypeMulti( 'chart.setDimensions', 1, width, {'number', 'string'} )
+    libraryUtil.checkTypeMulti( 'chart.setDimensions', 2, height, {'number', 'string', 'nil'} )
+    libraryUtil.checkTypeMulti( 'chart.setDimensions', 3, minWidth, {'number', 'string', 'nil'} )
+    libraryUtil.checkTypeMulti( 'chart.setDimensions', 4, minHeight, {'number', 'string', 'nil'} )
+    libraryUtil.checkType( 'chart.setDimensions', 5, resizable, 'boolean', true )
+
+    if type( width ) == 'number' then
+        self.widthVal = width
+        self.width = width .. 'px'
+    elseif type( width ) == 'string' then
+        self.width = width
+        self.widthVal = tonumber( width:match( '%d+' ) )
+
+        if type( self.widthVal ) ~= 'number' then
+            error( "bad argument #1 to 'chart.setDimensions' (input doesn't contain a number)", 2 )
+        end
+    else
+        self.widthVal = nil
+        self.width = ''
+    end
+
+    if type( height ) == 'number' then
+        self.heightVal = height
+        self.height = height .. 'px'
+    elseif type( height ) == 'string' then
+        self.height = height
+        self.heightVal = tonumber( height:match( '%d+' ) )
+
+        if type( self.heightVal ) ~= 'number' then
+            error( "bad argument #2 to 'chart.setDimensions' (input doesn't contain a number)", 2 )
+        end
+    else
+        self.heightVal = nil
+        self.height = ''
+    end
+
+    if type( minWidth ) == 'number' then
+        self.minWidth = minWidth .. 'px'
+    elseif type( minWidth ) == 'string' then
+        self.minWidth = minWidth
+    else
+        self.minWidth = nil
+    end
+
+    if type( minHeight ) == 'number' then
+        self.minHeight = minHeight .. 'px'
+    elseif type( minHeight ) == 'string' then
+        self.minHeight = minHeight
+    else
+        self.minHeight = nil
+    end
+
+    self.resizable = default( resizable, self.resizable )
+
+    if arr.contains( {'pie', 'doughnut', 'radar', 'polarArea'}, self.type ) then
+        self.height = self.width
+        self.minHeight = self.minWidth
+        self.options.aspectRatio = 1
+    else
+        if self.widthVal and self.heightVal then
+            self.options.aspectRatio = self.widthVal / self.heightVal
+        elseif self.widthVal then
+            self.height = self.width
+            self.options.aspectRatio = 1
+        else
+            self.options.aspectRatio = 1
+        end
+    end
+
+    return self
+end
+
+---@param text string | table | nil
+---@param position string | nil
+---@return chart
+function chart:setTitle( text, position )
+    checkChartClass( self, 'setTitle' )
+    libraryUtil.checkTypeMulti( 'chart.setTitle', 1, text, {'string', 'table', 'nil'} )
+    libraryUtil.checkType( 'chart.setTitle', 1, position, 'string', true )
+
+    self:setOptions{
+        title = {
+            display = text and true or false,
+            text = text,
+            position = position or 'top'
+        }
+    }
+
+    return self
+end
+
+---@param label string | nil
+---@return chart
+function chart:setXLabel( label )
+    checkChartClass( self, 'setXLabel' )
+    libraryUtil.checkType( 'chart.setXLabel', 1, label, 'string', true )
+
+    if arr.contains( {'line', 'bar', 'bubble', 'scatter'}, self.type ) then
+        self:setOptions{
+            scales = {
+                x = {
+                    scaleLabel = {
+                        display = label and true or false,
+                        labelString = label
+                    }
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param label string | nil
+---@return chart
+function chart:setYLabel( label )
+    checkChartClass( self, 'setYLabel' )
+    libraryUtil.checkType( 'chart.setYLabel', 1, label, 'string', true )
+
+    if arr.contains( {'line', 'bar', 'bubble', 'scatter'}, self.type ) then
+        self:setOptions{
+            scales = {
+                y = {
+                    scaleLabel = {
+                        display = label and true or false,
+                        labelString = label
+                    }
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param min number | nil
+---@param max number | nil
+---@param step number | nil
+---@return chart
+function chart:setXLimits( min, max, step )
+    checkChartClass( self, 'setXLimits' )
+    libraryUtil.checkType( 'chart.setXLimits', 1, min, 'number', true )
+    libraryUtil.checkType( 'chart.setXLimits', 2, max, 'number', true )
+    libraryUtil.checkType( 'chart.setXLimits', 3, step, 'number', true )
+
+    if arr.contains( {'bubble', 'scatter'}, self.type ) then
+        self:setOptions{
+            scales = {
+                x = {
+                    min  = min,
+                    max = max,
+                    ticks = {
+                        stepSize = step
+                    }
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param min number | nil
+---@param max number | nil
+---@param step number | nil
+---@return chart
+function chart:setYLimits( min, max, step )
+    checkChartClass( self, 'setYLimits' )
+    libraryUtil.checkType( 'chart.setYLimits', 1, min, 'number', true )
+    libraryUtil.checkType( 'chart.setYLimits', 2, max, 'number', true )
+    libraryUtil.checkType( 'chart.setYLimits', 3, step, 'number', true )
+
+    if arr.contains( {'line', 'bar', 'bubble', 'scatter'}, self.type ) then
+        self:setOptions{
+            scales = {
+                y = {
+                    min  = min,
+                    max = max,
+                    ticks = {
+                        stepSize = step
+                    }
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param format string
+---@return chart
+function chart:setYFormat( format )
+    checkChartClass( self, 'setYFormat' )
+    libraryUtil.checkType( 'chart.setYFormat', 1, format, 'string', true )
+
+    self:setOptions{
+        scales = {
+            y = {
+                ticks = {
+                    format = format
+                }
+            }
+        }
+    }
+
+    return self
+end
+
+---@param min number | nil
+---@param max number | nil
+---@param step number | nil
+---@return chart
+function chart:setRadialLimits( min, max, step )
+    checkChartClass( self, 'setRadialLimits' )
+    libraryUtil.checkType( 'chart.setRadialLimits', 1, min, 'number', true )
+    libraryUtil.checkType( 'chart.setRadialLimits', 2, max, 'number', true )
+    libraryUtil.checkType( 'chart.setRadialLimits', 3, step, 'number', true )
+
+    if arr.contains( {'radar', 'polarArea'}, self.type ) then
+        self:setOptions{
+            scale = {
+                min  = min,
+                max = max,
+                ticks = {
+                    stepSize = step
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param type string | nil
+---@return chart
+function chart:setXAxisType( type )
+    checkChartClass( self, 'setXAxisType' )
+    libraryUtil.checkType( 'chart.setXAxisType', 1, type, 'string', true )
+
+    if arr.contains( {'bar', 'bubble', 'line', 'scatter'}, self.type ) then
+        self:setOptions{
+            scales = {
+                x = {
+                    type = type
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param type string | nil
+---@return chart
+function chart:setYAxisType( type )
+    checkChartClass( self, 'setYAxisType' )
+    libraryUtil.checkType( 'chart.setYAxisType', 1, type, 'string', true )
+
+    if arr.contains( {'bar', 'bubble', 'line', 'scatter'}, self.type ) then
+        self:setOptions{
+            scales = {
+                y = {
+                    type = type
+                }
+            }
+        }
+    end
+
+    return self
+end
+
+---@param val boolean
+---@return chart
+function chart:showLegend( val )
+    checkChartClass( self, 'showLegend' )
+    libraryUtil.checkType( 'chart.showLegend', 1, val, 'boolean' )
+
+    self:setOptions{
+        legend = {
+            display = val
+        }
+    }
+
+    return self
+end
+
+---@param format string
+---@return chart
+function chart:setTooltipFormat( format )
+    checkChartClass( self, 'setTooltipFormat' )
+    libraryUtil.checkType( 'chart.setTooltipFormat', 1, format, 'string', true )
+
+    self:setOptions{
+        tooltips = {
+        	format = format
+        }
+    }
+
+    return self
+end
+
+---@param count number
+---@return chart
+function chart:setDatasetsPerGroup( count )
+    checkChartClass( self, 'setDatasetsPerGroup' )
+    libraryUtil.checkType( 'chart.setDatasetsPerGroup', 1, label, 'number', true )
+
+    self:setOptions{
+        datasetsPerGroup = count
+    }
+
+    return self
+end
+
+---@return chart
+function chart:flipXY()
+    checkChartClass( self, 'flipXY' )
+
+    if self.type == 'bar' then
+        self:setXAxisType( 'linear' )
+            :setYAxisType( 'category' )
+            :setOptions{
+                scales = {
+                    x = {
+                        offset = false,
+                        gridLines = {
+                            offsetGridLines = false
+                        }
+                    }
+                }
+            }
+
+        self.flippedXY = true
+
+        for _, v in ipairs( self.data.datasets ) do
+            v.indexAxis = 'y'
+        end
+    end
+
+    return self
+end
+
+---@param options options_t
+---@return chart
+function chart:setOptions( options )
+    checkChartClass( self, 'setOptions' )
+    libraryUtil.checkType( 'chart.setOptions', 1, options, 'table' )
+
+    local function _setOptions( tbl, options )
+        for k, v in pairs( options ) do
+            if type( v ) == 'table' and type( tbl[k] ) == 'table' then
+                _setOptions( tbl[k], v )
+            else
+                tbl[k] = v
+            end
+        end
+    end
+
+    _setOptions( self.options, options )
+
+    return self
+end
+
+---@return string | table
+function chart:finish()
+    checkChartClass( self, 'finish' )
+
+    for i, set in ipairs( self.data.datasets ) do
+        if (self.options.colorPallet or set.colorPallet or set.color) and
+            self.options.backgroundAlpha and
+            self.options.hoverLightenValue and
+            self.options.hoverSaturateValue and
+            self.options.hoverAlpha
+        then
+            if arr.contains( {'bar', 'pie', 'doughnut', 'polarArea'}, self.type ) then
+                if set.color and not set.colorPallet then
+                    set.borderColor = tostring( set.color )
+                    set.hoverBorderColor = tostring( set.color:lighten( self.options.hoverLightenValue )
+                                                              :saturate( self.options.hoverSaturateValue ) )
+
+                    set.backgroundColor = tostring( set.color:fade( self.options.backgroundAlpha ) )
+                    set.hoverBackgroundColor = tostring( set.color:lighten( self.options.hoverLightenValue )
+                                                                  :saturate( self.options.hoverSaturateValue )
+                                                                  :fade( self.options.hoverAlpha ) )
+                else
+                    set.borderColor = {}
+                    set.hoverBorderColor = {}
+                    set.backgroundColor = {}
+                    set.hoverBackgroundColor = {}
+
+                    local pallet = default( set.colorPallet, self.options.colorPallet )
+
+                    for j = 1, #set.data do
+                        table.insert( set.borderColor, tostring( pallet[j] ) )
+                        table.insert( set.hoverBorderColor,
+                                      tostring( pallet[j]:lighten( self.options.hoverLightenValue )
+                                                         :saturate( self.options.hoverSaturateValue ) ) )
+
+                        table.insert( set.backgroundColor, tostring( pallet[j]:fade( self.options.backgroundAlpha ) ) )
+                        table.insert( set.hoverBackgroundColor,
+                                      tostring( pallet[j]:lighten( self.options.hoverLightenValue )
+                                                         :saturate( self.options.hoverSaturateValue )
+                                                         :fade( self.options.hoverAlpha ) ) )
+                    end
+                end
+            else
+                local pallet = default( set.colorPallet, self.options.colorPallet )
+                set.borderColor = default( set.borderColor, pallet[i] )
+
+                if not set.hoverBorderColor then
+                    set.hoverBorderColor = set.borderColor:lighten( self.options.hoverLightenValue )
+                                                          :saturate( self.options.hoverSaturateValue )
+                end
+
+                set.backgroundColor =
+                    default( set.backgroundColor, self.options.colorPallet[i]:fade( self.options.backgroundAlpha ) )
+
+                if not set.hoverBackgroundColor then
+                    set.hoverBackgroundColor = set.backgroundColor:lighten( self.options.hoverLightenValue )
+                                                                  :saturate( self.options.hoverSaturateValue )
+                                                                  :fade( self.options.hoverAlpha )
+                end
+
+                set.fill = default( default( set.fill, self.options.fill ), false )
+            end
+        end
+    end
+
+    stripInvalidValues( self )
+    self.isFinished =  true
+
+    return self
+end
+
+---@return string
+function chart:tostring()
+    checkChartClass( self, 'tostring' )
+    self:finish()
+    return chart._main( self )
+end
+
+function chart:debug()
+    checkChartClass( self, 'debug' )
+    local temp = colorPalletMt.__index  -- By design this makes the color pallet tables behave like they are infinitely long,
+                                        -- so we have to turn this off first
+    local temp2 = chart.__tostring  -- Prevent chart from being turned into a json
+    colorPalletMt.__index = nil
+    chart.__tostring = nil
+    mw.logObject( self )
+    colorPalletMt.__index = temp
+    chart.__tostring = temp2
+end
+
+chart.__index = chart
+chart.__tostring = chart.tostring
+chart.__concat = function( x, y )
+    return tostring( x ) .. tostring( y )
+end
+
+-- =======================
+--      DataSet class
+-- =======================
+local checkDataSetClass = libraryUtil.makeCheckClassFunction( 'Module:Chart data' , 'dataSet', dataSet, 'dataSet object' )
+
+---@param setup options_t
+---@return dataSet
+function chart:newDataSet( setup )
+    checkChartClass( self, 'newDataSet' )
+    libraryUtil.checkType( 'chart.newDataSet', 1, setup, 'table', true )
+    local obj = setup or {}
+
+    if self.type == 'scatter'  then
+        obj.showLine = default( obj.showLine, true )
+    end
+
+    if self.type == 'bar' then
+        obj.borderWidth = default( obj.borderWidth, 1 )
+
+        if self.flippedXY then
+            obj.indexAxis = 'y'
+        end
+    end
+
+    obj.data = default( obj.data, {} )
+    obj.clip = 5
+    obj.parent = self
+
+    self:addDataSets( obj )
+
+    return setmetatable( obj, dataSet )
+end
+
+---@param data xyDataSet | dataArr
+---@return dataSet
+function dataSet:addData( data )
+    checkDataSetClass( self, 'addData' )
+    libraryUtil.checkType( 'dataSet.addData', 1, data, 'table' )
+
+    for _, v in ipairs( data ) do
+        table.insert( self.data, v )
+    end
+
+    return self
+end
+
+---@param data xyData | number
+---@return dataSet
+function dataSet:addDataPoint( data )
+    checkDataSetClass( self, 'addDataPoint' )
+    libraryUtil.checkTypeMulti( 'dataSet.addDataPoint', 1, data, {'table', 'number'} )
+    table.insert( self.data, data )
+
+    return self
+end
+
+---@param options options_t
+---@return dataSet
+function dataSet:setOptions( options )
+    checkDataSetClass( self, 'setOptions' )
+    libraryUtil.checkType( 'dataSet.setOptions', 1, options, 'table' )
+
+    local function _setOptions( tbl, options )
+        for k, v in pairs( options ) do
+            if type( v ) == 'table' and type( tbl[k] ) == 'table' then
+                _setOptions( tbl[k], v )
+            else
+                tbl[k] = v
+            end
+        end
+    end
+
+    _setOptions( self, options )
+
+    return self
+end
+
+---@return chart
+function dataSet:done()
+    checkDataSetClass( self, 'done' )
+    return self.parent
+end
+
+dataSet.__index = dataSet
+
+return chart
+-- </nowiki>

@@ -1,0 +1,11 @@
+return {
+	itemId    = 32020,
+	item      = "Large bronze keel parts",
+	icon      = 'Large bronze keel parts.png',
+    alchable  = true,
+	value     = 175,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a bronze keel for larger boats."
+}

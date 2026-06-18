@@ -1,0 +1,500 @@
+local tables = require('Module:Tables')
+local VariablesLua = mw.ext.VariablesLua
+local p = {}
+
+
+local whitelist = {
+	["... 'til Dawn"] = true, 
+	["A Demon's Best Friend"] = true, 
+	["A Frozen Foe from the Past"] = true, 
+	["A Frozen King"] = true, 
+	["A Greater Foe"] = true, 
+	["A Long Trip"] = true, 
+	["A Near Miss!"] = true, 
+	["A Not So Special Lizard"] = true, 
+	["A Scaley Encounter"] = true, 
+	["A Slithery Encounter"] = true, 
+	["A Slow Death"] = true, 
+	["A Smashing Time"] = true, 
+	["A Timely Snack"] = true, 
+	["Alchemical Master"] = true, 
+	["Alchemical Speed-Chaser"] = true, 
+	["Alchemical Speed-Runner"] = true, 
+	["Alchemical Veteran"] = true, 
+	["Alcleanical Hydra"] = true, 
+	["Anti-Bite Mechanics"] = true, 
+	["Anticoagulants"] = true, 
+	["Antifire Protection"] = true, 
+	["Anvil No More"] = true, 
+	["Arooo No More"] = true, 
+	["Ash Collector"] = true, 
+	["Attack,  Step,  Wait"] = true, 
+	["Avoiding Those Little Arms"] = true, 
+	["Back in My Day..."] = true, 
+	["Back to the Wall"] = true, 
+	["Barrows Champion"] = true, 
+	["Barrows Novice"] = true, 
+	["Big,  Black and Fiery"] = true, 
+	["Blind Spot"] = true, 
+	["Blizzard Dodger"] = true, 
+	["Brutal,  Big,  Black and Firey"] = true, 
+	["Bryophyta Champion"] = true, 
+	["Bryophyta Novice"] = true, 
+	["Budget Setup"] = true, 
+	["Callisto Adept"] = true, 
+	["Callisto Veteran"] = true, 
+	["Can You Dance?"] = true, 
+	["Can't Drain This"] = true, 
+	["Can't Touch Me"] = true, 
+	["Can't Wake Up"] = true, 
+	["Cerberus Master"] = true, 
+	["Cerberus Veteran"] = true, 
+	["Chambers of Xeric (5-Scale) Speed-Chaser"] = true, 
+	["Chambers of Xeric (5-Scale) Speed-Runner"] = true, 
+	["Chambers of Xeric (Solo) Speed-Chaser"] = true, 
+	["Chambers of Xeric (Solo) Speed-Runner"] = true, 
+	["Chambers of Xeric (Trio) Speed-Chaser"] = true, 
+	["Chambers of Xeric (Trio) Speed-Runner"] = true, 
+	["Chambers of Xeric Grandmaster"] = true, 
+	["Chambers of Xeric Master"] = true, 
+	["Chambers of Xeric Veteran"] = true, 
+	["Chambers of Xeric: CM (5-Scale) Speed-Chaser"] = true, 
+	["Chambers of Xeric: CM (5-Scale) Speed-Runner"] = true, 
+	["Chambers of Xeric: CM (Solo) Speed-Chaser"] = true, 
+	["Chambers of Xeric: CM (Solo) Speed-Runner"] = true, 
+	["Chambers of Xeric: CM (Trio) Speed-Chaser"] = true, 
+	["Chambers of Xeric: CM (Trio) Speed-Runner"] = true, 
+	["Chambers of Xeric: CM Grandmaster"] = true, 
+	["Chambers of Xeric: CM Master"] = true, 
+	["Chaos Elemental Adept"] = true, 
+	["Chaos Elemental Veteran"] = true, 
+	["Chaos Fanatic Adept"] = true, 
+	["Chaos Fanatic Champion"] = true, 
+	["Chicken Killer"] = true, 
+	["Chitin Penetrator"] = true, 
+	["Claw Clipper"] = true, 
+	["Colosseum Grand Champion"] = true, 
+	["Colosseum Speed-Chaser"] = true, 
+	["Colosseum Speed-Runner"] = true, 
+	["Corporeal Beast Master"] = true, 
+	["Corporeal Beast Veteran"] = true, 
+	["Crazy Archaeologist Adept"] = true, 
+	["Crazy Archaeologist Champion"] = true, 
+	["Crush Hour"] = true, 
+	["Cryo No More"] = true, 
+	["Dagannoth Prime Adept"] = true, 
+	["Dagannoth Prime Champion"] = true, 
+	["Dagannoth Rex Adept"] = true, 
+	["Dagannoth Rex Champion"] = true, 
+	["Dagannoth Supreme Adept"] = true, 
+	["Dagannoth Supreme Champion"] = true, 
+	["Dancing with Statues"] = true, 
+	["Death to the Archer King"] = true, 
+	["Death to the Seer King"] = true, 
+	["Death to the Warrior King"] = true, 
+	["Defence Matters"] = true, 
+	["Defence? What Defence?"] = true, 
+	["Demon Evasion"] = true, 
+	["Demon Whisperer"] = true, 
+	["Demonbane Weaponry"] = true, 
+	["Demonbane Weaponry II"] = true, 
+	["Demonic Defence"] = true, 
+	["Demonic Showdown"] = true, 
+	["Demonic Weakening"] = true, 
+	["Denied"] = true, 
+	["Denying the Healers"] = true, 
+	["Denying the Healers II"] = true, 
+	["Don't Flame Me"] = true, 
+	["Don't Look at Me!"] = true, 
+	["Don't Look at the Eclipse"] = true, 
+	["Done before Dusk"] = true, 
+	["Dreamland Express"] = true, 
+	["Dust Seeker"] = true, 
+	["Efficient Pest Control"] = true, 
+	["Explosion!"] = true, 
+	["Facing Jad Head-on"] = true, 
+	["Facing Jad Head-on II"] = true, 
+	["Facing Jad Head-on III"] = true, 
+	["Facing Jad Head-on IV"] = true, 
+	["Faithless Crypt Run"] = true, 
+	["Fight Caves Master"] = true, 
+	["Fight Caves Speed-Chaser"] = true, 
+	["Fight Caves Speed-Runner"] = true, 
+	["Fight Caves Veteran"] = true, 
+	["Fighting as Intended"] = true, 
+	["Fighting as Intended II"] = true, 
+	["From Dusk..."] = true, 
+	["From One King to Another"] = true, 
+	["Furball"] = true, 
+	["General Graardor Adept"] = true, 
+	["General Graardor Veteran"] = true, 
+	["General Showdown"] = true, 
+	["Ghost Buster"] = true, 
+	["Giant Mole Champion"] = true, 
+	["Giant Mole Novice"] = true, 
+	["Granite Footwork"] = true, 
+	["Grotesque Guardians Adept"] = true, 
+	["Grotesque Guardians Speed-Chaser"] = true, 
+	["Grotesque Guardians Speed-Runner"] = true, 
+	["Grotesque Guardians Speed-Trialist"] = true, 
+	["Grotesque Guardians Veteran"] = true, 
+	["Guardians No More"] = true, 
+	["Half-Way There"] = true, 
+	["Hard Hitter"] = true, 
+	["Hard Mode? Completed It"] = true, 
+	["Harder Mode I"] = true, 
+	["Harder Mode II"] = true, 
+	["Harder Mode III"] = true, 
+	["Hazard Prevention"] = true, 
+	["Heal No More"] = true, 
+	["Hide Penetration"] = true, 
+	["Hoarder"] = true, 
+	["Hot on Your Feet"] = true, 
+	["I Brought Mine Too"] = true, 
+	["I Can't Reach That"] = true, 
+	["I Would Simply React"] = true, 
+	["I was here first!"] = true, 
+	["I'd Rather Not Learn"] = true, 
+	["Immortal Raid Team"] = true, 
+	["Immortal Raider"] = true, 
+	["Inferno Grandmaster"] = true, 
+	["Inferno Speed-Runner"] = true, 
+	["Inspect Repellent"] = true, 
+	["Into the Den of Giants"] = true, 
+	["It Wasn't a Fluke"] = true, 
+	["Jad? What Are You Doing Here?"] = true, 
+	["Just Like That"] = true, 
+	["Just To Be Safe"] = true, 
+	["K'ril Tsutsaroth Adept"] = true, 
+	["K'ril Tsutsaroth Veteran"] = true, 
+	["Kalphite Queen Adept"] = true, 
+	["Kalphite Queen Veteran"] = true, 
+	["Keep Away"] = true, 
+	["Kill It with Fire"] = true, 
+	["King Black Dragon Champion"] = true, 
+	["King Black Dragon Novice"] = true, 
+	["Krakan't Hurt Me"] = true, 
+	["Kraken Adept"] = true, 
+	["Lightning Lure"] = true, 
+	["Mage of the Ruins"] = true, 
+	["Master of Broad Weaponry"] = true, 
+	["Mimic Veteran"] = true, 
+	["Mixing Correctly"] = true, 
+	["Morytania Only"] = true, 
+	["Multi-Style Specialist"] = true, 
+	["Mutta-diet"] = true, 
+	["Newspaper Enthusiast"] = true, 
+	["Nibbler Chaser"] = true, 
+	["Nibblers,  Begone!"] = true, 
+	["Nightmare (5-Scale) Speed-Chaser"] = true, 
+	["Nightmare (5-Scale) Speed-Runner"] = true, 
+	["Nightmare (5-Scale) Speed-Trialist"] = true, 
+	["Nightmare (Solo) Speed-Chaser"] = true, 
+	["Nightmare (Solo) Speed-Runner"] = true, 
+	["Nightmare (Solo) Speed-Trialist"] = true, 
+	["Nightmare Adept"] = true, 
+	["Nightmare Master"] = true, 
+	["Nightmare Veteran"] = true, 
+	["No Luck Required"] = true, 
+	["No Pressure"] = true, 
+	["No Time for Death"] = true, 
+	["No Time for a Drink"] = true, 
+	["No-Pillar"] = true, 
+	["Not So Great After All"] = true, 
+	["Noxious Foe"] = true, 
+	["Nylo Sniper"] = true, 
+	["Obor Champion"] = true, 
+	["Obor Novice"] = true, 
+	["One Hundred Tentacles"] = true, 
+	["One-off"] = true, 
+	["Ourg Freezer"] = true, 
+	["Ourg Freezer II"] = true, 
+	["Ourg Killer"] = true, 
+	["Pack Like a Yak"] = true, 
+	["Pass It On"] = true, 
+	["Perfect Bloat"] = true, 
+	["Perfect Footwork"] = true, 
+	["Perfect Grotesque Guardians"] = true, 
+	["Perfect Grotesque Guardians II"] = true, 
+	["Perfect Maiden"] = true, 
+	["Perfect Nightmare"] = true, 
+	["Perfect Nylocas"] = true, 
+	["Perfect Olm (Solo)"] = true, 
+	["Perfect Olm (Trio)"] = true, 
+	["Perfect Phosani's Nightmare"] = true, 
+	["Perfect Scurrius"] = true, 
+	["Perfect Sotesteg"] = true, 
+	["Perfect Theatre"] = true, 
+	["Perfect Verzik"] = true, 
+	["Perfect Xarpus"] = true, 
+	["Perfectly Balanced"] = true, 
+	["Personal Space"] = true, 
+	["Phosani's Grandmaster"] = true, 
+	["Phosani's Master"] = true, 
+	["Phosani's Speedchaser"] = true, 
+	["Phosani's Speedrunner"] = true, 
+	["Phosani's Veteran"] = true, 
+	["Playing with Jads"] = true, 
+	["Playing with Lasers"] = true, 
+	["Pop It"] = true, 
+	["Pray for Success"] = true, 
+	["Prayer Smasher"] = true, 
+	["Praying to the Gods"] = true, 
+	["Preparation Is Key"] = true, 
+	["Prison Break"] = true, 
+	["Protection from Moss"] = true, 
+	["Putting It Olm on the Line"] = true, 
+	["Quick Cutter"] = true, 
+	["Rapid Succession"] = true, 
+	["Ready to Pounce"] = true, 
+	["Redemption Enthusiast"] = true, 
+	["Reinforcements"] = true, 
+	["Rockin' around the croc"] = true, 
+	["Royal Affairs"] = true, 
+	["Sarachnis Champion"] = true, 
+	["Sarachnis Novice"] = true, 
+	["Scorpia Adept"] = true, 
+	["Scorpia Veteran"] = true, 
+	["Scurrius Champion"] = true, 
+	["Scurrius Novice"] = true, 
+	["Shayzien Protector"] = true, 
+	["Shayzien Specialist"] = true, 
+	["Showboating"] = true, 
+	["Sit Rat"] = true, 
+	["Skotizo Adept"] = true, 
+	["Skotizo Champion"] = true, 
+	["Sleep Tight"] = true, 
+	["Sleeping Giant"] = true, 
+	["Slow Dancing in the Sand"] = true, 
+	["Sorry,  What Was That?"] = true, 
+	["Spec'd Out"] = true, 
+	["Sportsmanship"] = true, 
+	["Squashing the Giant"] = true, 
+	["Static Awareness"] = true, 
+	["Stop Drop and Roll"] = true, 
+	["Stop Right There!"] = true, 
+	["Supplies? Who Needs 'em?"] = true, 
+	["Team Work Makes the Dream Work"] = true, 
+	["Ten-tacles"] = true, 
+	["Terrible Parent"] = true, 
+	["The Bane of Demons"] = true, 
+	["The Demonic Punching Bag"] = true, 
+	["The Flame Skipper"] = true, 
+	["The Flincher"] = true, 
+	["The Floor Is Lava"] = true, 
+	["The II Jad Challenge"] = true, 
+	["The IV Jad Challenge"] = true, 
+	["The VI Jad Challenge"] = true, 
+	["The Walking Volcano"] = true, 
+	["Theatre (4-Scale) Speed-Chaser"] = true, 
+	["Theatre (4-Scale) Speed-Runner"] = true, 
+	["Theatre (5-Scale) Speed-Chaser"] = true, 
+	["Theatre (5-Scale) Speed-Runner"] = true, 
+	["Theatre (Duo) Speed-Runner"] = true, 
+	["Theatre (Trio) Speed-Chaser"] = true, 
+	["Theatre (Trio) Speed-Runner"] = true, 
+	["Theatre of Blood Grandmaster"] = true, 
+	["Theatre of Blood Master"] = true, 
+	["Theatre of Blood Veteran"] = true, 
+	["Theatre of Blood: HM Grandmaster"] = true, 
+	["Theatre of Blood: SM Adept"] = true, 
+	["Theatre of Blood: SM Speed-Chaser"] = true, 
+	["Theatre: HM (4-Scale) Speed-Runner"] = true, 
+	["Theatre: HM (5-Scale) Speed-Runner"] = true, 
+	["Theatre: HM (Trio) Speed-Runner"] = true, 
+	["Thermonuclear Veteran"] = true, 
+	["They Won't Expect This"] = true, 
+	["Together We'll Fall"] = true, 
+	["Toppling the Diarchy"] = true, 
+	["Two-Down"] = true, 
+	["TzHaar-Ket-Rak's Speed-Chaser"] = true, 
+	["TzHaar-Ket-Rak's Speed-Runner"] = true, 
+	["TzHaar-Ket-Rak's Speed-Trialist"] = true, 
+	["Undying Raid Team"] = true, 
+	["Undying Raider"] = true, 
+	["Unnecessary Optimization"] = true, 
+	["Unrequired Antifire"] = true, 
+	["Unrequired Antipoisons"] = true, 
+	["Up for the Challenge"] = true, 
+	["Venenatis Adept"] = true, 
+	["Venenatis Veteran"] = true, 
+	["Vet'eran"] = true, 
+	["Vet'ion Adept"] = true, 
+	["Wasn't Even Close"] = true, 
+	["Whack-a-Mole"] = true, 
+	["Who Is the King Now?"] = true, 
+	["Why Are You Running?"] = true, 
+	["Working Overtime"] = true, 
+	["Yarr No More"] = true, 
+	["You Didn't Say Anything About a Bat"] = true,
+	["Elemental Company"] = true,
+	["Let them fight"] = true,
+	["One by one"] = true,
+	["It takes too long"] = true,
+	["Royal Titan Adept"] = true,
+	["Royal Titan Champion"] = true,
+	["I need room"] = true,
+	["Perfect Royal Titans"] = true,
+	["Titan Killer"] = true,
+	["Royal Titan Speed-Runner"] = true,
+	["No time to pray"] = true,
+	["You're a wizard"] = true,
+	["Hueycoatl Champion"] = true,
+	["Pillar Lover"] = true,
+	["Hueycoatl Adept"] = true,
+	["Hueycoatl Veteran"] = true,
+	["Perfect Hueycoatl"] = true,
+	["Hueycoatl Speed-Trialist"] = true,
+	["Is it a bird?"] = true,
+	["Hueycoatl Speed-Chaser"] = true,
+	["Hueycoatl Speed-Runner"] = true
+}
+
+local prose = {
+	monster = '',
+	taskamount = 0,
+	ptsamount = 0
+}
+
+local headers = {
+	monster = "Monster",
+	name = "Name",
+	description = { text = "Description", attr = { class = 'unsortable' } },
+	tier = "Tier",
+	_type = "Type",
+	completion = '<span style="cursor:help; border-bottom:1px dotted;" title="Estimated percentage of players (with at least one CA completion) who have completed this achievement, based on wiki crowdsourcing">Comp%</span>'
+}
+
+local tiers = {
+	easy = 1,
+	medium = 2,
+	hard = 3,
+	elite = 4,
+	master = 5,
+	grandmaster = 6
+}
+
+local function sortByTierAndMonster(k1, k2) 
+	local k1_tier = tiers[string.lower(k1.tier)]
+	local k2_tier = tiers[string.lower(k2.tier)]
+	if k1_tier < k2_tier then
+		return true
+	elseif k1_tier > k2_tier then
+		return false
+	elseif k1.monster < k2.monster then
+		return true
+	elseif k1.monster > k2.monster then
+		return false
+	else
+		return false
+	end
+end
+
+local function completionCell(id)
+	local completion_percent = mw.loadJsonData("Module:Combat Achievements/completion.json")[tonumber(id)]
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 1) then
+			color = "orange"
+		elseif (completion_percent < 10) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		return {text = tostring(completion_percent)..'%', class = "table-bg-" .. color}
+	else
+		return {text = "N/A", class="table-na nohighlight"}
+	end	
+end
+
+local function makeTable(data, columns)
+	local taskTable = mw.html.create('table'):addClass('wikitable lighttable sortable qc-active ca-tasks'):cssText('max-width: 800px')
+	
+	local columnValues = {}
+	for _, v in ipairs(columns) do
+		table.insert(columnValues, headers[v])
+	end
+	tables._row(taskTable:tag('tr'), columnValues, true)
+	
+	for _, v in ipairs(data) do
+		if whitelist[v.name] then
+			local rowData = {
+				monster = v.monster == "None" and "N/A" or string.format("[[%s]]", v.monster),
+				name = string.format("[[%s]]", v.name),
+				description = v.task,
+				tier = { text = ( v.tier .. '&nbsp;(' .. tiers[v.tier:lower()] .. '&nbsp;' .. (tiers[v.tier:lower()] == 1 and 'pt' or 'pts') .. ')' ), attr = { ['data-sort-value'] = tiers[v.tier:lower()] } },
+				_type = v["type"],
+				completion = completionCell(v.id)
+			}
+			
+			local row = {}
+			for _, column in ipairs(columns) do
+				table.insert(row, rowData[column])
+			end
+			
+			local htmlRow = taskTable:tag('tr'):attr('data-ca-task-id', v.id)
+			tables._row(htmlRow, row, false)
+			
+			prose.taskamount = prose.taskamount + 1
+			prose.ptsamount = prose.ptsamount + tiers[v.tier:lower()]
+		end
+	end
+
+	return taskTable
+end
+
+function p.list(frame)
+	local args = frame:getParent().args
+	
+	local columns = {"name", "description", "_type"}
+	local query = bucket("combat_achievement").select("id", "name", "monster", "task", "tier", "type", "league_region").limit(5000)
+		
+	if args[1] == 'all' then
+		-- No where condition, give us all of them
+		table.insert(columns, 1, "monster")
+        table.insert(columns, "tier")
+	elseif tiers[string.lower(args[1])] ~= nil then
+		-- Get all Combat Achievement tasks for a tier and display its monster
+		query.where("tier", args[1])
+		table.insert(columns, 1, "monster")
+	else
+		-- Get all Combat Achievement tasks for a boss and display its tier
+		query.where("monster", args[1])
+        table.insert(columns, "tier")
+	end
+	if args['leagues'] and args['leagues'] == 'yes' then
+		table.insert(columns, "league_region")
+	else
+		table.insert(columns, "completion")
+	end
+	
+	prose.monster = args.mobname or args[1]
+	
+	local data = query.run()
+	table.sort(data, sortByTierAndMonster)
+	
+	local rettbl = tostring( makeTable(data, columns) )
+	local strplural = (prose.taskamount ~= 1)
+	local moduleInvokedOnce = VariablesLua.varexists('caListModuleInvoked')
+	local retstr = ( string.find( mw.title.getCurrentTitle().text, 'Combat Achievements') and '' or
+		string.format('<p>There %s %s %s task%s (totalling %s point%s) available for %s.</p>',
+			(strplural and 'are' or 'is'),
+			prose.taskamount,
+			(moduleInvokedOnce and 'Combat Achievement' or '[[Combat Achievements|Combat Achievement]]'),
+			(strplural and 's' or ''),
+			prose.ptsamount,
+			(prose.ptsamount ~= 1 and 's' or ''),
+			prose.monster
+		) )
+	
+	VariablesLua.vardefine( 'caListModuleInvoked', 0 )
+
+	return retstr .. rettbl
+end
+
+return p

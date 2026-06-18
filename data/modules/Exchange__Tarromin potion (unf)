@@ -1,0 +1,12 @@
+return {
+    itemId     = 95,
+    icon       = 'Tarromin potion (unf).png',
+    item       = 'Tarromin potion (unf)',
+    value      = 11,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Tarromin potion.',
+    hialch     = 6,
+    lowalch    = 4
+}

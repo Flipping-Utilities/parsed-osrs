@@ -1,0 +1,82 @@
+local p = {}
+
+local yesno = require('Module:Yesno')
+local na = require('Module:NA')
+local map = require('Module:Map')
+local tb = require('Module:Trailblazer Region')
+
+function p.main(frame)
+  local args = frame:getParent().args
+
+  local locationRow = mw.html.create('tr')
+  locationRow:tag('td'):wikitext(args.name)
+  locationRow:tag('td'):wikitext(args.location)
+
+  if args.notes ~= nil then
+    locationRow:tag('td'):wikitext(tostring(args.notes))
+  end
+
+  local members = (args.members and args.members:lower() == 'yes' and 'yes') or 'no'
+  local membersIcon = mw.getCurrentFrame():expandTemplate({ title = 'members', args = { members } })
+  locationRow:tag('td'):wikitext(membersIcon)
+
+  local mapNode = GetMap(args, members)
+  locationRow:node(mapNode)
+
+  local leagueRegion = args.leagueRegion
+  if leagueRegion then
+    if yesno(leagueRegion, true) then
+      locationRow:tag('td'):attr('class', 'leagues-global-flag'):wikitext(tb.regionsWithSizeThreshold(leagueRegion))
+    else
+      locationRow:tag('td'):attr('class', 'table-na leagues-global-flag'):wikitext('<small>N/A</small>')
+    end
+  end
+
+  return tostring(locationRow)
+end
+
+function GetMap(args, members)
+  local mapNode = mw.html.create('td')
+  local mapOutput
+
+  if not args.mtype then
+    -- Get text from first wikilink
+    -- Allows for link renaming and subobject selection
+    local name = args.name:match('%[%[([^%|%]]+)')
+
+    mapOutput = map.buildMap({
+      fromBucket = name,
+      type = 'maplink',
+      text = 'Maplink'
+    })
+  else
+    local mapArgs = {}
+    for k, v in pairs(args) do
+      mapArgs[k] = v
+    end
+
+    mapArgs.type = 'maplink'
+
+    if args.name then
+      mapArgs.title = args.name
+    end
+
+    if members then
+      mapArgs.icon = 'redPin'
+    else
+      mapArgs.icon = 'bluePin'
+    end
+
+    mapOutput = map.buildMap(mapArgs)
+  end
+
+  if mapOutput then
+    mapNode:wikitext(mapOutput)
+  else
+    na.styleNode(mapNode, 'Unknown')
+  end
+
+  return mapNode
+end
+
+return p

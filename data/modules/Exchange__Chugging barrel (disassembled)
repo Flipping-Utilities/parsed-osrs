@@ -1,0 +1,10 @@
+return {
+    itemId     = 30002,
+    icon       = 'Chugging barrel (disassembled).png',
+    item       = 'Chugging barrel (disassembled)',
+    value      = 1000,
+    limit      = 5,
+    members    = true,
+    category   = nil,
+    examine    = 'Can be assembled to consume multiple potions.'
+}

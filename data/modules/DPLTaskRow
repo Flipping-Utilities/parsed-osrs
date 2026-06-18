@@ -1,0 +1,61 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local id = args.id
+	local pactTask = args.pactTask or "no"
+	
+	p.writeBucket(args)
+	
+	return p._main(id)
+end
+
+function p.writeBucket(args)
+	if 	mw.title.getCurrentTitle().namespace ~= 0 then
+		return
+	end
+
+	local pactTask = args.pactTask or "no"
+	local skill = args.s or ""
+	local other = args.other or ""
+	local id_num = tonumber(args.id)
+	
+	local data = {
+		["name"] = args[1] or "",
+		["description"] = args[2] or "",
+		["skill"] = skill,
+		["other"] = other,
+		["tier"] = args.tier or "",
+		["region"] = args.region or "",
+		["pact_task"] = pactTask,
+		["id"] = id_num,
+		["completion"] = mw.loadJsonData("Module:Demonic Pacts League/Tasks/completion.json")[id_num]
+	}
+	-- mw.logObject(data)
+	
+	bucket('demonicpactleaguetask').put(data)
+end
+
+function p._main(id)
+	local completion_percent = mw.loadJsonData("Module:Demonic_Pacts_League/Tasks/completion.json")[tonumber(id)]
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 1) then
+			color = "orange"
+		elseif (completion_percent < 10) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		return string.format("class='table-bg-%s' | %s%%", color, completion_percent)
+	else
+		return "class='table-na nohighlight' style='text-align: center;' | <small>N/A</small>"
+	end
+end
+
+return p

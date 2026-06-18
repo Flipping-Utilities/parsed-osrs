@@ -1,0 +1,204 @@
+local chart = require( 'Module:Chart data' )
+local gePrice = require('Module:Exchange')._price
+local idkWhatImDoingButThisWorks = require( 'Module:Skilling success chart').interp
+
+local p = {}
+
+local BRIMSTONE_QTYS = {
+	['Raw tuna'] = {100, 350},
+	['Raw lobster'] = {100, 350},
+	['Raw swordfish'] = {100, 300},
+	['Raw monkfish'] = {100, 300},
+	['Raw shark'] = {80, 250},
+	['Raw sea turtle'] = {80, 200},
+	['Raw manta ray'] = {80, 160}
+}
+local QTY_SCALING = {
+	brimstone = 1,
+	big = 3/2
+}
+
+function expectedRatesAtLevel(level)
+	mantaRoll = interp(-10, 20, level)
+	turtleRoll = interp(-10, 50, level)
+	sharkRoll = interp(-60, 40, level)
+	monkRoll = interp(0, 170, level)
+	swordRoll = interp(25, 200, level)
+	tunaRoll = interp(160, 0, level)
+	
+	probManta = mantaRoll
+	probTurtle = turtleRoll * (1 - mantaRoll)
+	probShark = sharkRoll * (1 - mantaRoll) * (1 - turtleRoll)
+	probMonk = monkRoll * (1 - sharkRoll) * (1 - mantaRoll) * (1 - turtleRoll)
+	probSword = swordRoll * (1 - monkRoll) * (1 - sharkRoll) * (1 - mantaRoll) * (1 - turtleRoll)
+	probTuna = tunaRoll * (1 - swordRoll) * (1 - monkRoll) * (1 - sharkRoll) * (1 - mantaRoll) * (1 - turtleRoll)
+	probLoblaw = 1 - (probManta + probTurtle + probShark + probMonk + probSword + probTuna)
+	
+	-- manta, turtle, and shark all actually roll subtables containing
+	-- the fish (2/8) + shark (3/8) + shark lure (3/8)
+	adjManta = probManta * 2/8
+	adjTurtle = probTurtle * 2/8
+	adjShark = probShark * 2/8 + probShark * 3/8 + probManta * 3/8 + probTurtle * 3/8
+	adjLure = probShark * 3/8 + probManta * 3/8 + probTurtle * 3/8
+	
+	return {
+		['Shark lure'] = adjLure,
+		['Raw manta ray'] = adjManta,
+		['Raw sea turtle'] = adjTurtle,
+		['Raw shark'] = adjShark,
+		['Raw monkfish'] = probMonk,
+		['Raw swordfish'] = probSword,
+		['Raw tuna'] = probTuna,
+		['Raw lobster'] = probLoblaw
+	}
+end
+
+function avgQtysForChest(chest)
+	local avgQtys = {}
+	local chestFactor = QTY_SCALING[chest]
+
+	for fish, lowHighQtys in pairs(BRIMSTONE_QTYS) do
+		low, high = unpack(lowHighQtys)
+		count = 0
+		sum = 0
+		for qty = low, high do
+			count = count + 1
+			sum = sum + math.floor(qty * chestFactor)
+		end
+		avg = sum / count
+		avgQtys[fish] = avg
+	end
+	
+	sharkLow, sharkHigh = unpack(BRIMSTONE_QTYS['Raw shark'])
+	count = 0
+	sum = 0
+	for sharkQty = sharkLow, sharkHigh do
+		count = count + 1
+		sum = sum + math.floor(sharkQty * chestFactor * 2)
+		avg = sum / count
+		avgQtys['Shark lure'] = avg
+	end
+	
+	return avgQtys
+end
+
+function p._avgPriceForChest(chest, level)
+	local avgQtys = avgQtysForChest(chest)
+	local ratesAtLevel = expectedRatesAtLevel(level)
+
+	local totalPrice = 0
+	for fish, avgQty in pairs(avgQtys) do
+		pricePer = gePrice(fish)
+		price = pricePer * avgQty
+		
+		-- 3/60 chance to get fish, then some chance to get particular fish
+		rate = ratesAtLevel[fish] / 20
+		expectedValue = price * rate
+
+		totalPrice = totalPrice + expectedValue
+	end
+
+	return math.floor(totalPrice)
+end
+
+function calculateDataSets(args)
+	local dataSets = {}
+
+	local lureData = {}
+	local mantaData = {}
+	local turtleData = {}
+	local sharkData = {}
+	local monkData = {}
+	local swordData = {}
+	local tunaData = {}
+	local lobData = {}
+
+	for x = 1, 99 do
+		rates = expectedRatesAtLevel(x)
+		table.insert(lureData, {x=x, y=rates['Shark lure']})
+		table.insert(mantaData, {x=x, y=rates['Raw manta ray']})
+		table.insert(turtleData, {x=x, y=rates['Raw sea turtle']})
+		table.insert(sharkData, {x=x, y=rates['Raw shark']})
+		table.insert(monkData, {x=x, y=rates['Raw monkfish']})
+		table.insert(swordData, {x=x, y=rates['Raw swordfish']})
+		table.insert(tunaData, {x=x, y=rates['Raw tuna']})
+		table.insert(lobData, {x=x, y=rates['Raw lobster']})
+	end
+
+	local chartConfig = {
+		[1] = {'Raw manta ray', mantaData, '#7570b3'},
+		[2] = {'Raw sea turtle', turtleData, '#1b9e77'},
+		[3] = {'Raw shark', sharkData, '#a0a0a0'},
+		[4] = {'Shark lure', lureData, '#66a61e'},
+		[5] = {'Raw monkfish', monkData, '#90601d'},
+		[6] = {'Raw swordfish', swordData, '#e7298a'},
+		[7] = {'Raw tuna', tunaData, '#f0b002'},
+		[8] = {'Raw lobster', lobData, '#d95f02'}
+	}
+
+	for _, conf in ipairs(chartConfig) do
+		fish, data, color = unpack(conf)
+		img = fish .. '.png'
+
+		table.insert(dataSets, {
+			data = {},
+			label = fish .. '  ',
+			borderDash = {5, 5},
+			borderCapStyle = 'round',
+			pointRadius = 0,
+			baseColor = color,
+			pointStyleImg = img
+		})
+		table.insert(dataSets, {
+			data = data,
+			label = fish .. '  ',
+			borderDash = {},
+			borderCapStyle = 'round',
+			pointRadius = 0,
+			baseColor = color
+		})
+		table.insert(dataSets, {
+			data = {{x = 99, y = data[99]['y']}},
+			borderDash = {},
+			borderCapStyle = 'round',
+			baseColor = color,
+			pointRadius = 5
+		})
+	end
+
+	return dataSets
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+function p._main(args)
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( args.title )
+        :setDimensions( '550px', '400px', '550px', '400px', true )
+        :setXLimits( 1, 99, 5 )
+        :setYLimits( 0, 0.6, 0.1 )
+        :setYFormat( 'percent' )
+        :setXLabel( 'Fishing level' )
+        :setYLabel( 'Chance to receive' )
+        :setTooltipFormat( 'skillingSuccess' )
+        :setDatasetsPerGroup(3)
+
+	local dataSets = calculateDataSets(args)
+	for i, dataSet in ipairs(dataSets) do
+		plot:newDataSet(dataSet)
+	end
+
+    return plot
+end
+
+function p.avgPriceForChest(frame)
+	local args = frame.args
+	local chest = args.chest
+	local level = args.level
+	return p._avgPriceForChest(chest, level)
+end
+
+return p

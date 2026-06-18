@@ -1,0 +1,7 @@
+local p = {}
+
+function p.process(frame)
+	return mw.getCurrentFrame():preprocess(frame:getParent().args[1])
+end
+
+return p

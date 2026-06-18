@@ -1,0 +1,11 @@
+return {
+	itemId    = 32080,
+	item      = "Large rosewood hull parts",
+	icon      = 'Large rosewood hull parts.png',
+    alchable  = true,
+	value     = 93750,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a rosewood hull for a boat."
+}

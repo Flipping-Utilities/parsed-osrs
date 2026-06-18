@@ -1,0 +1,12 @@
+return {
+    itemId     = 444,
+    icon       = 'Gold ore.png',
+    item       = 'Gold ore',
+    value      = 150,
+    limit      = 30000,
+    members    = false,
+    category   = nil,
+    examine    = 'This needs refining.',
+    hialch     = 90,
+    lowalch    = 60
+}

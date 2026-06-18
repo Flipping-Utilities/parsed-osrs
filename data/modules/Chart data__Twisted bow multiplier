@@ -1,0 +1,105 @@
+local helper = require('Module:Chart data')
+
+local function accuracyMultiplier(magic, magicCap)
+	magic = math.min(magic, magicCap)
+	return 140 + (30 * magic / 10 - 10) / 100 - (3 * magic / 10 - 100) ^ 2 / 100
+end
+
+local function damageMultiplier(magic, magicCap)
+	magic = math.min(magic, magicCap)
+	return 250 + (30 * magic / 10 - 14) / 100 - (3 * magic / 10 - 140) ^ 2 / 100
+end
+
+local function dataWithLabels(magicFn, multiplierCap, magicCap, label)
+	local data = helper.generateXYFromFunc(function(x)
+		return math.min(magicFn(x, magicCap), multiplierCap) / 100
+	end, 0, 400)
+
+	for _key, val in pairs(data) do
+		val.label = 'Magic: ' .. tostring(val.x) .. ' ' .. label .. ': ' .. string.format('%.2f', val.y * 100) .. '%'
+	end
+
+	return data
+end
+
+local function accuracyData(magicCap, labelPrefix)
+	return dataWithLabels(accuracyMultiplier, 140, magicCap, labelPrefix)
+end
+
+local function damageData(magicCap, labelPrefix)
+	return dataWithLabels(damageMultiplier, 250, magicCap, labelPrefix)
+end
+
+local data = {
+	type = 'scatter',
+	data = {
+		datasets = {
+			{
+				label = 'Accuracy',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[4]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[4]),
+				data = accuracyData(250, 'Accuracy')
+			},
+			{
+				label = 'Damage',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[6]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[6]),
+				data = damageData(250, 'Damage')
+			},
+			{
+				label = 'Damage (inside CoX)',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[5]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[5]),
+				data = damageData(350, 'Damage (inside CoX)')
+			},
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		title = {
+			display = true,
+			text = 'Twisted bow multiplier',
+			font = {
+				size = 18
+			}
+		},
+		tooltips = {
+			format = 'custom',
+			intersect = false
+		},
+		elements = {
+			point = {
+				radius = 0
+			}
+		},
+		scales = {
+			xAxes = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Magic',
+				}
+			},
+			yAxes = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Multiplier'
+				},
+				ticks = {
+					format = {
+						style = 'percent',
+						minimumSignificantDigits = 1,
+						maximumSignificantDigits = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+return data

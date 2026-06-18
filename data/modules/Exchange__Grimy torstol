@@ -1,0 +1,12 @@
+return {
+    itemId     = 219,
+    icon       = 'Grimy torstol.png',
+    item       = 'Grimy torstol',
+    value      = 25,
+    limit      = 11000,
+    members    = true,
+    category   = nil,
+    examine    = 'It needs cleaning.',
+    hialch     = 15,
+    lowalch    = 10
+}

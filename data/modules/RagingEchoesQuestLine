@@ -1,0 +1,65 @@
+local tb = require('Module:Trailblazer Region')._badge
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local orRegions = args['or'] or 'No'
+	
+	local regions = {'misthalin', 'karamja', 'asgarnia', 'desert', 'fremennik', 'kandarin', 'morytania', 'tirannwn', 'wilderness', 'kourend', 'varlamore'}
+	
+	local ret = mw.html.create('tr')
+	mw.log(args[1])
+	if args['incompletable'] == 'Yes' then
+		ret:tag('th'):wikitext(args[1]):addClass('table-bg-red')
+	else ret:tag('th'):wikitext(args[1])
+	end
+	mw.log(tostring(ret))
+	local required = ''
+	local auto = ''
+	for _, region in ipairs(regions) do
+		if args[region] ~= nil then
+			if args[region] == 'Yes' then
+				if #required ~= 0 then
+					required = required .. '&'
+				end
+				required = required .. region
+			elseif args[region] == 'auto' then
+				auto = auto .. tb(region,nil,nil,nil,'Raging Echoes League')
+			else
+				ret:tag('td'):wikitext(tb(region,nil,nil,nil,'Raging Echoes League') .. ' ' .. args[region])
+			end
+		end
+	end
+	if args['incompletable'] == 'Yes' then
+		ret:tag('td'):addClass('table-bg-red')
+		ret:tag('td'):addClass('table-bg-red')
+	else
+		ret:tag('td'):wikitext(auto)
+		ret:tag('td'):wikitext(tb(required,nil,nil,nil,'Raging Echoes League'))
+	end
+	if args['playable'] == 'Yes' then
+		if args['incompletable'] == 'Yes' then
+			ret:tag('td'):wikitext(string.format('[[File:Yes check.svg|20px|link=|alt=Quest may be played without autocompletion]] Partially playable')):addClass('table-bg-red')
+		else ret:tag('td'):wikitext(string.format('[[File:Yes check.svg|20px|link=|alt=Quest may be played without autocompletion]] Fully playable'))
+		end
+	elseif args['playable'] == 'No' then
+		if args['incompletable'] == 'Yes' then
+			ret:tag('td'):wikitext(string.format('[[File:X mark.svg|20px|link=|alt=Quest may not be played through]] Not completable')):addClass('table-bg-red')
+		else ret:tag('td'):wikitext(string.format('[[File:X mark.svg|20px|link=|alt=Quest may not be played through]] Autocomplete only'))
+		end
+	else 
+		if args['incompletable'] == 'Yes' then
+			ret:tag('td'):wikitext(''):addClass('table-bg-red')
+		else ret:tag('td'):wikitext('')
+		end
+	end
+	if args['incompletable'] == 'Yes' then
+		ret:tag('td'):wikitext(args['notes'] or ''):addClass('table-bg-red')
+	else ret:tag('td'):wikitext(args['notes'] or '')
+	end
+
+	return tostring(ret)
+end
+
+return p

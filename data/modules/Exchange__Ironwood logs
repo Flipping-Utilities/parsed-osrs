@@ -1,0 +1,11 @@
+return {
+	itemId    = 32907,
+	item      = "Ironwood logs",
+	icon      = 'Ironwood logs.png',
+    alchable  = true,
+	value     = 360,
+	limit     = 12000,
+	members   = true,
+	category  = nil,
+	examine   = "Logs cut from an ironwood tree."
+}

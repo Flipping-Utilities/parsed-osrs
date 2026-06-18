@@ -1,0 +1,329 @@
+-- <nowiki>
+--
+-- Implements {{Navbox}}
+--
+require('strict')
+local p = {}
+local tnavbar = require( 'Module:Tnavbar' )
+local yesno = require( 'Module:Yesno' )
+local page_title = mw.title.getCurrentTitle().fullText
+--
+-- Helper for inserting a new row into the navbox
+--
+-- @param tbl {mw.html table}
+-- @return tbl {mw.html table}
+--
+local function insertRow( tbl )
+	return tbl:tag( 'tr' )
+end
+
+--
+-- Creates the navbox table
+--
+-- @param args {table}
+-- @return tbl {mw.html table}
+--
+local function createTbl( args )
+
+	local tbl = mw.html.create( 'table' )
+
+	tbl
+		:addClass( yesno(args.subgroup, false) and 'navbox-subgroup' or 'navbox' )
+		:addClass( 'hlist nowraplinks <mw:editsection' )
+
+	if not yesno(args.subgroup, false) and
+		( args.state == 'collapsed' or
+		  args.state == 'uncollapsed' or
+		  args.state == 'autocollapse' or
+		  -- defaults to autocollapse
+		  args.state == nil )
+	then
+		tbl:addClass( 'mw-collapsible' )
+
+		if args.state == 'collapsed' then
+			tbl:addClass( 'mw-collapsed' )
+		elseif args.state == 'uncollapsed' then
+			tbl:addClass('navbox-uncollapsed')
+		else
+			tbl:addClass( 'mw-collapsed' )
+			tbl:addClass( 'navbox-autocollapse' )
+		end
+	end
+
+	if yesno(args.collapsible, false) then
+		tbl:addClass( 'navbox-collapsible' )
+	end
+
+	if args.style then
+		tbl:cssText( args.style )
+	end
+
+	-- used by [[MediaWiki:Gadget-navbox-tracking.js]] for tracking purposes
+	tbl:attr( { ['data-navbox-name'] = args.name } )
+
+	return tbl
+end
+
+--
+-- Wrapper for [[Module:Tnavbar]]
+--
+-- @param args {table}
+-- @return {mw.html table}
+--
+local function navbar( args )
+
+	local div = mw.html.create( 'div' )
+		:css( {
+			float = 'left',
+			['text-align'] = 'left'
+		} )
+		:wikitext( tnavbar._navbar( { [1] = args.name, ['mini'] = true, ['talk'] = 'autoconfirmed' } ) )
+	return div
+end
+
+--
+-- Creates the header (what you see when the navbox is collapsed)
+--
+-- @param tbl {mw.html table}
+-- @param args {table}
+-- @return {mw.html table}
+--
+local function header( tbl, args )
+	local div = insertRow( tbl )
+		:tag( 'th' )
+			:attr( 'colspan', '2' )
+			:addClass( 'navbox-title' )
+				:wikitext( args.name and tostring( navbar( args ) ) )
+				:tag('div')
+					:addClass( 'navbox-title-name' )
+					:wikitext( args.title )
+
+	return div:allDone()
+end
+
+--
+-- Inserts a row into the navbox
+--
+-- @param tbl {mw.html table}
+-- @param gtitle {string}
+-- @param group {string}
+-- @param gtype {string}
+-- @param style {string}
+-- @return {mw.html table}
+--
+local function row( tbl, gtitle, group, gtype, style, _name, subgroup )
+	local tr = insertRow( tbl )
+	local td
+
+	if gtitle then
+		td = tr
+			:addClass( 'navbox-group' )
+			:tag( 'th' )
+				:addClass( 'navbox-group-title' )
+				:wikitext( gtitle )
+				:done()
+			:tag( 'td' )
+	else
+		td = tr
+			:addClass( 'navbox-group' )
+			:addClass( 'navbox-group-split' )
+			:tag( 'td' )
+				:addClass( 'navbox-group-title-hidden' )
+				:attr( 'colspan', '0' )
+				:css( 'display', 'none' )
+				:done()
+			:tag( 'td' )
+				:attr( 'colspan', '2' )
+	end
+
+	--[[
+	   List styling
+	   As an example, it lets you do the following instead if using {{*}} all the time
+	   | group3 =
+	   * {{plink|foo}}
+	   * {{plink|bar}}
+	   * {{plink|baz}}
+	]]
+	if mw.ustring.match( group, '^%s*%*' ) then
+		td:newline()
+
+		-- trim whitespace on bullets
+		local spl = mw.text.split( group, '\n' )
+
+		for i = 1, #spl do
+			spl[i] = mw.text.trim( spl[i] )
+		end
+
+		group = '\n' .. table.concat( spl, '\n' )
+	end
+
+	td
+		:addClass( 'navbox-list' )
+		:wikitext( group ) --group3
+
+	if gtype and mw.ustring.lower( gtype ) == 'subgroup' then
+		td
+			:addClass( 'navbox-parent' )
+			:css( {
+				padding = '0'
+			} )
+	end
+
+	if style then
+		td:cssText( style )
+	end
+
+	return td:allDone()
+end
+
+--
+-- Inserts a footer into the navbox
+--
+-- @param tbl {mw.html table}
+-- @param args {table}
+-- @return {mw.html table}
+--
+local function footer( tbl, args )
+	local th = insertRow( tbl )
+		:tag( 'th' )
+			:attr( 'colspan', '2' )
+			:addClass( 'navbox-footer' )
+
+	if args.fstyle then
+		th:cssText( args.fstyle )
+	end
+
+	if mw.ustring.match( args.footer, '^%s*%*' ) then
+		th:newline()
+
+		-- trim whitespace on bullets
+		local spl = mw.text.split( args.footer, '\n' )
+
+		for i = 1, #spl do
+			spl[i] = mw.text.trim( spl[i] )
+		end
+
+		args.footer = table.concat( spl, '\n' )
+
+		th:addClass( 'navbox-list' )
+	end
+
+	th:wikitext( args.footer )
+
+	return th:allDone()
+end
+
+--
+-- Adds [[Category:Navbox templates]] to navbox template pages
+--
+-- @return {string}
+--
+local function categories()
+	local title = mw.title.getCurrentTitle()
+	local page = title.text
+	local ns = title.nsText
+
+	if ns == 'Template' then
+		-- sort in category by pagename
+		return '[[Category:Navbox templates| ' .. page .. ']]'
+	else
+		return ''
+	end
+
+end
+
+--
+-- Adds [[Template:Navbox/doc]] to navbox template pages
+--
+-- @param args {table}
+-- @return {string}
+--
+local function docs( args )
+	local frame = mw.getCurrentFrame()
+	local title = mw.title.getCurrentTitle()
+	local base = title.baseText
+	local ns = title.nsText
+
+		-- not if a subpage of [[Template:Navbox]]
+	if base ~= 'Navbox' and
+		-- in template ns
+		ns == 'Template' and
+		-- not a navbox group within a navbox
+		not yesno(args.subgroup, false) and
+		-- not a collapsible navbox within a navbox
+		not yesno(args.collapsible, false) and
+		-- not if the doc argument is not set to "yes"
+		yesno(args.doc, false)
+	then
+		return frame:expandTemplate{ title = 'Navbox/doc' }
+	else
+		return ''
+	end
+
+end
+
+--
+-- Navbox method to allow it to be called by other modules
+--
+-- @param _args {table}
+-- @return {string}
+--
+function p._navbox( _args )
+	local args = {}
+	local wkCss = ''
+	local wkDiv = ''
+	local j
+	
+	-- preserves parser function behaviour where an empty string is considered undefined
+	-- or nil in lua's case
+	for k, v in pairs( _args ) do
+		if v ~= '' then
+			args[k] = v
+		end
+	end
+
+	local tbl = createTbl( args )
+
+	if not yesno(args.subgroup, false) then
+		tbl = header( tbl, args )
+	end
+
+	-- insert up to 25 rows
+	for i = 1, 25 do
+		j = tostring( i )
+
+		if args['group' .. j] then
+			tbl = row( tbl, args['gtitle' .. j], args['group' .. j], args['gtype' .. j], args['style' .. j], args.name, args.subgroup )
+		else
+			break
+		end
+	end
+
+	if args.footer then
+		tbl = footer( tbl, args )
+	end
+
+	tbl = tostring( tbl )
+
+	local cats = ''
+	if not yesno(args.subgroup, false) and not yesno(args.hidecat, false) then
+		cats = categories()
+	end
+	local docs = docs( args )
+
+	return tbl .. cats .. docs
+end
+
+--
+-- Main navbox method accessed through #invoke
+--
+-- @param frame {table}
+-- @return {string}
+--
+function p.navbox( frame )
+	local args = frame:getParent().args
+	return p._navbox( args )
+end
+
+return p
+-- </nowiki>

@@ -1,0 +1,89 @@
+--<nowiki>
+local p = {}
+
+local sites = {
+	rs = {
+		params = { 'rs' },
+		interwiki = 'rsw',
+		wikiname = 'The RuneScape Wiki',
+	},
+	rsc = {
+		params = { 'rsc' },
+		interwiki = 'classicrsw',
+		wikiname = 'The RuneScape Classic Wiki',
+	},
+	meta = {
+		params = { 'meta' },
+		interwiki = 'meta',
+		wikiname = 'The Meta RuneScape Wiki',
+	},
+	wp = { 
+		params = { 'wp' },
+		interwiki = 'wikipedia',
+		wikiname = 'Wikipedia',
+	},
+	dw = {
+		params = { 'dw' },
+		interwiki = 'rsdww',
+		wikiname = 'The RuneScape: Dragonwilds Wiki',
+	},
+}
+
+local order = { 'rs', 'rsc', 'dw', 'meta', 'wp' }
+
+local allparams = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local pagename = mw.title.getCurrentTitle().fullText
+	local vals = {}
+
+	-- create allparams
+	for s,t in pairs(sites) do
+		for _,v in ipairs(t.params) do
+			allparams[v] = s
+		end
+	end
+	
+	-- loop named params
+	for i,v in pairs(allparams) do
+		if args[i] and not vals[v] then
+			vals[v] = args[i]
+		end
+	end
+	
+	-- loop unnamed params
+	local i = 1
+	local v
+	while args[i] do
+		v = allparams[args[i]] 
+		if v and not vals[v] then
+			vals[v] = pagename
+		end
+		i = i + 1
+	end
+
+	local ret = mw.html.create('div')
+	ret:addClass('noexcerpt noprint nomobile navigation-not-searchable rs-external-header-links'):css('display', 'none')
+	for _,v in ipairs(order) do
+		if vals[v] then
+			local span = ret:tag('span')
+			span:wikitext(vals[v])
+				:addClass('rs-header-icon rs-header-icon-' .. v)
+				:attr({
+					['data-wikiname'] = sites[v].wikiname,
+					['data-interwiki'] = sites[v].interwiki,
+					['data-page'] = vals[v],
+				})
+		end
+	end
+
+	return tostring(ret)
+end
+
+return p
+--</nowiki>

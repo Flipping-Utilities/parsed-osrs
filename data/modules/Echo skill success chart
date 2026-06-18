@@ -1,0 +1,422 @@
+local chart = require('Module:Chart data')
+
+local p = {}
+
+local data = {
+    Fishing = {
+        ["Frogspawn/Swamp weed"] = {
+            label = "Frogspawn & Swamp weed",
+            entries = {
+                { name = "Frog spawn", low = 16, high = 96, req = 33, xp = 75, ticks = 6, color = "#464f35" },
+                { name = "Swamp weed", low = 10, high = 10, req = 33, xp = 1, ticks = 6, color = "#686800" },
+            },
+        },
+        ["Barbarian"] = {
+            label = "Barbarian",
+            entries = {
+                { name = "Leaping sturgeon", low = 8, high = 64, req = 70, xp = 70, ticks = 5, color = "green" },
+                { name = "Leaping salmon", low = 16, high = 96, req = 58, xp = 58, ticks = 5, color = "pink" },
+                { name = "Leaping trout", low = 32, high = 192, req = 48, xp = 45, ticks = 5, color = "gray" },
+            },
+        },
+        ["Herring/Sardine"] = {
+		    label = "Herring & Sardine",
+		    entries = {
+		        { name = "Raw herring", low = 24, high = 128, req = 10, xp = 30, ticks = 5, color = "grey" },
+		        { name = "Raw sardine", low = 32, high = 192, req = 5, xp = 20, ticks = 5, color = "green" },
+		    },
+		},
+		["Slimy/Cave eel"] = {
+		    label = "Slimy & Cave eel",
+		    entries = {
+		        { name = "Raw cave eel", low = 10, high = 80, req = 38, xp = 80, ticks = 5, color = "#606b48" },
+		        { name = "Raw slimy eel", low = 10, high = 80, req = 28, xp = 80, ticks = 5, color = "#363c00" },
+		    },
+		},
+		["Trout/Salmon"] = {
+		    label = "Trout & Salmon",
+		    entries = {
+		        { name = "Raw salmon", low = 16, high = 96, req = 30, xp = 70, ticks = 5, color = "#c77f72" },
+		        { name = "Raw trout", low = 32, high = 192, req = 20, xp = 50, ticks = 5, color = "#9a908f" },
+		    },
+		},
+		["Pike"] = {
+		    label = "Pike",
+		    entries = {
+		        { name = "Raw pike", low = 16, high = 96, req = 25, xp = 60, ticks = 5.2, color = "#6e8b6e" },
+		    },
+		},
+		["Rainbow Fish"] = {
+		    label = "Rainbow Fish",
+		    entries = {
+		        { name = "Raw rainbow fish", low = 8, high = 64, req = 38, xp = 80, ticks = 5, color = "#7778d1" },
+		    },
+		},
+		["Sacred Eel"] = {
+		    label = "Sacred Eel",
+		    entries = {
+		        { name = "Sacred eel", low = 0, high = 60, req = 87, xp = 105, ticks = 5, color = "darkseagreen" },
+		    },
+		},
+		["Anglerfish"] = {
+		    label = "Anglerfish",
+		    entries = {
+		        { name = "Raw anglerfish", low = 3, high = 36, req = 82, xp = 120, ticks = 5, color = "#c77f72" },
+		    },
+		},
+		["Lava Eel"] = {
+		    label = "Lava Eel",
+		    entries = {
+		        { name = "Raw lava eel", low = 16, high = 96, req = 53, xp = 60, ticks = 5, color = "#bc6217" },
+		    },
+		},
+		["Infernal Eel"] = {
+		    label = "Infernal Eel",
+		    entries = {
+		        { name = "Infernal eel", low = 30, high = 93, req = 80, xp = 95, ticks = 5, color = "brown" },
+		    },
+		},
+		["Lobster"] = {
+		    label = "Lobster",
+		    entries = {
+		        { name = "Raw lobster", low = 6, high = 95, req = 40, xp = 90, ticks = 6, color = "#854c22" },
+		    },
+		},
+		["Swordfish/Tuna"] = {
+		    label = "Swordfish & Tuna",
+		    entries = {
+		        { name = "Raw swordfish", low = 5, high = 64, req = 50, xp = 100, ticks = 6, color = "mediumorchid" },
+		        { name = "Raw tuna", low = 10, high = 86, req = 35, xp = 80, ticks = 6, color = "grey" },
+		    },
+		},
+		["Dark Crab"] = {
+		    label = "Dark Crab",
+		    entries = {
+		        { name = "Raw dark crab", low = 3, high = 40, req = 85, xp = 130, ticks = 6, color = "gray" },
+		    },
+		},
+		["Monkfish"] = {
+		    label = "Monkfish",
+		    entries = {
+		        { name = "Raw monkfish", low = 48, high = 90, req = 62, xp = 120, ticks = 6, color = "saddlebrown" },
+		    },
+		},
+		["Raw Mackerel"] = {
+		    label = "Raw Mackerel",
+		    entries = {
+		        { name = "Raw mackerel", low = 5, high = 65, req = 16, xp = 20, ticks = 6, color = "#efcc00" },
+		    },
+		},
+		["Karambwanji/Shrimp"] = {
+		    label = "Karambwanji & Shrimp",
+		    entries = {
+		        { name = "Raw karambwanji", low = 100, high = 250, req = 5, xp = 5, ticks = 6, color = "#145056" },
+		        { name = "Raw shrimps", low = 48, high = 256, req = 1, xp = 10, ticks = 6, color = "#b18065" },
+		    },
+		},
+		["Karambwan"] = {
+		    label = "Karambwan",
+		    entries = {
+		        { name = "Raw karambwan", low = 5, high = 160, req = 65, xp = 50, ticks = 4, color = "green" },
+		    },
+		},
+		["Shrimp/Anchovies"] = {
+			label = "Shrimp & Anchovies",
+			entries = {
+				{name = "Raw anchovies", low = 24, high = 128, req = 15, xp = 40, ticks = 6, color = "#6e6e8b"},
+				{name = "Raw shrimps", low = 48, high = 256, req = 1, xp = 10, ticks = 6, color = "#b18065"},
+			}
+		},
+		["Shark"] = {
+			label = "Shark",
+			entries = {
+				{name = "Raw shark", low = 4, high = 54, req = 76, xp = 110, ticks = 6, color = "#736b6b"},
+			}
+		}
+    },
+    Woodcutting = {
+        ["Normal tree"] = {
+            label = "Normal tree",
+            entries = {
+                { name = "Logs", low = 250, high = 800, req = 1, ticks = 4, color = "#805c24" },
+            },
+        },
+		["Teak tree"] = {
+		    label = "Teak tree",
+		    entries = {
+		        { name = "Teak logs", low = 60, high = 200, req = 71, ticks = 4, color = "cyan" },
+		    },
+		},
+		["Mahogany tree"] = {
+		    label = "Mahogany tree",
+		    entries = {
+		        { name = "Mahogany logs", low = 36, high = 97, req = 71, ticks = 4, color = "cyan" },
+		    },
+		},
+		["Redwood tree"] = {
+		    label = "Redwood tree",
+		    entries = {
+		        { name = "Redwood logs", low = 8, high = 35, req = 90, ticks = 4, color = "cyan" },
+		    },
+		},
+    },
+    Mining = {
+    	["Copper rocks"] = {
+		    label = "Copper rocks",
+		    entries = {
+		        { name = "Copper ore", low = 100, high = 350, req = 1, color = "#dc7e37" },
+		    },
+		},
+		["Tin rocks"] = {
+		    label = "Tin rocks",
+		    entries = {
+		        { name = "Tin ore", low = 100, high = 350, req = 1, color = "#89807f" },
+		    },
+		},
+		["Blurite rocks"] = {
+		    label = "Blurite rocks",
+		    entries = {
+		        { name = "Blurite ore", low = 90, high = 350, req = 10, color = "#489ffb" },
+		    },
+		},
+		["Iron rocks"] = {
+		    label = "Iron rocks",
+		    entries = {
+		        { name = "Iron ore", low = 96, high = 350, req = 15, color = "maroon" },
+		    },
+		},
+		["Silver rocks"] = {
+		    label = "Silver rocks",
+		    entries = {
+		        { name = "Silver ore", low = 25, high = 200, req = 20, color = "silver" },
+		    },
+		},
+		["Coal rocks"] = {
+		    label = "Coal rocks",
+		    entries = {
+		        { name = "Coal", low = 16, high = 100, req = 30, color = "black" },
+		    },
+		},
+		["Gold rocks"] = {
+		    label = "Gold rocks",
+		    entries = {
+		        { name = "Gold ore", low = 7, high = 75, req = 40, color = "goldenrod" },
+		    },
+		},
+		["Mithril rocks"] = {
+		    label = "Mithril rocks",
+		    entries = {
+		        { name = "Mithril ore", low = 4, high = 50, req = 55, color = "slateblue" },
+		    },
+		},
+		["Adamantite rocks"] = {
+		    label = "Adamantite rocks",
+		    entries = {
+		        { name = "Adamantite ore", low = 2, high = 25, req = 70, color = "seagreen" },
+		    },
+		},
+		["Runite rocks"] = {
+		    label = "Runite rocks",
+		    entries = {
+		        { name = "Runite ore", low = 1, high = 18, req = 85, color = "steelblue" },
+		    },
+		},
+		["Clay rocks"] = {
+		    label = "Clay rocks",
+		    entries = {
+		        { name = "Clay", low = 128, high = 400, req = 1, color = "tan" },
+		    },
+		},
+		["Limestone"] = {
+		    label = "Limestone",
+		    entries = {
+		        { name = "Limestone", low = 95, high = 350, req = 10, color = "grey" },
+		    },
+		},
+		["Barronite rock"] = {
+		    label = "Barronite rock",
+		    entries = {
+		        { name = "Barronite deposit", low = 80, high = 100, req = 14, color = "purple" },
+		    },
+		},
+		["Amethyst crystal"] = {
+		    label = "Amethyst crystal",
+		    entries = {
+		        { name = "Amethyst", low = -18, high = 10, req = 92, color = "#b57a9b" },
+		    },
+		},
+    	["Pay-dirt"] = {
+		    label = "Pay-dirt",
+		    entries = {
+		        { name = "Pay-dirt", low = 60, high = 105, req = 30, color = "brown" },
+		    },
+		},
+		["Volcanic sulphur"] = {
+		    label = "Volcanic sulphur",
+		    entries = {
+		        { name = "Volcanic sulphur", low = 100, high = 220, req = 42, color = "yellow" },
+		    },
+		},
+		["Gem rocks"] = {
+		    label = "Gem rocks",
+		    entries = {
+		        { name = "Uncut red topaz", low = 28, high = 70, req = 40, color = "magenta" },
+		    },
+		},
+		["Gem rocks (glory)"] = {
+		    label = "Gem rocks (glory)",
+		    entries = {
+		        { name = "Amulet of glory", low = 84, high = 210, req = 40, color = "purple" },
+		    },
+		},
+		["Sandstone"] = {
+		    label = "Sandstone",
+		    entries = {
+		        { name = "Sandstone (10kg)", low = 4, high = 50, req = 35, color = "grey" },
+		        { name = "Sandstone (5kg)", low = 8, high = 75, req = 35, color = "green" },
+		        { name = "Sandstone (2kg)", low = 16, high = 100, req = 35, color = "blue" },
+		        { name = "Sandstone (1kg)", low = 25, high = 200, req = 35, color = "red" },
+		    },
+		},
+		["Granite"] = {
+		    label = "Granite",
+		    entries = {
+		        { name = "Granite (5kg)", low = 6, high = 64, req = 45, color = "green" },
+		        { name = "Granite (2kg)", low = 8, high = 75, req = 45, color = "blue" },
+		        { name = "Granite (500g)", low = 16, high = 100, req = 45, color = "red" },
+		    },
+		},
+    },
+}
+
+function interp(low, high, level)
+	local value = math.floor(low*(99-level)/98 + high*(level-1)/98 + 0.5) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function cascadeInterp(bounds, level, index)
+	local rate = 1.0
+	for i, v in ipairs(bounds) do
+		local low = (level >= v.req) and v.altlow or v.low
+		local high = (level >= v.req) and v.althigh or v.high
+		if i == index then
+			rate = rate * interp(low, high, level)
+			return rate
+		end
+		if level >= v.req then
+			rate = rate * (1 - interp(low, high, level))
+		end
+	end
+end
+
+function echoInterp(bounds, level, index)
+    if level < bounds[index].req then
+        return 0
+    end
+    local standard = cascadeInterp(bounds, level, index)
+    local echoBounds = {unpack(bounds)}
+    table.insert(echoBounds, {
+        label = "echo",
+        low = 127,
+        high = 127,
+        altreq = math.huge,
+        req = 1
+    })
+    local echo = cascadeInterp(echoBounds, level, #echoBounds)
+    local count = 0
+    for _, bound in ipairs(bounds) do
+        if level >= bound.req then    
+            count = count + 1
+        end
+    end
+    count = math.max(count, 1)
+    return standard + (echo / count)
+end
+
+function p._calculateDataSets(args)
+    local skillData = data[args.skill]
+    local resource = args.FishingResource or args.WoodcuttingResource or args.MiningResource
+    local categoryData = skillData[resource]
+
+    local dataSets = {}
+    local inputs = categoryData.entries
+
+    for i, input in ipairs(inputs) do
+        local data = {}
+        for x = 1, input.req do
+            local y
+            if args.echo then
+                y = echoInterp(inputs, x, i)
+            end
+            
+            if input.req == x then
+                table.insert(data, {x=x, y=y})
+            end
+        end
+
+        table.insert(dataSets, {
+            data = data,
+            label = input.name,
+            borderDash = {5, 5},
+            borderCapStyle = 'round',
+            pointRadius = 0,
+            baseColor = input.color,
+            pointStyleImg = input.name .. ".png"
+        })
+        data = {}
+        for x = input.req, args.highLevel do
+            local y
+            if echo then
+                y = echoInterp(inputs, x, i)
+            end
+            table.insert(data, {x=x, y=y})
+        end
+        table.insert(dataSets, {
+            data = data,
+            label = input.name .. "  ",
+            borderDash = {},
+            borderCapStyle = 'round',
+            baseColor = input.color,
+            pointRadius = 0
+        })
+        table.insert(dataSets, {})
+    end
+
+    return dataSets
+end
+
+function p._main(args)
+	local resource = args.FishingResource or args.WoodcuttingResource or args.MiningResource
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle("50% second chance success roll (" .. data[args.skill][resource].label .. ")")
+        :setDimensions('540px', '400px', '540px', '400px', true)
+        :setXLabel('Level')
+        :setYLabel('Success rate')
+        :setXLimits(nil, nil, 1)
+        :setYFormat('percent')
+        :setDatasetsPerGroup(3)
+
+    plot:setYFormat('percent')
+        :setYLimits(nil, nil, 0.1)
+        :setTooltipFormat('skillingSuccess')
+
+    local dataSets = p._calculateDataSets(args)
+    for i, dataSet in ipairs(dataSets) do
+        plot:newDataSet(dataSet)
+    end
+
+    return plot
+end
+
+function p.main(frame)
+    local args = frame.args
+    args.skill = args.skill or "Fishing"
+    args.resource = args.resource or "Barbarian"
+    echo = true
+    args.highLevel = args.highLevel or 99
+    args.lowLevel = args.lowLevel or 1
+    
+    return p._main(args)
+end
+
+return p

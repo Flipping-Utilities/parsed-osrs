@@ -1,0 +1,12 @@
+return {
+    itemId     = 989,
+    icon       = 'Crystal key.png',
+    item       = 'Crystal key',
+    value      = 150,
+    limit      = 11000,
+    members    = true,
+    category   = nil,
+    examine    = 'A mysterious key for a mysterious chest.',
+    hialch     = 90,
+    lowalch    = 60
+}

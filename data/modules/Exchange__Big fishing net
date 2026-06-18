@@ -1,0 +1,12 @@
+return {
+    itemId     = 305,
+    icon       = 'Big fishing net.png',
+    item       = 'Big fishing net',
+    value      = 20,
+    limit      = 40,
+    members    = true,
+    category   = nil,
+    examine    = 'Useful for catching lots of fish.',
+    hialch     = 12,
+    lowalch    = 8
+}

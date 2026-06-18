@@ -1,0 +1,23 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame.args
+	local page_name = args.page_name or args[1]
+
+	if not page_name or page_name == '' then
+		return ''
+	end
+
+	local data = bucket('money_making_guide')
+		.select('value')
+		.where('page_name', 'Money making guide/' .. page_name)
+		.run()
+
+	if not data or not data[1] or data[1].value == nil then
+		return ''
+	end
+
+	return tostring(data[1].value)
+end
+
+return p

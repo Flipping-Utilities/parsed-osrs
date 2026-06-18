@@ -1,0 +1,136 @@
+local p = {}
+
+local exchange = require('Module:Exchange')
+
+-- Fetch the price of an item using exchange._price
+local function fetch_price(item)
+    return exchange._price(item) or 0
+end
+
+local function getMultiplier(food_level,food_name)
+	-- Determine cooking level multiplier
+    local multiplier = 1
+	if food_name == "Cooked chicken" or food_name == "Cooked meat" then
+		multiplier = 2
+    elseif food_level >= 30 and food_level <= 69 then
+        multiplier = 2
+    elseif food_level >= 70 then
+        multiplier = 3
+    end
+	return multiplier
+end
+
+-- Calculate the profit for a specific food and leaf combination
+local function calculate_profit(food, food_level, food_name, leaf, leaf_multiplier)
+    local food_price = fetch_price(food)
+    local leaf_price = fetch_price(leaf)
+    local ration_price = fetch_price("Forester's ration")
+
+	local profitMultiplier = getMultiplier(food_level,food_name)
+
+    -- Calculate total rations and value
+    local total_rations = profitMultiplier * leaf_multiplier
+    local total_value = total_rations * ration_price
+    
+    -- Calculate leaf costs along with the meat/fish cost in total
+    local total_cost = food_price + leaf_price
+    local profit = total_value - total_cost
+    
+    return profit
+    
+end
+
+-- If adding new compatible meat/fish, please enter it in the following:
+-- {name = "Cooked_vers_of_food", level = insert_cooking_level}
+
+-- Internal function to find the best combination
+local function find_best_combination()
+    local foods = {
+        {name = "Shrimps", level = 1},
+        {name = "Anchovies", level = 1},
+        {name = "Sardine", level = 1},
+        {name = "Cooked chicken", level = 2},
+        {name = "Cooked meat", level = 2},
+        {name = "Herring", level = 5},
+        {name = "Trout", level = 15},
+        {name = "Pike", level = 15},
+        {name = "Cod", level = 18},
+        {name = "Salmon", level = 25},
+        {name = "Tuna", level = 30},
+        {name = "Cooked karambwan", level = 30},
+        {name = "Rainbow fish", level = 35},
+        {name = "Lobster", level = 40},
+        {name = "Bass", level = 43},
+        {name = "Swordfish", level = 45},
+        {name = "Monkfish", level = 62},
+        {name = "Shark", level = 80},
+        {name = "Sea turtle", level = 82},
+        {name = "Anglerfish", level = 84},
+        {name = "Dark crab", level = 90},
+        {name = "Manta ray", level = 91}
+    }
+
+    local leaves = {
+        {name = "Leaves", multiplier = 2},
+        {name = "Oak leaves", multiplier = 4},
+        {name = "Willow leaves", multiplier = 6},
+        {name = "Maple leaves", multiplier = 8},
+        {name = "Yew leaves", multiplier = 10},
+        {name = "Magic leaves", multiplier = 12}
+    }
+
+    local best_food = nil
+    local best_leaf = nil
+    local max_profit = -math.huge
+    local best_rations = 0
+    
+    for _, food in ipairs(foods) do
+        for _, leaf in ipairs(leaves) do
+            local food_price = fetch_price(food.name)
+            local leaf_price = fetch_price(leaf.name)
+            local ration_price = fetch_price("Forester's ration")
+
+            local multiplier = getMultiplier(food.level,food.name)
+
+            -- Calculate total rations and profit
+            local total_rations = multiplier * leaf.multiplier
+            local total_value = total_rations * ration_price
+            local total_cost = food_price + leaf_price
+            local profit = total_value - total_cost
+
+            if profit > max_profit then
+                max_profit = profit
+                best_food = food.name
+                best_leaf = leaf.name
+                best_rations = total_rations
+            end
+        end
+    end
+
+    return best_food, best_leaf, best_rations
+end
+
+-- Function to return only the best food
+function p.best_food()
+    local best_food, _ = find_best_combination()
+    return best_food
+end
+
+-- Function to return only the best leaf
+function p.best_leaf()
+    local _, best_leaf = find_best_combination()
+    return best_leaf
+end
+
+function p.best_rations()
+	local _, _, best_rations = find_best_combination()
+	return best_rations
+end
+
+-- Function to return both as a formatted string
+function p.best_combination()
+    local best_food, best_leaf = find_best_combination()
+    return string.format("{{Plink|%s}} with {{Plink|%s}}", best_food, best_leaf)
+end
+
+return p

@@ -1,0 +1,176 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+-- Cursed ass table, there's probably a better way to do this but whatever
+local dataTable = {
+    woodcuttingLevel = { {0, 15}, {16, 30}, {31, 45}, {46, 60}, {61, 74}, {75, 99} },
+    woodcuttingAxeOffset = { 
+        {0, 10},
+        {11, 20},
+        {21, 35},
+        {36, 50},
+        {51, 75},
+        {76, 170}
+    },
+    data = {
+        {"Nothing", "Nothing", "Nothing", "Nothing", "Nothing", "Nothing"},
+        {"Plain",   "Plain",   "Plain",   "Oak",     "Oak",     "Oak"},
+        {"Plain",   "Plain",   "Oak",     "Oak",     "Oak",     "Willow"},
+        {"Plain",   "Plain",   "Oak",     "Oak",     "Willow",  "Maple"},
+        {"Plain",   "Plain",   "Oak",     "Willow",  "Maple",   "Yew"},
+        {"Plain",   "Oak",     "Willow",  "Maple",   "Yew",     "Magic"}
+    }
+}
+
+local axeOffsets = {
+    Bronze = 1,
+    Iron = 1,
+    Steel = 6,
+    Black = 11,
+    Mithril = 21,
+    Adamant = 31,
+    Rune = 41,
+    Dragon = 61,
+    Crystal = 71
+}
+
+local woodTypes = {
+    ["Logs"] = "Plain",
+    ["Oak logs"] = "Oak",
+    ["Willow logs"] = "Willow",
+    ["Maple logs"] = "Maple",
+    ["Yew logs"] = "Yew",
+    ["Magic logs"] = "Magic"
+}
+
+local diaryValues = {
+    ["true"] = {22, 102},
+    ["false"] = {16, 90}
+}
+
+-- interp, replace with skill success chart require at some point
+local function interp(low, high, level)
+    local value = math.floor(low * (99 - level) / 98 + high * (level - 1) / 98 + 0.5) + 1
+    return math.min(math.max(value / 256, 0), 1)
+end
+
+-- Find the drop table entry
+local function getDroptable(value, ranges)
+    for i, range in ipairs(ranges) do
+        if value >= range[1] and value <= range[2] then
+            return i
+        end
+    end
+    return nil
+end
+
+-- Calculate cumulative chance for each log type
+local function calculateChancesForLogTypes(axeType, axeOffsets, diary)
+    local results = {}
+    local low, high = unpack(diaryValues[diary])
+    local axeOffset = axeOffsets[axeType]
+    for woodName, woodType in pairs(woodTypes) do
+        local woodChances = {}
+        for level = 1, 99 do
+            local levelBinIndex = getDroptable(level, dataTable.woodcuttingLevel)
+            local rollChance = interp(low, high, level)
+            local maxRoll = level + axeOffset
+            local chance = 0
+            for roll = 1, #dataTable.woodcuttingAxeOffset do
+                local item = dataTable.data[roll][levelBinIndex]
+                if item == woodType then
+                    -- Calculate probability
+                    local rangeY = dataTable.woodcuttingAxeOffset[roll]
+                    local cap = math.min(rangeY[2], maxRoll)
+                    if cap > rangeY[1] then
+                        local rangeSize = cap - rangeY[1] + 1
+                        chance = chance + ((rangeSize / (maxRoll + 1)))
+                    end
+                end
+            end
+            if level >= axeOffset then
+                woodChances[level] = (chance * rollChance)
+            end
+        end
+        results[woodName] = woodChances
+    end
+    return results
+end
+
+function p._calculateDataSets(args)
+    local logColors = {
+        ["Logs"] = "dimgrey",
+        ["Oak logs"] = "green",
+        ["Willow logs"] = "slateblue",
+        ["Maple logs"] = "darkgoldenrod",
+        ["Yew logs"] = "brown",
+        ["Magic logs"] = "teal"
+    }
+
+    local dataSets = {}
+    local axeType = args.axeType or "Dragon"
+    local diary = args.diary or "true"
+    
+    local results = calculateChancesForLogTypes(axeType, axeOffsets, diary)
+    local axeOffset = axeOffsets[axeType]
+    for logType, chances in pairs(results) do
+        local data = {}
+        for level = axeOffset, 99 do
+            table.insert(data, {
+                x = level,
+                y = chances[level]
+            })
+        end
+
+		table.insert(dataSets, {
+			data = {},
+			label = logType,
+			borderDash = {5, 5},
+			borderCapStyle = 'round',
+			pointRadius = 0,
+			baseColor = logColors[logType],
+			pointStyleImg = logType .. '.png'
+	    })
+		table.insert(dataSets, {
+            data = data,
+            label = logType,
+            borderDash = {},
+            borderCapStyle = 'round',
+            pointRadius = 0,
+            baseColor = logColors[logType],
+        })
+        table.insert(dataSets, {})
+    end
+
+    return dataSets
+end
+
+
+function p.main(frame)
+    local args = frame.args
+    return p._main(args)
+end
+
+function p._main(args)
+	local axeType = args.axeType
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle(args.title or 'Ent Log Chances (' .. axeType .. ' axe)')
+        :setDimensions('540px', '400px', '540px', '400px', true)
+        :setXLabel(args.xlabel or 'Woodcutting Level')
+        :setYLabel(args.ylabel or 'Success Rate (%)')
+        :setXLimits(nil, nil, 1)
+		:setYLimits(nil, nil, 0.1)
+		:setYFormat('percent')
+        :setTooltipFormat('skillingSuccess')
+        :setDatasetsPerGroup(3)
+    
+    local dataSets = p._calculateDataSets(args)
+    for i, dataSet in ipairs(dataSets) do
+        plot:newDataSet(dataSet)
+    end
+
+    return plot
+end
+
+return p

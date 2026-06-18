@@ -1,0 +1,12 @@
+return {
+    itemId     = 24774,
+    icon       = "Blood pint.png",
+    item       = "Blood pint",
+    alchable   = true,
+    value      = 2,
+    limit      = 2000,
+    members    = true,
+    category   = nil,
+    examine    = "It&#x27;s literally a pint of blood.",
+    usage      = {}
+}

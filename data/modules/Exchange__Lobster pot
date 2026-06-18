@@ -1,0 +1,12 @@
+return {
+    itemId     = 301,
+    icon       = 'Lobster pot.png',
+    item       = 'Lobster pot',
+    value      = 20,
+    limit      = 40,
+    members    = false,
+    category   = nil,
+    examine    = 'Useful for catching lobsters.',
+    hialch     = 12,
+    lowalch    = 8
+}

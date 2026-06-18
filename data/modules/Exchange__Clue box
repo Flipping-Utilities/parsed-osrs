@@ -1,0 +1,12 @@
+return {
+    itemId     = 12789,
+    icon       = 'Clue box.png',
+    item       = 'Clue box',
+    value      = 10,
+    limit      = 50,
+    members    = true,
+    category   = nil,
+    examine    = 'Protects your clue scroll if you die.',
+    hialch     = 6,
+    lowalch    = 4
+}

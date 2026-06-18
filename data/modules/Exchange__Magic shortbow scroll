@@ -1,0 +1,12 @@
+return {
+    itemId     = 12786,
+    icon       = 'Magic shortbow scroll.png',
+    item       = 'Magic shortbow scroll',
+    value      = 5000,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Use on a Magic shortbow to imbue the bow.',
+    hialch     = 3000,
+    lowalch    = 2000
+}

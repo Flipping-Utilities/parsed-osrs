@@ -1,0 +1,29 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	return p.calculate(tonumber(args.max_hit), tonumber(args.hitpoints))
+end
+
+function p.calculate(max_hit, hitpoints)
+	local chance = 0.0
+	
+	for hit = 0,max_hit do
+		if hit > hitpoints then
+			chance = chance + (2*hit-hitpoints)/(2*hit+2)/(1+max_hit)
+		else
+			chance = chance + hit/(2*hitpoints+2)/(1+max_hit)
+		end
+	end
+
+	return "On a successful hit, the stun chance with a max hit of '''"
+	  .. tostring(max_hit)
+	  .. "''' against a monster with '''"
+	  .. tostring(hitpoints) 
+	  .. "''' hitpoints is '''"
+	  .. string.format('%.3f%%', 100 * chance)
+	  .. "'''."
+	end
+
+return p

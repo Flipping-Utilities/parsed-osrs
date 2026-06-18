@@ -1,0 +1,13 @@
+{{external|rs|rsc}}
+{{documentation}}
+
+Module used for [[Template:External]]. Can also be imported into modules to display top icons.
+
+{{Helper module|name=Top icons
+|fname1=<nowiki>_main( wiki1, wiki2, ... )</nowiki>
+|ftype1=string, string, ...
+|fuse1=Returns a string that adds top icons for the given wiki names. Values must be one of <code>rs</code>, <code>dw</code>, <code>rsc</code>, <code>meta</code> or <code>wp</code>.
+|fname2=<nowiki>_main( wiki1 = pagename1, wiki2 = pagename2, ... )</nowiki>
+|ftype2=string, string, ...
+|fuse2=Returns a string that adds top icons for the given wiki names, linking to the specified page names. Wiki names must be one of <code>rs</code>, <code>dw</code>, <code>rsc</code>, <code>meta</code> or <code>wp</code>.
+}}

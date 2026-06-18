@@ -1,0 +1,23 @@
+local p = {}
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(args)
+	local _args = {}
+	for i,v in ipairs(args) do
+		table.insert(_args, v)
+	end
+	return string.format(unpack(_args))
+end
+
+function p.expr(frame)
+	return p._expr(frame:getParent().args)
+end
+
+function p._expr(args)
+	return string.format(args[1], mw.ext.ParserFunctions.expr(args[2]))
+end
+
+return p

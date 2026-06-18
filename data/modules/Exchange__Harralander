@@ -1,0 +1,12 @@
+return {
+    itemId     = 255,
+    icon       = 'Harralander.png',
+    item       = 'Harralander',
+    value      = 20,
+    limit      = 13000,
+    members    = true,
+    category   = nil,
+    examine    = 'A useful herb.',
+    hialch     = 12,
+    lowalch    = 8
+}

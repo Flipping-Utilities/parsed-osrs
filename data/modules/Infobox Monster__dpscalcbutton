@@ -1,0 +1,775 @@
+--------------------------
+-- Module for [[Template:Infobox Monster]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local commas = require('Module:Addcommas')._add
+local infobox = require('Module:Infobox')
+local signed = require('Module:Format eq stat').signed
+
+local slayer_masters = { 'turael', 'spria', 'krystilia', 'mazchna', 'vannaka', 'chaeldar', 'konar', 'nieve', 'steve', 'duradel' }
+local attributes = {
+	demon = '[[Demon (attribute)|Demon]]',
+	dragon = '[[Draconic (attribute)|Draconic]]',
+	fiery = '[[Fiery (attribute)|Fiery]]',
+	golem = '[[Golem (attribute)|Golem]]',
+	kalphite = '[[Kalphite (attribute)|Kalphite]]',
+	leafy = '[[Leafy (attribute)|Leafy]]',
+	penance = '[[Penance (attribute)|Penance]]',
+	rat = '[[Rat (attribute)|Rat]]',
+	shade = '[[Shade (attribute)|Shade]]',
+	spectral = '[[Spectral (attribute)|Spectral]]',
+	undead = '[[Undead (attribute)|Undead]]',
+	vampyre1 = '[[Vampyre (attribute)|Vampyre (tier 1)]]',
+	vampyre2 = '[[Vampyre (attribute)|Vampyre (tier 2)]]',
+	vampyre3 = '[[Vampyre (attribute)|Vampyre (tier 3)]]',
+	xerician = '[[Xerician (attribute)|Xerician]]',
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	return p._main(args)
+end
+
+function p._main(args)
+	local ret = infobox.new(args)
+
+	local numeric_args = {
+		'att', 'str', 'def', 'range', 'mage',
+	}
+	for _, v in ipairs(numeric_args) do
+		ret:defineParams{
+			{ name = v, func = { name = numericarg, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_bucket', func = { name = tonumber_norefs, params = { v }, flag = { 'd' } } },
+		}
+	end
+
+	local numeric_args_commas = {
+		'combat', 'hitpoints'
+	}
+	for _, v in ipairs(numeric_args_commas) do
+		ret:defineParams{
+			{ name = v, func = { name = numericarg_commas, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_bucket', func = { name = tonumber_norefs, params = { v }, flag = { 'p' } } },
+		}
+	end
+
+	local signed_numeric_args = {
+		'amagic', 'arange',
+		'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+		'attbns', 'strbns', 'mbns', 'rngbns'
+	}
+
+	for _, v in ipairs(signed_numeric_args) do
+		ret:defineParams{
+			{ name = v, func = { name = signednumericarg, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_bucket', func = { name = tonumber_norefs, params = { v }, flag = { 'd' } } },
+		}
+	end
+
+	ret:defineParams{
+		{ name = 'name', func = 'name'},
+		{ name = 'image', func = 'image' },
+		{ name = 'image_bucket', func = { name = image_bucket, params = { 'image' }, flag = 'p' } },
+
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'aka', func = 'has_content' },
+
+		{ name = 'size', func = sizeparam },
+		{ name = 'size_bucket', func = { name = 'has_content', params = {'size'}, flag = 'p'} },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+
+		{ name = 'aggressive', func = 'has_content' },
+		{ name = 'poisonous', func = 'has_content' },
+		{ name = 'attributes', func = attributesarg },
+		{ name = 'attributes_bucket', func = { name = attributes_bucket, params = { 'attributes' }, flag = 'p' } },
+		{ name = 'attack style', func = 'has_content' },
+		{ name = 'attack style_bucket', func = { name = csv_to_multi, params = { 'attack style', true }, flag = { 'd', 'r' } } },
+		{ name = 'attack speed', func = attackspeedarg },
+		{ name = 'attack speed_bucket', func = { name = attackspeed_bucket, params = { 'attack speed' }, flag = 'p' } },
+
+		{ name = 'xpbonus', func = { name = signedpercentnumericarg, params = { 'xpbonus', 'xpbonus' }, flag = { 'd', 'r' } } },
+		{ name = 'xpbonus_bucket', func = { name = tonumber_norefs, params = { 'xpbonus' }, flag = { 'p' } } },
+
+		{ name = 'max hit', func = 'has_content' },
+		{ name = 'max_hit_fmt', func = { name = csv_to_formatted, params = { 'max hit' }, flag = { 'd' } } },
+		{ name = 'max_hit_bucket', func = { name = csv_to_multi, params = { 'max hit', true }, flag = { 'd', 'r' } } },
+
+		{ name = 'respawn', func = respawnarg },
+
+		{ name = 'cat', func = 'has_content' },
+		{ name = 'cat_bucket', func = { name = csv_to_multi, params = { 'cat', true }, flag = { 'd', 'r' } } },
+		{ name = 'slaylvl', func = { name = 'has_content', params = {'slaylvl', 'None' }, flag = { 'd', 'r' } } },
+		{ name = 'slaylvl_bucket', func = { name = tonumber_norefs, params = { 'slaylvl' }, flag = { 'd' } } },
+		{ name = 'assignedby', func = 'has_content' },
+		{ name = 'assignedby_pics', func = { name = assignedbyarg, params = { 'assignedby' }, flag = 'd' } },
+		{ name = 'assignedby_bucket', func = { name = csv_to_multi, params = { 'assignedby', true }, flag = { 'd', 'r' } } },
+		{ name = 'slayxp', func = exp_arg },
+		{ name = 'slayxp_bucket', func = { name = tonumber_norefs, params = { 'slayxp' }, flag = { 'p' } } },
+
+		{ name = 'immunepoison', func = { name = immunearg, params = {'immunepoison', 'immunepoison'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunepoison_bucket', func = { name = immunearg_bucket, params = {'immunepoison', 'immunepoison'}, flag = { 'p', 'r' } } },
+		{ name = 'immunevenom', func = { name = immunearg, params = {'immunevenom', 'immunevenom'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunevenom_bucket', func = { name = immunearg_bucket, params = {'immunevenom', 'immunevenom'}, flag = { 'p', 'r' } } },
+		{ name = 'immunecannon', func = { name = immunearg, params = {'immunecannon', 'immunecannon'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunethrall', func = { name = immunearg, params = {'immunethrall', 'immunethrall'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'freezeresistance', func = freezeresistancearg },
+
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_bucket', func = { name = csv_to_multi, params = { 'id', false }, flag = { 'p', 'r' } } },
+		{ name = 'version', func = 'has_content' },
+		{ name = 'usesinfobox', func = { name = tostring, params = { 'Monster' }, flag = 'r' } },
+		{ name = 'usesskill', func = { name = usesskillarg, params = { 'slayxp_bucket' }, flag = 'd' } },
+		{ name = 'dropversion', func = 'has_content' },
+			{ name = 'dpscalc', func = { name = usedpscalcarg, params = {'dpscalc', 'id'} } }
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:customButtonPlacement(true)
+	ret:create()
+	ret:cleanParams()
+
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Monster')
+	ret:addClass('infobox-monster')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '30' }
+	}
+
+	:pad(30)
+	:addRow{
+		{ tag = 'argd', content = 'image', class='infobox-image infobox-full-width-content', colspan = '30' }
+	}
+	:pad(30)
+
+	:addRow{
+		{ tag = 'th', content = 'Released', colspan = '10' },
+		{ tag = 'argd', content = 'release', colspan = '20' }
+	}
+
+	if ret:paramDefined('removal', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removal', colspan = '10' },
+			{ tag = 'argd', content = 'removal', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('aka', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '10' },
+			{ tag = 'argd', content = 'aka', colspan = '20' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '10' },
+		{ tag = 'argd', content = 'members', colspan = '20' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Combat level]]', colspan = '10' },
+		{ tag = 'argd', content = 'combat', colspan = '20' }
+	}
+
+	if ret:paramDefined('size', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Size]]', colspan = '10' },
+			{ tag = 'argd', content = 'size', colspan = '20' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Examine]]', colspan= '10' },
+		{ tag = 'argd', content = 'examine', colspan = '20' }
+	}
+	:pad(30)
+	:addRow{
+		{ tag = 'th', content = 'Combat info', colspan = '30', class = 'infobox-subheader' }
+	}
+	:pad(30)
+
+	if ret:paramDefined('attributes', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Monster attribute|Attribute]]', colspan = '10' },
+			{ tag = 'argd', content = 'attributes', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('xpbonus', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Experience bonus|XP bonus]]', colspan = '10' },
+			{ tag = 'argd', content = 'xpbonus', colspan = '20' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Monster maximum hit|Max hit]]', colspan = '10' },
+		{ tag = 'argd', content = 'max_hit_fmt', colspan = '20' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Aggressiveness|Aggressive]]', colspan = '10' },
+		{ tag = 'argd', content = 'aggressive', colspan = '20' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Poison|Poisonous]]', colspan = '10' },
+		{ tag = 'argd', content = 'poisonous', colspan = '20' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Combat Options|Attack style]]', colspan = '10' },
+		{ tag = 'argd', content = 'attack style', colspan = '20' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Monster attack speed|Attack speed]]', colspan = '10' },
+		{ tag = 'argd', content = 'attack speed', colspan = '20' }
+	}
+
+	if ret:paramDefined('respawn', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = 'Respawn time', colspan = '10' },
+			{ tag = 'argd', content = 'respawn', colspan = '20' }
+		}
+	end
+
+	ret:pad(30)
+
+	-- If a monster is assigned or has a slayer level, include slayer info
+	local slaylvl_defined = ret:paramGrep('slaylvl', function(x) return string.lower(x or 'none') ~= 'none' end)
+	if ret:paramDefined('assignedby', 'all') or slaylvl_defined then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Slayer icon.png|link=Slayer]] [[Slayer|Slayer info]]', colspan = '30', class = 'infobox-subheader' }
+		}
+		:pad(30)
+		:addRow{
+			{ tag = 'th', content = '[[Slayer|Slayer level]]', colspan = '10' },
+			{ tag = 'argd', content = 'slaylvl', colspan = '20' }
+		}
+
+		-- If a monster is assigned, include assignment info
+		if ret:paramDefined('assignedby', 'all') then
+			ret:addRow{
+				{ tag = 'th', content = '[[Slayer|Slayer XP]]', colspan = '10' },
+				{ tag = 'argd', content = 'slayxp', colspan = '20' }
+			}
+
+			:addRow{
+				{ tag = 'th', content = '[[Slayer task#List of assignments|Category]]', colspan = '10' },
+				{ tag = 'argd', content = 'cat', colspan = '20' }
+			}
+
+			:addRow{
+				{ tag = 'th', content = '[[Slayer Master|Assigned by]]', colspan = '10' },
+				{ tag = 'argd', content = 'assignedby_pics', colspan = '20' }
+			}
+		else
+			ret:addRow{
+				{ tag = 'th', content = '[[Slayer Master|Assigned by]]', colspan = '10' },
+				{ tag = 'td', content = 'Not assigned', colspan = '20' }
+			}
+		end
+
+		ret:pad(30)
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[File:Combat icon.png|link=Combat]] [[Combat|Combat stats]]', colspan = '30', class = 'infobox-subheader' }
+	}
+	:pad(30)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Hitpoints icon.png|link=Hitpoints]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Strength icon.png|link=Strength]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Defence icon.png|link=Defence]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', colspan = '5', class = 'infobox-nested' }
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'hitpoints', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'att', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'str', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'def', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mage', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'range', colspan = '5', class = 'infobox-nested' }
+	}
+
+	:pad(30)
+	:addRow{
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack]] [[Attack|Aggressive stats]]', colspan = '30', class = 'infobox-subheader' }
+	}
+	:pad(30)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack|Monster attack bonus]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Strength icon.png|link=Strength|Monster strength bonus]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic Damage icon.png|link=Magic damage|Monster magic strength bonus]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged Strength icon.png|link=Ranged Strength|Monster ranged strength bonus]]', colspan = '5', class = 'infobox-nested' },
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'attbns', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'strbns', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'amagic', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mbns', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'arange', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'rngbns', colspan = '5', class = 'infobox-nested' },
+	}
+
+	:pad(30)
+	:addRow{
+		{ tag = 'th', content = '[[File:Defence icon.png|link=Defence]] [[Defence|Defensive stats]]', colspan = '30', class = 'infobox-subheader' }
+	}
+	:pad(30)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:White dagger.png|link=Stab]]', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White scimitar.png|link=Slash]]', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White warhammer.png|link=Crush]]', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', colspan = '6', class = 'infobox-nested' }
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'dstab', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dslash', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dcrush', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dmagic', colspan = '6', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'drange', colspan = '6', class = 'infobox-nested' }
+	}
+
+	:pad(30)
+	:addRow{
+		{ tag = 'th', content = 'Immunities', colspan = '30', class = 'infobox-subheader' }
+	}
+	:pad(30)
+
+	:addRow{
+		{ tag = 'th', content = '[[Poison]]', colspan = '10' },
+		{ tag = 'argd', content = 'immunepoison', colspan = '20' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Venom]]', colspan = '10' },
+		{ tag = 'argd', content = 'immunevenom', colspan = '20' }
+	}
+	if ret:paramDefined('immunecannon', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Cannons]]', colspan = '10' },
+			{ tag = 'argd', content = 'immunecannon', colspan = '20' }
+		}
+	end
+	if ret:paramDefined('immunethrall', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Thralls]]', colspan = '10' },
+			{ tag = 'argd', content = 'immunethrall', colspan = '20' }
+		}
+	end
+	if ret:paramDefined('freezeresistance', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Freeze]]', colspan = '10' },
+			{ tag = 'argd', content = 'freezeresistance', colspan = '20' }
+		}
+	end
+	ret:pad(30)
+	if ret:paramDefined('dpscalc', 'all') then
+		ret:addRow{
+			{tag = 'argd', content = 'dpscalc', class = 'dps-calc-button infobox-full-width-content', colspan = '30'}
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '30' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(30, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Monster ID', colspan = '10' },
+		{ tag = 'argd', content = 'id',  colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(30, 'advanced-data')
+
+	ret:addDropLevelVars('combat', 'combat')
+	
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function numericarg(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	return arg
+end
+
+function numericarg_commas(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	local n = tonumber(arg)
+	if n == nil then
+		return arg
+	else
+		return commas(tonumber(arg))
+	end
+end
+
+-- If the arg is numeric, return the signed version (starts with + or -)
+function signednumericarg(arg, arg_name)
+	local _arg = numericarg(arg, arg_name)
+	if tonumber(_arg) ~= nil then
+		return signed(_arg)
+	end
+	return nil
+end
+
+-- Sign the arg and append a percent sign
+function signedpercentnumericarg(arg, arg_name)
+	local _arg = signednumericarg(arg, arg_name)
+	if _arg ~= nil then
+		return _arg..'%'
+	end
+	return nil
+end
+
+-- Remove <ref></ref> from the string before converting tonumber()
+function tonumber_norefs(arg)
+	local raw = string.gsub(arg, ".'\"`UNIQ[^`]*QINU`\"'.", '')
+	return tonumber(raw)
+end
+
+function attributesarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return 'None'
+	end
+
+	local result = {}
+	for attribute_i in string.gmatch(arg, "[^,]+") do
+		local trimmed = attribute_i:gsub("^%s*(.-)%s*$", "%1")
+		if attributes[trimmed] then
+			table.insert(result, attributes[trimmed])
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, ', ')
+	else
+		return 'None'
+	end
+end
+
+-- Returns list of types in bucket format
+function attributes_bucket(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return nil
+	end
+
+	local result = {}
+	for attribute_i in string.gmatch(arg, "[^,]+") do
+		local trimmed = attribute_i:gsub("^%s*(.-)%s*$", "%1")
+		if attributes[trimmed] then
+			table.insert(result, trimmed)
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, '&&SPLITPOINT&&')
+	else
+		return nil
+	end
+end
+
+function respawnarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	-- if arg is a valid number, display ticks and seconds
+	if tonumber(arg) then
+		local plural = tonumber(arg) ~= 1 and 's' or ''
+		return arg .. ' tick' .. plural .. ' (' .. arg * 0.6 .. ' seconds)'
+	end
+
+	-- if arg isn't a number, return it unmodified
+	return arg
+end
+
+-- Generate pics for defined slayer masters, or return nil if undefined
+function assignedbyarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return 'Not assigned'
+	end
+
+	local result = {}
+	for i, slayer_master in ipairs(slayer_masters) do
+		if string.match(arg, slayer_master) then
+			table.insert(result, string.format('[[File:%s chathead.png|x40px|link=%s]]', slayer_master, slayer_master))
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, ' ')
+	else
+		return nil
+	end
+end
+
+function exp_arg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if not tonumber(arg) then
+		return arg
+	end
+	return string.format('<span class="infobox-quantity" data-val-each="%s"><span class="infobox-quantity-replace">%s</span> xp</span>', arg, commas(arg))
+end
+
+function immunearg_bucket(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' or arg == 'not immune' then
+		return 'Not immune'
+	elseif arg == 'yes' or arg == 'immune' then
+		return 'Immune'
+	elseif arg:sub(1, #'poison') == 'poison' then
+		return 'Poisons'
+	else
+		return badarg(arg_name, "should be 'yes' or 'no'.")
+	end
+end
+
+function immunearg(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' or arg == 'not immune' then
+		return 'Not immune'
+	elseif arg == 'yes' or arg == 'immune' then
+		return 'Immune'
+	elseif arg:sub(1, #'poison') == 'poison' then
+		return '<span '..
+			'title="This monster will be poisoned instead of envenomed." '..
+			'style="cursor:help; border-bottom:1px dotted;">'..
+			'Converts to poison</span>'
+	else
+		return badarg(arg_name, "should be 'yes' or 'no'.")
+	end
+end
+
+function freezeresistancearg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	
+	return arg..'% resistance'
+end
+
+function image_bucket(arg)
+	local _img = string.match(arg, "File:.-%.png")
+	return _img
+end
+
+function attackspeedarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local lowarg = string.lower(arg)
+	local numarg = tonumber(arg)
+	
+	if lowarg == 'no' or lowarg == 'n/a' then
+		return 'Does not attack'
+	elseif lowarg == 'varies' or lowarg == 'random' then
+		return '<span title="This monster has a variable attack speed." style="cursor:help; border-bottom:1px dotted;">Variable</span>'
+	end
+	
+	if numarg ~= nil then
+		return string.format('%s %s (%.1f seconds)', numarg, (numarg > 1) and 'ticks' or 'tick', numarg * 0.6)
+	end	
+end
+
+function attackspeed_bucket(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return -1
+	end
+	return arg
+end
+
+function csv_to_formatted(raw)
+	if not infobox.isDefined(raw) then
+		return nil
+	end
+
+	local r = string.gsub(raw, '%s*,%s*', '<br/>')
+
+	return r
+end
+
+function csv_to_multi(raw, striplinks)
+	assert(type(striplinks) == 'boolean')
+
+	local r = raw
+	if infobox.isDefined(raw) then
+		if striplinks then
+			r = string.gsub(raw,'[%[%]]', '')	
+		end
+		r = string.gsub(r, '%s*,%s*', '&&SPLITPOINT&&')
+		return r
+	end
+	return nil
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+function sizeparam(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	return string.format('%sx%s', arg, arg)
+end
+
+function usesskillarg(slayxp)
+	local ret = {}
+	if infobox.isDefined(slayxp) then
+		table.insert(ret, "Slayer")
+	end
+	-- If needed, insert additional skills to the ret table here.
+	return csv_to_multi(table.concat(ret, ","), false)
+end
+
+function usedpscalcarg(arg, id)
+	-- If dpscalc is no or we don't have an id to grab, don't show the button
+	if not infobox.isDefined(id) then
+		return nil
+	end
+	if infobox.isDefined(arg) and string.lower(arg) == 'no' then
+		return nil
+	end
+	local ids = {}
+	-- If multiple ids exist, just default to the first one
+	for id_i in string.gmatch(id, "[^,]+") do
+			table.insert(ids, id_i)
+	end
+	local firstid = ids[1]
+	return '<div class="dps-calc plainlinks">[https://tools.runescape.wiki/osrs-dps/?monster=' .. firstid .. ' <span class="mw-ui-button dps-calc-openbtn mw-ui-progressive" style="min-height:0; margin-bottom: 8px; display: inline-flex; align-items: center; gap: 4px;">[[File:Dps calc logo.png|32px|link=]] Open in DPS calculator</span>]</div>'
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Monsters' }
+
+ 	-- Add the associated category if the parameter has content
+	local defined_args = {
+		aka = 'Pages with AKA',
+		aspeed = 'Pages with aspeed',
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+ 	-- Add the associated category if the parameter doesn't have content
+ 	local notdefined_args = {
+ 		image = 'Needs image',
+ 		members = 'Needs members status',
+ 		release = 'Needs release date',
+ 		examine = 'Needs examine added',
+ 		combat = 'Needs combat level',
+ 		id = 'Needs ID'
+ 	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- Adds Category:Needs Monster Examine if any of these are not defined
+	local monster_examine_args = {
+		'att', 'str', 'def', 'range', 'mage',
+		'amagic', 'arange',
+		'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+		'attbns', 'strbns', 'rngbns', 'mbns',
+		'immunepoison', 'immunevenom', 'attack speed'
+	}
+	for _, arg in ipairs(monster_examine_args) do
+		if not catargs[arg] or not catargs[arg].all_defined then
+			table.insert(ret, 'Needs Monster Examine')
+			break
+		end
+	end
+
+	-- Adds Category:Needs slayer information if slayer info is required
+	-- but not all args are defined
+	local slayer_args = {
+		'slaylvl', 'slayxp', 'cat'
+	}
+	if catargs['assignedby'].one_defined then
+		table.insert(ret, 'Slayer monsters')
+		for i, arg in ipairs(slayer_args) do
+			if not catargs[arg] or not catargs[arg].all_defined then
+				table.insert(ret, 'Needs slayer information')
+				break
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

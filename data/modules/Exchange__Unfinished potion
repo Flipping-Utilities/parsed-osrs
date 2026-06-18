@@ -1,0 +1,12 @@
+return {
+    itemId     = 3406,
+    icon       = 'Unfinished potion.png',
+    item       = 'Unfinished potion',
+    value      = 11,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this potion.',
+    hialch     = 6,
+    lowalch    = 4
+}

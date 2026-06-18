@@ -1,0 +1,12 @@
+return {
+    itemId     = 97,
+    icon       = 'Harralander potion (unf).png',
+    item       = 'Harralander potion (unf)',
+    value      = 20,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Harralander potion.',
+    hialch     = 12,
+    lowalch    = 8
+}

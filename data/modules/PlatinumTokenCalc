@@ -1,0 +1,10 @@
+-- Module:PlatinumTokenCalc
+local p = {}
+
+function p.calc(frame)
+    local tokens = tonumber(frame.args.tokens) or 0
+    local gp = tokens * 1000
+    return tostring(gp)
+end
+
+return p

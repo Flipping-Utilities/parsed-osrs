@@ -1,0 +1,12 @@
+return {
+    itemId     = 4527,
+    icon       = 'Empty candle lantern.png',
+    item       = 'Empty candle lantern',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Put a candle in to complete it.',
+    hialch     = 6,
+    lowalch    = 4
+}

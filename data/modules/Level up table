@@ -1,0 +1,104 @@
+--
+-- Implements [[Template:Level up table]]
+--
+
+local p = {}
+
+local params = require('Module:Paramtest')
+
+function p._make_table(args)
+	local max_level = 99
+
+	local ret = mw.html.create('table')
+				:addClass('wikitable')
+				:addClass('level-up-table')
+				:css( 'width', '100%' )
+			:tag('tr')
+				:tag('th')
+					:wikitext('Level')
+					:done()
+				:tag('th')
+					:attr('colspan','2')
+					:wikitext('New abilities')
+					:done()
+			:done()
+	:done()
+
+	local has_freeplayall = params.has_content(args.freeplayall)
+	local has_membersall = params.has_content(args.membersall)
+
+	if has_membersall or has_freeplayall then
+		local row = ret:tag('tr')
+		local th = row:tag('th'):wikitext('Each level')
+
+		if has_freeplayall then
+			row:tag('td')
+				:addClass('lvlupfree')
+				:wikitext('[[File:Free-to-play icon.png|center|link=Free-to-play]]')
+				:done()
+			:tag('td')
+				:wikitext('\n'..args.freeplayall..'\n')
+				:done()
+			:done()
+		end
+		if has_membersall and has_freeplayall then
+			th:attr('rowspan', '2')
+			row = ret:tag('tr')
+		end
+		if has_membersall then
+			row:tag('td')
+				:addClass('lvlupmem')
+				:wikitext('[[File:Member icon.png|center|link=Members]]')
+				:done()
+			:tag('td')
+				:wikitext('\n'..args.membersall..'\n')
+				:done()
+		end
+	end
+
+	for i=1,max_level,1 do
+		local free_level_arg = 'freeplay'..i
+		local mems_level_arg = 'members'..i
+		local has_cur_free = params.has_content(args[free_level_arg])
+		local has_cur_mems = params.has_content(args[mems_level_arg])
+
+		local row = ret:tag('tr')
+		local th = row:tag('th'):wikitext(i):attr('id',i)
+
+		if has_cur_free then
+			row:tag('td')
+				:addClass('lvlupfree')
+				:wikitext('[[File:Free-to-play icon.png|center|link=Free-to-play]]')
+				:done()
+			:tag('td')
+				:wikitext('\n'..args[free_level_arg]..'\n')
+		end
+		if has_cur_free and has_cur_mems then
+			th:attr('rowspan', '2')
+			row = ret:tag('tr')
+		end
+		if has_cur_mems then
+			row:tag('td')
+				:addClass('lvlupmem')
+				:wikitext('[[File:Member icon.png|center|link=Members]]')
+				:done()
+			:tag('td')
+				:wikitext('\n'..args[mems_level_arg]..'\n')
+		end
+		if not has_cur_free and not has_cur_mems then
+			row:tag('td')
+				:attr('colspan','2')
+				:addClass('table-na')
+				:wikitext('No new abilities unlocked')
+				:done()
+		end
+	end
+
+	return ret
+end
+
+function p.make_table(frame)
+	return p._make_table(frame:getParent().args)
+end
+
+return p

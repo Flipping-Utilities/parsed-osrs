@@ -1,0 +1,627 @@
+--<nowiki>
+
+-- IMPORTS
+local pt = require('Module:Paramtest')
+local hc = pt.has_content
+local dt = pt.default_to
+local top_icons -- [[Module:Top icons]]
+local contains -- [[Module:Array]]
+local ordinal -- [[Module:Ordinal]]
+local pagesWithCats = require('Module:PageListTools').pageswithcatsdpl
+
+-- exposed table
+local p = {}
+
+--[=[
+--  
+-- HELPER TABLES AND FUNCTIONS
+-- 
+--]=]
+
+-- replacement before calling encode
+-- as lua patterns
+local repl_before = {
+	['%('] = '',
+	['%)'] = '',
+	['%!'] = '',
+}
+
+-- replacements after calling encode
+-- as lua patterns
+local repl_after = {
+	['%+'] = '-',
+	['%%2C'] = '',
+	['%%2F'] = '',
+	['%%3F'] = '',
+	['%%26%%2338%%3B'] = '',
+	['%%E2%%80%%93'] = '',
+	['%.'] = '',
+	['%%26quot%%3B'] = '',
+	['%%E2%%80%%99'] = '',
+	['%%26%%2339%%3B'] = '',
+	['%%C3%%B6'] = 'o',
+	['%%3A'] = '',
+}
+
+-- converting month names to hex for sortkeys
+local hexmonthconv = {
+	January = '1',
+	February = '2',
+	March = '3',
+	April = '4',
+	May = '5',
+	June = '6',
+	July = '7',
+	August = '8',
+	September = '9',
+	October = 'A',
+	November = 'B',
+	December = 'C',
+}
+
+-- used by year func
+local looporder = {
+	{ 'December', 31 },
+	{ 'November', 30 },
+	{ 'October', 31 },
+	{ 'September', 30 },
+	{ 'August', 31 },
+	{ 'July', 31 },
+	{ 'June', 30},
+	{ 'May', 31 },
+	{ 'April', 30 },
+	{ 'March', 31 },
+	{ 'February', 29 },
+	{ 'January', 31 }
+}
+
+-- used by datePage func
+local monthNumbers = {
+	January = 1,
+	February = 2,
+	March = 3,
+	April = 4,
+	May = 5,
+	June = 6,
+	July = 7,
+	August = 8,
+	September = 9,
+	October = 10,
+	November = 11,
+	December = 12
+}
+
+-- category mapping: {category name, type for use on date pages (eg [[28 November]])
+local category_info = {
+	bts = {'Behind the Scenes updates', 'Behind the Scenes'},
+	community = {'Community updates', 'Community'},
+	devblog = {'Developer Blogs', 'Developer Blog'},
+	event = {'Event updates', 'Event update'},
+	game = {'Game updates', 'Game update'},
+	future = {'Future Updates', 'Future update'},
+	mobile = {'Mobile updates', 'Mobile update'},
+	shop = {'Shop updates', 'Shop update'},
+	support = {'Support updates', 'Support'},
+	technical = {'Technical updates', 'Technical'},
+	website = {'Website updates', 'Website update'},
+	yourfeedback = {'Your Feedback updates', 'Your Feedback'},
+	forum = {'Forum post updates', 'Forum post'},
+	competitions = {'Competition updates', 'Competitions'},
+	['#default'] = {'Missing update category', ''},
+}
+-- input mapping: accepted inputs -> keys for above table
+local cat_switch = {
+	bts = 'bts',
+	['behind the scenes'] = 'bts',
+	comm = 'community',
+	community = 'community',
+	dev = 'devblog',
+	blog = 'devblog',
+	['dev blog'] = 'devblog',
+	devblog = 'devblog',
+	['dev blogs'] = 'devblog',
+	['developer blogs'] = 'devblog',
+	event = 'event',
+	events = 'event',
+	game = 'game',
+	feedback= 'yourfeedback',
+	forum = 'forum',
+	['forum post'] = 'forum',
+	future = 'future',
+	mobile = 'mobile',
+	shop = 'shop',
+	cs = 'support',
+	competition = 'competitions',
+	competitions = 'competitions',
+	customer = 'support',
+	['customer support'] = 'support',
+	support = 'support',
+	tech = 'technical',
+	technical = 'technical',
+	th = 'th',
+	site = 'website',
+	ws = 'website',
+	website = 'website',
+	yourfeedback= 'yourfeedback',
+	['your feedback'] = 'yourfeedback',
+	['#default'] = '#default'
+}
+
+-- given a supported 'category' code, return the name of the category
+function get_update_category(catarg)
+	if hc(catarg) then
+		catarg = string.gsub(string.lower(catarg), ' ?updates?', '')
+		if cat_switch[catarg] and category_info[cat_switch[catarg]] then
+			return category_info[cat_switch[catarg]][1]
+		else
+			return category_info[cat_switch['#default']][1]
+		end
+	else
+		return category_info[cat_switch['#default']][1]
+	end
+end
+
+-- given d,m,y, return the relevant time-based categories (with sorting)
+function get_time_categories(day, month, year)
+	local ret = {}
+	local hexmonth, dayzero
+		
+	if not day or not month or not hexmonthconv[month] or not year then
+		table.insert(ret, '[[Category:Missing update date]]')
+	else
+		dayzero = ((tonumber(day) < 10 and '0'..day) or day)
+		hexmonth = hexmonthconv[month]
+		-- [[Category:28 November updates]], sorted by year (eg 2015)
+		table.insert(ret, string.format('[[Category:%s %s updates|%s%s%s]]', day, month, year, hexmonth, dayzero))
+		
+		-- [[Category:2015 updates]], sorted by monthday, months converted to hex, eg B28 (28 November)
+		table.insert(ret, string.format('[[Category:%s updates|%s%s]]', year, hexmonth, dayzero))
+	
+		-- [[Category:Updates by date]], sorted year month day
+		table.insert(ret, string.format('[[Category:Updates by date|%s%s%s]]', year, hexmonth, dayzero))
+	
+	end
+
+	local external = {}
+	hexmonthnr = tonumber(hexmonthconv[month], 16)
+	-- Historical or OSRS updates
+	if tonumber(year) < 2008 then
+		table.insert(ret, '[[Category:Historical updates]]')
+		table.insert(external, 'rs')
+		if tonumber(year) < 2004 or (tonumber(year) == 2004 and (hexmonthnr < 3 or (hexmonthnr == 3 and tonumber(day) <= 29))) then
+			table.insert(external, 'rsc')
+		end
+	else
+		table.insert(ret, '[[Category:Old School RuneScape updates]]')
+	end
+	if #external then
+		top_icons = require('Module:Top icons')._main
+		table.insert(ret, top_icons(external))
+	end
+	
+	return table.concat(ret)
+end
+
+-- lang for formatting date
+local lang = mw.getContentLanguage()
+-- current title
+local title = mw.title.getCurrentTitle()
+
+--[=[
+-- 
+-- TEMPLATES
+-- 
+--]=]
+
+-- [[Template:Update]]
+function p.update(frame)
+	local a = frame:getParent().args
+	
+	local div = mw.html.create('div')
+		:addClass('update')
+		:done()
+		
+	local link
+	local reldo = ''
+	local url = a.link or a.url
+	local postDateInfo
+	
+	if hc(url) then
+		if url == 'no' then
+			link = 'official news post'
+		else
+			link = '[' .. url .. ' official news post]'
+			reldo = ' Snapshots of the web page are archived [https://reldo.runescape.wiki/snapshots.html?url=' .. mw.uri.encode(url) .. ' here].'
+		end
+	else
+		link = string.lower(title.baseText)
+		for i,v in pairs(repl_before) do
+			link = string.gsub(link, i, v)
+		end
+		link = mw.uri.encode(link)
+		for i,v in pairs(repl_after) do
+			link = string.gsub(link, i, v)
+		end
+		
+		link = 'https://secure.runescape.com/m=news/' .. link
+		reldo = ' Snapshots of the web page are archived [https://reldo.runescape.wiki/snapshots.html?url=' .. link .. ' here].'
+		link = string.format('[%s official news post]', link)
+	end
+	
+	local date_link, day, month, year, timestamp
+	if hc(a.date) then
+		day = lang:formatDate('j', a.date)
+		month = lang:formatDate('F', a.date)
+		year = lang:formatDate('Y', a.date)
+		timestamp = os.time({year = year, month = lang:formatDate('m', a.date), day = day})
+		date_link = '[[' .. day .. ' ' .. month .. ']] [[' .. year .. ']]'
+	else
+		date_link = '(missing date)'
+	end
+	
+	if hc(a.rev) then
+		date_link = date_link .. ', and revised on ' .. lang:formatDate('[[j F]] [[Y]]', a.rev)
+	end
+	
+	if hc(a.author) then
+		date_link = date_link .. ' by ' .. a.author
+	end
+	
+	if url == 'no' then
+		postDateInfo = 'It was added on ' .. date_link .. ' but has since been removed.'
+	else
+		postDateInfo = 'It was added on ' .. date_link .. '.'
+	end
+	postDateInfo = postDateInfo .. reldo
+	
+	-- Determine whether message is historical (pre-osrs), osrs.
+	local message = ''
+	local website = ''
+	
+	if hc(a.time) then
+		--Historical updates
+		if a.time == 'historical' then
+			message = ' is from before the launch of <i>Old School RuneScape</i> and is copied verbatim from the '
+			website = '[https://www.runescape.com/community <i>RuneScape</i> website]'
+		end
+	--OSRS updates	
+	else
+		message = ' is copied verbatim from the '
+		website = '[https://oldschool.runescape.com/ <i>Old School RuneScape</i> website]'
+	end
+	
+	div:wikitext('This ' .. link .. message)
+		:tag('span')
+			:addClass('plainlinks')
+			:wikitext(website)
+		:done()
+		:wikitext('. It is copyrighted by [[Jagex]].')
+		:tag('br'):done()
+		:wikitext(postDateInfo)
+	:done()
+	
+	local div2 = ''
+
+	if hc(a.article) then
+		div2 = mw.html.create('div')
+			:addClass('update-redirect')
+			:addClass('tile')
+			-- css was previously at common.css but now here because it was unused
+			:cssText('text-align:center;font-weight:bold;font-size:2em;line-height:1.5em;padding:1em;margin-left:auto;margin-right:auto;')
+			:wikitext('This is a newspost. For the wiki article, see [[' .. a.article .. ']]')
+			:done()
+		
+		if hc(a.nuke) then
+			if a.nuke == 'yes' then
+				div2:addClass('nuke'):cssText('margin-bottom:20%;')
+			end
+		end
+	end
+	
+	local cat = ''
+	-- cats only in update namespace
+	if title.namespace == 112 then
+		cat = '[[Category:' .. get_update_category(a.category) .. '|' .. title.text .. ']]'
+		cat = cat .. get_time_categories(day, month, year)
+		
+		local bucketYear, bucketMonth, bucketDay
+		bucketYear = lang:formatDate('Y', a.date)
+		bucketMonth = lang:formatDate('n', a.date)
+		bucketDay = lang:formatDate('j', a.date)
+		bucket('update').put({
+			date = timestamp,
+			type = get_update_category(a.category),
+			year = bucketYear,
+			month = bucketMonth,
+			day = bucketDay
+		})
+	end
+	
+	local ret = '__NOTOC__ __NOEDITSECTION__' .. tostring(div2) .. tostring(div) .. cat
+	
+	return ret
+end
+
+-- [[Template:Patch Notes]] no links available as Patch Note Archive have been removed from Jagex's website
+function p.patchnotes(frame)
+	local a = frame:getParent().args
+	
+	local div = mw.html.create('div')
+		:addClass('update')
+		:done()
+		
+	local date_link, timestamp
+	local day, month, year = '', '', ''
+	if hc(a.date) then
+		day = lang:formatDate('j', a.date)
+		month = lang:formatDate('F', a.date)
+		year = lang:formatDate('Y', a.date)
+		timestamp = os.time({year = year, month = lang:formatDate('m', a.date), day = day})
+		date_link = string.format('[[%s %s]] [[%s]]', day, month, year)
+	else
+		date_link = '(missing date)'
+	end
+	
+	if hc(a.rev) then
+		date_link = date_link .. ', and revised on ' .. lang:formatDate('[[j F]] [[Y]]', a.rev)
+	end
+	
+	div:wikitext('These official [[Patch Notes]] are copied verbatim from the Patch Notes Archive which is no longer available. It is copyrighted by [[Jagex]].')
+		:done()
+		:tag('br'):done()
+		:wikitext('These Patch Notes were announced on ' .. date_link .. '.')
+	:done()
+	
+	local cat = ''
+	-- cats only in update namespace
+	if title.namespace == 112 then
+		cat = cat .. '[[Category:Patch Notes|*' .. lang:formatDate('md', day .. ' ' .. month) .. ']]'
+		cat = cat .. get_time_categories(day, month, year)
+
+		local bucketYear, bucketMonth, bucketDay
+		bucketYear = lang:formatDate('Y', a.date)
+		bucketMonth = lang:formatDate('n', a.date)
+		bucketDay = lang:formatDate('j', a.date)
+		bucket('update').put({
+			date = timestamp,
+			type = 'Patch Notes',
+			year = bucketYear,
+			month = bucketMonth,
+			day = bucketDay
+		})
+	end
+
+	local ret = frame:getParent():preprocess(string.format('{{Parentitle override|Update:Patch Notes|(%s %s %s)}}', day, month, year)) .. '__NOEDITSECTION__' .. tostring(div) .. cat .. '<div style="float:right">__TOC__</div>'
+	
+	return ret
+end
+
+
+--[=[
+-- 
+-- CATEGORY FORMATTERS
+-- 
+--]=]
+
+-- [[Category:28 November updates]] etc
+function p.date_cat(frame)
+	local f = frame:getParent()
+	local d
+	if hc(f.args[1]) then
+		d = f.args[1]
+	else
+		-- assumes 2016 so that leap years work
+		d = string.gsub(title.text, ' ?updates?', '') .. ' 2016'
+	end
+	
+	local ret = 'This category contains updates posted on ' .. lang:formatDate('[[j F]]', d) .. ', sorted chronologically.'
+	-- cats only in category namespace
+	if title.namespace == 14 then
+		--updates by day, sorted by hexmonth,day: B28 (28 November)
+		ret = ret .. '[[Category:Updates by day|' .. hexmonthconv[lang:formatDate('F', d)] .. lang:formatDate('d', d) .. ']]'
+		--updates by month, sorted by [space]day
+		ret = ret .. '[[Category:' .. lang:formatDate('F', d) .. ' updates| ' .. lang:formatDate('d', d) .. ']]'
+	end
+	
+	return ret
+end
+
+-- [[Category:2015 updates]] etc
+function p.year_cat(frame)
+	local f = frame:getParent()
+	local d
+	if hc(f.args[1]) then
+		d = f.args[1]
+	else
+		d = string.gsub(title.text, ' ?updates?', '')
+	end
+	
+	local ret = 'This category contains updates posted in [[' .. d .. ']], sorted chronologically.'
+	-- cats only in category namespace
+	if title.namespace == 14 then
+		--updates by year, sorted by [space]year
+		ret = ret .. '[[Category:Updates by year| ' .. d .. ']]'
+	end
+	
+	return ret
+end
+
+
+--[=[
+-- 
+-- [[Bucket:Update]] query + processing for {{Old School RuneScape Wiki/On this day}}
+-- and date pages e.g. [[1 January]]. Invoked by {{Date page}}
+-- 
+--]=]
+function p.datePage(frame)
+	local args = frame:getParent().args
+	local dateName = args[1] or mw.title.getCurrentTitle().text
+
+	local dayNum, monthName = unpack(mw.text.split(dateName, '%s'))
+	dayNum = tonumber(dayNum)
+	monthNum = monthNumbers[monthName]
+
+	if dayNum == nil or monthNum == nil then
+		return '* ... Nothing interesting happened.'
+	end
+
+	local updateInfos = bucket('update')
+		.select('page_name', 'type', 'year')
+		.where({
+			day = dayNum,
+			month = monthNum
+		})
+		.orderBy('year', 'desc')
+		.run()
+
+	if #updateInfos == 0 or #updateInfos > 100 then
+		return '* ... Nothing interesting happened.'
+	end
+
+	local i, updateInfo, pageYear, pageType, pageTypeClean, pageName
+	local outStrings = {}
+	for i, updateInfo in ipairs(updateInfos) do
+		pageName = string.gsub(updateInfo['page_name'], '^Update:', '')
+		pageYear = updateInfo['year']
+		pageTypeClean = string.gsub(string.lower(updateInfo['type']), ' ?updates?', '')
+
+		if pageTypeClean == 'patch notes' then
+			pageType = 'Patch Notes'
+		else
+			pageType = category_info[cat_switch[pageTypeClean]][2]
+		end
+
+		outStrings[i] = string.format("*'''%s''' – %s: [[Update:%s|%s]]", pageYear, pageType, pageName, pageName)
+	end
+
+	return table.concat(outStrings, '\n')
+end
+
+
+--[=[
+-- 
+-- YEAR DPL HANDLERS
+-- 
+--]=]
+
+local function sortFunc(a,b)
+	return a[2] < b[2]
+end
+
+local function lookup(cat)
+	local r = mw.getCurrentFrame():preprocess(string.format([=[
+{{#dpl:
+|namespace=Update
+|category=%s
+|include={Update}:date,{Patch Notes}:date,{DevBlog}:date
+|format=,¦UD¦%%PAGE%%@D@,,
+|ordermethod=sortkey
+}}
+]=], cat))
+	local ret = { }
+	local keys = {}
+	for v in mw.text.gsplit(r, '|UD|', true) do
+		if v:find('@') then
+			local u,_d = unpack(mw.text.split(v, '@D@'))
+			u = mw.text.trim(u)
+			u = string.sub(u, 8, -1)
+			_d = mw.text.trim(_d)
+			local y,m,d = unpack(mw.text.split(lang:formatDate('Y-F-j', _d), '-', true))
+			y = tonumber(y)
+			d = tonumber(d)
+			if not ret[y] then
+				ret[y] = {}
+			end
+			if not ret[y][m] then
+				ret[y][m] = {}
+			end
+			if not ret[y][m][d] then
+				ret[y][m][d] = {u}
+			else
+				table.insert(ret[y][m][d], u)
+			end
+		end
+	end
+	return ret
+end
+
+function p.year(frame)
+	return p._year(frame:getParent().args)
+end
+
+function p._year(args)
+	local year = args[1] or mw.title.getCurrentTitle().text
+	local data = lookup(year..' updates')
+	data = data[tonumber(year)]
+	local gameUpdQ = pagesWithCats({ {year .. ' updates', 'Game updates'} })
+	local gameUpdates = {}
+	if (gameUpdQ == nil) or (gameUpdQ[1] == nil) then
+		return '<i>No updates have been released this year so far. If you believe this is a mistake, leave a message in [[Module talk:Updates|this talk page]].</i>'
+	end
+	for _,v in ipairs(gameUpdQ) do
+		table.insert(gameUpdates, v)
+	end
+	local ret = {'<i>Note:</i> Titles in bold indicate a [[Game updates|game update]].'}
+	local data_m, data_d
+	
+	contains = require('Module:Array').contains
+	ordinal = require('Module:Ordinal')._main
+	
+	for _,m in ipairs(looporder) do
+		data_m = data[m[1]]
+		if data_m then
+			table.insert(ret, '\n\n=='..m[1]..'==')
+			for d = m[2], 1, -1 do
+				data_d = data_m[d]
+				if data_d then
+					table.sort(data_d)
+					local patchDay = false
+					local addedPatch = false
+					local gameUpdDay = false
+					local otherUpdDay = false
+					local patchNote = 'Patch Notes (' .. d .. ' ' .. m[1] .. ' ' .. year .. ')'
+					local patchLink = string.format('\'\'([[Update:%s|Patch Notes]])\'\'', patchNote)
+					if ( contains(data_d, patchNote) ) then patchDay = true end
+					for _,u in ipairs(data_d) do
+						if( contains(gameUpdates, 'Update:' .. u) ) then
+							gameUpdDay = true
+						elseif( u ~= patchNote ) then
+							otherUpdDay = true
+						end
+					end
+					for _,u in ipairs(data_d) do
+						if( contains(gameUpdates, 'Update:' .. u) ) then
+							-- bold game updates
+							local updBullet = string.format('\'\'\'[[Update:%s|%s]]\'\'\'', u, u)
+							if (patchDay == true and addedPatch == false) then
+								updBullet = updBullet .. ' ' .. patchLink
+								addedPatch = true
+							end
+							table.insert(ret, string.format('\n* %s%s – %s', tostring(d), ordinal(d, {nosup = true, nonum = true}), updBullet))
+						elseif( u ~= patchNote ) then
+							-- add normal updates
+							local updBullet = string.format('[[Update:%s|%s]]', u, u)
+							if (patchDay == true and addedPatch == false and gameUpdDay == false) then
+								updBullet = updBullet .. ' ' .. patchLink
+								addedPatch = true
+							end
+							table.insert(ret, string.format('\n* %s%s – %s', tostring(d), ordinal(d, {nosup = true, nonum = true}), updBullet))
+						elseif( u == patchNote and gameUpdDay == false and otherUpdDay == false ) then
+							-- add patches as standalone updates
+							local updBullet = string.format('\'\'([[Update:%s|Patch Notes]])\'\'', u)
+							table.insert(ret, string.format('\n* %s%s – %s', tostring(d), ordinal(d, {nosup = true, nonum = true}), updBullet))
+						end
+					end
+				end
+			end
+		end
+	end
+	return mw.text.trim(table.concat(ret, ''))
+end
+
+--TODO
+--p.updatedpl
+--p.patchnotesdpl
+--etc
+
+return p

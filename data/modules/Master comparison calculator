@@ -1,0 +1,362 @@
+local Paramtest = require( 'Module:Paramtest' )
+local Slayerlib = require ('Module:Slayer_task_library' )
+local SlayerConsts = require('Module:SlayerConsts')
+
+local p = {}
+
+function p.invoke_main( frame )
+	local result = p.main( frame:getParent().args )
+	
+	return result
+end
+
+
+function p.tobool(str)
+	if str == 'true' then
+		return true
+	end
+	return false
+end
+
+function p.main( args )
+	-- Handle inputs
+	local desiredTask = Paramtest.defaults{
+		{ args.wantedTask, 'None' }
+	}
+	
+	local combatLevel, slayerLevel, defenceLevel, agilityLevel, rangedLevel, strengthLevel, hitpointsLevel, thievingCheck, firemakingCheck, magicCheck = Paramtest.defaults{
+		{ tonumber(args.combatLevel), 1 },
+		{ tonumber(args.slayerLevel), 1 },
+		{ tonumber(args.defenceLevel), 1 },
+		{ tonumber(args.agilityLevel), 1 },
+		{ tonumber(args.rangedLevel), 1 },
+		{ tonumber(args.strengthLevel), 1 },
+		{ tonumber(args.hitpointsLevel), 10 },
+		{ args.thievingCheck, true },
+		{ args.firemakingCheck, true },
+		{ args.magicCheck, true }
+	}
+
+	local block1, block2, block3, block4, block5, block6 = Paramtest.defaults{
+		{ args.block1, 'None'},
+		{ args.block2, 'None'},
+		{ args.block3, 'None'},
+		{ args.block4, 'None'},
+		{ args.block5, 'None'},
+		{ args.block6, 'None'},
+	}
+
+	local blocks = {
+		block1,
+		block2,
+		block3,
+		block4,
+		block5,
+		block6
+	}
+
+	-- Magic number 23 since this is the highest level required for thieving (magic axes)
+	local thievingLevel = 23
+	if p.tobool(thievingCheck) == false then
+		thievingLevel = 1
+	end
+
+	-- Magic number 33 since this is the highest level required for firemaking
+	local firemakingLevel = 33
+	if p.tobool(firemakingCheck) == false then
+		firemakingLevel = 1
+	end
+
+	-- Magic number 50 since this is the highest level required for magic
+	local magicLevel = 50
+	if p.tobool(magicCheck) == false then
+		magicLevel = 1
+	end
+	
+	-- Need to create a stats table, unlocks table, quests table, and other table
+	local stats = {
+		Combat = combatLevel,
+		Slayer = slayerLevel,
+		Magic = magicLevel,
+		Agility = agilityLevel,
+		Strength = strengthLevel,
+		Firemaking = firemakingLevel,
+		Defence = defenceLevel,
+		Hitpoints = hitpointsLevel,
+		Ranged = rangedLevel,
+		Thieving = thievingLevel
+	}
+
+	-- Since the checkboxes return the name of the unlock (same as in UNLOCK_IDS)
+	-- if checked and nil if not checked, this array will only be the names of
+	-- activated unlocks.
+	local unlocks = { args.seeingRed, args.iHopeYouMithMe, args.watchTheBirdie,
+		args.hotStuff, args.reptileGotRipped, args.likeABoss, args.stopTheWyvern, 
+		args.basilocked, args.unlockedVamps, args.iWildyMoreSlayer, args.WarpedReality
+	}
+
+	-- Similarly, this will become a list of completed quests.
+	local quests = {
+		args.priestInPeril,
+		args.dragonSlayerII,
+		args.dragonSlayer,
+		args.cabinFever,
+		args.horrorFromTheDeep,
+		args.mourningsEndPartII,
+		args.desertTreasure,
+		args.regicide,
+		args.boneVoyage,
+		args.lostCity,
+		args.elementalWorkshopI,
+		args.deathPlateau,
+		args.lunarDiplomacy,
+		args.olafsQuest,
+		args.contact,
+		args.rumDeal,
+		args.skippyAndTheMogres,
+		args.deathToTheDorgeshuun,
+		args.legendsQuest,
+		args.ernestTheChicken,
+		args.royalTrouble,
+		args.hauntedMine,
+		args.porcineOfInterest,
+		args.SecretsOfTheNorth,
+		args.DesertTreasure2,
+		args.perilousMoons,
+		args.shadowsOfCustodia
+	}
+	
+	-- List of completed other activities.
+	local accessGWD = nil
+	if stats["Strength"] >= 60 or stats["Agility"] >= 60 then
+		accessGWD = 'Access GWD'
+	end
+	local other = {
+		args.ancientCavern,
+		accessGWD,
+		args.brittleKey,
+		args.accessAbyss
+	}
+	
+	-- Handle specific tasks that can actually have 2 assignments
+
+	-- Create the player status given our various inputs
+	status = Slayerlib.create_status(stats, quests, unlocks, other, blocks)
+	
+
+	-- Add skeleton hellhounds, demonic gorillas, and any other multi-task enemies to this list
+	-- Vorkath may need to be updated with zombie
+	-- I doubt Zulrah is a sea snake
+
+	-- What makes a monster "special"?
+	-- A monster should be considered "special" if it is not a direct task but
+	-- there is a valid reason for wanting to kill it.
+	-- Bosses are not considered a direct task, the "Boss" task is the direct task.
+	-- Therefore, this table will be largely subjective.
+	
+	-- Tasks like Demonic Gorillas could be considered special since there is a
+	-- reason to kill them, but Demonic Gorillas themselves are not a task.
+	
+	-- On the other hand, tasks like Undead Chickens *could* be considered special
+	-- since they count for both Zombie and Chicken tasks, but is there a reason
+	-- to actually want them as a task? Adding them for completion could be nice
+	-- but given how unwieldy the calc already is, this seems like a bad idea.
+	
+	-- Note that the Grotesque Guardians technically require the brittle key to get them
+	-- as a boss task. Adding that as yet another requirement for something that affects
+	-- a fraction of a percent for only boss tasks doesn't seem worth since it adds
+	-- another checkbox to the calc.
+	local specialTable = {
+		[SlayerConsts.TASK_BOSS_ABYSSAL_SIRE] = {SlayerConsts.TASK_BOSS_ABYSSAL_SIRE, SlayerConsts.TASK_ABYSSAL_DEMONS},
+		[SlayerConsts.TASK_BOSS_ARAXXOR] = {SlayerConsts.TASK_BOSS_ARAXXOR, SlayerConsts.TASK_ARAXYTES, SlayerConsts.TASK_SPIDERS},
+		[SlayerConsts.TASK_BOSS_ALCHEMICAL_HYDRA] = {SlayerConsts.TASK_BOSS_ALCHEMICAL_HYDRA, SlayerConsts.TASK_HYDRAS},
+		[SlayerConsts.TASK_BOSS_BARROWS] = {SlayerConsts.TASK_BOSS_BARROWS},
+		[SlayerConsts.TASK_BOSS_CALLISTO] = {SlayerConsts.TASK_BOSS_CALLISTO, SlayerConsts.TASK_BEARS},
+		[SlayerConsts.TASK_BOSS_CERBERUS] = {SlayerConsts.TASK_BOSS_CERBERUS, SlayerConsts.TASK_HELLHOUNDS},
+		[SlayerConsts.TASK_BOSS_CHAOS_ELEMENTAL] = {SlayerConsts.TASK_BOSS_CHAOS_ELEMENTAL},
+		[SlayerConsts.TASK_BOSS_CHAOS_FANATIC] = {SlayerConsts.TASK_BOSS_CHAOS_FANATIC},
+		[SlayerConsts.TASK_BOSS_COMMANDER_ZILYANA] = {SlayerConsts.TASK_BOSS_COMMANDER_ZILYANA},
+		[SlayerConsts.TASK_BOSS_CRAZY_ARCHAEOLOGIST] = {SlayerConsts.TASK_BOSS_CRAZY_ARCHAEOLOGIST},
+		[SlayerConsts.TASK_BOSS_DAGANNOTH_KINGS] = {SlayerConsts.TASK_BOSS_DAGANNOTH_KINGS, SlayerConsts.TASK_DAGANNOTH},
+		[SlayerConsts.TASK_BOSS_GENERAL_GRAARDOR] = {SlayerConsts.TASK_BOSS_GENERAL_GRAARDOR},
+		[SlayerConsts.TASK_BOSS_GIANT_MOLE] = {SlayerConsts.TASK_BOSS_GIANT_MOLE},
+		[SlayerConsts.TASK_BOSS_GROTESQUE_GUARDIANS] = {SlayerConsts.TASK_BOSS_GROTESQUE_GUARDIANS, SlayerConsts.TASK_GARGOYLES},
+		[SlayerConsts.TASK_BOSS_KRIL_TSUTSAROTH] = {SlayerConsts.TASK_BOSS_KRIL_TSUTSAROTH, SlayerConsts.TASK_GREATER_DEMONS},
+		[SlayerConsts.TASK_BOSS_KALPHITE_QUEEN] = {SlayerConsts.TASK_BOSS_KALPHITE_QUEEN, SlayerConsts.TASK_KALPHITES},
+		[SlayerConsts.TASK_BOSS_KING_BLACK_DRAGON] = {SlayerConsts.TASK_BOSS_KING_BLACK_DRAGON, SlayerConsts.TASK_BLACK_DRAGONS},
+		[SlayerConsts.TASK_BOSS_KRAKEN] = {SlayerConsts.TASK_BOSS_KRAKEN, SlayerConsts.TASK_CAVE_KRAKEN},
+		[SlayerConsts.TASK_BOSS_KREEARRA] = {SlayerConsts.TASK_BOSS_KREEARRA, SlayerConsts.TASK_AVIANSIE},
+		[SlayerConsts.TASK_BOSS_SARACHNIS] = {SlayerConsts.TASK_BOSS_SARACHNIS, SlayerConsts.TASK_SPIDERS},
+		[SlayerConsts.TASK_BOSS_SCORPIA] = {SlayerConsts.TASK_BOSS_SCORPIA, SlayerConsts.TASK_SCORPIONS},
+		[SlayerConsts.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL] = {SlayerConsts.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL, SlayerConsts.TASK_SMOKE_DEVILS},
+		[SlayerConsts.TASK_BOSS_VENENATIS] = {SlayerConsts.TASK_BOSS_VENENATIS, SlayerConsts.TASK_SPIDERS},
+		[SlayerConsts.TASK_BOSS_VETION] = {SlayerConsts.TASK_BOSS_VETION, SlayerConsts.TASK_SKELETONS},
+		[SlayerConsts.TASK_BOSS_VORKATH] = {SlayerConsts.TASK_BOSS_VORKATH, SlayerConsts.TASK_BLUE_DRAGONS},
+		[SlayerConsts.TASK_BOSS_ZULRAH] = {SlayerConsts.TASK_BOSS_ZULRAH},
+		[SlayerConsts.TASK_SKOTIZO] = {SlayerConsts.TASK_BLACK_DEMONS, SlayerConsts.TASK_GREATER_DEMONS},
+		[SlayerConsts.TASK_DEMONIC_GORILLAS] = {SlayerConsts.TASK_MONKEY, SlayerConsts.TASK_BLACK_DEMONS},
+		[SlayerConsts.TASK_SKELETON_HELLHOUNDS] = {SlayerConsts.TASK_HELLHOUNDS, SlayerConsts.TASK_SKELETONS},
+		[SlayerConsts.TASK_REVENANTS] = {SlayerConsts.TASK_REVENANTS, SlayerConsts.TASK_GHOSTS}
+	}
+
+	specialNameTable = {
+	[SlayerConsts.TASK_BOSS_ABYSSAL_SIRE] = "[[Abyssal Sire]]",
+	[SlayerConsts.TASK_BOSS_ARAXXOR] = "[[Araxxor]]",
+	[SlayerConsts.TASK_BOSS_ALCHEMICAL_HYDRA] = "[[Alchemical Hydra]]",
+	[SlayerConsts.TASK_BOSS_BARROWS] = "[[Barrows]]",
+	[SlayerConsts.TASK_BOSS_CALLISTO] = "[[Callisto]]",
+	[SlayerConsts.TASK_BOSS_CERBERUS] = "[[Cerberus]]",
+	[SlayerConsts.TASK_BOSS_CHAOS_ELEMENTAL] = "[[Chaos Elemental]]",
+	[SlayerConsts.TASK_BOSS_CHAOS_FANATIC] = "[[Chaos Fanatic]]",
+	[SlayerConsts.TASK_BOSS_COMMANDER_ZILYANA] = "[[Commander Zilyana]]",
+	[SlayerConsts.TASK_BOSS_CRAZY_ARCHAEOLOGIST] = "[[Crazy archaeologist]]",
+	[SlayerConsts.TASK_BOSS_DAGANNOTH_KINGS] = "[[Dagannoth Kings]]",
+	[SlayerConsts.TASK_BOSS_GENERAL_GRAARDOR] = "[[General Graardor]]",
+	[SlayerConsts.TASK_BOSS_GIANT_MOLE] = "[[Giant Mole]]",
+	[SlayerConsts.TASK_BOSS_GROTESQUE_GUARDIANS] = "[[Grotesque Guardians]]",
+	[SlayerConsts.TASK_BOSS_KRIL_TSUTSAROTH] = "[[K'ril Tsutsaroth]]",
+	[SlayerConsts.TASK_BOSS_KALPHITE_QUEEN] = "[[Kalphite Queen]]",
+	[SlayerConsts.TASK_BOSS_KING_BLACK_DRAGON] = "[[King Black Dragon]]",
+	[SlayerConsts.TASK_BOSS_KRAKEN] = "[[Kraken]]",
+	[SlayerConsts.TASK_BOSS_KREEARRA] = "[[Kree'arra]]",
+	[SlayerConsts.TASK_BOSS_SARACHNIS] = "[[Sarachnis]]",
+	[SlayerConsts.TASK_BOSS_SCORPIA] = "[[Scorpia]]",
+	[SlayerConsts.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL] = "[[Thermonuclear smoke devil]]",
+	[SlayerConsts.TASK_BOSS_VENENATIS] = "[[Venenatis]]",
+	[SlayerConsts.TASK_BOSS_VETION] = "[[Vet'ion]]",
+	[SlayerConsts.TASK_BOSS_VORKATH] = "[[Vorkath]]",
+	[SlayerConsts.TASK_BOSS_ZULRAH] = "[[Zulrah]]",
+	[SlayerConsts.TASK_SKOTIZO] = "[[Skotizo]]",
+	[SlayerConsts.TASK_DEMONIC_GORILLAS] = "[[Demonic gorilla]]s",
+	[SlayerConsts.TASK_SKELETON_HELLHOUNDS] = "[[Skeleton Hellhound (Vet'ion)]]",
+	[SlayerConsts.TASK_REVENANTS] = "[[Revenant]]s"
+	}
+
+	local monstersToSearch = {}
+	if specialTable[SlayerConsts.get_monster_id(desiredTask)] ~= nil then
+		for _, id in ipairs(specialTable[SlayerConsts.get_monster_id(desiredTask)]) do
+			table.insert(monstersToSearch, SlayerConsts.get_monster_name(id))
+		end
+	else
+		table.insert(monstersToSearch, desiredTask)
+	end
+
+	local taskPercents = {}
+	local taskName = ''
+	if specialTable[SlayerConsts.get_monster_id(desiredTask)] ~= nil then
+		taskName = specialNameTable[SlayerConsts.get_monster_id(desiredTask)]
+	end
+	for _, monsterToSearch in ipairs(monstersToSearch) do
+		-- Get all masters that can assign this task.
+		slayerMasters = Slayerlib.get_masters_that_assign(monsterToSearch)
+		
+		-- Get the entire task table of the chosen slayer master.
+		for slayerMaster, _ in pairs(slayerMasters) do
+			local masterTable = Slayerlib.get_table(slayerMaster)
+
+			-- If this is the actual monster we are looking for, grab the name from the table
+			if monsterToSearch == desiredTask and taskName == '' then
+				taskName = masterTable[SlayerConsts.get_monster_id(monsterToSearch)]['name']
+			end
+			
+			-- Get the tables of available and unavailable tasks.
+			local effectiveTable, unavailableTable = Slayerlib.get_effective_table(masterTable, status, true)
+
+			-- Pass these to calculate percents.
+			if taskPercents[slayerMaster] == nil then
+				taskPercents[slayerMaster] = p.calculate_percent(effectiveTable, monsterToSearch)
+			else
+				taskPercents[slayerMaster] = taskPercents[slayerMaster] + p.calculate_percent(effectiveTable, monsterToSearch)
+			end
+		end
+	end
+
+	-- Render the results
+	return p.render_table(taskPercents, taskName)
+end
+
+--
+-- Calculates the percent chance of getting each task from effectiveTable.
+--
+-- @param effectiveTable {table} A table of all tasks the player can be assigned.
+-- @param unavailableTable {table} A table of all tasks the player cannot be assigned.
+--
+-- @return {table} Returns a table that contains the task name as key and the
+--					percent chance (decimal form) of getting it as the value.
+--
+function p.calculate_percent(effectiveTable, desiredTask)
+	local totalWeight = 0
+	for k, v in pairs(effectiveTable) do
+		totalWeight = totalWeight + v['weight']
+	end
+
+	for k, v in pairs(effectiveTable) do
+		if v['subtable'] ~= nil then
+			subtablePercents = p.calculate_percent(v['subtable'], desiredTask)
+			if subtablePercents ~= 0 then
+				subtableMult = v['weight']/totalWeight
+				return subtableMult*subtablePercents
+			end
+		end
+		if k == Slayerlib.get_monster_id(desiredTask) then
+			return v['weight']/totalWeight
+		end
+	end
+
+	return 0
+end
+
+function pairs_by_keys(t, f)
+	local a = {}
+	for n in pairs(t) do table.insert(a, n) end
+	table.sort(a, f)
+	local i = 0      -- iterator variable
+	local iter = function ()   -- iterator function
+    	i = i + 1
+    	if a[i] == nil then return nil
+    	else return a[i], t[a[i]]
+    	end
+	end
+	return iter
+end
+
+-- Render the results table.
+function p.render_table(results, desiredTask)
+	local resultsDiv = mw.html.create( 'div' )
+	local resultsTable = mw.html.create( 'table' )
+	resultsTable:addClass( 'wikitable' )
+		:addClass( 'sortable')
+		:addClass( 'align-center-1' )
+		:tag( 'tr' )
+			:tag( 'th' )
+				:wikitext( 'Results for ' .. desiredTask )
+				:attr( 'colspan', 2 )
+			:done()
+		:done()
+		:tag( 'tr' )
+			:tag( 'th' )
+				:wikitext( 'Master' )
+			:done()
+			:tag( 'th' )
+				:wikitext( 'Assignment Chance')
+			:done()
+		:done()
+	:done()
+
+	for k, v in pairs_by_keys(results) do
+		resultsTable:tag( 'tr' )
+			:tag( 'td' )
+				:wikitext( k )
+			:done()
+			:tag( 'td' )
+				:wikitext( string.format("%.2f", 100*v ) .. "%")
+				:attr( 'align', 'right' )
+			:done()
+		:done()
+	end
+
+	resultsDiv:node(tostring(resultsTable))
+	return resultsDiv
+end
+
+return p

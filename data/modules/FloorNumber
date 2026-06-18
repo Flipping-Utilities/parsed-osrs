@@ -1,0 +1,86 @@
+local ordinal = require('Module:Ordinal')._main
+local yn = require('Module:Yesno')
+
+local p = {}
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(args)
+	local nohelp = yn(args.nohelp)
+	local caps = yn(args.caps)
+	local flr = tonumber(args.uk)
+	-- prevent people from using anything but the main syntax for consistency across the wiki. Big red errors should make stuff clear.
+	assert(flr, "Missing parameter `uk`")
+	-- prevent unnamed parameters, which indicates people wanting to use deprecated |nohelp}}, |caps}}, or {{floornumber|1}} syntax.
+	assert(args[1] == nil, "Unrecognised parameter")
+	local flr_us = flr+1
+	local ord_gb = ordinal(flr, {nosup=true, nonum=true})
+	local ord_us = ordinal(flr_us, {nosup=true, nonum=true})
+			
+	
+	local ret = mw.html.create('span')
+	ret:addClass('floornumber')
+	local spn_gb = ret:tag('span')
+	spn_gb	:addClass('floornumber-gb')
+	
+	if flr == 0 then
+		if caps then
+			spn_gb:wikitext('Ground')
+		else
+			spn_gb:wikitext('ground')
+		end
+	else
+		spn_gb:wikitext(flr)
+				:tag('sup')
+					:addClass('floornumber-ordinal-suffix')
+					:wikitext(ord_gb)
+				:done()
+	end
+	spn_gb:wikitext('&nbsp;floor')
+	if not nohelp then
+		spn_gb:tag('sup')
+			:addClass('floornumber-help noexcerpt')
+			:wikitext('&#91;')
+			:tag('span')
+				:addClass('fact-text')
+				:addClass('floor-convention')
+				:attr('title', 'British convention; floor '..flr_us..' in the US')
+				:wikitext('UK')
+			:done()
+			:wikitext('&#93;')
+	end	
+	
+	local spn_us = ret:tag('span')
+	spn_us	:addClass('floornumber-us noexcerpt')
+			:wikitext(flr_us)
+			:tag('sup')
+				:addClass('floornumber-ordinal-suffix')
+				:wikitext(ord_us)
+			:done()
+			:wikitext('&nbsp;floor')
+		:done()
+	
+	if not nohelp then
+		local flr_gb
+		if flr == 0 then
+			flr_gb = 'ground floor'
+		else
+			flr_gb = 'floor '..flr
+		end
+		spn_us:tag('sup')
+			:addClass('floornumber-help noexcerpt')
+			:wikitext('&#91;')
+			:tag('span')
+				:addClass('fact-text')
+				:addClass('floor-convention')
+				:attr('title', 'US convention; '..flr_gb..' in the UK')
+				:wikitext('US')
+			:done()
+			:wikitext('&#93;')
+	end	
+	return ret
+end
+
+return p

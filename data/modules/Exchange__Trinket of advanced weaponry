@@ -1,0 +1,12 @@
+return {
+    itemId     = 28567,
+    icon       = "Trinket of advanced weaponry.png",
+    item       = "Trinket of advanced weaponry",
+    alchable   = true,
+    value      = 10000,
+    limit      = nil,
+    members    = true,
+    category   = nil,
+    examine    = "A magic rock! This one gives you a random blighted weapon instead.",
+    usage      = {}
+}

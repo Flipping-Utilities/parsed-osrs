@@ -1,0 +1,377 @@
+-- <nowiki>
+local p = {}
+local gePrice = require('Module:Exchange')._price
+local coins = require('Module:Less Stupid Coins')._amount
+local yesNo = require('Module:Yesno')
+
+local herbCleanXp = {
+	["guam leaf"] = 2.5,
+	["marrentill"] = 3.8,
+	["tarromin"] = 5,
+	["harralander"] = 6.3,
+	["ranarr weed"] = 7.5,
+	["toadflax"] = 8,
+	["irit leaf"] = 8.8,
+	["avantoe"] = 10,
+	["kwuarm"] = 11.3,
+	["huasca"] = 11.8,
+	["snapdragon"] = 11.8,
+	["cadantine"] = 12.5,
+	["lantadyme"] = 13.1,
+	["dwarf weed"] = 13.8,
+	["torstol"] = 15,
+}
+
+function p.main(frame)
+	local args = frame.args;
+	mw.logObject(args)
+	local usingGoggles = yesNo(args['usingGoggles'])
+	local compoundDoses = tonumber(args['compoundDoses'])
+	local necklace = args['necklace']
+	local baseType = args['baseType']
+	necklace = string.lower(necklace)
+	baseType = string.lower(baseType)
+	
+	local refs = {}
+	refs['profit'] = frame:extensionTag('ref', 'Profit assumes potions are bought and sold as 4 doses where applicable..', { name = 'profit'})
+	refs['superior dragon bones'] = frame:extensionTag('ref', 'The price used is the one of [[superior dragon bones]] with the 50gp fee to have [[wesley]] crush them as crushed prices are highly inaccurate.', { name = 'superior dragon bones'})
+	if baseType == 'grimy' then
+		refs['vial of blood'] = frame:extensionTag('ref', 'This potion uses [[vial of blood]] instead of [[vial of water]] as a base.', { name = 'vial of blood'})
+		refs['coconut milk'] = frame:extensionTag('ref', 'This potion uses [[coconut milk]] instead of [[vial of water]] as a base.', { name = 'coconut milk'})
+	end
+	if baseType == 'clean' then
+		refs['vial of blood'] = frame:extensionTag('ref', 'This potion uses [[vial of blood]] instead of [[vial of water]] as a base.', { name = 'vial of blood'})
+		refs['coconut milk'] = frame:extensionTag('ref', 'This potion uses [[coconut milk]] instead of [[vial of water]] as a base.', { name = 'coconut milk'})
+	end
+	
+	local ret = makeTable( usingGoggles, necklace, baseType, compoundDoses, refs)
+	
+	return ret
+end
+
+function makeTable(usingGoggles, necklace, baseType, compoundDoses, refs)
+	local t = mw.html.create('table')
+	t:addClass('wikitable')
+	t:addClass('sortable')
+	t:addClass('sticky-header')
+	t:tag('tr')
+		:tag('th')
+			:wikitext('[[File:herblore_icon.png|herblore]] Level')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:attr('colspan', 2)
+			:wikitext('Potion')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:wikitext('Cost (Potion)')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:attr('colspan', 2)
+			:wikitext('Base')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:wikitext('Cost (Base)')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:attr('colspan', 2)
+			:wikitext('Secondary')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:wikitext('Cost (Secondary)')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:wikitext('XP')
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:wikitext('Profit', refs['profit'])
+			:addClass('headerSort')
+		:done()
+		:tag('th')
+			:wikitext('Profit/XP', refs['profit'])
+			:addClass('headerSort')
+		:done()
+	:done()
+	
+	makeTableRow(t, refs, 'guam', 'eye of newt', 'Attack potion', 3, 25,usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'marrentill', 'unicorn horn dust', 'Antipoison', 5, 37.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'tarromin', 'limpwurt root', 'Strength potion', 12, 50, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'tarromin', 'ashes', 'Serum 207', 15, 50, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'harralander', 'volcanic ash', 'Compost potion', 22, 60, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'harralander', 'red spiders\' eggs', 'Restore potion', 22, 62.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'harralander', 'chocolate dust', 'Energy potion', 26, 67.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'ranarr', 'white berries', 'Defence potion', 30, 75, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'toadflax', 'toad\'s legs', 'Agility potion', 34, 80, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'harralander', 'goat horn dust', 'Combat potion', 36, 84, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'ranarr', 'snape grass', 'Prayer potion', 38, 87.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'irit', 'eye of newt', 'Super attack', 45, 100, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'irit', 'unicorn horn dust', 'Superantipoison', 48, 106.3, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'avantoe', 'snape grass', 'Fishing potion', 50, 112.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'avantoe', 'mort myre fungus', 'Super energy', 52, 117.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'avantoe', 'kebbit teeth dust', 'Hunter potion', 53, 120, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'harralander', 'aldarium', 'Goading potion', 54, 132, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'kwuarm', 'limpwurt root', 'Super strength', 55, 125, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'huasca', 'aldarium', 'Prayer regeneration potion', 58, 132, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'kwuarm', 'dragon scale dust', 'Weapon poison', 60, 137.5, usingGoggles, necklace, baseType)
+	makeTableRowCoral(t, refs, 'pillar', 'haddock eye', 'Super fishing potion', 62, 140.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'snapdragon', 'red spiders\' eggs', 'Super restore', 63, 142.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'cadantine', 'white berries', 'Super defence', 66, 150, usingGoggles, necklace, baseType)
+	makeTableRowCompound(t, refs, 'Super energy', 'Yellow fin', 'Extreme energy potion', 66, 84, usingGoggles, compoundDoses, 4)
+	makeTableRowCoral(t, refs, 'pillar', 'crab paste', 'Super hunter potion', 67, 154, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'toadflax', 'yew roots', 'Antidote+', 68, 155, usingGoggles, necklace, baseType, 'coconut milk')
+	makeTableRow(t, refs, 'lantadyme', 'dragon scale dust', 'Antifire potion', 69, 157.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'dwarf weed', 'wine of zamorak', 'Ranging potion', 72, 162.5, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'lantadyme', 'potato cactus', 'Magic potion', 76, 172.5, usingGoggles, necklace, baseType)
+	makeTableRowCompound(t, refs, 'Super energy', 'Amylase crystal', 'Stamina potion', 77, 102, usingGoggles, compoundDoses, 4)
+	makeTableRow(t, refs, 'irit', 'magic roots', 'Antidote++', 79, 177.5, usingGoggles, necklace, baseType, 'coconut milk')
+	makeTableRow(t, refs, 'cadantine', 'potato cactus', 'Battlemage potion', 80, 155, usingGoggles, necklace, baseType, 'vial of blood')
+	makeTableRow(t, refs, 'cadantine', 'wine of zamorak', 'Bastion potion', 80, 155, usingGoggles, necklace, baseType, 'vial of blood')
+	makeTableRow(t, refs, 'toadflax', 'crushed nest', 'Saradomin brew', 81, 180, usingGoggles, necklace, baseType)
+	makeTableRow(t, refs, 'torstol', 'demonic tallow', 'Surge potion', 81, 185, usingGoggles, necklace, baseType)
+	makeTableRowCompound(t, refs, 'Antifire potion', 'Lava scale shard', 'Extended antifire', 84, 110, usingGoggles, compoundDoses, 4)
+	makeTableRow(t, refs, 'dwarf weed', 'nihil dust', 'Ancient brew', 85, 190, usingGoggles, necklace, baseType)
+	makeTableRowCompound(t, refs, 'Stamina potion', 'Marlin scales' , 'Extended stamina potion', 85, 110, usingGoggles, compoundDoses, 4)
+	makeTableRowCompound(t, refs, 'Antidote++', 'Zulrah\'s scales' , 'Anti-venom', 87, 120, usingGoggles, compoundDoses, 20)
+	makeTableRow(t, refs, 'dwarf weed', 'lily of the sands', 'Menaphite remedy', 88, 200, usingGoggles, necklace, baseType)
+	makeTableRowCoral(t, refs, 'umbral', 'rainbow crab paste', 'Armadyl brew', 89, 205, usingGoggles, necklace, baseType)
+	makeTableRowSuperCombat(t, refs, usingGoggles)
+	makeTableRowCompound(t, refs, 'Ancient brew', 'Ancient essence' , 'Forgotten brew', 91, 145, usingGoggles, compoundDoses, 80)
+	makeTableRowCompound(t, refs, 'Antifire potion', 'crushed superior dragon bones' , 'Super antifire potion', 92, 130, usingGoggles, compoundDoses)
+	makeTableRowCompound(t, refs, 'Anti-venom', 'torstol' , 'Anti-venom+', 94, 125, usingGoggles, compoundDoses)
+	makeTableRowCompound(t, refs, 'Anti-venom+', 'araxyte venom sack' , 'Extended anti-venom+', 94, 80, usingGoggles, compoundDoses, 4)
+	makeTableRowCompound(t, refs, 'Super antifire potion', 'lava scale shard' , 'Extended super antifire', 98, 160, usingGoggles, compoundDoses, 4)
+	makeTableRowCompound(t, refs, 'Extended antifire', 'crushed superior dragon bones' , 'Extended super antifire', 98, 180, usingGoggles, compoundDoses)
+	
+	return t
+end
+	
+function makeTableRow(Table, refs, base, secondary, potion, Level, XP, usingGoggles, necklace, baseType, vialType)
+	vialType = vialType or 'vial of water'
+	local potionRef
+	local baseRef
+	local secondaryRef
+	
+	if baseType ~= 'unfinished' then
+		if base == 'guam' or base == 'irit' then
+			base = base .. ' leaf'
+		end
+		if base == 'ranarr' then
+			base = base .. ' weed'
+		end
+		if baseType == 'grimy' then
+			XP = XP + herbCleanXp[base]
+			base = 'grimy ' .. base
+		end
+		if vialType ~= 'vial of water' then
+			baseRef = vialType
+		end
+	else
+		if vialType == 'coconut milk' then
+			-- Potions with coconut milk base are untradeable in (unf) form so do not render them
+			return
+		end
+		if vialType == 'vial of blood' then
+			base = base .. ' blood'
+		end
+		base = base .. ' potion (unf)'
+	end
+	
+	local costBase = gePrice(base)
+	local costSecondary = gePrice(secondary)
+	local costPotion = gePrice(potion .. '(4)', .75, false, 4, 0)
+	if potion == 'Weapon poison' then
+		costPotion = gePrice(potion)
+	end
+	
+	local profit = costPotion - costBase - costSecondary
+	
+	if usingGoggles then
+		profit = profit + (costSecondary / 9)	
+	end
+	
+	if potion ~= 'Weapon posion' then
+		if necklace == 'amulet of chemistry' then
+			profit = profit + (costPotion / 3 * 0.05) - (gePrice('amulet of chemistry') / 5 * 0.05)
+		end
+		
+		if necklace == 'alchemist\'s amulet' then
+			profit = profit + (costPotion / 3 * 0.15) - (gePrice('amulet of chemistry') / 10 * 0.15)
+		end
+		
+		if baseType ~= 'unfinished' then
+			profit = profit - gePrice(vialType)
+		end
+	end
+	
+	writeRow(Table, refs, Level, 
+		string.format('[[File:%s.png|%s]]', potion, potion), string.format('[[%s]]', potion:gsub("^%l", string.upper)), costPotion,
+		string.format('[[File:%s.png|%s]]', base, base), string.format('[[%s]]', base:gsub("^%l", string.upper)), costBase,
+		string.format('[[File:%s.png|%s]]', secondary, secondary), string.format('[[%s]]', secondary:gsub("^%l", string.upper)), costSecondary,
+		XP, profit,
+		potionRef, baseRef, secondaryRef)
+end
+
+function makeTableRowCompound(Table, refs, base, secondary, potion, Level, XP, usingGoggles, compoundDoses, secondaryQuantity)
+	secondaryQuantity = secondaryQuantity or 1
+	local potionRef
+	local baseRef
+	local secondaryRef
+	local costBase = gePrice(base .. '(4)')
+	local costSecondary = gePrice(secondary) * secondaryQuantity
+	local costPotion = gePrice(potion .. '(4)', 1, false, 4, 0)
+	
+	if secondary == 'crushed superior dragon bones' then
+		costSecondary = gePrice('superior dragon bones') + 50
+		secondaryRef = 'superior dragon bones'
+	end
+	
+	if secondaryQuantity > 1 then
+		costBase = costBase / 4 * compoundDoses
+		secondaryQuantity = secondaryQuantity / 4 * compoundDoses
+		costSecondary = gePrice(secondary) * secondaryQuantity
+		costPotion = costPotion / 4 * compoundDoses
+		XP = XP / 4 * compoundDoses
+		XP = math.floor(XP * 100 + 0.5) / 100
+	end
+	local profit = costPotion - costBase - costSecondary
+	
+	if usingGoggles then
+		profit = profit + (costSecondary  / 9)
+	end
+	
+	if compoundDoses < 4 then
+		if necklace == 'amulet of chemistry' then
+			profit = profit + (costPotion / compoundDoses * 0.05) - (gePrice('amulet of chemistry') / 5 * 0.05)
+		end
+		
+		if necklace == 'alchemist\'s amulet' then
+			profit = profit + (costPotion / compoundDoses * 0.15) - (gePrice('amulet of chemistry') / 10 * 0.15)
+		end
+	end
+	
+	local secondaryLabel = string.format('[[%s]]', secondary:gsub("^%l", string.upper))
+	if secondaryQuantity > 1 then
+		secondaryLabel = secondaryLabel .. string.format('(x%d)', secondaryQuantity)
+	end
+	
+	writeRow(Table, refs, Level,
+		string.format('[[File:%s.png|%s]]', potion, potion), string.format('[[%s]]', potion:gsub("^%l", string.upper)), costPotion,
+		string.format('[[File:%s.png|%s]]', base, base), string.format('[[%s]]', base:gsub("^%l", string.upper)), costBase,
+		string.format('[[File:%s.png|%s]]', secondary, secondary), secondaryLabel, costSecondary,
+		XP, profit,
+		potionRef, baseRef, secondaryRef)
+end
+
+
+
+function makeTableRowSuperCombat(Table, refs, usingGoggles)
+	local costBase = gePrice('Super attack(4)') + gePrice('Super defence(4)') + gePrice('Super strength(4)')
+	local costSecondary = gePrice('torstol')
+	local costPotion = gePrice('Super combat potion(4)')
+	local profit = costPotion - costBase - costSecondary
+	
+	if usingGoggles then
+		profit = profit + (costSecondary  / 9)
+	end
+	
+	writeRow(Table, refs, 90, 
+		'[[File:Super combat potion.png|Super combat potion]]', '[[Super combat potion]]', costPotion,
+		'[[File:super attack.png|super attack]]</br>[[File:super strength.png|super strength]]</br>[[File:super defence.png|super defence]]</br>', '[[Super strength]]</br>[[Super defence]]</br>[[Super attack]]', costBase,
+		'[[File:torstol.png|torstol]]', '[[Torstol]]', costSecondary,
+		150, profit)
+end
+
+function makeTableRowCoral(Table, refs, base, secondary, potion, Level, XP, usingGoggles, necklace, baseType)
+	local potionRef
+	local baseRef
+	local secondaryRef
+	
+	if baseType ~= 'unfinished' then
+		base = base .. ' coral'
+	else
+		base = base .. ' potion (unf)'
+	end
+	
+	local costBase = gePrice(base)
+	local costSecondary = gePrice(secondary)
+	local costPotion = gePrice(potion .. '(4)', .75, false, 4, 0)
+
+	local profit = costPotion - costBase - costSecondary
+	
+	if usingGoggles then
+		profit = profit + (costSecondary / 9)	
+	end
+	
+	if necklace == 'amulet of chemistry' then
+		profit = profit + (costPotion / 3 * 0.05) - (gePrice('amulet of chemistry') / 5 * 0.05)
+	end
+	
+	if necklace == 'alchemist\'s amulet' then
+		profit = profit + (costPotion / 3 * 0.15) - (gePrice('amulet of chemistry') / 10 * 0.15)
+	end
+	
+	if baseType ~= 'unfinished' then
+		profit = profit - gePrice('vial of water')
+	end
+	
+	writeRow(Table, refs, Level, 
+		string.format('[[File:%s.png|%s]]', potion, potion), string.format('[[%s]]', potion:gsub("^%l", string.upper)), costPotion,
+		string.format('[[File:%s.png|%s]]', base, base), string.format('[[%s]]', base:gsub("^%l", string.upper)), costBase,
+		string.format('[[File:%s.png|%s]]', secondary, secondary), string.format('[[%s]]', secondary:gsub("^%l", string.upper)), costSecondary,
+		XP, profit,
+		potionRef, baseRef, secondaryRef)
+end
+
+function writeRow(Table, refs, level, potionIcon, potionText, potionCost, baseIcon, baseText, baseCost, secondaryIcon, secondaryText, secondaryCost, XP, profit, potionRef, baseRef, secondaryRef)
+	Table:tag('tr')
+		:tag('td')
+			:wikitext(level)
+		:done()
+		:tag('td')
+			:wikitext(potionIcon)
+		:done()
+		:tag('td')
+			:wikitext(potionText, refs[potionRef])
+		:done()
+		:tag('td')
+			:wikitext(coins(potionCost))
+		:done()
+		:tag('td')
+			:wikitext(baseIcon)
+		:done()
+		:tag('td')
+			:wikitext(baseText, refs[baseRef])
+		:done()
+		:tag('td')
+			:wikitext(coins(baseCost))
+		:done()
+		:tag('td')
+			:wikitext(secondaryIcon)
+		:done()
+		:tag('td')
+			:wikitext(secondaryText, refs[secondaryRef])
+		:done()
+		:tag('td')
+			:wikitext(coins(secondaryCost))
+		:done()
+		:tag('td')
+			:wikitext(XP)
+		:done()
+		:tag('td')
+			:wikitext(coins(profit))
+		:done()
+		:tag('td')
+			:wikitext(coins(profit/XP))
+		:done()
+	:done()
+end
+
+return p
+-- </nowiki>

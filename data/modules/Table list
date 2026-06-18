@@ -1,0 +1,175 @@
+-- <pre>
+local p = {}
+local alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0'
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+function p._main(args)
+	local columns = tonumber(args.columns) or 4
+	local header = args.header or ''
+	local links = string.lower(args.links or '')
+
+	local alphabeticalheaders = string.lower(args.alphaheader or '')
+
+	if alphabeticalheaders == 'yes' then
+		alphabeticalheaders = true
+	else
+		alphabeticalheaders = false
+	end
+
+	local entries = {}
+
+	for _, v in ipairs(args) do
+		table.insert(entries,v)
+	end
+
+	local pageimport = args.page or ''
+	if pageimport:find('%S') then
+		local _t = mw.title.new(pageimport)
+ 		if not _t.exists then
+			-- nothing
+		end
+		local tsplit = mw.text.split(_t:getContent(),'\n')
+ 		for _, v in ipairs(tsplit) do
+			table.insert(entries,v)
+		end
+	end
+
+	local _format
+
+	if links == 'yes' then
+		_format = '[[%s]]'
+	elseif links == 'plink' then
+		_format = '[[File:%s.png|link=%s]]&nbsp;[[%s]]'
+	elseif links == 'plinkp' then
+		_format = '[[File:%s.png|link=%s]]'
+	else
+		_format = '%s'
+	end
+
+	local list = {}
+
+	for _, v in ipairs(entries) do
+		if v:find('%S') then
+			table.insert(list,mw.text.trim(v))
+		end
+	end
+
+	table.sort(list,
+			function (a,b)
+				return a:lower() < b:lower()
+			end
+		)
+
+	local ret = mw.html.create('table')
+				:addClass('wikitable')
+				:tag('tr')
+					:tag('th')
+						:attr('colspan',columns)
+						:wikitext(header)
+					:done()
+				:done()
+
+	if alphabeticalheaders then
+		local alphalist = {}
+		local alphatable = mw.text.split(alphabet,'')
+		local toc = {}
+			
+		for _, v in pairs(alphatable) do
+			alphalist[v] = {}
+			table.insert(toc,string.format('[[#tl-%s|%s]]',v,v))
+		end
+
+		toc = table.concat(toc,' <b>•</b> ')
+
+		for _, v in ipairs(list) do
+			local firstletter = mw.text.split(v:upper(),'')[1]
+			if alphalist[firstletter] then
+				table.insert(alphalist[firstletter],v)
+			else
+				table.insert(alphalist['#'],v)
+			end
+		end
+
+		ret	:tag('tr')
+				:tag('td')
+					:attr('colspan',columns)
+					:wikitext(toc)
+				:done()
+			:done()
+
+		for _, v in ipairs(alphatable) do
+			local letterused = false
+			ret	:tag('tr')
+					:tag('th')
+						:attr('colspan',columns)
+						:attr('id','tl-'..v)
+						:css('background','#CCCCCC')
+						:wikitext(v)
+					:done()
+				:done()
+			local newrow
+			local i = 0
+			for _, w in ipairs(alphalist[v]) do
+				letterused = true
+				i = i + 1
+				if i % columns == 1 then
+					newrow = ret:tag('tr')
+				end
+				newrow	:tag('td')
+						:wikitext(string.format(_format,w,w,w,w,w))
+					:done()
+
+				if i % columns == 0 then
+					newrow:done()
+				end
+			end
+
+			local j = i % columns
+
+			if j ~= 0 then
+				newrow	:tag('th')
+						:attr('colspan',columns-j)
+					:done()
+				:done()
+			elseif not letterused then
+				ret	:tag('tr')
+						:tag('th')
+							:attr('colspan',columns)
+							:wikitext('&nbsp;')
+						:done()
+					:done()
+			end
+		end
+	else
+		local newrow
+		local i = 0
+		for _, v in ipairs(list) do
+			i = i + 1
+			if i % columns == 1 then
+				newrow = ret:tag('tr')
+			end
+			newrow	:tag('td')
+					:wikitext(string.format(_format,v,v,v,v,v))
+				:done()
+
+			if i % columns == 0 then
+				newrow:done()
+			end
+		end
+
+		local j = i % columns
+
+		if j ~= 0 then
+			newrow	:tag('th')
+					:attr('colspan',columns-j)
+				:done()
+			:done()
+		end
+	end
+
+	return ret
+end
+
+return p

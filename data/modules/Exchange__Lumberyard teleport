@@ -1,0 +1,12 @@
+return {
+    itemId     = 12642,
+    icon       = 'Lumberyard teleport.png',
+    item       = 'Lumberyard teleport',
+    value      = 10,
+    limit      = 15000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to the Lumberyard.',
+    hialch     = 6,
+    lowalch    = 4
+}

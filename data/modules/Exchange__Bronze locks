@@ -1,0 +1,12 @@
+return {
+    itemId     = 25442,
+    icon       = "Bronze locks.png",
+    item       = "Bronze locks",
+    alchable   = true,
+    value      = 800,
+    limit      = 8,
+    members    = true,
+    category   = nil,
+    examine    = "Perhaps someone can do something with this.",
+    usage      = {}
+}

@@ -1,0 +1,321 @@
+local drops_line = require('Module:DropsLine')._main
+
+local RARITY_NOTES = {
+	nothing = 'The "nothing" drop is removed while wearing a [[ring of wealth]].',
+	row = 'The drop rate is increased while wearing a [[ring of wealth]] due to the "nothing" drop being removed.',
+	legend = 'Slightly reduced chance of dropping if [[Legends\' Quest]] has not been completed.',
+	talisman = 'The talisman dropped depends on where the player is located ([[Gem drop table#Talisman|map]]); typically, a nature talisman will drop above ground level and a chaos talisman will drop underground.'
+}
+
+local UNKNOWN_RARITIES = {
+	['Nothing'] = 'Rare',
+	['Coins'] = 'Rare',
+	['Loop half of key'] = 'Rare',
+	['Tooth half of key'] = 'Rare'
+	-- ['Everything else'] = 'Very rare'
+}
+
+local p = {}
+
+function expr(t)
+    local noerr, val = pcall(mw.ext.ParserFunctions.expr, t)
+    if noerr then
+        return tonumber(val)
+    else
+        return false
+    end
+end
+
+function round(num, places)
+	local mult = 10 ^ places
+	return math.floor(num * mult + 0.5) / mult
+end
+
+function calculate(rdt_rate, gdt_rate, chaostalisman, naturetalisman)
+	local results = {}
+	table.insert(results, {
+		item = 'Nothing',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * (63/128 + 1/128 * 113/128) + rdt_rate * 15/128 * 113/128 + gdt_rate * (63/128 + 1/128 * 113/128),
+		altrarity = 'Never',
+		notes = {'nothing'}
+	})
+	table.insert(results, {
+		item = 'Coins',
+		quantity = 3000,
+		rarity = rdt_rate * 21/128
+	})
+	table.insert(results, {
+		item = 'Uncut sapphire',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 32/128 + gdt_rate * 32/128,
+		altrarity = rdt_rate * 20/128 * 32/65 + gdt_rate * 32/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Loop half of key',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 + rdt_rate * 20/128 * 1/128 + gdt_rate * 1/128,
+		altrarity = rdt_rate * 20/128 + rdt_rate * 20/128 * 1/65 + gdt_rate * 1/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Tooth half of key',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 + rdt_rate * 20/128 * 1/128 + gdt_rate * 1/128,
+		altrarity = rdt_rate * 20/128 + rdt_rate * 20/128 * 1/65 + gdt_rate * 1/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Uncut emerald',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 16/128 + gdt_rate * 16/128,
+		altrarity = rdt_rate * 20/128 * 16/65 + gdt_rate * 16/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Uncut ruby',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 8/128 + gdt_rate * 8/128,
+		altrarity = rdt_rate * 20/128 * 8/65 + gdt_rate * 8/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Runite bar',
+		quantity = 1,
+		rarity = rdt_rate * 5/128
+	})
+	table.insert(results, {
+		item = 'Nature rune',
+		quantity = 67,
+		rarity = rdt_rate * 3/128
+	})
+	table.insert(results, {
+		item = 'Rune 2h sword',
+		quantity = 1,
+		rarity = rdt_rate * 3/128
+	})
+	table.insert(results, {
+		item = 'Rune battleaxe',
+		quantity = 1,
+		rarity = rdt_rate * 3/128
+	})
+	table.insert(results, {
+		item = 'Law rune',
+		quantity = 45,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Death rune',
+		quantity = 45,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Steel arrow',
+		quantity = 150,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Rune arrow',
+		quantity = 42,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Adamant javelin',
+		quantity = 20,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Rune sq shield',
+		quantity = 1,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Dragonstone',
+		quantity = 1,
+		rarity = rdt_rate * 2/128
+	})
+	table.insert(results, {
+		item = 'Silver ore',
+		quantity = 100,
+		rarity = rdt_rate * 2/128
+	})
+	if chaostalisman and naturetalisman then
+		table.insert(results, {
+			item = 'Chaos talisman',
+			quantity = 1,
+			rarity = rdt_rate * 20/128 * 3/128 + gdt_rate * 3/128,
+			altrarity = rdt_rate * 20/128 * 3/65 + gdt_rate * 3/65,
+			notes = {'row', 'talisman'}
+		})
+		table.insert(results, {
+			item = 'Nature talisman',
+			quantity = 1,
+			rarity = rdt_rate * 20/128 * 3/128 + gdt_rate * 3/128,
+			altrarity = rdt_rate * 20/128 * 3/65 + gdt_rate * 3/65,
+			notes = {'row', 'talisman'}
+		})
+	elseif chaostalisman then
+		table.insert(results, {
+			item = 'Chaos talisman',
+			quantity = 1,
+			rarity = rdt_rate * 20/128 * 3/128 + gdt_rate * 3/128,
+			altrarity = rdt_rate * 20/128 * 3/65 + gdt_rate * 3/65,
+			notes = {'row'}
+		})
+	elseif naturetalisman then
+		table.insert(results, {
+			item = 'Nature talisman',
+			quantity = 1,
+			rarity = rdt_rate * 20/128 * 3/128 + gdt_rate * 3/128,
+			altrarity = rdt_rate * 20/128 * 3/65 + gdt_rate * 3/65,
+			notes = {'row'}
+		})
+	else
+		table.insert(results, {
+			item = 'Unknown talisman',
+			quantity = 1,
+			rarity = rdt_rate * 20/128 * 3/128 + gdt_rate * 3/128,
+			altrarity = rdt_rate * 20/128 * 3/65 + gdt_rate * 3/65,
+			notes = {'row', 'talisman'},
+			image = 'Rare drop table talisman.png'
+		})
+	end
+	table.insert(results, {
+		item = 'Uncut diamond',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 2/128 + gdt_rate * 2/128,
+		altrarity = rdt_rate * 20/128 * 2/65 + gdt_rate * 2/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Rune kiteshield',
+		quantity = 1,
+		rarity = rdt_rate * 1/128
+	})
+	table.insert(results, {
+		item = 'Dragon med helm',
+		quantity = 1,
+		rarity = rdt_rate * 1/128
+	})
+	table.insert(results, {
+		item = 'Rune spear',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 1/128 * 8/128 + rdt_rate * 15/128 * 8/128 + gdt_rate * 1/128 * 8/128,
+		altrarity = rdt_rate * 20/128 * 1/65 * 8/15 + rdt_rate * 15/128 * 8/15 + gdt_rate * 1/65 * 8/15,
+		notes = {'row', 'legend'}
+	})
+	table.insert(results, {
+		item = 'Rune javelin',
+		quantity = 5,
+		rarity = rdt_rate * 20/128 * 1/128 + gdt_rate * 1/128,
+		altrarity = rdt_rate * 20/128 * 1/65 + gdt_rate * 1/65,
+		notes = {'row'}
+	})
+	table.insert(results, {
+		item = 'Shield left half',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 1/128 * 4/128 + rdt_rate * 15/128 * 4/128 + gdt_rate * 1/128 * 4/128,
+		altrarity = rdt_rate * 20/128 * 1/65 * 4/15 + rdt_rate * 15/128 * 4/15 + gdt_rate * 1/65 * 4/15,
+		notes = {'row', 'legend'}
+	})
+	table.insert(results, {
+		item = 'Dragon spear',
+		quantity = 1,
+		rarity = rdt_rate * 20/128 * 1/128 * 3/128 + rdt_rate * 15/128 * 3/128 + gdt_rate * 1/128 * 3/128,
+		altrarity = rdt_rate * 20/128 * 1/65 * 3/15 + rdt_rate * 15/128 * 3/15 + gdt_rate * 1/65 * 3/15,
+		notes = {'row', 'legend'}
+	})
+	return results
+end
+
+function make_row(frame, data, rolls, multiplier, dtype, approx, unknown)
+	local item = data['item']
+	local qty = data['quantity']
+	local rarity = data['rarity']
+	local altrarity = data['altrarity']  -- can be nil
+	local notes = data['notes']  -- can be nil
+	local image = data['image']  -- can be nil
+
+	if unknown then
+		rarity = UNKNOWN_RARITIES[item] or 'Very rare'
+		altrarity = nil
+	else
+		rarity = '1/' .. round(1 / rarity, 2)
+
+		if altrarity ~= nil and altrarity ~= 'Never' then
+			altrarity = '1/' .. round(1 / altrarity, 2)
+		end
+	end
+
+	qty = qty * multiplier
+
+	if item == 'Silver ore' then
+		qty = qty .. ' (noted)'
+	end
+
+	local note_name, note_text
+	local all_notes = ''
+	if notes ~= nil then
+		for _, note_name in ipairs(notes) do
+			note_text = RARITY_NOTES[note_name]
+			all_notes = all_notes .. frame:extensionTag(
+				'ref', note_text, { name = note_name, group = 'd'}
+			)
+		end
+	end
+
+	local args = {
+		name = item,
+		quantity = tostring(qty),
+		rarity = rarity,
+		altrarity = altrarity,
+		rolls = rolls,
+		image = image,
+		raritynotes = all_notes,
+		approx = approx,
+		rdt = 'yes'
+	}
+
+	local frame_args = {
+		dtype = dtype
+	}
+
+	return drops_line(args, frame_args)
+end
+
+function p.main(frame)
+    local args = frame:getParent().args
+
+	local rdt_rate = expr(args[1])
+	local gdt_rate = expr(args[2]) or 0
+	local rolls = args.rolls
+	local multiplier = args.multiplier or 1
+	local chaostalisman = args.chaostalisman
+	local naturetalisman = args.naturetalisman
+	local approx = args.approx
+	
+	local dtype = 'combat'
+	if args.reward then
+		dtype = 'reward'
+	end
+
+	local unknown = false
+	if not rdt_rate then
+		unknown = true
+		rdt_rate = 0
+	end
+
+	local drop_data = calculate(rdt_rate, gdt_rate, chaostalisman, naturetalisman)
+
+	local out_lines = {}
+	for _, data in ipairs(drop_data) do
+		table.insert(out_lines, 
+			make_row(frame, data, rolls, multiplier, dtype, approx, unknown)
+		)
+	end
+
+    return table.concat(out_lines, '\n')
+end
+
+return p

@@ -1,0 +1,199 @@
+require("strict")
+require("Module:Mw.html extension")
+
+local p = {}
+
+local POINTS_BY_TIER = {
+	easy = 10,
+	medium = 30,
+	hard = 80,
+	elite = 200,
+	master = 400
+}
+
+local REGION_ORDER = {
+	'General',
+	'Misthalin',
+	'Varlamore',
+	'Karamja',
+	'Asgarnia',
+	'Desert',
+	'Fremennik',
+	'Kandarin',
+	'Kourend',
+	'Morytania',
+	'Tirannwn',
+	'Wilderness'
+}
+
+local REGION_LINKS = {
+	General = 'Demonic Pacts League/Areas/General',
+	Misthalin = 'Demonic Pacts League/Areas/Misthalin',
+	Karamja = 'Demonic Pacts League/Areas/Karamja',
+	Asgarnia = 'Demonic Pacts League/Areas/Asgarnia',
+	Desert = 'Demonic Pacts League/Areas/Kharidian Desert',
+	Fremennik = 'Demonic Pacts League/Areas/Fremennik',
+	Kandarin = 'Demonic Pacts League/Areas/Kandarin',
+	Kourend = 'Demonic Pacts League/Areas/Kourend',
+	Morytania = 'Demonic Pacts League/Areas/Morytania',
+	Tirannwn = 'Demonic Pacts League/Areas/Tirannwn',
+	Varlamore = 'Demonic Pacts League/Areas/Varlamore',
+	Wilderness = 'Demonic Pacts League/Areas/Wilderness'
+}
+
+local REGION_LABELS = {
+	General = 'General',
+	Misthalin = 'Misthalin',
+	Karamja = 'Karamja',
+	Asgarnia = 'Asgarnia',
+	Desert = 'Kharidian Desert',
+	Fremennik = 'Fremennik Province',
+	Kandarin = 'Kandarin',
+	Kourend = 'Kourend',
+	Morytania = 'Morytania',
+	Tirannwn = 'Tirannwn',
+	Varlamore = 'Varlamore',
+	Wilderness = 'Wilderness'
+}
+
+function p.main(frame)
+	local args = frame.args
+	if not next(args) and frame:getParent() then
+		args = frame:getParent().args
+	end
+	return p._main(args)
+end
+
+function p._main(args)
+	local pactTask = args.pactTask
+	local data = p.loadData(pactTask)
+	local counts = p.aggregate(data)
+
+	local root = mw.html.create()
+		:wikitext('Tasks per region are as follows:')
+
+	local tbl = root:tag('table')
+		:addClass('wikitable sortable align-left-3 league-wikisync-filter')
+		:css('text-align', 'center')
+
+		:tag('tr')
+			:th('[[File:Demonic Pacts League icon.png|Demonic Pacts League preferences]]')
+				:addClass('league-int-button unsortable noviewer')
+			:th('Area'):attr('colspan', 2)
+			:th('Easy')
+			:th('Medium')
+			:th('Hard')
+			:th('Elite')
+			:th('Master')
+			:th('Total tasks')
+			:th('Total points')
+		:done()
+
+	local totals = {
+		easy = 0,
+		medium = 0,
+		hard = 0,
+		elite = 0,
+		master = 0,
+		total_tasks = 0,
+		total_points = 0
+	}
+
+	for _, region in ipairs(REGION_ORDER) do
+		local row = counts[region]
+		if row then
+			totals.easy = totals.easy + row.easy
+			totals.medium = totals.medium + row.medium
+			totals.hard = totals.hard + row.hard
+			totals.elite = totals.elite + row.elite
+			totals.master = totals.master + row.master
+			totals.total_tasks = totals.total_tasks + row.total_tasks
+			totals.total_points = totals.total_points + row.total_points
+
+			tbl:tag('tr')
+				:td()
+					:addClass('league-wikisync-filter-cell')
+					:attr('data-league-area', string.lower(region))
+				:td(p.renderRegionIcon(region))
+					:css('border-right', 0)
+					:cssIf(region == 'General', 'height', '30px')
+				:td(p.renderRegionName(region))
+					:css('border-left', 0)
+					:css('padding-left', 0)
+				:td(row.easy)
+				:td(row.medium)
+				:td(row.hard)
+				:td(row.elite)
+				:td(row.master)
+				:td(row.total_tasks)
+				:td(row.total_points)
+			:done()
+		end
+	end
+
+	tbl:tag('tr')
+		:th('Total (Selected)'):attr('colspan', 3)
+		:th(totals.easy):attr('data-wikisync-total-column', 3)
+		:th(totals.medium):attr('data-wikisync-total-column', 4)
+		:th(totals.hard):attr('data-wikisync-total-column', 5)
+		:th(totals.elite):attr('data-wikisync-total-column', 6)
+		:th(totals.master):attr('data-wikisync-total-column', 7)
+		:th(totals.total_tasks):attr('data-wikisync-total-column', 8)
+		:th(totals.total_points):attr('data-wikisync-total-column', 9)
+	:done()
+
+	return tostring(root)
+end
+
+function p.loadData(pactTask)
+	local query = bucket('demonicpactleaguetask')
+		.select('region', 'tier', 'pact_task').limit(2000)
+
+	if pactTask ~= nil and pactTask ~= '' then
+		query = query.where('pact_task', pactTask)
+	end
+
+	return query.run()
+end
+
+function p.aggregate(data)
+	local counts = {}
+
+	for _, row in ipairs(data) do
+		local region = row.region or 'General'
+		local tier = string.lower(row.tier or '')
+
+		if counts[region] == nil then
+			counts[region] = {
+				easy = 0,
+				medium = 0,
+				hard = 0,
+				elite = 0,
+				master = 0,
+				total_tasks = 0,
+				total_points = 0
+			}
+		end
+
+		if POINTS_BY_TIER[tier] ~= nil then
+			counts[region][tier] = counts[region][tier] + 1
+			counts[region].total_tasks = counts[region].total_tasks + 1
+			counts[region].total_points = counts[region].total_points + POINTS_BY_TIER[tier]
+		end
+	end
+
+	return counts
+end
+
+function p.renderRegionIcon(region)
+	if region == 'General' then
+		return string.format('[[File:Globe-icon.png|20px|link=%s]]', REGION_LINKS[region] or '')
+	end
+	return string.format('[[File:%s Area Badge.png|link=%s]]', region, REGION_LINKS[region] or '')
+end
+
+function p.renderRegionName(region)
+	return string.format('[[%s|%s]]', REGION_LINKS[region] or region, REGION_LABELS[region] or region)
+end
+
+return p

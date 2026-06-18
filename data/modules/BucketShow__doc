@@ -1,0 +1,17 @@
+{{Documentation}}
+
+==Usage==
+<pre>{{BucketShow|bucket_name|field|restriction=value}}</pre>
+
+==Parameters==
+===(1)===
+The name of the Bucket to pull data from.
+===(2)===
+The name of the field to pull data from.
+
+===All named parameters===
+All named parameters are used as a where clause in the Bucket query.
+
+==Example==
+<pre>{{BucketShow|example_bucket|shape|color=green}}</pre>
+Result: <code>square</code>

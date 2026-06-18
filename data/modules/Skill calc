@@ -1,0 +1,703 @@
+local p = {}
+
+local helpers = require('Module:Skill calc/Helpers')
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+
+local farmingCTS = {
+	['Potato'] = { 101, 180 },
+	['Onion'] = { 105, 180 },
+	['Cabbage'] = { 107, 180 },
+	['Tomato'] = { 112, 180 },
+	['Sweetcorn'] = { 88, 180 },
+	['Strawberry'] = { 103, 180 },
+	['Watermelon'] = { 126, 180 },
+	['Snape grass'] = { 148, 195 },
+	['Hammerstone hops'] = { 104, 180 },
+	['Asgarnian hops'] = { 108, 180 },
+	['Yanillian hops'] = { 116, 180 },
+	['Krandorian hops'] = { 120, 180 },
+	['Wildblood hops'] = { 128, 180 },
+	['Barley'] = { 103, 180 },
+	['Jute fibre'] = { 113, 180 },
+	['Giant seaweed'] = { 150, 210 },
+	['Guam leaf'] = { 25, 80 },
+	['Marrentill'] = { 28, 80 },
+	['Tarromin'] = { 31, 80 },
+	['Harralander'] = { 36, 80 },
+	['Goutweed'] = { 39, 80 },
+	['Ranarr weed'] = { 39, 80 },
+	['Toadflax'] = { 43, 80 },
+	['Irit leaf'] = { 46, 80 },
+	['Avantoe'] = { 50, 80 },
+	['Kwuarm'] = { 54, 80 },
+	['Snapdragon'] = { 56, 80 },
+	['Cadantine'] = { 59, 80 },
+	['Lantadyme'] = { 64, 80 },
+	['Dwarf weed'] = { 67, 80 },
+	['Torstol'] = { 71, 80 }
+}
+
+local itemBonuses = {
+	['secateurs'] = 0.10,
+	['farmingCape'] = 0.05
+}
+
+local otherBonuses = {
+	['attas'] = 0.05,
+	['diary'] = {
+		['None'] = 0,
+		['Hard Kourend'] = 0.05,
+		['Medium Kandarin'] = 0.05,
+		['Hard Kandarin'] = 0.1,
+		['Elite Kandarin'] = 0.15
+	},
+	['Ectofuntus'] = 4,
+	['Gilded'] = 3.5,
+	['Chaos altar'] = 7,
+	['Limestone altar'] = 2.75,
+	['Sacred bone burner'] = 3
+}
+
+local compostValues = {
+	['None'] = { 0, 0 },
+	['Compost'] = { 1, 18 },
+	['Supercompost'] = { 2, 26 },
+	['Ultracompost'] = { 3, 36 }
+}
+
+local serviceFeeValues = {
+	['None'] = 0,
+	['Phials'] = 5,
+	['Virilis'] = 10,
+	['Elder Chaos druid'] = 50
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	-- Determine whether the "current" value is Level or XP. This needs to be two different input arguments due to the way the calc-core High Score lookup functions.
+	if args.currentToggle == 'Level' then
+		current = tonumber(args.lvlInput)
+	else
+		current = tonumber(args.XPInput)
+	end
+	
+	-- Compute current/goal levels and experience as well as the experience remaining between the difference
+	local bulkLevelInformation = helpers.calculateCurrentGoalInformation(current, args.currentToggle, args.goal, args.goalToggle)
+	
+	-- Pull out the relevant data from the sub module and call the function with the passed in skill method
+	local methods = mw.loadData('Module:Skill calc/' .. args.skill)
+	-- Pull and sort the data
+	-- Calculators may or may not have a stepLimit param; only do additional filtering if it's used
+	local data
+	if args.stepLimit ~= nil then 
+		local filteredData = helpers.filterData(methods, args.method, args.dataCriteria, bulkLevelInformation.currentLevel)
+		data = {}
+		for _, v in ipairs(filteredData) do
+			if tostring(args.stepLimit):lower() == 'show all' or v.steps == tonumber(args.stepLimit) then
+				table.insert(data, v)
+			end
+		end
+	else
+		data = helpers.filterData(methods, args.method, args.dataCriteria, bulkLevelInformation.currentLevel)
+	end
+	
+	local setValue = 0
+	-- Check if the skill the calculator is using is eligible for the experience set bonus
+	if helpers.checkForBoostingSetSkill(args.skill) then
+		local pieces = {
+			{ args.head, 0.004 },
+			{ args.body, 0.008 },
+			{ args.legs, 0.006 },
+			{ args.boots, 0.002 }
+		}
+		local zealotRobes = {
+			{ args.head, 0.0125 },
+			{ args.body, 0.0125 },
+			{ args.legs, 0.0125 },
+			{ args.boots, 0.0125 }
+		}
+		local sailingKeg = {
+			{ args.horizonsLure, 0.025},
+		}
+		local piecesToSend = args.skill == 'Prayer' and zealotRobes or (args.skill == 'Sailing' and sailingKeg) or pieces
+		local newSetValue = helpers.determineSetValue(piecesToSend, args.skill)
+		setValue = newSetValue
+	end
+	
+	-- Build a message for the user to show the difference between current and goal experience
+	local message = helpers.createMessage(args.skill, bulkLevelInformation)
+
+	local options = {
+		skill = args.skill,
+		experienceRemaining = bulkLevelInformation.experienceRemaining,
+		currentLevel = bulkLevelInformation.currentLevel,
+		setValue = setValue,
+		secateurs = args.secateurs,
+		farmingCape = args.farmingCape,
+		diary = args.diary,
+		attas = args.attas,
+		compost = args.compost,
+		unnotingService = args.unnotingService,
+		bonus = args.bonus,
+		dataCriteria = args.dataCriteria,
+		fellingAxe = args.fellingAxe,
+		leagueMultiplier = args.leagueMultiplier or 1,
+		amulet = args.amulet,
+		amuletUse = args.amuletUse,
+		head = args.head,
+		decant = args.decant,
+		herbServices = args.herbServices,
+		runeSaving = args.runeSaving,
+		alch = args.highAlch or 'false',
+		horizonsLure = args.horizonsLure,
+	}
+	
+	-- Create the headers and alignments
+	local ret = createHeaders(args.skill, frame)
+	
+	-- make a mutable copy of the data
+	data = deep_clone(data)
+	
+	-- pre-process herblore to add dynamic entries to the table
+	if options['skill'] == 'Herblore' then
+		preprocess_herblore(data, options, frame)
+	end
+	
+	-- Loop through the data and make each table row of data (including calculations)
+	for _, v in ipairs(data) do
+		if ({ Woodcutting = true, Mining = true })[args.skill] then
+			ret:node(make_row_no_materials(v, options))
+		elseif ({ Agility = true, Thieving = true, Sailing = true })[args.skill] then
+			ret:node(make_row_barebones(v, options))
+		elseif ({ Firemaking = true, Prayer = true })[args.skill] then
+			ret:node(make_row_no_profit(v, options, args.skill, frame))
+		else
+			ret:node(make_row_full(v, options, frame))
+		end
+	end
+	
+	-- Return the table and message to the user
+	return tostring(message) .. tostring(ret) .. frame:preprocess('<references />')
+end
+
+function spreadMaterials(materials, actionsNeeded, reducedActionsNeeded, frame)
+	local materialsFormatted = ''
+	if materials == nil then
+		return '-'
+	end
+	
+	for _, v in ipairs(materials) do
+		local actionsReduced = (reducedActionsNeeded and tonumber(reducedActionsNeeded) or v.onlyone and 1 or tonumber(actionsNeeded))
+		--quantity is actionsNeeded for farming, not actionsReduced.  test change for herbs
+		local quantity = (v.quantity or 1) * (v.onlyone and 1 or tonumber(actionsNeeded))
+		if actionsReduced > 1 then
+			-- When showing materials needed for a goal, round up. When showing a single action only, show fracional values rounded to 2 digits
+			quantity = math.ceil(quantity)
+		else
+			quantity = math.ceil(1000*quantity - 0.5)/1000 -- ceil(x - 0.5) = round(x)
+		end
+		materialsFormatted = materialsFormatted .. string.format('%s × [[File:%s.png|link=%s]] [[%s|%s]]', commas(quantity), v.name, v.name, v.name, v.title or v.name)
+		if gePrices[v.name] and v.name:match('%([1-3]%)$') and gePrices[v.name:gsub('%([1-3]%)$', '(4)')] then
+			materialsFormatted = materialsFormatted .. frame:preprocess('<ref name="partialPotion">Price is calculated based on the 4-dose variant</ref>')
+		end
+		materialsFormatted = materialsFormatted .. '<br>'
+	end
+		
+	return string.len(materialsFormatted) > 1 and materialsFormatted or '-'
+end
+
+function getInputCost(materials, actionsNeeded, reducedActionsNeeded)
+	local totalCost = 0
+	
+	-- guard case for when there are no materials
+	if materials == nil then
+		return totalCost
+	end
+	
+	for _, v in ipairs(materials) do
+		local actionsReduced = (reducedActionsNeeded and tonumber(reducedActionsNeeded) or v.onlyone and 1 or tonumber(actionsNeeded))
+		-- adjust quantity based on number of actions needed
+		local quantity = (v.quantity and v.quantity or 1)
+		if v.cost then
+			totalCost = totalCost + (v.cost * (quantity * (v.onlyone and 1 or tonumber(actionsNeeded))))
+		elseif gePrices[v.name] ~= nil then
+			local price = gePrices[v.name]
+			-- if an input item is an item ending in (1), (2), or (3), use an appropriate fraction of the (4) variant's price instead to get more accurate prices
+			-- (this should ideally only match potions)
+			if v.name:match('%([1-3]%)$') and gePrices[v.name:gsub('%([1-3]%)$', '(4)')] then
+				price = gePrices[v.name:gsub('%([1-3]%)$', '(4)')] / 4 * tonumber(v.name:match('%(([1-3])%)$'))
+			end
+			totalCost = totalCost + (price * quantity * (v.onlyone and 1 or tonumber(actionsNeeded)))
+		end
+	end
+	
+	return math.ceil(totalCost)
+end
+
+function getOutputPrice(name, outputItem, outputQuantity, actionsNeeded, reducedActionsNeeded, alch)
+	local itemToLookUp = outputItem and outputItem or name
+	
+	if alch == 'true' then
+		-- Get high alch value from bucket
+		local alchData = bucket("infobox_item")
+			.select("high_alchemy_value")
+			.where("page_name", itemToLookUp)
+			.limit(1)
+			.run()
+		
+		if alchData ~= nil and #alchData > 0 and alchData[1].high_alchemy_value ~= nil then
+			return (alchData[1].high_alchemy_value - gePrices['Nature rune']) * outputQuantity * tonumber(actionsNeeded)
+		else
+			return 0
+		end
+	elseif gePrices[itemToLookUp] ~= nil then
+		-- Scale quantity based off actions needed for farming.
+		return math.ceil(0.98 * gePrices[itemToLookUp]) * outputQuantity * tonumber(actionsNeeded)
+	else
+		return 0
+	end
+end
+
+function createHeaders(skill, frame)
+	local ret
+	
+	if ({ Woodcutting = true, Mining = true })[skill] then
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-6 align-right-7')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext(frame:preprocess('Output Price<ref name="tax">Includes the GE tax if applicable</ref>'))
+			:tag('th'):wikitext(frame:preprocess('GP/XP<ref name="tax">Includes the GE tax if applicable</ref>'))
+			:tag('th'):wikitext('Members')
+	elseif ({ Agility = true, Thieving = true, Sailing = true })[skill] then
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+	elseif ({ Firemaking = true, Prayer = true })[skill] then
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-7 align-right-8')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext('Materials')
+			:tag('th'):wikitext('Input Cost')
+			:tag('th'):wikitext('GP/XP')
+			:tag('th'):wikitext('Members')
+	else
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-7 align-right-8 align-right-9 align-right-10')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext('Materials')
+			:tag('th'):wikitext('Input Cost')
+			:tag('th'):wikitext(frame:preprocess('Output Price<ref name="tax">Includes the GE tax if applicable</ref>'))
+			:tag('th'):wikitext(frame:preprocess('Profit/Loss<ref name="tax">Includes the GE tax if applicable</ref>'))
+			:tag('th'):wikitext(frame:preprocess('GP/XP<ref name="tax">Includes the GE tax if applicable</ref>'))
+			:tag('th'):wikitext('Members')
+	end
+	
+	return ret
+end
+
+function make_row_no_materials(action, options)
+	-- Used for Mining Calculator
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	local fellingAxeExperience = options.fellingAxe == 'true' and action.xp / 10 or 0
+	local actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp + fellingAxeExperience) * options.leagueMultiplier
+	local numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+	local outputQuantity = action.outputQuantity and action.outputQuantity or 1
+	local members = helpers.membersIcon(action.members)
+	local outputPrice = action.outputCost ~= nil and action.outputCost or getOutputPrice(action.name, action.outputItem, outputQuantity, numberOfActionsNeeded, reducedNumberOfActions, options.alch)
+	local gpXp = numberOfActionsNeeded == 0 and 0 or (outputPrice / actionExperience) / numberOfActionsNeeded
+    local namestr = action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'
+    namestr = action.subtxt and string.format('%s <br /><small>(%s)</small>', namestr, action.subtxt) or namestr
+
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(namestr):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+		:tag('td'):wikitext(coins(commas(outputPrice))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+function make_row_barebones(action, options)
+	-- Used for Agility, and Thieving Calculator
+	local actionExperience
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	if action.name == 'Agility Pyramid' then
+		actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp + (options.currentLevel < 88 and (300 + (options.currentLevel * 8)) or 1000)) * options.leagueMultiplier
+	else
+		actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp) * options.leagueMultiplier
+	end
+	local numberOfActionsNeeded = math.max(1, math.ceil(options.experienceRemaining / actionExperience))
+    local namestr = action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'
+    namestr = action.subtxt and string.format('%s <br /><small>(%s)</small>', namestr, action.subtxt) or namestr
+
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(namestr):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+end
+
+function make_row_no_profit(action, options, skill, frame)
+	-- Used for Firemaking, Prayer, and Construction Calculator
+	local actionExperience
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	local boostablexp = action.boostablexp or action.xp --used for mahogany homes (and pyre logs), which has reward xp that is not boostable by the outfit and xp for making the items in the house which can be boosted (pyre logs are unaffected by the pyro outfit)
+	if options['bonus'] and otherBonuses[options['bonus']] and action.type == 'Regular' then
+		local value = otherBonuses[options['bonus']]
+		actionExperience = (helpers.jagexFloor(helpers.jagexFloor((boostablexp * value) * options.setValue, 1) + (action.xp * value), 1)) * options.leagueMultiplier
+	else
+		actionExperience = (helpers.jagexFloor(boostablexp * options.setValue, 1) + action.xp) * options.leagueMultiplier
+	end
+	local numberOfActionsNeeded = math.max(1, math.ceil(options.experienceRemaining / actionExperience))
+	local members = helpers.membersIcon(action.members)
+	local materials = spreadMaterials(action.materials, numberOfActionsNeeded, nil, frame)
+	local inputCost = getInputCost(action.materials, numberOfActionsNeeded)
+	if ({ Prayer = true })[skill] then
+		inputCost = inputCost + (serviceFeeValues[options['unnotingService']] * numberOfActionsNeeded)
+	end
+	local gpXp = numberOfActionsNeeded == 0 and 0 or (-inputCost / actionExperience) / numberOfActionsNeeded
+	local materialsOverride = ''
+	if materials == '-' then
+		materialsOverride = { ['text-align'] = 'center' }
+	end
+    local namestr = action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'
+    namestr = action.subtxt and string.format('%s <br /><small>(%s)</small>', namestr, action.subtxt) or namestr
+
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(namestr):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+		:tag('td'):css(materialsOverride):wikitext(materials):done()
+		:tag('td'):wikitext(coins(commas(inputCost))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+-- Herblore: Add rows for the Degrime spell, as well as 1-3 dose variants of variable-dose recipes when an amulet is worn
+function preprocess_herblore(data, options, frame)
+	local i = 1
+	while i <= #data do
+		local action = data[i]
+		-- Add a variant of each herb cleaning using the Degrime spell
+		if action.type == 'Cleaning grimy herbs' and #action.materials == 1 then
+			local degrimeAction = deep_clone(action)
+			degrimeAction.description = frame:preprocess('[[' .. action.name .. ']] using {{Plink|Degrime}}')
+			local numHerbs = options['runeSaving'] == 'Bryophyta\'s staff + Tome of Earth' and 28 or 27
+			degrimeAction.materials[1].quantity = numHerbs
+			degrimeAction.outputQuantity = numHerbs
+			degrimeAction.xp = degrimeAction.xp/2 * numHerbs
+			local natureRunes = options['runeSaving']:find('Bryophyta\'s staff') and 1+14/15 or 2
+			table.insert(degrimeAction.materials, { name = 'Nature rune', quantity = natureRunes })
+			if options['runeSaving'] ~= 'Staff of earth' and options['runeSaving'] ~= 'Bryophyta\'s staff + Tome of Earth' then
+				table.insert(degrimeAction.materials, { name = 'Earth rune', quantity = 4 })
+			end
+			i = i + 1
+			table.insert(data, i, degrimeAction)
+		end
+		-- When using an amulet, add 1 to 3 dose versions of variable-dose recipes
+		if options['amulet'] ~= 'None' then
+			local item = action.outputItem and action.outputItem or action.name
+			if item:match('%(4%)$') then
+				local allMatsMatch = true
+				for _, mat in ipairs(action.materials) do
+					if mat.quantity % 4 ~= 0 and not mat.name:match('%(4%)$') then
+						allMatsMatch = false
+						break
+					end
+				end
+				if allMatsMatch then
+					local noDoseItem = item:gsub('%(4%)$', '')
+					for dose=3,1,-1 do
+						local dosageAction = deep_clone(action)
+						dosageAction.name = noDoseItem..'('..dose..')'
+						dosageAction.amuletOfChemisty = true
+						dosageAction.xp = action.xp/4*dose
+						for _, mat in ipairs(dosageAction.materials) do
+							if mat.name:match('%(4%)$') then
+								mat.name = mat.name:gsub('%(4%)$', '('..dose..')')
+							else
+								mat.quantity = mat.quantity/4*dose
+							end
+						end
+						i = i + 1
+						table.insert(data, i, dosageAction)
+					end
+				end
+			end
+		end
+		i = i + 1
+	end
+end
+
+-- Herblore: handle amulets (chance for 4-dose potions) and Prescription goggles (chance to save secondary ingredient)
+function process_herblore_action(action, options, numberOfActionsNeeded)
+	local item = action.outputItem and action.outputItem or action.name
+	local threeDoseItem = nil
+	local fourDoseItem = nil
+	local doses = nil
+	if item:match('%(3%)$') and item ~= 'Guthix rest(3)' then
+		doses = 3
+		threeDoseItem = item
+		fourDoseItem = item:gsub('%(3%)$', '(4)')
+	elseif action.amuletOfChemisty then
+		local noDoseItem = item:gsub('%([1-4]%)$', '')
+		doses = tonumber(item:match('%(([1-4])%)$'))
+		threeDoseItem = noDoseItem..'(3)'
+		fourDoseItem = noDoseItem..'(4)'
+	end
+	local decant = nil
+	if options['decant'] == '3 dose' then
+		decant = 3
+	elseif options['decant'] == '4 dose' then
+		decant = 4
+	end
+	
+	local amuletChance = (options['amulet'] == 'Amulet of chemistry' and 0.05 or 0) + (options['amulet'] == 'Alchemist\'s amulet' and 0.15 or 0)
+	if doses ~= nil and amuletChance > 0 then
+		local amuletsUsed = amuletChance * (options['amulet'] == 'Amulet of chemistry' and 0.2 or 0.1)
+		local newDoses = (doses + 1) * amuletChance + doses * (1 - amuletChance)
+		if options['amuletUse'] == 'Always' or gePrices[item] and (newDoses - doses)/4 * gePrices[item] > amuletsUsed * gePrices['Amulet of chemistry'] then
+			table.insert(action.materials, {
+				name = 'Amulet of chemistry',
+				quantity = amuletsUsed
+			})
+			doses = newDoses
+			if decant == nil then
+				decant = 4
+			end
+		end
+	end
+	
+	if doses ~= nil then
+		if decant == 3 then
+			action.outputItem = threeDoseItem
+			action.name = threeDoseItem
+			action.outputQuantity = doses / 3
+		elseif decant == 4 then
+			action.outputItem = fourDoseItem
+			action.name = fourDoseItem
+			action.outputQuantity = doses / 4
+		end
+	end
+	
+	local goggleChance = (options['head'] == 'Prescription goggles' and 0.1 or 0)
+	if goggleChance > 0 then
+		for _, mat in ipairs(action.materials) do
+			if mat.goggles then
+				mat.quantity = mat.quantity * (1 - goggleChance)
+			end
+		end
+	end
+	
+	if options['herbServices'] ~= 'None' and action.materials[1].name:match(' potion %(unf%)$') then
+		local cleaningFee = 200
+		local unfinishedFee = 200
+		local unfinishedPotion = action.materials[1].name
+		local herb = action.materials[1].name:gsub(' potion %(unf%)$', '')
+		local vial = 'Vial of water'
+		if herb:match(' blood$') then
+			herb = herb:gsub(' blood$', '')
+			vial = 'Vial of blood'
+		end
+		if gePrices[herb .. ' weed'] then herb = herb .. ' weed' end
+		if gePrices[herb .. ' leaf'] then herb = herb .. ' leaf' end
+		local grimyHerb = 'Grimy ' .. herb:lower()
+		if gePrices[herb] and gePrices[grimyHerb] then
+			local makeUnfinished = options['herbServices'] == 'Unfinished potions'
+			local cleanAndMakeUnfinished = options['herbServices'] == 'Cleaning + unfinished potions'
+			if options['herbServices'] == 'Most profitable' and gePrices[unfinishedPotion] then
+				local unfinishedCost = gePrices[herb] + gePrices[vial] + unfinishedFee
+				local cleaningAndUnfinishedCost = gePrices[grimyHerb] + cleaningFee + gePrices[vial] + unfinishedFee
+				if gePrices[unfinishedPotion] > unfinishedCost and cleaningAndUnfinishedCost > unfinishedCost then
+					makeUnfinished = true
+				elseif gePrices[unfinishedPotion] > cleaningAndUnfinishedCost then
+					cleanAndMakeUnfinished = true
+				end
+			end
+			if cleanAndMakeUnfinished then
+				action.materials[1].name = grimyHerb
+				table.insert(action.materials, 2, { name = vial, quantity = 1 })
+				table.insert(action.materials, 3, { name = 'Coins', cost = 1, quantity = cleaningFee + unfinishedFee })
+			end
+			if makeUnfinished then
+				action.materials[1].name = herb
+				table.insert(action.materials, 2, { name = vial, quantity = 1 })
+				table.insert(action.materials, 3, { name = 'Coins', cost = 1, quantity = unfinishedFee })
+			end
+		end
+	end
+	
+	-- Show number of result items if making only one
+	if numberOfActionsNeeded == 1 then
+		action.description = action.description or action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'
+		action.description = string.format('%s × %s', math.ceil(numberOfActionsNeeded * (action.outputQuantity or 1) * 100)/100, action.description)
+	end
+end
+
+function make_row_full(action, options, frame)
+	
+	-- Used for Farming Calculator
+	local outputQuantity, actionExperience, numberOfActionsNeeded
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	local compostInfo = compostValues[options['compost']]
+	local compostLife = compostInfo and compostInfo[1] or 0
+	local compostXp = compostInfo and compostInfo[2] or 0
+	local reducedNumberOfActions
+	if options['skill'] == 'Farming' and farmingCTS[action.name] then
+		local itemBonus = generateItemBonus(options, action.type, action.name)
+		local otherBonus = generateOtherBonus(options, action.type)
+		local harvestLives = 3 + compostLife
+		mw.log(action.name)
+		local estimatedYield = generateEstimatedYield(options.currentLevel, farmingCTS[action.name], harvestLives, itemBonus, otherBonus)
+		-- action.xp possible multiplied first here as well for the league multiplier?
+		local combinedXp = helpers.jagexFloor(estimatedYield * action.xp + (action.plantXp and action.plantXp or 0) + (action.healthXp and action.healthXp or 0) + compostXp, 1)
+		actionExperience = (helpers.jagexFloor(combinedXp * options.setValue, 1) + combinedXp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.max(1, math.ceil(options.experienceRemaining / actionExperience))
+		reducedNumberOfActions = math.max(1, numberOfActionsNeeded / estimatedYield)
+		outputQuantity = estimatedYield
+	elseif action.assumedYield then
+		local combinedXp = helpers.jagexFloor(action.assumedYield * action.xp + (action.plantXp and action.plantXp or 0) + (action.healthXp and action.healthXp or 0) + compostXp, 1)
+		actionExperience = (helpers.jagexFloor(combinedXp * options.setValue, 1) + combinedXp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.max(1, math.ceil(options.experienceRemaining / actionExperience))
+		reducedNumberOfActions = math.max(1, numberOfActionsNeeded / action.assumedYield)
+		outputQuantity = action.assumedYield
+	elseif options['skill'] == 'Fishing' then
+		-- Sailing deep sea trawling is not boosted by anglers
+		local boostablexp = action.boostablexp or action.xp 
+		actionExperience = (helpers.jagexFloor(boostablexp * options.setValue, 1) + action.xp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.max(1, math.ceil(options.experienceRemaining / actionExperience))
+		outputQuantity = action.outputQuantity and action.outputQuantity or 1
+	else
+		actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp + compostXp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.max(1, math.ceil(options.experienceRemaining / actionExperience))
+		outputQuantity = action.outputQuantity and action.outputQuantity or 1
+	end
+	if options['skill'] == 'Herblore' then
+		process_herblore_action(action, options, numberOfActionsNeeded)
+		outputQuantity = action.outputQuantity or 1
+	end
+	
+	
+	local materialsText = spreadMaterials(action.materials, numberOfActionsNeeded, reducedNumberOfActions, frame)
+	local inputCost = getInputCost(action.materials, numberOfActionsNeeded, reducedNumberOfActions)
+	local outputPrice = action.outputCost ~= nil and action.outputCost or getOutputPrice(action.name, action.outputItem, outputQuantity, numberOfActionsNeeded, reducedNumberOfActions, options.alch)
+	local profitLoss = outputPrice - inputCost
+	local gpXp = numberOfActionsNeeded == 0 and 0 or ((profitLoss) / actionExperience) / numberOfActionsNeeded
+	local materialsOverride = ''
+	if materialsText == '-' then
+		materialsOverride = { ['text-align'] = 'center' }
+	end
+    local namestr = action.description or action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'
+    namestr = action.subtxt and string.format('%s <br /><small>(%s)</small>', namestr, action.subtxt) or namestr
+	local members = helpers.membersIcon(action.members)
+
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(namestr):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+		:tag('td'):css(materialsOverride):wikitext(materialsText):done()
+		:tag('td'):wikitext(coins(commas(inputCost))):done()
+		:tag('td'):wikitext(coins(commas(outputPrice))):done()
+		:tag('td'):wikitext(coins(commas(profitLoss))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+function generateEstimatedYield(level, values, harvestLives, itemBonus, otherBonus)
+	local chanceValues = math.floor((values[1] * (99 - level) / 98) + (values[2] * (level - 1) / 98))
+	local itemBonuses = 1 + itemBonus
+	local otherBonuses = 1 + otherBonus
+	local chanceToSave = (math.floor(math.floor(chanceValues * itemBonuses) * otherBonuses) + 1) / 256
+	local expectedYield = harvestLives / (1 - chanceToSave)
+	
+	return expectedYield
+end
+
+function generateItemBonus(options, type, name)
+	local itemBonus = 0
+	
+	if options == nil then
+		return itemBonus
+	end
+	
+	for i, v in next, options, nil do
+		if itemBonuses[i] and v == 'true' then
+			if i == 'farmingCape' then
+				if type == 'Herb' then
+					itemBonus = itemBonus + tonumber(itemBonuses[i])
+				end
+			else
+				local usedFor = { Herb = true, Allotment = true, Hops = true, Special = true }
+				local doNotCalculate = { ['Giant seaweed'] = true, ['Cactus spine'] = true, ['Potato cactus'] = true }
+				if usedFor[type] and not doNotCalculate[name] then
+					itemBonus = itemBonus + tonumber(itemBonuses[i])
+				end
+			end
+		end
+	end
+	
+	return itemBonus
+end
+
+function generateOtherBonus(options, type)
+	local otherBonus = 0
+	
+	if options == nil then
+		return otherBonus
+	end
+	
+	for i, v in next, options, nil do
+		if otherBonuses[i] then
+			if i == 'diary' then
+				if type == 'Herb' then
+					otherBonus = otherBonus + tonumber(otherBonuses[i][v])
+				end
+			elseif v == 'true' then
+				otherBonus = otherBonus + tonumber(otherBonuses[i])
+			elseif v ~= 'false' then
+				otherBonus = otherBonus + tonumber(otherBonuses[i][v])
+			end
+		end
+	end
+	
+	return otherBonus
+end
+
+function deep_clone(obj)
+    if type(obj) ~= 'table' then
+    	return obj
+    end
+    local clone = {}
+    for k, v in pairs(obj) do
+    	clone[k] = deep_clone(v)
+    end
+    return clone
+end
+
+return p

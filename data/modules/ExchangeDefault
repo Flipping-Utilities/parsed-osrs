@@ -1,0 +1,404 @@
+-- <pre>
+-- Default view for {{ExchangeItem}} for use on Exchange ns pages
+--
+-- Use of this via #invoke is deprecated and will eventually be removed
+-- This is intended for use by [[Module:Exchange]]
+
+local p = {}
+
+-- imports
+local exchange = require( 'Module:Exchange' )
+local excgdata = require( 'Module:ExchangeData' )._main
+local round = require( 'Module:Number' )._round
+local timeago = require( 'Module:TimeAgo' )._ago
+local yesno = require( 'Module:Yesno' )
+
+function p.main( item )
+    local frame = mw.getCurrentFrame()
+    local lang = mw.language.getContentLanguage()
+    local title = mw.title.getCurrentTitle()
+    local data  = mw.loadData( 'Module:Exchange/' .. item )
+	local bulkData = {
+		price = exchange.loadBulkData(item, 'price', true),
+		date = exchange.loadBulkData('%LAST_UPDATE_F%', 'price'),
+		last = exchange.loadBulkData(item, 'lastPrice', true),
+		volume = exchange.loadBulkData(item, 'volume', true),
+		volumeDate = exchange.loadBulkData('%LAST_UPDATE_F%', 'volume'),
+	}
+    -- set variables here if possible to keep table building easier to follow
+    local rowspan = 8
+    local volDate = bulkData.volumeDate or lang:formatDate( 'c' )
+    local dateDiffZ = lang:formatDate( 'z' ) - lang:formatDate( 'z', volDate )
+    local dateDiffY = lang:formatDate( 'Y' ) - lang:formatDate( 'Y', volDate )
+    local price = bulkData.price and lang:formatNum( bulkData.price ) or '<i>Unknown</i>'
+    local priceDiff = (bulkData.price or 0) - (bulkData.last or 0)
+    local priceDiffF = lang:formatNum(priceDiff) or '<i>Unknown</i>'
+    local priceDiffPerc = ''
+    local priceDiffClass = 'unchanged' --todo neutral
+    local priceDiffSlide = '' --todo neutral
+    local priceDiffIcon = 'Unchanged' --todo neutral
+    local itemIcon = data.icon or (( data.item or 'Coins 1000') .. '.png')
+    local date = '<i>Unknown</i>'
+    local lowAlchMultiplier = 0.4
+    local highAlchMultiplier = 0.6
+    local rawLowAlch = -1
+    local rawHighAlch = -1
+    local lowAlch = '<i>Not alchable</i>'
+    local highAlch = '<i>Not alchable</i>'
+    local memsIcon = ''
+    local usage = ''
+    local timeagodate
+
+    if bulkData.volume and ( dateDiffZ + 365 * dateDiffY ) <= 7 then
+        rowspan = 10
+    end
+
+    if bulkData.date then
+        date = lang:formatDate( 'j F Y, H:i "(UTC)"', bulkData.date )
+        timeagodate = bulkData.date
+    end
+    
+    if data.alchable == nil or yesno( data.alchable ) then
+        if data.value then
+	    	if data.alchmultiplier then
+	    		highAlchMultiplier = data.alchmultiplier
+	    		lowAlchMultiplier = highAlchMultiplier * 2/3
+	    	end
+            rawLowAlch = math.floor( data.value * lowAlchMultiplier )
+            rawHighAlch = math.floor( data.value * highAlchMultiplier )
+            lowAlch = lang:formatNum( rawLowAlch )
+            highAlch = lang:formatNum( rawHighAlch )
+        else
+            lowAlch, highAlch = '<i>Unknown</i>', '<i>Unknown</i>'
+        end
+    end
+
+    if data.members ~= nil then
+        if data.members then
+            memsIcon = 'Members'
+        else
+            memsIcon = 'Free-to-play'
+        end
+    end
+    
+    if priceDiff > 0 then
+    	priceDiffClass = 'positive'
+    	priceDiffSlide = 'slide-up'
+    	priceDiffIcon = 'Up'
+    elseif priceDiff < 0 then
+    	priceDiffClass = 'negative'
+    	priceDiffSlide = 'slide-down'
+    	priceDiffIcon = 'Down'
+    end
+    
+    if bulkData.last and bulkData.last > 0 then
+    	priceDiffPerc = round(priceDiff / bulkData.last * 100, 2) .. '%'
+    end
+    if priceDiff >= 0 then
+    	priceDiffF = '+'..priceDiffF
+    	priceDiffPerc = '+'..priceDiffPerc
+    end
+    
+    -- workaround so we can use `table.concat`
+    usage = {}
+	if data.usage then
+	    for k, v in ipairs( data.usage ) do
+	        usage[k] = v
+	    end
+    end
+
+    if #usage == 0 then
+    	usage = "\n* ''None''"
+	else
+        usage = '\n* [[' .. table.concat( usage, ']]\n* [[' ) .. ']]'
+    end
+    
+    local noErr, chartdata = pcall( excgdata, { item }, true )
+    
+    if not noErr then
+        chartdata = 'Chart not available'
+    end
+
+    -- build table
+    local div = mw.html.create('div')
+    	:addClass('gemw-container')
+	if data.historical then
+		div:addClass('gemw-historical')
+        date = lang:formatDate( 'j F Y, H:i "(UTC)"', data.date )
+        timeagodate = data.date
+	end
+    	--header
+    div	:tag('div')
+    		:addClass('gemw-header')
+    		:addClass(priceDiffClass)
+    		:tag('div')
+    			:addClass('gemw-section-left')
+                :tag('p')
+                    :addClass('gemw-image')
+                    :wikitext('[[File:'..itemIcon..'|link='..data.item..']]')
+                    :done()
+    			:tag('p')
+    				:addClass('gemw-name')
+    				:wikitext('[['..data.item..']]')
+    				:done()
+    			:tag('p')
+    				:addClass('gemw-examine')
+    				:wikitext(data.examine or '')
+    				:done()
+    			:tag('div')
+    				:tag('span')
+    					:addClass('gemw-price')
+    					:addClass(priceDiffSlide)
+    					:attr('id', 'GEPrice')
+    					:wikitext(price)
+    					:done()
+    				:tag('span')
+    					:addClass('gemw-change')
+    					:addClass(priceDiffSlide..'-2')
+    					:wikitext(priceDiffF)
+    					:wikitext(' ')
+    					:wikitext(priceDiffPerc)
+    					:wikitext(' [[File:'..priceDiffIcon..'.svg|12px|link=]]')
+    					:done()
+    				:done()
+    			:done()
+    		:tag('div')	
+    			:addClass('gemw-section-right')
+    			:tag('p')
+    				:addClass('gemw-updated')
+    				:attr('data-date', date) -- used by [[MediaWiki:Gadget-gemwupdate.js]]
+    				:wikitext('Last updated ')
+    				:tag('span')
+    					:addClass('gemw-time')
+    					:wikitext(timeago{timeagodate, purge='yes', purgeText='refresh'})
+    					:done()
+    				:tag('br'):done()
+    				:wikitext(' on ')
+    				:wikitext(date)
+    				:done()
+    			:tag('div')
+    				:addClass('gemw-button-wrapper gemw-update-price')
+    				:attr('id', 'gemw_guide')
+    				:wikitext('')
+    				:done()
+    			:done()	
+    		:done() --close header
+    
+    -- body		
+    local dlTag = div	:tag('div')
+    		:addClass('gemw-body')	
+    		:tag('div')
+    			:addClass('gemw-section-left')
+    			:tag('dl')
+    			
+    dlTag			:tag('div')
+    					:addClass('gemw-property gemw-members')
+    					:tag('dt')
+    						:wikitext('Status')
+    						:done()
+    					:tag('dd')
+    						:wikitext(memsIcon)
+    						:done()
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-property gemw-limit')
+    					:tag('dt')
+    						:wikitext('[[Grand Exchange#Trade restrictions|Buy limit]]')
+    						:done()
+    					:tag('dd')
+    						:wikitext(data.limit and lang:formatNum( data.limit ) or '<i>Unknown</i>' )
+    						:done()
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-property gemw-id')
+    					:tag('dt')
+    						:wikitext('Item ID')
+    						:done()
+    					:tag('dd')
+    						:wikitext(data.itemId or '<i>Unknown</i>')
+    						:done()
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-property gemw-highalch')
+    					:tag('dt')
+    						:wikitext('[[High Level Alchemy|High Alchemy]]')
+    						:done()
+    					:tag('dd')
+    						:wikitext(highAlch)
+    						:done()
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-property gemw-lowalch')
+    					:tag('dt')
+    						:wikitext('[[Low Level Alchemy|Low Alchemy]]')
+    						:done()
+    					:tag('dd')
+    						:wikitext(lowAlch)
+    						:done()
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-property gemw-value')
+    					:tag('dt')
+    						:wikitext('[[Value]]')
+    						:done()
+    					:tag('dd')
+    						:wikitext(data.value and lang:formatNum( data.value ) or '<i>Unknown</i>')
+    						:done()
+    					:done()
+    				:done()
+    			:tag('div')
+    				:tag('p')
+    					:addClass('gemw-links')
+    					:wikitext('External links')
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-button secondary')
+    					:wikitext('[https://secure.runescape.com/m=itemdb_oldschool/viewitem.ws?obj=' .. data.itemId .. ' Official GE database]')
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-button secondary')
+    					:wikitext('[https://secure.runescape.com/m=itemdb_oldschool/results.ws?query=' .. mw.uri.encode( item, 'QUERY' ) .. ' Related items]')
+    					:done()
+    				:done()
+    			:tag('div')
+    				:tag('p')
+    					:addClass('gemw-links')
+    					:wikitext('Module links')
+    					:done()
+    				:tag('div')
+    					:addClass('gemw-button secondary')
+    					:wikitext('[[Module:Exchange/' .. item .. '|Exchange info]]')
+    					:done()
+    				:done()
+    			:done()
+    		:tag('div')
+    			:addClass('gemw-section-right gemw-chart')
+    			:wikitext(chartdata)
+    			:done()
+
+	if bulkData.volume and ( dateDiffZ + 365 * dateDiffY ) <= 7 then
+		dlTag:tag('div')
+				:addClass('gemw-property gemw-volume')
+				:tag('dt')
+					:wikitext('Daily volume')
+					:done()
+				:tag('dd')
+					:wikitext(lang:formatNum( bulkData.volume ))
+					:done()
+	end
+
+    div = tostring( div )
+
+    -- categories
+    local cats = ''
+    local natPrice
+
+    if title.nsText == 'Exchange' then
+        cats = cats .. '[[Category:Grand Exchange]]'
+        if data.historical then
+        	cats = cats .. '[[Category:Historical Grand Exchange]]'
+        else
+            cats = cats .. '[[Category:Grand Exchange by date updated|*' .. lang:formatDate( 'c', bulkData.date ) .. data.itemId .. ']]'
+        end
+
+        if item ~= title.text then
+            cats = cats .. '[[Category:Exchange names that needs checking]]'
+        end
+
+        -- have to preprocess this for it to work
+        cats = cats .. frame:preprocess( '{{DEFAULTSORT:' .. data.item .. '}}' )
+
+        if not data.itemId then
+            cats = cats .. '[[Category:Exchange items with no ID]]'
+        end
+
+        if not data.icon then
+            cats = cats .. '[[Category:Exchange items missing icon]]'
+        end
+		if not data.historical then
+	       if not data.value then
+	            cats = cats .. '[[Category:Exchange items missing value]]'
+	        end
+        end
+
+        -- this doesn't allow for the update time to be in the previous day but less than 24 hours
+        -- if that's the case, then the page will end up in the 7 days category
+        -- the same will happen for the other 2 categories too
+        -- but it's not so noticeable given the already elapsed time
+        local lastUpdate
+        if not data.historical then
+	        lastUpdate = ( lang:formatDate( 'z' ) - lang:formatDate( 'z', bulkData.date ) + 365 * ( lang:formatDate( 'Y' ) - lang:formatDate( 'Y', bulkData.date ) ) + 3 ) / 7
+	        lastUpdate = round( lastUpdate, 0 )
+	 
+	        if lastUpdate == 2 then
+	            cats = cats .. '[[Category:Needs price update/7 days]]'
+	        elseif lastUpdate >= 2 and lastUpdate <= 4 then
+	            cats = cats .. '[[Category:Needs price update/28 days]]'
+	        elseif lastUpdate > 4 then
+	            cats = cats .. '[[Category:Needs price update/29+ days]]'
+	        end
+	
+	        if not data.limit then
+	            cats = cats .. '[[Category:Exchange items missing limit]]'
+	        end
+	
+	        -- Error checking
+	        if not bulkData.price or bulkData.price < 1 then
+	            cats = cats .. '[[Category:Exchange items with no price]]'
+	        end
+        end
+    end
+
+	local bucket_to_json_names = {
+    	id = 'id',
+    	name = 'name',
+    	limit = 'limit',
+    	value = 'value',
+    	isalchable = 'is_alchable',
+    	highalch = 'high_alch',
+    	lowalch = 'low_alch',
+    	info = 'module',
+    	historical = 'is_historical'
+    }
+    local bucket_json = {}
+    local bucket_data_arr = {}
+    bucket_json.id = data.itemId
+    bucket_json.name = item
+    bucket_json.limit = data.limit
+    bucket_json.value = data.value
+    bucket_json.isalchable = data.alchable == nil or yesno( data.alchable )
+    if data.historical == true then
+    	-- ensure data type correctness
+    	bucket_json.historical = true
+    else
+    	bucket_json.historical = false
+    end
+    if bucket_json.isalchable then
+    	bucket_json.highalch = rawHighAlch
+    	bucket_json.lowalch = rawLowAlch
+    end
+    bucket_json.info = 'Module:Exchange/' .. data.item
+
+    for k,v in pairs(bucket_to_json_names) do
+    	bucket_data_arr[v] = bucket_json[k]
+    end
+    local bucketJsonGood, bucketJsonEncoded = pcall(mw.text.jsonEncode,bucket_json)
+	if bucketJsonGood then
+		bucket_data_arr['json'] = bucketJsonEncoded
+	else
+		div = div .. '<div style="display:none;">Error making JSON for Bucket</div>'
+	end
+	bucket('exchange').put(bucket_data_arr)
+ 
+    return div .. cats
+end
+
+function p.exchangeItem( frame )
+	local fargs = frame.args
+    local pargs = frame:getParent().args
+    local item = pargs[1] or fargs.item	
+    item = exchange.checkTitle( item )
+    return p.main( item )
+end
+
+return p

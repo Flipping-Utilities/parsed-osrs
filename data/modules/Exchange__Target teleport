@@ -1,0 +1,12 @@
+return {
+    itemId     = 24336,
+    icon       = "Target teleport.png",
+    item       = "Target teleport",
+    alchable   = true,
+    value      = 1,
+    limit      = nil,
+    members    = true,
+    category   = nil,
+    examine    = "A teleport to your Bounty Hunter target.",
+    usage      = {}
+}

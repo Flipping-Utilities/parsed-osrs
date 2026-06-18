@@ -1,0 +1,2459 @@
+-- { XP Amount, Choose 1 out of all skills } : X Marks the Spot, Client of Kourend,
+-- Duplicate lines mean multiple reward instances : Client of Kourend,
+-- 'All' means every skill
+-- ['Choose>#'] means the following options must be over level # : Architectural Alliance, Curse of the Empty Lord, In Search of Knowledge, 
+-- Monkey Madness I is jank as fuck (XP1, skill group 1, xp2, skill group 2)
+
+
+return {
+-- Other
+	['Natural history quiz'] = {
+		rewards = {
+			skills = {
+				['Hunter'] = 1000,
+				['Slayer'] = 1000,
+			},
+		},
+	},
+	['Barbarian Firemaking'] = {
+		requirements = {
+			skills = {
+				{ name = 'Firemaking', level = 35, boostable = true },
+			},
+		},
+	},
+	['Barbarian Heavy Rod Fishing'] = {
+		requirements = {
+			skills = {
+				{ name = 'Agility', level = 15, boostable = true },
+				{ name = 'Fishing', level = 48, boostable = true },
+				{ name = 'Strength', level = 15, boostable = true },
+			},
+		},
+	},
+	['Barbarian Herblore'] = {
+		requirements = {
+			quests = { 'Barbarian Heavy Rod Fishing' },
+			skills = {
+				{ name = 'Herblore', level = 4, boostable = true },
+			},
+		},
+	},
+
+	['Barbarian Bare-Handed Fishing'] = {
+		requirements = {
+			quests = { 'Barbarian Firemaking' },
+			skills = {
+				{ name = 'Fishing', level = 55, boostable = true },
+				{ name = 'Strength', level = 35, boostable = true },
+			},
+		},
+	},
+	['Barbarian Pyre Ships'] = {
+		requirements = {
+			qquests = { 'Barbarian Firemaking' },
+			skills = {
+				{ name = 'Crafting', level = 11, boostable = true },
+				{ name = 'Firemaking', level = 11, boostable = true },
+			},
+		},
+	},
+	['Barbarian Smithing'] = {
+		requirements = {
+			quests = { 'Barbarian Bare-Handed Fishing', 'Barbarian Heavy Rod Fishing', 'Tai Bwo Wannai Trio' },
+			skills = {
+				{ name = 'Smithing', level = 5, boostable = true },
+			},
+		},
+	},
+-- Miniquests
+	['Alfred Grimhand\'s Barcrawl'] = { },
+	['Architectural Alliance'] = {
+		requirements = {
+			skills = {
+				{ name = 'Mining', level = 42, boostable = true },
+			},
+		},
+		rewards = {
+			skills = {
+				['Choose>40'] = {
+					{ 10000, 'All' },
+				},
+			},
+		},
+	},
+	['Bear your Soul'] = { },
+	['Curse of the Empty Lord'] = {
+		requirements = {
+			quests = { 'The Dig Site', 'Priest in Peril', 'The Restless Ghost', 'Temple of Ikov', 'The Tourist Trap', 'Troll Stronghold', 'Waterfall Quest' }, -- Partial completion of Desert Treasure
+			skills = {
+				{ name = 'Prayer', level = 31, boostable = false },
+				{ name = 'Thieving', level = 53, boostable = false },
+			},
+		},
+		rewards = {
+			skills = { 
+				['Choose>50']  = {
+					{ 10000, 'All' }, -- Historian Minas
+				},
+			},
+		},
+	},
+	['Daddy\'s Home'] = { },
+	['Enchanted Key'] = {
+		requirements = {
+			quests = { 'Making History' },
+		},
+	},
+	['Enter the Abyss'] = {
+		requirements = {
+			quests = { 'Rune Mysteries' },
+		},
+	},
+	['Family Pest'] = {
+		requirements = {
+			quests = { 'Family Crest' },
+		},
+	},
+	['The Frozen Door'] = {
+		requirements = {
+			quests = { 'Desert Treasure' },
+			skills = {
+				{ name = 'Agility', level = 70, boostable = false },
+				{ name = 'Hitpoints', level = 70, boostable = false },
+				{ name = 'Ranged', level = 70, boostable = false },
+				{ name = 'Strength', level = 70, boostable = false },
+			}
+		},
+	},
+	['The General\'s Shadow'] = {
+		requirements = {
+			quests = { 'Curse of the Empty Lord', 'Fight Arena' },
+		},
+		rewards = {
+			skills = {
+				['Slayer'] = 2000,
+			},
+		},
+	},
+	['In Search of Knowledge'] = {
+		rewards = {
+			skills = {
+				['Choose>40'] = {
+					{ 10000, 'All' },
+				},
+			},
+		},
+	},
+	['Lair of Tarn Razorlor'] = {
+		requirements = {
+			quests = { 'Haunted Mine' },
+			skills = {
+				{ name = 'Slayer', level = 40, boostable = false },
+			},
+		},
+		rewards = {
+			skills = {
+				['Slayer'] = 5000,
+			},
+		},
+	},
+	['Mage Arena I'] = {
+		requirements = {
+			skills = {
+				{ name = 'Magic', level = 60, boostable = false },
+			},
+		},
+	},
+	['Mage Arena II'] = {
+		requirements = {
+			quests = { 'Mage Arena I' },
+			skills = {
+				{ name = 'Magic', level = 75, boostable = false },
+			},
+		},
+	},
+	['Skippy and the Mogres'] = {
+		requirements = {
+			skills = {
+				{ name = 'Cooking', level = 20, boostable = true },
+			},
+		},
+	},
+-- F2P
+	['Below Ice Mountain'] = {
+		requirements = {
+			qp = 16,
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Black Knights\' Fortress'] = {
+		requirements = {
+			qp = 12,
+		},
+		rewards = {
+			qp = 3,
+		},
+	},
+	['Cook\'s Assistant'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 300,
+			},
+		},
+	},
+	['The Corsair Curse'] = {
+		rewards = {
+			qp = 2,
+		},
+	},
+	['Demon Slayer'] = {
+		rewards = {
+			qp = 3,
+		},
+	},
+	['Doric\'s Quest'] = { -- 15 Mining not hard requirement
+		rewards = {
+			qp = 1,
+			skills = {
+				['Mining'] = 1300,
+			},
+		}
+	},
+	['Dragon Slayer I'] = {
+		requirements = {
+			qp = 32,
+			skills = {
+				{ name = 'Crafting', level = 8, boostable = true }
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Defence'] = 18650,
+				['Strength'] = 18650,
+			},
+		},
+	},
+	['Ernest the Chicken'] = {
+		rewards = {
+			qp = 4,
+		},
+	},
+	['Goblin Diplomacy'] = {
+		rewards = {
+			qp = 5,
+			skills = {
+				['Crafting'] = 200,
+			},
+		},
+	},
+	['Imp Catcher'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Magic'] = 875,
+			},
+		},
+	},
+	['The Knight\'s Sword'] = {
+		requirements = {
+			skills = {
+				{ name = 'Mining', level = 10, boostable = true },
+				--{ name = 'Cooking', level = 10, boostable = true }, -- Not hard requirement, but may as well be.
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Smithing'] = 12725,
+			},
+		},
+	},
+	['Misthalin Mystery'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 600,
+			},
+		},
+	},
+	['Pirate\'s Treasure'] = {
+		rewards = {
+			qp = 2,
+		},
+	},
+	['Prince Ali Rescue'] = {
+		rewards = {
+			qp = 3,
+		},
+	},
+	['The Restless Ghost'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Prayer'] = 1125,
+			},
+		},
+	},
+	['Romeo & Juliet'] = {
+		rewards = {
+			qp = 5,
+		},
+	},
+	['Rune Mysteries'] = {
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Sheep Shearer'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 150,
+			},
+		},
+	},
+	['Shield of Arrav'] = {
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Vampyre Slayer'] = {
+		rewards = {
+			qp = 3,
+			skills = {
+				['Attack'] = 4825,
+			},
+		}
+	},
+	['Witch\'s Potion'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Magic'] = 325,
+			},
+		}
+	},
+	['X Marks the Spot'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Choose'] = {
+					{ 300, 'All' }	
+				},
+			},
+		},
+	},
+-- Members
+	['Animal Magnetism'] = {
+		requirements = {
+			quests = { 'Ernest the Chicken', 'Priest in Peril', 'The Restless Ghost' },
+			skills = {
+				{ name = 'Crafting', level = 19, boostable = false },
+				{ name = 'Prayer', level = 31, boostable = false }, -- holy symbol
+				{ name = 'Ranged', level = 30, boostable = false },
+				{ name = 'Slayer', level = 18, boostable = false },
+				{ name = 'Woodcutting', level = 35, boostable = false }
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 1000,
+				['Fletching'] = 1000,
+				['Slayer'] = 1000,
+				['Woodcutting'] = 2500,
+			},
+		},
+	},
+	['Another Slice of H.A.M.'] = {
+		requirements = {
+			quests = { 'Death to the Dorgeshuun', 'The Dig Site', 'The Giant Dwarf' },
+			skills = {
+				{ name = 'Attack', level = 15, boostable = false },
+				{ name = 'Prayer', level = 25, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Mining'] = 3000,
+				['Prayer'] = 3000,
+			},
+		},
+	},
+	['The Ascent of Arceuus'] = {
+		requirements = {
+			quests = { 'Client of Kourend' },
+			skills = {
+				{ name = 'Hunter', level = 12, boostable = false }
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Hunter'] = 1500,
+				['Runecraft'] = 500,
+			},
+		},
+	},
+	['Between a Rock...'] = {
+		requirements = {
+			quests = { 'Dwarf Cannon', 'Fishing Contest' },
+			skills = {
+				{ name = 'Defence', level = 30, boostable = true },
+				{ name = 'Mining', level = 40, boostable = true },
+				{ name = 'Smithing', level = 50, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Defence'] = 5000,
+				['Mining'] = 5000,
+				['Smithing'] = 5000,
+			},
+		},
+	},
+	['Big Chompy Bird Hunting'] = {
+		requirements = {
+			skills = {
+				{ name = 'Cooking', level = 30, boostable = true },
+				{ name = 'Fletching', level = 5, boostable = true },
+				{ name = 'Ranged', level = 30, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Cooking'] = 1470,
+				['Fletching'] = 262,
+				['Ranged'] = 735,
+			},
+		},
+	},
+	['Biohazard'] = {
+		requirements = {
+			quests = { 'Plague City' },
+		},
+		rewards = {
+			qp = 3,
+			skills = {
+				['Thieving'] = 1250,
+			},
+		},
+	},
+	['Bone Voyage'] = {
+		requirements = { -- Also 100 kudos
+			quests = { 'The Dig Site' },
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Cabin Fever'] = {
+		requirements = {
+			quests = { 'Pirate\'s Treasure', 'Rum Deal' },
+			skills = {
+				{ name = 'Agility', level = 42, boostable = false },
+				{ name = 'Crafting', level = 45, boostable = false },
+				{ name = 'Ranged', level = 40, boostable = false },
+				{ name = 'Smithing', level = 50, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Agility'] = 7000,
+				['Crafting'] = 7000,
+				['Smithing'] = 7000,
+			},
+		},
+	},
+	['Client of Kourend'] = {
+		requirements = {
+			quests = { 'X Marks the Spot' },
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Choose'] = {
+					{ 500, 'All' },
+					{ 500, 'All' },
+				},
+			},
+		},
+	},
+	['Clock Tower'] = {
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Cold War'] = {
+		requirements = {
+			skills = {
+				{ name = 'Agility', level = 30, boostable = true },
+				{ name = 'Crafting', level = 30, boostable = false },
+				{ name = 'Construction', level = 34, boostable = true },
+				{ name = 'Hunter', level = 10, boostable = true },
+				{ name = 'Thieving', level = 15, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 5000,
+				['Construction'] = 1500,
+				['Crafting'] = 2000,
+			},
+		},
+	},
+	['Contact!'] = {
+		requirements = {
+			quests = { 'Icthlarin\'s Little Helper', 'Prince Ali Rescue' },
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Thieving'] = 7000,
+				['Choose'] = {
+					{ 7000, 'Attack', 'Strength', 'Defence', 'Hitpoints', 'Ranged', 'Magic' }
+				},
+			},
+		},
+	},
+	['Creature of Fenkenstrain'] = {
+		requirements = {
+			quests = { 'Priest in Peril' }, -- Partial 'The Restless Ghost'
+			skills = {
+				{ name = 'Crafting', level = 20, boostable = true },
+				{ name = 'Thieving', level = 25, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Thieving'] = 1000,
+			},
+		},
+	},
+	['Darkness of Hallowvale'] = {
+		requirements = {
+			quests = { 'In Aid of the Myreque' },
+			skills = {
+				{ name = 'Agility', level = 26, boostable = true },
+				{ name = 'Construction', level = 5, boostable = true },
+				{ name = 'Crafting', level = 32, boostable = true },
+				{ name = 'Magic', level = 33, boostable = true },
+				{ name = 'Mining', level = 20, boostable = false },
+				{ name = 'Strength', level = 40, boostable = true },
+				{ name = 'Thieving', level = 22, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 7000,
+				['Construction'] = 2000,
+				['Thieving'] = 6000,
+				['Choose>30'] = {
+					{ 2000, 'All' },
+					{ 2000, 'All' },
+					{ 2000, 'All' },
+				},
+			},
+		},
+	},
+	['Death Plateau'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Attack'] = 3000,
+			}
+		}
+	},
+	['Death to the Dorgeshuun'] = {
+		requirements = {
+			quests = { 'The Lost Tribe' },
+			skills = {
+				{ name = 'Agility', level = 23, boostable = true },
+				{ name = 'Thieving', level = 23, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Ranged'] = 2000,
+				['Thieving'] = 2000,
+			},
+		},
+	},
+	['The Depths of Despair'] = {
+		requirements = { -- 20% Hosidius favour
+			quests = { 'Client of Kourend' },
+			skills = {
+				{ name = 'Agility', level = 18, boostable = true }
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 1500,
+			},
+		},
+	},
+	['Desert Treasure'] = {
+		requirements = {
+			quests = { 'The Dig Site', 'Priest in Peril', 'Temple of Ikov', 'The Tourist Trap', 'Troll Stronghold', 'Waterfall Quest' },
+			skills = {
+				{ name = 'Firemaking', level = 50, boostable = true },
+				{ name = 'Magic', level = 50, boostable = false },
+				--{ name = 'Slayer', level = 10, boostable = false }, -- Only required if Plague City is not accessible
+				{ name = 'Thieving', level = 53, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 3,
+			skills = {
+				['Magic'] = 20000,
+			},
+		},
+	},
+	['Devious Minds'] = {
+		requirements = {
+			quests = { 'Doric\'s Quest', 'Enter the Abyss', 'Troll Stronghold', 'Wanted!' },
+			skills = {
+				{ name = 'Fletching', level = 50, boostable = true },
+				{ name = 'Runecraft', level = 50, boostable = false },
+				{ name = 'Smithing', level = 65, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Fletching'] = 5000,
+				['Runecraft'] = 5000,
+				['Smithing'] = 6500,
+			},
+		},
+	},
+	['The Dig Site'] = {
+		requirements = {
+			skills = {
+				{ name = 'Agility', level = 10, boostable = true },
+				{ name = 'Herblore', level = 10, boostable = true },
+				{ name = 'Thieving', level = 25, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Herblore'] = 2000,
+				['Mining'] = 15300,
+			},
+		},
+	},
+	['Dragon Slayer II'] = {
+		requirements = {
+			qp = 200,
+			quests = { 'Animal Magnetism', 'Barbarian Firemaking', 'Bone Voyage', 'Client of Kourend', 'Dream Mentor', 'Ghosts Ahoy', 'Legends\' Quest', 'A Tail of Two Cats' },
+			skills = {
+				{ name = 'Agility', level = 60, boostable = false },
+				{ name = 'Construction', level = 50, boostable = false },
+				{ name = 'Crafting', level = 62, boostable = false },
+				{ name = 'Hitpoints', level = 50, boostable = false },
+				{ name = 'Magic', level = 75, boostable = false },
+				{ name = 'Mining', level = 68, boostable = false },
+				{ name = 'Smithing', level = 70, boostable = false },
+				{ name = 'Thieving', level = 60, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 5,
+			skills = {
+				['Agility'] = 15000,
+				['Mining'] = 18000,
+				['Smithing'] = 25000,
+				['Thieving'] = 15000,
+				['Choose'] = { --Ellen
+					{25000, 'Magic', 'Ranged', 'Strength', 'Attack', 'Defence', 'Hitpoints'} 
+				}
+			},
+		},
+	},
+	['Dream Mentor'] = {
+		requirements = {
+			quests = { 'Eadgar\'s Ruse', 'Lunar Diplomacy' },
+			skills = {
+				{ name = 'Combat', level = 85, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Hitpoints'] = 15000,
+				['Magic'] = 10000,
+				['Choose'] = {
+					{15000, 'Strength', 'Defence', 'Magic', 'Hitpoints', 'Ranged'},
+				},
+			},
+		},
+	},
+	['Druidic Ritual'] = {
+		rewards = {
+			qp = 4,
+			skills = {
+				['Herblore'] = 250,
+			},
+		},
+	},
+	['Dwarf Cannon'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 750,
+			},
+		},
+	},
+	['Eadgar\'s Ruse'] = {
+		requirements = {
+			quests = { 'Druidic Ritual', 'Troll Stronghold' },
+			skills = {
+				{ name = 'Herblore', level = 31, boostable = true }
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Herblore'] = 11000,
+			},
+		},
+	},
+	['Eagles\' Peak'] = {
+		requirements = {
+			skills = {
+				{ name = 'Hunter', level = 27, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Hunter'] = 2500,
+			},
+		},
+	},
+	['Elemental Workshop I'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 20, boostable = true },
+				{ name = 'Mining', level = 20, boostable = true },
+				{ name = 'Smithing', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 5000,
+				['Smithing'] = 5000,
+			},
+		},
+	},
+	['Elemental Workshop II'] = {
+		requirements = {
+			quests = { 'Elemental Workshop I' },
+			skills = {
+				{ name = 'Magic', level = 20, boostable = true },
+				{ name = 'Smithing', level = 30, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 7500,
+				['Smithing'] = 7500,
+			},
+		},
+	},
+	['Enakhra\'s Lament'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 50, boostable = false },
+				{ name = 'Firemaking', level = 45, boostable = true },
+				{ name = 'Magic', level = 39, boostable = true },
+				{ name = 'Mining', level = 45, boostable = true },
+				{ name = 'Prayer', level = 43, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Crafting'] = 7000,
+				['Firemaking'] = 7000,
+				['Magic'] = 7000,
+				['Mining'] = 7000,
+			},
+		},
+	},
+	['Enlightened Journey'] = {
+		requirements = {
+			qp = 20,
+			skills = {
+				{ name = 'Crafting', level = 36, boostable = true },
+				{ name = 'Farming', level = 30, boostable = true },
+				{ name = 'Firemaking', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 2000,
+				['Farming'] = 3000,
+				['Firemaking'] = 4000,
+				['Woodcutting'] = 1500,
+			},
+		},
+	},
+	['The Eyes of Glouphrie'] = {
+		requirements = {
+			quests = { 'The Grand Tree' },
+			skills = {
+				{ name = 'Construction', level = 5, boostable = false },
+				{ name = 'Magic', level = 46, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Construction'] = 250,
+				['Magic'] = 12000,
+				['Runecraft'] = 6000,
+				['Woodcutting'] = 2500,
+			},
+		},
+	},
+	['Fairytale I - Growing Pains'] = {
+		requirements = {
+			quests = { 'Lost City', 'Nature Spirit' }, -- 'Jungle Potion' may be required depending on random selection
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 2000,
+				['Farming'] = 3500,
+				['Magic'] = 1000,
+			},
+		},
+	},
+	['Fairytale II - Cure a Queen'] = {
+		requirements = {
+			quests = { 'Fairytale I - Growing Pains' },
+			skills = {
+				{ name = 'Farming', level = 49, boostable = true },
+				{ name = 'Herblore', level = 57, boostable = true },
+				{ name = 'Thieving', level = 40, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Herblore'] = 3500,
+				['Thieving'] = 2500,
+				['Choose>30'] = {
+					{ 2500, 'All' },
+				},
+			},
+		},
+	},
+	['Family Crest'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 40, boostable = true },
+				{ name = 'Magic', level = 59, boostable = true },
+				{ name = 'Mining', level = 40, boostable = true },
+				{ name = 'Smithing', level = 40, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['The Feud'] = {
+		requirements = {
+			skills = {
+				{ name = 'Thieving', level = 30, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Thieving'] = 15000,
+			},
+		},
+	},
+	['Fight Arena'] = {
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 12175,
+				['Thieving'] = 2175,
+			},
+		},
+	},
+	['Fishing Contest'] = {
+		requirements = {
+			skills = {
+				{ name = 'Fishing', level = 10, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Fishing'] = 2437,
+			},
+		},
+	},
+	['Forgettable Tale...'] = {
+		requirements = {
+			quests = { 'Fishing Contest', 'The Giant Dwarf' },
+			skills = {
+				{ name = 'Cooking', level = 22, boostable = true },
+				{ name = 'Farming', level = 17, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Cooking'] = 5000,
+				['Farming'] = 5000,
+			},
+		},
+	},
+	['The Forsaken Tower'] = {
+		requirements = { -- 20% Lovakengj favour
+			quests = { 'Client of Kourend' },
+			skills = {
+				{ name = 'Mining', level = 42, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Mining'] = 500,
+				['Smithing'] = 500,
+			},
+		},
+	},
+	['The Fremennik Exiles'] = {
+		requirements = {
+			quests = { 'The Fremennik Isles', 'Heroes\' Quest', 'Lunar Diplomacy', 'Mountain Daughter' },
+			skills = {
+				{ name = 'Crafting', level = 65, boostable = false },
+				{ name = 'Fishing', level = 60, boostable = false },
+				{ name = 'Runecraft', level = 55, boostable = false },
+				{ name = 'Slayer', level = 60, boostable = false },
+				{ name = 'Smithing', level = 60, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Crafting'] = 15000,
+				['Runecraft'] = 5000,
+				['Slayer'] = 15000,
+			},
+		},
+	},
+	['The Fremennik Isles'] = {
+		requirements = {
+			quests = { 'The Fremennik Trials' },
+			skills = {
+				{ name = 'Construction', level = 20, boostable = true },
+				{ name = 'Crafting', level = 46, boostable = true },
+				{ name = 'Woodcutting', level = 56, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Construction'] = 5000,
+				['Crafting'] = 5000,
+				['Woodcutting'] = 10000,
+				['Choose'] = {
+					{10000, 'Strength', 'Attack', 'Defence', 'Hitpoints'},
+					{10000, 'Strength', 'Attack', 'Defence', 'Hitpoints'},
+				},
+			},
+		},
+	},
+	['The Fremennik Trials'] = {
+		rewards = {
+			qp = 3,
+			skills = {
+				['Agility'] = 2812.4,
+				['Attack'] = 2812.4,
+				['Crafting'] = 2812.4,
+				['Defence'] = 2812.4,
+				['Fishing'] = 2812.4,
+				['Fletching'] = 2812.4,
+				['Hitpoints'] = 2812.4,
+				['Strength'] = 2812.4,
+				['Thieving'] = 2812.4,
+				['Woodcutting'] = 2812.4,
+			},
+		},
+	},
+	['Garden of Tranquillity'] = {
+		requirements = {
+			quests = { 'Creature of Fenkenstrain' },
+			skills = {
+				{ name = 'Farming', level = 25, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Farming'] = 5000,
+			},
+		},
+	},
+	['Gertrude\'s Cat'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 1525,
+			},
+		},
+	},
+	['Getting Ahead'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 30, boostable = false },
+				{ name = 'Construction', level = 26, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 4000,
+			['Construction'] = 3200,
+			},
+		},
+	},
+	['Ghosts Ahoy'] = {
+		requirements = {
+			quests = { 'Priest in Peril' }, -- Partial 'The Restless Ghost' for amulet
+			skills = {
+				{ name = 'Agility', level = 25, boostable = true },
+				{ name = 'Cooking', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Prayer'] = 2400,
+			},
+		},
+	},
+	['The Giant Dwarf'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 12, boostable = true },
+				{ name = 'Firemaking', level = 16, boostable = true },
+				{ name = 'Magic', level = 33, boostable = true },
+				{ name = 'Thieving', level = 14, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Crafting'] = 2500,
+				['Firemaking'] = 1500,
+				['Magic'] = 1500,
+				['Mining'] = 2500,
+				['Smithing'] = 2500,
+				['Thieving'] = 1500,
+			},
+		},
+	},
+	['The Golem'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 20, boostable = true },
+				{ name = 'Thieving', level = 25, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 1000,
+				['Thieving'] = 1000,
+			},
+		},
+	},
+	['The Grand Tree'] = {
+		requirements = {
+			skills = {
+				{ name = 'Agility', level = 25, boostable = true }
+			},
+		},
+		rewards = {
+			qp = 5,
+			skills = {
+				['Agility'] = 7900,
+				['Attack'] = 18400,
+				['Magic'] = 2150,
+			},
+		},
+	},
+	['The Great Brain Robbery'] = {
+		requirements = {
+			quests = { 'Cabin Fever', 'Creature of Fenkenstrain', 'Freeing Pirate Pete' },
+			skills = {
+				{ name = 'Crafting', level = 16, boostable = false },
+				{ name = 'Construction', level = 30, boostable = false },
+				{ name = 'Prayer', level = 50, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Construction'] = 2000,
+				['Crafting'] = 3000,
+				['Prayer'] = 6000,
+				['Choose>30'] = {
+					{5000, 'All'},
+				},
+			},
+		},
+	},
+	['Grim Tales'] = {
+		requirements = {
+			quests = { 'Witch\'s House' },
+			skills = {
+				{ name = 'Agility', level = 59, boostable = true },
+				{ name = 'Farming', level = 45, boostable = true },
+				{ name = 'Herblore', level = 52, boostable = true },
+				{ name = 'Thieving', level = 58, boostable = true },
+				{ name = 'Woodcutting', level = 71, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 6000,
+				['Farming'] = 4000,
+				['Herblore'] = 5000,
+				['Hitpoints'] = 5000,
+				['Thieving'] = 6000,
+				['Woodcutting'] = 14000,
+			},
+		},
+	},
+	['The Hand in the Sand'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 49, boostable = false },
+				{ name = 'Thieving', level = 17, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 9000,
+				['Thieving'] = 1000,
+			},
+		},
+	},
+	['Haunted Mine'] = {
+		requirements = {
+			quests = { 'Priest in Peril' },
+			skills = {
+				{ name = 'Crafting', level = 35, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Strength'] = 22000,
+			},
+		},
+	},
+	['Hazeel Cult'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Thieving'] = 1500,
+			},
+		},
+	},
+	['Heroes\' Quest'] = {
+		requirements = {
+			qp = 55,
+			quests = { 'Dragon Slayer I', 'Lost City', 'Merlin\'s Crystal', 'Shield of Arrav' },
+			skills = {
+				{ name = 'Cooking', level = 53, boostable = true },
+				{ name = 'Fishing', level = 53, boostable = true },
+				{ name = 'Herblore', level = 25, boostable = true },
+				{ name = 'Mining', level = 50, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Attack'] = 3075,
+				['Cooking'] = 2825,
+				['Defence'] = 3075,
+				['Firemaking'] = 1575,
+				['Fishing'] = 2725,
+				['Herblore'] = 1325,
+				['Hitpoints'] = 3075,
+				['Mining'] = 2575,
+				['Ranged'] = 2075,
+				['Smithing'] = 2257,
+				['Strength'] = 3075,
+				['Woodcutting'] = 1575,
+			},
+		},
+	},
+	['Holy Grail'] = {
+		requirements = {
+			quests = { 'Merlin\'s Crystal' },
+			skills = {
+				{ name = 'Attack', level = 20, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Defence'] = 15300,
+				['Prayer'] = 11000,
+			},
+		},
+	},
+	['Horror from the Deep'] = {
+		requirements = {
+			quests = { 'Alfred Grimhand\'s Barcrawl' },
+			skills = {
+				{ name = 'Agility', level = 35, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Magic'] = 4662,
+				['Ranged'] = 4662,
+				['Strength'] = 4662,
+			},
+		},
+	},
+	['Icthlarin\'s Little Helper'] = {
+		requirements = {
+			quests = { 'Gertrude\'s Cat' },
+			skills = {
+				{ name = 'Mining', level = 10, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Agility'] = 4000,
+				['Thieving'] = 4500,
+				['Woodcutting'] = 4000,
+			},
+		},
+	},
+	['In Aid of the Myreque'] = {
+		requirements = {
+			quests = { 'In Search of the Myreque' },
+			skills = {
+				{ name = 'Agility', level = 25, boostable = true },
+				{ name = 'Crafting', level = 25, boostable = false },
+				{ name = 'Magic', level = 7, boostable = true },
+				{ name = 'Mining', level = 15, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 2000,
+				['Crafting'] = 2000,
+				['Defence'] = 2000,
+				['Strength'] = 2000,
+			},
+		},
+	},
+	['In Search of the Myreque'] = {
+		requirements = {
+			quests = { 'Nature Spirit' },
+			skills = {
+				{ name = 'Agility', level = 25, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 600,
+				['Crafting'] = 600,
+				['Defence'] = 600,
+				['Hitpoints'] = 600,
+				['Strength'] = 600,
+			},
+		},
+	},
+	['Jungle Potion'] = {
+		requirements = {
+			quests = { 'Druidic Ritual' },
+			skills = {
+				{ name = 'Herblore', level = 3, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			['Herblore'] = 775,
+		}
+	},
+	['King\'s Ransom'] = {
+		requirements = {
+			quests = { 'Black Knights\' Fortress', 'Holy Grail', 'Murder Mystery', 'One Small Favour' },
+			skills = {
+				{ name = 'Defence', level = 65, boostable = false },
+				{ name = 'Magic', level = 45, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Defence'] = 33000,
+				['Magic'] = 5000,
+				['Choose>50'] = {
+					{ 5000, 'All' },
+				},
+			},
+		},
+	},
+	['A Kingdom Divided'] = {
+		requirements = {
+			quests = { 'Architectural Alliance', 'The Depths of Despair', 'The Queen of Thieves', 'The Ascent of Arceuus', 'The Forsaken Tower', 'Tale of the Righteous' },
+			skills = {
+				{ name = 'Agility', level = 54, boostable = false },
+				{ name = 'Crafting', level = 38, boostable = false },
+				{ name = 'Herblore', level = 50, boostable = false },
+				{ name = 'Magic', level = 35, boostable = false },
+				{ name = 'Mining', level = 42, boostable = false },
+				{ name = 'Thieving', level = 52, boostable = false },
+				{ name = 'Woodcutting', level = 52, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Choose>40'] = {
+					{10000, 'All'},
+				},
+			},
+		},
+	},
+	['Legends\' Quest'] = {
+		requirements = {
+			qp = 107,
+			quests = { 'Family Crest', 'Heroes\' Quest', 'Shilo Village', 'Underground Pass', 'Waterfall Quest' },
+			skills = {
+				{ name = 'Agility', level = 50, boostable = true },
+				{ name = 'Crafting', level = 50, boostable = true },
+				{ name = 'Herblore', level = 45, boostable = true },
+				{ name = 'Magic', level = 56, boostable = true },
+				{ name = 'Mining', level = 52, boostable = true },
+				{ name = 'Prayer', level = 42, boostable = true },
+				{ name = 'Smithing', level = 50, boostable = true },
+				{ name = 'Strength', level = 50, boostable = true },
+				{ name = 'Thieving', level = 50, boostable = true },
+				{ name = 'Woodcutting', level = 50, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 4,
+			skills = {
+				['Choose'] = {
+					{7650, 'Attack', 'Defence', 'Strength', 'Hitpoints', 'Prayer', 'Magic', 'Woodcutting', 'Crafting', 'Smithing', 'Herblore', 'Agility', 'Thieving'},
+					{7650, 'Attack', 'Defence', 'Strength', 'Hitpoints', 'Prayer', 'Magic', 'Woodcutting', 'Crafting', 'Smithing', 'Herblore', 'Agility', 'Thieving'},
+					{7650, 'Attack', 'Defence', 'Strength', 'Hitpoints', 'Prayer', 'Magic', 'Woodcutting', 'Crafting', 'Smithing', 'Herblore', 'Agility', 'Thieving'},
+					{7650, 'Attack', 'Defence', 'Strength', 'Hitpoints', 'Prayer', 'Magic', 'Woodcutting', 'Crafting', 'Smithing', 'Herblore', 'Agility', 'Thieving'},
+				},
+			},
+		},
+	},
+	['Lost City'] = {
+		requirements = {
+			skills = {
+				{ name = 'Crafting', level = 31, boostable = true },
+				{ name = 'Woodcutting', level = 36, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 3,
+		},
+	},
+	['The Lost Tribe'] = {
+		requirements = {
+			quests = { 'Goblin Diplomacy', 'Rune Mysteries' },
+			skills = {
+				{ name = 'Agility', level = 13, boostable = true },
+				{ name = 'Mining', level = 17, boostable = true },
+				{ name = 'Thieving', level = 13, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Mining'] = 3000,
+			},
+		},
+	},
+	['Lunar Diplomacy'] = {
+		requirements = {
+			quests = { 'The Fremennik Trials', 'Lost City', 'Rune Mysteries', 'Shilo Village' },
+			skills = {
+				{ name = 'Crafting', level = 61, boostable = false },
+				{ name = 'Defence', level = 40, boostable = false },
+				{ name = 'Herblore', level = 5, boostable = true },
+				{ name = 'Firemaking', level = 49, boostable = false },
+				{ name = 'Magic', level = 65, boostable = false },
+				{ name = 'Mining', level = 60, boostable = false },
+				{ name = 'Woodcutting', level = 55, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Magic'] = 5000,
+				['Runecraft'] = 5000,
+			},
+		},
+	},
+	['Making Friends with My Arm'] = {
+		requirements = {
+			quests = { 'Cold War', 'My Arm\'s Big Adventure', 'Romeo & Juliet', 'Swan Song' },
+			skills = {
+				{ name = 'Agility', level = 68, boostable = true },
+				{ name = 'Construction', level = 35, boostable = true },
+				{ name = 'Firemaking', level = 66, boostable = false },
+				{ name = 'Mining', level = 72, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Agility'] = 10000,
+				['Construction'] = 2000,
+				['Firemaking'] = 5000,
+				['Mining'] = 10000,
+			},
+		},
+	},
+	['Making History'] = {
+		requirements = {
+			quests = { 'Priest in Peril' }, -- Partial 'The Restless Ghost' for the amulet
+			skills = {
+				{ name = 'Crafting', level = 24, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 3,
+			skills = {
+				['Crafting'] = 1000,
+				['Prayer'] = 1000,
+			},
+		},
+	},
+	['Merlin\'s Crystal'] = {
+		rewards = {
+			qp = 6,
+		},
+	},
+	['Monk\'s Friend'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Woodcutting'] = 2000,
+			},
+		},
+	},
+	['Monkey Madness I'] = {
+		requirements = {
+			quests = { 'The Grand Tree', 'Tree Gnome Village' },
+		},
+		rewards = {
+			qp = 3,
+			skills = {
+				['Choose'] = {
+					{35000, 'Attack', 'Defence', 20000, 'Strength', 'Hitpoints'},
+					{35000, 'Strength', 'Hitpoints', 20000, 'Attack', 'Defence'}
+				}
+			},
+		},
+	},
+	['Monkey Madness II'] = {
+		requirements = {
+			quests = { 'Enlightened Journey', 'The Eyes of Glouphrie', 'Freeing King Awowogei', 'Troll Stronghold', 'Watchtower' },
+			skills = {
+				{ name = 'Agility', level = 55, boostable = false },
+				{ name = 'Crafting', level = 70, boostable = false },
+				{ name = 'Firemaking', level = 60, boostable = false },
+				{ name = 'Hunter', level = 60, boostable = false },
+				{ name = 'Slayer', level = 69, boostable = false },
+				{ name = 'Thieving', level = 55, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 4,
+			skills = {
+				['Agility'] = 20000,
+				['Hunter'] = 15000,
+				['Slayer'] = 25000,
+				['Thieving'] = 15000,
+				['Choose'] = {
+					{50000, 'Magic', 'Ranged', 'Attack', 'Defence', 'Strength', 'Hitpoints'},
+					{50000, 'Magic', 'Ranged', 'Attack', 'Defence', 'Strength', 'Hitpoints'},
+				},
+			},
+		},
+	},
+	['Mountain Daughter'] = {
+		requirements = {
+			skills = {
+				{ name = 'Agility', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 1000,
+				['Prayer'] = 2000,
+			},
+		},
+	},
+	['Mourning\'s End Part I'] = {
+		requirements = {
+			quests = { 'Big Chompy Bird Hunting', 'Roving Elves', 'Sheep Herder' },
+			skills = {
+				{ name = 'Ranged', level = 60, boostable = false },
+				{ name = 'Thieving', level = 50, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Hitpoints'] = 25000,
+				['Thieving'] = 25000,
+			},
+		},
+	},
+	['Mourning\'s End Part II'] = {
+		requirements = {
+			quests = { 'Mourning\'s End Part I' },
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Agility'] = 20000,
+			},
+		},
+	},
+	['Murder Mystery'] = {
+		rewards = {
+			qp = 3,
+			skills = {
+				['Crafting'] = 1406,
+			},
+		},
+	},
+	['My Arm\'s Big Adventure'] = {
+		requirements = {
+			quests = { 'Eadgar\'s Ruse', 'The Feud', 'Jungle Potion' },
+			skills = {
+				{ name = 'Farming', level = 29, boostable = true },
+				{ name = 'Woodcutting', level = 10, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Farming'] = 5000,
+				['Herblore'] = 10000,
+			},
+		},
+	},
+	['Nature Spirit'] = {
+		requirements = {
+			quests = { 'Priest in Peril' }, -- Partial 'The Restless Ghost' for the amulet
+			skills = {
+				{ name = 'Crafting', level = 18, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Crafting'] = 3000,
+				['Defence'] = 2000,
+				['Hitpoints'] = 2000,
+			},
+		},
+	},
+	['A Night at the Theatre!'] = {
+		requirements = {
+			quests = { 'A Taste of Hope' },
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Choose>50'] = {
+					{20000, 'Attack', 'Strength', 'Defence', 'Hitpoints', 'Ranged', 'Magic'},
+					{20000, 'Attack', 'Strength', 'Defence', 'Hitpoints', 'Ranged', 'Magic'},
+					{20000, 'Attack', 'Strength', 'Defence', 'Hitpoints', 'Ranged', 'Magic'},
+				},
+			},
+		},
+	},
+	['Observatory Quest'] = {
+		rewards = {
+			qp = 2,
+			skills = {
+				['Crafting'] = 2250, -- other combat rewards are possible
+			},
+		},
+	},
+	['Olaf\'s Quest'] = {
+		requirements = {
+			quests = { 'The Fremennik Trials' },
+			skills = {
+				{ name = 'Firemaking', level = 40, boostable = true },
+				{ name = 'Woodcutting', level = 50, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Defence'] = 12000,
+			},
+		},
+	},
+	['One Small Favour'] = {
+		requirements = {
+			quests = { 'Rune Mysteries', 'Shilo Village' },
+			skills = {
+				{ name = 'Agility', level = 36, boostable = true },
+				{ name = 'Crafting', level = 25, boostable = true },
+				{ name = 'Herblore', level = 18, boostable = true },
+				{ name = 'Smithing', level = 30, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Choose>30'] = {
+					{ 10000, 'All' },
+					{ 10000, 'All' },
+				},
+			},
+		},
+	},
+	['Plague City'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Mining'] = 2425,
+			},
+		},
+	},
+	['A Porcine of Interest'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Slayer'] = 1000,	
+			},
+		},
+	},
+	['Priest in Peril'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Prayer'] = 1406,
+			},
+		},
+	},
+	['The Queen of Thieves'] = {
+		requirements = {
+			quests = { 'Client of Kourend' },
+			skills = {
+				{ name = 'Thieving', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Thieving'] = 2000,
+			},
+		},
+	},
+	['Rag and Bone Man I'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 500,
+				['Prayer'] = 500,
+			},
+		},
+	},
+	['Rag and Bone Man II'] = {
+		requirements = { -- Quest reqs on this are super weird partials
+			quests = { 'The Fremennik Trials', 'Priest in Peril', 'Rag and Bone Man I', 'The Restless Ghost', 'Skippy and the Mogres' },
+			skills = {
+				{ name = 'Slayer', level = 40, boostable = true },
+				{ name = 'Defence', level = 20, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Prayer'] = 5000,
+			},
+		},
+	},
+	['Ratcatchers'] = {
+		requirements = {
+			quests = { 'Icthlarin\'s Little Helper' },
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Thieving'] = 4500,
+			},
+		},
+	},
+-- RFD
+	['Another Cook\'s Quest'] = {
+		requirements = {
+			quests = { 'Cook\'s Assistant' },
+			skills = {
+				{ name = 'Cooking', level = 10, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Freeing Evil Dave'] = {
+		requirements = {
+			quests = { 'Another Cook\'s Quest', 'Gertrude\'s Cat', 'Shadow of the Storm' },
+			skills = {
+				{ name = 'Cooking', level = 25, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 7000,
+			},
+		},
+	},
+	['Freeing King Awowogei'] = {
+		requirements = {
+			quests = { 'Another Cook\'s Quest', 'Monkey Madness I' },
+			skills = {
+				{ name = 'Agility', level = 48, boostable = false },
+				{ name = 'Cooking', level = 70, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 10000,
+				['Cooking'] = 10000,
+			},
+		},
+	},
+	['Freeing Pirate Pete'] = {
+		requirements = {
+			quests = { 'Another Cook\'s Quest' },
+			skills = {
+				{ name = 'Cooking', level = 31, boostable = true },
+				{ name = 'Crafting', level = 42, boostable = true },
+				{ name = 'Smithing', level = 4, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 1000,
+				['Crafting'] = 1000,
+				['Fishing'] = 1000,
+				['Smithing'] = 1000,
+			},
+		},
+	},
+	['Freeing Sir Amik Varze'] = {
+		requirements = {
+			qp = 107,
+			quests = { 'Another Cook\'s Quest', 'Family Crest', 'Heroes\' Quest', 'Shilo Village', 'Underground Pass', 'Waterfall Quest' },
+			skills = {
+				{ name = 'Farming', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 4000,
+				['Hitpoints'] = 4000,
+			},
+		},
+	},
+	['Freeing Skrach Uglogwee'] = {
+		requirements = {
+			quests = { 'Another Cook\'s Quest', 'Big Chompy Bird Hunting' },
+			skills = {
+				{ name = 'Cooking', level = 41, boostable = true },
+				{ name = 'Firemaking', level = 20, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 1500,
+				['Crafting'] = 1500,
+				['Ranged'] = 1500,
+				['Woodcutting'] = 1500,
+			},
+		},
+	},
+	['Freeing the Goblin generals'] = {
+		requirements = {
+			quests = { 'Another Cook\'s Quest', 'Goblin Diplomacy' },
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 1000,
+				['Crafting'] = 1000,
+				['Farming'] = 1000,
+			},
+		},
+	},
+	['Freeing the Lumbridge Guide'] = {
+		requirements = {
+			quests = { 'Another Cook\'s Quest', 'Big Chompy Bird Hunting', 'Biohazard', 'Demon Slayer', 'Murder Mystery', 'Nature Spirit', 'Witch\'s House' },
+			skills = {
+				{ name = 'Cooking', level = 40, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 2500,
+				['Magic'] = 2500,
+			},
+		},
+	},
+	['Freeing the Mountain Dwarf'] = {
+		requirements = {
+			quests = { 'Fishing Contest', 'Another Cook\'s Quest' },
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Cooking'] = 1000,
+				['Slayer'] = 1000,
+			},
+		},
+	},
+	['Defeating the Culinaromancer'] = {
+		requirements = {
+			qp = 175,
+			quests = { 'Another Cook\'s Quest', 'Desert Treasure', 'Horror from the Deep', 'Freeing the Goblin generals', 'Freeing the Mountain Dwarf', 'Freeing Evil Dave', 'Freeing the Lumbridge Guide', 'Freeing Pirate Pete', 'Freeing Skrach Uglogwee', 'Freeing Sir Amik Varze', 'Freeing King Awowogei' },
+			skills = {
+				{ name = 'Mining', level = 10, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Choose>50'] = {
+					{ 20000, 'All' },
+				},
+			},
+		},
+	},
+	['Recruitment Drive'] = {
+		requirements = {
+			quests = { 'Black Knights\' Fortress', 'Druidic Ritual' },
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 1000.5,
+				['Herblore'] = 1000.5,
+				['Prayer'] = 1000.5,
+			},
+		},
+	},
+	['Regicide'] = {
+		requirements = {
+			quests = { 'Underground Pass' },
+			skills = {
+				{ name = 'Agility', level = 56, boostable = true },
+				{ name = 'Crafting', level = 10, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 3,
+			skills = {
+				['Agility'] = 13750,
+			},
+		},
+	},
+	['Roving Elves'] = {
+		requirements = {
+			quests = { 'Regicide' },
+			skills = {
+				{ name = 'Agility', level = 56, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Strength'] = 10000,
+			},
+		},
+	},
+	['Royal Trouble'] = {
+		requirements = {
+			quests = { 'Throne of Miscellania' },
+			skills = {
+				{ name = 'Agility', level = 40, boostable = true },
+				{ name = 'Slayer', level = 40, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Agility'] = 5000,
+				['Hitpoints'] = 5000,
+				['Slayer'] = 5000,
+			},
+		},
+	},
+	['Rum Deal'] = {
+		requirements = {
+			quests = { 'Priest in Peril', 'Zogre Flesh Eaters' },
+			skills = {
+				{ name = 'Crafting', level = 42, boostable = true },
+				{ name = 'Farming', level = 40, boostable = true },
+				{ name = 'Fishing', level = 50, boostable = true },
+				{ name = 'Prayer', level = 47, boostable = true },
+				{ name = 'Slayer', level = 42, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Farming'] = 7000,
+				['Fishing'] = 7000,
+				['Prayer'] = 7000,
+			},
+		},
+	},
+	['Scorpion Catcher'] = {
+		requirements = {
+			quests = { 'Alfred Grimhand\'s Barcrawl' },
+			skills = {
+				{ name = 'Prayer', level = 31, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Strength'] = 6625,
+			},
+		},
+	},
+	['Sea Slug'] = {
+		requirements = {
+			skills = {
+				{ name = 'Firemaking', level = 30, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Fishing'] = 7175,
+			},
+		},
+	},
+	['Shades of Mort\'ton'] = {
+		requirements = {
+			quests = { 'Priest in Peril' },
+			skills = {
+				{ name = 'Crafting', level = 20, boostable = true },
+				{ name = 'Herblore', level = 15, boostable = true },
+				{ name = 'Firemaking', level = 5, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 3,
+			skills = {
+				['Crafting'] = 2000,
+				['Herblore'] = 2000,
+			},
+		},
+	},
+	['Shadow of the Storm'] = {
+		requirements = {
+			quests = { 'Demon Slayer', 'The Golem' },
+			skills = {
+				{ name = 'Crafting', level = 30, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Choose'] = {
+					{ 10000, 'Attack', 'Defence', 'Hitpoints', 'Magic', 'Ranged', 'Strength' },
+				},
+			},
+		},
+	},
+	['Sheep Herder'] = {
+		rewards = {
+			qp = 4,
+		},
+	},
+	['Shilo Village'] = {
+		requirements = {
+			quests = { 'Jungle Potion' },
+			skills = {
+				{ name = 'Agility', level = 32, boostable = true },
+				{ name = 'Crafting', level = 20, boostable = true },
+				{ name = 'Smithing', level = 4, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Crafting'] = 3875,
+			},
+		},
+	},
+	['Sins of the Father'] = {
+		requirements = {
+			quests = { 'Vampyre Slayer', 'A Taste of Hope' },
+			skills = {
+				{ name = 'Agility', level = 52, boostable = false },
+				{ name = 'Attack', level = 50, boostable = false },
+				{ name = 'Crafting', level = 56, boostable = false },
+				{ name = 'Fletching', level = 60, boostable = false },
+				{ name = 'Magic', level = 49, boostable = false },
+				{ name = 'Slayer', level = 50, boostable = false },
+				{ name = 'Woodcutting', level = 62, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Choose>60'] = {
+					{ 15000, 'All' },
+					{ 15000, 'All' },
+					{ 15000, 'All' },
+					{ 15000, 'All' },
+				},
+			},
+		},
+	},
+	['The Slug Menace'] = {
+		requirements = {
+			quests = { 'Sea Slug', 'Wanted!' },
+			skills = {
+				{ name = 'Crafting', level = 30, boostable = true },
+				{ name = 'Runecraft', level = 30, boostable = false },
+				{ name = 'Slayer', level = 30, boostable = false },
+				{ name = 'Thieving', level = 30, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 3500,
+				['Runecraft'] = 3500,
+				['Thieving'] = 3500,
+			},
+		},
+	},
+	['Song of the Elves'] = {
+		requirements = {
+			quests = { 'Making History', 'Mourning\'s End Part II' },
+			skills = {
+				{ name = 'Agility', level = 70, boostable = false },
+				{ name = 'Construction', level = 70, boostable = false },
+				{ name = 'Farming', level = 70, boostable = false },
+				{ name = 'Herblore', level = 70, boostable = false },
+				{ name = 'Hunter', level = 70, boostable = false },
+				{ name = 'Mining', level = 70, boostable = false },
+				{ name = 'Smithing', level = 70, boostable = false },
+				{ name = 'Woodcutting', level = 70, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 4,
+			skills = {
+				['Agility'] = 20000,
+				['Construction'] = 20000,
+				['Farming'] = 20000,
+				['Herblore'] = 20000,
+				['Hunter'] = 20000,
+				['Mining'] = 20000,
+				['Smithing'] = 20000,
+				['Woodcutting'] = 20000,
+			},
+		},
+	},
+	['A Soul\'s Bane'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Attack'] = 40, -- Not a real reward, but force experience gained
+				['Defence'] = 500,
+				['Hitpoints'] = 500,
+			},
+		},
+	},
+	['Spirits of the Elid'] = {
+		requirements = {
+			quests = {},
+			skills = {
+				{ name = 'Magic', level = 33, boostable = true },
+				{ name = 'Mining', level = 37, boostable = true },
+				{ name = 'Ranged', level = 37, boostable = true },
+				{ name = 'Thieving', level = 37, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Magic'] = 1000,
+				['Prayer'] = 8000,
+				['Thieving'] = 1000,
+			},
+		},
+	},
+	['Swan Song'] = {
+		requirements = {
+			qp = 100,
+			quests = { 'Garden of Tranquillity', 'One Small Favour' },
+			skills = {
+				{ name = 'Cooking', level = 62, boostable = true },
+				{ name = 'Crafting', level = 40, boostable = true },
+				{ name = 'Firemaking', level = 42, boostable = true },
+				{ name = 'Fishing', level = 62, boostable = true },
+				{ name = 'Magic', level = 66, boostable = true },
+				{ name = 'Smithing', level = 45, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Fishing'] = 10000,
+				['Magic'] = 15000,
+				['Prayer'] = 10000,
+			},
+		},
+	},
+	['Tai Bwo Wannai Trio'] = {
+		requirements = {
+			quests = { 'Jungle Potion' },
+			skills = { -- Agility isn't hard requirement due to Jekyll, Fishing is 65 if failed to cook Karambwan
+				{ name = 'Agility', level = 15, boostable = true },
+				{ name = 'Cooking', level = 30, boostable = true },
+				{ name = 'Herblore', level = 34, boostable = true },
+				{ name = 'Fishing', level = 5, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 2500,
+				['Cooking'] = 5000,
+				['Fishing'] = 5000,
+				['Strength'] = 2500,
+			},
+		},
+	},
+	['A Tail of Two Cats'] = {
+		requirements = {
+			quests = { 'Icthlarin\'s Little Helper' },
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Choose>30'] = {
+					{ 2500, 'All' },
+					{ 2500, 'All' },
+				}
+			},
+		},
+	},
+	['Tale of the Righteous'] = {
+		requirements = {
+			quests = { 'Client of Kourend' },
+			skills = {
+				{ name = 'Mining', level = 10, boostable = false},
+				{ name = 'Strength', level = 16, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['A Taste of Hope'] = {
+		requirements = {
+			quests = { 'Darkness of Hallowvale' },
+			skills = {
+				{ name = 'Agility', level = 45, boostable = false },
+				{ name = 'Attack', level = 40, boostable = false },
+				{ name = 'Crafting', level = 48, boostable = false },
+				{ name = 'Herblore', level = 40, boostable = false },
+				{ name = 'Slayer', level = 38, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Choose>35'] = {
+					{ 2500, 'All' },
+					{ 2500, 'All' },
+					{ 2500, 'All' },
+				}
+			},
+		},
+	},
+	['Tears of Guthix'] = {
+		requirements = {
+			qp = 43,
+			skills = { --Smithing not hard requirement
+				{ name = 'Crafting', level = 20, boostable = true },
+				{ name = 'Firemaking', level = 49, boostable = true },
+				{ name = 'Mining', level = 20, boostable = true },
+				{ name = 'Smithing', level = 49, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Crafting'] = 1000,
+			},
+		},
+	},
+	['Temple of Ikov'] = {
+		requirements = {
+			skills = {
+				{ name = 'Ranged', level = 40, boostable = false },
+				{ name = 'Thieving', level = 42, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Fletching'] = 8000,
+				['Ranged'] = 10500,
+			},
+		},
+	},
+	['Throne of Miscellania'] = {
+		requirements = {
+			quests = { 'The Fremennik Trials', 'Heroes\' Quest' },
+			skills = { -- Lowest level for approval gain
+				{ name = 'Farming', level = 10, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['The Tourist Trap'] = {
+		requirements = {
+			skills = {
+				{ name = 'Fletching', level = 10, boostable = true },
+				{ name = 'Smithing', level = 20, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Choose'] = {
+					{ 4650, 'Agility', 'Fletching', 'Smithing', 'Thieving' },
+					{ 4650, 'Agility', 'Fletching', 'Smithing', 'Thieving' },
+				},
+			},
+		},
+	},
+	['Tower of Life'] = {
+		requirements = {
+			quests = {},
+			skills = {
+				{ name = 'Construction', level = 10, boostable = false }
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Construction'] = 1000,
+				['Crafting'] = 500,
+				['Thieving'] = 500,
+			},
+		},
+	},
+	['Tree Gnome Village'] = {
+		rewards = {
+			qp = 2,
+			skills = {
+				['Attack'] = 11450,
+			},
+		},
+	},
+	['Tribal Totem'] = {
+		requirements = {
+			skills = {
+				{ name = 'Thieving', level = 21, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Thieving'] = 1775,
+			},
+		},
+	},
+	['Troll Romance'] = {
+		requirements = {
+			quests = { 'Troll Stronghold' },
+			skills = {
+				{ name = 'Agility', level = 28, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 2,
+			skills = {
+				['Agility'] = 8000,
+				['Strength'] = 4000,
+			},
+		},
+	},
+	['Troll Stronghold'] = {
+		requirements = {
+			quests = { 'Death Plateau' },
+			skills = {
+				{ name = 'Agility', level = 15, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+		},
+	},
+	['Underground Pass'] = {
+		requirements = {
+			quests = { 'Biohazard' },
+			skills = {
+				{ name = 'Ranged', level = 25, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 5,
+			skills = {
+				['Agility'] = 3000,
+				['Attack'] = 3000,
+			},
+		},
+	},
+	['Wanted!'] = {
+		requirements = {
+			qp = 32,
+			quests = { 'Enter the Abyss', 'The Lost Tribe', 'Priest in Peril', 'Recruitment Drive' },
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Slayer'] = 5000,
+			},
+		},
+	},
+	['Watchtower'] = {
+		requirements = {
+			quests = {},
+			skills = {
+				{ name = 'Agility', level = 25, boostable = true },
+				{ name = 'Herblore', level = 14, boostable = true },
+				{ name = 'Magic', level = 15, boostable = true },
+				{ name = 'Mining', level = 40, boostable = true },
+				{ name = 'Thieving', level = 15, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 4,
+			skills = {
+				['Magic'] = 15250,
+			},
+		},
+	},
+	['Waterfall Quest'] = {
+		rewards = {
+			qp = 1,
+			skills = {
+				['Attack'] = 13750,
+				['Strength'] = 13750,
+			}
+		}
+	},
+	['What Lies Below'] = {
+		requirements = {
+			quests = { 'Rune Mysteries', 'Enter the Abyss' },
+			skills = {
+				{ name = 'Runecraft', level = 35, boostable = false },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Defence'] = 2000,
+				['Runecraft'] = 8000,
+			},
+		},
+	},
+	['Witch\'s House'] = {
+		rewards = {
+			qp = 4,
+			skills = {
+				['Hitpoints'] = 6325,
+			},
+		},
+	},
+	['Zogre Flesh Eaters'] = {
+		requirements = {
+			quests = { 'Big Chompy Bird Hunting', 'Jungle Potion' },
+			skills = {
+				{ name = 'Fletching', level = 33, boostable = true },
+				{ name = 'Herblore', level = 8, boostable = true },
+				{ name = 'Ranged', level = 30, boostable = true },
+				{ name = 'Smithing', level = 4, boostable = true },
+			},
+		},
+		rewards = {
+			qp = 1,
+			skills = {
+				['Fletching'] = 2000,
+				['Herblore'] = 2000,
+				['Ranged'] = 2000,
+			},
+		},
+	},
+}

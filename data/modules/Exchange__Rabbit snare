@@ -1,0 +1,12 @@
+return {
+    itemId     = 10031,
+    icon       = 'Rabbit snare.png',
+    item       = 'Rabbit snare',
+    value      = 15,
+    limit      = 250,
+    members    = true,
+    category   = nil,
+    examine    = 'The snare will tighten around animals passing through.',
+    hialch     = 9,
+    lowalch    = 6
+}

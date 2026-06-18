@@ -1,0 +1,118 @@
+-- <nowiki>
+--
+-- Implements {{tnavbar}} and variants
+--
+-- @todo move the hardcoded css to [[MediaWiki:Common.css]] given how many pages it's found on
+--
+require('strict')
+local p = {}
+local yesno = require( 'Module:Yesno' )
+
+function p._navbar( args )
+	local navbarstyle = args.style or ''
+	local fontstyle = args.fontstyle or ''
+	local view, talk, edit = (args.view or true), (args.talk or true), (args.edit or true)
+
+	local desc = {
+		view = 'view',
+		talk = 'talk',
+		edit = 'edit'
+	}
+
+	local ret = mw.html.create( 'div' )
+		:addClass( 'navbar' )
+		:addClass( 'inline' )
+		:addClass( 'plainlinks' )
+		:addClass( 'hlist' )
+		:addClass( 'noprint' )
+		:css( {
+			['white-space'] = 'nowrap',
+			['font-weight'] = 'normal',
+			['font-size'] = 'x-small'
+		} )
+		:cssText( navbarstyle )
+
+	if yesno( args.mini ) then
+		desc = {
+			view = 'v',
+			talk = 't',
+			edit = 'e'
+		}
+		ret:addClass( 'navbar-mini' )
+	end
+
+	local viewSpan = mw.html.create( 'span' )
+		:attr( 'title', 'View this template' )
+		:cssText( fontstyle )
+		:wikitext( desc.view )
+
+	local talkSpan = mw.html.create( 'span' )
+		:attr( 'title', 'Discussion about this template' )
+		:cssText( fontstyle )
+		:wikitext( desc.talk )
+
+	local editSpan = mw.html.create( 'span' )
+		:attr( 'title', 'Edit this template' )
+		:cssText( fontstyle )
+		:wikitext( desc.edit )
+
+	local title = args[1] and mw.text.trim( args[1] ) or error('No page title given')
+	local ns, titleTbl, pagelink, talklink
+
+	if mw.ustring.sub( title, 1, 1 ) == ':' then
+		-- mainspace
+		title = mw.ustring.sub( title, 2 )
+		pagelink = title
+		talklink = 'Talk:' .. title
+
+	elseif mw.ustring.match( title, ':' ) then
+		-- split title to see if it has a valid namespace
+		titleTbl = mw.text.split( title, ':' )
+		ns = mw.site.namespaces[titleTbl[1]]
+
+		if ns ~= nil then
+			pagelink = ns.name .. ':' .. table.concat( titleTbl, '', 2 )
+
+			if ns.isTalk then
+				talklink = page
+			else
+				talklink = ns.talk.name .. ':' .. table.concat( titleTbl, '', 2 )
+			end
+		end
+	end
+
+	-- this happens if there's no semi-colons in title
+	-- or if there is semi-colons but it didn't have valid ns name
+	if not pagelink then
+		pagelink = 'Template:' .. title
+		talklink = 'Template talk:' .. title
+	end
+
+	local ul = ret:tag('ul')
+	local function listgen(link, protection)
+		local li = ul:tag('li'):wikitext( link )
+		if (protection == 'autoconfirmed') then
+			li:addClass( 'autoconfirmed-show' ):css( 'display', 'none' )
+		end
+		li:done()
+	end
+
+	listgen( '[[' .. pagelink .. '|' .. tostring( viewSpan ) .. ']]' ) -- v
+	listgen( '[' .. tostring( mw.uri.fullUrl( talklink ) ) .. ' ' .. tostring( talkSpan ) .. ']', 'autoconfirmed' ) -- t
+	listgen( '[[Special:EditPage/' .. pagelink .. '|' .. tostring( editSpan ) .. ']]' ) -- e
+	ret:allDone()
+
+	if yesno( args.brackets ) then
+		ret = '[ ' .. tostring( ret ) .. ' ]'
+	else
+		ret = tostring( ret )
+	end
+
+	return ret
+end
+
+function p.navbar( frame )
+	return p._navbar( frame:getParent().args )
+end
+
+return p

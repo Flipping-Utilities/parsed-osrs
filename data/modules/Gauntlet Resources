@@ -1,0 +1,221 @@
+local p = {}
+
+local staves = {
+	Basic = {
+		shards = 20,
+		frame = 1
+	},
+	Attuned = {
+		shards = 80,
+		frame = 1
+	},
+	Perfected = {
+		shards = 80,
+		frame = 1,
+		orb = 1
+	}
+}
+
+local halberds = {
+	Basic = {
+		shards = 20,
+		frame = 1
+	},
+	Attuned = {
+		shards = 80,
+		frame = 1
+	},
+	Perfected = {
+		shards = 80,
+		frame = 1,
+		spike = 1
+	}
+}
+
+local bows = {
+	Basic = {
+		shards = 20,
+		frame = 1
+	},
+	Attuned = {
+		shards = 80,
+		frame = 1
+	},
+	Perfected = {
+		shards = 80,
+		frame = 1,
+		bowstring = 1
+	}
+}
+
+local helms = {
+	Basic = {
+		shards = 40,
+		ore = 1,
+		bark = 1,
+		tirinum = 1
+	},
+	Attuned = {
+		shards = 100,
+		ore = 2,
+		bark = 2,
+		tirinum = 2
+	},
+	Perfected = {
+		shards = 180,
+		ore = 4,
+		bark = 4,
+		tirinum = 4
+	}
+}
+
+local bodies = {
+	Basic = {
+		shards = 40,
+		ore = 1,
+		bark = 1,
+		tirinum = 1
+	},
+	Attuned = {
+		shards = 100,
+		ore = 3,
+		bark = 3,
+		tirinum = 3
+	},
+	Perfected = {
+		shards = 180,
+		ore = 5,
+		bark = 5,
+		tirinum = 5
+	}
+}
+
+local legs = {
+	Basic = {
+		shards = 40,
+		ore = 1,
+		bark = 1,
+		tirinum = 1
+	},
+	Attuned = {
+		shards = 100,
+		ore = 2,
+		bark = 2,
+		tirinum = 2
+	},
+	Perfected = {
+		shards = 180,
+		ore = 4,
+		bark = 4,
+		tirinum = 4
+	}
+}
+
+local supplies = {
+	egniol = {
+		shards = 10,
+		grym = 1
+	},
+	paddlefish = {
+		paddlefish = 1
+	},
+	corrPad = {
+		shards = 10,
+		paddlefish = 1
+	},
+	teleCrystal = {
+		shards = 40
+	},
+	escapeCrystal = {
+		shards = 200
+	}
+}
+
+function p.main(frame)
+	local args = frame.args
+	return p.calc_mat_requirements(args)
+end
+
+function p.calc_mat_requirements(args)
+	local current_mats = {}
+	current_mats = add_mats(current_mats, staves[args.staffTier], 1)
+	current_mats = add_mats(current_mats, bows[args.bowTier], 1)
+	current_mats = add_mats(current_mats, halberds[args.halberdTier], 1)
+	current_mats = add_mats(current_mats, helms[args.helmTier], 1)
+	current_mats = add_mats(current_mats, bodies[args.bodyTier], 1)
+	current_mats = add_mats(current_mats, legs[args.legsTier], 1)
+	current_mats = add_mats(current_mats, supplies['egniol'], args.egniolQuantity)
+	current_mats = add_mats(current_mats, supplies['paddlefish'], args.paddlefishQuantity)
+	current_mats = add_mats(current_mats, supplies['corrPad'], args.corrPadQuantity)
+	current_mats = add_mats(current_mats, supplies['teleCrystal'], args.teleCrystal)
+	current_mats = add_mats(current_mats, supplies['escapeCrystal'], args.escapeCrystal == 'yes' and 1 or 0)
+
+	return format_output(current_mats)
+end
+
+function format_output(mats)
+	local out = mw.html.create('table')
+		:addClass('wikitable align-center-1 align-right-3')
+		:tag('tr')
+			:tag('th'):wikitext('Item'):attr('colspan', 2):done()
+			:tag('th'):wikitext('Qty'):done()
+		:done()
+
+	if (mats['shards'] or 0) > 0 then
+		out:node(format_line('Corrupted shards', 'Shards', mw.language.getContentLanguage():formatNum(mats['shards'])))
+	end
+
+	if (mats['frame'] or 0) > 0 then
+		out:node(format_line('Weapon frame (corrupted)', 'Weapon frame', mats['frame']))
+	end
+
+	if (mats['orb'] or 0) > 0 then
+		out:node(format_line('Corrupted orb', 'Orb', mats['orb']))
+	end
+
+	if (mats['spike'] or 0) > 0 then
+		out:node(format_line('Corrupted spike', 'Spike', mats['spike']))
+	end
+
+	if (mats['bowstring'] or 0) > 0 then
+		out:node(format_line('Corrupted bowstring', 'Bowstring', mats['bowstring']))
+	end
+
+	if (mats['ore'] or 0) > 0 then
+		out:node(format_line('Corrupted ore', 'Ore', mats['ore']))
+	end
+
+	if (mats['ore'] or 0) > 0 then
+		out:node(format_line('Phren bark (corrupted)', 'Phren bark', mats['bark']))
+	end
+
+	if (mats['tirinum'] or 0) > 0 then
+		out:node(format_line('Linum tirinum (corrupted)', 'Linum tirinum', mats['tirinum']))
+	end
+
+	if (mats['grym'] or 0) > 0 then
+		out:node(format_line('Grym leaf (corrupted)', 'Grym leaf', mats['grym']))
+	end
+
+	if (mats['paddlefish'] or 0) > 0 then
+		out:node(format_line('Raw paddlefish', 'Raw paddlefish', mats['paddlefish']))
+	end
+
+	return tostring(out)
+end
+
+function format_line(page, name, qty)
+	return mw.html.create('tr')
+		:tag('td'):wikitext(string.format('[[File:%s.png|link=%s]]', page, page)):done()
+		:tag('td'):wikitext(string.format('[[%s|%s]]', page, name)):done()
+		:tag('td'):wikitext(qty):done()
+end
+
+function add_mats(current_mats, new_tier_mats, multiplier)
+	for mat, qty in pairs(new_tier_mats or {}) do
+		current_mats[mat] = (current_mats[mat] or 0) + (qty * multiplier)
+	end
+	return current_mats
+end
+
+return p

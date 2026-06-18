@@ -1,0 +1,12 @@
+return {
+    itemId     = 30328,
+    icon       = "Dust_(item).png",
+    item       = "Dust (item)",
+    alchable   = true,
+    value      = 2,
+    limit      = 250,
+    members    = false,
+    category   = nil,
+    examine    = "What you have here is some totally worthless dust. Excellent stuff!",
+    usage      = {}
+}

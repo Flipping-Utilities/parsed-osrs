@@ -1,0 +1,12 @@
+return {
+    itemId     = 12403,
+    icon       = 'Digsite teleport.png',
+    item       = 'Digsite teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to the Digsite.',
+    hialch     = 6,
+    lowalch    = 4
+}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 3801,
+    icon       = 'Keg of beer.png',
+    item       = 'Keg of beer',
+    value      = 250,
+    limit      = 2000,
+    members    = true,
+    category   = nil,
+    examine    = 'A lot of beer in a barrel.',
+    hialch     = 150,
+    lowalch    = 100
+}

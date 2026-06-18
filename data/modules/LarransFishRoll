@@ -1,0 +1,107 @@
+--Code to calculate the average value of the 1/20 fish roll with Larran's keys which is dependant on fishing level. data was collected from the graph on the page. 
+local p = {}
+-- Try to use Module:Currency
+local curr_ok, Currency = pcall(require, 'Module:Currency')
+local curr = curr_ok and Currency and Currency._amount or nil
+local function formatCoins(n)
+    n = math.floor(n or 0)
+    -- Try 
+    if curr then
+        local ok, out = pcall(curr, n, 'coins')     
+        if ok and out then return out end
+        ok, out = pcall(curr, n)                     
+        if ok and out then return out end
+    end
+    return mw.getContentLanguage():formatNum(n) .. ' coins'
+end
+-- Average quantities per fish (per roll)
+local avgQty = {
+    ["Tuna"]       = 337.3,
+    ["Lobster"]    = 337.3,
+    ["Swordfish"]  = 299.8,
+    ["Monkfish"]   = 299.8,
+    ["Shark"]      = 247.3,
+    ["Shark lure"] = 495,
+    ["Sea turtle"] = 209.8,
+    ["Manta ray"]  = 179.8,
+}
+-- Drop probabilities by level (columns = 20,40,60,80,99) mebby i add more later
+local fishTable = {
+    ["Tuna"]       = {0.3332, 0.1609, 0.0637, 0.0146, 0.0002},
+    ["Lobster"]    = {0.3230, 0.2638, 0.1872, 0.1023, 0.0439},
+    ["Swordfish"]  = {0.2009, 0.2549, 0.2629, 0.2193, 0.1609},
+    ["Monkfish"]   = {0.1313, 0.2508, 0.3459, 0.3932, 0.4124},
+    ["Shark"]      = {0.0044, 0.0261, 0.0535, 0.1186, 0.1729},
+    ["Shark lure"] = {0.0044, 0.0261, 0.0526, 0.1015, 0.1435},
+    ["Sea turtle"] = {0.0029, 0.0045, 0.0254, 0.0359, 0.0457},
+    ["Manta ray"]  = {0.0000, 0.0029, 0.0088, 0.0146, 0.0205},
+}
+-- GE prices
+local geprices = mw.loadJsonData('Module:GEPrices/data.json') or {}
+-- Level mapping to  the data and ordered list
+local levelIndex = { [20]=1, [40]=2, [60]=3, [80]=4, [99]=5 }
+local levels = {20, 40, 60, 80, 99}
+local function getPrice(item)
+    -- gets GEPrices; return 0 if missing (e.g., untradeable) even though it's unnecessary i just don't want it to break lol
+    return geprices[item] or 0
+end
+-- calculation (returns a number)
+local function calcRaw(level)
+    local idx = levelIndex[level]
+    if not idx then return nil end
+    local total = 0
+    for fish, probs in pairs(fishTable) do
+        local price = tonumber(getPrice(fish)) or 0
+        local prob  = probs[idx] or 0
+        local qty   = avgQty[fish] or 0
+        total = total + price * qty * prob
+    end
+    return total
+end
+
+function p.calcValue(frame)
+    local level = frame.args[1]
+    if not level then
+        return "Invalid level (No level provided)"
+    end
+    level = tostring(level):lower() 
+
+    if level == 'all' then
+        local out = {}
+        -- Added 'sortable' and 'mw-datatable' classes for potential styling and sortability
+        table.insert(out, '{| class="wikitable sortable mw-datatable larrans-fish-table"') 
+        -- Updated column headers
+        table.insert(out, '! Level !! Fish table average value !! Average impact on keys value (at 1/20)')
+        for _, lvl in ipairs(levels) do
+            local val = calcRaw(lvl) or 0
+            local valPerRoll = val / 20
+            -- testing some stuff
+            table.insert(out, string.format('|-\n| class="larrans-level-cell" | %d || %s || %s', lvl, formatCoins(val), formatCoins(valPerRoll)))
+        end
+        table.insert(out, '|}')
+        return table.concat(out, '\n')
+    end
+    
+    -- Check for the new "total" values
+    local totalMatch = string.match(level, 'total(%d+)')
+    local lvlNum = tonumber(level)
+
+    if totalMatch then
+        lvlNum = tonumber(totalMatch)
+        local idx = levelIndex[lvlNum]
+        if not idx then
+            return "Invalid level (Currently only supports level 20, 40, 60, 80, 99, or 'all', 'total20', 'total40', 'total60', 'total80', 'total99')"
+        end
+        local val = calcRaw(lvlNum)
+        return formatCoins(val / 20)
+    end
+    
+    -- Handle the original numeric levels
+    local idx = levelIndex[lvlNum]
+    if not idx then
+        return "Invalid level (Currently only supports level 20, 40, 60, 80, 99, or 'all', 'total20', 'total40', 'total60', 'total80', 'total99')"
+    end
+    local val = calcRaw(lvlNum)
+    return formatCoins(val)
+end
+return p

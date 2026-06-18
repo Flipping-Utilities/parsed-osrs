@@ -1,0 +1,564 @@
+{{documentation}}
+{{ToC|right}}
+
+==Creating a template step-by-step==
+===Import Module:Infobox===
+<syntaxhighlight lang="lua">
+local infobox = require('Module:Infobox')
+</syntaxhighlight>
+
+===Unpack the frame arguments===
+<syntaxhighlight lang="lua">
+function p.main(frame)
+	local args = frame:getParent().args
+	...
+</syntaxhighlight>
+
+===Define an Infobox object===
+{{Main|Module:Infobox#new}}
+<syntaxhighlight lang="lua">
+	local ret = infobox.new(args)
+</syntaxhighlight>
+
+===Map your arguments to functions===
+{{Main|Module:Infobox#defineParams}}
+<syntaxhighlight lang="lua">
+	ret:defineParams {
+			...
+	}
+</syntaxhighlight>
+
+===Parse your arguments===
+{{Main|Module:Infobox#cleanParams}}
+<syntaxhighlight lang="lua">
+	ret:cleanParams()
+</syntaxhighlight>
+
+===Initialise your HTML===
+{{Main|Module:Infobox#create}}
+<syntaxhighlight lang="lua">
+	ret:create()
+</syntaxhighlight>
+
+===Name your infobox===
+{{Main|Module:Infobox#defineName}}
+<syntaxhighlight lang="lua">
+	-- note: we don't use the "Template:" namespace prefix
+	ret:defineName('Infobox FooBar')
+</syntaxhighlight>
+
+===Give your infobox custom behaviour===
+{{Main|Module:Infobox#addClass|Module:Infobox#useBucket|Module:Infobox#defineLinks}}
+<syntaxhighlight lang="lua">
+	ret:addClass(...)
+	ret:useBucket({ ... })
+	ret:defineLinks({ ... })
+</syntaxhighlight>
+
+===Give your infobox a caption===
+{{Main|Module:Infobox#caption}}
+<syntaxhighlight lang="lua">
+	ret:caption()
+</syntaxhighlight>
+
+===Format your table===
+{{Main|Module:Infobox#addRow}}
+<syntaxhighlight lang="lua">
+	ret:addRow{ ... }
+		:addRow{ ... }
+</syntaxhighlight>
+
+===Finalise your template===
+{{Main|Module:Infobox#finish}}
+<syntaxhighlight lang="lua">
+	ret:finish()
+</syntaxhighlight>
+
+==Functions==
+===Public functions===
+For the example snippets below, <code>ret</code> is an arbitrary infobox initiated as:
+<syntaxhighlight lang="lua">
+	local ret = Infobox.new(args)
+</syntaxhighlight>
+
+====Priority====
+Certain functions rely on information created by other functions, and thus must be run in a particular order:
+
+{| class="wikitable"
+! 0
+|
+* new
+|-
+! 1
+|
+* defineParams
+|-
+! 2
+|
+* create
+* maxVersion
+|-
+! 3
+|
+* cleanParams
+* setMaxButtons
+* noSwitch
+|-
+! 4
+|
+* ''other functions''
+|-
+! 5
+|
+* finish
+|}
+
+====nilParam====
+<syntaxhighlight lang="lua">
+	Infobox.nilParam()
+</syntaxhighlight>
+Returns the value of the placeholder value <code>Infobox.nil_param</code>. This value is generally not seen, but it is used to fill switchbox data as <code>nil</code> causes unwanted behaviour.
+
+====isDefined====
+<syntaxhighlight lang="lua">
+	Infobox.isDefined(arg)
+</syntaxhighlight>
+Checks whether the value <code>arg</code> can be considered as [[Module:Infobox#Defined parameters|defined]].
+
+====new====
+<syntaxhighlight lang="lua">
+	Infobox.new(args)
+</syntaxhighlight>
+Creates a new infobox object with <code>args</code> as a <code>table</code> of values passed from the template invocation.
+
+This function also creates the top-level wrapper and sets a metatable for the infobox.
+
+====create====
+<syntaxhighlight lang="lua">
+	ret:create()
+</syntaxhighlight>
+Creates the HTML tags used for the infobox itself. Will run <code>maxVersion()</code> if it has not been run already.
+
+====defineName====
+<syntaxhighlight lang="lua">
+	ret:defineName(arg)	
+</syntaxhighlight>
+Defines the name of the infobox. This should be the base pagename; i.e. no "Template:" namespace prefix.
+
+====defineLinks====
+<syntaxhighlight lang="lua">
+	ret:defineLinks(tbl)
+</syntaxhighlight>
+Defines any number of infobox bottom links in a <code>table</code> whose elements are <code>table</code> variables formatted as such:
+
+<syntaxhighlight lang="lua">
+	{
+		{ link, label },
+		...
+	}	
+</syntaxhighlight>
+
+<code>link</code> and <code>label</code> should be <code>string</code> variables that will, in a basic sense, define <code><nowiki>[[Link|label]]</nowiki></code>.
+
+In a more technical sense, <code>link</code> and <code>label</code> help form a <code>string</code> for <code>string.format()</code>, with the module using the equivalent of (but not exactly):
+<syntaxhighlight lang="lua">
+	string.format('&amp;#91;[['..link..'|'..label..']]&amp;#93;',...)
+</syntaxhighlight>
+
+The template name itself can be called up to 5 times by using "%s", in either <code>link</code> or <code>label</code>.
+
+====setMaxButtons====
+<syntaxhighlight lang="lua">
+	ret:setMaxButtons(n)
+</syntaxhighlight>
+Changes the behaviour of buttons by defining the maximum number of buttons that are allowed to appear. If the version count exceeds the button count, their buttons will be replaced with a drop down menu. If not run, the maximum button count will be 5.
+
+====cleanParams====
+<syntaxhighlight lang="lua">
+	ret:cleanParams()
+</syntaxhighlight>
+Parses the parameters with their mapped functions.
+
+====defineParams====
+<syntaxhighlight lang="lua">
+	ret:defineParams{
+		...
+	}
+</syntaxhighlight>
+Maps parameters to functions as defined by a <code>table</code> formatted as such:
+
+<syntaxhighlight lang="lua">
+	{ name = <param>, func = <func>, dupes = true },
+</syntaxhighlight>
+
+<code>param</code> should be a <code>string</code> that names the parameter as it will be in references for use in other functions.
+
+<code>func</code> should be a <code>function</code> or instructions on how to find a function.
+
+<code>dupes</code> is a meta configuration that allows the parameter to be duplicated in switch data. Normally, these duplicate values are not needed, and they will be deleted if they are the same as the default values after all parameters have been parsed. Some parameters require duplication to function properly, such as display altering parameters defined with <code>linkParams()</code>.
+
+If duplicates are not needed, this parameter should be deleted.
+
+;Predefined functions
+If <code>func</code> is a <code>string</code>, then the module will attempt to use a predefined function.
+
+{| class="wikitable"
+! Function
+! Use
+|-
+! <tt>name</tt>
+| Uses the parameter named "name". If "name" is blank or undefined, it will use the page name.
+|-
+! <tt>release</tt>
+| Uses the parameters named "release" and "update" and formats it as such:
+* If both are defined: <code><nowiki><release> ([[Update:<update>|Update]])</nowiki></code>
+* If only release is defined: <code><release> (Update unknown)</code>
+* If release is not defined: <code>? (edit)</code>
+|-
+! <tt>removal</tt>
+| Uses the parameters named "removal" and "removalupdate" and formats it the same as <code>release</code>
+|-
+! <tt>hasContent</tt>
+| If the parameter is defined and not blank, it will be used. Otherwise, <code>? (edit)</code> will be used.
+|-
+! <tt>image</tt>
+| Currently functions the same as <code>hasContent</code>
+|-
+! <tt>numbers</tt>
+| Removes commas from the parameter and attempts to cast it to a <code>number</code>. If it works, the number is used, otherwise <code>? (edit)</code>
+|}
+
+;User-defined functions
+If <code>func</code> is a <code>function</code>, then that function will be used to parse the parameter. User-defined functions allow for more robust formatting and guidelines.
+
+As a general practice, user-defined functions should be located under the <code>main</code> functions in the module. It is best to document these functions so that they may be changed by other editors if necessary.
+
+In user-defined functions, circumstances where the edit button should be shown should return <code>nil</code>, which is automatically handled by the module.
+
+;Simple and complex definitions
+Parameters may be mapped to functions in a straightforward manner by simply definining a name of or reference to a function, such as:
+<syntaxhighlight lang="lua">
+	ret:defineParams{
+		{ name = 'foo', func = 'hasContent' },
+		{ name = 'bar', func = barFunc }
+	}
+</syntaxhighlight>
+
+Simple definitions only pass the parameter from the master list named <name>. Some parameters need more interaction with other parameters. To do this, we require a complex definition. Complex definitions point to a user-defined function and map what parameters to pass. Complex definitions can also pass literal values or the uncleaned value with the use of flags.
+
+Complex functions are defined as <code>table</code> values formatted as such:
+<syntaxhighlight lang="lua">
+	func = { name = <funcname>, params = { <paramname>, ... }, flag = <flags> }
+</syntaxhighlight>
+
+A basic example for complex functions is:
+<syntaxhighlight lang="lua">
+	ret:defineParams{
+		{ name = 'foo', func = { name = fooFunc, params = { 'bar', 'baz' } },
+	}
+	-- ...
+	-- ...
+	function fooFunc(arg1,arg2)
+		return arg1..arg2
+	end
+</syntaxhighlight>
+
+In this example, we have a parameter named "foo", but we use the parameters passed to the template named "bar" and "baz". Parameters are passed in the order listed, so in the above, the parameter <code>bar</code> is used for <code>arg1</code>, and <code>baz</code> is used for <code>arg2</code>.
+
+Flags define the behaviour of the parameters named. The following flag behaviours exist:
+* <code>d</code> - Looks for the cleaned and parsed version of the parameter. If not cleaned, it will use the value passed to the template. If neither exist, it will use <code>nil</code>. This is the default behaviour if no flag is defined.
+* <code>p</code> - Looks only at the value passed to the template. If it does not exist, it will use <code>nil</code>.
+* <code>r</code> ''or'' <code>l</code> - Uses the literal (or raw) value.
+
+If <code>flag</code> is a <code>string</code>, then the behaviour defined by it will apply to every parameter passed. If <code>flag</code> is a <code>table</code>, then each flag will only define the behaviour of the respective parameter.
+
+For example:
+<syntaxhighlight lang="lua">
+	ret:defineParams{
+		{ name = 'foo', func = {
+					name = fooFunc,
+					params = { 'foo', 'bar', 'baz' },
+					flag = { 'd', 'p', 'l' },
+				},
+		}
+</syntaxhighlight>
+
+In the above snippet, <code>foo</code> will use the default behaviour and <code>bar</code> will only look for the value passed to the template. The third parameter will use the string literal <code>'baz'</code>.
+
+;Definition order
+Parameters are defined in the order that they are coded. If a parameter relies on the cleaned value of another parameter, then the parameter dependent on the other will need to be defined after in the definition table.
+
+====addRow====
+<syntaxhighlight lang="lua">
+	ret:addRow(tbl)
+</syntaxhighlight>
+Adds a new row to the template with columns and behaviour defined by <code>tbl</code>, which should be a <code>table</code> that holds cells defined as <code>table</code> variables, formatted as such:
+
+<syntaxhighlight lang="lua">
+	{
+		{ celltype, label, <attr1> = <value1>, <attr2> = <value2> ... },
+		...
+	}
+</syntaxhighlight>
+
+<code>celltype</code> and <code>label</code> are <code>string</code> values that define the fundamental display of the cell.
+
+{| class="wikitable"
+! <tt>celltype</tt>
+! Output
+|-
+! <tt>th</tt>
+| Creates a <code><nowiki><th></nowiki></code> tag where the content is the value of <code>label</code>
+|-
+! <tt>td</tt>
+| Creates a <code><nowiki><td></nowiki></code> tag where the content is the value of <code>label</code>
+|-
+! <tt>argh</tt>
+| Creates a <code><nowiki><th></nowiki></code> tag where the content is the value of the parameter named <code>label</code>
+|-
+! <tt>argd</tt>
+| Creates a <code><nowiki><td></nowiki></code> tag where the content is the value of the parameter named <code>label</code>
+|}
+
+The attributes are any of the available attributes defined inside the function. All functions that are ultimately run are documented in the [[mw:Extension:Scribunto/Lua reference manual#HTML library|Lua reference manual]] and are run on the tag for the specific table cell they are called on.
+
+{| class="wikitable"
+! <tt>attr</tt>
+! Type
+! Use
+|-
+! <tt>attr</tt>
+| <tt>table</tt>
+| Passes the value to <tt>mw.html.attr()</tt>
+|-
+! <tt>css</tt>
+| <tt>table</tt>
+| Passes the value to <tt>mw.html.css()</tt>
+|-
+! <tt>colspan</tt>
+| <tt>number</tt>
+| Uses the value to run <tt>mw.html.attr('colspan',#)</tt>
+|-
+! <tt>rowspan</tt>
+| <tt>number</tt>
+| Uses the value to run <tt>mw.html.attr('rowspan',#)</tt>
+|-
+! <tt>title</tt>
+| <tt>string</tt>
+| Uses the value to run <tt>mw.html.attr('title',text)</tt>
+|-
+! <tt>class</tt>
+| <tt>string</tt>
+| Passes the value to <tt>mw.html.addClass()</tt>
+|-
+! <tt>class</tt>
+| <tt>table</tt>
+| Passes every value in the table to <tt>mw.html.addClass()</tt>
+|}
+
+If the template is a switch infobox, then <code>data-attr-param="<paramname>"</code> will be added to the table cell.
+
+This function will return the template, allowing further self functions to be performed.
+
+====wikitext====
+<syntaxhighlight lang="lua">
+	ret:wikitext(txt)
+</syntaxhighlight>
+Appends wikitext to the top-level wrapper. Templates, etc. passed directly from Lua code will need explicit preprocessing prior to display properly.
+
+This function will return the template, allowing further self functions to be performed.
+
+====caption====
+<syntaxhighlight lang="lua">
+	ret:caption()
+</syntaxhighlight>
+Adds a caption to the infobox based off the subject name, using the following priority for the text:
+* <code>name</code> parameter
+* <code>name1</code> parameter (if switch infobox)
+* <code><nowiki>{{PAGENAME}}</nowiki></code>
+
+If the template is a switch infobox, this will also add <code>data-attr-param="name"</code> to the <code>caption</code>.
+
+This function will return the template, allowing further self functions to be performed.
+
+====attr====
+<syntaxhighlight lang="lua">
+	ret:attr(arg)
+</syntaxhighlight>
+Passes <code>arg</code> to <code>mw.html.attr()</code>.
+
+This function will return the template, allowing further self functions to be performed.
+
+====float====
+<syntaxhighlight lang="lua">
+	ret:float(dir)
+</syntaxhighlight>
+Changes the direction of the CSS style <code>float</code> for the top level wrapper. By default, all infoboxes float <code>right</code>.
+
+This function will return the template, allowing further self functions to be performed.
+
+====css====
+<syntaxhighlight lang="lua">
+	ret:css(...)
+</syntaxhighlight>
+Passes the arguments to <code>mw.html.css()</code>.
+
+This function will return the template, allowing further self functions to be performed.
+
+====addClass====
+<syntaxhighlight lang="lua">
+	ret:addClass(arg)
+</syntaxhighlight>
+Passes <code>arg</code> to <code>mw.html.addClass()</code>.
+
+This function will return the template, allowing further self functions to be performed.
+
+====addClasses====
+<syntaxhighlight lang="lua">
+	ret:attr(...)
+</syntaxhighlight>
+Passes every argument to <code>mw.html.addClass()</code> individually.
+
+This function will return the template, allowing further self functions to be performed.
+
+====tag====
+<syntaxhighlight lang="lua">
+	ret:tag(arg)
+</syntaxhighlight>
+Passes <code>arg</code> to <code>mw.html.tag()</code>.
+
+This function will return the tag (not the template), allowing further self functions to be performed.
+
+====useBucket====
+<syntaxhighlight lang="lua">
+	ret:useBucket(string, tbl)
+</syntaxhighlight>
+Tells the module to write to a bucket, as well as defining field those mappings with <code>tbl</code>, a <code>table</code> whose elements form an associated array formatted as such:
+
+<syntaxhighlight lang="lua">
+	{
+		parameter = field,
+		...
+	}
+</syntaxhighlight>
+Multiple buckets can be written to by calling this function multiple times. If the template holds switch infobox data, then one row will be inserted into the bucket per version.
+
+====noSwitch====
+<syntaxhighlight lang="lua">
+	ret:noSwitch()
+</syntaxhighlight>
+Forces the template to use only a single version, the default.
+
+====maxVersion====
+<syntaxhighlight lang="lua">
+	ret:maxVersion()
+</syntaxhighlight>
+Returns the number of versions used by the infobox. When run the first time, this function will check and define the version count first. Subsequent calls will simply return the count.
+
+====linkParams====
+<syntaxhighlight lang="lua">
+	ret:linkParams{
+			paramName = linkedParam,
+			...
+	}
+</syntaxhighlight>
+Links two parameters where one parameter (<code>paramName</code>) is the parameter name of a cell's contents, and <code>linkedParam</code> is the name of the parameter that contains the classes for the specified cell. It will only have an effect on switch infoboxes. Both parameters will need to be defined in the infobox with <code>definedParams</code>. They should be functions of the parameter they operator on and include <code>dupes = true</code> in their definitions.
+
+This function must be called only '''after''' calling <code>ret:cleanParams()</code> (and before <code>ret:finish()</code>).
+
+Example: grand exchange graphs do not make sense to display for untradeable items within switch infoboxes (e.g. [[ahrim's staff]]); one could use a linkParam to add a class that will display:none table row when switching to untradeable items.
+
+In the source code of the infobox, these will be added as such:
+
+<syntaxhighlight lang="html5">
+<div class="infobox-switch-resources hidden">
+	<span data-attr-param="param">
+		<span data-attr-index="0" data-addclass="linkedParam[d]">paramName[d]</span>
+		<span data-attr-index="1" data-addclass="linkedParam[1]">paramName[1]</span>
+		<span data-attr-index="2" data-addclass="linkedParam[2]">paramName[2]</span>
+	</span>
+</div>
+</syntaxhighlight>
+
+From this, the switch infobox javascript will add the contents of <code>data-addclass</code> to class attribute of the row of the table when the infobox is switched. You will also need to define the classes you are using in global CSS.
+
+If the parameter is a th or td element, the class is added to the parent tr. Otherwise, it is added to the element directly (e.g. caption element).
+
+====finish====
+Finalises the template and adds remaining required HTML.
+
+* Creates hidden tag for switch infobox data (if needed)
+* Adds [[:Category:Pages that contain switch infobox data]] if in the mainspace
+* Defines [[Property:Version count]] if in the mainspace
+* Adds infobox bottom links
+
+====param====
+<syntaxhighlight lang="lua">
+	ret:param(arg, flag)
+</syntaxhighlight>
+Returns the value of the parameter named <code>arg</code>. The exact format and values are determined by the <code>flag</code>:
+
+* <code>d</code> ''or'' empty - default value of the parameter
+* <code>f</code> ''or'' <code>full</code> - all values of the parameter as a table
+* <code>s</code> ''or'' <code>switches</code> - table of all switch values (or nil if no switches are present)
+* <code>s#</code> - switch value at index <code>#</code>
+* <code>r</code> - if defined, switch value 1, otherwise the default value
+
+Note that this function returns the actual table used by the template. If a switch value is equal to <code>Infobox.nil_param</code> for flag <code>s#</code>, then <code>nil</code> will be returned instead; however, when calling specific indices from the tables returned by <code>f</code> or <code>r</code>, the value of <code>Infobox.nil_param</code> will be returned without extra parsing.
+
+====paramDefined====
+<syntaxhighlight lang="lua">
+	ret:paramDefined(arg, flag)
+</syntaxhighlight>
+Looks to see if the parameter named <code>arg</code> is [[Module:Infobox#Defined parameters|defined]] at any index, based on instructions from <code>flag</code>:
+
+* <code>0</code> ''or'' empty - default value of parameter
+* <code>#</code> - value of switch at index <code>#</code>
+* <code>all</code> - true if the parameter is defined with a default or at any switch value
+
+====paramGrep====
+<syntaxhighlight lang="lua">
+	ret:paramGrep(arg, query)
+</syntaxhighlight>
+Performs a function or search on every possible value of the parameter named <code>arg</code>. <code>query</code> can be either a <code>function</code>, a <code>string</code>, or a <code>number</code>. If a match is found or the function query returns true, <code>paramGrep</code> will end its search.
+
+If <code>query</code> is a function, that function must pass a single argument (the parameter), and return either <code>true</code> or <code>false</code>.
+
+If <code>query</code> is a string, then that string will be compared to each value of the parameter. If they match exactly, disregarding casing, then <code>true</code> will be returned. To perform a pattern match on strings, you will need to define <code>query</code> as a function that returns a boolean value based on <code>string.find</code> or <code>mw.ustring.find</code>.
+
+If <code>query</code> is a number (or any other type), then it will be compared to each value for a match.
+
+Matches are only checked if the type of <code>query</code> matches the value of the parameter; e.g., it is not valid to search for a number (ex: <code>4</code>) inside a string (ex: <code>'455'</code>).
+
+====paramRead====
+<syntaxhighlight lang="lua">
+	Infobox.paramRead(arg, query)
+</syntaxhighlight>
+Performs the same function as <code>paramGrep</code>; however, instead of <code>arg</code> being a name of a parameter to look for, it is the table itself. Useful for functions where only the table of parameters is passed, but not the whole infobox.
+
+====categoryData====
+<syntaxhighlight lang="lua">
+	ret:categoryData()
+</syntaxhighlight>
+Returns fundamental category data collected during <code>Infobox:cleanParams()</code>.
+
+Fields in the category data include:
+* <code>one_defined</code> - <code>true</code> if at least one possible value of the parameter is defined
+* <code>all_defined</code> - <code>false</code> if at least one possible value of the parameter is not defined
+
+====addDropLevelVars====
+<syntaxhighlight lang="lua">
+	Infobox:addDropLevelVars(key, paramName)
+</syntaxhighlight>
+Used to link infobox versions to specific [[Template:DropsLine|drops table]] versions. Sets a var <code>DropLevel_{key}_{version_name}</code>, where the value is pulled from the value of the given param <code>paramName</code> at each version. If multiple values are set with the same key, the result will be a comma separated string.
+
+For example, if an infobox has <code>|version1 = A|level1 = 10</code>, then <code>ret:addDropLevelVars('combat', 'level')</code> will set the variable <code>DropLevel_combat_A = 10</code>.
+
+==Rules==
+===Defined parameters===
+Parameters are to be considered "defined" if they meet all of the following criteria:
+
+* Is not <code>nil</code>
+* Contains at least one non-whitespace character <code>string.find(param,'%S')</code>
+* Is not equal to <code>Infobox.nil_param</code>
+* Does not contain the string <code>'action=edit'</code>

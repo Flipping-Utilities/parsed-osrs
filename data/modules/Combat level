@@ -1,0 +1,130 @@
+-- Implements Calculator:Combat level/Template
+
+local paramTest = require('Module:Paramtest')
+
+local p = {}
+
+function p.calc(frame)
+    local args = frame:getParent().args
+    
+    local stats = { 'attack', 'strength', 'defence', 'ranged', 'magic', 'hitpoints', 'prayer' }
+    local lvls = {}
+    for i, stat in pairs(stats) do
+    	if i == 6 then
+    		lvls[i] = paramTest.default_to( tonumber(args[stat]), 10 )
+    	else
+    		lvls[i] = paramTest.default_to( tonumber(args[stat]), 1 )
+    	end
+    end
+
+    return p.formatlvl( p._calc( unpack( lvls ) ) )
+end
+
+function p.formatlvl ( combatLevel, combatType, required, combatTypeString )
+	local nextCombatLevel = combatLevel + 1
+	combatTypeString = combatTypeString or (combatType .. '-based')
+	local output = 'Your combat level is <b>' .. combatLevel .. '</b>, ' .. combatTypeString .. '.\n'
+    if nextCombatLevel == 127 then
+    	output = output .. 'This is the highest level achievable.'
+    	return output
+    end
+    output = output .. '\nFor level ' .. nextCombatLevel .. ', you need one of:'
+    if required.attackStrength then
+        output = output .. '\n* ' .. required.attackStrength .. ' [[Attack]] or [[Strength]] levels'
+    end
+    if required.hitpointsDefence then
+        output = output .. '\n* ' .. required.hitpointsDefence .. ' [[Hitpoints]] or [[Defence]] levels'
+    end
+    if required.ranged then
+        output = output .. '\n* ' .. required.ranged .. ' [[Ranged]] levels'
+    end
+    if required.magic then
+        output = output .. '\n* ' .. required.magic .. ' [[Magic]] levels'
+    end
+    if required.prayer then
+    	output = output .. '\n* ' .. required.prayer .. ' [[Prayer]] levels'
+    end
+    return output
+end
+
+function p._calc ( attackLevel, strengthLevel, defenceLevel, rangedLevel, magicLevel, hitpointsLevel, prayerLevel )
+    -- Used formulae from here: https://oldschool.runescape.wiki/w/Combat_level
+    -- to calculate player's current in-game combat level
+    local baseLevel = 0.25 * (defenceLevel + hitpointsLevel + math.floor(prayerLevel / 2))
+    local meleeCombatLevel = 0.325 * (attackLevel + strengthLevel)
+    local magicCombatLevel = 0.325 * (math.floor(magicLevel / 2) + magicLevel)
+    local rangedCombatLevel = 0.325 * (math.floor(rangedLevel / 2) + rangedLevel)
+    local combatType = math.max(meleeCombatLevel, math.max(magicCombatLevel, rangedCombatLevel))
+    local combatLevelDouble = baseLevel + combatType
+    local combatLevel = math.floor(combatLevelDouble)
+    local nextCombatLevel = combatLevel + 1
+    
+    local required = {}
+    
+    -- Combat level increases with an even number of levels of prayer levels
+    -- 8 Levels of Prayer increases combat level by 1
+    -- Calculate the current prayer level contribution to the combat level and invert
+    required.prayer = 2 * math.ceil(-hitpointsLevel - defenceLevel + (4 * nextCombatLevel) - (4 * combatType)) - prayerLevel
+    
+    -- 4 Levels of Defence+Hitpoints increases combat level by 1
+    -- Calculate the current Hitpoints+Defence level contribution to the combat level and invert
+    required.hitpointsDefence = math.ceil((4 * nextCombatLevel) - math.floor(prayerLevel / 2) - (4 * combatType)) - hitpointsLevel - defenceLevel
+    
+    -- Calculate the current Attack+Strength level contribution to the combat level and invert
+    required.attackStrength = math.ceil(-10 / 13 * (defenceLevel + hitpointsLevel + math.floor(prayerLevel / 2) - (4 * nextCombatLevel))) - strengthLevel - attackLevel
+    -- Calculate the current Magic level contribution to the combat level and invert
+    required.magic = math.ceil(2 / 3 * math.ceil(-10 / 13 * (hitpointsLevel + defenceLevel - (4 * nextCombatLevel) + math.floor(prayerLevel / 2)))) - magicLevel
+    -- Calculate the current Ranged level contribution to the combat level and invert
+    required.ranged = math.ceil(2 / 3 * math.ceil(-10 / 13 * (hitpointsLevel + defenceLevel - (4 * nextCombatLevel) + math.floor(prayerLevel / 2)))) - rangedLevel
+
+    if (attackLevel + strengthLevel + required.attackStrength) > (99 * 2) then
+        required.attackStrength = nil
+    end
+    if (defenceLevel + hitpointsLevel + required.hitpointsDefence) > (99 * 2) then
+        required.hitpointsDefence = nil
+    end
+    if (rangedLevel + required.ranged) > 99 then
+        required.ranged = nil
+    end
+    if (magicLevel + required.magic) > 99 then
+        required.magic = nil
+    end
+    if (prayerLevel + required.prayer) > 99 then
+    	required.prayer = nil
+    end
+
+	local combatTypeName
+	if(combatType == meleeCombatLevel) then
+		combatTypeName = 'melee'
+	elseif(combatType == magicCombatLevel) then
+		combatTypeName = 'magic'
+	else
+		combatTypeName = 'ranged'
+	end
+
+	local combatTypeString
+	local pureMeleeCombatLevel = math.floor(baseLevel + meleeCombatLevel)
+	local pureMagicCombatLevel = math.floor(baseLevel + magicCombatLevel)
+	local pureRangeCombatLevel = math.floor(baseLevel + rangedCombatLevel)
+	if (
+		pureMeleeCombatLevel >= pureMagicCombatLevel
+		and pureMeleeCombatLevel >= pureRangeCombatLevel
+	) then
+		if (pureMeleeCombatLevel == pureMagicCombatLevel) then
+			if (pureMeleeCombatLevel == pureRangeCombatLevel) then
+				combatTypeString = 'balanced'
+			else
+				combatTypeString = 'melee/magic hybrid'
+			end
+		elseif (pureMeleeCombatLevel == pureRangeCombatLevel) then
+			combatTypeString = 'melee/ranged hybrid'
+		end
+	elseif (pureMagicCombatLevel >= pureRangeCombatLevel) then
+		combatTypeString = 'magic/ranged hybrid'
+	end
+	combatTypeString = combatTypeString or (combatTypeName .. '-based')
+
+    return combatLevel, combatTypeName, required, combatTypeString
+end
+
+return p

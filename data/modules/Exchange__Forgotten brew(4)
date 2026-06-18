@@ -1,0 +1,12 @@
+return {
+    itemId     = 27629,
+    icon       = "Forgotten brew(4).png",
+    item       = "Forgotten brew(4)",
+    alchable   = true,
+    value      = 200,
+    limit      = 2000,
+    members    = true,
+    category   = nil,
+    examine    = "4 doses of forgotten brew.",
+    usage      = {}
+}

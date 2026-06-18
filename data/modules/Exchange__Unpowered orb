@@ -1,0 +1,12 @@
+return {
+    itemId     = 567,
+    icon       = 'Unpowered orb.png',
+    item       = 'Unpowered orb',
+    value      = 100,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I\'d prefer it if it was powered.',
+    hialch     = 60,
+    lowalch    = 40
+}

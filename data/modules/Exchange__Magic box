@@ -1,0 +1,12 @@
+return {
+    itemId     = 10025,
+    icon       = 'Magic box.png',
+    item       = 'Magic box',
+    value      = 600,
+    limit      = 250,
+    members    = true,
+    category   = nil,
+    examine    = "A magical catching box.",
+    hialch     = 360,
+    lowalch    = 240
+}

@@ -1,0 +1,179 @@
+-- <nowiki>
+local geprice = require('Module:Exchange')._price
+
+local p = {}
+
+local uniques = {
+	{name = 'Avernic defender hilt', chance = 8},
+	{name = 'Ghrazi rapier', chance = 2},
+	{name = 'Sanguinesti staff (uncharged)', chance = 2},
+	{name = 'Justiciar faceguard', chance = 2},
+	{name = 'Justiciar chestguard', chance = 2},
+	{name = 'Justiciar legguards', chance = 2},
+	{name = 'Scythe of vitur (uncharged)', chance = 1}
+}
+local uniquestotal = 19
+
+local uniques_hm = {
+	{name = 'Avernic defender hilt', chance = 7},
+	{name = 'Ghrazi rapier', chance = 2},
+	{name = 'Sanguinesti staff (uncharged)', chance = 2},
+	{name = 'Justiciar faceguard', chance = 2},
+	{name = 'Justiciar chestguard', chance = 2},
+	{name = 'Justiciar legguards', chance = 2},
+	{name = 'Scythe of vitur (uncharged)', chance = 1}
+}
+local uniquestotal_hm = 18
+
+local normies = {
+	{name = 'Vial of blood', min = 50, chance = 2},
+	{name = 'Death rune', min = 500, chance = 1},
+	{name = 'Blood rune', min = 500, chance = 1},
+	{name = 'Swamp tar', min = 500, chance = 1},
+	{name = 'Coal', min = 500, chance = 1},
+	{name = 'Gold ore', min = 300, chance = 1},
+	{name = 'Molten glass', min = 200, chance = 1},
+	{name = 'Adamantite ore', min = 130, chance = 1},
+	{name = 'Runite ore', min = 60, chance = 1},
+	{name = 'Wine of zamorak', min = 50, chance = 1},
+	{name = 'Potato cactus', min = 50, chance = 1},
+	{name = 'Grimy cadantine', min = 50, chance = 1},
+	{name = 'Grimy avantoe', min = 40, chance = 1},
+	{name = 'Grimy toadflax', min = 37, chance = 1},
+	{name = 'Grimy kwuarm', min = 36, chance = 1},
+	{name = 'Grimy irit leaf', min = 34, chance = 1},
+	{name = 'Grimy ranarr weed', min = 30, chance = 1},
+	{name = 'Grimy snapdragon', min = 27, chance = 1},
+	{name = 'Grimy lantadyme', min = 26, chance = 1},
+	{name = 'Grimy dwarf weed', min = 24, chance = 1},
+	{name = 'Grimy torstol', min = 20, chance = 1},
+	{name = 'Battlestaff', min = 15, chance = 1},
+	{name = 'Mahogany seed', min = 10, chance = 1},
+	{name = 'Rune battleaxe', min = 4, chance = 1},
+	{name = 'Rune platebody', min = 4, chance = 1},
+	{name = 'Rune chainbody', min = 4, chance = 1},
+	{name = 'Palm tree seed', min = 3, chance = 1},
+	{name = 'Yew seed', min = 3, chance = 1},
+	{name = 'Magic seed', min = 3, chance = 1},
+}
+local normiestotal = 30
+
+local noobies = {
+	{name = 'Cabbage'},
+	{name = 'Message (Theatre of Blood)'}
+}
+
+function p.main(frame)
+	return p.calc(frame)
+end
+
+function p.calc(frame)
+	local args = frame:getParent().args
+	local hard   = (args.mode == 'Hard')
+	local U      = hard and uniques_hm      or uniques
+	local Utotal = hard and uniquestotal_hm or uniquestotal
+	local urate  = hard and 7.7 or 9.1
+	local qmult  = 1
+	if hard then qmult = (args.timebonus == 'true') and 1.30 or 1.15 end
+
+	local maxpoints = 18*args.teammates + 14
+	if(args.splitdrops == 'true') then
+		local teampoints = math.max(0,(6*args.teammates - args.weskip)*3 + 14 - args.wedeath*4)
+		local ratio = teampoints/maxpoints
+		local dropchance = 1/urate*ratio
+		if(teampoints == 0) then
+			local price = geprice('Cabbage')
+			local ret = {}
+			ret[#ret+1] = mw.ustring.format('Team score: %i/%i<br>Score fraction: %.2f%%.<br>Team unique drop chance: %.2f%%<br>', teampoints, maxpoints, ratio*100, dropchance*100)
+			ret[#ret+1] = 'Value per completion: ' .. frame:expandTemplate{title='Coins',args={price}} .. '<br>'
+			ret[#ret+1] = frame:expandTemplate{title='DropsTableHead'}
+			for _, item in ipairs(noobies) do
+				ret[#ret+1] = frame:expandTemplate{title='DropsLine', args = {Name=item.name,Quantity=1,Rarity='Always',bucket='no'}}
+			end
+			ret[#ret+1] = frame:expandTemplate{title='DropsTableBottom'}
+			return table.concat(ret,'')
+		end
+		local uniqueprice = 0
+		local normieprice = 0
+		for _, item in ipairs(U) do
+			local baseprice = geprice(item.name)
+			local chance = dropchance*item.chance/Utotal/args.teammates
+			local quantity = 1
+			uniqueprice = uniqueprice + baseprice*chance*quantity
+		end
+		for _, item in ipairs(normies) do
+			local baseprice = geprice(item.name)
+			local chance = 3*item.chance/normiestotal*(1-dropchance/args.teammates)
+			local quantity = (math.floor(item.min*qmult*ratio)+math.floor(math.floor(item.min*qmult*ratio)*1.2))/2
+			normieprice = normieprice + baseprice*chance*quantity
+		end
+		local price = uniqueprice + normieprice
+
+		local ret = {}
+		ret[#ret+1] = mw.ustring.format('Team score: %i/%i<br>Score fraction: %.2f%%.<br>Team unique drop chance: %.2f%%<br>', teampoints, maxpoints, ratio*100, dropchance*100)
+		ret[#ret+1] = 'Value per completion: ' .. frame:expandTemplate{title='Coins',args={price}} .. '<br>'
+		ret[#ret+1] = 'Portion from uniques: ' .. frame:expandTemplate{title='Coins',args={uniqueprice}} .. '<br>'
+		ret[#ret+1] = 'Portion from regular loot: ' .. frame:expandTemplate{title='Coins',args={normieprice}} .. '<br>'
+		ret[#ret+1] = frame:expandTemplate{title='DropsTableHead'}
+		for _, item in ipairs(U) do
+			ret[#ret+1] = frame:expandTemplate{title='DropsLine', args = {Name=item.name,Quantity=1,Rarity=mw.ustring.format('1/%.3f',Utotal/item.chance/dropchance),bucket='no',Rolls=1/args.teammates}}
+		end
+		for _, item in ipairs(normies) do
+			ret[#ret+1] = frame:expandTemplate{title='DropsLine', args = {Name=item.name,Quantity=mw.ustring.format('%i-%i',item.min*qmult*ratio,math.floor(item.min*qmult*ratio)*1.2),Rarity=mw.ustring.format('%i/%i',item.chance,normiestotal),bucket='no',Rolls=3}}
+		end
+		ret[#ret+1] = frame:expandTemplate{title='DropsTableBottom'}
+		return table.concat(ret,'')
+	end
+
+	local playerpoints = math.max(0,(6-args.iskip)*3 + args.imvp - args.ideath*4)
+	local teampoints = math.max(playerpoints,(6*args.teammates - args.iskip - args.theyskip)*3 + 14 - (args.ideath + args.theydeath)*4)
+	local ratio = teampoints/maxpoints
+	local dropchance = 1/urate*ratio
+	local dropchancesolo = dropchance*playerpoints/teampoints
+
+	if(playerpoints == 0) then
+		local price = geprice('Cabbage')
+		local ret = {}
+		ret[#ret+1] = mw.ustring.format('Player score: %i/32.<br>Player unique drop chance: %.2f%%.<br>Team score: %i/%i<br>Team score fraction: %.2f%%.<br>Team unique drop chance: %.2f%%<br>', playerpoints, dropchancesolo*100, teampoints, maxpoints, ratio*100, dropchance*100)
+		ret[#ret+1] = 'Value per completion: ' .. frame:expandTemplate{title='Coins',args={price}} .. '<br>'
+		ret[#ret+1] = frame:expandTemplate{title='DropsTableHead'}
+		for _, item in ipairs(noobies) do
+			ret[#ret+1] = frame:expandTemplate{title='DropsLine', args = {Name=item.name,Quantity=1,Rarity='Always',bucket='no'}}
+		end
+		ret[#ret+1] = frame:expandTemplate{title='DropsTableBottom'}
+		return table.concat(ret,'')
+	end
+	local uniqueprice = 0
+	local normieprice = 0
+	for _, item in ipairs(U) do
+		local baseprice = geprice(item.name)
+		local chance = dropchancesolo*item.chance/Utotal
+		local quantity = 1
+		uniqueprice = uniqueprice + baseprice*chance*quantity
+	end
+	for _, item in ipairs(normies) do
+		local baseprice = geprice(item.name)
+		local chance = 3*item.chance/normiestotal*(1-dropchancesolo)
+		local quantity = (math.floor(item.min*qmult*ratio)+math.floor(math.floor(item.min*qmult*ratio)*1.2))/2
+		normieprice = normieprice + baseprice*chance*quantity
+	end
+	local price = uniqueprice + normieprice
+
+	local ret = {}
+	ret[#ret+1] = mw.ustring.format('Player score: %i/32.<br>Player unique drop chance: %.2f%%.<br>Team score: %i/%i<br>Team score fraction: %.2f%%.<br>Team unique drop chance: %.2f%%<br>', playerpoints, dropchancesolo*100, teampoints, maxpoints, ratio*100, dropchance*100)
+	ret[#ret+1] = 'Value per completion: ' .. frame:expandTemplate{title='Coins',args={price}} .. '<br>'
+	ret[#ret+1] = 'Portion from uniques: ' .. frame:expandTemplate{title='Coins',args={uniqueprice}} .. '<br>'
+	ret[#ret+1] = 'Portion from regular loot: ' .. frame:expandTemplate{title='Coins',args={normieprice}} .. '<br>'
+	ret[#ret+1] = frame:expandTemplate{title='DropsTableHead'}
+	for _, item in ipairs(U) do
+		ret[#ret+1] = frame:expandTemplate{title='DropsLine', args = {Name=item.name,Quantity=1,Rarity=mw.ustring.format('1/%i',Utotal/item.chance/dropchancesolo),bucket='no'}}
+	end
+	for _, item in ipairs(normies) do
+		ret[#ret+1] = frame:expandTemplate{title='DropsLine', args = {Name=item.name,Quantity=mw.ustring.format('%i-%i',item.min*qmult*ratio,math.floor(item.min*qmult*ratio)*1.2),Rarity=mw.ustring.format('%i/%i',item.chance,normiestotal),bucket='no',Rolls=3}}
+	end
+	ret[#ret+1] = frame:expandTemplate{title='DropsTableBottom'}
+	return table.concat(ret,'')
+end
+
+return p
+-- </nowiki>

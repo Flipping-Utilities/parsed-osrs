@@ -1,0 +1,400 @@
+--------------------------
+-- Module for [[Template:Infobox Bonuses]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local signed = require('Module:Format eq stat').signed
+local clean = require('Module:Clean image2').clean
+
+local slots = {
+	head = 'Head slot items',
+	weapon = 'Weapon slot items',
+	body = 'Body slot items',
+	legs = 'Legs slot items',
+	shield = 'Shield slot items',
+	cape = 'Cape slot items',
+	['2h'] = 'Two-handed slot items',
+	hands = 'Hands slot items',
+	feet = 'Feet slot items',
+	neck = 'Neck slot items',
+	ammo = 'Ammunition slot items',
+	ring = 'Ring slot items',
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	return p._main(args)
+end
+
+function p._main(args)
+	local ret = infobox.new(args)
+
+	local signed_numeric_args = {
+		'astab', 'aslash', 'acrush', 'amagic', 'arange',
+		'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+		'str', 'rstr', 'prayer'
+	}
+
+	for _, v in ipairs(signed_numeric_args) do
+		ret:defineParams{
+			{ name = v, func = { name = signednumericarg, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_bucket', func = { name = numericarg_bucket, params = { v } } },
+		}
+	end
+
+	ret:defineParams{
+		{ name = 'mdmg', func = { name = signedpercentnumericarg, params = { 'mdmg', 'mdmg' }, flag = { 'd', 'r' } } },
+		{ name = 'mdmg_bucket', func = { name = numericarg_bucket, params = { 'mdmg' }, flag = { 'p' } } },
+		{ name = 'slot', func = 'has_content' },
+		{ name = 'slot_image', func = { name = slotarg, params = { 'slot' } } },
+		{ name = 'slot_link', func = { name = slot_link_arg, params = { 'slot' } } },
+		{ name = 'speed_bucket', func = { name = speedargbucket, params = { 'speed' }, flag = { 'p' } } },
+		{ name = 'attackrange_bucket', func = { name = attackrangeargbucket, params = { 'attackrange' }, flag = { 'p' } } },
+		{ name = 'combatstyle', func = 'has_content' },
+		{ name = 'image', func = { name = imagearg, params = { 'image', 'caption', 'image' }, flag = { 'd', 'd', 'r' } } },
+		{ name = 'image_width', func = { name = image_width_arg, params = { 'image', 'image' }, flag = { 'd', 'r' } } },
+		{ name = 'altimage', func = { name = imagearg, params = { 'altimage', 'altcaption', 'altimage' }, flag = { 'd', 'd', 'r' } } },
+		{ name = 'altimage_width', func = { name = image_width_arg, params = { 'altimage', 'altimage' }, flag = { 'd', 'r' } } },
+	}
+
+	ret:defineLinks({ hide = true })
+	
+	ret:useBucket("infobox_bonuses", {
+		astab_bucket = 'stab_attack_bonus',
+		aslash_bucket = 'slash_attack_bonus',
+		acrush_bucket = 'crush_attack_bonus',
+		arange_bucket = 'range_attack_bonus',
+		amagic_bucket = 'magic_attack_bonus',
+		dstab_bucket = 'stab_defence_bonus',
+		dslash_bucket = 'slash_defence_bonus',
+		dcrush_bucket = 'crush_defence_bonus',
+		drange_bucket = 'range_defence_bonus',
+		dmagic_bucket = 'magic_defence_bonus',
+		str_bucket = 'strength_bonus',
+		rstr_bucket = 'ranged_strength_bonus',
+		prayer_bucket = 'prayer_bonus',
+		mdmg_bucket = 'magic_damage_bonus',
+		slot = 'equipment_slot',
+		speed_bucket = 'weapon_attack_speed',
+		attackrange_bucket = 'weapon_attack_range',
+		combatstyle = 'combat_style',
+	})
+
+	ret:setMaxButtons(10)
+	
+	ret:create()
+	ret:cleanParams()
+
+	local any_is_weapon = ret:paramGrep('slot', function(x) return infobox.isDefined(x) and (string.lower(x) == 'weapon' or string.lower(x) == '2h') end)
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Bonuses')
+	ret:addClass('infobox-bonuses')
+
+	local image_rowspan = 15
+
+	local first_row = {
+		{ tag = 'th', content = '[[File:Attack icon.png|alt=|link=Equipment Stats#Attack bonuses]]&nbsp;[[Equipment Stats#Attack bonuses|Attack bonuses]]', colspan = '5', class = 'infobox-subheader' }
+	}
+
+	local image_defined = ret:paramGrep('image', function(x) return (infobox.isDefined(x) and x or 'N/A') ~= 'N/A' end)
+	if image_defined then
+		local all_widths = ret:param('image_width', 'f')
+		local max_width = max_width(all_widths)
+		local image_td = { tag = 'argd', content = 'image', class = 'infobox-bonuses-image', css = {width = max_width..'px'}, rowspan = image_rowspan }
+		table.insert(first_row, image_td)
+	end
+	local altimage_defined = ret:paramGrep('altimage', function(x) return (infobox.isDefined(x) and x or 'N/A') ~= 'N/A' end)
+	if altimage_defined then
+		local altall_widths = ret:param('altimage_width', 'f')
+		local altmax_width = max_width(altall_widths)
+		local altimage_td = { tag = 'argd', content = 'altimage', class = 'infobox-bonuses-image', css = {width = altmax_width..'px'}, rowspan = image_rowspan }
+		table.insert(first_row, altimage_td)
+	end
+	
+	if not (image_defined or altimage_define) then
+		ret:addClass('infobox-bonuses-noimage') -- for mobile skin purposes
+	end
+	
+	ret:addRow(first_row)
+	:pad(5)
+	:addRow{
+		{ tag = 'th', content = '[[File:White dagger.png|alt=Stab|link=Stab]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White scimitar.png|alt=Slash|link=Slash]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White warhammer.png|alt=Crush|link=Crush]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|alt=Magic|link=Magic]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]]', class = 'infobox-nested' }
+	}
+	:addRow{
+		{ tag = 'argd', content = 'astab', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'aslash', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'acrush', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'amagic', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'arange', class = 'infobox-nested' }
+	}
+	:pad(5)
+	:addRow{
+		{ tag = 'th', content = '[[File:Defence icon.png|alt=|link=Equipment Stats#Defence bonuses]]&nbsp;[[Equipment Stats#Defence bonuses|Defence bonuses]]', colspan = '5', class = 'infobox-subheader' }
+	}
+	:pad(5)
+	:addRow{
+		{ tag = 'th', content = '[[File:White dagger.png|alt=Stab|link=Stab]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White scimitar.png|alt=Slash|link=Slash]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White warhammer.png|alt=Crush|link=Crush]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|alt=Magic|link=Magic]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]]', class = 'infobox-nested' }
+	}
+	:addRow{
+		{ tag = 'argd', content = 'dstab', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dslash', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dcrush', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dmagic', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'drange', class = 'infobox-nested' }
+	}
+	:pad(5)
+	:addRow{
+		{ tag = 'th', content = '[[File:Melee.png|alt=|link=Equipment Stats#Other bonuses]]&nbsp;[[Equipment Stats#Other bonuses|Other bonuses]]', colspan = '4', class = 'infobox-subheader' },
+		{ tag = 'th', content = 'Slot', class = 'infobox-subheader' }
+	}
+	:pad(5)
+	:addRow{
+		{ tag = 'th', content = '[[File:Strength icon.png|alt=Strength|link=Strength bonus]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged Strength icon.png|alt=Ranged|link=Ranged Strength]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic Damage icon.png|alt=Magic damage|link=Magic damage]]', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Prayer icon.png|alt=Prayer|link=Prayer]]', class = 'infobox-nested' },
+		{ tag = 'argh', content = 'slot_image', class = 'infobox-nested' }
+	}
+	ret:addRow{
+		{ tag = 'argd', content = 'str', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'rstr', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mdmg', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'prayer', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'slot_link', class = 'infobox-nested' }
+	}
+	:pad(5)
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function numericarg_bucket(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	elseif tonumber(arg) ~= nil then
+		return arg
+	end
+	return nil
+end
+
+function numericarg(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	return arg
+end
+
+-- If the arg is numeric, return the signed version (starts with + or -)
+function signednumericarg(arg, arg_name)
+	local _arg = numericarg(arg, arg_name)
+	if tonumber(_arg) ~= nil then
+		return signed(_arg)
+	end
+	return nil
+end
+
+-- Sign the arg and append a percent sign
+function signedpercentnumericarg(arg, arg_name)
+	local _arg = signednumericarg(arg, arg_name)
+	if _arg ~= nil then
+		return _arg..'%'
+	end
+	return nil
+end
+
+-- Return attack speed for bucket, this should either be a positive integer, 
+-- or in the case of a special value a negative number like:
+-- -1 for 'No' or 'N/A' values
+-- -2 for 'Random' and 'Varies' values.
+function speedargbucket(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+    local numarg = tonumber(arg)
+    local lowarg = string.lower(arg)
+
+    if numarg ~= nil then
+        return numarg
+    elseif lowarg == 'n/a' or lowarg == 'no' then
+        return -1
+    elseif lowarg == 'random' or lowarg == 'varies' then
+        return -2
+    end
+
+    return nil
+end
+
+-- Return the appropriate slot image
+function slotarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	local _arg = string.lower(arg)
+	if slots[_arg] ~= nil then
+		local slot = _arg
+		if slot == 'weapon' then
+			slot = 'one-handed'
+		end
+		return string.format('[[File:%s slot.png|alt=%s slot table|link=%s slot table]]', _arg, mw.language.getContentLanguage():ucfirst(slot), slot)
+	end
+
+	return '<strong ' ..
+			'title="The &quot;slot&quot; parameter should be a valid slot name." ' ..
+			'class="error"' ..
+			'style="cursor:help; border-bottom:1px dotted;">' ..
+			'ERR</strong>'
+end
+
+function slot_link_arg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	if string.lower(arg) == 'weapon' then
+		return '[[One-handed slot table|List]]'
+	end
+	return '[['..arg..' slot table|List]]'
+end
+
+-- Return attack range for bucket, this should either be a positive integer,
+-- or in the case of a special value a negative number like:
+-- -1 for 'No' or 'N/A' values
+function attackrangeargbucket(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local lowarg = string.lower(arg)
+	if lowarg == 'staff' then
+		return 1
+	end
+	
+    local numarg = tonumber(arg)
+	if numarg ~= nil then
+		return numarg
+	elseif lowarg == 'no' or lowarg == 'n/a' then
+		return -1
+	end
+	
+	return nil
+end
+
+function imagearg(image, caption, argname)
+	if not infobox.isDefined(image) then
+		return nil
+	end
+	if string.lower(image) == 'no' then
+		return 'N/A'
+	end
+	local clean_result = clean({file=image, maxW = 300, maxH = 350})
+	if clean_result == nil then
+		return image..'[[Category:Needs equipment image]]'
+	end
+	local image_string, width, height = unpack(clean_result)
+	local caption_string = ''
+	if infobox.isDefined(caption) and string.lower(caption) ~= 'no' then
+		caption_string = '<br /><span class="infobox-bonuses-image-caption">' .. caption .. '</span>'
+	end
+	return image_string..caption_string
+end
+
+function image_width_arg(image, argname)
+	if not infobox.isDefined(image) then
+		return nil
+	end
+	local clean_result = clean({file=image, maxW = 300, maxH = 350})
+	if clean_result == nil then
+		return image..'[[Category:Needs equipment image]]'
+	end
+	local image_string, width, height = unpack(clean_result)
+	return width
+end
+
+-- Get the max width from all versions, minimum 100
+function max_width(all_widths)
+	local res = tonumber(all_widths.d) or 100
+	for i, width in ipairs(all_widths.switches or {100}) do
+		res = math.max(res, tonumber(width) or 100)
+	end
+	return math.max(res, 100)
+end
+
+-- Check if all stats are equal between versions
+function has_mismatch_stats(args)
+	local statargs = {
+		'astab_bucket', 'aslash_bucket','acrush_bucket','arange_bucket','amagic_bucket',
+		'dstab_bucket','dslash_bucket','dcrush_bucket','drange_bucket','dmagic_bucket',
+		'str_bucket','rstr_bucket','prayer_bucket','mdmg_bucket','slot','speed_bucket',
+		'attackrange_bucket','combatstyle'
+	}
+
+	local switches, statval
+	for _, statarg in ipairs(statargs) do
+		local switches = args[statarg].switches
+		if switches then
+			statval = nil
+			for _, v in ipairs(switches) do
+				if statval ~= nil and v ~= statval then
+					return true
+				end
+				statval = v
+			end
+		end
+	end
+	return false
+end
+
+function addcategories(args, catargs)
+	local ret = {}
+
+	if args['slot'] then
+		local slot_d = args['slot'].d
+		if slots[slot_d] then
+			table.insert(ret, slots[slot_d])
+		end
+		if args['slot'].switches then
+			for _, slot_i in ipairs(args['slot'].switches) do
+				if slots[slot_i] then
+					table.insert(ret, slots[slot_i])
+				end
+			end
+		end
+	end
+
+	if has_mismatch_stats(args) then
+		table.insert(ret, 'Items with different stats between versions')
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+--[=[ DEBUG COPYPASTA
+= p._main({astab = 7, aslash = 45, acrush = -2, amagic = 0, arange = 0, dstab = 0, dslash = 1, dcrush = 0, dmagic = 0, drange = 0, str = 44, rstr = 0, mdmg = 0, prayer = 0, slot = 'weapon', speed = 4, attackrange = 1, combatstyle = 'hacksword', image = '[[File:Rune scimitar equipped.png|100px]]', caption = 'A total chad wielding a ROOONE SKIMMAY.'})
+--]=]
+
+return p

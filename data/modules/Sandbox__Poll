@@ -1,0 +1,131 @@
+local p = {}
+
+local params = require('Module:Paramtest')
+local commas = require('Module:Addcommas')._add
+local math = math
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local questionNumber = args.Number
+	local pollQuestion = args.Question
+	local note = args.Note
+	local totalVotes = findTotalVotes(args)
+	local answers = answerList(args)
+	
+	local wrapper = mw.html.create('div'):addClass('pollquestion'):attr('data-number', questionNumber):done()
+	local tbl = mw.html.create('table'):done()
+	tbl:tag('caption'):wikitext(pollQuestion):done()
+	
+	if #answers ~= 0 then
+		for i, v in ipairs(answers) do
+			local tr = mw.html.create('tr')
+			local sword, count
+			local calculation = v.count * 100 / totalVotes
+			tr:tag('td'):wikitext(v.text):done()
+			
+			if v.text ~= 'Skip question' and v.text ~= 'Skip' then
+				local swordCount = findSwordsCount(calculation)
+				local td = mw.html.create('td'):addClass('pollpercent'):done()
+				local data = mw.html.create('data'):attr('value', swordCount):css({ ['width'] = string.format('%s%%', swordCount) }):done()
+				tr:node(td:node(data))
+				tr:tag('td'):wikitext(string.format('%s%% (%s votes)', calculatePercentage(v.count, calculation), commas(v.count))):done()
+			else
+				tr:tag('td'):addClass('pollpercent'):wikitext('[[File:Placeholder.png|link=]]'):done()
+				tr:tag('td'):wikitext(string.format('%s votes', commas(v.count))):done()
+			end
+			
+			tbl:node(tr)
+		end
+	end
+	
+	if note ~= nil then
+		local tr = mw.html.create('tr'):addClass('pollnote'):done()
+		tr:tag('td'):attr('colspan', 3):wikitext(string.format("Note: %s", note)):done()
+		tbl:node(tr)
+	end
+	
+	wrapper:node(tbl)
+	
+	return tostring(wrapper)
+end
+
+function answerList(args)
+	local answers = {}
+	for i = 1, 20, 1 do
+		local answer = args['Answer'..i]
+		if answer and params.has_content(answer) then
+			local text = answer
+			local count = args['Votes'..i]
+			table.insert(answers, {
+				text = text,
+				count = count
+			})
+		end
+	end
+	return answers
+end
+
+function findTotalVotes(args)
+	local total = 0
+	for i = 1, 20, 1 do
+		local votes = args['Votes'..i]
+		if votes and params.has_content(votes) then
+			local answer = args['Answer'..i]
+			if answer ~= 'Skip question' and answer ~= 'Skip' then
+				total = total + tonumber(votes)
+			end
+		end
+	end
+	
+	return total
+end
+
+function findSwordsCount(calculation)
+	local value = 0
+	if calculation < 0.4 then
+		return value
+	end
+	
+	if calculation < 25 then
+		value = value + round(calculation)
+	else
+		value = value + 25
+	end
+	
+	if calculation < 50 then
+		if calculation > 25 then
+			value = value + round(calculation - 25)
+		end
+	else
+		value = value + 25	
+	end
+	
+	if calculation < 75 then
+		if calculation > 54 then
+			value = value + round(calculation - 50)
+		end
+	else
+		value = value + 25
+	end
+	
+	if calculation < 100 then
+		if calculation > 75 then
+			value = value + round(calculation - 75)
+		end
+	else
+		value = value + 25	
+	end
+	
+	return value
+end
+
+function calculatePercentage(votes, calculation)
+	return math.ceil((round(calculation, 1) * 10)) / 10
+end
+
+function round(num, numDecimalPlaces)
+  local mult = 10 ^ (numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+return p

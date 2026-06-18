@@ -1,0 +1,12 @@
+return {
+    itemId     = 121,
+    icon       = 'Attack potion(3).png',
+    item       = 'Attack potion(3)',
+    value      = 12,
+    limit      = 2000,
+    members    = true,
+    category   = nil,
+    examine    = '3 doses of Attack potion.',
+    hialch     = 7,
+    lowalch    = 4
+}

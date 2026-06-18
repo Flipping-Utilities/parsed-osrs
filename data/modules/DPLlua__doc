@@ -1,0 +1,125 @@
+{{Documentation}}
+Uses [[Template:DPLlua helper]] to make it possible to include all parameters of a template while maintaining good performance. 
+
+{{Helper module|name=DPLlua
+|fname1 = ask(&nbsp;...&nbsp;)
+|ftype1 = tables
+|fuse1 = <code>ask</code> takes a series of tables each containing the settings for a DPL query; it will return the same number of result tables as input tables. All formatting settings are stripped from the config. If the config does not contains <code>include</code>, the result will be a simple list of page names. 
+<pre>
+{
+	<pagename#1>,
+	<pagename#2>,
+	<pagename#3>,
+}
+</pre>
+A query with an <code>include</code> of the form <code>include = '{template#1}:1:2:param1:param2, {template#2}:3:param1, %0'</code> will give a result like
+<pre>
+{
+	['include'] = {
+		['template#1'] = {
+			[1] = val#1,
+			[2] = val#2,
+			['param1'] = val#3,
+			['param2'] = val#4,
+		},
+		['template#2'] = {
+			[3] = val#5,
+			['param1'] = val#6,
+		},
+		['%0'] = val#7
+	},
+	['title'] = <pagename>
+}
+</pre>
+You can also do <code>include = '{some template}'</code> which will include all parameters of that template in their unexpanded form (templates are not expanded but some content in parser tags is placed in strip markers).
+
+If the config value <code>count</code> is larger than 500 it will automatically generate multiple DPL queries with offsets and their outputs will be combined in the returned result.
+
+The output contains a <code>time</code> field so you don't need to use <code>%DPLTIME%</code>.
+
+If the DPL throws an error it will be available in the <code>error</code> field of the output.
+
+Differences with normal DPL:
+* All formatting options are ignored
+* Surrogate templates (e.g. <code><nowiki>include = '{template|other template}'</nowiki></code> are ignored
+* Using <code>include = '{template}'</code> will include all the arguments of that template instead of expanding the template
+* The parameter <code>count</code> can go higher than 500
+* When the value of a parameter is a table it will be expanded into multiple lines. E.g. doing <code>notcategory = {val#1, val#2}</code> will expand into 
+<pre>
+|notcategory = val#1
+|notcategory = val#2
+</pre>
+
+Note of warning, if you include content containing <code>§</code> symbols the result may be unreliable. If you include a whole template (e.g. <code>include = '{some template}'</code>), content inside strip markers (not nowiki) can't be cleaned up inside lua so pipe characters (<code>&#124;</code>) will be replaced with <code>§</code> characters and the <code>{</code> and <code>}</code> characters are replaced by <code>&#10100;</code> (U+2774) and <code>&#10101;</code> (U+2775). Use <code>include = '{some template}, {some template}:1:2:3'</code> instead for the problem parameters.
+}}
+
+Example:
+<syntaxhighlight lang='lua'>
+local dpl = require( 'Module:DPLlua' )
+
+local a, b = dpl.ask( {
+		namespace = '',
+		linksto = 'Treasure trails',
+		distinct = 'strict',
+		ordermethod = 'title',
+		count = 5,
+		ignorecase = true
+	},{
+		namespace = '',
+		uses = 'Template:Recipe',
+		count = 1,
+		include = '{Recipe},{Infobox Item}',
+		ignorecase = true
+	} )
+mw.logObject(a)
+mw.logObject(b)
+--[=[
+table#1 {
+  "(beginner)",
+  "(easy)",
+  "(elite)",
+  "(g)",
+  "(hard)",
+  ["time"] = 0.0541,
+}
+table#1 {
+  table#2 {
+    ["include"] = table#3 {
+      ["Infobox Item"] = table#4 {
+        ["destroy"] = "Drop",
+        ["equipable"] = "No",
+        ["examine"] = "It's a bar of 'perfect' gold.",
+        ["id"] = "2365",
+        ["image"] = "[[File:'perfect' gold bar.png]]",
+        ["members"] = "Yes",
+        ["name"] = "'perfect' gold bar",
+        ["noteable"] = "No",
+        ["placeholder"] = "Yes",
+        ["quest"] = "[[Family Crest]]",
+        ["release"] = "[[9 April]] [[2002]]",
+        ["stackable"] = "No",
+        ["tradeable"] = "No",
+        ["update"] = "New members quest online!",
+        ["value"] = "300",
+        ["weight"] = "1.814",
+      },
+      ["Recipe"] = table#5 {
+        ["facilities"] = "Furnace",
+        ["mat1"] = "'perfect' gold ore",
+        ["mat1cost"] = "No",
+        ["members"] = "Yes",
+        ["notes"] = "Partial completion of [[Family Crest]]",
+        ["outputcost"] = "No",
+        ["outputname"] = "'perfect' gold bar",
+        ["skill1"] = "Smithing",
+        ["skill1exp"] = "22.5",
+        ["skill1lvl"] = "40",
+        ["ticks"] = "4",
+      },
+    },
+    ["title"] = "'perfect' gold bar",
+  },
+  ["time"] = 0.0541,
+}
+]=]
+</syntaxhighlight>

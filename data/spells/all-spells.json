@@ -1,0 +1,8544 @@
+[
+  {
+    "name": "Adept Reanimation",
+    "aliases": [
+      "Adept reanimation",
+      "Adept animation",
+      "Adapt reanimation",
+      "Adept"
+    ],
+    "level": 41,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 80,
+    "members": true,
+    "description": "Reanimates a medium levelled creature",
+    "cost": "body rune x4, nature rune x3, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 4
+      },
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Adept Reanimation.png]]"
+  },
+  {
+    "name": "Alchemic Convergence",
+    "aliases": [
+      "Convergence",
+      "Alchemical convergence"
+    ],
+    "level": 1,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 0,
+    "members": true,
+    "description": "Downgrades up to 10 of a resource into a lower tier",
+    "cost": "None",
+    "runeCost": [],
+    "speed": 5,
+    "image": "[[File:Alchemic Convergence.png]]"
+  },
+  {
+    "name": "Alchemic Divergence",
+    "aliases": [
+      "Divergence",
+      "Alchemical divergence"
+    ],
+    "level": 1,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 0,
+    "members": true,
+    "description": "Upgrades up to 10 of a resource into a higher tier.",
+    "cost": "None",
+    "runeCost": [],
+    "speed": 5,
+    "image": "[[File:Alchemic Divergence.png]]"
+  },
+  {
+    "name": "Annakarl Teleport",
+    "aliases": [
+      "Annakarl teleport",
+      "Anakarl teleport",
+      "Annakarl tele",
+      "Demonic ruins teleport",
+      "Annarkarl teleport",
+      "Anarkarl teleport",
+      "Demonic ruins tele"
+    ],
+    "level": 90,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 100,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "blood rune x2, law rune x2",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 2
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Annakarl Teleport.png]]"
+  },
+  {
+    "name": "Ape Atoll Teleport",
+    "aliases": [
+      "Teleport Ape Atoll",
+      "Marim teleport",
+      "Teleport to Ape Atoll",
+      "Ape Atoll Teleport (standard",
+      "Ape atoll teleport (standard)",
+      "Monkey tele",
+      "Ape atoll tele",
+      "Marim tele",
+      "Ape toll tele"
+    ],
+    "level": 64,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 74,
+    "members": true,
+    "description": "Teleports you to Ape Atoll",
+    "cost": "law rune x2, fire rune x2, water rune x2, banana rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      },
+      {
+        "itemId": null,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Ape Atoll Teleport (standard).png]]"
+  },
+  {
+    "name": "Ape Atoll Teleport",
+    "aliases": [
+      "Ape Atoll Teleport (Arceuus",
+      "Ape atoll teleport (arceuus)",
+      "Ape atoll dungeon teleport",
+      "Ape Atoll Dungeon teleport"
+    ],
+    "level": 90,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 100,
+    "members": true,
+    "description": "Teleports you to the dungeon under the Ape Atoll temple",
+    "cost": "law rune x2, soul rune x2, blood rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Ape Atoll Teleport (Arceuus).png]]"
+  },
+  {
+    "name": "Arceuus Home Teleport",
+    "aliases": [
+      "Arceuus home teleport",
+      "Arceeus home teleport",
+      "Arceus home teleport",
+      "Arceuss home teleport",
+      "Arceuus home tele",
+      "Arceuus Home"
+    ],
+    "level": 1,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 0,
+    "members": true,
+    "description": "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.",
+    "cost": "None (see article)",
+    "runeCost": [],
+    "speed": 24,
+    "image": "[[File:Arceuus Home Teleport.png]]"
+  },
+  {
+    "name": "Arceuus Library Teleport",
+    "aliases": [
+      "Library of Arceuus Teleport",
+      "Arceuus library teleport",
+      "Teleport to library",
+      "Arceus teleport",
+      "Library teleport",
+      "Arceuss library teleport",
+      "Arceeus library teleport",
+      "Arceus library teleport",
+      "Arceuss teleport",
+      "Teleport library"
+    ],
+    "level": 6,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 9,
+    "members": true,
+    "description": "Teleports you to the Arceuus Library",
+    "cost": "law rune x1, earth rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Arceuus Library Teleport.png]]"
+  },
+  {
+    "name": "Ardougne Teleport",
+    "aliases": [
+      "Ardougne Teleport (spell)",
+      "Ardounge teleport",
+      "Teleport to ardougne",
+      "Ardougne teleport",
+      "Teleport to Ardougne",
+      "Ardy teleport",
+      "Ardougne spell",
+      "Teleport ardougne",
+      "East Ardougne teleport",
+      "East ardougne teleport",
+      "Ardy tele",
+      "Ardougne tele",
+      "Adrougne teleport",
+      "Ardouge teleport",
+      "Ardogune teleport",
+      "Ardougne teleport spell",
+      "Ardougn teleport",
+      "Ardoughne teleport",
+      "Ardoune teleport",
+      "Ardongue teleport",
+      "Arougne teleport",
+      "Ardough teleport",
+      "Ardougne tp",
+      "Ardougne teleprot",
+      "Aroudgne teleport",
+      "Argougne teleport",
+      "Ardogne teleport",
+      "Ardoungne teleport",
+      "Teleport ardounge",
+      "Ardgougne teleport",
+      "Ardrougne teleport",
+      "Ardy tp"
+    ],
+    "level": 51,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 61,
+    "members": true,
+    "description": "Teleports you to Ardougne",
+    "cost": "law rune x2, water rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Ardougne Teleport.png]]"
+  },
+  {
+    "name": "Bake Pie",
+    "aliases": [
+      "Bake pie",
+      "Bake pie spell",
+      "Pie bake",
+      "Pie Spell",
+      "Pie make",
+      "Cook pie",
+      "Make pie",
+      "Bake pies",
+      "Cook pie spell",
+      "Bake spell",
+      "Pie cook",
+      "Bake pie osrs",
+      "Lunar bake pie",
+      "Osrs bake pie"
+    ],
+    "level": 65,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 60,
+    "members": true,
+    "description": "Bake pies without a stove",
+    "cost": "astral rune x1, fire rune x5, water rune x4",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Bake Pie.png]]"
+  },
+  {
+    "name": "Barbarian Teleport",
+    "aliases": [
+      "Barbarian teleport"
+    ],
+    "level": 75,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 76,
+    "members": true,
+    "description": "Teleports you to the Barbarian Outpost",
+    "cost": "law rune x2, fire rune x3, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 3
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Barbarian Teleport.png]]"
+  },
+  {
+    "name": "Barrows Teleport",
+    "aliases": [
+      "Teleport to barrows",
+      "Barrows teleport",
+      "Barrows tp",
+      "Narrows teleport",
+      "Barrow portal",
+      "Teleport barrows",
+      "Barrow tele",
+      "Barows teleport",
+      "Barrows telepot",
+      "Borrows teleport",
+      "Barrrows teleport",
+      "Barrows teleprot",
+      "Barrows tel",
+      "Barrow's teleport",
+      "Barrows telepor",
+      "Barrows teleport osrs",
+      "Barrows teleport\\",
+      "Barrows telepoty",
+      "Barrows teleportr",
+      "Barrows teleporty",
+      "Barrows teleprt",
+      "Barrows telport",
+      "Osrs barrows teleport",
+      "Barrows telle"
+    ],
+    "level": 83,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 90,
+    "members": true,
+    "description": "Teleports you to the Barrows brothers' graveyard",
+    "cost": "law rune x2, soul rune x2, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Barrows Teleport.png]]"
+  },
+  {
+    "name": "Basic Reanimation",
+    "aliases": [
+      "Basic reanimation"
+    ],
+    "level": 16,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 32,
+    "members": true,
+    "description": "Reanimates a low levelled creature",
+    "cost": "body rune x4, nature rune x2",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 4
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Basic Reanimation.png]]"
+  },
+  {
+    "name": "Battlefront Teleport",
+    "aliases": [
+      "Battlefield teleport",
+      "Battlefront tele",
+      "Battlefront teleport",
+      "Battle front teleport",
+      "Battlefront telepor",
+      "Arceuus battlefront"
+    ],
+    "level": 23,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 19,
+    "members": true,
+    "description": "Teleports you to the grave north-west of Kebos Battlefront",
+    "cost": "law rune x1, earth rune x1, fire rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Battlefront Teleport.png]]"
+  },
+  {
+    "name": "Bind",
+    "aliases": [
+      "Bind spell",
+      "Bound"
+    ],
+    "level": 20,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 31,
+    "members": false,
+    "description": "Holds your opponent for 5 seconds",
+    "cost": "nature rune x2, earth rune x3, water rune x3",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 3
+      }
+    ],
+    "damage": "0",
+    "speed": 5,
+    "image": "[[File:Bind.png]]"
+  },
+  {
+    "name": "Blood Barrage",
+    "aliases": [
+      "Blood barrage",
+      "Blood barage",
+      "Blood barrag",
+      "Blood barr",
+      "Bloodbarrage",
+      "Blood surge",
+      "Blood baragge",
+      "Blood barriage",
+      "Blod barrage",
+      "Blood barrrage",
+      "Osrs blood barrage",
+      "Blood burage",
+      "Blood barrage osrs",
+      "Blood barrahe",
+      "Blood bararge",
+      "Blood barragew",
+      "Blood bar",
+      "Blood barra"
+    ],
+    "level": 92,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 51,
+    "members": true,
+    "description": "A multi-target strong blood attack",
+    "cost": "death rune x4, blood rune x4, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 4
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "element": "Blood",
+    "damage": "29",
+    "speed": 5,
+    "image": "[[File:Blood Barrage.png]]"
+  },
+  {
+    "name": "Blood Blitz",
+    "aliases": [
+      "Blood blitz",
+      "Blood bli",
+      "Blood blit",
+      "Blood blits",
+      "Blood blitx",
+      "Blood bliz",
+      "Bloodblitz",
+      "Bloot blitz",
+      "Blood blitz osrs",
+      "Blod blitz",
+      "Osrs blood blitz"
+    ],
+    "level": 80,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 45,
+    "members": true,
+    "description": "A single target strong blood attack",
+    "cost": "death rune x2, blood rune x4",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 4
+      }
+    ],
+    "element": "Blood",
+    "damage": "25",
+    "speed": 5,
+    "image": "[[File:Blood Blitz.png]]"
+  },
+  {
+    "name": "Blood Burst",
+    "aliases": [
+      "Blood burst",
+      "Blood burs",
+      "Blood burst osrs",
+      "Blood burts",
+      "Bloodburst",
+      "Blood burtst",
+      "Blood brust",
+      "Osrs blood burst",
+      "Blood bust",
+      "Blood burt",
+      "Blood bur",
+      "Blood bursty",
+      "Blood burstr",
+      "Blood busrt",
+      "Blod burst"
+    ],
+    "level": 68,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 39,
+    "members": true,
+    "description": "A multi-target blood attack",
+    "cost": "death rune x2, blood rune x2, chaos rune x4",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 4
+      }
+    ],
+    "element": "Blood",
+    "damage": "21",
+    "speed": 5,
+    "image": "[[File:Blood Burst.png]]"
+  },
+  {
+    "name": "Blood Rush",
+    "aliases": [
+      "Blood rush",
+      "Bloodrush"
+    ],
+    "level": 56,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 33,
+    "members": true,
+    "description": "A single target blood attack",
+    "cost": "blood rune x1, death rune x2, chaos rune x2",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 2
+      }
+    ],
+    "element": "Blood",
+    "damage": "15",
+    "speed": 5,
+    "image": "[[File:Blood Rush.png]]"
+  },
+  {
+    "name": "Bones to Bananas",
+    "aliases": [
+      "Bones To Bananas",
+      "Bones to bananas",
+      "B2b",
+      "Bones to banana",
+      "Bananification",
+      "🦴🍌",
+      "Bone to banana",
+      "Bones to banans",
+      "Bones to bana",
+      "Bones to bannas",
+      "Bones to banas",
+      "Bones to bannana",
+      "Banana to bones"
+    ],
+    "level": 15,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 25,
+    "members": false,
+    "description": "Changes held bones into bananas",
+    "cost": "nature rune x1, earth rune x2, water rune x2",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Bones to Bananas.png]]"
+  },
+  {
+    "name": "Bones to Peaches",
+    "aliases": [
+      "Bones To Peaches",
+      "Bones tp peaches",
+      "B2p",
+      "B2P",
+      "BTP",
+      "Bone to peaches",
+      "Bones to peach",
+      "Bones to peaches spell",
+      "Bones to peaches",
+      "Peachify",
+      "🦴🍑",
+      "Btp",
+      "Peach to bones",
+      "Bone to peach",
+      "Peaches to bones",
+      "Bones to peache",
+      "Bones to beaches",
+      "Bones to peaces",
+      "Boens to peaches",
+      "Bones to peahes",
+      "Bones to peachs",
+      "Bones to peachers",
+      "Bones to peacher",
+      "Bones to p",
+      "Bones to",
+      "Bones 2 peaches",
+      "Bones to pea",
+      "Osrs bones to peaches",
+      "Bones to peaches\\",
+      "Bones to peches",
+      "Bones topeaches",
+      "Bonesto peaches",
+      "Bones peaches",
+      "To peaches",
+      "Bones to peaches unlock",
+      "Bones to peached",
+      "Pones to peaches",
+      "Bones to peacehs",
+      "Bones to peahces",
+      "Bones to peac",
+      "Bones to peacjes",
+      "Bones into peaches",
+      "Ones to peaches",
+      "Bones to epaches",
+      "Bones t peaches",
+      "Bomes to peaches",
+      "Bones to paches",
+      "Bones to peaches osrs",
+      "Ashes to peaches",
+      "Bines to peaches",
+      "Bones to oeaches",
+      "Bones to peachjes",
+      "Bones ot peaches",
+      "Bonews to peaches",
+      "Bones on peaches"
+    ],
+    "level": 60,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 35.5,
+    "members": true,
+    "description": "Changes held bones into peaches",
+    "cost": "nature rune x2, water rune x4, earth rune x4",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      },
+      {
+        "itemId": 557,
+        "quantity": 4
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Bones to Peaches.png]]"
+  },
+  {
+    "name": "Boost Potion Share",
+    "aliases": [
+      "Potion share",
+      "Pot share",
+      "Potshare",
+      "Share potion",
+      "Boost potion share",
+      "Share pot",
+      "Stat potion share",
+      "Stat restore potion share",
+      "Boost share"
+    ],
+    "level": 84,
+    "spellbook": "Lunar",
+    "type": "combat",
+    "exp": 88,
+    "members": true,
+    "description": "Shares a potion with up to 4 nearby players",
+    "cost": "earth rune x12, water rune x10, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 12
+      },
+      {
+        "itemId": 555,
+        "quantity": 10
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Boost Potion Share.png]]"
+  },
+  {
+    "name": "Camelot Teleport",
+    "aliases": [
+      "Teleport to camelot",
+      "Seers teleport",
+      "Seers village teleport",
+      "Cammy tp",
+      "Seers bank teleport",
+      "Camelot teleport",
+      "Camelot tele",
+      "Teleport camelot",
+      "Camelot bank teleport",
+      "Camalot teleport",
+      "Camelot tp",
+      "Seer's village teleport",
+      "Seers tele",
+      "Seers village tele",
+      "Seers' Village teleport",
+      "Seer's bank teleport",
+      "Seer's teleport",
+      "Seer teleport",
+      "Cammy tele",
+      "Camelot telepor",
+      "Camelot teleports",
+      "Seer bank teleport",
+      "Seer village teleport",
+      "Seers village bank teleport",
+      "Camelot teleport spell",
+      "Camelot teleprot",
+      "Camelot telport",
+      "Tele to camelot",
+      "Teleport seers",
+      "Teleport seers village",
+      "Teleport to seers",
+      "Teleport to seers village",
+      "Camalot tele",
+      "Camolot teleport",
+      "Teleport to camelot runes"
+    ],
+    "level": 45,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 55.5,
+    "members": true,
+    "description": "Teleports you to Camelot",
+    "cost": "law rune x1, air rune x5",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 5
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Camelot Teleport.png]]"
+  },
+  {
+    "name": "Carrallanger Teleport",
+    "aliases": [
+      "Carrallanger teleport",
+      "Carrallangar teleport",
+      "Carrallangar Teleport",
+      "Carallangar",
+      "Carallanger",
+      "Carralanger teleport",
+      "Carralangar teleport",
+      "Carallangar teleport",
+      "Carallanger teleport"
+    ],
+    "level": 84,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 94,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "soul rune x2, law rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 2
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Carrallanger Teleport.png]]"
+  },
+  {
+    "name": "Catherby Teleport",
+    "aliases": [
+      "Teleport to catherby",
+      "Catherby teleport",
+      "Catherby tele",
+      "Teleport catherby",
+      "Caterby teleport",
+      "Catheryby teleport",
+      "Catherby teleprot",
+      "Lunar catherby",
+      "Catherby tp",
+      "Cat herby teleport",
+      "Catehrby teleport"
+    ],
+    "level": 87,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 92,
+    "members": true,
+    "description": "Teleports you to Catherby",
+    "cost": "law rune x3, water rune x10, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 10
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Catherby Teleport.png]]"
+  },
+  {
+    "name": "Cemetery Teleport",
+    "aliases": [
+      "Cemetary teleport",
+      "Cemetery teleport",
+      "Cementery teleport",
+      "Cemetry teleport",
+      "Cemetary tele",
+      "Cemetary tablet",
+      "Forgotten cemetary teleport"
+    ],
+    "level": 71,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 82,
+    "members": true,
+    "description": "Teleports you to the Forgotten Cemetery",
+    "cost": "law rune x1, soul rune x1, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Cemetery Teleport.png]]"
+  },
+  {
+    "name": "Charge",
+    "aliases": [
+      "Charges",
+      "Charge spell",
+      "Osrs charge",
+      "Your magical charge fades away"
+    ],
+    "level": 80,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 180,
+    "members": true,
+    "description": "Temporarily increases the power of the three arena spells when wearing Mage Arena capes",
+    "cost": "fire rune x3, blood rune x3, air rune x3",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 3
+      },
+      {
+        "itemId": 565,
+        "quantity": 3
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Charge.png]]"
+  },
+  {
+    "name": "Charge Air Orb",
+    "aliases": [
+      "Charge air orb",
+      "Charge air",
+      "Charge air orbs",
+      "Charged air orb",
+      "Enchant air orb"
+    ],
+    "level": 66,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 76,
+    "members": true,
+    "description": "Needs to be cast on an air obelisk",
+    "cost": "cosmic rune x3, air rune x30, orb rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 3
+      },
+      {
+        "itemId": 556,
+        "quantity": 30
+      },
+      {
+        "itemId": null,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Charge Air Orb.png]]"
+  },
+  {
+    "name": "Charge Earth Orb",
+    "aliases": [
+      "Charge earth orb",
+      "Charge an earth orb",
+      "Charge earth",
+      "Earth charge",
+      "Earth orb charge"
+    ],
+    "level": 60,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 70,
+    "members": true,
+    "description": "Needs to be cast on an earth obelisk",
+    "cost": "cosmic rune x3, earth rune x30, orb rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 3
+      },
+      {
+        "itemId": 557,
+        "quantity": 30
+      },
+      {
+        "itemId": null,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Charge Earth Orb.png]]"
+  },
+  {
+    "name": "Charge Fire Orb",
+    "aliases": [
+      "Charge fire orb",
+      "Enchant fire orb",
+      "Charging fire orb",
+      "Fire orb charging"
+    ],
+    "level": 63,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 73,
+    "members": true,
+    "description": "Needs to be cast on a fire obelisk",
+    "cost": "cosmic rune x3, fire rune x30, orb rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 3
+      },
+      {
+        "itemId": 554,
+        "quantity": 30
+      },
+      {
+        "itemId": null,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Charge Fire Orb.png]]"
+  },
+  {
+    "name": "Charge Water Orb",
+    "aliases": [
+      "Charge water orb",
+      "Charge a water orb",
+      "Charge water"
+    ],
+    "level": 56,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 66,
+    "members": true,
+    "description": "Needs to be cast on a water obelisk",
+    "cost": "cosmic rune x3, water rune x30, orb rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 30
+      },
+      {
+        "itemId": null,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Charge Water Orb.png]]"
+  },
+  {
+    "name": "Civitas illa Fortis Teleport",
+    "aliases": [
+      "Fortis Teleport",
+      "Civitas illa fortis teleport",
+      "Varlamore teleport",
+      "Fortis teleport",
+      "Valamore teleport",
+      "Teleport to varlamore",
+      "Civitas teleport",
+      "Fortis tele",
+      "Civitas Teleport",
+      "Civita teleport",
+      "Civita Teleport",
+      "Fortis colosseum teleport",
+      "Civitas tele",
+      "Teleport varlamore",
+      "Civi tele",
+      "Teleport to civitas",
+      "Fortis tp",
+      "Civitas tp"
+    ],
+    "level": 54,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 64,
+    "members": true,
+    "description": "Teleports you to Civitas illa Fortis",
+    "cost": "law rune x2, earth rune x1, fire rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Civitas illa Fortis Teleport.png]]"
+  },
+  {
+    "name": "Claws of Guthix",
+    "aliases": [
+      "Claws of guthix",
+      "Guthix claw",
+      "Claw of guthix",
+      "Guthix claws",
+      "Guthix strike",
+      "Claws of guthic",
+      "Guthix spell",
+      "Claws of guthi",
+      "Claws of guth",
+      "Claw spell",
+      "Claws of gothic",
+      "Guthix god spell",
+      "Claws of guthis"
+    ],
+    "level": 60,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 35,
+    "members": true,
+    "description": "Summons the power of Guthix",
+    "cost": "fire rune x1, blood rune x2, air rune x4",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 1
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 4
+      }
+    ],
+    "element": "God",
+    "damage": "* 20 Charged & Guthix cape worn: * 30",
+    "speed": 5,
+    "image": "Claws of Guthix.png"
+  },
+  {
+    "name": "Confuse",
+    "aliases": [
+      "Confused"
+    ],
+    "level": 3,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 13,
+    "members": false,
+    "description": "Reduces your opponent's attack by 5%",
+    "cost": "body rune x1, earth rune x2, water rune x3",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 3
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Confuse.png]]"
+  },
+  {
+    "name": "Crumble Undead",
+    "aliases": [
+      "Crumble undead",
+      "Crumble",
+      "Undead crumble",
+      "Undead spell",
+      "Crumple undead",
+      "Crumble dead",
+      "Cumble undead",
+      "Crumble the undead",
+      "Crumble unded",
+      "Crumble udnead",
+      "Crumble undea",
+      "Destroy undead",
+      "Cast undead",
+      "Cripple undead",
+      "Cruble undead",
+      "Crumble undead osrs",
+      "Curmble undead",
+      "Crumble indead",
+      "Crumbled undead",
+      "Crumbling undead",
+      "Crumbe undead",
+      "Crumble undeadf",
+      "Crumble unde",
+      "Crumble un",
+      "Crumble undead spell",
+      "Crush undead",
+      "Auto cast crumble undead"
+    ],
+    "level": 39,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 24.5,
+    "members": false,
+    "description": "Hits skeletons, ghosts, shades & zombies hard",
+    "cost": "earth rune x2, air rune x2, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "damage": "15",
+    "speed": 5,
+    "image": "[[File:Crumble Undead.png]]"
+  },
+  {
+    "name": "Cure Group",
+    "aliases": [
+      "Cure group",
+      "Cure all"
+    ],
+    "level": 74,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 74,
+    "members": true,
+    "description": "Cure poison on players",
+    "cost": "astral rune x2, law rune x2, cosmic rune x2",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 564,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Cure Group.png]]"
+  },
+  {
+    "name": "Cure Me",
+    "aliases": [
+      "Cure me",
+      "Cur eme",
+      "Cure me spell",
+      "Osrs cure me",
+      "Cure self",
+      "Cure me osrs",
+      "Cureme",
+      "Cure posion"
+    ],
+    "level": 71,
+    "spellbook": "Lunar",
+    "type": "combat",
+    "exp": 69,
+    "members": true,
+    "description": "Cure poison",
+    "cost": "astral rune x2, cosmic rune x2, law rune x1",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 564,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Cure Me.png]]"
+  },
+  {
+    "name": "Cure Other",
+    "aliases": [
+      "Cure other"
+    ],
+    "level": 68,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 65,
+    "members": true,
+    "description": "Cure poisoned players",
+    "cost": "astral rune x1, law rune x1, earth rune x10",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 10
+      }
+    ],
+    "image": "[[File:Cure Other.png]]"
+  },
+  {
+    "name": "Cure Plant",
+    "aliases": [
+      "Cure plant",
+      "Cure crops",
+      "Cure plant spell"
+    ],
+    "level": 66,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 60,
+    "members": true,
+    "description": "Cures disease on farming patch",
+    "cost": "astral rune x1, earth rune x8",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 8
+      }
+    ],
+    "image": "[[File:Cure Plant.png]]"
+  },
+  {
+    "name": "Curse",
+    "aliases": [
+      "Curse splashing"
+    ],
+    "level": 19,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 29,
+    "members": false,
+    "description": "Reduces your opponent's defence by 5%",
+    "cost": "body rune x1, earth rune x3, water rune x2",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Curse.png]]"
+  },
+  {
+    "name": "Dareeyak Teleport",
+    "aliases": [
+      "Dareeyak teleport",
+      "Dareyaak",
+      "Dareeyak portal",
+      "Dareeyk"
+    ],
+    "level": 78,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 88,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "law rune x2, fire rune x3, air rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 3
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Dareeyak Teleport.png]]"
+  },
+  {
+    "name": "Dark Demonbane",
+    "aliases": [
+      "Dark demonbane",
+      "Dark Demon Bane",
+      "Dark demon bane",
+      "Dark demonabne"
+    ],
+    "level": 82,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 43.5,
+    "members": true,
+    "description": "Hits a demon for major damage",
+    "cost": "fire rune x7, soul rune x2",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 7
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      }
+    ],
+    "damage": "30",
+    "speed": 5,
+    "image": "[[File:Dark Demonbane.png]]"
+  },
+  {
+    "name": "Dark Lure",
+    "aliases": [
+      "Dark lure",
+      "Lure spell",
+      "Imp lure",
+      "Impling spell",
+      "Dark snare",
+      "Darkl ure",
+      "Lure impling",
+      "Impling lure",
+      "Imp spell",
+      "Dark luire",
+      "Dark lore",
+      "Darl lure",
+      "Dark lue",
+      "Dark lu",
+      "Dark grab"
+    ],
+    "level": 50,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 60,
+    "members": true,
+    "description": "Lures your target toward you",
+    "cost": "nature rune x1, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Dark Lure.png]]"
+  },
+  {
+    "name": "Death Charge",
+    "aliases": [
+      "Death charge",
+      "Deaths charge",
+      "Death's charge",
+      "Deathcharge",
+      "Depth charge",
+      "Death cahrge",
+      "Death charg",
+      "Deaeth charge",
+      "Death carge",
+      "Death chrage",
+      "Daeth charge",
+      "Death charge osrs",
+      "Dead charge",
+      "Deaf charge",
+      "Ddc"
+    ],
+    "level": 80,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 90,
+    "members": true,
+    "description": "Restores some of your special attack energy when you defeat a foe",
+    "cost": "death rune x1, blood rune x1, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 1
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Death Charge.png]]"
+  },
+  {
+    "name": "Degrime",
+    "aliases": [
+      "Cleanse",
+      "Degriming",
+      "Clean herb spell",
+      "Degrim",
+      "De grime",
+      "Herb clean",
+      "Degrime spell",
+      "Degrime herb",
+      "Degriming herbs",
+      "Casting degrime",
+      "Clean herbs spell",
+      "Degrime herbs",
+      "Ungrime",
+      "Herb clean spell",
+      "Herb degrime",
+      "Spell to clean herbs",
+      "Degrime money",
+      "Herb cleaning spell",
+      "Herblore spell",
+      "Herb spell",
+      "Degrime osrs",
+      "Defrime",
+      "Clean grimy herb",
+      "Clean spell",
+      "Degime",
+      "Grimy spell"
+    ],
+    "level": 70,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 83,
+    "members": true,
+    "description": "Cleans all of your grimy herbs",
+    "cost": "earth rune x4, nature rune x2",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 4
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      }
+    ],
+    "speed": 8,
+    "image": "[[File:Degrime.png]]"
+  },
+  {
+    "name": "Demonic Offering",
+    "aliases": [
+      "Demonic offering",
+      "Demonic offer",
+      "Demonic sacrifice",
+      "Demonic off",
+      "Demoic offering",
+      "Sacrifice ashes",
+      "Demon offering",
+      "Demonic offerings",
+      "Demoinc offering"
+    ],
+    "level": 84,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 175,
+    "members": true,
+    "description": "Converts demonic ashes into prayer points and experience",
+    "cost": "soul rune x1, wrath rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 21880,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Demonic Offering.png]]"
+  },
+  {
+    "name": "Draynor Manor Teleport",
+    "aliases": [
+      "Draynor teleport",
+      "Draynor manor teleport",
+      "Draynor Manor teleport",
+      "Draynor manor tele",
+      "Draynor tele"
+    ],
+    "level": 17,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 16,
+    "members": true,
+    "description": "Teleports you to Draynor Manor",
+    "cost": "law rune x1, earth rune x1, water rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Draynor Manor Teleport.png]]"
+  },
+  {
+    "name": "Dream",
+    "aliases": [
+      "Dream (spell)",
+      "Dream spell",
+      "Zzz",
+      "Sleeping",
+      "Rest spell",
+      "Sleep spell",
+      "Sleeping emote",
+      "Sit emote"
+    ],
+    "level": 79,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 82,
+    "members": true,
+    "description": "Take a rest and restore Hitpoints 3 times faster",
+    "cost": "cosmic rune x1, body rune x5, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 559,
+        "quantity": 5
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Dream.png]]"
+  },
+  {
+    "name": "Earth Blast",
+    "aliases": [
+      "Earth blast",
+      "Eart blast",
+      "Earth blast osrs",
+      "Earthblast"
+    ],
+    "level": 53,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 31.5,
+    "members": false,
+    "description": "A medium level Earth missile",
+    "cost": "earth rune x4, air rune x3, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 4
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "element": "Earth",
+    "damage": "15 or 16",
+    "speed": 5,
+    "image": "[[File:Earth Blast.png]]"
+  },
+  {
+    "name": "Earth Bolt",
+    "aliases": [
+      "Earth bolt"
+    ],
+    "level": 29,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 19.5,
+    "members": false,
+    "description": "A low level Earth missile",
+    "cost": "earth rune x3, air rune x2, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 3
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "element": "Earth",
+    "damage": "11 or 12",
+    "speed": 5,
+    "image": "[[File:Earth Bolt.png]]"
+  },
+  {
+    "name": "Earth Strike",
+    "aliases": [
+      "Earth strike",
+      "Earth stike",
+      "Earth strik",
+      "Eath strike"
+    ],
+    "level": 9,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 9.5,
+    "members": false,
+    "description": "A basic Earth missile",
+    "cost": "earth rune x2, air rune x1, mind rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      },
+      {
+        "itemId": 558,
+        "quantity": 1
+      }
+    ],
+    "element": "Earth",
+    "damage": "6 or 8",
+    "speed": 5,
+    "image": "[[File:Earth Strike.png]]"
+  },
+  {
+    "name": "Earth Surge",
+    "aliases": [
+      "Earth surge",
+      "Earthsurge",
+      "Earth Surges",
+      "Earth sure",
+      "Green Surge",
+      "Green surge",
+      "Earth sruge",
+      "Eart surge",
+      "Earth surge osrs"
+    ],
+    "level": 90,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 48.2,
+    "members": true,
+    "description": "A very high level Earth missile",
+    "cost": "earth rune x10, air rune x7, wrath rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 556,
+        "quantity": 7
+      },
+      {
+        "itemId": 21880,
+        "quantity": 1
+      }
+    ],
+    "element": "Earth",
+    "damage": "23 or 24",
+    "speed": 5,
+    "image": "[[File:Earth Surge.png]]"
+  },
+  {
+    "name": "Earth Wave",
+    "aliases": [
+      "Earth wave",
+      "Earth wve",
+      "Eart wave",
+      "Earthwave",
+      "Eath wave",
+      "Earth wa",
+      "Earth wave osrs"
+    ],
+    "level": 70,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 40,
+    "members": true,
+    "description": "A high level Earth missile",
+    "cost": "earth rune x7, air rune x5, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 7
+      },
+      {
+        "itemId": 556,
+        "quantity": 5
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "element": "Earth",
+    "damage": "19 or 20",
+    "speed": 5,
+    "image": "[[File:Earth Wave.png]]"
+  },
+  {
+    "name": "Edgeville Home Teleport",
+    "aliases": [
+      "Edgeville teleport",
+      "Edgeville home teleport",
+      "Edgeville home"
+    ],
+    "level": 1,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 0,
+    "members": false,
+    "description": "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.",
+    "cost": "None (see article)",
+    "runeCost": [],
+    "speed": 24,
+    "image": "[[File:Edgeville Home Teleport.png]]"
+  },
+  {
+    "name": "Enchant Crossbow bolt (Dragonstone)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Dragonstone",
+      "Enchant crossbow bolt (dragonstone)",
+      "Enchant dragonstone bolt",
+      "Enchant dragonstone bolts",
+      "Dragonstone bolt eenchant spell"
+    ],
+    "level": 68,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 78,
+    "members": true,
+    "description": "For use on dragonstone-tipped bolts.",
+    "cost": "cosmic rune x1, earth rune x15, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolt (Jade)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Jade",
+      "Enchant crossbow bolt (jade)"
+    ],
+    "level": 14,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 19,
+    "members": true,
+    "description": "For use on jade-tipped bolts.",
+    "cost": "cosmic rune x1, earth rune x2",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolt (Onyx)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Onyx",
+      "Enchant crossbow bolt (onyx)",
+      "Enchant onyx bolt",
+      "Enchant onyx bolts",
+      "Enchanting onyx bolt",
+      "Onyx bolt enchant"
+    ],
+    "level": 87,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 97,
+    "members": true,
+    "description": "For use on onyx-tipped bolts.",
+    "cost": "cosmic rune x1, fire rune x20, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 20
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolt (Opal)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Opal",
+      "Enchant crossbow bolt (opal)"
+    ],
+    "level": 4,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 9,
+    "members": true,
+    "description": "For use on opal-tipped bolts.",
+    "cost": "cosmic rune x1, air rune x2",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolt (Sapphire)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Sapphire",
+      "Enchant crossbow bolt (sapphire)"
+    ],
+    "level": 7,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 17.5,
+    "members": true,
+    "description": "For use on sapphire-tipped bolts.",
+    "cost": "cosmic rune x1, water rune x1, mind rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      },
+      {
+        "itemId": 558,
+        "quantity": 1
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolt (Topaz)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Red Topaz",
+      "Enchant crossbow bolt (red topaz)",
+      "Enchant topaz bolt"
+    ],
+    "level": 29,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 33.5,
+    "members": true,
+    "description": "For use on red topaz-tipped bolts.",
+    "cost": "cosmic rune x1, fire rune x2",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 2
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolts (Diamond)",
+    "aliases": [
+      "Enchant diamond bolt",
+      "Enchant Crossbow Bolt (Diamond",
+      "Enchant crossbow bolt (diamond)",
+      "Enchanting diamond bolts"
+    ],
+    "level": 57,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 67,
+    "members": true,
+    "description": "For use on diamond-tipped bolts.",
+    "cost": "cosmic rune x1, earth rune x10, law rune x2",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 563,
+        "quantity": 2
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolts (Emerald)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Emerald",
+      "Enchant crossbow bolt (emerald)"
+    ],
+    "level": 27,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 37,
+    "members": true,
+    "description": "For use on emerald-tipped bolts.",
+    "cost": "cosmic rune x1, air rune x3, nature rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolts (Pearl)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Pearl",
+      "Enchant crossbow bolt (pearl)"
+    ],
+    "level": 24,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 29,
+    "members": true,
+    "description": "For use on pearl-tipped bolts.",
+    "cost": "cosmic rune x1, water rune x2",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Enchant Crossbow Bolts (Ruby)",
+    "aliases": [
+      "Enchant Crossbow Bolt (Ruby",
+      "Enchant crossbow bolt (ruby)",
+      "Enchant ruby bolts",
+      "Enchanting ruby bolts",
+      "Ruby bolt enchant"
+    ],
+    "level": 49,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 59,
+    "members": true,
+    "description": "For use on ruby-tipped bolts.",
+    "cost": "cosmic rune x1, fire rune x5, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Enchant Crossbow Bolt.png]]"
+  },
+  {
+    "name": "Energy Transfer",
+    "aliases": [
+      "Spec transfer",
+      "Energy transfer",
+      "Transfer energy",
+      "Transfer",
+      "Special attack transfer",
+      "Spec xfer",
+      "Transfer spec",
+      "Spec trasnfer"
+    ],
+    "level": 91,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 100,
+    "members": true,
+    "description": "Spend Hitpoints and SA energy to give another SA and run energy",
+    "cost": "astral rune x3, law rune x2, nature rune x1",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 3
+      },
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Energy Transfer.png]]"
+  },
+  {
+    "name": "Enfeeble",
+    "aliases": [],
+    "level": 73,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 83,
+    "members": true,
+    "description": "Reduces your opponent's strength by 10%",
+    "cost": "earth rune x8, water rune x8, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 8
+      },
+      {
+        "itemId": 555,
+        "quantity": 8
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Enfeeble.png]]"
+  },
+  {
+    "name": "Entangle",
+    "aliases": [
+      "Tangle",
+      "Entagle",
+      "Entangle osrs",
+      "Entange",
+      "Entagnle",
+      "Entangle\\",
+      "Etangle",
+      "Entanle",
+      "Entangled",
+      "Osrs entangle",
+      "Entangel",
+      "Entangl"
+    ],
+    "level": 79,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 89,
+    "members": true,
+    "description": "Holds your opponent for 15 seconds",
+    "cost": "nature rune x4, earth rune x5, water rune x5",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 4
+      },
+      {
+        "itemId": 557,
+        "quantity": 5
+      },
+      {
+        "itemId": 555,
+        "quantity": 5
+      }
+    ],
+    "damage": "5",
+    "speed": 5,
+    "image": "[[File:Entangle.png]]"
+  },
+  {
+    "name": "Expert Reanimation",
+    "aliases": [
+      "Expert reanimation",
+      "Reanimate hellhound",
+      "Expert reanimate",
+      "Expert animation"
+    ],
+    "level": 72,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 138,
+    "members": true,
+    "description": "Reanimates a high levelled creature",
+    "cost": "nature rune x3, blood rune x1, soul rune x2",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Expert Reanimation.png]]"
+  },
+  {
+    "name": "Falador Teleport",
+    "aliases": [
+      "Teleport to falador",
+      "Falador teleport",
+      "Teleport to Falador",
+      "Fally tele",
+      "Teleport falador",
+      "Faldor teleport",
+      "Falador tele",
+      "Falador tp"
+    ],
+    "level": 37,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 48,
+    "members": false,
+    "description": "Teleports you to Falador",
+    "cost": "law rune x1, water rune x1, air rune x3",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Falador Teleport.png]]"
+  },
+  {
+    "name": "Fenkenstrain's Castle Teleport",
+    "aliases": [
+      "Fenkenstrain’s Castle Teleport",
+      "Fenkenstrain teleport",
+      "Fenkenstrain's castle teleport",
+      "Frankenstein castle teleport",
+      "Frankenstein teleport",
+      "Frenkenstrain teleport",
+      "Fenkenstrain castle teleport",
+      "Frenkie castle tele",
+      "Fenk tp",
+      "Fenken Castle teleport",
+      "Fenken castle teleport",
+      "Fenken teleport",
+      "Fenkenstrain's",
+      "Fenkenstrains castle teleport",
+      "Fenkenstrains",
+      "Fenkenstrain tp"
+    ],
+    "level": 48,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 50,
+    "members": true,
+    "description": "Teleports you to Fenkenstrain's Castle",
+    "cost": "law rune x1, soul rune x1, earth rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Fenkenstrain's Castle Teleport.png]]"
+  },
+  {
+    "name": "Fertile Soil",
+    "aliases": [
+      "Fertile soil",
+      "Ultra fertile soil",
+      "Fertilize soil",
+      "Fertilize",
+      "Compost spell",
+      "Fertilise soil",
+      "Treat soil",
+      "Ultra compost spell",
+      "Ultracompost spell",
+      "Fertilize spell",
+      "Soil spell",
+      "Fertile soi",
+      "Supercompost spell",
+      "Lunar spellbook herb run"
+    ],
+    "level": 83,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 87,
+    "members": true,
+    "description": "Fertilise a farming patch with super compost",
+    "cost": "earth rune x15, nature rune x2, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Fertile Soil.png]]"
+  },
+  {
+    "name": "Fire Blast",
+    "aliases": [
+      "Fire blast",
+      "Fireblast",
+      "Fire blastr",
+      "Fire balst",
+      "Fire blas",
+      "Fire blast osrs",
+      "Fire burst",
+      "Fire blsat",
+      "Fire bl",
+      "Fire blasty",
+      "Fire blst",
+      "Fire blat",
+      "Fire bla",
+      "Osrs fire blast",
+      "Fire blase"
+    ],
+    "level": 59,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 34.5,
+    "members": false,
+    "description": "A medium level Fire missile",
+    "cost": "fire rune x5, air rune x4, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 556,
+        "quantity": 4
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "element": "Fire",
+    "damage": "16",
+    "speed": 5,
+    "image": "[[File:Fire Blast.png]]"
+  },
+  {
+    "name": "Fire Bolt",
+    "aliases": [
+      "Fire bolt",
+      "Firebolt",
+      "Fire bolts",
+      "Fire bol",
+      "Fire bolt osrs",
+      "Fire botl",
+      "Fire boly",
+      "Fire bolt max hit",
+      "Osrs fire bolt",
+      "Fier bolt"
+    ],
+    "level": 35,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 22.5,
+    "members": false,
+    "description": "A low level Fire missile",
+    "cost": "fire rune x4, air rune x3, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 4
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "element": "Fire",
+    "damage": "12",
+    "speed": 5,
+    "image": "[[File:Fire Bolt.png]]"
+  },
+  {
+    "name": "Fire Strike",
+    "aliases": [
+      "Fire strike",
+      "Firestrike",
+      "Flame strike",
+      "Fire stike",
+      "Fire stirke",
+      "Fire striek",
+      "Fire strik",
+      "Fire strikes",
+      "Fires trike",
+      "Fire strke",
+      "Fires strike",
+      "Fire srike",
+      "Osrs fire strike"
+    ],
+    "level": 13,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 11.5,
+    "members": false,
+    "description": "A basic Fire missile",
+    "cost": "fire rune x3, air rune x2, mind rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 3
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 558,
+        "quantity": 1
+      }
+    ],
+    "element": "Fire",
+    "damage": "8",
+    "speed": 5,
+    "image": "[[File:Fire Strike.png]]"
+  },
+  {
+    "name": "Fire Surge",
+    "aliases": [
+      "Fire surge",
+      "Firesurge",
+      "Fire Surges",
+      "Fire sure",
+      "Red Surge",
+      "Red surge",
+      "Flame surge",
+      "Fire surege",
+      "Fire sruge",
+      "Fire surg",
+      "Fire surge osrs",
+      "Fire surge max hit",
+      "Osrs fire surge",
+      "Fure surge",
+      "Fire surger",
+      "Fire sirge",
+      "Fire surge\\",
+      "Fire suge"
+    ],
+    "level": 95,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 50.5,
+    "members": true,
+    "description": "A very high level Fire missile",
+    "cost": "fire rune x10, air rune x7, wrath rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 10
+      },
+      {
+        "itemId": 556,
+        "quantity": 7
+      },
+      {
+        "itemId": 21880,
+        "quantity": 1
+      }
+    ],
+    "element": "Fire",
+    "damage": "24",
+    "speed": 5,
+    "image": "[[File:Fire Surge.png]]"
+  },
+  {
+    "name": "Fire Wave",
+    "aliases": [
+      "Fire wave",
+      "Firewave",
+      "Flame wave",
+      "Fire wave osrs",
+      "Osrs fire wave",
+      "Fire wav",
+      "Fire wawe",
+      "Fire wave max hit",
+      "Fire wace",
+      "Fire wave\\",
+      "Fire waver",
+      "Fir wave",
+      "Wire wave",
+      "Fore wave"
+    ],
+    "level": 75,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 42.5,
+    "members": true,
+    "description": "A high level Fire missile",
+    "cost": "fire rune x7, air rune x5, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 7
+      },
+      {
+        "itemId": 556,
+        "quantity": 5
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "element": "Fire",
+    "damage": "20",
+    "speed": 5,
+    "image": "[[File:Fire Wave.png]]"
+  },
+  {
+    "name": "Fishing Guild Teleport",
+    "aliases": [
+      "Fishing guild teleport"
+    ],
+    "level": 85,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 89,
+    "members": true,
+    "description": "Teleports you to the Fishing Guild",
+    "cost": "law rune x3, water rune x10, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 10
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Fishing Guild Teleport.png]]"
+  },
+  {
+    "name": "Flames of Zamorak",
+    "aliases": [
+      "Zamorak strike",
+      "Flames of zamorak",
+      "Flames of zamm",
+      "Zamorak flames",
+      "Flame of zamorak",
+      "Zammy flames",
+      "Zamorak flame",
+      "Zamorak spell",
+      "Flames of",
+      "Flames of Zamora",
+      "Flames of zam",
+      "Flames of zamarok",
+      "Flames of zammy",
+      "Claws of zamorak",
+      "Zammy flame",
+      "Flames of zamarak",
+      "Flames of zamorka",
+      "Zammy strike",
+      "Zammy spell",
+      "Flames of z",
+      "Zamorak god spell",
+      "Falmes of zamorak",
+      "Zamorak fire",
+      "Zamorakian flames",
+      "FoZ",
+      "Foz",
+      "Flames of zammorak",
+      "Zamorak blast",
+      "Flames of zamorack",
+      "Zamarok spell",
+      "Zamorak claws",
+      "Autocast flames of zamorak",
+      "Flame of zammy",
+      "Zamorakian strike",
+      "Zammorak flames"
+    ],
+    "level": 60,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 35,
+    "members": true,
+    "description": "Summons the power of Zamorak",
+    "cost": "fire rune x4, blood rune x2, air rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      }
+    ],
+    "element": "God",
+    "damage": "* 20 Charged & Zamorak cape worn: * 30",
+    "speed": 5,
+    "image": "[[File:Flames of Zamorak.png]]"
+  },
+  {
+    "name": "Geomancy",
+    "aliases": [
+      "Remote Farm",
+      "Remote farming"
+    ],
+    "level": 65,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 60,
+    "members": true,
+    "description": "Checks the status of your main Farming patches",
+    "cost": "astral rune x3, nature rune x3, earth rune x8",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 3
+      },
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 557,
+        "quantity": 8
+      }
+    ],
+    "image": "[[File:Geomancy.png]]"
+  },
+  {
+    "name": "Ghorrock Teleport",
+    "aliases": [
+      "Ghorrok Teleport",
+      "Ghorrock teleport",
+      "Teleport to ghorrock",
+      "Ghorrock tele",
+      "Gorrock teleport",
+      "Gharrock teleport",
+      "Ghorock teleport",
+      "Ghorrak teleport",
+      "Ghorrok tele",
+      "Gharrok teleport",
+      "Ghorrock tp",
+      "Garrock teleport"
+    ],
+    "level": 96,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 106,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "law rune x2, water rune x8",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 8
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Ghorrock Teleport.png]]"
+  },
+  {
+    "name": "Ghostly Grasp",
+    "aliases": [],
+    "level": 35,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 22.5,
+    "members": true,
+    "description": "Deals minor damage with a low chance of holding your target",
+    "cost": "air rune x4, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 4
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "damage": "12",
+    "speed": 5,
+    "image": "[[File:Ghostly Grasp.png]]"
+  },
+  {
+    "name": "Greater Corruption",
+    "aliases": [
+      "Greater corruption",
+      "Greater coruption",
+      "Greator corruption",
+      "Grater corruption"
+    ],
+    "level": 85,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 95,
+    "members": true,
+    "description": "Imbues your attacks with a greater corruption",
+    "cost": "blood rune x1, soul rune x3",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Greater Corruption.png]]"
+  },
+  {
+    "name": "Harmony Island Teleport",
+    "aliases": [
+      "Harmony island teleport",
+      "Harmony isle teleport",
+      "Harmony tele",
+      "Harmoney island teleport",
+      "Harmony teleport",
+      "Harmony tp"
+    ],
+    "level": 65,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 74,
+    "members": true,
+    "description": "Teleports you to Harmony Island",
+    "cost": "law rune x1, soul rune x1, nature rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Harmony Island Teleport.png]]"
+  },
+  {
+    "name": "Heal Group",
+    "aliases": [
+      "Heal group",
+      "Group heal"
+    ],
+    "level": 95,
+    "spellbook": "Lunar",
+    "type": "combat",
+    "exp": 124,
+    "members": true,
+    "description": "Transfers up to 75% of Hitpoints to a group",
+    "cost": "blood rune x3, law rune x6, astral rune x4",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 3
+      },
+      {
+        "itemId": 563,
+        "quantity": 6
+      },
+      {
+        "itemId": 9075,
+        "quantity": 4
+      }
+    ],
+    "speed": 150,
+    "image": "[[File:Heal Group.png]]"
+  },
+  {
+    "name": "Heal Other",
+    "aliases": [
+      "Heal other",
+      "Heal me",
+      "Healing spell"
+    ],
+    "level": 92,
+    "spellbook": "Lunar",
+    "type": "combat",
+    "exp": 101,
+    "members": true,
+    "description": "Transfers up to 75% of Hitpoints to another player",
+    "cost": "blood rune x1, law rune x3, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Heal Other.png]]"
+  },
+  {
+    "name": "High Level Alchemy",
+    "aliases": [
+      "High Alchemy",
+      "High level alchemy",
+      "High alchemy",
+      "High alch",
+      "High Alch",
+      "High alc",
+      "High alching",
+      "HA",
+      "Ha",
+      "High-alch",
+      "Hi alch",
+      "High level alch",
+      "Hialch",
+      "High al",
+      "High alch shop",
+      "Valuable item",
+      "Valuable items",
+      "Hig alchemy",
+      "Osrs high alch",
+      "High aclhemy",
+      "High aclh",
+      "High alcemy",
+      "High alche",
+      "High alchem",
+      "High level alc",
+      "High lach",
+      "Highalch",
+      "Hi alchemy",
+      "Hi alc",
+      "High lvl alchemy",
+      "Alchable",
+      "Alchemy warning",
+      "High alchemy warning",
+      "High alchamy",
+      "Hugh alch",
+      "High alchj",
+      "High alcehmy",
+      "High acl",
+      "High alchemu",
+      "High alk",
+      "Highalc",
+      "F2p high alch",
+      "Highalchemy",
+      "Higth alchemy",
+      "Osrs high alchemy",
+      "High alck",
+      "High alcing",
+      "High level aclhemy",
+      "Hogh alch",
+      "Hogh alchemy",
+      "Casting high alch",
+      "High alchemist",
+      "High arching",
+      "Hich alch",
+      "High achemy",
+      "Hgih alch",
+      "High ach",
+      "High alch rune",
+      "Hight alchemy",
+      "Hla",
+      "High level",
+      "High lvl alch",
+      "H alch",
+      "Hig alch",
+      "High alchelmy",
+      "P2p high alchemy",
+      "High alch drops",
+      "High alchi g",
+      "High alchemy list",
+      "Zero time alching"
+    ],
+    "level": 55,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 65,
+    "members": false,
+    "description": "Converts an item into more gold",
+    "cost": "nature rune x1, fire rune x5",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 0.93
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 561,
+        "quantity": 0.93
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 561,
+        "quantity": 0.93
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:High Level Alchemy.png]]"
+  },
+  {
+    "name": "Humidify",
+    "aliases": [
+      "Rain",
+      "Humidify clay",
+      "Humidfy",
+      "Humidifying clay",
+      "Humidity",
+      "Hydrate",
+      "Humid",
+      "Himidify",
+      "Humidifiy",
+      "Humdify",
+      "Humidi",
+      "Humidift",
+      "Humidifying",
+      "Humidy",
+      "Casting humidify",
+      "Humifidy",
+      "Humidiy",
+      "Humidify spell",
+      "Humidify osrs",
+      "Humidif",
+      "Humi",
+      "Dehumid",
+      "Dehumidify",
+      "Humidifyt",
+      "Humidity spell",
+      "Humifify",
+      "Umidify",
+      "Hunidify",
+      "Humify",
+      "Humidifyu",
+      "Humidify\\",
+      "Humidifu",
+      "Rain spell",
+      "Watering spell",
+      "Water fill spell",
+      "Humidifier",
+      "Osrs humidify",
+      "Humidigy",
+      "Humudify",
+      "Humitify"
+    ],
+    "level": 68,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 65,
+    "members": true,
+    "description": "Fills certain vessels with water",
+    "cost": "astral rune x1, water rune x3, fire rune x1",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 3
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Humidify.png]]"
+  },
+  {
+    "name": "Hunter Kit",
+    "aliases": [
+      "Hunter kit (spell)",
+      "Hunter Kit (spell",
+      "Hunter kit spell",
+      "Hunter spell"
+    ],
+    "level": 71,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 70,
+    "members": true,
+    "description": "Get a kit of hunter gear",
+    "cost": "astral rune x2, earth rune x2",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Hunter Kit.png]]"
+  },
+  {
+    "name": "Iban Blast",
+    "aliases": [
+      "Ibans blast",
+      "Iban's Blast",
+      "Iban blast",
+      "Ivan blast",
+      "Iban blas",
+      "Iban balst",
+      "Iban strike",
+      "Wrath of iban",
+      "Ivan's blast",
+      "Ivans blast",
+      "Ivan’s blast",
+      "I am blast",
+      "Bans blast",
+      "Ibans blast osrs",
+      "Iban blasr",
+      "Ibans blas",
+      "Ibans blast max hit",
+      "Iban blastr",
+      "Iban spell",
+      "Iban's blas",
+      "Ibanblast",
+      "Ibans balst",
+      "Ibn blast",
+      "Iban blst",
+      "Iben blast",
+      "Iban bladt",
+      "Iabn blast",
+      "Iabns blast",
+      "Iban b",
+      "Iban bl",
+      "Iban blast max hit",
+      "Iban blast osrs",
+      "Iban blasty",
+      "Iban blasy",
+      "Ibans blastr",
+      "Ibans blasty",
+      "Ibans staff max hit",
+      "Oban blast",
+      "I and blast"
+    ],
+    "level": 50,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 30,
+    "members": true,
+    "description": "Summons the wrath of Iban",
+    "cost": "fire rune x5, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "damage": "25",
+    "speed": 5,
+    "image": "[[File:Iban Blast.png]]"
+  },
+  {
+    "name": "Ice Barrage",
+    "aliases": [
+      "Ice barrage",
+      "Ice barage",
+      "Ice brrage",
+      "Ice barrrage",
+      "Ice abrrage",
+      "Ice ba",
+      "Ice barr",
+      "Ica barrage",
+      "Ice bar",
+      "Ice barra",
+      "Ice barrag",
+      "Ice barrage osrs",
+      "Ice barraging",
+      "Ice barriage",
+      "Icebarrage",
+      "Ice barrage max hit",
+      "Ice b",
+      "Osrs ice barrage",
+      "Ice barragfe",
+      "Ice barrgae",
+      "Ice barragew",
+      "Ice barrage\\",
+      "I’ve barrage",
+      "Ive barrage",
+      "Ice barraage",
+      "Ice baraage",
+      "Ice berrage",
+      "Ice baragge",
+      "Ice barrge",
+      "Ice barrage'",
+      "Ice barrae",
+      "Ice barragw",
+      "Ice bara",
+      "Ice bareage",
+      "Ice barrahe",
+      "Ice bararge",
+      "Ice Barrage\\",
+      "Ice barrague",
+      "Ice barrager",
+      "Ice barraghe",
+      "Frost barrage",
+      "Ice barragr"
+    ],
+    "level": 94,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 52,
+    "members": true,
+    "description": "A multi-target strong ice attack",
+    "cost": "death rune x4, blood rune x2, water rune x6",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 6
+      }
+    ],
+    "element": "Ice",
+    "damage": "30",
+    "speed": 5,
+    "image": "[[File:Ice Barrage.png]]"
+  },
+  {
+    "name": "Ice Blitz",
+    "aliases": [
+      "Ice blitz",
+      "Ice blit",
+      "Ice blits",
+      "Ice biltz",
+      "Ice bliz",
+      "Ice bltiz",
+      "Ice bli",
+      "Ice blitx",
+      "Ice blizt",
+      "Ice blitz\\",
+      "Ice blitz osrs",
+      "Ice blotz",
+      "I’ve blitz",
+      "Osrs ice blitz"
+    ],
+    "level": 82,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 46,
+    "members": true,
+    "description": "A single target strong ice attack",
+    "cost": "death rune x2, blood rune x2, water rune x3",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 3
+      }
+    ],
+    "element": "Ice",
+    "damage": "26",
+    "speed": 5,
+    "image": "[[File:Ice Blitz.png]]"
+  },
+  {
+    "name": "Ice Burst",
+    "aliases": [
+      "Ice burst",
+      "Ice blast",
+      "Ice brust",
+      "Ice bursting",
+      "Ice bu",
+      "Ice bur",
+      "Ice burs",
+      "Ice bursdt",
+      "Ice burst osrs",
+      "Ice burstr",
+      "Ice bursty",
+      "Ice busrt",
+      "Ice bust",
+      "Ice vurst",
+      "Ic eburst",
+      "Ice birst",
+      "Ice bursy",
+      "Ice burt",
+      "Ice burts",
+      "Ice burtst",
+      "Iceburst",
+      "Osrs ice burst",
+      "I’ve burst",
+      "Ice b urst",
+      "Ice buirst",
+      "Ice burdt",
+      "Ive burst",
+      "Ic burst",
+      "Ice burst\\",
+      "Ice burst'",
+      "Ice buyrst",
+      "Iice burst",
+      "Ice bursst",
+      "Ice byrst",
+      "Ice busrst",
+      "Icr burst",
+      "Uce burst",
+      "Ice Burst\\",
+      "Ice urst",
+      "Ice bursr",
+      "Ice bursrt"
+    ],
+    "level": 70,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 40,
+    "members": true,
+    "description": "A multi-target ice attack",
+    "cost": "death rune x2, chaos rune x4, water rune x4",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 4
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      }
+    ],
+    "element": "Ice",
+    "damage": "22",
+    "speed": 5,
+    "image": "[[File:Ice Burst.png]]"
+  },
+  {
+    "name": "Ice Plateau Teleport",
+    "aliases": [
+      "Ice Plateau teleport",
+      "Ice plateau teleport",
+      "Ice plateau tele",
+      "Ice plateu teleport",
+      "Ice plateua",
+      "Ice platue",
+      "Lunar ice plateau",
+      "Teleport to ice plateau",
+      "Ice plataeu"
+    ],
+    "level": 89,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 96,
+    "members": true,
+    "description": "Teleports you to Ice Plateau",
+    "cost": "law rune x3, water rune x8, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 8
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Ice Plateau Teleport.png]]"
+  },
+  {
+    "name": "Ice Plateau Teleport",
+    "aliases": [
+      "Tele group ice plateau",
+      "Teleother ice plateau"
+    ],
+    "level": 90,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 99,
+    "members": true,
+    "description": "Teleports players to Ice Plateau",
+    "cost": "law rune x3, astral rune x3, water rune x16",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 16
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Ice Plateau.png]]"
+  },
+  {
+    "name": "Ice Rush",
+    "aliases": [
+      "Ice rush"
+    ],
+    "level": 58,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 34,
+    "members": true,
+    "description": "A single target ice attack",
+    "cost": "death rune x2, chaos rune x2, water rune x2",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      }
+    ],
+    "element": "Ice",
+    "damage": "16",
+    "speed": 5,
+    "image": "[[File:Ice Rush.png]]"
+  },
+  {
+    "name": "Inferior Demonbane",
+    "aliases": [
+      "Inferior demonbane",
+      "Inferior Demon Bane"
+    ],
+    "level": 44,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 27,
+    "members": true,
+    "description": "Hits a demon for minor damage",
+    "cost": "fire rune x3, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 3
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "damage": "16",
+    "speed": 5,
+    "image": "[[File:Inferior Demonbane.png]]"
+  },
+  {
+    "name": "Kharyrll Teleport",
+    "aliases": [
+      "Kharyll Teleport",
+      "Kharyll teleport",
+      "Canifis teleport",
+      "Canafis teleport",
+      "Morytania teleport",
+      "Canfis teleport",
+      "Kharyrll teleport",
+      "Karyll teleport",
+      "Karil teleport",
+      "Teleport canifis",
+      "Kharil teleport",
+      "Kharryl teleport",
+      "Kharyl teleport",
+      "Teleport to canifis",
+      "Teleport to canfis",
+      "Teleport to canafis",
+      "Canafis tele",
+      "Canifis tele",
+      "Canifis teleports",
+      "Canifs teleport",
+      "Cannifis teleport",
+      "Kahryll teleport",
+      "Teleport canafis",
+      "Teleport to kharyll",
+      "Canfis tele",
+      "Canifis tp",
+      "Karyl teleport",
+      "Cannafis teleport",
+      "Karryl teleport"
+    ],
+    "level": 66,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 76,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "law rune x2, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Kharyrll Teleport.png]]"
+  },
+  {
+    "name": "Khazard Teleport",
+    "aliases": [
+      "Khazard teleport",
+      "Teleport to khazard",
+      "Lunar khazard",
+      "Port khazard teleport",
+      "Port khazard tele",
+      "Khazard tele",
+      "Kazard teleport",
+      "Khazard tp",
+      "Lunar port khazard teleport",
+      "Khzard teleport",
+      "Khazar teleport"
+    ],
+    "level": 78,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 80,
+    "members": true,
+    "description": "Teleports you to Port Khazard",
+    "cost": "law rune x2, water rune x4, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Khazard Teleport.png]]"
+  },
+  {
+    "name": "Kourend Castle Teleport",
+    "aliases": [
+      "Kourend Teleport",
+      "Zeah teleport",
+      "Great kourend teleport",
+      "Kourend teleport",
+      "Teleport to Kourend",
+      "Kourend tele",
+      "Korend teleport",
+      "Zeah Teleport",
+      "Kround tele",
+      "Kourend castle teleport",
+      "Kourand teleport",
+      "Teleport kourend castle",
+      "Teleport to kourend castle",
+      "Korend castle teleport",
+      "Kourend castle tele",
+      "Kouren castle teleport",
+      "Kourand castle teleport",
+      "Thadior agrula elevo",
+      "Thadior",
+      "Kourent castle teleport",
+      "Khourend teleport",
+      "Koured teleport",
+      "Kouren teleport",
+      "Korend tele",
+      "Kourend telepor",
+      "Kurend teleport",
+      "Kourend tp",
+      "Kourent teleport",
+      "Kourned teleport",
+      "Castle kourend teleport",
+      "Korrend teleport",
+      "Koreund teleport",
+      "Tele to kourend",
+      "Teleport great kourend",
+      "Teleport to great kourend",
+      "Teleport to korend",
+      "Koruend castle teleport",
+      "Kourend tel",
+      "Korund teleport",
+      "Jourend teleport"
+    ],
+    "level": 48,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 58,
+    "members": true,
+    "description": "Teleports you to Kourend Castle",
+    "cost": "law rune x2, water rune x1, fire rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Kourend Castle Teleport.png]]"
+  },
+  {
+    "name": "Lassar Teleport",
+    "aliases": [
+      "Lassar teleport",
+      "Ice mountain teleport",
+      "Lassar tele",
+      "Lasser teleport",
+      "Lessar teleport",
+      "Lesser teleport",
+      "Ancient lassar",
+      "Teleport to ice mountain",
+      "Lassar tp",
+      "Lasar teleport",
+      "Lassar teleprot"
+    ],
+    "level": 72,
+    "spellbook": "Ancient",
+    "type": "teleport",
+    "exp": 82,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "law rune x2, water rune x4",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Lassar Teleport.png]]"
+  },
+  {
+    "name": "League Home Teleport",
+    "aliases": [],
+    "level": 1,
+    "spellbook": "All",
+    "type": "Teleport",
+    "exp": 0,
+    "members": true,
+    "description": "Requires no runes, Warning: This spell takes a long time to cast and will be interrupted by combat.",
+    "cost": "None (see article)",
+    "runeCost": [],
+    "speed": 5,
+    "image": "[[File:League Home Teleport.png]]"
+  },
+  {
+    "name": "Lesser Corruption",
+    "aliases": [],
+    "level": 64,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 75,
+    "members": true,
+    "description": "Imbues your attacks with a lesser corruption",
+    "cost": "death rune x1, soul rune x2",
+    "runeCost": [
+      {
+        "itemId": 560,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Lesser Corruption.png]]"
+  },
+  {
+    "name": "Low Level Alchemy",
+    "aliases": [
+      "Low Alchemy",
+      "Low alch",
+      "Low alchemy",
+      "Low lvl alchemy",
+      "Low level alchemy",
+      "Low Alch",
+      "Low alc",
+      "LA",
+      "La",
+      "Low level alch",
+      "Low lach",
+      "L alch",
+      "Lesser alchemy"
+    ],
+    "level": 21,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 31,
+    "members": false,
+    "description": "Converts an item into gold",
+    "cost": "nature rune x1, fire rune x3",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 3
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Low Level Alchemy.png]]"
+  },
+  {
+    "name": "Lumbridge Graveyard Teleport",
+    "aliases": [
+      "Lumbridge Grave'",
+      "Lumbridge graveyard teleport"
+    ],
+    "level": 6,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 9,
+    "members": true,
+    "description": "Teleports you to the graveyard in Lumbridge",
+    "cost": "law rune x1, earth rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Lumbridge Graveyard Teleport.png]]"
+  },
+  {
+    "name": "Lumbridge Home Teleport",
+    "aliases": [
+      "Cow kick",
+      "Lumbridge home teleport"
+    ],
+    "level": 0,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 0,
+    "members": false,
+    "description": "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.",
+    "cost": "None (see article)",
+    "runeCost": [],
+    "speed": 24,
+    "image": "[[File:Lumbridge Home Teleport.png]]"
+  },
+  {
+    "name": "Lumbridge Teleport",
+    "aliases": [
+      "Lumbridge teleport",
+      "Teleport to Lumbridge",
+      "Teleport lumbridge",
+      "Lumbridge tele",
+      "Lumbrige teleport",
+      "Lumb tele",
+      "Lumbride teleport"
+    ],
+    "level": 31,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 41,
+    "members": false,
+    "description": "Teleports you to Lumbridge",
+    "cost": "law rune x1, air rune x3, earth rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Lumbridge Teleport.png]]"
+  },
+  {
+    "name": "Lunar Home Teleport",
+    "aliases": [
+      "Lunar home teleport",
+      "Lunar home",
+      "Lunar house teleport"
+    ],
+    "level": 1,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 0,
+    "members": true,
+    "description": "Requires no runes - recharge time 30 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.",
+    "cost": "None (see article)",
+    "runeCost": [],
+    "speed": 24,
+    "image": "[[File:Lunar Home Teleport.png]]"
+  },
+  {
+    "name": "Lvl-1 Enchant",
+    "aliases": [
+      "Enchant level 1 Jewellery",
+      "Enchant Level 1 Jewellery",
+      "Level 1 Enchant",
+      "Enchant Level 1",
+      "Sapphire enchant",
+      "Opal enchant",
+      "Lvl-1 enchant",
+      "Saphire enchant",
+      "Enchant 1",
+      "Level one enchant",
+      "Lv 1 enchant",
+      "Lvl-1",
+      "Lvl1 enchant",
+      "Enchant lvl 1",
+      "Lv1 enchant",
+      "Lvl 1 enchant"
+    ],
+    "level": 7,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 17.5,
+    "members": false,
+    "description": "For use on sapphire and opal jewellery",
+    "cost": "cosmic rune x1, water rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-1 Enchant.png]]"
+  },
+  {
+    "name": "Lvl-2 Enchant",
+    "aliases": [
+      "Enchant Level 2 Jewellery",
+      "Level 2 enchant",
+      "Level 2 Enchant",
+      "Enchant Level 2",
+      "Emerald enchant",
+      "Jade enchant",
+      "Lvl-2 enchant",
+      "Enchant 2",
+      "Enchant lvl 2",
+      "Lv 2 enchant",
+      "Lv-2 enchant",
+      "Lv2 enchant",
+      "Lvl-2",
+      "Lvl2 enchant",
+      "Level 2 enchantment",
+      "Emerald jewellry"
+    ],
+    "level": 27,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 37,
+    "members": false,
+    "description": "For use on emerald and jade jewellery",
+    "cost": "air rune x3, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-2 Enchant.png]]"
+  },
+  {
+    "name": "Lvl-3 Enchant",
+    "aliases": [
+      "Enchant Level 3 Jewellery",
+      "Enchant level 3 jewellery",
+      "Level 3 enchant",
+      "Level 3 Enchant",
+      "Enchant Level 3",
+      "Ruby enchant",
+      "Topaz enchant",
+      "Lvl-3 enchant",
+      "Enchant topaz",
+      "Enchant ruby necklace",
+      "Enchant 3",
+      "Lv 3 enchant",
+      "Lvl-3",
+      "Lvl3 enchant",
+      "Ruby enchantment",
+      "Ruby necklace enchant",
+      "Enchant lvl 3",
+      "How to enchant ruby necklace",
+      "Lv3 enchant",
+      "Ruby ring enchant",
+      "Enchanting topaz"
+    ],
+    "level": 49,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 59,
+    "members": false,
+    "description": "For use on a ruby and topaz jewellery",
+    "cost": "fire rune x5, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-3 Enchant.png]]"
+  },
+  {
+    "name": "Lvl-4 Enchant",
+    "aliases": [
+      "Enchant Level 4 Jewellery",
+      "Level 4 Enchant",
+      "Enchant Level 4",
+      "Diamond enchant",
+      "Lvl 4 enchant",
+      "Lvl-4 enchant",
+      "Enchant 4",
+      "Lv 4 enchant",
+      "Lvl-4",
+      "Lvl4 enchant",
+      "Enchant lvl 4",
+      "Enchanting diamond",
+      "Lv4 enchant",
+      "Diamond enchantment",
+      "Enchanting diamond jewelry"
+    ],
+    "level": 57,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 67,
+    "members": false,
+    "description": "For use on diamond jewellery",
+    "cost": "earth rune x10, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-4 Enchant.png]]"
+  },
+  {
+    "name": "Lvl-5 Enchant",
+    "aliases": [
+      "Enchant Level 5 Jewellery",
+      "Level 5 Enchant",
+      "Enchant Level 5",
+      "Dragonstone enchant",
+      "Lvl 5 enchant",
+      "Lvl-5 enchant",
+      "Enchanting dragonstone",
+      "Enchant 5",
+      "Lv 5 enchant",
+      "Lvl-5",
+      "Enchant dragonstone jewelry",
+      "Enchant lvl 5",
+      "Enchant lv 5"
+    ],
+    "level": 68,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 78,
+    "members": true,
+    "description": "For use on dragonstone jewellery",
+    "cost": "earth rune x15, water rune x15, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 555,
+        "quantity": 15
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-5 Enchant.png]]"
+  },
+  {
+    "name": "Lvl-6 Enchant",
+    "aliases": [
+      "Enchant Level 6 Jewellery",
+      "Level 6 Enchant",
+      "Enchant Level 6",
+      "Onyx enchant",
+      "Lvl-6 enchant",
+      "Lv 6 enchant",
+      "Enchant lvl 6",
+      "Enchant onyx jewellery"
+    ],
+    "level": 87,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 97,
+    "members": true,
+    "description": "For use on onyx jewellery",
+    "cost": "earth rune x20, fire rune x20, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 20
+      },
+      {
+        "itemId": 554,
+        "quantity": 20
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-6 Enchant.png]]"
+  },
+  {
+    "name": "Lvl-7 Enchant",
+    "aliases": [
+      "Enchant Level 7 Jewellery",
+      "Level 7 Enchant",
+      "Enchant Level 7",
+      "Zenyte enchant",
+      "Enchant zenyte",
+      "Lvl-7 enchant",
+      "Charge zenyte",
+      "Lv 7 enchant"
+    ],
+    "level": 93,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 110,
+    "members": true,
+    "description": "For use on zenyte jewellery",
+    "cost": "blood rune x20, soul rune x20, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 20
+      },
+      {
+        "itemId": 566,
+        "quantity": 20
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Lvl-7 Enchant.png]]"
+  },
+  {
+    "name": "Magic Dart",
+    "aliases": [
+      "Slayer dart",
+      "Magic dart",
+      "Slayer Dart",
+      "Slayer bolt",
+      "Magic dart of slaying",
+      "Dart of slaying",
+      "Slayer darty",
+      "Slayer dar",
+      "Slayer dart e",
+      "Slayerdart",
+      "Magi dart",
+      "Slayer magic",
+      "Slayer dart osrs",
+      "Slayer dart\\",
+      "Magic dart spell",
+      "Magic darts",
+      "Osrs slayer dart",
+      "Salyer dart",
+      "Skayer dart",
+      "Slayer dart'",
+      "Slayer dartr",
+      "Slayer darts",
+      "Slayer dart max hit",
+      "Slayer drat",
+      "Slayer's dart",
+      "Slayers dart",
+      "Slaying dart",
+      "Slyer dart",
+      "Slay dart"
+    ],
+    "level": 50,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 30,
+    "members": true,
+    "description": "A magic dart of slaying",
+    "cost": "mind rune x4, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 558,
+        "quantity": 4
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "damage": "* 10% of level + 10 Slayer's staff (e) & on task: * 16.6% of level + 13",
+    "speed": 5,
+    "image": "[[File:Magic Dart.png]]"
+  },
+  {
+    "name": "Magic Imbue",
+    "aliases": [
+      "Imbue",
+      "Magic imbue",
+      "Imbue magic",
+      "Magic inbue",
+      "Magic embue",
+      "Magic imbune",
+      "Magic imbued",
+      "Magic imbu",
+      "Magical imbue",
+      "Imbue spell",
+      "Magic umbue",
+      "Magic imb",
+      "Magic impue",
+      "Osrs magic imbue",
+      "Osrs imbue",
+      "Imbue\\",
+      "Embue",
+      "Magc imbue",
+      "Maigc imbue",
+      "Magic imbue osrs",
+      "Embue runes"
+    ],
+    "level": 82,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 86,
+    "members": true,
+    "description": "Combine runes without a talisman",
+    "cost": "fire rune x7, water rune x7, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 7
+      },
+      {
+        "itemId": 555,
+        "quantity": 7
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 0,
+    "image": "[[File:Magic Imbue.png]]"
+  },
+  {
+    "name": "Mark of Darkness",
+    "aliases": [
+      "Mark of darkness",
+      "Marks of darkness",
+      "Mark of dark",
+      "Mark of darkenss",
+      "Mark of darness",
+      "Mark of darknes",
+      "Mark of darnkess",
+      "Mark of d"
+    ],
+    "level": 59,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 70,
+    "members": true,
+    "description": "Makes your offensive Arceuus spells more potent",
+    "cost": "cosmic rune x1, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "speed": 0,
+    "image": "[[File:Mark of Darkness.png]]"
+  },
+  {
+    "name": "Master Reanimation",
+    "aliases": [
+      "Master reanimation",
+      "Master animation",
+      "Master reanimate"
+    ],
+    "level": 90,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 170,
+    "members": true,
+    "description": "Reanimates a very high levelled creature",
+    "cost": "nature rune x4, blood rune x2, soul rune x4",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 566,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Master Reanimation.png]]"
+  },
+  {
+    "name": "Mind Altar Teleport",
+    "aliases": [
+      "Mind altar teleport",
+      "Mind Altar teleport",
+      "Mind alter teleport",
+      "Mind altar tele",
+      "Mind alter tele",
+      "Mind teleport",
+      "Teleport mind altar",
+      "Teleport to mind alter"
+    ],
+    "level": 28,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 22,
+    "members": true,
+    "description": "Teleports you to the Mind Altar",
+    "cost": "law rune x1, mind rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 558,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Mind Altar Teleport.png]]"
+  },
+  {
+    "name": "Minigame Teleport",
+    "aliases": [
+      "Minigame teleport",
+      "Minigames teleport",
+      "Minigame teleports",
+      "Minigames Teleport",
+      "Minigame tele",
+      "Mini game teleport",
+      "Nightmare zone teleport",
+      "Mingame teleport",
+      "Mini game tele",
+      "Mini game teleports",
+      "Mini games teleport",
+      "Minigame tele to Clan wars",
+      "Soul wars teleport",
+      "Shades of Mort'ton minigame teleport",
+      "Rat pits teleport",
+      "Minigame tp",
+      "Osrs minigame teleport",
+      "Clan wars tele",
+      "Barbarian outpost teleport"
+    ],
+    "level": 1,
+    "spellbook": "All",
+    "type": "Teleport",
+    "exp": 0,
+    "members": false,
+    "description": "Requires no runes - recharge time 20 mins. Warning: This spell takes a long time to cast and will be interrupted by combat.",
+    "cost": "None (see article)",
+    "runeCost": [],
+    "speed": 22,
+    "image": "[[File:Minigame Teleport.png]]"
+  },
+  {
+    "name": "Monster Examine",
+    "aliases": [
+      "Monster examine",
+      "Examine monster",
+      "Monster examin",
+      "Mosnter examine",
+      "Monster defence",
+      "Monster defense",
+      "Moster examine",
+      "Inspect monster",
+      "Npc examine",
+      "Monster stats",
+      "Examine spell"
+    ],
+    "level": 66,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 61,
+    "members": true,
+    "description": "Detect the combat statistics of a monster",
+    "cost": "astral rune x1, cosmic rune x1, mind rune x1",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 558,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Monster Examine.png]]"
+  },
+  {
+    "name": "Monster Inspect",
+    "aliases": [
+      "Inspect monster",
+      "Monster inspect"
+    ],
+    "level": 42,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 30.5,
+    "members": false,
+    "description": "Inspect various statistics of a monster",
+    "cost": "body rune x2, mind rune x2",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 2
+      },
+      {
+        "itemId": 558,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Monster Inspect.png]]"
+  },
+  {
+    "name": "Moonclan Teleport",
+    "aliases": [
+      "Moon clan teleport",
+      "Moonclan teleport",
+      "Moonclan tele",
+      "Teleport moonclan",
+      "Lunar ilse teleport",
+      "Teleport to moonclan",
+      "Luna teleport",
+      "Lunar clan teleport",
+      "Tele moonclan",
+      "Moonclan tp",
+      "Moonclan island teleport",
+      "Moon teleport"
+    ],
+    "level": 69,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 66,
+    "members": true,
+    "description": "Teleports you to Moonclan Island",
+    "cost": "law rune x1, earth rune x2, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Moonclan Teleport.png]]"
+  },
+  {
+    "name": "NPC Contact",
+    "aliases": [
+      "NPC contact",
+      "Contact npc",
+      "Npc contact",
+      "Npc contanct",
+      "Npc spell",
+      "Npc cpntact",
+      "Npc cont",
+      "Npc c",
+      "Talk to npc",
+      "Lunar contact",
+      "Npc con",
+      "Npc contactr",
+      "Contact spell",
+      "Noc contact",
+      "Contact nps",
+      "Contact slayer master",
+      "Npc ocntact",
+      "Call npc",
+      "Nps contact",
+      "Npc contant",
+      "Npc contact spell",
+      "Npc contract",
+      "Npc contac",
+      "Npc contact konar",
+      "Npc conta",
+      "Npc contacty",
+      "Npc contat",
+      "Ncp contact",
+      "Npc chat",
+      "Np contact",
+      "Speak to npc",
+      "Contact npx",
+      "Npc ontact",
+      "Npx contact",
+      "Npc conctact",
+      "Npc conact",
+      "Talk to npc spell",
+      "Npc copntact",
+      "Npc contct",
+      "Osrs npc contact",
+      "Slayer master spell",
+      "Npc talk",
+      "Mpc contact",
+      "Npc sell",
+      "Dark mage spell"
+    ],
+    "level": 67,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 63,
+    "members": true,
+    "description": "Speak to various NPCs",
+    "cost": "astral rune x1, cosmic rune x1, air rune x2",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:NPC Contact.png]]"
+  },
+  {
+    "name": "Ourania Teleport",
+    "aliases": [
+      "Ourania teleport",
+      "Ourania tele",
+      "Zmi tele",
+      "Ourania altar teleport",
+      "Zmi teleport",
+      "Ouriana teleport",
+      "Ournia teleport",
+      "Ourina teleport",
+      "Orania teleport",
+      "Oriana teleport",
+      "Ourenia teleport",
+      "Teleport to ourania",
+      "Ourania tp",
+      "Teleport ourania",
+      "Urania teleport",
+      "Ourania altar tele"
+    ],
+    "level": 71,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 69,
+    "members": true,
+    "description": "Teleports you to the Ourania altar",
+    "cost": "law rune x1, earth rune x6, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 6
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Ourania Teleport.png]]"
+  },
+  {
+    "name": "Paddewwa Teleport",
+    "aliases": [
+      "Padewwa Teleport",
+      "Paddewwa teleport",
+      "Paddewa teleport",
+      "Paddawa teleport",
+      "Teleport to paddewa",
+      "Teleport to paddewwa",
+      "Edgeville dungeon teleport",
+      "Teleport to padewwa",
+      "Padawa teleport",
+      "Paddewa tele",
+      "Padewa teleport",
+      "Peddewwa teleport"
+    ],
+    "level": 54,
+    "spellbook": "Ancient",
+    "type": "Teleport",
+    "exp": 64,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "law rune x2, air rune x1, fire rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Paddewwa Teleport.png]]"
+  },
+  {
+    "name": "Plank Make",
+    "aliases": [
+      "Plank make",
+      "Make plank",
+      "Making planks",
+      "Plankmake",
+      "Plank spell",
+      "Plank make spell",
+      "Super plank make",
+      "Make planks",
+      "Making plank",
+      "Plank mak",
+      "Plank mkae",
+      "Pank make",
+      "Osrs plank make",
+      "Make a plank",
+      "Plank maker",
+      "Mahogany plank make",
+      "Make plank spell",
+      "Plank make osrs",
+      "Logs to plank",
+      "Logs to planks",
+      "Plnak make",
+      "Plank make\\",
+      "Plank male",
+      "Plank mae",
+      "Plank amke",
+      "Log make",
+      "Lunar plank",
+      "Lunar plank make",
+      "Cast plank make",
+      "Plank make'",
+      "Plank mank",
+      "Planke make",
+      "Plank m",
+      "Plank ma",
+      "Plank made",
+      "Plan make",
+      "Plank magic",
+      "Planks make",
+      "Plant make",
+      "Cast plank",
+      "Superplank make",
+      "Teak plank make",
+      "Plank makw",
+      "Magic planks",
+      "Plank ake",
+      "Log to plank",
+      "Plank makje",
+      "Plank maje",
+      "Plank makr",
+      "Plank cast",
+      "Palnk make",
+      "Polank make",
+      "Plnk make",
+      "Plankl make",
+      "Planks spell",
+      "Lank make",
+      "Plake make",
+      "Plank m ake",
+      "Pplank make",
+      "Blank make",
+      "Makeplank",
+      "Plank mate",
+      "Plank makle",
+      "Plank mke",
+      "Plank make money",
+      "Plank makes",
+      "Plank mage",
+      "Lpank make",
+      "Plak make",
+      "Plankmake spell",
+      "Plank making spell",
+      "Wood to plank",
+      "Super plankmake",
+      "Plank maek",
+      "Plank makee",
+      "Planmk make",
+      "Plank make animation",
+      "Plank make per hour",
+      "Auto cast plank make"
+    ],
+    "level": 86,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 90,
+    "members": true,
+    "description": "Turn logs into planks",
+    "cost": "astral rune x2, nature rune x1, earth rune x15undefined",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 0.93
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 561,
+        "quantity": 0.93
+      },
+      {
+        "itemId": 557,
+        "quantity": 15
+      },
+      {
+        "itemId": 561,
+        "quantity": 0.93
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Plank Make.png]]"
+  },
+  {
+    "name": "Reanimate Abyssal Creature",
+    "aliases": [
+      "Reanimate abyssal",
+      "Reanimate abyssal creature",
+      "Reanimate abyssal demon"
+    ],
+    "level": 85,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 170,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x4, nature rune x4, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 4
+      },
+      {
+        "itemId": 561,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Abyssal Creature.png]]"
+  },
+  {
+    "name": "Reanimate Aviansie",
+    "aliases": [
+      "Reanimate aviansie"
+    ],
+    "level": 78,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 156,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x3, nature rune x4, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 3
+      },
+      {
+        "itemId": 561,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Aviansie.png]]"
+  },
+  {
+    "name": "Reanimate Bear",
+    "aliases": [
+      "Reanimate bear"
+    ],
+    "level": 21,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 42,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x1, body rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 559,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Bear.png]]"
+  },
+  {
+    "name": "Reanimate Bloodveld",
+    "aliases": [
+      "Reanimate bloodveld",
+      "Animate bloodveld"
+    ],
+    "level": 65,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 130,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, blood rune x1, nature rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Bloodveld.png]]"
+  },
+  {
+    "name": "Reanimate Chaos Druid",
+    "aliases": [
+      "Reanimate chaos druid"
+    ],
+    "level": 30,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 60,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x2, body rune x3",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Reanimate Chaos Druid.png]]"
+  },
+  {
+    "name": "Reanimate Dagannoth",
+    "aliases": [
+      "Reanimate dagannoth",
+      "Reanimate dagganoth"
+    ],
+    "level": 62,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 124,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x3, nature rune x3, body rune x4",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 3
+      },
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 559,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Reanimate Dagannoth.png]]"
+  },
+  {
+    "name": "Reanimate Demon",
+    "aliases": [
+      "Animate deamon",
+      "Reanimate demon"
+    ],
+    "level": 72,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 144,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, nature rune x4, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Demon.png]]"
+  },
+  {
+    "name": "Reanimate Dog",
+    "aliases": [
+      "Reanimate dog"
+    ],
+    "level": 26,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 52,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x2, body rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Dog.png]]"
+  },
+  {
+    "name": "Reanimate Dragon",
+    "aliases": [
+      "Reanimate dragon",
+      "Animate dragon"
+    ],
+    "level": 93,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 186,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x4, nature rune x4, blood rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 4
+      },
+      {
+        "itemId": 561,
+        "quantity": 4
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Dragon.png]]"
+  },
+  {
+    "name": "Reanimate Elf",
+    "aliases": [
+      "Reanimate elf"
+    ],
+    "level": 43,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 86,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, nature rune x2, body rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Elf.png]]"
+  },
+  {
+    "name": "Reanimate Giant",
+    "aliases": [
+      "Reanimate giant",
+      "Animate giant"
+    ],
+    "level": 37,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 74,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x2, body rune x4",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Reanimate Giant.png]]"
+  },
+  {
+    "name": "Reanimate Goblin",
+    "aliases": [
+      "Reanimate goblin"
+    ],
+    "level": 3,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 6,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "body rune x2, nature rune x1",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Goblin.png]]"
+  },
+  {
+    "name": "Reanimate Horror",
+    "aliases": [
+      "Reanimate horror"
+    ],
+    "level": 52,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 104,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, nature rune x2, body rune x4",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Reanimate Horror.png]]"
+  },
+  {
+    "name": "Reanimate Imp",
+    "aliases": [
+      "Reanimate imp"
+    ],
+    "level": 12,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 24,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "body rune x3, nature rune x2",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 3
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Imp.png]]"
+  },
+  {
+    "name": "Reanimate Kalphite",
+    "aliases": [
+      "Reanimate kalphite"
+    ],
+    "level": 57,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 114,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, nature rune x3, body rune x4",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 559,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Reanimate Kalphite.png]]"
+  },
+  {
+    "name": "Reanimate Minotaur",
+    "aliases": [
+      "Reanimate minotaur"
+    ],
+    "level": 16,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 32,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "body rune x4, nature rune x2",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 4
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Minotaur.png]]"
+  },
+  {
+    "name": "Reanimate Monkey",
+    "aliases": [
+      "Reanimate monkey"
+    ],
+    "level": 7,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 14,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "body rune x3, nature rune x1",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 3
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Monkey.png]]"
+  },
+  {
+    "name": "Reanimate Ogre",
+    "aliases": [
+      "Reanimate ogre"
+    ],
+    "level": 40,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 80,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x3, body rune x4",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 559,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Reanimate Ogre.png]]"
+  },
+  {
+    "name": "Reanimate Scorpion",
+    "aliases": [
+      "Reanimate scorpion"
+    ],
+    "level": 19,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 38,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate Scorpion.png]]"
+  },
+  {
+    "name": "Reanimate Troll",
+    "aliases": [
+      "Reanimate troll"
+    ],
+    "level": 46,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 93,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, nature rune x2, body rune x3",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 3
+      }
+    ],
+    "image": "[[File:Reanimate Troll.png]]"
+  },
+  {
+    "name": "Reanimate TzHaar",
+    "aliases": [
+      "Reanimate tzhaar"
+    ],
+    "level": 69,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 138,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x2, nature rune x3, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Reanimate TzHaar.png]]"
+  },
+  {
+    "name": "Reanimate Unicorn",
+    "aliases": [
+      "Reanimate unicorn"
+    ],
+    "level": 22,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 44,
+    "members": true,
+    "description": "Reanimates an ensouled corpse",
+    "cost": "soul rune x1, nature rune x1, body rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 559,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Reanimate Unicorn.png]]"
+  },
+  {
+    "name": "Recharge Dragonstone",
+    "aliases": [
+      "Recharging amulet",
+      "Recharge dragonstone",
+      "Dragonstone charge",
+      "Recharging dragonstone",
+      "Charging dragonstone",
+      "Dragonstone recharge",
+      "Recharge dragon",
+      "Charged dragonstone"
+    ],
+    "level": 89,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 97.5,
+    "members": true,
+    "description": "Recharges enchanted dragonstone jewellery",
+    "cost": "astral rune x1, soul rune x1, water rune x4",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Recharge Dragonstone.png]]"
+  },
+  {
+    "name": "Respawn Teleport",
+    "aliases": [
+      "Respawn teleport",
+      "Resapwn",
+      "Respawn tele",
+      "Respawn tp",
+      "Teleport to respawn"
+    ],
+    "level": 34,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 27,
+    "members": true,
+    "description": "Teleports you to your respawn location",
+    "cost": "law rune x1, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Respawn Teleport.png]]"
+  },
+  {
+    "name": "Resurrect Crops",
+    "aliases": [
+      "Res crop",
+      "Reanimate crops",
+      "Reanimate Crops",
+      "Resurrect crops",
+      "Reserruct crops",
+      "Revive crop",
+      "Revive plant",
+      "Resurrect crop",
+      "Reanimate patch",
+      "Plant revive",
+      "Ressurect crops",
+      "Ressurect crop",
+      "Resurect crops",
+      "Dead plant",
+      "Crop revive",
+      "Reanimate crop",
+      "Revive crops",
+      "Revive herb",
+      "Ressurect plant",
+      "Resurect crop",
+      "Resurrect plant",
+      "Ressurrect crops",
+      "Reanimate plant",
+      "Plant cure spell",
+      "Ressurrect crop",
+      "Reserect crop",
+      "Res crops",
+      "Crop ressurect",
+      "Crop resurrect",
+      "Revive dead plant",
+      "Rez crop",
+      "Rez plant"
+    ],
+    "level": 78,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 90,
+    "members": true,
+    "description": "Gives a chance to resurrect dead farming crops",
+    "cost": "soul rune x8, nature rune x12, blood rune x8, earth rune x25",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 8
+      },
+      {
+        "itemId": 561,
+        "quantity": 12
+      },
+      {
+        "itemId": 565,
+        "quantity": 8
+      },
+      {
+        "itemId": 557,
+        "quantity": 25
+      }
+    ],
+    "image": "[[File:Resurrect Crops.png]]"
+  },
+  {
+    "name": "Resurrect Ghost",
+    "aliases": [],
+    "level": 38,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 55,
+    "members": true,
+    "description": "",
+    "cost": "air rune x10, mind rune x5, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 10
+      },
+      {
+        "itemId": 558,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 50,
+    "image": "[[File:Resurrect Ghost (beta).png]]"
+  },
+  {
+    "name": "Resurrect Greater Ghost",
+    "aliases": [
+      "Ressurect greater ghost",
+      "Summon greater ghost"
+    ],
+    "level": 76,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 88,
+    "members": true,
+    "description": "Calls upon a greater ghostly thrall to fight alongside you",
+    "cost": "fire rune x10, blood rune x5, cosmic rune x1 6",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 10
+      },
+      {
+        "itemId": 565,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Greater Ghost.png]]"
+  },
+  {
+    "name": "Resurrect Greater Skeleton",
+    "aliases": [
+      "Ressurect greater skeleton",
+      "Summon greater skeleton",
+      "Greater skeleton",
+      "Range thrall"
+    ],
+    "level": 76,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 88,
+    "members": true,
+    "description": "Calls upon a greater skeletal thrall to fight alongside you",
+    "cost": "fire rune x10, blood rune x5, cosmic rune x1 6",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 10
+      },
+      {
+        "itemId": 565,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Greater Skeleton.png]]"
+  },
+  {
+    "name": "Resurrect Greater Zombie",
+    "aliases": [
+      "Ressurect greater zombie",
+      "Summon greater zombie"
+    ],
+    "level": 76,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 88,
+    "members": true,
+    "description": "Calls upon a greater zombified thrall to fight alongside you",
+    "cost": "fire rune x10, blood rune x5, cosmic rune x1 6",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 10
+      },
+      {
+        "itemId": 565,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Greater Zombie.png]]"
+  },
+  {
+    "name": "Resurrect Lesser Ghost",
+    "aliases": [],
+    "level": 38,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 55,
+    "members": true,
+    "description": "Calls upon a lesser ghostly thrall to fight alongside you",
+    "cost": "air rune x10, mind rune x5, cosmic rune x1 2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 10
+      },
+      {
+        "itemId": 558,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Lesser Ghost.png]]"
+  },
+  {
+    "name": "Resurrect Lesser Skeleton",
+    "aliases": [],
+    "level": 38,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 55,
+    "members": true,
+    "description": "Calls upon a lesser skeletal thrall to fight alongside you",
+    "cost": "air rune x10, mind rune x5, cosmic rune x1 2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 10
+      },
+      {
+        "itemId": 558,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Lesser Skeleton.png]]"
+  },
+  {
+    "name": "Resurrect Lesser Zombie",
+    "aliases": [],
+    "level": 38,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 55,
+    "members": true,
+    "description": "Calls upon a lesser zombified thrall to fight alongside you",
+    "cost": "air rune x10, mind rune x5, cosmic rune x1 2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 10
+      },
+      {
+        "itemId": 558,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Lesser Zombie.png]]"
+  },
+  {
+    "name": "Resurrect Skeleton",
+    "aliases": [],
+    "level": 57,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 70,
+    "members": true,
+    "description": "",
+    "cost": "earth rune x10, death rune x5, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 560,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 50,
+    "image": "[[File:Resurrect Skeleton (beta).png]]"
+  },
+  {
+    "name": "Resurrect Superior Ghost",
+    "aliases": [
+      "Ressurect superior ghost"
+    ],
+    "level": 57,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 70,
+    "members": true,
+    "description": "Calls upon a superior ghostly thrall to fight alongside you",
+    "cost": "earth rune x10, death rune x5, cosmic rune x1 4",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 560,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Superior Ghost.png]]"
+  },
+  {
+    "name": "Resurrect Superior Skeleton",
+    "aliases": [],
+    "level": 57,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 70,
+    "members": true,
+    "description": "Calls upon a superior skeletal thrall to fight alongside you",
+    "cost": "earth rune x10, death rune x5, cosmic rune x1 4",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 560,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Superior Skeleton.png]]"
+  },
+  {
+    "name": "Resurrect Superior Zombie",
+    "aliases": [],
+    "level": 57,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 70,
+    "members": true,
+    "description": "Calls upon a superior zombified thrall to fight alongside you",
+    "cost": "earth rune x10, death rune x5, cosmic rune x1 4",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 560,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Resurrect Superior Zombie.png]]"
+  },
+  {
+    "name": "Resurrect Zombie",
+    "aliases": [],
+    "level": 76,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 88,
+    "members": true,
+    "description": "",
+    "cost": "fire rune x10, blood rune x5, cosmic rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 10
+      },
+      {
+        "itemId": 565,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 1
+      }
+    ],
+    "speed": 50,
+    "image": "[[File:Resurrect Zombie (beta).png]]"
+  },
+  {
+    "name": "Salve Graveyard Teleport",
+    "aliases": [
+      "Salve teleport",
+      "Salve graveyard",
+      "Salve graveyard teleport",
+      "Salve Graveyard teleport",
+      "Salve grave",
+      "Salve graveyard tele",
+      "Salve tele",
+      "Ghoul teleport",
+      "Slave graveyard teleport",
+      "Quickest fairy ring"
+    ],
+    "level": 40,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 30,
+    "members": true,
+    "description": "Teleports you to the graveyard on the River Salve",
+    "cost": "law rune x1, soul rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Salve Graveyard Teleport.png]]"
+  },
+  {
+    "name": "Saradomin Strike",
+    "aliases": [
+      "Saradomin strike",
+      "Sara strike",
+      "Saradomin spell",
+      "Sardomin strike",
+      "Saradomins strike",
+      "Saradomin stirke",
+      "Sarodomin strike",
+      "Saradom strike",
+      "Saradomin stike",
+      "Sradomin strike",
+      "Saradomin blast",
+      "Sara domino strike",
+      "Saradmin strike",
+      "Saradomin striek",
+      "Saradomin strik",
+      "Saradomin's strike"
+    ],
+    "level": 60,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 35,
+    "members": true,
+    "description": "Summons the power of Saradomin",
+    "cost": "air rune x4, fire rune x2, blood rune x2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 4
+      },
+      {
+        "itemId": 554,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      }
+    ],
+    "element": "God",
+    "damage": "* 20 Charged & Saradomin cape worn: * 30",
+    "speed": 5,
+    "image": "Saradomin Strike.png"
+  },
+  {
+    "name": "Senntisten Teleport",
+    "aliases": [
+      "Senntisten teleport",
+      "Sennisten teleport",
+      "Sentisten teleport",
+      "Exam center teleport",
+      "Senntisten tele",
+      "Digsite spell"
+    ],
+    "level": 60,
+    "spellbook": "Ancient",
+    "type": "teleport",
+    "exp": 70,
+    "members": true,
+    "description": "A teleportation spell",
+    "cost": "law rune x2, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Senntisten Teleport.png]]"
+  },
+  {
+    "name": "Shadow Barrage",
+    "aliases": [
+      "Shadow barrage",
+      "Shaddow barrage",
+      "Shadow barage",
+      "Shadow barrag",
+      "Shadow barra",
+      "Shadow barrrage",
+      "Shadow barrage osrs"
+    ],
+    "level": 88,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 49,
+    "members": true,
+    "description": "A multi-target strong shadow attack",
+    "cost": "air rune x4, soul rune x3, blood rune x2, death rune x4",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 4
+      },
+      {
+        "itemId": 566,
+        "quantity": 3
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 560,
+        "quantity": 4
+      }
+    ],
+    "element": "Shadow",
+    "damage": "28",
+    "speed": 5,
+    "image": "[[File:Shadow Barrage.png]]"
+  },
+  {
+    "name": "Shadow Blitz",
+    "aliases": [
+      "Shadow blitz",
+      "Shadow blits"
+    ],
+    "level": 76,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 43,
+    "members": true,
+    "description": "A single target strong shadow attack",
+    "cost": "soul rune x2, blood rune x2, air rune x2, death rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      }
+    ],
+    "element": "Shadow",
+    "damage": "24",
+    "speed": 5,
+    "image": "[[File:Shadow Blitz.png]]"
+  },
+  {
+    "name": "Shadow Burst",
+    "aliases": [
+      "Shadow burst",
+      "Shadow burts"
+    ],
+    "level": 64,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 37,
+    "members": true,
+    "description": "",
+    "cost": "soul rune x2, chaos rune x4, air rune x1, death rune x2",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 4
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      }
+    ],
+    "element": "Shadow",
+    "damage": "18",
+    "speed": 5,
+    "image": "[[File:Shadow Burst.png]]"
+  },
+  {
+    "name": "Shadow Rush",
+    "aliases": [
+      "Shadow rush"
+    ],
+    "level": 52,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 31,
+    "members": true,
+    "description": "A single target shadow attack",
+    "cost": "soul rune x1, death rune x2, chaos rune x2, air rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      }
+    ],
+    "element": "Shadow",
+    "damage": "14",
+    "speed": 5,
+    "image": "[[File:Shadow Rush.png]]"
+  },
+  {
+    "name": "Shadow Veil",
+    "aliases": [
+      "Shadow veil",
+      "Shadow viel",
+      "Dark veil",
+      "Thieving spell",
+      "Shadowveil",
+      "Theiving spell",
+      "Shadow vail",
+      "Shadow vale",
+      "Veil of shadow",
+      "Veil of darkness",
+      "Shadows veil",
+      "Shadow vei",
+      "Shadowy veil",
+      "Shawdow veil",
+      "Veil of shadows",
+      "Shadowviel",
+      "Pickpocketing spell",
+      "Veil spell",
+      "Shadow of veil",
+      "Dark viel",
+      "Hsadow veil"
+    ],
+    "level": 47,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 58,
+    "members": true,
+    "description": "Reduces your chance of being caught when pickpocketing",
+    "cost": "earth rune x5, fire rune x5, cosmic rune x5",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 5
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 564,
+        "quantity": 5
+      }
+    ],
+    "speed": 1,
+    "image": "[[File:Shadow Veil.png]]"
+  },
+  {
+    "name": "Sinister Offering",
+    "aliases": [
+      "Sinister offering",
+      "Bone offering",
+      "Sinster offering",
+      "Sinnister offering",
+      "Offering bones",
+      "Sinsiter offering",
+      "Sinister off",
+      "Sinister offer",
+      "Bones for prayer",
+      "Sinester offering",
+      "Sinister ofering",
+      "Sinister offerin",
+      "Sinsister offering"
+    ],
+    "level": 92,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 180,
+    "members": true,
+    "description": "Converts bones into prayer points and experience",
+    "cost": "blood rune x1, wrath rune x1",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 1
+      },
+      {
+        "itemId": 21880,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Sinister Offering.png]]"
+  },
+  {
+    "name": "Skeletal Grasp",
+    "aliases": [],
+    "level": 56,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 33,
+    "members": true,
+    "description": "Deals medium damage with a medium chance of holding your target",
+    "cost": "earth rune x8, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 8
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "damage": "17",
+    "speed": 5,
+    "image": "[[File:Skeletal Grasp.png]]"
+  },
+  {
+    "name": "Smoke Barrage",
+    "aliases": [
+      "Smoke barrage",
+      "Smoke barage",
+      "Smoke barrag",
+      "Smoek barrage",
+      "Smoke barr",
+      "Smoke barra",
+      "Smoke barrage osrs"
+    ],
+    "level": 86,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 48,
+    "members": true,
+    "description": "A multi-target strong smoke attack",
+    "cost": "blood rune x2, air rune x4, death rune x4, fire rune x4",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 4
+      },
+      {
+        "itemId": 560,
+        "quantity": 4
+      },
+      {
+        "itemId": 554,
+        "quantity": 4
+      }
+    ],
+    "element": "Smoke",
+    "damage": "27",
+    "speed": 5,
+    "image": "[[File:Smoke Barrage.png]]"
+  },
+  {
+    "name": "Smoke Blitz",
+    "aliases": [
+      "Smoke blitz",
+      "Smoke blit",
+      "Smoke blits"
+    ],
+    "level": 74,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 42,
+    "members": true,
+    "description": "A single target strong smoke attack",
+    "cost": "blood rune x2, air rune x2, death rune x2, fire rune x2",
+    "runeCost": [
+      {
+        "itemId": 565,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 2
+      }
+    ],
+    "element": "Smoke",
+    "damage": "23",
+    "speed": 5,
+    "image": "[[File:Smoke Blitz.png]]"
+  },
+  {
+    "name": "Smoke Burst",
+    "aliases": [
+      "Smoke burst",
+      "Smoke burst osrs",
+      "Smoke burts"
+    ],
+    "level": 62,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 36,
+    "members": true,
+    "description": "A multi-target smoke attack",
+    "cost": "air rune x2, fire rune x2, chaos rune x4, death rune x2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 4
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      }
+    ],
+    "element": "Smoke",
+    "damage": "17",
+    "speed": 5,
+    "image": "[[File:Smoke Burst.png]]"
+  },
+  {
+    "name": "Smoke Rush",
+    "aliases": [
+      "Smoke rush"
+    ],
+    "level": 50,
+    "spellbook": "Ancient",
+    "type": "Combat",
+    "exp": 30,
+    "members": true,
+    "description": "A single target smoke attack",
+    "cost": "air rune x1, fire rune x1, chaos rune x2, death rune x2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      },
+      {
+        "itemId": 562,
+        "quantity": 2
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      }
+    ],
+    "element": "Smoke",
+    "damage": "13",
+    "speed": 5,
+    "image": "[[File:Smoke Rush.png]]"
+  },
+  {
+    "name": "Snare",
+    "aliases": [
+      "Snare osrs",
+      "Snare spell",
+      "Ensnare",
+      "Ensare",
+      "Osrs snare",
+      "Snares"
+    ],
+    "level": 50,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 61,
+    "members": false,
+    "description": "Hold your opponent for 10 seconds",
+    "cost": "nature rune x3, earth rune x4, water rune x4",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 3
+      },
+      {
+        "itemId": 557,
+        "quantity": 4
+      },
+      {
+        "itemId": 555,
+        "quantity": 4
+      }
+    ],
+    "damage": "2",
+    "speed": 5,
+    "image": "[[File:Snare.png]]"
+  },
+  {
+    "name": "Spellbook Swap",
+    "aliases": [
+      "Spell Book Swap",
+      "Spellbook swap",
+      "Swap spellbook",
+      "Sbs",
+      "Magic book swap",
+      "Magic swap",
+      "Magic switch",
+      "Spell swap",
+      "Spelbook swap",
+      "Spellbookswap",
+      "Spellbook switch",
+      "Spellbook swap spell",
+      "Speelbook swap",
+      "Spellbook swa",
+      "Spellbook swapping",
+      "Swap",
+      "Lunar spellbook swap",
+      "Spellbook sawp",
+      "Magic book switch",
+      "Book swap",
+      "Spellbok swap",
+      "Spellbook swap osrs",
+      "Spellbooks wap",
+      "Spellswap",
+      "Change spellbooks",
+      "Mage book swap"
+    ],
+    "level": 96,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 130,
+    "members": true,
+    "description": "Change to another spellbook for 1 spell cast",
+    "cost": "astral rune x3, cosmic rune x2, law rune x1",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 3
+      },
+      {
+        "itemId": 564,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Spellbook Swap.png]]"
+  },
+  {
+    "name": "Spin Flax",
+    "aliases": [
+      "Flax to bowstring",
+      "Spin flax",
+      "Spinning flax",
+      "Spin flax spell",
+      "Casting spin flax",
+      "String flax",
+      "Flax spin",
+      "Flax make",
+      "Flax spell",
+      "Cast spin flax",
+      "Bowstring spell",
+      "Bow string spell",
+      "Spin falx",
+      "Spin fla",
+      "Lunar spin flax",
+      "Flax spinning",
+      "Spin flx",
+      "String bow spell",
+      "Spin bowstring",
+      "Spinflax",
+      "Soin flax",
+      "Spin flax lunar",
+      "Spin flax osrs",
+      "Spinn flax",
+      "Spin fl",
+      "Spin flaz",
+      "Osrs spin flax",
+      "Spin flac",
+      "Spin flas"
+    ],
+    "level": 76,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 75,
+    "members": true,
+    "description": "Turn flax into bowstring",
+    "cost": "astral rune x1, nature rune x2, air rune x5",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 5
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Spin Flax.png]]"
+  },
+  {
+    "name": "Stat Restore Pot Share",
+    "aliases": [
+      "Stat restore",
+      "Stat restore pot share",
+      "Stat restore share",
+      "Restore potion share",
+      "Stat share",
+      "Stat pot share"
+    ],
+    "level": 81,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 84,
+    "members": true,
+    "description": "Shares a potion with up to 4 nearby players",
+    "cost": "earth rune x10, water rune x10, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 555,
+        "quantity": 10
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Stat Restore Pot Share.png]]"
+  },
+  {
+    "name": "Stat Spy",
+    "aliases": [
+      "Stat spy",
+      "Stat lookup",
+      "Spy"
+    ],
+    "level": 75,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 76,
+    "members": true,
+    "description": "Cast on another player to see their skill levels",
+    "cost": "astral rune x2, cosmic rune x2, body rune x5",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 564,
+        "quantity": 2
+      },
+      {
+        "itemId": 559,
+        "quantity": 5
+      }
+    ],
+    "image": "[[File:Stat Spy.png]]"
+  },
+  {
+    "name": "String Jewellery",
+    "aliases": [
+      "String amulet",
+      "String jewellery",
+      "String jewelry",
+      "String jewlery",
+      "String jewellry",
+      "String spell",
+      "String jewel",
+      "String jewerly",
+      "String jewelery",
+      "Stringing amulets",
+      "String amulets",
+      "Casting string jewelry",
+      "String jewllery",
+      "String jewe",
+      "String ammy"
+    ],
+    "level": 80,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 83,
+    "members": true,
+    "description": "String amulets without wool",
+    "cost": "astral rune x2, earth rune x10, water rune x5",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 555,
+        "quantity": 5
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:String Jewellery.png]]"
+  },
+  {
+    "name": "Stun",
+    "aliases": [
+      "Stagger",
+      "Stun spell",
+      "Stun osrs"
+    ],
+    "level": 80,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 90,
+    "members": true,
+    "description": "Reduces your opponent's attack by 10%",
+    "cost": "soul rune x1, earth rune x12, water rune x12",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 12
+      },
+      {
+        "itemId": 555,
+        "quantity": 12
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Stun.png]]"
+  },
+  {
+    "name": "Summon Boat",
+    "aliases": [
+      "Teleport boat to me",
+      "Summon boat",
+      "Boat to me",
+      "Tele boat to me",
+      "Teleport ship",
+      "Recall boat",
+      "Receover boat",
+      "Recover ship",
+      "Reclaim boat",
+      "Retrieve boat",
+      "Retrieve boats",
+      "Cast summon boat",
+      "Summon ship",
+      "Summon boat spell",
+      "Summon boa",
+      "Boat summon",
+      "Teleport boat to you",
+      "Call boat",
+      "Sumon boat",
+      "Boat recall",
+      "Summon boatr",
+      "Recall ship",
+      "Call ship",
+      "Summoning boat"
+    ],
+    "level": 56,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 66,
+    "members": true,
+    "description": "Teleports your boat to the dock nearest you",
+    "cost": "law rune x2, earth rune x1, water rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Summon Boat.png]]"
+  },
+  {
+    "name": "Superglass Make",
+    "aliases": [
+      "Super glass make",
+      "Glass make",
+      "Superglass",
+      "Glassmake",
+      "Super glassmake",
+      "Superglass make",
+      "Superglassmake",
+      "Make glass",
+      "Super glass",
+      "Supermake glass",
+      "Superheat glass",
+      "Sgm",
+      "Molten glass make",
+      "Make molten glass",
+      "Glassmake spell",
+      "Molten glass spell",
+      "Super glas",
+      "Super glas make",
+      "Super make glass",
+      "Superclass make",
+      "Superglass amke",
+      "Glass spell",
+      "Superglas make",
+      "Supergl",
+      "Casting superglass",
+      "Glass make spell",
+      "Glasmake",
+      "Glas make",
+      "Superglass maek",
+      "Superglass mak",
+      "Supergalss make",
+      "Superglas",
+      "Super heat glass",
+      "Super gla",
+      "Glass making spell",
+      "Super galss make",
+      "Superclass",
+      "Superg",
+      "Supergla",
+      "Super glass amke",
+      "Superglasmake",
+      "Make superglass",
+      "Superglass makew",
+      "Super glass maek",
+      "Make glass spell",
+      "Glass supermake",
+      "Glassblowing spell",
+      "Lunar glass make",
+      "Super glass makle",
+      "Glass amke",
+      "Super glasmake",
+      "Superglass mkae",
+      "Superglasss make",
+      "Supeglass make",
+      "Osrs super glass make",
+      "Wine spell",
+      "Glass of wine spell",
+      "Sueprglass make",
+      "Super gl"
+    ],
+    "level": 77,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 78,
+    "members": true,
+    "description": "Make glass without a furnace",
+    "cost": "air rune x10, fire rune x6, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 10
+      },
+      {
+        "itemId": 554,
+        "quantity": 6
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Superglass Make.png]]"
+  },
+  {
+    "name": "Superheat Item",
+    "aliases": [
+      "Superheat item",
+      "Superheat",
+      "Super heat",
+      "Superheating",
+      "Superheated",
+      "Super heat item",
+      "Superheat ore",
+      "Super smelt",
+      "Super heating",
+      "Smelt spell",
+      "Superheat iron",
+      "Supersmelt",
+      "Magic smelt",
+      "Superhear",
+      "Superhea",
+      "Super heat ore",
+      "Superheat metal",
+      "Smelt ore spell",
+      "Smelting spell",
+      "Superheat steel",
+      "Superheat osrs",
+      "Superheat gold"
+    ],
+    "level": 43,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 53,
+    "members": false,
+    "description": "Smelt ore without a furnace",
+    "cost": "nature rune x1, fire rune x4",
+    "runeCost": [
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 4
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Superheat Item.png]]"
+  },
+  {
+    "name": "Superior Demonbane",
+    "aliases": [
+      "Superior demonbane",
+      "Superior Demon Bane"
+    ],
+    "level": 62,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 36,
+    "members": true,
+    "description": "Hits a demon for moderate damage",
+    "cost": "fire rune x5, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 5
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "damage": "23",
+    "speed": 5,
+    "image": "[[File:Superior Demonbane.png]]"
+  },
+  {
+    "name": "Tan Leather",
+    "aliases": [
+      "Tan hide",
+      "Tan leather",
+      "Tan hides",
+      "Tan leather spell",
+      "Casting tan leather",
+      "Make leather",
+      "Tan Leather spell",
+      "Tan hide spell",
+      "Tan dragonhide",
+      "Tan spell",
+      "Tan lea",
+      "Tan leahter",
+      "Tan leather osrs",
+      "Tan lether",
+      "Tan leater",
+      "Tanning spell",
+      "Leather spell",
+      "Leather tan",
+      "Leather make",
+      "Osrs tan leather",
+      "Cast tan",
+      "Casting tan",
+      "Tanning dragon hide",
+      "Tan dragon hide",
+      "Tanning dhide",
+      "Tanning dragon",
+      "Tan leaher",
+      "Tan leat",
+      "Tan leather lunar",
+      "Tan magic",
+      "Tanning magic",
+      "Tanleather",
+      "Tan elather",
+      "Tan lather",
+      "Tan leath",
+      "Tan hides spell",
+      "Tan leathers",
+      "Tanner spell",
+      "Than leather",
+      "Lunar tan leather",
+      "Lunar tan",
+      "Hide tan",
+      "Tan Leather\\",
+      "Tan leatehr",
+      "Tan leathe",
+      "Tan leather\\",
+      "Tan leathert",
+      "Tann leather",
+      "Tanning hide spell",
+      "Tanning leather spell",
+      "Tean leather",
+      "Ten leather",
+      "Tan le",
+      "Ran hide",
+      "Cure hide",
+      "Tan hide\\",
+      "Tan hide osrs",
+      "Tan hide lunar",
+      "Tan hid",
+      "Tan hider",
+      "Tan hude",
+      "Tan l",
+      "Tan leather'",
+      "Tan make"
+    ],
+    "level": 78,
+    "spellbook": "Lunar",
+    "type": "Utility",
+    "exp": 81,
+    "members": true,
+    "description": "Tans up to 5 hides",
+    "cost": "astral rune x2, nature rune x1, fire rune x5",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 2
+      },
+      {
+        "itemId": 561,
+        "quantity": 1
+      },
+      {
+        "itemId": 554,
+        "quantity": 5
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Tan Leather.png]]"
+  },
+  {
+    "name": "Tele Block",
+    "aliases": [
+      "Teleblock",
+      "Teleport Block",
+      "Tele-block",
+      "Tele block",
+      "Teleport block",
+      "Tb",
+      "Teleblocked",
+      "Tele-blocked",
+      "Block teleport",
+      "Telebock",
+      "Teleportation block",
+      "Telly block",
+      "Anti teleport",
+      "Tele lock",
+      "Telebloc",
+      "Teleblok",
+      "Teleblovk",
+      "Tell lock",
+      "Teleblock osrs",
+      "Osrs teleblock"
+    ],
+    "level": 85,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 83.6,
+    "members": false,
+    "description": "Stops your target from teleporting",
+    "cost": "law rune x1, chaos rune x1, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Tele Block.png]]"
+  },
+  {
+    "name": "Tele Group Barbarian",
+    "aliases": [
+      "Tele group barbarian"
+    ],
+    "level": 76,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 77,
+    "members": true,
+    "description": "Teleports players to the Barbarian Outpost",
+    "cost": "law rune x2, fire rune x6, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 6
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Barbarian.png]]"
+  },
+  {
+    "name": "Tele Group Catherby",
+    "aliases": [
+      "Tele group catherby"
+    ],
+    "level": 88,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 93,
+    "members": true,
+    "description": "Teleports players to Catherby",
+    "cost": "law rune x3, water rune x15, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 15
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Catherby.png]]"
+  },
+  {
+    "name": "Tele Group Fishing Guild",
+    "aliases": [
+      "Tele group fishing guild"
+    ],
+    "level": 86,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 90,
+    "members": true,
+    "description": "Teleports players to the Fishing Guild",
+    "cost": "law rune x3, water rune x14, astral rune x3",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 3
+      },
+      {
+        "itemId": 555,
+        "quantity": 14
+      },
+      {
+        "itemId": 9075,
+        "quantity": 3
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Fishing Guild.png]]"
+  },
+  {
+    "name": "Tele Group Khazard",
+    "aliases": [
+      "Tele group khazard"
+    ],
+    "level": 79,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 81,
+    "members": true,
+    "description": "Teleports players to Port Khazard",
+    "cost": "law rune x2, water rune x8, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 8
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Khazard.png]]"
+  },
+  {
+    "name": "Tele Group Moonclan",
+    "aliases": [
+      "Tele group moonclan",
+      "Telegroup moonclan"
+    ],
+    "level": 70,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 67,
+    "members": true,
+    "description": "Teleports players to Moonclan Island",
+    "cost": "law rune x1, earth rune x4, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 4
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Moonclan.png]]"
+  },
+  {
+    "name": "Tele Group Waterbirth",
+    "aliases": [
+      "Tele group waterbirth"
+    ],
+    "level": 73,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 72,
+    "members": true,
+    "description": "Teleports players to Waterbirth Island",
+    "cost": "law rune x1, water rune x5, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 5
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Tele Group Waterbirth.png]]"
+  },
+  {
+    "name": "Telekinetic Grab",
+    "aliases": [
+      "Telegrab",
+      "Tg",
+      "Tele grab",
+      "Tele-grab",
+      "Tele Grab",
+      "Telegrabbed",
+      "Tele-grabbed",
+      "Tele-grabbing",
+      "Telegrabbing",
+      "Telekenetic grab",
+      "Telekinetic grab",
+      "Telegrab runes",
+      "Telegram",
+      "Telekenetic",
+      "Telekinetic",
+      "Telekinesis",
+      "Telekentic grab",
+      "Grab",
+      "Teleknetic grab",
+      "Telegra"
+    ],
+    "level": 33,
+    "spellbook": "Normal",
+    "type": "Utility",
+    "exp": 43,
+    "members": false,
+    "description": "Take an item you can see but can't reach",
+    "cost": "law rune x1, air rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      }
+    ],
+    "speed": 3,
+    "image": "[[File:Telekinetic Grab.png]]"
+  },
+  {
+    "name": "Teleother Camelot",
+    "aliases": [
+      "Tele-other Camelot",
+      "Teleother camelot"
+    ],
+    "level": 90,
+    "spellbook": "Normal",
+    "type": "teleport",
+    "exp": 100,
+    "members": true,
+    "description": "Teleports target to Camelot",
+    "cost": "soul rune x2, law rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      }
+    ],
+    "speed": 10,
+    "image": "[[File:Teleother Camelot.png]]"
+  },
+  {
+    "name": "Teleother Falador",
+    "aliases": [
+      "Tele-other Falador",
+      "Teleother falador"
+    ],
+    "level": 82,
+    "spellbook": "Normal",
+    "type": "teleport",
+    "exp": 92,
+    "members": true,
+    "description": "Teleports target to Falador",
+    "cost": "soul rune x1, law rune x1, water rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      }
+    ],
+    "speed": 10,
+    "image": "[[File:Teleother Falador.png]]"
+  },
+  {
+    "name": "Teleother Lumbridge",
+    "aliases": [
+      "Tele-other Lumbridge",
+      "Teleother lumbridge"
+    ],
+    "level": 74,
+    "spellbook": "Normal",
+    "type": "teleport",
+    "exp": 84,
+    "members": true,
+    "description": "Teleports target to Lumbridge",
+    "cost": "soul rune x1, earth rune x1, law rune x1",
+    "runeCost": [
+      {
+        "itemId": 566,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 1
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      }
+    ],
+    "speed": 10,
+    "image": "[[File:Teleother Lumbridge.png]]"
+  },
+  {
+    "name": "Teleport to Boat",
+    "aliases": [
+      "Teleport to boat",
+      "Teleport me to boat",
+      "Teleport to ship",
+      "Teleport boat",
+      "Tele boat",
+      "Tele to boat",
+      "Teleport to boar",
+      "Telepor to boat",
+      "Boat teleport",
+      "Tp to boat",
+      "Telport to boat",
+      "Teleport to baot",
+      "Teleport to bort",
+      "Teleport ot boat",
+      "Telepot to boat",
+      "Tele me to boat",
+      "Sailing teleport",
+      "Teleport to boat\\",
+      "Teleport to boad",
+      "To boat",
+      "Teleport sailing",
+      "Boat tele",
+      "Teleportation sailing",
+      "Teleport to boa",
+      "Teleport to your boat",
+      "Teleprot to boat",
+      "Teleprt to boat",
+      "Telelport boat",
+      "Tleport to boat",
+      "Teleport t boat",
+      "Tp boat"
+    ],
+    "level": 67,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 77,
+    "members": true,
+    "description": "Teleports you to your boat",
+    "cost": "law rune x2, earth rune x2, water rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 2
+      }
+    ],
+    "image": "[[File:Teleport to Boat.png]]"
+  },
+  {
+    "name": "Teleport to House",
+    "aliases": [
+      "House Teleport",
+      "House teleport",
+      "Teleport To House",
+      "POH teleport",
+      "Teleport house",
+      "Teleport to home",
+      "Poh tele",
+      "House tp",
+      "Teleport to house",
+      "House tele",
+      "Teleport poh",
+      "Tele home",
+      "Tele to house",
+      "Teleport in house",
+      "Teleport to hosue",
+      "Teleport to poh",
+      "Player owned house teleport",
+      "Player-owned house teleport",
+      "House telport",
+      "Tele house",
+      "Telepor to house",
+      "Player house teleport",
+      "Osrs house teleport",
+      "Home telport",
+      "House teleprot",
+      "Hosue teleport",
+      "Telport to house",
+      "Tele to poh",
+      "Teleport ot house",
+      "Teleport to hous",
+      "Teleport to houser",
+      "Teleportation house",
+      "Teleprot to house",
+      "Tp to house",
+      "Poh tp"
+    ],
+    "level": 40,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 30,
+    "members": true,
+    "description": "Teleports you to your house",
+    "cost": "earth rune x1, law rune x1, air rune x1",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 1
+      },
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Teleport to House.png]]"
+  },
+  {
+    "name": "Teleport to Target",
+    "aliases": [
+      "Bounty Teleport",
+      "Bounty teleport",
+      "Bounty Hunter Teleport",
+      "Teleport to target",
+      "Teleport to bounty target",
+      "Teleport to Bounty Target",
+      "Teleport target",
+      "Tele to target",
+      "Tp to target"
+    ],
+    "level": 85,
+    "spellbook": "all",
+    "type": "Teleport",
+    "exp": 45,
+    "members": true,
+    "description": "Teleports you near your Target",
+    "cost": "law rune x1, chaos rune x1, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Teleport to Target.png]]"
+  },
+  {
+    "name": "Trollheim Teleport",
+    "aliases": [
+      "Trollheim tele",
+      "Trollheim teleport",
+      "Trollhiem teleport",
+      "Teleport to troll",
+      "Teleport to trollheim",
+      "Teleport trollheim",
+      "Troll heim teleport",
+      "Trolheim teleport",
+      "Troll teleport",
+      "Troll tele",
+      "Trollheim tp",
+      "Stronghold teleport",
+      "Tollheim teleport",
+      "Trollhiem tele",
+      "Trollheim teleprot",
+      "Trolheim tele",
+      "Troll heim tele",
+      "Troll stonghold teleport",
+      "Troll strong hold teleport",
+      "Troll stronghold tp",
+      "Troll stronhold teleport",
+      "Trollhein teleport",
+      "Trollhelm teleport",
+      "Trollstronghold teleport",
+      "Trollheim telepor"
+    ],
+    "level": 61,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 68,
+    "members": true,
+    "description": "Teleports you to Trollheim",
+    "cost": "law rune x2, fire rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 554,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Trollheim Teleport.png]]"
+  },
+  {
+    "name": "Undead Grasp",
+    "aliases": [
+      "Undying grasp",
+      "Undead grasp",
+      "Undead gasp",
+      "Undead graps",
+      "Undead grasph",
+      "Undead grasp osrs"
+    ],
+    "level": 79,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 46.5,
+    "members": true,
+    "description": "Deals major damage with a high chance of holding your target",
+    "cost": "fire rune x12, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 554,
+        "quantity": 12
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "damage": "24",
+    "speed": 5,
+    "image": "[[File:Undead Grasp.png]]"
+  },
+  {
+    "name": "Varrock Teleport",
+    "aliases": [
+      "Teleport to varrock",
+      "Grand exchange teleport",
+      "Varrok teleport",
+      "Varrock tp",
+      "Ge teleport",
+      "Varrock Teleport icon",
+      "Varrock teleport",
+      "Teleport to Varrock",
+      "Varock teleport",
+      "Varrock tele",
+      "Varrock ge teleport",
+      "Varrock teleports",
+      "Teleport to ge",
+      "Teleport to grand exchange",
+      "Teleport varrock",
+      "Ge tele",
+      "Garrick teleport",
+      "Grand exchange tele",
+      "Verrock teleport",
+      "Varroc teleport",
+      "Varrack teleport",
+      "Varrock tel",
+      "Varrock teleprot",
+      "Varock tele",
+      "Varrock telepor",
+      "Varrock teleport spell",
+      "Varrok tele",
+      "Teleport ge",
+      "Teleport to varrok",
+      "Teleport varock",
+      "Teleport varrok",
+      "Varrock spell"
+    ],
+    "level": 25,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 35,
+    "members": false,
+    "description": "Teleports you to Varrock",
+    "cost": "law rune x1, air rune x3, fire rune x1",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 554,
+        "quantity": 1
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Varrock Teleport.png]]"
+  },
+  {
+    "name": "Vengeance",
+    "aliases": [
+      "Vengence",
+      "Vengance",
+      "Veng",
+      "Taste vengeance",
+      "Venge",
+      "Taste vengance",
+      "Vengenace",
+      "Vengeance spell",
+      "Taste vengence",
+      "Vengenance",
+      "Vegance",
+      "Vegeance",
+      "Vegence",
+      "Revenge",
+      "Venegance",
+      "Vengeance osrs",
+      "Osrs vengeance",
+      "Vengeanc",
+      "Vangeance",
+      "Veangence",
+      "Vengeane",
+      "Vengence osrs",
+      "Vangance",
+      "Vengea",
+      "Veangance",
+      "Vegenance",
+      "Veangeance",
+      "Venegence",
+      "Vengace",
+      "Vengaence",
+      "Vengeace",
+      "Venggeance"
+    ],
+    "level": 94,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 112,
+    "members": true,
+    "description": "Rebound damage to an opponent",
+    "cost": "astral rune x4, earth rune x10, death rune x2",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 4
+      },
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      }
+    ],
+    "speed": 0,
+    "image": "[[File:Vengeance.png]]"
+  },
+  {
+    "name": "Vengeance Other",
+    "aliases": [
+      "Venge other",
+      "Vengeance other",
+      "Veng other",
+      "Vengance other",
+      "Vengence other",
+      "You have the power of vengeance"
+    ],
+    "level": 93,
+    "spellbook": "Lunar",
+    "type": "Combat",
+    "exp": 108,
+    "members": true,
+    "description": "Allows another player to rebound damage to an opponent",
+    "cost": "astral rune x3, earth rune x10, death rune x2",
+    "runeCost": [
+      {
+        "itemId": 9075,
+        "quantity": 3
+      },
+      {
+        "itemId": 557,
+        "quantity": 10
+      },
+      {
+        "itemId": 560,
+        "quantity": 2
+      }
+    ],
+    "speed": 0,
+    "image": "[[File:Vengeance Other.png]]"
+  },
+  {
+    "name": "Vile Vigour",
+    "aliases": [
+      "Vile vigor",
+      "Vile vigour",
+      "Vile rigour",
+      "Vile vig",
+      "Vigor",
+      "Prayer to energy",
+      "Vv",
+      "VV",
+      "Vial vigour",
+      "Run energy spell"
+    ],
+    "level": 66,
+    "spellbook": "Arceuus",
+    "type": "Utility",
+    "exp": 76,
+    "members": true,
+    "description": "Converts your available prayer points into run energy",
+    "cost": "air rune x3, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "image": "[[File:Vile Vigour.png]]"
+  },
+  {
+    "name": "Vulnerability",
+    "aliases": [
+      "Vuln",
+      "Vunerability",
+      "Vulnerbility",
+      "Vulernability",
+      "Vulnerablity"
+    ],
+    "level": 66,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 76,
+    "members": true,
+    "description": "Reduces your opponent's defence by 10%",
+    "cost": "water rune x5, earth rune x5, soul rune x1",
+    "runeCost": [
+      {
+        "itemId": 555,
+        "quantity": 5
+      },
+      {
+        "itemId": 557,
+        "quantity": 5
+      },
+      {
+        "itemId": 566,
+        "quantity": 1
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Vulnerability.png]]"
+  },
+  {
+    "name": "Ward of Arceuus",
+    "aliases": [
+      "Ward of arceuus",
+      "Ward of arc",
+      "Ward of arceeus",
+      "Ward of arceus",
+      "Ward of arceuss",
+      "Ward of",
+      "Arceuus ward",
+      "Ward of ar",
+      "Arc ward",
+      "Mark of arceuus",
+      "Ward of arcceus",
+      "Ward of a",
+      "Ward of arce",
+      "Ward or arceeus",
+      "Arceus ward"
+    ],
+    "level": 73,
+    "spellbook": "Arceuus",
+    "type": "Combat",
+    "exp": 83,
+    "members": true,
+    "description": "Gives you protection from the effects of offensive Arceuus spells and demonic attacks",
+    "cost": "cosmic rune x1, nature rune x2, soul rune x4",
+    "runeCost": [
+      {
+        "itemId": 564,
+        "quantity": 1
+      },
+      {
+        "itemId": 561,
+        "quantity": 2
+      },
+      {
+        "itemId": 566,
+        "quantity": 4
+      }
+    ],
+    "image": "[[File:Ward of Arceuus.png]]"
+  },
+  {
+    "name": "Watchtower Teleport",
+    "aliases": [
+      "Watchtower teleport",
+      "Watch tower teleport",
+      "Watchtower tele",
+      "Watchtower spell",
+      "Teleport to watchtower",
+      "Teleport watchtower",
+      "Watchtower yanille teleport",
+      "Watchtower tp",
+      "Watch tower tele",
+      "Yanille teleport spell",
+      "Watchtower telepor",
+      "Yanille tp",
+      "Watchtower teleport spell",
+      "Wachtower teleport",
+      "Teleport to watch tower",
+      "Watchtower teleprot"
+    ],
+    "level": 58,
+    "spellbook": "Normal",
+    "type": "Teleport",
+    "exp": 68,
+    "members": true,
+    "description": "Teleports you to the Watchtower",
+    "cost": "earth rune x2, law rune x2",
+    "runeCost": [
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 563,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Watchtower Teleport.png]]"
+  },
+  {
+    "name": "Water Blast",
+    "aliases": [
+      "Water blast",
+      "Water burst",
+      "Waterblast",
+      "Water blas"
+    ],
+    "level": 47,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 28.5,
+    "members": false,
+    "description": "A medium level Water missile",
+    "cost": "water rune x3, air rune x3, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 555,
+        "quantity": 3
+      },
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "element": "Water",
+    "damage": "14, 15, or 16",
+    "speed": 5,
+    "image": "[[File:Water Blast.png]]"
+  },
+  {
+    "name": "Water Bolt",
+    "aliases": [
+      "Water bolt",
+      "Waterbolt",
+      "Water bolt osrs",
+      "Water bolts"
+    ],
+    "level": 23,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 16.5,
+    "members": false,
+    "description": "A low level Water missile",
+    "cost": "water rune x2, air rune x2, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 555,
+        "quantity": 2
+      },
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "element": "Water",
+    "damage": "10, 11, or 12",
+    "speed": 5,
+    "image": "[[File:Water Bolt.png]]"
+  },
+  {
+    "name": "Water Strike",
+    "aliases": [
+      "Water strike",
+      "Waterstrike",
+      "Water stike"
+    ],
+    "level": 5,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 7.5,
+    "members": false,
+    "description": "A basic Water missile",
+    "cost": "water rune x1, air rune x1, mind rune x1",
+    "runeCost": [
+      {
+        "itemId": 555,
+        "quantity": 1
+      },
+      {
+        "itemId": 556,
+        "quantity": 1
+      },
+      {
+        "itemId": 558,
+        "quantity": 1
+      }
+    ],
+    "element": "Water",
+    "damage": "4, 6, or 8",
+    "speed": 5,
+    "image": "[[File:Water Strike.png]]"
+  },
+  {
+    "name": "Water Surge",
+    "aliases": [
+      "Water surge",
+      "Watersurge",
+      "Water Surges",
+      "Water sure",
+      "Blue Surge",
+      "Blue surge",
+      "Water sruge",
+      "Water surg"
+    ],
+    "level": 85,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 46.5,
+    "members": true,
+    "description": "A very high level Water missile",
+    "cost": "water rune x10, air rune x7, wrath rune x1",
+    "runeCost": [
+      {
+        "itemId": 555,
+        "quantity": 10
+      },
+      {
+        "itemId": 556,
+        "quantity": 7
+      },
+      {
+        "itemId": 21880,
+        "quantity": 1
+      }
+    ],
+    "element": "Water",
+    "damage": "22, 23, or 24",
+    "speed": 5,
+    "image": "[[File:Water Surge.png]]"
+  },
+  {
+    "name": "Water Wave",
+    "aliases": [
+      "Water wave",
+      "Water wave osrs",
+      "Waterwave",
+      "Waater wave"
+    ],
+    "level": 65,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 37.5,
+    "members": true,
+    "description": "A high level Water missile",
+    "cost": "water rune x7, air rune x5, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 555,
+        "quantity": 7
+      },
+      {
+        "itemId": 556,
+        "quantity": 5
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "element": "Water",
+    "damage": "18, 19, or 20",
+    "speed": 5,
+    "image": "[[File:Water Wave.png]]"
+  },
+  {
+    "name": "Waterbirth Teleport",
+    "aliases": [
+      "Waterbirth island teleport",
+      "Waterbirth teleport",
+      "Waterbirth isle teleport",
+      "Teleport to waterbirth",
+      "Teleport waterbirth",
+      "Water birth island teleport",
+      "Water birth teleport",
+      "Waterbirth tele",
+      "Daganoth kings teleport",
+      "Dagannoth king teleport",
+      "Dagganoth kings teleport",
+      "Dagannoth teleport",
+      "Water birth tele",
+      "Waterbirth island tele",
+      "Teleport to waterbirth island",
+      "Waterbith teleport"
+    ],
+    "level": 72,
+    "spellbook": "Lunar",
+    "type": "Teleport",
+    "exp": 71,
+    "members": true,
+    "description": "Teleports you to Waterbirth Island",
+    "cost": "law rune x1, water rune x1, astral rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 1
+      },
+      {
+        "itemId": 555,
+        "quantity": 1
+      },
+      {
+        "itemId": 9075,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:Waterbirth Teleport.png]]"
+  },
+  {
+    "name": "Weaken",
+    "aliases": [
+      "You feel weakened",
+      "Weaken spell"
+    ],
+    "level": 11,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 21,
+    "members": false,
+    "description": "Reduces your opponent's strength by 5%",
+    "cost": "body rune x1, earth rune x2, water rune x3",
+    "runeCost": [
+      {
+        "itemId": 559,
+        "quantity": 1
+      },
+      {
+        "itemId": 557,
+        "quantity": 2
+      },
+      {
+        "itemId": 555,
+        "quantity": 3
+      }
+    ],
+    "speed": 5,
+    "image": "[[File:Weaken.png]]"
+  },
+  {
+    "name": "West Ardougne Teleport",
+    "aliases": [
+      "West ardougne teleport",
+      "West Ardougne teleport",
+      "West ardy tele",
+      "West ardy teleport",
+      "West ardounge teleport"
+    ],
+    "level": 61,
+    "spellbook": "Arceuus",
+    "type": "Teleport",
+    "exp": 68,
+    "members": true,
+    "description": "Teleports you to West Ardougne",
+    "cost": "law rune x2, soul rune x2",
+    "runeCost": [
+      {
+        "itemId": 563,
+        "quantity": 2
+      },
+      {
+        "itemId": 566,
+        "quantity": 2
+      }
+    ],
+    "speed": 4,
+    "image": "[[File:West Ardougne Teleport.png]]"
+  },
+  {
+    "name": "Wind Blast",
+    "aliases": [
+      "Air blast",
+      "Wind blast",
+      "Air Blast",
+      "Windblast",
+      "Wind blast osrs",
+      "Win blast",
+      "Wind balst",
+      "Wind blas"
+    ],
+    "level": 41,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 25.5,
+    "members": false,
+    "description": "A medium level Air missile",
+    "cost": "air rune x3, death rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 3
+      },
+      {
+        "itemId": 560,
+        "quantity": 1
+      }
+    ],
+    "element": "Air",
+    "damage": "13, 14, 15, or 16",
+    "speed": 5,
+    "image": "[[File:Wind Blast.png]]"
+  },
+  {
+    "name": "Wind Bolt",
+    "aliases": [
+      "Air bolt",
+      "Wind bolt",
+      "Air Bolt",
+      "Windbolt",
+      "Wind bold",
+      "Wind bol",
+      "Wind blot"
+    ],
+    "level": 17,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 13.5,
+    "members": false,
+    "description": "A low level Air missile",
+    "cost": "air rune x2, chaos rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 2
+      },
+      {
+        "itemId": 562,
+        "quantity": 1
+      }
+    ],
+    "element": "Air",
+    "damage": "9, 10, 11, or 12",
+    "speed": 5,
+    "image": "[[File:Wind Bolt.png]]"
+  },
+  {
+    "name": "Wind Strike",
+    "aliases": [
+      "Air strike",
+      "Wind strike",
+      "Air Strike",
+      "Windstrike",
+      "Air stike",
+      "Airstrike",
+      "Wind stike",
+      "Wind stirke",
+      "Wind strik"
+    ],
+    "level": 1,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 5.5,
+    "members": false,
+    "description": "A basic Air missile",
+    "cost": "air rune x1, mind rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 1
+      },
+      {
+        "itemId": 558,
+        "quantity": 1
+      }
+    ],
+    "element": "Air",
+    "damage": "2, 4, 6, or 8",
+    "speed": 5,
+    "image": "[[File:Wind Strike.png]]"
+  },
+  {
+    "name": "Wind Surge",
+    "aliases": [
+      "Wind surge",
+      "Wind Surges",
+      "Windsurge",
+      "Wind sure",
+      "White Surge",
+      "White surge",
+      "Air Surge",
+      "Wind surg",
+      "Wing surge",
+      "Win surge"
+    ],
+    "level": 81,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 44.5,
+    "members": true,
+    "description": "A very high level Air missile",
+    "cost": "air rune x7, wrath rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 7
+      },
+      {
+        "itemId": 21880,
+        "quantity": 1
+      }
+    ],
+    "element": "Air",
+    "damage": "21, 22, 23, or 24",
+    "speed": 5,
+    "image": "[[File:Wind Surge.png]]"
+  },
+  {
+    "name": "Wind Wave",
+    "aliases": [
+      "Wind wave",
+      "Air wave",
+      "Air Wave",
+      "Windwave",
+      "Win wave",
+      "Wind wawe",
+      "Wind wav",
+      "Wind wave osrs"
+    ],
+    "level": 62,
+    "spellbook": "Normal",
+    "type": "Combat",
+    "exp": 36,
+    "members": true,
+    "description": "A high level Air missile",
+    "cost": "air rune x5, blood rune x1",
+    "runeCost": [
+      {
+        "itemId": 556,
+        "quantity": 5
+      },
+      {
+        "itemId": 565,
+        "quantity": 1
+      }
+    ],
+    "element": "Air",
+    "damage": "17, 18, 19, or 20",
+    "speed": 5,
+    "image": "[[File:Wind Wave.png]]"
+  }
+]

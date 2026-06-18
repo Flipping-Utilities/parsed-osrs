@@ -1,0 +1,12 @@
+return {
+    itemId     = 2,
+    icon       = 'Steel cannonball.png',
+    item       = 'Steel cannonball',
+    value      = 5,
+    limit      = 11000,
+    members    = true,
+    category   = nil,
+    examine    = 'Ammo suited for a boat\'s cannon or for a dwarf multicannon.',
+    hialch     = 3,
+    lowalch    = 2
+}

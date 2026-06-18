@@ -1,0 +1,11 @@
+return {
+	itemId    = 32053,
+	item      = "Camphor hull parts",
+	icon      = 'Camphor hull parts.png',
+    alchable  = true,
+	value     = 6250,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a camphor hull for a boat."
+}

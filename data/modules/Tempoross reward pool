@@ -1,0 +1,115 @@
+local p = {}
+
+-- rewardsTemplatePageName is a full page name to make it easier to find this usage in the future!
+local fishTables = {
+	{level=81, levelRangeName="81+", rewardsTemplatePageName="Reward pool/Rewards levels 81+"},
+	{level=79, levelRangeName="79-80", rewardsTemplatePageName="Reward pool/Rewards levels 79-80"},
+	{level=76, levelRangeName="76-78", rewardsTemplatePageName="Reward pool/Rewards levels 76-78"},
+	{level=50, levelRangeName="50-75", rewardsTemplatePageName="Reward pool/Rewards levels 50-75"},
+	{level=46, levelRangeName="46-49", rewardsTemplatePageName="Reward pool/Rewards levels 46-49"},
+	{level=40, levelRangeName="40-45", rewardsTemplatePageName="Reward pool/Rewards levels 40-45"},
+	{level=35, levelRangeName="35-39", rewardsTemplatePageName="Reward pool/Rewards levels 35-39"},
+}
+
+function p.possiblyReplaceWithSoakedPages(frame, rewards, replacementSoakedPages, shouldReplaceWithSoakedPages, soakedPageChance, drop)
+	if (shouldReplaceWithSoakedPages) then
+		table.insert(replacementSoakedPages, 1, {chance=soakedPageChance, name=drop.name})
+	else
+		table.insert(rewards, 4, drop)
+	end
+end
+
+function p.uniqueTable(frame, hasFishBarrel, hasTackleBox, hasBigHarpoon)
+	local tinyTemporRarityNotes = frame:preprocess("{{CiteTwitter|author=Mod Zuko|url=https://twitter.com/JagexZuko/status/1392118795834122241|date=11 May 2021|archiveurl=https://reldo.runescape.wiki/i/102979|archivedate=11 May 2021|quote=|name=rewardPool}}")
+
+	local rewards = {
+		{name="Spirit flakes", quantity="32-64", rarity="1/4", gemw="No"},
+		{name="Casket (Reward pool)", quantity="1", rarity="1/20", gemw="No"},
+		{name="Soaked page", quantity="5-9", rarity="149/8000", gemw="Yes"},
+		{name="Tome of water (empty)", quantity="1", rarity="1/1600", gemw="Yes"},
+		{name="Tiny tempor", quantity="1", rarity="1/8000", raritynotes=tinyTemporRarityNotes},
+		{name="Dragon harpoon", quantity="1", rarity="1/8000"}
+	}
+
+	local replacementSoakedPages = {}
+	
+	p.possiblyReplaceWithSoakedPages(frame, rewards, replacementSoakedPages, hasBigHarpoon, 1, {name="Big harpoonfish", quantity="1", rarity="1/1600", gemw="No"})
+	p.possiblyReplaceWithSoakedPages(frame, rewards, replacementSoakedPages, hasTackleBox, 4, {name="Tackle box", quantity="1", rarity="1/400", gemw="No"})
+	p.possiblyReplaceWithSoakedPages(frame, rewards, replacementSoakedPages, hasFishBarrel, 4, {name="Fish barrel", quantity="1", rarity="1/400", gemw="No"})
+	
+	local replacementSoakedPagesChance = 0
+	local replacementSoakedPagesNames = {}
+	
+	for _, replacement in ipairs(replacementSoakedPages) do
+		replacementSoakedPagesChance = replacementSoakedPagesChance + replacement.chance
+		table.insert(replacementSoakedPagesNames, "[[" .. replacement.name .. "]]")
+	end
+	
+	if (replacementSoakedPagesChance > 0) then
+		table.insert(rewards, 7 - table.getn(replacementSoakedPagesNames), {
+			name="Soaked page",
+			quantity="25",
+			rarity=tostring(replacementSoakedPagesChance) .. "/1600",
+			raritynotes=frame:extensionTag{
+				name='ref',
+				content = mw.ustring.format('These are dropped in place of an already obtained items: %s', table.concat(replacementSoakedPagesNames, ", ")),
+				args = { group='d' } },
+			gemw="Yes"
+		})
+	end
+
+	return rewards
+end
+
+function p.createDropsSection(frame, title, drops)
+	local dropLines = { "==" .. title .. "==", frame:expandTemplate{title = "DropsTableHead"} }
+	for _, drop in ipairs(drops) do
+		table.insert(dropLines, frame:expandTemplate{title = "DropsLineReward", args = drop})
+	end
+	table.insert(dropLines, frame:expandTemplate{title = "DropsTableBottom"})
+	table.insert(dropLines, frame:expandTemplate{title = "Reflist", args = {group = "d"}})
+	return table.concat(dropLines, '\n')
+end
+
+function p.fishTable(frame, fishingLevel)
+	for _, fishTable in ipairs(fishTables) do
+		if fishingLevel >= fishTable.level then
+			return frame:preprocess("These drops are for players with base Fishing level " .. fishTable.levelRangeName .. ".\n" .. "{{" .. fishTable.rewardsTemplatePageName .. "}}")
+		end
+	end
+	return "You can't get a supply crate with a Fishing level less than 35."
+end
+
+function p.fishSection(frame, fishingLevel)
+	return "==Fish==\n" .. p.fishTable(frame, fishingLevel)
+end
+
+function p._main(frame, fishingLevel, hasFishBarrel, hasTackleBox, hasBigHarpoon)
+	local uniquesSection = p.createDropsSection(frame, "Unique", p.uniqueTable(frame, hasFishBarrel, hasTackleBox, hasBigHarpoon))
+	local fishSection = p.fishSection(frame, fishingLevel)
+	local otherSection = frame:preprocess("==Other==\n\n{{Reward pool/Rewards other}}")
+	return table.concat({uniquesSection, fishSection, otherSection}, "\n")
+end
+
+function p.main(frame)
+	args = frame.args
+	
+	return p._main(
+		frame,
+		tonumber(args.fishing), 
+		args.hasFishBarrel=='yes',
+		args.hasTackleBox=='yes',
+		args.hasBigHarpoon=='yes')
+end
+
+function p.runTest(fishingLevel, hasFishBarrel, hasTackleBox, hasBigHarpoon)
+	local result = p._main(mw.getCurrentFrame(), fishingLevel, hasFishBarrel, hasTackleBox, hasBigHarpoon)
+	mw.logObject(result)
+	return result
+end
+
+function p.runTestSimple()
+	return p.runTest(76, true, true, false)
+end
+
+return p

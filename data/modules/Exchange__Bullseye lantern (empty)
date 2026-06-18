@@ -1,0 +1,12 @@
+return {
+    itemId     = 4546,
+    icon       = 'Bullseye lantern (empty).png',
+    item       = 'Bullseye lantern (empty)',
+    value      = 400,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'You need to add lamp oil before you can use it.',
+    hialch     = 240,
+    lowalch    = 160
+}

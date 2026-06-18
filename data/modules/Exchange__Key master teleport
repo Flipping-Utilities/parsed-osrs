@@ -1,0 +1,12 @@
+return {
+    itemId     = 13249,
+    icon       = "Key master teleport.png",
+    item       = "Key master teleport",
+    alchable   = true,
+    value      = 10,
+    limit      = nil,
+    members    = true,
+    category   = nil,
+    examine    = "Teleports you to the Key Master.",
+    usage      = {}
+}

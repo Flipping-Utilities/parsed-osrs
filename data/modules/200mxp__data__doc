@@ -1,0 +1,14 @@
+{{documentation}}
+
+This data portion of the module is run by using GitHub Actions. Below is the process that runs the automation:
+
+#Create a Python file (Used [https://github.com/WJLM308/OSRS-Wiki WJLM308's Python script that runs the file] to create [[User:Keplare/200m xp code|the Python code]]
+#Create a list of requirements (a.k.a. libraries) inside a requirements.txt that is within the same directory as the main Python file
+#Create an update schedule .yml file, essentially the instructions for GitHub to run the bot daily at 00:00 UTC
+#Set up the bot password on the Wiki for both the Wiki and GitHub to talk to each other. For example, if a bot username is update200mxp, the full username would be Keplare@update200mxp, and the password is whatever the algorithm sets up.
+#Go to GitHub's directory and set up the bot username and bot password settings (not in the Python file directory, but in the secret variables themselves)
+#Go to GitHub's Actions tab and run the .yml file.
+
+For more questions, contact Keplare on the OSRS Wiki Discord or message ‘em on [[User talk:Keplare]].
+
+———————'''Do not manually change the code below this line'''———————

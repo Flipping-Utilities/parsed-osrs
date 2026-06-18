@@ -1,0 +1,16 @@
+--<nowiki>
+local p = {}
+
+function p.multi(str, count)
+	return string.rep(str, count)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local str = args[1]
+	local times = args[2] or 2
+	return p.multi(str, times)
+end
+
+return p
+--</nowiki>

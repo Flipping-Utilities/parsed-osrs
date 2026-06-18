@@ -1,0 +1,11 @@
+return {
+	itemId    = 32035,
+	item      = "Large rune keel parts",
+	icon      = 'Large rune keel parts.png',
+    alchable  = true,
+	value     = 100000,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a runite keel for larger boats."
+}

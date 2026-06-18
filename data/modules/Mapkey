@@ -1,0 +1,149 @@
+require('Module:Mw.html extension')
+
+local p = {}
+
+function p.main(frame)
+
+    local args = frame:getParent().args
+	local lines = 0
+
+	for k in pairs(args) do 
+		if string.match(k,'line') then lines = lines + 1 end
+	end
+	
+	mapkey = mw.html.create('div')
+			:cssText('margin:0px -3px 0px -3px')
+			:cssIf(args.width,'width',tostring(args.width)..'px')
+			:cssIf(args.borders == 'yes','border','3px solid var(--thumb-bg)')
+	
+	title = mapkey:IF(args.title)
+			:tag('div')
+			:css({
+				['width'] = '100%',
+				['min-height'] = '20px',
+				['font'] = 'bold 12px IBM Plex Sans',
+				['align-content'] = 'center',
+				['text-align'] = 'center',
+				['background'] = 'var(--body-dark)',
+				})
+			:cssIf(args.borders == 'yes','border-bottom','2px outset var(--body-dark)')
+			:wikitext(args.title)
+			:END()
+			
+    list = mapkey:tag('ul')
+    		:cssText('display:flex;margin:unset;flex-flow:row wrap')
+    
+	local i = 1
+	local colWidth = '1 1 calc(100% / '..tostring(args.col)..')'
+    repeat
+    	
+    	local lineNum = 'line'..i
+    	local subTitle = 'title'..i
+    
+		subTitle = list:IF(args[subTitle])
+			:tag('div')
+			:css({
+				['width'] = '100%',
+				['min-height'] = '20px',
+				['font'] = 'bold 12px IBM Plex Sans',
+				['align-content'] = 'center',
+				['text-align'] = 'center',
+				['background'] = 'var(--body-dark)',
+				})
+			:cssIf(args.borders == 'yes','border-bottom','2px outset var(--body-dark)')
+			:wikitext(args[subTitle])
+			:END()
+			
+    	line = list:tag('li')
+    	:css({
+    			['display'] = 'flex',
+				['width'] = 'auto',
+				['min-height'] = '20px',
+				['flex'] = '1 1 100%',
+				['padding'] = '3px 0px',
+				})
+			:IF(args.col)
+			:css({
+				['flex'] = colWidth,
+				['margin'] = '0 -1px 0 0',
+				['max-width'] = 'calc(100% / '..tostring(args.col)..')'
+				})
+			:END()
+
+	if string.find(args[lineNum] or '',"^alt...") then 
+	pattern = "(alt...)(.*),text=(.*)"
+	alt = true
+	else 
+	pattern = "(%w*)...(.*),text=(.*)"
+	alt = false
+	end
+	
+	COLORBOX = {
+		['border-radius'] = '4px',
+		['border'] = '1px solid black',
+		['height'] = '16px',
+		['width'] = '16px',
+		['margin'] = 'auto'
+		}
+	SHAPELIST = {
+		['bar'] = 'height:4px',
+		['vbar'] = 'width:4px',
+		['dot'] = 'border-radius:10px',
+		['polygon'] = 'border-radius:2px;width:14px;height:14px',
+		['circle'] = 'border-radius:10px;width:14px;height:14px',
+		['diamond'] = 'transform:scale(0.8) rotate(45deg)',
+		['triangle'] = 'clip-path:polygon(50% 0, 100% 100%, 0% 100%, 0 100%);transform:scale(1.2,1)'
+		}
+	
+	for value1, value2, value3 in 
+	string.gmatch(args[lineNum] or '', pattern) do
+		if value1 == 'polygon' or value1 == 'circle' then  
+			value2a,value2b = string.match(value2, "(.*)&(.*)")
+		end
+		
+    	colorbox = line:tag('div')
+    	:css({
+    		['overflow-wrap'] = 'anywhere',
+    		['min-width'] = '22px',
+    		['align-content'] = 'center',
+    		['text-align'] = 'center',
+			['padding'] = '0px 4px 0px 4px',
+    		['margin-right'] = '5px',
+    		['border-right'] = '2px inset var(--body-dark)',
+    		})
+		:wikitextIf(alt == true,value2)
+		
+		colorbox:IF(alt == false)
+		:tag('div')
+		:css(COLORBOX)
+		:css({['background'] = value2})
+		:cssText(SHAPELIST[value1])
+			:IF(value1 == 'polygon' or value1 == 'circle')
+				:IF(value2 == '')
+				:cssText('background:#3388ff7d;border:3px solid #3388ff')
+				:END()
+			:css({['background'] = value2a,['filter'] = 'drop-shadow(0px 0px 1px black)'})
+			:cssIf(value2b ~= nil,'border','3px solid '..tostring(value2b))
+			:cssIf(value2b == nil,'border','3px solid '..tostring(value2))
+			:END()
+		:END()
+		
+		line:tag('div')
+		:css({
+		['overflow-wrap'] = 'anywhere',
+		['align-content'] = 'center',
+		['padding-left'] = '4px',
+		['width'] = '100%',
+		['margin-right'] = '4px'
+		})
+		:wikitext(tostring(value3))
+	end
+		
+		i = i + 1
+
+	until i > lines
+
+		return mapkey
+end 
+
+return p

@@ -1,0 +1,26 @@
+--[[
+We perform the actual check for whether this is a preview here since
+preprocessing is relatively expensive.
+]]
+local frame = mw.getCurrentFrame()
+
+local function is_preview()
+	local revision_id = frame:preprocess('{{REVISIONID}}')
+	-- {{REVISIONID}} is usually the empty string when previewed.
+	-- I don't know why we're checking for nil but hey, maybe someday things
+	-- would have broken
+	return revision_id == nil or revision_id == ''
+end
+
+local function templatestyles()
+	return frame:extensionTag{
+		name = 'templatestyles', args = { src = 'Module:If preview/styles.css' }
+	}
+end
+
+return {
+	preview = is_preview(),
+	templatestyles = templatestyles(),
+	warning_infrastructure = '%s<div class="preview-warning"><strong>Preview warning:</strong> %s</div>',
+	missing_warning = 'The template has no warning text. Please add a warning.'
+}

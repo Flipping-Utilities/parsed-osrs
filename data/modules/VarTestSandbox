@@ -1,0 +1,22 @@
+local p = {}
+
+local var = mw.ext.VariablesLua
+
+
+function p.set(frame)
+	for i=1,100 do
+		mw.log(i, "set")
+		var.vardefine(string.format("bigvar%d", i), i*i)
+	end
+end
+
+function p.get(frame)
+	local out = {}
+	for i=1,100 do
+		mw.log(i, "get")
+		table.insert(out, var.var(i))
+	end
+	return table.concat(out, "")
+end
+
+return p

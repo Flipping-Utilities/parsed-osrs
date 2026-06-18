@@ -165,15 +165,30 @@ function initOsrTemplates(): void {
 
     // {{WildernessSlayerDropTable|combat|hitpoints|...}} - Wilderness slayer drops
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (templates as any).wildernessslayerdroptable = ((tmpl, list, parse): string => {
-      const obj = parse(tmpl, ['combat', 'hitpoints', 'combatmax', 'hitpointsmax', 'boss', 'superior']);
+    (templates as any).wildernessslayerdroptable = ((
+      tmpl,
+      list,
+      parse
+    ): string => {
+      const obj = parse(tmpl, [
+        'combat',
+        'hitpoints',
+        'combatmax',
+        'hitpointsmax',
+        'boss',
+        'superior',
+      ]);
       list.push(obj);
       return '';
     }) as TemplateParseFunction;
 
     // {{WildernessSlayerCaveDropTable|rate}} - Wilderness slayer cave drops
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (templates as any).wildernessslayercavedroptable = ((tmpl, list, parse): string => {
+    (templates as any).wildernessslayercavedroptable = ((
+      tmpl,
+      list,
+      parse
+    ): string => {
       const obj = parse(tmpl, ['1']);
       list.push(obj);
       return '';
@@ -221,7 +236,11 @@ function initOsrTemplates(): void {
 
     // {{AllotmentSeedDropLines|rarity}} - Allotment seed drops
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (templates as any).allotmentseeddroplines = ((tmpl, list, parse): string => {
+    (templates as any).allotmentseeddroplines = ((
+      tmpl,
+      list,
+      parse
+    ): string => {
       const obj = parse(tmpl, ['rarity', 'rolls']);
       list.push(obj);
       return '';
@@ -238,6 +257,98 @@ function initOsrTemplates(): void {
     // {{DropsTableBottom}} - Drop table footer
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (templates as any).dropstablebottom = '';
+
+    // {{RuneReq|Air=1|Mind=1}} - Rune requirement list for spells.
+    // Captures all named rune params and returns a readable cost string so the
+    // value is preserved when embedded in an Infobox Spell `cost` field.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).runereq = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, []);
+      list.push(obj);
+      const runes = Object.entries(obj)
+        .filter(([k]) => k !== 'template' && k !== 'name')
+        .map(([rune, qty]) => `${rune} rune x${qty}`);
+      return runes.join(', ');
+    }) as TemplateParseFunction;
+
+    // {{Spell cost table|Rune1=...|Rune1num=...|...}} - Spell rune cost table.
+    // Captured generically; returns empty so it does not pollute rendered text.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any)['spell cost table'] = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, []);
+      list.push(obj);
+      return '';
+    }) as TemplateParseFunction;
+
+    // {{LocLine|name=...|location=...|x:N,y:N|...}} - Monster spawn location.
+    // Generic param capture; coordinates use colon-prefixed keys handled by the
+    // monster extractor via raw-text parsing.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).locline = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, []);
+      list.push(obj);
+      return '';
+    }) as TemplateParseFunction;
+
+    // {{LocTableHead}} / {{LocTableBottom}} - Location table bookends
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).loctablehead = '';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).loctablebottom = '';
+
+    // {{Update|date=...|url=...|category=...}} - News article header. Its
+    // parameters are parsed separately by the news extractor via brace-utils,
+    // so strip it from rendered text.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).update = '';
+
+    // {{Collapsed section|...}} / {{Collapsed section end}} - Collapsible block
+    // bookends used inside newsposts. Removing just the markers preserves the
+    // enclosed content.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any)['collapsed section'] = '';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any)['collapsed section end'] = '';
+
+    // {{clear}} - Float-clearing div, irrelevant in extracted text.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).clear = '';
+
+    // {{Map|name=...|mtype=polygon|x:y,x:y|...}} - Map embed with optional
+    // boundary polygon. Captured generically so the locations extractor can read
+    // the polygon coordinates; returns empty so it doesn't pollute infobox text.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).map = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, []);
+      list.push(obj);
+      return '';
+    }) as TemplateParseFunction;
+
+    // {{Relativelocation|location=...|north=...|south=...|east=...|west=...}}
+    // Captured generically for area adjacency metadata.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any).relativelocation = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, ['location', 'north', 'south', 'east', 'west']);
+      list.push(obj);
+      return '';
+    }) as TemplateParseFunction;
+
+    // {{Quest details|start=...|startmap=...|difficulty=...|length=...|items=...}}
+    // and {{Quest rewards|qp=...|rewards=...}} — captured generically so the
+    // quests extractor can read their params.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any)['quest details'] = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, []);
+      list.push(obj);
+      return '';
+    }) as TemplateParseFunction;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (templates as any)['quest rewards'] = ((tmpl, list, parse): string => {
+      const obj = parse(tmpl, []);
+      list.push(obj);
+      return '';
+    }) as TemplateParseFunction;
   });
 }
 

@@ -1,0 +1,12 @@
+return {
+    itemId     = 21802,
+    icon       = 'Revenant cave teleport.png',
+    item       = 'Revenant cave teleport',
+    value      = 10,
+    limit      = 15000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to the Revenant cave in the Wilderness.',
+    hialch     = 6,
+    lowalch    = 4
+}

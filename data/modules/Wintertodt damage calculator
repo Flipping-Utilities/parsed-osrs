@@ -1,0 +1,47 @@
+local p = {}
+
+local default = require('Module:Paramtest').default_to
+
+function truncate(num)
+	local whole, decimal = math.modf(num + 0.000001)
+	return whole
+end
+
+function createRow(attackName, damageAmount)
+	return mw.html.create('tr')
+		:tag('td'):wikitext(attackName .. ' attack'):done()
+		:tag('td'):wikitext(damageAmount .. '%'):done()
+end
+
+function createHeader()
+	local ret = mw.html.create('table'):addClass('wikitable align-center-2'):done()
+	ret:tag('tr'):tag('th'):wikitext('Attack'):done()
+			:tag('th'):wikitext('Damage'):done()
+	return ret
+end
+
+function p._main(args)
+	local firemaking = tonumber(default(args.firemakingLevel, 50))
+	local hitpoints = tonumber(default(args.hitpointsLevel, 10))
+	local warmItems = tonumber(default(args.warmItems, 0))
+	local litBraziers = tonumber(default(args.litBraziers, 0))
+
+	local standardDamage = math.max(truncate(((16 - warmItems - (2 * litBraziers)) * (100) / firemaking)), 1)
+	local brazierDamage =  math.max(2 * truncate(((10 - warmItems) * (100)) / firemaking), 2)
+	local snowfallDamage = math.max(3 * truncate(((10 - warmItems) * (100)) / firemaking), 1)
+
+	local ret = createHeader()
+	ret:node(createRow('Standard Periodic', standardDamage))
+	ret:node(createRow('Brazier Explosion', brazierDamage))
+	ret:node(createRow('Snowfall Area', snowfallDamage))
+	
+	return ret
+end
+
+function p.main(frame)
+	local args = frame.args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

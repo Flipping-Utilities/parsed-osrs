@@ -1,0 +1,20 @@
+local p = {}
+
+function p.main()
+	local data = bucket('couriertaskline')
+		.select('transcript')
+		.orderBy('transcript')
+		.run()
+
+	local out = {}
+	local transcriptLink, transcriptTitle
+	for _, result in ipairs(data) do
+		transcriptLink = result['transcript']
+		transcriptTitle = string.gsub(transcriptLink, '^Transcript:', '')
+		table.insert(out, string.format('*[[%s|%s]]', transcriptLink, transcriptTitle))
+	end
+
+	return table.concat(out, '\n')
+end
+
+return p

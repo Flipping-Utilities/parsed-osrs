@@ -1,0 +1,11 @@
+return {
+	itemId    = 32910,
+	item      = "Rosewood logs",
+	icon      = 'Rosewood logs.png',
+    alchable  = true,
+	value     = 480,
+	limit     = 12000,
+	members   = true,
+	category  = nil,
+	examine   = "Logs cut from a rosewood tree."
+}

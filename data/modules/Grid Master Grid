@@ -1,0 +1,206 @@
+local p = {}
+require("strict")
+
+-- Grid and task table generator. Input is through {{$}}
+function p.mega(frame)
+	local completions = mw.loadJsonData("Module:Grid Master Grid/Tasks/completion.json")
+	-- Used to hide completion column until we have some data
+	local haveCompletions = true
+	local unknownMilestone = "File:Grid Master tile unknown reward.png"
+	local args = frame:getParent().args
+	local columnMilestoneImages = {}
+	local rowMilestoneImages = {}
+	
+	local tiles = {}
+	
+	--Standardize inputs, save them to tiles array
+	for i, entryRaw in ipairs(args) do
+		local entry = mw.text.jsonDecode(entryRaw)
+		local row = tonumber(entry.row)
+		local column = tonumber(entry.column)
+		local difficulty = entry.difficulty and string.lower(entry.difficulty)
+		local taskImg = entry.taskImg
+		local rewardImg = entry.rewardImg
+		local taskDesc = entry.taskDesc
+		local rewardDesc = entry.rewardDesc
+		local requirements = entry.req
+		local id = (row - 1) * 7 + (column - 1)
+		if (row == 8) then id = "c" .. tostring(column) end
+		if (column == 0) then id = "r" .. tostring(row) end
+		local completion_percent = haveCompletions and completions[id]
+	
+		if taskDesc == nil or taskDesc == '' then
+			taskDesc = "Unknown"
+		end
+		if rewardDesc == nil or rewardDesc == '' then
+			rewardDesc = "Unknown"
+		end
+		
+		local isMilestone = (row == 8 or column == 0)
+				
+		local rowMilestoneImage = unknownMilestone
+		local columnMilestoneImage = unknownMilestone
+		
+		if isMilestone then
+			if row == 8 then
+				taskImg = "File:Grid Master tile (T"..column.." Reward).png"
+				rewardImg = "File:Grid Master tile (T"..column.." Reward).png"
+			end
+			if column == 0 then
+				taskImg = "File:Grid Master tile (R"..row.." Reward).png"
+				rewardImg = "File:Grid Master tile (R"..row.." Reward).png"
+			end
+		else
+			taskImg = "File:Grid Master tile (R"..row.."T"..column..").png"
+			rewardImg = "File:Grid Master tile (R"..row.."T"..column..") reward.png"
+		end
+		
+		tiles[i] = {
+			row = row,
+			column = column,
+			difficulty = difficulty,
+			taskImg = taskImg,
+			rewardImg = rewardImg,
+			taskDesc = taskDesc,
+			rewardDesc = rewardDesc,
+			requirements = requirements,
+			id = id,
+			completion_percent = haveCompletions and completions[id]
+		}
+		if row == 8 then
+			columnMilestoneImages[column] = rewardImg
+		end
+		if column == 0 then
+			rowMilestoneImages[row] = rewardImg
+		end
+	end
+	
+	--------------------
+	-- Upper grid
+	--------------------
+	local wrapper = mw.html.create("div"):addClass('gm-grid-wrapper qc-active')
+    local tbl = wrapper:tag("div"):addClass("gm-grid")
+
+    for _, entry in ipairs(tiles) do
+		local tblrow = tbl
+	    local row = entry.row
+	    local column = entry.column
+	    
+	    if row == 8 and column == 1 then
+	    	tblrow:tag("div")
+		end
+	    
+		local reward = ((entry.rewardDesc and entry.rewardDesc ~= '' and entry.rewardDesc) or "Unknown")
+		
+		-- row/cell that is just milestone rewards
+	    local rc = string.char(64 + column) .. row
+		local task = "<b>" .. entry.taskDesc .. "</b>"
+		local taskIcon = '[[' .. entry.taskImg .. '|50px|link=]]'
+	    	
+	    local cell = tblrow:tag("div"):addClass("gm-item"):attr("data-pos", rc):attr("id", "grid-task-" .. rc):attr("data-taskid", entry.id)
+	    -- if cellData.completed then
+	    -- 	cell:addClass("gm-item-active")
+	    -- end
+	    cell:tag("div"):wikitext(taskIcon)
+	    local desc = cell:tag("div"):addClass("gm-description")
+	    	:tag("div"):addClass("gm-task-name"):wikitext(task):done()
+	    	:tag("div"):addClass('gm-reward')
+	    		:tag("div"):addClass('gm-reward-img'):wikitext('[['..entry.rewardImg.."|60px|link=]]"):done()
+	    		:tag("div"):addClass('gm-reward-text'):wikitext(reward):done()
+    		:done()
+	    if entry.requirements then
+	    	desc:tag("div"):addClass('gm-requirements'):wikitext("'''Requirements:'''<br />" .. entry.requirements):done()
+	    end
+    end
+    
+    wrapper:tag("div"):addClass("gm-info-panel")
+    	:tag("div"):addClass("gm-task-name")
+    		:tag("strong"):wikitext("Loading interactive grid..."):done()
+    		:tag("p"):wikitext("If this doesn't load after a few seconds, enable JavaScript.")
+    		
+	---------------------
+	-- Table
+	---------------------
+	tbl = mw.html.create('table'):addClass('wikitable gm-table lighttable qc-active sortable sticky-header align-center-6 align-center-7'):cssText('max-width:100%;')
+	local tr = tbl:tag('tr')
+		:tag('th'):wikitext('Task'):attr('colspan', 2)
+		:tag('th'):wikitext('Reward'):attr('colspan', 2)
+		:tag('th'):wikitext('Requirements'):cssText('width:30%')
+		:tag('th'):wikitext('Row'):cssText('text-align:center; width:0%; min-width:35px')
+		:tag('th'):wikitext('Col'):cssText('text-align:center; width:0%l min-width:35px')
+	if haveCompletions then
+		tr:tag('th'):wikitext('<span style="cursor:help; border-bottom:1px dotted;" title="Estimated percentage of players who have completed each task, based on wiki crowdsourcing">Comp%</span>')
+	end
+	
+	local milestoneTbl = mw.html.create('table'):addClass('wikitable gm-table lighttable qc-active sortable sticky-header align-center-6 align-center-7'):cssText('max-width:100%;')
+	tr = milestoneTbl:tag('tr')
+		:tag('th'):wikitext('Task')
+		:tag('th'):wikitext('Reward'):attr('colspan', 2)
+	if haveCompletions then
+		tr:tag('th'):wikitext('<span style="cursor:help; border-bottom:1px dotted;" title="Estimated percentage of players who have completed each task, based on wiki crowdsourcing">Comp%</span>')
+	end
+	
+	for _, entry in ipairs(tiles) do
+		local row = tonumber(entry.row)
+		local column = tonumber(entry.column)
+		local difficulty = entry.difficulty and string.lower(entry.difficulty)
+		local taskImg = entry.taskImg
+		local rewardImg = entry.rewardImg
+		local taskDesc = entry.taskDesc
+		local rewardDesc = entry.rewardDesc
+		local requirements = entry.requirements
+		local id = entry.id
+		local completion_percent = entry.completion_percent
+		local isMilestone = (row == 8 or column == 0)
+		if rewardDesc ~= "Unknown" then
+			local activeTable = tbl
+			if isMilestone then
+				activeTable = milestoneTbl
+			end
+			
+			local tr = activeTable:tag('tr'):attr('id', 'table-task-'..string.char(64+column)..row):attr('data-taskid', id)
+			if not isMilestone then
+				tr:tag('td'):wikitext('[['..taskImg.."|30px|link=]]"):cssText('border-right:none')
+			end
+			tr:tag('td'):wikitext(taskDesc):cssText('border-left:none')
+			tr:tag('td'):wikitext('[['..rewardImg.."|30px|link=]]"):cssText('border-right:none')
+			tr:tag('td'):wikitext(rewardDesc):cssText('border-left:none')
+			if not isMilestone then
+				tr:tag('td'):wikitext(requirements)
+				tr:tag('td'):tag('span'):addClass('nowrap'):wikitext("<small>"..row.."</small> [[File:Grid Master tile (R"..row.." Reward).png|30px|link=]]")
+				tr:tag('td'):tag('span'):addClass('nowrap'):wikitext("<small>"..column.."</small> [[File:Grid Master tile (T"..column.." Reward).png|30px|link=]]")
+			else
+				--row is first
+				if row ~= 8 and column ~= 0 then
+					tr:tag('td'):wikitext(row)
+					tr:tag('td'):wikitext(column)
+				end
+			end
+			
+			if haveCompletions then
+				if (completion_percent ~= nil) then
+					local color = ""
+					if (completion_percent < 0.1) then
+						completion_percent = "<0.1"
+						color = "red"
+					elseif (completion_percent < 1) then
+						color = "orange"
+					elseif (completion_percent < 10) then
+						color = "yellow"
+					elseif (completion_percent < 50) then
+						color = "green"
+					elseif (completion_percent <= 100) then
+						color = "blue"
+					end
+					tr:tag('td'):addClass("table-bg-" .. color):wikitext(completion_percent .. '%')
+				else
+					tr:tag('td'):addClass('table-na nohighlight'):cssText("text-align: center;"):wikitext("<small>N/A</small>")
+				end
+			end
+		end
+	end
+    
+    return tostring(wrapper) .. tostring(mw.html.create('div'):addClass('qc-input league-only'):cssText('max-width: 700px; margin-top: 2em;')) .. tostring(tbl) .. '<h3>Row and Column Rewards</h3>' .. tostring(milestoneTbl)
+end
+
+return p

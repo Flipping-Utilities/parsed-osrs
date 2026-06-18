@@ -1,0 +1,11 @@
+return {
+	itemId    = 31967,
+	item      = "Oak repair kit",
+	icon      = 'Oak repair kit.png',
+    alchable  = true,
+	value     = 400,
+	limit     = 13000,
+	members   = true,
+	category  = nil,
+	examine   = "A boat repair kit made from oak."
+}

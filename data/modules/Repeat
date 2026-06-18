@@ -1,0 +1,27 @@
+--
+-- Repeats a string a certain number of times
+-- [[Template:Multi]]
+--
+
+local p = {}
+
+function p.rep(frame)
+	local args = frame:getParent().args
+	local inp = args[1]
+
+	local count = tonumber(args[2])
+
+	if not count then
+		 return error('You must pass a number to the second argument')
+	end
+
+	-- We very rarely use any of these templates; no need to facilitate a ton of potential spam; 500 is a fine maximum
+	count = math.floor(count)
+	if count > 500 then
+		count = 500
+	end
+
+	return string.rep(inp, count)
+end
+
+return p

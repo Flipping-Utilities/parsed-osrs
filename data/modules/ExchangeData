@@ -1,0 +1,254 @@
+-- <pre>
+-- Implements {{ExcgData}}
+--
+
+local p = {}
+
+-- required modules
+local excg = require( 'Module:Exchange' )
+
+--
+-- @param args {table}
+-- @param baseExcgPage {boolean} Shouldn't be used by any method here,
+--                               only used by [[Module:ExchangeDefault]]
+--
+function p._main( args, baseExcgPage )
+    -- prefer args[1] but that'll break on exchange /data pages due to the data being the first positional arg
+    -- @todo change the order of these when data is removed fom there
+    local item = args.name or args[1]
+    local div2, div3, div4
+
+    if not item then
+        error( '"name" argument is not specified', 0 )
+    end
+
+    item = mw.text.trim( item )
+
+    if args.size ~= 'data' then
+        div2 = mw.html.create( 'div' )
+            :addClass( 'GEChartBox' )
+
+        if args.moreItems then
+            div2
+                :tag( 'div' )
+                    :addClass( 'addGEChartItems' )
+                    :css( 'display', 'none' )
+                    :wikitext( args.moreItems )
+                    :done()
+        end
+
+        -- some extra formatting for non exchange pages
+        local div3 = div2:tag('div'):addClass('GEdatachart')
+        if baseExcgPage then
+        	div2:addClass('GEPage')
+                :css( {
+                    padding = '0',
+                } )
+        	div3:css({
+        		['min-width'] = '250px',
+        		['max-height'] = '350px',
+        		width = '100%',
+        		height = '100%',
+        	})
+        	div3:addClass('mediumChart')
+        else
+            div3:css( {
+                        ['padding-left'] = '1px'
+                    } )
+
+            if args.size == 'small' then
+                div3
+                    :addClass( 'smallChart' )
+                    :css( {
+                        margin = '5px',
+                        float = 'left',
+                        width = '258px',
+                        height = '160px'
+                    } )
+            else
+                div3
+                    :css( {
+                        margin = '5px 0 25px 0',
+                        ['min-width'] = '600px',
+                        height = '500px'
+                    } )
+            end
+
+            div2 = div3
+                :tag( 'div' )
+                    :css( {
+                        ['text-align'] = 'center',
+                        ['font-size'] = '.9em',
+                        opacity = '.75',
+                        ['user-select'] = 'none'
+                    } )
+                    :wikitext( 'Loading...' )
+                    :done()
+                :done()
+        end
+    end
+
+    -- for [[GEMW/C]]
+    if mw.ustring.lower( item ) == 'blank' then
+    else
+        -- make sure first letter is upper case
+        item = mw.text.split( item, '' )
+        item[1] = mw.ustring.upper( item[1] )
+        item = table.concat( item, '' )
+    end
+    
+    div4 = mw.html.create( 'div' )
+        :addClass( 'GEdataprices' )
+        :attr( 'data-item', item )
+        :css( 'display', 'none' )
+
+    if item and mw.ustring.match( item, 'Index' ) == nil and mw.ustring.lower( item ) ~= 'blank' then
+        div4
+            :attr( {
+                ['data-value'] = tostring( excg._value( item ) ),
+                ['data-itemId'] = tostring( excg._itemId( item ) ),
+                ['data-limit'] = tostring( excg._limit( item ) )
+            } )
+    end
+	
+    if args.size == 'data' then
+        div2 = div4
+    else
+        div2:node( div4:done() )
+    end
+
+    return tostring( div2 )
+end
+
+function p._chart(args)
+    local items = args[1] or args.items
+
+    if items == nil then
+        return
+    end
+
+    items = mw.text.trim( items )
+    items = mw.text.split( items, ',' )
+
+    if mw.text.trim( items[1] ) == '' then
+        return args['else'] or ''
+    end
+
+    local div = mw.html.create( 'div' )
+        :addClass( 'GEChartBox' )
+        :tag( 'div' )
+            :addClass( 'GEChartItems' )
+            :css( 'display', 'none' )
+            :wikitext( table.concat( items, ',', 2 ) )
+            :done()
+
+    local div2 = mw.html.create( 'div' )
+        :addClass( 'GEdatachart' )
+
+    if args.size == 'small' then
+        div2
+            :addClass( 'smallChart' )
+            :css( {
+                width = '258px',
+                height = '160px',
+                margin = '0 auto'
+            } )
+    else
+        div2
+            :css( {
+                margin = '5px 0 25px 0',
+                height = '500px',
+                ['min-width'] = '600px'
+            } )
+    end
+
+    div2
+        :tag( 'div' )
+            :css( {
+				['text-align'] = 'center',
+				['font-size'] = '.9em',
+				opacity = '.75',
+				['user-select'] = 'none'
+            } )
+            :wikitext( 'Loading...' )
+            :done()
+        :done()
+
+    div
+        :node( div2 )
+
+    div
+        :wikitext( p._main{items[1], size='data'} )
+        :done()
+
+    return tostring( div )
+end
+
+--
+-- {{GEChart}}
+--
+function p.chart( frame )
+    local args = frame:getParent().args
+    return p._chart(args)
+end
+
+--
+-- {{GEData}}
+--
+-- A stripped down version of ExcgData
+-- Intended for more general usage and avoiding stuff specific to Exchange /Data pages
+--
+function p.data( frame )
+    local args = frame:getParent().args
+    return p._main( args )
+end
+
+--
+-- {{ExcgData}}
+--
+function p.main( frame )
+    local args = frame:getParent().args
+    -- get title parts, as the exchange ns doesn't actually have subpages enabled
+    local title = mw.title.getCurrentTitle()
+    local parts = mw.text.split( title.text, '/' )
+    local ns, base, sub = title.nsText, parts[1], parts[2]
+
+    -- it'll throw an error later if this isn't supplied
+    -- so default to an empty string for now
+    local item = args.name or args[1] or ''
+
+    local div1, cats = '', ''
+
+    -- fake "back to main page" link
+    if sub == 'Data' and ns == 'Exchange' then
+        div1 = mw.html.create( 'div' )
+            :attr( 'id', 'contentSub' )
+            :css( {
+                ['line-height'] = '0.8em',
+                margin = '-0.75em 0 1.5em 1em'
+            } )
+            :tag( 'span' )
+                :addClass( 'subpages' )
+                :wikitext( '&lt; [[' .. ns .. ':' .. base .. ']]' )
+                :done()
+            :done()
+        div1 = tostring( div1 )
+    end
+
+    -- categories
+    if sub == 'Data' then
+        if ns == 'Exchange' then
+            cats = cats .. '[[Category:GEMW data|' .. item .. ']]'
+        elseif mw.ustring.match( item, 'Index' ) ~= nil then
+            cats = cats .. '[[Category:GEMW data|*]]'
+        end
+
+        if ns == 'Exchange' and item ~= base then
+            cats = cats .. '[[Category:Exchange names that needs checking]]'
+        end
+    end
+
+    return div1 .. p._main( args ) .. cats
+end
+
+return p

@@ -1,0 +1,11 @@
+return {
+	itemId    = 31970,
+	item      = "Teak repair kit",
+	icon      = 'Teak repair kit.png',
+    alchable  = true,
+	value     = 1000,
+	limit     = 13000,
+	members   = true,
+	category  = nil,
+	examine   = "A boat repair kit made from teak."
+}

@@ -1,0 +1,40 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local scp = require('Module:SCP')._main
+
+function p._main(args)
+	local fishingLevel = paramTest.default_to(tonumber(args.fishingLevel), 35)
+	
+	local base_xp = 450
+	local base_level = 35
+	if (fishingLevel > 69) then
+		base_xp = 890
+		base_level = 70
+	end
+	
+	local modifier, _ = math.modf(base_xp + (1000 - base_xp) * (fishingLevel - base_level) / (99 - base_level))
+	
+	local fishingExperience, fishingExperienceDec = math.modf(modifier / 100)
+	local cannonExperience, cannonExperienceDec = math.modf(modifier / 10)
+	local poolExperience, poolExperienceDec = math.modf(modifier * 11 / 100)
+	
+	ret = mw.html.create('table'):addClass('wikitable align-right-1 align-right-2 align-right-3')
+	ret:tag('caption'):wikitext('Experience at ' .. scp('Fishing', fishingLevel, true)):done()
+	ret:tag('tr'):tag('th'):wikitext('[[Fishing spot (Tempoross Cove)|Fishing]]'):done()
+		:tag('th'):wikitext('[[Harpoonfish cannon|Cannon]]'):done()
+		:tag('th'):wikitext('[[Spirit pool]]'):done()
+	ret:tag('tr'):tag('td'):wikitext(fishingExperience .. (fishingExperienceDec == '' and '' or string.sub(fishingExperienceDec, 2, 3))):done()
+		:tag('td'):wikitext(cannonExperience.. (cannonExperienceDec == '' and '' or string.sub(cannonExperienceDec, 2, 3))):done()
+		:tag('td'):wikitext(poolExperience .. (poolExperienceDec == '' and '' or string.sub(poolExperienceDec, 2, 3))):done()
+	
+	return ret
+end
+
+function p.main(frame)
+	local args = frame.args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

@@ -1,0 +1,12 @@
+return {
+    itemId     = 24585,
+    icon       = "Looting bag note.png",
+    item       = "Looting bag note",
+    alchable   = true,
+    value      = 90,
+    limit      = 40,
+    members    = true,
+    category   = nil,
+    examine    = "A note that may be exchanged at a bank for a Looting Bag.",
+    usage      = {}
+}

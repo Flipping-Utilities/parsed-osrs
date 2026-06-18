@@ -1,0 +1,12 @@
+{{Documentation}}
+{{Helper module
+|name = IDListUtils
+
+|fname1 = <nowiki>fetchResults(bucketName)</nowiki>
+|ftype1 = <samp>bucketName: string</samp><br><samp>-> table</samp>
+|fuse1 = Given a bucket name such as "npc_id", get all page_name_sub and id values for that bucket.
+
+|fname2 = <nowiki>linkIds(idType, ids)</nowiki>
+|ftype2 = <samp>idType: string</samp><br><samp>ids: string{{!}}string[]</samp><br><samp>-> string</samp>
+|fuse2 = Given a type (like "npc") and a list of IDs (like either "1, 2" or ["1, 2", "3, 4"]), surround each ID with a link to their wiki page via [[Special:Lookup]] and return as a comma-separated string.
+}}

@@ -1,0 +1,142 @@
+--<nowiki>
+-- Most expensive F2P items (independent module, hardened)
+-- Reads prices from Module:GEPrices/data.json and filters by Exchange per-item data (members == false).
+-- Usage:
+--   {{#invoke:GEMW/Most expensive f2p|table|count=10}}
+--   {{#invoke:GEMW/Most expensive f2p|list|count=25}}
+--   {{#invoke:GEMW/Most expensive f2p|chart|count=10}}
+
+local arr          = require("Module:Array")
+local Coins        = require("Module:Coins")._amount
+local ExchangeData = require("Module:ExchangeData")
+local exchange     = require("Module:Exchange")  -- for title normalization
+local p = {}
+
+-----------------------------------------------------------------------
+-- Price source: identical to the original "Most expensive" module
+-----------------------------------------------------------------------
+local function items_raw(num)
+	-- JSON map: { ["Item name"] = price, ... }
+	local prices = mw.loadJsonData("Module:GEPrices/data.json")
+	local list = {}
+	for name, gp in pairs(prices) do
+		-- skip metadata keys like %generated, etc.
+		if string.sub(name, 1, 1) ~= '%' then
+			table.insert(list, { item = name, price = gp or -1 })
+		end
+	end
+	table.sort(list, function(a, b) return a.price > b.price end)
+	return arr.slice(list, 1, num)
+end
+
+-----------------------------------------------------------------------
+-- Membership check via Exchange per-item data
+-----------------------------------------------------------------------
+local function safe_load_exchange(name)
+	local fixed = exchange.checkTitle(name) or name
+	local ok, data = pcall(mw.loadData, "Module:Exchange/" .. fixed)
+	if ok and type(data) == "table" then
+		return data
+	end
+	return nil
+end
+
+local function is_f2p(name)
+	local data = safe_load_exchange(name)
+	if not data or data.members == nil then
+		return nil  -- unknown
+	end
+	return (data.members == false)
+end
+
+-----------------------------------------------------------------------
+-- Core: build a filtered list of exactly `want` F2P items (no fallback)
+-----------------------------------------------------------------------
+local function top_f2p_items(want)
+	-- Oversample heavily so we can filter out members items.
+	-- 100x covers the extreme case where almost everything top-end is P2P.
+	local oversample = math.max(want * 100, want, 1000)
+	local pool = items_raw(oversample)
+
+	local out = {}
+	for _, pair in ipairs(pool) do
+		local f2p = is_f2p(pair.item)
+		if f2p == true then
+			table.insert(out, pair)
+			if #out >= want then break end
+		end
+	end
+
+	-- DO NOT fall back to unfiltered content.
+	return out
+end
+
+-----------------------------------------------------------------------
+-- Renderers
+-----------------------------------------------------------------------
+local function _chart(items)
+	-- ExchangeData._chart expects a table with a single CSV string
+	return ExchangeData._chart({ table.concat(items, ",") })
+end
+
+local function _list(items)
+	local t = {}
+	for _, pair in ipairs(items) do
+		table.insert(t, string.format("* [[%s]] (%s) — F2P", pair.item, Coins(pair.price)))
+	end
+	return table.concat(t, "\n")
+end
+
+local function _table(items)
+	local t = {
+		'{|class="wikitable align-center-1"\n' ..
+		'! colspan="2" | Item\n' ..
+		'! Price\n'
+		-- To debug membership on-page, you can add a status column:
+		-- ,'! Status'
+	}
+	for _, pair in ipairs(items) do
+		local row = string.format(
+			'| [[File:%s.png|link=%s|class=inventory-image]] || [[%s]] || %s',
+			pair.item, pair.item, pair.item, Coins(pair.price)
+		)
+		-- Debug status (optional):
+		-- local f2p = is_f2p(pair.item)
+		-- row = row .. ' || ' .. (f2p == true and 'F2P' or f2p == false and 'P2P' or 'unknown')
+		table.insert(t, row)
+	end
+	table.insert(t, '|}')
+	return table.concat(t, '\n|-\n')
+end
+
+-----------------------------------------------------------------------
+-- Public entry points (render-time filtering, no fallback)
+-----------------------------------------------------------------------
+function p.table(frame)
+	local count = frame.args and tonumber(frame.args.count) or 100
+	local items = top_f2p_items(count)
+	return _table(items)
+end
+
+function p.list(frame)
+	local count = frame.args and tonumber(frame.args.count) or 100
+	local items = top_f2p_items(count)
+	return _list(items)
+end
+
+function p.chart(frame)
+	local count = frame.args and tonumber(frame.args.count) or 10
+	local items = top_f2p_items(count)
+	return _chart(arr.map(items, function(x) return x.item end))
+end
+
+-- Default to chart for {{#invoke:...|main}}
+function p.main(frame)
+	local args  = (frame:getParent() and frame:getParent().args) or frame.args or {}
+	local count = tonumber(args.count) or 10
+	local items = top_f2p_items(count)
+	return _chart(arr.map(items, function(x) return x.item end))
+end
+
+return p
+--</nowiki>

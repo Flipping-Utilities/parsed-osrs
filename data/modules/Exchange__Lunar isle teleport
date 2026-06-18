@@ -1,0 +1,12 @@
+return {
+    itemId     = 12405,
+    icon       = 'Lunar isle teleport.png',
+    item       = 'Lunar isle teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to Lunar isle.',
+    hialch     = 6,
+    lowalch    = 4
+}

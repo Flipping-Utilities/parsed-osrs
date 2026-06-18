@@ -1,0 +1,56 @@
+-- Module:Chart data/AFK Activity Tracker averages
+-- Scatter chart of averaged data per activity group.
+-- Reads data from Module:Chart data/AFK Activity Tracker/data.
+--
+-- Usage: {{Chart data|Chart data/AFK Activity Tracker averages|init|width=80%|height=50vh}}
+
+local p = {}
+
+function p.init()
+	local chart = require('Module:Chart data')
+	local data = mw.loadData('Module:Chart data/AFK Activity Tracker/data')
+
+	local plot = chart.newChart{ type = 'scatter' }
+
+	plot:setDimensions('80%', nil, 400, nil, true)
+	plot:setTitle('AFK Activity Tracker - Activity Group Averages')
+	plot:setXLabel('Consistency Score')
+	plot:setYLabel('Avg Click Interval (ms)')
+	plot:setXLimits(0, 100)
+
+	plot.colorPallet = chart.colorPallets.qualitative
+
+	-- Group submissions and compute averages
+	local groups = {}
+	local groupOrder = {}
+	for _, entry in ipairs(data) do
+		local g = entry.group
+		if not groups[g] then
+			groups[g] = {}
+			table.insert(groupOrder, g)
+		end
+		table.insert(groups[g], entry)
+	end
+
+	-- One averaged point per group
+	for _, g in ipairs(groupOrder) do
+		local entries = groups[g]
+		local sumC, sumI = 0, 0
+		for _, e in ipairs(entries) do
+			sumC = sumC + e.consistency
+			sumI = sumI + e.interval
+		end
+		local avgC = sumC / #entries
+		local avgI = sumI / #entries
+
+		local ds = plot:newDataSet()
+		ds.label = g
+		ds.showLine = false
+		ds:addData({ { x = avgC, y = avgI } })
+		ds.pointRadius = 8
+	end
+
+	return plot
+end
+
+return p

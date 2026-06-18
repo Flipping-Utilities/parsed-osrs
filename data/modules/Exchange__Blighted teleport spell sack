@@ -1,0 +1,12 @@
+return {
+    itemId     = 24615,
+    icon       = "Blighted teleport spell sack.png",
+    item       = "Blighted teleport spell sack",
+    alchable   = true,
+    value      = 32,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = "Enough power for a Teleblock or a Teleport to Target, blighted so it can be used only in the Wilderness.",
+    usage      = {}
+}

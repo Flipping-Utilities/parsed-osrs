@@ -1,0 +1,99 @@
+local p = {}
+
+local buildMap = require('Module:Map').buildMap
+local noticeBoardLocations = require('Module:CourierTaskLine').noticeBoardLocations
+local ledgerTableLocations = require('Module:CourierTaskLine').ledgerTableLocations
+local scp = require('Module:SCP')._main
+
+local lang = mw.language.getContentLanguage()
+
+-- alternate page names (values) for locations as they appear in bucket (keys)
+local locationLinkMap = {
+	["Ardougne"] = "East Ardougne"
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	return byLocation(args['location'])
+end
+
+function ucfirst(s)
+    return s:sub(1, 1):upper() .. s:sub(2)
+end
+
+function sortLocation(a, b)
+	if a['level'] ~= b['level'] then
+		return a['level'] < b['level']
+	elseif tonumber(a['xp']) ~= nil and tonumber(b['xp']) ~= nil and a['xp'] ~= b['xp'] then
+		return a['xp'] < b['xp']
+	else
+		return a['task_id'] < b['task_id']
+	end
+end
+
+function byLocation(location)
+	local header = mw.html.create('tr')
+		:tag('th'):wikitext(scp('Sailing') .. '<br>Level'):done()  -- 1
+		:tag('th'):wikitext(scp('Sailing') .. '<br>XP'):done()  -- 2
+		:tag('th'):wikitext('Cargo location'):done()  -- 3
+		:tag('th'):wikitext('Destination'):done()  -- 4
+		:tag('th'):wikitext('Cargo'):attr('colspan', 2):done()  -- 5 and 6
+		:tag('th'):wikitext('Qty'):done()  -- 7
+		:tag('th'):wikitext('Map'):done()  -- 8
+
+	local outTable = mw.html.create('table')
+		:addClass('wikitable lighttable sortable align-center-1 align-center-2 align-center-7')
+		:node(header)
+
+	local data = bucket('couriertaskline')
+		.select('level', 'xp', 'cargo_location', 'destination', 'item', 'qty', 'task_id')
+		.where('notice_board', location)
+		.run()
+	table.sort(data, sortLocation)
+
+	local level, xp, cargoLocation, destination, item, itemShortName, qty
+	for i, result in ipairs(data) do
+		level = result['level']
+		xp = tonumber(result['xp']) ~= nil and lang:formatNum(result['xp']) or 'Unknown'
+		cargoLocation = result['cargo_location']
+		destination = result['destination']
+		item = result['item']
+		qty = result['qty']
+
+		itemShortName = ucfirst(string.gsub(item, '^Crate of ', ''))
+
+		local noticeBoardX = noticeBoardLocations[location][1]
+		local noticeBoardY = noticeBoardLocations[location][2]
+		local cargoX = ledgerTableLocations[cargoLocation][1]
+		local cargoY = ledgerTableLocations[cargoLocation][2]
+		local destinationX = ledgerTableLocations[destination][1]
+		local destinationY = ledgerTableLocations[destination][2]
+		local mapArgs = {
+			['type'] = 'maplink',
+			['mtype'] = 'pin',
+			['group'] = string.format('courier%d', i)
+		}
+		mapArgs[1] = string.format('icon:greenPin,title:Notice board,x:%d,y:%d', noticeBoardX, noticeBoardY)
+		mapArgs[2] = string.format('icon:yellowPin,title:Withdraw cargo,x:%d,y:%d', cargoX, cargoY)
+		mapArgs[3] = string.format('icon:redPin,title:Deposit cargo,x:%d,y:%d', destinationX, destinationY)
+
+		local cargoLocationLink = locationLinkMap[cargoLocation] ~= nil and locationLinkMap[cargoLocation] or cargoLocation
+		local destinationLink = locationLinkMap[destination] ~= nil and locationLinkMap[destination] or destination
+
+		outTable:node(mw.html.create('tr')
+			:tag('td'):wikitext(level):done()
+			:tag('td'):wikitext(xp):done()
+			:tag('td'):wikitext(string.format('[[%s|%s]]', cargoLocationLink, cargoLocation)):done()
+			:tag('td'):wikitext(string.format('[[%s|%s]]', destinationLink, destination)):done()
+			:tag('td'):addClass('plinkt-image inventory-image'):wikitext(string.format('[[File:%s (%s).png|link=%s#%s]]', item, destination, item, destination)):done()
+			:tag('td'):addClass('plinkt-link'):wikitext(string.format('[[%s#%s|%s]]', item, destination, itemShortName)):done()
+			:tag('td'):wikitext(qty):done()
+			:tag('td'):wikitext(buildMap(mapArgs)):done()
+		)
+	end
+
+	return tostring(outTable)
+end
+
+return p

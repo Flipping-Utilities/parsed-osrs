@@ -1,0 +1,8 @@
+{{Documentation}}
+
+{{Helper module
+|name = Tabber
+|fname1 = tabber({<br/>{"tab 1 label", "tab 1 content"},<br/>{"tab 2 label", "tab 2 content"},<br/>{"etc", "..."},<br/>})
+|ftype1 = Table, Boolean
+|fuse1 = Returns a preprocessed string of a <code>&lt;tabber&gt;</code> containing each of the specified tabs.<br/>If preprocess is explicitly set to <code>false</code> the tabber will not be processed and instead return a [[mw:Extension:Scribunto/Lua reference manual#HTML library|<code>mw.html</code> object]]. If it is not specified or set to <code>true</code> the tabber will be preprocessed.
+}}

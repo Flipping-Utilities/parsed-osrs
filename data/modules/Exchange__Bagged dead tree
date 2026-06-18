@@ -1,0 +1,12 @@
+return {
+    itemId     = 8417,
+    icon       = 'Bagged dead tree.png',
+    item       = 'Bagged dead tree',
+    value      = 1000,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'You can plant this in your garden.',
+    hialch     = 600,
+    lowalch    = 400
+}

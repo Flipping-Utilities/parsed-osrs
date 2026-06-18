@@ -1,0 +1,11 @@
+return {
+	itemId    = 32026,
+	item      = "Large steel keel parts",
+	icon      = 'Large steel keel parts.png',
+    alchable  = true,
+	value     = 2500,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a steel keel for larger boats."
+}

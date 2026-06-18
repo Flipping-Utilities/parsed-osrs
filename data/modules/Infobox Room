@@ -1,0 +1,183 @@
+--------------------------
+-- Module for [[Template:Infobox Room]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local coins = require('Module:Coins')._amount
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'image' },
+		{ name = 'release', func = 'release' },
+		{ name = 'aka', func = 'has_content' },
+		{ name = 'icon', func = 'has_content' },
+		{ name = 'level', func = 'has_content' },
+		{ name = 'cost', func = costarg },
+		{ name = 'doors', func = { name = doorsarg, params = { 'doors', 'name' } } },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Room')
+	ret:addClass('infobox-room')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '5' }
+	}
+	:addRow{
+		{ tag = 'argd', content = 'image', colspan = '5', class = 'infobox-full-width-content' }
+	}
+	:pad(5)
+	ret:addRow{
+		{ tag = 'th', content = 'Released', colspan = '2' },
+		{ tag = 'argd', content = 'release', colspan = '3' }
+	}
+
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '2' },
+			{ tag = 'argd', content = 'aka', colspan = '3' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Icon', colspan = '2' },
+		{ tag = 'argd', content = 'icon', colspan = '3' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Construction]] level', colspan = '2' },
+		{ tag = 'argd', content = 'level', colspan = '3' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Cost', colspan = '2' },
+		{ tag = 'argd', content = 'cost', colspan = '3' }
+	}
+	:pad(5)
+
+	if ret:paramDefined('doors') then
+		ret:addRow{
+			{ tag = 'th', content = 'Door layout', class = 'infobox-subheader', colspan = '5' }
+		}
+		:pad(5)
+		:addRow{
+			{ tag = 'argd', content = 'doors', colspan = '5', class = 'infobox-full-width-content' }
+		}
+		:pad(5)
+	end
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function costarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	return coins(arg)
+end
+
+function doorsarg(arg, room_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local n_type = string.match(arg, 'n') and 'door' or 'wall'
+	local w_type = string.match(arg, 'w') and 'door' or 'wall'
+	local e_type = string.match(arg, 'e') and 'door' or 'wall'
+	local s_type = string.match(arg, 's') and 'door' or 'wall'
+
+	local doors = mw.html.create('div')
+		:addClass('poh-room')
+		:tag('div')
+			:tag('div')
+			:wikitext('[[File:House h'..n_type..'.png|link=]]')
+			:done()
+		:done()
+		:tag('div')
+			:addClass('poh-room-row')
+			:tag('div')
+			:wikitext('[[File:House v'..w_type..'.png|link=]]')
+			:done()
+			:tag('div')
+			:addClass('poh-room-text')
+			:wikitext(room_name or '')
+			:done()
+			:tag('div')
+			:wikitext('[[File:House v'..e_type..'.png|link=]]')
+			:done()
+		:done()
+		:tag('div')
+			:tag('div')
+			:wikitext('[[File:House h2'..s_type..'.png|link=]]')
+			:done()
+		:done()
+		:done()
+
+	return tostring(doors)
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Player-owned house room' }
+
+	-- Add the associated category if the parameter has content
+	local defined_args = {
+		aka = 'Pages with AKA',
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+	-- Add the associated category if the parameter doesn't have content
+	local notdefined_args = {
+		image = 'Needs image',
+		release = 'Needs release date',
+	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+	
+    -- release year
+    local year = args.release.d:match('%d%d%d%d')
+    if year then
+        table.insert(ret, 'Content released in '..year)
+    end
+    if args.release.switches then
+        for _, v in ipairs(args.release.switches) do
+            year = v:match('%d%d%d%d')
+            if year then
+                table.insert(ret, 'Content released in '..year)
+            end
+        end
+    end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

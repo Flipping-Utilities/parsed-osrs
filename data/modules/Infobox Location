@@ -1,0 +1,319 @@
+--------------------------
+-- Module for [[Template:Infobox Location]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local tb = require('Module:Trailblazer Region')
+
+local type_categories = {
+	['agility course'] = 'Agility courses',
+	building = 'Buildings',
+	dungeon = 'Dungeons',
+	farm = 'Farms',
+	guild = 'Guilds',
+	['hunter area'] = 'Hunter areas',
+	island = 'Islands',
+	mine = 'Mines',
+	mountain = 'Mountains',
+	ocean = 'Oceans',
+	realm = 'Realms',
+	region = 'Regions',
+	river = 'Rivers',
+	sea = 'Seas',
+	settlement = 'Settlements',
+	volcano = 'Volcanoes',
+	windmill = 'Windmills',
+	woods = 'Woods',
+}
+
+-- Main function called with invokes
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'image' },
+		{ name = 'release', func = 'release' },
+		{ name = 'aka', func = 'has_content' },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'floors', func = 'has_content' },
+		{ name = 'location', func = 'has_content' },
+		{ name = 'capital', func = 'has_content' },
+		{ name = 'pollbooth', func = 'has_content' },
+		{ name = 'depositbox', func = 'has_content' },
+		{ name = 'tellers', func = 'has_content' },
+		{ name = 'requirement', func = 'has_content' },
+		{ name = 'race', func = 'has_content' },
+		{ name = 'wilderness', func = 'has_content' },
+		{ name = 'teleport', func = 'has_content' },
+		{ name = 'music', func = 'has_content' },
+		{ name = 'map', func = maparg },
+		{ name = 'diary', func = 'has_content' },
+		{ name = 'leagueRegion', func = tb.regionsForInfobox },
+
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Location' }, flag = 'r' } },
+		{ name = 'type', func = 'has_content' },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+	
+	ret:useBucket("infobox_location", {
+    	members = 'is_members_only'
+    })
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Location')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '5' }
+	}
+	:addRow{
+		{ tag = 'argd', content = 'image', class='infobox-image infobox-full-width-content', colspan = '5' }
+	}
+	:pad(5)
+	:addRow{
+		{ tag = 'th', content = 'Released', colspan = '2' },
+		{ tag = 'argd', content = 'release', colspan = '3' }
+	}
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '2' },
+			{ tag = 'argd', content = 'aka', colspan = '3' }
+		}
+	end
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '2' },
+		{ tag = 'argd', content = 'members', colspan = '3' }
+	}
+	if ret:paramDefined('floors') then
+		ret:addRow{
+			{ tag = 'th', content = 'Floors', colspan = '2' },
+			{ tag = 'argd', content = 'floors', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('location') then
+		ret:addRow{
+			{ tag = 'th', content = 'Location', colspan = '2' },
+			{ tag = 'argd', content = 'location', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('capital') then
+		ret:addRow{
+			{ tag = 'th', content = 'Capital', colspan = '2' },
+			{ tag = 'argd', content = 'capital', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('tellers') then
+		ret:addRow{
+			{ tag = 'th', content = 'Number of tellers', colspan = '2' },
+			{ tag = 'argd', content = 'tellers', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('pollbooth') then
+		ret:addRow{
+			{ tag = 'th', content = 'Poll booth', colspan = '2' },
+			{ tag = 'argd', content = 'pollbooth', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('depositbox') then
+		ret:addRow{
+			{ tag = 'th', content = 'Deposit box', colspan = '2' },
+			{ tag = 'argd', content = 'depositbox', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('leagueRegion', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Demonic Pacts League|League]] region', colspan = '2' },
+			{ tag = 'argd', content = 'leagueRegion', colspan = '3' },
+			meta = {addClass = 'leagues-global-flag'}
+		}
+	end
+	if ret:paramDefined('requirement') then
+		ret:addRow{
+			{ tag = 'th', content = 'Requirements', colspan = '2' },
+			{ tag = 'argd', content = 'requirement', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('race') then
+		ret:addRow{
+			{ tag = 'th', content = 'Inhabitants', colspan = '2' },
+			{ tag = 'argd', content = 'race', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('wilderness') then
+		ret:addRow{
+			{ tag = 'th', content = 'Wilderness level', colspan = '2' },
+			{ tag = 'argd', content = 'wilderness', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('teleport') then
+		ret:addRow{
+			{ tag = 'th', content = 'Teleports', colspan = '2' },
+			{ tag = 'argd', content = 'teleport', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('music') then
+		ret:addRow{
+			{ tag = 'th', content = 'Music', colspan = '2' },
+			{ tag = 'argd', content = 'music', colspan = '3' }
+		}
+	end
+	if ret:paramDefined('diary') then
+		ret:addRow{
+			{ tag = 'th', content = 'Diary', colspan = '2' },
+			{ tag = 'argd', content = 'diary', colspan = '3' }
+		}
+	end
+	ret:pad(5)
+
+	local map_defined = ret:paramGrep('map', function(x) return string.lower(x or 'n/a') ~= 'n/a' end)
+	if map_defined then
+		ret:addRow{
+			{ tag = 'th', content = 'Map', class = 'infobox-subheader', colspan = '5' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'map', colspan = '5', class = 'infobox-full-width-content infobox-image' }
+		}
+	end
+	
+	if ret:paramDefined('type') then
+		ret:addRow{
+			{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '5' },
+			meta = {addClass = 'advanced-data'}
+		}
+		:pad(5, 'advanced-data')
+		:addRow{
+			{ tag = 'th', content = 'Type', colspan = '2' },
+			{ tag = 'argd', content = 'type',  colspan = '3' },
+			meta = {addClass = 'advanced-data'}
+		}
+		:pad(5, 'advanced-data')
+	end
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function maparg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	-- Return images and Mapframes/NPC map unmodified
+	if string.find(arg, '%[') or string.find(arg, 'mapframe') then
+		return arg
+	end
+
+	return 'N/A'
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Locations' }
+
+	-- Add the associated category if the parameter doesn't have content
+	local notdefined_args = {
+		image = 'Needs image',
+		members = 'Needs members status',
+		release = 'Needs release date',
+		map = 'Needs map',
+		leagueRegion = 'Needs League region',
+	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+	
+	-- Add the associated category if the parameter does have content
+	local defined_args = {
+		requirement = 'Locations with requirements',
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+	-- Add category based on type param
+	if args['type'] then
+		for type_dj in string.gmatch(args['type'].d or '', "[^,]+") do
+			local trimmed = type_dj:gsub("^%s*(.-)%s*$", "%1"):lower()
+			if type_categories[trimmed] then
+				table.insert(ret, type_categories[trimmed])
+			end
+		end
+		if args['type'].switches then
+			for _, type_i in ipairs(args['type'].switches) do
+				for type_ij in string.gmatch(type_i or '', "[^,]+") do
+					local trimmed = type_ij:gsub("^%s*(.-)%s*$", "%1"):lower()
+					if type_categories[trimmed] then
+						table.insert(ret, type_categories[trimmed])
+					end
+				end
+			end
+		end
+	end
+	
+	local cat_map = {
+		-- Parameters that have text
+		-- map a category to a value
+		matches = {
+			members = { yes = 'Members\' locations', no = 'Free-to-play locations' },
+		}
+	}
+	
+	-- searches
+	for n, v in pairs(cat_map.matches) do
+		for m, w in pairs(v) do
+			if args[n] then
+				if string.lower(tostring(args[n].d) or '') == m then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if string.lower(tostring(x)) == m then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+	
+    -- release year
+    local year = args.release.d:match('%d%d%d%d')
+    if year then
+        table.insert(ret, 'Content released in '..year)
+    end
+    if args.release.switches then
+        for _, v in ipairs(args.release.switches) do
+            year = v:match('%d%d%d%d')
+            if year then
+                table.insert(ret, 'Content released in '..year)
+            end
+        end
+    end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

@@ -1,0 +1,11 @@
+return {
+	itemId    = 32383,
+	item      = "Fish crate (marlin)",
+	icon      = "Fish crate (marlin).png",
+    alchable  = true,
+	value     = 5,
+	limit     = 250,
+	members   = true,
+	category  = nil,
+	examine   = "A sturdy container packed with ice and full to the brim with marlin."
+}

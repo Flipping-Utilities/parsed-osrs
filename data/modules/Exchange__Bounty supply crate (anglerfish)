@@ -1,0 +1,12 @@
+return {
+    itemId     = 30619,
+    icon       = "Bounty supply crate (anglerfish).png",
+    item       = "Bounty supply crate (anglerfish)",
+    alchable   = false,
+    value      = 10000,
+    limit      = 100,
+    members    = true,
+    category   = nil,
+    examine    = "A crate full of supplies.",
+    usage      = {}
+}

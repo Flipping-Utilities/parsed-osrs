@@ -1,0 +1,11 @@
+return {
+	itemId    = 33106,
+	item      = "Raw t-bone steak",
+	icon      = "Raw t-bone steak.png",
+    alchable  = true,
+	value     = 10,
+	limit     = 13000,
+	members   = false,
+	category  = nil,
+	examine   = "I need to cook this first."
+}

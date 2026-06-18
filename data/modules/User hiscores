@@ -1,0 +1,400 @@
+require("strict")
+local virtual_level = require('Module:Experience')._level_at_xp_unr
+local hiscore = require('Module:Hiscores').get_stats
+local yesno = require('Module:Yesno')
+local lang = mw.getContentLanguage()
+require('Module:Mw.html extension')
+
+local p = {}
+
+-- Format numbers (add thousands separator, etc.)
+local function fnum(x)
+	x = tonumber(x)
+	if x then
+		return lang:formatNum(x)
+	end
+	return ''
+end
+
+-- Calculate xp milestones and format to a labelled string
+local function mils(xp)
+	xp = math.floor(xp / 1e6) -- Divide by 1 million
+	return tostring(xp) .. "M"
+end
+
+-- Calculate combat level
+local function combat_level(att, str, def, ran, mag, con, pra)
+	return math.floor((math.max(att + str, 2 * mag, 2 * ran) * 1.3 + def + con + math.floor(pra / 2)) / 4)
+end
+
+-- Normalise arguments made by the user (lowercase, etc.)
+local function normalise_args(args)
+	local out = {}
+	for k, v in pairs(args) do
+		local key = string.lower(k)
+		local add_key = true
+		if key ~= k then
+			if args[key] then
+				add_key = false
+			end
+		end
+		if add_key then
+			out[key] = v
+		end
+	end
+	return out
+end
+
+-- Capitalise the first character of each word in a string. Not quite title case, because it does not ignore and/of, so those titles need to be forced.
+local function titlecase(str)
+	return str:gsub("%f[%a].", string.upper)
+end
+
+-- Table of API endpoint aliases
+local aliases = {
+	['main'] = 'osrs',
+	['default'] = 'osrs',
+	['iron'] = 'osrs-ironman',
+	['ironman'] = 'osrs-ironman',
+	['hardcore'] = 'osrs-hardcore',
+	['hardcore ironman'] = 'osrs-hardcore',
+	['ultimate'] = 'osrs-ultimate',
+	['ultimate ironman'] = 'osrs-ultimate',
+	['skiller'] = 'osrs-skiller',
+	['pure'] = 'osrs-pure',
+	['1-def'] = 'osrs-pure',
+}
+
+-- Table of account type chathead files
+local chatheads = {
+	['osrs-ironman'] = 'Ironman chat badge large',
+	['osrs-hardcore'] = 'Hardcore ironman chat badge large',
+	['osrs-ultimate'] = 'Ultimate ironman chat badge large',
+	['osrs-skiller'] = 'Skiller hiscore icon',
+	['osrs-pure'] = 'One-defence pure hiscore icon'
+}
+
+-- MAIN FUNCTIONS --
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(raw_args)
+	local args = normalise_args(raw_args)
+	local name = args.name
+	local api = args.api and aliases[args.api] or 'osrs'
+	local virtual = yesno(args.virtual, false)
+	local minxp = tonumber(args.minxp) and tonumber(args.minxp) * 1e6 or 2e8 --Multiply by 1 million or set 200 million as default
+	local style = args.style or 'round' --Set round as default style
+	local spacing = style == 'sleek' and '2px' or '6px' --Size of gap between subtables
+	
+	-- Fetch hiscore data
+	local data = hiscore(name, api)
+	
+	local function make_cell(td, skill, image, link, title)
+		link = link or titlecase(skill) --Use the skill for the link if not specified
+		title = title or link --Use the link for the title if not specified
+		td:cssText('border:none; padding:12px; line-height:2')
+		td:wikitext(string.format('[[File:%s.png|24x24px|link=%s]]', image, link), '&nbsp;')
+		if skill == 'combat' then
+			local att = data['attack'].level
+			local str = data['strength'].level
+			local def = data['defence'].level
+			local ran = data['ranged'].level
+			local mag = data['magic'].level
+			local con = data['constitution'].level
+			local pra = data['prayer'].level
+			local cmb = combat_level(att, str, def, ran, mag, con, pra)
+			local ret = fnum(cmb)
+			td:wikitext(ret)
+			td:attr('title', string.format('Combat level: %s', ret))
+			return
+		end
+		local vals = data[skill]
+		if not vals then --If values for the hiscore can't be found
+			td:wikitext('??')
+			td:attr('title', string.format('%s@NL@Rank: N/A', title))
+			return
+		end
+		if skill == 'overall' then --If the request is for the player's total level
+			td:wikitext(fnum(vals.level) or '--')
+			if vals.rank then --Add hiscore rank on hover
+				td:attr('title', string.format('Total XP: %s@NL@Rank: %s', fnum(vals.xp), fnum(vals.rank)))
+			end
+			return
+		end
+		if vals.score == -1 then --If the request is successful but returns '-1' meaning the player is not on the hiscore table (kc or level is too low to register)
+			td:wikitext('--')
+			td:attr('title', string.format('%s@NL@Rank: N/A', title))
+			return
+		end
+		if not vals.xp then --If the request does not include xp it must not be a skill and must therefore be boss/minigame kc
+			td:wikitext(fnum(vals.score) or '--')
+			if vals.rank then --Add hiscore rank on hover for bosses/minigames
+				td:attr('title', string.format('%s@NL@Rank: %s', title, fnum(vals.rank)))
+			end
+			return
+		end
+		if vals.rank then --Add hiscore rank and XP on hover for skills
+			td:attr('title', string.format('%s@NL@XP: %s@NL@Rank: %s', title, fnum(vals.xp), fnum(vals.rank)))
+		else
+			td:attr('title', string.format('%s@NL@XP: %s@NL@Rank: N/A', title, fnum(vals.xp)))
+		end
+		if vals.xp >= minxp then --If a skill's xp meets user-defined minimum threshold, return the xp as a formatted string, rounded to nearest million
+			td:wikitext(mils(vals.xp) or '--')
+			return
+		end
+		if vals.level < 99 or not virtual then --If the requested skill is not maxed or the virtual parameter is false, return the level (caps at 99)
+			td:wikitext(fnum(vals.level) or '--')
+			return
+		else
+			local ret = virtual_level(vals.xp) or '--' --Calculate the virtual level based on xp
+			td:wikitext(fnum(ret))
+		end
+	end
+	
+	local function make_spacer(tr, colspan, rowspan)
+		colspan = colspan or 1
+		rowspan = rowspan or 1
+		local td = tr:tag('td')
+			:cssText('padding:0; background:var(--body-main);')
+			:cssText(string.format('min-height:%s; height:%s; min-width:%s; width:%s;', spacing, spacing, spacing, spacing))
+			:attr('colspan', colspan)
+			:attr('rowspan', rowspan)
+	end
+	
+	local function make_frame(tr, span)
+		span = span or 1
+		local td = tr:tag('td')
+			:cssText('padding:0; border-spacing:0;')
+			:attr('colspan', span)
+		local ret_table = td:tag('table')
+			:cssText('border-spacing:0; width:100%; margin:0; display:table;')
+		return ret_table
+	end
+	
+	-- Main table
+	local ret = mw.html.create('table')
+		:cssText('text-align:center; background:var(--body-light); border-spacing:0; white-space:nowrap; line-height:normal; margin:0; display:table;')
+	if style == 'sleek' then
+		ret:cssText('border:var(--body-border) 1px solid;')
+	end
+	if style == 'round' then
+		ret:cssText('border:none; border-radius:10px;')
+	end
+	ret:cssText(args['extra-css']) --Add CSS defined by the user
+	local main_tr = ret:tr()
+	
+	-- Stats table
+	local stats_table = make_frame(main_tr)
+		local tr = stats_table:tr()
+			:th()
+				:cssText('border:none; padding:14px; text-align:center; font-size:32px; font-family:RuneScape;')
+				:attr('colspan', 3)
+				:wikitext(chatheads[api] and '[[File:' .. chatheads[api] .. '.png|link=]]&nbsp;' or '')
+				:tag('span')
+					:addClass('plainlinks')
+					:wikitext(string.format('[https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=%s %s]', mw.uri.encode(name), name))
+				:done()
+		make_spacer(stats_table:tr(), 3)
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'attack', 'Attack icon (detail)')
+				make_cell(tr:td(), 'hitpoints', 'Hitpoints icon (detail)')
+				make_cell(tr:td(), 'mining', 'Mining icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'strength', 'Strength icon (detail)')
+				make_cell(tr:td(), 'agility', 'Agility icon (detail)')
+				make_cell(tr:td(), 'smithing', 'Smithing icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'defence', 'Defence icon (detail)')
+				make_cell(tr:td(), 'herblore', 'Herblore icon (detail)')
+				make_cell(tr:td(), 'fishing', 'Fishing icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'ranged', 'Ranged icon (detail)')
+				make_cell(tr:td(), 'thieving', 'Thieving icon (detail)')
+				make_cell(tr:td(), 'cooking', 'Cooking icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'prayer', 'Prayer icon (detail)')
+				make_cell(tr:td(), 'crafting', 'Crafting icon (detail)')
+				make_cell(tr:td(), 'firemaking', 'Firemaking icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'magic', 'Magic icon (detail)')
+				make_cell(tr:td(), 'fletching', 'Fletching icon (detail)')
+				make_cell(tr:td(), 'woodcutting', 'Woodcutting icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'runecraft', 'Runecraft icon (detail)')
+				make_cell(tr:td(), 'slayer', 'Slayer icon (detail)')
+				make_cell(tr:td(), 'farming', 'Farming icon (detail)')
+			tr = stats_table:tr()
+				make_cell(tr:td(), 'construction', 'Construction icon (detail)')
+				make_cell(tr:td(), 'hunter', 'Hunter icon (detail)')
+				make_cell(tr:td(), 'sailing', 'Sailing icon')
+		
+		-- Total stats table
+		make_spacer(stats_table:tr(), 3)
+			tr = stats_table:tr()
+			local total_stats_table = make_frame(tr, 3)
+			tr = total_stats_table:tr()
+				make_cell(tr:td(), 'combat', 'Combat icon', 'Combat level')
+				make_cell(tr:td(), 'overall', 'Skills icon', 'Skills')
+				make_cell(tr:td(), 'collections logged', 'Collection log', 'Collection log')
+		tr:done()
+	stats_table:done()
+		
+	-- Right side
+	make_spacer(main_tr, 1, 3)
+	local right_side_table = make_frame(main_tr)
+		tr = right_side_table:tr()
+		
+	-- Clues and PvP table
+	local clues_table = make_frame(tr, 3)
+		tr = clues_table:tr()
+			make_cell(tr:td(), 'clue scrolls all', 'Clue scroll', 'Treasure Trails')
+			make_cell(tr:td(), 'clue scrolls beginner', 'Clue scroll (beginner)', 'Clue scroll (beginner)')
+			make_cell(tr:td(), 'clue scrolls easy', 'Clue scroll (easy)', 'Clue scroll (easy)')
+			make_cell(tr:td(), 'clue scrolls medium', 'Clue scroll (medium)', 'Clue scroll (medium)')
+			make_cell(tr:td(), 'clue scrolls hard', 'Clue scroll (hard)', 'Clue scroll (hard)')
+			make_cell(tr:td(), 'clue scrolls elite', 'Clue scroll (elite)', 'Clue scroll (elite)')
+			make_cell(tr:td(), 'clue scrolls master', 'Clue scroll (master)', 'Clue scroll (master)')
+		tr:done()
+	make_spacer(clues_table:tr(), 7)
+		tr = clues_table:tr()
+			local pvp_table = make_frame(tr, 7)
+			tr = pvp_table:tr()
+				make_cell(tr:td(), 'emir\'s arena', 'Scroll of imbuing', 'Emir\'s Arena', 'Emir\'s Arena Rank points')
+				make_cell(tr:td(), 'last man standing', 'Deadman\'s chest (cosmetic)', 'Last Man Standing', 'Last Man Standing Ranking')
+				make_cell(tr:td(), 'soul wars zeal', 'Lil\' creator', 'Soul Wars', 'Soul Wars Zeal')
+				make_cell(tr:td(), 'bounty hunter', 'Hunter\'s honour', 'Bounty Hunter', 'Bounty Hunter target kills')
+				make_cell(tr:td(), 'bounty hunter rogue', 'Rogue\'s revenge', 'Bounty Hunter', 'Bounty Hunter rogue kills')
+			tr:done()
+		pvp_table:done()
+	clues_table:done()
+	
+	-- Bosses table
+	make_spacer(right_side_table:tr(), 3)
+		local bosses_tr = right_side_table:tr()
+			local left_bosses_table = make_frame(bosses_tr)
+			tr = left_bosses_table:tr()
+				make_cell(tr:td(), 'brutus', 'beef')
+				make_cell(tr:td(), 'obor', 'Hill giant club')
+				make_cell(tr:td(), 'bryophyta', 'Bryophyta\'s essence')
+				make_cell(tr:td(), 'hespori', 'Bottomless compost bucket')
+				make_cell(tr:td(), 'the mimic', 'Mimic')
+				make_cell(tr:td(), 'skotizo', 'Skotos')
+			tr = left_bosses_table:tr()
+				make_cell(tr:td(), 'scurrius', 'Scurry')
+				make_cell(tr:td(), 'the royal titans', 'Bran')
+				make_cell(tr:td(), 'giant mole', 'Baby mole')
+				make_cell(tr:td(), 'deranged archaeologist', 'Wintertodt parable')
+				make_cell(tr:td(), 'king black dragon', 'Kbd heads')
+				make_cell(tr:td(), 'kalphite queen', 'Kq head')
+			tr = left_bosses_table:tr()
+				make_cell(tr:td(), 'dagannoth prime', 'Pet dagannoth prime')
+				make_cell(tr:td(), 'dagannoth rex', 'Pet dagannoth rex')
+				make_cell(tr:td(), 'dagannoth supreme', 'Pet dagannoth supreme')
+				make_cell(tr:td(), 'sarachnis', 'Sraracha')
+				make_cell(tr:td(), 'amoxliatl', 'Moxi')
+				make_cell(tr:td(), 'the hueycoatl', 'Huberte')
+			tr = left_bosses_table:tr()
+				make_cell(tr:td(), 'zulrah', 'Pet snakeling')
+				make_cell(tr:td(), 'vorkath', 'Vorkath\'s head')
+				make_cell(tr:td(), 'the nightmare', 'Little nightmare')
+				make_cell(tr:td(), 'phosani\'s nightmare', 'Little parasite', 'Phosani\'s Nightmare')
+				make_cell(tr:td(), 'corporeal beast', 'Pet corporeal critter')
+				make_cell(tr:td(), 'yama', 'Yami')
+			tr = left_bosses_table:tr()
+				make_cell(tr:td(), 'doom of mokhaiotl', 'Dom', 'Doom of Mokhaiotl')
+				make_cell(tr:td(), 'kree\'arra', 'Pet kree\'arra', 'Kree\'arra')
+				make_cell(tr:td(), 'commander zilyana', 'Pet zilyana')
+				make_cell(tr:td(), 'general graardor', 'Pet general graardor')
+				make_cell(tr:td(), 'k\'ril tsutsaroth', 'Pet k\'ril tsutsaroth', 'K\'ril Tsutsaroth')
+				make_cell(tr:td(), 'nex', 'Nexling')
+			tr = make_frame(left_bosses_table:tr(), 6)
+				make_cell(tr:td(), 'phantom muspah', 'Muphin (ranged)')
+				make_cell(tr:td(), 'duke sucellus', 'Baron')
+				make_cell(tr:td(), 'the leviathan', 'Lil\'viathan')
+				make_cell(tr:td(), 'vardorvis', 'Butch')
+				make_cell(tr:td(), 'the whisperer', 'wisp')
+			left_bosses_table:done()
+		make_spacer(bosses_tr)
+		
+		--Skilling, Wilderness, and Slayer bosses
+		local right_bosses_table = make_frame(bosses_tr)
+			tr = right_bosses_table:tr()
+				make_cell(tr:td(), 'guardians of the rift', 'Abyssal protector', 'Guardians of the Rift')
+				make_cell(tr:td(), 'tempoross', 'Tiny tempor')
+				make_cell(tr:td(), 'wintertodt', 'Phoenix')
+				make_cell(tr:td(), 'zalcano', 'Smolcano')
+		make_spacer(right_bosses_table, 4)
+			tr = right_bosses_table:tr()
+				make_cell(tr:td(), 'crazy archaeologist', 'Fedora')
+				make_cell(tr:td(), 'chaos fanatic', 'Ancient staff')
+				make_cell(tr:td(), 'scorpia', 'Scorpia\'s offspring')
+				make_cell(tr:td(), 'chaos elemental', 'Pet chaos elemental')
+			tr = make_frame(right_bosses_table:tr(), 4)
+				make_cell(tr:td(), 'calvar\'ion', 'Skull of vet\'ion', 'Calvar\'ion')
+				make_cell(tr:td(), 'spindel', 'Fangs of venenatis')
+				make_cell(tr:td(), 'artio', 'Claws of callisto')
+			tr = make_frame(right_bosses_table:tr(), 4)
+				make_cell(tr:td(), 'vet\'ion', 'Vet\'ion jr.', 'Vet\'ion')
+				make_cell(tr:td(), 'venenatis', 'Venenatis spiderling')
+				make_cell(tr:td(), 'callisto', 'Callisto cub')
+		make_spacer(right_bosses_table, 4)
+			tr = make_frame(right_bosses_table:tr(), 4)
+				make_cell(tr:td(), 'grotesque guardians', 'Noon')
+				make_cell(tr:td(), 'abyssal sire', 'Abyssal orphan')
+				make_cell(tr:td(), 'kraken', 'Pet kraken')
+				make_cell(tr:td(), 'shellbane gryphon', 'Gull (pet)')
+			tr = right_bosses_table:tr()
+				make_cell(tr:td(), 'cerberus', 'Hellpuppy')
+				make_cell(tr:td(), 'araxxor', 'Nid')
+				make_cell(tr:td(), 'thermonuclear smoke devil', 'Pet smoke devil')
+				make_cell(tr:td(), 'alchemical hydra', 'Alchemical hydra heads')
+			tr:done()
+		right_bosses_table:done()
+	
+	-- Minigames and Raids table
+	make_spacer(right_side_table:tr(), 3)
+		local bottom_tr = right_side_table:tr()
+			local bottom_table = make_frame(bottom_tr, 3)
+				local minigames_table = make_frame(bottom_table)
+					tr = minigames_table:tr()
+						make_cell(tr:td(), 'barrows chests', 'Dharok\'s helm', 'Barrows')
+						make_cell(tr:td(), 'the gauntlet', 'Youngllef')
+						make_cell(tr:td(), 'tztok-jad', 'Tzrek-jad', 'TzHaar Fight Cave')
+						make_cell(tr:td(), 'colosseum glory', 'Sunfire splinters', 'Glory')
+					tr = minigames_table:tr()
+						make_cell(tr:td(), 'lunar chests', 'Blood moon helm', 'Moons of Peril')
+						make_cell(tr:td(), 'the corrupted gauntlet', 'Corrupted youngllef')
+						make_cell(tr:td(), 'tzkal-zuk', 'Tzrek-zuk', 'The Inferno')
+						make_cell(tr:td(), 'sol heredit', 'Smol heredit', 'Fortis Colosseum')
+					tr:done()
+				minigames_table:done()
+		make_spacer(bottom_table, 1, 2)
+			local raids_table = make_frame(bottom_table)
+					tr = raids_table:tr()
+						make_cell(tr:td(), 'chambers of xeric', 'Olmlet', 'Chambers of Xeric')
+						make_cell(tr:td(), 'theatre of blood', 'Lil\' zik', 'Theatre of Blood')
+						make_cell(tr:td(), 'tombs of amascut', 'Tumeken\'s guardian', 'Tombs of Amascut')
+					tr = raids_table:tr()
+						make_cell(tr:td(), 'chambers of xeric challenge', 'Metamorphic dust', 'Chambers of Xeric/Challenge Mode', 'Chambers of Xeric Challenge Mode')
+						make_cell(tr:td(), 'theatre of blood hard', 'Sanguine dust', 'Theatre of Blood/Hard Mode', 'Theatre of Blood Hard Mode')
+						make_cell(tr:td(), 'tombs of amascut expert', 'Ancient remnant', 'Tombs of Amascut', 'Tombs of Amascut Expert Mode')
+					tr:done()
+				raids_table:done()
+			bottom_table:done()
+		right_side_table:done()
+	ret:done()
+	-- End of table
+	
+	--Wrap table in a responsive div for mobile support
+	local wrapper = mw.html.create('div')
+		:cssText('max-width:100%; height:auto; overflow-x: auto;')
+		:cssText(string.format('padding-bottom:%s;', spacing))
+		:node(ret)
+	:allDone()
+	wrapper = tostring(wrapper):gsub('@NL@', '&#10;') --wikitext does not escape '&' and '&#10;' is a new line that works in title attributes
+	return wrapper
+end
+
+return p

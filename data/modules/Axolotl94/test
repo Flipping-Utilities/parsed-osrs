@@ -1,0 +1,23 @@
+-- Module:Axolotl94/test
+local p = {}
+time = 3
+
+-- A simple counter example
+-- param 'row' identifies which row to update
+function p.show(frame)
+    local row = frame.args.row or "1"
+    local value = tonumber(frame.args.value) or 0
+
+    -- Increment value for demonstration
+    local newValue = value + time
+    time = time + 1
+
+    -- Output as a styled "button" and the value
+    return string.format(
+        '<span style="cursor:pointer; color:blue; text-decoration:underline;" title="Click to increment">%s: %d</span>',
+        "Time " .. row,
+        newValue
+    )
+end
+
+return p

@@ -1,0 +1,54 @@
+local p = {}
+
+local commas = require('Module:Addcommas')._add
+
+function expr(x)
+	x = tostring(x)
+	local expr_good, expr_val = pcall(mw.ext.ParserFunctions.expr, x)
+	if expr_good then
+		return tonumber(expr_val)
+	end
+	return nil
+end
+
+function p.main(frame)
+	local input = frame:getParent().args
+	local shopIncPercent = (input.shop_inc ~= nil and input.shop_inc ~= '') and tonumber(input.shop_inc) * .01 or 0
+	local calcTotal = p.calc(input.base_price, shopIncPercent, input.number_bought, tonumber(input.base_stock), tonumber(input.cur_stock))
+	
+	local costPerHop = commas(calcTotal)
+	local averageCost = commas(calcTotal / input.number_bought)
+	
+	if (tonumber(input.total_purchased) > 0)
+	then
+		local totalCost = commas((calcTotal / input.number_bought) * input.total_purchased)
+		return string.format('\n Total cost per hop: %s \n Average cost per item is: %s per item \n Total cost: %s', costPerHop, averageCost, totalCost)
+	else
+		return string.format('\n Total cost per hop: %s \n Average cost per item is: %s per item', costPerHop, averageCost)
+	end
+end
+
+function p.calc(basePrice, shopIncrease, numberBought, baseStock, currentStock)
+	local total = 0
+	
+	-- These two values are optional
+	if (baseStock > 0 and currentStock > 0)
+	then
+		local first = baseStock - currentStock
+		local last = numberBought + (baseStock - currentStock) - 1
+		
+		for i = first, last do
+			--start at 1 and subtract 1 in function so it actually does 0 - (numberBought)
+			total = total + basePrice + math.floor((shopIncrease * basePrice) * i)
+		end
+	else
+		for i = 1, numberBought do
+			--start at 1 and subtract 1 in function so it actually does 0 - (numberBought - 1)
+			total = total + basePrice + math.floor((shopIncrease*basePrice)*(i - 1))
+		end
+	end
+	
+	return total
+end
+
+return p

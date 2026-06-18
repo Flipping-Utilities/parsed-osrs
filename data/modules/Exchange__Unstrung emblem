@@ -1,0 +1,12 @@
+return {
+    itemId     = 1720,
+    icon       = 'Unstrung emblem.png',
+    item       = 'Unstrung emblem',
+    value      = 200,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'It needs a string so I can wear it.',
+    hialch     = 120,
+    lowalch    = 80
+}

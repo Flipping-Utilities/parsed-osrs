@@ -1,0 +1,48 @@
+local ge = require('Module:Exchange')._price
+local vol = require('Module:Exchange')._volume
+
+local p = {}
+local min_volume = 27000
+local ge_tax = 0.02
+
+local bolts = {
+	['Opal dragon bolts'] = {'Dragon bolts', 'Opal bolt tips', '1.6'},
+	['Jade dragon bolts'] = {'Dragon bolts', 'Jade bolt tips', '2.4'},
+	['Pearl dragon bolts'] = {'Dragon bolts', 'Pearl bolt tips', '3.2'},
+	['Topaz dragon bolts'] = {'Dragon bolts', 'Topaz bolt tips', '3.9'},
+	['Sapphire dragon bolts'] = {'Dragon bolts', 'Sapphire bolt tips', '4.7'},
+	['Emerald dragon bolts'] = {'Dragon bolts', 'Emerald bolt tips', '5.5'},
+	['Ruby dragon bolts'] = {'Dragon bolts', 'Ruby bolt tips', '6.3'},
+	['Diamond dragon bolts'] = {'Dragon bolts', 'Diamond bolt tips', '7'},
+	['Dragonstone dragon bolts'] = {'Dragon bolts', 'Dragonstone bolt tips', '8.2'},
+	['Onyx dragon bolts'] = {'Dragon bolts', 'Onyx bolt tips', '9.4'}
+}
+
+function p.main()
+	local best_profit = -9999999999
+	local best_bolt = ''
+	local best_tip = ''
+	local best_output = ''
+	local best_volume = -9999999999
+	local best_exp = -9999999999
+	for output_bolt, recipe_arr in pairs(bolts) do
+		local output_price = ge(output_bolt)
+        local taxed_output_price = output_price - math.min(5000000, math.floor(output_price * 0.02))
+		local output_volume = vol(output_bolt)
+		
+		local profit = taxed_output_price - ge(recipe_arr[1]) - ge(recipe_arr[2])
+
+		if profit > best_profit and output_volume >= min_volume then
+			best_profit = profit
+			best_bolt = recipe_arr[1]
+			best_tip = recipe_arr[2]
+			best_output = output_bolt
+			best_volume = output_volume
+			best_exp = recipe_arr[3]
+		end
+	end
+
+	return string.format('%s|%s|%s|%s|%s|%s', best_profit, best_bolt, best_tip, best_output, best_volume, best_exp)
+end
+
+return p

@@ -1,0 +1,14 @@
+{{Documentation}}
+
+Puts data into a [https://meta.weirdgloop.org/w/Extension:Bucket bucket].
+
+==Usage==
+<pre>{{BucketPut
+|bucket_name
+|page_name_sub (optional)
+|bucket_field = value
+|bucket_field = value
+...
+}}</pre>
+
+The first (unnamed) paramter is the name of the bucket to put data into. The second (unnamed, optional) parameter is the page name that will be stored in the <code>page_name_sub</code> field. All other (named) parameters are field:value for the data to add to the bucket.

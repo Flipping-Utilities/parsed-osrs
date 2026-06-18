@@ -1,0 +1,190 @@
+local p = {}
+
+local skillPic = require('Module:SCP')._main
+
+function p.invoke_main(frame)
+	return p.main(frame:getParent().args)
+end
+
+function p.main(args)
+	local hunterLvl = tonumber(args.HunterLevel_Input)
+	local master = args.master
+	
+	local unlocked_lists = {}
+	if(args.leaguesRegions == 'true') then
+		unlocked_lists = { Varlamore = true }
+		for entry in string.gmatch(args.regionOptions, '([^,]+)') do
+		    unlocked_lists[entry] = true
+		end
+	else
+		unlocked_lists = "All"
+	end
+
+	local active_tasks = {}
+	if(args.blockList == 'true') then
+		active_tasks[args.gilman] = true
+		active_tasks[args.cervus] = true
+		active_tasks[args.ornus] = true
+		active_tasks[args.aco] = true
+		active_tasks[args.teco] = true
+		active_tasks[args.wolf] = true
+	end
+
+	local matched_tasks = get_available_tasks(master, hunterLvl, unlocked_lists, active_tasks)
+	
+	local chance = (1 / #matched_tasks) --this is dirty but i'll add weighting later lol--
+	
+	local wikitable = mw.html.create('table'):addClass('wikitable sortable align-center-1 align-center-2 align-center-4'):done()
+		wikitable:tag('tr'):tag('th'):wikitext(skillPic('Hunter') .. ' Level'):done()
+			:tag('th'):attr('colspan', 2):wikitext('Creature'):done()
+			:tag('th'):wikitext('Chance'):done()
+			
+	for _, task in pairs(matched_tasks) do
+	wikitable:tag('tr'):done()
+    	:tag('td'):wikitext(task.level):done()
+    	:tag('td'):wikitext('[[File:' .. task.creature .. ' icon.png]]'):done()
+    	:tag('td'):wikitext('[[' .. task.creature .. ']]'):done()
+    	:tag('td'):wikitext(tonumber(string.format("%.2f", chance * 100)) .. '%'):done()
+	end
+	
+	return wikitable
+end
+
+masters = {
+	Gilman = { 
+		{ creature = "Tropical wagtail", level = 19 },
+		{ creature = "Wild kebbit", level = 23 },
+		{ creature = "Sapphire glacialis", level = 25},
+		{ creature = "Swamp lizard", level = 29 },
+		{ creature = "Spined larupia", level = 31 },
+		{ creature = "Barb-tailed kebbit", level = 33 },
+		{ creature = "Snowy knight", level = 35 },
+		{ creature = "Prickly kebbit", level = 37 },
+		{ creature = "Embertailed jerboa", level = 39 },
+		{ creature = "Horned graahk", level = 41 },
+		{ creature = "Spotted kebbit", level = 43 },
+		{ creature = "Black warlock", level = 45 },
+		{ creature = "Orange salamander", level = 47 },
+		{ creature = "Razor-backed kebbit", level = 49 },
+		{ creature = "Sabre-toothed kebbit", level = 51 },
+		{ creature = "Grey chinchompa", level = 53 },
+		{ creature = "Sabre-toothed kyatt", level = 53 },
+		{ creature = "Dark kebbit", level = 57 },
+		{ creature = "Pyre fox", level = 57 },
+		{ creature = "Red salamander", level = 59 },
+		{ creature = "Red chinchompa", level = 63 },
+		{ creature = "Dashing kebbit", level = 69 },
+		{ creature = "Sunlight antelope", level = 72 },
+		{ creature = "Sunlight Moth", level = 75 },
+		{ creature = "Tecu salamander", level = 79 },
+		{ creature = "Herbiboar", level = 80 },
+		{ creature = "Moonlight moth", level = 85 },
+		{ creature = "Moonlight antelope", level = 91 }
+		},
+	Cervus = {
+		{ creature = "Swamp lizard", level = 29 },
+		{ creature = "Horned graahk", level = 41 },
+		{ creature = "Spotted kebbit", level = 43 },
+		{ creature = "Black warlock", level = 45 },
+		{ creature = "Orange salamander", level = 47 },
+		{ creature = "Razor-backed kebbit", level = 49 },
+		{ creature = "Sabre-toothed kebbit", level = 51 },
+		{ creature = "Grey chinchompa", level = 53 },
+		{ creature = "Dark kebbit", level = 57 },
+		{ creature = "Pyre fox", level = 57 },
+		{ creature = "Red chinchompa", level = 63 },
+		{ creature = "Sunlight Moth", level = 75 }
+		},
+	Ornus = {
+		{ creature = "Spined larupia", level = 31 },
+		{ creature = "Snowy knight", level = 35 },
+		{ creature = "Embertailed jerboa", level = 39 },
+		{ creature = "Spotted kebbit", level = 43 },
+		{ creature = "Orange salamander", level = 47 },
+		{ creature = "Sabre-toothed kebbit", level = 51 },
+		{ creature = "Sabre-toothed kyatt", level = 53 },
+		{ creature = "Pyre fox", level = 57 },
+		{ creature = "Red salamander", level = 59 },
+		{ creature = "Red chinchompa", level = 63 }
+		},
+	Aco = {
+		{ creature = "Orange salamander", level = 47 },
+		{ creature = "Sabre-toothed kebbit", level = 51 },
+		{ creature = "Grey chinchompa", level = 53 },
+		{ creature = "Sabre-toothed kyatt", level = 53 },
+		{ creature = "Dark kebbit", level = 57 },
+		{ creature = "Red salamander", level = 59 },
+		{ creature = "Red chinchompa", level = 63 },
+		{ creature = "Dashing kebbit", level = 69 },
+		{ creature = "Sunlight antelope", level = 72 },
+		{ creature = "Tecu salamander", level = 79 },
+		{ creature = "Moonlight moth", level = 85 }
+		},
+	Teco = {
+		{ creature = "Sabre-toothed kebbit", level = 51 },
+		{ creature = "Grey chinchompa", level = 53 },
+		{ creature = "Sabre-toothed kyatt", level = 53 },
+		{ creature = "Dark kebbit", level = 57 },
+		{ creature = "Red salamander", level = 59 },
+		{ creature = "Red chinchompa", level = 63 },
+		{ creature = "Dashing kebbit", level = 69 },
+		{ creature = "Sunlight antelope", level = 72 },
+		{ creature = "Sunlight Moth", level = 75 },
+		{ creature = "Herbiboar", level = 80 }
+		},
+	Wolf = {
+		{ creature = "Red salamander", level = 59 },
+		{ creature = "Red chinchompa", level = 63 },
+		{ creature = "Dashing kebbit", level = 69 },
+		{ creature = "Sunlight antelope", level = 72 },
+		{ creature = "Tecu salamander", level = 79 },
+		{ creature = "Herbiboar", level = 80 },
+		{ creature = "Moonlight moth", level = 85 },
+		{ creature = "Moonlight antelope", level = 91 }
+		}
+}
+
+lists = {
+	Desert = { 
+		"Orange salamander" },
+	Fremennik = { 
+		"Sapphire glacialis", "Snowy knight", "Sabre-toothed kebbit", "Sabre-toothed kyatt" },
+	Kandarin = { 
+		"Tropical wagtail", "Wild kebbit", "Spined larupia", "Barb-tailed kebbit", "Prickly kebbit", "Spotted kebbit", "Black warlock", "Razor-backed kebbit", "Grey chinchompa", "Dark kebbit", "Red salamander", "Red chinchompa", "Dashing kebbit" },
+	Karamja = {
+		"Horned graahk"},
+	Kourend = { 
+		"Sapphire glacialis", "Snowy knight", "Black warlock", "Grey chinchompa" },
+	Misthalin = { 
+		"Grey chinchompa", "Herbiboar" },
+	Morytania = { 
+		"Swamp lizard" },
+	Tirannwn = { 
+		"Red chinchompa" },
+	Varlamore = { 
+		"Sapphire glacialis", "Snowy knight", "Embertailed jerboa", "Pyre fox", "Sunlight antelope", "Sunlight Moth", "Tecu salamander", "Moonlight moth", "Moonlight antelope", "Red chinchompa", "Black warlock", "Tropical wagtail", "Wild kebbit"
+	}
+}
+
+function get_available_tasks(active_master, player_level, unlocked_lists, active_tasks)
+	local unlocked_creatures = {}
+	if(unlocked_lists ~= "All") then
+		for regionName, enabled in pairs(unlocked_lists) do
+		    if (enabled) then
+	    		for _, creature in pairs(lists[regionName]) do
+		    		unlocked_creatures[creature] = true
+		    	end
+			end
+		end
+	end
+	local good_tasks = {}
+	for _, task in pairs(masters[active_master]) do
+		if ((unlocked_lists == "All" or unlocked_creatures[task.creature]) and
+			player_level >= task.level and not active_tasks[task.creature]) then
+			table.insert(good_tasks, task)
+		end
+	end
+	return good_tasks
+end
+
+return p

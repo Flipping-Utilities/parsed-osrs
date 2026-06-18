@@ -1,0 +1,97 @@
+local p = {}
+
+local lang = mw.language.getContentLanguage()
+
+local superiorRate = {
+	{chance = 160, monster = 'Hydra', variableName='hydra'},
+	{chance = 200, monster = 'Smoke Devil', variableName='smokeDevil'},
+	{chance = 224, monster = 'Araxyte', variableName='araxyte'},
+	{chance = 256, monster = 'Dark Beast', variableName='darkBeast'},
+	{chance = 352, monster = 'Abyssal Demon', variableName='abyssalDemon'},
+	{chance = 368, monster = 'Drake', variableName='drake'},
+	{chance = 440, monster = 'Nechryael', variableName='nechryael'},
+	{chance = 472, monster = 'Aquanite', variableName='aquanite'},
+	{chance = 504, monster = 'Elder custodian stalker', variableName='custodiaStalker'},
+	{chance = 520, monster = 'Gargoyle', variableName='gargoyle'},
+	{chance = 600, monster = 'Kurask', variableName='kurask'},
+	{chance = 680, monster = 'Dust Devil', variableName='dustDevil'},
+	{chance = 728, monster = 'Wyrm', variableName='wyrm'},
+	{chance = 760, monster = 'Aberrant Spectre', variableName='aberrantSpectre'},
+	{chance = 760, monster = 'Basilisk Knight', variableName='basiliskKnight'},
+	{chance = 784, monster = 'Cave Horror', variableName='caveHorror'},
+	{chance = 816, monster = 'Warped Creatures', variableName='warpedCreatures'},
+	{chance = 832, monster = 'Turoth', variableName='turoth'},
+	{chance = 872, monster = 'Jelly', variableName='jelly'},
+	{chance = 888, monster = 'Gryphon', variableName='gryphon'},
+	{chance = 896, monster = 'Bloodveld', variableName='bloodveld'},
+	{chance = 960, monster = 'Infernal Mage', variableName='infernalMage'},
+	{chance = 1024, monster = 'Basilisk', variableName='basilisk'},
+	{chance = 1144, monster = 'Pyrefiend', variableName='pyrefiend'},
+	{chance = 1192, monster = 'Cockatrice', variableName='cockatrice'},
+	{chance = 1240, monster = 'Rockslug', variableName='rockslug'},
+	{chance = 1288, monster = 'Banshee', variableName='banshee'},
+	{chance = 1336, monster = 'Cave Crawler', variableName='caveCrawler'},
+	{chance = 1376, monster = 'Crawling Hand', variableName='crawlingHand'}
+}
+
+local caTierArray = {
+	['Hard-'] = 0,
+	['Elite+'] = 1
+}
+
+function p.buildTable(chancesArray)
+	local ret = mw.html.create('table')
+	    :addClass('wikitable align-center-1')
+	    :addClass('wikitable sortable')
+	    :done()
+		ret:tag('tr'):tag('th'):wikitext( 'Monster'):done()
+			:tag('th'):wikitext('Rate of Imbued heart'):done()
+	
+	local total = 0
+	for i, chance in ipairs(chancesArray) do
+		local row = mw.html.create('tr')
+		    :tag('th')
+		    :wikitext(chance[1])
+		    :done()
+		    :tag('td')
+		    :wikitext(string.format("%.2f", 100*chance[2] ) .. "%")
+		    :done()
+		total = total + chance[2]
+		ret:node(row)
+	end
+	local total_row = mw.html.create('tr'):tag('th'):wikitext('Total'):done()
+		:tag('td'):wikitext(string.format("%.2f", 100*total ) .. "%"):done()
+	ret:node(total_row)
+	
+	return ret
+end
+
+function p.calcChance(chance, kills, caTier)
+	local caModifier = 200
+	if caTier == 0 then
+		caModifier = 200
+	elseif caTier == 1 then 
+		caModifier = 150
+	end
+		
+	local heartChancePerKill = 1/chance * 1/caModifier
+	local ret = kills * heartChancePerKill
+	return ret
+end
+
+function p._main(args)
+	local bigTable = {}
+	for i, superiorArray in ipairs(superiorRate) do
+		local smallTable = {superiorArray.monster}
+		table.insert(smallTable, p.calcChance(superiorArray.chance, args[superiorArray.variableName], caTierArray[args.caTier]))
+		table.insert(bigTable, smallTable)
+	end
+	return p.buildTable(bigTable)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

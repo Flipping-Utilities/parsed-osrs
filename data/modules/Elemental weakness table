@@ -1,0 +1,91 @@
+require('strict')
+
+local p = {}
+
+-- Formats a table header
+function p.header(tbl, verbose)
+    local tr = tbl:tag('tr')
+        :tag('th'):attr('colspan', '2'):wikitext('Monster'):done()
+        :tag('th'):wikitext('Members'):done()
+        :tag('th'):wikitext('[[File:Attack style icon.png|link=|Combat level]]'):done()
+        :tag('th'):wikitext('Weak To'):done()
+        :tag('th'):wikitext('Weakness'):done()
+end
+
+-- Main entrypoint
+function p.main(frame)
+    local args = frame:getParent().args
+    return p._main(args)
+end
+
+function p._main(args)
+	local element = 'all'
+	if args[1] then
+		element = args[1]
+	end
+
+    -- Format the output page
+    local div = mw.html.create('div')
+
+    local tbl = div:tag('table'):addClass('wikitable sortable mw-collapsible')
+        :addClass('align-center-1 align-left-2 align-center-3 align-center-4 align-center-5')
+
+    p.header(tbl)
+
+    -- Render rows
+    local function makeRow(entry)
+        local name = mw.text.split(entry['page_name_sub'], '#', true)
+        if name[2] then
+        	name[2] = name[2]:gsub('_', ' ')
+        end
+
+        local membsicon = ''
+    	membsicon = entry['is_members_only'] and '[[File:Member icon.png|center|link=Members|alt=Members]]' or '[[File:Free-to-play icon.png|center|link=Free-to-play|alt=Free-to-play]]'
+        local tr = mw.html.create('tr')
+            :tag('td'):css('height', '64px'):wikitext(entry['image'][1] and string.format('[[%s|link=|64x64px|%s%s]]', entry['image'][1], name[1], (name[2] and ' - ' .. name[2]) or '') or '' ):done()
+            :tag('td'):wikitext(string.format('[[%s|%s]]%s', entry['page_name'], name[1], name[2] and '<br/><i>' .. name[2] .. '</i>' or '') ):done()
+            :tag('td'):wikitext(membsicon):done()
+            :tag('td'):wikitext(entry['combat_level'] or "N/A"):done()
+            :tag('td'):wikitext(string.format('[[File:%s_rune.png|link=|alt=%s]]', entry['elemental_weakness'], entry['elemental_weakness'])):done()
+            :tag('td'):wikitext(entry['elemental_weakness_percent'] .. '%'):done()
+        return tr
+	end
+    
+    local errors = {}
+    local data = p.loadData(element)
+    for e, entry in ipairs(data) do
+    	local isnoterr, ret = pcall(makeRow, entry)
+    	if isnoterr then
+    		tbl:node(ret)
+    	else
+    		mw.logObject(entry, "errored")
+    		table.insert(errors, 'Error message: '..ret..'<br>Affected entry: <code>'..mw.text.nowiki(mw.text.jsonEncode(entry))..'</code>')
+    	end
+    end
+    if #errors > 0 then
+    	local errtag = div:tag('div'):addClass('error'):wikitext('Errors with this query shown below:[[Category:Pages with script errors]]')
+    	for i,v in ipairs(errors) do
+    		errtag:newline():wikitext('* ',v)
+    	end
+    end
+    return div
+end
+
+-- Sends a query to Bucket and returns the data
+function p.loadData(element)
+    local b = bucket("infobox_monster")
+    	.select('page_name', 'page_name_sub', 'image', 'is_members_only', 'combat_level', 'elemental_weakness', 'elemental_weakness_percent')
+
+    -- Conditions part of query
+    b.where('elemental_weakness_percent', '>=', 1)
+    b.where(bucket.Not('Category:Discontinued content'))
+    b.orderBy('page_name_sub', 'asc')
+    if not (element == 'all') then
+    	b.where('elemental_weakness', element)
+    end
+
+    -- Fetch the data
+    return b.run()
+end
+
+return p

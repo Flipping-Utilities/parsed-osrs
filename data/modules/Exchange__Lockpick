@@ -1,0 +1,12 @@
+return {
+    itemId     = 1523,
+    icon       = 'Lockpick.png',
+    item       = 'Lockpick',
+    value      = 20,
+    limit      = 250,
+    members    = true,
+    category   = nil,
+    examine    = 'For picking tough locks.',
+    hialch     = 12,
+    lowalch    = 8
+}

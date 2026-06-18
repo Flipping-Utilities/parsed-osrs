@@ -1,0 +1,36 @@
+{{documentation}}
+
+Powers most exchange pages and exchange-related modules and templates.
+
+{{Helper module|name=Exchange
+|fname1=_price(arg)
+|ftype1=String
+|fuse1=Gets the current GE price of item named arg
+|fname2=_price(arg, multi, format, round, default)
+|ftype2=String
+|fuse2=Gets the current GE price of item named arg, multiplied by [multi] (default 1), rounded to [round] decimal places (default unrounded), and if [format] is true, formatted with thousands separators (default false). If the item does not exist, an error is thrown, unless [default] is set, in which case it will return the given [default] value.
+|fname3=_value(arg)
+|ftype3=String
+|fuse3=Gets the value of item named arg
+|fname4=_highalch(arg)
+|ftype4=String
+|fuse4=Gets the high alch value of item named arg, accounting for alch multipliers
+|fname5=_lowalch(arg)
+|ftype5=String
+|fuse5=Gets the low alch value of item named arg, accounting for alch multipliers
+|fname6=_alchable(arg)
+|ftype6=String
+|fuse6=Gets the alchablility (boolean) of item named arg
+|fname7=_alchmultiplier(arg)
+|ftype7=String
+|fuse7=Gets the alchemy multiplier of item named arg (default 0.6)
+|fname8=_limit(arg)
+|ftype8=String
+|fuse8=Gets the GE limit of item named arg
+|fname9=_diff(arg, format)
+|ftype9=String
+|fuse9=Gets the difference of the current GE price and the previous GE price for item named arg. If format is true, formats the number with thousands separators
+|fname10=_exists(arg)
+|ftype10=String
+|fuse10=Checks if the module for item named arg exists, returns a boolean
+}}

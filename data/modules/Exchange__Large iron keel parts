@@ -1,0 +1,11 @@
+return {
+	itemId    = 32023,
+	item      = "Large iron keel parts",
+	icon      = 'Large iron keel parts.png',
+    alchable  = true,
+	value     = 625,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating an iron keel for larger boats."
+}

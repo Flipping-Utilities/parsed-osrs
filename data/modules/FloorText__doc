@@ -1,0 +1,123 @@
+{{documentation}}
+{{ToC|right}}
+
+==Creating a template step-by-step==
+===Import Required Modules===
+
+local yn = require('Module:Yesno')
+
+
+===Unpack the Frame Arguments===
+
+function p.main(frame)
+local args = frame:getParent().args
+...
+
+
+===Define the Output Container===
+
+local ret = mw.html.create('span')
+ret:addClass('floornumber')
+
+
+===Assign and Validate Parameters===
+
+local flr = tonumber(args.uk)
+assert(flr, "Missing parameter uk")
+
+
+===Determine Floor Naming===
+
+local flr_gb = p.ordinal(flr) .. " floor"
+local flr_us = p.ordinal(flr+1) .. " floor"
+
+
+===Capitalize if Required===
+
+if args.caps then
+flr_gb = p.capitalize(flr_gb)
+flr_us = p.capitalize(flr_us)
+end
+
+
+===Format the Output with HTML===
+
+local spn_gb = ret:tag('span')
+spn_gb:addClass('floornumber-gb')
+spn_gb:wikitext(flr_gb)
+
+
+===Add Help Tooltip if Enabled===
+
+if not args.nohelp then
+spn_gb:tag('sup')
+:addClass('floornumber-help noexcerpt')
+:wikitext('[')
+:tag('span')
+:addClass('fact-text')
+:addClass('floor-convention')
+:attr('title', 'British convention; '..flr_us..' in the US')
+:wikitext('UK')
+:done()
+:wikitext(']')
+end
+
+
+===Define US Floor Naming===
+
+local spn_us = ret:tag('span')
+spn_us:addClass('floornumber-us noexcerpt')
+spn_us:wikitext(flr_us)
+
+
+===Finalize the Output===
+
+return ret
+
+
+==Functions==
+===Public Functions===
+For the example snippets below, ret is an HTML container:
+
+====Ordinal Calculation====
+
+function p.ordinal(n)
+if n == 0 then return "ground" end
+local ones = { "first", "second", "third", "fourth" }
+return ones[n] or tostring(n) .. "th"
+end
+
+
+====Capitalization====
+
+function p.capitalize(str)
+return (str:gsub("^%l", string.upper))
+end
+
+
+====Main Function====
+
+function p._main(args)
+local nohelp = yn(args.nohelp)
+local caps = yn(args.caps)
+local flr = tonumber(args.uk)
+assert(flr, "Missing parameter uk")
+local ret = mw.html.create('span')
+ret:addClass('floornumber')
+-- Additional processing here
+return ret
+end
+
+
+==Auto-switching==
+This template uses [[MediaWiki:Gadget-skinTogglesNew.js]] to automatically switch between British and American styles. By default, if the user’s locale is en-US en-CA es-US fr-CA, it uses American style; otherwise, it defaults to British style. This can be overridden in the skin toggles menu.
+
+==Example Usage==
+
+{{FloorText|uk=1}}
+{{FloorText|uk=2|caps=y}}
+
+
+==Notes==
+
+This template does not yet support basement levels (negative floors) or floors over one thousand.

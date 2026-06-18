@@ -1,0 +1,82 @@
+local p = {}
+
+local coins = require('Module:Coins')._amount
+
+local itemCost = {
+	{'Helmet', 60000},
+	{'Body', 90000},
+	{'Legs', 80000},
+	{'Weapon', 100000},
+}
+
+function p.buildTable(npcCost, smithingCost)
+	local ret = mw.html.create('table'):addClass('wikitable align-center-1'):done()
+		ret:tag('tr'):tag('th'):wikitext( '<small>Cost to repair<br/>[[Barrows equipment]]</small>'):done()
+			:tag('th'):wikitext('NPC'):done()
+			:tag('th'):wikitext('[[Player-owned house]]<br/>[[Armour stand]]'):done()
+			:tag('th'):wikitext('Amount Saved'):done()
+	
+	local totalSaved = 0
+	for i, item in ipairs(itemCost) do
+		local saved = npcCost[i] - smithingCost[i]
+		totalSaved = totalSaved + saved
+		local row = mw.html.create('tr'):tag('th'):wikitext(item[1]):done()
+				:tag('td'):wikitext(coins(npcCost[i])):done()
+				:tag('td'):wikitext(coins(smithingCost[i])):done()
+				:tag('td'):wikitext(coins(saved)):done()
+		ret:node(row)
+	end
+	
+	ret:tag('tr'):tag('th'):wikitext('Total'):done()
+		:tag('td'):wikitext(coins(npcCost[1] + npcCost[2] + npcCost[3] + npcCost[4])):done()
+		:tag('td'):wikitext(coins(smithingCost[1] + smithingCost[2] + smithingCost[3] + smithingCost[4])):done()
+		:tag('td'):wikitext(coins(totalSaved)):done()
+	return ret
+end
+
+function p.getSmithingCost(npcCost, boostedSmithing)
+	local smithingDiscount = (1 - (boostedSmithing / 200))
+	local ret = {}
+	for i, cost in ipairs(npcCost) do
+		table.insert(ret, math.ceil(cost * smithingDiscount))
+	end
+	return ret
+end
+
+function p.getNPCCost(degradedLevel, percentBeforeDegrade, maxRepairCost)
+	if(degradedLevel == 0) then -- Fully degraded
+		return maxRepairCost
+	elseif((degradedLevel == 100) and (percentBeforeDegrade == 100)) then -- Not degraded
+		return 0
+	else
+		-- Each tier has 250 charges of the total 1,000, the ''Check'' percentage is out of 250
+		-- Low bound of possible charges at that percentage: math.floor(2.5 * math.ceil((100 * ((100 - degradedLevel) / 25)) + (100 - percentBeforeDegrade)))
+		-- Low bound of cost of the above: ((maxRepairCost / 1000) * math.ceil(2.5 * ((100 * ((100 - degradedLevel) / 25)) + (100 - percentBeforeDegrade)))
+		-- For the high bound:
+		--  (maxRepairCost / 1000): The max price of an NPC repair for 1 charge of 1000 used
+		--  (100 * ((100 - degradedLevel) / 25)): To account 100% not cleanly dividing 250, out of 400, Ahrom's hood 75 will be 100
+		--  (100 - percentBeforeDegrade): this ends up just being the percentage entered out of 400
+		--  Add 1 charge to account for 0% charges used, which is 2 non-zero prices, multiplying wont equal 0 now
+		--  For each percentage drained, with ''Check'', an average of 2.5 charges exist, this module specifically outputs the max, so ceiling it and remove the extra 1 added
+		return (maxRepairCost / 1000) * math.ceil(2.5 * ((100 * ((100 - degradedLevel) / 25)) + (100 - percentBeforeDegrade) + 1) - 1)
+	end
+end
+
+function p._main(args)
+	local npcCost = {}
+	for _, item in ipairs(itemCost) do
+		table.insert(npcCost, p.getNPCCost(tonumber(args.degradedLevel), tonumber(args.percentBeforeDegrade), item[2]))
+	end
+	
+	local smithingCost = p.getSmithingCost(npcCost, tonumber(args.smithingLevel)+tonumber(args.boost))
+	
+	return p.buildTable(npcCost, smithingCost)
+end
+
+function p.main(frame)
+	--mw.logObject(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

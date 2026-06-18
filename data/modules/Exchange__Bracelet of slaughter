@@ -1,0 +1,12 @@
+return {
+    itemId     = 21183,
+    icon       = 'Bracelet of slaughter.png',
+    item       = 'Bracelet of slaughter',
+    value      = 2500,
+    limit      = 15000,
+    members    = true,
+    category   = nil,
+    examine    = 'Occasionally prevents slayer kill count being decremented.',
+    hialch     = 1500,
+    lowalch    = 1000
+}

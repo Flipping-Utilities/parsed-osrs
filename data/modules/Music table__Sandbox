@@ -1,0 +1,88 @@
+
+local p = {}
+
+function p.musicpage(e)
+		local args = e:getParent().args
+ fuck	= "Dogfight; Boss Moosic;"
+	return p.print()
+end
+
+    
+
+
+
+function p.fetchResults()
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	
+
+	local fucker = { }
+	
+	function split(inputstr, sep)
+    	sep=sep or '%s' local t={}
+    	for field,s in string.gmatch(inputstr, "([^"..sep.."]*)("..sep.."?)") do
+    		table.insert(t,(field:gsub("^%s*(.-)%s*$", "%1")))
+    		table.insert(t,(field:gsub("^%s*(.-)%s*$", "%1")).." (or)")
+    		if s=="" then
+    			return t
+    		end
+    	end
+	end
+    
+    for _, p in ipairs(split(fuck, ';')) do
+    	table.insert(fucker, {"title", p})	
+    end
+
+
+	
+
+	while true do
+		local b = bucket('music')
+			.select('title', 'page_name', 'track', 'unlock_detail')
+			.where(bucket.Or(fucker))	
+			.limit(batchSize)
+			.offset(offset)
+			.run()
+
+			for _, result in ipairs(b) do
+				
+				if result.title ~= nil then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #b < batchSize then
+				break;
+			end
+
+	end
+	
+	return results
+end
+
+function p.print()
+	local results = p.fetchResults()
+	local output = {
+		'<br>',
+		'{| class="wikitable sortable embed-audio-links music-tracks sticky-header ',
+		'! Name',
+		'! Unlock details',
+		'! class="unsortable" style="width: 320px | Music track'
+	}
+		for _, result in ipairs(results) do
+		table.insert(output, '|- data-music-track-name="' .. result.title .. '"')
+		table.insert(output, '|[[' .. result.page_name.. '|' .. result.title ..']]')
+		table.insert(output, '|' .. result.unlock_detail)
+		table.insert(output, '|' .. '[[:' .. result.track .. '| Play Track ]]')
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+return p

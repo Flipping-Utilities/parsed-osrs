@@ -1,0 +1,12 @@
+return {
+    itemId     = 12000,
+    icon       = 'Mystic smoke staff.png',
+    item       = 'Mystic smoke staff',
+    value      = 42500,
+    limit      = 8,
+    members    = true,
+    category   = nil,
+    examine    = 'It gives a 10% accuracy and damage bonus for spells on the standard spellbook.',
+    hialch     = 25500,
+    lowalch    = 17000
+}

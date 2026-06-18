@@ -1,0 +1,12 @@
+return {
+    itemId     = 22100,
+    icon       = 'Dragon metal slice.png',
+    item       = 'Dragon metal slice',
+    value      = 100000,
+    limit      = 50,
+    members    = true,
+    category   = nil,
+    examine    = 'A badly damaged slice of dragon metal.',
+    hialch     = 60000,
+    lowalch    = 40000
+}

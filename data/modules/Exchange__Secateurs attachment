@@ -1,0 +1,12 @@
+return {
+    itemId     = 28161,
+    icon       = "Secateurs attachment.png",
+    item       = "Secateurs attachment",
+    alchable   = true,
+    value      = 100,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = "Collects leaves when chopping trees.",
+    usage      = {}
+}

@@ -1,0 +1,11 @@
+return {
+	itemId    = 32044,
+	item      = "Oak hull parts",
+	icon      = 'Oak hull parts.png',
+    alchable  = true,
+	value     = 625,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating an oak hull for a boat."
+}

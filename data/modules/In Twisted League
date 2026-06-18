@@ -1,0 +1,7 @@
+local p = {}
+
+function p.main(frame)
+	return "[[File:Twisted League icon.png|20x20px|This content is present in Twisted League.|link=Twisted League|class=advanced-data]] "
+end
+
+return p

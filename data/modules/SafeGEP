@@ -1,0 +1,38 @@
+-- Module:SafeGEP
+-- Safely call Module:Exchange price function and return blank on error
+local p = {}
+
+function p.get(frame)
+    local item = frame.args[1] or frame:getParent().args[1] or ''
+    if item == '' then return '' end
+    local success, price = pcall(function()
+        local ex = require('Module:Exchange')
+        -- Module:Exchange provides _price or price function; try both commonly used names
+        if ex._price then
+            return ex._price(item)
+        elseif ex.price then
+            return ex.price(item)
+        end
+        return nil
+    end)
+    if not success or not price then
+        return ''
+    end
+    -- price may be number or string; ensure it returns number if possible
+    return tostring(price)
+end
+
+-- Short helper for direct invocation
+function p.get_direct(item)
+    if not item then return '' end
+    local success, price = pcall(function()
+        local ex = require('Module:Exchange')
+        if ex._price then return ex._price(item) end
+        if ex.price then return ex.price(item) end
+        return nil
+    end)
+    if not success or not price then return '' end
+    return tostring(price)
+end
+
+return p

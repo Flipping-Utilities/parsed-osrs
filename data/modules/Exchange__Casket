@@ -1,0 +1,12 @@
+return {
+    itemId     = 405,
+    icon       = 'Casket.png',
+    item       = 'Casket',
+    value      = 50,
+    limit      = 50,
+    members    = true,
+    category   = nil,
+    examine    = 'I hope there\'s treasure in it.',
+    hialch     = 30,
+    lowalch    = 20
+}

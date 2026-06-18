@@ -1,0 +1,50 @@
+local p = {}
+
+function p.main(frame)
+    -- JSCalculator passes arguments through frame.args
+    local args = frame.args
+    
+    -- Force conversion to numbers and handle potential nil values
+    local goal = tonumber(args.goal) or 0
+    local owned = tonumber(args.owned) or 0
+    local plaudits = tonumber(args.plaudits) or 0
+    local rate = tonumber(args.rate) or 3
+        -- The checkbox returns "true" or "false" as a string
+    local isOnCWWorld = args.onCWWorld == "true"
+    
+    -- Debugging: If goal is 0, it means the form isn't sending data yet
+    if goal == 0 and owned == 0 then
+        return "Enter your goal to begin."
+    end
+
+    if goal <= owned then
+        return "You have already reached your goal!"
+    end
+
+    -- Math Logic
+    local conversion_factor = 6/11
+    local tickets_needed = goal - owned - (plaudits * conversion_factor)
+    
+    -- Re-check if tickets_needed became negative after plaudit deduction
+    if tickets_needed <= 0 then
+        return "You have enough tickets/plaudits to reach your goal!"
+    end
+    
+    -- If on a CW world, you earn plaudits at the same rate as tickets
+    -- If NOT on a CW world, the bonus rate from future plaudits is 0
+    local plaudit_bonus_rate = isOnCWWorld and (rate * conversion_factor) or 0
+    local effective_rate = rate + plaudit_bonus_rate
+    local games_needed = math.ceil(tickets_needed / effective_rate)
+    local hours = (games_needed * 25) / 60
+
+    -- Standard Wiki return format
+    return '{| class="wikitable"\n'
+        .. '!colspan=2|Results\n'
+        .. '|-\n'
+        .. '| Games || ' .. games_needed .. '\n'
+        .. '|-\n'
+        .. '| <span title="Assumes 25 minutes per game">Hours</span> || ' .. string.format("%.1f", hours) .. '\n'
+        .. '|}'
+end
+
+return p

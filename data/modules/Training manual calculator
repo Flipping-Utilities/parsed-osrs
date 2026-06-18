@@ -1,0 +1,61 @@
+local p = {}
+
+local commas = require('Module:Addcommas')._add
+local paramTest = require('Module:Paramtest')
+local scp = require('Module:SCP')._main
+local xpAtLevel = require('Module:Experience').xp_at_level_unr
+local levelAtXp = require('Module:Experience').level_at_xp_unr
+
+function trainingManualFormula(levelInput)
+	if(levelInput >= 72) then
+		return math.floor((5/4) * levelInput * 25)
+	end
+	return math.floor((5/4) * ((math.pow(levelInput, 2) * (1/4)) + (7 *  levelInput)))
+end
+
+function p._main(args)
+	local goalSkill = args.skill
+	local currentXP = {
+		['Attack'] = paramTest.default_to(tonumber(args.currentAttackXP), 0),
+		['Defence'] = paramTest.default_to(tonumber(args.currentDefenceXP), 0),
+		['Strength'] = paramTest.default_to(tonumber(args.currentStrengthXP), 0),
+		['Hitpoints'] = paramTest.default_to(tonumber(args.currentHitpoints), 0),
+	}
+	local goalLevel = math.min(paramTest.default_to(tonumber(args.goalLevel), 1), 126)
+	local goalMaxXP = tonumber(args.goalLevel) == 127 and true or false
+	
+	local currentLevel = levelAtXp({ args = { currentXP[goalSkill] } })
+	
+	if(goalLevel <= currentLevel) then
+		return error('Your current level (' .. currentLevel .. ') is at or above your goal level')
+	end
+	
+	local manualCount = 0
+	local xpIter = currentXP[goalSkill]
+	for i = currentLevel, goalLevel - 1, 1 do
+		local manualXPAtLevel = trainingManualFormula(math.min(i, 99))
+		local xpToNextlevel = xpAtLevel({ args = { i + 1 } }) - xpIter
+		local manualsToLevel =  math.ceil(xpToNextlevel / manualXPAtLevel)
+		manualCount = manualCount + manualsToLevel
+		xpIter = xpIter + (manualsToLevel * manualsToLevel)
+	end
+
+	local ret = 'It takes ' .. commas(manualCount) .. ' [[training manual]]s to level ' .. scp(goalSkill, nil, true) .. ' from level ' .. currentLevel .. ' (' .. commas(currentXP[goalSkill]) .. 'xp) to level ' .. goalLevel .. ' (' .. commas(xpAtLevel({ args = { goalLevel } })) .. 'xp).'
+
+	if(goalMaxXP) then
+		local manualXPAtLevel = trainingManualFormula(99)
+		local xpToNextlevel = 200000000 - xpIter
+		local manualsToLevel =  math.ceil(xpToNextlevel / manualXPAtLevel)
+		manualCount = manualCount + manualsToLevel
+		ret = ret .. '<br/>Virtual level 127 does not exist, but to reach 200 million experience, it will require ' .. commas(manualCount) .. ' [[training manual]]s, ' .. commas(manualsToLevel) .. ' more after reaching 126.'
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+return p

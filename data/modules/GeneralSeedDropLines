@@ -1,0 +1,142 @@
+local p = {}
+
+local data = {
+	[485] = {
+		{ item = 'Potato seed', quantity = 4, rate = '368/1008' },
+		{ item = 'Onion seed', quantity = 4, rate = '276/1008' },
+		{ item = 'Cabbage seed', quantity = 4, rate = '184/1008' },
+		{ item = 'Tomato seed', quantity = 3, rate = '92/1008' },
+		{ item = 'Sweetcorn seed', quantity = 3, rate = '46/1008' },
+		{ item = 'Strawberry seed', quantity = 2, rate = '23/1008' },
+		{ item = 'Watermelon seed', quantity = 2, rate = '11/1008' },
+		{ item = 'Snape grass seed', quantity = 2, rate = '8/1008' }
+	},
+	[728] = {
+		{ item = 'Barley seed', quantity = 4, rate = '229/1000' },
+		{ item = 'Hammerstone seed', quantity = 3, rate = '228/1000' },
+		{ item = 'Asgarnian seed', quantity = 3, rate = '172/1000' },
+		{ item = 'Jute seed', quantity = 2, rate = '171/1000' },
+		{ item = 'Yanillian seed', quantity = 2, rate = '114/1000' },
+		{ item = 'Krandorian seed', quantity = 2, rate = '57/1000' },
+		{ item = 'Wildblood seed', quantity = 1, rate = '29/1000' }
+	},
+	[850] = {
+		{ item = 'Marigold seed', quantity = 1, rate = '376/1000' },
+		{ item = 'Nasturtium seed', quantity = 1, rate = '249/1000' },
+		{ item = 'Rosemary seed', quantity = 1, rate = '161/1000' },
+		{ item = 'Woad seed', quantity = 1, rate = '119/1000' },
+		{ item = 'Limpwurt seed', quantity = 1, rate = '95/1000' }
+	},
+	[947] = {
+		{ item = 'Redberry seed', quantity = 1, rate = '400/1000' },
+		{ item = 'Cadavaberry seed', quantity = 1, rate = '280/1000' },
+		{ item = 'Dwellberry seed', quantity = 1, rate = '200/1000' },
+		{ item = 'Jangerberry seed', quantity = 1, rate = '80/1000' },
+		{ item = 'Whiteberry seed', quantity = 1, rate = '29/1000' },
+		{ item = 'Poison ivy seed', quantity = 1, rate = '11/1000' }
+	},
+	[995] = {
+		{ item = 'Guam seed', quantity = 1, rate = '320/1000' },
+		{ item = 'Marrentill seed', quantity = 1, rate = '218/1000' },
+		{ item = 'Tarromin seed', quantity = 1, rate = '149/1000' },
+		{ item = 'Harralander seed', quantity = 1, rate = '101/1000' },
+		{ item = 'Ranarr seed', quantity = 1, rate = '69/1000' },
+		{ item = 'Toadflax seed', quantity = 1, rate = '47/1000' },
+		{ item = 'Irit seed', quantity = 1, rate = '32/1000' },
+		{ item = 'Avantoe seed', quantity = 1, rate = '22/1000' },
+		{ item = 'Kwuarm seed', quantity = 1, rate = '15/1000' },
+		{ item = 'Snapdragon seed', quantity = 1, rate = '10/1000' },
+		{ item = 'Cadantine seed', quantity = 1, rate = '7/1000' },
+		{ item = 'Lantadyme seed', quantity = 1, rate = '5/1000' },
+		{ item = 'Dwarf weed seed', quantity = 1, rate = '3/1000' },
+		{ item = 'Torstol seed', quantity = 1, rate = '2/1000' },
+	},
+	[99999] = {
+		{ item = 'Mushroom spore', quantity = 1, rate = '500/1100' },
+		{ item = 'Belladonna seed', quantity = 1, rate = '300/1100' },
+		{ item = 'Cactus seed', quantity = 1, rate = '200/1100' },
+		{ item = 'Potato cactus seed', quantity = 1, rate = '100/1100' },
+	}
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local dropRate = args[1]
+	local combatCalculation = args[2] * 10
+	local orderedKeys = sortKeys(data)
+	local seedList = groupSeeds(orderedKeys, combatCalculation, dropRate)
+	local options = {
+		f2p = args.f2p,
+		rolls = args.rolls or '',
+	}
+	local ret = mw.html.create('tr')
+	
+	for _, v in ipairs(seedList) do
+		ret:node(makeRow(v, frame, options))
+	end
+	
+	return tostring(ret)
+end
+
+function sortKeys(data)
+	local orderedKeys = {}
+	for k in pairs(data) do
+	    table.insert(orderedKeys, k)
+	end
+	
+	table.sort(orderedKeys)
+	
+	return orderedKeys
+end
+
+function groupSeeds(orderedKeys, combatCalculation, dropRate)
+	local seeds = {}
+	local rv1, rv2 = string.match(dropRate, '([%d%.]+)/([%d%.]+)')
+	local dropRateRarityValue = rv1 / rv2
+	local previousValue = 0
+	for i = 1, #orderedKeys do
+	    local key, value = orderedKeys[i], data[orderedKeys[i]]
+	    local tableRate
+		
+		if (key <= combatCalculation) then
+			tableRate = (key - previousValue) / combatCalculation
+			for _, seedData in ipairs(value) do
+				local rv1, rv2 = string.match(seedData.rate, '([%d%.]+)/([%d%.]+)')
+				local multipliedRate = math.floor((1 / (dropRateRarityValue * tableRate * (rv1 / rv2)) * 10) / 10)
+				table.insert(seeds, { item = seedData.item, quantity = seedData.quantity, rate = '1/' .. multipliedRate })
+			end
+		end
+		
+		if (key > combatCalculation) then
+			tableRate = (combatCalculation - previousValue) / combatCalculation
+			if tableRate == 0 then break end
+			for _, seedData in ipairs(value) do
+				local rv1, rv2 = string.match(seedData.rate, '([%d%.]+)/([%d%.]+)')
+				local multipliedRate = math.floor((1 / (dropRateRarityValue * tableRate * (rv1 / rv2)) * 10) / 10)
+				table.insert(seeds, { item = seedData.item, quantity = seedData.quantity, rate = '1/' .. multipliedRate })
+			end
+			break
+		end
+		previousValue = key
+	end
+	
+	return seeds
+end
+
+function makeRow(seed, frame, options)
+	mw.logObject(options)
+	local ret 
+	ret = mw.html.create('tr')
+	ret:wikitext(frame:expandTemplate{
+		title='DropsLine',
+		args = {
+			name = seed.item,
+			namenotes = options['f2p'] ~= nil and frame:expandTemplate{ title='(m)' } or '',
+			quantity = seed.quantity,
+			rarity = seed.rate,
+			rolls = options['rolls'],
+		}})
+	return ret
+end
+
+return p

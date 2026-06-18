@@ -1,0 +1,12 @@
+return {
+    itemId     = 341,
+    icon       = 'Raw cod.png',
+    item       = 'Raw cod',
+    value      = 10,
+    limit      = 15000,
+    members    = true,
+    category   = nil,
+    examine    = 'I should try cooking this.',
+    hialch     = 6,
+    lowalch    = 4
+}

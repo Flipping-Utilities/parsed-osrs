@@ -1,0 +1,10 @@
+{{documentation}}
+{{Helper module
+|name = Number
+|fname1 = _round(num, dp)
+|ftype1 = float, int
+|fuse1 = Rounds <code>num</code> to a precision given by <code>dp</code>, if <code>dp</code> is not specified, it defaults to zero. [[wikipedia:Rounding#Round_half_up|Rounds half up.]]
+|fname2 = _short(str)
+|ftype2 = String
+|fuse2 = Convert numbers ending in k, m or b to the actual correct number. Example: 3.5k -> 3500
+}}

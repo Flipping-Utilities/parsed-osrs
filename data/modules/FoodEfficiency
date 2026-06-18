@@ -1,0 +1,62 @@
+local p = {}
+
+-- Collected food rows on the page
+local foods = {}
+
+-- Called once per food to register it
+function p.add(frame)
+	local name = frame.args.name
+	local heal = tonumber(frame.args.heal)
+	local gpph = tonumber(frame.args.gpph)
+
+	-- Skip unevaluable rows (random heals, special effects, etc.)
+	if not name or not heal or not gpph then
+		return ''
+	end
+
+	table.insert(foods, {
+		name = name,
+		heal = heal,
+		gpph = gpph,
+		row  = frame.args.row
+	})
+
+	return ''
+end
+
+-- Strict dominance check
+local function isDominated(a, list)
+	for _, b in ipairs(list) do
+		if b ~= a then
+			if b.heal >= a.heal and b.gpph < a.gpph then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+-- Emit all rows with efficiency flag
+function p.render(frame)
+	local out = {}
+
+	for _, food in ipairs(foods) do
+		local dominated = isDominated(food, foods)
+
+		local class = dominated and 'food-inefficient' or 'food-efficient'
+		local label = dominated and '❌ Inefficient' or '✔️ Efficient'
+
+		table.insert(out,
+			string.format(
+				'|- class="%s"\n%s\n| %s',
+				class,
+				food.row,
+				label
+			)
+		)
+	end
+
+	return table.concat(out, '\n')
+end
+
+return p

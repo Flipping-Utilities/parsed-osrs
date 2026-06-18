@@ -1,0 +1,139 @@
+local helper = require('Module:Chart data')
+
+local attRollMin = 0
+local attRollMax = 55000
+local attRollStep = 200
+
+-- Source for def rolls:
+-- https://discord.com/channels/177206626514632704/269673599554551808/1070094764797595729
+local buckets = {
+	{ name = 'miss' },
+	{ name = 'black', defRoll = 1000 },
+	{ name = 'blue', defRoll = 2000 },
+	{ name = 'red', defRoll = 3000 },
+	{ name = 'yellow', defRoll = 4000 },
+	{ name = 'bullseye', defRoll = 7000 }
+}
+
+local function accuracy(attRoll, defRoll)
+    if attRoll < defRoll then
+    	return attRoll / (2 * defRoll + 2)
+    else
+    	return 1 - ((defRoll + 2) / (2 * attRoll + 2))
+    end
+end
+
+local function rollNextBucket(oddsAccum, attRoll, currentBucket, nextBucket)
+	local successChance = accuracy(attRoll, nextBucket.defRoll)
+	local cumulativeChance = oddsAccum[currentBucket.name] * successChance
+	oddsAccum[currentBucket.name] = oddsAccum[currentBucket.name] - cumulativeChance
+	oddsAccum[nextBucket.name] = cumulativeChance
+end
+
+local function calcOdds(attRoll)
+    local odds = { miss = 1 }
+    for i = 2, #buckets do
+    	rollNextBucket(odds, attRoll, buckets[i - 1], buckets[i])
+    end
+    return odds
+end
+
+local indexedOdds = {}
+
+for attRoll = attRollMin, attRollMax, attRollStep do
+	indexedOdds[attRoll] = calcOdds(attRoll)
+end
+
+local function oddsForBucket(name)
+	local function f(attRoll)
+	    return indexedOdds[attRoll][name]
+	end
+	
+	return helper.generateXYFromFunc(f, attRollMin, attRollMax, attRollStep)
+end
+
+local data = {
+	type = 'line',
+	data = {
+		datasets = {
+			{
+				label = 'Miss',
+				fill = false,
+				borderColor = 'rgb(178, 190, 181)',
+				data = oddsForBucket('miss')
+			},
+		    {
+				label = 'Black',
+				fill = false,
+				borderColor = 'rgb(0, 0, 0)',
+				data = oddsForBucket('black')
+			},
+		    {
+				label = 'Blue',
+				fill = false,
+				borderColor = 'rgb(65, 105, 225)',
+				data = oddsForBucket('blue')
+			},
+		    {
+				label = 'Red',
+				fill = false,
+				borderColor = 'rgb(255, 0, 0)',
+				data = oddsForBucket('red')
+			},
+		    {
+				label = 'Yellow',
+				fill = false,
+				borderColor = 'rgb(255, 255, 0)',
+				data = oddsForBucket('yellow')
+			},
+		    {
+				label = 'Bulls-eye',
+				fill = false,
+				borderColor = 'rgb(138, 43, 226)',
+				data = oddsForBucket('bullseye')
+			}
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		title = {
+			display = true,
+			text = 'Probability of hitting each region',
+			font = {
+				size = 18
+			}
+		},
+		tooltips = {
+			mode = 'x',
+			position = 'nearest',
+			intersect = false
+		},
+		elements = {
+			point = {
+				radius = 0
+			}
+		},
+		scales = {
+			x = {
+				type = 'linear',
+				min = attRollMin,
+				max = attRollMax,
+				scaleLabel = {
+					display = true,
+					labelString = 'Ranged attack roll'
+				}
+			},
+			y = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Probability'
+				},
+				ticks = {
+					format = 'percent'
+				}
+			}
+		}
+	}
+}
+
+return data

@@ -1,0 +1,12 @@
+return {
+    itemId     = 1464,
+    icon       = 'Archery ticket.png',
+    item       = 'Archery ticket',
+    value      = 25,
+    limit      = 18000,
+    members    = true,
+    category   = nil,
+    examine    = 'I can exchange this for equipment.',
+    hialch     = 15,
+    lowalch    = 10
+}

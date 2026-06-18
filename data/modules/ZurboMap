@@ -1,0 +1,59 @@
+-- Re-implementation of Fandom's interactive maps.
+-- See [[MediaWiki:Gadget-maps.js]] for the other part of this implementation.
+-- This module is used in [[Template:Map]].
+-- 
+-- @author [[User:Jayden]]
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local data = mw.loadJsonData(args['data'])
+	
+	-- loop through all the categories and add them to a lua table
+	local allCategories = {}
+	for _, cat in ipairs(data['categories']) do
+		table.insert(allCategories, cat.id)
+	end
+	
+	-- by default, all categories are displayed on the map
+	local visibleCategories = {}
+	if args['categories'] ~= nil then
+		for cat in string.gmatch(args['categories'], '([^,]+)') do
+		    table.insert(visibleCategories, cat)
+		end
+	else
+		visibleCategories = allCategories
+	end
+	
+	local settings = {
+		visibleCategories = visibleCategories
+	}
+
+	-- create the map div, which will be processed later by JS
+	local div = mw.html.create('div')
+		:addClass('map leaflet-ooui')
+		:css('max-width', args['width'] or 'inherit')
+		:css('height', args['height'] or 'inherit')
+		:attr('data-json', mw.text.jsonEncode(data))
+		:attr('data-settings', mw.text.jsonEncode(settings))
+		
+	-- dump the popup data to hidden elements on the DOM so they are parsed
+	-- and can be used by the JS later
+	for i,v in ipairs(data.markers) do
+		div:tag('div')
+			:css('display', 'none')
+			:addClass('map-popup')
+			:tag('span')
+				:wikitext(frame:preprocess(v.popup.title))
+				:done()
+			:tag('span')
+				:wikitext(frame:preprocess(v.popup.description))
+				:done()
+			:done()
+	end
+
+	return tostring(div)
+end
+
+return p

@@ -1,0 +1,126 @@
+-- <nowiki>
+-- Module:Demonic Pacts Tree
+--
+-- Renders the Demonic Pacts skill tree from data in Module:Demonic Pacts/data.
+-- All node coordinates are pre-projected from raw game space into canvas pixels
+-- so no CSS transform scaling is required. Edges are drawn as rotated <div>s.
+-- Tooltips appear on :hover via CSS in Template:Demonic Pacts Tree/styles.css.
+--
+-- Invoked by Template:Demonic Pacts Tree as {{#invoke:Demonic Pacts Tree|render}}.
+-- See Module:Demonic Pacts Tree/doc for usage and conventions.
+
+require('strict')
+
+local p = {}
+local data = mw.loadData("Module:Demonic Pacts/data")
+
+-- Display sizes for the icon containers (matches what wiki actually renders)
+local SIZE_PX = { sm = 16, md = 22, lg = 28 }
+
+-- Target canvas dimensions in pixels (fits a typical wiki content area)
+local CANVAS_W = 720
+local CANVAS_H = 720
+
+local function compute_bounds()
+  local minX, minY, maxX, maxY = math.huge, math.huge, -math.huge, -math.huge
+  for _, n in ipairs(data.nodes) do
+    if n.x < minX then minX = n.x end
+    if n.y < minY then minY = n.y end
+    if n.x > maxX then maxX = n.x end
+    if n.y > maxY then maxY = n.y end
+  end
+  return minX, minY, maxX, maxY
+end
+
+local function node_lookup()
+  local out = {}
+  for _, n in ipairs(data.nodes) do
+    out[n.id] = n
+  end
+  return out
+end
+
+function p.render(frame)
+  local minX, minY, maxX, maxY = compute_bounds()
+  local raw_w = maxX - minX
+  local raw_h = maxY - minY
+
+  -- Scale node coordinates from raw space to canvas pixels
+  -- Use uniform scale so the tree doesn't get distorted
+  local padding = 60
+  local scale = math.min(
+    (CANVAS_W - padding * 2) / raw_w,
+    (CANVAS_H - padding * 2) / raw_h
+  )
+
+  -- Project a node's raw (x, y) to canvas (px, py)
+  local function project(x, y)
+    return (x - minX) * scale + padding,
+           (y - minY) * scale + padding
+  end
+
+  local nbi = node_lookup()
+
+  local wrapper = mw.html.create("div"):addClass("dp-tree-wrapper")
+  local canvas = wrapper:tag("div")
+    :addClass("dp-tree-canvas")
+    :css("width", CANVAS_W .. "px")
+    :css("height", CANVAS_H .. "px")
+
+  -- Edges
+  for _, e in ipairs(data.edges) do
+    local from, to = nbi[e.from], nbi[e.to]
+    if from and to then
+      local x1, y1 = project(from.x, from.y)
+      local x2, y2 = project(to.x, to.y)
+      local dx = x2 - x1
+      local dy = y2 - y1
+      local length = math.sqrt(dx * dx + dy * dy)
+      local angle = math.deg(math.atan2(dy, dx))
+      canvas:tag("div")
+        :addClass("dp-edge")
+        :css("left", x1 .. "px")
+        :css("top", y1 .. "px")
+        :css("width", length .. "px")
+        :css("transform", "rotate(" .. angle .. "deg)")
+    end
+  end
+
+  -- Nodes
+  for _, n in ipairs(data.nodes) do
+    local size = SIZE_PX[n.size] or SIZE_PX.md
+    local cx, cy = project(n.x, n.y)
+    local left = cx - size / 2
+    local top = cy - size / 2
+    local node = canvas:tag("div")
+      :addClass("dp-node")
+      :css("left", left .. "px")
+      :css("top", top .. "px")
+      :css("width", size .. "px")
+      :css("height", size .. "px")
+    if n.kind == "root" then
+      node:addClass("dp-node-root")
+    end
+
+    -- Image rendered at native display size (no upscaling beyond source)
+    local img_wikitext = string.format("[[File:%s|%dx%dpx|link=]]", n.image, size, size)
+    node:wikitext(frame:preprocess(img_wikitext))
+
+    -- Tooltip with edge-aware anchoring so it never escapes the canvas
+    local edge_class = "dp-tooltip-center"
+    if cx < CANVAS_W * 0.25 then
+      edge_class = "dp-tooltip-left"
+    elseif cx > CANVAS_W * 0.75 then
+      edge_class = "dp-tooltip-right"
+    end
+    local tooltip = node:tag("div"):addClass("dp-tooltip"):addClass(edge_class)
+    tooltip:tag("div"):addClass("dp-tooltip-id"):wikitext(n.id)
+    local effect_html = (mw.text.encode(n.effect or "")):gsub("\n", "<br>")
+    tooltip:tag("div"):addClass("dp-tooltip-effect"):wikitext(effect_html)
+  end
+
+  return tostring(wrapper)
+end
+
+return p
+-- </nowiki>

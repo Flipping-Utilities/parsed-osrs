@@ -1,0 +1,16 @@
+{{documentation}}
+{{Helper module
+|name=Paramtest
+|fname1 = is_empty(arg)
+|ftype1 = String
+|fuse1 = Returns true if arg is not defined or contains only whitespace
+|fname2 = has_content(arg)
+|ftype2 = String
+|fuse2 = Returns true if arg exists and does not only contain whitespace
+|fname3 = default_to(arg1,arg2)
+|ftype3 = String, Any value
+|fuse3 = If arg1 exists and does not only contain whitespace, the function returns arg1, otherwise returns arg2
+|fname4 = defaults{ {arg1,arg2},...}
+|ftype4 = {String, Any value}...
+|fuse4 = Does the same as <code>default_to()</code> run over every table passed; for technical reasons, all <code>nil</code> are replaced with <code>false</code>
+}}

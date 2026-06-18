@@ -1,0 +1,12 @@
+return {
+    itemId     = 93,
+    icon       = 'Marrentill potion (unf).png',
+    item       = 'Marrentill potion (unf)',
+    value      = 5,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Marrentill potion.',
+    hialch     = 3,
+    lowalch    = 2
+}

@@ -1,0 +1,31 @@
+-- Module:GetMostExpensiveArmorPiece
+
+local p = {}
+
+-- Define the equipment slots
+local slotOptions = {'head', 'cape', 'neck', 'ammo', 'weapon', 'shield', 'body', 'legs', 'hands', 'feet', 'ring', '2h'}
+
+function p.getMostExpensiveArmorPiece()
+	local geprices = mw.loadJsonData('Module:GEPrices/data.json')
+    -- Check if the specified slot is valid
+    -- local slotName = slotOptions[slot]
+    -- if not slotName then
+    --     return "Invalid equipment slot"
+    -- end
+	local slot = 'head'
+    local mostExpensiveItem = nil
+    local highestPrice = 0
+
+    -- Iterate through all items in the slot
+    for _, item in geprices do
+        if item.slot == slotName then
+            local price = exchange._price(item.name)
+            if price > highestPrice then
+                highestPrice = price
+                mostExpensiveItem = item
+            end
+        end
+    end
+end
+
+return p

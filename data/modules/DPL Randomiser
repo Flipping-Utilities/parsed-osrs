@@ -1,0 +1,141 @@
+local p = {}
+
+local tiers = {
+	[1] = {"Endless Harvest", "Barbarian Gathering", "Abundance"},
+	[2] = {"Hotfoot", "Friendly Forager", "Woodsman"},
+	[3] = {"Bank Heist", "Evil Eye", "Map of Alacrity"},
+	[4] = {"Transmutation", "Conniving Clues", "Butler's Bell"},
+	[5] = {"Nature's Accord", "Larcenist", "Soul Harvest"},
+	[6] = {"Grimoire", "Eternal Sustenance", "Culling Spree"},
+	[7] = {"Flow State", "Reloaded"},
+	[8] = {"Executioner", "Minion", "Flask of Fervour"}
+}
+
+local regions = {
+	{name = "Varlamore", badgeTop = 137, badgeLeft = 73},
+	{name = "Karamja", badgeTop = 154, badgeLeft = 273},
+	{name = "Wilderness", badgeTop = 32,  badgeLeft = 335},
+	{name = "Desert", badgeTop = 152, badgeLeft = 350},
+	{name = "Tirannwn", badgeTop = 114, badgeLeft = 171},
+	{name = "Kandarin", badgeTop = 110, badgeLeft = 222},
+	{name = "Morytania", badgeTop = 95,  badgeLeft = 392},
+	{name = "Kourend", badgeTop = 53,  badgeLeft = 73},
+	{name = "Fremennik", badgeTop = 44,  badgeLeft = 233},
+	{name = "Asgarnia", badgeTop = 80,  badgeLeft = 287},
+}
+
+function p._main(args)
+	math.randomseed( os.time() + math.floor(os.clock() * 1000000000) )
+
+	-- Pick relics
+	local picked = {}
+	for tier = 1, 8 do
+		local options = tiers[tier]
+		picked[tier] = options[math.random(1, #options)]
+	end
+
+	-- If Tier 7 = Reloaded, pick a random unselected relic from tiers 1-6
+	local reloadedRelic = nil
+	if picked[7] == 'Reloaded' then
+		local pool = {}
+		for tier = 1, 6 do
+			for _, relic in ipairs(tiers[tier]) do
+				if relic ~= picked[tier] then
+					table.insert(pool, relic)
+				end
+			end
+		end
+		reloadedRelic = pool[math.random(1, #pool)]
+	end
+
+	-- Pick 3 unique regions
+	local pickedRegions = {}
+	local regionPool = {}
+	
+	for _, r in ipairs(regions) do
+	    if r.name == "Varlamore" or r.name == "Karamja" then
+	        table.insert(pickedRegions, r)
+	    else
+	        table.insert(regionPool, r)
+	    end
+	end
+	
+	for i = 1, 3 do
+	    local idx = math.random(1, #regionPool)
+	    table.insert(pickedRegions, regionPool[idx])
+	    table.remove(regionPool, idx)
+	end
+
+	-- Build output
+	local root = mw.html.create('div')
+		:css('position', 'relative')
+	root:tag('div')
+		:wikitext('[[File:Raging Echoes Map Background.png|link=]]')
+	for _, region in ipairs(regions) do
+		local isSelected = false
+		for _, pr in ipairs(pickedRegions) do
+			if pr.name == region.name then
+				isSelected = true
+				break
+			end
+		end
+
+		local outerDiv = root:tag('div')
+		if not isSelected then
+			outerDiv:css('display', 'none')
+		end
+
+		outerDiv:tag('div')
+			:css('position', 'absolute')
+			:css('top', '0px')
+			:css('left', '0px')
+			:css('filter', 'hue-rotate(95deg) brightness(1.05) saturate(0.8) contrast(1.85)')
+			:wikitext('[[File:Raging Echoes Map ' .. region.name .. '.png|link=]]')
+
+		outerDiv:tag('div')
+			:css('position', 'absolute')
+			:css('top', region.badgeTop .. 'px')
+			:css('left', region.badgeLeft .. 'px')
+			:css('z-index', '1')
+			:wikitext('[[File:' .. region.name .. ' Area Badge.png|link=' .. region.name .. ']]')
+	end
+
+	-- Relic table
+	local tbl = root:tag('table')
+		:addClass('wikitable')
+
+	-- Header row
+	local romanNumerals = {'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'}
+	local header = tbl:tag('tr')
+	for i = 1, 8 do
+	    header:tag('th'):wikitext(romanNumerals[i])
+	end
+
+	-- Relics row
+	local row = tbl:tag('tr')
+	for tier = 1, 8 do
+		local relic = picked[tier]
+		local td = row:tag('td')
+
+		if tier == 7 and relic == 'Reloaded' and reloadedRelic then
+		    local innerDiv = td:tag('div'):css('position', 'relative')
+		    innerDiv:wikitext('[[File:' .. reloadedRelic .. ' (Demonic Pacts League).png|link=' .. reloadedRelic .. ' (Demonic Pacts League)]]')
+		    innerDiv:tag('div')
+		        :css('position', 'absolute')
+		        :css('top', '-5px')
+		        :css('right', '-5px')
+		        :wikitext('[[File:Demonic Pacts League - relic icon.png|link=Reloaded (Demonic Pacts League)]]')
+		else
+		    td:wikitext('[[File:' .. relic .. ' (Demonic Pacts League).png|link=' .. relic .. ' (Demonic Pacts League)]]')
+		end
+	end
+
+	return root
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+return p

@@ -1,0 +1,77 @@
+--
+-- Invoked by Calculator:Abyssal pearls/Template
+-- Implements Calculator:Template/Abyssal_pearls
+--
+
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local addCommas = require('Module:Addcommas')._add
+local yesNo = require('Module:Yesno')
+
+function p.invoke_main(frame)
+	return p.main(frame:getParent().args)
+end
+
+function p.main(args)
+	local pearls, goal, pouchesOwned, shop = paramTest.defaults{
+		{ tonumber(args.pearls), 0 },
+		{ tonumber(args.goal), 0 },
+		{ args.pouchesOwned, 'yes' },
+		{ args.shop, 'no' }
+	}
+
+	local dropRate = yesNo(pouchesOwned) and 1 / 6.94 or 1 / 7.778
+	
+	if(yesNo(shop)) then
+		local hat, top, bottom, boots, set, ring, eye, lantern = paramTest.defaults{
+			{ args.shopHat, 'no' },
+			{ args.shopTop, 'no' },
+			{ args.shopBottom, 'no' },
+			{ args.shopBoots, 'no' },
+			{ args.shopSet, 'no' },
+			{ args.shopRing, 'no' },
+			{ args.shopEye, 'no' },
+			{ args.shopLantern, 'no' }
+		}
+	
+		hat = yesNo(hat)
+		top = yesNo(top)
+		bottom = yesNo(bottom)
+		boots = yesNo(boots)
+		set = yesNo(set)
+		ring = yesNo(ring)
+		eye = yesNo(eye)
+		lantern = yesNo(lantern)
+	
+		goal = 0
+	
+		if(set) then
+			hat = true
+			top = true
+			bottom = true
+			boots = true
+		end
+	
+		goal = hat and goal + 400 or goal
+		goal = top and goal + 350 or goal
+		goal = bottom and goal + 350 or goal
+		goal = boots and goal + 250 or goal
+		goal = ring and goal + 400 or goal
+		goal = eye and goal + 3000 or goal
+		goal = lantern and goal + 1500 or goal
+	end
+	
+	local perSearch = 15 * dropRate
+	
+	local searches = math.max(math.ceil((goal-pearls) / perSearch), 0)
+	
+	local ret = 
+	{
+		string.format('<span>you need to search the [[Rewards guardian]] %s more times to reach your goal of %s [[File:Abyssal pearls 5.png]] [[Abyssal pearl|pearls]]</span>', addCommas(searches), addCommas(goal))
+	}
+	
+	return table.concat(ret, '\n')
+end
+
+return p

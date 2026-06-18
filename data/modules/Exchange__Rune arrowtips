@@ -1,0 +1,12 @@
+return {
+    itemId     = 44,
+    icon       = 'Rune arrowtips.png',
+    item       = 'Rune arrowtips',
+    value      = 200,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I can make some arrows with these.',
+    hialch     = 120,
+    lowalch    = 80
+}

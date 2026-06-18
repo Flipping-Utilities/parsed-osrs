@@ -1,0 +1,36 @@
+-- <nowiki>
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local i = 1
+	local ret = mw.html.create('table')
+		ret:addClass('wikitable sortable')
+		:tag('tr')
+			:tag('th'):wikitext('Name'):done()
+			:tag('th'):wikitext('Unlock details'):addClass('unsortable'):done()
+			:tag('th'):wikitext('Music track'):addClass('unsortable'):done()
+		:done()
+	while args[i] ~= nil do
+		local name = args[i]
+		local unlock = args[i + 1]
+		local namef = name
+		local trackf = name
+		if string.find(name, "(music track)") then
+			namef = string.format("%s|%s", name, name:sub(0, -15))
+			trackf = name:sub(0, -15)
+		end
+		ret:tag('tr')
+			:tag('td'):wikitext('[[' .. namef .. ']]'):done()
+			:tag('td'):wikitext(unlock):done()
+			:tag('td'):wikitext('[[File:' .. trackf .. '.ogg]]'):done()
+		:done()
+		i = i + 2
+	end
+	return ret
+end
+
+return p
+
+-- </nowiki>

@@ -1,0 +1,22 @@
+-- Module:Chart data/AFK Activity Tracker/data
+-- Single source of truth for all AFK Activity Tracker submissions.
+--
+-- To add your session: edit this module and add a new row to the table below.
+-- Use the plugin's Copy button to get the formatted row, then paste it here.
+--
+-- Fields:
+--   name        = Activity name (from your session name in the plugin)
+--   group       = Activity category (e.g., "Bankstanding", "Fishing", "Salvaging")
+--   consistency = Consistency Score (0-100)
+--   interval    = Average Click Interval in milliseconds
+--   clicks      = Total number of clicks
+--   duration    = Session duration in minutes
+
+return {
+	{ name = "Bankstanding Fletching Bows", group = "Bankstanding", consistency = 78, interval = 3200, clicks = 56, duration = 30 },
+	{ name = "Fishing at Barbarian Village", group = "Fishing", consistency = 92, interval = 45000, clicks = 24, duration = 18 },
+	{ name = "Salvaging w/sorting", group = "Salvaging", consistency = 65, interval = 2800, clicks = 89, duration = 42 },
+	{ name = "Bankstanding Herblore", group = "Bankstanding", consistency = 81, interval = 3500, clicks = 48, duration = 28 },
+	{ name = "Fishing Karambwan", group = "Fishing", consistency = 88, interval = 42000, clicks = 21, duration = 15 },
+	{ name = "Salvaging basic items", group = "Salvaging", consistency = 70, interval = 3100, clicks = 72, duration = 37 },
+}

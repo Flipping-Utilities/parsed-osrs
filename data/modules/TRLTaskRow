@@ -1,0 +1,31 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local id = args.id
+	return p._main(id)
+end
+
+function p._main(id)
+	local completion_percent = mw.loadJsonData("Module:Trailblazer_Reloaded_League/Tasks/completion.json")[tonumber(id)]
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 1) then
+			color = "orange"
+		elseif (completion_percent < 10) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		return string.format("class='table-bg-%s | %s%%", color, completion_percent)
+	else
+		return "class='table-na nohighlight' style='text-align: center;' | <small>N/A</small>"
+	end
+end
+
+return p

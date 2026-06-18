@@ -1,0 +1,83 @@
+local p = {}
+
+local experience = require('Module:Experience')
+local paramTest = require('Module:Paramtest')
+local scaledExperience = require('Module:ScaledExperience')
+local scp = require('Module:SCP')._main
+local addCommas = require('Module:Addcommas')._add
+
+function p.buildTable(skill, itemData)
+	local ret = ''
+
+	for i, itemTable in ipairs(itemData) do
+		local tabl = mw.html.create('table'):addClass('wikitable'):done()
+		tabl:tag('tr'):tag('th'):wikitext('[[File:'.. itemTable.file .. '|link=' .. itemTable.link .. ']] [[' .. itemTable.link .. '|' .. itemTable.name .. ']] required:'):attr('colspan', 2):done()
+		:tag('td'):wikitext(addCommas(itemTable.data.endActions)):attr('colspan', 2):done()
+		
+		tabl:tag('tr'):tag('th'):wikitext(scp(skill, nil, 'yes')):done()
+		:tag('th'):wikitext('Start'):done()
+		:tag('th'):wikitext('End'):done()
+		:tag('th'):wikitext('Earned'):done()
+		
+		tabl:tag('tr'):tag('th'):wikitext('Experience'):done()
+		:tag('td'):wikitext(addCommas(itemTable.data.startingExp)):done()
+		:tag('td'):wikitext(addCommas(itemTable.data.endExp)):done()
+		:tag('td'):wikitext(addCommas(itemTable.data.endExp - itemTable.data.startingExp)):done()
+		
+		tabl:tag('tr'):tag('th'):wikitext('Level'):done()
+		:tag('td'):wikitext(itemTable.data.startingLevel):done()
+		:tag('td'):wikitext(itemTable.data.endLevel):done()
+		:tag('td'):wikitext(itemTable.data.endLevel - itemTable.data.startingLevel):done()
+		
+		ret = ret .. tostring(tabl)
+	end
+	
+	return tostring(ret)
+end
+
+function p._main(args)
+	local skill = args.skill
+	local inputType, currentLevel, currentExperience = args.inputType, tonumber(args.currentLevel), tonumber(args.currentExperience)
+	local targetType, targetLevel, targetExperience = args.targetType, tonumber(args.targetLevel), tonumber(args.targetExperience)
+	local leagueMultiplier = args.leagueMultiplier or 1
+	
+	-- Get the currentExperience at the current level
+	if(inputType == 'Level') then
+		currentExperience = experience.xp_at_level_unr({args = {currentLevel}})
+	end
+	
+	-- Get the targetExperience at the target level
+	if(targetType == 'Level') then
+		targetExperience = experience.xp_at_level_unr({args = {targetLevel}})
+	end
+
+	-- Lamp multiplier: 10, Book multiplier: 15
+	local lampData = scaledExperience.xp_to_xp_actions(currentExperience, targetExperience, (10 * leagueMultiplier))
+	local bookData = scaledExperience.xp_to_xp_actions(currentExperience, targetExperience, (15 * leagueMultiplier))
+	
+	-- ['data'] is a table of 5 values endExp, endActions, endLevel, startingExp, startingLevel
+	itemData = {
+		{
+			['name'] = 'Lamps',
+			['link'] = 'Lamp',
+			['file'] = 'Lamp.png',
+			['data'] = lampData,
+		},
+		{
+			['name'] = 'Books',
+			['link'] = 'Book_of_knowledge',
+			['file'] = 'Book_of_knowledge.png',
+			['data'] = bookData,
+		}
+	}
+	
+	return p.buildTable(skill, itemData)
+end
+
+function p.main(frame)
+	--mw.logObject(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

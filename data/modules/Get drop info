@@ -1,0 +1,436 @@
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local yesno = require('Module:Yesno')
+local purge = require('Module:Purge')._purge
+local params = require('Module:Paramtest')
+local tb = require('Module:Trailblazer Region')
+
+local images = {
+    agility = '<span class="drops-agility" style="margin-left:0.3em;">[[File:Agility icon.png|link=Agility|frameless|20px]]</span>',
+    combat = '<span class="drops-combat" style="margin-left:0.3em;">[[File:Multicombat.png|link=Combat level|frameless|20px]]</span>',
+    construction = '<span class="drops-construction" style="margin-left:0.3em;">[[File:Construction icon.png|link=Construction|frameless|20px]]</span>',
+    hunter = '<span class="drops-hunter" style="margin-left:0.3em;">[[File:Hunter icon.png|link=Hunter|frameless|20px]]</span>',
+    farming = '<span class="drops-farming" style="margin-left:0.3em;">[[File:Farming icon.png|link=Farming|frameless|20px]]</span>',
+    firemaking = '<span class="drops-firemaking" style="margin-left:0.3em;">[[File:Firemaking icon.png|link=Firemaking|frameless|20px]]</span>',
+    fishing = '<span class="drops-fishing" style="margin-left:0.3em;">[[File:Fishing icon.png|link=Fishing|frameless|20px]]</span>',
+    mining = '<span class="drops-mining" style="margin-left:0.3em;">[[File:Mining icon.png|link=Mining|frameless|20px]]</span>',
+    reward = '<span class="drops-reward" style="margin-left:0.3em;">[[File:Casket.png|link=Reward|frameless|20px]]</span>',
+    woodcutting  = '<span class="drops-woodcutting" style="margin-left:0.3em;">[[File:Woodcutting icon.png|link=Woodcutting|frameless|20px]]</span>',
+    smithing  = '<span class="drops-smithing" style="margin-left:0.3em;">[[File:Smithing icon.png|link=Smithing|frameless|20px]]</span>',
+    thieving = '<span class="drops-thieving" style="margin-left:0.3em;">[[File:Thieving icon.png|link=Thieving|frameless|20px]]</span>',
+    sailing = '<span class="drops-sailing" style="margin-left:0.3em;">[[File:Sailing icon.png|link=Sailing|frameless|20px]]</span>'
+}
+--class, sort
+local rarities = {
+    always = { 'table-bg-blue', 0 },
+    common = { 'table-bg-green', 15.9999 },
+    uncommon = { 'table-bg-yellow', 63.9999 },
+    rare = { 'table-bg-orange', 255.9999 },
+    ['very rare'] = { 'table-bg-red', 1023.9999 },
+    random = { 'table-bg-pink', 4095.9999 },
+    varies = { 'table-bg-pink', 4095.9999 },
+    once = { 'table-bg-pink', 65536 },
+    conditional = { 'table-bg-pink', 65536 },
+    _default = { 'table-bg-grey', 65536 }
+}
+-- arbitrary numbers
+local rarities2 = {
+    { 1, 'table-bg-blue' },
+    { 1/25, 'table-bg-green' },
+    { 1/99.99, 'table-bg-yellow' },
+    { 1/999.99, 'table-bg-orange' },
+    { 1/9999999, 'table-bg-red' }
+}
+
+local lang = mw.language.getContentLanguage()
+local commas = function (n) return lang:formatNum(tonumber(n)) end
+
+local _noted = '&nbsp;<span class="dropsline-noted">(noted)</span>'
+
+-- supporting function for number => colour
+function get_rarity_class(val)
+    for i,v in ipairs(rarities2) do
+        curr = v
+        if val >= v[1] then
+            break
+        end
+    end
+    return curr[2]
+end
+
+function expr(t)
+    t = t:gsub(',', '')
+    local err, val = pcall(mw.ext.ParserFunctions.expr, t)
+    if err then
+        return tonumber(val)
+    else
+        return false
+    end
+end
+
+function sigfig(n, f)
+    f = math.floor(f-1)
+    if n == 0 then return 0 end
+    local m = math.floor(math.log10(n))
+    f = math.max(m, f)
+    local v = n / (10^(m-f))
+    v = math.floor(v + 0.5) * 10^(m-f)
+    return v
+end
+
+function p.main(frame)
+    return p._main(frame:getParent().args)
+end
+
+function p._main(args)
+    local item = args[1] or mw.title.getCurrentTitle().text
+    local showheaderarg = string.lower(args.showheader or '')
+    local limit = args.limit or 500
+
+    local query = bucket("dropsline")
+    	.select("drop_json")
+    	.where("item_name", item)
+    	.limit(tonumber(limit))
+    if args.incrdt ~= 'y' then
+        query.where("rare_drop_table", false)
+    end
+
+    local t1 = os.clock()
+    local bucketdata = query.run()
+    local t2 = os.clock()
+
+    if not bucketdata then
+        return ":''No drop sources found. To force an update, click "
+                ..purge('dml-'..mw.uri.anchorEncode(item), 'here', 'span')
+                ..".''[[Category:Empty drop lists]]"
+    end
+    mw.log(string.format('Bucket: entries: %d, time elapsed: %.3f ms.', #bucketdata, (t2 - t1) * 1000))
+
+    if params.has_content(args.sort) then
+        assert(bucketdata[1][args.sort], 'Invalid sorting key specified.')
+        table.sort(bucketdata, function(a, b) return a[args.sort] < b[args.sort] end)
+    end
+
+    local ret = {}
+    local droppedViaCombat = false
+    if bucketdata then
+        for i,v in ipairs(bucketdata) do
+            local dropJSON = mw.text.jsonDecode(v['drop_json'] or '{}')
+            table.insert(ret, p.makeLine(item, dropJSON))
+            
+            local dropType = dropJSON['Drop type'] or 'combat'
+            if dropType == 'combat' then
+            	droppedViaCombat = true
+            end
+        end
+    end
+    
+    local t = mw.html.create('table')
+    t   :addClass('wikitable sortable filterable item-drops align-center-2 align-center-3 align-center-4 autosort=4,a')
+        :tag('tr')
+            :tag('th'):addClass('drop-disp-btn btn-first'):wikitext('Source'):done()
+            :tag('th'):wikitext('Level'):done()
+            :tag('th'):wikitext('Quantity'):done()
+            :tag('th'):wikitext('Rarity'):addClass('drops-rarity-header'):done()
+            :tag('th'):wikitext('[[Demonic Pacts League|League]] region'):addClass('leagues-global-flag'):done()
+    for i,v in ipairs(ret) do
+        t:node(v)
+    end
+
+    local showheader = nil
+    if showheaderarg == 'yes' or #bucketdata == limit then
+        showheader = true
+    end
+    if showheaderarg == 'no' then
+        showheader = false
+    end
+    if showheader == nil then
+        local rdtResult = bucket("dropsline")
+        	.select("page_name")
+        	.where({"rare_drop_table", true}, {"item_name", item})
+        	.limit(1)
+        	.run()
+        showheader = rdtResult and #rdtResult > 0
+    end
+
+    local headertext = ''
+    if showheader then
+        headertext = "<div class=\"seealso\">For an exhaustive list of all known sources for this item, see <span class='plainlinks'>["..tostring(mw.uri.fullUrl('RuneScape:Autolists/full'))..'#'..mw.uri.buildQueryString({type='dropsrdt',page=item}).." here]</span>.</div>\n"
+    end
+    local categorytext = ''
+    if bucketdata and onmain() then
+        categorytext = '[[Category:Items appearing in drop table]]'
+        if droppedViaCombat then
+        	categorytext = categorytext .. '[[Category:Items dropped by monster]]'
+        end
+    end
+    return headertext..tostring(t)..categorytext
+end
+
+function p.makeLine(item, data)
+    local dropType = data['Drop type'] or 'combat'
+    local img = images[dropType]
+    if img == nil then
+    	mw.log("No image found for drop type `" .. dropType .. "`. Please add it to [[Module:Get drop info]].")
+        return nil
+    end
+    local level = data['Drop level'] or 'Not Available'
+    local levelsort = data['Drop level'] or -1
+    if dropType == 'reward' then
+        level = 'N/A'
+        levelsort = -1000
+    end
+    
+    if string.find(level, ',') then
+        levelsort = tonumber(mw.text.split(level, ',')[1])
+        level = level:gsub(',', '; ')
+    end
+    local cleanSrc = data['Dropped from'] or ''
+    local splitSrc = mw.text.split(data['Dropped from'] or '', '%#')
+    if #splitSrc == 2 then
+        splitSrc[2] = splitSrc[2]:gsub('_', ' ')
+        cleanSrc = string.format('%s|%s <span class="beast-version">%s</span>', cleanSrc, splitSrc[1], splitSrc[2])
+    end
+
+    local leagueRegion = data['League region'] or ''
+    local leagueRegionBadges = tb._badge(leagueRegion, nil, nil, nil, 'Demonic Pacts League')
+
+    return line(cleanSrc, data['Name Notes'], level, img, levelsort, data['Drop Quantity'], '', data['Rarity'], data['Alt Rarity'], data['Alt Rarity Dash'], dropType, data['Rolls'], data['Approx'], leagueRegionBadges)
+end
+
+function line(name,namenotes,
+        combat,cbnotes,dtype,
+        quantity,quantitynotes,
+        rarity,altrarity,altraritydash,dtype,rolls,approx,leagueRegionBadges)
+    
+    -- missing notes to empty string (and not nil)
+    namenotes = namenotes or ''
+    cbnotes = cbnotes or ''
+    quantitynotes = quantitynotes or ''
+    local tilde = ''
+    if approx then
+        tilde = '~'
+    end
+    local rarity_value
+    if rarities[string.lower(tostring(rarity))] then
+        rarity = params.ucflc(rarity)
+    else
+        rarity_value = rarity:gsub(',','') --temp place to put this without overriding rarity
+        local rv1, rv2 = string.match(rarity_value, '([%d%.]+)/([%d%.]+)')
+        if rv1 and rv2 then
+            rarity = commas(rv1) .. '/' .. commas(rv2)
+            rarity_value = rv1/rv2
+        else
+            rarity_value = expr(rarity)
+        end
+    end
+
+    local rare_class, rare_sort = '', nil
+    if rarity_value == nil then
+        rare_class, rare_sort = unpack(rarities[string.lower(tostring(rarity))] or rarities._default)
+    elseif rarity_value == false then
+        rare_class, rare_sort = unpack(rarities._default)
+    else
+        rare_sort = 1/rarity_value
+        rare_class = get_rarity_class(rarity_value)
+    end
+    local rollstext = ''
+    if rolls ~= 1 and rolls then
+        rollstext = rolls .. ' × '
+        if rarity:lower() ~= 'varies' then
+	        rare_sort = rare_sort / rolls
+    	    rare_class = get_rarity_class(math.min(1/rare_sort,0.99))
+    	end
+    end
+    
+    -- Clean up the lists
+    quantity = qty(quantity)
+    local qtysort = mw.text.split(quantity, '[^%d,]')[1]
+    if qtysort == '' then
+        qtysort = 0
+    end
+    local cmbclass = ''
+    local cmbsort = combat
+    if combat == 'N/A' then
+        cmbclass = 'table-na'
+        cmbsort = 0
+    else
+        combat, cmbsort = cmb(combat)
+    end
+
+    -- Check if name is already formated
+    if name:match('^%[%[') then
+        name = name
+    else
+        name = '[['..name..']]'
+    end
+    if #namenotes > 5 then
+        name = name..' '..namenotes
+    end
+    if #cbnotes > 5 then
+        combat = combat..' '..cbnotes
+    end
+    if #quantitynotes > 5 then
+        quantity = quantity..' '..quantitynotes
+    end
+    
+    -- Table row creation
+    local ret = mw.html.create('tr')
+    ret     :tag('td')
+                :wikitext(name)
+            :done()
+            :tag('td')
+                :wikitext(combat)
+                :addClass(cmbclass)
+                :attr('data-sort-value', cmbsort)
+            :done()
+            :tag('td')
+                :attr('data-sort-value', qtysort)
+                :wikitext(quantity)
+            :done()
+    local rarity_cell = ret:tag('td')
+    local rarity_span = rarity_cell:tag('span')
+    rarity_span:wikitext(rollstext .. rarity)
+    rarity_cell:attr('data-sort-value', rare_sort)
+        :addClass(rare_class)
+    :done()
+    
+    if type(rarity_value) == 'number' then
+        rarity_span:attr({
+            ['title'] = rollstext .. string.format('%.3g%%', 100 * rarity_value),
+            ['data-drop-fraction'] = rollstext .. tilde .. rarity,
+            ['data-drop-oneover'] = rollstext .. tilde .. '1/' .. commas(sigfig(1/rarity_value, 4)),
+            ['data-drop-percent'] = rollstext .. tilde .. sigfig(100 * rarity_value, 3),
+        })
+    end
+    
+    if altrarity ~= '' and altrarity ~= nil then
+        local alt_rarity_value
+        if rarities[string.lower(tostring(altrarity))] then
+            altrarity = params.ucflc(altrarity)
+        else
+            alt_rarity_value = altrarity:gsub(',','') --temp place to put this without overriding rarity
+            local rv1, rv2 = string.match(alt_rarity_value, '([%d%.]+)/([%d%.]+)')
+            if rv1 and rv2 then
+                altrarity = commas(rv1) .. '/' .. commas(rv2)
+                alt_rarity_value = rv1/rv2
+            else
+                alt_rarity_value = expr(altrarity)
+            end
+        end
+        
+        if altraritydash  ~= '' and altraritydash ~= nil then
+            rarity_cell:tag('span'):wikitext('–')
+        else
+            rarity_cell:tag('span'):wikitext('; ')
+        end
+        
+        local altrarityspan = rarity_cell:tag('span')
+        altrarityspan:wikitext(altrarity)
+        if type(alt_rarity_value) == 'number' then
+            altrarityspan:attr({
+                ['data-drop-fraction'] = altrarity,
+                ['data-drop-oneover'] = '1/' .. commas(sigfig(1/alt_rarity_value, 3)),
+                ['data-drop-percent'] = sigfig(100 * alt_rarity_value, 3),
+            })
+        end
+    end
+
+    if leagueRegionBadges == '' then
+        ret:tag('td'):css('max-width','200px'):addClass('table-na leagues-global-flag'):wikitext('N/A')
+    else
+        ret:tag('td'):css('max-width','200px'):addClass('leagues-global-flag'):wikitext(leagueRegionBadges)
+    end
+
+    return ret:done()
+end
+
+function qty(quantity)
+    -- if no quantity is given, return unknown
+    if not quantity or quantity == 'unknown' then
+        return 'Unknown'
+    end
+    -- en dashes are the proper dash for number ranges
+    -- replace all hyphens and em dashes with en
+    -- strip *all* whitespace
+    -- change '(noted)' to '$n' for parsing
+    quantity = mw.ustring.gsub(quantity,'[-—]','–')
+        :gsub('%s','')
+        :gsub('%(noted%)','$n')
+    -- split list into table
+    local vals = mw.text.split(quantity,'[,;]')
+    -- recreate the quantity string to ensure consistent formatting
+    local numstr = {}
+    for i, v in ipairs(vals) do
+        local clean = v:gsub('$n','')
+        -- if list element contains an en dash (indicating range)
+        -- Find the smaller/larger number (just in case)
+        -- Compare them to the current min/max
+        -- put them in order with desired format
+        if mw.ustring.find(v,'–') then
+            local splitvals = mw.text.split(clean,'–')
+            -- assume a is smaller, b is larger
+            local a = tonumber(splitvals[1])
+            local b = tonumber(splitvals[2])
+            -- Just in case
+            if a and b then
+                if a > b then
+                    a,b = b,a
+                end
+                addx = commas(a)..'–'..commas(b)
+            else
+                addx = splitvals[1]..'–'..splitvals[2]
+            end
+            if v:find('$n') then
+                addx = addx.._noted
+            end
+            table.insert(numstr,addx)
+        else
+            local addx = tonumber(clean) ~= nil and commas(tonumber(clean)) or clean
+            if v:find('$n') then
+                addx = addx.._noted
+            end
+            table.insert(numstr,addx)
+        end
+    end
+    -- To prevent any possible confusion with formatted numbers
+    -- elements should be separated with semicolons followed by a space
+    numstr = table.concat(numstr,'; ')
+    if numstr:find('%d') then
+        return numstr
+    else
+        return 'Unknown'
+    end
+end
+
+function cmb(levels)
+    -- if no level is given, return unknown
+    if not levels then
+        return 'Unknown', 0
+    end
+
+    -- split list into table
+    -- recreate the list string to ensure consistent formatting
+    local numstr = {}
+    for v in mw.text.gsplit(levels, '[,;]') do
+        v = mw.text.trim(v)
+        table.insert(numstr,tonumber(v))
+    end
+
+    table.sort(numstr)
+    
+    -- give a range if 5+ combat levels
+    if #numstr > 4 then
+        return numstr[1] .. '–' .. numstr[#numstr], numstr[1]
+    end
+    -- To prevent any possible confusion with formatted numbers
+    -- elements should be separated with semicolons followed by a space
+    return table.concat(numstr,'; '), numstr[1] or 0
+end
+
+--[[ DEBUG COPYPASTA
+= p._main({item = 'Iron bar'})
+--]]
+
+return p

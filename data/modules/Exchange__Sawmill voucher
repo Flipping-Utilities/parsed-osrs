@@ -1,0 +1,12 @@
+return {
+    itemId     = 28628,
+    icon       = "Sawmill voucher.png",
+    item       = "Sawmill voucher",
+    alchable   = true,
+    value      = 100,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = "Used to provide additional planks at the sawmill.",
+    usage      = {}
+}

@@ -1,0 +1,10 @@
+local p = {}
+function p.hasDefenceXP(frame)
+    local rewards = frame.args.rewards or ""
+    if not string.find(rewards, "{{SCP|Defence|") then
+        return "false"
+    else
+        return "true"
+    end
+end
+return p

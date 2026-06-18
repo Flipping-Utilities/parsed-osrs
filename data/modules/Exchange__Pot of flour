@@ -1,0 +1,12 @@
+return {
+    itemId     = 1933,
+    icon       = 'Pot of flour.png',
+    item       = 'Pot of flour',
+    value      = 10,
+    limit      = 13000,
+    members    = false,
+    category   = nil,
+    examine    = 'There is flour in this pot.',
+    hialch     = 6,
+    lowalch    = 4
+}

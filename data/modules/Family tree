@@ -1,0 +1,101 @@
+--[[
+Implements {{Family tree}}
+In this module and the template, top, right, bottom, left refer to the location of the line on a cross:
+-T-
+L#R
+-B-
+--]]
+
+local p = {}
+
+local borders = mw.loadData('Module:Family tree/data')
+
+-- Main function
+function p.main(frame)
+	local args = frame:getParent().args
+	local cells = {}
+	for i, v in ipairs(args) do
+		-- Every param is unnamed, so needs trimming
+		local v_x = mw.text.trim(v)
+		-- Assume all blank parameters (trimmed to 0 length) are empty block cells
+		if #v_x == 0 then
+			v_x = ' '
+		end
+		table.insert(cells,v_x)
+	end
+	return p._main(cells)
+end
+
+function p._main(cells)
+	local ret = mw.html.create('table')
+			:css({ ['border-spacing'] = '0',
+				['line-height'] = '100%',
+				['text-align'] = 'center' })
+
+	local current_row = mw.html.create('tr')
+	for i, v in ipairs(cells) do
+		-- '_' character means "start a new row"
+		-- Close current_row and add to the table
+		-- Then recycle the param
+		if v == '_' then
+			ret:node(current_row:done())
+			current_row = mw.html.create('tr')
+		-- If a meta character, add a node for a block cell
+		elseif borders[v] then
+			block_cell(current_row,borders[v])
+		-- Everything else, paste as is in a leaf
+		else
+			text_cell(current_row,v)
+		end
+	end
+	-- Close current row, add to main table, close everything, return
+	ret:node(current_row:done())
+		:done()
+	return ret
+end
+
+-- Meta characters used to draw lines
+function block_cell(builder,cell)
+	--[[
+	-- We can use self closing <td /> to reduce expansion size, huehuehue
+	-- Cells are:
+	-- a1 a2
+	-- b2 b2
+	-- a1's borders create TOP and LEFT lines
+	-- a2's borders create RIGHT line
+	-- b1's borders create BOTTOM line
+	-- Each cell is 1em square
+	-- Whole table is 2em x 2em
+	--]]
+	builder:tag('td')
+		:addClass('famtreesub')
+			:tag('table')
+				:tag('tr')
+					:tag('td')
+						:css({ ['border-right'] = cell.top,
+							['border-bottom'] = cell.left })
+					:done()
+					:tag('td')
+						:css({ ['border-bottom'] = cell.right })
+					:done()
+				:done()
+				:tag('tr')
+					:tag('td')
+						:css({ ['border-right'] = cell.bottom })
+					:done()
+					:tag('td'):done()
+				:done()
+			:done()
+		:done()
+end
+
+-- All other text
+function text_cell(builder,text)
+	builder:tag('td')
+		:addClass('famtreeleaf')
+		:attr('colspan','3')
+		:wikitext(text)
+		:done()
+end
+
+return p

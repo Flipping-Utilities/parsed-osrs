@@ -1,0 +1,249 @@
+local helper = require('Module:Chart data')
+
+
+local PURPLES = {
+	{item = "Tumeken's shadow (uncharged)", weight = 10, weights = {}},
+	{item = "Masori mask", weight = 20, weights = {}},
+	{item = "Masori body", weight = 20, weights = {}},
+	{item = "Masori chaps", weight = 20, weights = {}},
+	{item = "Elidinis' ward", weight = 30, weights = {}},
+	{item = "Osmumten's fang", weight = 70, weights = {}},
+	{item = "Lightbearer", weight = 70, weights = {}}
+}
+
+local purpleWeights = {}
+for k, v in ipairs(PURPLES) do
+	purpleWeights[k] = v
+end
+
+local weightSum150to300 = 0
+for _, v in ipairs(PURPLES) do
+	weightSum150to300 = weightSum150to300 + v.weight
+end
+
+for i = 150, 300, 5 do
+	for _, v in ipairs(purpleWeights) do
+		table.insert(v.weights, v.weight / weightSum150to300)
+	end
+end
+
+-- for raid levels 300 to 500 weights of lb and fang scales resulting in realtive weightings to scale for all uniques
+-- weighstum of non lb/fang uniques
+local partialWeightSum = 100
+
+for i = 305, 350, 5 do
+	local WeightFang = 70
+	local WeightLb = 70 
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			WeightFang = WeightFang - math.floor((i - 300) * 0.2)
+		elseif v.item == "Lightbearer" then
+	    	WeightLb = WeightLb - math.floor((i - 300) * 0.2)
+		end
+	end
+	local scaledWeightSum = partialWeightSum + WeightFang + WeightLb
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			table.insert(v.weights, WeightFang / scaledWeightSum)
+		elseif v.item == "Lightbearer" then
+	    	table.insert(v.weights, WeightLb / scaledWeightSum)
+		else
+			table.insert(v.weights, v.weight / scaledWeightSum)
+		end
+	end
+end
+
+for i = 355, 400, 5 do
+	local WeightFang = 60
+	local WeightLb = 60 
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			WeightFang = WeightFang - math.floor((i - 350) * 0.4)
+		elseif v.item == "Lightbearer" then
+	    	WeightLb = WeightLb - math.floor((i - 350) * 0.2)
+		end
+	end
+	local scaledWeightSum = partialWeightSum + WeightFang + WeightLb
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			table.insert(v.weights, WeightFang / scaledWeightSum)
+		elseif v.item == "Lightbearer" then
+	    	table.insert(v.weights, WeightLb / scaledWeightSum)
+		else
+			table.insert(v.weights, v.weight / scaledWeightSum)
+		end
+	end
+end
+
+for i = 405, 450, 5 do
+	local WeightFang = 40
+	local WeightLb = 50
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Lightbearer" then
+	    	WeightLb = WeightLb - math.floor((i - 400) * 0.2)
+		end
+	end
+	local scaledWeightSum = partialWeightSum + WeightFang + WeightLb
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			table.insert(v.weights, WeightFang / scaledWeightSum)
+		elseif v.item == "Lightbearer" then
+	    	table.insert(v.weights, WeightLb / scaledWeightSum)
+		else
+			table.insert(v.weights, v.weight / scaledWeightSum)
+		end
+	end
+end
+
+for i = 455, 500, 5 do
+	local WeightFang = 40
+	local WeightLb = 40 
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			WeightFang = WeightFang - math.floor((i - 450) * 0.2)
+		elseif v.item == "Lightbearer" then
+	    	WeightLb = WeightLb - math.floor((i - 450) * 0.1)
+		end
+	end
+	local scaledWeightSum = partialWeightSum + WeightFang + WeightLb
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			table.insert(v.weights, WeightFang / scaledWeightSum)
+		elseif v.item == "Lightbearer" then
+	    	table.insert(v.weights, WeightLb / scaledWeightSum)
+		else
+			table.insert(v.weights, v.weight / scaledWeightSum)
+		end
+	end
+end
+
+for i = 505, 600, 5 do
+	local WeightFang = 30
+	local WeightLb = 35
+	local scaledWeightSum = partialWeightSum + WeightFang + WeightLb
+	for _, v in ipairs(purpleWeights) do
+		if v.item == "Osmumten's fang" then
+			table.insert(v.weights, WeightFang / scaledWeightSum)
+		elseif v.item == "Lightbearer" then
+	    	table.insert(v.weights, WeightLb / scaledWeightSum)
+		else
+			table.insert(v.weights, v.weight / scaledWeightSum)
+		end
+	end
+end
+	
+local datapoints = {
+	helper.convertToXYFormat(purpleWeights[1].weights),
+	helper.convertToXYFormat(purpleWeights[2].weights),
+	helper.convertToXYFormat(purpleWeights[3].weights),
+	helper.convertToXYFormat(purpleWeights[4].weights),
+	helper.convertToXYFormat(purpleWeights[5].weights),
+	helper.convertToXYFormat(purpleWeights[6].weights),
+	helper.convertToXYFormat(purpleWeights[7].weights)
+	}
+
+-- scale x axis
+for _, v in ipairs(datapoints) do
+	for _, v1 in ipairs(v) do
+		v1.x = 150 + (v1.x -1) * 5
+	end
+end
+		
+local data = {
+	type = 'scatter',
+	data = {
+		datasets = {
+			{
+				label = purpleWeights[7].item, -- lb
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(255, 255, 0)',
+				data = datapoints[7]
+			},
+			{
+				label = purpleWeights[6].item, -- fang
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(10, 10, 10)',
+				data = datapoints[6]
+			},
+			{
+				label = purpleWeights[5].item, -- ward
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(35, 115, 225)',
+				data = datapoints[5]
+			},
+			{
+				label = purpleWeights[2].item, --m1
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(255, 0, 0)',
+				data = datapoints[2]
+			},
+			{
+				label = purpleWeights[3].item, --m2
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(255, 0, 0)',
+				data = datapoints[3]
+			},
+			{
+				label = purpleWeights[4].item, -- m2
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(255, 0, 0)',
+				data = datapoints[4]
+			},
+			{
+				label = "Tumeken's shadow",
+				showLine = true,
+				fill = false,
+				borderColor = 'rgb(190, 43, 226)',
+				data = datapoints[1]
+			},
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		title = {
+			display = true,
+			text = 'Unique weightings',
+			font = {
+				size = 18
+			}
+		},
+		tooltips = {
+			format = 'skillingSuccess',
+			intersect = false
+		},
+		elements = {
+			point = {
+				radius = 0
+			}
+		},
+		scales = {
+			x = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Raid Level'
+				}
+			},
+			y = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Weighting [%]'
+				},
+				ticks = {
+					format = {
+						style = 'percent',
+						minimumSignificantDigits = 1,
+						maximumSignificantDigits = 2
+					}
+				}
+			}
+		}
+	}
+}
+
+return data

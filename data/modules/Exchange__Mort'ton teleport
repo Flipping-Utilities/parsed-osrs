@@ -1,0 +1,12 @@
+return {
+    itemId     = 12406,
+    icon       = 'Mort\'ton teleport.png',
+    item       = 'Mort\'ton teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to Mort\'ton.',
+    hialch     = 6,
+    lowalch    = 4
+}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 8421,
+    icon       = 'Bagged oak tree.png',
+    item       = 'Bagged oak tree',
+    value      = 5000,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'You can plant this in your garden.',
+    hialch     = 3000,
+    lowalch    = 2000
+}

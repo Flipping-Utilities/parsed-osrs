@@ -1,0 +1,13 @@
+{{Documentation}}
+Cleans an input image to prevent double linking.
+
+{{Helper module
+|name=Clean image
+|fname1=clean(args)
+|ftype1=string
+|fuse1=Input args is a table with fields:
+* <code>file</code> - the full wikitext to be cleaned. All processing is skipped if file is empty or is the string <code>no</code>.
+* <code>width</code> - width to resize the file to; no default
+* <code>height</code> - height to resize the file to, can be combined with width; no default
+* <code>link</code> - what page to link the file to; no default (file will link to file page), 'no' to link to nothing
+}}

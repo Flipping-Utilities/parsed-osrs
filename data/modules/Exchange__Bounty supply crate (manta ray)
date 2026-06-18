@@ -1,0 +1,12 @@
+return {
+    itemId     = 30616,
+    icon       = "Bounty supply crate (manta ray).png",
+    item       = "Bounty supply crate (manta ray)",
+    alchable   = false,
+    value      = 10000,
+    limit      = 100,
+    members    = true,
+    category   = nil,
+    examine    = "A crate full of supplies.",
+    usage      = {}
+}

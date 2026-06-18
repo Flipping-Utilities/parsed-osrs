@@ -1,0 +1,83 @@
+-- <pre>
+--local p = {}
+
+--local yesno = require('Module:Yesno')
+--local params = require('Module:Paramtest')
+--local commas = require('Module:Addcommas')
+
+
+--function p.main(frame)
+--	local args = frame:getParent().args
+--	-- Params and defaults
+--	local name = params.default_to(args.Monster,'monster')
+--
+--	-- Table row
+--	--return name
+--	--return name1 .. ' : ' .. name2 .. ' : ' .. '\n'
+--	return p._main(name)
+--end
+local NPCs = {}
+
+function NPCs.NPCisMember(name)
+    
+    local check = mw.ustring.find(name,'|')
+	if check ~= nil then
+	name = mw.ustring.sub(name,1,check-1)    
+    end
+
+	local nameWithUnder = mw.ustring.gsub(name, ' ', '_' )
+	local nameWOSpace =  mw.ustring.gsub(mw.ustring.lower(name), ' ', '' )
+    
+    
+    
+    local checkz = string.find(nameWOSpace,'%(')
+	if checkz ~= nil then
+	nameWOSpace = mw.ustring.sub(nameWOSpace,1,checkz-1)
+	end
+    
+    
+    
+    local namespace = mw.site.namespaces[0]
+    local doo = 1
+	local titlle = mw.title.new( nameWithUnder, namespace.id )
+	if titlle.id == 0 then
+	return '?'
+	end
+	local ret2 =titlle:getContent()
+--	while doo do
+	local off1 = mw.ustring.find(ret2,'{{Infobox')
+	    if off1 == nil then
+	        off1 = mw.ustring.find(mw.ustring.lower(ret2),'{{infobox')
+	        if off1 == nil then
+	        return '?'
+	        end
+	    end
+	local str = mw.ustring.sub(ret2,off1,mw.ustring.len(ret2)-off1)
+	local off2 = mw.ustring.find(str,'}}')
+	    if off2 == nil then
+	    return '?'
+	    end
+	local bla = mw.ustring.sub(str,9,off2-1)
+	local sst = mw.ustring.lower(bla)
+	local nexto = mw.ustring.gsub(sst,' ', '' )
+	local add=''
+	    if string.find( nexto, nameWOSpace ) == nil then
+	     add='?'
+        end
+            if mw.ustring.find(nexto,'|members=yes') == nil then
+	        return 'No' .. add
+            else
+            return 'Yes' .. add
+            end
+ --   end
+    return '?'
+end
+
+--function p._main(name)
+--  return  NPCisMember(name)
+--end
+
+
+--return p
+
+return NPCs

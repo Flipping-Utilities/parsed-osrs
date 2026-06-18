@@ -1,0 +1,12 @@
+return {
+    itemId     = 6020,
+    icon       = "Leaves.png",
+    item       = "Leaves",
+    alchable   = true,
+    value      = 1,
+    limit      = 13000,
+    members    = true,
+    category   = nil,
+    examine    = "A pile of leaves.",
+    usage      = {}
+}

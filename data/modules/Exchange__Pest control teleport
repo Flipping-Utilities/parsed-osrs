@@ -1,0 +1,12 @@
+return {
+    itemId     = 12407,
+    icon       = 'Pest control teleport.png',
+    item       = 'Pest control teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to Pest control.',
+    hialch     = 6,
+    lowalch    = 4
+}

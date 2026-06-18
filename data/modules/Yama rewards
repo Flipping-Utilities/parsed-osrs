@@ -1,0 +1,308 @@
+local geprice = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+local _avgValue = require('Module:Average drop value').totalval
+local commas = require('Module:Addcommas')._add
+
+local p = {}
+local kill_count
+
+function p.main(frame)
+	args = frame.args
+	kill_count = tonumber(args.kills)
+	return p._main(tonumber(args.damage))
+end
+
+function avgValueGE(drop_source)
+	return _avgValue(drop_source, nil, nil, nil, nil, nil, false)
+end
+
+local junk_drops = {
+	{ 'Cabbage', 1, 3/11, geprice("Cabbage") },
+	{ 'Black bead', 1, 3/11, geprice("Black bead") },
+	{ 'Spinach roll', 1, 3/11, geprice("Spinach roll") },
+	{ 'Demon dung', 1, 2/11, 0}
+}
+local yami_drop = { 'Yami', 1, 1/2500, 0 }
+local rare_drops = {
+	{ 'Oathplate helm', 1, 1/120 * 1/5, geprice('Oathplate helm') },
+	{ 'Oathplate chest', 1, 1/120 * 1/5, geprice('Oathplate chest') },
+	{ 'Oathplate legs', 1, 1/120 * 1/5, geprice('Oathplate legs') },
+	{ 'Soulflame horn', 1, 1/120 * 2/5, geprice('Soulflame horn') }
+}
+local dossier_drop = { 'Dossier', 1, 1/12, avgValueGE('Dossier') }
+local lockbox_drop = { 'Forgotten lockbox', 1, 1/30, avgValueGE('Forgotten lockbox') }
+local oshards_drop = { 'Oathplate shards', 12, 1/15, geprice('Oathplate shards') }
+local supply_drops = {
+	{ 'Pineapple pizza', 3.5, 1/2 * 15/78, geprice('Pineapple pizza') },
+	{ 'Wild pie', 3.5, 1/2 * 15/78, geprice('Wild pie') },
+	{ 'Prayer potion(3)', 2, 1/2 * 15/78, 3/4 * geprice('Prayer potion(4)') },
+	{ 'Super restore mix(2)', 2, 1/2 * 15/78, geprice('Super restore mix(2)') },
+	{ 'Super combat potion(1)', 1, 1/2 * 15/78, 1/4 * geprice('Super combat potion(4)') },
+	{ 'Zamorak mix(2)', 1, 1/2 * 15/78, geprice('Zamorak mix(2)') },
+}
+local main_drops = {
+	-- Weapons & armour
+	{ 'Rune chainbody', 8, 5/78, geprice('Rune chainbody') },
+	{ 'Battlestaff', 40, 4/78, geprice('Battlestaff') },
+	{ 'Rune platebody', 8, 3/78, geprice('Rune platebody') },
+	{ 'Dragon plateskirt', 1, 2/78, geprice('Dragon plateskirt') },
+	{ 'Dragon platelegs', 1, 2/78, geprice('Dragon platelegs') },
+	-- Runes
+	{ 'Blood rune', 400, 3/78, geprice('Blood rune') },
+	{ 'Law rune', 150, 3/78, geprice('Law rune') },
+	{ 'Smoke rune', 350, 2/78, geprice('Smoke rune') },
+	{ 'Soul rune', 500, 2/78, geprice('Soul rune') },
+	{ 'Soul rune', 1000, 2/78, geprice('Soul rune') },
+	{ 'Fire rune', 40000, 1/78, geprice('Fire rune') },
+	{ 'Wrath rune', 800, 1/78, geprice('Wrath rune') },
+	-- Other
+	{ 'Aether catalyst', 850, 7/78, geprice('Aether catalyst') },
+	{ 'Diabolic worms', 90, 7/78, geprice('Diabolic worms') },
+	{ 'Barrel of demonic tallow (full)', 1, 5/78, geprice('Barrel of demonic tallow (full)') },
+	{ 'Chasm teleport scroll', 6, 4/78, geprice('Chasm teleport scroll') },
+	{ 'Emerald', 40, 3/78, geprice('Emerald') },
+	{ 'Ruby', 40, 3/78, geprice('Ruby') },
+	{ 'Diamond', 40, 3/78, geprice('Diamond') },
+	{ 'Onyx bolt tips', 150, 1/78, geprice('Onyx bolt tips') },
+}
+local clue_drop = { 'Clue scroll (elite)', 1, 1/30, 5 * avgValueGE('Reward casket (elite)') }
+
+local rarities_class = {
+    { 1, 'table-bg-blue' },
+    { 1/25, 'table-bg-green' },
+    { 1/99.99, 'table-bg-yellow' },
+    { 1/999.99, 'table-bg-orange' },
+    { 1/9999999, 'table-bg-red' }
+}
+
+function get_rarity_class(val)
+    for i,v in ipairs(rarities_class) do
+        curr = v
+        if val >= v[1] then
+            break
+        end
+    end
+    return curr[2]
+end
+
+function makeTable()
+	local header1 = mw.html.create('tr')
+		:tag('th')
+			:wikitext('Item')
+			:attr('colspan', 2):attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Quantity')
+			:attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Rarity')
+			:attr('rowspan', 2)
+		:done()
+				:tag('th')
+			:wikitext('Price')
+			:attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Expected')
+			:attr('colspan', 2)
+		:done()
+
+	local header2 = mw.html.create('tr')
+		:tag('th')
+			:wikitext('Quantity')
+		:done()
+		:tag('th')
+			:wikitext('Value')
+		:done()
+
+	return mw.html.create('table')
+		:addClass('wikitable sortable align-center-1 align-left-2 align-center-3 align-center-4 align-center-6')
+		:css('text-align','right')
+		:node(header1)
+		:node(header2)
+end
+
+function makeTableBottom(inTable, sum)
+	inTable:tag('tr')
+		:addClass('sortbottom')
+		:tag('th')
+			:attr('colspan', 6)
+			:css('text-align','right')
+			:wikitext('Total:')
+		:done()
+		:tag('td')
+			:css('text-align','right')
+			:wikitext(coins(string.format('%d', sum * kill_count)))
+		:done()
+end
+
+function makeEvLine(points, sum)
+	kill_word = "a kill"
+	if kill_count > 1 then
+		kill_word = commas(kill_count) .. ' kills'
+	end
+
+	return "The total expected value of " .. kill_word .. " with '''"
+	.. string.format('%d%%', 100 * points) .. "''' contribution is "
+	.. coins(sum * kill_count) .. " coins."
+end
+
+function makeLine(name, avgQty, chance, price)
+	local expectedCount = chance * avgQty * kill_count
+	local rarityClass = get_rarity_class(chance)
+
+	return mw.html.create('tr')
+		:tag('td')
+			:wikitext('[[File:' .. name .. '.png|link=' .. name .. ']]')
+		:done()
+		:tag('td')
+			:wikitext('[[' .. name .. ']]')
+		:done()
+		:tag('td')
+			:wikitext(avgQty)
+		:done()
+		:tag('td')
+			:addClass(rarityClass)
+			:wikitext("1/" .. string.format('%.4g', 1.0/chance))
+			:attr('data-sort-value', chance)
+		:done()
+		:tag('td')
+			:wikitext(commas(string.format('%d', price * avgQty)))
+		:done()
+		:tag('td')
+			:wikitext(string.format('%.4f', expectedCount))
+		:done()
+		:tag('td')
+			:wikitext(commas(string.format('%d', price * expectedCount)))
+		:done()
+end
+
+function p._main(damage)
+	points = math.floor(100 * damage / 2500) / 100
+
+	if points < 0.15 then
+		local junkTable = makeTable()
+
+		local junk_expectation = 0
+		for i, v in ipairs(junk_drops) do
+			name, qty, rate, val = unpack(v)
+
+			junkTable:node(makeLine(name, qty, rate, val))
+
+			effective_val = qty * rate * val
+			junk_expectation = junk_expectation + effective_val
+		end
+
+		makeTableBottom(junkTable, junk_expectation)
+		evLine = makeEvLine(points, junk_expectation)
+		return evLine .. '\n\n===Junk===\n' .. tostring(junkTable)
+	end
+
+	local uniquesTable = makeTable()
+	local uniques_expectation = 0
+	local running_probability = 1.0
+	local total_rate = 0  -- this should add up to exactly 1 by the end
+
+	-- yami
+	name, qty, rate, val = unpack(yami_drop)
+	uniquesTable:node(makeLine(name, qty, rate, val))
+
+	-- rares
+	sum_rate = 0
+	for i, v in ipairs(rare_drops) do
+		name, qty, rate, val = unpack(v)
+		sum_rate = sum_rate + rate
+		
+		effective_rate = rate * running_probability * points
+		uniquesTable:node(makeLine(name, qty, effective_rate, val))
+
+		effective_val = qty * effective_rate * val
+		uniques_expectation = uniques_expectation + effective_val
+		
+		total_rate = total_rate + effective_rate
+	end
+	running_probability = running_probability * (1 - sum_rate * points)
+
+	-- dossier
+	name, qty, rate, val = unpack(dossier_drop)
+
+	effective_rate = rate * running_probability * points -- scales w/ points
+	uniquesTable:node(makeLine(name, qty, effective_rate, val))
+
+	effective_val = qty * effective_rate * val
+	uniques_expectation = uniques_expectation + effective_val
+
+	running_probability = running_probability * (1 - rate * points)
+	total_rate = total_rate + effective_rate
+
+	-- forgotten lockbox
+	name, qty, rate, val = unpack(lockbox_drop)
+	
+	effective_rate = rate * running_probability -- doesn't scale w/ points
+	uniquesTable:node(makeLine(name, qty, effective_rate, val))
+
+	effective_val = qty * effective_rate * val
+	uniques_expectation = uniques_expectation + effective_val
+
+	running_probability = running_probability * (1 - rate)
+	total_rate = total_rate + effective_rate
+
+	-- Oathplate shards
+	name, qty, rate, val = unpack(oshards_drop)
+
+	effective_rate = rate * running_probability -- doesn't scale w/ points
+	effective_qty = math.max(math.floor(qty * points + 0.5), 1) -- scales w/ points
+	uniquesTable:node(makeLine(name, effective_qty, effective_rate, val))
+
+	effective_val = effective_qty * effective_rate * val
+	uniques_expectation = uniques_expectation + effective_val
+
+	running_probability = running_probability * (1 - rate)
+	total_rate = total_rate + effective_rate
+
+	--
+	makeTableBottom(uniquesTable, uniques_expectation)
+
+	local mainTable = makeTable()
+	local main_expectation = 0
+
+	-- supply qtys don't scale w/ contribution
+	-- assume potions are decanted
+	for i, v in ipairs(supply_drops) do
+		name, qty, rate, val = unpack(v)
+
+		effective_rate = rate * running_probability
+		mainTable:node(makeLine(name, qty, effective_rate, val))
+
+		effective_val = qty * effective_rate * val
+		main_expectation = main_expectation + effective_val
+	end
+	total_rate = total_rate + 15/78 * running_probability
+
+	-- main qtys do scale w/ contribution
+	for i, v in ipairs(main_drops) do
+		name, qty, rate, val = unpack(v)
+
+		effective_rate = rate * running_probability
+		effective_qty = math.max(math.floor(qty * points + 0.5), 1)
+		mainTable:node(makeLine(name, effective_qty, effective_rate, val))
+		
+		effective_val = effective_qty * effective_rate * val
+		main_expectation = main_expectation + effective_val
+		
+		total_rate = total_rate + effective_rate
+	end
+
+	mw.log("This number should be very close to 1 -> " .. total_rate)
+	
+	-- elite clue tertiary
+	name, qty, rate, val = unpack(clue_drop)
+	mainTable:node(makeLine(name, qty, rate, val))
+
+	makeTableBottom(mainTable, main_expectation)
+	evLine = makeEvLine(points, uniques_expectation + main_expectation)
+	return evLine .. '\n\n===Uniques===\n' .. tostring(uniquesTable) .. '\n\n===Main drops===\n' .. tostring(mainTable)
+end
+
+return p

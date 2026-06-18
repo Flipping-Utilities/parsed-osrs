@@ -1,0 +1,71 @@
+local p = {}
+
+function sf(num, prec)
+	local n = math.floor(math.log10(num)) + 1 - prec
+	return math.floor(10^(-n)*num)*10^n, -n
+end
+
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(tonumber(args.points) or 0)
+end
+
+function p._main(points)
+	local unique_rate = 0.8 * (points % 570000) / 570000
+	if points >= 570000 * 3 or points % 570000 == 0 then
+		unique_rate = 0.8
+	end
+	local tworolls = false
+	function make_row(items, rate)
+		local crate = unique_rate*rate/84
+		local perc, p = sf(crate*100,4)
+		p = math.max(2,p)
+		
+		local row = {'\n|-\n| ', items}
+		
+		if tworolls then
+			local perc2, p2 = sf(0.8*rate/84*100,4)
+			table.insert(row, string.format('\n|style="text-align:right;"| %s\n|style="text-align:right;"| %.'..p2..'f%%', mw.ext.ParserFunctions.expr(1/(0.8*rate/84) .. ' round 2'), perc2))
+		end
+		
+		table.insert(row, string.format('\n|style="text-align:right;"| %s\n|style="text-align:right;"| %.'..p..'f%%', mw.ext.ParserFunctions.expr(1/crate .. ' round 2'), perc))
+			
+		return table.concat(row,'')
+	end
+	
+	local sec = ''
+	if points > 570000*2 then
+		sec = ' and second'
+	elseif points <= 570000 then
+		sec = ' and only'
+	end
+	
+	local ret = {
+		'{| class="wikitable"\n!rowspan="2"| Items\n! colspan="2"| First'..sec..' roll',
+	}
+	
+	if points > 570000 then
+		if points > 570000*2 then
+			table.insert(ret, '\n! colspan="2"| Third roll')
+		else
+			table.insert(ret, '\n! colspan="2"| Second roll')
+		end
+		table.insert(ret,'\n|-\n! Chance<br>(1 in x, each)\n! Chance<br>(%, each)')
+		tworolls = true
+	else
+		table.insert(ret,'\n|-')
+	end
+	
+	table.insert(ret,'\n! Chance<br>(1 in x, each)\n! Chance<br>(%, each)')
+	table.insert(ret,make_row('[[Arcane prayer scroll|Arcane]]/[[Dextrous prayer scroll]]', 20))
+	table.insert(ret, make_row('[[Dragon sword]]/[[dragon harpoon|harpoon]]/[[dragon thrownaxe|thrownaxe]]', 5))
+	table.insert(ret, make_row('[[Twisted buckler]], [[Dragon hunter crossbow]]', 4))
+	table.insert(ret, make_row('[[Dinh\'s bulwark]], [[Ancestral hat]]/[[Ancestral robe top|robe top]]/[[Ancestral robe bottom|robe bottom]], [[Dragon claws]]', 3))
+	table.insert(ret, make_row('[[Elder maul]], [[Kodai insignia]], [[Twisted bow]]', 2))
+	table.insert(ret, '\n|}')
+	
+	return table.concat(ret, '')
+end
+
+return p

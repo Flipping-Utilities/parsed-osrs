@@ -1,0 +1,110 @@
+local p = {}
+
+function p.main(frame)
+    return p._main(frame:getParent().args)
+end
+
+function coordEq(coord1, coord2)
+	return coord1[1] == coord2[1] and coord1[2] == coord2[2]
+end
+
+-- mw.loadJsonData returns a table object that does not work well with #arr to calculate size; calculate iteratively
+function sizeof(arr)
+	if #arr > 0 then
+		return #arr
+	end
+	local s = 0
+	for i in pairs(arr) do
+		s = s + 1
+	end
+	return s
+end
+
+-- function to join two array at a certain overlapping corner coordinate
+function join(arr1, arr2)
+	local size1 = sizeof(arr1)
+	local size2 = sizeof(arr2)
+	local first1 = arr1[1]
+	local last1 = arr1[size1]
+	local first2 = arr2[1]
+	local last2 = arr2[size2]
+	-- check which directions the arrays need to be joined
+	local dir1 = 1
+	local dir2 = 1
+	if coordEq(last1, first2) then
+		-- don't change the traverse direction
+	elseif coordEq(last1, last2) then
+		dir2 = -1
+	elseif coordEq(first1, first2) then
+		dir1 = -1
+	elseif coordEq(first1, last2) then
+		dir1 = -1
+		dir2 = -1
+	else
+		-- invalid coordinates
+		return nil
+	end
+	-- helper function to find the Nth element in an array, given a certain direction
+	local function getidx(i, size, dir)
+		if dir == -1 then
+			return size - i + 1
+		end
+	    return i
+	end
+	-- copy the two arrays into a result array that joins the ends
+	local result = {}
+	if #arr1 > 0 and dir1 == 1 then
+		-- arr1 is already a normal array in the correct direction, so no need to copy it to the `result` array
+		result = arr1
+	else
+		for i = 1, size1 do
+			result[i] = arr1[getidx(i, size1, dir1)]
+		end
+	end
+	-- start from i=2 because the first element is identical to the last element in `result`
+	for i = 2, size2 do
+		result[size1 + i - 1] = arr2[getidx(i, size2, dir2)]
+	end
+	return result
+end
+
+function canonical(track, bordering)
+	local border = bordering
+	if type(border) == 'table' then
+		-- convert to simple string representation of the bordering track
+		border = bordering[1] .. '_' .. tostring(bordering[2])
+		-- convert `bordering` to just the name of the bordering track itself (without its unique id)
+		bordering = bordering[1]
+	end
+	if bordering == 'none' or track < border then
+		-- bordering 'none' always comes last in the canonical name
+		return track .. "_" .. border
+	else
+		return border .. "_" .. track
+	end
+end
+
+function join_multi(data, borders, track)
+	local result = nil
+	for _, bordering in ipairs(borders[track]) do
+		if result == nil then
+			result = data[canonical(track, bordering)]
+		else
+			result = join(result, data[canonical(track, bordering)])
+		end
+	end
+	-- remove last item if duplicate of first item
+	if coordEq(result[1], result[#result]) then
+		result[#result] = nil
+	end
+	return result
+end
+
+function p._main(args)
+	local data = mw.loadData("Module:Boundary_map/music_edges")
+	local borders = mw.loadJsonData("Module:Boundary_map/music_tracks.json")
+	local res = join_multi(data, borders, 'aldarin')
+	return mw.text.jsonEncode(res)
+end
+
+return p

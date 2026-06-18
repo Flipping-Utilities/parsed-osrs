@@ -1,0 +1,12 @@
+return {
+    itemId     = 29455,
+    icon       = "Teleport anchoring scroll.png",
+    item       = "Teleport anchoring scroll",
+    alchable   = true,
+    value      = 50000,
+    limit      = 5,
+    members    = true,
+    category   = nil,
+    examine    = "A formidable magic spell which prevents unwanted teleportation.",
+    usage      = {}
+}

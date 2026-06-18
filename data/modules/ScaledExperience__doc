@@ -1,0 +1,29 @@
+{{Documentation}}
+== Usage ==
+Helper module for experience calculations where each action's experience scales linearly with level, such as the genie lamps.
+
+== Functions ==
+===Determine Actions Needed===
+These functions return the number of actions required to reach a target goal. The only difference between these four functions is optional usage of a starting or target level instead of an experience value.
+<pre>xp_to_xp_actions(startingExp, targetExp, scalar, base, intercept)</pre>
+<pre>xp_to_level_actions(startingExp, targetLevel, scalar, base, intercept)</pre>
+<pre>level_to_xp_actions(startingLevel, targetExp, scalar, base, intercept)</pre>
+<pre>level_to_level_actions(startingLevel, targetExp, scalar, base, intercept)</pre>
+
+===Determine XP gained from Actions===
+These functions return the end experience after a certain number of actions have been taken. The only difference between these two functions is whether it starts from an experience value or a level value.
+<pre>from_actions_xp(startingExp, actions, scalar, base, intercept)</pre>
+<pre>from_actions_level(startingLevel, actions, scalar, base, intercept)</pre>
+
+=== Parameters ===
+===== startingExp, targetExp, startingLevel, and targetLevel =====
+Self-explanatory, input the desired XP or Level depending on what function is used.
+===== scalar =====
+What multiplier of the skill level the experience scales by.
+===== base [Optional] =====
+A flat value to add that is '''not''' scaled with level.
+===== intercept [Optional] =====
+A level at which the experience starts scaling. At or below this level, only the base experience will be granted. You '''must add a base experience value''' to use this parameter, even if that value is 0.
+==== Examples ====
+* '''Lamps from the genie random event''' reward 10 × the skill level, so only a scalar of 10 would need to be input. 
+* '''Agility arena tickets''' reward 240 experience + 5 for every agility level over 40. Therefore the scalar, base, and intercept would be 5, 240, and 40 respectively.

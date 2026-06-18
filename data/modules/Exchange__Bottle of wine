@@ -1,0 +1,12 @@
+return {
+    itemId     = 7919,
+    icon       = 'Bottle of wine.png',
+    item       = 'Bottle of wine',
+    value      = 500,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'A very good vintage.',
+    hialch     = 300,
+    lowalch    = 200
+}

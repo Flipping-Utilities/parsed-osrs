@@ -1,0 +1,66 @@
+-- <nowiki>
+-- [[Template:T]]
+--
+
+local p = {}
+
+function p.main(frame)
+    local args = frame:getParent().args
+    return p._main(args)
+end
+
+function p._main(args)
+    local link = args[1]
+    local uri
+    local targs = {}
+    local ns
+    local i = 1
+    
+    -- strip transclusion modifiers ([[mw:Help:Magic words#Transclusion modifiers]])
+    link = link
+        :gsub('safesubst:', '')
+        :gsub('subst:', '')
+        :gsub('int:', '')
+        :gsub('msg:', '')
+        :gsub('msgnw:', '')
+        :gsub('raw:', '')
+        
+    ns = mw.text.split(link, ':')[1]
+    
+    -- check for valid namespace else prepend Template:
+    if not (ns == '' or mw.site.namespaces[ns]) then
+        link = 'Template:' .. link
+    end
+    
+    -- fix bug with Map linking to Main instead of Template
+    if (link == "Map") then
+        link = 'Template:' .. link
+    end
+    
+    -- use fullUrl so it doesn't cause any wanted pages
+    uri = mw.uri.fullUrl(link)
+    
+    -- generate a list of args and params    
+    for k, v in pairs(args) do
+        -- because lua has no continue statement
+        if k ~= 1 then
+            if type(k) == 'string' then
+                v = k .. '=' .. v
+            end
+        
+            targs[i] = v
+            i = i + 1
+        end
+    end
+    
+    targs = table.concat(targs, '&#124;')
+
+    if targs ~= '' then
+        targs = '&#124;' .. targs
+    end
+    
+    return '<code>{{[' .. tostring(uri) ..  ' ' .. args[1] .. ']' .. targs .. '}}</code>'
+
+end
+
+return p

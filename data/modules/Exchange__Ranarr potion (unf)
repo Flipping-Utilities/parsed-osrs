@@ -1,0 +1,12 @@
+return {
+    itemId     = 99,
+    icon       = 'Ranarr potion (unf).png',
+    item       = 'Ranarr potion (unf)',
+    value      = 25,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Ranarr potion.',
+    hialch     = 15,
+    lowalch    = 10
+}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 8013,
+    icon       = 'Teleport to house (tablet).png',
+    item       = 'Teleport to house (tablet)',
+    value      = 1,
+    limit      = 15000,
+    members    = true,
+    category   = nil,
+    examine    = 'A teleport to one\'s own house.',
+    hialch     = 0,
+    lowalch    = 0
+}

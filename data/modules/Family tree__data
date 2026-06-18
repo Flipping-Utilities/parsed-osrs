@@ -1,0 +1,57 @@
+local LINE_COLOUR = '#6699CC'
+
+local SOLID = '1px solid ' .. LINE_COLOUR
+local DASHED = '1px dashed ' .. LINE_COLOUR
+
+-- Single characters used for creating "blocks", as they will be called
+local borders = {
+	-- Single lines
+	['-'] = { top = nil, right = SOLID, bottom = nil, left = SOLID },
+	['!'] = { top = SOLID, right = nil, bottom = SOLID, left = nil },
+	['~'] = { top = nil, right = DASHED, bottom = nil, left = DASHED },
+	[':'] = { top = DASHED, right = nil, bottom = DASHED, left = nil },
+	-- Solid
+	[','] = { top = nil, right = SOLID, bottom = SOLID, left = nil },
+	['v'] = { top = nil, right = SOLID, bottom = SOLID, left = SOLID },
+	['.'] = { top = nil, right = nil, bottom = SOLID, left = SOLID },
+	[')'] = { top = SOLID, right = SOLID, bottom = SOLID, left = nil },
+	['+'] = { top = SOLID, right = SOLID, bottom = SOLID, left = SOLID },
+	['('] = { top = SOLID, right = nil, bottom = SOLID, left = SOLID },
+	['`'] = { top = SOLID, right = SOLID, bottom = nil, left = nil },
+	['^'] = { top = SOLID, right = SOLID, bottom = nil, left = SOLID },
+	['\''] = { top = SOLID, right = nil, bottom = nil, left = SOLID },
+	-- Dashed
+	['F'] = { top = nil, right = DASHED, bottom = DASHED, left = nil },
+	['V'] = { top = nil, right = DASHED, bottom = DASHED, left = DASHED },
+	['7'] = { top = nil, right = nil, bottom = DASHED, left = DASHED },
+	['D'] = { top = DASHED, right = DASHED, bottom = DASHED, left = nil },
+	['%'] = { top = DASHED, right = DASHED, bottom = DASHED, left = DASHED },
+	['C'] = { top = DASHED, right = nil, bottom = DASHED, left = DASHED },
+	['L'] = { top = DASHED, right = DASHED, bottom = nil, left = nil },
+	['A'] = { top = DASHED, right = DASHED, bottom = nil, left = DASHED },
+	['J'] = { top = DASHED, right = nil, bottom = nil, left = DASHED },
+	-- Mixed 1
+	['r'] = { top = nil, right = DASHED, bottom = SOLID, left = nil },
+	['y'] = { top = nil, right = DASHED, bottom = SOLID, left = DASHED },
+	['n'] = { top = nil, right = nil, bottom = SOLID, left = DASHED },
+	[']'] = { top = SOLID, right = DASHED, bottom = SOLID, left = nil },
+	['#'] = { top = SOLID, right = DASHED, bottom = SOLID, left = DASHED },
+	['['] = { top = SOLID, right = nil, bottom = SOLID, left = DASHED },
+	['c'] = { top = SOLID, right = DASHED, bottom = nil, left = nil },
+	['h'] = { top = SOLID, right = DASHED, bottom = nil, left = DASHED },
+	['j'] = { top = SOLID, right = nil, bottom = nil, left = DASHED },
+	-- Mixed 2
+	['p'] = { top = nil, right = SOLID, bottom = DASHED, left = nil },
+	['u'] = { top = nil, right = SOLID, bottom = DASHED, left = SOLID },
+	['q'] = { top = nil, right = nil, bottom = DASHED, left = SOLID },
+	['}'] = { top = DASHED, right = SOLID, bottom = DASHED, left = nil },
+	['*'] = { top = DASHED, right = SOLID, bottom = DASHED, left = SOLID },
+	['{'] = { top = DASHED, right = nil, bottom = DASHED, left = SOLID },
+	['b'] = { top = DASHED, right = SOLID, bottom = nil, left = nil },
+	['t'] = { top = DASHED, right = SOLID, bottom = nil, left = SOLID },
+	['d'] = { top = DASHED, right = nil, bottom = nil, left = SOLID },
+	-- Nothing
+	[' '] = { top = nil, right = nil, bottom = nil, left = nil }
+}
+
+return borders

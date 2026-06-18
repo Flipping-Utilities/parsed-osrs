@@ -1,0 +1,97 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+local tb = require('Module:Trailblazer Region').regionsForInfobox
+
+local tiers = {
+	easy = 1,
+	medium = 2,
+	hard = 3,
+	elite = 4,
+	master = 5,
+	grandmaster = 6
+}
+
+function buildRow(itemData)
+    local Monster = itemData.monster
+    local Name = itemData.page_name_sub
+    local Description = itemData.task
+    local TypeText = itemData["type"]
+    local icon = string.format("[[File:Combat Achievements - %s tier icon.png]] ", itemData.tier:lower())
+	local tierText = icon .. itemData.tier .. '&nbsp;(' .. tiers[itemData.tier:lower()] .. '&nbsp;' .. (tiers[itemData.tier:lower()] == 1 and 'pt' or 'pts') .. ')'
+    local region = itemData.league_region
+    local regionRaw = region ~= nil and region ~= '' and string.lower(region) or ''
+   
+
+    local row = mw.html.create('tr')
+	row:attr('data-ca-task-id', tostring(itemData.id))
+	--row:attr('data-league-area-for-filtering', regionRaw)
+    row:tag('td'):wikitext( '[[' .. Monster .. ']]' ):done()
+    row:tag('td'):wikitext( '[[' .. Name .. ']]' ):done()
+    row:tag('td'):wikitext( Description ):done()
+    row:tag('td'):wikitext( TypeText ):done()
+    row:tag('td'):wikitext( tierText ):done()
+
+    if region ~= nil and region ~= ''  and region ~= 'N/A' and region ~= 'NA' then
+        row:tag('td'):wikitext(tb(region)):done()
+    else
+        row:tag('td'):wikitext('N/A'):addClass('table-na nohighlight'):done()
+    end
+	
+	return row
+end
+
+function createHeader()
+	local tabl = mw.html.create('table'):addClass('wikitable lighttable sortable qc-active ca-tasks jquery-tablesorter gm-table')
+	local row = tabl:tag('tr')
+	row:tag('th'):wikitext('Monster'):done()
+	row:tag('th'):wikitext('Name'):done()
+	row:tag('th'):wikitext('Description'):done()
+	row:tag('th'):wikitext('Type'):done()
+	row:tag('th'):wikitext('Tier'):done()
+	row:tag('th'):wikitext('League Region'):done()
+	return tabl
+end
+
+function loadData(limit, region)
+	local combatAchievements = bucket("combat_achievement")
+		.select("page_name", "page_name_sub", "id", "name", "monster", "task", "type", "tier", "league_region")
+		.limit(limit)
+		.run()
+	assert(combatAchievements ~= nil and #combatAchievements > 0, 'Bucket query failed')
+
+	local regionAchievements = {}
+	for _, itemData in ipairs(combatAchievements) do
+		if region == nil or region == '' or string.find(string.lower(itemData.league_region or ''), string.lower(region), 1, true) then
+			table.insert(regionAchievements, itemData)
+		end
+	end
+
+	table.sort(regionAchievements, function(a, b)
+		return (tiers[a.tier:lower()] or 0) < (tiers[b.tier:lower()] or 0)
+	end)
+
+	return regionAchievements
+end
+
+function p._main(args)
+	local limit = paramTest.default_to(tonumber(args.limit), 5000)
+	local region = paramTest.has_content(args.region) and args.region or nil
+
+	local data = loadData(limit, region)
+
+	local ret = createHeader()
+	for _, itemPage in ipairs(data) do
+		ret:node(buildRow(itemPage))
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

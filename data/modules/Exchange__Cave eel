@@ -1,0 +1,12 @@
+return {
+    itemId     = 5003,
+    icon       = 'Cave eel.png',
+    item       = 'Cave eel',
+    value      = 15,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'It\'s a bit slimy.',
+    hialch     = 9,
+    lowalch    = 6
+}

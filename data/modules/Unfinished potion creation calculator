@@ -1,0 +1,75 @@
+local p = {}
+
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+
+local UnfinishedPotions = {
+	{ ['potion'] = 'Guam potion (unf)', ['herblore'] = 3, ['herb'] = 'Guam leaf', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Marrentill potion (unf)', ['herblore'] = 5, ['herb'] = 'Marrentill', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Tarromin potion (unf)', ['herblore'] = 12, ['herb'] = 'Tarromin', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Harralander potion (unf)', ['herblore'] = 22, ['herb'] = 'Harralander', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Ranarr potion (unf)', ['herblore'] = 30, ['herb'] = 'Ranarr weed', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Toadflax potion (unf)', ['herblore'] = 34, ['herb'] = 'Toadflax', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Irit potion (unf)', ['herblore'] = 45, ['herb'] = 'Irit leaf', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Avantoe potion (unf)', ['herblore'] = 50, ['herb'] = 'Avantoe', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Kwuarm potion (unf)', ['herblore'] = 55, ['herb'] = 'Kwuarm', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Huasca potion (unf)', ['herblore'] = 58, ['herb'] = 'Huasca', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Snapdragon potion (unf)', ['herblore'] = 63, ['herb'] = 'Snapdragon', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Cadantine potion (unf)', ['herblore'] = 66, ['herb'] = 'Cadantine', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Lantadyme potion (unf)', ['herblore'] = 69, ['herb'] = 'Lantadyme', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Dwarf weed potion (unf)', ['herblore'] = 72, ['herb'] = 'Dwarf weed', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Torstol potion (unf)', ['herblore'] = 78, ['herb'] = 'Torstol', ['container'] = 'Vial of water' },
+	{ ['potion'] = 'Cadantine blood potion (unf)', ['herblore'] = 80, ['herb'] = 'Cadantine', ['container'] = 'Vial of blood' },
+}
+
+-- add xp? 
+function createRow(potionData, isGrimy, perHour)
+	local herbName = isGrimy and 'Grimy ' .. potionData.herb:lower() or potionData.herb
+	local profitPer = gePrices[potionData.potion] - gePrices[herbName] - gePrices[potionData.container]
+	local netProfit = profitPer * perHour
+	
+	return mw.html.create('tr')
+		:tag('td'):wikitext('[[File:' .. potionData.potion .. '.png]]'):done()
+		:tag('td'):wikitext(' [[' .. potionData.potion .. ']]'):done()
+		:tag('td'):wikitext(potionData.herblore):done()
+		:tag('td'):wikitext('[[File:' .. herbName .. '.png]]'):done()
+		:tag('td'):wikitext(' [[' .. herbName .. ']]'):done()
+		:tag('td'):wikitext(coins(gePrices[herbName])):done()
+		:tag('td'):wikitext(coins(gePrices[potionData.potion])):done()
+		:tag('td'):wikitext(coins(profitPer)):done()
+		:tag('td'):wikitext(coins(netProfit)):done()
+end
+
+function createHeader()
+	local ret = mw.html.create('table'):addClass('wikitable sortable align-center-1 align-center-4'):done()
+	ret:tag('tr'):tag('th'):wikitext('Unfinished potion'):attr('colspan', 2):done()
+			:tag('th'):wikitext('Level'):done()
+			:tag('th'):wikitext('Herb'):attr('colspan', 2):done()
+			:tag('th'):wikitext('Herb cost'):done()
+			:tag('th'):wikitext('Potion cost'):done()
+			:tag('th'):wikitext('Net profit'):done()
+			:tag('th'):wikitext('Hourly profit'):done()
+	return ret
+end
+
+function p._main(args)
+	local retClean = createHeader()
+	local retGrimy = createHeader()
+	for _, potionData in ipairs(UnfinishedPotions) do
+		retClean:node(createRow(potionData, false, tonumber(args.potionsPerHour)))
+		retGrimy:node(createRow(potionData, true, tonumber(args.potionsPerHourGrimy)))
+	end
+
+	return '\n==Clean herb to unfinished potion==\n' .. tostring(retClean) .. '\n==Grimy herb to unfinished potion==\n' .. tostring(retGrimy)
+end
+
+-- DEBUG
+-- args = {['potionsPerHour'] = 3000, ['potionsPerHourGrimy'] = 1500 }
+
+function p.main(frame)
+	local args = frame.args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

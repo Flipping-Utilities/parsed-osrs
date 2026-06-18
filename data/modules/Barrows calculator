@@ -1,0 +1,198 @@
+local p = {}
+
+local coins = require('Module:Coins')._amount
+local gePrice = require('Module:Exchange')._price
+local paramTest = require('Module:Paramtest')
+local yesNo = require('module:Yesno')
+
+local brothersOrder = { 'Ahrim', 'Dharok', 'Guthan', 'Karil', 'Torag', 'Verac' }
+local barrowsEquipment = {
+	['Ahrim'] = {"Ahrim's hood", "Ahrim's robetop", "Ahrim's robeskirt", "Ahrim's staff"},
+	['Dharok'] = {"Dharok's helm", "Dharok's platebody", "Dharok's platelegs", "Dharok's greataxe"},
+	['Guthan'] = {"Guthan's helm", "Guthan's platebody", "Guthan's chainskirt", "Guthan's warspear"},
+	['Karil'] = {"Karil's coif", "Karil's leathertop", "Karil's leatherskirt", "Karil's crossbow"},
+	['Torag'] = {"Torag's helm", "Torag's platebody", "Torag's platelegs", "Torag's hammers"},
+	['Verac'] = {"Verac's helm", "Verac's brassard", "Verac's plateskirt", "Verac's flail"}
+}
+local brothersCombat = {
+	['Ahrim'] = 98,
+	['Dharok'] = 115,
+	['Guthan'] = 115,
+	['Karil'] = 98,
+	['Torag'] = 115,
+	['Verac'] = 115
+}
+
+local cryptCombat = {
+	['bloodworm'] = 52,
+	['cryptRat'] = 43,
+	['giantCryptRat'] = 76,
+	['cryptSpider'] = 56,
+	['giantCryptSpider'] = 79,
+	['skeleton'] = 77
+}
+
+local lootBounds = {
+	{item = "Coins", low = 1, high = 380, divisor = 0.5},
+	{item = "Mind rune", low = 381, high = 505, divisor = 1.5, rune = true},
+	{item = "Chaos rune", low = 506, high = 630, divisor = 4.5, rune = true},
+	{item = "Death rune", low = 631, high = 755, divisor = 9, rune = true},
+	{item = "Blood rune", low = 756, high = 880, divisor = 20, rune = true},
+	{item = "Bolt rack", low = 881, high = 1005, divisor = 25},
+	{item = "Loop half of key", low = 1006, high = 1008, divisor = 1000},
+	{item = "Tooth half of key", low = 1009, high = 1011, divisor = 1000},
+	{item = "Dragon med helm", low = 1012, high = 1012, divisor = 1000}
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	mw.logObject(args)
+	
+	local toggleUnitKill, toggleMorytaniaHard = paramTest.defaults{ {args.toggleUnitKill, 'no' }, {args.toggleMorytaniaHard, 'no'} }
+	toggleUnitKill = yesNo(toggleUnitKill)
+	toggleMorytaniaHard = yesNo(toggleMorytaniaHard)
+	
+	local bloodworm, cryptRat, giantCryptRat, cryptSpider, giantCryptSpider, skeleton = paramTest.defaults{ {args.bloodworm, 0 }, {args.cryptRat, 0 }, {args.giantCryptRat, 0 }, {args.cryptSpider, 0 }, {args.giantCryptSpider, 0 }, {args.skeleton, 0 } }
+	local cryptCombatLevels = paramTest.defaults{ {args.cryptCombatLevels, 0 } }
+
+	local brothersKillList = {}
+	local brothersCombatLevel = 0
+	local cryptCombatLevel = 0
+	local totalCombatLevel = 0
+	for i, monster in ipairs(brothersOrder) do
+		if(yesNo(args[monster])) then
+			table.insert(brothersKillList, monster)
+			brothersCombatLevel = brothersCombatLevel + brothersCombat[monster]
+		end
+	end
+	leaguesMultiplier = 1
+	if (args.LeaguesMultiplier) then
+		leaguesMultiplier = args.LeaguesMultiplier
+	end
+	if(toggleUnitKill) then
+		cryptCombatLevel = cryptCombatLevel + (bloodworm * cryptCombat['bloodworm']) + (cryptRat * cryptCombat['cryptRat']) + (giantCryptRat * cryptCombat['giantCryptRat']) + (cryptSpider * cryptCombat['cryptSpider']) + (giantCryptSpider * cryptCombat['giantCryptSpider']) + (skeleton * cryptCombat['skeleton'])
+	else
+		cryptCombatLevel = cryptCombatLevels
+	end
+	
+	local rewardPotential = math.min(1000, (brothersCombatLevel + cryptCombatLevel)) + (2 * #brothersKillList)
+	local rewardRolls = 1 + #brothersKillList
+	local denominator = 450 - (58 * #brothersKillList)
+	local barrowsItemExpectation = leaguesMultiplier * (1.0 * rewardRolls) / (denominator * 4 * #brothersKillList)
+	local totalEquipmentExpectation = 0.0
+	local totalLootExpectation = 0.0
+
+	--Each roll gives a 1/102 chance at a piece of Barrows equipment. There are 24 eligible pieces, so each is 1/2448 per roll. On average you will get 1/14.57 Barrows items per chest.
+	--Barrots equipment table
+	
+	local rollsLine = 'Killing '
+	if(rewardsRoll == 1) then
+		rollsLine = rollsLine .. 'no brothers gives a total of ' .. rewardRolls .. ' roll for the [[Chest (Barrows)|Barrow chest]].'
+	else
+		for i, brother in ipairs(brothersKillList) do
+			if(i > 1) then
+				rollsLine = rollsLine .. ', '
+			end
+			rollsLine = rollsLine .. "'''" .. brother .. "'''"
+		end
+		rollsLine = rollsLine .. ' gives a total of ' .. rewardRolls .. ' rolls for the [[Chest (Barrows)|Barrow chest]].'
+	end
+	
+	local lootLine = ''
+	local lootLine = lootLine ..  "Killing an additional '''" .. cryptCombatLevel .. "''' combat levels worth of crypt monsters gives a total of '''" .. rewardPotential .. "''' reward points (" .. string.format('%.1f%%', (100 * rewardPotential) / 1012) .. " of maximum possible). That makes you eligible for the following rewards:\n"
+	
+	local lootTable = mw.html.create('table')
+		lootTable:addClass('wikitable align-center-1')
+			:tag('tr')
+				:tag('th'):wikitext('Item'):attr('colspan', 2):done()
+				:tag('th'):wikitext('Quantity per roll'):done()
+				:tag('th'):wikitext('Price'):done()
+				:tag('th'):wikitext('Chance per roll'):done()
+				:tag('th'):wikitext('Expected per chest'):done()
+				:tag('th'):wikitext('Expected value'):done()
+	
+	for _, loot in ipairs(lootBounds) do
+		if(loot['low'] > rewardPotential) then
+			break
+		end
+		high = math.min(loot['high'], rewardPotential)
+		local lowQty = math.floor(loot['low'] / loot['divisor'])
+		local highQty = math.floor( (high - 1) / loot['divisor'])
+		local chancePerRoll = ((1 - (1 / denominator)) * (high - loot['low'] + 1)) / rewardPotential
+		local runesMultiplier = 1.0
+		if(toggleMorytaniaHard and (loot['rune'])) then
+			runesMultiplier = 1.5
+			lowQty = math.floor(lowQty * 1.5)
+			highQty = math.floor(highQty * 1.5)
+		end
+		local expectedCount = 0.0
+		for i = loot['low'], high, 1 do
+			expectedCount = expectedCount + math.floor(runesMultiplier * math.floor(i / loot['divisor']))
+		end
+		expectedCount = ((1 - (1 / denominator)) * rewardRolls * expectedCount) / rewardPotential
+		local qtyRange = lowQty
+		if(lowQty ~= highQty) then
+			qtyRange = lowQty .. '–' .. highQty
+		end
+		local item = loot['item']
+		local price = 1
+		if(item ~= "Coins") then
+			price = gePrice(item)
+		end
+		totalLootExpectation = totalLootExpectation + (price * expectedCount)
+		lootTable:tag('tr')
+			:tag('td'):wikitext('[[File:' .. item .. '.png|link=' .. item .. ']]'):done()
+			:tag('td'):wikitext('[[' .. item .. ']]'):done()
+			:tag('td'):wikitext(qtyRange):done()
+			:tag('td'):wikitext(coins(price)):done()
+			:tag('td'):wikitext(string.format('%.3f%%', 100 * chancePerRoll)):done()
+			:tag('td'):wikitext(string.format('%.2f', expectedCount)):done()
+			:tag('td'):wikitext(coins(price * expectedCount)):done()
+	end
+	
+	lootTable:tag('tr')
+		:tag('th'):attr('colspan', 6):done()
+		:tag('th'):wikitext(coins(totalLootExpectation)):done()
+	
+	lootLine = lootLine .. tostring(lootTable)
+	
+	barrowsLootLine = ''
+	if(rewardRolls == 1) then 
+		barrowsLootLine = barrowsLootLine .. "No Barrows brothers were killed, so there is no chance for [[Barrows equipment]]."
+	else
+		barrowsLootLine = barrowsLootLine .. "Each roll is a '''1/" ..  denominator / leaguesMultiplier .. "''' chance to be one piece of [[Barrows equipment]]. There are '''" .. 4 * #brothersKillList .. "''' eligible pieces, therefore each is '''1/" .. denominator / leaguesMultiplier * 4 * #brothersKillList .. "''' per roll. On average you will get 1/" .. string.format('%.2f', denominator / leaguesMultiplier /rewardRolls) .. " Barrows items per chest.\n"
+		
+		local barrowsTable = mw.html.create('table')
+		barrowsTable:addClass('wikitable align-center-1')
+			:tag('tr')
+				:tag('th'):wikitext('Item'):attr('colspan', 2):done()
+				:tag('th'):wikitext('Price'):done()
+				:tag('th'):wikitext('Expected per chest'):done()
+				:tag('th'):wikitext('Expected value'):done()
+
+		for i, brother in ipairs(brothersKillList) do
+			for _, item in ipairs(barrowsEquipment[brother]) do
+				local price = gePrice(item)
+				totalEquipmentExpectation = totalEquipmentExpectation + (price * barrowsItemExpectation)
+				barrowsTable:tag('tr')
+					:tag('td'):wikitext('[[File:' .. item .. '.png|link=' .. item .. ']]'):done()
+					:tag('td'):wikitext('[[' .. item .. ']]'):done()
+					:tag('td'):wikitext(coins(price)):done()
+					:tag('td'):wikitext(string.format('%.3f%%', 100 * barrowsItemExpectation)):done()	
+					:tag('td'):wikitext(coins(price * barrowsItemExpectation)):done()
+			end
+		end
+		
+		barrowsTable:tag('tr')
+			:tag('th'):attr('colspan', 4):done()
+			:tag('th'):wikitext(coins(totalEquipmentExpectation)):done()
+
+		barrowsLootLine = barrowsLootLine .. tostring(barrowsTable)
+	end
+	
+	rollsLine = rollsLine .. " This chest has an expected value of '''" .. coins(totalLootExpectation + totalEquipmentExpectation) .. "'''."
+	
+	return rollsLine .. '\n\n' .. lootLine .. '\n' .. barrowsLootLine
+end
+
+return p

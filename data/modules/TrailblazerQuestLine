@@ -1,0 +1,39 @@
+local tb = require('Module:Trailblazer Region')._badge
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	local regions = {'misthalin', 'karamja', 'asgarnia', 'desert', 'fremennik', 'kandarin', 'morytania', 'tirannwn', 'wilderness'}
+	
+	local ret = mw.html.create('tr')
+	mw.log(args[1])
+	if args['incompletable'] == 'Yes' then
+		ret:tag('th'):wikitext(args[1]):addClass('table-bg-red')
+	else ret:tag('th'):wikitext(args[1])
+	end
+	mw.log(tostring(ret))
+	for _, region in ipairs(regions) do
+		if args[region] == nil then
+			if args['incompletable'] == 'Yes' then
+				ret:tag('td'):addClass('table-bg-red')
+			else ret:tag('td')
+			end
+		elseif args[region] == 'Yes' then
+			ret:tag('td'):wikitext(tb(region,nil,nil,nil,'Trailblazer League (2020)'))
+		elseif args[region] == 'auto' then
+			ret:tag('td'):addClass('table-bg-green'):wikitext('Auto')
+		else
+			ret:tag('td'):wikitext(tb(region,nil,nil,nil,'Trailblazer League (2020)') .. ' ' .. args[region])
+		end
+	end
+	if args['incompletable'] == 'Yes' then
+		ret:tag('td'):wikitext(args['notes'] or ''):addClass('table-bg-red')
+	else ret:tag('td'):wikitext(args['notes'] or '')
+	end
+
+	return tostring(ret)
+end
+
+return p

@@ -1,0 +1,12 @@
+return {
+    itemId     = 9003,
+    icon       = 'Security book.png',
+    item       = 'Security book',
+    value      = 2,
+    limit      = 15,
+    members    = false,
+    category   = nil,
+    examine    = 'WARNING: Contains information which could make your account secure!',
+    hialch     = 1,
+    lowalch    = 0
+}

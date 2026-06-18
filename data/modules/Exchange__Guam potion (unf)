@@ -1,0 +1,12 @@
+return {
+    itemId     = 91,
+    icon       = 'Guam potion (unf).png',
+    item       = 'Guam potion (unf)',
+    value      = 3,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'I need another ingredient to finish this Guam potion.',
+    hialch     = 1,
+    lowalch    = 1
+}

@@ -1,0 +1,11 @@
+return {
+	itemId    = 31964,
+	item      = "Repair kit",
+	icon      = 'Repair kit.png',
+    alchable  = true,
+	value     = 150,
+	limit     = 13000,
+	members   = true,
+	category  = nil,
+	examine   = "A simple wooden boat repair kit."
+}

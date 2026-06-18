@@ -1,0 +1,148 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+
+function truncate(num)
+	local whole, decimal = math.modf(num + 0.000001) -- addition is to prevent floating point rounding issues
+	return whole
+end
+
+function sell(basePrice, shopBuysAt, delta, baseStock, currentStock, quantitySold, itemValue)
+	local total = 0
+	
+	local upperBound = truncate(itemValue + (shopBuysAt * itemValue)) -- Item value + base price shop buys at
+	local lowerBound = truncate(itemValue * .1)
+	
+	local function understockSellPrice(stockDelta)
+		return truncate(itemValue * (shopBuysAt + (delta * stockDelta)))
+	end
+	
+	local function overstockSellPrice(stockDelta)
+		return truncate(itemValue * (shopBuysAt - (delta * stockDelta)))
+	end
+	
+	local function applyBounds(num)
+		if(num > upperBound) then
+			return upperBound
+		elseif(num <= lowerBound) then
+			return lowerBound
+		else
+			return num
+		end
+	end
+	
+	for i = quantitySold, 1, -1 do
+		local profit = 0
+		if(currentStock < baseStock) then
+			profit = applyBounds(understockSellPrice(baseStock - currentStock))
+		elseif(currentStock == baseStock) then
+			profit = applyBounds(basePrice)
+		elseif(currentStock > baseStock) then
+			profit = applyBounds(overstockSellPrice(currentStock - baseStock))
+		end
+		total = total + profit
+		currentStock = currentStock + 1
+	end
+	
+	return total, ''
+end
+
+function buy(basePrice, shopSellsAt, delta, baseStock, currentStock, quantityBought, itemValue)
+	local total = 0
+	local warningString = ''
+	
+	local upperBound = truncate(itemValue * (shopSellsAt + 5)) -- +500% base price
+	local lowerBound = truncate(itemValue * (shopSellsAt - 1)) -- -100% base price
+	local lowererBound = truncate(itemValue * .1)
+	local minimumBound = 1
+	
+	if(currentStock == 0) then
+		return 0, 'You cannot purchase from 0 stock.'
+	end
+	
+	if(quantityBought > currentStock) then
+		quantityBought = currentStock
+		warningString = 'You can only purchase ' .. currentStock .. ' items. Purchasing ' .. quantityBought .. ' items instead.'
+	end
+	
+	local function overstockBuyPrice(stockDelta)
+		return truncate(itemValue / (stockDelta * delta + shopSellsAt))
+	end
+	
+	local function understockBuyPrice(stockDelta)
+		return truncate(itemValue * (stockDelta * delta + shopSellsAt))
+	end
+	
+	local function applyBounds(num)
+		if(num > upperBound) then
+			return upperBound
+		elseif(num < minimumBound) then
+			return minimumBound
+		elseif(num < lowererBound) then
+			return lowererBound
+		elseif(num < lowerBound) then
+			return lowerBound
+		else
+			return num
+		end
+	end
+	
+	for i = quantityBought, 1, -1 do
+		local cost = 0
+		if(currentStock > baseStock) then
+			cost = applyBounds(overstockBuyPrice(currentStock - baseStock))
+		elseif(currentStock == baseStock) then
+			cost = applyBounds(basePrice)
+		elseif(currentStock < baseStock) then
+			cost = applyBounds(understockBuyPrice(baseStock - currentStock))
+		end
+		total = total + cost
+		currentStock = currentStock - 1
+	end
+	
+	return total, warningString
+end
+
+function p._main(args)
+	local buying = (args.action == 'Buying')
+	local basePrice = buying and paramTest.default_to(tonumber(args.priceShopSellsAt), 1) or paramTest.default_to(tonumber(args.priceShopBuysAt), 0)
+	local exchangeAt = buying and paramTest.default_to(tonumber(args.shopSellsAtValue), 1) or paramTest.default_to(tonumber(args.shopBuysAtValue), 0)
+	local delta = paramTest.default_to(tonumber(args.delta), 0)
+	local baseStock = paramTest.default_to(tonumber(args.baseStock), 1)
+	local currentStock = paramTest.default_to(tonumber(args.currentStock), 1)
+	local quantityExchanged = buying and paramTest.default_to(tonumber(args.buyQuantity), 1) or paramTest.default_to(tonumber(args.sellQuantity), 1)
+
+	exchangeAt = exchangeAt / 100
+	delta = delta / 100
+	
+	local itemValue = truncate(basePrice / exchangeAt)
+
+	local totalCoins = 0
+	local warning = ''
+	
+	if(buying) then
+		totalCoins, warning = buy(basePrice, exchangeAt, delta, baseStock, currentStock, quantityExchanged, itemValue)
+		quantityExchanged = math.min(quantityExchanged, currentStock)
+	else -- selling
+		totalCoins, warning = sell(basePrice, exchangeAt, delta, baseStock, currentStock, quantityExchanged, itemValue)
+	end
+
+	return warning .. '\n' .. tostring(totalCoins) .. string.format(' (%.2f each)', totalCoins/quantityExchanged)
+end
+
+--[[ DEBUG example: Lowes Sells at: 100.0% • Buys at: 55.0% • Change per: 1.0% Stock: 600 Sold at: 80 Bought at: 44
+p._main({ action = 'Buying', priceShopSellsAt = 80, shopSellsAtValue = 100, delta = 1, baseStock = 600, currentStock = 601, buyQuantity = 50 }) -- result 4920
+p._main({ action = 'Buying', priceShopSellsAt = 50, shopSellsAtValue = 100, delta = 3, baseStock = 10, currentStock = 5, buyQuantity = 1 }) -- result 57
+p._main({ action = 'Selling', priceShopBuysAt = 80, shopBuysAtValue = 100, delta = 1, baseStock = 600, currentStock = 600, sellQuantity = 50 }) -- result should be 3000
+p._main({ action = 'Selling', priceShopBuysAt = 44, shopBuysAtValue = 55, delta = 1, baseStock = 600, currentStock = 600, sellQuantity = 50 }) -- result is 1210
+p._main({ action = 'Selling', priceShopBuysAt = 36, shopBuysAtValue = 60, delta = 2, baseStock = 0, currentStock = 300, sellQuantity = 1 }) -- result is 6
+--]]
+
+function p.main(frame)
+	local args = frame.args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

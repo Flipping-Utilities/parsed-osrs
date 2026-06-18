@@ -1,0 +1,236 @@
+-- 
+-- Part of [[Template:Questreq]]'s implementation
+-- For information on how to update this page, please see [[Module talk:Questreq]]
+-- <nowiki>
+--
+
+local p = {}
+
+-- Load data from quest list
+local reqData = mw.loadData('Module:Questreq/data')
+
+-- Main function
+function p.main(frame)
+	local args = frame:getParent().args
+	local name = args[1]:gsub('&#39;', "'")
+	local option = tonumber(args[3]) or 9 
+	local closed = args[4] ~= 'open'
+    if args[2] == 'quests' then
+        return p._main_quests(name,option,closed)
+    elseif args[2] == 'skills' then 
+        return p._main_skills(name)
+    end
+end
+
+function p._main_quests(quest,limit,closed)
+ 
+    local closedCss = ''
+    if closed then
+        closedCss = 'mw-collapsed'
+    else
+        closedCss = 'mw-open'
+    end
+	return mw.html.create('table')
+			:addClass('mw-collapsible')
+			:addClass(closedCss)
+			:addClass('questreq')
+			:css('background','none')
+		:tag('tr')
+			:tag('th')
+			:css('text-align','left')
+			:wikitext('[[File:Quest point icon.png|21x21px|link=]] Quests:')
+			:done()
+		:done()
+		:tag('tr')
+			:tag('td')
+				:css('padding-left','25px')
+				:tag('ul')
+                    :css('list-style-type','none')
+                    :css('list-style-image','none')
+                    :css('padding-left','10px')
+                    :node( list_reqs(quest,1,limit) )
+				:done()
+			:done()
+		:done()
+end
+
+--
+-- Recursive list function
+-- Level determines how deep the indentation is
+-- Replaces 'Started:' modifier
+-- If the quest just listed was found in the big list and the limit for level is not reached
+-- the quest's requirements will be listed as a sublist 1 level deeper
+--
+function list_reqs(quest,level,limit)
+    local req_name, sub_req_list
+    if quest then
+        local started
+        -- Look for the 'Started:' modifier and replace it
+        -- If found, set boolean to true
+        if quest:find('Started:') then
+            quest = quest:gsub('Started:%s*','')
+            started = true
+        end
+        -- Look for quest in the list
+        local subreqs = reqData[quest]['quests']
+        if subreqs then
+            if started then
+                req_name = 'Started ' .. tidy_link(quest)
+            else
+                req_name = tidy_link(quest)
+            end
+            -- For every requirement, call this function again
+            -- Handled the same, but 1 level deeper
+            -- If limit is reached, denote extra requirements exist with ellipses
+            if subreqs[1] then
+                if level <= limit then
+                    sub_req_list = mw.html.create('ul')
+                                    :css('list-style-type','none')
+                    				:css('list-style-image','none')
+                                    :css('padding-left','10px')
+                    for i, q in ipairs(subreqs) do
+                        local sub_list = list_reqs(q,level+1,limit)
+                        sub_req_list:node(sub_list)
+                    end
+                    sub_req_list:done()
+                else
+                    req_name = req_name .. '…'
+                end
+            end
+        else
+        -- If the requirement can't be found in the big list
+        -- Paste it as is and skip any attempt to make a sublist
+        req_name = quest
+        end
+    end
+    
+    local ret = mw.html.create('li')
+    :wikitext(req_name)
+    
+    if sub_req_list then
+        ret:node(sub_req_list)
+    end
+    
+    return ret:done()
+end
+
+--
+-- Function to tidy quest names into links
+-- Any parenthetical (e.g. '(quest)') will be removed from the text, but remain in the link
+-- 'Recipe for Disaster/' will be replaced in the RfD subquests, so that only the subquest name appears as text
+-- Returns a link
+-- The 'Full:' modifier is removed
+--
+function tidy_link(name)
+	if name then
+		if name:find('Full:') then
+			name = name:sub(6)
+		end
+		local alt = name:match('(.*)%(.*%)') or name
+ 
+		if name:find('Recipe for Disaster%/') then
+			alt = name:gsub('Recipe for Disaster%/','')
+		end
+ 
+		name = string.format('[[%s|%s]]',name,alt)
+	end
+	return name
+end
+
+function p._main_skills(name)
+    --variables needed for parsing and ordering skill reqs
+    local subreqs = reqData[name]['skills']
+    
+    local imp_reqs = {}         --ironman priority keys
+    local imnp_reqs = {}        --ironman non-priority keys
+    local nimp_reqs = {}        --non-ironman priority keys
+    local nimnp_reqs = {}       --non-ironman non-priority keys
+    local ordered_reqs = {}
+    
+    local boostable_template = ' (boostable)'
+    local ironman_template = ' ([[File:Ironman_chat_badge.png|10x13px|link=]] [[Ironman]] only)'
+    local kudos_template = ' [[%s]]'
+    local skill_template = ' [[File:%s_icon.png|21x21px|link=]] [[%s]]'
+    
+    --These keys will take priority over regular skill keys (they will be listed first) 
+    --set value to true to use, false otherwise
+    local priority_keys = {
+        ['Quest point'] = true,
+        ['Kudos'] = true
+    }
+    --iterate through each subreq and extract info
+    for _,subreq in pairs(subreqs) do 
+        --check if current subreq for flags
+        local im_flag = false   --ironman flag
+        local b_flag = false    --boostable flag
+		for _,v in pairs(subreq) do 
+			if(v == 'ironman') then 
+				im_flag = true 
+			elseif(v == 'boostable') then 
+				b_flag = true 
+			end
+		end
+    
+        --check if priority key and then flag special keys
+        local p_flag = priority_keys[subreq[1]]
+        local k_flag = subreq[1] == 'Kudos'
+    
+        --create wikitext string
+        local wikitext
+        if(k_flag) then wikitext = string.format(kudos_template, subreq[1])
+        else wikitext = string.format(skill_template, subreq[1], subreq[1]) end
+        if(im_flag) then wikitext = wikitext .. ironman_template end
+        if(b_flag) then wikitext = wikitext .. boostable_template end
+        
+        --create a 2-element array consisting of {skill level, wikitext}
+        local reqdata = {}
+        table.insert(reqdata, subreq[2])
+        table.insert(reqdata, wikitext)
+    
+        --distribute subreq key to appropriate key array
+		--sorting every subreq might need to be optimized if performance is a concern
+        if(im_flag) then 
+            if(p_flag) then
+                table.insert(imp_reqs, reqdata)
+				table.sort(imp_reqs, function(a,b) return a[2] < b[2] end)
+            else
+                table.insert(imnp_reqs, reqdata)
+				table.sort(imnp_reqs, function(a,b) return a[2] < b[2] end)
+            end
+        else
+            if(p_flag) then 
+                table.insert(nimp_reqs, reqdata)
+				table.sort(nimp_reqs, function(a,b) return a[2] < b[2] end)
+            else
+                table.insert(nimnp_reqs, reqdata)
+				table.sort(nimnp_reqs, function(a,b) return a[2] < b[2] end)
+            end
+        end
+    end
+    
+    --now organize keys in order desired
+    for _,v in pairs(nimp_reqs) do table.insert(ordered_reqs, v) end
+    for _,v in pairs(nimnp_reqs) do table.insert(ordered_reqs, v) end
+    for _,v in pairs(imp_reqs) do table.insert(ordered_reqs, v) end
+    for _,v in pairs(imnp_reqs) do table.insert(ordered_reqs, v) end
+    
+    -----------------------------------------------
+    
+    -- create an html structure
+    local html = mw.html.create('ul')
+			:addClass('skillreq')
+    
+    --parse skill reqs, append to html object, and return finished html
+    for _, v in pairs(ordered_reqs) do
+        html:tag('li')
+            :wikitext(v[1])
+            :tag('span')
+                :addClass('SkillClickPic')
+                :wikitext(v[2])
+            :done()
+        :done()        
+    end
+    return html:done()
+end
+
+return p

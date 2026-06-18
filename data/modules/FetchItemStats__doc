@@ -1,0 +1,47 @@
+{{documentation}}
+
+This module provides three functions that make obtaining an item's information easier.
+
+{{Helper module
+|name = FetchItemStats
+|fname1 = defaultVersion(pagename)
+|ftype1 = String, String
+|fuse1 = Returns a string of the default version (format: <code>Pagename#Versionname</code>) that can be used for further bucket searches. Also returns a wikilink to the matched page name (following redirects from the given <code>pagename</code>, as the second return value.
+|fname2 = value(item_bucketname)
+|ftype2 = Number
+|fuse2 = Returns the item value for either the specified bucket version (if the given name links to a specific item), or the version that is shown on the page by default (the same version as returned by <code>defaultVersion</code>.
+|fname3 = equipmentStats(<br/>{item1_bucketname, ...},<br/>{sort_key1, ...},<br/>{sort_order1, ...},<br/>{filterfield=filtervalue}<br>)
+|ftype3 = { Table1, Table2, ... }
+|fuse3 = Fetches all item stats for a list of given bucket names. If an ambiguous item name is given anywhere in this list (i.e. one that has different versions), this function will ''not'' automatically pick the one that would otherwise be chosen by <code>defaultVersion</code>. A specific bucket name needs to be entered for this function.
+
+Sort keys and sort orders may be provided as optional second and third arguments. No custom sorting will be applied if these arrays are empty or <code>nil</code>. Note that Semantic MediaWiki queries automatically sort the output pages based on alphabetical pagename order. If no sorting should be applied whatsoever, set <code>sort_key1</code> to something [[Module:Yesno|recognised as being falsy]] (e.g. <code>{'no'}</code>).
+
+Possible sorting orders are:  'ascending', 'asc', 'descending', 'desc', 'reverse', 'random' and 'rand'.
+
+Filters can be provided in the fourth argument, which are passed to bucket.where. Best used with an empty page name array.
+
+The returned stats are formatted as a Table containing a single Table for each of the items, in the order given by the sort keys, or the default bucket sorting. The stats that are returned in each of these Tables are:
+<pre>
+{
+    astab  = 'Stab attack bonus',
+    aslash = 'Slash attack bonus',
+    acrush = 'Crush attack bonus',
+    amagic = 'Magic attack bonus',
+    arange = 'Range attack bonus',
+    dstab  = 'Stab defence bonus',
+    dslash = 'Slash defence bonus',
+    dcrush = 'Crush defence bonus',
+    dmagic = 'Magic defence bonus',
+    drange = 'Range defence bonus',
+    str    = 'Strength bonus',
+    mdmg   = 'Magic Damage bonus',
+    rstr   = 'Ranged Strength bonus',
+    prayer = 'Prayer bonus',
+    range  = 'Attack range',
+    speed  = 'Attack speed',
+    weight = 'Weight',
+    image  = 'Image',
+    subobj = 'Has subobject'
+}
+</pre>
+}}

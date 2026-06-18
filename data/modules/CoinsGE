@@ -1,0 +1,33 @@
+local p = {}
+
+local coins = require('Module:Coins')
+local exchange = require('Module:Exchange')
+
+--
+-- Module access point
+--
+function p._main(target)
+	-- return target
+	if not target then
+		return 'N/A'
+	end
+
+	target = tostring(target)
+	local amount = exchange._price(target)
+	return coins._amount(amount)
+end
+
+--
+-- {{Coins}} access point
+--
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args[1])
+end
+
+--[[ DEBUG =
+= p._main('Watering can')
+= p._main()
+--]]
+
+return p

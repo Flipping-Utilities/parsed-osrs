@@ -1,0 +1,45 @@
+local p = {}
+
+local build_map = require('Module:Map').buildMap
+local default_to = require('Module:Paramtest').default_to
+
+local bad_chars = {'%(', '%)', '%s'}
+
+function p.main(frame)
+	local args = frame.args
+	local page_name = args.page_name
+
+	local data = bucket('locline')
+		.select('coordinates')
+		.where('page_name', page_name)
+		.run()
+
+	local page_name_clean = page_name
+	for _, bad_char in ipairs(bad_chars) do
+		page_name_clean = page_name_clean:gsub(bad_char, '')
+	end
+
+	local map_args = {
+		['type'] = 'maplink',
+		['mtype'] = 'pin',
+		['icon'] = default_to(args['icon'], 'redPin'),
+		['text'] = default_to(args['text'], 'Map'),
+		['mapID'] = default_to(args['mapID'], 0),
+		['title'] = '[[' .. page_name .. ']]',
+		['group'] = page_name_clean,
+	}
+
+	local i = 1
+	for _, row in ipairs(data) do
+		if row['coordinates'] ~= nil then
+			for _, coord_string in ipairs(row['coordinates']) do
+				map_args[i] = coord_string
+				i = i + 1
+			end
+		end
+	end
+
+	return build_map(map_args)
+end
+
+return p

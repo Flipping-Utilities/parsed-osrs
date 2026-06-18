@@ -1,0 +1,11 @@
+return {
+	itemId    = 31541,
+	item      = "Flax seed",
+	icon      = 'Flax seed 5.png',
+    alchable  = true,
+	value     = 5,
+	limit     = 2000,
+	members   = true,
+	category  = nil,
+	examine   = "A flax plant seed - plant in a hops patch."
+}

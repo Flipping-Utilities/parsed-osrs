@@ -1,0 +1,12 @@
+return {
+    itemId     = 64,
+    icon       = 'Maple shortbow (u).png',
+    item       = 'Maple shortbow (u)',
+    value      = 200,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'An unstrung maple shortbow; I need a bowstring for this.',
+    hialch     = 120,
+    lowalch    = 80
+}

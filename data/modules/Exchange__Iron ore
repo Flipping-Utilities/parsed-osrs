@@ -1,0 +1,12 @@
+return {
+    itemId     = 440,
+    icon       = 'Iron ore.png',
+    item       = 'Iron ore',
+    value      = 17,
+    limit      = 13000,
+    members    = false,
+    category   = nil,
+    examine    = 'This needs refining.',
+    hialch     = 10,
+    lowalch    = 6
+}

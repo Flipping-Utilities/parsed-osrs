@@ -1,0 +1,12 @@
+return {
+    itemId     = 12408,
+    icon       = 'Piscatoris teleport.png',
+    item       = 'Piscatoris teleport',
+    value      = 10,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Teleports you to Piscatoris.',
+    hialch     = 6,
+    lowalch    = 4
+}

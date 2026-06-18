@@ -1,0 +1,10 @@
+{{Documentation}}
+{{D|Unused, generally not a good idea to provide multiple options to achieve the same thing, Coins wrapping GEP is the intended way to achieve this use case}}
+This is a wrapper around the [[Module:Coins]] module and inspired by the [[Template:GEP]]. It combines their functionality to both show the appopriate coins symbol and grab the GE price for the given item.
+
+{{Helper module
+|name = CoinsGE
+|fname1 = _main(item)
+|ftype1 = String
+|fuse1 = Returns a formatted string with a coins icon and the amount of coins the item is worth in GE. See [[Template:CoinsGE]] for examples.
+}}

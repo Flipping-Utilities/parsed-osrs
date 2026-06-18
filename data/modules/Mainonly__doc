@@ -1,0 +1,9 @@
+{{documentation}}
+{{Helper module|name=Mainonly
+|fname1=_main(arg)
+|ftype1=Any value
+|fuse1=If the module is invoked in the content namespace, it will return arg, otherwise, it will return an empty string
+|fname2=on_main()
+|ftype2=N/A
+|fuse2=Returns true if invoked in the content namespace, otherwise false
+}}

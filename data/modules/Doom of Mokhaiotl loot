@@ -1,0 +1,289 @@
+local gePrice = require("Module:Exchange")._price
+local coins = require("Module:Less Stupid Coins")._amount
+local tables = require("Module:Tables")
+local lang = mw.language.getContentLanguage()
+
+local p = {}
+
+
+-- Unique drop rates per single kill at each delve level
+local unique_rates = {
+    ["Mokhaiotl cloth"] = {
+        [2] = 2500,
+        [3] = 2000,
+        [4] = 1350,
+        [5] = 810,
+        [6] = 765,
+        [7] = 720,
+        [8] = 630,
+        [9] = 540
+    },
+    ["Eye of ayak (uncharged)"] = {
+        [3] = 2000,
+        [4] = 1350,
+        [5] = 810,
+        [6] = 765,
+        [7] = 720,
+        [8] = 630,
+        [9] = 540
+    },
+    ["Avernic treads"] = {
+        [4] = 1350,
+        [5] = 810,
+        [6] = 765,
+        [7] = 720,
+        [8] = 630,
+        [9] = 540
+    },
+    ["Dom"] = {
+        [6] = 1000,
+        [7] = 750,
+        [8] = 500,
+        [9] = 250
+    }
+}
+
+-- Regular loot quantity multipliers based on delve level
+-- Corrected multipliers to reflect the subtraction logic
+local loot_multipliers = {
+    [1] = -0.50,
+    [2] = -0.35,
+    [3] = 0.00,
+    [4] = 0.05,
+    [5] = 0.10,
+    [6] = 0.12,
+    [7] = 0.14,
+    [8] = 0.17,
+    [9] = 0.20
+}
+
+-- Base regular loot table from Delve level 3 (expected quantities per run)
+-- Base regular loot table from Delve level 3
+local regular_loot_base = {
+    -- Weapons and armour
+    {name = "Dragon med helm", rarity = 5 / 104, quantity = {1, 1}},
+    {name = "Dragon platelegs", rarity = 1 / 104, quantity = {2, 4}},
+    {name = "Mystic earth staff", rarity = 5 / 104, quantity = {1, 1}},
+    {name = "Rune pickaxe", rarity = 5 / 104, quantity = {1, 3}},
+    -- Runes and ammunition
+    {name = "Death rune", rarity = 5 / 104, quantity = {50, 70}},
+    {name = "Chaos rune", rarity = 5 / 104, quantity = {50, 70}},
+    {name = "Earth rune", rarity = 5 / 104, quantity = {500, 1000}},
+    {name = "Fire rune", rarity = 5 / 104, quantity = {500, 1000}},
+    {name = "Steel cannonball", rarity = 5 / 104, quantity = {200, 600}},
+    {name = "Onyx bolts", rarity = 5 / 104, quantity = {5, 15}},
+    -- Ores
+    {name = "Coal", rarity = 5 / 104, quantity = {15, 50}},
+    {name = "Gold ore", rarity = 5 / 104, quantity = {20, 60}},
+    {name = "Runite ore", rarity = 5 / 104, quantity = {3, 6}},
+    -- Seeds
+    {name = "Celastrus seed", rarity = 3 / 104, quantity = {1, 1}},
+    {name = "Ranarr seed", rarity = 2 / 104, quantity = {1, 3}},
+    {name = "Spirit seed", rarity = 3 / 104, quantity = {1, 1}},
+    -- Resources
+    {name = "Aether catalyst", rarity = 5 / 104, quantity = {150, 400}},
+    {name = "Dragon dart tip", rarity = 5 / 104, quantity = {30, 90}},
+    {name = "Raw shark", rarity = 3 / 104, quantity = {20, 35}},
+    {name = "Shark lure", rarity = 2 / 104, quantity = {40, 70}},
+    {name = "Sun-kissed bones", rarity = 5 / 104, quantity = {25, 75}},
+    -- Other
+    {name = "Tooth half of key (moon key)", rarity = 1 / 104, quantity = {1, 1}},
+    {name = "Demon tear", rarity = 7 / 104, quantity = {100, 300}},
+    {name = "Mokhaiotl waystone", rarity = 7 / 104, quantity = {1, 2}, notes = "Delve level 1: 1, deeper levels: 1-2"}
+}
+
+-- Special loot with varying rates
+local clue_rates = {
+    [1] = 1 / 75,
+    [2] = 1 / 75,
+    [3] = 1 / 50,
+    [4] = 1 / 50,
+    [5] = 1 / 50,
+    [6] = 1 / 50,
+    [7] = 1 / 50,
+    [8] = 1 / 50,
+    [9] = 1 / 50
+}
+
+-- Helper function to fetch Grand Exchange price and image
+local function getItemPrice(name)
+    if name == "Mokhaiotl cloth" then
+        local gauntlets_price = gePrice("Confliction gauntlets")
+        local bracelet_price = gePrice("Tormented bracelet")
+        return gauntlets_price - bracelet_price
+    elseif name == "Dom" or name == "Spirit seed" or name == "Sun-kissed bones" or name == "Tooth half of key (moon key)" or name == "Clue scroll (elite)" then
+    	return 0
+    end
+    return gePrice(name) or 0
+end
+
+-- Calculates the expected number of unique drops
+local function calculate_expected_unique_drops(item_name, max_level)
+	local item_rates = unique_rates[item_name]
+    local expected_drops = 0
+    for level = 1, max_level do
+        local current_level_rate = 0
+        local rate_level = math.min(level, 9)
+        current_level_rate = item_rates[rate_level] or 0
+
+        if current_level_rate > 0 then
+            expected_drops = expected_drops + (1 / current_level_rate)
+        end
+    end
+
+    return expected_drops
+end
+
+function p.main(frame)
+    local args = frame.args
+    local max_delve = tonumber(args.max_delve) or 1
+    local lang = mw.language.getContentLanguage()
+
+    local output = ""
+    local total_unique_value = 0
+    local total_common_value = 0
+
+    -- Unique Loot Table (Average rewards per person)
+    local unique_loot_table = mw.html.create("table"):addClass("wikitable align-center-1")
+    local unique_loot_table_data = {}
+    table.insert(
+        unique_loot_table_data,
+        {{tag = "th", text = "Item", attr = {colspan = 2}}, {tag = "th", text = "Chance"}, {tag = "th", text = "Value"}}
+    )
+
+    local unique_items = {"Mokhaiotl cloth", "Eye of ayak (uncharged)", "Avernic treads", "Dom"}
+    for _, item_name in ipairs(unique_items) do
+        local item_price = getItemPrice(item_name)
+        local rates = unique_rates[item_name]
+
+        local expected_drops = 0
+        local chance_text = "0"
+        local expected_value_per_run = 0
+
+        expected_drops = calculate_expected_unique_drops(item_name, max_delve)
+
+        if expected_drops > 0 then
+            local percentage = expected_drops * 100
+            local rate_str = string.format("1 in %.0f", 1 / expected_drops)
+            chance_text = string.format("%.4f%%", percentage) .. "<br/>(" .. rate_str .. ")"
+        end
+
+        expected_value_per_run = item_price * expected_drops
+        total_unique_value = total_unique_value + expected_value_per_run
+
+
+        table.insert(
+            unique_loot_table_data,
+            {
+                {text = string.format("[[File:%s.png|link=%s]]", item_name, item_name)},
+                {text = string.format("[[%s]]", item_name)},
+                {text = chance_text},
+                {text = coins(expected_value_per_run)}
+            }
+        )
+    end
+    table.insert(
+        unique_loot_table_data,
+        {{attr = {colspan = 3}, text = "Expected value", tag = "th"}, {text = coins(total_unique_value), tag = "th"}}
+    )
+    tables._table(unique_loot_table, unique_loot_table_data)
+
+    -- Common Loot Table
+    local common_loot_table = mw.html.create("table"):addClass("wikitable align-center-1")
+    local common_loot_table_data = {}
+    table.insert(
+        common_loot_table_data,
+        {
+            {tag = "th", text = "Item", attr = {colspan = 2}},
+            {tag = "th", text = "Quantity"},
+            {tag = "th", text = "Value"}
+        }
+    )
+
+    for _, loot_item in ipairs(regular_loot_base) do
+    	local name = loot_item.name
+        local item_price = getItemPrice(name)
+        local lowQty = loot_item.quantity[1]
+        local highQty = loot_item.quantity[2]
+        local expectedQty = 0
+        for level = 1, max_delve do
+            local loot_multiplier = loot_multipliers[math.min(level, 9)]
+            for qty = lowQty, highQty do
+                local adjustedQty
+                if loot_multiplier > 0 then
+                    adjustedQty = math.floor(qty * (1 + loot_multiplier))
+                else
+                    adjustedQty = qty - math.floor(qty * (-loot_multiplier))
+                end
+                expectedQty = expectedQty + adjustedQty / (highQty - lowQty + 1) * loot_item.rarity
+            end
+        end
+        total_common_value = total_common_value + expectedQty * item_price
+
+        table.insert(
+            common_loot_table_data,
+            {
+                {text = string.format("[[File:%s.png|link=%s]]", name, name)},
+                {text = string.format("[[%s]]", name)},
+                {text = string.format("%.2f", expectedQty)},
+                {text = coins(expectedQty * item_price)}
+            }
+        )
+
+        if name == "Demon tear" then
+            local total_tears = 0
+            for level = 1, max_delve do
+                if level == 3 then
+                    total_tears = total_tears + 50
+                end
+                if level == 4 then
+                    total_tears = total_tears + 60
+                end
+                if level == 5 then
+                    total_tears = total_tears + 70
+                end
+                if level == 6 then
+                    total_tears = total_tears + 80
+                end
+                if level == 7 then
+                    total_tears = total_tears + 90
+                end
+                if level >= 8 then
+                    total_tears = total_tears + 100
+                end
+            end
+            local guaranteed_tears_value = total_tears * getItemPrice("Demon tear")
+            total_common_value = total_common_value + guaranteed_tears_value
+
+            table.insert(
+                common_loot_table_data,
+                {
+                    {text = "[[File:Demon tear.png|link=Demon tear]]"},
+                    {text = "[[Demon tear]] (guaranteed)"},
+                    {text = lang:formatNum(total_tears)},
+                    {text = coins(guaranteed_tears_value)}
+                }
+            )
+        end
+    end
+
+    table.insert(
+        common_loot_table_data,
+        {
+            {text = "[[File:Clue scroll (elite).png|link=Clue scroll (elite)]]"},
+            {text = "[[Clue scroll (elite)]]"},
+            {text = "1"},
+            {text = coins(0)}
+        }
+    )
+
+    table.insert(
+        common_loot_table_data,
+        {{attr = {colspan = 3}, text = "Expected value", tag = "th"}, {text = coins(total_common_value), tag = "th"}}
+    )
+    tables._table(common_loot_table, common_loot_table_data)
+
+    return "===Unique loot===\n" .. tostring(unique_loot_table) .. "\n===Common loot===\n" .. tostring(common_loot_table)
+end
+
+return p

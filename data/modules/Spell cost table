@@ -1,0 +1,452 @@
+-- <pre>
+
+local p = {}
+
+local gep = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+
+local combo_runes = {
+	['mist rune'] = { ['air rune'] = true, ['water rune'] = true },
+	['dust rune'] = { ['air rune'] = true, ['earth rune'] = true },
+	['mud rune'] = { ['water rune'] = true, ['earth rune'] = true },
+	['smoke rune'] = { ['air rune'] = true, ['fire rune'] = true },
+	['steam rune'] = { ['water rune'] = true, ['fire rune'] = true },
+	['lava rune'] = { ['earth rune'] = true, ['fire rune'] = true },
+	['aether rune'] = { ['cosmic rune'] = true, ['soul rune'] = true }
+}
+
+local non_rune_items = {
+	['banana'] = 1,
+	['unpowered orb'] = true,
+	['soft clay'] = true,
+}
+	
+local staves = {
+	--[[Weapon Structure
+		Weapons are structured to allow specification of when and how they are included in the table. The structure for each entry is detailed below.
+	
+		<<Parameters>>
+		name		 : The name of the item
+		['_____']	 : The name of a fully provided rune (or item), should be set to true
+		conditions   : (Optional) An array of conditions for item (or Modifier) inclusion, detailed below
+		alternatives : (Optional) A list of alternative items, these will be listed in an explain subscript if they haven't been included in the table
+		extras		 : (Optional Modifier) An array of additional items to the row, each item accepts conditions in addition to the parameters below
+			item	 : The name of the item
+			quantity : The amount of the item
+		negations	 : (Optional Modifier) An array of negations (i.e.) a chance to save a rune, conditions should be used to specify things such as rune type or required arguments
+			magnitude: The multiplier to negate by. Should be 1 - (% to save), e.g Kodai wand has 15% so magnitude is 1 - 0.15 = 0.85
+			offset: an offset to subtract. Final rune cost is (base cost - offset)*magnitude.
+		<<Conditions>>
+		args		 : An array of {argument, (optional) value} checks for arg, if a value is included it requires that specific value
+		runes		 : Array of rune types, should NOT be used at root level, i.e. should only be used as a condition for modifiers
+		rune_count	 : A minimum number of matching runes to be included, should ONLY be used at root level, i.e. shouldn't be used as a condition for modifiers
+	--]]
+	{ name = 'staff of air', ['air rune'] = true, alternatives = {'mist battlestaff', 'smoke battlestaff', 'dust battlestaff'} },
+	{ name = 'staff of water', ['water rune'] = true, alternatives = {'mist battlestaff', 'mud battlestaff', 'steam battlestaff', 'kodai wand', 'twinflame staff'} },
+	{ name = 'staff of earth', ['earth rune'] = true, alternatives = {'dust battlestaff', 'mud battlestaff', 'lava battlestaff'} },
+	{ name = 'staff of fire', ['fire rune'] = true, alternatives = {'steam battlestaff', 'lava battlestaff', 'smoke battlestaff', 'twinflame staff'} },
+	
+	--We don't want to including combination staves unless they're actually granting a benefit
+	{ name = 'mud battlestaff', ['water rune'] = true, ['earth rune'] = true, conditions = { rune_count = 2 }},
+	{ name = 'steam battlestaff', alternatives = {'twinflame staff'}, ['water rune'] = true, ['fire rune'] = true, conditions = { rune_count = 2 } },
+	{ name = 'lava battlestaff', ['earth rune'] = true, ['fire rune'] = true, conditions = { rune_count = 2 } },
+	{ name = 'smoke battlestaff', ['air rune'] = true, ['fire rune'] = true, conditions = { rune_count = 2 } },
+	{ name = 'dust battlestaff', ['air rune'] = true, ['earth rune'] = true, conditions = { rune_count = 2 } },
+	{ name = 'mist battlestaff', ['air rune'] = true, ['water rune'] = true, conditions = { rune_count = 2 } },
+	
+	--Staff of the dead and Kodai only need to be shown for offensive spells, thus we can condition their inclusion based on the is_offensive arg
+	{ name = 'staff of the dead', conditions = {args = {{'is_offensive'}}}, alternatives = {'staff of light, staff of balance, or toxic variant'}, negations = {{magnitude = 0.857}} },
+	{ name = 'kodai wand', ['water rune'] = true, conditions = {args = {{'is_offensive'}}}, negations = {{magnitude = 0.85}} },
+	
+	--Partial negation should be conditioned upon the rune(s), placed INSIDE the negation parameter
+	{ name = "bryophyta's staff", negations = {{conditions = {runes = {'nature rune'}}, offset = (1/15)}} }
+}
+
+local offhands = {
+	--Tomes only sometimes use pages, so we want to condition the extras to the uses_pages arg that
+	{ name = 'tome of fire', ['fire rune'] = true, extras = {{conditions = {args = {{'uses_pages_fire'}}}, item = 'Burnt page', quantity = 1/20 }} },
+	{ name = 'tome of fire', ['fire rune'] = true, extras = {{conditions = {args = {{'uses_pages_fire'}}}, item = 'Searing page', quantity = 1/20 }} },
+	{ name = 'tome of water', ['water rune'] = true, extras = {{conditions = {args = {{'uses_pages_water'}}}, item = 'Soaked page', quantity = 1/20}} },
+	{ name = 'tome of earth', ['earth rune'] = true, extras = {{conditions = {args = {{'uses_pages_earth'}}}, item = 'Soiled page', quantity = 1/20}} },
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	--Split uses_pages over fire/water/earth
+	if args['uses_pages'] then
+		args['uses_pages_fire'] = args['uses_pages']
+		args['uses_pages_water'] = args['uses_pages']
+		args['uses_pages_earth'] = args['uses_pages']
+	end
+	
+	--Parse the numbered rune arguments into an array
+	local runes = {}
+	for i=1,10 do
+		if not args['Rune'..i] then
+			break
+		end
+		
+		local rune = string.lower(args['Rune'..i])
+		
+		-- Unless it's found in non-rune items, we assume that it's a rune and append " rune" to the end
+		if not non_rune_items[rune] then
+		    rune = rune..' rune'
+		end
+		    
+		local num = tonumber(args['Rune'..i..'num'] or 1)
+		table.insert(runes,{rune,num,{}})
+	end
+	
+	return p.create_table(runes, args)
+end
+
+-- We want backwards compatibility for the old module, until things are moved over
+function p._main(runes, no_staff, uses_pages)
+	return p.create_table({
+			['no_staff'] = no_staff,
+			['uses_pages_fire'] = uses_pages,
+			['uses_pages_water'] = uses_pages,
+			['uses_pages_earth'] = uses_pages
+	})
+end
+
+function p.create_table(runes, args)
+	-- Create the headers and insert the first row for basic runes
+	local ret = mw.html.create('table')
+					:addClass('wikitable')
+					:tag('caption')
+						:wikitext('Spell cost')
+					:done()
+					:tag('tr')
+						:tag('th')
+							:wikitext('Input')
+						:done()
+						:tag('th')
+							:wikitext('Cost')
+						:done()
+					:done()
+					:tag('tr')
+						:tag('td')
+							:wikitext(make_pics(runes))
+						:done()
+						:tag('td')
+							:wikitext(total_price(runes))
+						:done()
+					:done()
+
+	-- Decide what combo runes can be used in the spell
+	local combos_used = {}
+	for i, v in pairs(combo_runes) do
+		local amtused = 0
+		local runes_temp = {}
+		for j, x in ipairs(runes) do
+			if v[x[1]] then
+				if x[2] > amtused then
+				   amtused = x[2]
+				end
+			else
+				table.insert(runes_temp, x)
+			end
+		end
+		if amtused > 0 then
+			table.insert(runes_temp,{i, amtused,{}})
+			table.insert(combos_used,runes_temp)
+		end
+	end
+	if #combos_used > 0 then
+		ret:tag('tr')
+			:tag('th')
+				:attr('colspan','2')
+				:wikitext('Combo runes')
+			:done()
+		:done()
+		for _, v in ipairs(combos_used) do
+			ret:tag('tr')
+				:tag('td')
+					:wikitext(make_pics(v))
+				:done()
+				:tag('td')
+					:wikitext(total_price(v))
+				:done()
+			:done()
+		end
+	end
+	
+	-- add relevant main-hands to the weapons table
+	local weapons = {}
+	local relevant_staves = {}
+	if (not args.nostaff and not args.no_staff) or (args.nostaff == 0 or args.no_staff == 0) then
+		relevant_staves = composeWeapons(staves, runes, args)
+		weapons = join (weapons, relevant_staves)
+	end
+	
+	-- add relevant off-hands to the weapons table
+	local relevant_offhands = {}
+	if (not args.nooffhand and not args.no_offhand) and ((not args.nostaff and not args.no_staff) or (args.nostaff ~= 1 or args.no_staff ~= 1))  then
+		relevant_offhands = composeWeapons(offhands, runes, args)
+		weapons = join(weapons, relevant_offhands)
+	end
+	
+	local relevant_combos = {}
+	-- add relevant main-+off-hand combinations to the weapons table
+	relevant_combos = compose_combinations(relevant_staves, relevant_offhands, runes, args)
+	
+	local offhand_header = 'Off-hands'
+	if #relevant_combos > 0 then
+		offhand_header = 'Main and off-hands'
+	end
+	
+	if #relevant_staves > 0 then
+		ret:tag('tr')
+			:tag('th')
+				:attr('colspan','2')
+				:wikitext('Main-hands')
+			:done()
+		:done()
+		ret = weapon_output(relevant_staves,runes,weapons,ret,args)
+	end
+	if #relevant_offhands > 0 then
+		ret:tag('tr')
+			:tag('th')
+				:attr('colspan','2')
+				:wikitext(offhand_header)
+			:done()
+		:done()
+		ret = weapon_output(relevant_offhands,runes,weapons,ret,args)
+		ret = weapon_output(relevant_combos,runes,weapons,ret,args)
+	end
+	return ret
+end
+
+-- Here we implement how conditions are checked.
+function check_conditions(conditions, args, rune, rune_count)
+	local ret = true --create a return variable
+	
+	if conditions.args then -- Scan through all args to make sure they match
+		for _, condition in ipairs(conditions.args) do
+			ret = ret and args[condition[1]] and ((not condition[2]) or (condition[2] == args[condition[1]]))
+			-- If an arg has no listed value, it's assumed that anything but a nil value is valid, otherwise check
+		end
+	end
+
+	if conditions.rune_count then ret = ret and rune_count >= conditions.rune_count end 
+	
+	if conditions.runes then -- Scan through all runes for which this condition applies, if a match is found, condition passes
+		local rune_present = false
+		for _, irune in ipairs(conditions.runes) do
+			rune_present = rune_present or rune == irune
+		end
+		ret = ret and rune_present
+	end
+	
+	return ret
+end
+
+
+function composeWeapons(list, runes, args)
+	local a = {}
+	for i, v in ipairs(list) do
+		--Iterate through runes to search for a match on the staff's provided runes
+		
+		local total = 0
+		local rune_count = 0
+		local has_negation = false
+		for j,k in ipairs(runes) do
+			total = total + 1
+			if v[k[1]] then
+				rune_count = rune_count + 1
+			else
+				for ineg, negation in ipairs(v.negations or {}) do
+					-- If the weapon has a negation and either fulfills its conditions OR has no conditions listed, apply it
+					has_negation = has_negation or (not negation.conditions or check_conditions(negation.conditions, args, k[1])) 
+				end
+				
+				-- No need to continue if negation is found
+				if has_negation then break end
+			end
+		end
+		
+		if (not v.conditions or check_conditions(v.conditions, args, nil, rune_count)) and (has_negation or rune_count > 0) then
+			table.insert(a, {v})
+		end
+	end
+	return a
+end
+
+function compose_combinations(listA, listB, runes, args)
+	local ret = {}
+	
+	for i_a, a in ipairs(listA) do
+		for i_b, b in ipairs(listB) do
+			-- eliminate redundancy e.g. fire staff + tome of fire is redundant
+			for _, rune_data in ipairs(runes) do
+				local rune_name = rune_data[1]
+				if (not a[1][rune_name] and b[1][rune_name]) then
+					table.insert(ret, {a[1], b[1]})
+				else
+					-- We want to check if the combined negations actually apply, so we calculate both negations then see if the combined is less than the staff's
+					local negationMagA = 1
+					for ineg, negation in ipairs(a[1].negations or {}) do
+						-- If the weapon has a negation and either fulfills its conditions OR has no conditions listed, apply it
+						if (not negation.conditions or check_conditions(negation.conditions, args, rune_data[1])) then
+							negationMagA = negationMagA * (negation.magnitude or 1)
+						end
+					end
+					local negationMagB = 1
+					for ineg, negation in ipairs(b[1].negations or {}) do
+						-- If the weapon has a negation and either fulfills its conditions OR has no conditions listed, apply it
+						if (not negation.conditions or check_conditions(negation.conditions, args, rune_data[1])) then
+							negationMagB = negationMagB * (negation.magnitude or 1)
+						end
+					end
+					
+					if negationMagA*negationMagB < negationMagA then table.insert(ret, {a[1], b[1]}) end
+				end
+			end
+		end
+	end
+	
+	return ret
+end
+
+function weapon_output(weapons, runes, all, ret, args)
+	--For each weapon, scan through the runes and choose what to display
+	for _, weapon_data in ipairs(weapons) do
+		local tbl = {}
+		for rune_i, rune_data in ipairs(runes) do
+			if weapon_data[1][rune_data[1]] or (weapon_data[2] and weapon_data[2][rune_data[1]]) then
+				-- do nothing
+			else
+				local negationMag = 1
+				local negationOffset = 0
+				local negations = weapon_data[1].negations or {}
+				if weapon_data[2] then negations = join(negations, weapon_data[2].negations or {}) end
+				
+				for ineg, negation in ipairs(negations) do
+					-- If the weapon has a negation and either fulfills its conditions OR has no conditions listed, apply it
+					if (not negation.conditions or check_conditions(negation.conditions, args, rune_data[1])) then
+						negationMag = negationMag * (negation.magnitude or 1)
+						negationOffset = negationOffset + (negation.offset or 0)
+					end
+				end
+				
+				if negationMag == 0 then
+					-- Do nothing
+				elseif negationMag < 1 or negationOffset > 0 then
+					table.insert(tbl, { rune_data[1], round( negationMag * (rune_data[2] - negationOffset), 2), {} })
+				else
+					table.insert(tbl, { rune_data[1], rune_data[2], {}} )
+				end
+			end
+		end
+		
+		local extras = weapon_data[1].extras or {}
+		if weapon_data[2] then extras = join(extras, weapon_data[2].extras or {}) end
+		for i,v in ipairs(extras) do
+			if not v.conditions or check_conditions(v.conditions, args, {}) then
+				table.insert(tbl, {v.item, v.quantity, {}})
+			end
+		end
+		
+		for i,weapon in ipairs(weapon_data) do
+			table.insert(tbl,{weapon.name, 0, weapon})
+		end
+		
+		ret:tag('tr')
+				:tag('td')
+					:wikitext(make_pics(tbl, all))
+				:done()
+				:tag('td')
+					:wikitext(total_price(tbl))
+				:done()
+			:done()
+	end
+	return ret
+end
+
+function join(tbl1, tbl2)
+	local ret = tbl1
+	
+	for _, item in ipairs(tbl2 or {}) do
+		table.insert(ret, item)
+	end
+	
+	return ret
+end
+
+function round(n, digits)
+	local working = math.pow(10, digits)
+	local workingMod = math.fmod(n * working, 10)
+	
+	if workingMod >= 5 then
+		return math.ceil(n * working)/working
+	else
+		return math.floor(n * working)/working
+	end
+end
+
+function make_pics(arg, others)
+	local runes = {}
+	for _, v in ipairs(arg) do
+		if type(v[1]) == 'table' then
+			local _v = v[1]
+			for _, w in ipairs(_v) do
+				table.insert(runes, {w, v[2]})
+			end
+		else
+			table.insert(runes, v)
+		end
+	end
+
+	local ret = {}
+
+	for _, v in ipairs(runes) do
+		if v[2] > 0 then
+			table.insert(ret,'<sup>'..v[2]..'</sup>')
+		end
+		table.insert(ret,'[[File:'..v[1]..'.png|link='..v[1]..']] ')
+
+		local alts = ""
+		local altNext = ""
+		for _, alt in ipairs(v[3].alternatives or {}) do
+			
+			local weapon_present = false
+			for i, weapon in ipairs(others) do
+				if alt == weapon[1].name then
+					weapon_present = true
+					break
+				end
+			end
+			
+			if not weapon_present then 
+				if #alts == 0 then
+					alts = altNext
+				else
+				    alts = alts..", "..altNext
+				end
+				altNext = alt
+			end
+		end
+		
+		if #altNext ~= 0 then
+			if #alts == 0 then alts = altNext
+			else alts = alts..", or "..altNext	end
+			
+			table.insert(ret,"<sub class='explain' title='Alternatively, a "..alts.." can be used.' style='text-decoration:underline dotted'>Alt</sub>")
+		end
+	end
+	
+	return table.concat(ret)
+end
+
+function total_price(runes)
+	local ret = 0
+	for _, v in ipairs(runes) do
+		if v[2] > 0 then
+			ret = ret + gep(v[1]) * v[2]
+		end
+	end
+	return coins(round(ret,0))
+end
+
+return p

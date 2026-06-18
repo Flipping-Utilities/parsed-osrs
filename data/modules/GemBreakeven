@@ -1,0 +1,75 @@
+-- <pre>
+-- Implements {{GemBreakeven}}
+-- Based on https://oldschool.runescape.wiki/w/Module:Coins
+
+local p = {}
+
+--- Use this to create a formatted string with %
+-- local function breakeven_probability(uncut_,cut_)
+--	local math = math
+--    uncut = tonumber(uncut_)
+--      cut = tonumber(  cut_)
+--    p0 = uncut/cut
+--    breakeven_prob = math.floor(10000 * p0)/100
+--    return breakeven_prob
+-- end
+
+local function breakeven_level(uncut_,cut_,r_,beta_,gamma_)
+	local math = math
+    local uncut = tonumber(uncut_)
+	local   cut = tonumber(  cut_)
+	local     r = tonumber(    r_)
+	local  beta = tonumber( beta_)
+	local gamma = tonumber(gamma_)
+	-- Probability P of cut is
+	--
+	--   P = ( (level - 1)*r + beta ) / gamma
+	--
+	-- Breakeven Probability is given by (cut and uncut in g.p.)
+	-- 
+	--   p0*cut - uncut = 0 
+	-- -> p0 = uncut / cut
+	--
+	-- Define breakeven grand exchange ratios of cut and uncut alpha:
+	-- 
+	--  alpha = cut / uncut = 1 / p0
+	-- 
+	-- Solve for breakeven level:
+	--
+	--  level_0 = 1 + ( gamma - beta * alpha ) / ( alpha * r)
+	--------------
+	local alpha = cut/uncut -- Ratio of cut price to uncut price
+	local breakeven_level = 'beyond 99 (breakeven not possible)'
+	if alpha > 1 then
+	  local ell0  = 1 + ( gamma - beta * alpha ) / ( alpha * r )
+	  breakeven_level = math.ceil(ell0)
+	end
+	return breakeven_level
+end
+
+--
+-- {{GemBreakeven}} Access point
+--
+function p.breakeven_level(frame)
+    local args = frame:getParent().args
+    local uncut = args[1] or args['uncut'] or args.uncut or '1'
+    local   cut = args[2] or args['cut']   or args.cut   or '1'
+    local     r = args[3] or args['r']     or args.r     or '1'
+    local  beta = args[4] or args['beta']  or args.beta  or '0'
+    local gamma = args[5] or args['gamma'] or args.gamma or '1'
+    return breakeven_level(uncut,cut,r,beta,gamma)
+end
+
+-- 
+-- Module access point
+-- 
+function p._breakeven_level(uncut_,cut_,r_,beta_,gamma_)
+	_uncut_ = tostring(uncut_)
+      _cut_ = tostring(  cut_)
+        _r_ = tostring(    r_)
+     _beta_ = tostring( beta_)
+    _gamma_ = tostring(gamma_)
+	return breakeven_level(_uncut_,_cut_,_r_,_beta_,_gamma_)
+end
+
+return p

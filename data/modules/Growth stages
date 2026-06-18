@@ -1,0 +1,67 @@
+local p = {}
+
+local MAX_STAGES = 13
+
+function hasEntry(args, paramName)
+	for i = 1, MAX_STAGES do
+		if args[paramName..i] then
+			return true
+		end
+	end
+	return false
+end
+
+function addEntry(args, tr, paramName, i)
+	if args[paramName..i] then
+		tr:tag('td'):addClass('growth-stage'):wikitext(args[paramName..i])
+	else
+		tr:tag('td'):addClass('table-na'):wikitext('N/A')
+	end
+end
+
+function p._main(args)
+	local hasWatered = hasEntry(args, 'watered')
+	local hasDiseased = hasEntry(args, 'diseased')
+	local hasDead = hasEntry(args, 'dead')
+
+	local tbl = mw.html.create('table'):addClass('wikitable align-center-1 growth-stage-table')
+	local header = tbl:tag('tr')
+	header:tag('th'):wikitext('Stage')
+	header:tag('th'):wikitext('Image')
+	if hasWatered then
+		header:tag('th'):wikitext('Watered')
+	end
+	if hasDiseased then
+		header:tag('th'):wikitext('Diseased')
+	end
+	if hasDead then
+		header:tag('th'):wikitext('Dead')
+	end
+
+	for i = 1, MAX_STAGES do
+		local hasStage = args['stage'..i] or args['watered'..i] or args['diseased'..i] or args['dead'..i]
+		if hasStage then
+			local tr = tbl:tag('tr')
+			tr:tag('td'):wikitext(i)
+			addEntry(args, tr, 'stage', i)
+			if hasWatered then
+				addEntry(args, tr, 'watered', i)
+			end
+			if hasDiseased then
+				addEntry(args, tr, 'diseased', i)
+			end
+			if hasDead then
+				addEntry(args, tr, 'dead', i)
+			end
+		end
+	end
+
+	return tbl
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

@@ -1,0 +1,12 @@
+return {
+    itemId     = 621,
+    icon       = 'Ship ticket.png',
+    item       = 'Ship ticket',
+    value      = 5,
+    limit      = 18000,
+    members    = true,
+    category   = nil,
+    examine    = 'Allows you passage on the \'Lady of the waves\' ship.',
+    hialch     = 3,
+    lowalch    = 2
+}

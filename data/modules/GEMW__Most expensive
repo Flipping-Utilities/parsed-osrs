@@ -1,0 +1,70 @@
+--<nowiki>
+local arr = require("Module:Array")
+local Coins = require("Module:Coins")._amount
+local ExchangeData = require("Module:ExchangeData")
+local p = {}
+
+function p.items(num)
+	local prices = mw.loadJsonData("Module:GEPrices/data.json")
+	local prices_a = {}
+	for k, v in pairs(prices) do
+		if string.sub(k, 1, 1) ~= '%' then
+			table.insert(prices_a, {item=k, price=v or -1})
+		end
+	end
+	table.sort(prices_a, function(a, b) return a.price > b.price end)
+	return arr.slice(prices_a, 1, num)
+end
+
+function p._chart(items)
+	return ExchangeData._chart({table.concat(items, ",")})
+end
+
+function p.chart(frame)
+	local count = frame.args ~= nil and tonumber(frame.args.count) or 10
+	return p._chart(arr.map(p.items(count), function(item) return item.item end))
+end
+
+function p._list(items)
+	local t = {}
+	for _, pair in ipairs(items) do
+		table.insert(t, string.format("* [[%s]] (%s)", pair.item, Coins(pair.price), item['Members']))
+	end
+	return table.concat(t, "\n")
+end
+
+function p.list(frame)
+	local count = frame.args ~= nil and tonumber(frame.args.count) or 100
+	return p._list(p.items(count))
+end
+
+function p._table(items)
+	local t = {
+		'{|class="wikitable align-center-1"\n' ..
+		'! colspan="2" | Item\n' ..
+		'! Price\n' ..
+		'! [[File:Member icon.png|link=|Members]]'
+	}
+	
+	for _, pair in ipairs(items) do
+		table.insert(t, string.format(
+			"| [[File:%s.png|link=%s|class=inventory-image]] || [[%s]] || %s", pair.item, pair.item, pair.item, Coins(pair.price), pair.item['Members']
+		))
+	end
+	return table.concat(t, "\n|-\n") .. "\n|}"
+end
+
+function p.table(frame)
+	local count = frame.args ~= nil and tonumber(frame.args.count) or 100
+	return p._table(p.items(count))
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local count = args.count or 10
+	local items = p.items(count)
+	return p.chart(arr.map(items, function(item) return item.item end))
+end
+
+return p
+--</nowiki>

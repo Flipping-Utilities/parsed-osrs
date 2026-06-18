@@ -1,0 +1,79 @@
+local p = {}
+
+local prices = mw.loadJsonData('Module:GEPrices/data.json')
+local commas = require('Module:Addcommas')._add
+
+local HerbSeedTable = {
+	{ name = 'Guam seed', image = 'File:Guam seed.png', qty = 1, numerator = 320, denom = 1000 },
+	{ name = 'Ranarr seed', image = 'File:Ranarr seed.png', qty = 1, numerator = 69, denom = 81 },
+	{ name = 'Snapdragon seed', image = 'File:Snapdragon seed.png', qty = 1, numerator = 10, denom = 81 },
+	{ name = 'Torstol seed', image = 'File:Torstol seed.png', qty = 1, numerator = 2, denom = 81 },
+}
+
+local raritiesClass = {
+    { 1, 'table-bg-blue' },
+    { 1/25, 'table-bg-green' },
+    { 1/99.99, 'table-bg-yellow' },
+    { 1/999.99, 'table-bg-orange' },
+    { 1/9999999, 'table-bg-red' }
+}
+
+function getRarityClass(val)
+    for _, rarity in ipairs(raritiesClass) do
+        if(val >= rarity[1]) then
+            return rarity[2]
+        end
+    end
+end
+
+function buildRow(seed, rarity, rarityValue)
+	local row = mw.html.create('tr')
+	row:tag('td'):wikitext('[[' .. seed.image .. ']]'):done()
+		:tag('td'):wikitext('[[' .. seed.name .. ']]'):done()
+		:tag('td'):wikitext(seed.qty):done()
+		:tag('td'):addClass(getRarityClass(rarityValue)):wikitext(rarity):done()
+		:tag('td'):wikitext(commas(prices[seed.name])):done()
+	return row
+end
+
+function specialHerbTableChance(farmingLevel)
+	return (6 + math.min(85, farmingLevel)) / 1000
+end
+
+function p._main(args)
+	local farmingLevel = tonumber(args.farmingLevel) or 1
+
+	local ret = mw.html.create('table'):addClass('wikitable sortable filterable autosort=4,a align-center-1 align-left-2 align-center-3 align-center-4 align-right-5 align-right-6'):done()
+	ret:tag('tr'):tag('th'):attr('colspan', '2'):wikitext('Item'):done()
+		:tag('th'):wikitext('Quantity'):done()
+		:tag('th'):wikitext('Rarity'):done()
+		:tag('th'):wikitext('Price'):done()
+
+	for _, seed in ipairs(HerbSeedTable) do
+		-- Slots are either added to or subtracted from guam seeds
+		-- Then 81 of guam's slots are redistributed to other seeds
+		baseRarity = seed.numerator / seed.denom
+		if(seed.name == 'Guam seed') then
+			rarity = baseRarity + 81/1000 - specialHerbTableChance(farmingLevel)
+		else
+			rarity = baseRarity * specialHerbTableChance(farmingLevel)
+		end
+		
+		local rarityValue = rarity * 48/1000
+		seed.denom = 1 / rarityValue
+
+		local denomTxt = string.format("%.2f", seed.denom)
+		local rarityText = '1/' .. commas(denomTxt)
+
+		ret:node(buildRow(seed, rarityText, rarityValue))
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+return p

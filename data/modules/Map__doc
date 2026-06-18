@@ -1,0 +1,34 @@
+{{Documentation}}
+
+{| class="wikitable" style="text-align:center;width:100%"
+|-
+! Production !! Development
+|-
+| [[File:You are here.gif|width=20]] Module
+| [[Module:Sandbox/Map|Module]]
+|-
+| [[Template:Map|Template]]
+| [[Template:MapDebug|Template]]
+|-
+| [[User:Als Toy Barn/Map|Tests]]
+| [[User:Als Toy Barn/Map/Sandbox|Tests]]
+|}
+
+{{APIDoc
+|funcName = map
+|funcDesc = The main entry point for templates and pages. Should only be called via <code>{{#invoke}}</code> outside of a module.
+|arg1 = frame
+|type1 = [https://www.mediawiki.org/wiki/Extension:Scribunto/Lua_reference_manual#frame-object frame object]
+|desc1 = The frame object automatically passed via <code>{{#invoke}}</code>.
+|returnType = string
+|returnDesc = A fully rendered map.
+}}
+{{APIDoc
+|funcName = buildMap
+|funcDesc = The main entry point for other modules.
+|arg1 = args
+|type1 = table
+|desc1 = Any [[Template:Map#Arguments|map or feature arguments]]. Include <code>fromBucket</code> in the table to retrieve and build a map from Bucket.
+|returnType = string
+|returnDesc = A fully rendered map.
+}}

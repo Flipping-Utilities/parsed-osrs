@@ -1,0 +1,30 @@
+local p = {}
+local chart = require( 'Module:Chart data' )
+
+function getDuration(level)
+	return level * 0.6
+end
+
+-- This chart cound be used by another module or drawn using {{#Invoke:<module name>|bar}}
+function p.scatter()
+    local plot = chart.newChart{type = 'scatter'}
+    plot:setDimensions('400px', '300px', '400px', '300px', true)
+    	:setXLabel('Magic level')
+    	:setYLabel('Duration [seconds]')
+		:setTitle('Shadow Veil duration')
+		:setXLimits(0, 100, 10)
+    	:showLegend(false)
+    
+    plot.options.colorPallet = {
+        chart.rgba.new(186, 85, 211)
+    }
+    
+    local set = plot:newDataSet()
+    set.data = chart.generateXYFromFunc(function(x) return x * 0.6 end, 1, 99)
+    set.pointRadius = 1
+    set.borderWidth = 2
+
+    return plot
+end
+
+return p

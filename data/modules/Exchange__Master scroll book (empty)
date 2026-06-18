@@ -1,0 +1,12 @@
+return {
+    itemId     = 21387,
+    icon       = 'Master scroll book (empty).png',
+    item       = 'Master scroll book (empty)',
+    value      = 5000,
+    limit      = 100,
+    members    = true,
+    category   = nil,
+    examine    = 'I can store my teleport scrolls in this.',
+    hialch     = 3000,
+    lowalch    = 2000
+}

@@ -1,0 +1,377 @@
+require('strict')
+
+local p = {}
+
+local yesno = require('Module:Yesno')
+local pt = require('Module:Paramtest')
+local pageswithcats = require('Module:PageListTools').pageswithcatsdpl
+
+local bucketstats = {}
+
+-- Formats a table header
+function p.header(tbl, verbose)
+    local tr = tbl:tag('tr')
+        :tag('th'):attr('colspan', '2'):wikitext('Monster'):done()
+        :tag('th'):wikitext('Members'):css('font-size', '90%'):done()
+        :tag('th'):wikitext('[[File:Attack style icon.png|link=|Combat level]]'):done()
+        :tag('th'):wikitext('[[File:Hitpoints icon.png|link=|Hitpoints]]'):done()
+        :tag('th'):wikitext('[[File:Attack icon.png|link=|Attack level]]'):done()
+        :tag('th'):wikitext('[[File:Defence icon.png|link=|Defence level]]'):done()
+        :tag('th'):wikitext('[[File:Magic icon.png|link=|Magic level]]'):done()
+        :tag('th'):wikitext('[[File:Ranged icon.png|link=|Ranged level]]'):done()
+        :tag('th'):wikitext('[[File:White dagger.png|link=|Stab defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('[[File:White scimitar.png|link=|Slash defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('[[File:White warhammer.png|link=|Crush defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('[[File:Magic icon.png|link=|Magic defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('[[File:Steel dart.png|link=|Light Ranged defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('[[File:Steel arrow.png|link=|Standard Ranged defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('[[File:Steel bolts.png|link=|Heavy Ranged defence]][[File:Defence icon.png|link=|alt=]]'):done()
+        :tag('th'):wikitext('Flat armour'):css('font-size', '90%'):done()
+        :tag('th'):wikitext('[[File:Pure essence.png|link=|Elemental weakness]]'):done()
+        
+    if verbose then
+        tr:tag('th'):wikitext('[[File:Slayer icon.png|link=|Slayer level]]'):done()
+          :tag('th'):wikitext('<abbr title="Slayer experience">XP</span>'):done()
+          :tag('th'):css('text-align', 'left'):wikitext('Slayer categories'):done()
+          :tag('th'):css('text-align', 'left'):wikitext('Assigned by'):done()
+    end
+end
+
+-- Assign appropriate image file to elemental weakness
+function p.elementalweaknesstypearg(arg)
+	if arg == nil then
+		return ''
+	end
+	local lowarg = string.lower(arg)
+	
+	if string.find(lowarg, 'air') then
+		return '[[File:Air rune.png|Air elemental weakness|link=|30x30px]]'
+	elseif string.find(lowarg, 'earth') then
+		return '[[File:Earth rune.png|Earth elemental weakness|link=|30x30px]]'
+	elseif string.find(lowarg, 'fire') then
+		return '[[File:Fire rune.png|Fire elemental weakness|link=|30x30px]]'
+	elseif string.find(lowarg, 'water') then
+		return '[[File:Water rune.png|Water elemental weakness|link=|30x30px]]'
+	end
+	
+	return ''
+end
+
+-- Main entrypoint
+function p.main(frame)
+    local args = frame:getParent().args
+    return p._main(args)
+end
+
+function p._main(args)
+    local member_options = {
+    	['Members'] = true,
+    	['F2P'] = true,
+    	['All'] = true
+    }
+    local slayer_masters = { 
+    	['spria'] = '[[Spria]]', 
+    	['turael'] = '[[Turael]]',
+    	['krystilia'] = '[[Krystilia]]',
+    	['mazchna'] = '[[Mazchna]]',
+    	['vannaka'] = '[[Vannaka]]',
+    	['chaeldar'] = '[[Chaeldar]]',
+    	['konar quo maten'] = '[[Konar quo Maten]]',
+    	['nieve'] = '[[Nieve]]',
+    	['steve'] = '[[Steve]]',
+    	['duradel'] = '[[Duradel]]',
+    	['kuradal'] = '[[Kuradal]]' 
+    }
+    local pattern_alpha = '^%a$'
+    local select_types = { ['Level']=true, ['Letter']=false }
+
+    -- Fetch and validate all input parameters
+    local fromlevel = tonumber(pt.default_to(args['fromlevel'], '1'))
+    local tolevel = tonumber(pt.default_to(args['tolevel'], '1'))
+    local fromletter = string.upper(pt.default_to(args['fromletter'], 'A'))
+    local toletter = string.upper(pt.default_to(args['toletter'], 'A'))
+    local mems = pt.default_to(args['mems'], 'All')
+    local assignedby = string.lower(pt.default_to(args['assignedby'], ''))
+    local onlycat = pt.default_to(args['onlycat'], '')
+    local attribute = pt.default_to(args['attribute'], '')
+    local breachonly = pt.default_to(args['breachonly'], '')
+   
+    local ba = {
+    	levelselect = true,
+        levelsort   = true,
+        slayeronly  = false,
+        verbose     = false,
+        showstats   = false,
+        disco       = false,
+        quest       = true,
+        dmm         = true,
+        cache       = false,
+        sailingbeta = false,
+        onlybosses  = false
+    }
+
+    for k, b in pairs(ba) do
+        if pt.has_content(args[k]) then
+            ba[k] = yesno(args[k])
+        end
+    end
+    
+    -- Calculator:Bestiary uses "Level" and "Letter" instead of true/false for levelselect
+    if pt.has_content(args['levelselect']) then
+    	if select_types[args['levelselect']] ~= nil then
+    		ba['levelselect'] = select_types[args['levelselect']]
+    	else
+    		ba['levelselect'] = yesno(args['levelselect'])
+		end
+    else
+    	ba['levelselect'] = true
+    end
+
+    if pt.has_content(args['mems']) and member_options[mw.text.trim(args['mems'])] ~= true then
+        error('mems parameter has invalid value')
+    end
+
+    if pt.has_content(args['assignedby']) and slayer_masters[string.lower(args['assignedby'])] == nil then
+        error('assignedby parameter has invalid value:'..args['assignedby'])
+    end
+
+    if ba['levelselect'] then
+        if pt.is_empty(args['fromlevel']) or not fromlevel then
+            error('parameter fromlevel is invalid')
+        end
+
+        if pt.is_empty(args['tolevel']) or not tolevel then
+            error('parameter tolevel is invalid')
+        end
+
+        assert(tolevel >= fromlevel, 'parameter tolevel must be greater than or equal to fromlevel')
+    else
+        if pt.is_empty(args['fromletter']) or not fromletter:match(pattern_alpha) then
+            error('parameter fromletter is invalid')
+        end
+
+        if pt.is_empty(args['toletter']) or not toletter:match(pattern_alpha) then
+            error('parameter toletter is invalid')
+        end
+
+        assert(toletter >= fromletter, 'parameter toletter must be greater than or equal to fromletter')
+    end
+
+    -- Gather the data
+    local data = p.loadData(fromlevel, tolevel, fromletter, toletter, ba['levelselect'], mems, ba['slayeronly'], onlycat, attribute, breachonly, assignedby, ba['verbose'], ba['disco'], ba['quest'], ba['dmm'], ba['cache'], ba['sailingbeta'], ba['onlybosses'])
+	
+    if ba['levelsort'] then
+		pcall(function()
+        	table.sort(data, function(a, b)
+        		return a.combat_level < b.combat_level
+        		-- example fix in case you were directed to the line above by an error:
+				-- [[Special:Diff/14325110]]
+        	end)
+        end)
+    end
+
+    -- Format the output page
+    local div = mw.html.create('div')
+
+    if #data == 0 then
+        div:wikitext('Search yielded no results.')
+        return div
+    elseif ba['showstats'] then
+        div:wikitext(string.format('Search yielded %i results.', #data))
+        if bucketstats['found'] == bucketstats['limit'] then
+            div:wikitext(string.format(' Your search was too large and has been truncated as a result. Consider narrowing the range to search.'))
+        end
+    end
+
+    local tbl = div:tag('table'):addClass('wikitable sortable alternating-rows')
+        :addClass('align-center-1 align-left-2 align-left-3 align-center-4 align-center-5')
+        :addClass('align-center-6 align-center-7 align-center-8 align-center-9')
+
+    if ba['verbose'] then
+        tbl:addClass('align-center-10 align-center-11 align-left-12 align-left-13')
+    end
+
+    p.header(tbl, ba['verbose'])
+
+    -- Render rows
+    local function makeRow(entry)
+        local name = mw.text.split(entry.page_name_sub, '#', true)
+        if name[2] then
+        	name[2] = name[2]:gsub('_', ' ')
+        end
+        local tr = mw.html.create('tr')
+            :tag('td'):css('height', '64px'):wikitext(entry.image and entry.image[1] and string.format('[[%s|link=|64x64px|%s%s]]', entry.image[1], name[1], (name[2] and ' - ' .. name[2]) or '') or '' ):done()
+            :tag('td'):wikitext( string.format('[[%s|%s]]%s', entry.page_name, name[1], name[2] and '<br/><i>' .. name[2] .. '</i>' or '') ):done()
+            :tag('td'):wikitext(entry.is_members_only and '[[File:Member icon.png|center|link=Members|alt=Members]]' or '[[File:Free-to-play icon.png|center|link=Free-to-play|alt=Free-to-play]]'):done()
+            :tag('td'):wikitext(entry.combat_level):done()
+            :tag('td'):wikitext(entry.hitpoints):done()
+            :tag('td'):wikitext(entry.attack_level):done()
+            :tag('td'):wikitext(entry.defence_level):done()
+            :tag('td'):wikitext(entry.magic_level):done()
+            :tag('td'):wikitext(entry.ranged_level):done()
+            :tag('td'):wikitext(entry.stab_defence_bonus):done()
+            :tag('td'):wikitext(entry.slash_defence_bonus):done()
+            :tag('td'):wikitext(entry.crush_defence_bonus):done()
+            :tag('td'):wikitext(entry.magic_defence_bonus):done()
+            :tag('td'):wikitext(entry.light_range_defence_bonus):done()
+            :tag('td'):wikitext(entry.standard_range_defence_bonus):done()
+            :tag('td'):wikitext(entry.heavy_range_defence_bonus):done()
+            :tag('td'):wikitext(entry.flat_armour or 0):done()
+            :tag('td'):wikitext(string.format('%s'..'<br>'..'%s', p.elementalweaknesstypearg(entry.elemental_weakness), entry.elemental_weakness_percent and entry.elemental_weakness_percent..'%' or '')):done()
+
+        if ba['verbose'] then
+            tr:tag('td'):wikitext(entry.slayer_level or '1'):done()
+              :tag('td'):wikitext(entry.slayer_experience):done()
+              :tag('td'):wikitext(mw.text.listToText(entry.slayer_category)):done()
+
+            local td = tr:tag('td')
+            local slaymtbl = {}
+            for a, ab in ipairs(entry.assigned_by or {}) do
+                if slayer_masters[ab] then
+                    table.insert(slaymtbl, slayer_masters[ab])
+                else
+                    mw.log(string.format('Unknown Slayer master for %s: %s', name[1], ab))
+                end
+            end
+            td:wikitext(mw.text.listToText( slaymtbl ))
+        end
+        return tr
+	end
+
+    local errors = {}
+    for e, entry in ipairs(data) do
+    	-- local ret = makeRow(entry)
+    	-- local isnoterr = true
+    	local isnoterr, ret = pcall(makeRow, entry)
+    	if isnoterr then
+    		tbl:node(ret)
+    	else
+    		table.insert(errors, 'Error message: '..ret..'<br>Affected entry: <code>'..mw.text.nowiki(mw.text.jsonEncode(entry))..'</code>')
+    	end
+    end
+    if #errors > 0 then
+    	local errtag = div:tag('div'):addClass('error'):wikitext('Errors with this query shown below:[[Category:Pages with script errors]]')
+    	for i,v in ipairs(errors) do
+    		errtag:newline():wikitext('* ',v)
+    	end
+    end
+    return div
+end
+
+-- Sends a query to Bucket and returns the data
+function p.loadData(fromlevel, tolevel, fromletter, toletter, levelselect, mems, slayeronly, onlycat, attribute, breachonly, assignedby, verbose, disco, quest, dmm, cache, sailingbeta, onlybosses)
+    local query = bucket("infobox_monster")
+    
+	query.select(
+  		'page_name_sub',
+        'image',
+        'is_members_only',
+        'combat_level',
+        'hitpoints',
+        'attack_level',
+        'defence_level',
+        'magic_level',
+        'ranged_level',
+        'stab_defence_bonus',
+        'slash_defence_bonus',
+        'crush_defence_bonus',
+        'magic_defence_bonus',
+        'light_range_defence_bonus',
+        'standard_range_defence_bonus',
+        'heavy_range_defence_bonus',
+        'page_name',
+        'elemental_weakness',
+        'elemental_weakness_percent',
+        'flat_armour'
+    )
+
+	if verbose then
+		query.select(
+			'slayer_level',
+			'slayer_experience',
+			'slayer_category',
+			'assigned_by'
+		)
+	end
+
+    -- Conditions part of query
+    if mems == 'Members' then
+		query.where("is_members_only", true)
+	elseif mems == 'F2P' then
+        query.where("is_members_only", false)
+    end
+    if onlycat:len() > 0 or slayeronly then
+        if onlycat:len() > 0 then
+            query.where("slayer_category", onlycat)
+        else
+            query.where("slayer_category", '!=', bucket.Null())
+        end
+    end
+    if attribute:len() > 0 then
+        query.where("attribute", attribute)
+    end
+    if breachonly:len() > 0 then
+        query.where({'default_version', true}, {"Category:Breach monsters"})    
+    end
+    if assignedby:len() > 0 then
+        query.where("assigned_by", assignedby)
+    end
+    if levelselect then
+        query.where({"combat_level", ">=", fromlevel}, {"combat_level", "<=", tolevel})
+    else
+        if (toletter == 'Z') then
+            query.where({"name", ">=", fromletter})
+        else
+            query.where({"name", ">=", fromletter}, {"name", "<=", toletter})
+        end
+    end
+    
+    if not disco then
+    	query.where(bucket.Not('Category:Discontinued content'))
+    end
+    if not quest then
+    	query.where(bucket.Not('Category:Quest monsters'))
+    end
+    if not dmm then
+    	query.where(bucket.Not('Category:Deadman Mode'))
+    end
+    if not cache then
+    	query.where(bucket.Not('Category:Pages using information from game APIs or cache'))
+    end
+    if not sailingbeta then
+    	query.where(bucket.Not('Category:Sailing beta content'))
+    end
+    if onlybosses then
+    	query.where(bucket.And('Category:Bosses'))
+    end
+
+    query.offset(0)
+    query.limit(verbose and 1000 or 580)
+    query.orderBy('page_name', 'asc')
+
+    -- Fetch the data
+    local t1 = os.clock()
+    local bucket_data = query.run()
+    local t2 = os.clock()
+
+    -- Statistics
+    bucketstats = {
+    	limit   = verbose and 1000 or 580,
+        found   = #bucket_data,
+        time    = (t2 - t1) * 1000,
+    }
+
+    mw.log(string.format('Bucket: Found %i, time elapsed %.3f ms.',
+        bucketstats.found, bucketstats.time))
+
+    return bucket_data
+end
+
+--[[ DEBUG COPYPASTA
+mw.logObject( p.loadData('1', '1', 'A', 'A', true, 'All', false, '', '', '', false) )
+mw.logObject( p.loadData('1', '1', 'A', 'A', false, 'All', false, '', '', '', false) )
+= p._main({fromlevel='1', tolevel='1', verbose='yes'})
+= p._main({fromletter='A', toletter='A', levelselect='no', levelsort='no', verbose='yes'})
+--]]
+
+return p

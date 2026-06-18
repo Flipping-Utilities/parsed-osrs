@@ -1,0 +1,12 @@
+return {
+    itemId     = 24777,
+    icon       = "Blood shard.png",
+    item       = "Blood shard",
+    alchable   = true,
+    value      = 200000,
+    limit      = 8,
+    members    = true,
+    category   = nil,
+    examine    = "A magical shard filled with a dark power.",
+    usage      = {}
+}

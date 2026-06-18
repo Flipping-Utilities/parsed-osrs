@@ -1,0 +1,149 @@
+-- <nowiki>
+--
+-- Implements {{time ago}}
+--
+
+local p = {}
+local yesno = require( 'Module:Yesno' )
+
+-- assumes 31 days in a month (might need tweaking?)
+-- assumes 365.25 days in a year to account for leap years
+local convert = {60, 3600, 86400, 604800, 2678400, 31557600}
+
+-- used to convert units to magnitudes
+local magnitudes = {
+    years = 6,
+    months = 5,
+    weeks = 4,
+    days = 3,
+    hours = 2,
+    minutes = 1,
+    seconds = 0
+}
+
+-- units to append to time diff
+local units = {
+    {'second', 'seconds', 'second\'s', 'seconds\''},
+    {'minute', 'minutes', 'minute\'s', 'minutes\''},
+    {'hour', 'hours', 'hour\'s', 'hours\''},
+    {'day', 'days', 'day\'s', 'days\''},
+    {'week', 'weeks', 'week\'s', 'weeks\''},
+    {'month', 'months', 'month\'s', 'months\''},
+    {'year', 'years', 'year\'s', 'years\''}
+}
+
+--
+-- Converts the input values to the returned string
+--
+local function core( diff, abs_diff, magnitude, ago )
+
+    local num = math.floor( abs_diff )
+    local unit = 1
+    local plural = 1
+
+    if magnitude > 0 then
+        num = math.floor( abs_diff / convert[magnitude] )
+    end
+
+    if abs_diff > 1 or abs_diff == 0 then
+        plural = plural + 1
+    end
+
+    if diff >= 0 then
+        ago = ago or 'ago'
+    else
+    	plural = plural + 2
+        ago =  'time'
+    end
+
+    return num .. ' ' .. units[magnitude + 1][plural] .. ' ' .. ago
+
+end
+
+--
+-- Compares arg1 to arg2 and returns the larger number
+--
+local function max_( arg1, arg2 )
+    if arg1 > arg2 then
+        return arg1
+    end
+
+    return arg2
+end
+
+--
+-- Wrapper for use through #invoke
+--
+function p.ago( frame )
+    return p._ago( frame:getParent().args )
+end
+
+--
+-- Validates arguments and converts them to something that can be process by core
+--
+-- @param args[1]            {str} time string
+-- @param args.magnitude     {str} (optional) override the output time's units
+-- @param args.min_magnitude {str} (optional) require a minimum unit for the output time
+-- @param args.ago           {str} (optional) Replace 'ago' with a different string
+--                                 only used for times in the past
+-- @param args.purge         {str} (optional) add a purge link to the end of the resulting string
+--                                 will not work when testing from debug console
+--
+function p._ago( args )
+    local lang = mw.language.getContentLanguage()
+    local frame = mw.getCurrentFrame()
+    local cur_time = lang:formatDate( 'U' )
+
+    -- check time argument is a valid time string
+    local no_err, time = pcall( lang.formatDate, lang, 'U', args[1] )
+    if not no_err then
+        return '<strong class="error">Error: first parameter cannot be parsed as a date or time.</strong>'
+    end
+
+    -- calculate time diff in seconds
+    local diff = cur_time - time
+    local abs_diff = math.abs( diff )
+
+    -- calculate magnitude
+    local auto = 0
+    local min_ = -1
+
+    if args.magnitude then
+        -- use the specified magnitude
+        min_ = magnitudes[mw.ustring.lower( args.magnitude )]
+    else
+        -- use the specified minimum magnitude
+        -- will only be used if it's higher than the auto-detected magnitude calculated below
+        if args.min_magnitude then
+            min_ = magnitudes[mw.ustring.lower( args.min_magnitude )]
+        end
+
+        -- auto detects the magnitude to be used
+        -- multiples by two as it's preferred to have something like 43 hours instead of 2 days
+        for i = 1, 6 do
+            if math.floor( abs_diff / ( convert[i] * 2 ) ) > 0 then
+                auto = auto + 1
+            else
+                break
+            end
+        end
+        -- for some reason the original template didn't detect weeks, using days instead
+        -- so preserve that behaviour here
+        if auto == 4 then
+            auto = 3
+        end
+    end
+
+    magnitude = max_( auto, min_ )
+
+    local ret = core( diff, abs_diff, magnitude, args.ago )
+
+    if yesno( args.purge ) then
+        -- @todo use mw.title for this
+        ret = ret .. '&nbsp;<span class="plainlinks">([' .. frame:preprocess( '{{fullurl:{{FULLPAGENAME}}|action=purge}}' ) .. ' update])</span>'
+    end
+
+    return ret
+end
+
+return p

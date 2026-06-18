@@ -1,0 +1,458 @@
+--------------------------
+-- Module for [[Template:Infobox Pure]]
+--------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local paramtest = require('Module:Paramtest')
+local empty = paramtest.is_empty
+local infobox = require('Module:Infobox')
+local yesno = require('Module:Yesno')
+local cb_calc = require('Module:Combat level')._calc
+local lang = mw.language.getContentLanguage()
+
+local build_types = {
+	['1v1'] = '[[1-vs-1 build|1-vs-1]]',
+	tank = '[[tank build|Tank]]',
+	support = '[[support build|Support]]',
+	multi = '[[multicombat build|Multicombat]]',
+	['no-honour'] = '[[no-honour build|No honour]]',
+	skiller = "Skiller",
+	other = "Trophy/Other",
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'hasContent' },
+		{ name = 'image_bucket', func = { name = image_bucket, params = { 'image' }, flag = 'p' } },
+		{ name = 'aka', func = 'hasContent' },
+		{ name = 'members', func = 'hasContent' },
+		{ name = 'type', func = { name = typearg, params = { 'type', 'members' }, flag = 'p' } },
+		{ name = 'type_bucket', func = { name = csv_to_multi, params = { 'type', true }, flag = { 'p', 'r' } } },
+		{ name = 'ironman', func = 'hasContent' },
+		{ name = 'combat', func = cbarg },
+        { name = 'combat_bucket', func = { name = csv_to_multi, params = { 'combat', true }, flag = { 'p', 'r' } } },
+        { name = 'combat_example', func = { name = cblvlarg, params = { 'att', 'str', 'def', 'range', 'mage', 'hitpoints', 'pray' }, flag = 'd' } },
+        
+		{ name = 'attack_style', func = { name = attstylearg, params = { 'attack style' }, flag = 'p' } },
+        { name = 'attack_style_bucket', func = { name = 'hasContent', params = { 'attack style' }, flag = 'p' } },
+		{ name = 'uses_style', func = { name = usesarg, params = { 'uses melee', 'uses ranged', 'uses magic', 'attack style' }, flag = 'p' } },
+		{ name = 'uses_style_bucket', func = { name = usesarg_bucket, params = { 'uses_style' }, flag = 'd' } },
+		{ name = 'stylecount', func = { name = usesarg, params = { 'uses melee', 'uses ranged', 'uses magic' }, flag = 'p' } },
+		
+		{ name = 'max_hit', func = { name = maxhitarg, params = { 'weapons', 'max hit' }, flag = 'p' } },
+        { name = 'max_hit_bucket', func = { name = csv_to_multi, params = { 'max hit', true }, flag = { 'd', 'r' } } },
+        
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Pure' }, flag = 'r' } },
+	}
+	local numeric_args = {
+		'hitpoints', 'att', 'str', 'def', 'range', 'mage', 'pray',
+	}
+	for _, v in ipairs(numeric_args) do
+		ret:defineParams{
+			{ name = v, func = { name = numericarg, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_bucket', func = { name = tonumber, params = { v }, flag = { 'd' } } },
+		}
+	end
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineLinks({ hide = true })
+	
+	ret:useBucket("infobox_pure", {
+		name = 'name',
+		image_bucket = 'image',
+		members = 'is_members_only',
+		type_bucket = 'type',
+		max_hit_bucket = 'max_hit',
+		combat_bucket = 'combat_level',
+		hitpoints_bucket = 'hitpoints',
+		att_bucket = 'attack_level',
+		str_bucket = 'strength_level',
+		def_bucket = 'defence_level',
+		range_bucket = 'ranged_level',
+		mage_bucket = 'magic_level',
+		pray_bucket = 'prayer_level',
+		attack_style = 'attack_style',
+		uses_style_bucket = 'all_attack_style',
+	})
+
+	ret:defineName('Infobox Pure')
+	ret:addClass('infobox-pure')
+	
+	local tblwidth = 40
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = tblwidth }
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'image', colspan = tblwidth, class = 'infobox-full-width-content infobox-image' }
+	}
+
+	:pad(tblwidth)
+
+	:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = math.ceil(tblwidth/2) },
+		{ tag = 'argd', content = 'members', colspan = math.floor(tblwidth/2) }
+	}
+	
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = math.ceil(tblwidth/2) },
+			{ tag = 'argd', content = 'aka', colspan = math.floor(tblwidth/2) }
+		}
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = 'Build type', colspan = math.ceil(tblwidth/2) },
+		{ tag = 'argd', content = 'type', colspan = math.floor(tblwidth/2) }
+	}
+
+	if ret:paramDefined('ironman') and yesno(ret:param('ironman'), true) then
+		ret:addRow{
+			{ tag = 'th', content = '[[Ironman Mode|Ironman build]]', colspan = math.ceil(tblwidth/2) },
+			{ tag = 'argd', content = 'ironman', colspan = math.floor(tblwidth/2) }
+		}
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = '[[Combat level]]', colspan = math.ceil(tblwidth/2) },
+		{ tag = 'argd', content = 'combat', colspan = math.floor(tblwidth/2) }
+	}
+	
+	local stylecount = tonumber(ret:param('stylecount'))
+	local maxstyles = stylecount
+	local hasPrimary = ret:paramDefined('attack_style')
+	local stylecounts = ret:param('stylecount', 's')
+	if stylecounts then
+		for _, sc in ipairs(stylecounts) do
+			if stylecount < tonumber(sc) then
+				maxstyles = tonumber(sc)
+			end
+		end
+	end
+	mw.log("Attack styles set:",stylecount, maxstyles, "\nPrimary style set:", hasPrimary)
+	if not hasPrimary and stylecount == 1 then
+		-- primary style not defined, but only one attack style is specified
+		ret:addRow{
+			{ tag = 'th', content = 'Primary [[Combat triangle|attack style]]', colspan = math.ceil(tblwidth/2) },
+			{ tag = 'argd', content = 'uses_style', colspan = math.floor(tblwidth/2) }
+		}
+	else
+		if hasPrimary then
+			-- primary style is defined, show which style this is.
+			ret:addRow{
+				{ tag = 'th', content = 'Primary [[Combat triangle|attack style]]', colspan = math.ceil(tblwidth/2) },
+				{ tag = 'argd', content = 'attack_style', colspan = math.floor(tblwidth/2) }
+			}
+		end
+		if maxstyles > 1 then
+			-- if stylecount == 1 then it's listed as primary style; if stylecount == 0 then no attack styles are given
+			-- so only show if there is extra information to be given with secondary attack styles other than the primary one.
+			ret:addRow{
+				{ tag = 'th', content = 'Uses [[Combat triangle|attack styles]]', colspan = math.ceil(tblwidth/2) },
+				{ tag = 'argd', content = 'uses_style', colspan = math.floor(tblwidth/2) }
+			}
+		end
+	end
+
+	mw.log('Max Hit defined:')
+	mw.log(ret:paramDefined('max_hit'))
+	mw.log(ret:paramDefined('max_hit', 'all'))
+	if ret:paramDefined('max_hit') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Maximum hit|Max hit]] with boosts', colspan = math.ceil(tblwidth/2) },
+			{ tag = 'argd', content = 'max_hit', colspan = math.floor(tblwidth/2), class = 'plainlist' }
+		}
+	end
+	
+	ret:pad(tblwidth)
+	
+	:addRow{
+		{ tag = 'th', content = '[[File:Combat icon.png|link=Combat]] Example [[Combat|combat stats]]', colspan = tblwidth, class = 'infobox-subheader' }
+	}
+	:pad(tblwidth)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Hitpoints icon.png|link=Hitpoints]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Strength icon.png|link=Strength]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Defence icon.png|link=Defence]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Prayer icon.png|link=Prayer]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Attack style icon.png|link=Combat level]]', colspan = '5', class = 'infobox-nested' },
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'hitpoints', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'att', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'str', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'def', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mage', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'range', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'pray', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'combat_example', colspan = '5', class = 'infobox-nested' },
+	}
+	
+	:pad(tblwidth)
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+-- split builds with multiple images for bucket
+function image_bucket(arg)
+	local _img = {}
+	for i in string.gmatch(arg, "[Ff]ile:.-%.png") do
+		table.insert(_img, i)
+	end
+	if #_img == 0 then
+		return nil
+	end
+	return table.concat(_img, '&&SPLITPOINT&&')
+end
+
+-- returns nil if the amount of hits does not correspond with the amount of weapons.
+function maxhitarg(weapons, hits)
+	if empty(weapons) or empty(hits) then
+		return nil
+	end
+	weapons, hits = mw.text.split(weapons, "%s*,%s*"), mw.text.split(hits, "%s*,%s*")
+	if #weapons ~= #hits then
+		return 'Error: amount of specified <code>weapons</code> must equal amount of <code>max hit</code>s.'
+	end
+	local list = mw.html.create('ul'):addClass('max-hit-list')
+	for i, wep in ipairs(weapons) do
+		list:tag('li'):wikitext('[[File:'..wep..'.png|link='..wep..']] &mdash; ' .. hits[i]):done()
+	end
+	return tostring(list)
+end
+
+function typearg(arg, members)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	local str = ''
+	local lcarg = string.lower(arg) -- lowercase arg
+	
+	if lcarg == 'no' then
+		return 'N/A'
+	end
+
+    for i, v in pairs(build_types) do
+		for _, t in ipairs(mw.text.split(lcarg, "%s*,%s*")) do
+	        if t == i then
+	        	if not yesno(members) then
+	        		-- add f2p in front of pagename for link
+	        		v = string.gsub(v, '%[%[', '[[Free-to-play ')
+	        	end
+            	if str == '' then
+            		str = v
+            	else
+            		str = str .. ', ' .. v
+            	end
+            end
+        end
+    end
+
+	return str
+end
+
+function cbarg(combat)
+	if not infobox.isDefined(combat) then
+		return nil
+	end
+	assert(string.match(combat, "^%s*%d+%s*$") or string.match(combat, "^%s*%d+%s*,%s*%d+%s*$"), "Invalid combat format. Provide two comma-separated values, or one value.")
+	local combats = mw.text.split(combat, "%s*,%s*")
+	if #combats == 1 then
+		return combats[1]
+	end
+	local mincb, maxcb = combats[1], combats[2]
+	if mincb == maxcb then
+		return combats[1]
+	end
+	return mincb .. ' &mdash; ' .. maxcb
+end
+
+function attstylearg(arg)
+	if arg == nil then
+		return nil
+	end
+	local attstyles = {melee = 'Melee', ranged = 'Ranged icon', magic = 'Magic icon', hybrid = 'Hybrid'}
+	local arglc = string.lower(arg)
+	mw.log("primary style:", attstyles[arglc])
+	if arglc == 'no' then
+		return 'N/A'
+	elseif attstyles[arglc] then
+		return string.format("[[File:%s.png|link=%s]]", attstyles[arglc], lang:ucfirst(arg))
+	else
+		return nil
+	end
+end
+
+function usesarg(melee, range, mage, style)
+	local ret = ''
+	local attstyles = {melee = 'Melee', ranged = 'Ranged icon', magic = 'Magic icon'}
+	local count = 0
+	if yesno(melee) then
+		ret = ret .. '[[File:Melee.png|link=Melee]] '
+		count = count + 1
+	end
+	if yesno(range) then
+		ret = ret .. '[[File:Ranged icon.png|link=Ranged]] '
+		count = count + 1
+	end
+	if yesno(mage) then
+		ret = ret .. '[[File:Magic icon.png|link=Magic]] '
+		count = count + 1
+	end
+	if style == nil then
+		-- this function was called for the internal parameter 'stylecount'.
+		return count
+	end
+	if count == 0 then
+		local lcstyle = string.lower(style)
+		if attstyles[lcstyle] then
+			ret = string.format('[[File:%s.png|link=%s]]', attstyles[lcstyle], lang:ucfirst(lcstyle))
+		else
+			ret = nil
+		end
+	end
+	return ret
+end
+
+function usesarg_bucket(imgs)
+	styles = string.gsub(imgs, "%[%[File:[%a ]*.png|link=(%a*)]]", "%1, ")
+	styles = string.gsub(styles, ",%s*$", ", ")
+	return csv_to_multi(styles, true)
+end
+
+function cblvlarg(att, str, def, range, mage, hp, pray)
+	args = { att, str, def, range, mage, hp, pray }
+	for i, lvl in ipairs(args) do
+		if not infobox.isDefined(lvl) then
+			if i == 6 then
+				-- hitpoints = 10 default
+				args[i] = 10
+			else
+				args[i] = 1
+			end
+		end
+	end
+	return cb_calc(unpack(args))
+end
+
+function numericarg(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	return arg
+end
+
+function striplinks(str)
+	if type(str) ~= 'string' then return str end
+	-- remove piped wikilinks
+	str = string.gsub(str, '%[%[[^%]|]*|([^%]|]+)]]', '%1')
+	-- remove all other wikilinks
+    str = string.gsub(str,'%[%[[^%]]*?', '')
+    return str
+end
+
+function csv_to_multi(raw, strip)
+    assert(type(strip) == 'boolean')
+
+    local r = string.gsub(raw, "'\"`UNIQ[^`]*QINU`\"'", '') -- UNIQ QINU typically means unparsed content, such as <ref></ref>. Remove this from bucket
+	if infobox.isDefined(raw) then
+		if strip then
+			r = striplinks(r)
+		end
+		r = string.gsub(r, '%s*,%s*', '&&SPLITPOINT&&')
+		return r
+    end
+	return nil
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Account builds' }
+
+	local cat_map = {
+		-- Added if the parameter has content
+		defined = {
+			aka = 'Pages with AKA'
+		},
+		-- Added if the parameter has no content
+		notdefined = {
+			image = 'Needs image',
+			members = 'Needs members status',
+			combat = 'Needs combat level',
+		},
+		-- Parameters that have text
+		-- map a category to a value
+		matches = {
+			members = { yes = 'Members\' account builds', no = 'Free-to-play account builds' },
+			combat = { ['3'] = 'Combat pures' },
+		}
+	}
+	
+	-- defined categories
+	for n, v in pairs(cat_map.defined) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+	-- undefined categories
+	for n, v in pairs(cat_map.notdefined) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- searches
+	for n, v in pairs(cat_map.matches) do
+		for m, w in pairs(v) do
+			if args[n] then
+				if string.lower(tostring(args[n].d) or '') == m then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if string.lower(tostring(x)) == m then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	-- assume all skiller pures are level 3 combat
+	if args['combat'].d ~= '3' then
+		table.insert(ret, 'Combat pures')
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if v ~= '' then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

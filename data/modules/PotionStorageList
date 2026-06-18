@@ -1,0 +1,64 @@
+local p = {}
+
+function header(tbl, header)
+	tbl:tag('tr'):tag('th'):attr('colspan', 6):wikitext("'''"..header.."'''")
+end
+
+function plinkp(name)
+	return "[[File:" .. name .. ".png|link=" .. name .. "]]"
+end
+
+function listPotions(tbl, potions)
+	local count
+	for i, p in ipairs(potions) do
+		count = i
+		if count % 3 == 1 then
+			tbl:tag('tr')	
+		end
+		tbl:tag('td'):wikitext(plinkp(p)):tag('td'):wikitext('[['..p..']]')
+	end
+	if (count % 3 ~= 0) then
+		tbl:tag('td')
+			:addClass('table-na nohighlight')
+			:attr('colspan', (3 - (count % 3)) * 2)
+	end
+end
+
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	local all_potions = bucket("infobox_item")
+		.select('page_name')
+		.where('Category:Items storable in the potion storage')
+		.where('default_version', true)
+		.where('page_name', '!=', 'Vial')
+		.orderBy('page_name', 'ASC')
+		.run()
+	local standard, mix, unf = {}, {}, {}
+	
+	for _, p in ipairs(all_potions) do
+		p = p.page_name
+		if string.find(p, "(unf)") or string.find(p, "Haemostatic poultice") then
+			table.insert(unf, p)
+		elseif string.find(p, "mix") then
+			table.insert(mix, p)
+		else
+			table.insert(standard, p)
+		end
+	end
+	
+	local tbl = mw.html.create('table'):addClass("wikitable align-center-1 align-center-3 align-center-5")
+	header(tbl, "Non-potions")
+	listPotions(tbl, {"Vial"})
+	header(tbl, "Standard potions")
+	listPotions(tbl, standard)
+	header(tbl, "Barbarian mixes")
+	listPotions(tbl, mix)
+	header(tbl, "Unfinished potions")
+	listPotions(tbl, unf)
+	
+	return tbl:allDone()
+end
+
+return p

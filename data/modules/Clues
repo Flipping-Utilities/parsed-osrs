@@ -1,0 +1,119 @@
+--<nowiki>
+local p = {}
+local maps = require('Module:Map').buildMap
+
+function p.temps(frame)
+	local args = frame:getParent().args
+	local ctype = frame.args['ctype'] or 'compass'
+	return p._compscan(args, ctype)
+end
+
+function p.convertDegMin(ns, ndeg, nmin, ew, edeg, emin)
+	if string.lower(ns) == 'n' or string.lower(ns) == 'north' then
+		ns = -1
+	end
+	if not tonumber(ns) then
+		ns = 1
+	end
+	if string.lower(ew) == 'w' or string.lower(ew) == 'west' then
+		ew = -1
+	end
+	if not tonumber(ew) then
+		ew = 1
+	end
+	
+	local x = ew * (32 * edeg + math.ceil(emin * 8 / 15)) + 2440
+	local y = ns * (32 * ndeg + math.ceil(nmin * 8 / 15)) + 3161
+	
+	return {x,y}
+end
+
+function p.coords(frame)
+	local coordconv = p.convertDegMin
+	local args = frame.args -- not parent
+	local _coordstr = args[1]
+	local coordstr = string.lower(args[1])
+	local img = args[2]
+	local oldcoords = {}
+	if string.find(coordstr, 'degree') then
+		local i = 0
+		for degstring in mw.ustring.gmatch(coordstr, '%d%d%s*degree' ) do
+			local num = mw.ustring.match(degstring, '%d%d')
+			if i == 0 then
+				oldcoords.ndeg = num
+			else
+				oldcoords.edeg = num
+			end
+			i = i + 1
+		end
+		i = 0
+		for minstring in mw.ustring.gmatch(coordstr, '%d%d%s*minutes' ) do
+			local num = mw.ustring.match(minstring, '%d%d')
+			if i == 0 then
+				oldcoords.nmin = num
+			else
+				oldcoords.emin = num
+			end
+			i = i + 1
+		end
+		if string.find(coordstr, 'north') then
+			oldcoords.ns = 1
+		else
+			oldcoords.ns = -1
+		end
+		if string.find(coordstr, 'east') then
+			oldcoords.ew = 1
+		else
+			oldcoords.ew = -1
+		end
+	else
+		local i = 0
+		for degmin in mw.ustring.gmatch(coordstr, '%d%d%.%d%d' ) do
+			if i == 0 then
+				oldcoords.ndeg = mw.ustring.match(degmin, '%d%d%.')
+				oldcoords.nmin = mw.ustring.match(degmin, '%.%d%d')
+			else
+				oldcoords.edeg = mw.ustring.match(degmin, '%d%d%.')
+				oldcoords.emin = mw.ustring.match(degmin, '%.%d%d')
+			end
+			i = i + 1
+		end
+		if string.find(coordstr, 'N') then
+			oldcoords.ns = 1
+		else
+			oldcoords.ns = -1
+		end
+		if string.find(coordstr, 'E') then
+			oldcoords.ew = 1
+		else
+			oldcoords.ew = -1
+		end
+	end
+	
+	local converted, coords = pcall(coordconv, oldcoords.ns, oldcoords.ndeg, oldcoords.nmin, oldcoords.ew, oldcoords.edeg, oldcoords.emin)
+	if not converted then
+		return 'invalid coordinates '..tostring(coords)
+	end
+	
+	local desc = _coordstr..'<br>('..coords[1]..','..coords[2]..')<br>[[File:'..img..']]'
+	local margs = {
+			x = coords[1],
+			y = coords[2],
+			mapID = 28,
+			plane = 0,
+			zoom = 2,
+			group = 'cclue'..coords[1]..coords[2], 
+			etype = 'maplink',
+			text = 'Show on map',
+			features = 'pin',
+			iconWikiLink = 'Clue_Scroll_Pin-02.svg',
+			iconSize = {26,42},
+			iconAnchor = {13,42},
+			popupAnchor = {0,-42},
+			pins = { {x=coords[1], y=coords[2], title='Coordinate clue location', description=desc} }
+		}
+	return maps({string.format("%s,%s", margs.x, margs.y), text = "Show on map"})
+end
+
+return p
+--</nowiki>

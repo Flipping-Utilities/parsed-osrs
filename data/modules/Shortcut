@@ -1,0 +1,35 @@
+local p = {}
+
+function p.main(frame)
+    local args = frame:getParent().args
+    return p._main(args)
+end
+
+function p._main(args)
+    local div = mw.html.create('div')
+        :addClass('shortcut noprint plainlist')
+        :wikitext('[[RuneScape:Shortcut|Shortcut]]')
+
+    local numargs = 0
+    for i, v in ipairs(args) do
+        numargs = numargs + 1
+    end    
+
+    if numargs > 1 then
+        div:node('s')
+    end
+    div:node(':')
+
+    local list = div:tag('ul')
+    for i, v in ipairs(args) do
+        list:tag('li'):wikitext('[[' .. v .. ']]')
+    end
+
+    return tostring(div)
+end
+
+--[[ DEBUG COPYPASTA
+= p._main({'Link 1', 'Link 2', 'Link 3', 'Link 4'})
+--]]
+
+return p

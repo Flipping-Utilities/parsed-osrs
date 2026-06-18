@@ -1,0 +1,57 @@
+--[[
+{{Helper module|name=Addcommas
+|fname1=_add(arg)
+|ftype1=Number
+|fuse1=Formats the number arg with commas
+|fname2=_strip(arg)
+|ftype2=Number
+|fuse2=Removes all commas from arg
+}}
+--]]
+-- <nowiki>
+--
+-- Implements {{Addcommas}}
+--
+
+local p = {}
+
+--
+-- main function
+-- keep public so it can be used in other modules
+--
+function p._add( arg )
+    local lang = mw.language.getContentLanguage()
+    local z = tostring( arg )
+    local y = mw.text.split( z, '[%-–]' )
+    local x
+
+    -- strip any existing commas
+    z = z:gsub( ',', '' )
+
+    -- handle ranges as separate numbers
+    -- required by [[Module:Exchange]] (p._table)
+    if y[1] ~= '' and y[2] then
+        y[1] = tonumber( y[1] )
+        y[2] = tonumber( y[2] )
+        x = lang:formatNum( y[1] ) .. '–' .. lang:formatNum( y[2] )
+    else
+        x = lang:formatNum( tonumber( z ) )
+    end
+
+    return x
+end
+
+--
+-- strips any existing commas in the input
+--
+function p._strip( str )
+    str = tostring( str )
+    return str:gsub( ',', '' )
+end
+
+function p.commas ( frame )
+    local str = frame:getParent().args[1]
+    return p._add( str )
+end
+
+return p

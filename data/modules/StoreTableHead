@@ -1,0 +1,79 @@
+local p = {}
+
+local params = require('Module:Paramtest')
+local yesno = require('Module:Yesno')
+local var = mw.ext.VariablesLua
+
+function p.main(frame)
+    local args = frame:getParent().args
+    local buymultiplier,sellmultiplier,currency,namenotes,delta,bucket,hideimage,hidege,hidebuy,hidesell,hidestock,hiderestock,hidecaption,shopversion,membersOverride,locationOverride,leagueRegionOverride = params.defaults{
+                    {args.buymultiplier,1000},
+                    {args.sellmultiplier,1000},
+                    {args.currency,'Coins'},
+                    {args.namenotes,''},
+                    {args.delta,0},
+                    {args.bucket, 'yes'},
+                    {args.hideimage,'no'},
+                    {args.hidege,'no'},
+                    {args.hidebuy,'no'},
+                    {args.hidesell,'no'},
+                    {args.hidestock,'no'},
+                    {args.hiderestock,'no'},
+                    {args.hidecaption,'no'},
+                    {args.shopversion,''},
+                    {args.members,''},
+                    {args.location,''},
+                    {args.leagueRegion,''}
+                }
+    var.vardefine('BuyMultiplier', buymultiplier)
+    var.vardefine('SellMultiplier', sellmultiplier)
+    var.vardefine('Currency', currency)
+    var.vardefine('NameNotes', namenotes)
+    var.vardefine('Delta', delta)
+    var.vardefine('bucket', bucket)
+    var.vardefine('hideImage', hideimage)
+    var.vardefine('hideGE', hidege)
+    var.vardefine('hideBuy', hidebuy)
+    var.vardefine('hideSell', hidesell)
+    var.vardefine('hideStock', hidestock)
+    var.vardefine('hideRestock', hiderestock)
+    var.vardefine('ShopVersion', shopversion)
+    var.vardefine('StoreTable_MembersOverride', membersOverride)
+    var.vardefine('StoreTable_LocationOverride', locationOverride)
+    var.vardefine('StoreTable_LeagueRegionOverride', leagueRegionOverride)
+    
+    local ret = mw.html.create('')
+    if not(yesno(hidecaption)) then
+        ret:tag('caption')
+            :css('white-space','nowrap')
+            :wikitext(string.format('Sells at: %.1f%% • Buys at: %.1f%% • Change per: %.1f%%',sellmultiplier/10,buymultiplier/10,delta/10))
+            :done()
+    end
+    ret:tag('tr')
+    local colspan = yesno(hideimage) and 1 or 2
+    ret:tag('th'):attr('colspan', colspan):wikitext('Item'):done()
+    if not(yesno(hidestock)) then
+        ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Number<br>in stock'):done()
+    end
+    if not(yesno(hiderestock)) then
+        ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Restock<br/>time'):done()
+    end
+    if not(yesno(hidesell)) then
+        ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Price<br>sold at'):done()
+    end
+    if not(yesno(hidebuy)) then
+        ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Price<br>bought at'):done()
+    end
+    if not(yesno(hidege)) then
+        ret:tag('th'):attr('data-sort-type', 'number'):wikitext('[[Grand Exchange|GE <br>price]]'):done()
+    end
+    local i = 1
+    while args['column' .. i] do
+        ret:tag('th'):attr('data-sort-type', 'number'):wikitext(args['column' .. i]):done()
+        i = i+1
+    end
+    ret:done()
+    return '<table class="wikitable sortable" style="text-align:center;">' .. tostring(ret)
+end
+    
+return p

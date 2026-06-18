@@ -1,0 +1,102 @@
+local p = {}
+
+local libraryUtil = require('libraryUtil')
+local checkType = libraryUtil.checkType
+local arr = require('Module:Array')
+local dpl = require('Module:DPLlua')
+
+-- Given a list of pages, this function returns lists of pages that are either
+-- non-existing (invalid), redirects or duplicates.
+-- The maximum list length is constrained only by MediaWiki's maximum 
+-- 'Expensive parser function count', which at the time of writing is set to 100.
+function p.pagelistchecks(pages, logging)
+    checkType('Module:PageListTools.pagelistchecks', 1, pages, 'table')
+    checkType('Module:PageListTools.pagelistchecks', 2, logging, 'boolean', true)
+
+    local invalid = {}
+    local redirect = {}
+    local duplicate = {}
+    local pageid = {}
+
+    local t1 = os.clock()
+    for _, page in ipairs(pages) do
+        local title = mw.title.new(page, '')
+
+        if title.exists then 
+            if title.isRedirect then
+                table.insert(redirect, page)
+            end
+
+            if arr.contains(pageid, title.id) then
+                table.insert(duplicate, page)
+            else
+                table.insert(pageid, title.id)
+            end
+        else
+            table.insert(invalid, page)
+        end
+    end
+    local t2 = os.clock()
+
+    if logging then
+        mw.log(string.format('Checks (pagelist): total pages: %d, non-existing: %d, redirects: %d, duplicates: %d, time elapsed: %.3f ms.',
+            #pages, #invalid, #redirect, #duplicate, (t2 - t1) * 1000))
+    end
+
+    return {
+        invalid   = invalid,
+        redirect  = redirect,
+        duplicate = duplicate 
+    }
+end
+
+-- Returns a list of pages with the specified categories. Uses DPL.
+-- Each entry can consist of several categories AND-ed together with '<&>'.
+function p.pageswithcatsdpl(cats, logging)
+    checkType('Module:PageListTools.pageswithcatsdpl', 1, cats, 'table')
+    checkType('Module:PageListTools.pageswithcatsdpl', 2, logging, 'boolean', true)
+    assert(#cats > 0, 'You must supply at least one category')
+
+    local catlist = {}
+    for _, c in ipairs(cats) do
+        table.insert(catlist, { category = c, count = 1000, skipthispage = false })
+    end
+
+    return p.pageswithconditionsdpl(catlist, logging)
+end
+
+-- Returns a list of pages that satisfies the given DPL conditions
+function p.pageswithconditionsdpl(conditions, logging)
+    checkType('Module:PageListTools.pageswithconditionsdpl', 1, conditions, 'table')
+    checkType('Module:PageListTools.pageswithconditionsdpl', 2, logging, 'boolean', true)
+
+    local plistraw = {}
+
+    local t1 = os.clock()
+    for _, c in ipairs(conditions) do
+        local pages = dpl.ask(c)
+
+        for _, p in ipairs(pages) do
+            table.insert(plistraw, p)
+        end
+    end
+    local t2 = os.clock()
+
+    local plist = arr.unique(plistraw)
+    table.sort(plist)
+
+    if logging then
+        mw.log(string.format('DPL (pagelist): found: %d, unique: %d, time elapsed: %.3f ms.',
+            #plistraw, #plist, (t2 - t1) * 1000))
+    end
+
+    return plist
+end
+
+--[=[ DEBUG COPYPASTA
+mw.logObject( p.pagelistchecks({'Verac\'s brassard#Undamaged', 'Verac\'s flail#Undamaged', 'Verac\'s helm#Undamaged', 'Verac\'s plateskirt#Undamaged', 'Verac\'s helm#Undamaged', 'Verac\'s plateskirt#Undamaged', 'Nonexistent', 'Area-51', 'Addy scim', 'Rune scim'}, true) )
+mw.logObject( p.pageswithcatsdpl({'Monsters&Discontinued content', 'Monsters&Deadman Mode'}, true) )
+mw.logObject( p.pageswithconditionsdpl({{ category = 'Monsters&Discontinued content' }}, true) )
+--]=]
+
+return p

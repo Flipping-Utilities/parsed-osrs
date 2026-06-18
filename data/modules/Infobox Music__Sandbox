@@ -1,0 +1,217 @@
+-- <pre>
+-- This will likely be expanded when other infoboxes are converted to Lua
+-- For now, it will just be a categories handler
+
+local p = {}
+
+local pagename = mw.title.getCurrentTitle().fullText
+local onmain = require('Module:Mainonly').on_main
+local yesno = require('Module:Yesno')
+local empty = require('Module:Paramtest').is_empty
+local bucket_data = {}
+
+local composers = {
+	'Abbie Day',
+	'Adam Bond',
+	'Adam Ritchie',
+	'Alan Walker',
+	'Artur Baryshev',
+	'Ashleigh Bridges',	
+	'Ashton Mills',	
+	'Chris Jolley',
+	'Dan Atkinson',
+	'Ed Pilkington',	
+	'Frederique Gower',
+	'Gene Rozenberg',	
+	'Grace Docksey',
+	'Iain Hetherington',
+	'Ian Taylor',
+	'James Downie',
+	'James Hannigan',
+	'James Rodgers',
+	'Jed Sanderson',
+	'Joseph Rainey',
+	'Julian Surma',	
+	'Michael Manning',
+	'Oliver Nixon',
+	'Pilagari Sivapathasundaram',
+	'Sam Jones',
+	'Sebastian Boulton',
+	'Stephen Lord',
+}
+
+function p.cats(frame)
+	if not onmain() then
+		return ''
+	end
+	local args = frame:getParent().args
+	return p.categories {
+			frame = frame,
+			name = args.name,
+			number = args.number,
+			file = args.file,
+			release = args.release,
+			update = args.update,
+			members = args.members,
+			location = args.location,
+			hint = args.hint,
+			vocals = args.vocals,
+			instruments = args.instruments,
+			cacheid = args.cacheid,
+			duration = args.duration,
+			composer = args.composer,
+			map = args.map,
+			jingle = args.jingle,
+			tempo = args.tempo,
+			signature = args.signature,
+			sortname = args.sortname,
+			event = args.event,
+			unlockdetail = args.unlockdetail
+			}
+end
+
+-- Function that can perform case-insensitive replaces
+function replace_i(s, search, replace)
+	local i, j = s:lower():find(search:lower())
+	return s:sub(0, i-1) .. replace .. s:sub(j+1)
+end
+
+function p.composers(frame)
+	if not onmain() then
+		return ''
+	end
+	local args = frame:getParent().args
+	local ret = args.composer
+	local ctgy = ''
+	local complist = string.lower(args.composer)
+	local compcount = 0
+	local compbucket = {}
+	for name, cat in pairs(composers) do
+		if complist:find(string.lower(cat)) then
+			ctgy = ctgy .. '[[Category:Music composed by ' .. cat .. ']]'
+			ret = replace_i(ret, cat ..'%a*', '[[' .. cat .. ']]')
+			bucket_data["composer"] = compbucket
+			compcount = compcount + 1
+			table.insert(compbucket, compcount, cat)
+		end
+
+	end
+	if compcount == 0 then
+		ctgy = ctgy .. '[[Category:Invalid composer]]'
+	end
+	if compcount > 1 then
+		ctgy = ctgy..'[[Category:Tracks with multiple composers]]'
+	end
+	return ret .. ctgy
+end
+
+
+
+function p.categories(...)
+	
+	local args = ...
+	local ctgy = '<div style="display: none;">'
+	local members = yesno(args.members)
+	local bucketevent = false
+	if members == true then
+    	ctgy = ctgy .. "[[Category:Members' music]]"
+	elseif members == false then
+		ctgy = ctgy .. '[[Category:Free-to-play music]]'
+	end
+	if empty(args.jingle) then
+		ctgy = ctgy..'[[Category:Music tracks]]'
+		args.jingle = 'no'
+	else
+		ctgy = ctgy.."[[Category:Jingles]]"
+		args.jingle = 'yes'
+	end
+	if yesno(args.vocals) then
+		ctgy = ctgy..'[[Category:Music tracks with vocals]]'
+	end
+	if args.hint == "Not unlockable" then
+		ctgy = ctgy..'[[Category:Unlisted music tracks]]'
+	end
+	if empty(args.number) and empty(args.jingle) and args.hint ~= "Not unlockable" then
+		ctgy = ctgy..'[[Category:Missing track number]]'
+	end
+	if empty(args.file) then
+		ctgy = ctgy..'[[Category:Needs audio added]]'
+	else
+		bucket_data['track'] = string.gsub(args.file, '[%[%]]', '')
+	end
+	if empty(args.release) then
+		ctgy = ctgy..'[[Category:Needs release date]]'
+	else
+		local release = string.gsub(args.release, '[%[%]]', '')
+		local pattern = "(%d%d?)%s*-%s*(%d%d?)%s+(%a+)%s+(%d%d%d%d)"
+		day1, day2, month, year = string.match(release, pattern)
+		bucket_data['release_date'] = release
+	end
+	if empty(args.update) then
+		ctgy = ctgy..'[[Category:Needs update added]]'
+	end
+	if empty(args.members) then
+		ctgy = ctgy..'[[Category:Needs members status]]'
+	end
+	if empty(args.location) then
+	    ctgy = ctgy..'[[Category:Missing track location]]'
+	end
+	if empty(args.hint) then
+		ctgy = ctgy..'[[Category:Missing unlock hint]]'
+	else
+		bucket_data['unlock_hint'] = string.gsub(args.hint, '[%[%]]', '')
+	end
+	if empty(args.instruments) then
+		ctgy = ctgy..'[[Category:Needs instruments]]'
+	end
+	if empty(args.cacheid) then
+		ctgy = ctgy..'[[Category:Needs music ID]]'
+	end
+	if empty(args.duration) then
+		ctgy = ctgy..'[[Category:Needs track duration added]]'
+	end
+	
+	if empty(args.tempo) then
+		ctgy = ctgy..'[[Category:Needs tempo]]'
+	else
+		if args.tempo == '100 BPM' then
+			ctgy = ctgy .. '[[Category:100bpm music tracks]]'
+		end
+	end
+
+	
+	if empty(args.signature) then
+		ctgy = ctgy..'[[Category:Needs time signature]]'
+	end
+	
+	if empty(args.map) then
+		ctgy = ctgy..'[[Category:Needs map]]'
+	end
+	if empty(args.composer) then
+		ctgy = ctgy..'[[Category:Needs composer added]]'
+	end
+	if empty(args.sortname) then
+		ctgy = ctgy..'[[Category:Needs sort string added]]'
+	end
+	if args.event then
+		ctgy = ctgy..'[[Category:Event music]]'
+		bucketevent = true
+	end
+	ctgy = ctgy .. '</div>'
+	
+	p.composers(args.frame) --Call it again to set bucket_data values
+	bucket_data["title"] = args.name
+	bucket_data["number"] = args.number
+	bucket_data["is_members_only"] = yesno(args.members)
+	bucket_data["duration"] = args.duration
+	bucket_data["release_update"] = args.update
+	bucket_data["sort_name"] = args.sortname
+	bucket_data["is_jingle"] = yesno(args.jingle)
+	bucket_data["is_event"] = yesno(bucketevent)
+	bucket_data["unlock_detail"] = args.unlockdetail
+	bucket("music").put(bucket_data)
+	
+	return ctgy
+end
+
+return p

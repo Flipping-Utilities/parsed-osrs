@@ -1,0 +1,29 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame.args
+	
+	local itemName = args.item or ''
+	local image = string.format('[[File:%s.png|link=%s]]', itemName, itemName)
+	local description = args.desc or ''
+	return tostring(p.row(itemName, image, description))
+end
+
+function p.row(name, image, description)
+	return mw.html.create('tr')
+	    :css('text-align','center')
+	    :tag('td')
+	        :addClass('inventory-image')
+	        :wikitext(image)
+	    :done()
+	    :tag('td')
+	        :css('text-align','left')
+	        :addClass('item-col')
+	        :wikitext(itemName)
+	    :done()
+	    :tag('td')
+	        :wikitext(description)
+	    :done()
+end
+
+return p

@@ -1,0 +1,12 @@
+return {
+    itemId     = 5331,
+    icon       = 'Watering can.png',
+    item       = 'Watering can',
+    value      = 8,
+    limit      = 40,
+    members    = true,
+    category   = nil,
+    examine    = 'This watering can is empty.',
+    hialch     = 4,
+    lowalch    = 3
+}

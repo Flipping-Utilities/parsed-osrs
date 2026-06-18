@@ -1,0 +1,11 @@
+return {
+	itemId    = 32068,
+	item      = "Large teak hull parts",
+	icon      = 'Large teak hull parts.png',
+    alchable  = true,
+	value     = 6250,
+	limit     = 100,
+	members   = true,
+	category  = nil,
+	examine   = "Parts for creating a teak hull for larger boats."
+}

@@ -1,0 +1,12 @@
+return {
+    itemId     = 24613,
+    icon       = "Blighted entangle sack.png",
+    item       = "Blighted entangle sack",
+    alchable   = true,
+    value      = 30,
+    limit      = 15000,
+    members    = true,
+    category   = nil,
+    examine    = "Enough power for an Entangle, blighted so it can be used only in the Wilderness.",
+    usage      = {}
+}

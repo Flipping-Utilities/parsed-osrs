@@ -1,0 +1,10 @@
+{{documentation}}
+
+Formats many types of currency.
+
+{{Helper module
+|name=Currency
+|fname1=_amount(num, type)
+|ftype1=string
+|fuse1=Takes the number and formats it with the currency type (coins, nocoins).
+}}

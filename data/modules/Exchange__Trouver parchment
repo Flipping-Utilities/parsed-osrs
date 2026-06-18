@@ -1,0 +1,12 @@
+return {
+    itemId     = 24187,
+    icon       = "Trouver parchment.png",
+    item       = "Trouver parchment",
+    alchable   = true,
+    value      = 200,
+    limit      = 500,
+    members    = true,
+    category   = nil,
+    examine    = "Take it to Perdu to help you avoid losing certain items.",
+    usage      = {}
+}

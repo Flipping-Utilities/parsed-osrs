@@ -1,0 +1,711 @@
+--------------------------
+-- Module for [[Template:Infobox Item]]
+------------------------
+local p = {}
+
+local infobox = require('Module:Infobox')
+local onmain = require('Module:Mainonly').on_main
+local commas = require('Module:Addcommas')._add
+local exchange = require('Module:Exchange')
+local chart = require('Module:ExchangeData')._chart
+VariablesLua = mw.ext.VariablesLua
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'version', func = 'has_content' },
+		{ name = 'aka', func = 'has_content' },
+		{ name = 'image', func = 'image' },
+		{ name = 'image_smw', func = { name = image_smw, params = { 'image' }, flag = 'p' } },
+
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'quest', func = 'has_content' },
+
+		{ name = 'tradeable', func = tradeablearg },
+		{ name = 'bankable', func = 'has_content' },
+		{ name = 'stacksinbank', func = 'has_content' },
+		{ name = 'equipable', func = 'has_content' },
+		{ name = 'stackable', func = 'has_content' },
+		{ name = 'noteable', func = 'has_content' },
+		{ name = 'edible', func = 'has_content' },
+		{ name = 'options', func = 'has_content' },
+		{ name = 'wornoptions', func = { name = wornoptionsarg, params = { 'wornoptions' }, flag = 'p' } },
+		{ name = 'destroy', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+
+		{ name = 'raw_value', func = { name = valraw, params = { 'value' }, flag = 'p' } },
+		{ name = 'value', func = { name = valuearg, params = { 'raw_value' } } },
+
+		{ name = 'alchable', func = { name = alchablearg, params = { 'alchable' }, flag = 'p' } },
+		{ name = 'high', func = { name = alchvalues, params = { 'raw_value', 0.6, 'alchable' }, flag = { 'd', 'r', 'd' } } },
+		{ name = 'low', func = { name = alchvalues, params = { 'raw_value', 0.4, 'alchable' }, flag = { 'd', 'r', 'd' } } },
+		{ name = 'high_smw', func = { name = alchvalues_smw, params = { 'raw_value', 0.6, 'alchable' }, flag = { 'd', 'r', 'd' } } },
+
+		{ name = 'raw_weight', func = { name = weight_raw, params = { 'weight' }, flag = 'p' } },
+		{ name = 'weight', func = weightarg },
+		{ name = 'respawn', func = respawnarg },
+
+		{ name = 'gemw', func = { name = gemwarg, params = { 'exchange' }, flag = {'p', 'd'} } },
+		{ name = 'gemwname', func = { name = gemwnamearg, params = { 'name', 'gemwname' } } },
+		{ name = 'gemwprice', func = { name = gemwpricearg, params = { 'gemw', 'gemwname' } } },
+		{ name = 'exchange', func = { name = exchangearg, params = { 'gemwprice', 'gemwname' } } },
+		-- dupes = true allows the css class to hide rows on undefined verisions
+		-- css class name to hide rows on undefined versions
+		{ name = 'gemwdisp', func = { name = gemwdisp, params = { 'gemwprice' } }, dupes = true },
+		{ name = 'buylimit', func = { name = buylimitarg, params = { 'gemwprice', 'gemwname' } }, dupes = true },
+		{ name = 'buylimit_smw', func = { name = buylimit_smw, params = { 'buylimit' } } },
+		{ name = 'volume', func = { name = volumearg, params = { 'gemwprice', 'gemwname' } }, dupes = true },
+		{ name = 'realtime', func = { name = realtimearg, params = { 'gemwprice', 'gemwname' } }, dupes = true},
+		{ name = 'graph', func = { name = gemwgrapharg, params = { 'gemwprice', 'gemwname' } } },
+
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Item' }, flag = 'r' } },
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_smw', func = { name = idsmw, params = { 'id' }, flag = 'p' } },
+	}
+
+	ret:setMaxButtons(10)
+	ret:create()
+	ret:cleanParams()
+	ret:customButtonPlacement(true)
+	ret:setDefaultVersionSMW(true)
+
+	-- adds the classname in 'gemwdisp' to the rows containing 'buylimit' and 'volume'
+	ret:linkParams{
+		{ 'buylimit', 'gemwdisp' },
+		{ 'volume', 'gemwdisp' },
+		{ 'realtime', 'gemwdisp' },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:useSMWOne({
+		members = 'All Is members only',
+		id_smw = 'All Item ID',
+		image_smw = 'All Image',
+		raw_weight = 'All Weight',
+	})
+
+	ret:useSMWSubobject({
+		version = 'Version anchor',
+		release = 'Release date',
+		id_smw = 'Item ID',
+		examine = 'Examine',
+		high_smw = 'High Alchemy value',
+		members = 'Is members only',
+		raw_value = 'Value',
+		raw_weight = 'Weight',
+		image_smw = 'Image',
+		buylimit_smw = 'Buy limit',
+		usesinfobox = 'Uses infobox',
+	})
+
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Item')
+	ret:addClass('infobox-item')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'argd', content = 'image', class = 'infobox-image inventory-image infobox-full-width-content', colspan = '20' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'th', content = 'Released', colspan = '7' },
+		{ tag = 'argd', content = 'release', colspan = '13' }
+	}
+
+	if ret:paramDefined('removal') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removal', colspan = '7' },
+			{ tag = 'argd', content = 'removal', colspan = '13' }
+		}
+	end
+
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '7' },
+			{ tag = 'argd', content = 'aka', colspan = '13' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '7' },
+		{ tag = 'argd', content = 'members', colspan = '13' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Quest items|Quest item]]', colspan = '7' },
+		{ tag = 'argd', content = 'quest', colspan = '13' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'th', content = 'Properties', class = 'infobox-subheader', colspan = '20' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'th', content = '[[Items#Tradeability|Tradeable]]', colspan = '7' },
+		{ tag = 'argd', content = 'tradeable', colspan = '13' }
+	}
+
+	if ret:paramDefined('bankable') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Bank]]able', colspan = '7' },
+			{ tag = 'argd', content = 'bankable', colspan = '13' }
+		}
+	end
+
+	if ret:paramDefined('stacksinbank') then
+		ret:addRow{
+			{ tag = 'th', content = 'Stacks in bank', colspan = '7' },
+			{ tag = 'argd', content = 'stacksinbank', colspan = '13' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Worn Equipment|Equipable]]', colspan = '7' },
+		{ tag = 'argd', content = 'equipable', colspan = '13' }
+	}
+	
+	:addRow{
+		{ tag = 'th', content = '[[Stackable items|Stackable]]', colspan = '7' },
+		{ tag = 'argd', content = 'stackable', colspan = '13' }
+	}
+
+	if ret:paramDefined('noteable') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Note|Noteable]]', colspan = '7' },
+			{ tag = 'argd', content = 'noteable', colspan = '13' }
+		}
+	end
+
+	if ret:paramDefined('edible') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Food|Edible]]', colspan = '7' },
+			{ tag = 'argd', content = 'edible', colspan = '13' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Choose Option|Options]]', colspan = '7' },
+		{ tag = 'argd', content = 'options', colspan = '13' }
+	}
+	
+	if ret:paramGrep('equipable', true) or ret:paramDefined('wornoptions') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Worn Equipment|Worn options]]', colspan = '7' },
+			{ tag = 'argd', content = 'wornoptions', colspan = '13' }
+		}
+	end
+
+	if ret:paramDefined('destroy') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Destroy]]', colspan = '7' },
+			{ tag = 'argd', content = 'destroy', colspan = '13' }
+		}
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = '[[Examine]]', colspan = '7' },
+		{ tag = 'argd', content = 'examine', colspan = '13' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'th', content = 'Values', class = 'infobox-subheader', colspan = '20' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'th', content = '[[Value]]', colspan = '7' },
+		{ tag = 'argd', content = 'value', colspan = '13' }
+	}
+
+	-- if any are alchable, add both rows
+	if ret:paramGrep('alchable', true) then
+		ret:addRow{
+			{ tag = 'th', content = '[[High Level Alchemy|High alch]]', colspan = '7' },
+			{ tag = 'argd', content = 'high', colspan = '13' }
+		}
+		:addRow{
+			{ tag = 'th', content = '[[Low Level Alchemy|Low alch]]', colspan = '7' },
+			{ tag = 'argd', content = 'low', colspan = '13' }
+		}
+	else
+		-- otherwise add a single "no alch" row
+		ret:addRow{
+			{ tag = 'th', content = '[[Alchemy]]', colspan = '7' },
+			{ tag = 'td', content = 'Not alchemisable', colspan = '13' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Weight]]', colspan = '7' },
+		{ tag = 'argd', content = 'weight', colspan = '13' }
+	}
+	
+	if ret:paramDefined('respawn') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Item respawns|Respawn time]]', colspan = '7' },
+			{ tag = 'argd', content = 'respawn', colspan = '13' }
+		}
+	end
+	
+	ret:pad(20)
+
+	-- if we have any on the ge, add the gemw row
+	local anygemw = ret:paramGrep('gemwprice', function(x) return x > 0 end)
+	if anygemw == true then
+		ret:addRow{
+			{ tag = 'th', content = 'Grand Exchange', class = 'infobox-subheader', colspan = '20' }
+		}
+		:pad(20)
+		:addRow{
+			{ tag = 'th', content = '[[RuneScape:Grand Exchange Market Watch|Exchange]]', colspan = '7' },
+			{ tag = 'argd', content = 'exchange', colspan = '13' }
+		}
+		:addRow{
+			{ tag = 'th', content = '[[Grand Exchange#Buy limits|Buy limit]]', colspan = '7' },
+			{ tag = 'argd', content = 'buylimit', colspan = '13' }
+		}
+		:addRow{
+			{ tag = 'th', content = '[[Grand Exchange#Volume|Daily volume]]', colspan = '7' },
+			{ tag = 'argd', content = 'volume', colspan = '13' }
+		}
+		:pad(20)
+		:addRow{
+			{ tag = 'argd', content = 'realtime', class = 'infobox-full-width-content', colspan = '20' }
+		}
+		:pad(20)
+		:addRow{
+			{ tag = 'argd', content = 'graph', class = 'infobox-full-width-content', colspan = '20' }
+		}
+		:pad(20)
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Item ID', colspan = '7' },
+		{ tag = 'argd', content = 'id',  colspan = '13' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+
+	return ret:tostring()
+end
+
+function tradeablearg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	arg = string.lower(arg)
+	if arg == 'yes' then
+		return 'Yes'
+	elseif arg == 'no' then
+		return 'No'
+	end
+	return arg
+end
+
+function wornoptionsarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	
+	if string.lower(arg) == 'none' or string.lower(arg) == 'no' then
+		return 'None <sup class="explain" title="This item has no options when worn other than Remove and Examine.">(?)</sup>'
+	else
+		return arg
+	end
+end
+
+-- Return raw value as a number, or nil if not defined
+function valraw(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	return tonumber(arg)
+end
+
+function valuearg(value)
+	if not infobox.isDefined(value) then
+		return nil
+	end
+
+	return plural('coin', value)
+end
+
+-- Return boolean true if alchable, false otherwise.
+-- Nil/empty string is considered true
+function alchablearg(arg)
+	return string.lower(arg or '') ~= 'no'
+end
+
+function alchvalues(value, multiplier, alchable)
+	if alchable == false then
+		-- used in the case of 1 version being alchable and the other not
+		return 'Not alchemisable'
+	end
+
+	if not infobox.isDefined(value) then
+		return nil
+	end
+
+	local alch_value = math.floor(value * multiplier)
+	return plural('coin', alch_value)
+end
+
+function alchvalues_smw(value, multiplier, alchable)
+	if not infobox.isDefined(value) or not infobox.isDefined(alchable) or not alchable then
+		return nil
+	end
+
+	return math.floor(value * multiplier)
+end
+
+function weight_raw(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if tonumber(arg) then
+		return arg
+	end
+
+	return nil
+end
+
+function weightarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	-- if arg is a valid number, strip 0s and append kg
+	if tonumber(arg) then
+		return string.gsub(tonumber(arg), '%.0$', '') .. ' kg'
+	end
+
+	-- if arg isn't a number, return it unmodified
+	return arg
+end
+
+function respawnarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	-- if arg is a valid number, display ticks and seconds
+	if tonumber(arg) then
+		local plural = tonumber(arg) ~= 1 and 's' or ''
+		return arg .. ' tick' .. plural .. ' (' .. arg * 0.6 .. ' seconds)'
+	end
+
+	-- if arg isn't a number, return it unmodified
+	return arg
+end
+
+-- Return boolean true if item is on the GE
+function gemwarg(exchange)
+	return string.lower(exchange or '') == 'yes'
+end
+
+function gemwnamearg(name, gemwname)
+	if infobox.isDefined(gemwname) then
+		return gemwname
+	elseif infobox.isDefined(name) then
+		return name
+	end
+
+	return mw.title.getCurrentTitle().fullText
+end
+
+-- Return GE value
+-- Returns 0 if item isn't on GE, or -1 if exchange is set and the item isn't found
+function gemwpricearg(gemw, gemwname)
+	if not gemw then
+		return 0
+	end
+
+	if not exchange._exists(gemwname) then
+		return -1
+	end
+
+	return tonumber(exchange._price(gemwname, nil, nil, nil, -1)) or -1
+end
+
+-- split items with multiple images for smw (e.g. [[File:Arrow 1.png]] [[File:Arrow 2.png]])
+function image_smw(arg)
+	local _img = {}
+	for i in string.gmatch(arg, "[Ff]ile:.-%.png") do
+		table.insert(_img, i)
+	end
+	if #_img == 0 then
+		return nil
+	end
+	return table.concat(_img, '&&SPLITPOINT&&')
+end
+
+function exchangearg(gemwprice, gemwname)
+	if gemwprice == 0 then
+		-- span is necessary or else the input box disappears
+		return '<span class="infobox-quantity" data-val-each="0">Not sold</span>'
+	end
+
+	if gemwprice == -1 then
+		return badarg('exchange', 'was set to «gemw» but no page was found for «'..gemwname..'».')
+	end
+
+	return string.format('<span class="infobox-quantity" data-val-each="%s"><span class="infobox-quantity-replace">%s</span> coin%s ([[Exchange:%s|info]])</span>', gemwprice, commas(gemwprice), gemwprice > 1 and 's' or '', gemwname)
+end
+
+function gemwgrapharg(gemwprice, gemwname)
+	if gemwprice == 0 then
+		return 'No data to display'
+	end
+
+	if gemwprice == -1 then
+		return badarg('exchange', 'was set to «gemw» but no page was found for «'..gemwname..'».')
+	end
+
+	return chart{ items = gemwname, size = 'small' }
+end
+
+function buylimitarg(gemwprice, gemwname)
+	-- 0 for not sold, -1 for error
+	if gemwprice <= 0 then
+		return '-'
+	end
+
+	local limit = exchange._limit(gemwname)
+	if limit == nil then
+		return '-'
+	end
+	return commas(limit)
+end
+
+function buylimit_smw(buylimit)
+	if type(buylimit) == 'string' then
+		buylimit = buylimit:gsub(',', '')
+	end
+	if tonumber(buylimit) then
+		return tonumber(buylimit)
+	end
+	return nil
+end
+
+function volumearg(gemwprice, name)
+	-- 0 for not sold, -1 for error
+	if gemwprice <= 0 then
+		return '-'
+	end
+
+	local ret = exchange._volume(name)
+	if ret == nil then
+		return '-'
+	end
+	return commas(ret)
+end
+
+function realtimearg(gemwprice, gemwname)
+	if gemwprice <= 0 then
+		return '-'
+	end
+	
+	local gemw_id = exchange._itemId(gemwname)
+	
+	return '<div class="realtime-prices plainlinks">[https://prices.runescape.wiki/osrs/item/' .. gemw_id .. ' <span class="mw-ui-button realtime-ge-openbtn">View real-time prices</span>]</div>'
+end
+
+-- Return class to hide rows when item isn't on GE
+function gemwdisp(gemwprice)
+	if gemwprice <= 0 then
+		return 'infobox-cell-hidden'
+	else
+		return 'infobox-cell-shown'
+	end
+end
+
+function idsmw(id)
+	if not infobox.isDefined(id) then
+		return nil
+	end
+	return string.gsub(id, ',', '&&SPLITPOINT&&')
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+function plural(word, amount, alt_plural_word)
+	local output_amount = commas(tonumber(amount) or 1)
+	if tonumber(amount) == 1 then
+		return string.format('%s %s', output_amount, word)
+	elseif alt_plural_word then
+		return string.format('%s %s', output_amount, alt_plural_word)
+	else
+		return string.format('%s %ss', output_amount, word)
+	end
+end
+
+function has_three_decimals(weight)
+	local decimals = string.match(weight, "%.(.*)")
+	if not decimals then
+		return false
+	end
+	return string.len(decimals) == 3
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Items' }
+	local cat_map = {
+		-- Added if the parameter has content
+		defined = {
+			aka = 'Pages with AKA'
+		},
+		-- Added if the parameter has no content
+		notdefined = {
+			image = 'Needs image',
+			members = 'Needs members status',
+			release = 'Needs release date',
+			examine = 'Needs examine added',
+			level = 'Needs combat level',
+			weight = 'Needs weight added',
+			value = 'Items missing value',
+			quest = 'Items missing quest',
+			options = 'Needs options',
+			destroy = 'Needs destroy text',
+			id = 'Needs ID',
+		},
+		-- Parameters that have text
+		-- map a category to a value
+		matches = {
+			members = { yes = 'Members\' items', no = 'Free-to-play items' },
+			stackable = { yes = 'Stackable items' },
+			equipable = { yes = 'Equipable items' },
+			edible = { yes = 'Edible items' },
+			gemw = { ['true'] = 'Grand Exchange items' },
+			tradeable = { yes = 'Tradeable items', no = 'Untradeable items' },
+			bankable = { no = 'Unbankable items' },
+		}
+	}
+
+	-- defined categories
+	for n, v in pairs(cat_map.defined) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+	-- undefined categories
+	for n, v in pairs(cat_map.notdefined) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- searches
+	for n, v in pairs(cat_map.matches) do
+		for m, w in pairs(v) do
+			if args[n] then
+				if string.lower(tostring(args[n].d) or '') == m then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if string.lower(tostring(x)) == m then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	-- quest items
+	-- just look for a link
+	if args.quest.d:find('%[%[') then
+		table.insert(ret, 'Quest items')
+	elseif args.quest.switches then
+		for _, v in ipairs(args.quest.switches) do
+			if v:find('%[%[') then
+				table.insert(ret, 'Quest items')
+				break
+			end
+		end
+	end
+
+	-- ids
+	if not catargs.id.all_defined then
+		table.insert(ret, 'Needs ID')
+	end
+
+	-- alchemy
+	-- non alchable
+	if args.alchable.d == false or args.alchable.d == 'false' then
+		table.insert(ret, 'Items that cannot be alchemised')
+	elseif args.alchable.switches then
+		for _, v in ipairs(args.alchable.switches) do
+			if v == false or v == 'false' then
+				table.insert(ret, 'Items that cannot be alchemised')
+				break
+			end
+		end
+	end
+
+	-- Add Non-GE items if item is both (not GEMW) and tradeable
+	-- Note: gemw values are boolean, tradeable values are "Yes"/"No" strings
+	if not args.gemw.d and infobox.isDefined(args.tradeable.d) and string.lower(args.tradeable.d) ~= 'no' then
+		table.insert(ret, 'Non-GE items')
+	end
+	if args.gemw.switches then
+		for i, v in ipairs(args.gemw.switches) do
+			local tradeable_val = string.lower(args.tradeable.switches and args.tradeable.switches[i] or args.tradeable.d)
+			if not v and infobox.isDefined(tradeable_val) and tradeable_val ~= 'no' then
+				table.insert(ret, 'Non-GE items')
+			end
+		end
+	end
+
+	-- Add category if the weight doesn't have exactly 3 digits after the decimal
+	if args['raw_weight'] then
+		if tonumber(args['raw_weight'].d) and not has_three_decimals(args['raw_weight'].d) then
+			table.insert(ret, 'Needs exact weight')
+		end
+		if args['raw_weight'].switches then
+			for i, weight_i in ipairs(args['raw_weight'].switches) do
+				if tonumber(weight_i) and not has_three_decimals(weight_i) then
+					table.insert(ret, 'Needs exact weight')
+				end
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		ret[i] = string.format('[[Category:%s]]', v)
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

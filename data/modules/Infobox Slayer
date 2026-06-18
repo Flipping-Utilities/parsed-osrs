@@ -1,0 +1,174 @@
+--------------------------
+-- Module for [[Template:Infobox Slayer]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local commas = require('Module:Addcommas')._addt
+local infobox = require('Module:Infobox')
+VariablesLua = mw.ext.VariablesLuas
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name'},
+		{ name = 'icon', func = 'has_content' },
+		{ name = 'skillreq', func = 'has_content' },
+		{ name = 'combatreq', func = 'has_content' },
+		{ name = 'otherreq', func = 'has_content' },
+		{ name = 'turael', func = 'has_content' },
+		{ name = 'spria', func = 'has_content' },
+		{ name = 'krystilia', func = 'has_content' },
+		{ name = 'mazchna', func = 'has_content' },
+		{ name = 'vannaka', func = 'has_content' },
+		{ name = 'chaeldar', func = 'has_content' },
+		{ name = 'konar', func = 'has_content' },
+		{ name = 'nieve', func = 'has_content' },
+		{ name = 'duradel', func = 'has_content' },
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Slayer' }, flag = 'r' } },
+		{ name = 'id', func = 'has_content' },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Slayer')
+	ret:addClass('infobox-slayer')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '30' }
+	}
+
+	:pad(30)
+
+	if ret:paramDefined('icon') then
+		ret:addRow{
+			{ tag = 'argd', content = 'icon', colspan = '30', class = 'infobox-full-width-content' }
+		}
+		
+		ret:pad(30)
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = 'Requirements', colspan = '30', class = 'infobox-subheader' }
+	}
+
+	:pad(30)
+	
+	:addRow{
+		{ tag = 'th', content = '[[Skills]]', colspan = '10' },
+		{ tag = 'argd', content = 'skillreq', colspan = '20' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Combat level]]', colspan = '10' },
+		{ tag = 'argd', content = 'combatreq', colspan = '20' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Other', colspan = '10' },
+		{ tag = 'argd', content = 'otherreq', colspan = '20' }
+	}
+
+	:pad(30)
+	
+	:addRow{
+		{ tag = 'th', content = 'Task amounts (extended)', colspan = '30', class = 'infobox-subheader' }
+	}
+
+	:pad(30)
+
+	if ret:paramDefined('turael') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Turael chathead.png|x30px|link=Turael]] [[Turael]]', colspan = '10' },
+			{ tag = 'argd', content = 'turael', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('spria') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Spria chathead.png|x30px|link=Spria]] [[Spria]]', colspan = '10' },
+			{ tag = 'argd', content = 'spria', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('krystilia') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Krystilia chathead.png|x30px|link=Krystilia]] [[Krystilia]]', colspan = '10' },
+			{ tag = 'argd', content = 'krystilia', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('mazchna') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Mazchna chathead.png|x30px|link=Mazchna]] [[Mazchna]]', colspan = '10' },
+			{ tag = 'argd', content = 'mazchna', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('vannaka') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Vannaka chathead.png|x30px|link=Vannaka]] [[Vannaka]]', colspan = '10' },
+			{ tag = 'argd', content = 'vannaka', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('chaeldar') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Chaeldar chathead.png|x30px|link=Chaeldar]] [[Chaeldar]]', colspan = '10' },
+			{ tag = 'argd', content = 'chaeldar', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('konar') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Konar quo Maten chathead.png|x30px|link=Konar quo Maten]] [[Konar quo Maten|Konar]]', colspan = '10' },
+			{ tag = 'argd', content = 'konar', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('nieve') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Nieve chathead.png|x30px|link=Nieve]] [[Nieve]]', colspan = '10' },
+			{ tag = 'argd', content = 'nieve', colspan = '20' }
+		}
+	end
+
+	if ret:paramDefined('duradel') then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Duradel chathead.png|x30px|link=Duradel]] [[Duradel]]', colspan = '10' },
+			{ tag = 'argd', content = 'duradel', colspan = '20' }
+		}
+	end
+
+	ret:pad(30)
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '30' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(30, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Icon ID', colspan = '10' },
+		{ tag = 'argd', content = 'id',  colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	ret:pad(30, 'advanced-data')
+	
+	return ret:tostring()
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+return p

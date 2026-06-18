@@ -1,0 +1,97 @@
+-- <pre>
+require('strict')
+local p = {}
+
+-- from <https://en.wikipedia.org/w/index.php?title=Module:Key&oldid=1071502366>
+local keyText = {
+	['caps lock'] = '⇪ Caps Lock',
+--	['[[caps lock]]'] = '⇪ [[Caps Lock]]',
+	['shift'] = '⇧ Shift',
+--	['[[shift key|shift]]'] = '⇧ [[Shift key|Shift]]',
+	['enter'] = '↵ Enter',
+--	['[[enter key|enter]]'] = '↵ [[Enter key|Enter]]',
+	['cmd'] = '⌘ Cmd',
+--	['[[command key|cmd]]'] = '⌘ [[Command key|Cmd]]',
+	['command'] = '⌘ Command',
+--	['[[command key|command]]'] = '⌘ [[Command key|Command]]',
+	['opt'] = '⌥ Opt',
+--	['[[option key|opt]]'] = '⌥ [[Option key|Opt]]',
+	['option'] = '⌥ Option',
+--	['[[option key|option]]'] = '⌥ [[Option key|Option]]',
+	['tab'] = 'Tab ↹',
+--	['[[tab key|tab]]'] = '[[Tab key|Tab]] ↹',
+	['backspace'] = '← Backspace',
+--	['[[backspace]]'] = '← [[Backspace]]',
+	['win'] = '⊞ Win',
+--	['[[windows key|win]]'] = '⊞ [[Windows key|Win]]',
+	['menu'] = '≣ Menu',
+--	['[[menu key|menu]]'] = '≣ [[Menu key|Menu]]',
+	['up'] = '↑',
+--	['[[arrow keys|up]]'] = '[[Arrow keys|↑]]',
+	['down'] = '↓',
+--	['[[arrow keys|down]]'] = '[[Arrow keys|↓]]',
+	['left'] = '←',
+--	['[[arrow keys|left]]'] = '[[Arrow keys|←]]',
+	['right'] = '→',
+--	['[[arrow keys|right]]'] = '[[Arrow keys|→]]',
+	['asterisk'] = '&#42;',
+	['hash'] = '&#35;',
+--	['[[#]]'] = '[[Number sign|#]]',
+	['colon'] = '&#58;',
+--	['[[:]]'] = '[[Colon (punctuation)|:]]',
+	['pipe'] = '&#124;',
+--	['[[|]]'] = '[[Pipe symbol|&#124;]]',
+	['semicolon'] = '&#59;',
+--	['[[;]]'] = '[[Semi-colon|&#59;]]',
+	['equals'] = '&#61;'
+}
+
+local keyAlias = {
+	-- ['alternate name for key (alias)'] = 'name for key used in key table'
+--	['[[cmd key|cmd]]'] = '[[command key|cmd]]',
+--	['[[cmd key|command]]'] = '[[command key|command]]',
+--	['[[opt key|opt]]'] = '[[option key|opt]]',
+--	['[[option key]]'] = '[[option key|option]]',
+--	['[[opt key|option]]'] = '[[option key|option]]',
+--	['[[win key|win]]'] = '[[windows key|win]]',
+	['*'] = 'asterisk',
+	['#'] = 'hash',
+	[':'] = 'colon',
+	[';'] = 'semicolon'
+}
+
+function p._main(args)
+	local ret = mw.html.create('span')
+				:css('white-space','nowrap')
+
+	local sep = args.sep or '+'
+	local keys = {}
+	local tblsize = 0
+
+	for i, v in ipairs(args) do
+		tblsize = i
+		table.insert(keys,v)
+	end
+
+	for i, v in ipairs(keys) do
+		local lc = v:lower()
+		local text = keyText[lc] or keyText[keyAlias[lc]] or v
+		ret	:tag('kbd')
+				:addClass('keypress')
+				:wikitext(text)
+			:done()
+
+		if i < tblsize then
+			ret:wikitext(sep)
+		end
+	end
+
+	return tostring(ret)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

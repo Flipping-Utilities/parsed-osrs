@@ -1,0 +1,382 @@
+local experience = require( 'Module:Experience' )
+local paramtest = require ( 'Module:Paramtest' )
+local allMoulds = require( "Module:Giants' Foundry Calculator/Moulds" )
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local scp = require('Module:SCP')._main
+
+local p = {}
+
+function p.lazyplink(str)
+	return '[[File:' .. str .. '.png|link=' .. str .. ']] [[' .. str .. ']]'
+end
+
+function p.strtobool(str)
+	local result = false
+	if str == 'true' then
+		result = true
+	end
+	return result
+end
+
+function p.experience(quality)
+	local result = (math.floor(quality*quality/73)+math.floor(1.5*quality)+1)*30
+	return result
+end
+
+function p.metalScore(tier1, tier2, amount1, amount2)
+	local value1
+	local value2
+	if tier2 == tier1 or tier2 == 0 then
+		value1 = 10*tier1
+		value2 = 0
+	else
+		value1 = 10*tier1*amount1/28
+		value2 = 10*tier2*amount2/28
+	end
+	local result = math.floor((math.floor(10*value1)+math.floor(10*value2)+math.floor(value1*value2))/10)
+	return result
+end
+
+local barTier = {
+	['None'] = 0,
+	['Bronze'] = 1,
+	['Iron'] = 2,
+	['Steel'] = 3,
+	['Mithril'] = 4,
+	['Adamantite'] = 5,
+	['Runite'] = 6
+}
+
+local itemBarWorth = {
+	['platebody'] = 4,
+	['warhammer'] = 2,
+	['battleaxe'] = 2,
+	['chainbody'] = 2,
+	['kiteshield'] = 2,
+	['2h sword'] = 2,
+	['platelegs'] = 2,
+	['plateskirt'] = 2,
+	['scimitar'] = 1,
+	['longsword'] = 1,
+	['full helm'] = 1,
+	['sq shield'] = 1,
+	['claws'] = 1
+}
+
+--requests and their frequency, sums up to 24
+local requestCombinations = {
+	[{'broad','heavy'}] = 3,
+	[{'broad','light'}]=3,
+	[{'broad','spiked'}]=1,
+	[{'broad','flat'}]=1,
+	[{'narrow','heavy'}]=3,
+	[{'narrow','light'}]=3,
+	[{'narrow','spiked'}]=1,
+	[{'narrow','flat'}]=1,
+	[{'heavy','spiked'}]=2,
+	[{'heavy','flat'}]=2,
+	[{'light','spiked'}]=2,
+	[{'light','flat'}]=2
+}
+
+function p.difficulty(score)
+	local result = 0
+	if score < 20 then
+		result = 3
+	elseif score < 60 then
+		result = 4
+	elseif score < 90 then
+		result = 5
+	elseif score < 120 then
+		result = 6
+	else
+		result = 7
+	end
+	return result
+end
+
+--maps the name of each mould to whether they are unlocked
+function p.mouldsUnlocked(mould1,mould2,mould3,mould4,mould5,mould6,mould7,mould8,mould9,mould10,mould11,mould12,mould13,mould14,mould15)
+	local results = {
+		['Stiletto Forte'] = p.strtobool(mould1),
+		['Defender Base'] = p.strtobool(mould2),
+		['Juggernaut Forte'] = p.strtobool(mould3),
+		['Chopper Forte +1'] = p.strtobool(mould4),
+		['Spiker!'] = p.strtobool(mould5),
+		['Flamberge Blade'] = p.strtobool(mould6),
+		['Serpent Blade'] = p.strtobool(mould7),
+		['Claymore Blade'] = p.strtobool(mould8),
+		['Fleur de Blade'] = p.strtobool(mould9),
+		['Choppa!'] = p.strtobool(mould10),
+		['Corrupted Point'] = p.strtobool(mould11),
+		['Defenders Tip'] = p.strtobool(mould12),
+		['Serrated Tip'] = p.strtobool(mould13),
+		['Needle Point'] = p.strtobool(mould14),
+		['The Point!'] = p.strtobool(mould15)
+	}
+	return results
+end
+
+--gives the average quality and average xp over all the possible requests. Done by going over all possible mould combinations and seeing which one is the best
+function p.averageQualityExp(level,unlockedMoulds,metalscore)
+	local scores = {['Forte'] = {}, ['Blade'] = {}, ['Tip'] = {}}
+	for combo,_ in pairs(requestCombinations) do
+		for mouldtype,__ in pairs(scores) do
+			scores[mouldtype][combo]=0
+		end
+	end
+	local temp
+	for _,mould in ipairs(allMoulds) do
+		if mould.level <= level and (mould.default or unlockedMoulds[mould.name]) then
+			for combo,__ in pairs(requestCombinations) do
+				temp = mould[combo[1]]+mould[combo[2]]
+				if scores[mould.type][combo] < temp then
+					scores[mould.type][combo] = temp
+				end
+			end
+		end
+	end
+	local scoresMerged = {}
+	local experienceMerged = {}
+	for combo,_ in pairs(requestCombinations) do
+		scoresMerged[combo] = metalscore + scores['Forte'][combo]+scores['Blade'][combo]+scores['Tip'][combo]
+		experienceMerged[combo] = p.experience(scoresMerged[combo])
+	end
+	local scoresAverage = 0
+	local experienceAverage = 0
+	for combo,value in pairs(requestCombinations) do
+		scoresAverage = scoresAverage + value*scoresMerged[combo]/24
+		experienceAverage = experienceAverage + value*experienceMerged[combo]/24
+	end
+	return {scoresAverage,experienceAverage}
+end
+
+function p.normaliseMetalName(bar)
+	if bar == 'Runite' then
+		return 'Rune';
+	end
+
+	if bar == 'Adamantite' then
+		return 'Adamant';
+	end
+
+	return bar;
+end
+
+function p.tableHeaderRow(...)
+	local text = '|-\n';
+	local args = {...};
+	for i = 1, #args do
+		text = text .. '! ' .. tostring(args[i]) .. '\n';
+	end
+	return text;
+end
+
+function p.tableDataRow(...)
+	local text = '|-\n';
+	local args = {...};
+	for i = 1, #args do
+		text = text .. '| ' .. tostring(args[i]) .. '\n';
+	end
+	return text;
+end
+
+function p.buildBarCostTable(amount, bar, barName, barPrice, itemBarWorth, gePrices, swordsToMake)
+	local text = '{| class="wikitable sortable align-left-1" style="text-align:center;"\n';
+	text = text .. '|+ '.. bar .. '\n';
+	text = text.. p.tableHeaderRow('Amount', 'Item', 'Each', 'Net') .. '\n';
+	
+	local bestItemPrice = amount * barPrice;
+		
+	text = text.. p.tableDataRow(tostring(amount), p.lazyplink(barName), coins(barPrice), coins(amount * barPrice)) .. '\n';
+
+	local itemPrefix = p.normaliseMetalName(bar)
+	for itemType, itemWorth in pairs(itemBarWorth) do
+		local itemName = itemPrefix .. ' ' .. itemType;
+		local itemPrice = gePrices[itemName];
+
+		if itemPrice then -- I really wish lua had a continue statement, and I refuse to use goto.
+			local itemAmount = amount / itemWorth;
+			local totalItemPrice = itemPrice * itemAmount;
+			
+			text = text.. p.tableDataRow(tostring(itemAmount), p.lazyplink(itemName), coins(itemPrice), coins(itemPrice * itemAmount)) .. '\n';
+
+			if totalItemPrice < bestItemPrice then
+				bestItemPrice = totalItemPrice
+			end
+		end
+	end
+	
+	text = text .. '|}\n';
+
+	local costTextPart = commas(amount * swordsToMake) .. ' ' .. p.lazyplink(barName) .. 's';
+	return text, costTextPart, bestItemPrice;
+end
+
+function p._main(args)
+	local bar1 = paramtest.default_to(args.metal1,'Bronze')
+	local bar2 = paramtest.default_to(args.metal2,'Iron')
+	local tier1 = barTier[bar1]
+	local tier2 = barTier[bar2]
+	local amount1 = paramtest.default_to(tonumber(args.metal1Amount), 14)
+	local amount2 = 28 - amount1
+	local metalwarning = ''
+	--since the second type can be none, we make sure that the bars per sword is always 28
+	if tier2==0 and amount2>0 then
+		amount1 = 28
+		amount2 = 0
+		metalwarning = '<b>Warning:</b> you used at least 1 bar with no type! Defaulted to 28 bars of the first type.<br>' 
+	end
+	local metalscore = p.metalScore(tier1,tier2,amount1,amount2)
+	-- get all the unlocked moulds as strings
+	local mould1,mould2,mould3,mould4,mould5,mould6,mould7,mould8,mould9,mould10,mould11,mould12,mould13,mould14,mould15 = paramtest.defaults{
+		{args.stiletto_F, false},
+		{args.defender_F, false},
+		{args.juggernaut_F, false},
+		{args.chopper_F, false},
+		{args.spiker_F, false},
+		{args.flamberge_B, false},
+		{args.serpent_B, false},
+		{args.claymore_B, false},
+		{args.fleur_B, false},
+		{args.choppa_B, false},
+		{args.corrupted_T, false},
+		{args.defenders_T, false},
+		{args.serrated_T, false},
+		{args.needle_T, false},
+		{args.point_T, false}
+	}
+	local unlockedMoulds = p.mouldsUnlocked(mould1,mould2,mould3,mould4,mould5,mould6,mould7,mould8,mould9,mould10,mould11,mould12,mould13,mould14,mould15)
+	local currentLevel
+	local currentxp
+	--since we get level or xp, we calculate the other for various purposes
+	local levelToggle = paramtest.default_to(args.currentToggle,'Level')
+	local current = paramtest.default_to(tonumber(args.current),1)
+	if levelToggle == 'Level' then
+		currentLevel = current
+		currentxp = experience.xp_at_level_unr({args = {current}})
+	else
+		currentxp = current
+		currentLevel = experience.level_at_xp_unr({args = {current}})
+	end
+	--note that average xp is not a function of average quality, since xp is not linear over quality
+	local averages = p.averageQualityExp(currentLevel,unlockedMoulds,metalscore)
+	local quality = averages[1]
+	local xp = averages[2]
+	
+	local goal = paramtest.default_to(tonumber(args.goal),99)
+	local goalToggle = paramtest.default_to(args.goalToggle,'Level')
+	local swordsToMake
+	local goalText = ''
+	local goalWarning = ''
+	local toGo
+	--different cases for the various goals
+	if goalToggle == 'Level' then
+		if goal == 0 or goal>126 then
+			goalWarning = '<b>Warning:</b> your current goal is not a level. Please enter a nonnegative level reachable within 200m xp or switch to xp.<br>'
+			swordsToMake = 0
+		elseif goal <= currentLevel then
+			swordsToMake = 0
+		else
+			toGo = experience.xp_at_level_unr({args = {goal}}) - currentxp
+			swordsToMake = math.ceil(toGo/xp)
+		end
+		goalText = 'To get to level ' .. tostring(goal) .. ' [[Smithing]] from level ' .. tonumber(currentLevel) .. ' [[Smithing]] (' .. commas(currentxp) .. ' experience) <b>' .. commas(swordsToMake) .. '</b> swords will have to be made on average.\n'
+	elseif goalToggle == 'Experience' then
+		if goal < currentxp then
+			toGo = 0
+		else
+			toGo = goal - currentxp
+		end
+		swordsToMake = math.ceil(toGo/xp)
+		goalText = 'To get to ' .. commas(goal) .. ' experience (level ' .. tostring(experience.level_at_xp({args = {goal}})) .. ' [[Smithing]]) from ' .. commas(currentxp) .. ' (level ' .. tostring(currentLevel) .. ' [[Smithing]]) <b>' .. commas(swordsToMake) .. '</b> swords will have to be made on average.\n'
+	else
+		swordsToMake = math.ceil(goal/quality)
+		toGo = math.floor(swordsToMake*xp)
+		-- xp can't go above 200m
+		if toGo+currentxp > 200000000 then
+			toGo = 200000000-currentxp
+		end
+		local newxp = toGo+currentxp
+		goalText = 'To get ' .. commas(goal) .. ' reputation <b>' .. commas(swordsToMake) .. '</b> swords will have to be made on average. This grants ' .. commas(toGo) .. ' experience putting you at ' .. commas(newxp) .. ' experience (level ' .. tostring(experience.level_at_xp({args = {newxp}})) .. ' [[Smithing]]).\n'
+	end
+	goalText = goalText .. '* Each sword is of average quality ' .. tonumber(quality) .. ', grants on average ' .. commas(math.floor(xp)) .. ' [[Smithing]] experience, awards on average '.. coins(math.floor(xp)*2) ..' and consists of ' .. tostring(p.difficulty(metalscore)) .. ' sections.\n'
+	
+	local bar1bar = bar1 .. ' bar'
+	local bar2bar = bar2 .. ' bar'
+	local bar1price = gePrices[bar1bar]
+	local bar1toggle = p.strtobool(paramtest.default_to(args.metal1PriceToggle,'false'))
+	if bar1toggle then
+		bar1price = paramtest.default_to(args.metal1Price,gePrices[bar1bar])
+	end
+	local bar2price = 0
+	local bar2toggle = p.strtobool(paramtest.default_to(args.metal2PriceToggle,'false'))
+	local barText = ''
+	local costText = '* ' .. commas(swordsToMake) .. ' swords will require '
+	
+	local bestItem1price = 0
+	local bestItem2price = 0
+	
+	if amount1 > 0 then
+		local textPart, costPart, bestPrice = p.buildBarCostTable(amount1, bar1, bar1bar, bar1price, itemBarWorth, gePrices, swordsToMake)
+
+		barText = barText .. textPart
+		costText = costText .. costPart
+		bestItem1price = bestPrice
+	end
+	if amount1 > 0 and amount2 > 0 then
+		costText = costText .. ' and '
+	end
+	if amount2 > 0 then
+		bar2price = gePrices[bar2bar]
+
+		if bar2toggle then
+			bar2price = paramtest.default_to(args.metal2Price, gePrices[bar2bar])
+		end
+
+		local textPart, costPart, bestPrice = p.buildBarCostTable(amount2, bar2, bar2bar, bar2price, itemBarWorth, gePrices, swordsToMake)
+
+		barText = barText .. textPart
+		costText = costText .. costPart
+		bestItem2price = bestPrice
+	end
+	
+	local swordCost = amount1*bar1price+amount2*bar2price
+	local finalCost = swordCost*swordsToMake
+
+	local swordCostWithItems = bestItem1price+bestItem2price
+	local finalCostWithItems = swordCostWithItems*swordsToMake
+
+	barText = barText .. '\n* Each sword will cost a total of ' .. coins(swordCost) .. ' using bars or ' .. coins(swordCostWithItems) .. ' using items.\n'
+	costText = costText .. ', at a total cost of ' .. coins(finalCost) .. ' using bars, or at a total cost of ' .. coins(finalCostWithItems) .. ' using items.\n'
+	
+	local income = swordsToMake*xp*2
+	local profit = income-finalCost
+	local profitWithItems = income-finalCostWithItems
+	
+	local incomeText = '* ' .. coins(income) .. ' will be earned using bars for a total profit of ' .. coins(profit) .. ', or for a total profit of ' .. coins(profitWithItems) .. ' using items.\n'
+
+	local repTotal = math.floor(quality*swordsToMake)
+	local grogNumber = math.floor(repTotal/300)
+	local grogValue = gePrices["Kovac's grog"]*grogNumber
+	
+	local repText = '* A total of ' .. commas(repTotal) .. " Reputation will be earned. If used to buy [[Kovac's grog]] an additional " .. coins(grogValue) .. ' will be earned at current GE prices.'
+	
+	local levelwarning = ''
+	if currentLevel < 15 then
+		levelwarning = '<b>Warning:</b> you need at least level 15 smithing to participate in the minigame. This might have unintended consequences for the calculations.<br>'
+	elseif currentLevel < (tier1-1)*15+(tier1>=4 and 5 or 0)+(tier1>=5 and 5 or 0) or currentLevel < (tier2-1)*15+(tier2 >= 4 and 5 or 0)+(tier2 >= 5 and 5 or 0) then
+		levelwarning = '<b>Warning:</b> one of the metals selected is above your current smithing level.<br>'
+	end
+	
+	return metalwarning .. goalWarning .. levelwarning .. goalText .. barText ..costText .. incomeText .. repText
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+return p

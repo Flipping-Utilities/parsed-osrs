@@ -1,0 +1,12 @@
+return {
+    itemId     = 4535,
+    icon       = 'Empty oil lantern.png',
+    item       = 'Empty oil lantern',
+    value      = 120,
+    limit      = 10000,
+    members    = true,
+    category   = nil,
+    examine    = 'Put oil in to complete it.',
+    hialch     = 72,
+    lowalch    = 48
+}

@@ -1,0 +1,49 @@
+{{documentation}}
+
+{{Helper module
+|name = Currency Image
+|fname1 = (name, quantity)
+|ftype1 = String
+|fuse1 = Identifies the proper filename to use for each respective currency type, including if different images apply for differing amounts.
+<code>name</code> is the case insensitive currency name.
+<code>quantity</code> is a number, or comma-separated string of numbers, the maximum of which will be used.
+}}
+
+====Supported currency names====
+<pre>
+Abyssal pearls
+Agility arena ticket
+Anima-infused bark
+Archaic emblem
+Archery ticket
+Barronite shards
+Blood money
+Brimhaven voucher
+Castle wars ticket
+Coins
+Deadman points
+Death runes
+Ecto-tokens
+Event points
+Frog token
+Golden nugget
+Hallowed mark
+League points
+Mark of grace
+Mermaid's tear
+Minnow
+Molch pearl
+Numulite
+Pieces of eight
+Platinum tokens
+Shark
+Speedrun points
+Stardust
+Survival tokens
+Termites
+Tokkul
+Trading sticks
+Twisted league points
+Unidentified minerals
+Warrior guild tokens
+</pre>

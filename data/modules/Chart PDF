@@ -1,0 +1,30 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function Normal(args)
+    local plot = chart.newChart{ type = 'bar' }
+    local sd = 23294 --args.standarddeviation
+    local m = 48158 --args.mean
+    plot:setDimensions( '540px', '400px', '540px', '400px', true )
+    plot:setTitle( args.title )
+    plot:setXLabel( args.xlabel )
+    plot:setYLabel( args.ylabel )
+    plot.colorPallet = chart.colorPallets.green
+
+    local set = plot:newDataSet()
+    set.data = chart.generateXYFromFunc( function(x) return (1/(sd*math.sqrt(2*math.pi)))*math.exp(-1/2*((x-m)/sd)^2) end, m-3*sd, m+3*sd,6*sd/50 )
+
+    return plot
+end
+
+function p._main(args)
+	return Normal(args)
+end
+
+return p

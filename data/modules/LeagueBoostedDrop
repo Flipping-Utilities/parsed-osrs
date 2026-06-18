@@ -1,0 +1,172 @@
+local p = {};
+local lang = mw.language.getContentLanguage()
+
+local rarity_class = {
+	{ 1, 'table-bg-blue' },
+	{ 1/25, 'table-bg-green' },
+	{ 1/99.99, 'table-bg-yellow' },
+	{ 1/999.99, 'table-bg-orange' },
+	{ 1/9999999, 'table-bg-red' }
+}
+
+function get_rarity_class(val)
+	for i,v in ipairs(rarity_class) do
+		curr = v
+		if val >= v[1] then
+			break
+		end
+	end
+	return curr[2]
+end
+
+function sigfig(n, f)
+	f = math.floor(f-1)
+	if n == 0 then return 0 end
+	local m = math.floor(math.log10(n))
+	local v = n / (10^(m-f))
+	v = math.floor(v) * 10^(m-f)
+	return v
+end
+
+function commas(n)
+	if tonumber(n) then
+		return lang:formatNum(tonumber(n))
+	else
+		return n
+	end
+end
+p.commas = commas
+
+function expr(t)
+	t = t:gsub(',', '')
+	local err, val = pcall(mw.ext.ParserFunctions.expr, t)
+	if err then
+		return tonumber(val)
+	else
+		return false
+	end
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local Image = args['Image'] or args['image']									-- only used if Name is blank, or wish to override default image. Can provide multiple images comma-delimited
+	local Name = args['Name'] or args['name']										-- name of item or drop
+	local OptName = args['OptName'] or args['optname'] or args['optName']			-- intended to be used when links are formatted differently, e.x. when they are multiple sources
+	local Source = args['Source'] or args['source']									-- source of drop
+	local OptSource = args['OptSource'] or args['optsource'] or args['optSource']	-- intended to be used when links are formatted differently, e.x. when they are multiple sources
+	local Rarity = {args['Rarity'] or args['rarity']}								-- base rarity of drop
+	local Tiers = args['Tiers'] or args['tiers']									-- Optional parameter to determine quantity of rarity tiers to create on table row, including base rarity (default is 3)
+	local Columns = args['Columns'] or args['columns']								-- Optional parameter to create a total number of columns if greater than Tiers
+	local Unfloored = args['Unfloored'] or args['unfloored']						-- Optional parameter to prevent rarity from being floored after the multiplier is applied
+
+	local rv1, rv2 = string.match(Rarity[1]:gsub(',',''), '([%d%.]+)/([%d%.]+)')
+	if rv1 and rv2 then
+		Rarity[1] = rv1/rv2
+	else
+		Rarity[1] = expr(Rarity)
+	end
+
+	local TotalTiers
+	if Tiers == isNothing then
+		TotalTiers = 3
+		else
+			TotalTiers = tonumber(Tiers)
+	end
+	
+	local TotalColumns
+	if Columns == isNothing then
+		TotalColumns = 0
+		else
+			TotalColumns = tonumber(Columns)
+	end
+	
+	for index=2,TotalTiers do
+		local Multi = args["Multi"..index-1] -- Optional change to tier rarity multiplier, default to tier number
+		if Multi == isNothing then
+			Rarity[index] = Rarity[1] * (index);
+			else
+				Rarity[index] = Rarity[1] * Multi
+		end
+	end
+	
+	local rare_class = {};	-- assign colors for rarity
+	local rare_text = {};
+	for index,rarity in ipairs(Rarity) do
+		local Denominator = sigfig((1/Rarity[index] + 0.001), 5)
+		if Unfloored ~= nil then
+			rare_text[index] = '1/' .. commas(string.format('%.1f', Denominator))
+			rare_class[index] = get_rarity_class(1/Denominator)
+		elseif math.floor(Denominator) == 1 then
+			rare_text[index] = "Always"
+			rare_class[index] = get_rarity_class(1)
+		else
+			rare_text[index] = '1/' .. commas(math.floor(Denominator))
+			rare_class[index] = get_rarity_class(1/math.floor(Denominator))
+		end
+	end
+	
+	--Use Name as image link, or Image exactly as written
+	if Image == isNothing then
+		image = mw.ustring.format('[[File:%s.png]]', Name)
+		else
+		image = ''
+		for img in string.gmatch(Image, ' *([^,]+) *') do
+			image = image .. mw.ustring.format('[[File:%s.png]]', img)
+		end
+	end
+	
+	--Use Name as link, or OptName exactly as written
+	if Name == isNothing then
+		Name = OptName
+		else
+		Name = mw.ustring.format('[[%s]]', Name)
+	end
+	
+	--Use Source as link, or OptSource exactly as written if Source is empty
+	if Source == isNothing then
+		Source = OptSource
+		else
+		Source = mw.ustring.format('[[%s]]', Source)
+	end
+	
+	--create rows for table	
+	local ret = mw.html.create('tr')
+		:tag('td')
+			:addClass('inventory-image')
+			:wikitext(image)
+		:done()
+		:tag('td')
+			:css('text-align','left')
+			:addClass('item-col')
+			:wikitext(Name)
+		:done()
+		:tag('td')
+			:css('text-align','center')
+			:addClass('source-col')
+			:wikitext(Source)
+		:done()
+	for index=1,TotalTiers do
+		ret = ret
+			:tag('td')
+				:addClass(rare_class[index])
+				:wikitext(rare_text[index])
+				:attr('data-sort-value',1/Rarity[index])
+			:done()
+	end
+	for index=TotalTiers+1,TotalColumns do
+		ret = ret
+			:tag('td')
+				:addClass('table-na nohighlight')
+				:css('text-align','center')
+				:wikitext("N/A")
+				:attr('data-sort-value',0)
+			:done()
+	end
+	return tostring(ret)
+end
+
+return p;

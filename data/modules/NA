@@ -1,0 +1,33 @@
+-- This module is detached from the NA template.
+-- It's purpose is to provide an identical feature for modules
+-- building tables with the Scribunto HTML library.
+
+local p = {}
+
+-- Create a new node with the content and style
+function p.createNode(text)
+	return configure(mw.html.create('td'), text)
+end
+
+-- Add the content and style to an existing node
+function p.styleNode(htmlNode, text)
+	configure(htmlNode, text)
+end
+
+-- Create a new node, to be used with Module:Tables
+function p.rowNode(text)
+	return {
+		text = text,
+		class = 'table-na nohighlight',
+		css = {['text-align'] = 'center'}
+	}
+end
+
+function configure(node, text)
+	return node
+		:wikitext(text)
+		:attr('class', 'table-na nohighlight')
+		:attr('style', 'text-align:center;')
+end
+
+return p

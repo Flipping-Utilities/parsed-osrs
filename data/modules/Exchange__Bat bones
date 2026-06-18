@@ -1,0 +1,12 @@
+return {
+    itemId     = 530,
+    icon       = 'Bat bones.png',
+    item       = 'Bat bones',
+    value      = 1,
+    limit      = 3000,
+    members    = true,
+    category   = nil,
+    examine    = 'Ew it\'s a pile of bones.',
+    hialch     = 0,
+    lowalch    = 0
+}

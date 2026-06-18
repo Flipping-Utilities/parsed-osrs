@@ -1,0 +1,12 @@
+return {
+    itemId     = 349,
+    icon       = 'Raw pike.png',
+    item       = 'Raw pike',
+    value      = 20,
+    limit      = 15000,
+    members    = false,
+    category   = nil,
+    examine    = 'I should try cooking this.',
+    hialch     = 12,
+    lowalch    = 8
+}

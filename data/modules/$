@@ -1,0 +1,15 @@
+local p = {}
+
+function p.serialize(frame)
+	return mw.text.jsonEncode(frame:getParent().args)
+end
+
+function p.deserialize(args)
+	local out = {}
+	for k, v in pairs(args) do
+		out[k] = mw.text.jsonDecode(v)
+	end
+	return out
+end
+
+return p

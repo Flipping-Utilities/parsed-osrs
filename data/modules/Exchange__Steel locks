@@ -1,0 +1,12 @@
+return {
+    itemId     = 25445,
+    icon       = "Steel locks.png",
+    item       = "Steel locks",
+    alchable   = true,
+    value      = 1600,
+    limit      = 8,
+    members    = true,
+    category   = nil,
+    examine    = "Perhaps someone can do something with this.",
+    usage      = {}
+}

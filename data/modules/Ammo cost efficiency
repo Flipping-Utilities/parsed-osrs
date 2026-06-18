@@ -1,0 +1,70 @@
+-- <nowiki>
+local p = {}
+local gep = mw.loadJsonData('Module:GEPrices/data.json')
+local curr = require('Module:Currency')._amount
+local yesNo = require('Module:Yesno')
+
+function coins(x)
+	return curr(string.format('%.2f', x), 'coins')
+end
+function p.main(frame)
+	return p._main(frame.args)
+end
+
+function p._main(args)
+	mw.logObject(args)
+	local UsingBlowpipe = yesNo(args['UsingBlowpipe'])
+	local ScalePrice = gep['Zulrah\'s scales']
+	local AttackSpeed = args['AttackSpeed']
+	local CurrentDPS = args['CurrentDPS']
+	local UpgradedDPS = args['UpgradedDPS']
+	local AvaDevice = args['AvaDevice']
+	local AmmoType = args['AmmoType']
+	local CurrentAmmo = args[string.format('Current%s', AmmoType)]
+	local UpgradedAmmo = args[string.format('Upgraded%s', AmmoType)]
+	ScalePrice = tonumber(ScalePrice)
+	AttackSpeed = tonumber(AttackSpeed)
+	CurrentDPS = tonumber(CurrentDPS)
+	UpgradedDPS = tonumber(UpgradedDPS)
+	AvaDevice = string.lower(AvaDevice)
+	
+	local ret = makeTable(UsingBlowpipe, ScalePrice, AttackSpeed, CurrentDPS, UpgradedDPS, AvaDevice, CurrentAmmo, UpgradedAmmo)
+	return ret
+end
+
+local AvaDeviceRate = {
+	none = 1,
+	['avas attractor'] = 0.4,
+	['avas accumulator'] = 0.28,
+	['avas assembler'] = 0.2
+}
+
+function makeTable(UsingBlowpipe, ScalePrice, AttackSpeed, CurrentDPS, UpgradedDPS, AvaDevice, CurrentAmmo, UpgradedAmmo)
+	local ScaleCost = UsingBlowpipe and ScalePrice * 2 / 3 or 0
+	local CurrentAmmoCost = gep[CurrentAmmo] or 0
+	local UpgradedAmmoCost = gep[UpgradedAmmo] or 0
+	local CurrentCostPerTick = ((CurrentAmmoCost * AvaDeviceRate[AvaDevice]) + ScaleCost) / AttackSpeed
+	local UpgradedCostPerTick = ((UpgradedAmmoCost * AvaDeviceRate[AvaDevice]) + ScaleCost) / AttackSpeed
+	local DPSRatio = CurrentDPS / UpgradedDPS
+	local SecondsSaved = 3600 - DPSRatio * 3600
+	local TicksSaved = (3600 - SecondsSaved) / 0.6
+	local HourRatio = 3600 / SecondsSaved
+	local CurrentCostPerHour = 6000 * CurrentCostPerTick
+	local UpgradedCostPerHour = TicksSaved * UpgradedCostPerTick
+	
+	local t = mw.html.create('table')
+	t:addClass('wikitable')
+	t:tag('tr')
+		:tag('th')
+			:wikitext('GP/Hour')
+			:addClass('unsortable')
+		:done()
+	:done()
+	:tag('td')
+		:wikitext(coins((UpgradedCostPerHour - CurrentCostPerHour) * HourRatio))
+	:done()
+	return t
+end
+
+return p
+-- </nowiki>

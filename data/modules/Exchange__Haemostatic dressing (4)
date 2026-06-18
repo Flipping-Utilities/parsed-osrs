@@ -1,0 +1,11 @@
+return {
+	itemId    = 31590,
+	item      = "Haemostatic dressing (4)",
+	icon      = 'Haemostatic dressing (4).png',
+    alchable  = true,
+	value     = 250,
+	limit     = 2000,
+	members   = true,
+	category  = nil,
+	examine   = "4 applications of haemostatic dressing."
+}

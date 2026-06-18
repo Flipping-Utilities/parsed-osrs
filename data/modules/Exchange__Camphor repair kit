@@ -1,0 +1,11 @@
+return {
+	itemId    = 31976,
+	item      = "Camphor repair kit",
+	icon      = 'Camphor repair kit.png',
+    alchable  = true,
+	value     = 3500,
+	limit     = 13000,
+	members   = true,
+	category  = nil,
+	examine   = "A strong boat repair kit made from camphor."
+}

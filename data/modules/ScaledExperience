@@ -1,0 +1,108 @@
+local Experience = require( 'Module:Experience' )
+
+local p = {}
+
+-- Determine the XP an action gives at a given level
+function p.action_xp_at_level(level, scalar, base, intercept)
+	return base+(math.max(level-intercept,0)*scalar)
+end
+
+function p.xp_to_xp_actions(startingExp, targetExp, scalar, base, intercept)
+	-- Accumulated exp starts off at whatever amount of exp the player has
+	local accExp = startingExp
+	local accActions = 0
+
+	-- Since the amount of exp depends on the current level and the amount of starting xp
+	-- is variable, each level needs to be checked.
+	while accExp < targetExp do
+		local currentLevel = Experience.level_at_xp({ args = { accExp } })
+
+		-- Need to handle the case when you are already level 99, xp_to_level fails
+		-- if attempting to get xp to level > 99
+		local expToNext = 0
+		if currentLevel ~= 99 then
+			expToNext = Experience.xp_to_level({ args = { accExp, currentLevel+1 } })
+		else
+			expToNext = 200000000 - accExp
+		end
+
+		expToNext = math.min(expToNext, targetExp-accExp)
+
+		local actionsToNext = math.ceil(expToNext/p.action_xp_at_level(currentLevel, scalar, base or 0, intercept or 0))
+
+		accExp = accExp + actionsToNext*p.action_xp_at_level(currentLevel, scalar, base or 0, intercept or 0)
+		accActions = accActions + actionsToNext
+	end
+
+	accExp = math.min(accExp, 200000000)
+
+	local results = {
+		endExp = accExp,
+		endActions = accActions,
+		endLevel = Experience.level_at_xp({ args = { accExp } }),
+		startingExp = startingExp,
+		startingLevel = Experience.level_at_xp({ args = {startingExp} })
+	}
+
+	return results
+end
+
+function p.xp_to_level_actions(startingExp, targetLevel, scalar, base, intercept)
+	return p.xp_to_xp_actions(startingExp, Experience.xp_at_level({ args = {targetLevel}}), scalar, base or 0, intercept or 0)
+end
+
+function p.level_to_xp_actions(startingLevel, targetExp, scalar, base, intercept)
+	return p.xp_to_xp_actions( Experience.xp_at_level({ args = {startingLevel}}), targetExp, scalar, base or 0, intercept or 0)
+end
+
+function p.level_to_level_actions(startingLevel, targetLevel, scalar)
+	return p.xp_to_xp_actions( Experience.xp_at_level({ args = {startingLevel}}), Experience.xp_at_level({ args = {targetLevel}}), scalar, base or 0, intercept or 0)
+end
+
+function p.from_actions_xp(startingExp, actions, scalar, base, intercept)
+	-- Accumulated exp starts off at whatever amount of exp the player has
+	local accExp = startingExp
+	local actionsLeft = actions
+
+	-- Since the amount of exp depends on the current level and the amount of starting xp
+	-- is variable, each level needs to be checked.
+	while actionsLeft > 0 do
+		local currentLevel = Experience.level_at_xp({ args = { accExp } })
+
+		-- Need to handle the case when you are already level 99, xp_to_level fails
+		-- if attempting to get xp to level > 99
+		local expToNext = 0
+		if currentLevel ~= 99 then
+			expToNext = Experience.xp_to_level({ args = { accExp, currentLevel+1 } })
+		else
+			expToNext = 200000000 - accExp
+		end
+
+		local actionsToNext = math.ceil(expToNext/p.action_xp_at_level(currentLevel, scalar, base or 0, intercept or 0))
+		
+		if (actionsToNext <= actionsLeft) then
+			accExp = accExp + actionsToNext*p.action_xp_at_level(currentLevel, scalar, base or 0, intercept or 0)
+			actionsLeft = actionsLeft - actionsToNext
+		else
+			accExp = accExp + (actionsLeft*p.action_xp_at_level(currentLevel, scalar, base or 0, intercept or 0))
+			break
+		end
+	end
+
+	accExp = math.min(accExp, 200000000)
+
+	local results = {
+		endExp = accExp,
+		endLevel = Experience.level_at_xp({ args = { accExp } }),
+		startingExp = startingExp,
+		startingLevel = Experience.level_at_xp({ args = {startingExp} })
+	}
+	return results
+end
+
+
+function p.from_actions_level(startingLevel, actions, scalar, base, intercept)
+	return p.from_actions_xp(Experience.xp_at_level({ args = {startingLevel}}), actions, scalar, base or 0, intercept or 0)
+end
+
+return p
