@@ -309,7 +309,13 @@ describe('parseMonsterFromContent', () => {
       expect(monsters[0].slayerLevel).toBe(60);
       expect(monsters[0].slayerXp).toBe(90);
       expect(monsters[0].slayerCategory).toBe('Aberrant Spectres');
-      expect(monsters[0].assignedBy).toEqual(['vannaka', 'chaeldar', 'konar', 'nieve', 'duradel']);
+      expect(monsters[0].assignedBy).toEqual([
+        'vannaka',
+        'chaeldar',
+        'konar',
+        'nieve',
+        'duradel',
+      ]);
     });
 
     it('extracts immunities from Aberrant Spectre', () => {
@@ -472,6 +478,63 @@ describe('parseMonsterFromContent', () => {
         chaosTalisman: true,
         natureTalisman: true,
       });
+    });
+  });
+
+  describe('monster locations', () => {
+    it('parses all LocLine locations from Cow (shared across variants)', () => {
+      const page = loadTestPage(TestPages.Cow);
+      const monsters = parseMonsterFromContent(
+        page.text,
+        page.title,
+        page.aliases,
+        itemLookup
+      );
+
+      // Cow has 5 variants, all sharing the same location list
+      expect(monsters.length).toBe(5);
+      for (const monster of monsters) {
+        expect(monster.locations).toHaveLength(15);
+      }
+
+      const first = monsters[0].locations[0];
+      expect(first.name).toBe('Cow');
+      expect(first.location).toBe('Ardougne Farm');
+      expect(first.levels).toBe('2');
+      expect(first.members).toBe(true);
+      expect(first.mapId).toBe(0);
+      expect(first.mtype).toBe('pin');
+      expect(first.coordinates.length).toBeGreaterThan(0);
+      expect(first.coordinates[0]).toEqual({ x: 2657, y: 3341 });
+    });
+
+    it('parses coordinates from a multi-spawn location', () => {
+      const page = loadTestPage(TestPages.Cow);
+      const monsters = parseMonsterFromContent(
+        page.text,
+        page.title,
+        page.aliases,
+        itemLookup
+      );
+
+      const lumbridge = monsters[0].locations.find((l) =>
+        l.location.includes('Champions')
+      );
+      expect(lumbridge).toBeDefined();
+      expect(lumbridge!.coordinates.length).toBeGreaterThan(10);
+    });
+
+    it('returns empty locations when a monster page has no LocLine', () => {
+      const page = loadTestPage(TestPages.ADoubt);
+      const monsters = parseMonsterFromContent(
+        page.text,
+        page.title,
+        page.aliases,
+        itemLookup
+      );
+
+      expect(monsters).toHaveLength(1);
+      expect(monsters[0].locations).toEqual([]);
     });
   });
 });

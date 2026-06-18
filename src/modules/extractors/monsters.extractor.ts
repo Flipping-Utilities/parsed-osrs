@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ALL_MONSTERS } from '../../constants/paths';
-import { DropTable, Monster, MonsterDrop } from '../../types';
+import { DropTable, Monster, MonsterDrop, MonsterLocation } from '../../types';
 import { PageContentDumper, PageListDumper } from '../dumpers';
 import { ItemsExtractor } from './items.extractor';
 import { PageTags } from '../../constants/tags';
@@ -135,7 +135,9 @@ function collectDropTables(
 }
 
 function parsePoisonous(val: unknown): string | boolean {
-  const lower = String(val ?? '').toLowerCase().trim();
+  const lower = String(val ?? '')
+    .toLowerCase()
+    .trim();
   if (lower === 'yes' || val === true) return true;
   if (lower === 'no' || val === false) return false;
   return wikiString(val);
@@ -147,6 +149,46 @@ function parseImmunity(val: unknown): boolean {
   if (lower === 'not immune') return false;
   if (lower === 'immune') return true;
   return wikiBool(val);
+}
+
+/**
+ * Parses {{LocLine}} location blocks from raw monster page wikitext.
+ * Uses regex directly (rather than the wtf parser) because coordinate params
+ * use colon-prefixed keys (e.g. `|x:2657,y:3341`) that don't map cleanly to
+ * named template parameters. Each non-coordinate field lives on its own line.
+ */
+function parseMonsterLocations(pageText: string): MonsterLocation[] {
+  const locations: MonsterLocation[] = [];
+  const blockRe = /\{\{LocLine\b([\s\S]*?)\}\}/gi;
+  let blockMatch: RegExpExecArray | null;
+  while ((blockMatch = blockRe.exec(pageText)) !== null) {
+    const block = blockMatch[1];
+    const getField = (name: string): string => {
+      const m = block.match(
+        new RegExp(`^\\s*\\|\\s*${name}\\s*=\\s*(.*?)\\s*$`, 'mi')
+      );
+      return m ? m[1].trim() : '';
+    };
+
+    const coordinates: Array<{ x: number; y: number }> = [];
+    const coordRe = /x:(\d+),y:(\d+)/g;
+    let coordMatch: RegExpExecArray | null;
+    while ((coordMatch = coordRe.exec(block)) !== null) {
+      coordinates.push({ x: Number(coordMatch[1]), y: Number(coordMatch[2]) });
+    }
+
+    const mtype = getField('mtype');
+    locations.push({
+      name: wikiString(getField('name')),
+      location: wikiString(getField('location')),
+      levels: getField('levels'),
+      members: wikiBool(getField('members')),
+      mapId: wikiNumber(getField('mapID')),
+      ...(mtype && { mtype }),
+      coordinates,
+    });
+  }
+  return locations;
 }
 
 const wikiToMonsterKeyMap: Record<string, keyof Monster> = {
@@ -230,6 +272,8 @@ export function parseMonsterFromContent(
 
   const dropTables = collectDropTables(parsed);
 
+  const locations = parseMonsterLocations(pageText);
+
   const herbTemplate = parsed.getTemplates('herbdroplines')[0];
   const herbQuantity = herbTemplate?.quantity
     ? String(herbTemplate.quantity)
@@ -295,6 +339,7 @@ export function parseMonsterFromContent(
     freezeResistance: wikiNumber(monsterData.freezeresistance),
     drops: allDrops,
     dropTables,
+    locations,
     examine: monsterData.examine ?? '',
   };
 
@@ -384,7 +429,9 @@ export function parseMonsterFromContent(
 
       const fieldName = wikiToMonsterKey(baseKey);
       if (value !== undefined && value !== '' && fieldName) {
-        (allVariants[endIndex] as unknown as Record<string, unknown>)[fieldName] = value;
+        (allVariants[endIndex] as unknown as Record<string, unknown>)[
+          fieldName
+        ] = value;
       }
     });
 
@@ -458,9 +505,7 @@ export class MonstersExtractor {
     return this.cachedMonsters;
   }
 
-  private async extractMonsterFromPageId(
-    pageId: number
-  ): Promise<Monster[]> {
+  private async extractMonsterFromPageId(pageId: number): Promise<Monster[]> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page) {
       this.logger.warn('Could not fetch page content from id', pageId);

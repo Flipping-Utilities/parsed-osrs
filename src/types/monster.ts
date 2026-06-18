@@ -29,6 +29,16 @@ export interface DropTable {
   natureTalisman?: boolean;
 }
 
+export interface MonsterLocation {
+  name: string;
+  location: string;
+  levels: string;
+  members: boolean;
+  mapId: number;
+  mtype?: string;
+  coordinates: Array<{ x: number; y: number }>;
+}
+
 export interface Monster {
   id: number;
   name: string;
@@ -78,4 +88,5 @@ export interface Monster {
   freezeResistance: number;
   drops: MonsterDrop[];
   dropTables: DropTable[];
+  locations: MonsterLocation[];
 }
