@@ -12,6 +12,7 @@ export enum PageTags {
   NPC = 'npc',
   SCENERY = 'scenery',
   QUEST = 'quest',
+  QUEST_GUIDE = 'quest-guide',
   ACTIVITY = 'activity',
   NEWS = 'news',
   MUSIC = 'music',

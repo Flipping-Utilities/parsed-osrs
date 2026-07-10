@@ -71,6 +71,7 @@ export const ALL_SCENERY_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-scenery-page-
 
 export const ALL_QUESTS = `${QUESTS_FOLDER}/all-quests.json`;
 export const ALL_QUESTS_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-quests-page-list.json`;
+export const ALL_QUEST_GUIDES_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-quest-guides-page-list.json`;
 
 export const ALL_ACTIVITIES = `${ACTIVITIES_FOLDER}/all-activities.json`;
 export const ALL_ACTIVITIES_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-activities-page-list.json`;

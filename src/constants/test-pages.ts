@@ -31,6 +31,8 @@ export const TestPages = {
   Hans: 23186,
   Furnace: 9687,
   CooksAssistant: 2088,
+  LegendsQuest: 3249,
+  LegendsQuestQuickGuide: 76213,
   TombsOfAmascut: 326230,
   Adventure: 97649,
 } as const;

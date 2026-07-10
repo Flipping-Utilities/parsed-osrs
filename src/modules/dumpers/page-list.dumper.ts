@@ -15,6 +15,7 @@ import {
   ALL_NPCS_PAGE_LIST,
   ALL_SCENERY_PAGE_LIST,
   ALL_QUESTS_PAGE_LIST,
+  ALL_QUEST_GUIDES_PAGE_LIST,
   ALL_ACTIVITIES_PAGE_LIST,
   ALL_MUSIC_PAGE_LIST,
   GE_ITEM_PAGE_LIST,
@@ -487,6 +488,35 @@ export class PageListDumper {
 
   getQuests(): WikiPageSlim[] {
     return this.getPageList(ALL_QUESTS_PAGE_LIST);
+  }
+
+  /**
+   * Fetches every `/Quick guide` subpage. On the wiki these are tagged with
+   * the `{{Quick Guide}}` template at the top of the page; we filter to titles
+   * ending in `/Quick guide` to avoid stray transclusions of the template.
+   */
+  async fetchQuestGuidePageList(): Promise<WikiPageSlim[]> {
+    const pages = await this.fetchTemplatePageList('Quick Guide');
+    return pages.filter((p) => /\/Quick guide$/i.test(p.title));
+  }
+
+  async dumpQuestGuidePageList() {
+    this.logger.log('Dump quest guide page list');
+    const pages = await this.fetchQuestGuidePageList();
+    this.logger.log(
+      `Dump quest guide page list - ${pages.length} guides found`
+    );
+
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      PageTags.QUEST_GUIDE
+    );
+    await this.saveFile(ALL_QUEST_GUIDES_PAGE_LIST, pages);
+    this.logger.log('Dump quest guide page list - Completed');
+  }
+
+  getQuestGuides(): WikiPageSlim[] {
+    return this.getPageList(ALL_QUEST_GUIDES_PAGE_LIST);
   }
 
   async dumpActivityPageList() {

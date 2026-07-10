@@ -3,7 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { ALL_NEWS } from '../../constants/paths';
 import { PageTags } from '../../constants/tags';
 import { NewsArticle } from '../../types';
-import { extractTemplate } from '../../utils/brace-utils';
+import { extractTemplate, parseTemplateFields } from '../../utils/brace-utils';
 import { parseWikitext } from '../../utils/wikitext-parser';
 import { wikiString } from '../../utils/wiki-coercion';
 import { PageContentDumper, PageListDumper } from '../dumpers';
@@ -12,33 +12,6 @@ import { PageContentDumper, PageListDumper } from '../dumpers';
 const UPDATE_PREFIX = 'Update:';
 /** Wiki origin used to build canonical article URLs. */
 const WIKI_ORIGIN = 'https://oldschool.runescape.wiki';
-
-/**
- * Splits a template body into top-level `|`-delimited parameters, respecting
- * nested `{{...}}` and `[[...]]` regions so pipes inside links or nested
- * templates don't break the split.
- */
-function splitTemplateParams(body: string): string[] {
-  const parts: string[] = [];
-  let depth = 0;
-  let start = 0;
-  for (let i = 0; i < body.length; i++) {
-    const c = body[i];
-    const c2 = body[i + 1];
-    if ((c === '{' && c2 === '{') || (c === '[' && c2 === '[')) {
-      depth++;
-      i++;
-    } else if ((c === '}' && c2 === '}') || (c === ']' && c2 === ']')) {
-      depth = Math.max(0, depth - 1);
-      i++;
-    } else if (c === '|' && depth === 0) {
-      parts.push(body.slice(start, i));
-      start = i + 1;
-    }
-  }
-  parts.push(body.slice(start));
-  return parts;
-}
 
 /**
  * Parses the `{{Update|date=...|url=...|category=...}}` template from a page
@@ -50,16 +23,7 @@ export function parseUpdateTemplate(
 ): Record<string, string> {
   const bodies = extractTemplate(pageText, 'Update');
   if (bodies.length === 0) return {};
-
-  const params: Record<string, string> = {};
-  for (const part of splitTemplateParams(bodies[0])) {
-    const eq = part.indexOf('=');
-    if (eq === -1) continue;
-    const key = part.slice(0, eq).trim().toLowerCase();
-    const value = part.slice(eq + 1).trim();
-    if (key) params[key] = value;
-  }
-  return params;
+  return parseTemplateFields(bodies[0]);
 }
 
 /**
