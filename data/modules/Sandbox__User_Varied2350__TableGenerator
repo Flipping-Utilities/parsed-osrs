@@ -1,0 +1,171 @@
+local mw = mw
+local p = {}
+
+local blank = {
+	{ name = "", xp = 0 }
+}
+
+local fruitTrees = {
+  { name = "Apple tree seed", xp = 1272.5 },
+  { name = "Banana tree seed", xp = 1841.5 },
+  { name = "Orange tree seed", xp = 2586.7 },
+  { name = "Curry tree seed", xp = 3036.9 },
+  { name = "Pineapple seed", xp = 4791.7 },
+  { name = "Papaya tree seed", xp = 6380.4 },
+  { name = "Palm tree seed", xp = 10509.6 },
+  { name = "Dragonfruit tree seed", xp = 17895 }
+}
+
+local ashes = {
+	{ name = "Ashes", xp = 0 },
+	{ name = "Volcanic ash", xp = 0 },
+	{ name = "Fiendish ashes", xp = 10 },
+	{ name = "Vile ashes", xp = 25 },
+	{ name = "Malicious ashes", xp = 65 },
+	{ name = "Abyssal ashes", xp = 85 },
+	{ name = "Infernal ashes", xp = 110 }
+}
+
+local uncutGems = {
+	{ name = "Uncut sapphire", xp = 50 },
+	{ name = "Uncut emerald", xp = 67.5 },
+	{ name = "Uncut ruby", xp = 85 },
+	{ name = "Uncut diamond", xp = 107.5 },
+	{ name = "Uncut opal", xp = 15 },
+	{ name = "Uncut jade", xp = 20 },
+	{ name = "Uncut red topaz", xp = 25 },
+	{ name = "Uncut dragonstone", xp = 137.5 }
+}
+
+local hides = {
+	{ name = "Cowhide", xp = 37 },
+	{ name = "Snake hide", xp = 45 },
+	{ name = "Green dragonhide", xp = 62 },
+	{ name = "Blue dragonhide", xp = 70 },
+	{ name = "Red dragonhide", xp = 78 },
+	{ name = "Black dragonhide", xp = 86 }
+}
+
+local logs = {
+	{ name = "Logs", xp = 40 },
+	{ name = "Oak logs", xp = 60 },
+	{ name = "Willow logs", xp = 90 },
+	{ name = "Teak logs", xp = 105 },
+	{ name = "Maple logs", xp = 135 },
+	{ name = "Mahogany logs", xp = 157.5 },
+	{ name = "Yew logs", xp = 202.5 },
+	{ name = "Magic logs", xp = 303.8 },
+	{ name = "Redwood logs", xp = 350 },
+}
+
+local rawFish = {
+	{ name = "Raw shrimps", xp = 30 },
+	{ name = "Raw sardine", xp = 40 },
+	{ name = "Raw herring", xp = 50 },
+	{ name = "Raw anchovies", xp = 30 },
+	{ name = "Raw mackerel", xp = 60 },
+	{ name = "Raw trout", xp = 70 },
+	{ name = "Raw cod", xp = 75 },
+	{ name = "Raw pike", xp = 80 },
+	{ name = "Raw salmon", xp = 90 },
+	{ name = "Raw tuna", xp = 100 },
+	{ name = "Raw lobster", xp = 120 },
+	{ name = "Raw bass", xp = 130 },
+	{ name = "Raw swordfish", xp = 140 },
+	{ name = "Raw karambwan", xp = 190 },
+	{ name = "Raw shark", xp = 210 },
+	{ name = "Raw anglerfish", xp = 230 },
+	{ name = "Raw dark crab", xp = 215 }
+}
+
+local trees = {
+	{ name = "Acorn", xp = 481.3 },
+	{ name = "Willow seed", xp = 1481.5 },
+	{ name = "Maple seed", xp = 3448.4 },
+	{ name = "Yew seed", xp = 7150.9 },
+	{ name = "Magic seed", xp = 13913.8 },
+	{ name = "Redwood tree seed", xp = 22680 },
+	{ name = "Spirit seed", xp = 19500.5 },
+}
+
+local function fmtPercentIncrease(ratio)
+  if not ratio or ratio == "" or ratio == '{{NA}}' then return "{{NA}}" end
+  -- convert ratio like 1.45 to percent increase "45.0%"
+  return string.format("%.0f%%", (ratio - 1) * 100)
+end
+
+function p.main(frame)
+  local args = frame:getParent().args or {}
+  return p._main(args)
+end
+
+function p._main(args)
+  local header = args.headerString or ""
+  local actionName = args.actionName or ""
+  local selectedTable
+  if args.headerString == "Fruit tree seeds" then
+  	selectedTable = fruitTrees
+  elseif args.headerString == "Ashes" then
+  	selectedTable = ashes
+  elseif args.headerString == 'Uncut gems' then
+  	selectedTable = uncutGems
+  elseif args.headerString == "Hides" then
+  	selectedTable = hides
+  elseif args.headerString == "Logs" then
+  	selectedTable = logs
+  elseif args.headerString == "Raw fish" then
+  	selectedTable = rawFish
+  elseif args.headerString == "Tree seeds" then
+  	selectedTable = trees
+  end
+  
+  local out = buildTable(header, actionName, selectedTable)
+  -- Return as nowiki so the wikitext is shown verbatim with real newlines
+  return mw.text.nowiki(out)
+end
+
+function buildTable(headerString, actionName, tableVals)
+  local lines = {}
+
+  -- Section header and a blank line before the table (keep a blank line
+  -- between heading and table so wikitext is valid)
+  table.insert(lines, "===" .. headerString .. "===")
+
+  -- Table start and header row (single newlines between table tokens)
+  table.insert(lines, '{| class="wikitable"')
+  table.insert(lines, '! ')
+  table.insert(lines, '! Resource')
+  table.insert(lines, '! XP when ' .. actionName)
+  table.insert(lines, '! % increase')
+  table.insert(lines, '! % increase from base')
+
+  local firstTierXp = tableVals[1] and tableVals[1].xp
+  local prevXp
+
+  for i, current in ipairs(tableVals) do
+    local ratioPrev = nil
+    local ratioBase = nil
+
+    if prevXp then
+      ratioPrev = prevXp == 0 and '{{NA}}' or current.xp / prevXp
+    end
+    if firstTierXp then
+      ratioBase = firstTierXp == 0 and '{{NA}}' or current.xp / firstTierXp
+    end
+
+    table.insert(lines, "|-")
+    table.insert(lines, "| {{plinkt|" .. current.name .. "}}")
+    table.insert(lines, "| " .. tostring(current.xp))
+    table.insert(lines, "| " .. (ratioPrev and fmtPercentIncrease(ratioPrev) or "{{NA}}"))
+    table.insert(lines, "| " .. (ratioBase and fmtPercentIncrease(ratioBase) or "{{NA}}"))
+
+    prevXp = current.xp
+  end
+
+  table.insert(lines, "|}")
+
+  -- join with single newline characters (LF)
+  return table.concat(lines, "{n}")
+end
+
+return p

@@ -1,0 +1,247 @@
+local paramTest = require('Module:Paramtest')
+local xpAtLevel = require('Module:Experience').xp_at_level_unr
+local levelAtXp = require('Module:Experience').level_at_xp_unr
+local gePrice = require("Module:Exchange")._price
+local coins = require("Module:Coins")._amount
+local tables = require("Module:Tables")
+local commas = require('Module:Addcommas')._add
+
+local p = {}
+
+-- Map the log types available to index values for array access
+function map_log_type(woodChoice)
+    local logIndex = {
+        Oak = 1, 
+        Willow = 2, 
+        Maple = 3, 
+        Yew = 4, 
+        Magic = 5, 
+        Redwood = 6
+    }
+    return logIndex[woodChoice]
+end
+
+-- Get the quantity of offerings (per totem) given the number of decorations placed
+-- This assumes the maximum number of visits possible per log type used
+function get_offerings(woodChoice,decCount,visits)
+    local decIndex = decCount + 1
+    local offeringsAmounts = {
+        {2, 4, 6, 8, 10},
+        {2, 4, 6, 8, 10}, 
+        {2, 4, 6, 8, 10},
+        {3, 5, 8, 10, 13},
+        {3, 6, 9, 12, 15},
+        {3, 6, 9, 12, 15}
+    }
+    return offeringsAmounts[woodChoice][decIndex]*visits
+end
+
+-- Log information for the minigame as decoration types do not affect outputs
+local log_type_table = {
+    {name = "Oak logs", baseXP = 12.5, perXP = 51.2, type = "Oak", level = 20, visits = 2},
+    {name = "Willow logs", baseXP = 31.7, perXP = 126.9, type = "Willow", level = 35, visits = 3},
+    {name = "Maple logs", baseXP = 50.8, perXP = 201, type = "Maple", level = 50, visits = 4},
+    {name = "Yew logs", baseXP = 82.6, perXP = 326.2, type = "Yew", level = 65, visits = 5},
+    {name = "Magic logs", baseXP = 156.1, perXP = 619.8, type = "Magic", level = 80, visits = 6},
+    {name = "Redwood logs", baseXP = 221.3, perXP = 725.5, type = "Redwood", level = 90, visits = 7}
+}
+
+-- Decoration information for the minigame including the fletching level requirements and XP gained per 
+local all_decor_table = {
+    -- Oak options
+    {name = "Oak shortbow (u)",    type = "Oak", logcount = 1, level = 20, xp = 16.5},
+    {name = "Oak shortbow",        type = "Oak", logcount = 1, level = 20, xp = 16.5*2, usesBowString = "true"},
+    {name = "Oak stock",           type = "Oak", logcount = 1, level = 24, xp = 16},
+    {name = "Oak longbow (u)",     type = "Oak", logcount = 1, level = 25, xp = 25},
+    {name = "Oak longbow",         type = "Oak", logcount = 1, level = 25, xp = 25*2, usesBowString = "true"},
+    {name = "Oak shield",          type = "Oak", logcount = 2, level = 27, xp = 50},
+    -- Willow options
+    {name = "Willow shortbow (u)", type = "Willow", logcount = 1, level = 35, xp = 33.3},
+    {name = "Willow shortbow",     type = "Willow", logcount = 1, level = 35, xp = 33.3*2, usesBowString = "true"},
+    {name = "Willow stock",        type = "Willow", logcount = 1, level = 39, xp = 22},
+    {name = "Willow longbow (u)",  type = "Willow", logcount = 1, level = 40, xp = 41.5},
+    {name = "Willow longbow",      type = "Willow", logcount = 1, level = 40, xp = 41.5*2, usesBowString = "true"},
+    {name = "Willow shield",       type = "Willow", logcount = 2, level = 42, xp = 83},
+    -- Maple options
+    {name = "Maple shortbow (u)",  type = "Maple", logcount = 1, level = 50, xp = 50},
+    {name = "Maple shortbow",      type = "Maple", logcount = 1, level = 50, xp = 50*2, usesBowString = "true"},
+    {name = "Maple stock",         type = "Maple", logcount = 1, level = 54, xp = 32},
+    {name = "Maple longbow (u)",   type = "Maple", logcount = 1, level = 55, xp = 58.3},
+    {name = "Maple longbow",       type = "Maple", logcount = 1, level = 55, xp = 58.3+58.2, usesBowString = "true"},
+    {name = "Maple shield",        type = "Maple", logcount = 2, level = 57, xp = 116.5},
+    -- Yew options
+    {name = "Yew shortbow (u)",    type = "Yew", logcount = 1, level = 65, xp = 67.5},
+    {name = "Yew shortbow",        type = "Yew", logcount = 1, level = 65, xp = 67.5*2, usesBowString = "true"},
+    {name = "Yew stock",           type = "Yew", logcount = 1, level = 69, xp = 50},
+    {name = "Yew longbow (u)",     type = "Yew", logcount = 1, level = 70, xp = 75},
+    {name = "Yew longbow",         type = "Yew", logcount = 1, level = 70, xp = 75*2, usesBowString = "true"},
+    {name = "Yew shield",          type = "Yew", logcount = 2, level = 72, xp = 150},
+    -- Magic options
+    {name = "Magic stock",         type = "Magic", logcount = 1, level = 78, xp = 70},
+    {name = "Magic shortbow (u)",  type = "Magic", logcount = 1, level = 80, xp = 83.3},
+    {name = "Magic shortbow",      type = "Magic", logcount = 1, level = 80, xp = 83.3*2, usesBowString = "true"},
+    {name = "Magic longbow (u)",   type = "Magic", logcount = 1, level = 85, xp = 91.5},
+    {name = "Magic longbow",       type = "Magic", logcount = 1, level = 85, xp = 91.5*2, usesBowString = "true"},
+    {name = "Magic shield",        type = "Magic", logcount = 2, level = 87, xp = 183},
+    -- Redwood options (only two at present)
+    {name = "Redwood hiking staff", type = "Redwood", logcount = 1, level = 90, xp = 10.5}, 
+    {name = "Redwood shield",       type = "Redwood", logcount = 2, level = 92, xp = 216}
+}
+
+function p.main(frame)
+    local args = frame.args
+    leagueMultiplier = args.leagueMultiplier or 1
+    leaguePointModifier = args.leaguePointModifier or 1
+
+	-- Get the current Fletching level or XP from the player and convert 
+	-- internally to a level value to proceed
+	if args.currentToggle == 'Level' then
+		currentLevel = paramTest.default_to(tonumber(args.currentFletchingLvl), 1)
+		currentXP = xpAtLevel({ args = { currentLevel } })
+	else
+		currentXP = paramTest.default_to(tonumber(args.currentFletchingXP), 0)
+		currentLevel = levelAtXp({ args = { currentXP } })
+	end
+
+    -- Get the goal Fletching level or XP from the player and convert
+    -- internally to a level value to proceed
+	if args.goalToggle == 'Level' then
+		goalLevel = paramTest.default_to(tonumber(args.goal), 1)
+		goalXP = xpAtLevel({ args = { goalLevel } })
+	else
+		goalXP = paramTest.default_to(tonumber(args.goal), 0)
+		goalLevel = levelAtXp({ args = { goalXP } })
+	end
+
+    -- Check if the player is capable of building totems for the specified log type
+    -- with their current level
+    if(args.woodChoice ~= "All" and currentLevel < log_type_table[map_log_type(args.woodChoice)].level) then
+        return ('Your current level (' .. currentLevel .. ') is not sufficient to build a totem with the filtered log type chosen (' .. log_type_table[map_log_type(args.woodChoice)].level .. ').')
+    end
+
+	-- Get the desired goal level and check if the player has already reached it
+	goalLevel = math.min(paramTest.default_to(tonumber(goalLevel), 1), 126)
+
+	if(goalLevel <= currentLevel) then
+		return ('Your current level (' .. currentLevel .. ') is at or above your target level (' .. goalLevel .. ').')
+	end
+
+    -- Get the actual difference in XP required to meet the player goal
+    local deltaXP = goalXP - currentXP
+
+    -- Filter decoration list by specific log type as specified (if needed)
+    if(args.woodChoice ~= "All") then
+        for i = #all_decor_table, 1, -1 do
+            if(all_decor_table[i].type ~= args.woodChoice) then
+                table.remove(all_decor_table, i)
+            end
+        end
+    end
+
+    -- Prepare overview table header for all log types
+    local decor_table = mw.html.create("table"):addClass("wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-center-6 align-center-7 align-right-9 align-right-10 align-right-11 align-right-12")
+    local decor_table_data = {}
+    table.insert(
+        decor_table_data,
+        {
+            {tag = "th", text = "Decoration", attr = {colspan = 2}},
+            {tag = "th", text = "Level"},
+            {tag = "th", text = "XP"},
+            {tag = "th", text = "# Needed"},
+            {tag = "th", text = "Vale Offerings"},
+            {tag = "th", text = "Vale Research Points"},
+            {tag = "th", text = "Materials"},
+            {tag = "th", text = "Input Cost"},
+            {tag = "th", text = "Output Price"},
+            {tag = "th", text = "Profit/Loss"},
+            {tag = "th", text = "GP/XP"}
+        }
+    )
+
+    -- Add entries to the output decoration table line by line
+    for _, decor_type in ipairs(all_decor_table) do
+
+        -- Decoration related information
+    	local name = decor_type.name
+        local type = decor_type.type
+        local level = decor_type.level
+        local fletchXP = decor_type.xp
+        local logs = log_type_table[map_log_type(type)].name
+        local log_count = decor_type.logcount
+        local use_bowstring = decor_type.usesBowString
+        
+        -- Log/Totem related information
+        local baseXP = log_type_table[map_log_type(type)].baseXP
+        local perXP = log_type_table[map_log_type(type)].perXP
+        local visits = log_type_table[map_log_type(type)].visits
+
+        -- Each totem produces a fixed amount of XP based on the number of decorations
+        -- used and the type of logs used. Assume all carvings are done correctly.
+        local totemXP = (baseXP*4 + args.decCount*perXP)*leagueMultiplier
+
+        -- Add in the additional Fletching XP gained from making N decorations (if requested)
+        local selfFletchXP = 0
+        if (args.noSelfFletch == "false") then
+            selfFletchXP = args.decCount*fletchXP
+        end
+
+        -- Get the total number of totems needed and resulting amount of Vale offerings/points
+        local totems_needed = math.ceil(deltaXP/(totemXP+selfFletchXP))
+        local offerings_out = totems_needed*get_offerings(map_log_type(type),args.decCount,visits)*leaguePointModifier
+        local points_out =  math.floor(offerings_out/100)
+
+        -- Get the material cost for the total used logs and decorations
+        local material_cost = 0
+        local material_cost_logs = 0
+        local material_cost_decor = 0
+        if (args.noSelfWoodcut == "true" and use_bowstring == "true") then
+            material_cost_logs = gePrice(logs)*totems_needed + gePrice("Bow string")*totems_needed*args.decCount
+        elseif (args.noSelfWoodcut == "true") then
+            material_cost_logs = gePrice(logs)*totems_needed
+        end
+        if (args.noSelfFletch == "true") then
+            material_cost_decor = gePrice(name)*totems_needed*args.decCount
+        end
+        material_cost = material_cost_logs + material_cost_decor
+
+        -- Get the output price assuming that the Vale Research Points gained are spent on Ent branches (20 pts ea)
+        local output_price = gePrice("Ent branch")*math.floor(points_out/20)
+
+        local materials_column = {}
+        if (args.noSelfFletch == "true") then
+            materials_column = {text = string.format("%s × [[File:%s.png|link=%s]] [[%s|%s]] <br> %s × [[File:%s.png|link=%s]] [[%s|%s]]",
+                    commas(totems_needed), logs, logs, logs, logs,
+                    commas(totems_needed*args.decCount), name, name, name, name)}
+        elseif (args.noSelfFletch == "false" and use_bowstring == "true") then
+            materials_column = {text = string.format("%s × [[File:%s.png|link=%s]] [[%s|%s]] <br> %s × [[File:%s.png|link=%s]] [[%s|%s]]",
+                    commas(totems_needed + totems_needed*args.decCount*log_count), logs, logs, logs, logs,
+                    commas(totems_needed*args.decCount), "Bow string", "Bow string", "Bow string", "Bow string")}
+        else
+            materials_column = {text = string.format("%s × [[File:%s.png|link=%s]] [[%s|%s]]",
+                    commas(totems_needed + totems_needed*args.decCount*log_count), logs, logs, logs, logs)}
+        end
+
+        table.insert(
+            decor_table_data,
+            {
+                {text = string.format("[[File:%s.png|link=%s]]", name, name)},
+                {text = string.format("[[%s]]", name)},
+                {text = string.format("%d", level)},
+                {text = string.format("%.1f", (totemXP+selfFletchXP))},
+                {text = string.format("%d", totems_needed)},
+                {text = string.format("%d", offerings_out)},
+                {text = string.format("%d", points_out)},
+                materials_column,
+                {text = coins(material_cost)},
+                {text = coins(output_price)},
+                {text = coins(output_price - material_cost)},
+                {text = coins((output_price - material_cost)/(totemXP*totems_needed))}
+            }
+        )
+    end
+    tables._table(decor_table, decor_table_data)
+
+    return tostring(decor_table)
+end
+
+return p

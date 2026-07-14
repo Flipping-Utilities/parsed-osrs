@@ -1,0 +1,563 @@
+local experience = require( 'Module:Experience' )
+local paramtest = require ( 'Module:Paramtest' )
+local allMoulds = require( "Module:Giants' Foundry Calculator/Moulds" )
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local scp = require('Module:SCP')._main
+
+local p = {}
+
+-- GF-compatible item suffixes and their bar worth in the crucible
+local gfCompatible = {
+    ['platebody']  = 4,
+    ['warhammer']  = 2,
+    ['battleaxe']  = 2,
+    ['chainbody']  = 2,
+    ['kiteshield'] = 2,
+    ['2h sword']   = 2,
+    ['platelegs']  = 2,
+    ['plateskirt'] = 2,
+    ['scimitar']   = 1,
+    ['longsword']  = 1,
+    ['full helm']  = 1,
+    ['sq shield']  = 1,
+    ['claws']      = 1,
+}
+
+-- GE item name prefix per metal tier
+local metalPrefix = {
+    ['Bronze']     = 'Bronze',
+    ['Iron']       = 'Iron',
+    ['Steel']      = 'Steel',
+    ['Mithril']    = 'Mithril',
+    ['Adamantite'] = 'Adamant',
+    ['Runite']     = 'Rune',
+}
+
+-- Query Cargo storeline table for the cheapest vendor source for a given metal tier.
+-- Returns { price, item, shop, rawPrice, bars } or nil if no vendor source exists.
+function p.cheapestVendor(metal)
+    local prefix = metalPrefix[metal]
+    if not prefix then return nil end
+
+    local itemNames = {}
+    for itemType, _ in pairs(gfCompatible) do
+        table.insert(itemNames, prefix .. ' ' .. itemType)
+    end
+
+    local best = nil
+    local allRows = {}
+    local bestPerItem = {}  -- track cheapest shop per item name
+    local highestStock = {}
+
+    for _, itemName in ipairs(itemNames) do
+        local ok, rows = pcall(function()
+            return bucket("storeline")
+                .select("sold_item", "sold_by", "store_sell_price", "store_stock", "store_delta")
+                .where("sold_item", "=", itemName)
+                .run()
+        end)
+
+        if ok and rows then
+            for _, row in ipairs(rows) do
+                local shopPrice = tonumber(row['store_sell_price'])
+                local stock = tonumber(row['store_stock']) or 0
+                if shopPrice and shopPrice > 0 and stock > 0 then
+                    for itemType, barsWorth in pairs(gfCompatible) do
+                        if itemName == prefix .. ' ' .. itemType then
+                            local pricePerBar = shopPrice / barsWorth
+                            local entry = {
+                                price    = pricePerBar,
+                                item     = itemName,
+                                shop     = row['sold_by'],
+                                rawPrice = shopPrice,
+                                bars     = barsWorth,
+                                stock    = stock,
+                                delta    = tonumber(row['store_delta']) or 10,
+                            }
+                            -- Track cheapest price per item
+                            if not bestPerItem[itemName] or pricePerBar < bestPerItem[itemName].price then
+                                bestPerItem[itemName] = entry
+                            end
+                            -- Track highest stock per item
+                            if not highestStock[itemName] or entry.stock > highestStock[itemName].stock then
+                                highestStock[itemName] = entry
+                            end
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    -- Flatten into allRows, adding cheapest and highest stock rows per item
+	for itemName, cheapEntry in pairs(bestPerItem) do
+	    table.insert(allRows, { entry = cheapEntry, label = 'cheapest' })
+	    local stockEntry = highestStock[itemName]
+	    if stockEntry and stockEntry.shop ~= cheapEntry.shop then
+	        table.insert(allRows, { entry = stockEntry, label = 'most stock' })
+	    end
+	    if best == nil or cheapEntry.price < best.price then
+	        best = cheapEntry
+	    end
+end
+
+    if not best then return nil end
+    return { best = best, all = allRows }
+end
+
+
+function p.lazyplink(str)
+    return '[[File:' .. str .. '.png|link=' .. str .. ']] [[' .. str .. ']]'
+end
+
+function p.strtobool(str)
+    local result = false
+    if str == 'true' then result = true end
+    return result
+end
+
+function p.experience(quality)
+    local result = (math.floor(quality*quality/73)+math.floor(1.5*quality)+1)*30
+    return result
+end
+
+function p.metalScore(tier1, tier2, amount1, amount2)
+    local value1
+    local value2
+    if tier2 == tier1 or tier2 == 0 then
+        value1 = 10*tier1
+        value2 = 0
+    else
+        value1 = 10*tier1*amount1/28
+        value2 = 10*tier2*amount2/28
+    end
+    local result = math.floor((math.floor(10*value1)+math.floor(10*value2)+math.floor(value1*value2))/10)
+    return result
+end
+
+local barTier = {
+    ['None']       = 0,
+    ['Bronze']     = 1,
+    ['Iron']       = 2,
+    ['Steel']      = 3,
+    ['Mithril']    = 4,
+    ['Adamantite'] = 5,
+    ['Runite']     = 6
+}
+
+local itemBarWorth = {
+    ['platebody']  = 4,
+    ['warhammer']  = 2,
+    ['battleaxe']  = 2,
+    ['chainbody']  = 2,
+    ['kiteshield'] = 2,
+    ['2h sword']   = 2,
+    ['platelegs']  = 2,
+    ['plateskirt'] = 2,
+    ['scimitar']   = 1,
+    ['longsword']  = 1,
+    ['full helm']  = 1,
+    ['sq shield']  = 1,
+    ['claws']      = 1,
+}
+
+local requestCombinations = {
+    [{'broad','heavy'}]  = 3,
+    [{'broad','light'}]  = 3,
+    [{'broad','spiked'}] = 1,
+    [{'broad','flat'}]   = 1,
+    [{'narrow','heavy'}] = 3,
+    [{'narrow','light'}] = 3,
+    [{'narrow','spiked'}]= 1,
+    [{'narrow','flat'}]  = 1,
+    [{'heavy','spiked'}] = 2,
+    [{'heavy','flat'}]   = 2,
+    [{'light','spiked'}] = 2,
+    [{'light','flat'}]   = 2
+}
+
+function p.difficulty(score)
+    if score < 20  then return 3
+    elseif score < 60  then return 4
+    elseif score < 90  then return 5
+    elseif score < 120 then return 6
+    else return 7
+    end
+end
+
+function p.mouldsUnlocked(mould1,mould2,mould3,mould4,mould5,mould6,mould7,mould8,mould9,mould10,mould11,mould12,mould13,mould14,mould15)
+    return {
+        ['Stiletto Forte']  = p.strtobool(mould1),
+        ['Defender Base']   = p.strtobool(mould2),
+        ['Juggernaut Forte']= p.strtobool(mould3),
+        ['Chopper Forte +1']= p.strtobool(mould4),
+        ['Spiker!']         = p.strtobool(mould5),
+        ['Flamberge Blade'] = p.strtobool(mould6),
+        ['Serpent Blade']   = p.strtobool(mould7),
+        ['Claymore Blade']  = p.strtobool(mould8),
+        ['Fleur de Blade']  = p.strtobool(mould9),
+        ['Choppa!']         = p.strtobool(mould10),
+        ['Corrupted Point'] = p.strtobool(mould11),
+        ['Defenders Tip']   = p.strtobool(mould12),
+        ['Serrated Tip']    = p.strtobool(mould13),
+        ['Needle Point']    = p.strtobool(mould14),
+        ['The Point!']      = p.strtobool(mould15)
+    }
+end
+
+function p.averageQualityExp(level, unlockedMoulds, metalscore)
+    local scores = {['Forte'] = {}, ['Blade'] = {}, ['Tip'] = {}}
+    for combo,_ in pairs(requestCombinations) do
+        for mouldtype,__ in pairs(scores) do
+            scores[mouldtype][combo] = 0
+        end
+    end
+    local temp
+    for _,mould in ipairs(allMoulds) do
+        if mould.level <= level and (mould.default or unlockedMoulds[mould.name]) then
+            for combo,__ in pairs(requestCombinations) do
+                temp = mould[combo[1]]+mould[combo[2]]
+                if scores[mould.type][combo] < temp then
+                    scores[mould.type][combo] = temp
+                end
+            end
+        end
+    end
+    local scoresMerged = {}
+    local experienceMerged = {}
+    for combo,_ in pairs(requestCombinations) do
+        scoresMerged[combo]    = metalscore + scores['Forte'][combo]+scores['Blade'][combo]+scores['Tip'][combo]
+        experienceMerged[combo]= p.experience(scoresMerged[combo])
+    end
+    local scoresAverage = 0
+    local experienceAverage = 0
+    for combo,value in pairs(requestCombinations) do
+        scoresAverage     = scoresAverage     + value*scoresMerged[combo]/24
+        experienceAverage = experienceAverage + value*experienceMerged[combo]/24
+    end
+    return {scoresAverage, experienceAverage}
+end
+
+function p.normaliseMetalName(bar)
+    if bar == 'Runite'     then return 'Rune'   end
+    if bar == 'Adamantite' then return 'Adamant' end
+    return bar
+end
+
+function p.tableHeaderRow(...)
+    local text = '|-\n'
+    for _, v in ipairs({...}) do text = text .. '! ' .. tostring(v) .. '\n' end
+    return text
+end
+
+function p.tableDataRow(...)
+    local text = '|-\n'
+    for _, v in ipairs({...}) do text = text .. '| ' .. tostring(v) .. '\n' end
+    return text
+end
+
+-- Builds the cost table for GE mode (original behaviour)
+function p.buildBarCostTableGE(amount, bar, barName, barPrice, itemBarWorth, gePrices, swordsToMake)
+    local text = '{| class="wikitable sortable align-left-1" style="text-align:center;"\n'
+    text = text .. '|+ ' .. bar .. '\n'
+    text = text .. p.tableHeaderRow('Amount', 'Item', 'Each', 'Net') .. '\n'
+
+    local bestItemPrice = amount * barPrice
+    text = text .. p.tableDataRow(tostring(amount), p.lazyplink(barName), coins(barPrice), coins(amount * barPrice)) .. '\n'
+
+    local itemPrefix = p.normaliseMetalName(bar)
+    for itemType, itemWorth in pairs(itemBarWorth) do
+        local itemName  = itemPrefix .. ' ' .. itemType
+        local itemPrice = gePrices[itemName]
+        if itemPrice then
+            local itemAmount     = amount / itemWorth
+            local totalItemPrice = itemPrice * itemAmount
+            text = text .. p.tableDataRow(tostring(itemAmount), p.lazyplink(itemName), coins(itemPrice), coins(totalItemPrice)) .. '\n'
+            if totalItemPrice < bestItemPrice then bestItemPrice = totalItemPrice end
+        end
+    end
+
+    text = text .. '|}\n\n'
+    local costTextPart = commas(amount * swordsToMake) .. ' ' .. p.lazyplink(barName) .. 's'
+    return text, costTextPart, bestItemPrice
+end
+
+function p.totalStockCost(entry)
+    local stock     = tonumber(entry.stock) or 0
+    local delta     = tonumber(entry.delta) or 10
+    local basePrice = tonumber(entry.rawPrice) or 0
+    if stock == 0 then return 0, 0 end
+    local total = 0
+    for n = 0, stock - 1 do
+        local price = math.floor(math.max(
+            basePrice * (1 + delta * n / (1000 * stock)),
+        1))
+        total = total + price
+    end
+    return total, math.floor(total / (stock * entry.bars))
+end
+
+-- Builds the cost table for vendor mode
+-- Shows all vendors selling compatible items for this tier, sorted by gp/bar
+-- Best (cheapest) row is highlighted
+function p.buildBarCostTableVendor(amount, bar, vendorData, swordsToMake)
+    local text = '<div style="clear:both;">\n{| class="wikitable sortable"\n'
+    text = text .. '|+ ' .. bar .. ' (vendor sources)\n'
+    text = text .. '! Qty\n'
+    text = text .. '! Item\n'
+    text = text .. '! style="white-space:nowrap" | Shop\n'
+    text = text .. '! Stock\n'
+    text = text .. '! gp/bar\n'
+    text = text .. '! Per sword\n'
+    text = text .. '! Total items\n'
+    text = text .. '! Total cost\n'
+    text = text .. '! Full stock cost\n'
+    text = text .. '! Full stock gp/bar\n'
+    text = text .. '! WH total cost\n'
+    
+    
+     -- Sort all rows by effective gp/bar ascending
+    local sorted = {}
+    for _, row in ipairs(vendorData.all) do
+        table.insert(sorted, row)
+    end
+    table.sort(sorted, function(a, b) 
+        if a.entry.item ~= b.entry.item then
+            return a.entry.price < b.entry.price
+        end
+        return a.label < b.label
+    end)
+
+    for i, rowWrapper in ipairs(sorted) do
+        local row   = rowWrapper.entry
+        local label = rowWrapper.label
+        local qty = amount / row.bars
+        local net = math.floor(row.price * amount)
+        local isBest = (row.shop == vendorData.best.shop and row.item == vendorData.best.item)
+        local highlight
+        if isBest then
+            highlight = 'style="background:#d4edda"|'
+        elseif label == 'most stock' then
+            highlight = 'style="background:#d4e8f5"|'
+        else
+            highlight = ''
+        end
+        local shopStyle = highlight ~= '' and highlight:gsub('"|', '; white-space:nowrap"|') or 'style="white-space:nowrap"|'
+        local totalQty = math.ceil(qty * swordsToMake)
+        local tsc1, tsc2 = p.totalStockCost(row)
+        local fullCost = tsc1
+        local fullStockGpPerBar = tsc2
+        text = text .. '|-\n'
+        text = text .. '| ' .. highlight .. tostring(qty) .. '\n'
+        text = text .. '| ' .. highlight .. p.lazyplink(row.item) .. '\n'
+        text = text .. '| ' .. shopStyle .. '[[' .. row.shop .. ']]\n'
+        text = text .. '| ' .. highlight .. tostring(row.stock) .. '\n'
+        text = text .. '| ' .. highlight .. coins(math.floor(row.price)) .. '\n'
+        text = text .. '| ' .. highlight .. commas(totalQty) .. '\n'
+        text = text .. '| ' .. highlight .. coins(net * swordsToMake) .. '\n'
+        text = text .. '| ' .. highlight .. coins(fullCost) .. '\n'
+        text = text .. '| ' .. highlight .. coins(fullStockGpPerBar) .. '\n'
+        text = text .. '| ' .. highlight .. (fullStockGpPerBar and coins(fullStockGpPerBar) or 'nil') .. '\n'
+        local worldHops = math.ceil(totalQty / row.stock)
+        local whTotalCost = worldHops * fullCost
+        text = text .. '| ' .. highlight .. coins(whTotalCost) .. '\n'
+    end
+
+	text = text .. '|}\n</div>\n'
+    local best = vendorData.best
+    local costTextPart = commas(math.floor(amount / best.bars)) .. 'x ' .. p.lazyplink(best.item)
+    return text, costTextPart, math.floor(best.price * amount)
+end
+
+function p._main(args)
+    local bar1   = paramtest.default_to(args.metal1, 'Bronze')
+    local bar2   = paramtest.default_to(args.metal2, 'Iron')
+    local tier1  = barTier[bar1]
+    local tier2  = barTier[bar2]
+    local amount1 = paramtest.default_to(tonumber(args.metal1Amount), 14)
+    local amount2 = 28 - amount1
+
+    -- Price mode: 'GE prices' (default) or 'Vendor prices'
+    local priceMode   = paramtest.default_to(args.priceMode, 'GE prices')
+    local vendorMode  = (priceMode == 'Vendor prices')
+
+    local metalwarning = ''
+    if tier2 == 0 and amount2 > 0 then
+        amount1 = 28
+        amount2 = 0
+        metalwarning = '<b>Warning:</b> you used at least 1 bar with no type! Defaulted to 28 bars of the first type.<br>'
+    end
+
+
+    -- Resolve prices and build cost tables depending on mode
+    local barText     = ''
+    local bestItem1price, bestItem2price = 0, 0
+    local bar1price, bar2price = 0, 0
+    local costText       = ''
+    
+
+    local metalscore = p.metalScore(tier1, tier2, amount1, amount2)
+
+    local mould1,mould2,mould3,mould4,mould5,mould6,mould7,mould8,mould9,mould10,mould11,mould12,mould13,mould14,mould15 = paramtest.defaults{
+        {args.stiletto_F,  false}, {args.defender_F,  false}, {args.juggernaut_F, false},
+        {args.chopper_F,   false}, {args.spiker_F,    false}, {args.flamberge_B,  false},
+        {args.serpent_B,   false}, {args.claymore_B,  false}, {args.fleur_B,      false},
+        {args.choppa_B,    false}, {args.corrupted_T, false}, {args.defenders_T,  false},
+        {args.serrated_T,  false}, {args.needle_T,    false}, {args.point_T,      false}
+    }
+    local unlockedMoulds = p.mouldsUnlocked(mould1,mould2,mould3,mould4,mould5,mould6,mould7,mould8,mould9,mould10,mould11,mould12,mould13,mould14,mould15)
+
+    local currentLevel, currentxp
+    local levelToggle = paramtest.default_to(args.currentToggle, 'Level')
+    local current     = paramtest.default_to(tonumber(args.current), 1)
+    if levelToggle == 'Level' then
+        currentLevel = current
+        currentxp    = experience.xp_at_level_unr({args = {current}})
+    else
+        currentxp    = current
+        currentLevel = experience.level_at_xp_unr({args = {current}})
+    end
+
+    local averages = p.averageQualityExp(currentLevel, unlockedMoulds, metalscore)
+    local quality  = averages[1]
+    local xp       = averages[2]
+
+    local goal       = paramtest.default_to(tonumber(args.goal), 99)
+    local goalToggle = paramtest.default_to(args.goalToggle, 'Level')
+    local swordsToMake, goalText, goalWarning, toGo = 0, '', '', 0
+
+    if goalToggle == 'Level' then
+        if goal == 0 or goal > 126 then
+            goalWarning  = '<b>Warning:</b> your current goal is not a level. Please enter a nonnegative level reachable within 200m xp or switch to xp.<br>'
+            swordsToMake = 0
+        elseif goal <= currentLevel then
+            swordsToMake = 0
+        else
+            toGo         = experience.xp_at_level_unr({args = {goal}}) - currentxp
+            swordsToMake = math.ceil(toGo/xp)
+        end
+        goalText = 'To get to level ' .. tostring(goal) .. ' [[Smithing]] from level ' .. tonumber(currentLevel) .. ' [[Smithing]] (' .. commas(currentxp) .. ' experience) <b>' .. commas(swordsToMake) .. '</b> swords will have to be made on average.\n'
+    elseif goalToggle == 'Experience' then
+        toGo         = math.max(0, goal - currentxp)
+        swordsToMake = math.ceil(toGo/xp)
+        goalText     = 'To get to ' .. commas(goal) .. ' experience (level ' .. tostring(experience.level_at_xp({args = {goal}})) .. ' [[Smithing]]) from ' .. commas(currentxp) .. ' (level ' .. tostring(currentLevel) .. ' [[Smithing]]) <b>' .. commas(swordsToMake) .. '</b> swords will have to be made on average.\n'
+    else
+        swordsToMake = math.ceil(goal/quality)
+        toGo         = math.min(math.floor(swordsToMake*xp), 200000000-currentxp)
+        local newxp  = toGo+currentxp
+        goalText     = 'To get ' .. commas(goal) .. ' reputation <b>' .. commas(swordsToMake) .. '</b> swords will have to be made on average. This grants ' .. commas(toGo) .. ' experience putting you at ' .. commas(newxp) .. ' experience (level ' .. tostring(experience.level_at_xp({args = {newxp}})) .. ' [[Smithing]]).\n'
+    end
+    goalText = goalText .. '* Each sword is of average quality ' .. tonumber(quality) .. ', grants on average ' .. commas(math.floor(xp)) .. ' [[Smithing]] experience, awards on average ' .. coins(math.floor(xp)*2) .. ' and consists of ' .. tostring(p.difficulty(metalscore)) .. ' sections.\n'
+
+    costText = '* ' .. commas(swordsToMake) .. ' swords will require '
+
+        if vendorMode then
+        -- Vendor mode: use bucket-queried cheapest vendor price, ignore custom price toggle
+        local vendorData1 = p.cheapestVendor(bar1)
+        if not vendorData1 then
+            return metalwarning .. '<b>Error:</b> No vendor source found for <b>' .. bar1 .. '</b> in vendor mode. Please select a different metal or switch to GE prices.'
+        end
+        vendor1 = vendorData1.best
+        bar1price = vendor1.price
+
+        local textPart, costPart, bestPrice = p.buildBarCostTableVendor(amount1, bar1, vendorData1, swordsToMake)
+        barText        = barText .. textPart
+        costText       = costText .. costPart
+        bestItem1price = bestPrice
+
+        if amount2 > 0 and tier2 ~= 0 then
+            local vendorData2 = p.cheapestVendor(bar2)
+            if not vendorData2 then
+                return metalwarning .. '<b>Error:</b> No vendor source found for <b>' .. bar2 .. '</b> in vendor mode. Please select a different metal or switch to GE prices.'
+            end
+            vendor2 = vendorData2.best
+            bar2price = vendor2.price
+
+            local textPart2, costPart2, bestPrice2 = p.buildBarCostTableVendor(amount2, bar2, vendorData2, swordsToMake)
+            barText = barText .. '<br>\n' .. textPart2
+            costText       = costText .. ' and ' .. costPart2
+            bestItem2price = bestPrice2
+        end
+    else
+        -- GE mode: original behaviour
+        local bar1bar    = bar1 .. ' bar'
+        bar1price        = gePrices[bar1bar]
+        local bar1toggle = p.strtobool(paramtest.default_to(args.metal1PriceToggle, 'false'))
+        if bar1toggle then
+            bar1price = paramtest.default_to(tonumber(args.metal1Price), bar1price)
+        end
+
+        if amount1 > 0 then
+            local textPart, costPart, bestPrice = p.buildBarCostTableGE(amount1, bar1, bar1bar, bar1price, itemBarWorth, gePrices, swordsToMake)
+            barText        = barText .. textPart
+            costText       = costText .. costPart
+            bestItem1price = bestPrice
+        end
+
+        if amount2 > 0 then
+            local bar2bar    = bar2 .. ' bar'
+            bar2price        = gePrices[bar2bar]
+            local bar2toggle = p.strtobool(paramtest.default_to(args.metal2PriceToggle, 'false'))
+            if bar2toggle then
+                bar2price = paramtest.default_to(tonumber(args.metal2Price), bar2price)
+            end
+            local textPart, costPart, bestPrice = p.buildBarCostTableGE(amount2, bar2, bar2bar, bar2price, itemBarWorth, gePrices, swordsToMake)
+            barText        = barText .. textPart
+            costText       = costText .. ' and ' .. costPart
+            bestItem2price = bestPrice
+        end
+    end
+
+    local swordCost          = amount1*bar1price + amount2*bar2price
+    local finalCost          = swordCost * swordsToMake
+    local swordCostWithItems = bestItem1price + bestItem2price
+    local finalCostWithItems = swordCostWithItems * swordsToMake
+
+    local costLabel = vendorMode and 'vendor items' or 'bars'
+    local altLabel  = vendorMode and 'vendor source' or 'cheapest items'
+
+    if vendorMode then
+        barText  = barText  .. '\n* Each sword will cost a total of ' .. coins(swordCost) .. ' using vendor items.\n'
+        costText = costText .. ', at a total cost of ' .. coins(finalCost) .. '.\n'
+    else
+        barText  = barText  .. '\n* Each sword will cost a total of ' .. coins(swordCost) .. ' using ' .. costLabel .. ' or ' .. coins(swordCostWithItems) .. ' using cheapest items.\n'
+        costText = costText .. ', at a total cost of ' .. coins(finalCost) .. ' using ' .. costLabel .. ', or at a total cost of ' .. coins(finalCostWithItems) .. ' using cheapest items.\n'
+    end
+
+    local income          = swordsToMake * xp * 2
+    local profit          = income - finalCost
+    local profitWithItems = income - finalCostWithItems
+    local incomeText
+    if vendorMode then
+        incomeText = '* ' .. coins(income) .. ' will be earned from swords for a total profit of ' .. coins(profit) .. '.\n'
+    else
+        incomeText = '* ' .. coins(income) .. ' will be earned for a total profit of ' .. coins(profit) .. ' using ' .. costLabel .. ', or ' .. coins(profitWithItems) .. ' using cheapest items.\n'
+    end
+    local repTotal  = math.floor(quality * swordsToMake)
+    local grogNumber= math.floor(repTotal/300)
+    local grogValue = gePrices["Kovac's grog"] * grogNumber
+    local repText
+    if vendorMode then
+        repText = '* A total of ' .. commas(repTotal) .. ' Reputation will be earned.'
+    else
+        repText = '* A total of ' .. commas(repTotal) .. " Reputation will be earned. If used to buy [[Kovac's grog]] an additional " .. coins(grogValue) .. ' will be earned at current GE prices.'
+    end
+    local levelwarning = ''
+    if currentLevel < 15 then
+        levelwarning = '<b>Warning:</b> you need at least level 15 smithing to participate in the minigame.<br>'
+    elseif currentLevel < (tier1-1)*15+(tier1>=4 and 5 or 0)+(tier1>=5 and 5 or 0)
+        or currentLevel < (tier2-1)*15+(tier2>=4 and 5 or 0)+(tier2>=5 and 5 or 0) then
+        levelwarning = '<b>Warning:</b> one of the metals selected is above your current smithing level.<br>'
+    end
+
+    return metalwarning .. goalWarning .. levelwarning .. goalText .. barText .. costText .. incomeText .. repText
+end
+
+function p.main(frame)
+    return p._main(frame.args)
+end
+
+return p

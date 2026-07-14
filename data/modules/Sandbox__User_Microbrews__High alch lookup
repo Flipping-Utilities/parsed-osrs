@@ -1,0 +1,74 @@
+local p = {}
+
+-- local highalch_data = mw.loadJsonData('Module:GEHighAlchs/data.json')
+-- local droppeditem_data = mw.loadJsonData('Module:DropsLine/itemData.json')
+
+function p.bucketWrite()
+	local highalch = {}
+	local dropsline = {}
+	local allItems = {}
+	-- for k,v in pairs(highalch_data) do
+	-- 	if not string.find(k, "%%") then
+	-- 		highalch[k] = v
+	-- 		allItems[k] = 0
+	-- 	end
+	-- end
+	-- for k,v in pairs(droppeditem_data) do
+	-- 	if not string.find(k, "%%") then
+	-- 		dropsline[k] = v[2]
+	-- 		allItems[k] = 0
+	-- 	end
+	-- end
+	
+	-- for k,_ in pairs(allItems) do
+	-- 	bucket("high_alch_cache").put({
+	-- 		["item_name"] = k,
+	-- 		["drops_line_value"] = dropsline[k],
+	-- 		["ge_high_alchs_value"] = highalch[k]
+	-- 	})
+	-- end
+
+	-- local bucketData = bucket("infobox_item")
+	-- 	.select("page_name", "item_name", "high_alchemy_value")
+	-- 	.where(bucket.Or(unpack(where)))
+	-- 	.limit(2000)
+	-- 	.run()
+	
+	-- local bucketDict = {}
+	-- for _,v in ipairs(bucketData) do
+	-- 	bucketDict[v.item_name] = v.high_alchemy_value
+	-- end
+	
+	-- t = mw.html.create('table'):addClass('wikitable')
+	-- t:tag('tr')
+	-- 	:tag('th'):wikitext('Item'):done()
+	-- 	:tag('th'):wikitext('[[Module:GEHighAlchs/data.json|GEHighAlchs]]'):done()
+	-- 	:tag('th'):wikitext('[[Module:DropsLine/itemData.json|DropsLine]]'):done()
+	-- 	:tag('th'):wikitext('[[Bucket:Infobox_item|Infobox_item]]'):done()
+	
+	-- local data = {}
+	-- for k,_ in pairs(allItems) do
+	-- 	highAlchVal = highalch[k]
+	-- 	dropLineVal = dropsline[k]
+	-- 	infoboxVal = bucketDict[k]
+		
+	-- 	if infoboxVal ~= nil then
+	-- 		if (highAlchVal == nil and dropLineVal ~= infoboxVal) or
+	-- 			(dropLineVal == nil and highAlchVal ~= infoboxVal) or
+	-- 			(highAlchVal ~= nil and dropLineVal ~= nil and (highAlchVal ~= infoboxVal or dropLineVal ~= infoboxVal or highAlchVal ~= dropLineVal))
+	-- 		then
+	-- 			t:node(
+	-- 				mw.html.create('tr')
+	-- 					:tag('td'):wikitext('[[' .. k .. ']]'):done()
+	-- 					:tag('td'):wikitext(highAlchVal):done()
+	-- 					:tag('td'):wikitext(dropLineVal):done()
+	-- 					:tag('td'):wikitext(infoboxVal):done()
+	-- 			)
+	-- 		end
+	-- 	end
+	-- end
+	
+	return
+end
+
+return p

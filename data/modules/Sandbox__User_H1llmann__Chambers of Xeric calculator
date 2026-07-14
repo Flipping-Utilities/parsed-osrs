@@ -1,0 +1,238 @@
+local geprice = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+local commas = require('Module:Addcommas')._add
+
+local p = {}
+
+local uniqueItems = {
+	{name = "Arcane prayer scroll", weight = 20},
+	{name = "Dexterous prayer scroll", weight = 20},
+	{name = "Dragon hunter crossbow", weight = 4},
+	{name = "Twisted buckler", weight = 4},
+	{name = "Dinh's bulwark", weight = 3},
+	{name = "Ancestral hat", weight = 3},
+	{name = "Ancestral robe bottom", weight = 3},
+	{name = "Ancestral robe top", weight = 3},
+	{name = "Dragon claws", weight = 3},
+	{name = "Elder maul", weight = 2},
+	{name = "Kodai insignia", weight = 2},
+	{name = "Twisted bow", weight = 2}
+}
+
+local trashItems = {
+	{name = "Death rune", divisor = 36},
+	{name = "Blood rune", divisor = 32},
+	{name = "Soul rune", divisor = 20},
+	{name = "Rune arrow", divisor = 14},
+	{name = "Dragon arrow", divisor = 202},
+	{name = "Grimy ranarr weed", divisor = 788},
+	{name = "Grimy toadflax", divisor = 520},
+	{name = "Grimy irit leaf", divisor = 162},
+	{name = "Grimy avantoe", divisor = 324},
+	{name = "Grimy kwuarm", divisor = 378},
+	{name = "Grimy snapdragon", divisor = 1300},
+	{name = "Grimy cadantine", divisor = 330},
+	{name = "Grimy lantadyme", divisor = 248},
+	{name = "Grimy dwarf weed", divisor = 200},
+	{name = "Grimy torstol", divisor = 810},
+	{name = "Silver ore", divisor = 20},
+	{name = "Coal", divisor = 20},
+	{name = "Gold ore", divisor = 44},
+	{name = "Mithril ore", divisor = 32},
+	{name = "Adamantite ore", divisor = 166},
+	{name = "Runite ore", divisor = 2000},
+	{name = "Uncut sapphire", divisor = 188},
+	{name = "Uncut emerald", divisor = 142},
+	{name = "Uncut ruby", divisor = 242},
+	{name = "Uncut diamond", divisor = 508},
+	{name = "Lizardman fang", divisor = 28},
+	{name = "Pure essence", divisor = 2},
+	{name = "Saltpetre", divisor = 24},
+	{name = "Teak plank", divisor = 96},
+	{name = "Mahogany plank", divisor = 238},
+	{name = "Dynamite", divisor = 54},
+	{name = "Torn prayer scroll", divisor = 1},
+	{name = "Dark relic", divisor = 1}
+}
+
+function p.main(frame)
+	local args = frame.args
+	args.teamSize = tonumber(args.teamSize) or 1
+	args.timeTaken = tonumber(args.timeTaken) or ''
+	args.personalPoints = tonumber(args.personalPoints) or 0
+	args.groupPoints = tonumber(args.groupPoints) or 0
+	if args.personalPoints > args.groupPoints then
+		return "You can't have more personal points than group points!"
+	end
+
+	if args.groupPoints == 0 then
+		return "You get nothing, because your team got zero points. Try the [[Theatre of Blood]] instead — you might at least get a cabbage out of it."
+	end
+	
+	local relevantPoints = math.min(570000*6, args.groupPoints)
+	local maxPossibleUniqueRolls = math.min(6, math.ceil(relevantPoints / 570000))
+	
+	-- rather do this than a nasty for loop
+	local uniquesLine = ""
+	if maxPossibleUniqueRolls == 1 then
+		uniquesLine = string.format("Your team will get one chance to hit the unique table, with a '''%.2f%%''' chance of success.", relevantPoints/8675)
+	elseif maxPossibleUniqueRolls == 2 then
+		uniquesLine = string.format("Your team will get two chances to hit the unique table, with a '''%.2f%%''' and '''%.2f%%''' chance of success respectively.",
+			570000/8675, (relevantPoints-570000*1)/8675)
+	elseif maxPossibleUniqueRolls == 3 then
+		uniquesLine = string.format("Your team will get three chances to hit the unique table, with a '''%.2f%%''', '''%.2f%%''' and '''%.2f%%''' chance of success respectively.",
+			570000/8675, 570000/8675, (relevantPoints-570000*2)/8675)
+	elseif maxPossibleUniqueRolls == 4 then
+		uniquesLine = string.format("Your team will get four chances to hit the unique table, with a '''%.2f%%''', '''%.2f%%''', '''%.2f%%''' and '''%.2f%%''' chance of success respectively.",
+			570000/8675, 570000/8675, 570000/8675, (relevantPoints-570000*3)/8675)
+	elseif maxPossibleUniqueRolls == 5 then
+		uniquesLine = string.format("Your team will get five chances to hit the unique table, with a '''%.2f%%''', '''%.2f%%''', '''%.2f%%''', '''%.2f%%''' and '''%.2f%%''' chance of success respectively.",
+			570000/8675, 570000/8675, 570000/8675, 570000/8675, (relevantPoints-570000*4)/8675)
+	elseif maxPossibleUniqueRolls == 6 then
+		uniquesLine = string.format("Your team will get six chances to hit the unique table, with a '''%.2f%%''', '''%.2f%%''', '''%.2f%%''', '''%.2f%%''', '''%.2f%%''' and '''%.2f%%''' chance of success respectively.",
+			570000/8675, 570000/8675, 570000/8675, 570000/8675, 570000/8675, (relevantPoints-570000*5)/8675)
+	end
+	
+	local uniquesTable = mw.html.create('table')
+	uniquesTable:addClass('wikitable')
+	uniquesTable:addClass('align-center-1')
+	:tag('tr')
+		:tag('th')
+			:wikitext('Item')
+			:attr('colspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Price')
+		:done()
+		:tag('th')
+			:wikitext('Expected per team')
+		:done()
+		:tag('th')
+			:wikitext('Drop rate per team member')
+		:done()
+		:tag('th')
+			:wikitext('Expected personal value')
+		:done()
+
+
+	local expectedRolls = math.min(570000*6, relevantPoints) / 867500
+	local personalRatio = args.personalPoints / args.groupPoints -- for this particular calculation we care about the actual points scored by the team
+	local totalUniqueExpectation = 0.0
+
+	if args.split == 'yes' then
+		personalRatio = 1 / args.teamSize
+	end
+
+	for _, unique in ipairs(uniqueItems) do
+		local price = geprice(unique.name)
+		local expectation = expectedRolls * unique.weight / 69
+		totalUniqueExpectation = totalUniqueExpectation + price * expectation * personalRatio
+		uniquesTable:tag('tr')
+			:tag('td')
+				:wikitext(string.format('[[File:%s.png|link=%s]]', unique.name, unique.name))
+			:done()
+			:tag('td')
+				:wikitext(string.format('[[%s]]', unique.name))
+			:done()
+			:tag('td')
+				:wikitext(coins(price))
+			:done()
+			:tag('td')
+				:wikitext(string.format('%.3f%%', 100 * expectation ))
+			:done()	
+			:tag('td')
+				:wikitext(string.format('1/%.2f', (personalRatio * expectation) ^ -1))
+			:done()
+			:tag('td')
+				:wikitext(coins(price * expectation * personalRatio))
+			:done()
+			
+	end
+	
+	uniquesTable:tag('tr')
+		:tag('th')
+			:attr('colspan', 5)
+		:done()
+		:tag('th')
+			:wikitext(coins(totalUniqueExpectation))
+		:done()
+	
+	local trashLine = string.format("Failing a unique roll, you will get two rolls on the resource table, based on your '''%s''' points.", commas(args.personalPoints))
+
+	local trashTable = mw.html.create('table')
+	trashTable:addClass('wikitable')
+	trashTable:addClass('align-center-1')
+	:tag('tr')
+		:tag('th')
+			:wikitext('Item')
+			:attr('colspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Quantity')
+		:done()
+		:tag('th')
+			:wikitext('Price')
+		:done()
+		:tag('th')
+			:wikitext('Expected per chest')
+		:done()
+		:tag('th')
+			:wikitext('Expected personal value')
+		:done()	
+	
+	local totalTrashExpectation = 0.0
+	for _, trash in ipairs(trashItems) do
+		local price = 0
+		if trash.name ~= "Dark relic" then
+			price = geprice(trash.name)
+		end
+		local quantity = math.floor(args.personalPoints / trash.divisor)
+		if trash.name == "Torn prayer scroll" or trash.name == "Dark relic" then
+			quantity = 1
+		end
+		local expectedCount = (1 - args.personalPoints / args.groupPoints * expectedRolls) * 2 * quantity / #trashItems
+		totalTrashExpectation = totalTrashExpectation + expectedCount * price
+		trashTable:tag('tr')
+			:tag('td')
+				:wikitext(string.format('[[File:%s.png|link=%s]]', trash.name, trash.name))
+			:done()
+			:tag('td')
+				:wikitext(string.format('[[%s]]', trash.name))
+			:done()
+			:tag('td')
+				:wikitext(quantity)
+			:done()
+			:tag('td')
+				:wikitext(coins(price))
+			:done()
+			:tag('td')
+				:wikitext(string.format('%.2f', expectedCount ))
+			:done()	
+			:tag('td')
+				:wikitext(coins(price * expectedCount))
+			:done()		
+	end
+	
+	trashTable:tag('tr')
+		:tag('th')
+			:attr('colspan', 5)
+		:done()
+		:tag('th')
+			:wikitext(coins(totalTrashExpectation))
+		:done()
+	
+	local totalExpectation = totalTrashExpectation + totalUniqueExpectation
+	local mainLine = string.format("You got '''%s''' points and your team of '''%d''' got '''%s''' points.", commas(args.personalPoints), args.teamSize, commas(args.groupPoints))
+	parenthetical = "free-for-all"
+	if args.split == 'yes' then
+		parenthetical = "even splits"
+	end
+	mainLine = mainLine .. string.format(" This gives a total expected value for your personal chest (including %s on uniques), of '''%s'''.", parenthetical, coins(totalExpectation))
+	
+	if args.timeTaken ~= '' then
+		mainLine = mainLine .. string.format(" At %d minutes a raid, that makes Chambers of Xeric about '''%s''' per hour in the long run.", args.timeTaken, coins(totalExpectation * 60 / args.timeTaken))
+	end
+	return mainLine .. '\n\n' .. uniquesLine .. '\n\n' .. tostring(uniquesTable) .. '\n\n' .. trashLine .. '\n\n' .. tostring(trashTable)
+end
+
+return p

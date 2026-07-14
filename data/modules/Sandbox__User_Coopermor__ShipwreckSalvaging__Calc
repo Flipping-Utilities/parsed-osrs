@@ -1,0 +1,155 @@
+local p = {}
+
+local floor = math.floor
+
+local TICKS_PER_HOUR = 6000
+local PLAYER_ROLL_EVERY = 4
+local CREW_ROLL_EVERY = 5
+
+local PLAYER_ROLLS_PER_HOUR = TICKS_PER_HOUR / PLAYER_ROLL_EVERY -- 1500
+local CREW_ROLLS_PER_HOUR = TICKS_PER_HOUR / CREW_ROLL_EVERY     -- 1200
+
+local SHIPWRECK_BASE = {
+	["Small"]     = { low = 50, high = 100 },
+	["Fisherman"] = { low = 48, high = 96 },
+	["Barracuda"] = { low = 45, high = 90 },
+	["Large"]     = { low = 42, high = 84 },
+	["Pirate"]    = { low = 40, high = 80 },
+	["Mercenary"] = { low = 32, high = 64 },
+	["Fremennik"] = { low = 28, high = 58 },
+	["Merchant"]  = { low = 24, high = 50 },
+}
+
+local HOOK_BONUS_PCT = {
+	Bronze  = 0,
+	Iron    = 5,
+	Steel   = 10,
+	Mithril = 15,
+	Adamant = 20,
+	Rune    = 25,
+	Dragon  = 35,
+}
+
+local function successChance(level, low, high)
+	local x = (low * (99 - level)) / 98 + (high * (level - 1)) / 98 + 0.5
+	return (1 + floor(x)) / 256
+end
+
+local function clampInt(v, lo, hi, default)
+	v = tonumber(v)
+	if v == nil then return default end
+	v = floor(v)
+	if v < lo then return lo end
+	if v > hi then return hi end
+	return v
+end
+
+local function fmt(n, places)
+	return string.format('%.' .. tostring(places or 3) .. 'f', n)
+end
+
+local function trimOrNil(s)
+	if s == nil then return nil end
+	s = mw.text.trim(tostring(s))
+	if s == '' then return nil end
+	return s
+end
+
+local function mergedArgs(frame)
+	local args = {}
+
+	if frame:getParent() and frame:getParent().args then
+		for k, v in pairs(frame:getParent().args) do
+			args[k] = v
+		end
+	end
+
+	if frame.args then
+		for k, v in pairs(frame.args) do
+			args[k] = v
+		end
+	end
+
+	return args
+end
+
+local function applyMultiplier(low, high, mult)
+	return floor(low * mult), floor(high * mult)
+end
+
+function p.main(frame)
+	local args = mergedArgs(frame)
+
+	local shipwreck = trimOrNil(args.shipwreck) or 'Merchant'
+	local hook = trimOrNil(args.hook) or 'Bronze'
+	local level = clampInt(args.level, 1, 99, 1)
+
+	local shipBase = SHIPWRECK_BASE[shipwreck]
+	if not shipBase then
+		return string.format("Error: unknown shipwreck '%s'.", shipwreck)
+	end
+
+	local bonusPct = HOOK_BONUS_PCT[hook]
+	if bonusPct == nil then
+		return string.format("Error: unknown hook '%s'.", hook)
+	end
+
+	local baseLow, baseHigh = shipBase.low, shipBase.high
+
+	local hookMult = 1.0 + (bonusPct / 100.0)
+	local playerLow, playerHigh = applyMultiplier(baseLow, baseHigh, hookMult)
+	local pPlayer = successChance(level, playerLow, playerHigh)
+
+	local crew = {}
+	for d = 1, 4 do
+		local deckMult = 0.10 * d
+		local crewLow, crewHigh = applyMultiplier(playerLow, playerHigh, deckMult)
+		local pCrew = successChance(level, crewLow, crewHigh)
+		crew[d] = {
+			p = pCrew,
+			perHour = CREW_ROLLS_PER_HOUR * pCrew
+		}
+	end
+
+	local playerPerHour = PLAYER_ROLLS_PER_HOUR * pPlayer
+
+	local root = mw.html.create('div')
+	root:addClass('shipwreck-salvaging-calc')
+
+	local tbl = root:tag('table'):addClass('wikitable')
+	local trH = tbl:tag('tr')
+	trH:tag('th'):wikitext('Hook operator')
+	trH:tag('th'):wikitext('Salvages per hour')
+
+	local function addRow(label, value)
+		local tr = tbl:tag('tr')
+		tr:tag('td'):wikitext(frame:preprocess(label))
+		tr:tag('td'):wikitext(fmt(value, 3))
+	end
+
+	addRow("Player", playerPerHour)
+
+	addRow(
+		"Deckhandiness 1 {{Chatlp|Adventurer Ada}} {{Chatlp|Jittery Jim}} {{Chatlp|Sailor Jakob}}",
+		crew[1].perHour
+	)
+
+	addRow(
+		"Deckhandiness 2 {{Chatlp|Oarswoman Olga}} {{Chatlp|Bosun Zarah}} {{Chatlp|Spotter Virginia}}",
+		crew[2].perHour
+	)
+
+	addRow(
+		"Deckhandiness 3 {{Chatlp|Jobless Jim}} {{Chatlp|Ex-Captain Siad}}",
+		crew[3].perHour
+	)
+
+	addRow(
+		"Deckhandiness 4 {{Chatlp|Cabin Boy Jenkins (ghost)}} {{Chatlp|Jolly Jim}}",
+		crew[4].perHour
+	)
+
+	return tostring(root)
+end
+
+return p

@@ -1,0 +1,69 @@
+local p = {}
+
+local params = require('Module:Paramtest')
+local yesno = require('Module:Yesno')
+local var = mw.ext.VariablesLua
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local buymultiplier,sellmultiplier,currency,namenotes,delta,nosmw,hidege,hidebuy,hidesell,hidestock,hiderestock,hidecaption = params.defaults{
+					{args.BuyMultiplier,1000},
+					{args.SellMultiplier,1000},
+					{args.Currency,'Coins'},
+					{args.NameNotes,''},
+					{args.Delta,10},
+					{args.nosmw,'no'},
+					{args.hideGE,'no'},
+					{args.hideBuy,'no'},
+					{args.hideSell,'no'},
+					{args.hideStock,'no'},
+					{args.hideRestock,'no'},
+					{args.hideCaption,'no'}
+				}
+				
+	var.vardefine('BuyMultiplier', buymultiplier)
+	var.vardefine('SellMultiplier', sellmultiplier)
+	var.vardefine('Currency', currency)
+	var.vardefine('NameNotes', namenotes)
+	var.vardefine('Delta', delta)
+	var.vardefine('nosmw', nosmw)
+	var.vardefine('hideGE', hidege)
+	var.vardefine('hideBuy', hidebuy)
+	var.vardefine('hideSell', hidesell)
+	var.vardefine('hideStock', hidestock)
+	var.vardefine('hideRestock', hiderestock)
+	
+	local ret = mw.html.create('')
+	if not(yesno(hidecaption)) then
+		ret:tag('caption')
+			:css('white-space','nowrap')
+			:wikitext(string.format('Sells at: [[Store sell ratio::%.1f]]%% • Buys at: [[Store buy ratio::%.1f]]%% • Change per: [[Store price delta::%.1f]]%%',sellmultiplier/10,buymultiplier/10,delta/10))
+			:done()
+	end
+	ret:tag('tr')
+	ret:tag('th'):attr('colspan', 2):wikitext('Item'):done()
+	if not(yesno(hidestock)) then
+		ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Number<br>in stock'):done()
+	end
+	if not(yesno(hiderestock)) then
+		ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Restock<br/>time'):done()
+	end
+	if not(yesno(hidesell)) then
+		ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Price<br>sold at'):done()
+	end
+	if not(yesno(hidebuy)) then
+		ret:tag('th'):attr('data-sort-type', 'number'):wikitext('Price<br>bought at'):done()
+	end
+	if not(yesno(hidege)) then
+		ret:tag('th'):attr('data-sort-type', 'number'):wikitext('[[Grand Exchange|GE <br>price]]'):done()
+	end
+    local i = 1
+    while args['column' .. i] do
+		ret:tag('th'):attr('data-sort-type', 'number'):wikitext(args['column' .. i]):done()
+		i = i+1
+	end
+	ret:done()
+	return '<table class="wikitable sortable" style="text-align:center; margin:0;" cellpadding="2" cellspacing="0">' .. tostring(ret)
+end
+	
+return p

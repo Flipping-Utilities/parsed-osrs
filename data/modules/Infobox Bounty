@@ -81,16 +81,16 @@ function p.main(frame)
 	:pad(30)
 	
 	:addRow{
-		{ tag = 'th', content = '[[Skills]]', colspan = '10' },
-		{ tag = 'argd', content = 'skillreq', colspan = '20' }
+		{ tag = 'th', content = '[[Sailing level]]', colspan = '15' },
+		{ tag = 'argd', content = 'sailingreq', colspan = '15' }
 	}
 	:addRow{
-		{ tag = 'th', content = '[[Sailing level]]', colspan = '10' },
-		{ tag = 'argd', content = 'sailingreq', colspan = '20' }
+		{ tag = 'th', content = '[[Skills]]', colspan = '15' },
+		{ tag = 'argd', content = 'skillreq', colspan = '15' }
 	}
 	:addRow{
-		{ tag = 'th', content = 'Other', colspan = '10' },
-		{ tag = 'argd', content = 'otherreq', colspan = '20' }
+		{ tag = 'th', content = 'Other', colspan = '15' },
+		{ tag = 'argd', content = 'otherreq', colspan = '15' }
 	}
 
 	:pad(30)
@@ -118,8 +118,8 @@ function p.main(frame)
 	}
 	:pad(30, 'advanced-data')
 	:addRow{
-		{ tag = 'th', content = 'Icon ID', colspan = '10' },
-		{ tag = 'argd', content = 'id',  colspan = '20' },
+		{ tag = 'th', content = 'Icon ID', colspan = '15' },
+		{ tag = 'argd', content = 'id',  colspan = '15' },
 		meta = {addClass = 'advanced-data'}
 	}
 	ret:pad(30, 'advanced-data')

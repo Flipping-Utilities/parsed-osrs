@@ -1,0 +1,11 @@
+local p = {}
+
+function p.go(frame)
+	local out = {}
+	for k,v in pairs(frame.args) do
+		table.insert(out, '<li>'..tostring(k)..': '..tostring(v)..'</li>')
+	end
+	return '<ul>'..table.concat(out,'\n')..'</ul>'
+end
+
+return p

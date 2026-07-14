@@ -1,0 +1,17 @@
+--<nowiki>
+local p = {}
+local md5 = require("Module:Sandbox/User:Chen/md5impl")
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return md5.sumhexa(args[1])
+end
+
+function p.fn(frame)
+	local args = frame:getParent().args
+	local _m = md5.sumhexa(args[1])
+	return "https://oldschool.runescape.wiki/images/" .. string.sub(_m, 1, 1) .. "/" .. string.sub(_m, 1, 2) .. "/" .. args[1]
+end
+
+return p
+--</nowiki>

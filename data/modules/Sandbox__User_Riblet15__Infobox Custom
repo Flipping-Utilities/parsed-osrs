@@ -1,0 +1,48 @@
+local p = {}
+
+local paramtest = require('Module:Paramtest')
+local infobox = require('Module:Infobox')
+
+-- Main function called with invokes
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+	}
+
+	for k, v in pairs(args) do
+		ret:defineParams{
+			{ name = k, func = 'has_content' },
+		}
+	end
+
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+	:pad(20)
+
+	for k, v in pairs(args) do
+		ret:addRow{
+			{ tag = 'th', content = k, colspan = '6' },
+			{ tag = 'argd', content = k, colspan = '14' }
+		}
+	end
+	ret:pad(20)
+
+	return ret:tostring()
+end
+
+
+return p

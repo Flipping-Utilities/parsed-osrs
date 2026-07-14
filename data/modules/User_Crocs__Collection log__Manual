@@ -1,0 +1,35 @@
+-- Module:User:Crocs/Collection_log/Manual
+-- Manual collection-log acquisition sources for items that NO standard bucket
+-- (Dropsline / Storeline / Recipe) can express -- e.g. Giant clam pearls, whose
+-- tier is decided by the high-alchemy value of the item you feed the clam, so
+-- there is no drop rate, shop price, or fixed recipe to read.
+--
+-- Pure data module: exposes `p.data` (a list of { id, name, source, rate }).
+-- Module:User:Crocs/Collection_log/Source require()s this directly and joins the
+-- rows in, filling the otherwise-red "missing" rows AND including them in the
+-- Bucket:Collection_log_source output it writes. Just edit `data` below; the
+-- Sandbox and the bucket writer both pick it up (re-save the writer host page to
+-- refresh the bucket).
+
+local p = {}
+
+local data = {
+    -- Giant clam pearls (Ocean Encounters). The pearl tier is set by the
+    -- high-alchemy value of the deposited tradeable item; ranges below are that
+    -- HA value. See [[Giant clam]].
+    { id = 31770, name = 'Tiny pearl',       source = '[[Giant clam]]', rate = 'Deposit item, HA value 1&ndash;199' },
+    { id = 31773, name = 'Small pearl',      source = '[[Giant clam]]', rate = 'Deposit item, HA value 202&ndash;996' },
+    { id = 31776, name = 'Shiny pearl',      source = '[[Giant clam]]', rate = 'Deposit item, HA value 1,005&ndash;1,920' },
+    { id = 31779, name = 'Bright pearl',     source = '[[Giant clam]]', rate = 'Deposit item, HA value 2,040&ndash;4,800' },
+    { id = 31782, name = 'Big pearl',        source = '[[Giant clam]]', rate = 'Deposit item, HA value 5,400&ndash;9,984' },
+    { id = 31785, name = 'Huge pearl',       source = '[[Giant clam]]', rate = 'Deposit item, HA value 10,200&ndash;19,200' },
+    { id = 31788, name = 'Enormous pearl',   source = '[[Giant clam]]', rate = 'Deposit item, HA value 20,400&ndash;49,800' },
+    { id = 31791, name = 'Shimmering pearl', source = '[[Giant clam]]', rate = 'Deposit item, HA value 50,000&ndash;96,000' },
+    { id = 31794, name = 'Glistening pearl', source = '[[Giant clam]]', rate = 'Deposit item, HA value 112,500&ndash;183,000' },
+    { id = 31797, name = 'Brilliant pearl',  source = '[[Giant clam]]', rate = 'Deposit item, HA value 240,000&ndash;480,000' },
+    { id = 31800, name = 'Radiant pearl',    source = '[[Giant clam]]', rate = 'Deposit item, HA value 540,000+' },
+}
+
+p.data = data
+
+return p

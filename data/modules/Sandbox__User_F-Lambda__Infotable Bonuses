@@ -1,0 +1,300 @@
+local p = {}
+
+local yesno = require('Module:Yesno')
+local pt = require('Module:Paramtest')
+local enum = require('Module:Array')
+local pagelisttools = require('Module:PageListTools')
+local exchange = require('Module:Exchange')
+local itemstats = require('Module:FetchItemStats')
+local pagelistchecks = pagelisttools.pagelistchecks
+
+-- Sorting keys
+local skey = {
+    'astab', 'aslash', 'acrush', 'amagic', 'arange',
+    'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+    'str',   'mdmg',   'rstr',   'prayer', 'weight',
+    'geprice',
+}
+
+-- Sorting orders
+local sorder = {
+    'ascending', 'asc',
+    'descending', 'desc', 'reverse',
+    'random', 'rand'
+}
+
+-- Construct table header
+function p.header(tbl, useprices, usecomments)
+    local tr = tbl:tag('tr')
+        :node('<th colspan="2" rowspan="2">Item</th>')
+        :node('<th colspan="5">Attack Bonuses</th>')
+        :node('<th colspan="5">Defence Bonuses</th>')
+    	:node('<th colspan="5">Other</th>')
+    	
+    if useprices then
+    	tr:node('<th rowspan="2">GE Price</th>')
+    end
+    if usecomments then
+    	tr:node('<th rowspan="2">Comment</th>')
+	end
+
+    tr = tbl:tag('tr')
+        :tag('th'):wikitext('[[File:White dagger.png|link=|Stab attack]]'):done()
+        :tag('th'):wikitext('[[File:White scimitar.png|link=|Slash attack]]'):done()
+        :tag('th'):wikitext('[[File:White warhammer.png|link=|Crush attack]]'):done()
+        :tag('th'):wikitext('[[File:Magic icon.png|link=|Magic attack]]'):done()
+        :tag('th'):wikitext('[[File:Ranged icon.png|link=|Ranged attack]]'):done()
+        :tag('th'):wikitext('[[File:White dagger.png|link=|Stab defence]]'):done()
+        :tag('th'):wikitext('[[File:White scimitar.png|link=|Slash defence]]'):done()
+        :tag('th'):wikitext('[[File:White warhammer.png|link=|Crush defence]]'):done()
+        :tag('th'):wikitext('[[File:Magic icon.png|link=|Magic defence]]'):done()
+        :tag('th'):wikitext('[[File:Ranged icon.png|link=|Ranged defence]]'):done()
+        :tag('th'):wikitext('[[File:Strength icon.png|link=|Melee strength]]'):done()
+        :tag('th'):wikitext('[[File:Magic Damage icon.png|link=|Magic damage]]'):done()
+        :tag('th'):wikitext('[[File:Ranged Strength icon.png|link=|Ranged strength]]'):done()
+        :tag('th'):wikitext('[[File:Prayer icon.png|link=|Prayer bonus]]'):done()
+		:tag('th'):wikitext('[[File:Weight icon.png|link=|Weight]]'):done()
+end
+
+-- Soft errors
+function p.softerr(txt, cat)
+    local div = mw.html.create('div')
+        :tag('b'):css('color', 'red'):node('Error:'):done()
+        :node(' '):wikitext(txt)
+        :wikitext(cat and string.format('[[Category:%s]]', cat) or '')
+        :wikitext('[[Category:Pages with script errors]]')
+
+    return div
+end
+
+-- Main entry-point
+function p.main(frame)
+    local args = frame:getParent().args
+    return p._main(args)
+end
+
+function p._main(args)
+    -- Fetch and validate input parameters
+    local pages = {}
+    for _, page in ipairs(args) do
+        table.insert(pages, mw.text.trim(page))
+    end
+    assert(#pages > 0, 'You must specify at least one item')
+
+    local keys = {}
+    if pt.has_content(args['sort']) then
+        for key in mw.text.gsplit(args['sort'], ',', true) do
+            table.insert(keys, mw.text.trim(key))
+        end
+    end
+
+	if yesno(keys[1], true) then
+	    for _, o in ipairs(keys) do
+	        assert(enum.contains(skey, o), 'Invalid sorting key:"' .. o .. '"' .. tostring(yesno(keys[1])))
+	    end
+	end
+
+    local orders = {}
+    if pt.has_content(args['order']) then
+        for order in mw.text.gsplit(args['order'], ',', true) do
+            table.insert(orders, mw.text.trim(order))
+        end
+    end
+    
+    local useprices = false
+    if args['prices'] == 'yes' then
+    	useprices = true
+    end
+    
+    local comments = {}
+    local usecomments = false
+    for i=1,#pages do
+    	cmt = args['comment'..tostring(i)]
+    	if pt.has_content(cmt) then
+    		comments[i] = cmt
+    		usecomments = true
+    	end
+    end
+
+    for _, o in ipairs(orders) do
+        assert(enum.contains(sorder, o), 'Invalid sorting order:' .. o)
+    end
+
+    assert(#orders == #keys or #orders == 0 or #keys == 0, 'The number of sort orders must match the number of sort keys, or either can be zero')
+
+    local ba = {
+        noheader  = false,
+        nototals  = false,
+        expensive = false
+    }
+
+    for k, b in pairs(ba) do
+        if pt.has_content(args[k]) then
+            ba[k] = yesno(args[k])
+        end
+    end
+
+    local curtitle = mw.title.getCurrentTitle()
+
+    -- As the name suggests, these tests are expensive so you should only
+    -- enable them temporary and site-wide for the purpose of maintenance.
+    if ba['expensive'] then
+        local czech = pagelistchecks(pages)
+
+        if #czech.invalid > 0 or #czech.redirect > 0 or #czech.duplicate > 0 then
+            local msg = string.format('Of the %d pages requested %d are non-existent (%s), %d are redirects (%s) and %d are duplicates (%s).',
+                #pages,
+                #czech.invalid, (#czech.invalid > 0) and mw.text.listToText(czech.invalid, ', ', ' and ') or '',
+                #czech.redirect, (#czech.redirect > 0) and mw.text.listToText(czech.redirect, ', ', ' and ') or '',
+                #czech.duplicate, (#czech.duplicate > 0) and mw.text.listToText(czech.duplicate, ', ', ' and ') or '')
+            local cat = 'Infotable Bonuses with multi-variant items'
+    
+            return p.softerr(msg, curtitle:inNamespace('') and cat or nil)
+        end
+    end
+
+    -- Fetch the data
+    local smw = itemstats.equipmentStats(pages, keys, orders)
+
+    -- Check for missing pages. Sorting in SMW is arguably broken since it can often
+    -- lead to pages being removed from the results, due to either the page not having
+    -- the property that's being sorted on, or that the property is set to a nil value.
+    if #smw < #pages then
+        local missing = #pages - #smw
+
+        local msg = string.format('Of the %i pages requested %i are missing.%s', 
+            #pages, missing, 
+            (#keys > 0) and ' Try temporarily disabling sorting to see which items might have multiple variants.' or '')
+        local cat = 'Infotable Bonuses with multi-variant items'
+
+        return p.softerr(msg, curtitle:inNamespace('') and cat or nil)
+    end
+
+    -- Check for items with multiple variants
+    for _, entry in ipairs(smw) do
+        if entry['subobj'] then
+            local msg = string.format('Item \'[[%s]]\' have multiple variants; please specify one of them: %s',
+                entry['name'], mw.text.listToText(entry['subobj'], ', ', ' or '))
+            local cat = 'Infotable Bonuses with multi-variant items'
+
+            return p.softerr(msg, curtitle:inNamespace('') and cat or nil)
+        end
+    end
+
+    -- Render the page
+    local tbl = mw.html.create('table')
+        :addClass('wikitable sortable infotable-bonuses')
+        :addClass('align-center-1 align-left-2 align-right-3 align-right-4 align-right-5')
+        :addClass('align-right-6 align-right-7 align-right-8 align-right-9 align-right-10')
+        :addClass('align-right-11 align-right-12 align-right-13 align-right-14 align-right-15')
+        :addClass('align-right-16 align-right-17 align-right-18')
+
+    -- Header
+    if not ba['noheader'] then
+        p.header(tbl, useprices, usecomments)
+    end
+
+    local totals = {}
+    for pr = 1, #skey do table.insert(totals, 0) end
+
+    -- Render the rows
+    for i, entry in ipairs(smw) do
+        local tr = tbl:tag('tr')
+            :tag('td')
+            :cssText((args['cwidth'] and (args['cwidth']):len() > 0) and 'width:' .. args['cwidth'] or nil)
+            :wikitext(entry['image'] and string.format('[[%s|link=|%s]]', entry['image'], mw.text.split(entry['name'], '#', true)[1]) or '')
+            :done()
+            :tag('td')
+            :cssText((args['iwidth'] and (args['iwidth']):len() > 0) and 'width:' .. args['iwidth'] or nil)
+            :wikitext(string.format('[[%s]]', mw.text.split(entry['name'], '#', true)[1]))
+            :done()
+
+        for pr = 1, #skey do
+			local attr = entry[skey[pr]]
+			
+			if useprices then
+				if skey[pr] == 'geprice' then
+					if exchange._exists(entry['name']) == true then
+						if entry['name']:match("#") then
+							attr = "NA"
+						else
+							attr = exchange._price(entry['name'])
+						end
+					else
+						attr = "NA"
+					end
+				else
+					attr = "skip"
+				end
+			end
+			
+            local td = tr:tag('td')
+                :cssText((args['cwidth'] and (args['cwidth']):len() > 0) and 'width:' .. args['cwidth'] or nil)
+
+            if not attr then
+                td:addClass('table-no'):addClass('nohighlight'):attr('data-sort-value', 0)
+                    :node('?')
+            else
+            	if skey[pr] == 'mdmg' then
+                    td:node(string.format('%d%%', attr))
+            	elseif skey[pr] == 'weight' then
+                    td:node(string.format('<span title="%.3f">%.1f</span>', attr, attr))
+            	elseif skey[pr] == 'geprice' then
+            		if useprices then
+	                    if attr == "NA" then
+	                    	td:addClass('table-na nohighlight')
+	                    	td.style = "text-align:center"
+	                    	td:node("N/A")
+	                    else
+	                    	td:node(tostring(attr))
+	                    end
+                    end
+            	else
+                    td:node(tostring(attr))
+            	end
+            	if attr == "NA" then
+            		
+            	else
+                	totals[pr] = totals[pr] + attr
+                end
+            end
+        end
+        
+        if usecomments then
+        	local td = tr:tag('td')
+        		:wikitext(comments[i])
+        end
+    end
+
+    -- Footer
+    if not ba['nototals'] then
+        local tr = tbl:tag('tr'):addClass('sortbottom')
+            :node('<th colspan="2">Totals</th>')
+    
+        for i = 1, #skey do
+            local td = tr:tag('td')
+            :css('text-align', 'right')
+        	if skey[i] == 'mdmg' then
+                td:node(string.format('%d%%', totals[i]))
+        	elseif skey[i] == 'weight' then
+                td:node(string.format('<span title="%.3f">%.1f</span>', totals[i], totals[i]))
+        	else
+                td:node(tostring(totals[i]))
+        	end
+        end
+        if usecomments then
+        	tr:tag('td')
+        end
+    end
+
+    return tbl
+end
+
+--[[ DEBUG COPYPASTA
+mw.logObject( p.loadData({'Beach boxing gloves#Yellow', 'Boxing gloves#Red'}, {}, {}) )
+mw.logObject( p.loadData({'Iron pickaxe', 'Steel pickaxe'}, {'arange', 'drange'}, {'desc', 'desc'}) )
+= p._main({'Verac\'s brassard#Undamaged', 'Verac\'s flail#Undamaged', 'Verac\'s helm#Undamaged', 'Verac\'s plateskirt#Undamaged'})
+= p._main({'3rd age full helmet', '3rd age platebody', '3rd age platelegs', '3rd age kiteshield', '3rd age longsword', sort='dstab,str', order='asc,asc'})
+--]]
+
+return p

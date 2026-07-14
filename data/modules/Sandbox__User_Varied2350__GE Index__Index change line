@@ -1,0 +1,128 @@
+local p = {}
+local gep = require('Module:Exchange')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local indexName = args['index']
+	local indexSub = args['indexsub']
+	local changeDate = formatSortableDate(args['date'])
+	local parsedChanges = parseChangeArgs(args)
+	
+	local changeData = getBucketData(indexName, indexSub)
+	if changeData == nil or #changeData <= 0 then
+		-- no data in bucket
+		local saveData = {}
+		saveData['change_date'] = changeDate
+		saveData['ge_index_name'] = indexName
+		saveData['ge_index_sub'] = indexSub
+		saveData['add_quantity'] = #parsedChanges['add']
+		saveData['remove_quantity'] = 0
+		saveData['divisor'] = #parsedChanges['add'] -- divisor is just the number of items the first time
+		saveData['change_items'] = mw.text.jsonEncode(parsedChanges)
+		writeToBucket(saveData)
+	else
+		-- data in bucket, see if it's for a change that is already written to bucket
+		for k,v in pairs(changeData) do
+			if v['change_date'] ~= changeDate then
+				-- it is a new entry, get the divisor from the previous entry and write new line to bucket
+				local lastBucketLine = changeData[k+1]
+				local lastDivisor = lastBucketLine['divisor']
+				local lastChangeData = mw.text.jsonDecode(lastBucketLine['change_items'])
+				local currentRatioSum
+				-- for i,changeItem in lastChangeData['add']
+			end
+		end
+	end
+	
+	-- render table rows
+	local maxNum = math.max(#parsedChanges['add'], #parsedChanges['remove'])
+	local rows = mw.html.create()
+	
+	for rowIdx = 1, maxNum, 1 do
+		local row = rows:tag('tr')
+		if rowIdx == 1 then
+			row:tag('td'):attr('rowspan', maxNum):wikitext(changeDate)
+		end
+		
+		local addItemName
+		local addItemPrice
+		if #parsedChanges['add'] >= rowIdx then
+			addItemName = parsedChanges['add'][rowIdx]['item']
+			addItemPrice = parsedChanges['add'][rowIdx]['price']
+		else
+			addItemName = 'N/A'
+			addItemPrice = 'N/A'
+		end
+		row:tag('td'):wikitext(addItemName)
+		row:tag('td'):wikitext(addItemPrice)
+		
+		local itemName
+		if #parsedChanges['remove'] >= rowIdx then
+			itemName = parsedChanges['remove'][rowIdx]['item']
+		else
+			itemName = 'N/A'
+		end
+		row:tag('td'):wikitext(itemName)
+	end
+	return rows
+end
+
+function formatSortableDate(dateStr)
+	return mw.language.getContentLanguage():formatDate(
+		"Y-m-d",
+		dateStr)
+end	
+
+function writeToBucket(indexData)
+	bucket('ge_index_header').put(indexData)
+end
+
+function parseChangeArgs(args)
+	local addArgs = {}
+	local removeArgs = {}
+	for argIdx = 1, 50, 1 do
+		local addItem = args['add'..argIdx]
+		local removeItem = args['remove'..argIdx]
+		local itemPrice = args['itemprice'..argIdx]
+		
+		if addItem and addItem ~= nil then
+			local parsedPrice = itemPrice and itemPrice ~= '' and tonumber(itemPrice) or gep._price(addItem)
+			table.insert(addArgs, {
+				['item'] = addItem,
+				['price'] = parsedPrice
+			})
+		end
+		if removeItem and removeItem ~= nil then
+			table.insert(removeArgs, removeItem)
+		end
+	end
+	return {
+		['add'] = addArgs,
+		['remove'] = removeArgs
+	}
+end
+
+function getBucketData(indexName, indexSub)
+	if indexName == nil or indexName == '' then
+		return
+	end
+	
+	local andClauses = {}
+	table.insert(andClauses, {'ge_index_name', indexName})
+	if indexSub and indexSub ~= '' then
+		table.insert(andClauses, {'ge_index_sub', indexSub})
+	end
+	
+	local indexChanges = bucket('ge_index_header')
+		.select('change_date', 'ge_index_name', 'ge_index_sub', 'add_quantity', 'remove_quantity', 'divisor', 'change_items')
+		.where(bucket.And(andClauses))
+		.orderBy('change_date', 'desc')
+		.run()
+	return indexChanges
+end
+
+return p

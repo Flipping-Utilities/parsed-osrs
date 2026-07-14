@@ -1,0 +1,172 @@
+local p = {}
+
+local expr = mw.ext.ParserFunctions.expr
+local lang = mw.language.getContentLanguage()
+local trim = mw.text.trim
+
+local commas = require('Module:Addcommas')
+local onmain = require('Module:Mainonly').on_main
+local paramTest = require('Module:Paramtest')
+local skillPic = require('Module:SCP')._main
+local yesNo = require('Module:Yesno')
+
+-- add chance, default to 100%
+--set staticlevel where it is can only change from baseor set current level 
+--  can be reapplied before resetting or no
+
+function isValidFormula(str)
+	local nonVarExpr, _ = string.gsub(str, 'level', '1')
+	local noErrExpr, _ = pcall(expr, nonVarExpr)
+	return noErr
+end
+
+function retValidInput(str)
+		
+end
+
+-- Assume all drains use current level, and all boosts use base level
+
+--[[
+boostTable = { 
+	'[1..5]', '7,10' or {'7', '10'}, '(level * 0.02) + 1'
+}--]]
+
+function ucfirstEffectTypeString(str)
+	return string.lower(str):gsub('^%l', string.upper)
+end
+
+function isValidEffectType(str)
+	possibleEffectTypes = { ['Boost'] = '', ['Drain'] = '', ['Heal'] = '', ['Restores'] = '' }
+	if(possibleEffectTypes[str]) then
+		return true
+	else
+		error(args.effecttype .. ' is not a valid effect.')
+		return false
+	end
+end
+
+function getEffectTypeTable(str)
+	if(not str:find(',') and isValidEffectType(str)) then
+		return { ucfirstEffectTypeString(str) }
+	else
+		ret = {}
+		for effect in string.gmatch(trim(str), "[^,]+") do
+			val = trim(effect)
+	    	isValidEffectType(val) -- do i need to do if statement here?
+			table.insert(ret, val)
+		end
+		return ret
+	end
+end
+
+local validBoostType = { ['heal'] = '', ['boost'] = '', ['drain'] = '', ['restore'] = '', ['other'] = '' }
+
+
+
+
+
+
+function p._main(args)
+	local showTable = yesNo(args.showTable) or false
+	local instanceCount = tonumber(args.instances) or 1
+	local visible = yesNo(args.visible) or true
+	local notes = args.notes or ''
+	
+	effects = {}
+	for i = 1, 10, 1 do
+		if(validEffects[args['effect' .. i]:lower()]) then
+			effects[i].boostType = paramTest.ucflc(args['effect' .. i])
+			boostTypeFormat = ''
+			if(tonumber(args['effect' .. i .. 'value'])) then
+				boostTypeFormat = 'number'
+			elseif(isValidFormula(args['effect' .. i .. 'value'])) then
+				boostTypeFormat = 'formula'
+			elseif(string.find(args['effect' .. i .. 'value'], ',')) then
+				local values = {}
+				for capture in string.gmatch(args['effect' .. i .. 'value'], "%d*") do
+					table.insert(values, capture)
+				end
+				boostTypeFormat = 'commas'
+			elseif(string.match("5..9", '%d*%.%.%d*')) then
+				boostTypeFormat = 'range'
+			elseif(args['effect' .. i .. 'value'] == 'steal') then
+				boostTypeFormat = 'steal'
+			else
+				error('Invalid parameter: "' .. 'effect' .. i .. 'value' .. '" with value: ' .. (args['effect' .. i .. 'value'] or ''))
+			end
+			effects[i].boostTypeFormat = boostTypeFormat
+		else
+			error('effect parameter ' .. i .. ' is not a valid effect.')
+		end
+	end
+
+	local heal = trim(args.heal)
+	local healType = nil
+	if(not heal) then
+		if(not tonumber(heal)) then
+			heal = tonumber(heal)
+			healType = 'number'
+		elseif(isValidFormula(heal)) then
+			healType = 'formula'
+		elseif(true) then
+			healType = 'random'
+		elseif(true) then
+			healType = 'range'
+		end
+	end
+	if(args.heal) then
+		heal = isValidFormula(heal) and heal or tonumber(heal)
+	end
+	
+	local energy = trim(args.energy)
+	if(args.energy) then
+		energy = isValidFormula(energy) and energy or tonumber(energy)
+	end
+	
+	local function boostList(deltaTypeString)
+		local retList = {}
+		for i=1,10,1 do
+			local skill = trim(lang:ucfirst(lang:lc(args[deltaTypeString .. i .. 'skill'])))
+			if(skill) then
+				for w in (skill .. ','):gmatch('([^,]*),') do
+					local name = trim(w)
+					if(isValidExpr(args[deltaTypeString .. i])) then
+						table.insert(retList, {
+							name = name,
+							boost = args[deltaTypeString .. i],
+						} )
+					else
+						--The boosts formula cannot be parsed and therefore not valid, error out here
+					end
+				end
+			end
+		end
+		return retList
+	end
+	
+	boosts = boostList('boost')
+	deboosts = boostList('deboost')
+	
+	--do i want to grab members info from this page
+	--where do i handle anglerfish and dragon battleaxe
+	--args.notes
+	
+	return output .. categories(gainHP ~= nil)
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+function categories(flags)
+	if not onmain() then
+		return ''
+	end
+	local cats = {}
+	
+	return table.concat(cats, '')
+end
+
+return p

@@ -1,0 +1,297 @@
+local gePrice = require('Module:Exchange')._price
+local coins = require('Module:Less Stupid Coins')._amount
+local tables = require('Module:Tables')
+local lang = mw.language.getContentLanguage()
+
+local p = {}
+
+local PATH_INVOCATIONS = {None = 0, Pathseeker = 1, Pathfinder = 2, Pathmaster = 3}
+local NORMAL_LOOT = {
+	{item = "Coins", divisor = 1},
+	{item = "Death rune", divisor = 20},
+	{item = "Soul rune", divisor = 40},
+	{item = "Gold ore", divisor = 90},
+	{item = "Dragon dart tip", divisor = 100},
+	{item = "Mahogany logs", divisor = 180},
+	{item = "Sapphire", divisor = 200},
+	{item = "Emerald", divisor = 250},
+	{item = "Gold bar", divisor = 250},
+	{item = "Potato cactus", divisor = 250},
+	{item = "Raw shark", divisor = 250},
+	{item = "Ruby", divisor = 300},
+	{item = "Diamond", divisor = 400},
+	{item = "Raw manta ray", divisor = 450},
+	{item = "Cactus spine", divisor = 600},
+	{item = "Dragonstone", divisor = 600},
+	{item = "Battlestaff", divisor = 1100},
+	{item = "Coconut milk", divisor = 1100},
+	{item = "Lily of the sands", divisor = 1100},
+	{item = "Toadflax seed", divisor = 1400},
+	{item = "Ranarr seed", divisor = 1800},
+	{item = "Torstol seed", divisor = 2200},
+	{item = "Snapdragon seed", divisor = 2200},
+	{item = "Dragon med helm", divisor = 4000},
+	{item = "Magic seed", divisor = 6500},
+	{item = "Blood essence", divisor = 7500},
+	{item = "Cache of runes", divisor = 999999}
+}
+
+local PURPLES = {
+	{item = "Tumeken's shadow (uncharged)", weight = 1, level = 150},
+	{item = "Masori mask", weight = 2, level = 150},
+	{item = "Masori body", weight = 2, level = 150},
+	{item = "Masori chaps", weight = 2, level = 150},
+	{item = "Elidinis' ward", weight = 3, level = 150},
+	{item = "Osmumten's fang", weight = 7, level = 50},
+	{item = "Lightbearer", weight = 7, level = 50}
+}
+
+local TEAM_SIZE_SCALE = {
+	[1] = 1.0,
+	[2] = 1.9,
+	[3] = 2.8,
+	[4] = 3.4,
+	[5] = 4.0,
+	[6] = 4.6,
+	[7] = 5.2,
+	[8] = 5.8
+}
+
+function p.main(frame)
+	local frame = frame or {}
+	local args = frame.args or {}
+	
+	local raid_level = tonumber(args.raid_level) or 550
+	local team_size = tonumber(args.team_size) or 8
+	local path_invocation = PATH_INVOCATIONS[args.path_invocation or 'None'] or 0
+	local walk_the_path = args.walk_the_path == 'yes'
+	
+	out = p.calculator(raid_level, team_size, path_invocation, walk_the_path)
+	mw.log(out)
+	return out
+end
+
+function scale_hp(base, raid_level, team_size, path_level)
+
+	local path_multiplier = 1.0
+	if path_level > 0 then
+		-- this isn't perfectly accurate because 0, 8, 13, 18... isn't linear, but it's close enough
+		path_multiplier = 1.03 + path_level * 0.05
+	end
+	-- this seems to round to the nearest 5 or 10, but the exact rounding semantics aren't clear (and we're already doing some averaging with WTP)
+	return math.floor(base * (1 + raid_level / 250) * TEAM_SIZE_SCALE[team_size] * path_multiplier)
+end
+
+function p.estimate_points(raid_level, team_size, path_invocation, walk_the_path)
+	-- to keep inputs simple, for WTP we assume the order is Ba-Ba, Kephri, Zebak, Akkha
+	-- it doesn't make a significant difference if the order is shuffled, as the bosses
+	-- generally have similar total point contributions
+	local AVERAGE_WTP_LEVEL = {[0] = 0, [1] = 0, [2] = 0, [3] = 0}
+	if walk_the_path then
+		AVERAGE_WTP_LEVEL = {[0] = 0, [1] = 4/6, [2] = 7/6, [3] = 13/6}
+	end
+	local points_table = {
+		{name = "Akkha", hp = scale_hp(480, raid_level, team_size, path_invocation + AVERAGE_WTP_LEVEL[3]), mult = 1.0, approx = walk_the_path},
+		{name = "Akkha's Shadow", hp = scale_hp(70, raid_level, team_size, path_invocation + AVERAGE_WTP_LEVEL[3]), mult = 1.0, count = 4}, -- path levels affect hp
+		{name = "Baboons", hp = scale_hp(300, raid_level, team_size, 0), mult = 1.2, approx = true},
+		{name = "Ba-Ba", hp = scale_hp(380, raid_level, team_size, path_invocation + AVERAGE_WTP_LEVEL[0]), mult = 2.0, approx = walk_the_path},
+		{name = "Zebak", hp = scale_hp(580, raid_level, team_size, path_invocation + AVERAGE_WTP_LEVEL[2]), mult = 1.5, approx = walk_the_path},
+		{name = "Scarab Swarms", hp = 200, mult = 1.0, approx = true},
+		{name = "Scarabs", hp = 200, mult = 0.5, approx = true},
+		{name = "Kephri's Shield", hp = scale_hp(375, raid_level, team_size, path_invocation + AVERAGE_WTP_LEVEL[1]), mult = 1.0, approx = true}, -- assuming the shield regenerates a total of 150% across two regen cycles - probably less in good groups
+		{name = "Kephri", hp = scale_hp(130, raid_level, team_size, path_invocation + AVERAGE_WTP_LEVEL[1]), mult = 1.0, approx = walk_the_path},
+		{name = "P1 Obelisk", hp = scale_hp(260, raid_level, team_size, 0), mult = 1.5},
+		{name = "P2 Warden", hp = scale_hp(140, raid_level, team_size, 0), mult = 2.0, count = 2},
+		{name = "P3 Warden", hp = scale_hp(880, raid_level, team_size, 0), mult = 2.5},
+		{name = "Misc. damage", hp = 80 * team_size, mult = 1.0, approx = true},
+		{name = "Het - seal mining", hp = 130 + math.floor(95.81 * (team_size - 1)), mult = 2.5}, -- not sure why this is the scaling, but it matches at 1, 2, 3, 4, 7
+		{name = "Scabaras - puzzles", points = 300 * team_size, approx = true}, -- assuming 3 puzzles per person
+		{name = "Apmeken - traps", points = 450 * team_size, approx = true}, -- assuming 6 fix-trap cycles, 75 points each
+		{name = "Crondis - palm watering", points = 400 * team_size}, -- 2 points per health, 200 health per person
+		{name = "MVP", points = 2700 * team_size}, -- 9 rooms, 300 per person
+	}
+	local total_points = 0
+	for _, v in ipairs(points_table) do
+		if v.points then
+			total_points = total_points + v.points
+		else
+			total_points = total_points + math.floor(v.hp * v.mult * (v.count or 1))
+		end
+	end
+	return {total = total_points, points_table = points_table}	
+end
+
+function p.get_rewards(points, raid_level, team_size)
+	local adjusted_raid_level = raid_level
+	if raid_level > 400 then
+		adjusted_raid_level = 400 + math.floor((raid_level - 400) / 3)
+	end
+
+	local purple_denominator = 100 * (10500 - 20 * adjusted_raid_level)
+	purple_denominator = math.max(purple_denominator, 150000) -- caps at 1500
+	local pet_denominator = 100 * (350000 - 700 * adjusted_raid_level)
+	local elite_clue_denominator = 200000
+	
+	local scale = 1
+	local description = ""
+	if raid_level < 150 then
+		scale = 0.75
+		description = "decreased by '''25%'''"
+	elseif raid_level >= 300 then
+		local percent = math.floor((raid_level - 300) / 5) + 15
+		scale = 1 + percent / 100
+		description = string.format("increased by '''%d%%'''", percent)
+	end
+	
+	if description ~= "" then
+		description = string.format("With a raid level of '''%d''', normal loot is %s from the baseline.", raid_level, description)
+	end
+	
+	description = "Normal loot always gives 3 rolls, and each of the 27 items is equally likely. " .. description
+	
+	normal_loot = {}
+	
+	for _, v in ipairs(NORMAL_LOOT) do
+		local quantity = math.floor(points / team_size / v.divisor)
+		quantity = math.floor(quantity * scale)
+		quantity = math.max(quantity, 1)
+		local price = 0
+		if v.item == "Cache of runes" then
+			price = 1700 / 3 * (gePrice("Blood rune") + gePrice("Soul rune") + gePrice("Death rune"))
+		elseif v.item == "Coins" then
+			price = 1
+		else
+			price = gePrice(v.item)
+		end
+		table.insert(normal_loot, {item = v.item, quantity = quantity, price = price})	
+	end
+	
+	local base_purple_rate = math.min(points / purple_denominator, 0.55)
+	
+	local unique_loot = {}
+	local true_purple_rate = 0.0
+	
+	for _, v in ipairs(PURPLES) do
+		local true_rate = base_purple_rate * v.weight / 24
+		if raid_level < v.level then
+			true_rate = true_rate / 50
+		end
+		true_purple_rate = true_purple_rate + true_rate
+		table.insert(unique_loot, {item = v.item, chance = true_rate / team_size, price = gePrice(v.item)})
+	end
+	table.insert(unique_loot, {item = "Tumeken's guardian", chance = points / pet_denominator / team_size, price = nil})
+	table.insert(unique_loot, {item = "Clue scroll (elite)", chance = points / elite_clue_denominator / team_size, price = nil})
+	
+	return {
+		purple = true_purple_rate,
+		pet = points / pet_denominator,
+		unique_loot = unique_loot,
+		normal_loot = normal_loot,
+		normal_loot_description = description
+	}
+end
+
+function p.calculator(raid_level, team_size, path_invocation, walk_the_path)
+	if raid_level > 600 then
+		return "What? How are you doing a level " .. tostring(raid_level) .." raid?\n\nHow is that possible? Is this bug abuse?"
+	end
+	local points_breakdown = p.estimate_points(raid_level, team_size, path_invocation, walk_the_path)
+	local rewards_breakdown = p.get_rewards(points_breakdown.total, raid_level, team_size)
+	preamble = string.format(
+[[With no deaths, this raid will give approximately '''%s''' contribution points%s. With a raid level of '''%s''', this equates to a '''%.4f%%''' chance of receiving a purple drop%s, and a '''%.4f%%''' chance of receiving the pet%s.
+
+This estimate is not exact, and may not match your true point total for various reasons, including:
+* Deaths (the penalty for deaths cannot feasibly be estimated because it depends on how far you've gotten in the raid)
+* Walk the Path levelling order (this assumes the order is Ba-Ba, Kephri, Zebak, Akkha – different orders may result in very marginally different average points)
+* Higher or lower healing from Kephri's shields than estimated (this assumes that the shields mostly regenerate both times, but in good teams they may not, resulting in faster kills but ~2%% fewer total points)
+* Additional P2 Warden cycles (this assumes "2-down", but "3-down" results in about 3%% more total points)
+* Challenge room trap failures
+* Precision loss due to integer truncation in RuneScript (estimated 0.5-1%% point loss)
+%s
+If you are doing this type of raid repeatedly, try comparing the estimated normal loot to the amount you actually tend to receive. For example, if you are consistently getting 10%% fewer coins than predicted here, your purple chance and pet chance will also be 10%% lower than predicted.]],
+		lang:formatNum(points_breakdown.total),
+		(team_size > 1) and " for the entire team" or "",
+		raid_level,
+		 100 * rewards_breakdown.purple,
+		(team_size > 1) and " across the entire team" or "",
+		100 * rewards_breakdown.pet,
+		(team_size > 1) and " across the entire team" or "",
+		(team_size > 1) and  "\nFor computing average loot in the sections, group raids assume that all contribution is split evenly among the team, and chances are shown '''per person'''.\n" or ""
+	)
+	
+	local reward_table = mw.html.create('table'):addClass('wikitable')
+	local reward_table_data = {}
+	local total_value = 0
+	table.insert(reward_table_data, {{tag='th', text="Item", attr={colspan=2}}, {tag = 'th', text = "Chance"}, {tag = 'th', text = "Value"}})
+	for _, v in ipairs(rewards_breakdown.unique_loot) do
+		total_value = total_value + v.chance * (v.price or 0)
+		table.insert(reward_table_data, {
+			{text = string.format("[[File:%s.png|center|link=%s]]", v.item, v.item)},
+			{text = string.format("[[%s]]", v.item)},
+			{text = string.format("%.4f%%", 100 * v.chance)},
+			{text = v.price and coins(v.price) or "N/A", class=v.price and "" or "table-na", css={["text-align"] = "center"}}
+		})	
+	end
+	table.insert(reward_table_data, {{attr={colspan=3}, text="Expected value", tag='th'}, {text=coins(math.floor(total_value)), tag='th'}})
+	
+	tables._table(reward_table, reward_table_data)
+	
+	local normal_loot_table = mw.html.create('table'):addClass('wikitable')
+	local normal_loot_table_data = {}
+	total_value = 0
+	table.insert(normal_loot_table_data, {{tag='th', text="Item", attr={colspan=2}}, {tag = 'th', text = "Quantity"}, {tag = 'th', text = "Value"}})
+	
+	for _, v in ipairs(rewards_breakdown.normal_loot) do
+		total_value = total_value + v.price * v.quantity * 3/27
+		table.insert(normal_loot_table_data, {
+			{text = string.format("[[File:%s.png|center|link=%s]]", v.item, v.item)},
+			{text = string.format("[[%s]]", v.item)},
+			{text = lang:formatNum(v.quantity)},
+			{text = coins(math.floor(v.quantity * v.price))}	
+		})
+	end
+	table.insert(normal_loot_table_data, {{attr={colspan=3}, text="Expected value (3 rolls)", tag='th'}, {text=coins(math.floor(total_value)), tag='th'}})
+	tables._table(normal_loot_table, normal_loot_table_data)
+	
+	local points_table = mw.html.create('table'):addClass('wikitable')
+	local points_table_data = {}
+	table.insert(points_table_data, {{tag='th', text="Type"}, {tag = 'th', text = "Est. damage"}, {tag = 'th', text = "Multiplier"}, {tag = 'th', text = "Est. points"}})
+	
+	for _, v in ipairs(points_breakdown.points_table) do
+		local name = v.name
+		if v.count then
+			name = string.format("%s (%sx)", name, v.count)
+		end
+
+		local row = {{text = name}}
+		if v.hp then
+			local damage = lang:formatNum(v.hp)
+			if v.approx then
+				damage = string.format("~%s", damage)	
+			end
+			table.insert(row, {text = damage})
+			table.insert(row, {text = v.mult})
+		else
+			table.insert(row, {text = "N/A", attr={colspan=2}, class="table-na", css={["text-align"] = "center"}})
+		end
+		local points = 0
+		if v.points then
+			points = v.points
+		else
+			points = math.floor(v.hp * v.mult * (v.count or 1))
+		end
+		table.insert(row, {text = lang:formatNum(points)})
+		table.insert(points_table_data, row)
+	end
+	local label = "Est. total points"
+	if team_size > 1 then
+		label = "Est. total points (entire team)"
+	end
+	table.insert(points_table_data, {{attr={colspan=3}, text=label, tag='th'}, {text=lang:formatNum(points_breakdown.total), tag='th'}})
+	tables._table(points_table, points_table_data)	
+	return preamble 
+		.. "\n==Average rewards per person==\n" .. tostring(reward_table) 
+		.. "\n===Normal loot===\n" .. rewards_breakdown.normal_loot_description .. "\n" .. tostring(normal_loot_table)
+		.. "\n==Point estimation==\n" .. tostring(points_table)
+end
+return p

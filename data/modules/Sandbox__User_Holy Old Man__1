@@ -1,0 +1,29 @@
+--[[
+preview:
+User:Holy Old Man/sandbox/1
+]]--
+require('Module:Mw.html extension')
+local p = {}
+
+function p.main(frame)
+  local args = frame:getParent().args
+	if args.pin ~= '' then
+
+	local html = mw.html.create('div')
+		:addClass("leaflet-marker-icon")
+		:cssText('position&#58;relative;top&#58;10px')
+		
+	local pinColor = args.pin or '#6bc71f'
+	pin = html:tag('div')
+		:cssText('height&#58;42px;10px;height&#58;42px;width&#58;26px;clip-path&#58;path("m 1.711847 19.415163 a 12.974 12.974 0 1 1 22.524306 0 L 12.943968 41.999534 Z")')
+		:cssText('background&#58;'.. pinColor)
+	
+	pinHole = pin:tag('div'):cssText('margin&#58;auto;height&#58;11px;width&#58;11px;position&#58;relative;top&#58;18%;border-radius&#58;10px;background&#58;white')
+	:IF(args.pin == 'white')
+		:cssText('background&#58;lightgrey')
+	:END()
+	return html
+	end
+end
+
+return p

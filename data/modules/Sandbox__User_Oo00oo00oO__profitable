@@ -1,0 +1,50 @@
+local p
+
+function p.osrsSellProfit()
+	local function profit(stock,value)
+		return ((40-3*math.min(10,stock))/100)*value
+	end
+	-- 
+	-- sell to duty free 
+	-- sell to general store
+	local rates = {
+		["gen"] = .4,
+		["dutyfree"] = .6,
+	}
+	local storePageName="/w/General_store"
+	local page = mw.title.new(storePageName)
+	if not page or not page.exists then 
+		return "page not found?"
+	end
+	local content = page:getContent()
+	
+    -- You'll need to modify this selector to match the specific table structure on the page.
+    local selector = 'your-table-selector-here'
+
+    -- Use the mw.text.split function to split the content into lines.
+    local lines = mw.text.split(content, '\n')
+
+    local inTable = false
+    local tableData = {}
+
+    for _, line in ipairs(lines) do
+        if line:match(selector) then
+            inTable = true
+        elseif inTable and line:match('|}') then
+            inTable = false
+        end
+
+        if inTable then
+            -- You may need to modify this parsing logic to fit your table structure.
+            local rowData = mw.text.split(line, '|')
+            table.insert(tableData, rowData)
+        end
+    end
+
+    -- Print the extracted table data for demonstration purposes.
+    for _, row in ipairs(tableData) do
+        for _, cell in ipairs(row) do
+            mw.log(cell)
+        end
+    end
+end

@@ -1,0 +1,11 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	mw.logObject(args)
+	
+	return args['Enchanted Jeweler']
+end
+
+return p

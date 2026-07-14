@@ -1,0 +1,9 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local id = args.id
+	return p._main(id)
+end
+
+return p

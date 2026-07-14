@@ -1,0 +1,48 @@
+local p = {}
+
+local coins = require('Module:Coins')._amount
+
+function p.buildTable(npcCost, smithingCost)
+    local ret = mw.html.create('table')
+        :addClass('wikitable align-center-1')
+
+    ret:tag('tr')
+        :tag('th'):wikitext('<small>Cost to repair [[Moon equipment]]</small>'):done()
+        :tag('th'):wikitext('NPC'):done()
+        :tag('th'):wikitext('[[Player-owned house]]<br/>[[Armour stand]]'):done()
+        :tag('th'):wikitext('Amount Saved'):done()
+
+    ret:tag('tr')
+        :tag('th'):wikitext('Item'):done()
+        :tag('td'):wikitext(coins(npcCost)):done()
+        :tag('td'):wikitext(coins(smithingCost)):done()
+        :tag('td'):wikitext(coins(npcCost - smithingCost)):done()
+
+    return ret
+end
+
+function p._main(args)
+    local degradation = tonumber(args.degradation) or 0
+    if degradation < 0 then degradation = 0 end
+    if degradation > 3000 then degradation = 3000 end
+
+    local npcCost = degradation * 500
+
+    local smithingLevel =
+        (tonumber(args.smithingLevel) or 0) +
+        (tonumber(args.boost) or 0)
+
+    local smithingCost = math.ceil(
+        npcCost * (1 - smithingLevel / 200)
+    )
+
+    return p.buildTable(npcCost, smithingCost)
+end
+
+function p.main(frame)
+	--mw.logObject(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

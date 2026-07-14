@@ -1,0 +1,64 @@
+local InfoboxUtils = require('Module:Sandbox/User:Mudscape/InfoboxUtils')
+local InfoboxBuilder = require('Module:Sandbox/User:Mudscape/InfoboxBuilder')
+local editbutton = require('Module:Edit button')("'''?''' (edit)")
+local p = {}
+
+local edit
+
+function generatePane(args)
+	local builder = InfoboxBuilder()
+	
+	builder:title(args.name)
+	builder:image{image = args.image}
+	builder:row{label = "Released", value = InfoboxUtils.releaseUpdate(args.release,args.update) or editbutton}
+	if args.removal ~= nil then
+		builder:row{label = "Removal", value = InfoboxUtils.releaseUpdate(args.removal,args.removalupdate)}
+	end
+	builder:row{label = "Also called", value = args.aka}
+	builder:row{label = "[[Combat level]]", value = args.level}
+	builder:row{label = "[[Members]]", value = args.members or editbutton}
+	builder:row{label = "[[Race]]", value = args.race}
+	builder:row{label = "[[Quest]]", value = args.quest}
+	builder:row{label = "[[Location]]", value = args.location or editbutton}
+	builder:row{label = "[[Shop]]", value = args.shop}
+	builder:row{label = "[[Gender]]", value = args.gender}
+	builder:row{label = "[[Options]]", value = args.options}
+	builder:row{label = "[[Examine]]", value = args.examine or editbutton}
+	builder:pad()
+	if args.map ~= nil and args.map ~= "No" then
+		builder:header('Map')
+		builder:row{value = args.map, fullwidth = true}
+	end
+	builder:header('Advanced data')
+	builder:pad()
+	builder:row{label = 'NPC ID', value = args.id or editbutton}
+	builder:row{label = 'Link', value = InfoboxUtils.chiselLink(args.id, args.name, 'npc')}
+	builder:pad()
+	
+	return tostring(builder)
+end
+
+function p.main(frame)
+	local raw_args = frame:getParent().args
+	
+	-- Set any values that the individual panes need to know about
+	raw_args.defver = raw_args.defver or 1
+	
+	local args_groups = InfoboxUtils.group_args(raw_args)
+	
+	mw.logObject(args_groups)
+	
+	local panes = {}
+	for i, args in ipairs(args_groups) do
+		local pane = {
+			version = args.version,
+			content = generatePane(args),
+			default_version = raw_args.defver == i
+		}
+		table.insert(panes, pane)
+	end
+	
+	return InfoboxUtils.wrap(panes)
+end
+
+return p

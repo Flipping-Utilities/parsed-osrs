@@ -1,0 +1,247 @@
+local tables = require('Module:Tables')
+local VariablesLua = mw.ext.VariablesLua
+local p = {}
+
+local itemData = mw.loadJsonData('Module:Collection_log/data.json')
+local completionData = mw.loadJsonData("Module:Collection_log/completion.json")
+
+local overrides = mw.loadData('Module:Sandbox/User:VierKazenSla/overrides')
+local structure = mw.loadData('Module:Sandbox/User:VierKazenSla/structure')
+
+local tabOverrides = structure.links
+local allTabs = structure.tabs
+
+local clueTabLookup = {}
+for _, name in ipairs(structure.tabs[3].data) do
+	clueTabLookup[name] = true
+end
+
+local headers = {
+	item = "Item",
+	collection = "Collection",
+	completion = '<span style="cursor:help; border-bottom:1px dotted;" title="Estimated percentage of players (of those who have used the WikiSync collection log integration) who have collected this item">Comp%</span>'
+}
+
+local itemsByTab = {}
+local dataIndexed = false
+
+local function shallowCopy(orig)
+    local copy = {}
+    for k, v in pairs(orig) do
+        copy[k] = v
+    end
+    return copy
+end
+
+local function indexData()
+	if dataIndexed then return end
+	
+	for _, rawItem in ipairs(itemData) do
+		-- We copy the item so we can edit it without error
+		local item = shallowCopy(rawItem)
+		
+		-- Apply overrides to our writable copy
+		local override = overrides[item.id]
+		if override then
+			if override.name then item.name = override.name end
+			if override.text then item.text = override.text end
+		end
+		
+		-- Check for clue junk status
+		item.isClueJunk = false
+		
+		-- Sort into buckets
+		for _, tab in ipairs(item.tabs) do
+			if clueTabLookup[tab] then
+				item.isClueJunk = true
+				-- We don't break here because an item might belong to multiple tabs
+			end
+			
+			local tabKey = string.lower(tab)
+			if not itemsByTab[tabKey] then
+				itemsByTab[tabKey] = {}
+			end
+			table.insert(itemsByTab[tabKey], item)
+		end
+	end
+	dataIndexed = true
+end
+
+local function completionCell(id)
+	local completion_percent = completionData[tonumber(id)]
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 10) then
+			color = "orange"
+		elseif (completion_percent < 25) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		return {text = tostring(completion_percent)..'%', class = "table-bg-" .. color}
+	else
+		return {text = "N/A", class="table-na nohighlight"}
+	end	
+end
+
+local function getOverrides(itemId)
+	return overrides[itemId];
+end
+
+local function formatItemCell(name, text)
+	local container = mw.html.create('div')
+		:css('display', 'flex')
+		:css('align-items', 'center')
+	
+	container:tag('div')
+		:css('min-width', '40px') -- Fixed width for alignment
+		:css('text-align', 'center')
+		:css('margin-right', '10px')
+		:wikitext(string.format('[[File:%s.png]]', name))
+		
+	container:tag('div')
+		:wikitext(text)
+		
+	return tostring(container)
+end
+
+local function makeTable(data, columns)
+	local clogTable = mw.html.create('table')
+		:addClass('wikitable lighttable sortable qc-active collection-log autosort=3,d')
+		:css('width', 'auto')
+	
+	local columnValues = {}
+	for _, v in ipairs(columns) do
+		table.insert(columnValues, headers[v])
+	end
+	tables._row(clogTable:tag('tr'), columnValues, true)
+
+	for _, v in ipairs(data) do
+		-- Process Tabs for display
+		local tabsDisplay = {}
+		for _, tab in ipairs(v.tabs) do
+			local tabText = tabOverrides[tab] or string.format("[[%s]]", tab)
+			table.insert(tabsDisplay, tabText)
+		end
+		
+		local displayText = v.text or string.format("[[%s]]", v.name)
+
+		local rowData = {
+			item = formatItemCell(v.name, displayText),
+			collection = table.concat(tabsDisplay, ', '),
+			completion = completionCell(v.id)
+		}
+
+		local row = {}
+		for _, column in ipairs(columns) do
+			table.insert(row, rowData[column])
+		end
+		
+		local htmlRow = clogTable:tag('tr'):attr('data-item-id', v.id)
+		if v.isClueJunk then
+			htmlRow:attr('data-item-clue-junk', 'true')
+		end
+		tables._row(htmlRow, row, false)
+	end
+
+	return clogTable
+end
+
+local function makeItemGrid(data)
+	local clogTable = mw.html.create('table')
+		:addClass('wikitable lighttable qc-active collection-log')
+		:css('max-width', '800px')
+	
+	local headerRow = clogTable:tag('tr')
+	headerRow:tag('th'):wikitext(headers["item"])
+
+	for _, v in ipairs(data) do
+		local displayText = v.text or string.format("[[%s]]", v.name)
+		
+		local row = { formatItemCell(v.name, displayText) }
+		
+		local htmlRow = clogTable:tag('tr'):attr('data-item-id', v.id)
+		if v.isClueJunk then
+			htmlRow:attr('data-item-clue-junk', 'true')
+		end
+		tables._row(htmlRow, row, false)
+	end
+
+	return clogTable
+end
+
+function p.list(frame)
+	local args = frame:getParent().args
+	return p._list(args['category'], args['coltype'])
+end
+
+function p._list(category, coltype)
+	indexData()
+	
+	local targetCategory = string.lower(category or 'all')
+
+	if coltype == "items" then
+    	local output = {}
+    	for _, group in ipairs(allTabs) do
+    		local renderGroup = (targetCategory == 'all')
+    		if not renderGroup then
+    			for _, catName in ipairs(group['data']) do
+    				if string.lower(catName) == targetCategory then
+    					renderGroup = true
+    					break
+    				end
+    			end
+    		end
+
+    		if renderGroup then
+	    		if targetCategory == 'all' then
+	    			table.insert(output, "==" .. group['name'] .. "==")
+	    		end
+	    		
+		        for _, catName in ipairs(group['data']) do
+		        	local catLower = string.lower(catName)
+					if targetCategory == 'all' or catLower == targetCategory then
+						table.insert(output, "===" .. (tabOverrides[catName] or "[[" .. catName .. "]]") .. "===")
+						
+						local data = itemsByTab[catLower] or {}
+						if #data > 0 then
+							table.insert(output, tostring(makeItemGrid(data)))
+						end
+					end
+		        end
+	        end
+		end
+		return table.concat(output, '\n')
+	else
+		local columns = {"item", "collection", "completion"}
+		local data = {}
+		if targetCategory == 'all' then
+		    for _, rawItem in ipairs(itemData) do
+		        local item = shallowCopy(rawItem)
+        		local override = overrides[item.id]
+        		if override then
+        			if override.name then item.name = override.name end
+        			if override.text then item.text = override.text end
+        		end
+        		item.isClueJunk = false
+        		for _, tab in ipairs(item.tabs) do
+        			if clueTabLookup[tab] then
+        				item.isClueJunk = true; break;
+        			end
+        		end
+        		table.insert(data, item)
+		    end
+		else
+			data = itemsByTab[targetCategory] or {}
+		end
+		
+		return tostring( makeTable(data, columns) )
+	end
+end
+
+return p

@@ -1,0 +1,104 @@
+local ssc = require('Module:Skilling success chart/Sandbox')
+local yesno = require('Module:Yesno')
+
+local p = {}
+
+local compostLives = {
+	None = 3,
+	Compost = 4,
+	Supercompost = 5,
+	Ultracompost = 6
+}
+
+local diary = {
+	['None'] = 0,
+	['Kandarin - Medium (5%)'] = 10,
+	['Kandarin - Hard (10%)'] = 17,
+	['Kandarin - Elite (15%)'] = 25,
+	['Kourend and Kebos - Hard (10%)'] = 10
+}
+
+function p.main(frame)
+	local args = frame.args
+	
+	local name = args.name
+	local pic = args.pic or (name .. '.png')
+	
+	local lives = tonumber(args.harvestLives)
+	if (lives == 0) then
+		lives = compostLives[args.compostTier]
+	end
+		
+	local diaryBoost = diary[args.diary] or 0
+	local farmingCapeBoost = yesno(args.farmingCape,false) and 0.05 or 0
+	
+	local lvlReq = tonumber(args.lvlReq) or 1
+	local low = tonumber(args.low) or 0
+	local high = tonumber(args.high) or 0
+	local secateurs = yesno(args.secateurs, true)
+	return p._main(name,pic,lives,diaryBoost,farmingCapeBoost,lvlReq,low,high,secateurs)
+end
+
+function p._main(name,pic,lives,diaryBoost,farmingCapeBoost,lvlReq,low,high,secateurs)
+	local args = {}
+	args.xlabel = 'Farming level'
+	args.ylabel = 'Average yield'
+	args.showbefore = 'no'
+	args.label = name .. ' yield'
+	
+	args.label1 = 'Regular'
+	args.image1 = pic
+	args.color1 = '#79874c'
+	args.lives1 = lives
+	args.req1 = lvlReq
+	args.low1 = math.modf(low * (1+farmingCapeBoost))
+	args.low1 = args.low1 + diaryBoost
+	args.high1 = math.modf(high * (1+farmingCapeBoost))
+	args.high1 = args.high1 + diaryBoost
+	
+	args.label2 = 'Attas'
+	args.image2 = 'Attas icon.png'
+	args.color2 = '#be5e57'
+	args.lives2 = lives
+	args.req2 = lvlReq
+	args.low2 = math.modf(low * (1+farmingCapeBoost))
+	args.low2 = args.low2 + diaryBoost
+	args.low2 = math.modf(args.low2 * 1.05)
+	args.high2 = math.modf(high * (1+farmingCapeBoost))
+	args.high2 = args.high2 + diaryBoost
+	args.high2 = math.modf(args.high2 * 1.05)
+	
+	local maxhigh = args.high2
+	
+	if (secateurs) then
+		args.label3 = 'Magic secateurs'
+		args.image3 = 'Magic secateurs.png'
+		args.color3 = '#0d8415'
+		args.lives3 = lives
+		args.req3 = lvlReq
+		args.low3 = math.modf(low * (1+0.1+farmingCapeBoost))
+		args.low3 = args.low3 + diaryBoost
+		args.high3 = math.modf(high * (1+0.1+farmingCapeBoost))
+		args.high3 = args.high3 + diaryBoost
+		
+		args.label4 = 'Magic secateurs, attas'
+		args.image4 = 'Magic secateurs and attas.png'
+		args.color4 = '#ffa210'
+		args.lives4 = lives
+		args.req4 = lvlReq
+		args.low4 = math.modf(low * (1+0.1+farmingCapeBoost))
+		args.low4 = args.low4 + diaryBoost
+		args.low4 = math.modf(args.low4 * 1.05)
+		args.high4 = math.modf(high * (1+0.1+farmingCapeBoost))
+		args.high4 = args.high4 + diaryBoost
+		args.high4 = math.modf(args.high4 * 1.05)
+		
+		maxhigh = args.high4
+	end
+	
+	args.ystep = math.max(1,math.modf(256*lives/ (255-(maxhigh))/10))
+		
+	return ssc._main(args)
+end
+
+return p

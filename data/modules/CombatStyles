@@ -732,6 +732,24 @@ local WeaponTypes = {
 			'Slash',
 			WeaponStyles['Melee']['Defensive'],
 		},
+	},
+	['Flail'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
 	}
 }
 

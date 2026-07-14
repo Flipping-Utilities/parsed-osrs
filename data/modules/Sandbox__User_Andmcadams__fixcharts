@@ -1,0 +1,58 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function interp(low, high, level)
+	local value = math.modf(low*(99-level)/98) + math.modf(high*(level-1)/98) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function cascadeInterp(bounds, level, index)
+	local rate = 1.0
+	for i, v in ipairs(bounds) do
+		if i == index then
+			rate = rate * interp(v.low, v.high, level)
+			return rate
+		end
+		if level >= v.req then
+			rate = rate * (1 - interp(v.low, v.high, level))
+		end
+	end
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local inputs = {}
+	local i = 1
+	while args['label' .. i] do
+		table.insert(inputs, {
+			label = args['label' .. i],
+			low = args['low' .. i],
+			high = args['high' .. i],
+			req = tonumber(args['req' .. i] or 1),
+			image = args['image' .. i] or 'hi',
+			color = args['color' .. i] or ''
+		})
+		i = i + 1
+	end
+	
+	local lowLevel = tonumber(args.lowLevel or 1)
+	local highLevel = tonumber(args.highLevel or 99)
+    local allData = {}
+	for i, input in ipairs(inputs) do
+		local cutoffLevel = nil
+		local data = {}
+		for x = 1, 99 do
+			local y = interp(input.low, input.high, x)
+			if args.cascade then
+				y = cascadeInterp(inputs, x, i)
+			end
+			data[x] = y
+		end
+	    mw.logObject(data)
+	    allData[input.label] = data
+	end
+    return mw.dumpObject(allData)
+end
+
+return p

@@ -1,0 +1,9 @@
+local invocable = {}
+ 
+function invocable.createTable(frame)
+	local header = frame.args[1]
+	
+	return header
+end
+
+return invocable

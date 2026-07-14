@@ -1,0 +1,258 @@
+local p = {}
+
+local priceHistory = {
+    {
+        date  = "2024-08-28",
+        url   = "https://secure.runescape.com/m=news/new-prices-2024?oldschool=1",
+        title = "New Prices 2024",
+        membership = {
+            ["1"]  = { USD = 13.99, GBP = 9.99, EUR = 12.49, AUD = 19.99, CAD = 17.99 },
+            ["3"]  = { USD = 14.99, GBP = 10.99, EUR = 13.49, AUD = 20.99, CAD = 18.99 },
+            ["6"]  = { USD = 71.94, GBP = 50.94, EUR = 62.94, AUD = 101.95, CAD = 91.75 },
+            ["12"] = { USD = 99.48, GBP = 77.88, EUR = 89.88, AUD = 143.93, CAD = 129.53 }
+        }
+    }, {
+        date  = "2025-07-08",
+        url   = "https://secure.runescape.com/m=news/a=568/upcoming-updates-regional-bond-pricing-adjustments--us-sales-tax-1?oldschool=1",
+        title = "Upcoming Updates: Regional Bond Pricing Adjustments & US Sales Tax",
+        bonds = { GBP = 6.49, AUD = 12.99, CAD = 11.49 }
+    }, {
+        date  = "2026-03-10",
+        url   = "https://secure.runescape.com/m=news/a=568/membership--bonds-price-change?oldschool=1",
+        title = "Membership & Bonds Price Change",
+        bonds = { USD = 9.99, GBP = 7.49, EUR = 8.99, AUD = 13.99, CAD = 12.49 },
+        membership = {
+            ["1"]  = { USD = 14.99, GBP = 10.99, EUR = 13.49, AUD = 20.99, CAD = 18.99 },
+            ["12"] = { USD = 131.88, GBP = 95.88, EUR = 119.88, AUD = 185.88, CAD = 167.88 }
+        }
+    }
+}
+
+local currencies = { "USD", "GBP", "EUR", "AUD", "CAD" }
+local durations  = { "1", "3", "6", "12" }
+
+-- Deep copy of a value (needed when we store the last known price)
+local function copy(x)
+    if type(x) == "table" then
+        local t = {}
+        for k, v in pairs(x) do t[k] = copy(v) end
+        return t
+    end
+    return x
+end
+
+-- Build a complete snapshot from sparse ones (fill gaps with last known)
+local function buildCompleteHistory()
+    local complete = {}          -- array of filled snapshots
+    local lastBonds = {}         -- last seen prices per currency
+    local lastMem   = {          -- last seen prices per duration per currency
+        ["1"] = {}, ["3"] = {}, ["6"] = {}, ["12"] = {}
+    }
+
+    for _, snap in ipairs(priceHistory) do
+        -- start with a deep copy of the previous filled values
+        local filled = {
+            date = snap.date, url = snap.url, title = snap.title,
+            bonds = copy(lastBonds),
+            membership = {
+                ["1"] = copy(lastMem["1"]),
+                ["3"] = copy(lastMem["3"]),
+                ["6"] = copy(lastMem["6"]),
+                ["12"] = copy(lastMem["12"])
+            }
+        }
+
+        if snap.bonds then
+            for _, c in ipairs(currencies) do
+                if snap.bonds[c] ~= nil then
+                    filled.bonds[c] = { val = snap.bonds[c], explicit = true }
+                end
+            end
+        end
+        for _, dur in ipairs(durations) do
+            if snap.membership and snap.membership[dur] then
+                for _, c in ipairs(currencies) do
+                    if snap.membership[dur][c] ~= nil then
+                        filled.membership[dur][c] = { val = snap.membership[dur][c], explicit = true }
+                    end
+                end
+            end
+        end
+
+        -- push filled snapshot and update running "last known"
+        table.insert(complete, filled)
+        for _, c in ipairs(currencies) do
+            if filled.bonds[c] then
+                lastBonds[c] = filled.bonds[c]
+            end
+        end
+        for _, dur in ipairs(durations) do
+            for _, c in ipairs(currencies) do
+                if filled.membership[dur][c] then
+                    lastMem[dur][c] = filled.membership[dur][c]
+                end
+            end
+        end
+    end
+    return complete
+end
+
+-- Build a complete snapshot from sparse ones (fill gaps with last known)
+local function buildCompleteHistory2()
+    local complete = {}          -- array of filled snapshots
+
+    for _, snap in ipairs(priceHistory) do
+        -- start with a deep copy of the previous filled values
+        local filled = {
+            date = snap.date, url = snap.url, title = snap.title,
+            bonds = {},
+            membership = {}
+        }
+        
+        for _,c in ipairs(currencies) do
+        	if snap.bonds == nil then
+        		snap.bonds = {}
+        	end
+        	
+        	if snap.bonds and snap.bonds[c] ~= nil then
+        		filled.bonds[c] = snap.bonds[c]
+        	else
+        		filled.bonds[c] = '-'
+        	end
+        	for _, dur in ipairs(durations) do
+        		if snap.membership ~= nil and snap.membership[dur] ~= nil and snap.membership[dur][c] ~= nil then
+        			filled.membership = filled.membership or {} filled.membership[dur] = filled.membership[dur] or {} filled.membership[dur][c] = snap.membership[dur][c]
+        			-- filled.membership[dur][c] = snap.membership[dur][c]
+        		else
+        			filled.membership = filled.membership or {} filled.membership[dur] = filled.membership[dur] or {} filled.membership[dur][c] = '-'
+        			-- filled.membership.dur.c = '-'
+        		end
+        	end
+        end
+
+        -- push filled snapshot and update running "last known"
+        table.insert(complete, filled)
+    end
+    return complete
+end
+
+function p.htmlTable(frame)
+    local complete = buildCompleteHistory()
+    local latest   = complete[#complete]
+
+    local tbl = mw.html.create("table")
+        :addClass("wikitable")
+    tbl:tag("caption")
+       :wikitext("Current prices (effective " .. latest.date .. ")")
+
+    -- header
+    local h = tbl:tag("tr")
+    h:tag("th"):wikitext("Item")
+    for _, c in ipairs(currencies) do h:tag("th"):wikitext(c) end
+
+    -- bonds
+    local br = tbl:tag("tr")
+    br:tag("td"):wikitext(string.format("[%s %s] Bond", latest.url, latest.title))
+    for _, c in ipairs(currencies) do
+        local cell = latest.bonds[c]
+        local fmt  = nilCheck(cell)
+        br:tag("td"):wikitext(fmt)
+    end
+
+    -- membership
+    for _, dur in ipairs(durations) do
+        local r = tbl:tag("tr")
+        r:tag("td"):wikitext(dur .. "-month membership")
+        for _, c in ipairs(currencies) do
+            local cell = latest.membership[dur][c]
+            local fmt  = nilCheck(cell)
+            r:tag("td"):wikitext(fmt)
+        end
+    end
+
+    return tostring(tbl)
+end
+
+local function nilCheck(cell)
+	if cell ~= nil then
+		return cell.explicit and tostring(cell.val) or "<i>" .. cell.val .. "</i>"
+	else
+		return "<i>-</i>"
+	end
+end
+
+local function nilCheck2(cell)
+	if cell ~= nil and cell ~= '-' then
+		return cell
+	else
+		return "<i>-</i>"
+	end
+end
+
+function p.fullHistory(frame)
+    local complete = buildCompleteHistory2()
+    local tbl = mw.html.create("table")
+        :addClass("wikitable sortable")
+    tbl:tag("caption"):wikitext("Price history")
+
+    -- header
+    local h = tbl:tag("tr")
+    h:tag("th"):wikitext("Date"):done()
+    h:tag("th"):wikitext("Blog"):done()
+    h:tag("th"):wikitext("Currency"):done()
+    h:tag("th"):wikitext("Membership"):attr("colspan", (#durations)):done()
+    h:tag("th"):wikitext("Bonds"):done()
+    
+    -- for _, c in ipairs(currencies) do h:tag("th"):wikitext(c) end
+
+
+    -- iterate newest → oldest
+    for i = #complete, 1, -1 do
+        local snap = complete[i]
+        local link = string.format("[%s %s]", snap.url, snap.title)
+        
+        local r = tbl:tag("tr")
+        r:tag("td"):wikitext(snap.date):attr("rowspan", (#currencies + 1)):done()
+        r:tag("td"):wikitext(link):attr("rowspan", (#currencies + 1)):done()
+        
+        
+	    r:tag("td"):wikitext(""):done()
+	    for _, c in ipairs(durations) do r:tag("td"):wikitext(c) end
+	    r:tag("td"):wikitext("Price"):done()
+	    r:done()
+	    
+
+        for _, c in ipairs(currencies) do
+        	r = tbl:tag("tr")
+    		r:tag("td"):wikitext(c)
+    		
+    		-- membership
+        	for _, dur in ipairs(durations) do
+        		local cell = ''
+        		if snap.membership ~= nil and snap.membership[dur] ~= nil and snap.membership[dur][c] ~= nil then
+        			cell = snap.membership[dur][c]
+        		else
+        			cell = '-'
+        		end
+                local fmt = nilCheck2(cell)
+                r:tag("td"):wikitext(fmt)
+        	end
+        	
+        	-- bonds
+            local cell = ''
+            if snap.bonds ~= nil and snap.bonds[c] ~= nil then
+            	cell = snap.bonds[c]
+            else
+            	cell = '-'
+            end
+            local fmt  = nilCheck2(cell)
+            r:tag("td"):wikitext(fmt)
+            r:done()
+        end
+
+    end
+
+    return tostring(tbl)
+end
+
+return p

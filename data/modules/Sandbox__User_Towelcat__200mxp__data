@@ -1,0 +1,28 @@
+-- skill = all, im, uim, hcim
+return {
+    ['attack'] = {145, 14, 2, 2},
+    ['defence'] = {112, 12, 1, 2},
+    ['strength'] = {193, 20, 3, 7},
+    ['hitpoints'] = {129, 13, 1, 1},
+    ['ranged'] = {122, 8, 3, 1},
+    ['prayer'] = {68, 0, 0, 0},
+    ['magic'] = {72, 5, 1, 0},
+    ['cooking'] = {970, 8, 3, 1},
+    ['woodcutting'] = {141, 11, 2, 1},
+    ['fletching'] = {158, 1, 0, 0},
+    ['fishing'] = {94, 8, 2, 0},
+    ['firemaking'] = {286, 101, 18, 25},
+    ['crafting'] = {160, 1, 0, 0},
+    ['smithing'] = {155, 2, 0, 0},
+    ['mining'] = {48, 3, 0, 0},
+    ['herblore'] = {90, 0, 0, 0},
+    ['agility'] = {44, 4, 1, 2},
+    ['thieving'] = {292, 60, 11, 12},
+    ['slayer'] = {47, 2, 0, 0},
+    ['farming'] = {149, 1, 0, 0},
+    ['runecraft'] = {25, 1, 1, 0},
+    ['hunter'] = {118, 9, 3, 0},
+    ['construction'] = {41, 1, 0, 0},
+    ['overall'] = {4, 0, 0, 0},
+    ['update'] = '17 March 2020'
+}

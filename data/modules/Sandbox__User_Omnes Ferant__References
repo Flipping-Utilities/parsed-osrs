@@ -1,0 +1,1048 @@
+-- Implements reference templates
+--[=[
+	dependencies
+	[[Module:Mainonly]]
+	[[Module:Reftag]]
+	[[Module:Paramtest]]
+	[[Module:Yesno]]
+	[[Module:References/Postbag]]
+--]=]
+--<nowiki>
+local onmain = require('Module:Mainonly').on_main
+--local tag = require('Module:Reftag')
+local paramtest = require('Module:Paramtest')
+local hc = paramtest.has_content
+local dt = paramtest.default_to
+local yn = require('Module:Yesno')
+local postbags = mw.loadData('Module:References/Postbag')
+
+local p = {} --all template entrance points here
+local r = {} --reference formatters here to not expose them to #invoke, and to not clutter p
+
+local lostReferenceMsg = '<sup title="The page referenced can no longer be accessed. Please try to find an archived version of it or another reference for this statement if possible.">Lost reference</sup>'
+
+function string.starts(String, Start)
+	return string.sub(String, 1, string.len(Start)) == Start
+end
+
+--create the ref tag to be returned
+local function reftag(frame, reftype)
+	local args = frame:getParent().args
+	local s = ''
+	local opts = {}
+	if hc(args.name) then
+		opts.name = args.name
+	end
+	if hc(args.group) then
+		opts.group = args.group
+	end
+	
+	local ref, cat = r[reftype](args)
+	
+	return (frame:extensionTag{name = 'ref', content = ref .. cat, args = opts})
+	--return tag(opts) .. cat
+end
+
+local function plainref(frame, reftype)
+	local ref, cat = r[reftype](frame:getParent().args)
+	return ref .. cat
+end
+
+------------ Helper Templates -----------------
+
+--[==[
+[[Template:NamedRef]]
+--]==]
+p.namedref = function(frame)
+	local args = frame:getParent().args
+	local opts = {}
+	opts.name = args.name or args[1]
+	if hc(args.group) then
+		opts.group = args.group
+	elseif hc(args[2]) then
+		opts.group = args[2]
+	end
+	--opts.selfClosing = true
+	return frame:extensionTag{name = 'ref', args = opts}
+	--return tag(opts)
+end
+
+
+--[==[
+[[Template:Reflist]]
+--]==]
+p.reflist = function(frame)
+	local args = frame:getParent().args
+	local div = mw.html.create('div')
+	div:wikitext(frame:extensionTag{name = 'references', args = {group = args.group}})
+	div:addClass('references-small')
+	if not yn(args.quotes) then
+		div:addClass('hideQuotes')
+	end
+	if args.colwidth then
+		div :css({  ['-moz-column-width'] = args.colwidth,
+					['-webkit-column-width'] = args.colwidth,
+					['column-width'] = args.colwidth
+				})
+	elseif args[1] then
+		div :css({  ['-moz-column-count'] = args[1],
+					['-webkit-column-count'] = args[1],
+					['column-count'] = args[1]
+				})
+	end
+	
+	return div
+end
+
+------------RuneScape Citation templates--------------
+
+--[==[
+[[Template:CiteDevBlog]] and [[Template:PlainCiteDevBlog]]
+--]==]
+p.devblogref = function(frame)
+	return reftag(frame, 'devblog')
+end
+
+p.devblogplain = function(frame)
+	return plainref(frame, 'devblog')
+end
+
+r.devblog = function(a)
+	local ref
+	local c = ''
+	ref = dt(a.author, 'Jagex') --author, defaults to Jagex
+	ref = ref .. '. '
+	if hc(a.url) then --url, if present makes a link
+		ref = ref .. '[' .. a.url
+		if hc(a.title) then
+			ref = ref .. ' "' .. a.title .. '."'--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		if hc(a.title) then
+			ref = ref .. '"' .. a.title .. '."'
+		end
+	end
+	ref = ref .. ' '
+	if hc(a.blogdate) then
+		ref = ref .. a.blogdate .. '.'
+	end
+	ref = ref .. " Developers' Blogs. "
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.author) and hc(a.url) and hc(a.title) and hc(a.blogdate)) then --validation, required params are author, url, title and blogdate (mainonly)
+		c = '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteDevDiary]] and [[Template:PlainCiteDevDiary]]
+--]==]
+p.devdiaryref = function(frame)
+	return reftag(frame, 'devdiary')
+end
+
+p.devdiaryplain = function(frame)
+	return plainref(frame, 'devdiary')
+end
+
+r.devdiary = function(a)
+	local ref
+	local c = ''
+	ref = dt(a.author, 'Jagex') --author, defaults to Jagex
+	ref = ref .. '. '
+	if hc(a.url) then --url, if present makes a link
+		ref = ref .. '[' .. a.url
+		if hc(a.title) then
+			ref = ref .. ' "' .. a.title .. '."'--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		if hc(a.title) then
+			ref = ref .. '"' .. a.title .. '."'
+		end
+	end
+	ref = ref .. ' '
+	if hc(a.diarydate) then
+		ref = ref .. a.diarydate .. '.'
+	end
+	ref = ref .. ' Development Diaries. '
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.author) and hc(a.url) and hc(a.title) and hc(a.diarydate)) then
+		c = '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteForum]] and [[Template:PlainCiteForum]]
+--]==]
+p.forumref = function(frame)
+	return reftag(frame, 'forum')
+end
+
+p.forumplain = function(frame)
+	return plainref(frame, 'forum')
+end
+
+r.forum = function(a)
+	local ref
+	local c = ''
+	ref = dt(a.author, 'Jagex') --author, defaults to Jagex
+	ref = ref .. '. '
+	if hc(a.url) or hc(a.archiveurl) then --url, if present makes a link
+		if hc(a.archiveurl) then
+			ref = ref .. '[' .. a.archiveurl
+		elseif hc(a.url) then
+			ref = ref .. '[' .. a.url
+		end
+		if hc(a.title) then
+			ref = ref .. ' "' .. a.title .. '."'--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		if hc(a.title) then
+			ref = ref .. '"' .. a.title .. '."'
+		end
+	end
+	ref = ref .. ' '
+	if hc(a.postdate) then
+		ref = ref .. a.postdate .. '.'
+	end
+	
+	if hc(a.archivedate) then
+		ref = ref .. ' (Archived from [' .. a.url .. ' the original] on ' .. a.archivedate .. '.) '
+	end
+	
+	ref = ref .. " ''" .. dt(a.forum, 'Old School RuneScape') .. "'' Forums. "
+	ref = ref .. (a.notes or '')
+	if hc(a.lost) then
+		ref = ref .. lostReferenceMsg
+	end
+	
+	if onmain() then
+		if not (hc(a.author) and hc(a.url) and hc(a.title) and hc(a.postdate)) then
+			c = c .. '[[Category:Incomplete references]]'
+		end
+		if a.url and (string.find(a.url, 'forum.runescape.com/', 1, true) or string.find(a.url, 'services.runescape.com/m=forum/', 1, true) or string.find(a.url, 'secure.runescape.com/m=forum/', 1, true)) then
+			if hc(a.lost) then
+				c = c .. '[[Category:Lost forum references]]'
+			elseif not (hc(a.archiveurl) and hc(a.archivedate)) then
+				c = c .. '[[Category:Unarchived forum references]]'
+			end
+		end
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteGodLetter]] and [[Template:PlainCiteGodLetter]]
+--]==]
+p.godletterref = function(frame)
+	return reftag(frame, 'godletter')
+end
+
+p.godletterplain = function(frame)
+	return plainref(frame, 'godletter')
+end
+
+r.godletter = function(a)
+	local ref
+	local c = ''
+	ref = 'Jagex. '
+	
+	local str = ''
+	local q = ''
+	if hc(a.issue) then
+		q = '"'
+		str = str .. 'God Letter ' .. a.issue
+		if hc(a.title) then
+			str = str .. ' - ' .. a.title
+		end
+	elseif hc(a.title) then
+		q = '"'
+		str = str .. a.title
+	end
+	if hc(a.letter) then
+		q = '"'
+		str = str .. ', ' .. a.letter
+	end
+	
+	if hc(a.archiveurl) or hc(a.url) then --url, if present makes a link
+		ref = ref .. q
+		if hc(a.archiveurl) then
+			ref = ref .. '[' .. a.archiveurl
+		else
+			ref = ref .. '[' .. a.url
+		end
+		
+		if str ~= '' then
+			ref = ref .. ' ' .. str--if title not present leave as link
+		end
+		ref = ref .. ']' .. q
+	else
+		ref = ref .. q .. str .. q
+	end
+	
+	if hc(a.archiveurl) then
+		ref = ref .. ' (Archived from '
+		if hc(a.url) then
+			ref = ref .. '[' .. a.url .. ' the original]'
+		else
+			ref = ref .. 'the original'
+		end
+		if hc(a.archivedate) then
+			ref = ref .. ' on ' .. a.archivedate
+		end
+		ref = ref .. '.)'
+	end
+	
+	ref = ref .. " ''RuneScape'' God Letters. "
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.url) and hc(a.title) and hc(a.issue)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteLore]] and [[Template:PlainCiteLore]]
+--]==]
+p.loreref = function(frame)
+	return reftag(frame, 'lore')
+end
+
+p.loreplain = function(frame)
+	return plainref(frame, 'lore')
+end
+
+r.lore = function(a)
+	local ref
+	local c = ''
+	
+	local str = ''
+	if hc(a.title) then
+		str = '[[' .. 'Transcript:' .. a.title
+		if hc(a.sectitle) and yn(a.sectitle, true) then
+			str = str .. '#' .. a.sectitle .. '|' .. a.title .. ']]'
+		else
+			str = str .. ']]'
+		end
+	elseif hc(a.sectitle) and yn(a.sectitle, true) then
+		str = '[[' .. a.sectitle .. ']]'
+	end
+	if str ~= '' then
+		str = '"' .. str .. '."'
+	end
+	
+	ref = 'Jagex. ' .. str .. " ''RuneScape'' Lores and Histories. "
+	if hc(a.quote) then
+		local span =	mw.html.create('span')
+							:wikitext('"' .. a.quote .. '" ')
+		ref = ref .. tostring(span)
+	end
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not hc(a.title) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteNews]] and [[Template:PlainCiteNews]]
+--]==]
+p.newsref = function(frame)
+	return reftag(frame, 'news')
+end
+
+p.newsplain = function(frame)
+	return plainref(frame, 'news')
+end
+
+r.news = function(a)
+	local ref
+	local c = ''
+	if hc(a.author) then
+		ref = a.author .. '. '
+	else
+		ref = 'Jagex. '
+	end
+	
+	if hc(a.url) then --url, if present makes a link
+		ref = ref .. '[' .. a.url
+		if hc(a.title) then
+			ref = ref .. ' "' .. a.title .. '."'--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		if hc(a.title) then
+			ref = ref .. '"' .. a.title .. '."'
+		end
+	end
+	ref = ref .. ' '
+	if hc(a.newsdate) then
+		ref = ref .. a.newsdate .. '.'
+	end
+	ref = ref .. " ''Old School RuneScape'' News. "
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.url) and hc(a.title) and hc(a.newsdate)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteNPC]] and [[Template:PlainCiteNPC]]
+--]==]
+p.npcref = function(frame)
+	return reftag(frame, 'npc')
+end
+
+p.npcplain = function(frame)
+	return plainref(frame, 'npc')
+end
+
+r.npc = function(a)
+	local ref = ''
+	local c = ''
+	if hc(a.npc) then
+		ref = ref .. '[[' .. a.npc .. ']], '
+	end
+	if hc(a.loc) then
+		ref = ref .. '"[[' .. a.loc .. ']]", '
+	end
+	ref = ref .. "''Old School RuneScape''. "
+	
+	local islist
+	if hc(a.quote) then
+		islist = mw.ustring.match( a.quote, '^%s*%*.*\n%*' )
+		local quote = islist and ('\n' .. a.quote) or '"' .. a.quote .. '" '
+		local span = mw.html.create('span')
+		if islist then
+			span:newline()
+		end
+		span:wikitext(quote)
+		ref = ref .. tostring(span)
+	end
+	
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not ((hc(a.npc) or islist) and hc(a.quote)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CitePoll]] and [[Template:PlainCitePoll]]
+--]==]
+p.pollref = function(frame)
+	return reftag(frame, 'poll')
+end
+
+p.pollplain = function(frame)
+	return plainref(frame, 'poll')
+end
+
+r.poll = function(a)
+	local ref = 'Jagex. '
+	local c = ''
+	
+	local str = ''
+	if hc(a.poll) then
+		str = str .. '"' .. a.poll .. '"'
+		if hc(a.question) and yn(a.question, true) then
+			str = str .. ', Question ' .. a.question
+		end
+	elseif hc(a.question) and yn(a.question, true) then
+		str = str .. 'Question ' .. a.question
+	end
+	if str ~= '' then
+		str = str .. '.'
+	end
+	
+	if hc(a.url) then --url, if present makes a link
+		ref = ref .. '[' .. a.url
+		if str ~= '' then
+			ref = ref .. ' ' .. str--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		ref = ref .. str
+	end
+	ref = ref .. ' '
+	if hc(a.polldate) then
+		ref = ref .. a.polldate .. '.'
+	end
+	ref = ref .. " ''Old School RuneScape'' Polls. "
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.url) and hc(a.poll) and hc(a.question) and hc(a.polldate)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CitePostbag]] and [[Template:PlainCitePostbag]]
+--]==]
+p.postbagref = function(frame)
+	return reftag(frame, 'postbag')
+end
+
+p.postbagplain = function(frame)
+	return plainref(frame, 'postbag')
+end
+
+r.postbag = function(a)
+	local ref = 'Jagex. '
+	local c = ''
+	
+	local anchor = false
+	local anchorval
+	local pbname = postbags[tonumber(a.issue)]
+	
+	if hc(a.letter) then
+		anchorval = a.letter
+		if anchorval == tostring(tonumber(anchor)) then
+			anchorval = tonumber(anchor)
+			if anchorval == math.floor(anchor) and anchor >= 1 and anchor <= 15 then
+				anchor = true
+			end
+		end
+	end
+	
+	if hc(a.issue) then
+		if pbname then
+			ref = ref .. 'Postbag ' .. a.issue .. ' - "[[' .. pbname .. '#'
+			if anchor then
+				ref = ref .. 'letter ' .. a.letter
+			else
+				ref = ref .. a.letter
+			end
+			ref = ref .. '|' .. pbname .. ']]"'
+		else
+			ref = ref .. 'Postbag ' .. a.issue
+			if hc(a.title) then
+				ref = ref .. ' - "' .. a.title .. '"'
+			end
+		end
+	elseif hc(a.title) then
+		ref = ref .. '"' .. a.title .. '"'
+	end
+	if hc(a.letter) then
+		if ref ~= '' then
+			ref = ref .. ', '
+		end
+		if anchor then
+			ref = ref .. 'letter #' .. a.letter
+		else
+			ref = ref .. a.letter
+		end
+	end
+	
+	if hc(a.author) then
+		ref = ref .. ', by ' .. a.author
+	end
+	
+	ref = ref .. ". ''RuneScape'' Postbags from the Hedge. "
+	ref = ref .. (a.notes or '')
+
+	if hc(a.quote) then
+		local span =	mw.html.create('span')
+							:wikitext('"' .. a.quote .. '" ')
+		ref = ref .. tostring(span)
+	end
+	
+	if onmain() and not (hc(a.issue) and hc(a.letter) and hc(a.author)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteSupport]] and [[Template:PlainCiteSupport]]
+--]==]
+p.supportref = function(frame)
+	return reftag(frame, 'support')
+end
+
+p.supportplain = function(frame)
+	return plainref(frame, 'support')
+end
+
+r.support = function(a)
+	local ref = 'Jagex. '
+	local c = ''
+	
+	local str = ''
+	if hc(a.title) then
+		str = str .. a.title
+		if hc(a.sectitle) and yn(a.sectitle, true) then
+			str = str .. ', ' .. a.sectitle
+		end
+	elseif hc(a.sectitle) and yn(a.sectitle, true) then
+		str = str .. a.sectitle
+	end
+	if str ~= '' then
+		str = '"' .. str .. '."'
+	end
+	
+	
+	if hc(a.url) then --url, if present makes a link
+		ref = ref .. '[' .. a.url
+		if str ~= '' then
+			ref = ref .. ' ' .. str--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		ref = ref .. str
+	end
+	ref = ref .. " ''RuneScape'' Customer Support. "
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.url) and hc(a.title) and hc(a.sectitle)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+--[==[
+[[Template:CiteText]] and [[Template:PlainCiteText]]
+--]==]
+p.textref = function(frame)
+	return reftag(frame, 'text')
+end
+
+p.textplain = function(frame)
+	return plainref(frame, 'text')
+end
+
+r.text = function(a)
+	local ref = ''
+	local c = ''
+	if hc(a.text) then
+		ref = ref .. '[[' .. a.text .. ']], '
+	end
+	if hc(a.author) then
+	    ref = ref .. 'written by [[' .. a.author .. ']], '
+	end
+	if hc(a.page) then
+	    ref = ref .. 'page ' .. a.page .. ', '
+	end
+	if hc(a.loc) then
+		ref = ref .. '"[[' .. a.loc .. ']]", '
+	end
+	ref = ref .. "''Old School RuneScape''. "
+	
+	if hc(a.quote) then
+		local span =	mw.html.create('span')
+							:wikitext('"' .. a.quote .. '" ')
+		ref = ref .. tostring(span)
+	end
+	
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.text) and hc(a.quote)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+------------ General Citation Templates -----------------
+
+
+--[==[
+[[Template:CitePub]] and [[Template:PlainCitePub]]
+--]==]
+p.pubref = function(frame)
+	return reftag(frame, 'pub')
+end
+
+p.pubplain = function(frame)
+	return plainref(frame, 'pub')
+end
+
+r.pub = function(a)
+	local ref = ''
+	local c = ''
+	
+	if hc(a.author) then
+		ref = a.author .. '. '
+	end
+	
+	local str = ''
+	if hc(a.title) then
+		ref = ref .. "''" .. a.title .. "''"
+		if hc(a.pages) then
+			ref = ref .. ', (' .. a.pages .. ')'
+		end
+		ref = ref .. '. '
+	end
+	if hc(a.publisher) then
+		ref = ref .. a.publisher
+		if hc(a.pubyear) then
+			ref = ref .. ', ' .. a.pubyear
+		end
+		ref = ref .. '. '
+	elseif hc(a.pubyear) then
+		ref = ref .. a.pubyear .. '. '
+	end
+	ref = ref .. (a.notes or '')
+	
+	if onmain() and not (hc(a.title) and hc(a.publisher) and hc(a.pubyear)) then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	return ref, c
+end
+
+
+--[==[
+[[Template:CiteTwitter]] and [[Template:PlainCiteTwitter]]
+--]==]
+p.twitterref = function(frame)
+	return reftag(frame, 'twitter')
+end
+
+p.twitterplain = function(frame)
+	return plainref(frame, 'twitter')
+end
+
+r.twitter = function(a)
+	local ref
+	local c = ''
+	ref = 'Jagex. '
+	
+	if hc(a.url) or hc(a.archiveurl) then --url, if present makes a link
+		if hc(a.archiveurl) then
+			ref = ref .. '[' .. a.archiveurl
+		elseif hc(a.url) then
+			ref = ref .. '[' .. a.url
+		end
+		if hc(a.author) then
+			ref = ref .. ' ' .. a.author .. "'s Twitter account"--if title not present leave as link
+		end
+		ref = ref .. ']. '
+	elseif hc(a.author) then
+		ref = ref .. ' ' .. a.author .. "'s Twitter account. "
+	end
+	
+	if hc(a.date) then
+		ref = ref .. a.date .. '. '
+	end
+	
+	if hc(a.archivedate) then
+		ref = ref .. ' (Archived from [' .. a.url .. ' the original] on ' .. a.archivedate .. '.) '
+	end
+	
+	if hc(a.quote) then
+		if hc(a.author) then
+			ref = ref .. a.author .. ': '
+		end
+		ref = ref .. '"' .. a.quote .. '" '
+	end
+	ref = ref .. (a.notes or '')
+	if hc(a.lost) then
+		ref = ref .. lostReferenceMsg
+	end
+	
+	local err = ''
+	if not (hc(a.url) and hc(a.author) and hc(a.quote) and hc(a.date)) then
+		err = err .. "Error calling CiteTwitter: parameters '''url''', '''author''', '''quote''', and '''date''' must be specified.<br>"
+	end
+	
+	if hc(a.archiveurl) ~= hc(a.archivedate) then --xor
+		err = err .. "Error calling CiteTwitter: parameters '''archiveurl''' and '''archivedate''' must both be specified or both be unspecified.<br>"
+	end
+	
+	
+	if onmain() and err ~= '' then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	
+	if onmain() and not hc(a.archiveurl) then
+		if hc(a.lost) then
+			c = c .. '[[Category:Lost Twitter references]]'
+		else
+			c = c .. '[[Category:Unarchived Twitter references]]'
+		end
+	end
+	
+	return ref, c
+end
+
+--[==[
+[[Template:CiteVideo]] and [[Template:PlainCiteVideo]]
+--]==]
+p.videoref = function(frame)
+	return reftag(frame, 'video')
+end
+
+p.videoplain = function(frame)
+	return plainref(frame, 'video')
+end
+
+r.video = function(a)
+	local ref
+	local c = ''
+	if hc(a.author) then
+		ref = a.author .. '. '
+	end
+	if hc(a.url) then --url, if present makes a link
+		if string.lower(a.site) == 'youtube' then
+			if string.starts(a.url, 'https://www.youtube.com/watch?v=') then
+				ref = ref .. '[' .. a.url
+			else
+				ref = ref .. '[https://www.youtube.com/watch?v=' .. a.url
+			end
+		elseif string.lower(a.site) == 'twitch' then
+			if string.starts(a.url, 'https://www.twitch.tv/videos/') then
+				ref = ref .. '[' .. a.url
+			elseif string.starts(a.url, 'https://clips.twitch.tv/') then
+				ref = ref .. '[' .. a.url
+			else
+				ref = ref .. '[https://www.twitch.tv/videos/' .. a.url
+			end
+		else
+			ref = ref .. '[' .. a.url
+		end
+		if hc(a.title) then
+			ref = ref .. ' "' .. a.title .. '."'--if title not present leave as link
+		end
+		ref = ref .. ']'
+	else
+		if hc(a.title) then
+			ref = ref .. '"' .. a.title .. '."'
+		end
+	end
+	ref = ref .. ' '
+	if hc(a.timestamp) then
+		ref = ref ..'(' .. a.timestamp .. '),'
+		end
+	ref = ref .. " " .. dt(a.site, 'YouTube') .. " video. "
+	ref = ref .. ' '
+	if hc(a.date) then
+		ref = ref .. a.date .. '.'
+	end
+	ref = ref .. (a.notes or '')
+	
+	if onmain() then
+		if not (hc(a.author) and hc(a.url) and hc(a.title) and hc(a.date)) then
+			c = c .. '[[Category:Incomplete references]]'
+		end
+	end
+	return ref, c
+end
+
+--[==[
+[[Template:CiteGeneral]] and [[Template:PlainCiteGeneral]]
+--]==]
+p.generalref = function(frame)
+	return reftag(frame, 'general')
+end
+
+p.generalplain = function(frame)
+	return plainref(frame, 'general')
+end
+
+r.general = function(a)
+	local ref = ''
+	local c = ''
+	local str = ''
+	
+	if hc(a.author) or hc(a.last) then
+		if hc(a.last) then
+			str = a.last
+			if hc(a.first) then
+				str = str .. ', ' .. a.first
+			end
+		else
+			str = a.author
+		end
+		
+		if hc(a.authorlink) then
+			ref = ref .. '[' .. a.authorlink
+			if str ~= '' then
+				ref = ref .. ' ' .. str
+			end
+			ref = ref .. ']'
+		else
+			ref = ref .. str
+		end
+		
+		if hc(a.coauthors) then
+			ref = ref .. '; ' .. a.coauthors
+		end
+		
+		ref = ref .. '. '
+	end
+	
+	if hc(a.title) then
+		if hc(a.archiveurl) then
+			ref = ref .. '[' .. a.archiveurl .. ' ' .. a.title .. ']'
+		elseif hc(a.url) then
+			ref = ref .. '[' .. a.url .. ' ' .. a.title .. ']'
+		end
+	end
+	
+	if hc(a.language) then
+		local span =	mw.html.create('span')
+							:css({['font-size'] = '0.95em', color = '#555', position = 'relative', ['font-weight'] = 'bold'})
+							:wikitext('(' .. a.language .. ')')
+		ref = ref .. ' ' .. tostring(span)
+	end
+	
+	if hc(a.format) then
+		ref = ref .. ' (' .. a.format .. ')'
+	end
+	
+	if hc(a.work) then
+		ref = ref .. ". ''" .. a.work .. "''"
+	end
+	
+	if hc(a.pages) then
+		ref = ref .. ' pp. ' .. a.pages
+	end
+	
+	if hc(a.publisher) then
+		ref = ref .. '. ' .. a.publisher
+	end
+	
+	if hc(a.date) then
+		ref = ref .. '. ' .. a.date
+	elseif hc(a.year) then
+		if hc(a.month) then
+			ref = ref .. '. ' .. a.month .. ' ' .. a.year
+		else
+			ref = ref .. '. ' .. a.year
+		end
+	end
+	
+	if ref ~= '' then
+		ref = ref .. '.'
+	end
+	
+	if hc(a.archivedate) then
+		ref = ref .. ' (Archived from [' .. a.url .. ' the original] on ' .. a.archivedate .. '.)'
+	end
+	
+	if hc(a.quote) then
+		ref = ref .. ' "' .. a.quote .. '"'
+	end
+	
+	if hc(a.notes) then
+		ref = ref .. ' ' .. a.notes
+	end
+	if hc(a.lost) then
+		ref = ref .. lostReferenceMsg
+	end
+	
+	local err = ''
+	if not (hc(a.url) and hc(a.title)) then
+		err = err .. "Error calling CiteGeneral: parameters '''url''' and '''title''' must be specified.<br>"
+	end
+	if hc(a.archiveurl) ~= hc(a.archivedate) then --xor
+		err = err .. "Error calling CiteGeneral: parameters '''archiveurl''' and '''archivedate''' must both be specified or both be unspecified.<br>"
+	end
+	if not (hc(a.archiveurl) and hc(a.archivedate)) then
+		ref = err .. ref .. mw.getCurrentFrame():expandTemplate{title = 'RefDate', args = { (a.accessdate or ''), '180'} }
+	end
+	
+	if onmain() and err ~= '' then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	
+	if onmain() and not hc(a.archiveurl) then
+		if hc(a.lost) then
+			c = c .. '[[Category:Lost web references]]'
+		else
+			c = c .. '[[Category:Unarchived web references]]'
+		end
+	end
+	return ref, c
+end
+
+--[==[
+[[Template:CiteReddit]] and [[Template:PlainCiteReddit]]
+--]==]
+p.redditref = function(frame)
+	return reftag(frame, 'reddit')
+end
+
+p.redditplain = function(frame)
+	return plainref(frame, 'reddit')
+end
+
+r.reddit = function(a)
+	local ref
+	local c = ''
+	ref = 'Jagex. '
+	ref = dt(a.author, 'Jagex') --author, defaults to Jagex
+	ref = ref .. '. '
+	if hc(a.url) or hc(a.archiveurl) then --url, if present makes a link
+		if hc(a.archiveurl) then
+			ref = ref .. '[' .. a.archiveurl
+		elseif hc(a.url) then
+			ref = ref .. '[' .. a.url
+		end
+		if hc(a.title) then
+			ref = ref .. ' ' .. a.title
+		end
+		ref = ref .. ']. '
+	end
+	ref = ref .. "''Reddit''. "
+	if hc(a.date) then
+		ref = ref .. a.date .. '. '
+	end
+	
+	if hc(a.archivedate) then
+		ref = ref .. ' (Archived from [' .. a.url .. ' the original] on ' .. a.archivedate .. '.) '
+	end
+	
+	if hc(a.quote) then
+		if hc(a.author) then
+			ref = ref .. a.author .. ': '
+		end
+		ref = ref .. '"' .. a.quote .. '" '
+	end
+	ref = ref .. (a.notes or '')
+	if hc(a.lost) then
+		ref = ref .. lostReferenceMsg
+	end
+	
+	local err = ''
+	if not (hc(a.url) and hc(a.author) and hc(a.quote) and hc(a.date) and hc(a.title)) then
+		err = err .. "Error calling CiteReddit: parameters '''url''', '''author''', '''quote''', and '''date''', and '''title''' must be specified.<br />"
+	end
+	
+	if hc(a.archiveurl) ~= hc(a.archivedate) then --xor
+		err = err .. "Error calling CiteReddit: parameters '''archiveurl''' and '''archivedate''' must both be specified or both be unspecified.<br />"
+	end
+	
+	if onmain() and err ~= '' then
+		c = c .. '[[Category:Incomplete references]]'
+	end
+	
+	if onmain() and not hc(a.archiveurl) then
+		c = c .. '[[Category:Unarchived Reddit references]]'
+	end
+	
+	return ref, c
+end
+
+return p

@@ -1,0 +1,182 @@
+local p = {}
+
+local VariablesLua = mw.ext.VariablesLua
+
+local Exchange = require('Module:Exchange')
+
+local GE_TAX = 0.02
+local ACTIONS_PER_HOUR = 3900
+-- if the output's volume is below this number, it won't be eligible to be
+-- considered the 'best' option on the MMG
+local DAILY_VOLUME_THRESHOLD = 80000
+local POTIONS = {
+    {
+        level = 1,
+        name = 'Guam potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Guam leaf',
+    },
+    {
+        level = 3,
+        name = 'Marrentill potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Marrentill',
+    },
+    {
+        level = 12,
+        name = 'Tarromin potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Tarromin',
+    },
+    {
+        level = 22,
+        name = 'Harralander potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Harralander',
+    },
+    {
+        level = 30,
+        name = 'Toadflax potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Toadflax',
+    },
+    {
+        level = 34,
+        name = 'Ranarr potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Ranarr weed',
+    },
+    {
+        level = 45,
+        name = 'Irit potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Irit leaf',
+    },
+    {
+        level = 50,
+        name = 'Avantoe potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Avantoe',
+    },
+    {
+        level = 55,
+        name = 'Kwuarm potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Kwuarm',
+    },
+    {
+        level = 58,
+        name = 'Huasca potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Huasca',
+    },
+    {
+        level = 63,
+        name = 'Snapdragon potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Snapdragon',
+    },
+    {
+        level = 66,
+        name = 'Cadantine potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Cadantine',
+    },
+    {
+        level = 69,
+        name = 'Lantadyme potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Lantadyme',
+    },
+    {
+        level = 72,
+        name = 'Dwarf weed potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Dwarf weed',
+    },
+    {
+        level = 78,
+        name = 'Torstol potion (unf)',
+        ingredient1 = 'Vial of water',
+        ingredient2 = 'Torstol',
+    },
+    {
+        level = 80,
+        name = 'Cadantine blood potion (unf)',
+        ingredient1 = 'Vial of blood',
+        ingredient2 = 'Cadantine',
+    },
+}
+
+function deduct_ge_tax(value)
+    return value - math.min(5000000, math.floor(value * 0.02))
+end
+
+function p.main(frame)
+    local best_potion = nil
+    local best_profit = -9999999
+
+    for i, potion in ipairs(POTIONS) do
+        local output_value = Exchange._price(potion.name)
+        output_value = deduct_ge_tax(output_value)
+        local input_value = Exchange._price(potion.ingredient1) + Exchange._price(potion.ingredient2)
+        local profit = output_value - input_value
+        local volume = Exchange._volume(potion.name)
+
+        VariablesLua.vardefine('potionProfit' .. i, profit)
+        VariablesLua.vardefine('potionInputCost' .. i, input_value)
+        VariablesLua.vardefine('potionVolume' .. i, volume)
+
+        if profit > best_profit and volume > DAILY_VOLUME_THRESHOLD then
+            best_potion = potion
+            best_profit = profit
+        end
+    end
+    
+    -- mw.log("the most profitable potion is:")
+    -- mw.logObject(best_potion)
+
+    VariablesLua.vardefine('bestPotionName', best_potion.name)
+    VariablesLua.vardefine('bestPotionIngredient1', best_potion.ingredient1)
+    VariablesLua.vardefine('bestPotionIngredient2', best_potion.ingredient2)
+end
+
+function p.makeTable(frame)
+	local _table = mw.html.create('table')
+	_table:addClass('wikitable sortable align-center-1')
+
+    -- header
+	_table:tag('tr')
+	:tag('th'):wikitext(frame:preprocess('{{SCP|Herblore}} Level')):attr('rowspan', 2):done()
+	:tag('th'):wikitext('Base'):done()
+	:tag('th'):wikitext('Herb'):done()
+	:tag('th'):wikitext('Output'):done()
+	:tag('th'):wikitext('Total Input Cost'):done()
+	:tag('th'):wikitext('Profit (after tax)'):done()
+	:tag('th'):wikitext('Profit/h'):done()
+	:tag('th'):wikitext('Daily Volume'):done()
+
+    -- rows
+    for i, potion in ipairs(POTIONS) do
+        local profit = VariablesLua.var('potionProfit' .. i)
+        local input_cost = VariablesLua.var('potionInputCost' .. i)
+        local volume = VariablesLua.var('potionVolume' .. i)
+
+        local row = _table:tag('tr')
+        :tag('td'):wikitext(potion.level):done()
+        :tag('td'):wikitext(frame:preprocess('{{plink|' .. potion.ingredient1 .. '}}')):done()
+        :tag('td'):wikitext(frame:preprocess('{{plink|' .. potion.ingredient2 .. '}}')):done()
+        :tag('td'):wikitext(frame:preprocess('{{plink|' .. potion.name .. '}}')):done()
+        :tag('td'):wikitext(frame:preprocess('{{Coins|' .. input_cost .. '}}')):done()
+        :tag('td'):wikitext(frame:preprocess('{{Coins|' .. profit .. '}}')):done()
+        :tag('td'):wikitext(frame:preprocess('{{Coins|' .. profit * ACTIONS_PER_HOUR .. '}}')):done()
+        :tag('td'):wikitext(frame:preprocess('{{formatnum:' .. volume .. '}}')):done()
+        :done()
+    end
+
+	_table:done()
+	
+	return tostring(_table)
+end
+
+return p

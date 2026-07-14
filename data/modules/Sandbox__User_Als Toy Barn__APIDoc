@@ -1,0 +1,110 @@
+local p = {}
+
+local styles = {
+	w = 'width:1%;',
+	ws = 'white-space:pre;',
+	bgc = 'background-color:var(--wikitable-header-bg);'
+}
+
+function p.main(frame)
+	local tArgs = frame:getParent().args
+	local mArgs = {}
+	local mArgNames = {}
+	local argCount = 0
+	
+	if not tArgs.funcName then
+		error('APIDoc requires `funcName` argument', 0)
+	end
+	
+	while tArgs['arg'..(argCount + 1)] do
+		argCount = argCount + 1
+	end
+	
+	for i = 1, argCount do
+		table.insert(mArgNames, tArgs['arg'..i])
+		table.insert(mArgs, {
+			name = tArgs['arg'..i],
+			type = tArgs['type'..i],
+			desc = tArgs['desc'..i],
+			optional = tArgs['optional'..i]
+		})
+	end
+	
+	local tableElem = mw.html.create('table'):addClass('wikitable')
+	local argList = table.concat(mArgNames, ', ')
+	
+	tableElem:tag('tr')
+		:tag('td')
+			:attr('colspan', '4')
+			:tag('code')
+				:wikitext(string.format('%s(%s)', tArgs.funcName, argList or ''))
+			
+	tableElem:tag('tr')
+		:tag('td')
+			:attr('colspan', '4')
+			:wikitext(tArgs.funcDesc)
+	
+	if #mArgs > 0 or tArgs.returnType then
+		local row = tableElem:tag('tr')
+			:tag('td')
+				:attr('style', styles.w..styles.bgc)
+				:wikitext((#mArgs > 0 and "'''Argument'''") or '')
+			:tag('td')
+				:attr('style', styles.w..styles.bgc)
+				:wikitext("'''Type'''")
+			:tag('td')
+				:attr('style', styles.bgc)
+				:wikitext("'''Description'''")
+				
+		if #mArgs > 0 then
+			row:tag('td')
+				:attr('style', styles.w..styles.bgc)
+				:wikitext("'''Optional'''")
+		end
+	end
+	
+	for _, mArg in ipairs(mArgs) do
+		tableElem:tag('tr')
+			:tag('td'):wikitext(mArg.name)
+			:tag('td')
+				:attr('style', styles.ws)
+				:wikitext(mArg.type)
+			:tag('td'):wikitext(mArg.desc)
+			:tag('td'):wikitext(mArg.optional and '[[File:Yes_check.svg|15px|center]]')
+	end
+	
+	local returnTypeElem = mw.html.create('td')
+	local returnDescElem = mw.html.create('td')
+	
+	if tArgs.returnType then
+		returnTypeElem
+			:attr('style', styles.w)
+			:wikitext(tArgs.returnType)
+		
+		if tArgs.returnDesc then
+			returnDescElem
+				:attr('colspan', '2')
+				:wikitext(tArgs.returnDesc)
+		end
+	else
+		returnTypeElem
+			:attr('style', styles.w..styles.ws..styles.bgc)
+			:addClass('table-na')
+			:wikitext('--')
+		returnDescElem
+			:attr('style', styles.bgc)
+			:addClass('table-na')
+	end
+	
+	tableElem:tag('tr')
+		:tag('td')
+			:attr('style', styles.w..styles.bgc)
+			:addClass('table-na')
+			:wikitext('Returns')
+		:node(returnTypeElem)
+		:node(returnDescElem)
+	
+	return tableElem
+end
+
+return p

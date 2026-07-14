@@ -1,0 +1,33 @@
+-- <nowiki>
+local p = {}
+local all_banks = mw.title.new('List of banks'):getContent()
+local b = {}
+p.raw_banks = b
+for map in string.gmatch(all_banks, '{{Map[^}]*}}') do
+    table.insert(b, map)
+end
+local e = {}
+p.banks = e
+local function extract_var(call, name)
+    local pat = '[|,]'..name..'[=:][^,}|]+'
+    local text = string.match(call, pat)
+    if not text then return nil end
+    return tonumber(string.sub(text, string.len(name) + 3))
+end
+
+for _, call in ipairs(b) do
+    local coords = string.match(call, '[0-9]+,[0-9]+')
+    if coords then -- Probably a polygon, just use the first point as a "closest" point
+		local t = {}
+    	for coord in string.gmatch(coords, '[0-9]+') do
+    		table.insert(t, tonumber(coord))
+    	end
+	    table.insert(e, {x = t[1], y = t[2], coords = coords, source=call})
+	else
+    	local x = extract_var(call, 'x')
+    	local y = extract_var(call, 'y')
+		table.insert(e, {x = x, y = y,source=call})
+    end
+end
+
+return p

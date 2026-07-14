@@ -4,27 +4,6 @@ local p = {}
 
 local infobox = require('Module:Infobox')
 
--- Format attack speed
-function attackspeedarg(arg)
-	if not infobox.isDefined(arg) then
-		return nil
-	end
-
-	local lowarg = string.lower(arg)
-	local numarg = tonumber(arg)
-	
-	if lowarg == 'no' or lowarg == 'n/a' then
-		return 'N/A'
-	elseif lowarg == 'varies' or lowarg == 'random' then
-		return '<span title="Weapons in this group have a variable attack speed." style="cursor:help; border-bottom:1px dotted;">Variable</span>'
-	end
-	
-	if numarg ~= nil then
-		return string.format('%s %s (%.1f seconds)', numarg, (numarg > 1) and 'ticks' or 'tick', numarg * 0.6)
-	end	
-end
-
--- Main function called with invokes
 function p.main(frame)
 	local args = frame:getParent().args
 	local ret = infobox.new(args)
@@ -35,6 +14,7 @@ function p.main(frame)
 		{ name = 'ammunition', func = 'has_content' },
 		{ name = 'twohanded', func = 'has_content' },
 		{ name = 'speed', func = attackspeedarg },
+		{ name = 'attackrange', func = 'has_content' },
 	}
 
 	ret:defineLinks({ hide = true })
@@ -57,19 +37,40 @@ function p.main(frame)
 		{ tag = 'argd', content = 'ammunition', colspan = '13' }
 	}
 	ret:addRow{
-		{ tag = 'th', content = 'Two handed?', colspan = '7' },
+		{ tag = 'th', content = 'Two handed', colspan = '7' },
 		{ tag = 'argd', content = 'twohanded', colspan = '13' }
 	}
-	ret:pad(20)
 	ret:addRow{
-		{ tag = 'th', content = '[[Attack speed]]', class = 'infobox-subheader', colspan = '20' }
+		{ tag = 'th', content = '[[Attack speed]]', colspan = '7' },
+		{ tag = 'argd', content = 'speed', colspan = '13' }
 	}
-	ret:pad(20)
-	ret:addRow{
-		{ tag = 'argd', content = 'speed', colspan = '20', class = 'infobox-full-width-content' }
-	}
+	if ret:paramDefined('attackrange', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Attack range]]', colspan = '7' },
+			{ tag = 'argd', content = 'attackrange', colspan = '13' }
+		}
+	end
 	ret:pad(20)
 	return ret:tostring()
+end
+
+function attackspeedarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local lowarg = string.lower(arg)
+	local numarg = tonumber(arg)
+	
+	if lowarg == 'no' or lowarg == 'n/a' then
+		return 'N/A'
+	elseif lowarg == 'varies' or lowarg == 'random' then
+		return '<span title="Weapons in this group have a variable attack speed." style="cursor:help; border-bottom:1px dotted;">Variable</span>'
+	end
+	
+	if numarg ~= nil then
+		return string.format('%s %s (%.1f seconds)', numarg, (numarg > 1) and 'ticks' or 'tick', numarg * 0.6)
+	end	
 end
 
 return p

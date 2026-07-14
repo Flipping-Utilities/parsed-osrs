@@ -1,0 +1,70 @@
+return {
+	 {
+		name = 'Pineapple pizza',
+		subtxt = 'from scratch, ring from whole pineapple',
+        level = 65,
+        xp = 188,
+        materials = {
+        	{ name = 'Pot of flour', quantity = 1 },
+        	{ name = 'Tomato', quantity = 1 },
+        	{ name = 'Cheese', quantity = 1 },
+        	{ name = 'Jug of water', quantity = 1 },
+        	{ name = 'Pineapple', quantity = 0.25 }
+        },
+        steps = 5,
+        members = 'Yes',
+        type = 'Pizza'
+	}, {
+		name = 'Pineapple pizza',
+		subtxt = 'pre-made base w/ ring',
+        level = 65,
+        xp = 188,
+        materials = {
+        	{ name = 'Pot of flour', quantity = 1 },
+        	{ name = 'Tomato', quantity = 1 },
+        	{ name = 'Cheese', quantity = 1 },
+        	{ name = 'Jug of water', quantity = 1 },
+        	{ name = 'Pineapple ring', quantity = 1 }
+        },
+        steps = 5,
+        members = 'Yes',
+        type = 'Pizza'
+	}, {
+		name = 'Pineapple pizza',
+		subtxt = 'pre-made base, ring from whole pineapple',
+        level = 65,
+        xp = 188,
+        materials = {
+        	{ name = 'Pizza base', quantity = 1 },
+        	{ name = 'Tomato', quantity = 1 },
+        	{ name = 'Cheese', quantity = 1 },
+        	{ name = 'Pineapple', quantity = 0.25 }
+        },
+        steps = 5,
+        members = 'Yes',
+        type = 'Pizza'
+    }, {
+		name = 'Pineapple pizza',
+		subtxt = 'pineapple ring from whole pineapple',
+        level = 65,
+        xp = 45,
+        materials = {
+        	{ name = 'Plain pizza', quantity = 1 },
+        	{ name = 'Pineapple', quantity = 0.25 }
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Pizza'
+    }, {
+		name = 'Pineapple ring',
+		subtxt = 'cutting whole pineapples',
+        level = 1,
+        xp = 0,
+        materials = {
+        	{ name = 'Pineapple', quantity = 0.25 }
+        },
+        steps = 1,
+        members = 'No',
+        type = 'Zero XP'
+    }
+}

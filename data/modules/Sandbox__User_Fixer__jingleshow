@@ -1,0 +1,76 @@
+
+local p = {}
+
+function p.musicpage()
+	return p.print()
+end
+
+function p.fetchResults()
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local batchResults = bucket('music')
+			.select('title', 'page_name', 'title', 'track', 'duration', 'is_members_only', 'sort_name', 'is_event', 'cacheid')
+			.orderBy('sort_name', 'asc')
+			.where("Category:Jingles") 
+			.limit(batchSize)
+			.offset(offset)
+			.run()
+			
+			for _, result in ipairs(batchResults) do
+				
+				if result.title ~= nil then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #batchResults < batchSize then
+				break;
+			end
+
+	end
+	
+	return results
+end
+
+function p.print(bucketName, thingName)
+	local results = p.fetchResults(bucketName)
+	local output = {
+		'<br>',
+		'{| class="wikitable sortable lighttable embed-audio-links qc-active music-tracks sticky-header align-center-4" style="width:100%;"',
+		'! Page',
+		'! Title',
+		'!  sort',
+		'! style="width: 70px" | Members',
+		'! style="width: 70px" | Length',
+		'! Id',	
+		'! class="unsortable" style="width: 320px | Music track'
+	}
+		for _, result in ipairs(results) do
+	local title = mw.text.trim(string.match(result.page_name, '^[^%(]+'))
+
+		table.insert(output, '|- data-music-track-name="' .. result.title .. '"')
+		table.insert(output, '|[[' .. result.page_name.. '|' .. result.page_name ..']]')
+		table.insert(output, '|' .. result.title)
+		table.insert(output, '|' .. result.sort_name)	
+		if result.is_members_only == true then
+			table.insert(output, '|<span style="display:none;">1</span>[[File:Member icon.png|center|link=Members]]')
+			else
+			table.insert(output, '|<span style="display:none;">0</span>[[File:Free-to-play icon.png|center|link=Free-to-play]]')
+		end
+		
+		table.insert(output, '|' .. result.duration)
+		table.insert(output, '|' .. result.cacheid)
+		table.insert(output, '|' .. '[[:' .. result.track .. '| Play Track ]]')
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+return p

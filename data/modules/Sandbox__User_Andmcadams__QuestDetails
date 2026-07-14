@@ -1,0 +1,242 @@
+-- <nowiki>
+-- {{Quest details}}
+--
+local p = {}
+local yesno = require( 'Module:Yesno' )
+local onmain = require('Module:Mainonly').on_main()
+    
+local difficulties = {
+    none = 'None',
+    novice = 'Novice',
+    intermediate = 'Intermediate',
+    experienced = 'Experienced',
+    master = 'Master',
+    grandmaster = 'Grandmaster',
+    special = 'Special'
+}
+difficulties['1'] = difficulties.novice
+difficulties['2'] = difficulties.intermediate
+difficulties['3'] = difficulties.experienced
+difficulties['4'] = difficulties.master
+difficulties['5'] = difficulties.special
+difficulties['6'] = difficulties.grandmaster
+
+function p.details( frame )
+    local _args = frame:getParent().args
+    local tbl = mw.html.create( 'table' )
+        :addClass( 'questdetails plainlinks' )
+        -- @todo replace with CSS
+        :attr( 'cellspacing',  '3' )
+    local title = mw.uri.fullUrl( mw.title.getCurrentTitle().fullText, { action = 'edit' } )
+    local unknown = 'Unknown <small>[' .. tostring( title ) .. ' edit]</small>'
+    local args = {}
+    
+    for k, v in pairs(_args) do
+        if v ~= '' then
+            args[k] = v
+        end
+    end
+        
+    local icon = args.icon and '[[File:' .. args.icon .. '|50px|right]]' or ''
+    local start = args.start or unknown
+    local difficulty = difficulties[mw.ustring.lower(args.difficulty or '')] or unknown
+    local desc = args.description or unknown
+    local length = args.length or unknown
+    local reqs = args.requirements or 'None'
+    --local trailblazerRegion = args.trailblazerRegion or nil
+    local items = args.items or 'None'
+    local kills = args.kills or 'None'
+    local checklist = items
+    local ironman = args.ironman or unknown
+    if items ~= 'None' then
+    	checklist = '<div class="lighttable checklist no-toggle-parent">\n'..items..'</div>' --frame:expandTemplate{ title = 'Checklist', args = { items } }
+    end
+        
+    tbl
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Start point' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( '[[File:Quest point icon.png|17px|link=]] ' .. icon .. start )
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Official difficulty' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( difficulty )
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Description' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( desc )
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Official length' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( length )
+                :done()
+            :done()
+		:tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Requirements' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :addClass('qc-input')
+                :addClass('qc-active')
+                :newline():newline()
+                :wikitext(reqs)
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Items required' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :newline():newline()
+                :wikitext( checklist )
+                :done()
+            :done()
+            
+    if args.recommended ~= nil and yesno(args.recommended, true) ~= false then
+        tbl
+            :tag( 'tr' )
+                :tag( 'th' )
+                    :addClass( 'questdetails-header' )
+                    :wikitext( 'Recommended' )
+                    :done()
+                :tag( 'td' )
+                    :addClass( 'questdetails-info' )
+                    :newline():newline()
+                    :addClass('qc-active')
+                    :wikitext( '<div class="lighttable no-toggle-parent">\n'..args.recommended..'</div>') -- frame:expandTemplate{ title = 'Checklist', args = { args.recommended } } )
+                    :done()
+                :done()
+    end
+    
+    tbl
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Enemies to defeat' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :newline():newline()
+                :wikitext( kills )
+                :done()
+            :done()
+     if args.ironman ~= nil and yesno(args.ironman, true) ~= false then
+        tbl
+        	:tag( 'tr' )
+            	:tag( 'th' )
+                	:addClass( 'questdetails-header' )
+	                :wikitext( 'Ironman concerns' )
+	                :done()
+	            :tag( 'td' )
+	                :addClass( 'questdetails-info' )
+                    :newline():newline()
+	                :wikitext( '<div class="lighttable checklist no-toggle-parent">\n'..args.ironman..'</div>') -- frame:expandTemplate{ title = 'Checklist', args = { args.ironman }
+	                :done()
+	            :done()
+    end
+
+    --if args.trailblazerRegion ~= nil then
+    --    tbl:tag( 'tr' )
+    --        :tag( 'th' )
+    --            :addClass( 'questdetails-header' )
+    --            :wikitext( '[[Trailblazer]] notes' )
+    --            :done()
+    --        :tag( 'td' )
+    --            :addClass( 'questdetails-info' )
+    --            :wikitext( trailblazerRegion )
+    --            :done()
+    --        :done()
+    --end
+
+    return tostring( tbl ) .. smw(frame,_args)
+end
+
+function smw(frame,args)
+	if not onmain then
+		return ''
+	end
+	-- more to come
+	local err = mw.html.create('div')
+	err:addClass('hidden'):css('display','none')
+	local haserr = false
+	local info = ''
+	local smwJSON = {
+		name = mw.title.getCurrentTitle().text,
+		desc = args.description or nil,
+		difficulty = difficulties[mw.ustring.lower(args.difficulty or '')],
+		start = args.start or nil,
+		length = args.length or nil,
+		requirements = args.requirements or 'None',
+		items = args.items or 'None',
+		kills = args.kills or 'None',
+		ironman = args.ironman or nil
+	}
+	local jsongood, encsmwJSON = pcall(mw.text.jsonEncode, smwJSON)
+	
+	if jsongood then
+		-- for easier debug, please do not remove
+		encsmwJSON = mw.text.nowiki(encsmwJSON)
+		local div = mw.html.create('div')
+		div	:addClass('hidden')
+			:css('display', 'none')
+			:wikitext('[[Quest JSON::'..encsmwJSON..']]')
+		info = frame:preprocess(tostring(div))
+	else
+		haserr = true
+		err:wikitext('Error setting SMW JSON, string: ' .. mw.dumpObject(smwJSON))
+	end
+	if not haserr then
+		err = ''
+	end
+	
+	local smw = {}
+	if args.description then
+    	smw['Quest Description'] = args.description
+    end
+	if args.difficulty then
+    	smw['Quest Official difficulty'] = difficulties[mw.ustring.lower(args.difficulty)]
+    end
+	if args.start then
+    	smw['Quest Start point'] = args.start
+    end
+	if args.length then
+    	smw['Quest Official length'] = args.length
+    end
+    if(args.ironman) then
+    	smw['Quest Ironman concerns'] = args.ironman
+    end
+	smw['Quest Requirements'] = args.requirements or 'None'
+	smw['Quest Items required'] = args.items or 'None'
+	smw['Quest Enemies to defeat'] = args.kills or 'None'
+    mw.smw.set(smw)
+	return tostring(info) .. tostring(err)
+end
+
+return p
+-- </nowiki>

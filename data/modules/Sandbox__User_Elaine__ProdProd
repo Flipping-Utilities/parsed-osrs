@@ -1,0 +1,84 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+local coins = require('Module:Coins')._amount
+
+
+function buildRow(itemData)
+	local itemPage = itemData.page_name
+	local imageName = itemData.image[1]
+	local row = mw.html.create('tr')
+	row:tag('td'):wikitext('[[' .. imageName .. '|link=' .. itemPage .. ']]'):done()
+	row:tag('td'):wikitext('[[' .. itemPage .. '|' .. itemData.item_name .. ']]'):done()
+	row:tag('td'):wikitext(coins(itemData.high_alchemy_value)):done()
+	row:tag('td'):wikitext('[[' .. itemData.sold_by .. ']]'):done()
+	row:tag('td'):wikitext(coins(itemData.store_sell_price)):done()
+		
+	return row
+end
+
+function createHeader()
+	local tabl = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1')
+	local row = tabl:tag('tr')
+	row:tag('th'):wikitext('Item name'):attr('colspan', '2'):done()
+	row:tag('th'):wikitext('High alchemy value'):done()
+	row:tag('th'):wikitext('Sold by'):done()
+	row:tag('th'):wikitext('Sell price'):done()
+	return tabl
+end
+
+function loadData(limit, minAlchValue)
+	local items = bucket("infobox_item")
+		.select("page_name", "item_name", "high_alchemy_value", "image")
+		.where("high_alchemy_value", ">", minAlchValue)
+		.limit(limit)
+		.run()
+	
+	assert(items ~= nil and #items > 0, 'Bucket query failed')
+	
+	local storelines = bucket("storeline")
+		.select("sold_item", "sold_by", "store_sell_price")
+		.where("store_currency","coins")
+		.limit(limit)
+		.run()
+		
+	assert(storelines ~= nil and #storelines > 0, 'Bucket query failed')
+
+	local allData = {}
+	for _, item in ipairs(items) do
+		for _, store in ipairs(storelines) do
+			if store.sold_item == item.page_name then
+				item.sold_by = store.sold_by
+				item.store_sell_price = store.store_sell_price
+				table.insert(allData, item)
+				break
+			end
+		end
+	end
+	
+	table.sort(allData, function(a, b) return a.high_alchemy_value < b.high_alchemy_value end)
+	
+	return allData
+end
+
+function p._main(args)
+	local limit = paramTest.default_to(tonumber(args.limit), 5000)
+	local minAlchValue = paramTest.default_to(tonumber(args.min_alch_value), 26087)
+
+	local data = loadData(limit, minAlchValue)
+	
+	local ret = createHeader()
+	for _, itemPage in ipairs(data) do
+		ret:node(buildRow(itemPage))
+	end
+	
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

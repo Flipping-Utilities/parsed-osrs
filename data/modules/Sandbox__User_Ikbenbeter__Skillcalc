@@ -1,0 +1,416 @@
+local p = {}
+
+local helpers = require('Module:Sandbox/User:Ikbenbeter/Skillcalc/Helpers')
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+
+local farmingCTS = {
+	['Potato'] = { 101, 180 },
+	['Onion'] = { 105, 180 },
+	['Cabbage'] = { 107, 180 },
+	['Tomato'] = { 112, 180 },
+	['Sweetcorn'] = { 88, 180 },
+	['Strawberry'] = { 103, 180 },
+	['Watermelon'] = { 126, 180 },
+	['Snape grass'] = { 148, 195 },
+	['Hammerstone hops'] = { 104, 180 },
+	['Asgarnian hops'] = { 108, 180 },
+	['Yanillian hops'] = { 116, 180 },
+	['Krandorian hops'] = { 120, 180 },
+	['Wildblood hops'] = { 128, 180 },
+	['Barley'] = { 103, 180 },
+	['Jute fibre'] = { 113, 180 },
+	['Giant seaweed'] = { 150, 210 },
+	['Guam leaf'] = { 25, 80 },
+	['Marrentill'] = { 28, 80 },
+	['Tarromin'] = { 31, 80 },
+	['Harralander'] = { 36, 80 },
+	['Goutweed'] = { 39, 80 },
+	['Ranarr weed'] = { 39, 80 },
+	['Toadflax'] = { 43, 80 },
+	['Irit leaf'] = { 46, 80 },
+	['Avantoe'] = { 50, 80 },
+	['Kwuarm'] = { 54, 80 },
+	['Snapdragon'] = { 56, 80 },
+	['Cadantine'] = { 59, 80 },
+	['Lantadyme'] = { 64, 80 },
+	['Dwarf weed'] = { 67, 80 },
+	['Torstol'] = { 71, 80 }
+}
+
+local itemBonuses = {
+	['secateurs'] = 0.10,
+	['farmingCape'] = 0.05
+}
+
+local otherBonuses = {
+	['attas'] = 0.05,
+	['diary'] = {
+		['None'] = 0,
+		['Hard Kourend'] = 0.05,
+		['Medium Kandarin'] = 0.05,
+		['Hard Kandarin'] = 0.1,
+		['Elite Kandarin'] = 0.15
+	},
+	['Ectofuntus'] = 4,
+	['Gilded'] = 3.5,
+	['Chaos altar'] = 7,
+	['Limestone altar'] = 2.75
+}
+
+local compostValues = {
+	['None'] = { 0, 0 },
+	['Compost'] = { 1, 18 },
+	['Supercompost'] = { 2, 26 },
+	['Ultracompost'] = { 3, 36 }
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	-- Compute current/goal levels and experience as well as the experience remaining between the difference
+	local bulkLevelInformation = helpers.calculateCurrentGoalInformation(args.current, args.currentToggle, args.goal, args.goalToggle)
+	
+	-- Pull out the relevant data from the sub module and call the function with the passed in skill method
+	local methods = mw.loadData(string.format('%s/%s', mw.getCurrentFrame():getTitle(), args.skill))
+	-- Pulls and sorts the data
+	local data = helpers.filterData(methods, args.method, args.dataCriteria, bulkLevelInformation.goalLevel)
+	
+	local setValue = 0
+	-- Check if the skill the calculator is using is eligible for the experience set bonus
+	if helpers.checkForBoostingSetSkill(args.skill) then
+		local pieces = {
+			{ args.head, 0.004 },
+			{ args.body, 0.008 },
+			{ args.legs, 0.006 },
+			{ args.boots, 0.002 }
+		}
+		local newSetValue = helpers.determineSetValue(pieces)
+		setValue = newSetValue
+	end
+	
+	-- Build a message for the user to show the difference between current and goal experience
+	local message = helpers.createMessage(args.skill, bulkLevelInformation)
+
+	local options = {
+		skill = args.skill,
+		experienceRemaining = bulkLevelInformation.experienceRemaining,
+		currentLevel = bulkLevelInformation.currentLevel,
+		setValue = setValue,
+		secateurs = args.secateurs,
+		farmingCape = args.farmingCape,
+		diary = args.diary,
+		attas = args.attas,
+		compost = args.compost,
+		bonus = args.bonus,
+		dataCriteria = args.dataCriteria,
+		leagueMultiplier = args.leagueMultiplier or 1
+	}
+	
+	-- Create the headers and alignments
+	local ret = createHeaders(args.skill)
+	
+	-- Loop through the data and make each table row of data (including calculations)
+	for _, v in ipairs(data) do
+		if ({ Woodcutting = true, Mining = true })[args.skill] then
+			ret:node(make_row_no_materials(v, options))
+		elseif ({ Agility = true, Thieving = true })[args.skill] then
+			ret:node(make_row_barebones(v, options))
+		elseif ({ Firemaking = true, Prayer = true, Construction = true })[args.skill] then
+			ret:node(make_row_no_profit(v, options))
+		else
+			ret:node(make_row_full(v, options))
+		end
+	end
+	
+	-- Return the table and message to the user
+	return tostring(message) .. tostring(ret)
+end
+
+function spreadMaterials(materials, actionsNeeded, reducedActionsNeeded)
+	local materialsFormatted = ''
+	if materials == nil then
+		return '-'
+	end
+	
+	for _, v in ipairs(materials) do
+		local actionsReduced = (reducedActionsNeeded and tonumber(reducedActionsNeeded) or v.onlyone and 1 or tonumber(actionsNeeded))
+		--quantity is actionsNeeded for farming, not actionsReduced.  test change for herbs
+		local quantity = math.ceil((v.quantity or 1) * tonumber(actionsNeeded))
+		materialsFormatted = materialsFormatted .. string.format('%s × [[File:%s.png|link=%s]] [[%s|%s]]<br>', commas(quantity), v.name, v.name, v.name, v.title or v.name)
+	end
+		
+	return string.len(materialsFormatted) > 1 and materialsFormatted or '-'
+end
+
+function getRaw(materials, actionsNeeded, reducedActionsNeeded)
+	local totalCost = 0
+	
+	if materials == nil then
+		return totalCost
+	end
+	
+	for _, v in ipairs(materials) do
+		local actionsReduced = (reducedActionsNeeded and tonumber(reducedActionsNeeded) or v.onlyone and 1 or tonumber(actionsNeeded))
+		-- adjust quantity based on number of actions needed
+		local quantity = (v.quantity and v.quantity or 1)
+		if v.cost then
+			totalCost = totalCost + (v.cost * (quantity * (v.onlyone and 1 or tonumber(actionsNeeded))))
+		elseif gePrices[v.name] ~= nil then
+			totalCost = totalCost + (gePrices[v.name] * (quantity * (v.onlyone and 1 or tonumber(actionsNeeded))))
+		end
+	end
+	
+	return math.ceil(totalCost)
+end
+
+function getOutput(name, outputItem, outputQuantity, actionsNeeded, reducedActionsNeeded)
+	local itemToLookUp = outputItem and outputItem or name
+	if gePrices[itemToLookUp] ~= nil then
+		-- Scale quantity based off actions needed for farming.
+		return (gePrices[itemToLookUp] * outputQuantity) * (tonumber(actionsNeeded))
+	else
+		return 0
+	end
+end
+
+function createHeaders(skill)
+	local ret
+	
+	if ({ Woodcutting = true, Mining = true })[skill] then
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-6 align-right-7')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext('Output Price')
+			:tag('th'):wikitext('GP/XP')
+			:tag('th'):wikitext('Members')
+	elseif ({ Agility = true, Thieving = true })[skill] then
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+	elseif ({ Firemaking = true, Prayer = true, Construction = true })[skill] then
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-7 align-right-8')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext('Materials')
+			:tag('th'):wikitext('Input Cost')
+			:tag('th'):wikitext('GP/XP')
+			:tag('th'):wikitext('Members')
+	else
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-7 align-right-8 align-right-9 align-right-10')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext('Materials')
+			:tag('th'):wikitext('Input Cost')
+			:tag('th'):wikitext('Output Price')
+			:tag('th'):wikitext('Profit/Loss')
+			:tag('th'):wikitext('GP/XP')
+			:tag('th'):wikitext('Members')
+	end
+	
+	return ret
+end
+
+function make_row_no_materials(action, options)
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	local actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp) * options.leagueMultiplier
+	local numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+	local outputQuantity = action.outputQuantity and action.outputQuantity or 1
+	local members = helpers.membersIcon(action.members)
+	local getOutputPrice = getOutput(action.name, action.outputItem, outputQuantity, numberOfActionsNeeded, reducedNumberOfActions)
+	local gpXp = numberOfActionsNeeded == 0 and 0 or (getOutputPrice / actionExperience) / numberOfActionsNeeded
+	
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+		:tag('td'):wikitext(coins(commas(getOutputPrice))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+function make_row_barebones(action, options)
+	local actionExperience
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	if action.name == 'Agility Pyramid' then
+		actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp + (options.currentLevel < 88 and (300 + (options.currentLevel * 8)) or 1000)) * options.leagueMultiplier
+	else
+		actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp) * options.leagueMultiplier
+	end
+	local numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+	
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+end
+
+function make_row_no_profit(action, options)
+	local actionExperience
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	local boostablexp = action.boostablexp or action.xp --used for mahogany homes (and pyre logs), which has reward xp that is not boostable by the outfit and xp for making the items in the house which can be boosted (pyre logs are unaffected by the pyro outfit)
+	if options['bonus'] and otherBonuses[options['bonus']] and action.type == 'Regular' then
+		local value = otherBonuses[options['bonus']]
+		actionExperience = (helpers.jagexFloor(helpers.jagexFloor((boostablexp * value) * options.setValue, 1) + (action.xp * value), 1)) * options.leagueMultiplier
+	else
+		actionExperience = (helpers.jagexFloor(boostablexp * options.setValue, 1) + action.xp) * options.leagueMultiplier
+	end
+	local numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+	local members = helpers.membersIcon(action.members)
+	local materials = spreadMaterials(action.materials, numberOfActionsNeeded)
+	local getRawCost = getRaw(action.materials, numberOfActionsNeeded)
+	local gpXp = numberOfActionsNeeded == 0 and 0 or (-getRawCost / actionExperience) / numberOfActionsNeeded
+	local materialsOverride = ''
+	if materials == '-' then
+		materialsOverride = { ['text-align'] = 'center' }
+	end
+	
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+		:tag('td'):css(materialsOverride):wikitext(materials):done()
+		:tag('td'):wikitext(coins(commas(getRawCost))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+function make_row_full(action, options)
+	local outputQuantity, actionExperience, numberOfActionsNeeded
+	local rowColor = options.dataCriteria == 'Greyed out' and helpers.isRowGrey(action.level, options.currentLevel) or ''
+	local picture = action.pic or action.name
+	local compostInfo = compostValues[options['compost']]
+	local compostLife = compostInfo and compostInfo[1] or 0
+	local compostXp = compostInfo and compostInfo[2] or 0
+	local reducedNumberOfActions
+	if options['skill'] == 'Farming' and farmingCTS[action.name] then
+		local itemBonus = generateItemBonus(options, action.type, action.name)
+		local otherBonus = generateOtherBonus(options, action.type)
+		local harvestLives = 3 + compostLife
+		mw.log(action.name)
+		local estimatedYield = generateEstimatedYield(options.currentLevel, farmingCTS[action.name], harvestLives, itemBonus, otherBonus)
+		-- action.xp possible multiplied first here as well for the league multiplier?
+		local combinedXp = helpers.jagexFloor(estimatedYield * action.xp + (action.plantXp and action.plantXp or 0) + (action.healthXp and action.healthXp or 0) + compostXp, 1)
+		actionExperience = (helpers.jagexFloor(combinedXp * options.setValue, 1) + combinedXp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+		reducedNumberOfActions = numberOfActionsNeeded / estimatedYield
+		outputQuantity = estimatedYield
+	elseif action.assumedYield then
+		local combinedXp = helpers.jagexFloor(action.assumedYield * action.xp + (action.plantXp and action.plantXp or 0) + (action.healthXp and action.healthXp or 0) + compostXp, 1)
+		actionExperience = (helpers.jagexFloor(combinedXp * options.setValue, 1) + combinedXp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+		reducedNumberOfActions = numberOfActionsNeeded / action.assumedYield
+		outputQuantity = action.assumedYield
+	else
+		actionExperience = (helpers.jagexFloor(action.xp * options.setValue, 1) + action.xp + compostXp) * options.leagueMultiplier
+		numberOfActionsNeeded = math.ceil(options.experienceRemaining / actionExperience)
+		outputQuantity = action.outputQuantity and action.outputQuantity or 1
+	end
+	local members = helpers.membersIcon(action.members)
+	local materials = spreadMaterials(action.materials, numberOfActionsNeeded, reducedNumberOfActions)
+	local getRawCost = getRaw(action.materials, numberOfActionsNeeded, reducedNumberOfActions)
+	local getOutputPrice = getOutput(action.name, action.outputItem, outputQuantity, numberOfActionsNeeded, reducedNumberOfActions)
+	local profitLoss = getOutputPrice - getRawCost
+	local gpXp = numberOfActionsNeeded == 0 and 0 or ((profitLoss) / actionExperience) / numberOfActionsNeeded
+	local materialsOverride = ''
+	if materials == '-' then
+		materialsOverride = { ['text-align'] = 'center' }
+	end
+    
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):wikitext(commas(numberOfActionsNeeded)):done()
+		:tag('td'):css(materialsOverride):wikitext(materials):done()
+		:tag('td'):wikitext(coins(commas(getRawCost))):done()
+		:tag('td'):wikitext(coins(commas(getOutputPrice))):done()
+		:tag('td'):wikitext(coins(commas(profitLoss))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+function generateEstimatedYield(level, values, harvestLives, itemBonus, otherBonus)
+	local chanceValues = math.floor(((values[1] - 1/256) * (99 - level) / 98) + ((values[2] - 1/256) * (level - 1) / 98))
+	local itemBonuses = 1 + itemBonus
+	local otherBonuses = 1 + otherBonus
+	local chanceToSave = (math.floor(math.floor(chanceValues * itemBonuses) * otherBonuses) + 1) / 256
+	local expectedYield = harvestLives / (1 - chanceToSave)
+	
+	return expectedYield
+end
+
+function generateItemBonus(options, type, name)
+	local itemBonus = 0
+	
+	if options == nil then
+		return itemBonus
+	end
+	
+	for i, v in next, options, nil do
+		if itemBonuses[i] and v == 'true' then
+			if i == 'farmingCape' then
+				if type == 'Herb' then
+					itemBonus = itemBonus + tonumber(itemBonuses[i])
+				end
+			else
+				local usedFor = { Herb = true, Allotment = true, Hops = true, Special = true }
+				local doNotCalculate = { ['Giant seaweed'] = true, ['Cactus spine'] = true, ['Potato cactus'] = true }
+				if usedFor[type] and not doNotCalculate[name] then
+					itemBonus = itemBonus + tonumber(itemBonuses[i])
+				end
+			end
+		end
+	end
+	
+	return itemBonus
+end
+
+function generateOtherBonus(options, type)
+	local otherBonus = 0
+	
+	if options == nil then
+		return otherBonus
+	end
+	
+	for i, v in next, options, nil do
+		if otherBonuses[i] then
+			if i == 'diary' then
+				if type == 'Herb' then
+					otherBonus = otherBonus + tonumber(otherBonuses[i][v])
+				end
+			elseif v == 'true' then
+				otherBonus = otherBonus + tonumber(otherBonuses[i])
+			elseif v ~= 'false' then
+				otherBonus = otherBonus + tonumber(otherBonuses[i][v])
+			end
+		end
+	end
+	
+	return otherBonus
+end
+
+return p

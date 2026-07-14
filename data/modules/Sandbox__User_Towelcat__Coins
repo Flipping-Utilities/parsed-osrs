@@ -1,0 +1,93 @@
+-- <pre>
+-- Implements {{Coins}}
+-- Original source: http://runescape.wiki/w/Module:Coins?action=history
+
+local p = {}
+
+local function amount(a)
+	-- convert used globals to locals where possible to improve performance
+	local math = math
+	local string = string
+	local table = table
+	local mw = mw
+        local expr = mw.ext.ParserFunctions.expr
+
+	local ret = {'<span class="coins coins-', true, true, true, '</span>'}
+
+	-- strip commas from input
+	-- @example '123,456,789'
+	a = string.gsub(a, ',', '')
+	
+	-- check for decimals/division to determine if output should have forced 2 decimal places
+	local has_decimal_or_division = false
+	if string.match(a, "[./]") then
+		has_decimal_or_division = true
+	end
+	
+	-- for performance reasons, only calculate expr if required
+	if tonumber(a) == nil then
+		a = tonumber(expr(a)) or 0
+	end
+	
+	-- round to two decimal places
+	a = math.floor(a * 100 + 0.5) / 100
+
+	local num = math.abs(a)
+	local amounts = {10000, 1000, 250, 100, 25, 5, 4, 3, 2, 1}
+	local result = 10000
+	
+	for _, amount in ipairs(amounts) do
+		result = amount
+		if num >= amount then
+			break
+		end
+	end
+
+	ret[2] = tostring(result)
+
+	-- set a class to denote positive or negative (css sets the colour)
+	if a > 0 then
+		ret[3] = ' coins-pos">'
+	elseif a < 0 then
+		ret[3] = ' coins-neg">'
+	else
+		ret[3] = '">'
+	end
+	
+	-- format number with commas
+	if has_decimal_or_division then
+		local b = 0
+		a, b = math.modf(a)
+		b = math.abs(b)
+		-- hack fix for formatNum stripping the sign from -0
+		if (a > 999 or a < -999) then
+			a = mw.language.getContentLanguage():formatNum(a)
+		end
+		b = string.sub(string.format("%.2f", b),2)
+		ret[4] = a..b
+	else
+		ret[4] = mw.language.getContentLanguage():formatNum(a)
+	end
+
+	return table.concat( ret )
+end
+
+--
+-- {{Coins}} access point
+--
+function p.amount(frame)
+	local args = frame:getParent().args
+	-- for {{coins|111}}
+	local a = args[1] or '0'
+	return amount(a)
+end
+
+--
+-- Module access point
+--
+function p._amount(a)
+	a = tostring(a) or '0'
+	return amount(a)
+end
+
+return p

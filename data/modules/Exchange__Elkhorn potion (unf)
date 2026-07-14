@@ -4,7 +4,7 @@ return {
 	icon      = 'Elkhorn potion (unf).png',
     alchable  = true,
 	value     = 25,
-	limit     = nil,
+	limit     = 10000,
 	members   = true,
 	category  = nil,
 	examine   = "I need another ingredient to finish this Elkhorn potion."

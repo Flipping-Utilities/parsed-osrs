@@ -1,0 +1,59 @@
+-- <nowiki>
+local p = {}
+local enum = require( 'Module:Array' )
+local dpl = require( 'Module:DPLlua' )
+
+function p.main( frame )
+    local args = (frame:getParent() or frame).args
+    return p._main( args )
+end
+
+function p._main( args )
+	local pageName = string.lower( args.pageName )
+	local searchType = args.searchType == 'Category' and 'category' or 'linksto'
+    local continue = true
+    local offset = 0
+    local whatLinksHere = {}
+    local directLinks = {}
+
+    while continue do
+        local response = dpl.ask({
+        	[searchType] = args.pageName,
+            offset = offset
+        })
+
+        local start = #whatLinksHere
+        for i = 1, #response do
+            whatLinksHere[ start + i ] = response[ i ]
+        end
+
+        offset = offset + 500
+        continue = #response == 500
+    end
+
+    for _, page in ipairs( whatLinksHere ) do
+        local content = mw.title.new( page ):getContent()
+        if content and content ~= '' then
+            for match in string.gmatch( content, '%[%[(.-)[|%]]' ) do
+                if match:lower() == pageName then
+                    table.insert( directLinks, page )
+                end
+            end
+        end
+    end
+
+    directLinks = enum.unique( directLinks )
+    table.sort( directLinks )
+    directLinks = enum.map( directLinks, function( item )
+        return string.format( '* <span class="plainlinks">[%s %s] ([%s edit])</span>',
+            tostring( mw.uri.fullUrl( item, {target='_blank'} ) ),
+            item,
+            tostring( mw.uri.fullUrl( item, {action='edit', target='_blank'} ) )
+        )
+    end )
+
+    return string.format( 'page count: %d\n', #directLinks ) .. table.concat( directLinks, '\n' )
+end
+
+return p
+-- </nowiki>

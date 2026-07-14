@@ -1,0 +1,172 @@
+-- <nowiki>
+local p = {}
+
+local hasc = require('Module:Paramtest').has_content
+local gep = require('Module:Exchange')._price
+
+function p.main()
+	local pvm = {}
+	
+	pvm['weapons'] = p.weapons()
+	pvm['armour'] = p.armour()
+	pvm['shields'] = p.shields()
+	pvm['other'] = p.other()
+	pvm['unlocks'] = p.unlocks()
+	pvm['supplies'] = p.supplies()
+	pvm['costs'] = p.costs()
+	
+	return pvm
+end
+
+function p.costs()
+	local costs = {}
+	
+	return costs
+end
+
+function p.weapons()
+	local weapons = {}
+	local melee = {}
+	local ranged = {}
+	local magic = {}
+	local utility = {}
+	
+	return weapons
+end
+
+function p.armour()
+	local armour = {}
+	local melee = {}
+	local ranged = {}
+	local magic = {}
+	local hybrid = {}
+	
+	return armour
+end
+
+function p.shields()
+	local shields = {}
+	local melee = {}
+	local ranged = {}
+	local magic = {}
+	
+	return shields
+end
+
+function p.other()
+	local other = {}
+	local melee = {}
+	local ranged = {}
+	local magic = {}
+	local all = {}
+	
+	return other
+end
+
+function p.unlocks()
+	local unlocks = {}
+	local melee = {}
+	local ranged = {}
+	local magic = {}
+	local all = {}
+	local free = {}
+	
+	return unlocks
+end
+
+function p.supplies()
+	local supplies = {}
+	local ammo = {}
+	local runes = {}
+	local healing = {}
+	local prayer = {}
+	local potions = {}
+	local other = {}
+	local headers = { "ammo", "runes", "healing", "prayer", "potions", "other" }
+	local costheaders = { "cost per", "cost per", "cost per [[Hitpoints]]", "cost per [[Prayer]] points", "cost per dose", "cost per" }
+	
+	--ammo
+	local ammoitems = {
+		"Amethyst arrow",
+		"Dragon arrow",
+		"Ruby bolts (e)",
+		"Sapphire dragon bolts (e)",
+		"Ruby dragon bolts (e)",
+		"Diamond dragon bolts (e)",
+		"Moonlight antler bolts",
+		"Amethyst dart",
+		"Dragon dart",
+		"Atlatl dart"
+	}
+	for i=1,#ammoitems do
+		ammo[#ammo + 1] = { item = ammoitems[i], cost = gep(ammoitems[i]) }
+	end
+	--runes
+	local runetypes = {
+		"Air",
+		"Water",
+		"Earth",
+		"Fire",
+		"Sunfire",
+		"Mist",
+		"Dust",
+		"Mud",
+		"Smoke",
+		"Steam",
+		"Lava",
+		"Body",
+		"Cosmic",
+		"Chaos",
+		"Astral",
+		"Law",
+		"Death",
+		"Blood",
+		"Soul",
+		"Wrath",
+		"Aether"
+	}
+	for i=1,#runetypes do
+		local item = runetypes[i].." rune"
+		runes[#runes + 1] = { item = item, cost = gep(item) }
+	end
+	--healing
+	local healingitems = {
+		["Shark"] = 20,
+		["Sea turtle"] = 21,
+		["Manta ray"] = 22,
+		["Dark crab"] = 22,
+		["Marlin"] = 24,
+		["Cooked moonlight antelope"] = 26,
+		["Anglerfish"] = 22,
+		["Bluefin"] = 22,
+		["Cooked karambwan"] = 18,
+		["Halibut"] = 20,
+		["Blighted karambwan"] = 18,
+		["Blighted manta ray"] = 22,
+		["Blighted anglerfish"] = 22,
+		["Saradomin brew(4)"] = 16 * 4,
+		["Armadyl brew(4)"] = 11 * 4,
+		["Guthix rest(4)"] = 5 * 4
+	}
+	for i, j in pairs(healingitems) do
+		healing[#healing + 1] = { item = i, cost = math.floor(gep(i) / j * 100) / 100 }
+	end
+	--prayer
+	local prayeritems = {
+		["Prayer potion(4)"] = 31 * 4,
+		["Super restore(4)"] = 32 * 4,
+		["Sanfew serum(4)"] = 33 * 4,
+		["Moonlight moth mix (2)"] = 22 * 2,
+		["Prayer regeneration potion(4)"] = 66 * 4,
+		["Blighted super restore(4)"] = 32 * 4
+	}
+	for i, j in pairs(prayeritems) do
+		prayer[#prayer + 1] = { item = i, cost = math.floor(gep(i) / j * 100) / 100 }
+	end
+	
+	supplies[1], supplies[2], supplies[3], supplies[4], supplies[5], supplies[6], supplies['headers'], supplies['costheaders'] = ammo, runes, healing, prayer, potions, other, headers, costheaders
+	return supplies
+end
+
+return p
+-- </nowiki>

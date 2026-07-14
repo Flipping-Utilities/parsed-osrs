@@ -1,0 +1,90 @@
+local p = {}
+
+local params = require('Module:Paramtest')
+
+local slots = {
+	{ placement = 1, name = 'helm', icon = 'Head slot', txt = 'Head', link = 'Combat_only_pure/Head_slot_table' },
+	{ placement = 2, name = 'neck', icon = 'Neck slot', txt = 'Neck', link = 'Combat_only_pure/Neck_slot_table' },
+	{ placement = 3, name = 'cape', icon = 'Cape slot', txt = 'Back', link = 'Combat_only_pure/Cape_slot_table' },
+	{ placement = 4, name = 'body', icon = 'Body slot', txt = 'Body', link = 'Combat_only_pure/Body_slot_table' },
+	{ placement = 5, name = 'legs', icon = 'Legs slot', txt = 'Legs', link = 'Combat_only_pure/Legs_slot_table' },
+	{ placement = 6, name = 'weapon', icon = 'Weapon slot', txt = 'Weapon', link = 'Combat_only_pure/Weapon_slot_table' },
+	{ placement = 7, name = 'shield', icon = 'Shield slot', txt = 'Shield', link = 'Combat_only_pure/Shield_slot_table' },
+	{ placement = 8, name = '2hweapon', icon = '2h slot', txt = 'Two-handed weapon', link = 'Combat_only_pure/Two-handed_slot_table' },
+	{ placement = 9, name = 'ammo', icon = 'Ammo slot', txt = 'Ammo/Spell', link = 'Combat_only_pure/Ammo_slot_table' },
+	{ placement = 10, name = 'hands', icon = 'hands slot', txt = 'hands', link = 'Combat_only_pure/Hands_slot_table' },
+	{ placement = 11, name = 'boots', icon = 'Boots slot', txt = 'Boots', link = 'Combat_only_pure/Feet_slot_table' },
+	{ placement = 12, name = 'ring', icon = 'Ring slot', txt = 'Ring', link = 'Combat_only_pure/Ring_slot_table' },
+	{ placement = 13, name = 'special', icon = 'Special attack orb', txt = 'Special attack', link = '' }
+}
+
+function p.main(frame)
+	local args = frame:getParent().args	
+	-- Dynamic colspan and N/A generation value
+	local greatest_row_size = 0
+	-- Number of choices each slot can have
+	local number_of_possible_choices = 8
+	-- Have to sort this table or else the order is messed up when you use it
+	table.sort(slots, function(a, b) return a.placement < b.placement end)
+	
+	local function make_row(slot, data)
+		local tr = mw.html.create('tr')
+		tr:tag('td'):wikitext(string.format('[[File:%s.png|%s|link=%s]]', slot.icon, slot.txt, slot.link))
+		for _, v in ipairs(data) do
+			tr:tag('td'):wikitext(v)
+		end
+		
+		-- If the data size is smaller than GRS, then we need to fill up the remaining td's with N/As
+		if #data < greatest_row_size then
+			local difference = greatest_row_size - #data
+			for i = 1, difference, 1 do
+				tr:tag('td'):addClass('table-na'):wikitext('N/A')	
+			end
+		end
+		return tr
+	end
+	
+	-- Find the greatest row count
+	for _, v in next, slots, nil do
+		local grs = 0
+		for i = 1, number_of_possible_choices, 1 do
+			local check = args[v.name .. i]
+			if check and params.has_content(check) then
+				grs = grs + 1	
+			end
+		end
+		
+		if greatest_row_size < grs then
+			greatest_row_size = grs	
+		end
+	end
+	
+	local parent = mw.html.create('table'):addClass('wikitable sticky-header')
+	
+	-- If style is passed in, apply it above the table
+	if args.style and params.has_content(args.style) then
+		parent:tag('caption'):wikitext(string.format('Recommended equipment for %s', args.style))
+	end
+	
+	parent:tag('tr')
+		:tag('th'):wikitext('Slot'):done()
+		:tag('th'):attr('colspan', greatest_row_size):wikitext('Item (End Game → Mid Game → Early Game)'):done()
+		
+	for _, v in next, slots, nil do
+		local row_data = {}
+		for i = 1, number_of_possible_choices, 1 do
+			local gear = args[v.name .. i]
+			if gear and params.has_content(gear) then
+				table.insert(row_data, gear)
+			end
+		end
+		
+		if #row_data > 0 then
+			parent:node(make_row(v, row_data))
+		end
+	end
+		
+	return tostring(parent)
+end
+
+return p

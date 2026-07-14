@@ -1,0 +1,92 @@
+local p = {}
+
+local math = math
+local mw = mw
+local table = table
+
+-- Generate a map of boost to an array of levels
+local function generate_level_map(maxLevel, percentage, addition)
+	local levels = {}
+	for level = 1,maxLevel,1
+	do
+		local boostAmount = tostring(math.floor(percentage * level + addition))
+		if levels[boostAmount] == nil then
+			levels[boostAmount] = {}
+		end
+		table.insert(levels[boostAmount], level)
+	end
+	return levels
+end
+
+-- Get the total amount of rows based on the total cells (boosts)
+local function get_total_rows(totalCells)
+	local totalRows = 7
+	local emptyCells = math.fmod(totalCells, totalRows)
+	for i = totalRows, 1, -1 do
+    	local emptyCellsI = math.fmod(totalCells, i)
+    	if (emptyCellsI < emptyCells) then
+    		totalRows = i
+    		emptyCells = emptyCellsI
+		end
+	end
+	return totalRows
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local maxLevel = tonumber(args.maxLevel or 99)
+	local percentage = args.percentage or 1
+	local addition = tonumber(args.addition or 0)
+	local type = args.type or 'boost'
+	
+	return p._main(args.skill, maxLevel, percentage, addition, type)
+end
+
+function p._main(skill, maxLevel, percentage, addition, type)
+	local levels =  generate_level_map(maxLevel, percentage, addition)
+	local totalCells=0 
+	for _ in pairs(levels) do totalCells=totalCells+1 end
+	local totalRows = get_total_rows(totalCells)
+	local totalColumns = math.ceil(totalCells / totalRows)
+	
+	local levelsTable = mw.html.create('table')
+		:addClass('wikitable')
+		:css({['text-align'] = 'center'})
+		
+	-- Create the table header
+	local headerRow = levelsTable:tag('tr')
+	for i = 1, totalColumns, 1 do
+		headerRow
+			:tag('th'):wikitext((skill ~= nil and (skill .. ' ') or '') .. 'Level'):done()
+			:tag('th'):wikitext(type == "boost" and 'Boost' or 'Drain'):done()
+	end
+	headerRow:done()
+	
+	-- Sort the levels by the key (boost amount)
+	local sortedLeveKeys = {}
+	for k in pairs(levels) do table.insert(sortedLeveKeys, k) end
+	table.sort(sortedLeveKeys, function (a,b)
+		return tonumber(a) < tonumber(b)
+	end)
+	
+	local column = 0
+	for row = 1, totalRows, 1 do
+		local tableRow = levelsTable:tag('tr')
+		for column = 1, totalColumns, 1 do
+			local position = row + ((column - 1) * totalRows)
+			local levelKey = sortedLeveKeys[position]
+			if levelKey ~= nil then
+				tableRow:tag('td'):wikitext(levels[levelKey][1] .. " - " .. levels[levelKey][#levels[levelKey]])
+					:css({ ['font-weight'] = 'bold' })
+					:done()
+				tableRow:tag('td'):wikitext((type == "boost" and "+" or "-") .. levelKey):done()
+			end
+		end
+		tableRow:done()
+	end
+	levelsTable:done()
+	
+	return tostring(levelsTable)
+end
+
+return p

@@ -1,0 +1,130 @@
+local p = {}
+
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+local skillPic = require('Module:SCP')._main
+local Paramtest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+
+local skillBoosts = require('Module:Sandbox/User:Fjara/Diary calculator/Boosts')
+local ardougneTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Ardougne')
+local desertTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Desert')
+local faladorTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Falador')
+local fremennikTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Fremennik')
+local kandarinTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Kandarin')
+local karamjaTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Karamja')
+local kourendTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Kourend & Kebos')
+local lumbridgeTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Lumbridge & Draynor')
+local morytaniaTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Morytania')
+local varrockTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Varrock')
+local westernTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Western Provinces')
+local wildernessTasks = require('Module:Sandbox/User:Fjara/Diary calculator/Wilderness')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	mw.logObject(args)
+	
+	local agilityLvl, attackLvl, constructionLvl, cookingLvl, craftingLvl, defenceLvl, farmingLvl, firemakingLvl, fishingLvl, fletchingLvl, herbloreLvl, hitpointsLvl, hunterLvl, magicLvl, miningLvl, prayerLvl, rangedLvl, runecraftLvl, slayerLvl, smithingLvl, strengthLvl, thievingLvl, woodcuttingLvl, qp, stewToggle, requirements = Paramtest.defaults{
+		{ args.agility, 1 },
+		{ args.attack, 1 },
+		{ args.construction, 1 },
+		{ args.cooking, 1 },
+		{ args.crafting, 1 },
+		{ args.defence, 1 },
+		{ args.farming, 1 },
+		{ args.firemaking, 1 },
+		{ args.fishing, 1 },
+		{ args.fletching, 1 },
+		{ args.herblore, 1 },
+		{ args.hitpoints, 10 },
+		{ args.hunter, 1 },
+		{ args.magic, 1 },
+		{ args.mining, 1 },
+		{ args.prayer, 1 },
+		{ args.ranged, 1 },
+		{ args.runecraft, 1 },
+		{ args.slayer, 1 },
+		{ args.smithing, 1 },
+		{ args.strength, 1 },
+		{ args.thieving, 1 },
+		{ args.woodcutting, 1 },
+		{ args.qp, 0 },
+		{ args.stewToggle, false },
+		{ args.requirements, 'Normal - DMM - Seasonal DMM' }
+	}
+	
+	agilityLvl, attackLvl, constructionLvl, cookingLvl, craftingLvl, defenceLvl, farmingLvl, firemakingLvl, fishingLvl, fletchingLvl, herbloreLvl, hitpointsLvl, hunterLvl, magicLvl, miningLvl, prayerLvl, rangedLvl, runecraftLvl, slayerLvl, smithingLvl, strengthLvl, thievingLvl, woodcuttingLvl, qp = agilityLvl, tonumber(attackLvl), tonumber(constructionLvl), tonumber(cookingLvl), tonumber(craftingLvl), tonumber(defenceLvl), tonumber(farmingLvl), tonumber(firemakingLvl), tonumber(fishingLvl), tonumber(fletchingLvl), tonumber(herbloreLvl), tonumber(hitpointsLvl), tonumber(hunterLvl), tonumber(magicLvl), tonumber(miningLvl), tonumber(prayerLvl), tonumber(rangedLvl), tonumber(runecraftLvl), tonumber(slayerLvl), tonumber(smithingLvl), tonumber(strengthLvl), tonumber(thievingLvl), tonumber(woodcuttingLvl), tonumber(qp)
+
+    local cmbLvl = math.floor((math.max((attackLvl + strengthLvl), magicLvl * 1.5, rangedLvl * 1.5) * 1.3 + defenceLvl + hitpointsLvl + math.floor(prayerLvl * 0.5)) * 0.25)
+	local message = string.format(" Combat level: %s, with attack level of %s", cmbLvl, attackLvl)
+	
+    if (yesNo(stewToggle)) and ((cookingLvl < 25) or (craftingLvl < 30) or (thievingLvl < 25) or (qp < 7)) then --I can make this more informative/modular
+	    message = message .. "\n For spicy stew, 25 Cooking, 30 Crafting, 25 Thieving and 7 Quest points are required, but skills may be boosted from 22, 26, and 24 respectively."
+	end
+    
+    --local allTables = {}
+    local diary = {	ardougneTasks, desertTasks, faladorTasks, fremennikTasks, karamjaTasks, kourendTasks, lumbridgeTasks, morytaniaTasks, varrockTasks, westernTasks, wildernessTasks}
+    for _, v in ipairs(diary) do
+		for i, w in ipairs(v('easy')) do
+		end
+		for i, w in ipairs(v('medium')) do
+		end
+		for i, w in ipairs(v('hard')) do
+		end
+		for i, w in ipairs(v('elite')) do
+		end
+	end
+    
+    local ez = "\n===Easy===\n"
+    local med = "\n===Medium===\n"
+    local hard = "\n===Hard===\n"
+    local elite = "\n===Elite===\n"
+	return message .. "\n==Ardougne Diary==" .. ez --.. tostring(ardougneEasy) ..  "\n===Medium===\n"
+end
+
+-- -1 is not-completable, 0 is boostable, 1 is completable without boosts
+--for each diary, for each location
+----Create collapsible header for internal table, task#, Task, questReq, skillReq, itemReq, notes
+----Check completability for each task, boosts if neeeded, count items and quests
+----Create content for table
+----Create header for main tier table, Stats:green if no boost, yellow if boost, listing all possibl boosts possible, red if unboostable with # of levels to soonest boost + # of levels to actual level.Questlist: if qp entered >= total unique questpoints, green else red (eventually internalize all quest reqs and tell if able to boost to complete quests if skills are there), list all items - non-consumed items are 0 but wil be listed
+
+
+function p.checkTask(task)
+	for _, v in ipairs(task.skills) do
+		
+	end
+	--return nil
+end
+
+function p.createHeader(taskName)
+	local ret = mw.html.create('table'):addClass('wikitable mw-collapsible align-center-1 align-left-2 align-left-3 align-center-4 align-left-5 align-left-6')
+	ret:tag('tr')
+		:tag('th'):wikitext('#')
+		:tag('th'):wikitext('Task')
+		:tag('th'):wikitext('Quest(s) Required')
+		:tag('th'):wikitext('Skill(s) Required')
+		:tag('th'):wikitext('Item(s) Required')
+		:tag('th'):wikitext('Notes')
+	return ret
+end
+
+function p.calculateDiary(agilityLvl, attackLvl, constructionLvl, cookingLvl, craftingLvl, defenceLvl, farmingLvl, firemakingLvl, fishingLvl, fletchingLvl, herbloreLvl, hitpointsLvl, hunterLvl, magicLvl, miningLvl, prayerLvl, rangedLvl, runecraftLvl, slayerLvl, smithingLvl, strengthLvl, thievingLvl, woodcuttingLvl, qp, stewToggle, requirements)
+	-- Get diary data and boost data
+
+	-- Loop through each diary list, check reqs for completion, then make each table row of data
+	for _, v in ipairs(data) do
+		
+	end
+	--function p.isRowGrey(actionLevel, currentLevel)
+	--local color = ''
+	--local aLevel = actionLevel and actionLevel or 1
+	--if aLevel > tonumber(currentLevel) then
+    --	color = 'table-bg-calc-grey'
+    --end
+    --return color
+end
+
+return p

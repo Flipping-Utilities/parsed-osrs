@@ -1,0 +1,175 @@
+local p = {}
+local dpl = require('Module:DPLlua')
+
+local wornTagIndices = {
+	['head'] = 1,
+	['ammo2'] = 2,
+	['cape'] = 8,
+	['neck'] = 9,
+	['ammo'] = 10,
+	['weapon'] = 16,
+	['torso'] = 17,
+	['shield'] = 18,
+	['legs'] = 25,
+	['gloves'] = 32,
+	['boots'] = 33,
+	['ring'] = 34
+}
+
+local invTagIndices = {
+	4,5,6,7,
+	12,13,14,15,
+	20,21,22,23,
+	28,29,30,31,
+	36,37,38,39,
+	44,45,46,47,
+	52,53,54,55
+}
+
+local runesTagIndices = {
+	40,41,42,43
+}
+
+function p.main(frame)
+	args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local tagName = args['tagname']
+	local tagIcon = args['tagicon']
+	if tagName == nil or tagName == '' then
+		return
+	end
+	if tagIcon == nil or tagIcon == '' then
+		return
+	end
+	
+	local nameList = parseItemArgs(args)
+	if nameList == nil or #nameList <= 0 then
+		return
+	end
+	local nameToId = findItemIds(nameList)
+	
+	local indexMappedTagData = {}
+	-- map inventory args to bank tag layout index
+	for argindex,tagindex in ipairs(invTagIndices) do
+		local itemNameArg = args[argindex]
+		local itemId = nameToId[itemNameArg]
+		indexMappedTagData[tagindex] = itemId
+	end
+	
+	-- manually map rune pouch data
+	indexMappedTagData[40] = nameToId[args[29]]
+	indexMappedTagData[41] = nameToId[args[30]]
+	indexMappedTagData[42] = nameToId[args[31]]
+
+	-- map worn equipment args to bank tag layout index
+	for slotName,bankTagIndex in pairs(wornTagIndices) do
+		local slotItemName = args[slotName]
+		local slotItemId = nameToId[slotItemName]
+		indexMappedTagData[bankTagIndex] = slotItemId -- worn equipment for each slot
+	end
+	
+	local tagStr = buildBankTag(tagName, tagIcon, indexMappedTagData)
+	
+	local pageHtml = renderPage(args, tagStr)
+	local frame = mw.getCurrentFrame()
+	local newPageHtml = frame:preprocess(pageHtml)
+	
+	local container = mw.html.create('div')
+	container:node(newPageHtml)
+	
+	local resultsDiv = mw.html.create('div')
+	resultsDiv:css({display = 'none'})
+	resultsDiv:addClass('banktag-div')
+	resultsDiv:node(tagStr)
+	
+	container:node(resultsDiv)
+	
+	return container
+end
+
+function renderPage(args, bankTagStr)
+	
+	local inventoryStr = "{{Inventory|align=right%s}}"
+	local invArgsStr = ""
+	for idx = 1, 28, 1 do
+		if args[idx] and args[idx] ~= '' then
+			invArgsStr = invArgsStr .. '|' .. args[idx]
+		end
+	end
+	inventoryStr = string.format(inventoryStr, invArgsStr)
+	
+	local gearStr = "{{Equipment%s|align=right|buttons = No}}"
+	local gearArgsStr = ""
+	for k,v in pairs(wornTagIndices) do
+		if args[k] and args[k] ~= '' then
+			gearArgsStr = gearArgsStr .. string.format('|%s=%s', k, args[k])
+		end
+	end
+	gearStr = string.format(gearStr, gearArgsStr)
+	
+	local runePouch = string.format("{{Rune pouch|align = %s|1 = %s|2 = %s|3 = %s}}", args['align'], args[29], args[30], args[31])
+	return gearStr .. inventoryStr .. runePouch
+end
+
+function parseItemArgs(args)
+	local nameList = {}
+	-- insert worn names
+	for k,_ in pairs(wornTagIndices) do
+		tryAddItem(nameList, args, k)
+	end
+	-- insert inventory names
+	for iIdx = 1, 28, 1 do
+		tryAddItem(nameList, args, iIdx)
+	end
+	-- insert rune pouch names
+	for rIdx = 29, 31, 1 do
+		tryAddItem(nameList, args, rIdx)
+	end
+	return nameList
+end
+
+function tryAddItem(nameList, args, slot)
+	if args[slot] and args[slot] ~= '' then
+		table.insert(nameList, args[slot])
+	end
+end
+
+function findItemIds(items)
+	-- generate dynamic or list from item names
+	local orList = {}
+	for _,name in ipairs(items) do
+		table.insert(orList, {'item_name', name})
+	end
+	
+	-- query bucket for data and return
+	mw.logObject(items)
+	local itemData = bucket('infobox_item')
+		.select('item_name', 'item_id')
+		.where(bucket.Or(orList))
+		.run()
+		
+	-- format into ['itemName'] = itemId map
+	local nameToId = {}
+	for _,v in ipairs(itemData) do
+		local itemName = v['item_name']
+		if nameToId[itemName] == nil then
+			local id = v['item_id'][1]
+			nameToId[itemName] = id
+		end
+	end
+	return nameToId
+end
+
+function buildBankTag(tagName, tagIcon, tagItemData)
+	local tagTabStr = string.format('banktags,1,%s,%s,layout', tagName, tagIcon)
+	for k,v in pairs(tagItemData) do
+		tagTabStr = tagTabStr .. string.format(',%s,%s', k, v)
+	end
+	mw.log(tagTabStr)
+	return tagTabStr
+end
+
+return p

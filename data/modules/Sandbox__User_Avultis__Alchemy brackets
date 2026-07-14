@@ -1,0 +1,61 @@
+local p = {}
+local yesno = require('Module:Yesno')
+
+-- Load the same data modules as Profitable_alchemy_list
+local prices = mw.loadJsonData('Module:GEPrices/data.json')
+local values = mw.loadJsonData('Module:GEValues/data.json')
+local limits = mw.loadJsonData('Module:GELimits/data.json')
+local volumes = mw.loadJsonData('Module:GEVolumes/data.json')
+local members = mw.loadJsonData('Module:GEMembers/data.json')
+
+local function getItems(args)
+    local minval = tonumber(args.minval) or 0
+    local maxval = tonumber(args.maxval) or math.huge
+    local f2pOnly = yesno(args.f2p)
+    local minVolume = tonumber(args.volume) or 0
+    local minLimit = tonumber(args.buylimit) or 0
+
+    local items = {}
+    for item, val in pairs(values) do
+        if type(val) == 'number' and val >= minval and val <= maxval then
+            local price = prices[item]
+            if price and type(price) == 'number' then  -- Ensures tradable on GE
+                local vol = volumes[item] or 0
+                local lim = limits[item] or 0
+                if vol >= minVolume and lim >= minLimit then
+                    local isMembers = members[item]
+                    if not f2pOnly or not isMembers then
+                        table.insert(items, {name = item, alch = val})
+                    end
+                end
+            end
+        end
+    end
+
+    -- Sort descending by alch value (like profitable list sorts by profit)
+    table.sort(items, function(a, b) return a.alch > b.alch end)
+    return items
+end
+
+function p.main(frame)
+    local args = frame:getParent().args  -- Same as profitable module
+    local items = getItems(args)
+    local maxNum = tonumber(args.num) or 1000  -- Limit to prevent overload
+
+    local rows = {}
+    for i = 1, math.min(#items, maxNum) do
+        local item = items[i]
+        -- Right-aligned alch column for readability/sortability
+        table.insert(rows, '| style="text-align: right;" | ' .. item.alch .. ' || [[' .. item.name .. ']]')
+    end
+
+    -- Full wikitable markup (sortable, collapsible for large brackets)
+    local output = '{| class="wikitable sortable mw-collapsible autocollapse" style="min-width: 20em; margin: auto;"' ..
+                   '\n! style="text-align: right;" | High Alch !! Item' ..
+                   '\n|-' ..
+                   table.concat(rows, '\n|-') ..
+                   '\n|}'
+    return output
+end
+
+return p

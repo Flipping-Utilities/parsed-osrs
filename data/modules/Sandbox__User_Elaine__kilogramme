@@ -1,0 +1,166 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+local tb = require('Module:Trailblazer Region').regionsForInfobox
+
+function buildRow(itemData)
+    local itemPage = itemData.page_name
+    local imageName = itemData.image[1]
+    local region = itemData.league_region
+    local regionRaw = region ~= nil and region ~= '' and string.lower(region) or ''
+
+    local row = mw.html.create('tr')
+    row:attr('data-item-id', tostring(itemData.item_id[1]))
+    row:attr('data-league-area-for-filtering', regionRaw)
+    row:tag('td'):wikitext('[[' .. imageName .. '|link=' .. itemPage .. ']]'):done()
+    row:tag('td'):wikitext('[[' .. itemPage .. '|' .. itemData.item_name .. ']]'):done()
+    
+    if itemData.equipment_slot == '2h' then
+	    row:tag('td'):wikitext('[[File:2h_slot.png|link=Two handed]] Two-handed'):done()
+	else
+	    row:tag('td'):wikitext('[[File:Weapon_slot.png|link=One handed]] One-handed'):done()
+	end
+    
+    row:tag('td'):wikitext(itemData.weight .. ' kg'):done()
+
+	if itemData.weapon_attack_speed ~= nil then
+	    row:tag('td'):wikitext(itemData.weapon_attack_speed .. ' ticks (' .. itemData.weapon_attack_speed * 0.6 .. 's)'):done()
+	else
+	    row:tag('td'):wikitext('N/A'):addClass('table-na nohighlight'):done()
+	end
+	
+	if itemData.strength_bonus >= 0 then 
+		row:tag('td'):wikitext('[[File:Strength_icon.png|link=Strength bonus]] +' .. itemData.strength_bonus):done()
+	else
+		row:tag('td'):wikitext('[[File:Strength_icon.png|link=Strength bonus]] ' .. itemData.strength_bonus):done()
+	end
+
+    if region ~= nil and region ~= '' then
+        row:tag('td'):wikitext(tb(region)):done()
+    else
+        row:tag('td'):wikitext('N/A'):addClass('table-na nohighlight'):done()
+    end
+	
+	return row
+end
+
+function createHeader()
+	local tabl = mw.html.create('table'):addClass('wikitable mw-collapsible mw-collapsed sortable sticky-header qc-active tbrl-tasks align-center-1')
+	local row = tabl:tag('tr')
+	row:tag('th'):wikitext('Item name'):attr('colspan', '2'):done()
+	row:tag('th'):wikitext('Weapon Slot'):done()
+	row:tag('th'):wikitext('Weight'):done()
+	row:tag('th'):wikitext('Attack Speed'):done()
+	row:tag('th'):wikitext('Strength Bonus'):done()
+	row:tag('th'):wikitext('League Region'):done()
+	return tabl
+end
+
+function loadData(limit, heavy)
+	local operator
+	if heavy then
+	    operator = ">" 
+	else
+	    operator = "<"
+	end
+	
+	local weapons = bucket("infobox_bonuses")
+		.select("page_name", "page_name_sub", "equipment_slot", "weapon_attack_speed", "strength_bonus")
+		.join("infobox_item", "infobox_item.page_name_sub", "infobox_bonuses.page_name_sub")
+		.where(
+	        bucket.Or({'equipment_slot', '2h'}, {'equipment_slot', 'weapon'}),
+	        bucket.Or(
+	            {'combat_style', '=', '2h sword'},
+				{'combat_style', '=', 'Axe'},
+				{'combat_style', '=', 'Banner'},
+				{'combat_style', '=', 'Blunt'},
+				{'combat_style', '=', 'Bludgeon'},
+				{'combat_style', '=', 'Bulwark'},
+				{'combat_style', '=', 'Claw'},
+				{'combat_style', '=', 'Egg'},
+				{'combat_style', '=', 'Partisan'},
+				{'combat_style', '=', 'Pickaxe'},
+				{'combat_style', '=', 'Polearm'},
+				{'combat_style', '=', 'Polestaff'},
+				{'combat_style', '=', 'Scythe'},
+				{'combat_style', '=', 'Slash sword'},
+				{'combat_style', '=', 'Spear'},
+				{'combat_style', '=', 'Spiked'},
+				{'combat_style', '=', 'Stab sword'},
+				{'combat_style', '=', 'Whip'}
+	        ),
+	        bucket.Not('Category:Bounty_Hunter'),
+	        bucket.Not('Category:Beta_items'),
+	        bucket.Not('Category:Discontinued content'),
+	        bucket.Not('Category:Deadman: Armageddon'),
+	        bucket.Not('Category:Trailblazer_League'),
+	        bucket.Not('Category:Trailblazer_Reloaded_League'),
+	        bucket.Not('Category:Raging_Echoes_League'),
+	        bucket.Not('Category:Twisted_League'),
+	        bucket.Not('Category:Shattered_Relics_League'),
+	        bucket.Not('Category:Quest_Speedrunning'),
+	        bucket.Not('Category:Pages_containing_information_from_failed_polls'),
+	        bucket.Not('Category:Last Man Standing'),
+	        bucket.Not('Category:Deadman Mode'),
+	        bucket.Not('Category:Clans'),
+	        bucket.Not('Category:Event_rewards')
+	    )
+		.limit(limit)
+		.run()
+
+	assert(weapons ~= nil and #weapons > 0, 'Bucket query failed')
+
+	local weights = bucket("infobox_item")
+	    .select("page_name", "item_name", "item_id", "weight", "image", "league_region")
+	    .where("weight", operator, 1)
+	    .limit(limit)
+	    .run()
+
+	assert(weights ~= nil and #weights > 0, 'Bucket query failed')
+
+	local twoHandedSet = {}
+	for _, entry in ipairs(weapons) do
+	    twoHandedSet[entry.page_name] = {
+	        weapon_attack_speed = entry.weapon_attack_speed,
+	        strength_bonus = entry.strength_bonus,
+	        equipment_slot = entry.equipment_slot
+	    }
+	end
+	
+	local allData = {}
+	for _, itemData in ipairs(weights) do
+	    local weaponEntry = twoHandedSet[itemData.page_name]
+	    if weaponEntry and itemData.item_id and itemData.item_id[1] then
+	        itemData.weapon_attack_speed = weaponEntry.weapon_attack_speed
+	        itemData.strength_bonus = weaponEntry.strength_bonus
+	        itemData.equipment_slot = weaponEntry.equipment_slot
+	        table.insert(allData, itemData)
+	    end
+	end
+
+	table.sort(allData, function(a, b) return a.weight < b.weight end)
+
+	return allData
+end
+
+function p._main(args)
+	local limit = paramTest.default_to(tonumber(args.limit), 5000)
+    local heavy = yesNo(args.heavy, true)
+
+    local data = loadData(limit, heavy)
+
+	local ret = createHeader()
+	for _, itemPage in ipairs(data) do
+		ret:node(buildRow(itemPage))
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

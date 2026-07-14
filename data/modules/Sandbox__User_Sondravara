@@ -1,0 +1,385 @@
+local p = {}
+
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+local farmingData = mw.loadData('Module:Skill calc/Farming')
+local paramTest = require('Module:Paramtest')
+local yesNo = require('Module:Yesno')
+local scp = require('Module:SCP')._main
+local listToText = mw.text.listToText
+
+local warningTag = ' <span style="color:red;"><b>*</b></span>'
+local warningNote = '<span style="color:red;"><b>*</b></span> It costs more to use [[Resurrect Crops]] instead of replanting with a new seed. This is based on the cost of the seed with your chance to resurrect it.\n'
+
+local herbs = {
+	{ ['name'] = 'Guam leaf', ['lowCTS'] = 25, ['highCTS'] = 80 },
+	{ ['name'] = 'Marrentill', ['lowCTS'] = 28, ['highCTS'] = 80 },
+	{ ['name'] = 'Tarromin', ['lowCTS'] = 31, ['highCTS'] = 80 },
+	{ ['name'] = 'Harralander', ['lowCTS'] = 36, ['highCTS'] = 80 },
+	{ ['name'] = 'Goutweed', ['lowCTS'] = 39, ['highCTS'] = 80 },
+	{ ['name'] = 'Ranarr weed', ['lowCTS'] = 39, ['highCTS'] = 80 },
+	{ ['name'] = 'Toadflax', ['lowCTS'] = 43, ['highCTS'] = 80 },
+	{ ['name'] = 'Irit leaf', ['lowCTS'] = 46, ['highCTS'] = 80 },
+	{ ['name'] = 'Avantoe', ['lowCTS'] = 50, ['highCTS'] = 80 },
+	{ ['name'] = 'Kwuarm', ['lowCTS'] = 54, ['highCTS'] = 80 },
+	{ ['name'] = 'Snapdragon', ['lowCTS'] = 57, ['highCTS'] = 80 },
+	{ ['name'] = 'Huasca', ['lowCTS'] = 58, ['highCTS'] = 80 },
+	{ ['name'] = 'Cadantine', ['lowCTS'] = 60, ['highCTS'] = 80 },
+	{ ['name'] = 'Lantadyme', ['lowCTS'] = 64, ['highCTS'] = 80 },
+	{ ['name'] = 'Dwarf weed', ['lowCTS'] = 67, ['highCTS'] = 80 },
+	{ ['name'] = 'Torstol', ['lowCTS'] = 71, ['highCTS'] = 80 },
+}
+
+local UnfinishedPotions = {
+	['Guam leaf'] = { ['herblore'] = 3, ['potion'] = 'Guam potion (unf)' },
+	['Marrentill'] = { ['herblore'] = 5, ['potion'] = 'Marrentill potion (unf)' },
+	['Tarromin'] = { ['herblore'] = 12, ['potion'] = 'Tarromin potion (unf)' },
+	['Harralander'] = { ['herblore'] = 22, ['potion'] = 'Harralander potion (unf)' },
+	['Goutweed'] = { ['herblore'] = 0, ['potion'] = 'Vial of water' },
+	['Ranarr weed'] = { ['herblore'] = 30, ['potion'] = 'Ranarr potion (unf)' },
+	['Toadflax'] = { ['herblore'] = 34, ['potion'] = 'Toadflax potion (unf)' },
+	['Irit leaf'] = { ['herblore'] = 45, ['potion'] = 'Irit potion (unf)' },
+	['Avantoe'] = { ['herblore'] = 50, ['potion'] = 'Avantoe potion (unf)' },
+	['Kwuarm'] = { ['herblore'] = 55, ['potion'] = 'Kwuarm potion (unf)' },
+	['Huasca'] = { ['herblore'] = 58, ['potion'] = 'Huasca potion (unf)' },
+	['Snapdragon'] = { ['herblore'] = 63, ['potion'] = 'Snapdragon potion (unf)' },
+	['Cadantine'] = { ['herblore'] = 66, ['potion'] = 'Cadantine potion (unf)' },
+	['Lantadyme'] = { ['herblore'] = 69, ['potion'] = 'Lantadyme potion (unf)' },
+	['Dwarf weed'] = { ['herblore'] = 72, ['potion'] = 'Dwarf weed potion (unf)' },
+	['Torstol'] = { ['herblore'] = 78, ['potion'] = 'Torstol potion (unf)' },
+	['Cadantineblood'] = { ['herblore'] = 80, ['potion'] = 'Cadantine blood potion (unf)' },
+}
+
+local compostChanceToLoseLifeReduction = {
+	['None'] = 1,
+	['Compost'] = 2,
+	['Supercompost'] = 5,
+	['Ultracompost'] = 10,
+}
+
+local compostLifeValue = {
+	['None'] = 0,
+	['Compost'] = 1,
+	['Supercompost'] = 2,
+	['Ultracompost'] = 3,
+}
+
+-- Yield increases are actually a flat increase in chance to save calculation
+-- 5% is +10, 10% is +17, 15% is +25
+local percentToValueIncreaseCTS = {
+	['0'] = 0,
+	['0.05'] = 10,
+	['0.1'] = 17,
+	['0.15'] = 25,
+}
+
+local goutweedSanfewExchange = gePrices['Grimy guam leaf'] * 32/128 + gePrices['Grimy marrentill'] * 24/128 + gePrices['Grimy tarromin'] * 18/128 + gePrices['Grimy harralander'] * 14/128 + gePrices['Grimy ranarr weed'] * 11/128 + gePrices['Grimy irit leaf'] * 8/128 + gePrices['Grimy avantoe'] * 6/128 + gePrices['Grimy kwuarm'] * 5/128  + gePrices['Grimy cadantine'] * 4/128 + gePrices['Grimy lantadyme'] * 3/128 + gePrices['Grimy dwarf weed'] * 3/128
+
+function createHeader(farmingLevel, sell, tableCaption)
+	local header = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-2 align-right-3 align-right-4 align-center-5 align-center-6 align-right-7 align-center-8 align-right-9')
+	
+	-- tableCaption is used only for patches
+	local additionalCaption = ''
+	local outputType = 'run'
+	if(tableCaption ~= nil) then
+		outputType = 'patch'
+		additionalCaption = tableCaption .. ' at '
+		header:addClass('mw-collapsible mw-collapsed')
+	end
+	
+	header:tag('caption'):wikitext('Herb yield at ' .. additionalCaption .. scp('Farming', farmingLevel, true))
+	row = header:tag('tr')
+	row:tag('th'):wikitext('Herb'):done()
+		:tag('th'):wikitext(scp('Farming') .. 'Level'):done()
+		:tag('th'):wikitext('Seed cost'):done()
+	if(sell == 'Clean' or sell == 'Grimy') then
+		row:tag('th'):wikitext('Herb price'):done()
+	else
+		row:tag('th'):wikitext(scp('Herblore') .. 'Level'):done()
+			:tag('th'):wikitext('Unfinished potion'):done()
+			:tag('th'):wikitext('Unf. potion price'):done()
+	end
+	row:tag('th'):wikitext('Chance of death'):done()
+		:tag('th'):wikitext('Expected herbs'):done()
+		:tag('th'):wikitext('Profit per ' .. outputType):done()
+		:tag('th'):wikitext('Adj Gross per ' .. outputType):done()
+		:tag('th'):wikitext('XP per ' .. outputType):done()
+		:tag('th'):wikitext('GP/XP'):done()
+	return header
+end
+
+function createRow(herbName, herbData, deathChance, isResurrectWorth, sell, yield, profit, nonSeedGross, xp, gpPerXp)
+	local row = mw.html.create('tr')
+	
+	local herbType, herbPrice, potionPrice
+	if(herbName == 'Goutweed') then
+		herbType = 'Goutweed'
+		herbPrice = math.ceil(goutweedSanfewExchange)
+	elseif(sell == 'Clean') then
+		herbType = herbName
+		herbPrice = gePrices[herbType]
+	elseif(sell == 'Grimy') then
+		herbType = 'Grimy ' .. herbName:lower()
+		herbPrice = gePrices[herbType]
+	elseif(sell == 'Unfinished potion') then
+		herbType = herbName
+		potionPrice = gePrices[UnfinishedPotions[herbType].potion]
+	end
+
+	row:tag('td'):wikitext('[[File:' .. herbType .. '.png]] [[' .. herbType .. '|' .. herbName .. ']]'):done()
+		:tag('td'):wikitext(herbData.level):done()
+		:tag('td'):wikitext(coins(gePrices[herbData.seed])):done()
+	
+	if(herbName == 'Goutweed' and sell == 'Unfinished potion') then
+		row:tag('td'):wikitext():addClass('table-na nohighlight'):done()
+			:tag('td'):wikitext():addClass('table-na nohighlight'):done()
+			:tag('td'):wikitext():addClass('table-na nohighlight'):css('border-right-width', 'medium'):done()
+	elseif(sell == 'Clean' or sell == 'Grimy') then
+		row:tag('td'):wikitext(coins(herbPrice)):css('border-right-width', 'medium'):done()
+	elseif(sell == 'Unfinished potion') then
+		row:tag('td'):wikitext(UnfinishedPotions[herbType].herblore):done()
+			:tag('td'):wikitext('[[File:' .. UnfinishedPotions[herbType].potion .. '.png]] [[' .. UnfinishedPotions[herbType].potion .. ']]'):done()
+			:tag('td'):wikitext(coins(potionPrice)):css('border-right-width', 'medium'):done()
+	end
+			
+	row:tag('td'):wikitext(tonumber(string.format("%.3f", deathChance * 100)) .. '%' .. (not isResurrectWorth and warningTag or '')):done()
+		:tag('td'):wikitext(tonumber(string.format("%.3f", yield))):done()
+		:tag('td'):wikitext(coins(profit)):done()
+		:tag('td'):wikitext(coins(nonSeedGross)):done()
+		:tag('td'):wikitext(tonumber(string.format("%.1f", xp))):done()
+		:tag('td'):wikitext(coins(gpPerXp)):done()
+	return row
+end
+
+-- From [[Farming#Variable crop yield]] and [[Talk:Farming#Yield rates of various crops]]
+function generateEstimatedYield(farmingLevel, lowCTS, highCTS, harvestLives, itemBonus, diaryBonus, attasBonus)
+	local lowCTSFinal = math.floor(lowCTS * (1 + itemBonus))
+	lowCTSFinal = lowCTSFinal + diaryBonus
+	lowCTSFinal = math.floor(lowCTSFinal * (1 + attasBonus))
+	
+	local highCTSFinal = math.floor(highCTS * (1 + itemBonus))
+	highCTSFinal = highCTSFinal + diaryBonus
+	highCTSFinal = math.floor(highCTSFinal * (1 + attasBonus))
+	
+	local chanceToSave = skillInterp(lowCTSFinal, highCTSFinal, farmingLevel)
+    return harvestLives / (1 - chanceToSave)
+end
+
+-- From [[Module:Skilling success chart]]
+function skillInterp(low, high, level)
+	local value = math.modf(low * (99 - level) / 98) + math.modf(high * (level - 1) / 98) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function p._main(args)
+	local farmingLevel = paramTest.default_to(tonumber(args.farmingLevel), 1)
+	local patchCount = paramTest.default_to(tonumber(args.patchCount), 1)
+	local weissDiseaseFreePatch = yesNo(args.weissDiseaseFreePatch) or false
+	local trollheimDiseaseFreePatch = yesNo(args.trollheimDiseaseFreePatch) or false
+	local hosidiusDiseaseFreePatch = yesNo(args.hosidiusDiseaseFreePatch) or false
+	local fortisDiseaseFreePatch = yesNo(args.fortisDiseaseFreePatch) or false
+	local harmonyDiseaseFreePatch = yesNo(args.harmonyDiseaseFreePatch) or false
+	local compostType = paramTest.default_to(paramTest.ucflc(args.compostType), 'None')
+	local useBottomlessCompostBucket = yesNo(args.useBottomlessCompostBucket) or false
+	local useMagicSecateurs = yesNo(args.useMagicSecateurs) or false
+	local useFarmingCape = yesNo(args.useFarmingCape) or false
+	local animaType = paramTest.default_to(paramTest.ucflc(args.animaType), 'None')
+	local kandarinDiary = paramTest.default_to(args.kandarinDiary, 'None')
+	local kourendHardDiary = yesNo(args.kourendHardDiary) or false
+	local useResurrectCrops = yesNo(args.useResurrectCrops) or false
+	local magicLevel = paramTest.default_to(tonumber(args.magicLevel), 1)
+	local sell = paramTest.default_to(args.sell, 'Grimy') -- Grimy, Clean, Unfinished potion
+	
+	local herbDataTable = {}
+	for _, data in ipairs(farmingData) do
+		if(data['type'] == 'Herb') then
+			herbDataTable[data.name] =  {
+				['level'] = data.level,
+				['xp'] = data.xp,
+				['plantXp'] = data.plantXp,
+				['seed'] = data.materials[1].name,
+			}
+		end
+	end
+
+	local compostCostPerPatch = 0
+	if(compostType ~= 'None') then
+		compostCostPerPatch = useBottomlessCompostBucket and gePrices[compostType] * 0.5 or gePrices[compostType]
+	end
+
+	local costToResurrect = (gePrices['Soul rune'] *  8) + (gePrices['Nature rune'] *  12) + (gePrices['Blood rune'] *  8) + (gePrices['Earth rune'] *  25)
+	-- Resurrect Crops spell, level 78 = 50% and level 99 = 75%
+	local chanceToResurrect = skillInterp(-111, 191, magicLevel)
+	
+	local itemBonus = 0
+	if(useMagicSecateurs) then
+		itemBonus = itemBonus + .1
+	end
+	if(useFarmingCape) then
+		itemBonus = itemBonus + .05
+	end
+	
+	local kandarinDiaryBonus = 0
+	if(kandarinDiary ~= 'None') then
+		kandarinDiaryBonus = tonumber(kandarinDiary:match("%d+")) / 100
+	end
+	
+	local kourendDiaryBonus = kourendHardDiary and 0.05 or 0
+
+	local attasBonus = animaType == 'Attas' and 0.05 or 0
+	-- Iasor lowers death rates by 80%
+	local deathRateModifier = animaType == 'Iasor' and 0.2 or 1
+
+	-- All herbs default have 26/128 chance to die each stage. There are only 3 stages which can be diseased or die.
+	---- This is actually 27, see [[Talk:Disease (Farming)]]
+	local deathRatePerStage = (math.floor(math.floor(27 / compostChanceToLoseLifeReduction[compostType]) * deathRateModifier) + 1) / 128
+	local patchSurvivalRate = (1 - deathRatePerStage)^3
+	local patchDeathRate = 1 - patchSurvivalRate
+	
+	if(useResurrectCrops) then
+		--\left (\sum_{i=2}^{n-1}\binom{n-1}{i}p^i \left(1-P\right)^{\left(n-1)-i\right )} \right )R
+		patchDeathRate = ((1-(1-deathRatePerStage)^4)*(1-chanceToResurrect)) + (6 * deathRatePerStage^2 * (1 - deathRatePerStage)^2) + (4 * deathRatePerStage^3 * (1-deathRatePerStage)) + deathRatePerStage^4
+		patchSurvivalRate = 1 - patchDeathRate
+	end
+	
+	local patches = {}
+	-- Hard Kourend Diary completion
+	if(kourendHardDiary and hosidiusDiseaseFreePatch and patchCount > 0) then
+		table.insert(patches, {
+			createHeader(farmingLevel, sell, 'Hosidius (Protected, +' .. kourendDiaryBonus * 100 .. '% Diary bonus)'),
+			patchCount = 1,
+			yieldBonus = percentToValueIncreaseCTS[tostring(kourendDiaryBonus)],
+			protected = true,
+		})
+		patchCount = patchCount - 1
+	end
+	-- Protected patches, includes Kourend if hard diary is not completed.
+	local protectedNames = {}
+	if(weissDiseaseFreePatch and patchCount > 0) then
+		table.insert(protectedNames, 'Weiss')
+		patchCount = patchCount - 1
+	end
+	if(trollheimDiseaseFreePatch and patchCount > 0) then
+		table.insert(protectedNames, 'Trollheim')
+		patchCount = patchCount - 1
+	end
+	if(fortisDiseaseFreePatch and patchCount > 0) then
+		table.insert(protectedNames, 'Civitas illa Fortis')
+		patchCount = patchCount - 1
+	end
+	if(harmonyDiseaseFreePatch and patchCount > 0) then
+		table.insert(protectedNames, 'Harmony Island')
+		patchCount = patchCount - 1
+	end
+	--	Only include if it is not already included above
+	if(not kourendHardDiary and hosidiusDiseaseFreePatch and patchCount > 0) then
+		table.insert(protectedNames, 'Hosidius')
+		patchCount = patchCount - 1
+	end
+	if(#protectedNames > 0) then
+		table.insert(patches, {
+			createHeader(farmingLevel, sell, listToText(protectedNames, ', ', ' and ') .. ' (Protected)'),
+			patchCount = #protectedNames,
+			yieldBonus = 0,
+			protected = true,
+		})
+	end
+	-- Kandarin patch with Kandarin Diary completion
+	if(kandarinDiaryBonus > 0 and patchCount > 0) then
+		table.insert(patches, {
+			createHeader(farmingLevel, sell, 'Kandarin (+' .. kandarinDiaryBonus * 100 .. '%  Diary bonus)'),
+			patchCount = 1,
+			yieldBonus = percentToValueIncreaseCTS[tostring(kandarinDiaryBonus)],
+			protected = false,
+		})
+		patchCount = patchCount - 1
+	end
+	-- Farming Guild patch with diary
+	if(kourendHardDiary and patchCount > 0) then
+		table.insert(patches, {
+			createHeader(farmingLevel, sell, 'Farming Guild (+' .. kourendDiaryBonus * 100 .. '% Diary bonus)'),
+			patchCount = 1,
+			yieldBonus = percentToValueIncreaseCTS[tostring(kourendDiaryBonus)],
+			protected = false,
+		})
+		patchCount = patchCount - 1
+	end
+	-- The rest of the patches, no additional yield and no protection
+	if(patchCount > 0) then
+		table.insert(patches, {
+			createHeader(farmingLevel, sell, patchCount .. ' standard patch' .. (patchCount > 1 and 'es' or '')), -- If more than 1 patch, pluralise
+			patchCount = patchCount,
+			yieldBonus = 0,
+			protected = false,
+		})
+	end
+	
+	local runRet = createHeader(farmingLevel, sell)
+	local patchRet = ''
+
+	for _, herb in ipairs(herbs) do
+		
+		local seedCost = gePrices[herbDataTable[herb.name].seed]
+		local isRessurectWorth = true
+		if(useResurrectCrops) then
+			 isRessurectWorth = seedCost * chanceToResurrect > costToResurrect
+		end
+		
+		local totalYield, totalsNonSeedGross, totalProfit, totalXp = 0, 0, 0, 0
+		local additiveDeathRate, patchCounter = 0, 0
+		
+		for _, patch in ipairs(patches) do
+			local deathRate = patch.protected == true and 0 or patchDeathRate
+			local patchYield = generateEstimatedYield(farmingLevel, herb.lowCTS, herb.highCTS, 3 + compostLifeValue[compostType], itemBonus, patch.yieldBonus, attasBonus)
+			local truePatchYield = patch.protected == true and patchYield or patchYield * patchSurvivalRate
+			local nonSeedCost = compostCostPerPatch + ((patch.protected ~= true and useResurrectCrops == true) and costToResurrect * deathRate or 0)
+			local patchCost = nonSeedCost + gePrices[herbDataTable[herb.name].seed]
+			local waterVialCost = sell == 'Unfinished potion' and gePrices['Vial of water'] or 0
+			local profitItemName = ''
+			if(sell == 'Grimy') then
+				profitItemName = 'Grimy ' .. herb.name:lower()
+			elseif(sell == 'Clean' or herb.name == 'Goutweed') then
+				profitItemName = herb.name
+			elseif(sell == 'Unfinished potion') then
+				profitItemName = UnfinishedPotions[herb.name].potion
+			end
+			local grossProfit = herb.name == 'Goutweed' and goutweedSanfewExchange or (gePrices[profitItemName]) * truePatchYield
+			local nonSeedGross = grossProfit - nonSeedCost - (truePatchYield * waterVialCost)
+			local patchProfit = grossProfit - patchCost - (truePatchYield * waterVialCost)
+			local patchXp = (truePatchYield * herbDataTable[herb.name].xp) + (herbDataTable[herb.name].plantXp * patchSurvivalRate)
+			local gpPerXp = patchProfit / patchXp
+			patch[1]:node(createRow(herb.name, herbDataTable[herb.name], deathRate, isRessurectWorth, sell, truePatchYield, patchProfit, nonSeedGross, patchXp, gpPerXp))
+			totalYield = totalYield + (truePatchYield * patch.patchCount)
+			totalsNonSeedGross = totalsNonSeedGross + (nonSeedGross * patch.patchCount)
+			totalProfit = totalProfit + (patchProfit * patch.patchCount)
+			totalXp = totalXp + (patchXp * patch.patchCount)
+			additiveDeathRate = additiveDeathRate + (deathRate * patch.patchCount)
+			patchCounter = patchCounter + patch.patchCount
+		end
+		
+		runRet:node(createRow(herb.name, herbDataTable[herb.name], additiveDeathRate/patchCounter, isRessurectWorth, sell, totalYield, totalProfit, totalsNonSeedGross, totalXp, totalProfit/totalXp))
+	end
+	
+	for _, v in ipairs(patches) do
+		patchRet = patchRet .. tostring(v[1])
+	end
+
+	local patchCountWarning = ''
+	-- This is to catch weird situations caused by inability to affect calculator buttons. E.g. It is not possible to have 9 patches calculated correctly with one of these disabled.
+	if(7 + (trollheimDiseaseFreePatch and 1 or 0) +  (weissDiseaseFreePatch and 1 or 0) + (harmonyDiseaseFreePatch and 1 or 0) < tonumber(args.patchCount)) then
+		patchCountWarning = '<b>Warning:</b> Your currently disabled disease-free patches make the \'\'Total herb patches\'\' option inaccurate.'
+	end
+
+	return patchCountWarning .. tostring(runRet) .. (useResurrectCrops and warningNote or '') .. 'Click "' .. mw.getCurrentFrame():callParserFunction('int', {'Collapsible-expand'}) .. '" on the tables to view patch breakdowns:\n' .. tostring(patchRet)
+end
+
+-- DEBUG
+-- args = {['farmingLevel'] = 99, ['patchCount'] = 10, ['weissDiseaseFreePatch'] = true, ['trollheimDiseaseFreePatch'] = true, ['hosidiusDiseaseFreePatch'] = true, ['compostType'] = 'Ultracompost', ['useBottomlessCompostBucket'] = true, ['useMagicSecateurs'] = true, ['useFarmingCape'] = true, ['animaType'] = 'Iasor', ['kandarinDiary'] = '15% — Elite Kandarin Diary', ['kourendHardDiary'] = true, ['useResurrectCrops'] = true, ['magicLevel'] = 99 } 
+
+function p.main(frame)
+	local args = frame.args
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

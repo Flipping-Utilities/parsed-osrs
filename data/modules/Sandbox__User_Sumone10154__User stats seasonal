@@ -1,0 +1,290 @@
+local scp = require('Module:SCP')._main
+require("strict")
+require('Module:Mw.html extension')
+local experience = require('Module:Experience')
+local hiscore = require('Module:Hiscores')
+local yesno = require('Module:Yesno')
+local paramtest = require('Module:Paramtest')
+local hc = paramtest.has_content
+local dt = paramtest.default_to
+local lang = mw.getContentLanguage()
+
+local p = {}
+
+local skills = {
+	'attack',
+	'defence',
+	'strength',
+	'hitpoints',
+	'ranged',
+	'prayer',
+	'magic',
+	'cooking',
+	'woodcutting',
+	'fletching',
+	'fishing',
+	'firemaking',
+	'crafting',
+	'smithing',
+	'mining',
+	'herblore',
+	'agility',
+	'thieving',
+	'slayer',
+	'farming',
+	'runecraft',
+	'hunter',
+	'construction',
+	'sailing',
+}
+
+local function fnum(x)
+	x = tonumber(x)
+	if x then
+		return lang:formatNum(x)
+	end
+	return ''
+end
+
+-- Calculate combat level
+local function combat_level(att, str, def, ran, mag, con, pra)
+	return math.floor((math.max(att + str, math.floor(1.5 * mag), math.floor(1.5 * ran)) * 1.3 + def + con + math.floor(pra / 2)) / 4)
+end
+
+local function normalise_args(args)
+	local out = {}
+	for k, v in pairs(args) do
+		local key = string.lower(k)
+		local add_key = true
+		if key ~= k then
+			if args[key] then
+				add_key = false
+			end
+		end
+		if add_key then
+			out[key] = v
+		end
+	end
+	return out
+end
+
+local function hs(name, title)
+	if not hc(name) then
+		return title or 'Hiscores'
+	end
+	return string.format('<span class="plainlinks">[https://secure.runescape.com/m=hiscore_oldschool/hiscorepersonal.ws?user1=%s %s]</span>', mw.uri.encode(name), title or name)
+end
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(raw_args)
+	local args = normalise_args(raw_args)
+	local virtual = yesno(args.virtual, false)
+	local user_stats = {}
+
+	local function set_level(skill)
+		local val = tonumber(args[skill])
+		if not val then
+			user_stats[skill] = { level = args[skill] }
+			return false
+		end
+		local xp, lvl
+		if val > 126 then
+			xp = val
+			lvl = experience._level_at_xp(val)
+		else
+			lvl = val
+			xp = experience._xp_at_level_unr(val)
+		end
+		lvl = math.min(lvl, 99)
+		user_stats[skill] = {
+			level = lvl,
+			xp = xp
+		}
+		return true
+	end
+	
+	local function add_virtual(skill)
+		local val = user_stats[skill].xp
+		if not val then
+			return 0
+		end
+		user_stats[skill].virtual = experience._level_at_xp_unr(val)
+		return user_stats[skill].virtual
+	end
+	args.overall = dt(args.overall, args.total)
+	
+	if hc(args.name) then
+		local is_ok, pc_user_stats = pcall(hiscore.get_stats, args.name, 'osrs-seasonal')
+		if is_ok then
+			user_stats = pc_user_stats
+		end
+	end
+	
+	local has_override = false
+	local running_lvl, running_xp, running_virt = 0, 0, 0
+	for i = 1, #skills, 1 do
+		local s = skills[i]
+		if not user_stats[s] and not hc(args[s]) then
+			args[s] = 1 -- neither defined, force 1
+		end
+		if hc(args[s]) then
+			local overridden = set_level(s)
+			has_override = has_override or overridden
+		end
+		running_xp = (type(user_stats[s].xp) == 'number' and user_stats[s].xp or 0) + running_xp
+		running_lvl = (type(user_stats[s].level) == 'number' and user_stats[s].level or 0) + running_lvl
+		running_virt = running_virt + add_virtual(s)
+	end
+	
+	local overall_rank_str = ''
+	if hc(args.overall or args.total) then
+		user_stats['overall'] = {
+			level = args.overall or args.total,
+			virtual = running_virt
+		}
+	elseif has_override then
+		user_stats['overall'] = {
+			xp = running_xp,
+			level = running_lvl,
+			virtual = running_virt
+		}
+	else
+		user_stats.overall.virtual = running_virt
+		if user_stats.overall.rank then
+			overall_rank_str = '@NL@Rank: ' .. fnum(user_stats.overall.rank)
+		end
+	end
+
+	local cmb
+	if hc(args.combat) then
+		cmb = args.combat
+	else
+		cmb = combat_level(
+			user_stats['attack'].level,
+			user_stats['strength'].level,
+			user_stats['defence'].level,
+			user_stats['ranged'].level,
+			user_stats['magic'].level,
+			user_stats['hitpoints'].level,
+			user_stats['prayer'].level
+		)
+	end
+
+	local function make_cell(td, skill)
+		td	:css('width', '33%')
+			:wikitext(scp(skill), '&nbsp;')
+		
+		local vals = user_stats[skill]
+		if not vals then
+			td:wikitext('----')
+			return
+		end
+		local rank_str = ''
+		if vals.rank then
+			rank_str = '@NL@Rank: ' .. fnum(vals.rank)
+		end
+
+		if virtual and vals and vals.level and vals.virtual and vals.virtual > vals.level then
+			td	:wikitext(vals.virtual)
+				:attr('title', string.format('Real level: %s@NL@XP: %s%s', vals.level, fnum(vals.xp), rank_str))
+		else
+			td	:wikitext(vals.level or 1)
+				:attr('title', string.format('XP: %s%s', fnum(vals.xp or -1), rank_str))
+		end
+		td:done()
+	end
+
+	local function make_row(tr, s1, s2, s3)
+		make_cell(tr:tag('td'), s1)
+		make_cell(tr:tag('td'), s2)
+		make_cell(tr:tag('td'), s3)
+		tr:done():newline()
+	end
+
+	local function make_cell_simple(td, stat, val)
+		td	:css('width', '33%')
+			:wikitext(scp(stat), '&nbsp;')
+		if hc(val) then
+			if tonumber(val) then
+				td:wikitext(fnum(tonumber(val)))
+			else
+				td:wikitext(val)
+			end
+		else
+			td:wikitext('----')
+		end
+		td:done()
+	end
+
+	local ret = mw.html.create('table')
+		:addClass('wikitable userstats')
+		:css('text-align', 'center')
+		:cssIf(yesno(args.float or true, true), 'float', dt(args.align, 'right'))
+		:cssText(args['extra-css'])
+		:newline()
+
+		:IF(args.name)
+			:tag('caption')
+				:wikitext(hs(args.name, args.altcaption or args.name))
+				:attr('colspan', 3)
+			:done()
+			:newline()
+		:END()
+		:tag('tr')
+			:tag('th')
+				:wikitext('Total level:&nbsp;', user_stats.overall.level)
+				:wikitextIf(virtual and user_stats.overall.virtual, string.format('&nbsp;(%s)', user_stats.overall.virtual or ''))
+				:attr('colspan', 3)
+				:attrIf(user_stats.overall.xp, {
+					title = string.format('Total experience: %s%s', fnum(user_stats.overall.xp), overall_rank_str)
+				})
+			:done()
+		:done()
+		:newline()
+
+	make_row(ret:tag('tr'), 'attack', 'hitpoints', 'mining')
+	make_row(ret:tag('tr'), 'strength', 'agility', 'smithing')
+	make_row(ret:tag('tr'), 'defence', 'herblore', 'fishing')
+	make_row(ret:tag('tr'), 'ranged', 'thieving', 'cooking')
+	make_row(ret:tag('tr'), 'prayer', 'crafting', 'firemaking')
+	make_row(ret:tag('tr'), 'magic', 'fletching', 'woodcutting')
+	make_row(ret:tag('tr'), 'runecraft', 'slayer', 'farming')
+	make_row(ret:tag('tr'), 'construction', 'hunter', 'sailing')
+
+	local tr = ret:tag('tr')
+	make_cell_simple(tr:tag('td'), 'combat', cmb)
+	make_cell_simple(tr:tag('td'), 'quest', args.quest)
+	make_cell_simple(tr:tag('td'), 'music', args.music)
+	tr:done():newline()
+
+	if hc(args.date) then
+		ret:tag('tr')
+			:tag('th')
+				:wikitext('As of ', args.date)
+				:attr('colspan', 3)
+			:done()
+		:done()
+		:newline()
+	end
+	
+	if hc(args.bottomtext) then
+		ret:tag('tr')
+			:tag('th')
+				:wikitext(args.bottomtext)
+				:attr('colspan', 3)
+			:done()
+		:done()
+		:newline()
+	end
+
+	-- mw.html escapes & (but scribunto/wikitext does not) so we gotta do a gsub on the entire string
+	-- note: &#10; is a new line that will work in a title attribute
+	ret = tostring(ret)
+	ret = ret:gsub('@NL@', '&#10;')
+	return ret
+end
+
+return p

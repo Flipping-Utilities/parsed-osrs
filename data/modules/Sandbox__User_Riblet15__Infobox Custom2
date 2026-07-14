@@ -1,0 +1,68 @@
+local p = {}
+
+function p._main(args)
+	local tbl = mw.html.create('table'):addClass('infobox')
+	local header = tbl:tag('tr')
+	header:tag('th'):wikitext(args['name']):addClass('infobox-header'):attr('colspan', '2')
+	
+	function toboolean(v)
+		return v ~= nil and v ~= false
+	end
+
+	function get_entry(i)
+		if args['key'..i] then
+			return { key = args['key'..i], value = args['value'..i] or '' }
+		elseif args['subheader'..i] then
+			return { subheader = args['subheader'..i] }
+		elseif args['image'..i] then
+			return { image = args['image'..i] }
+		elseif args['map'..i] then
+			return { map = args['map'..i] }
+		end
+		return nil
+	end
+	
+	local i = 0
+	local cur_row = {}
+	
+	repeat
+		if cur_row.key or cur_row.value then
+			local row = tbl:tag('tr')
+			row:tag('th'):wikitext(cur_row.key)
+			row:tag('td'):wikitext(cur_row.value)
+		elseif cur_row.subheader then
+			tbl:tag('tr'):tag('th'):wikitext(cur_row.subheader):addClass('infobox-subheader'):attr('colspan', '2')
+		elseif cur_row.image then
+			tbl:tag('tr'):tag('td'):wikitext(cur_row.image):addClass('infobox-image infobox-full-width-content'):attr('colspan', '2')
+		elseif cur_row.map then
+			tbl:tag('tr'):tag('td'):wikitext(cur_row.map):addClass('infobox-full-width-content'):attr('colspan', '2')
+		end
+		
+		-- padding row should only be added around the outside of images, and
+		-- around the outside of contiguous sections of kevalues
+		local next_row = get_entry(i + 1)
+		local cur_is_image = toboolean(cur_row.image)
+		local next_is_image = toboolean(next_row and next_row.image)
+		local cur_is_keyval = toboolean(cur_row.key)
+		local next_is_keyval = toboolean(next_row and next_row.key)
+
+		-- sequential images should have padding (so we use or)
+		-- sequential keyvals should NOT have padding (so we use xor, which here is ~=)
+		local should_add_padding = (cur_is_image or next_is_image) or (cur_is_keyval ~= next_is_keyval)
+		if should_add_padding then
+			tbl:tag('tr'):tag('td'):addClass('infobox-padding'):attr('colspan', '2')
+		end
+		
+		i = i + 1
+		cur_row = next_row
+	until cur_row == nil
+	
+	return tbl
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

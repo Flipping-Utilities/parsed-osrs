@@ -1,0 +1,32 @@
+local p = {}
+
+local colorMapping = {
+	redPin = 'orangered',
+	greenPin = 'lawngreen',
+	bluePin = 'steelblue'
+}
+
+function p.renderLegend(mapFeatures)
+	local legendLines = '<br/>\'\'\'Legend:\'\'\'<br/>'
+	
+	for _,feature in ipairs(mapFeatures) do
+		local icon = feature.properties.icon
+		local title = feature.properties.title
+		local description = feature.properties.description
+		
+		legendLines = legendLines .. _renderLegendLine(icon,title,description)
+	end
+	mw.log(legendLines)
+	return mw.getCurrentFrame():preprocess(tostring(legendLines))
+end
+
+function _renderLegendLine(color, title, description)
+	local lineText = '{{legend|'
+	
+	lineText = lineText .. colorMapping[tostring(color)]
+	lineText = lineText .. '|caption=' .. title .. ' - ' .. description .. '}}'
+	
+	return lineText
+end
+
+return p

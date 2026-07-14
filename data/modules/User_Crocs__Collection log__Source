@@ -1,0 +1,580 @@
+-- Module:User:Crocs/Collection_log/Source
+-- Flat sortable table of every collection-log item joined with its drop sources
+-- from Bucket:Dropsline. One row per (item, source). Items with no fraction-rate
+-- drop entries get a single row with blank Source/Rate.
+--
+-- Sources of truth:
+--   Module:Collection_log/data.json  -> the canonical clog item list (id, name, tabs)
+--   Bucket:Dropsline                 -> per-monster drop rows with rarity / rolls / source
+--   Bucket:Storeline                 -> shop buy prices (filtered to real purchases)
+--   Bucket:Item_id                   -> resolves each in-game item ID to its specific wiki
+--                                       article (disambiguates Castle Wars "Decorative
+--                                       sword (red|white|gold)", Chompy bird hat tiers, etc.)
+--   Bucket:Recipe                    -> crafted/upgraded items, joined on page_name (which
+--                                       is the output item for most recipes)
+
+local p = {}
+
+local DATA_PAGE   = 'Module:Collection_log/data.json'
+local PAGE_LIMIT  = 5000  -- Bucket hard cap per query
+local PAGE_GUARD  = 20    -- safety cap on pagination loops (== 100k rows)
+
+local function trim(s)
+    return (s or ''):match('^%s*(.-)%s*$') or ''
+end
+
+-- Build a wikilink for the Dropsline "Dropped from" field.
+-- Dropsline stores it as "Page" or "Page#Section"; the # form is an anchor within
+-- the page, so the link target keeps it while the label gets prettified.
+local function buildDropSource(s)
+    s = trim(s)
+    if s == '' then return nil end
+    local base, sub = s:match('^([^#]+)#(.+)$')
+    if base then
+        local pretty = sub:gsub('_', ' ')
+        return string.format('[[%s|%s (%s)]]', s, base, pretty)
+    end
+    return string.format('[[%s]]', s)
+end
+
+-- Decompose a Storeline row into separate Source ("Seller-Location") and
+-- Price ("400 Abyssal pearls") fragments. We want "Price sold at" — what the
+-- player pays. Storeline field names are from the *shop's* perspective:
+-- store_sell_price is what the shop charges. (store_buy_price is the shop's
+-- buyback offer, useless for a clog acquisition table.)
+-- Returns nil for sell-only NPCs / free items.
+local function buildShopParts(row)
+    local price = trim(row.store_sell_price)
+    if price == '' or price == 'N/A' or price == '0' then return nil end
+    local currency = trim(row.store_currency)
+    if currency == '' then currency = 'Coins' end
+    local seller   = trim(row.sold_by)
+    local location = trim(row.page_name)
+
+    local parts = {}
+    if seller ~= '' then parts[#parts + 1] = '[[' .. seller .. ']]' end
+    if location ~= '' and location ~= seller then
+        parts[#parts + 1] = '[[' .. location .. ']]'
+    end
+    if #parts == 0 then return nil end
+
+    -- An empty StoreLine `sell=` is stored as the sentinel 1e10 (10,000,000,000) with a
+    -- defaulted "Coins" currency. This is the wiki's marker for "no single coin price" —
+    -- e.g. Mastering Mixology rewards, whose true multi-currency resin cost lives only in
+    -- display-only StoreLine columns the bucket never captures. Keep the shop as a source
+    -- but leave the bogus price blank (the gap is then visible/fixable on the wiki).
+    local priceNum = tonumber((price:gsub(',', '')))
+    local priceText = (priceNum and priceNum >= 1e10) and '' or (price .. ' ' .. currency)
+
+    return {
+        sourceHtml = table.concat(parts, '-'),
+        priceText  = priceText,
+    }
+end
+
+local function rateString(dj)
+    local rarity = trim(dj.Rarity)
+    if rarity == '' then return '' end
+    local rolls = tonumber(dj.Rolls) or 1
+    if rolls > 1 then return rolls .. ' × ' .. rarity end
+    return rarity
+end
+
+-- Normalize a rate string for pattern matching. Importantly, `×` (U+00D7) is two
+-- bytes in UTF-8 and Lua patterns operate on bytes, so `[×x]` does NOT match `×`
+-- as a single character — collapse it to plain `x` instead.
+local function normalizeRate(r)
+    return r:lower():gsub(',', ''):gsub('×', 'x')
+end
+
+-- Keep only fractional rates ("1/512", "7 x 1/2448", "90/18014") and "always".
+-- Drops text rarities ("Very rare", "Unknown", "Rare", "Once", "Varies").
+local function isFractionRate(r)
+    if not r or r == '' then return false end
+    local low = normalizeRate(r)
+    if low == 'always' or low == '1/1' then return true end
+    if low:match('^%d+%s*x%s*[%d%.]+/[%d%.]+$') then return true end
+    if low:match('^[%d%.]+/[%d%.]+$') then return true end
+    return false
+end
+
+local function rateToFloat(r)
+    local low = normalizeRate(r)
+    if low == 'always' or low == '1/1' then return 1.0 end
+    local n, num, den = low:match('^(%d+)%s*x%s*([%d%.]+)/([%d%.]+)$')
+    if n then return tonumber(n) * tonumber(num) / tonumber(den) end
+    num, den = low:match('^([%d%.]+)/([%d%.]+)$')
+    if num then return tonumber(num) / tonumber(den) end
+    return 0
+end
+
+local function loadDrops()
+    local byItem = {}
+    for guard = 0, PAGE_GUARD - 1 do
+        local rows = bucket('dropsline')
+            .select('item_name', 'drop_json')
+            .limit(PAGE_LIMIT)
+            .offset(guard * PAGE_LIMIT)
+            .run()
+        if not rows or #rows == 0 then break end
+        for _, r in ipairs(rows) do
+            local nm = r.item_name
+            local dj = r.drop_json
+            if nm and dj then
+                if type(dj) == 'string' then dj = mw.text.jsonDecode(dj) end
+                if type(dj) == 'table' then
+                    local rate = rateString(dj)
+                    if isFractionRate(rate) then
+                        local rawSource = trim(dj['Dropped from'])
+                        local srcHtml = buildDropSource(rawSource)
+                        if srcHtml then
+                            -- Strip "#anchor" so a recipe whose material is
+                            -- "Raw swordtip squid" can match a drop "Dropped from"
+                            -- of "Raw swordtip squid#Caught" or similar.
+                            local basePage = rawSource:gsub('#.*$', '')
+                            byItem[nm] = byItem[nm] or {}
+                            table.insert(byItem[nm], {
+                                kind       = 'drop',
+                                sourceHtml = srcHtml,
+                                rate       = rate,
+                                score      = rateToFloat(rate),
+                                sourcePage = basePage,
+                            })
+                        end
+                    end
+                end
+            end
+        end
+        if #rows < PAGE_LIMIT then break end
+    end
+    return byItem
+end
+
+local function loadShops(byItem)
+    for guard = 0, PAGE_GUARD - 1 do
+        local rows = bucket('storeline')
+            .select('sold_item', 'sold_by', 'page_name', 'store_sell_price', 'store_currency')
+            .limit(PAGE_LIMIT)
+            .offset(guard * PAGE_LIMIT)
+            .run()
+        if not rows or #rows == 0 then break end
+        for _, r in ipairs(rows) do
+            local nm = trim(r.sold_item)
+            if nm ~= '' then
+                local parts = buildShopParts(r)
+                if parts then
+                    local cleaned = (r.store_sell_price or ''):gsub(',', '')
+                    local price = tonumber(cleaned) or 0
+                    local currency = trim(r.store_currency)
+                    if currency == '' then currency = 'Coins' end
+                    byItem[nm] = byItem[nm] or {}
+                    table.insert(byItem[nm], {
+                        kind         = 'shop',
+                        sourceHtml   = parts.sourceHtml,
+                        rate         = parts.priceText,
+                        price        = price,
+                        currencyName = currency,
+                        -- The page the StoreLine sits on (the shop) and its seller, kept
+                        -- so a Recipe whose `facilities` names this shop can be merged in.
+                        location     = trim(r.page_name),
+                        seller       = trim(r.sold_by),
+                    })
+                end
+            end
+        end
+        if #rows < PAGE_LIMIT then break end
+    end
+end
+
+local function formatNum(n)
+    return mw.language.getContentLanguage():formatNum(n)
+end
+
+local function loadRecipes(byItem)
+    for guard = 0, PAGE_GUARD - 1 do
+        local rows = bucket('recipe')
+            .select('page_name', 'uses_material', 'production_json')
+            .limit(PAGE_LIMIT)
+            .offset(guard * PAGE_LIMIT)
+            .run()
+        if not rows or #rows == 0 then break end
+        for _, r in ipairs(rows) do
+            local key = trim(r.page_name)
+            local pj = r.production_json
+            if type(pj) == 'string' then pj = mw.text.jsonDecode(pj) end
+            if key ~= '' and type(pj) == 'table' and type(pj.materials) == 'table' and #pj.materials > 0 then
+                -- Self-reference detection across two flavours:
+                --   strict — material's decoded name equals the recipe key exactly.
+                --            E.g. Granite maul + Granite clamp -> Granite maul.
+                --            Always dropped (the "recipe" is an in-place upgrade).
+                --   broad  — material's decoded name starts with `key ` (space).
+                --            E.g. "Karil's leathertop 0", "Torva full helm (damaged)".
+                --            These are charge/repair cycles that LOOK like an
+                --            acquisition source but really only restore the item.
+                --            Kept here but dropped at render time when the item
+                --            has any non-recipe source — Imcando hammer, which has
+                --            only this kind of recipe, must still surface it.
+                local strictSelfRef, broadSelfRef = false, false
+                local keyPrefix = key .. ' '
+                for _, m in ipairs(pj.materials) do
+                    local mn = mw.text.decode(trim(m.name), true)
+                    if mn == key then
+                        strictSelfRef = true
+                    elseif mn:sub(1, #keyPrefix) == keyPrefix then
+                        broadSelfRef = true
+                    end
+                end
+                if not strictSelfRef then
+                    -- Split each material into a Source link and a Rate/Price quantity.
+                    -- Suppress the quantity column entirely when every material is a single
+                    -- unit (so "[[Needle]]" gets a blank rate, not a noisy "1"), but keep it
+                    -- positionally when any quantity is > 1 so a multi-material row's
+                    -- "A+B+C" Source still lines up with its "x+y+z" quantities.
+                    local sourceParts, rateParts, costParts, matNames, matPairs = {}, {}, {}, {}, {}
+                    local anyQtyOverOne = false
+                    for _, m in ipairs(pj.materials) do
+                        local name = mw.text.decode(trim(m.name), true)
+                        if name ~= '' then
+                            local qty = tonumber(m.quantity) or 1
+                            if qty > 1 then anyQtyOverOne = true end
+                            matNames[#matNames + 1] = name
+                            matPairs[#matPairs + 1] = name .. '|' .. tostring(qty)
+                            sourceParts[#sourceParts + 1] = '[[' .. name .. ']]'
+                            rateParts[#rateParts + 1] = formatNum(qty)
+                            -- Plain "<qty> <name>" fragment for the merged shop-cost string
+                            -- (e.g. "5,000 Anima-infused bark"), matching how other shop
+                            -- prices render. The qty is dropped when it is a single unit.
+                            if qty > 1 then
+                                costParts[#costParts + 1] = formatNum(qty) .. ' ' .. name
+                            else
+                                costParts[#costParts + 1] = name
+                            end
+                        end
+                    end
+                    -- Facility the recipe is performed at; for shop "recipes" this is the
+                    -- shop name (e.g. "Forestry Shop"), used to fold the full multi-currency
+                    -- cost into the shop's Storeline row at render time.
+                    local facility = (type(pj.facilities) == 'string') and trim(pj.facilities) or ''
+                    if #sourceParts > 0 then
+                        byItem[key] = byItem[key] or {}
+                        table.insert(byItem[key], {
+                            kind         = 'recipe',
+                            sourceHtml   = table.concat(sourceParts, '+'),
+                            rate         = anyQtyOverOne and table.concat(rateParts, '+') or '',
+                            broadSelfRef = broadSelfRef,
+                            materials    = matNames,
+                            matPairs     = matPairs,
+                            facility     = facility,
+                            fullCostText = table.concat(costParts, ' + '),
+                        })
+                    end
+                end
+            end
+        end
+        if #rows < PAGE_LIMIT then break end
+    end
+end
+
+-- Walk Bucket:Item_id to build an id-string -> wiki-name map. We capture
+-- `page_name_sub` rather than `page_name` because the sub form distinguishes
+-- variants that share an article (e.g. "Medallion fragment#1" through "#8")
+-- and matches how Dropsline/Storeline/Recipe key those rows internally.
+local function loadItemSubs()
+    local idToSub = {}
+    for guard = 0, PAGE_GUARD - 1 do
+        local rows = bucket('item_id')
+            .select('page_name_sub', 'id')
+            .limit(PAGE_LIMIT)
+            .offset(guard * PAGE_LIMIT)
+            .run()
+        if not rows or #rows == 0 then break end
+        for _, r in ipairs(rows) do
+            local sub = r.page_name_sub
+            local ids = r.id
+            if sub and type(ids) == 'table' then
+                for _, idv in ipairs(ids) do
+                    idToSub[tostring(idv)] = sub
+                end
+            end
+        end
+        if #rows < PAGE_LIMIT then break end
+    end
+    return idToSub
+end
+
+-- Manual acquisition rows, keyed by clog item id. The hand-curated escape hatch
+-- for items no standard bucket can express (e.g. Giant clam pearls). Read DIRECTLY
+-- from Module:User:Crocs/Collection_log/Manual via require -- NOT from a bucket --
+-- because Bucket:Collection_log_source is now this engine's OUTPUT (p.write), and a
+-- value can't be both our input and our output without duplicating itself.
+local function loadManual()
+    local byId = {}
+    local ok, mod = pcall(require, 'Module:User:Crocs/Collection_log/Manual')
+    if not ok or type(mod) ~= 'table' or type(mod.data) ~= 'table' then
+        return byId
+    end
+    for _, e in ipairs(mod.data) do
+        local id = (e.id ~= nil) and tostring(e.id) or ''
+        if id ~= '' then
+            byId[id] = byId[id] or {}
+            table.insert(byId[id], {
+                kind       = 'manual',
+                sourceHtml = trim(e.source),
+                rate       = trim(e.rate),
+            })
+        end
+    end
+    return byId
+end
+
+-- Build the fully-resolved per-item rows once: load every source, join + prune +
+-- merge per clog item, append manual rows, and order each item's rows by kind.
+-- Shared by p.list (render an HTML table) and p.write (emit to Bucket:Collection_log).
+-- Returns the sorted array, or an error string if the canonical clog list won't load.
+local function computeSorted()
+    local ok, data = pcall(mw.loadJsonData, DATA_PAGE)
+    if not ok or type(data) ~= 'table' then
+        return string.format("<strong class='error'>Failed to load %s</strong>", DATA_PAGE)
+    end
+
+    local drops = loadDrops()
+    loadShops(drops)
+    loadRecipes(drops)
+    local idToSub = loadItemSubs()
+    local manualById = loadManual()
+
+    -- Resolve each clog entry to its byItem lookup key + presence flag so the
+    -- sort can float missing-data items to the top without re-doing the lookup
+    -- in the render loop.
+    local function lookupRows(name, sub)
+        -- Lookup order — most specific first:
+        --   1. page_name_sub      - per-variant key (Dropsline "Medallion fragment#1",
+        --                           Storeline "Decorative armour (red platebody)")
+        --   2. in-game clog name  - catches per-variant keys that use parentheses
+        --                           instead of #anchors ("Torva full helm (damaged)"
+        --                           drop from Nex)
+        --   3. base page name     - last resort, but risky: a recipe keyed under the
+        --                           bare page is usually for the restored form and
+        --                           will misfire on the damaged/uncharged variants
+        local pageOnly = sub and sub:gsub('#.*$', '') or nil
+        return (sub and drops[sub])
+            or (name ~= sub and drops[name])
+            or (pageOnly and pageOnly ~= sub and pageOnly ~= name and drops[pageOnly])
+            or {}
+    end
+
+    local kindOrder = { drop = 1, shop = 2, recipe = 3, manual = 4 }
+
+    local sorted = {}
+    for _, e in ipairs(data) do
+        local name = e.name or ''
+        local sub  = idToSub[tostring(e.id or '')]
+        local rows = lookupRows(name, sub)
+
+        -- Recipe-pruning passes, only applied when the item has a non-recipe source:
+        --   (a) Self-recharging recipes (e.g. Karil's leathertop 0 + Coins). Items
+        --       whose ONLY source is a self-ref recipe (Imcando hammer) keep it.
+        --   (b) Recipes whose every material is already a drop source for this item
+        --       — e.g. Squid beak's "Raw swordtip squid" recipe duplicates the
+        --       Raw-swordtip-squid Dropsline row.
+        --   (c) Recipes whose every (material, qty) pair matches an existing shop's
+        --       (currency, price) — e.g. Cape pouch's "2500 Anima-infused bark"
+        --       recipe duplicates the Forestry Shop row.
+        local hasNonRecipe = false
+        local dropSources, shopPairs = {}, {}
+        for _, r in ipairs(rows) do
+            if r.kind ~= 'recipe' then hasNonRecipe = true end
+            if r.kind == 'drop' and r.sourcePage then
+                dropSources[r.sourcePage] = true
+            end
+            if r.kind == 'shop' and r.currencyName and r.price then
+                shopPairs[r.currencyName .. '|' .. tostring(r.price)] = true
+            end
+        end
+
+        -- Shop-cost merge: Storeline can record only ONE currency, so a shop that
+        -- charges multiple currencies (e.g. the Forestry Shop's "5,000 Anima-infused
+        -- bark + 300 Oak logs + 300 Willow logs" for a Log basket) stores just the
+        -- primary currency on the shop row and the FULL cost on a {{Recipe}} whose
+        -- `facilities` is the shop. When a recipe's facility matches a shop row for
+        -- this item AND one of its materials is that shop's (currency, price), the
+        -- recipe is really that purchase: fold its itemized cost into the shop row's
+        -- Rate/Price and drop the now-redundant recipe row.
+        local mergedRecipe = {}
+        for ri, r in ipairs(rows) do
+            if r.kind == 'recipe' and r.facility and r.facility ~= '' and r.matPairs then
+                for _, s in ipairs(rows) do
+                    if s.kind == 'shop'
+                        and (r.facility == s.location or r.facility == s.seller) then
+                        local anchor = s.currencyName .. '|' .. tostring(s.price)
+                        for _, pair in ipairs(r.matPairs) do
+                            if pair == anchor then
+                                s.rate = r.fullCostText
+                                mergedRecipe[ri] = true
+                                break
+                            end
+                        end
+                    end
+                    if mergedRecipe[ri] then break end
+                end
+            end
+        end
+
+        if hasNonRecipe or next(mergedRecipe) then
+            local filtered = {}
+            for i, r in ipairs(rows) do
+                local drop = false
+                if mergedRecipe[i] then
+                    drop = true
+                elseif hasNonRecipe and r.kind == 'recipe' then
+                    if r.broadSelfRef then
+                        drop = true
+                    elseif r.materials and #r.materials > 0 then
+                        local allMatchDrops, allMatchShops = true, true
+                        for _, mat in ipairs(r.materials) do
+                            if not dropSources[mat] then allMatchDrops = false; break end
+                        end
+                        for _, pair in ipairs(r.matPairs or {}) do
+                            if not shopPairs[pair] then allMatchShops = false; break end
+                        end
+                        if allMatchDrops or (#(r.matPairs or {}) > 0 and allMatchShops) then
+                            drop = true
+                        end
+                    end
+                end
+                if not drop then filtered[#filtered + 1] = r end
+            end
+            rows = filtered
+        end
+
+        -- Append any hand-curated rows for this item (bucket-resistant sources).
+        local manualRows = manualById[tostring(e.id or '')]
+        if manualRows then
+            for _, mr in ipairs(manualRows) do
+                rows[#rows + 1] = mr
+            end
+        end
+
+        -- Order each item's rows by kind (drops by descending rate, shops by
+        -- ascending price) so the render and the bucket output agree.
+        table.sort(rows, function(a, b)
+            if a.kind ~= b.kind then
+                return (kindOrder[a.kind] or 9) < (kindOrder[b.kind] or 9)
+            end
+            if a.kind == 'drop' then return (a.score or 0) > (b.score or 0) end
+            if a.kind == 'shop' then return (a.price or 0) < (b.price or 0) end
+            return false
+        end)
+
+        sorted[#sorted + 1] = { e = e, sub = sub, rows = rows, missing = (#rows == 0) }
+    end
+    table.sort(sorted, function(a, b)
+        if a.missing ~= b.missing then return a.missing end
+        return (a.e.name or ''):lower() < (b.e.name or ''):lower()
+    end)
+
+    return sorted
+end
+
+function p.list(frame)
+    local sorted = computeSorted()
+    if type(sorted) ~= 'table' then return sorted end
+
+    local tbl = mw.html.create('table'):addClass('wikitable'):addClass('sortable')
+    local hr = tbl:tag('tr')
+    hr:tag('th'):wikitext('Item')
+    hr:tag('th'):wikitext('ID')
+    hr:tag('th'):wikitext('Source')
+    hr:tag('th'):wikitext('Rate/Price')
+
+    for _, entry in ipairs(sorted) do
+        local e     = entry.e
+        local name  = e.name or ''
+        local idStr = tostring(e.id or '')
+        local sub   = entry.sub
+        local rows  = entry.rows
+
+        -- Item link: use page_name_sub directly so the display string is the
+        -- wiki's disambiguated name (e.g. "Medallion fragment#1",
+        -- "Decorative armour (red platebody)"). Falls back to the bare clog
+        -- name when the ID can't be resolved.
+        local itemCell
+        if sub and sub ~= '' then
+            itemCell = string.format('[[%s]]', sub)
+        else
+            itemCell = string.format('[[%s]]', name)
+        end
+        if #rows == 0 then
+            local r = tbl:tag('tr'):css('background', '#ff4050')
+            r:tag('td'):wikitext(itemCell)
+            r:tag('td'):wikitext(idStr)
+            r:tag('td'):wikitext('')
+            r:tag('td'):wikitext('')
+        else
+            local span = tostring(#rows)
+            for i, d in ipairs(rows) do
+                local r = tbl:tag('tr')
+                if i == 1 then
+                    r:tag('td'):attr('rowspan', span):wikitext(itemCell)
+                    r:tag('td'):attr('rowspan', span):wikitext(idStr)
+                end
+                r:tag('td'):wikitext(d.sourceHtml)
+                r:tag('td'):wikitext(d.rate)
+            end
+        end
+    end
+
+    return tostring(tbl)
+end
+
+-- Emit the computed data into Bucket:Collection_log_source so external tools can
+-- query the finished, joined dataset via action=bucket instead of scraping the
+-- Sandbox. ONE row per item (page_name_sub = the item id) with the item's multiple
+-- acquisition sources held in three index-aligned repeated columns: sources[i] is
+-- obtained at rates[i] by means kinds[i] (drop/shop/recipe/manual). Items with no
+-- resolved source get empty arrays. ~1,699 rows, under the per-page write cap, so a
+-- single host page writes it all. Invoke from a HOST page, NOT the Sandbox (a page
+-- can't read its own fresh writes; bucket writes commit post-parse).
+function p.write(frame)
+    local sorted = computeSorted()
+    if type(sorted) ~= 'table' then return sorted end
+
+    -- Sharded by item index: a single page can only commit so many bucket VALUES
+    -- per parse (the full set's ~15k array cells get silently dropped), so the
+    -- items are split across several host pages via |shard=k|of=n. One row per item
+    -- regardless of which shard writes it, so the bucket reader sees a clean set.
+    local args  = frame and frame.args or {}
+    local shard = tonumber(args.shard)
+    local of    = tonumber(args.of)
+    local sharded = (shard and of and of > 0 and shard >= 1 and shard <= of)
+
+    local n = 0
+    for idx, entry in ipairs(sorted) do
+        if (not sharded) or (((idx - 1) % of) + 1 == shard) then
+            local e        = entry.e
+            local id       = e.id
+            local sub      = entry.sub
+            local itemName = (sub and sub ~= '') and sub or (e.name or '')
+
+            local sources, rates, kinds = {}, {}, {}
+            for _, d in ipairs(entry.rows) do
+                sources[#sources + 1] = d.sourceHtml or ''
+                rates[#rates + 1]     = d.rate or ''
+                kinds[#kinds + 1]     = d.kind or ''
+            end
+
+            bucket('collection_log_source').sub(tostring(id)).put({
+                item_id   = id,
+                item_name = itemName,
+                sources   = sources,
+                rates     = rates,
+                kinds     = kinds,
+            })
+            n = n + 1
+        end
+    end
+    local label = sharded and string.format(' (shard %d/%d)', shard, of) or ''
+    return string.format('Wrote %d item row(s) to [[Bucket:Collection_log_source]]%s.', n, label)
+end
+
+return p

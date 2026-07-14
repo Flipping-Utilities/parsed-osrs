@@ -1,0 +1,141 @@
+local p = {}
+local levelAtXp = require('Module:Experience').level_at_xp_unr
+local xpAtLevel = require('Module:Experience').xp_at_level_unr
+ function p.main(frame)
+ 	local args = frame:getParent().args
+ 	thievingXP = tonumber(args.thievingXP)
+ 	thievingLvl = tonumber(args.thievingLvl)
+ 	thievingType = args.thievingType
+ 	agilityXP = tonumber(args.agilityXP) 
+ 	agilityLvl =tonumber(args.agilityLvl)
+ 	agilityType = args.agilityType
+ 	tearsHr = tonumber(args.Tears)
+ 	goalToggle = args.goalToggle
+ 	goal =tonumber(args.goal)
+ 	leagueMultiplier = tonumber(args.leagueMultiplier)
+	
+	-----Handle 200m exception----
+	if goal == 127 then goalXP = 200000000 else goalXP = xpAtLevel({args = {goal}}) end
+	if thievingType == "Level" then 
+		if thievingLvl == 127 then thievingXP = 200000000 else
+		thievingXP = xpAtLevel({args = {thievingLvl}}) end end
+	if agilityType == "Level" then 
+		if agilityLvl == 127 then agilityXP = 200000000 else
+		agilityXP = xpAtLevel({args = {agilityLvl}}) end end
+	
+	tears = 0
+	initialAgility = agilityXP
+	initialThieving = thievingXP
+	thieving = levelAtXp({args = {thievingXP}})
+	agility = levelAtXp({args = {agilityXP}})
+
+    if goalToggle == "Thieving" then
+    	if thievingXP >= goalXP then
+    		return "Your target must be higher than your level" end
+		 tears = calculateTears(thievingXP, goalXP, thieving, 11)
+		 thievingXP = goalXP
+		time = tears / tearsHr
+		agilityXP = calculateXp(agilityXP, agility, tears, 3)
+		secondaryXP = agilityXP
+		secondary = "Agility"
+	else
+	    if agilityXP >= goalXP then
+    		return "Your target must be higher than your level" end
+		tears = calculateTears(agilityXP, goalXP, agility, 3)
+		agilityXP = goalXP
+		time = tears / tearsHr
+		thievingXP = calculateXp(thievingXP, thieving, tears, 11)
+		secondaryXP = thievingXP
+		secondary = "Thieving"
+	end
+	
+	------EHP (TempleOsrs) ----will probably need updating every now and then-----
+	agilityEhp = getAgilityEHP(0,13363,6000) + getAgilityEHP(13363,41171,15000) + getAgilityEHP(41171,449428,44000) + getAgilityEHP(449428,2192818,50000) + getAgilityEHP(2192818,6000000,55000) + getAgilityEHP(6000000,6517253,59000) + getAgilityEHP(6517253,200000000,95000)
+	
+	thievingEhp = getThievingEHP(0,61512,15000) + getThievingEHP(61512,166636,60000) + getThievingEHP(166636,449428,100000) + getThievingEHP(449428,5902831,220000) + getThievingEHP(5902831,13034431,255000) + getThievingEHP(13034431,200000000,280000)
+	
+		----Leagues----
+	if (leagueMultiplier == null) then leagueMultiplier = 1 end
+	time = time / leagueMultiplier
+	agilityEhp = agilityEhp / leagueMultiplier
+	thievingEhp = thievingEhp / leagueMultiplier
+	------------------
+	
+	
+	if (secondaryXP == 200000000) then secondaryLvl = 127 else
+	secondaryLvl = levelAtXp({args = {secondaryXP}}) end
+	ehp = (agilityEhp + thievingEhp) / time
+	timeSave = (agilityEhp + thievingEhp) - time
+	if timeSave < 0 then 
+		gain = "slower" 
+		timeSave = timeSave * -1
+		else gain = "faster" end
+		
+	-----Output Formatting----
+	agilityXP = tonumber(string.format("%.0f", agilityXP))
+	thievingXP = tonumber(string.format("%.0f", thievingXP))
+	time = tonumber(string.format("%.2f", time))
+	agilityEhp = tonumber(string.format("%.2f", agilityEhp))
+	thievingEhp = tonumber(string.format("%.2f", thievingEhp))
+	ehp = tonumber(string.format("%.2f", ehp))
+	timeSave = tonumber(string.format("%.2f", timeSave))
+	secondaryXP = tonumber(string.format("%.0f", secondaryXP))
+	
+	return "It will take you " .. time .. " hours to reach your goal of level " .. goal .. " ".. goalToggle.. " ("..goalXP.." xp). <br/> This will get you to level " .. secondaryLvl .." " .. secondary .. " ("..secondaryXP..
+	" xp). <br/> Doing the most efficient Agility training method to gain that xp would take "..agilityEhp.. " hours. <br/> Doing the most efficient Thieving training method to gain that xp would take ".. thievingEhp .. " hours."..
+	"<br/> This makes swimming "..timeSave.." hours "..gain..", and puts swimming at ".. ehp.. " EHP."
+
+--Alternative output (less wordy)
+--	return "Final Agility XP: "  .. agilityXP.. "<br/> Final Thieving XP: " .. thievingXP .. "<br/> Time taken: " .. time .. " hours <br/> Agility EHP: " .. agilityEhp.. " <br/> Thieving EHP: " .. thievingEhp ..  "<br/> Swimming EHP: " .. ehp
+ end
+ ----Find amount of tears to reach goalXP-----
+  function calculateTears(currentxp, goalXP, level, multiplier)
+	while (currentxp < goalXP) do
+		level = levelAtXp({args = {currentxp}})
+		if level >= 99 then 
+			xpreq = goalXP - currentxp
+			level = 99
+			else
+			xpreq = xpAtLevel({args = {level + 1}}) - currentxp
+			if xpAtLevel({args = {level + 1}}) > goalXP then
+				xpreq = goalXP - currentxp end
+		end
+		tears = tears + xpreq / (multiplier * level * level * 9/1500)
+		currentxp = currentxp + xpreq
+	end
+	return tears
+ end
+ ----Find how much xp you will get with that amount of tears-----
+ function calculateXp(xp, level, tears, multiplier)
+	while (tears > 0) do
+		level = levelAtXp({args = {xp}})
+		if level > 99 then level2 = 99 else level2 = level end
+		xpPerTear = (multiplier * level2 * level2 * 9 /1500)
+		if level >= 99 then break end
+		xpreq = xpAtLevel({args = {level + 1}}) - xp
+		tear2 = xpreq / xpPerTear
+		if tear2 < tears then
+			tears = tears - tear2
+			xp = xp + tear2 * xpPerTear
+		else break end 
+	end
+	xp = xp + tears * xpPerTear
+	if xp > 200000000 then xp = 200000000 end
+	return xp
+ end
+ ----Calculate EHP----
+ function getAgilityEHP(low, high, rate)
+ 	if initialAgility <= high and initialAgility >= low and agilityXP <= high and agilityXP >= low then return (agilityXP - initialAgility)/rate end
+	if initialAgility <= high and initialAgility >= low and agilityXP >= high then return (high - initialAgility)/rate end
+	if initialAgility <= low and agilityXP <= high and agilityXP >= low then return (agilityXP - low)/rate end
+	if initialAgility <= low and agilityXP >= high then return (high - low)/rate end
+	return 0
+ end
+  function getThievingEHP(low, high, rate)
+ 	if initialThieving <= high and initialThieving >= low and thievingXP <= high and thievingXP >= low then return (thievingXP - initialThieving)/rate end
+	if initialThieving <= high and initialThieving >= low and thievingXP >= high then return (high - initialThieving)/rate end
+	if initialThieving <= low and thievingXP <= high and thievingXP >= low then return (thievingXP - low)/rate end
+	if initialThieving <= low and thievingXP >= high then return (high - low)/rate end
+	return 0
+ end
+ return p

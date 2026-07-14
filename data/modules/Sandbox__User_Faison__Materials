@@ -1,0 +1,140 @@
+--<nowiki>
+
+local p = {}
+
+local params = require('Module:Paramtest')
+local commas = require('Module:Addcommas')
+local geprice = require('Module:Exchange')._price
+local clean_image = require('Module:Clean image').clean
+local coins = require('Module:Coins')._amount
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local materials, output = p.parse_materials_args(args)
+	
+	local r = p._main(materials, output)
+	
+	return r
+end
+
+function p.parse_materials_args(args)
+	local materials = p.mat_list(args)
+
+	-- Parse out the Output Item args.
+	local name = args.outputname or mw.title.getCurrentTitle().text
+	local image_name = args.outputpic or (name .. '.png')
+	local output = {
+		name = name,
+		image = clean_image({file=image_name, link=name}),
+		quantity = args.outputquantity or 1,
+		cost = p.cost_to_number(args.outputcost, name)
+	}
+	
+	return materials, output
+end
+
+function p.cost_to_number(cost_v, name)
+	local frame = mw.getCurrentFrame()
+	if cost_v == nil then
+		return geprice(name)
+	elseif tonumber(commas._strip(cost_v),10) then
+		return tonumber(commas._strip(cost_v),10)
+	elseif cost_v:find('{{.*}}') then
+		return frame:preprocess(cost_v)
+	end
+	return 0
+end
+
+function p.mat_list(args)
+	local ret_list = {}
+	for i=1,10,1 do
+		local mat = args['mat'..i]
+		if mat and params.has_content(mat) then
+			local name = mat
+			local qty = params.default_to(args['mat'..i..'quantity'],'1')
+			local img = params.default_to(args['mat'..i..'pic'], name..'.png')
+			local cost_v = args['mat'..i..'cost']
+
+			table.insert(ret_list, {
+				name = name,
+				cost = p.cost_to_number(cost_v, name),
+				quantity = qty,
+				image = clean_image({file=img, link=mat}),
+			} )
+		end
+	end
+	return ret_list
+end
+
+function p._main(materials, output)
+	local parent = mw.html.create('div')
+			:css({width = 'max-content' })
+
+	parent:node(p.materials(materials, output))
+	
+	return tostring(parent)
+end
+
+function p.materials(materials, output)
+
+	local function make_row(item_data)
+		local classOverride
+		local textAlign = 'right'
+		if item_data.cost == 0 then
+			mat_ttl = 'N/A'
+			classOverride = 'table-na'
+			textAlign = 'center'
+		else
+			mat_ttl = coins(item_data.quantity * item_data.cost)
+		end
+		return mw.html.create('tr')
+			:tag('td'):wikitext(item_data.image):done()
+			:tag('td'):wikitext('[[' .. item_data.name .. ']]'):done()
+			:tag('td'):wikitext(commas._add(item_data.quantity)):done()
+			:tag('td'):addClass(classOverride):css({ ['text-align'] = textAlign }):wikitext(mat_ttl):done(), item_data.quantity * item_data.cost
+	end
+	
+	local materialsTable = mw.html.create('table')
+			:addClass('wikitable align-center-1 align-right-3 align-right-4')
+			:css({ width = '100%',
+				['margin-top'] = '-1px' })
+	
+	materialsTable:tag('caption'):wikitext("Materials"):done()
+	materialsTable:tag('tr')
+		:tag('th'):attr('colspan', 2):wikitext('Item'):done()
+		:tag('th'):wikitext('Quantity'):done()
+		:tag('th'):wikitext('Cost'):done()
+	local total_cost = 0
+
+	for i, v in ipairs(materials) do
+		row, row_cost = make_row(v)
+
+		if row_cost ~= 0 then
+			total_cost = total_cost + v.quantity * v.cost
+		end
+
+		materialsTable:node(row)
+	end
+	
+	if #materials == 0 then
+		materialsTable:tag('tr')
+			:tag('td'):attr('colspan','5'):css({ ['font-style'] = 'italic', ['text-align'] = 'center' }):wikitext('Materials unlisted '..editbutton()):done()
+	else
+		materialsTable:tag('tr')
+			:tag('th'):attr('colspan', 3):css({['text-align'] = 'right'}):wikitext('Total Cost'):done()
+			:tag('td'):css({['text-align'] = 'right'}):wikitext(coins(total_cost))
+	end
+	
+	output_row, output_cost = make_row(output)
+	materialsTable:node(output_row)
+	
+	if output_cost > 0 then
+		materialsTable:tag('tr')
+			:tag('th'):attr('colspan', 3):css({['text-align'] = 'right'}):wikitext('Profit'):done()
+			:tag('td'):css({['text-align'] = 'right'}):wikitext(coins(output_cost - total_cost))
+	end
+	
+	return materialsTable
+end
+
+return p

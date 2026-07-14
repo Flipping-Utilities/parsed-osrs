@@ -1,0 +1,317 @@
+-- <nowiki>
+local arr = require('Module:Array')
+local timefunc = require('Module:Time')
+local exg = require('Module:Exchange')._price
+local pagesWithCats = require('Module:PageListTools').pageswithcatsdpl
+local lang = mw.getContentLanguage()
+local p = {}
+
+local function gep(x)
+	return exg(x, 1, nil, nil, 0)
+end
+
+local MEMBERS_ICON = {
+	[false] = "[[File:Free-to-play icon.png|center|link=Free-to-play|alt=Free-to-play]]",
+	[true]  = "[[File:Member icon.png|center|link=Members|alt=Members]]"
+}
+
+local TAX_EXEMPT = arr{
+	unpack(pagesWithCats({'Items exempt from Grand Exchange tax'}))
+}
+
+local function round1k(x, f)
+	if not tonumber(x) then
+		return x
+	end
+	local _x = math.abs(x)
+	_x = 1000 * math.floor(_x / 1000 + 0.5)
+	if x < 0 then
+		_x = _x * -1
+	end
+	if f then
+		return lang:formatNum(_x)
+	end
+	return _x
+end
+
+local function round1dp(x, f)
+	if not tonumber(x) then
+		return x
+	end
+	local _x = math.abs(x)
+	_x = math.floor(_x * 10 + 0.5) / 10
+	if x < 0 then
+		_x = _x * -1
+	end
+	if f then
+		return lang:formatNum(_x)
+	end
+	return _x
+end
+
+local function calc_value(args, kph, deduct_tax)
+	local total = 0
+	for _, v in ipairs(args) do
+		local val
+		if v.pricetype == 'value' then
+			val = v.qty * v.value
+		elseif v.pricetype == 'gemw' then
+			local _v = gep(v.name)
+			if deduct_tax and _v > 99 and not TAX_EXEMPT:contains(v.name) then
+				_v = _v - math.min(math.floor(_v * 0.02), 5000000)
+			end
+			val = _v * v.qty
+		end
+		if kph > 0 and not v.isph then
+			val = val * kph
+		end
+		total = total + val
+	end
+	return total
+end
+
+local function make_row(fullpagename, raw_data, ismulti)
+	local data = mw.text.jsonDecode(raw_data)
+	local pagelink = fullpagename .. '|' .. string.match(fullpagename, '/(.*)')
+	local pagename
+	if ismulti and data.version then
+		pagename = '[[' .. pagelink .. ' (' .. data.version .. ')]]'
+	else
+		pagename = '[[' .. pagelink .. ']]'
+	end
+	
+	local rowcat = data.category
+	if data.skillcategory then
+		rowcat = rowcat .. '/' .. data.skillcategory
+	end
+	
+	local inputval = calc_value(data.inputs, data.prices.default_kph or 0, false)
+	local outputval = calc_value(data.outputs, data.prices.default_kph or 0, true)
+	local val = outputval - inputval
+	local c_class
+	if val > 0 then
+		c_class = 'coins-pos'
+	elseif val < 0 then
+		c_class = 'coins-neg'
+	else
+		c_class = ''
+	end
+	
+	local intensity = (data.intensity == 'High') and 3 or (data.intensity == 'Moderate') and 2 or (data.intensity == 'Low') and 1 or 0
+	
+	local tr = mw.html.create('tr')
+		:tag('td')
+			:wikitext(pagename)
+		:done()
+		:tag('td')
+			:attr('data-sort-value', val)
+			:tag('span')
+				:addClass('coins')
+				:addClass(c_class)
+				:wikitext(round1k(val, true))
+			:done()
+		:done()
+		:tag('td')
+			:addClass('plainlist')
+			:newline()
+			:wikitext(data.skill)
+		:done()
+		:tag('td')
+			:wikitext(rowcat)
+		:done()
+		:tag('td')
+			:wikitext(data.intensity)
+			:attr('data-sort-value', intensity)
+		:done()
+		:tag('td')
+			:wikitext(MEMBERS_ICON[data.members])
+		:done()
+	:done()
+	
+	return val, data.category, tr
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	local b = bucket('money_making_guide')
+		.select('page_name', 'json')
+		.where('Category:Worthwhile money making guides')
+		.where('recurring', false)
+		.limit(10000)
+	
+	if args[1] then
+		b.where('Category:' .. args[1])
+	end
+	
+	local data = b.run()
+	
+	local t = mw.html.create('table')
+		:addClass('wikitable sortable sticky-header align-right-2 align-center-4 align-center-5 align-center-6')
+		:tag('caption')
+			:wikitext('[[Money making guide|All guides]] &bull; [[Money making guide/Collecting|Collecting]] &bull; [[Money making guide/Combat|Combat]] &bull; [[Money making guide/Processing|Processing]] &bull; [[Money making guide/Skilling|Skilling]] &bull; [[Money making guide/Recurring|Recurring]] &bull; [[Money making guide/Free-to-play|Free-to-play]] ')
+		:done()
+		:tag('tr')
+			:tag('th')
+				:wikitext('Method')
+			:done()
+			:tag('th')
+				:wikitext('Hourly profit')
+			:done()
+			:tag('th')
+				:wikitext('Skills')
+			:done()
+			:tag('th')
+				:wikitext('Category')
+			:done()
+			:tag('th')
+				:wikitext('Intensity')
+				:css('width', '65px')
+			:done()
+			:tag('th')
+				:wikitext('Members')
+				:css('width', '65px')
+			:done()
+		:done()
+	
+	local methods = {}
+	for _, v in ipairs(data) do
+		if string.find(v.page_name, 'Money making guide/') then
+			table.insert(methods, { make_row(v.page_name, v.json, false) })
+		end
+	end
+	
+	table.sort(methods, function(a, b) return a[1] > b[1] end)
+	
+	for _, v in ipairs(methods) do
+		if v[1] > 0 then
+			t:newline():node(v[3])
+		end
+	end
+	
+	return t:allDone()
+end
+
+local function make_rec_row(fullpagename, raw_data, ismulti)
+	local data = mw.text.jsonDecode(raw_data)
+	local pagelink = fullpagename .. '|' .. string.match(fullpagename, '/(.*)')
+	local pagename
+	if ismulti and data.version then
+		pagename = '[[' .. pagelink .. ' (' .. data.version .. ')]]'
+	else
+		pagename = '[[' .. pagelink .. ']]'
+	end
+	
+	local val = calc_value(data.outputs, 0, true) - calc_value(data.inputs, 0, false)
+	local c_class
+	if val > 0 then
+		c_class = 'coins-pos'
+	elseif val < 0 then
+		c_class = 'coins-neg'
+	else
+		c_class = ''
+	end
+	
+	local tr = mw.html.create('tr')
+		:tag('td')
+			:wikitext(pagename)
+		:done()
+		:tag('td')
+			:attr('data-sort-value', val)
+			:tag('span')
+				:addClass('coins')
+				:addClass(c_class)
+				:wikitext(round1k(val, true))
+			:done()
+		:done()
+		:tag('td')
+			:wikitext(timefunc._m_to_c(tostring(data.time)))
+		:done()
+		:tag('td')
+			:attr('data-sort-value', val * 60 / data.time)
+			:tag('span')
+				:addClass('coins')
+				:addClass(c_class)
+				:wikitext(round1k(val * 60 / data.time, true))
+			:done()
+		:done()
+		:tag('td')
+			:attr('data-sort-value', timefunc._w_to_c(tostring(data.recurrence)))
+			:wikitext(timefunc._w_to_c(tostring(data.recurrence)))
+		:done()
+		:tag('td')
+			:addClass('plainlist')
+			:newline()
+			:wikitext(data.skill)
+		:done()
+		:tag('td')
+			:wikitext(data.category)
+		:done()
+		:tag('td')
+			:wikitext(MEMBERS_ICON[data.members])
+		:done()
+	:done()
+	
+	return val, tr
+end
+
+function p.rec(frame)
+	local b = bucket('money_making_guide')
+		.select('page_name', 'json')
+		.where('Category:Worthwhile money making guides')
+		.where('recurring', true)
+		.limit(10000)
+	
+	local data = b.run()
+	
+	local t = mw.html.create('table')
+		:addClass('wikitable sortable sticky-header align-right-2 align-right-3 align-right-4 align-right-5 align-center-7 align-center-8')
+		:tag('caption')
+			:wikitext('[[Money making guide|All guides]] &bull; [[Money making guide/Collecting|Collecting]] &bull; [[Money making guide/Combat|Combat]] &bull; [[Money making guide/Processing|Processing]] &bull; [[Money making guide/Skilling|Skilling]] &bull; [[Money making guide/Recurring|Recurring]] &bull; [[Money making guide/Free-to-play|Free-to-play]]')
+		:done()
+		:tag('tr')
+			:tag('th')
+				:wikitext('Method')
+			:done()
+			:tag('th')
+				:wikitext('Profit')
+			:done()
+			:tag('th')
+				:wikitext('Time')
+			:done()
+			:tag('th')
+				:wikitext('Effective<br>profit')
+			:done()
+			:tag('th')
+				:wikitext('Recurrence<br>time')
+			:done()
+			:tag('th')
+				:wikitext('Skills')
+			:done()
+			:tag('th')
+				:wikitext('Category')
+			:done()
+			:tag('th')
+				:wikitext('Members')
+				:css('width', '65px')
+			:done()
+		:done()
+	
+	local methods = {}
+	for _, v in ipairs(data) do
+		table.insert(methods, { make_rec_row(v.page_name, v.json, false) })
+	end
+	
+	table.sort(methods, function(a, b) return a[1] > b[1] end)
+	
+	for _, v in ipairs(methods) do
+		if v[1] > 0 then
+			t:newline():node(v[2])
+		end
+	end
+	
+	return t:allDone()
+end
+
+return p
+-- </nowiki>

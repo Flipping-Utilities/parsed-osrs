@@ -1,0 +1,125 @@
+local pt = require('Module:Paramtest')
+local hc = pt.has_content
+
+local p = {}
+
+-- category mapping: {category name, type for use on date pages (eg [[28 November]])
+local category_info = {
+	bts = {'Behind the Scenes updates', 'Behind the Scenes'},
+	community = {'Community updates', 'Community'},
+	devblog = {'Developer Blogs', 'Developer Blog'},
+	event = {'Event updates', 'Event update'},
+	game = {'Game updates', 'Game update'},
+	future = {'Future Updates', 'Future update'},
+	forum = {'forum'},
+	mobile = {'Mobile updates', 'Mobile update'},
+	shop = {'Shop updates', 'Shop update'},
+	support = {'Support updates', 'Support'},
+	technical = {'Technical updates', 'Technical'},
+	website = {'Website updates', 'Website update'},
+	yourfeedback = {'Your Feedback updates', 'Your Feedback'},
+	forum = {'Forum post updates', 'Forum post'},
+	competitions = {'Competition updates', 'Competitions'},
+	['#default'] = {'Missing update category', ''},
+}
+-- input mapping: accepted inputs -> keys for above table
+local cat_switch = {
+	bts = 'bts',
+	['behind the scenes'] = 'bts',
+	comm = 'community',
+	community = 'community',
+	dev = 'devblog',
+	blog = 'devblog',
+	['dev blog'] = 'devblog',
+	devblog = 'devblog',
+	['dev blogs'] = 'devblog',
+	event = 'event',
+	events = 'event',
+	game = 'game',
+	feedback= 'yourfeedback',
+	forum = 'forum',
+	future = 'future',
+	mobile = 'mobile',
+	shop = 'shop',
+	cs = 'support',
+	competitions = 'competitions',
+	customer = 'support',
+	['customer support'] = 'support',
+	support = 'support',
+	tech = 'technical',
+	technical = 'technical',
+	th = 'th',
+	site = 'website',
+	ws = 'website',
+	website = 'website',
+	yourfeedback= 'yourfeedback',
+	['your feedback'] = 'yourfeedback',
+	['#default'] = '#default'
+}
+
+-- given a supported 'category' code, return the name of the category
+function get_update_category(catarg)
+	if hc(catarg) then
+		catarg = string.gsub(string.lower(catarg), ' ?updates?', '')
+		if cat_switch[catarg] and category_info[cat_switch[catarg]] then
+			return category_info[cat_switch[catarg]][1]
+		else
+			return category_info[cat_switch['#default']][1]
+		end
+	else
+		return category_info[cat_switch['#default']][1]
+	end
+end
+
+local monthNumbers = {
+	January = 1,
+	February = 2,
+	March = 3,
+	April = 4,
+	May = 5,
+	June = 6,
+	July = 7,
+	August = 8,
+	September = 9,
+	October = 10,
+	November = 11,
+	December = 12
+}
+
+function p.datepage(frame)
+	local a = frame:getParent()
+	if not hc(a.args[1]) then
+		return '* ... Nothing interesting happened.'
+	end
+
+	local dayNum, monthName = unpack(mw.text.split(a.args[1], '%s'))
+	dayNum = tonumber(dayNum)
+	monthNum = monthNumbers[monthName]
+	
+	local updateInfos = bucket('update')
+		.select('page_name', 'type', 'year')
+		.where({
+			day = dayNum,
+			month = monthNum
+		})
+		.orderBy('year', 'desc')
+		.run()
+
+	if #updateInfos == 0 then
+		return '* ... Nothing interesting happened.'
+	end
+
+	local i, updateInfo, pageYear, pageType, pageName
+	local outStrings = {}
+	for i, updateInfo in ipairs(updateInfos) do
+		pageName = string.gsub(updateInfo['page_name'], '^Update:', '')
+		pageYear = updateInfo['year']
+		pageType = category_info[cat_switch[string.gsub(string.lower(updateInfo['type']), ' ?updates?', '')]][2]
+
+		outStrings[i] = string.format("*'''%s''' – %s: [[Update:%s|%s]]", pageYear, pageType, pageName, pageName)
+	end
+	
+	return table.concat(outStrings, '\n')
+end
+
+return p

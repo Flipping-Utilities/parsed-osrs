@@ -1,0 +1,111 @@
+local p = {}
+
+local editBtn = '<small>' .. require('Module:Edit button')() .. '</small>'
+local yesno = require('Module:Yesno')
+local isEmpty = require('Module:Paramtest').is_empty
+local hc = require('Module:Paramtest').has_content
+local buildMap = require('Module:Map').buildMap
+local onmain = require('Module:Mainonly').on_main()
+local tb = require('Module:Trailblazer Region')
+local var = mw.ext.VariablesLua
+
+local membscol = {
+	[true] = '[[File:Member icon.png|link=Members|alt=Members]]',
+	[false] = '[[File:Free-to-play icon.png|link=Free-to-play|alt=Free-to-play]]',
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local templateArgs = frame.args
+
+	-- Copy args into new table to avoid custom scribunto iteration behavior on args
+	local mapArgs = {}
+	for k,v in pairs(args) do
+    	mapArgs[k] = v
+	end
+	
+	if not hc(mapArgs.mtype) then mapArgs.mtype = 'pin' end
+	if not hc(mapArgs.icon) then mapArgs.icon = templateArgs.icon end
+	mapArgs.ptype = templateArgs.ptype
+	mapArgs.type = 'maplink'
+
+	local loc = args.location or '? ' .. editBtn
+	if (isEmpty(loc)) then loc = '? ' .. editBtn end
+
+	local membs = membscol[yesno(args.members ~= nil and args.members or "no")]
+	
+	local spawns = args.spawns
+	if spawns == nil then
+		local i = 1
+		while args[i] do i = i + 1 end -- Counts up the amount of spawns
+		spawns = i - 1
+	end
+	if spawns == 0 then spawns = '? ' .. editBtn end
+	
+	local mapping = buildMap(mapArgs)
+	
+	-- build table row to return
+	local locationRow = mw.html.create('tr')
+	locationRow:tag('td'):wikitext(loc):done()
+	if templateArgs.ptype == 'monster' then
+		local levels = args.levels
+		if (isEmpty(levels)) then levels = '? ' .. editBtn end
+		locationRow:tag('td'):addClass(levels == 'N/A' and 'table-na' or ''):wikitext(levels):done()
+	end
+	locationRow:tag('td'):wikitext(membs):done()
+	locationRow:tag('td'):wikitext(spawns):done()
+	locationRow:tag('td'):wikitext(mapping):done()
+
+	local leagueRegion = args.leagueRegion
+	local categoryString = ''
+	if leagueRegion then
+		if yesno(leagueRegion, true) then
+			locationRow:tag('td'):attr('class','leagues-global-flag'):wikitext(tb._main(leagueRegion, string.format('This item is in the %s region.', leagueRegion), nil, nil, 'Raging Echoes League'))
+		else
+			locationRow:tag('td'):attr('class','table-na leagues-global-flag'):wikitext('<small>N/A</small>')
+		end
+
+		local dropVersions = args.dropversion or ''
+
+		-- All regions are additionally saved to the DEFAULT drop version
+		dropVersions = dropVersions .. ',DEFAULT'
+
+		local valuesToSet = {}
+		for dropVersion in string.gmatch(dropVersions, ' *([^,]+) *') do
+			local varName = string.format('DropRegion_%s', dropVersion)
+
+			local valuesForVersion = {}
+			-- read any existing values for this var so we can append to it
+			local previousRegions = var.var(varName)
+			for previousRegion in string.gmatch(previousRegions, ' *([^,]+) *') do
+				previousRegion = string.lower(previousRegion)
+				valuesForVersion[previousRegion] = true
+			end
+
+			-- add in new regions
+			for region in string.gmatch(leagueRegion, ' *([^,]+) *') do
+				region = string.lower(region)
+				valuesForVersion[region] = true
+			end
+
+			valuesToSet[varName] = valuesForVersion
+		end
+
+		-- set new values for each var
+		for varName, regions in pairs(valuesToSet) do
+			local ordered = {}
+			for region, _ in pairs(regions) do
+				table.insert(ordered, region)
+			end
+			table.sort(ordered)
+			mw.log('LocLine defining var',varName,table.concat(ordered, ', '))
+			var.vardefine(varName, table.concat(ordered, ','))
+		end
+	elseif onmain then
+		categoryString = '[[Category:Needs Trailblazer region]]'
+	end
+
+	return tostring(locationRow) .. categoryString
+end
+
+return p

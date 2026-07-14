@@ -1,0 +1,248 @@
+return {
+	{   
+    	name = 'Plank',
+        level = 1,
+        xp = 29,
+        materials = {
+        	{ name = 'Plank', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Crude wooden chair',
+    	pic = 'Crude wooden chair icon',
+        level = 1,
+        xp = 58,
+        materials = {
+        	{ name = 'Plank', quantity = 2 },
+        	{ name = 'Steel nails', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Mahogany Homes',
+    	title = 'Beginner contract (Mahogany Homes)',
+    	pic = 'Plank',
+    	level = 1,
+    	boostablexp = 865.01-500,
+    	xp = 865.01,
+    	materials = {
+    		{ name = 'Plank', quantity = 9.7},
+    		{ name = 'Steel bar', quantity = 0.5}
+    	},
+    	members = 'Yes',
+    	type = 'Mahogany Homes'
+    }, {
+    	name = 'Bolt of cloth',
+        level = 2,
+        xp = 15,
+        materials = {
+        	{ name = 'Bolt of cloth', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Soft clay',
+        level = 3,
+        xp = 10,
+        materials = {
+        	{ name = 'Soft clay', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Wooden bookcase',
+    	pic = 'Wooden bookcase icon',
+        level = 4,
+        xp = 115,
+        materials = {
+        	{ name = 'Plank', quantity = 4 },
+        	{ name = 'Steel nails', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Iron bar',
+        level = 5,
+        xp = 10,
+        materials = {
+        	{ name = 'Iron bar', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Limestone brick',
+        level = 5,
+        xp = 20,
+        materials = {
+        	{ name = 'Limestone brick', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Steel bar',
+        level = 7,
+        xp = 20,
+        materials = {
+        	{ name = 'Steel bar', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Oak plank',
+        level = 15,
+        xp = 60,
+        materials = {
+        	{ name = 'Oak plank', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Oak chair',
+    	pic = 'Oak chair icon',
+        level = 19,
+        xp = 120,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Mahogany Homes',
+    	title = 'Novice contract (Mahogany Homes)',
+    	pic = 'Oak plank',
+    	level = 20,
+    	boostablexp = 1887.44 - 1250,
+    	xp = 1887.44,
+    	materials = {
+    		{ name = 'Oak plank', quantity = 9.84},
+    		{ name = 'Steel bar', quantity = 0.5}
+    	},
+    	members = 'Yes',
+    	type = 'Mahogany Homes'
+    }, {   
+    	name = 'Oak dining table',
+    	pic = 'Oak dining table icon',
+        level = 22,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Curved bone',
+        level = 30,
+        xp = 6750,
+        materials = {
+        	{ name = 'Curved bone', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Other'
+    }, {   
+    	name = 'Long bone',
+        level = 30,
+        xp = 4500,
+        materials = {
+        	{ name = 'Long bone', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Other'
+    }, {   
+    	name = 'Oak larder',
+    	pic = 'Oak larder icon',
+        level = 33,
+        xp = 480,
+        materials = {
+        	{ name = 'Oak plank', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Teak plank',
+        level = 35,
+        xp = 90,
+        materials = {
+        	{ name = 'Teak plank', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Mahogany plank',
+        level = 40,
+        xp = 140,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Supplies'
+    }, {   
+    	name = 'Mythical cape (mounted)',
+    	title = 'Mythical cape',
+    	pic = 'Mythical cape (mounted) icon',
+        level = 47,
+        xp = 370,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 },
+        	{ name = 'Mythical cape', quantity = 1, cost = 10000, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Mahogany Homes',
+    	title = 'Adept contract (Mahogany Homes)',
+    	pic = 'Teak plank',
+    	level = 50,
+    	boostablexp = 3275.58 - 2250,
+    	xp = 3275.58,
+    	materials = {
+    		{ name = 'Teak plank', quantity = 11.5},
+    		{ name = 'Steel bar', quantity = 0.5}
+    	},
+    	members = 'Yes',
+    	type = 'Mahogany Homes'
+    }, {   
+    	name = 'Mahogany table',
+    	pic = 'Mahogany table icon',
+        level = 52,
+        xp = 840,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Teak garden bench',
+    	pic = 'Teak garden bench icon',
+        level = 66,
+        xp = 540,
+        materials = {
+        	{ name = 'Teak plank', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Mahogany Homes',
+    	title = 'Expert contract (Mahogany Homes)',
+    	pic = 'Mahogany plank',
+    	level = 70,
+    	boostablexp = 4373.37 - 2750,
+    	xp = 4373.37,
+    	materials = {
+    		{ name = 'Mahogany plank', quantity = 12.71},
+    		{ name = 'Steel bar', quantity = 0.5}
+    	},
+    	members = 'Yes',
+    	type = 'Mahogany Homes'
+    }, {   
+    	name = 'Oak door',
+    	pic = 'Oak door icon',
+        level = 74,
+        xp = 600,
+        materials = {
+        	{ name = 'Oak plank', quantity = 10 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }
+}

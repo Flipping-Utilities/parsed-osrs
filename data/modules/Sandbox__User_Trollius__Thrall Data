@@ -1,0 +1,10 @@
+local ret = {}
+local total = 0
+
+ret[1] = 0
+for i = 38, 125 do
+    total = math(i*.6)
+    ret = (total)
+end
+
+return ret

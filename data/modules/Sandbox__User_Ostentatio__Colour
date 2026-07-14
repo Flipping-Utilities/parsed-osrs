@@ -1,0 +1,90 @@
+local p = {}
+
+local trim = mw.text.trim
+
+-- Get a potion's name, and the quantity to display 
+function p._getItem(str)
+	backSlash, _ = str:find('\\')
+	if(backSlash) then
+		itemName = str:sub(0, backSlash - 1)
+		amountOfItem = tonumber(str:sub(backSlash + 1)) or 1
+		if(amountOfItem < 1) then
+			amountOfItem = 1
+		elseif(amountOfItem > 100) then
+			amountOfItem = 100
+		end
+	return itemName, amountOfItem
+	else
+		return str, 1
+	end
+end
+
+-- Get page alignement setting
+function p._getAlign(align)
+	if(align == nil) then
+		return 'storage-left'
+	elseif(align:lower() == 'center') then
+		return 'storage-center'
+	elseif(align:lower() == 'left') then
+		return 'storage-left'
+	elseif(align:lower() == 'right') then
+		return 'storage-right'
+	else
+		return 'storage-left'
+	end
+end
+
+-- Build the table
+function p._makeTable(potionsTable, alignClass)
+	local ret = mw.html.create('table')
+		:addClass('chuggingbarreltable')
+		:addClass(alignClass)
+	local retRow = ret:tag('tr')
+	for i = 1, 5, 1 do
+		local td = retRow:tag('td')
+		if(potionsTable[i][1] ~= '') then
+			if(i == 1) then
+				td:wikitext(string.format('[[File:%s.png|link=%s|32x32px|frameless]]', potionsTable[i][1], potionsTable[i][1]))
+					:css({ ['padding-left'] = '12px', ['padding-top'] = '3px'})
+			else		
+				td:wikitext(string.format('[[File:%s.png|link=%s|32x32px|frameless]]', potionsTable[i][1], potionsTable[i][1]))
+					:css({ ['padding-top'] = '3px'})	
+			end	
+			if(potionsTable[i][2] > 1) then
+				if(i == 1) then
+					td:tag('span')
+						:addClass('inv-quantity-text')
+						:wikitext(potionsTable[i][2])
+						:css({ ['padding-left'] = '12px', ['padding-top'] = '3px'})
+				else
+					td:tag('span')
+						:addClass('inv-quantity-text')
+						:wikitext(potionsTable[i][2])
+						:css({ ['padding-top'] = '3px'})
+				end		
+			end
+		end
+	end
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+    return p._main(args)
+end
+
+function p._main(args)
+	local potions = {}
+	for i = 1, 5, 1 do
+		local item, amount = "", 1
+		if(args[i] ~= nil) then
+			args[i] = trim(args[i])
+			item, amount = p._getItem(args[i]:sub(1,1):upper()..args[i]:sub(2):lower())
+		end
+		potions[i] = {item, amount}
+	end
+
+	return p._makeTable(potions, p._getAlign(args.align))
+end
+
+return p

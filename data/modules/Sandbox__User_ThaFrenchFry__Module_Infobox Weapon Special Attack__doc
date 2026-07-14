@@ -1,0 +1,170 @@
+{{documentation}}
+{{Standard infobox parameters}}
+
+<pre>{{Infobox Weapon special attack
+|release = <!-- Release date of the spec -->
+|version1 = <!-- Only use if there are multiple versions of the mechanics/values -->
+|version2 = <!-- Only use with above. Commonly "PVP" or "Weapon name" when there are different mechanics -->
+|name = <!-- Weapon special attack name -->
+|anim = <!-- add to override the spelling of name for the gif file (can be multiple) -->
+|animresize = <!-- The dimensions of the gif (default 300px) -->
+|weapon = <!-- Weapons it is present on (can be multiple) -->
+|image = <!-- Add to override spelling of Weapon for the image file (can be multiple) -->
+|release = <!-- Date of release -->
+|update = <!-- Release update -->
+|members = <!-- Members' Weapon special attack? -->
+|style = <!-- Combat style/substyle of weapon special attack -->
+|target = <!-- Special attack target area -->
+|energy = <!-- Energy % cost OR "1-5 charges" -->
+|attack_roll = <!-- Attack roll modifier in % OR True strike -->
+|defence_roll = <!-- Defence style targetted -->
+|damage_roll = <!-- Damage roll modifier in % -->
+|damage_type = <!-- Damage type if different than weapon's type -->
+|dot = <!-- Damage over time. Type: chance; total; damage / interval (ticks). ie: Burn: 100%; 40 dmg; 1 per 4 ticks -->
+|hp = <!-- Amount of HP changed in % of damage dealt or static number -->
+|pray = <!-- Amount of prayer point changed in % of damage dealt or static number -->
+|duration = <!-- Special attack buff/debuff/DoT duration (ignore stat modifiers) -->
+|pvp = <!-- When bespoke PVP mechanics/values, set as "True" -->
+|tooltip = <!-- Weapon special attack tooltip as seen in-game -->
+|requirements = <!-- Non-skill requirements to use the special attack -->
+}}</pre>
+
+==Parameters==
+All omitted "optional" fields will be hidden if empty.
+
+===name===
+The name of the special attack '''exactly''' as it appears in game (identical case and spacing).
+
+===weapon===
+Name of every weapon that uses the special attack of the same name.
+
+===image===
+The inventory image of the ''primary'' weapon using this spec, formatted as <nowiki>[[File:Image.png]]</nowiki>. Ideally in [[Wikipedia:Portable Network Graphics|PNG]] format. For specs with multiple versions or sources (such as poisoned dragon daggers' ''puncture'', or Dragon and crystal halberds' ''sweep'', all images should be included.
+
+===style===
+The general type of the special attack, use weapon's generic style if not specified. Accepted values are: Melee, Ranged, Magic, Melee (crush), Melee (slash), Melee (stab).
+* [[Dragon dagger]]: Melee (slash)
+* [[Voidwaker]]: Magic
+* [[Barrelchest anchor]]: Melee
+
+===target===
+Describes how the special attack targets enemies while in multi-combat areas. Accepted values: single, burst, chain, cleave, self, varies. See [[Multicombat area#Area-of-effect_attacks]] for clarifications.
+
+===maxtargets===
+(optional)
+Specify the maximum number of targets that can be hit in multicombat areas.
+
+===range===
+(optional)
+Multiple cases based on the target. Only use this if the range of a single target spec deviates from the weapon's range, or to specify the number of tiles.
+* [[Dragon halberd]]: 1×3
+* [[Corrupted volatile nightmare staff]]: 6
+* [[Dragon crossbow]]: 3×3
+* [[Dinh's Bulwark]]: 11×11
+* [[Rune thrownaxe]]: 7×7
+
+===energy===
+Cost in special energy. Format as "50%".
+For [[Soulreaper axe]], Seasonal, and potential future charge-based weapons, format as "X-Y charges" 
+ie: 1-20 charges
+
+===anim===
+The gif of the special attack in action., formatted as <nowiki>[[File:Spec.gif]]</nowiki>
+
+===seasonal===
+(Optional)
+Whether this spec is only available during certain temporary game modes/worlds, such as leagues, deadman, gridmaster, etc. Format as <nowiki>[[name]]</nowiki> of the game mode(s).
+
+===requirements===
+(optional)
+Used when there are non-skill requirements to use a special attack. Format as <nowiki>[[Quest name]]</nowiki>.
+
+===attack_roll===
+(optional)
+Modifiers to the accuracy roll, Format as: +15%, or "True strike" when the roll is skipped.
+For multi-hit specs, always use "/" to separate hits, even if they use the same modifier.
+* [[Dragon halberd]]: +0%/-20%
+* [[Dragon dagger]]: +15%/+15%
+
+===defence_roll===
+(optional)
+Specifies when the accuracy is hard-coded to roll against a specific defensive stat. Accepted values are: Melee, Ranged, Magic, Melee (crush), Melee (slash), Melee (stab), Varies.
+
+===damage_roll===
+(optional)
+Modifiers to the damage roll. Format as "+15%" for most cases, "+25% min hit", "15" for flat damage, and "Scales".
+For multi-hit specs, always use "/" to separate hits, even if they use the same modifier.
+* [[Dragon halberd]]: +10%/+10%
+* [[Dragon dagger]]: +15%/+15%
+
+===damage_type===
+(optional)
+If the damage type is different from the one listed in "style", or is hybrid, list it here. 
+Damage over time effects are listed with ''dot''. Accepted values: Melee, Magic, Ranged, Poison, Venom, Burn, Untyped. Separate by comma when multiple are true. Only separate with "/" if multi-hits are not all the same type of damage.
+* [[Voidwaker]]: Magic
+* [[Saradomin sword]]: Melee, Magic
+
+===dot===
+(optional)
+Damage over time. Format as Type: chance%; total; # dmg per interval
+* [[Arkan blade]] Burn: 100%; 40 dmg; 1 per 4 ticks
+
+
+===attack_delay===
+(optional)
+Number expressed in ticks required before next attack is possible. Only fill if different than base weapon or if the spec interacts with attack_delay in any other way.  Accepted values are whole numbers of ticks, and Varies.
+* [[Dragon thrown axe]]: 1
+* [[Eye of ayak]]: 5
+* [[Granite maul]]: Varies
+* [[Rune claws]]: 5
+
+===hp===
+(Optional)
+How much hitpoint is restored/consumed. Formatted as "x%", or as a flat number, ''and'' "can exceed".
+
+===pray===
+(Optional)
+How much prayer point is restored/consumed. Formatted as "x%", or as a flat number, ''and'' "can exceed".
+
+===duration===
+(optional)
+For non-stat buffs and debuffs with a duration. Formatted in number of ticks.
+
+===pvp===
+(optional)
+Set as TRUE if the spec (or weapon) is only usable in PVP. Set as FALSE if the spec (or whole weapon) is disabled in PVP
+
+===tooltip===
+The tooltip text '''exactly''' as it appears in-game (identical case, spaces, typo, innacuracies, etc). The text is obtained through hovering on the special attack bar.
+
+
+==Quick copy==
+<pre>{{Infobox Weapon special attack
+|release = 
+|version1 = (Optional)
+|version2 = (Optional)
+|name = 
+|anim = 
+|animresize = (Optional)
+|weapon = 
+|image = 
+|seasonal = (Optional)
+|style = 
+|target = 
+|range = (Optional)
+|maxtargets = (Optional)
+|energy = 
+|attack_roll = (Optional)
+|defence_roll = (Optional)
+|damage_roll = (Optional)
+|damage_type = (Optional)
+|attack_delay = (Optional)
+|dot = (Optional)
+|hp = (Optional)
+|pray = (Optional)
+|duration = (Optional)
+|pvp = (Optional)
+|tooltip = 
+|requirements = (Optional)
+}}</pre>
+<includeonly>[[Category:Infobox templates]]</includeonly>

@@ -1,0 +1,113 @@
+-- <nowiki>
+local hasc = require('Module:Paramtest').has_content
+local eqp = require('Module:Equipment')
+local inv = require('Module:Inventory')
+local ex = require('Module:Exchange')
+local coins = require('Module:Coins')
+local currency = require('Module:Currency')
+local untradeVal = require('Module:Sandbox/User:Potatoes778')
+local p = {}
+
+local function tableInc(table, key, delta)
+    table[key] = (table[key] or 0) + (delta or 1)
+end
+
+-- Adapted from https://oldschool.runescape.wiki/w/Module:Equipment
+local function parseEquipmentItem(str)
+    if str:sub(-2) == ";g" then
+        return str:sub(0, -3)
+    else
+        return str
+    end
+end
+
+-- Adapted from https://oldschool.runescape.wiki/w/Module:Inventory
+local function parseInventoryItem(str)
+    str = mw.text.trim(str):gsub('[][]', '')
+
+    local item = mw.text.split(str, '[;\\]')[1]
+    local amount = tonumber(str:match('\\(%d+)')) or 1
+
+    return item, amount
+end
+
+local slots = {"head", "cape", "neck", "ammo", "ammo2", "weapon", "shield", "torso", "legs", "gloves", "boots", "ring"}
+local amounts = {ammo = "ammoquantity", ammo2 = "ammo2quantity", weapon = "weaponquantity"}
+
+local function itemsTable(args)
+    local items = {}
+
+    for _, slot in pairs(slots) do
+        if hasc(args[slot]) then
+            local item = parseEquipmentItem(mw.text.trim(args[slot]))
+            local amount
+
+            if amounts[slot] then
+                amount = args[amounts[slot]]
+            else
+                amount = 1
+            end
+
+            tableInc(items, item, amount)
+        end
+    end
+
+    for i = 1, 28 do
+        if hasc(args[i]) then
+            local item, amount = parseInventoryItem(mw.text.trim(args[i]))
+            tableInc(items, item, amount)
+        end
+    end
+
+    return items
+end
+
+local function itemValue(name, amount)
+	return untradeVal.value(name, amount) or ex._price(name, amount, nil, nil, 0)
+end
+
+local function itemsValue(items)
+    local total = 0
+
+    for name, amount in pairs(items) do
+        total = total + itemValue(name, amount)
+    end
+
+    return total
+end
+
+function p._main(args)
+	local ikodValue = args.ikod and itemValue(args.ikod) or 0
+    local value = itemsValue(itemsTable(args)) - ikodValue
+    local equipment = eqp._main(args)
+    local inventory = inv._main(args, "inventory")
+
+    local ret = mw.html.create("table")
+        :addClass("wikitable")
+        :cssText("text-align: center;")
+    
+    ret:tag("tr"):tag("td"):attr("colspan", 2):wikitext("Always lost upon death: " .. coins._amount(value))
+    
+    if args.ikod then
+    	ret:tag("tr"):tag("td"):attr("colspan", 2)
+    	    :wikitext("Additional risk without [[File:Protect Item.png|link=Protect item]]: " ..
+    	    	"[[File:" .. args.ikod .. ".png|link=" .. args.ikod .. "]] " ..
+    	    	coins._amount(ikodValue))
+    end
+
+    row = ret:tag("tr")
+    row:tag("td"):wikitext(tostring(equipment))
+    row:tag("td"):wikitext(tostring(inventory))
+
+    return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	args.align = "center"
+	
+    return p._main(args)
+end
+
+return p
+-- </nowiki>

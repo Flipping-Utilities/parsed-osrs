@@ -750,12 +750,12 @@ function resistancearg_bucket(arg, arg_name)
 	end
 
 	local arg = string.lower(arg)
-	if arg == '0' or arg == '100' then
+	if arg == '0' or arg == '100' or arg == '200' then
 		return arg
 	elseif arg == 'poison' then
 		return 'Poisons'
 	else
-		return badarg(arg_name, "should be 0, 100, or poison.")
+		return badarg(arg_name, "should be 0, 100, 200 or poison.")
 	end
 end
 
@@ -765,7 +765,7 @@ function resistancearg(arg, arg_name)
 	end
 
 	local arg = string.lower(arg)
-	if arg == '0' or arg == '100' then
+	if arg == '0' or arg == '100' or arg == '200' then
 		return arg..'% resistance'
 	elseif arg == 'poison' then
 		return '<span '..
@@ -773,7 +773,7 @@ function resistancearg(arg, arg_name)
 			'style="cursor:help; border-bottom:1px dotted;">'..
 			'Converts to poison</span>'
 	else
-		return badarg(arg_name, "should be 0, 100, or poison.")
+		return badarg(arg_name, "should be 0, 100, 200 or poison.")
 	end
 end
 

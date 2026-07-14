@@ -1,0 +1,24 @@
+local p = {}
+
+function p.main(frame)
+    local args = frame:getParent().args
+    local entries = {}
+    
+    for k, v in pairs(args) do
+        if v and v ~= '' then
+            table.insert(entries, v)
+        end
+    end
+    
+    if #entries == 0 then
+        return ''
+    end
+    
+    frame:preprocess('{{CURRENTTIMESTAMP}}')
+    math.randomseed(os.time())
+    local randomIndex = math.random(1, #entries)
+    
+    return entries[randomIndex]
+end
+
+return p

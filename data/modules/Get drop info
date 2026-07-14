@@ -19,7 +19,8 @@ local images = {
     woodcutting  = '<span class="drops-woodcutting" style="margin-left:0.3em;">[[File:Woodcutting icon.png|link=Woodcutting|frameless|20px]]</span>',
     smithing  = '<span class="drops-smithing" style="margin-left:0.3em;">[[File:Smithing icon.png|link=Smithing|frameless|20px]]</span>',
     thieving = '<span class="drops-thieving" style="margin-left:0.3em;">[[File:Thieving icon.png|link=Thieving|frameless|20px]]</span>',
-    sailing = '<span class="drops-sailing" style="margin-left:0.3em;">[[File:Sailing icon.png|link=Sailing|frameless|20px]]</span>'
+    sailing = '<span class="drops-sailing" style="margin-left:0.3em;">[[File:Sailing icon.png|link=Sailing|frameless|20px]]</span>',
+    crafting = '<span class="drops-crafting" style="margin-left:0.3em;">[[File:Crafting icon.png|link=Crafting|frameless|20px]]</span>'
 }
 --class, sort
 local rarities = {

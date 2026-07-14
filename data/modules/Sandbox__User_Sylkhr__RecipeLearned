@@ -1,0 +1,28 @@
+local p = {}
+local scp = require("Module:SCP")._main
+local on_main = require("Module:Mainonly").on_main
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local index = args.index
+	
+	if on_main() then
+		bucket('varbit').put({
+			index = index,
+		})
+	end
+	
+	return p._main(id, description)
+end
+
+function p._main(id, description)
+	
+	
+	local row = mw.html.create('tr'):attr('data-recipeindex', index)
+	-- row:tag('td'):cssText("white-space:nowrap"):wikitext(scp('Sailing', level))
+	local descCell = row:tag('td'):wikitext(description)
+	
+	return tostring(row)
+end
+
+return p

@@ -1,0 +1,25 @@
+-- This is for testing using "helper modules" (aka modules that are only intended to be called via other modules) 
+
+-- Right now, helper modules return the function for how they're intended to be used.
+-- Based on some research https://www.mediawiki.org/wiki/Lua/Overview it might be possible to call a module that returns a table of functions directly in wikitext.
+-- If so, then helper modules can be refactored to return a table of functions, which can make them more testable via a /doc page.
+
+local export = {};
+
+export.AddTwoNumbers = function(firstNumber,secondNumber)
+	return firstNumber + secondNumber
+end
+
+export.AddTwoNumbers_TestRunner = function(frame)
+	local firstNumber = frame.args[1];
+	local secondNumber = frame.args[2];
+	
+	return export.AddTwoNumbers(firstNumber, secondNumber)
+end
+
+return export;
+
+--[[ DEBUG TESTING
+	=p.AddTwoNumbers(5,7) -- In-Lua usage
+	=p.AddTwoNumbers_TestRunner({args={5,7}}) -- In-Wiki usage
+--]]

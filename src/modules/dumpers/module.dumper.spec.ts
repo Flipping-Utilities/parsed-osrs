@@ -499,4 +499,18 @@ describe('sanitizeModuleFilename', () => {
     );
     expect(sanitizeModuleFilename('Module:Has Space')).toBe('Has Space');
   });
+
+  it('strips trailing dots and whitespace (Win32-API normalisation)', () => {
+    // Module:Exchange/Premade blurb' sp. — the trailing `.` was preserved by
+    // Node's fs but invisible to git/cmd/Explorer, so `git add` failed with
+    // `No such file or directory`. Internal dots and spaces are kept.
+    expect(sanitizeModuleFilename("Module:Exchange/Premade blurb' sp.")).toBe(
+      "Exchange__Premade blurb' sp"
+    );
+    expect(sanitizeModuleFilename('Module:trailing space ')).toBe(
+      'trailing space'
+    );
+    expect(sanitizeModuleFilename('Module:many dots...')).toBe('many dots');
+    expect(sanitizeModuleFilename('Module:mixed . . .')).toBe('mixed');
+  });
 });

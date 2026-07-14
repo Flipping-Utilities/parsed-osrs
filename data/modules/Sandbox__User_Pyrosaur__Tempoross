@@ -1,0 +1,72 @@
+-- <nowiki>
+
+local chart = require( 'Module:Chart data' )
+local rgba = require( 'Module:Rgba' )
+
+local p = {}
+
+function p._base_scaling(lvl, lvl_offset, xp_offset)
+	return math.floor(xp_offset + (1000 - xp_offset) * (lvl - lvl_offset) / (99 - lvl_offset))
+end
+
+function p._base_xp(lvl)
+	if lvl < 70 then
+		return p._base_scaling(lvl, 35, 450)
+	else
+		return p._base_scaling(lvl, 70, 890)
+	end
+end
+
+function p._calculate_data_sets()
+	local data_sets = {}
+	local data = {{}, {}, {}}
+	local coeffs = { 1/100, 10/100, 11/100 }
+	local labels = { "Fishing", "Cannon", "Spirit Pool" }
+	local colors = { rgba.new("#667788ff"), rgba.new("#4f4836ff"), rgba.new("#04d3afff") }
+
+	for lvl = 1,99 do
+		local base_xp = p._base_xp(lvl)
+		for i = 1,3 do
+			local xp = p._round_xp(base_xp * coeffs[i])
+			local label = labels[i] .. ": Level: " .. lvl .. "; Experience: " .. xp
+			table.insert(data[i], {x=lvl, y=xp, label=label})
+	    end
+	end
+	for i = 1,3 do
+		table.insert(data_sets, {
+	        data = data[i],
+	        label = labels[i],
+	        backgroundColor = colors[i]:lighten(2),
+	        borderColor = colors[i]:lighten(1.5),
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+	    })
+    end
+
+    return data_sets
+end
+
+function p._round_xp(xp)
+	return math.floor(xp * 10) * 0.1
+end
+
+function p.main(frame)
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( "Tempoross Experience per Action" )
+        :setDimensions( 'min(540px, 100vw - 32px)', '400px', '300px', '300px', true )
+        :setXLabel( 'Level' )
+        :setYLabel( 'Experience' )
+        :setXLimits( 35, 99, 1 )
+        :setYLimits( 0, 110, 1 )
+        :setTooltipFormat( 'custom' )
+
+	for i, data_set in ipairs(p._calculate_data_sets()) do
+		plot:newDataSet(data_set)
+	end
+
+    return plot
+end
+
+return p
+
+-- </nowiki>

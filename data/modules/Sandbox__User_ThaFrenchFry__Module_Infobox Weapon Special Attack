@@ -1,0 +1,523 @@
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local cleanimg = require('Module:Clean image').clean
+local skillpic = require('Module:SCP')._main
+local yesno = require('Module:Yesno')
+local round = require('Module:Number')._round
+local specialattacks = require('Module:Sandbox/User:ThaFrenchFry/Module:Infobox Weapon Special Attack/data')
+local tooltip = require('Module:Tooltip')
+local targetbucket, image_bucket, weapon_bucket
+local attack_rollarg, defence_rollarg, maxtargetsarg, damage_rollarg, damage_typearg, dotarg
+local targetarg, animarg, energyarg, speedarg, durationarg, hparg, prayarg, pvparg
+local bucketarg, addcategories
+
+local left = '8'
+local right = '12'
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local wsa = infobox.new(args)
+
+	wsa:defineParams {
+		{ name = 'name', func = 'name' }, -- Module.Infobox default
+		{ name = 'release', func = 'has_content' }, -- Module.Infobox default
+		{ name = 'image', func = { name = image, params = { 'image', 'weapon' }, flag = { 'p', 'p' } } },
+		{ name = 'image_bucket', func = { name = image_bucket, params = { 'image' }, flag = 'p' } },
+		{ name = 'seasonal', func = 'has_content' },
+		{ name = 'style', func = { name = 'has_content', params = { 'style' }, flag = { 'p' } } },
+		{ name = 'target', func = { name = targetarg, params = { 'target' }, flag = { 'p' } } },
+		{ name = 'target_bucket', func = { name = targetbucket, params = { 'target' }, flag = { 'd' } } },
+		{ name = 'range', func = 'has_content' },
+		{ name = 'maxtargets', func = { name = maxtargetsarg, params = { 'maxtargets' }, flag = { 'p' } } },
+		{ name = 'energy', func = { name = energyarg, params = { 'energy' }, flag = { 'p' } } },
+		{ name = 'weapon', func = 'has_content' },
+		{ name = 'weapon_bucket', func = { name = weapon_bucket, params = { 'weapon' }, flag = 'p' } },
+		{ name = 'attack_roll', func = { name = attack_rollarg, params = { 'attack_roll' }, flag = { 'p' } } },
+		{ name = 'defence_roll', func = { name = defence_rollarg, params = { 'defence_roll' }, flag = { 'p' } } },
+		{ name = 'damage_roll', func = 'has_content' },
+		{ name = 'damage_type', func = 'has_content' },
+		{ name = 'dot', func = 'has_content' },
+		{ name = 'speed', func = { name = speedarg, params = { 'speed' }, flag = { 'p' } } },
+		{ name = 'hp', func = 'has_content' },
+		{ name = 'pray', func = 'has_content' },
+		{ name = 'duration', func = { name = durationarg, params = { 'duration' }, flag = { 'p' } } },
+		{ name = 'pvp', func = { name = pvparg, params = { 'pvp' }, flag = 'p' } },
+		{ name = 'requirements', func = 'has_content' },
+		{ name = 'tooltip', func = 'has_content' },
+		{ name = 'anim', func = { name = animarg, params = { 'anim', 'animresize', 'name' }, flag = { 'p', 'p', 'p' } } },
+		{ name = 'animresize', func = 'has_content' },
+		{ name = 'bucketarg', func = { name = bucketarg, params = {
+			'name', 'image', 'release', 'seasonal', 'style', 'target', 'range', 'maxtargets', 'energy', 'weapon',
+			'attack_roll', 'defence_roll', 'damage_roll', 'damage_type', 'dot', 'speed', 'hp', 'pray',
+			'duration', 'pvp', 'requirements', 'tooltip', 'anim'
+		}, flag = 'd' } },
+	}
+
+	wsa:useBucket('infobox_weapon_special_attack', {
+		name = 'name',
+		image_bucket = 'image',
+		weapon_bucket = 'weapon',
+		style = 'style',
+		target_bucket = 'target',
+		speed = 'speed',
+		defence_roll = 'defence_roll',
+		range = 'range',
+		bucketarg = 'json',
+	})
+
+	wsa:cleanParams()
+	wsa:create()
+	wsa:addButtonsCaption()
+	wsa:defineLinks()
+
+	wsa:defineName('Infobox Special Attack')
+	wsa:addClass('infobox-special-attack')
+
+	-- PARAMETER: name
+	wsa:addRow {
+		{ tag = 'argh', content = 'name', class = 'infobox-header', colspan = '20' },
+	}
+
+	-- PARAMETER: image
+	wsa:addRow {
+		{ tag = 'argd', content = 'image', class = 'infobox-image infobox-full-width-content', colspan = '20' },
+	}
+
+	-- PARAMETER: release
+	-- (update included automatically by infobox)
+	wsa:addRow {
+		{ tag = 'th', content = 'Release', colspan = left },
+		{ tag = 'argd', content = 'release', colspan = right },
+	}
+	
+	-- PARAMETER: seasonal
+	if wsa:paramDefined('seasonal') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Seasonal', colspan = left },
+			{ tag = 'argd', content = 'seasonal', colspan = right },
+		}
+	end
+
+	-- PARAMETER: style
+	wsa:addRow {
+		{ tag = 'th', content = 'Style', colspan = left },
+		{ tag = 'argd', content = 'style', colspan = right },
+	}
+
+	-- PARAMETER: target
+	wsa:addRow {
+		{ tag = 'th', content = '[[Multicombat_area#Area-of-effect_attacks|Target]]', colspan = left },
+		{ tag = 'argd', content = 'target', colspan = right },
+	}
+	-- PARAMETER: range
+	if wsa:paramDefined('range') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Range', colspan = left },
+			{ tag = 'argd', content = 'range', colspan = right },
+		}
+	end
+	-- PARAMETER: maxtargets
+	if wsa:paramDefined('maxtargets') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Max # of targets', colspan = left },
+			{ tag = 'argd', content = 'maxtargets', colspan = right },
+		}
+	end
+
+	wsa:addRow {
+		{ tag = 'th', content = '[[Special attacks#Energy|Energy]]', colspan = left },
+		{ tag = 'argd', content = 'energy', colspan = right },
+	}
+
+	-- PARAMETER: weapon
+	wsa:addRow {
+		{ tag = 'th', content = 'Weapon(s)', colspan = left },
+		{ tag = 'argd', content = 'weapon', colspan = right },
+	}
+	
+	-- PARAMETER: attack_roll
+	if wsa:paramDefined('attack_roll') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Attack roll modifier', colspan = left },
+			{ tag = 'argd', content = 'attack_roll', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: defence_roll
+	if wsa:paramDefined('defence_roll') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Defence roll', colspan = left },
+			{ tag = 'argd', content = 'defence_roll', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: damage_roll
+	if wsa:paramDefined('damage_roll') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Damage modifier', colspan = left },
+			{ tag = 'argd', content = 'damage_roll', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: damage_type
+	if wsa:paramDefined('damage_type') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Damage type', colspan = left },
+			{ tag = 'argd', content = 'damage_type', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: dot
+	if wsa:paramDefined('dot') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Damage over time', colspan = left },
+			{ tag = 'argd', content = 'dot', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: speed
+	if wsa:paramDefined('speed') then
+		wsa:addRow {
+			{ tag = 'th', content = '[[Attack delay]]', colspan = left },
+			{ tag = 'argd', content = 'speed', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: hp
+	if wsa:paramDefined('hp') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Hitpoints', colspan = left },
+			{ tag = 'argd', content = 'hp', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: pray
+	if wsa:paramDefined('pray') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Prayer points', colspan = left },
+			{ tag = 'argd', content = 'pray', colspan = right },
+		}
+	end
+
+	if wsa:paramDefined('duration') then
+		wsa:addRow {
+			{ tag = 'th', content = 'Duration', colspan = left },
+			{ tag = 'argd', content = 'duration', colspan = right },
+		}
+	end
+	
+	-- PARAMETER: pvp
+	if wsa:paramDefined('pvp') then
+		wsa:addRow {
+			{ tag = 'th', content = 'PVP', colspan = left },
+			{ tag = 'argd', content = 'pvp', colspan = right },
+		}
+	end
+
+	-- tooltip subheader
+	wsa:addRow { { tag = 'th', content = 'Tooltip', colspan = '20', class = 'tooltip-header infobox-subheader' } }
+	wsa:addRow {
+		{ tag = 'argd', content = 'tooltip', colspan = '20' },
+	}
+
+
+	-- PARAMETER: requirements
+	if wsa:paramDefined('requirements') then
+		wsa:addRow { { tag = 'th', content = 'Requirements', colspan = '20', class = 'requirements-header infobox-subheader' } }
+		wsa:addRow {
+			{ tag = 'argd', content = 'requirements', colspan = '20' },
+		}
+	end
+
+	-- Animation subheader
+	if infobox.isDefined(wsa:param('name')) then
+		wsa:addRow { { tag = 'th', content = 'Animation', colspan = '20', class = 'animation-header infobox-subheader' } }
+		wsa:addRow {
+			{ tag = 'argd', content = 'anim', class = 'infobox-image infobox-full-width-content', colspan = '20' },
+		}
+	end
+
+
+	-- Advanced data
+	wsa:addRow {
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '20' },
+		meta = { addClass = 'advanced-data' },
+	}
+		:pad(20, 'advanced-data')
+		
+	wsa:finish()
+	if onmain() then
+		local a1 = wsa:param('all')
+		local a2 = wsa:categoryData()
+		wsa:wikitext(addcategories(wsa, a1, a2))
+	end
+
+	return wsa:tostring()
+end
+
+--------------------------------------
+-- function
+
+function image(arg, weapon)
+	if infobox.isDefined(arg) then
+		return string.format('[[File:%s.png]]', arg)
+	end
+
+	if infobox.isDefined(weapon) then
+		local first = mw.text.split(weapon, ',')[1]
+		first = mw.text.trim(first or '')
+		if first ~= '' then
+			return string.format('[[File:%s.png]]', first)
+		end
+	end
+
+	return nil
+end
+
+function attack_rollarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if arg:lower() == 'true' or arg:lower() == 'true strike' then
+		return 'True strike'
+		else
+		return arg
+	end
+end
+
+function defence_rollarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if arg:lower() == 'none' or arg:lower() == 'no' then
+		return 'None'
+	else
+		return arg
+	end
+end
+
+function targetbucket(arg)
+	if infobox.isDefined(arg) then
+		return arg
+	end
+
+	return nil
+end
+
+-- split items with multiple images for Bucket (e.g. [[File:Arrow 1.png]] [[File:Arrow 2.png]])
+function image_bucket(arg)
+	local _img = {}
+	for i in string.gmatch(arg, '[Ff]ile:.-%.png') do
+		table.insert(_img, i)
+	end
+	if #_img == 0 then
+		return nil
+	end
+	return table.concat(_img, '&&SPLITPOINT&&')
+end
+
+-- split items with multiple weapons for Bucket (e.g. [[File:Arrow 1.png]] [[File:Arrow 2.png]])
+function weapon_bucket(arg)
+	local _wep = {}
+	for i in string.gmatch(arg, '%[%[(.-)%]%]') do
+		table.insert(_wep, i)
+	end
+	if #_wep == 0 then
+		return nil
+	end
+	return table.concat(_wep, '&&SPLITPOINT&&')
+end
+
+function animarg(anim, animresize, name)
+	if infobox.isDefined(anim) then
+		anim = mw.text.trim(anim):gsub('^[Ff]ile:', '')
+		return string.format(
+			'[[File:%s|%spx]]',
+			anim,
+			infobox.isDefined(animresize) and animresize or '300'
+		)
+	end
+
+	if infobox.isDefined(name) then
+		name = mw.text.trim(name)
+		return string.format(
+			'[[File:%s.gif|%spx]]',
+			name,
+			infobox.isDefined(animresize) and animresize or '300'
+		)
+	end
+
+	return nil
+end
+
+function maxtargetsarg(arg)
+	if infobox.isDefined(arg) and tonumber(arg) then
+		return arg
+	end
+end
+
+function targetarg(arg)
+	local target = string.lower(arg or '')
+	if target == 'single' then
+		return 'Single-target'
+	elseif target == 'burst' then
+		return 'Target-based burst'
+	elseif target == 'self' then
+		return 'Self'
+	elseif target == 'chain' then
+		return 'Chain'
+	elseif target == 'cleave' then
+		return 'Cleave'
+	elseif target == 'varies' then
+		return 'Varies'
+	else
+		return nil
+	end
+end
+
+function energyarg(arg)
+	if infobox.isDefined(arg) and tonumber((arg:gsub('%%', ''))) then
+		return arg:match('%%') and arg or (arg .. '%')
+	end
+end
+
+function speedarg(arg)
+	if infobox.isDefined(arg) and arg:lower() == 'varies' then
+		return 'Varies'
+	end
+	if infobox.isDefined(arg) and tonumber(arg) then
+		return arg .. ' ticks (' .. (arg * 0.6) .. 's)' 
+	end
+end
+
+function pvparg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+		if arg:lower() == 'false' or arg:lower() == 'no' then
+			return 'Disabled or no effect'
+		elseif arg:lower() == 'true' or arg:lower() == 'yes' then
+			return 'Only affects players'
+		end
+end
+
+function durationarg(arg)
+	if infobox.isDefined(arg) and arg:lower() == 'varies' then
+		return 'Varies'
+	end
+	if infobox.isDefined(arg) and tonumber(arg) then
+		return arg .. ' ticks (' .. (arg * 0.6) .. 's)' 
+	end
+end
+
+-- Parsers to set relevant params in the json
+-- bucket JSON
+local function to_json_value(value, default)
+	if infobox.isDefined(value) then
+		return value
+	else
+		return default
+	end
+end
+
+-- bucket JSON
+function bucketarg(name, image, release, seasonal, style, target, range, maxtargets, energy, weapon, attack_roll, defence_roll, damage_roll, damage_type, dot, speed, hp, pray, duration, pvp, requirements, tooltip, anim)
+	local toJSON = {
+		name = to_json_value(name),
+		image = to_json_value(image),
+		release = to_json_value(release),
+		seasonal = to_json_value(seasonal),
+		style = to_json_value(style),
+		target = to_json_value(target),
+		range = to_json_value(range),
+		maxtargets = to_json_value(maxtargets),
+		energy = to_json_value(energy),
+		weapon = to_json_value(weapon),
+		attack_roll = to_json_value(attack_roll),
+		defence_roll = to_json_value(defence_roll),
+		damage_roll = to_json_value(damage_roll),
+		damage_type = to_json_value(damage_type),
+		dot = to_json_value(dot),
+		speed = to_json_value(speed),
+		hp = to_json_value(hp),
+		pray = to_json_value(pray),
+		duration = to_json_value(duration),
+		pvp = to_json_value(pvp),
+		requirements = to_json_value(requirements),
+		tooltip = to_json_value(tooltip),
+		anim = to_json_value(anim),
+	}
+
+	return mw.text.killMarkers(mw.text.jsonEncode(toJSON))
+end
+
+function addcategories(ibox, args, catargs)
+	local ret = { 'Weapon special attacks' }
+
+	local cat_map = {
+		-- Added if the parameter has content
+		defined = {},
+		-- Added if the parameter has no content
+		notdefined = {
+			anim = 'Weapon special attacks missing animation',
+			damage_roll = 'Weapon special attacks missing damage_roll',
+		},
+		notdefined_notexclusive = {
+			release = 'Needs release date',
+		},
+		-- Parameters that have text
+		-- map a category to a value
+		grep = {},
+	}
+	table.insert(ret, (args.style.d:gsub('^%l', string.upper)) .. ' special attacks')
+
+	-- Run and add mapped categories
+	for n, v in pairs(cat_map.defined) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+	for n, v in pairs(cat_map.notdefined) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- searches
+	for n, v in pairs(cat_map.grep) do
+		for m, w in pairs(v) do
+			if args[n] then
+				local val = args[n].d
+				if infobox.isDefined(val) and string.find(string.lower(tostring(val) or ''), m) then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if infobox.isDefined(x) and string.find(string.lower(tostring(x)), m) then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if v ~= '' then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

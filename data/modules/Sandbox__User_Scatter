@@ -1,0 +1,343 @@
+-- <pre>
+--------------------------
+-- Module for [[Template:Infobox Bonuses]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local paramtest = require('Module:Paramtest')
+local attack_speed_bar = require('Module:Attack speed bar').make_bar
+local signed = require('Module:Format eq stat').signed
+local clean = require('Module:Clean image2').clean
+
+local valid_slots = { 'head', 'ammo', 'neck', 'cape', 'weapon', '2h', 'body', 'shield', 'legs', 'hands', 'feet', 'ring' }
+
+-- Main function called with invokes
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	local signed_numeric_args = {
+		'astab', 'aslash', 'acrush', 'amagic', 'arange',
+		'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+		'str', 'rstr', 'prayer'
+	}
+
+    -- Map parameters `name` to functions `func`
+	for _, v in ipairs(signed_numeric_args) do
+		ret:defineParams{ { name = v, func = { name = signednumericarg, params = { v }, flag = { 'd' } } } }
+	end
+
+	-- Map parameters `name` to functions `func`
+	ret:defineParams{
+		{ name = 'mdmg', func = { name = signedpercentnumericarg, params = { 'mdmg' }, flag = { 'd' } } },
+		{ name = 'slot_name', func = { name = 'has_content', params = { 'slot' } } },
+		{ name = 'slot_image', func = { name = slotarg, params = { 'slot' } } },
+		{ name = 'aspeed', func = attack_speed_bar },
+		{ name = 'image_and_width', func = { name = imagearg, params = { 'image', 'caption', 'image' }, flag = { 'd', 'd', 'r' } } },
+		{ name = 'image_string', func = { name = get_element_1, params = { 'image_and_width' } } },
+		{ name = 'image_width', func = { name = get_element_2, params = { 'image_and_width' } } },
+		{ name = 'altimage_and_width', func = { name = imagearg, params = { 'altimage', 'altcaption', 'altimage' }, flag = { 'd', 'd', 'r' } } },
+		{ name = 'altimage_string', func = { name = get_element_1, params = { 'altimage_and_width' } } },
+		{ name = 'altimage_width', func = { name = get_element_2, params = { 'altimage_and_width' } } },
+	}
+
+    -- Don't show links at the bottom of the infobox
+	ret:defineLinks({ hide = true })
+
+    ret:cleanParams()
+	ret:create()
+
+	local slot_name = ret:param('slot_name')
+	local is_weapon = infobox.isDefined(slot_name) and (string.lower(slot_name) == 'weapon' or string.lower(slot_name) == '2h')
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+	
+	ret:tag('caption'):wikitext('[[Equipment Stats|Bonuses]]'):addClass('infobox-caption'):done()
+	ret:defineName('Infobox Bonuses')
+	ret:addClass('infobox-bonuses infobox')
+
+	-- PARAMETER: image | caption | altimage | altcaption
+	local image_rowspan = 15
+	if is_weapon then
+		image_rowspan = 19
+	end
+	local image_td = nil
+	local altimage_td = nil
+	if ret:paramDefined('image_string') then
+		local width = ret:param('image_width')
+		image_td = { tag = 'argd', content = image_string, class = 'infobox-bonuses-image', css = {width = width..'px'}, rowspan = image_rowspan }
+	end
+	if ret:paramDefined('altimage_string') then
+		local altwidth = ret:param('altimage_width')
+		image_td = { tag = 'argd', content = altimage_string, class = 'infobox-bonuses-image', css = {width = altwidth..'px'}, rowspan = image_rowspan }
+	end
+
+	-- SECTION: AGGRESSIVE STATS + equip images
+	ret:addRow{
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Equipment Stats#Attack bonuses]]&nbsp;[[Equipment Stats#Attack bonuses|Attack bonuses]]', colspan = '5', class = 'infobox-subheader' },
+		image_td,
+		altimage_td
+	}
+		:pad(5)
+		:addRow{
+			{ tag = 'th', content = '[[File:White dagger.png|link=Stab]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:White scimitar.png|link=Slash]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:White warhammer.png|link=Crush]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', class = 'infobox-nested' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'astab', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'aslash', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'acrush', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'amagic', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'arange', class = 'infobox-nested' }
+		}
+		:pad(5)
+
+	-- SECTION: DEFENSIVE STATS
+		:addRow{ { tag = 'th', content = '[[File:Defence icon.png|link=Equipment Stats#Defence bonuses]]&nbsp;[[Equipment Stats#Defence bonuses|Defence bonuses]]', colspan = '5', class = 'infobox-subheader' } }
+		:pad(5)
+		:addRow{
+			{ tag = 'th', content = '[[File:White dagger.png|link=Stab]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:White scimitar.png|link=Slash]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:White warhammer.png|link=Crush]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', class = 'infobox-nested' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'dstab', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'dslash', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'dcrush', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'dmagic', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'drange', class = 'infobox-nested' }
+		}
+		:pad(5)
+
+	-- SECTION: OTHER BONUSES | SLOT
+		:addRow{
+			{ tag = 'th', content = '[[File:Melee.png|link=Equipment Stats#Other bonuses]]&nbsp;[[Equipment Stats#Other bonuses|Other bonuses]]', colspan = '4', class = 'infobox-subheader' },
+			{ tag = 'th', content = 'Slot', class = 'infobox-subheader' }
+		}
+		:pad(5)
+		:addRow{
+			{ tag = 'th', content = '[[File:Strength icon.png|link=Strength bonus]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Ranged Strength icon.png|link=Ranged Strength]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Magic Damage icon.png|link=Magic damage]]', class = 'infobox-nested' },
+			{ tag = 'th', content = '[[File:Prayer icon.png|link=Prayer]]', class = 'infobox-nested' },
+			{ tag = 'argh', content = 'slot_image', class = 'infobox-nested' }
+		}
+	local list_link = ''
+	if infobox.isDefined(slot_name) then
+		list_link = string.format('[[%s slot|List]]', slot_name)
+	end
+	ret:addRow{
+			{ tag = 'argd', content = 'str', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'rstr', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'mdmg', class = 'infobox-nested' },
+			{ tag = 'argd', content = 'prayer', class = 'infobox-nested' },
+			{ tag = 'td', content = list_link, class = 'infobox-nested' }
+		}
+		:pad(5)
+
+	if is_weapon then
+		-- SECTION: ATTACK SPEED
+			ret:addRow{ { tag = 'th', content = '[[Attack speed#Weapon attack speeds|Attack speed]]', class = 'infobox-subheader', colspan = '5' } }
+			:pad(5)
+		-- PARAMETER: attack speed
+			:addRow{ { tag = 'argd', content = 'aspeed', colspan = '5', class = 'infobox-full-width-content' } }
+			:pad(5)
+	end
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function numericarg(arg)
+	if paramtest.is_empty(arg) then
+		return nil
+	end
+	return arg
+end
+
+-- If the arg is numeric, return the signed version (starts with + or -)
+function signednumericarg(arg)
+	local _arg = numericarg(arg)
+	if tonumber(_arg) ~= nil then
+		return signed(_arg)
+	end
+	return nil
+end
+
+-- Sign the arg and append a percent sign
+function signedpercentnumericarg(arg)
+	local _arg = signednumericarg(arg)
+	if _arg ~= nil then
+		return _arg..'%'
+	end
+	return nil
+end
+
+-- Return the appropriate slot image
+function slotarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	local _arg = string.lower(arg)
+	for _, valid_slot in ipairs(valid_slots) do
+		if _arg == valid_slot then
+			return string.format('[[File:%s slot.png|link=%s slot]]', valid_slot, valid_slot)
+		end
+	end
+
+	return badarg('slot', 'should be a valid slot name.')
+end
+
+-- Return (formatted_image_string, width)
+function imagearg(image, caption, argname)
+	if infobox.isDefined(image) then
+		local clean_result = clean({file=image, maxW = 300, maxH = 350})
+		if clean_result == nil then
+			return badarg(argname, 'should be a valid file.')
+		end
+
+		local image_string, width, height = unpack(clean_result)
+		if infobox.isDefined(caption) then
+			image_string = image_string .. '<br><span class="infobox-bonuses-image-caption">' .. caption .. '</span>'
+		end
+
+		return {image_string, width}
+	end
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+function get_element_1(table)
+	return table[1]
+end
+
+function get_element_2(table)
+	return table[2]
+end
+
+function addcategories(args, catargs)
+	local ret = {}
+
+ 	-- Add the associated category if the parameter doesn't have content
+ 	local notdefined_args = {
+ 		image = 'Needs image',
+ 		members = 'Needs members status',
+ 		release = 'Needs release date',
+ 		examine = 'Needs examine added',
+ 		combat = 'Needs combat level',
+ 		id = 'Needs ID'
+ 	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+local smwJsonToNiceName = {
+	requirements = 'Equipment requirements',
+	slot = 'Equipment slot',
+	astab = 'Stab attack bonus',
+	aslash = 'Slash attack bonus',
+	acrush = 'Crush attack bonus',
+	arange = 'Range attack bonus',
+	amagic = 'Magic attack bonus',
+	dstab = 'Stab defence bonus',
+	dslash = 'Slash defence bonus',
+	dcrush = 'Crush defence bonus',
+	drange = 'Range defence bonus',
+	dmagic = 'Magic defence bonus',
+	str = 'Strength bonus',
+	rstr = 'Ranged Strength bonus',
+	mdmg = 'Magic Damage bonus',
+	prayer = 'Prayer bonus',
+	speed = 'Weapon attack speed',
+}
+
+-- attaches semantic mediawiki data
+function _smw(args)
+	local smw = {}
+	local ret_cont = mw.html.create('div')
+	ret_cont:css('display','none'):addClass('infobox-semantics-data hidden')
+	local ret = ret_cont:tag('div')
+	ret:css({
+			['white-space'] = 'pre-wrap',
+			['background-color'] = '#f7f7f7',
+			border = '1px solid #ddd',
+			['border-radius'] = '2px',
+			['line-height'] = '14px',
+			overflow = 'auto',
+			padding = '12px',
+			['word-wrap'] = 'normal',
+			display = 'block',
+			['font-family'] = 'monospace',
+		})
+
+	for i,v in ipairs({ 'astab', 'aslash', 'acrush', 'arange', 'amagic', 'dstab', 'dslash', 'dcrush', 'drange', 'dmagic', 'str', 'rstr', 'prayer' }) do
+		if args[v] ~= '?' then
+			smw[v] = args[v]
+		end
+	end
+	if args._raw_mdmg ~= '?' then
+		smw.mdmg = args._raw_mdmg
+	end
+
+	if args.slot ~= nil and args.slot ~= 'e' then
+		smw.slot = args.slot
+	end
+
+	if args._isweapon then
+		if args.speed then
+			smw.speed = args.speed
+		end
+	end
+
+	local smwDone = {}
+
+	-- make properties
+	for v,k in pairs(smw) do
+		smwDone[smwJsonToNiceName[v]] = k
+	end
+
+	-- version only in json
+	if args._raw_args_.version then
+		smw.version = args._raw_args_.version
+	end
+
+	local smwJsonGood, smwJsonEncoded = pcall(mw.text.jsonEncode,smw)
+
+	if smwJsonGood then
+		smwDone['Equipment JSON'] = smwJsonEncoded
+	end
+
+	mw.smw.set(smwDone)
+end
+
+return p

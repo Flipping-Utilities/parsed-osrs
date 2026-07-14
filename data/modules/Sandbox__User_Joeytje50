@@ -1,0 +1,70 @@
+local tables = require('Module:Tables')
+local gp = require('Module:Coins')._amount
+local excg = require('Module:Exchange')
+local na = require('Module:NA').rowNode
+
+p = {}
+
+
+local pearls = {
+	Tiny = {1, 200, 300},
+	Small = {200, 1000, 600},
+	Shiny = {1000, 2000, 3000},
+	Bright = {2000, 5000, 6000},
+	Big = {5000, 10000, 15000},
+	Huge = {10000, 20000, 30000},
+	Enormous = {20000, 50000, 60000},
+	Shimmering = {50000, 100000, 150000},
+	Glistening = {100000, 200000, 300000},
+	Brilliant = {200000, 500000, 600000},
+	Radiant = {500000, 0, 1500000}
+}
+
+function ge(item)
+	if excg._exists(item) then
+		return excg._price(item)
+	else
+		return 0
+	end
+end
+
+function p.main(frame)
+	local parent = frame:getParent()
+	local args = parent.args
+	local prl = pearls[args[1]]
+	local b = bucket("infobox_item")
+		.where('Category:Tradeable items')
+		.select("image", "page_name", "high_alchemy_value")
+		.where("high_alchemy_value", ">=", prl[1])
+		.where(bucket.Not('Category:Items that cannot be alchemised'))
+		.where(bucket.Not('Category:Discontinued content'))
+		.where(bucket.Not('Category:Deadman seasonal items'))
+	if prl[2] > 0 then
+		b = b.where("high_alchemy_value", "<", prl[2])
+	end
+	b = b.run()
+	local tbl = mw.html.create('table'):addClass('wikitable sortable sticky-header autosort=3,a jquery-tablesorter')
+	tbl:node(mw.html.create('caption'):wikitext('[[File:' .. args[1] .. ' pearl.png]] [[' .. args[1] .. ' pearl]] items'))
+	tables._row(tbl:tag('tr'), {'', 'Name', 'Alchemy value', 'Alchemy profit', 'GE Price', 'GE profit'}, true)
+
+	for _, i in ipairs(b) do
+		local price = ge(i['page_name'])
+		if (not pearls[i['page_name']:sub(1, -1-string.len(" pearl"))]) then
+			mw.logObject(i)
+			local tr = tbl:tag('tr')
+			mw.logObject(na('Unknown'))
+			local row = tables._row(tr, {
+				{text = '[[' .. i['image'][1] .. ']]', css = {['text-align'] = 'center'}},
+				'[[' .. i['page_name'] .. ']]',
+				gp(i['high_alchemy_value']),
+				gp(prl[3] - i['high_alchemy_value']),
+				price == 0 and na('Unknown') or gp(price),
+				price == 0 and na('Unknown') or gp(prl[3] - price)
+			})
+		end
+	end
+	tables._table(tbl, b)
+	return tbl
+end
+
+return p

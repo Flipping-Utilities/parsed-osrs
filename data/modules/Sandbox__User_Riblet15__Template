@@ -1,0 +1,13 @@
+VariablesLua = mw.ext.VariablesLua
+
+local p = {}
+
+function p.main(frame)
+    local args = frame:getParent().args
+    for arg_name, arg_val in pairs(args) do
+        mw.log(arg_name, arg_val)
+    end
+    return args
+end
+
+return p

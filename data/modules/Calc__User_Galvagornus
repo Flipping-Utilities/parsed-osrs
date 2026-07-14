@@ -1,0 +1,99 @@
+local p = {}
+
+function expr(x)
+	x = tostring(x)
+	local expr_good, expr_val = pcall(mw.ext.ParserFunctions.expr, x)
+	if expr_good then
+		return tonumber(expr_val)
+	end
+	return nil
+end
+
+-- from WP
+function choose(n,k)
+	if k < 0 or k > n then
+		return 0
+	end
+	if k == 0 or k == n then
+		return 1
+	end
+	k = math.min(k, n-k) -- symmetry
+	c = 1
+	for i=0,k-1 do
+		c = c * (n-i) / (k - i)
+	end
+	return c
+end
+
+function flavourText(x)
+	local flavourTexts = {
+		{ -1, 1, "You are some sort of sentient water being you're so not-dry. How'd you even do this?" },
+		{ 1, 10, "You're a higher % water than a watermelon." },
+		{ 10, 20, "Only ironmen can be this lucky." },
+		{ 20, 30, "Spooned." },
+		{ 30, 40, "Your friends will be jealous." },
+		{ 40, 49, "You're quite the lucker aren't you." },
+		{ 49, 51, "A perfect mix of dry and undry, as all things should be." },
+		{ 51, 61, 'Nothing interesting happens.' },
+		{ 61, 65, "An unenlightened being would say 'but 1/x over x kills means I should get it', but you know better now." },
+		{ 65, 73, 'Nothing interesting happens.' },
+		{ 73, 74, "😂😂😂" },
+		{ 74, 85, "oof" },
+		{ 85, 90, "A national emergency has been declared in your drop log." },
+		{ 90, 95, "Right, time to post on reddit." },
+		{ 95, 99, "You after being this dry: [[File:Skeleton.png|80x80px]]" },
+		{ 99, 99.5, "You are so dry you have collapsed into the dry singularity. The dryularity, if you will." },
+		{ 99.5, 99.9, "The vacuum of space has more activity than your drop log." },
+		{ 99.9, 99.99, "Wow that's so rare! Seems like it's bugged. We tweeted @JagexAsh for you, we're sure he'll get to the bottom of it in the next 24 hours." },
+		{ 99.99, 1000, "Did you forget to talk to [[Oziach]]?" }
+	}
+	for i,v in ipairs(flavourTexts) do
+		if x >= v[1] and x <= v[2] then
+			return v[3]
+		end
+	end
+	return ''
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p.calc(args.chance, args.kills, args.dropped)
+end
+
+function p.calc(chanceTxt, kc, obtained)
+	local chance = expr(chanceTxt)
+	if not chance then
+		return 'Looks like there was an error with your input chance, try typing it in again'
+	else
+		if chance > 1 then
+			return "You put your chance at over 1 you absolute madman"
+		elseif chance <= 0 then
+			return "You put your chance at 0 or negative, how you gonna get that drop?"
+		end
+	end
+	local notchance = 1 - chance
+		
+	
+	kc = tonumber(kc)
+	if not kc or kc == 0 then
+		return "You ain't killed anything you crazy fool"
+	end
+	obtained = tonumber(obtained) or 0
+	
+	if kc < obtained then
+		return "?????"
+	end
+	
+	if choose(kc, obtained) == 1/0 then -- Check if we can handle these values
+		return "Sorry, your killcount and obtained number combination is too large for this calculator. Try reducing your numbers."
+	end
+	
+	local luck = 0.0
+	for i=0, obtained do
+		luck = luck + choose(kc, i) * math.pow(chance, i) * math.pow(1-chance, kc-i)
+	end
+	return string.format("You killed %s monsters for an item with a %s (%.6f%%) drop chance. You had a:\n* %.4f%% chance of getting %s drops or fewer\n* %.4f%% chance of getting more than %s drops. %s", kc, chanceTxt, 100*chance, 100*luck, obtained, 100*(1.0-luck),obtained, flavourText((1.0-luck)*100))
+
+end
+
+return p

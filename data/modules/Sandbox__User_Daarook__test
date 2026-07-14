@@ -1,0 +1,7 @@
+local p = {}
+
+function p.main()
+	return mw.language.getContentLanguage():formatNum(-123);
+end
+
+return p

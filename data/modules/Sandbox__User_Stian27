@@ -1,0 +1,9 @@
+-- <nowiki>
+local p = {}
+
+function p.hello( frame )
+    return 'Hello, world!'
+end
+
+return p
+-- </nowiki>

@@ -1,0 +1,71 @@
+local p = {}
+
+local string = string
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local easy = args.easy
+	local easyalt = args.easyalt
+	local medium = args.medium
+	local mediumalt = args.mediumalt
+	local hard = args.hard
+	local hardalt = args.hardalt
+	local elite = args.elite
+	local elitealt = args.elitealt
+	local ret = mw.html.create('tr')
+	
+	local erarity, ealtrarity, mrarity, maltrarity, hrarity, haltrarity, elrarity, elaltrarity
+	
+	if easy ~= nil then
+		local adjusted = getAdjustedRarity(easy, easyalt)
+		local values = { original = easy, alt = easyalt, adjustedoriginal = adjusted.original, adjustedalt = adjusted.alt }
+		ret:node(makeRow('easy', frame, values))
+	end
+	
+	if medium ~= nil then
+		local adjusted = getAdjustedRarity(medium, mediumalt)
+		local values = { original = medium, alt = mediumalt, adjustedoriginal = adjusted.original, adjustedalt = adjusted.alt }
+		ret:node(makeRow('medium', frame, values))
+	end
+	
+	if hard ~= nil then
+		local adjusted = getAdjustedRarity(hard, hardalt)
+		local values = { original = hard, alt = hardalt, adjustedoriginal = adjusted.original, adjustedalt = adjusted.alt }
+		ret:node(makeRow('hard', frame, values))
+	end
+	
+	if elite ~= nil then
+		local adjusted = getAdjustedRarity(elite, elitealt)
+		local values = { original = elite, alt = elitealt, adjustedoriginal = adjusted.original, adjustedalt = adjusted.alt }
+		ret:node(makeRow('elite', frame, values))
+	end
+	
+	return tostring(ret)
+end
+
+function makeRow(level, frame, values)
+	local ret
+	local altnote = values.adjustedalt ~= nil and string.format(' The alternative rarity also increases to %s.', values.adjustedalt) or ''
+	local note = string.format('Completion of the %s combat diary increases the drop rate of the %s clue scroll to %s.%s', level, level, values.adjustedoriginal, altnote)
+	local refnote = frame:extensionTag{ name = 'ref', content = note, args = { group = 'd' } }
+	ret = mw.html.create('tr')
+	ret:wikitext(frame:expandTemplate{ title='DropsLine', args = { Name = string.format('Clue scroll (%s)', level), Quantity = 1, Rarity = values.original, AltRarity = values.alt, Raritynotes = refnote } })
+	return ret
+end
+
+function getAdjustedRarity(rarity, altrarity)
+	local modifier = 0.05
+	local rv1, rv2 = string.match(rarity, '([%d%.]+)/([%d%.]+)')
+	local arv1, arv2
+	local adjustedrarity, adjustedaltrarity
+	if altrarity then
+		arv1, arv2 = string.match(altrarity, '([%d%.]+)/([%d%.]+)')
+		adjustedaltrarity = string.format('%s/%s', arv1, math.floor((arv2 - (arv2 * modifier))))
+	end
+	
+	adjustedrarity = string.format('%s/%s', rv1, math.floor((rv2 - (rv2 * modifier))))
+	
+	return { original = adjustedrarity, alt = adjustedaltrarity }
+end
+
+return p

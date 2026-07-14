@@ -1,0 +1,51 @@
+local p = {}
+
+function p.main(frame)
+    
+    local query = bucket('infobox_item')
+        .join('infobox_bonuses', 'page_name', 'infobox_bonuses.page_name')
+        .select(
+            'page_name',
+            'weight',
+            'infobox_bonuses.equipment_slot'
+        )
+        .limit(5000)
+        .orderBy('page_name', 'asc')
+        
+    query.where({ 'weight', '<', 1}, { 'infobox_bonuses.equipment_slot', 'weapon' })
+    
+    local data = query.run()
+    
+    mw.logObject(data)
+    
+    local t = mw.html.create("table")
+		:addClass("wikitable")
+		:addClass("sticky-header")
+		:addClass("align-center-1")
+	local row = t:tag('tr')
+
+	-- row:tag('th'):wikitext('Icon'):css('width', '10%')
+	row:tag('th'):wikitext('Name'):css('width', '10%')
+	row:tag('th'):wikitext('Weight'):css('width', '20%')
+	
+	-- Table rows
+	local lastPage = nil -- Used to deduplicate pages with self and target versions.
+	for _, entry in pairs(data) do
+		if entry.page_name ~= lastPage then
+			local row = t:tag('tr')
+			
+			--Icon
+			-- row:tag('td'):wikitext('test')
+			--Name
+			row:tag('td'):wikitext('[['..entry.page_name..']]')
+			--Description
+			row:tag('td'):wikitext(entry.weight)
+		end
+		lastPage = entry.page_name
+	end
+
+	return t:allDone()
+    
+end
+
+return p

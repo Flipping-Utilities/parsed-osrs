@@ -1,0 +1,97 @@
+local p = {}
+
+local commas = require('Module:Addcommas')._add
+local paramTest = require('Module:Paramtest')
+local xpAtLevel = require('Module:Experience').xp_at_level_unr
+local levelAtXp = require('Module:Experience').level_at_xp_unr
+
+-- Function to compute the XP gained for a single artefact at a given Thieving level
+function artefactFormula(levelInput)
+	return math.floor(750 + (40 * levelInput))
+end
+
+function p._main(args)
+
+	-- Retrieve necessary arguments from the calculator input
+	goalSkill = args.skill
+	teleportFlag = args.bookTele
+
+	-- Get the current Thieving level or XP from the player and convert 
+	-- interally to a level value to proceed
+	if args.currentToggle == 'Level' then
+		currentLevel = paramTest.default_to(tonumber(args.currentThievingLvl), 1)
+		currentXP = xpAtLevel({ args = { currentLevel } })
+	else
+		currentXP = paramTest.default_to(tonumber(args.currentThievingXP), 0)
+		currentLevel = levelAtXp({ args = { currentXP } })
+	end
+
+	-- Check if the player is able to participate in Stealing Artefacts at all
+	if(currentLevel < 49) then
+		return ('Your current level (' .. currentLevel .. ') is <b>not</b> sufficient to participate in the Stealing Artefacts minigame. <b>Level 49 Thieving is required.</b> <br/> Low-level training methods for Thieving are detailed on the [[Thieving training]] page.')
+	end
+
+	-- Get the desired goal level and check if the player has already reached it
+	goalLevel = math.min(paramTest.default_to(tonumber(args.goalLevel), 1), 126)
+
+	if(goalLevel <= currentLevel) then
+		return ('Your current level (' .. currentLevel .. ') is at or above your target level (' .. goalLevel .. ').')
+	end
+	
+	-- Compute the number of artefacts required to reach the desired goal level
+	artefactCount = 0
+	xpIter = currentXP
+	for i = currentLevel, goalLevel - 1, 1 do
+		
+		-- Get the artefact XP for this current level as (750 + 40*lvl) per 
+		local artefactXPAtLevel = artefactFormula(math.min(i, 99),leagueMultiplier)
+		
+		-- Compute the XP needed to reach the next level (i + 1) relative to
+		-- the current amount (including the carry-over XP)
+		local xpToNextlevel = xpAtLevel({ args = { i + 1 } }) - xpIter
+		
+		-- Now, compute the number of artefacts to steal to reach next level
+		local artefactsToLevel = math.ceil(xpToNextlevel / artefactXPAtLevel)
+		
+		-- Keep count of the total number of artefacts stolen
+		artefactCount = artefactCount + artefactsToLevel
+		
+		-- Update the total XP record to account for the ceiling adjustment
+		xpIter = xpIter + (artefactsToLevel * artefactXPAtLevel)
+		
+	end
+	
+	-- Given the final artefact count to reach the target level, compute the 
+	-- estimated time to completion for the player in hours
+	if teleportFlag == 'true' then
+		timeToComplete = 0.01806 * artefactCount
+	else
+		timeToComplete = 0.02083 * artefactCount
+	end
+	
+	-- Compute the requested versus actual XP gain due to integer number of artefacts stolen
+	initialXP = currentXP
+	finalXP = xpAtLevel({ args = { goalLevel } })
+	idealDeltaXP = finalXP - initialXP
+	actualDeltaXP = xpIter - initialXP
+
+	-- Output the resulting information for the player and print the completion
+	-- time estimate in minutes if less than 1 hour
+	if timeToComplete <= 1.0 then
+		local timeToComplete = tonumber(string.format("%.2f", (timeToComplete * 60.0)))
+		local ret = '' .. commas(artefactCount) .. ' artefact(s) are needed to reach the target Thieving level of ' .. goalLevel .. ' (' .. commas(xpIter) .. ' XP) from a starting level of ' .. currentLevel .. ' (' .. commas(initialXP) .. ' XP). <br/> Time to completion is estimated at ' .. timeToComplete .. ' minutes.'
+		return ret
+	else
+		local timeToComplete = tonumber(string.format("%.2f", (timeToComplete)))
+		local ret = '' .. commas(artefactCount) .. ' artefact(s) are needed to reach the target Thieving level of ' .. goalLevel .. ' (' .. commas(xpIter) .. ' XP) from a starting level of ' .. currentLevel .. ' (' .. commas(initialXP) .. ' XP). <br/> Time to completion is estimated at ' .. timeToComplete .. ' hour(s).'
+		return ret
+	end
+
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+return p

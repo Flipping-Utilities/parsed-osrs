@@ -1,0 +1,22 @@
+local p = {}
+
+function p.generateTemplate(frame)
+    local arg = frame.args[1] or ""
+
+    local template = [[
+<pre class="jcConfig">
+template=User:Elaine/sandboxiest
+form=CalcForm1
+result=CalcResults1
+name =
+param = 1||%s|hidden|int
+param = 2||60|int|1-99
+autosubmit = true
+</pre>
+<div id="CalcForm1"></div>
+<div id="CalcResults1"></div>
+]]
+    return string.format(template, arg)
+end
+
+return p

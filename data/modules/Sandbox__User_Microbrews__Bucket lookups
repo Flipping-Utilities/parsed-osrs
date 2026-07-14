@@ -1,0 +1,81 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return args[1]
+end
+
+function p.q()
+	local slotOptions = {
+		'head', 
+		'cape', 
+		'neck', 
+		'ammo', 
+		'weapon', 
+		'shield', 
+		'body', 
+		'legs', 
+		'hands', 
+		'feet', 
+		'ring', 
+		'2h'
+	}
+	
+	out = '==Equipment pages with != 1 default version==\n'
+	count = 0
+	for _, slot in ipairs(slotOptions) do
+		out = out .. '===' .. slot .. '===\n'
+
+		q = bucket('infobox_bonuses').select('page_name')
+			.where('equipment_slot', slot)
+			.limit(3000)
+			.run()
+			
+		uniqEqpt = {} -- set
+		for _, item in ipairs(q) do
+			name = item['page_name']
+			dupe = false
+			for _, e in ipairs(uniqEqpt) do
+				if e == name then
+					dupe = true
+					break
+				end
+			end
+			if not dupe then
+				table.insert(uniqEqpt, name)
+			end
+		end
+
+		where = {}
+		for _, item in ipairs(uniqEqpt) do
+			table.insert(where, {'page_name', item})
+		end
+		
+		q = bucket('infobox_item').select('page_name', 'default_version')
+			.where(bucket.Or(unpack(where)))
+			.limit(3000)
+			.run()
+			
+		defCount = {}
+		for _, item in ipairs(q) do
+			name = item['page_name']
+			def = item['default_version'] and 1 or 0
+			if defCount[name] ~= nil then
+				defCount[name] = defCount[name] + def
+			else
+				defCount[name] = def
+			end
+		end
+		
+		for page, num in pairs(defCount) do
+			if num ~= 1 then
+				count = count + 1
+				out = out .. '*[[' .. page ..']] -- ' .. num .. '\n'
+			end
+		end
+	end
+
+	return out .. '\n----\nNumber of pages with != 1 default version: ' .. count
+end
+
+return p

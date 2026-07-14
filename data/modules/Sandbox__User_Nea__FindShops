@@ -1,0 +1,138 @@
+-- <nowiki>
+
+local p = {}
+
+local mw = mw
+
+local commas = require('Module:Addcommas')
+local coins = require('Module:Coins')
+
+function p._getRawSellers(item) 
+	local query = bucket("storeline")
+    	.select("sold_item_json", "sold_by")
+    	.where("sold_item", item)
+    	.limit(50)
+    	.run()
+    
+	if not query then
+		mw.log("No shops found for ".. item)
+		return {}
+	end
+	local ret = {}
+	for _, sku in ipairs(query) do
+		local tbl = mw.text.jsonDecode(sku['sold_item_json'] or '{}')
+		mw.logObject(tbl)
+		tbl.seller = '[[' .. sku['sold_by'] .. ']]'
+		table.insert(ret, tbl)
+	end
+	return ret
+end
+
+p._weaponTypes = {
+	-- Taken from [[Giants'_Foundry/Strategies#Smelting_weapons_and_armour]]
+	scimitar = 1,
+	longsword = 1,
+	['full helm'] = 1,
+	['sq shield'] = 1,
+	claws = 1,
+	warhammer=  2,
+	battleaxe = 2,
+	chainbody = 2,
+	kiteshield = 2,
+	['2h sword'] = 2,
+	platelegs = 2,
+	plateskirt = 2,
+	platebody = 4,
+}
+
+function p._getCheapestItem(material)
+	local ret = {}
+	for typ, bars in pairs(p._weaponTypes) do
+		ret = p._getCheapestSeller(material .. ' ' .. typ, bars, ret)
+	end
+	ret.cheapest.cheapest = true
+	return ret
+end
+function p._formatCoins(num)
+	return coins._amount(num)
+end
+
+function p._formatTable(material)
+	local data = p._getCheapestItem(material)
+	
+	local t = mw.html.create("table")
+	t:addClass('wikitable sortable')
+
+
+	t:tag('tr')
+		:tag('th'):wikitext('Item'):done()
+		:tag('th'):wikitext('Seller'):done()
+		:tag('th'):wikitext('Bars'):done()
+		:tag('th'):wikitext('Stock'):attr('data-sort-type', 'number'):done()
+		:tag('th'):wikitext('Price'):attr('data-sort-type', 'number'):done()
+		:tag('th'):wikitext('Price/Per'):attr('data-sort-type', 'number'):done()
+	
+	for _, item in ipairs(data) do
+		local row = t:tag('tr')
+		
+		row:tag('td'):wikitext(item.item)
+		row:tag('td'):wikitext(item.seller .. ' in '.. item.location)
+		row:tag('td'):wikitext(commas._add(item.bars))
+		row:tag('td'):wikitext(commas._add(item.stock))
+		row:tag('td'):wikitext(p._formatCoins(item.price))
+		row:tag('td'):wikitext(p._formatCoins(item.price_per))
+	end
+	
+	return t
+end
+
+function p._getCheapestSeller(item, bars, tbl)
+	local ret = tbl or {}
+	local cheapest_price = 9999999999
+	for _, sku in ipairs(p._getRawSellers(item)) do
+		if (tonumber(sku['Store stock'] or '0')) <= 0 then
+			-- continue
+			mw.log("Skipping for empty stock", sku['Sold by'])
+		elseif sku['Store currency'] ~= 'Coins' then
+			-- continue
+			mw.log("Skipping for non coin currency", sku['Sold by'])
+		else
+		local formed = {
+			price = sku['Store sell price'] or 999999999,
+			seller = sku.seller,
+			bars = bars,
+			item = '[['..item..']]',
+			stock = sku['Store stock'],
+			location = sku['Location'],
+		}
+		formed.price_per = formed.price / formed.bars
+		table.insert(ret, formed)
+		if (not ret.cheapest) or (formed.price_per < ret.cheapest.price_per) then
+			ret.cheapest = formed	
+		end
+		end
+	end
+	return ret
+end
+
+function p.main(frame)
+	return p._main(frame:getParent().args)	
+end
+
+function p._main(args)
+	local mat = args['material']
+	if not mat then
+		return 'ERROR: no material provided'
+	end
+	return p._formatTable(mat)
+end
+
+--[[ DEBUG COPYPASTA
+mw.logObject(p._getCheapestItem('Mithril'))
+--]]
+--[[ DEBUG COPYPASTA
+=p._main({material='Mithril'})
+--]]
+
+
+return p

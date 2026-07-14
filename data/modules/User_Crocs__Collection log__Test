@@ -1,0 +1,99 @@
+-- DEPRECATED PROTOTYPE: this logic is now integrated into
+-- Module:User:Crocs/Collection_log/Source (see pullClogRow / splitCells).
+-- Kept only for reference; not used by anything.
+
+local p = {}
+
+-- Depth-aware split of a wikitable header/row block into cells,
+-- respecting {{templates}}, [[links]] so their internal | are ignored.
+local function splitCells(block)
+	block = '\n' .. block
+	local cells, cur = {}, {}
+	local depth = 0
+	local i, n = 1, #block
+	local function push()
+		local s = table.concat(cur):gsub('^%s+', ''):gsub('%s+$', '')
+		cells[#cells + 1] = s
+		cur = {}
+	end
+	while i <= n do
+		local two = block:sub(i, i + 1)
+		local one = block:sub(i, i)
+		if two == '{{' or two == '[[' then
+			depth = depth + 1; cur[#cur + 1] = two; i = i + 2
+		elseif two == '}}' or two == ']]' then
+			if depth > 0 then depth = depth - 1 end
+			cur[#cur + 1] = two; i = i + 2
+		elseif depth == 0 and (two == '||' or two == '!!') then
+			push(); i = i + 2
+		elseif depth == 0 and one == '\n' then
+			local c = block:sub(i + 1, i + 1)
+			if c == '|' or c == '!' then
+				push(); i = i + 2
+			else
+				cur[#cur + 1] = one; i = i + 1
+			end
+		else
+			cur[#cur + 1] = one; i = i + 1
+		end
+	end
+	push()
+	while #cells > 0 and cells[1] == '' do table.remove(cells, 1) end
+	return cells
+end
+
+-- Extract the collection-log table row for item `id` from page `page`.
+function p.acquisition(frame)
+	local page = frame.args.page or frame.args[1]
+	local id = tostring(frame.args.id or frame.args[2])
+	if not page then return '' end
+	local title = mw.title.new(page)
+	if not title or not title.exists then return '' end
+	local content = title:getContent()
+	if not content then return '' end
+
+	local marker = 'data-item-id=' .. id
+	local mpos = content:find(marker, 1, true)
+	if not mpos then return '' end
+
+	-- enclosing table start ("{|" before marker)
+	local tstart, pos = nil, 1
+	while true do
+		local s = content:find('{|', pos, true)
+		if not s or s > mpos then break end
+		tstart = s; pos = s + 2
+	end
+	if not tstart then return '' end
+	local tend = content:find('\n|}', mpos, true) or #content
+
+	-- header line: first "\n!" line in the table
+	local headers = {}
+	local hpos = content:find('\n!', tstart, true)
+	if hpos and hpos < tend then
+		local hEnd = content:find('\n', hpos + 1, true) or tend
+		local headerLine = content:sub(hpos + 2, hEnd - 1) -- skip "\n!"
+		headers = splitCells(headerLine)
+	end
+
+	-- row block: from end of the "|- ... data-item-id=ID" line to next "\n|-" or table end
+	local lineEnd = content:find('\n', mpos, true) or mpos
+	local nextRow = content:find('\n|-', lineEnd, true)
+	local rowEnd = nextRow and math.min(nextRow, tend) or tend
+	local rowBlock = content:sub(lineEnd + 1, rowEnd - 1)
+	local cells = splitCells(rowBlock)
+	if #cells == 0 then return '' end
+
+	local out = mw.html.create('table'):addClass('wikitable')
+	if #headers > 0 then
+		local htr = out:tag('tr')
+		for _, h in ipairs(headers) do htr:tag('th'):wikitext(h) end
+	end
+	local tr = out:tag('tr')
+	for _, c in ipairs(cells) do
+		if c:find('{{', 1, true) then c = frame:preprocess(c) end
+		tr:tag('td'):wikitext(c)
+	end
+	return tostring(out)
+end
+
+return p

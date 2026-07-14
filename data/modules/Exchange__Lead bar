@@ -4,7 +4,7 @@ return {
 	icon      = 'Lead bar.png',
     alchable  = true,
 	value     = 28,
-	limit     = nil,
+	limit     = 10000,
 	members   = true,
 	category  = nil,
 	examine   = "It's a bar of lead."

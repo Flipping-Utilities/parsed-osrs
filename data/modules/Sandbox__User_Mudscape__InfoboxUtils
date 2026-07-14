@@ -1,0 +1,132 @@
+local p = {}
+
+function p.group_args(args)
+	local bases = {} -- The name of all args passed in (with numbers removed)
+	local version_args = {} -- Table of tables, version number is the key. Contents is all args with that version number explicity defined.
+	local global_args = {} -- Table of args that have been defined with no version number
+	for key, value in pairs(args) do
+		-- Any key (arg name) can be versioned by appending a number to it
+		local key_base = string.match(key, '^[^%d]+')
+		local key_version = string.match(key, '%d+$')
+		bases[key_base] = true
+		if key_version ~= nil then
+			key_version = tonumber(key_version)
+			if version_args[key_version] == nil then
+				version_args[key_version] = {}
+			end
+			version_args[key_version][key_base] = value
+		else
+			global_args[key_base] = value
+		end
+	end
+	
+	local output_args = {}
+	-- For each defined version
+	for pane_version, pane_args in ipairs(version_args) do
+		output_args[pane_version] = {}
+		-- For each arg that is set in at least one version
+		for key_base, _ in pairs(bases) do
+			output_args[pane_version][key_base] = pane_args[key_base] or global_args[key_base]
+		end
+	end
+	return output_args
+end
+
+-- Take a group of panes and wrap them in html to swap between them
+function p.wrap(panes)
+	if #panes == 1 then
+		return mw.text.tostring(panes.content or panes)
+	end
+	
+	local isSelect = #panes > 3 --TODO some fancy calculation of the width of names or something
+
+	--Partially copied from [[Module:Switch infobox]]
+	local topContainer = mw.html.create('div')
+		:addClass('switch-infobox')
+		:addClass('loading')
+		:tag('span')
+			:addClass('loading-button')
+			:addClass('button')
+			:addClass('navigation-not-searchable')
+			:wikitext('Loading...')
+		:done()
+	
+	local versionChangeContainer = topContainer:tag('div')
+		:addClass('switch-infobox-triggers')
+		:addClass('navigation-not-searchable')
+		
+	if isSelect then
+		versionChangeContainer:addClass('infobox-buttons-select')
+		--So MW is dumb and won't let us use select tags.
+		--Just write it anyway for an aproximate size test.
+		versionChangeContainer = versionChangeContainer:tag('select') -- changing won't actually work, need some js work
+		versionChangeContainer:attr('id', 'infobox-select-0')
+	end
+	
+	for key, value in ipairs(panes) do
+		local version = value.version
+		local content = value.content
+		local default_version = value.default_version
+		if isSelect then
+			-- versionChangeContainer:tag('option')
+			-- 	:wikitext(version)
+			-- :done()
+		else
+			versionChangeContainer:tag('span')
+				:addClass('trigger')
+				:addClass('button')
+				:attr('data-id', key)
+				:wikitext(version)
+			:done()
+		end
+		
+		topContainer:tag('div')
+				:addClass('item')
+				:addClass(default_version and 'showing' or '')
+				:attr('data-id', key)
+				:wikitext(content)
+			:done()
+	end
+	versionChangeContainer:allDone()
+	
+	return mw.html.create('div'):addClass('infobox-wrapper'):node(topContainer):allDone()
+end
+
+-- Generate chisel MOID link
+-- linkType is one of { 'npc', 'item', 'object' }
+function p.chiselLink(id, name, linkType)
+	if id and not string.find(id, '[^%d%s,]') then
+		ids = string.gsub(id, '%s', '')
+		return string.format('[https://chisel.weirdgloop.org/moid/%s_id.html#%s MOID]', linkType, ids)
+	end
+	-- fall back to name if ids contain stuff like "hist" or "removed" or "no"
+	if name then
+		-- the {{Null name}} template causes trouble
+		if string.find(name, '^null') then
+			name = 'null'
+		end
+		name_sanitized = string.gsub(name, ' ', '%%20')
+		return string.format('[https://chisel.weirdgloop.org/moid/%s_name.html#%s MOID]', linkType, name_sanitized)
+	end
+	return '[https://chisel.weirdgloop.org/moid/%s_name.html MOID]'
+end
+
+-- Create a standardised release function, since so many pages use it
+-- Turns release and update into a single parameter
+function p.releaseUpdate(release, update)
+	if not release then
+		return nil
+	end
+	if string.lower(release) == 'no' then
+		return 'N/A'
+	end
+	if not update then
+		return string.format('%s (Update unknown)',release)
+	end
+	if string.lower(update) == 'no' then
+		return release
+	end
+	return string.format('%s ([[Update:%s|Update]])', release, update)
+end
+
+return p

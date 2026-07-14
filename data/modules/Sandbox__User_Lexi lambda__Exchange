@@ -1,0 +1,63 @@
+local yesno = require('Module:Yesno')
+local add_commas = require( 'Module:Addcommas' )._add
+local coins = require('Module:Coins')._amount
+local ge_price = require('Module:Exchange')._price
+
+local MAX_TAX = 5000000
+
+local p = {}
+
+function p._tax(base_price)
+	return math.min(math.floor(base_price / 100), MAX_TAX)
+end
+
+function p._afterTax(base_price)
+	return base_price - p._tax(base_price)
+end
+
+function p._priceWithTaxInfo(item, opts)
+	local opts = opts or {}
+	local multi = type(opts.multi) == 'number' and opts.multi or 1
+	
+	local base_price = ge_price(item)
+	local tax = p._tax(base_price)
+
+	local base_total = base_price * multi
+	local taxed_total = (base_price - tax) * multi
+	
+	local tax_suffix = opts.compact and ' tax' or ''
+	local taxation_explanation
+	if tax == 0 then
+		taxation_explanation = 'no tax expected'
+	elseif tax == MAX_TAX then
+		taxation_explanation = add_commas(base_total) .. ' − ' .. add_commas(MAX_TAX) .. tax_suffix
+		if multi ~= 1 then
+			taxation_explanation = taxation_explanation .. ' per item'
+		end
+	else
+		taxation_explanation = add_commas(base_total) .. ' − 1%' .. tax_suffix
+	end
+
+	local span = mw.html.create('span')
+	span:wikitext(coins(taxed_total))
+	if opts.compact then
+		span:addClass('fact-text') -- FIXME: more appropriate class
+			:attr('title', taxation_explanation)
+	else
+		span:wikitext(' ')
+			:tag('span')
+				:addClass('mw-templatedata-doc-muted') -- FIXME: more appropriate class
+				:wikitext('(' .. taxation_explanation .. ')')
+	end
+
+	return tostring(span)
+end
+
+function p.priceWithTaxInfo(frame)
+	return p._priceWithTaxInfo(frame.args[1], {
+		multi = tonumber(frame.args[2]),
+		compact = yesno(frame.args.compact)
+	})
+end
+
+return p

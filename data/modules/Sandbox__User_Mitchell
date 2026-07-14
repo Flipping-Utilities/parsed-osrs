@@ -1,0 +1,298 @@
+local p = {}
+
+local helpers = require('Module:Skill calc/Helpers')
+local xp = require('Module:Experience').xp_at_level
+local level = require('Module:Experience').level_at_xp_unr
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+
+local farmingCTS = {
+	Potato = { 101, 180 },
+	Onion = { 105, 180 },
+	Cabbage = { 107, 180 },
+	Tomato = { 112, 180 },
+	Sweetcorn = { 88, 180 },
+	Strawberry = { 103, 180 },
+	Watermelon = { 126, 180 },
+	['Snape grass'] = { 148, 195 },
+	['Hammerstone hops'] = { 104, 180 },
+	['Asgarnian hops'] = { 108, 180 },
+	['Yanillian hops'] = { 116, 180 },
+	['Krandorian hops'] = { 120, 180 },
+	['Wildblood hops'] = { 128, 180 },
+	Barley = { 103, 180 },
+	['Jute fibre'] = { 113, 180 },
+	['Giant seaweed'] = { 150, 210 },
+	['Guam leaf'] = { 25, 80 },
+	Marrentill = { 28, 80 },
+	Tarromin = { 31, 80 },
+	Harralander = { 36, 80 },
+	Goutweed = { 39, 80 },
+	['Ranarr weed'] = { 39, 80 },
+	Toadflax = { 43, 80 },
+	['Irit leaf'] = { 46, 80 },
+	Avantoe = { 50, 80 },
+	Kwuarm = { 54, 80 },
+	Snapdragon = { 56, 80 },
+	Cadantine = { 59, 80 },
+	Lantadyme = { 64, 80 },
+	['Dwarf weed'] = { 67, 80 },
+	Torstol = { 71, 80 }
+}
+
+local itemBonuses = {
+	secateurs = 0.05,
+	farmingCape = 0.10
+}
+
+local otherBonuses = {
+	attas = 0.05,
+	diary = {
+		None = 0,
+		['Hard Kourend'] = 0.05,
+		['Medium Kandarin'] = 0.05,
+		['Hard Kandarin'] = 0.1,
+		['Elite Kandarin'] = 0.15
+	},
+}
+
+local compostValues = {
+	None = { 0, 0 },
+	Compost = { 1, 18 },
+	Supercompost = { 2, 26 },
+	Ultracompost = { 3, 36 }
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	mw.logObject(args)
+	
+	-- Pull out the relevant data from the sub module and call the function with the passed in skill method
+	local dataRet = require('Module:Sandbox/User:MitcheII/Skill calc/Farming')
+	local data = dataRet(args.method)
+	-- Sort the data when it's pulled to make sure it's in the correct ordering
+	table.sort(data, function(a, b) return helpers.sortTable(a, b) end)
+	
+	local setValue = 0
+	-- Check if the skill the calculator is using is eligible for the experience set bonus
+	if helpers.checkForBoostingSetSkill(args.skill) then
+		local pieces = {
+			{ args.head, 0.004 },
+			{ args.body, 0.008 },
+			{ args.legs, 0.006 },
+			{ args.boots, 0.002 }
+		}
+		local newSetValue = helpers.determineSetValue(pieces)
+		setValue = newSetValue
+	end
+	
+	-- Calculate the remaining experience between the current and goal information
+	local currentLevel = calculateCurrentLevel(args.current, args.currentToggle)
+	local options = {
+		skill = args.skill,
+		secateurs = args.secateurs,
+		farmingCape = args.farmingCape,
+		diary = args.diary,
+		attas = args.attas,
+		compost = args.compost,
+		bonus = args.bonus
+	}
+	
+	-- Create the headers and alignments
+	local ret = createHeaders(args.skill)
+	
+	-- Loop through the data and make each table row of data (including calculations)
+	for _, v in ipairs(data) do
+		ret:node(make_row_full(v, setValue, currentLevel, options))
+	end
+	
+	-- Return the table to the user
+	return tostring(ret)
+end
+
+function calculateCurrentLevel(curr, currToggle)
+	local currLevel
+	
+	if currToggle == 'Level' and tonumber(curr) <= 99 then
+    	if tonumber(curr) == 0 then
+    		currLevel = 1
+    	else
+    		currLevel = curr
+        end
+    else
+    	currLevel = level({args = {curr}})
+    end
+	
+	return currLevel
+end
+
+function spreadMaterials(materials)
+	local materialsFormatted = ''
+	if materials == nil then
+		return '-'
+	end
+	
+	if #materials > 0 then
+		for _, v in ipairs(materials) do
+			local actionsReduced = 1
+			local quantity = math.ceil(v.quantity or 1)
+			materialsFormatted = materialsFormatted .. string.format('%sx [[File:%s.png|link=%s]] [[%s|%s]]<br>', commas(quantity), v.name, v.name, v.name, v.title or v.name)
+		end
+	end
+		
+	return string.len(materialsFormatted) > 1 and materialsFormatted or '-'
+end
+
+function getRaw(materials)
+	local totalCost = 0
+	
+	if materials == nil then
+		return totalCost
+	end
+	
+	if #materials > 0 then
+		for _, v in ipairs(materials) do
+			local quantity = v.quantity and v.quantity or 1
+			if v.cost then
+				totalCost = totalCost + (v.cost * (quantity))
+			elseif gePrices[v.name] ~= nil then
+				totalCost = totalCost + (gePrices[v.name] * (quantity))
+			end
+		end
+	end
+	
+	return totalCost
+end
+
+function getOutput(name, outputItem, outputQuantity)
+	local itemToLookUp = outputItem and outputItem or name
+	if gePrices[itemToLookUp] ~= nil then
+		return (gePrices[itemToLookUp] * outputQuantity)
+	else
+		return 0
+	end
+end
+
+function createHeaders(skill)
+	local ret
+		ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-7 align-right-8 align-right-9 align-right-10')
+		ret:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Action')
+			:tag('th'):wikitext('Level')
+			:tag('th'):wikitext('XP')
+			:tag('th'):wikitext('# Needed')
+			:tag('th'):wikitext('Materials')
+			:tag('th'):wikitext('Raw Cost')
+			:tag('th'):wikitext('Output Price')
+			:tag('th'):wikitext('Profit/Loss')
+			:tag('th'):wikitext('GP/XP')
+			:tag('th'):wikitext('Members')
+	return ret
+end
+
+function make_row_full(action, setValue, currentLevel, options)
+	local outputQuantity, actionExperience
+	local rowColor = helpers.isRowGrey(action.level, currentLevel)
+	local picture = action.pic or action.name
+	local compostInfo = compostValues[options['compost']]
+	local compostLife = compostInfo and compostInfo[1] or 0
+	local compostXp = compostInfo and compostInfo[2] or 0
+	if options['skill'] == 'Farming' and farmingCTS[action.name] then
+		local itemBonus = generateItemBonus(options, action.type)
+		local otherBonus = generateOtherBonus(options, action.type)
+		local harvestLives = 3 + compostLife
+		local estimatedYield = generateEstimatedYield(currentLevel, farmingCTS[action.name], harvestLives, itemBonus, otherBonus)
+		local combinedXp = helpers.jagexFloor(estimatedYield * action.xp + (action.plantXp and action.plantXp or 0) + (action.healthXp and action.healthXp or 0) + compostXp, 1)
+		actionExperience = helpers.jagexFloor(combinedXp * setValue, 1) + combinedXp
+		outputQuantity = estimatedYield
+	elseif action.assumedYield then
+		local combinedXp = helpers.jagexFloor(action.assumedYield * action.xp + (action.plantXp and action.plantXp or 0) + (action.healthXp and action.healthXp or 0) + compostXp, 1)
+		actionExperience = helpers.jagexFloor(combinedXp * setValue, 1) + combinedXp
+		outputQuantity = action.assumedYield
+	else
+		actionExperience = helpers.jagexFloor(action.xp * setValue, 1) + action.xp + compostXp
+		outputQuantity = action.outputQuantity and action.outputQuantity or 1
+	end
+	local members = helpers.membersIcon(action.members)
+	local materials = spreadMaterials(action.materials)
+	local getRawCost = getRaw(action.materials)
+	local getOutputPrice = getOutput(action.name, action.outputItem, outputQuantity)
+	local profitLoss = getOutputPrice - getRawCost
+	local gpXp = 0 or ((profitLoss) / actionExperience)
+	local materialsOverride = ''
+	if materials == '-' then
+		materialsOverride = { ['text-align'] = 'center' }
+	end
+    
+	return mw.html.create('tr'):addClass(rowColor)
+		:tag('td'):wikitext('[[File:' .. picture .. '.png|link=' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.title and '[[' .. action.name .. '|' .. action.title .. ']]' or '[[' .. action.name .. ']]'):done()
+		:tag('td'):wikitext(action.level or 1):done()
+		:tag('td'):wikitext(commas(actionExperience)):done()
+		:tag('td'):css(materialsOverride):wikitext(materials):done()
+		:tag('td'):wikitext(coins(commas(getRawCost))):done()
+		:tag('td'):wikitext(coins(commas(getOutputPrice))):done()
+		:tag('td'):wikitext(coins(commas(profitLoss))):done()
+		:tag('td'):wikitext(coins(commas(gpXp))):done()
+		:tag('td'):wikitext(members):done()
+end
+
+function generateEstimatedYield(level, values, harvestLives, itemBonus, otherBonus)
+	local chanceValues = math.floor(values[1] * (99 - level) / 98) + (values[2] * (level - 1) / 98)
+	local itemBonuses = 1 + itemBonus
+	local otherBonuses = 1 + otherBonus
+	local chanceToSave = math.floor(chanceValues * itemBonuses * otherBonuses + 1) / 256
+	local expectedYield = harvestLives / (1 - chanceToSave)
+	
+	return expectedYield
+end
+
+function generateItemBonus(options, type)
+	local itemBonus = 0
+	
+	if options == nil then
+		return itemBonus
+	end
+	
+	for i, v in next, options, nil do
+		if itemBonuses[i] and v == 'true' then
+			if i == 'farmingCape' then
+				if type == 'Herb' then
+					itemBonus = itemBonus + tonumber(itemBonuses[i])
+				end
+			else
+				itemBonus = itemBonus + tonumber(itemBonuses[i])	
+			end
+		end
+	end
+	
+	return itemBonus
+end
+
+function generateOtherBonus(options, type)
+	local otherBonus = 0
+	
+	if options == nil then
+		return otherBonus
+	end
+	
+	for i, v in next, options, nil do
+		if otherBonuses[i] then
+			if i == 'diary' then
+				if type == 'Herb' then
+					otherBonus = otherBonus + tonumber(otherBonuses[i][v])
+				end
+			elseif v == 'true' then
+				otherBonus = otherBonus + tonumber(otherBonuses[i])
+			elseif v ~= 'false' then
+				otherBonus = otherBonus + tonumber(otherBonuses[i][v])
+			end
+		end
+	end
+	
+	return otherBonus
+end
+
+return p

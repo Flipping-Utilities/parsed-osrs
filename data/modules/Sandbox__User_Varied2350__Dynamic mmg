@@ -1,0 +1,22 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	mw.logObject(args)
+	local calcTxt = [[
+	<pre class="jcConfig">
+	template = User:Varied2350/calculators/Calculator:Dynamic mmg/Template
+	form = typein
+	result = tableout
+	param = output|Output|Select|select|Select,Formatted,Raw
+	autosubmit = enabled
+	</pre>
+	]]
+	return calcTxt
+end
+
+return p

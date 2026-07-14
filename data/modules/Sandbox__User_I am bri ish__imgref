@@ -1,0 +1,77 @@
+local p = {}
+local html = mw.html
+
+function p.main(frame)
+    local args = frame.args
+    local mode = args.mode or ''
+    local named = args.named or ''
+    local name = args.name or '' -- Named is a boolean to ask whether it has a name or not, name is the name given to the ref 
+    local image = args.image or ''
+    local size = args.size or '15x15px'
+    local title = args.title or ''
+    local notes = args.notes or ''
+    local link = args.link or ''
+    local highlight = args.highlight or 'yes'
+    local reftype = args.reftype or name  -- Custom class for highlighting
+    local group = args.group or 'presets'  -- Default: "presets" group for isolated numbering
+    local fixednum = args.fixednum or ''  -- For hardcoded anchor (e.g., |fixednum=1 for revns always #1)
+    local plainTitle = title:gsub("'''", ""):gsub("''", "")
+    if mode == 'ref' then -- Ref mode
+        -- Raw notes for :wikitext (parses [[links]], <span>, '''bold''', [[File:]] icon)
+        local ref_content = html.create('span')
+            :attr({['class'] = 'citation ' .. reftype})
+            :wikitext(notes)
+        local ref_attrs = {}
+        if named == 'named' and name ~= '' then
+            ref_attrs.name = name
+        end
+        ref_attrs.group = group  -- Always use group (default "presets")
+        return frame:extensionTag('ref', tostring(ref_content), ref_attrs)
+    else
+        if name == '' then -- Icon mode
+            -- Fallback plain wikitext if no name
+            local icon = ''
+            if image ~= '' then
+                icon = '[[File:' .. image .. '.png|' .. size .. '|frameless|title=' .. plainTitle .. ']]'
+            end
+            return frame:preprocess(icon)  -- Parse fallback
+        end
+        -- Build icon wikitext with {{!}} to escape inner pipes (for nesting in outer link)
+        local icon = ''
+        if image ~= '' then
+            icon = '[[File:' .. image .. '.png' ..
+                '{{!}}' .. size ..  -- {{!}} escapes |size
+                '{{!}}frameless' ..
+                '{{!}}title=' .. plainTitle ..  -- {{!}} before title= avoids outer pipe confusion
+                ']]'
+            if link ~= '' then
+                icon = icon:gsub(']]$', '{{!}}link=' .. link .. ']]')  -- Add |link= with {{!}} if set
+            end
+        end
+        -- Href anchor (fixed if |fixednum=; else generic for dynamic in group)
+        local cite_note
+        if fixednum ~= '' then
+            cite_note = '#cite_note-' .. name .. '-' .. fixednum  -- e.g., #cite_note-revns-1
+        else
+            cite_note = '#cite_note-' .. name  -- Generic: cite.js resolves -1/-2 in presets group
+        end
+        -- Build wikitext link with escaped icon inside (no pipe issues; parses to <a><span><img title=""></span></a>)
+        local linked_icon = '[[' .. cite_note ..  -- No space after [[ for clean parsing
+            '| <span class="citation ' .. reftype .. '" title="' .. plainTitle .. '">' ..
+            icon ..
+            '</span> ]]'
+        local output = ''
+        if highlight == 'yes' then
+            output = '<span style="font-size:0.8em;line-height:1;vertical-align:super">' .. linked_icon .. '</span>'
+        else
+            output = linked_icon
+        end
+        -- Invisible ref uses raw notes 
+        local ref_attrs = {name = name, group = group}
+        local invisible_ref = frame:extensionTag('ref', notes, ref_attrs)
+        -- final output (force parse wikitext to HTML; no literals)
+        return frame:preprocess(output .. tostring(invisible_ref))
+    end
+end
+
+return p

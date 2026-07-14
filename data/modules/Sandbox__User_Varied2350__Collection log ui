@@ -1,0 +1,24 @@
+local p = {}
+local collog = require('Module:Sandbox/User:Varied2350/Collection_Log')
+
+function p.main(frame)
+    local bgType = frame.args.bgType
+    if bgType == nil then
+        bgType = "collectionlog"
+    end
+    local args = frame:getParent().args
+    return p._main(args,bgType)
+end
+
+function p._main(args,bgType)
+	local collogArgs = {
+		outputType = 'raw',
+		category = 'all'
+	}
+	local collogs = collog._list(collogArgs)
+	
+	
+	return collogs
+end
+
+return p

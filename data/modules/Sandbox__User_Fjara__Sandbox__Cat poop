@@ -1,0 +1,16 @@
+local p = {}
+
+function p._main(args)
+	return ''
+end
+
+--[[DEBUG
+]]
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local frameArgs = frame.args
+	return p._main(args)
+end
+
+return p

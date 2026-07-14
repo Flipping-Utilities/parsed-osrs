@@ -1,0 +1,47 @@
+local p = {}
+
+function p.main()
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local batchResults = bucket('dropsline')
+			.select('item_name')
+			.offset(offset)
+			.limit(batchSize)
+			.run()
+			
+			for _, result in ipairs(batchResults) do
+				if result.item_name then
+					results[result.item_name]	= (results[result.item_name] or 0) + 1
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #batchResults < batchSize then
+				break;
+			end
+	end
+	
+	local output = {
+		'<br>',
+		'{| class="sortable wikitable autosort=2,d"',
+		'!Thing',
+		'!Count'
+	}
+
+	for key, count in pairs(results) do
+		table.insert(output, '|-')
+		table.insert(output, '|[[' .. key ..']]')
+		table.insert(output, '|' .. count)
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+	
+end
+
+return p

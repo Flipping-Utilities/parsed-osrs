@@ -1,0 +1,193 @@
+local adv = require('Module:Average drop value')
+local gep = require('Module:Exchange')
+local coins = require('Module:Coins')
+local modt = require('Module:T')
+
+local p = {}
+
+function p.main(frame)
+	return p._main(frame, frame:getParent().args)
+end
+
+function p._main(frame, args)
+	local parsed_args = parse_args(frame, args)
+	local imp_clues = query_imp_clue_drops(parsed_args['imp'], parsed_args['limit'])
+	
+	if parsed_args['display'] == 'table' then
+		return render_table(parsed_args, imp_clues)
+	else
+		return 'Inline display not implemented yet'
+	end
+end
+
+function get_table_length(tbl)
+	local count = 0
+	for n in pairs(tbl) do
+		count = count + 1
+	end
+	return count
+end
+
+function render_table(args, imp_clues)
+	local t = mw.html.create('table'):addClass('wikitable')
+	t
+		:tag('tr')
+		:tag('th'):attr('colspan', 2):wikitext('Clue scroll level'):done()
+		:tag('th'):attr('colspan', 2):wikitext('Impling jar'):done()
+		:tag('th'):wikitext('Droprate'):done()
+		:tag('th'):wikitext('Average cost per clue'):done()
+		:tag('th'):wikitext('Average profit per<br />completed clue scroll'):done()
+		:done()
+	
+		
+	local scroll_order = {
+		'Clue scroll (beginner)',
+		'Clue scroll (easy)',
+		'Clue scroll (medium)',
+		'Clue scroll (hard)',
+		'Clue scroll (elite)'
+	}
+	
+	for _, scroll_level_name in ipairs(scroll_order) do
+		local scroll_imps = imp_clues[scroll_level_name]
+		
+		if scroll_imps then
+			local sorted_imp_names = {}
+			
+			for imp_jar_name in pairs(scroll_imps) do
+				table.insert(sorted_imp_names, imp_jar_name)
+			end
+			table.sort(sorted_imp_names)
+			
+			for i, imp_jar_name in ipairs(sorted_imp_names) do
+				local drop_data = scroll_imps[imp_jar_name]
+				local clue_rowspan = get_table_length(scroll_imps)
+				
+				t:tag('tr')
+				
+				local scroll_name = drop_data['Dropped item']
+				local subbed_name = string.gsub(scroll_name, 'Clue scroll', 'Reward casket')
+				local start_index, end_index = string.find(scroll_name, "%((.-)%)")
+				local extracted_text
+				
+				if start_index then
+					extracted_text = string.sub(scroll_name, start_index + 1, end_index - 1)
+				end
+				
+				local capitalized_text
+				if extracted_text then
+					capitalized_text = 
+						string.upper(string.sub(extracted_text, 1, 1)) ..
+						string.sub(extracted_text, 2)
+				end
+				
+				-- create spanning clue rows
+				if i == 1 then
+					t
+						:tag('td'):attr('rowspan', clue_rowspan):wikitext('icon'):done() -- Clue icon
+						:tag('td'):attr('rowspan', clue_rowspan):wikitext(capitalized_text):done() -- Clue text
+				end
+				
+				local rarity = drop_data['Rarity']
+				rarity = rarity:gsub('1/', '')
+				local avg_cost
+				
+				plinkt_args = {
+					[1] = 'Template:Plinkt|Young impling jar',
+				}
+				
+				t	:tag('td'):wikitext(drop_data['Dropped from']):done() -- imp jar icon
+					:tag('td'):wikitext(drop_data['Dropped from']):done() -- imp name
+					:tag('td'):wikitext(drop_data['Rarity']):done() -- rarity
+				if gep._exists(drop_data['Dropped from']) then
+					avg_cost = coins._amount(rarity * (adv.totalval(drop_data['Dropped from']) - gep._price(drop_data['Dropped from'])))
+					t	:tag('td'):wikitext(avg_cost):done() -- avg cost / clue
+						:tag('td'):wikitext(adv.totalval(subbed_name)):done() -- avg profit / clue
+				else
+					avg_cost = 'NA'
+					t	:tag('td'):attr('colspan', 2):wikitext('NA'):done()
+				end
+					
+				t:done() -- close tr
+			end
+		end
+	end
+	return tostring(t)
+end
+
+function parse_args(frame, args)
+	local parsed_args = {}
+	
+	parsed_args['display'] = args['display'] or 'table'
+	parsed_args['jar'] = args['jar'] or 'yes'
+	
+	-- strip 'impling' and 'jar' from the imp arg
+	if args['imp'] then
+		local temp_imp = args['imp']
+		temp_imp = temp_imp:gsub('impling', '')
+		temp_imp = temp_imp:gsub('jar', '')
+		parsed_args['imp'] = temp_imp
+	else
+		parsed_args['imp'] = mw.title.getCurrentTitle().text
+	end
+	parsed_args['limit'] = 100
+	
+	if parsed_args['display'] == 'table' then
+		parsed_args['master'] = args['master'] or 'split'
+	else
+		parsed_args['master'] = args['master'] or 'yes'
+	end
+	
+	
+	-- table args:
+	-- display: (table)|inline
+	-- master: (split)|yes|no
+	-- jar: (yes)|no
+	-- imp: (all)|{{impName}}|nil (current page name (if imp jar))
+	
+	-- inline args:
+	-- display: (table)|inline
+	-- master: split|(yes)|no
+	-- jar: (yes)|no
+	-- imp: all|{{impName}}|nil (current page name (if imp jar))
+	return parsed_args
+end
+
+function query_imp_clue_drops(imp_name, _limit)
+	local imp_query = {
+		'[[Dropped item::like:Clue scroll*]]',
+		'[[Dropped from::like:*jar]]',
+		'?Drop JSON=json',
+		limit = _limit
+	}
+	
+	local t1 = os.clock()
+	local imp_query_data = null--mw.smw--.ask(imp_query)
+	local t2 = os.clock()
+	
+	-- mw.log(string.format('SMW: entries: %d, time elapsed: %.3f ms.', #imp_query_data, (t2 - t1) * 1000))
+	
+	local imp_json = {}
+	-- if SMW query returned imps with clue drops
+	if imp_query_data then
+		for k,v in ipairs(imp_query_data) do
+			local temp_json = mw.text.jsonDecode(v['json'] or '{}')
+			
+			-- Loop SMW results and set imp/clue with SMW json
+			if temp_json['Dropped from'] and temp_json['Dropped item'] then
+				local dropped_from = temp_json['Dropped from']
+				local dropped_scroll = temp_json['Dropped item']
+				
+				if not imp_json[dropped_scroll] then
+					imp_json[dropped_scroll] = {}
+				end
+				
+				-- Set imp_json[imp][clue] to decoded json
+				imp_json[dropped_scroll][dropped_from] = temp_json
+			end
+		end
+	end
+	return imp_json
+end
+
+return p

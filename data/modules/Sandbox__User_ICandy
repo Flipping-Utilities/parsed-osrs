@@ -1,0 +1,24 @@
+local chart = require( 'Module:Chart data' )
+
+local function test_function ( n )
+	return (162441001787 / 164313201888) ^ n
+	- 4 * (2129506597 / 2147884992) ^ n 
+	- 4 * (2441 / 2448) ^ n
+	+ 6 * (951701 / 957168)^ n 
+	+ 1
+end
+
+local p = {}
+
+function p.test_graph()
+    local plot = chart.newChart{ type = 'scatter' }
+    plot:setDimensions( '40vw', '40vh', 300, 300, true )
+    plot:setTitle( 'Test' )
+    plot.fill = false
+--    plot.colorPallet = chart.colorPallets.qualitative
+	local set = plot:newDataSet()
+	set.data = chart.generateXYFromFunc( test_function, 1, 1500 )
+    return plot:finish()
+end
+
+return p.test_graph()

@@ -16,6 +16,15 @@ const MODULE_BATCH_SIZE = 50;
 // subpage paths) which would cause ENOENT on Windows if left as-is.
 const WINDOWS_RESERVED_CHARS = /[:<>"|?*]/g;
 
+// Trailing whitespace and dots are silently stripped by the Win32 file API
+// (CreateFile & friends) on directory lookups, even though NTFS itself can
+// store them — Node's fs.writeFileSync bypasses the normalisation via the
+// `\\?\` prefix, so a file written as `Foo.` is recorded with the dot intact.
+// Any tool that goes through Win32 (git, cmd, Explorer) then looks up
+// `Foo` and fails, producing the classic `No such file or directory` error
+// on `git add`. Stripping them here keeps the on-disk name addressable.
+const WINDOWS_TRIM_TRAILING = /[\s.]+$/;
+
 /**
  * Strips the `Module:` namespace prefix and flattens a wiki page title into a
  * single safe filename.
@@ -26,6 +35,7 @@ const WINDOWS_RESERVED_CHARS = /[:<>"|?*]/g;
  *   wiki titles — `:` especially (`User:Spoiledduc`, `Template:Foo`, even
  *   `Module:Module:Sandbox/…`) and would crash `writeFileSync` on Windows.
  * - `../` traversal sequences are removed entirely.
+ * - Trailing whitespace and dots are stripped — see {@link WINDOWS_TRIM_TRAILING}.
  *
  * Exported so it can be unit-tested without touching the filesystem.
  */
@@ -34,7 +44,8 @@ export function sanitizeModuleFilename(title: string): string {
     .replace(/^Module:/, '')
     .replace(/\.\.\//g, '')
     .replace(/[\\/]/g, '__')
-    .replace(WINDOWS_RESERVED_CHARS, '_');
+    .replace(WINDOWS_RESERVED_CHARS, '_')
+    .replace(WINDOWS_TRIM_TRAILING, '');
 }
 
 @Injectable()

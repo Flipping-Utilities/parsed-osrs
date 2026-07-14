@@ -1,0 +1,336 @@
+--************************************************************************************************************************************
+--IF YOU COME ACROSS THIS CODE. IT IS ALL STOLEN FROM THE ORIGINAL SOURCE: https://oldschool.runescape.wiki/w/Module:User_hiscores   *
+--************************************************************************************************************************************
+
+require("strict")
+local virtual_level = require('Module:Experience')._level_at_xp_unr
+local hiscore = require('Module:Hiscores').get_stats
+local yesno = require('Module:Yesno')
+local lang = mw.getContentLanguage()
+require('Module:Mw.html extension')
+
+local p = {}
+
+-- Format numbers (add thousands separator, etc.)
+local function fnum(x)
+	x = tonumber(x)
+	if x then
+		return lang:formatNum(x)
+	end
+	return ''
+end
+
+
+-- Normalise arguments made by the user (lowercase, etc.)
+local function normalise_args(args)
+	local out = {}
+	for k, v in pairs(args) do
+		local key = string.lower(k)
+		local add_key = true
+		if key ~= k then
+			if args[key] then
+				add_key = false
+			end
+		end
+		if add_key then
+			out[key] = v
+		end
+	end
+	return out
+end
+
+-- Capitalise the first character of each word in a string. Not quite title case, because it does not ignore and/of, so those titles need to be forced.
+local function titlecase(str)
+    return str:gsub("%f[%a].", string.upper)
+end
+
+-- Table of API endpoint aliases
+local aliases = {
+	['main'] = 'osrs',
+	['default'] = 'osrs',
+	['iron'] = 'osrs-ironman',
+	['ironman'] = 'osrs-ironman',
+	['hardcore'] = 'osrs-hardcore',
+	['hardcore ironman'] = 'osrs-hardcore',
+	['ultimate'] = 'osrs-ultimate',
+	['ultimate ironman'] = 'osrs-ultimate',
+	['skiller'] = 'osrs-skiller',
+	['pure'] = 'osrs-pure',
+	['1-def'] = 'osrs-pure',
+}
+
+-- Table of account type chathead files
+local chatheads = {
+	['osrs-ironman'] = 'Ironman chat badge large',
+	['osrs-hardcore'] = 'Hardcore ironman chat badge large',
+	['osrs-ultimate'] = 'Ultimate ironman chat badge large',
+	['osrs-skiller'] = 'Skiller hiscore icon',
+	['osrs-pure'] = 'One-defence pure hiscore icon'
+}
+
+-- MAIN FUNCTIONS --
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(raw_args)
+	local args = normalise_args(raw_args)
+	local name = args.name
+	local api = args.api and aliases[args.api] or 'osrs'
+	local virtual = yesno(args.virtual, false)
+	local minxp = tonumber(args.minxp) and tonumber(args.minxp) * 1e6 or 2e8 --Multiply by 1 million or set 200 million as default
+	local style = args.style or 'round' --Set round as default style
+	local spacing = style == 'sleek' and '2px' or '6px' --Size of gap between subtables
+	
+	-- Fetch hiscore data
+	local data = hiscore(name, api)
+	
+	local function make_cell(td, skill, image, link, title)
+		
+		 -- Use the skill for the link if not specified
+		link = link or titlecase(skill)
+		
+		-- Use the link for the title if not specified
+		title = title or link
+		td:cssText('border:none; padding:12px; line-height:2')
+		
+		-- If there is a nil value for an image
+		if image ~= nil then
+			td:wikitext(string.format('[[File:%s.png|24x24px|link=%s]]', image, link), '&nbsp;')
+		end
+		
+		local vals = data[skill]
+		
+		-- If values for the hiscore can't be found
+		if not vals then 
+			td:wikitext('')
+			return
+		end
+		
+		-- If the request is successful but returns '-1' meaning the player is not on the hiscore table (kc or level is too low to register)
+		if vals.score == -1 then
+			td:wikitext('--')
+			return
+		end
+		
+		-- If the request does not include xp it must not be a skill and must therefore be boss/minigame kc
+		if not vals.xp then
+			td:wikitext(fnum(vals.score) or '--')
+			return
+		end
+		
+		if vals.xp >= minxp then --If a skill's xp meets user-defined minimum threshold, return the xp as a formatted string, rounded to nearest million
+			td:wikitext(mils(vals.xp) or '--')
+			return
+		end
+		
+		if vals.level < 99 or not virtual then --If the requested skill is not maxed or the virtual parameter is false, return the level (caps at 99)
+			td:wikitext(fnum(vals.level) or '--')
+			return
+		else
+			local ret = virtual_level(vals.xp) or '--' --Calculate the virtual level based on xp
+			td:wikitext(fnum(ret))
+		end
+	end
+	
+	local function make_spacer(tr, colspan, rowspan)
+		colspan = colspan or 1
+		rowspan = rowspan or 1
+		local td = tr:tag('td')
+			:cssText('padding:0; background:var(--body-main);')
+			:cssText(string.format('min-height:%s; height:%s; min-width:%s; width:%s;', spacing, spacing, spacing, spacing))
+			:attr('colspan', colspan)
+			:attr('rowspan', rowspan)
+	end
+	
+	local function make_frame(tr, span)
+		span = span or 1
+		local td = tr:tag('td')
+			:cssText('padding:0; border-spacing:0;')
+			:attr('colspan', span)
+		local ret_table = td:tag('table')
+			:cssText('border-spacing:0; width:100%; margin:0; display:table;')
+		return ret_table
+	end
+	
+	-- Main table
+	local ret = mw.html.create('table')
+		:cssText('text-align:center; background:var(--body-light); border-spacing:0; white-space:nowrap; line-height:normal; margin:0; display:table;')
+	if style == 'sleek' then
+		ret:cssText('border:var(--body-border) 1px solid;')
+	end
+	if style == 'round' then
+		ret:cssText('border:none; border-radius:10px;')
+	end
+	ret:cssText(args['extra-css']) --Add CSS defined by the user
+	local main_tr = ret:tr()
+	
+	local boss_picture_table = make_frame(main_tr)
+		local tr = boss_picture_table:tr()
+				:th()
+					:wikitext("Boss")
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Muphin (ranged)','Phantom_Muspah/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','wisp','The_Whisperer/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Pet smoke devil','Thermonuclear_smoke_devil/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Mimic','The_Mimic/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Pet snakeling','Zulrah/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Pet general graardor','General_Graardor/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Pet kree\'arra','Kree%27arra/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Dharok\'s helm','Barrows/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Corrupted youngllef','The_Gauntlet/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Olmlet','Chambers_of_Xeric/Strategies')
+				make_spacer(boss_picture_table)
+				tr = boss_picture_table:tr()
+				make_cell(tr:td(),'','Ancient remnant','Tombs_of_Amascut/Strategies')
+				make_spacer(boss_picture_table)
+				
+				
+	
+	-- Stats table
+	local start_kc_table = make_frame(main_tr)
+		local tr = start_kc_table:tr()
+				:th()
+					:wikitext('Start')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('150')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('148')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('473')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('0')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('1,131')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('150')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('110')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('243')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('7')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('2')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+			tr = start_kc_table:tr()
+				:td()
+					:wikitext('13')
+					:cssText('border:none; padding:12px; line-height:2')
+					make_spacer(start_kc_table)
+		tr:done()
+	start_kc_table:done()
+	
+	-- Right side
+	local right_side_table = make_frame(main_tr)
+		tr = right_side_table:tr()
+	
+	-- Bosses table
+		local bosses_tr = right_side_table:tr()
+			local left_bosses_table = make_frame(bosses_tr)
+			tr = left_bosses_table:tr()
+			left_bosses_table:done()
+
+		local bottom_tr = right_side_table:tr()
+			local bottom_table = make_frame(bottom_tr, 3)
+				local current_kc_table = make_frame(bottom_table)
+				tr = current_kc_table:tr()
+					:th()
+					:wikitext("Current")
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'phantom muspah', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'the whisperer', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'thermonuclear smoke devil', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'the mimic', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'zulrah', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'general graardor', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'kree\'arra', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'barrows chests', nil, 'Barrows')
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'the corrupted gauntlet', nil)
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'chambers of xeric', nil, 'Chambers of Xeric')
+				make_spacer(current_kc_table)
+				tr = current_kc_table:tr()
+				make_cell(tr:td(), 'tombs of amascut expert', nil, 'Tombs of Amascut', 'Tombs of Amascut Expert Mode')
+				make_spacer(current_kc_table)
+				tr:done()
+			current_kc_table:done()
+	
+	--Wrap table in a responsive div for mobile support
+	local wrapper = mw.html.create('div')
+		:cssText('max-width:100%; height:auto; overflow-x: auto;')
+		:cssText(string.format('padding-bottom:%s;', spacing))
+		:node(ret)
+	:allDone()
+	wrapper = tostring(wrapper):gsub('@NL@', '&#10;') --wikitext does not escape '&' and '&#10;' is a new line that works in title attributes
+	return wrapper
+end
+
+return p

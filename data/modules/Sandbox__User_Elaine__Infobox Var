@@ -1,0 +1,135 @@
+--------------------------
+-- Module for [[Template:Infobox Var]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local commas = require('Module:Addcommas')._add
+local infobox = require('Module:Infobox')
+VariablesLua = mw.ext.VariablesLua
+
+local smwName = ''
+
+function p._main(args)
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'kind', func = 'has_content' },
+		{ name = 'id', func =  id_arg },
+		{ name = 'name', func = { name = name_arg, params = { 'name', 'kind', 'id' } } },
+		{ name = 'old_name', func = old_name_arg },
+		{ name = 'content', func = content_arg },
+		{ name = 'raw_content', func = { name = raw_content_arg, params = { 'content' }, flag = { 'p' } } },
+		{ name = 'link', func = { name = create_link, params = { 'kind', 'id' } } },
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Var' }, flag = 'r' } },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:defineName('Infobox Var')
+	ret:addClass('infobox-var')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '30' }
+	}
+
+	:pad(30)
+	
+	:addRow{
+		{ tag = 'th', content = 'Kind', colspan = '10' },
+		{ tag = 'argd', content = 'kind', colspan = '20' }
+	}
+	
+	:addRow{
+		{ tag = 'th', content = 'ID', colspan = '10' },
+		{ tag = 'argd', content = 'id', colspan = '20' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Content', colspan = '10' },
+		{ tag = 'argd', content = 'raw_content', colspan = '20' }
+	}
+	
+	if ret:paramDefined('kind') and ret:paramDefined('id') then
+		ret:addRow{
+			{ tag = 'th', content = 'Link', colspan = '10' },
+			{ tag = 'argd', content = 'link', colspan = '20' }
+		}
+	end
+
+	ret:pad(30)
+	
+	local content = ret:param('content')
+	local raw_content = ret:param('raw_content')
+	VariablesLua.vardefine('content_var', content)
+	VariablesLua.vardefine('raw_content_var', raw_content)
+
+	return ret:tostring()..'[[Category:Var]]'
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function id_arg(ind)
+	if infobox.isDefined(ind) then
+		return ind or -1
+	else
+		return -1
+	end
+end
+
+function raw_content_arg(content)
+	if infobox.isDefined(content) then
+		return content
+	else
+		return 'Unknown'
+	end
+end
+
+function content_arg(content)
+	if infobox.isDefined(content) then
+		local s, _ = string.gsub(content, '[%[%]]', '')
+		return s
+	else
+		return 'Unknown'
+	end
+end
+
+-- Create a name if no name param is provided.
+-- Defaults to "Var[bit/player] X" if kind and id are set.
+-- Defaults to pagename minus namespace with /s replaced if either kind or id are not set.
+-- Breaks name on underscores?
+function name_arg(name, kind, ind)
+	newname = name
+	if not infobox.isDefined(name) then
+		if infobox.isDefined(kind) and infobox.isDefined(ind) then
+			newname = kind .. ' ' .. ind
+		else
+			newname = string.gsub(mw.title.getCurrentTitle().text, '/', ' ')
+		end
+	end
+	smwName = newname
+	newname = mw.ustring.gsub(newname, "_", "_<wbr />")
+	return newname
+end
+
+function create_link(kind, ind)
+	if infobox.isDefined(kind) and infobox.isDefined(ind) then
+		return '[https://chisel.weirdgloop.org/varbs/display?' .. string.lower(kind) .. '=' .. ind .. ' Chisel]'
+	end
+	return ''
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+return p

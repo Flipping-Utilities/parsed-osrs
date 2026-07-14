@@ -1,0 +1,107 @@
+local p = {}
+
+local params = require('Module:Paramtest')
+local multi = require('Module:Multi').multi
+local math = math
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local questionNumber = args.Number
+	local pollQuestion = args.Question
+	local totalVotes = args.TotalVotes
+	local answers = answerList(args)
+	
+	local wrapper = mw.html.create('div'):addClass('pollquestionborder pollquestioninner'):done()
+	local header = mw.html.create('div'):css({ ['width'] = '78px' }):wikitext(string.format('Question %s', questionNumber)):done()
+	local question = mw.html.create('span'):wikitext(string.format('<b>%s</b>', pollQuestion)):done()
+	
+	wrapper:node(header)
+	wrapper:node(question)
+	
+	if #answers ~= 0 then
+		for i, v in ipairs(answers) do
+			local calculation = v.count * 100 / totalVotes
+			local answerWrapper = mw.html.create('div'):done()
+			local shield = mw.html.create('span'):css({ ['position'] = 'absolute', ['white-space'] = 'nowrap', ['left'] = '12px'}):wikitext(string.format('[[File:Poll shield.png|link=]] %s', v.text)):done()
+			local sword = mw.html.create('span'):css({ ['position'] = 'relative', ['left'] = '275px' }):wikitext('[[File:Poll sword1.png|link=]]'):done()
+			local swordCount = findSwordsCount(calculation)
+			if swordCount > 0 then
+				sword:node(multi('[[File:Poll sword2.png|link=]]', swordCount)):done()
+			end
+			local swordTip = sword:node('[[File:Poll sword3.png|link=]]')
+			local count = mw.html.create('span'):css({ ['position'] = 'absolute', ['white-space'] = 'nowrap', ['left'] = '555px' }):wikitext(string.format('%s%% (%s votes)', calculatePercentage(v.count, calculation), v.count)):done()
+			answerWrapper:node(shield)
+			answerWrapper:node(sword)
+			answerWrapper:node(count)
+			wrapper:node(answerWrapper)
+		end
+	end
+	
+	return tostring(wrapper)
+end
+
+function answerList(args)
+	local answers = {}
+	for i = 1, 20, 1 do
+		local answer = args['Answer'..i]
+		if answer and params.has_content(answer) then
+			local text = answer
+			local count = args['Votes'..i]
+			table.insert(answers, {
+				text = text,
+				count = count
+			})
+		end
+	end
+	return answers
+end
+
+function findSwordsCount(calculation)
+	local value = 0
+	if calculation < 0.4 then
+		return value
+	end
+	
+	if calculation < 25 then
+		value = value + round(calculation)
+	else
+		value = value + 25
+	end
+	
+	if calculation < 50 then
+		if calculation > 25 then
+			value = value + round(calculation - 25)
+		end
+	else
+		value = value + 25	
+	end
+	
+	if calculation < 75 then
+		if calculation > 54 then
+			value = value + round(calculation - 50)
+		end
+	else
+		value = value + 25
+	end
+	
+	if calculation < 100 then
+		if calculation > 75 then
+			value = value + round(calculation - 75)
+		end
+	else
+		value = value + 25	
+	end
+	
+	return value
+end
+
+function calculatePercentage(votes, calculation)
+	return math.ceil((round(calculation, 2) * 10)) / 10
+end
+
+function round(num, numDecimalPlaces)
+  local mult = 10 ^ (numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+return p

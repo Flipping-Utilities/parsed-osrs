@@ -1,0 +1,244 @@
+local p = {}
+
+local commas = require('Module:Addcommas')._add
+local helpers = require('Module:Skill calc/Helpers')
+
+local pets = {
+	['Baby chinchompa'] = {
+		['Grey chinchompa'] = 131395,
+		['Red chinchompa'] = 98373,
+		['Black chinchompa'] = 82758
+	},
+	['Beaver'] = {
+		['Achey'] = 317647,
+		['Regular'] = 317647,
+		['Oak'] = 361146,
+		['Willow'] = 289286,
+		['Teak'] = 264336,
+		['Juniper'] = 360000,
+		['Maple'] = 221918,
+		['Hollow'] = 214367,
+		['Mahogany'] = 220623,
+		['Arctic pine'] = 145758,
+		['Yew'] = 145013,
+		['Sulliusceps'] = 343000,
+		['Magic'] = 72321,
+		['Redwood'] = 72321
+	},
+	['Giant squirrel'] = {
+		['Gnome Stronghold'] = 35609,
+		['Agility Pyramid'] = 9901,
+		['Penguin'] = 9779,
+		['Barbarian Outpost'] = 44376,
+		['Brimhaven Agility Arena'] = 26404,
+		['Ape Atoll'] = 37720,
+		['Wilderness'] = 34666,
+		['Werewolf'] = 32597,
+		['Dorgesh-Kaan'] = 10561,
+		['Prifddinas'] = 25146,
+		['Draynor Village Rooftop'] = 33005,
+		['Al Kharid Rooftop'] = 26648,
+		['Varrock Rooftop'] = 24410,
+		['Canifis Rooftop'] = 36842,
+		['Falador Rooftop'] = 26806,
+		['Seers\' Village Rooftop'] = 35205,
+		['Pollnivneach Rooftop'] = 33422,
+		['Rellekka Rooftop'] = 31063,
+		['East Ardougne Rooftop'] = 34440
+	},
+	['Heron'] = {
+		['Shrimps'] = 435165,
+		['Anchovies'] = 435165,
+		['Sardine'] = 443697,
+		['Herring'] = 443697,
+		['Big net fishing'] = 382609,
+		['Trout'] = 461808,
+		['Salmon'] = 461808,
+		['Pike'] = 305792,
+		['Rainbow fish'] = 137739,
+		['Tuna'] = 128885,
+		['Swordfish'] = 128885,
+		['Lobster'] = 116129,
+		['Aerial fishing'] = 636833,
+		['Monkfish'] = 138583,
+		['Karambwan'] = 170874,
+		['Heavy rod fishing'] = 426954,
+		['Shark'] = 82243,
+		['Infernal eel'] = 160000,
+		['Anglerfish'] = 78649,
+		['Minnow'] = 977778,
+		['Dark crab'] = 149434,
+		['Sacred eel'] = 99000,
+		['Fishing Trawler'] = 5000
+	},
+	['Rift guardian'] = {
+		['Blood rune'] = 804984,
+		['Soul rune'] = 782999,
+		['Ourania Altar'] = 1487213,
+		['Everything else'] = 1795758
+	},
+	['Rock golem'] = {
+		['Clay'] = 741600,
+		['Copper'] = 741600,
+		['Tin'] = 741600,
+		['Blurite'] = 741600,
+		['Limestone'] = 741600,
+		['Iron'] = 741600,
+		['Silver'] = 741600,
+		['Coal'] = 290640,
+		['Sandstone'] = 741600,
+		['Gold'] = 296640,
+		['Gem'] = 211886,
+		['Granite'] = 741600,
+		['Ash pile'] = 741600,
+		['Volcanic sulphur'] = 710000,
+		['Volcanic Mine'] = 60000,
+		['Mithril'] = 148320,
+		['Lovakite'] = 245562,
+		['Adamantite'] = 59328,
+		['Runite'] = 42377,
+		['Amethyst crystal'] = 46350,
+		['Blast mine'] = 123600,
+		['Motherlode Mine'] = 247200
+	},
+	['Rocky'] = {
+		['Vegetable stall'] = 206777,
+		['Cake stall'] = 124066,
+		['Crafting stall'] = 47718,
+		['Monkey general stall'] = 47718,
+		['Silk stall'] = 68926,
+		['Wine stall'] = 36490,
+		['Fruit stall'] = 124066,
+		['Seed stall'] = 36490,
+		['Fur stall'] = 36490,
+		['Fish stall'] = 36490,
+		['Crossbow stall'] = 36490,
+		['Silver stall'] = 36490,
+		['Magic stall'] = 36490,
+		['Scimitar stall'] = 36490,
+		['Spice stall'] = 36490,
+		['Gem stall'] = 36490,
+		['Sorceress\'s Garden'] = 10339,
+		['Watchman'] = 134625,
+		['Paladin'] = 127056,
+		['Gnome'] = 108718,
+		['Hero'] = 99175,
+		['Elf'] = 99175,
+		['TzHaar-Hur'] = 176743,
+		['Remaining pickpockets'] = 257211,
+		['Pyramid Plunder (Room 1)'] = 41355,
+		['Pyramid Plunder (Room 2)'] = 29540,
+		['Pyramid Plunder (Room 3)'] = 25847,
+		['Pyramid Plunder (Room 4)'] = 20678,
+		['Pyramid Plunder (Room 5)'] = 20678,
+		['Pyramid Plunder (Room 6)'] = 20678,
+		['Pyramid Plunder (Room 7)'] = 10339,
+		['Pyramid Plunder (Room 8)'] = 6893,
+	},
+	['Tangleroot'] = {
+		['Potato'] = 281040,
+		['Marigolds'] = 281040,
+		['Barley'] = 112416,
+		['Hammerstone hops'] = 112416,
+		['Onion'] = 281040,
+		['Cabbage'] = 281040,
+		['Asgarnian hops'] = 89933,
+		['Guam'] = 98364,
+		['Redberries'] = 44966,
+		['Rosemary'] = 281040,
+		['Tomato'] = 281040,
+		['Jute fibre'] = 89933,
+		['Marrentill'] = 98364,
+		['Oak tree'] = 22483,
+		['Yanillian hops'] = 74944,
+		['Tarromin'] = 98364,
+		['Sweetcorn'] = 224832,
+		['Krandorian hops'] = 64238,
+		['Cadava berries'] = 37472,
+		['Giant seaweed'] = 7500,
+		['Nasturtiums'] = 281040,
+		['Woad leaf'] = 281040,
+		['Limpwurt root'] = 224832,
+		['Harralander'] = 98364,
+		['Apple tree'] = 9000,
+		['Wildblood hops'] = 56208,
+		['Goutweed'] = 98364,
+		['Willow tree'] = 16059,
+		['Strawberry'] = 187360,
+		['Ranarr'] = 98364,
+		['Banana tree'] = 9000,
+		['Tithe Farm'] = 7494389,
+		['Teak tree'] = 5000,
+		['Dwellberries'] = 32119,
+		['Grapes'] = 385426,
+		['Toadflax'] = 98364,
+		['Orange tree'] = 9000,
+		['Curry tree'] = 9000,
+		['Irit'] = 98364,
+		['Maple tree'] = 14052,
+		['Watermelon'] = 160594,
+		['Jangerberries'] = 28104,
+		['Avantoe'] = 98364,
+		['Pineapple plant'] = 9000,
+		['Mushroom'] = 7500,
+		['Cactus'] = 7000,
+		['Mahogany tree'] = 5000,
+		['Kwuarm'] = 98364,
+		['Papaya tree'] = 9000,
+		['White lily'] = 281040,
+		['White berries'] = 28104,
+		['Yew tree'] = 11242,
+		['Snape grass'] = 173977,
+		['Snapdragon'] = 98364,
+		['Cave nightshade'] = 8000,
+		['Potato cactus'] = 160594,
+		['Hespori'] = 7000,
+		['Cadantine'] = 98364,
+		['Palm tree'] = 9000,
+		['Poison ivy berries'] = 28104,
+		['Calquat tree'] = 6000,
+		['Lantadyme'] = 98364,
+		['Crystal tree'] = 9000,
+		['Magic tree'] = 9368,
+		['Dwarf weed'] = 98364,
+		['Dragonfruit tree'] = 9000,
+		['Spirit tree'] = 5000,
+		['Celastrus tree'] = 9000,
+		['Torstol'] = 98364,
+		['Redwood tree'] = 5000
+	}
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local level = args.level
+	local pet = args.pet
+	local actionsPerHour = args.actionsPerHour or 1
+	local petData = pets[pet]
+	
+	local ret = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-2 align-center-3')
+	ret:tag('tr')
+		:tag('th'):wikitext('Method')
+		:tag('th'):wikitext('Chance per action')
+		:tag('th'):wikitext('Chance per hour<br />with APH')
+	
+	for i, v in next, petData, nil do
+		ret:node(make_row(v, i, level, actionsPerHour))
+	end
+	
+	return tostring(ret)
+end
+
+function make_row(data, method, level, actionsPerHour)
+	local doNotCalculate = ({ Minnow = true, ['Fishing Trawler'] = true })[method]
+	local trawlerActionsCheck = method == 'Fishing Trawler' and tonumber(actionsPerHour) > 6 and 6 or actionsPerHour
+	local chancePerAction = doNotCalculate and data or tonumber(data) - (tonumber(level) * 25)
+	local chancePerHour = helpers.jagexFloor(chancePerAction / trawlerActionsCheck, 2)
+	
+	return mw.html.create('tr')
+		:tag('td'):wikitext(method):done()
+		:tag('td'):wikitext('1/' .. commas(chancePerAction)):done()
+		:tag('td'):wikitext('1/' .. commas(chancePerHour)):done()
+end
+
+return p

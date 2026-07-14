@@ -1,0 +1,11 @@
+local p = {}
+
+local dropInfo = require('Module:Get drop info')
+
+function p.hello(frame)
+	local args = { "Abyssal_whip" }
+	return dropInfo._main(args)
+end
+
+
+return p

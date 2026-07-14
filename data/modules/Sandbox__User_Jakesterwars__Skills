@@ -1,0 +1,58 @@
+local p = {}
+
+local scp = require('Module:SCP')._main
+
+function p.main(frame)
+	local args = frame:getParent().args
+	mw.logObject(args)
+	local tbl = mw.html.create('table'):addClass('wikitable'):css({ ['text-alight'] = 'center' })
+	tbl:tag('caption'):wikitext('Minimum skill requirements')
+	
+	local tr = tbl:tag('tr')
+	local skilltr = tbl:tag('tr')
+	
+	if args.attack then
+		tr:tag('th'):wikitext(scp('Attack'))
+		skilltr:tag('td'):wikitext(args.attack)
+	end
+	
+	if args.strength then
+		tr:tag('th'):wikitext(scp('Strength'))
+		skilltr:tag('td'):wikitext(args.strength)
+	end
+	
+	if args.defence then
+		tr:tag('th'):wikitext(scp('Defence'))
+		skilltr:tag('td'):wikitext(args.defence)
+	end
+	
+	if args.ranged then
+		tr:tag('th'):wikitext(scp('Ranged'))
+		skilltr:tag('td'):wikitext(args.ranged)
+	end
+	
+	if args.prayer then
+		tr:tag('th'):wikitext(scp('Prayer'))
+		skilltr:tag('td'):wikitext(args.prayer)
+	end
+	
+	if args.magic then
+		tr:tag('th'):wikitext(scp('Magic'))
+		skilltr:tag('td'):wikitext(args.magic)
+	end
+	
+	if args.hitpoints then
+		tr:tag('th'):wikitext(scp('Hitpoints'))
+		skilltr:tag('td'):wikitext(args.hitpoints)
+	end
+	
+	if args.combat then
+		tr:tag('th'):wikitext(scp('Combat'))
+		skilltr:tag('td'):wikitext(args.combat)
+	end
+	
+	return tostring(tbl)
+	
+end
+
+return p

@@ -1,0 +1,66 @@
+
+local p = {}
+
+function p.musicpage(e)
+		local args = e:getParent().args
+		who = args[1]
+
+	return p.print()
+end
+
+function p.fetchResults()
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local batchResults = bucket('music')
+			.select('title', 'page_name', 'track', 'duration')
+			.orderBy('page_name', 'asc')
+			.where("Category:Music composed by " .. who)
+			.limit(batchSize)
+			.offset(offset)
+			.run()
+			
+			for _, result in ipairs(batchResults) do
+				
+				if result.title ~= nil then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #batchResults < batchSize then
+				break;
+			end
+
+	end
+	
+	return results
+end
+
+function p.print(bucketName, thingName)
+	local results = p.fetchResults(bucketName)
+	local output = {
+		'<br>',
+		'{| class="wikitable sortable embed-audio-links align-center-2"',
+		'! Name',
+		'! style="width: 60px" | Length',
+		'! class="unsortable" style="width: 320px | Music track'
+	}
+		for _, result in ipairs(results) do
+
+
+		table.insert(output, '|- data-music-track-name="' .. result.title .. '"')
+		table.insert(output, '|[[' .. result.page_name.. '|' .. result.title ..']]')
+		table.insert(output, '|' .. result.duration)
+		table.insert(output, '|' .. '[[:' .. result.track .. '| Play Track ]]')
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+return p

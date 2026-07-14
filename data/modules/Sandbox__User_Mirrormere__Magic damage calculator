@@ -1,0 +1,212 @@
+local p = {}
+
+-- For rendering the tables
+local yesno = require('Module:Yesno')
+local skillpic = require('Module:SCP')._main
+local SPELL_TABLE = require('Module:Magic damage calculator/data')
+
+local PRAYER_MODIFIER = {
+	0,
+	0.01,
+	0.02,
+	0.03,
+	0.04,
+}
+
+function p.main(frame)
+	-- Parse the args
+	local args = frame.args
+
+	local selectedSpell = string.gsub(args.spell, "&#039;", "'")
+	local selectedSpellData = SPELL_TABLE[selectedSpell]
+	local selectedWeapon = string.gsub(args.weapon or '', "&#039;", "'")
+	
+	local magicStrength = (tonumber(args.magicStrength) or 0) / 100
+	local specialModifier = tostring(args.specialModifier)
+	
+	local inTombsOfAmascut = yesno(args.inTombsOfAmascut)
+	local haveForinthrySurge = yesno(args.haveForinthrySurge)
+	
+	local equipTome = yesno(args.equipTome)
+	local pvp = yesno(args.pvp)
+	local equipChaosGauntlets = yesno(args.equipChaosGauntlets)
+	
+	local castMarkOfDarkness = yesno(args.castMarkOfDarkness)
+	local castCharge = yesno(args.castCharge)
+	
+	local elementalWeakness = (tonumber(args.elementalWeakness) or 0) / 100
+	local demonbaneEffectiveness = (tonumber(args.demonbaneEffectiveness) or 100) / 100
+	
+	local calculatedDamage = p.calc(selectedSpell, selectedSpellData, selectedWeapon, magicStrength, specialModifier,
+		inTombsOfAmascut, haveForinthrySurge, equipTome, pvp, equipChaosGauntlets, castMarkOfDarkness, castCharge, elementalWeakness, demonbaneEffectiveness)
+	
+	return renderTable(calculatedDamage)
+end
+
+function p.calc(selectedSpell, selectedSpellData, selectedWeapon, magicStrength, specialModifier,
+	inTombsOfAmascut, haveForinthrySurge, equipTome, pvp, equipChaosGauntlets, castMarkOfDarkness, castCharge, elementalWeakness, demonbaneEffectiveness)
+	
+	-- Tumeken's multiplier to (visible) % magic strength
+	if selectedSpell == "Tumeken's shadow" then
+		if inTombsOfAmascut then
+			magicStrength = magicStrength * 4
+		else
+			magicStrength = magicStrength * 3
+		end
+	
+		magicStrength = math.min(magicStrength, 1)
+	end
+	
+	-- Boosts that are additive w/ % magic strength (Salve, Avarice, Forinthry Surge)
+	if specialModifier == 'Salve amulet (i)' then
+		magicStrength = magicStrength + 0.15
+	end
+	if specialModifier == 'Salve amulet (ei)' then
+		magicStrength = magicStrength + 0.2
+	end
+	if specialModifier == 'Amulet of avarice (Revenants)' then
+		if haveForinthrySurge then
+			magicStrength = magicStrength + 0.35
+		else
+			magicStrength = magicStrength + 0.2
+		end
+	end
+	if selectedWeapon == 'Smoke battlestaff' or selectedWeapon == 'Twinflame staff' then
+		magicStrength = magicStrength + 0.1
+	end
+	
+	-- Iterate through weapon damage table
+	for i, v in ipairs(selectedSpellData) do
+		
+		-- get base max hit, add pre-mult bonuses
+		local baseMaxHit = tonumber(selectedSpellData[i][2])
+		if equipChaosGauntlets then
+			baseMaxHit = baseMaxHit + 3
+		elseif castCharge then
+			baseMaxHit = baseMaxHit + 10
+		end
+		
+		-- iterate over prayers
+		for p = 1, 5, 1 do
+			-- apply % magic strength
+			local maxHit = math.modf(baseMaxHit * (1 + magicStrength + PRAYER_MODIFIER[p]))
+			
+			-- slayer helmet
+			if specialModifier == 'Slayer helmet (i)' then
+				maxHit = math.modf(maxHit * 1.15)
+			end
+			
+			-- rev sceptre
+			if selectedWeapon == "Thammaron's sceptre (Wilderness)" or selectedWeapon == 'Accursed sceptre (Wilderness)' then
+				maxHit = math.modf(maxHit * 1.5)
+			end
+			-- dragon hunter wand
+			if selectedWeapon == 'Dragon hunter wand' then
+				maxHit = math.modf(maxHit * 1.2)
+			end
+			-- elemental weakness
+			maxHit = maxHit + math.modf(elementalWeakness * baseMaxHit)
+
+			-- elemental tome
+			if equipTome then
+				-- PvP Tome of fire
+				if pvp and (selectedSpell == "Fire Strike" or selectedSpell == "Fire Bolt" or selectedSpell == "Fire Blast" or selectedSpell == "Fire Wave" or selectedSpell == "Fire Surge") then
+					maxHit = math.modf(maxHit * 1.5)
+				-- PvP Tome of water 
+				elseif pvp and (selectedSpell == "Water Strike" or selectedSpell == "Water Bolt" or selectedSpell == "Water Blast" or selectedSpell == "Water Wave" or selectedSpell == "Water Surge") then
+					maxHit = math.modf(maxHit * 1.2)
+				-- Not in PvP or Tome of earth
+				else 
+					maxHit = math.modf(maxHit * 1.1)
+				end
+			end
+			
+			-- mark of darkness (and purging staff), demonbane effectiveness
+			if castMarkOfDarkness then
+				if selectedWeapon == 'Purging staff' then
+					maxHit = maxHit + math.modf(math.modf(maxHit * 0.5) * demonbaneEffectiveness)
+				else
+					maxHit = maxHit + math.modf(math.modf(maxHit * 0.25) * demonbaneEffectiveness)
+				end
+			end
+			
+			-- dawnbringer
+			if selectedSpell == 'Dawnbringer' then
+				maxHit = math.modf(maxHit / 2)
+			end
+			
+			-- Twinflame staff
+			if selectedWeapon == 'Twinflame staff' and (
+				-- bolts
+				selectedSpell == 'Wind Bolt' or
+				selectedSpell == 'Water Bolt' or
+				selectedSpell == 'Earth Bolt' or
+				selectedSpell == 'Fire Bolt' or
+				-- blasts
+				selectedSpell == 'Wind Blast' or
+				selectedSpell == 'Water Blast' or
+				selectedSpell == 'Earth Blast' or
+				selectedSpell == 'Fire Blast' or 
+				-- waves
+				selectedSpell == 'Wind Wave' or
+				selectedSpell == 'Water Wave' or
+				selectedSpell == 'Earth Wave' or
+				selectedSpell == 'Fire Wave'
+				)
+			then
+				maxHit = math.modf(maxHit * 1.4)
+			end
+			
+			selectedSpellData[i][p+2] = maxHit
+		end
+	end
+	
+	return selectedSpellData
+end
+
+function renderTable(calculatedDamage)
+	frame = mw.getCurrentFrame()
+	
+	-- Create the table
+	local hTable = mw.html.create('table')
+		:addClass('wikitable align-center-1')
+		:css('text-align', 'right')
+		:attr('style', 'text-align:right')
+	-- Add the headers
+	hTable
+		:tag('caption'):wikitext('Maximum hit')
+		:tag('tr')
+			:tag('th'):attr('rowspan', 2):wikitext(skillpic('Magic',nil,false) .. 'Level')
+			:tag('th'):attr('rowspan', 2):wikitext('Base<br/>max hit')
+			:tag('th'):attr('colspan', 5):wikitext(skillpic('Prayer',nil,true) .. ' used')
+		:tag('tr')
+			:tag('th'):wikitext('None')
+			:tag('th'):wikitext('[[File:Mystic_Lore.png|link=Mystic Lore|x21px]]')
+			:tag('th'):wikitext('[[File:Mystic_Might.png|link=Mystic Might|x21px]]')
+			:tag('th'):wikitext('[[File:Mystic_Vigour.png|link=Mystic Vigour|x21px]]')
+			:tag('th'):wikitext('[[File:Augury.png|link=Augury|x21px]]')
+		:done()
+		
+	-- Add the rows
+	for _, i in ipairs(calculatedDamage) do
+		hTable:tag('tr')
+			:tag('td'):wikitext(i[1])
+			:tag('td'):wikitext(i[2])
+			:tag('td'):wikitext(i[3])
+			:tag('td'):wikitext(i[4])
+			:tag('td'):wikitext(i[5])
+			:tag('td'):wikitext(i[6])
+			:tag('td'):wikitext(i[7])
+		:done()
+	end
+	
+	local div = mw.html.create('div')
+	
+	div	
+		:node(hTable)
+		:done()
+		
+	return tostring(div)
+end
+
+return p

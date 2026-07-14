@@ -1,0 +1,32 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p.newFilterCheckbox(table_name, hide_type, label, horizontal)
+	local args = {}
+	args.table_name = table_name
+	args.hide_type = hide_type
+	args.label = label
+	args.horizontal = horizontal
+	return p._main(args)
+end
+
+function p._main(args)
+	--[[Expected arguments: table_name, hide_type, label, (optional) horizontal]]--
+	local tag = args.horizontal and 'span' or 'p'
+	local filter = mw.html.create(tag)
+	filter		:addClass('checkfilter-checked')
+				:wikitext(args.label)
+				:attr('data-hide', args.hide_type)
+				:attr('data-table',args.table_name)
+	if tag == 'span' then
+		filter:css('margin-right','1.5rem')
+	end
+	
+	return filter
+end
+
+return p

@@ -1,0 +1,552 @@
+-- Module:User:Crocs/Collection_log/Data
+-- Manually curated acquisition info for collection-log items, keyed by displayName
+-- (the Source module's resolved name: override.text piped text, override.name, or the
+-- raw clog name). Schema — all keys optional; the Source module renders them in this order:
+--   source       = NPC + location (linked) or activity
+--   method       = how to obtain (action / instructions)
+--   cost         = price (currency, materials, tokens)
+--   rate         = drop rate / chance (where applicable)
+--   requirement  = level / quest / kill-count / milestone
+--   note         = anything else worth flagging
+-- The renderer takes the union of all rows' keys for an item, but keeping every row of
+-- one item to the same key set produces the tightest table.
+return {
+	-- LMS cosmetics
+	["Deadman's cape"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "160 [[Last Man Standing]] points" },
+	},
+	["Deadman's chest"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "160 [[Last Man Standing]] points" },
+	},
+	["Deadman's legs"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "160 [[Last Man Standing]] points" },
+	},
+	["Golden armadyl special attack"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "75 [[Last Man Standing]] points" },
+	},
+	["Golden bandos special attack"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "75 [[Last Man Standing]] points" },
+	},
+	["Golden saradomin special attack"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "75 [[Last Man Standing]] points" },
+	},
+	["Golden zamorak special attack"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", cost = "75 [[Last Man Standing]] points" },
+	},
+	-- Boss / Slayer pets and unique drops
+	["Ikkle hydra"] = {
+		{ source = "[[Alchemical Hydra]]", method = "Pet drop" },
+	},
+	["Muphin"] = {
+		{ source = "[[Phantom Muspah]]", method = "Pet drop" },
+	},
+	["Pendant of ates (inert)"] = {
+		{ source = "[[Amoxliatl]] or [[Frost nagua]] ([[Slayer]])", method = "Drop (obtained inert and uncharged)" },
+	},
+	["Eye of ayak"] = {
+		{ source = "[[Doom of Mokhaiotl]]", method = "Drop (obtained uncharged)" },
+	},
+	-- Misc
+	["Brimhaven voucher"] = {
+		{ source = "[[Brimhaven Agility Arena]]", method = "Earned while participating in the Agility Arena" },
+	},
+	["Dizana's quiver (uncharged)"] = {
+		{ source = "[[Fortis Colosseum]]", method = "Reward for completing the Colosseum (defeat [[Sol Heredit]])" },
+	},
+	["Amulet of eternal glory"] = {
+		{ source = "[[Fountain of Rune]] ([[Wilderness]])", method = "Recharge an [[amulet of glory]] with fewer than 6 charges" },
+	},
+	["Expert mining gloves"] = {
+		{ source = "[[Belona]] ([[Mining Guild]])", cost = "40 [[unidentified minerals]]" },
+	},
+	["Pharaoh's sceptre (uncharged)"] = {
+		{ source = "[[Pyramid Plunder]] ([[Sophanem]])", method = "Loot from the Grand Gold Chest and sarcophagi" },
+	},
+	["Large water container"] = {
+		{ source = "[[Petrified Pete]] ([[Volcanic Mine]])", cost = "10,000 [[Volcanic Mine]] points" },
+	},
+	["Dragon legs+skirt ornament kit"] = {
+		{ source = "[[Elite Treasure Trails]]", method = "Reward from elite clue caskets" },
+	},
+	-- Monkey backpacks (Monkey Madness II reward pet)
+	["Karamjan monkey (item)"] = {
+		{ source = "Monkey ([[Monkey Madness II]] reward)", method = "Right-click the Monkey and select Transform", requirement = "100 [[Ape Atoll Agility Course]] laps" },
+	},
+	["Zombie monkey (item)"] = {
+		{ source = "Monkey ([[Monkey Madness II]] reward)", method = "Right-click the Monkey and select Transform", requirement = "250 [[Ape Atoll Agility Course]] laps" },
+	},
+	["Maniacal monkey (item)"] = {
+		{ source = "Monkey ([[Monkey Madness II]] reward)", method = "Right-click the Monkey and select Transform", requirement = "500 [[Ape Atoll Agility Course]] laps" },
+	},
+	["Skeleton monkey (item)"] = {
+		{ source = "Monkey ([[Monkey Madness II]] reward)", method = "Right-click the Monkey and select Transform", requirement = "1,000 [[Ape Atoll Agility Course]] laps" },
+	},
+	["Kruk jr"] = {
+		{ source = "Monkey ([[Monkey Madness II]] reward)", method = "Right-click the Monkey and select Transform", requirement = "1,500 [[Ape Atoll Agility Course]] laps" },
+	},
+	["Princely monkey"] = {
+		{ source = "Monkey ([[Monkey Madness II]] reward)", method = "Right-click the Monkey and select Transform", requirement = "2,000 [[Ape Atoll Agility Course]] laps" },
+	},
+	-- Tombs of Amascut shroud accolades
+	["Icthlarin's shroud (tier 1)"] = {
+		{ source = "[[Tombs of Amascut]]", method = "Accolade reward", requirement = "100 completions" },
+	},
+	["Icthlarin's shroud (tier 2)"] = {
+		{ source = "[[Tombs of Amascut]]", method = "Accolade reward", requirement = "500 completions" },
+	},
+	["Icthlarin's shroud (tier 3)"] = {
+		{ source = "[[Tombs of Amascut]]", method = "Accolade reward", requirement = "1,000 completions" },
+	},
+	["Icthlarin's shroud (tier 4)"] = {
+		{ source = "[[Tombs of Amascut]]", method = "Accolade reward", requirement = "1,500 completions" },
+	},
+	["Icthlarin's shroud (tier 5)"] = {
+		{ source = "[[Tombs of Amascut]]", method = "Accolade reward", requirement = "2,000 completions" },
+	},
+	-- Mastering Mixology
+	["Alchemist's amulet"] = {
+		{ source = "[[Mixology Rewards shop]] ([[Mastering Mixology]])", cost = "6,900 [[Mox resin]], 5,650 [[Aga resin]], 7,400 [[Lye resin]]" },
+	},
+	["Prescription goggles"] = {
+		{ source = "[[Mixology Rewards shop]] ([[Mastering Mixology]])", cost = "8,600 [[Mox resin]], 7,000 [[Aga resin]], 9,350 [[Lye resin]]" },
+	},
+	["Alchemist labcoat"] = {
+		{ source = "[[Mixology Rewards shop]] ([[Mastering Mixology]])", cost = "2,250 [[Mox resin]], 2,800 [[Aga resin]], 3,700 [[Lye resin]]" },
+	},
+	["Alchemist pants"] = {
+		{ source = "[[Mixology Rewards shop]] ([[Mastering Mixology]])", cost = "2,250 [[Mox resin]], 2,800 [[Aga resin]], 3,700 [[Lye resin]]" },
+	},
+	-- Camdozaal
+	["Barronite mace"] = {
+		{ source = "[[Ruins of Camdozaal]] ([[Ramarno]])", method = "Assemble the three [[barronite mace]] pieces via Ramarno" },
+	},
+	["Imcando hammer"] = {
+		{ source = "[[Ruins of Camdozaal]] (barronite crusher)", method = "Rare find from smashing [[barronite deposits]] (obtained broken)" },
+	},
+	-- Mark of grace lives here because no monster drop table covers it; the rooftop courses
+	-- spawn it on tiles, which the auto sources don't pick up. Skilling-pet entries (Rocky,
+	-- Giant squirrel, Rift guardian, Baby chinchompa) were removed — the Source module now
+	-- pulls the per-action chance table directly from each pet's wiki article.
+	["Mark of grace"] = {
+		{ source = "[[Rooftop Agility Courses]]", method = "Collected from random spawns while running rooftop agility courses" },
+	},
+	-- Barracuda Trials (Sailing)
+	["Stormy key"] = {
+		{ source = "[[The Tempor Tantrum]] ([[Barracuda Trial]])", method = "Clear the swordfish rank", requirement = "Completion time of 1:48" },
+	},
+	["Barrel stand"] = {
+		{ source = "[[The Tempor Tantrum]] ([[Barracuda Trial]])", method = "Clear the shark rank", requirement = "Completion time of 2:51" },
+	},
+	["Ralph's fabric roll"] = {
+		{ source = "[[The Tempor Tantrum]] ([[Barracuda Trial]])", method = "Clear the marlin rank", requirement = "Completion time of 4:30" },
+	},
+	["Fetid key"] = {
+		{ source = "[[The Jubbly Jive]] ([[Barracuda Trial]])", method = "Clear the swordfish rank", requirement = "Completion time of 2:03" },
+	},
+	["Captured wind mote"] = {
+		{ source = "[[The Jubbly Jive]] ([[Barracuda Trial]])", method = "Clear the shark rank", requirement = "Completion time of 3:00" },
+	},
+	["Gurtob's fabric roll"] = {
+		{ source = "[[The Jubbly Jive]] ([[Barracuda Trial]])", method = "Clear the marlin rank", requirement = "Completion time of 5:21" },
+	},
+	["Serrated key"] = {
+		{ source = "[[The Gwenith Glide]] ([[Barracuda Trial]])", method = "Clear the swordfish rank", requirement = "Completion time of 2:00" },
+	},
+	["Heart of ithell"] = {
+		{ source = "[[The Gwenith Glide]] ([[Barracuda Trial]])", method = "Clear the shark rank", requirement = "Completion time of 3:42" },
+	},
+	["Gwyna's fabric roll"] = {
+		{ source = "[[The Gwenith Glide]] ([[Barracuda Trial]])", method = "Clear the marlin rank", requirement = "Completion time of 6:09" },
+	},
+	-- Xeric's capes (Chambers of Xeric Challenge Mode)
+	["Xeric's guard"] = {
+		{ source = "[[Captain Rimor]] ([[Chambers of Xeric: Challenge Mode]])", method = "Claim at the Challenge Mode completion milestone", requirement = "100 completions" },
+	},
+	["Xeric's warrior"] = {
+		{ source = "[[Captain Rimor]] ([[Chambers of Xeric: Challenge Mode]])", method = "Claim at the Challenge Mode completion milestone", requirement = "500 completions" },
+	},
+	["Xeric's sentinel"] = {
+		{ source = "[[Captain Rimor]] ([[Chambers of Xeric: Challenge Mode]])", method = "Claim at the Challenge Mode completion milestone", requirement = "1,000 completions" },
+	},
+	["Xeric's general"] = {
+		{ source = "[[Captain Rimor]] ([[Chambers of Xeric: Challenge Mode]])", method = "Claim at the Challenge Mode completion milestone", requirement = "1,500 completions" },
+	},
+	["Xeric's champion"] = {
+		{ source = "[[Captain Rimor]] ([[Chambers of Xeric: Challenge Mode]])", method = "Claim at the Challenge Mode completion milestone", requirement = "2,000 completions" },
+	},
+	-- Victor's capes (Last Man Standing)
+	["Victor's cape (1)"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", method = "Claimed for free at the win milestone", requirement = "1 competitive win" },
+	},
+	["Victor's cape (10)"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", method = "Claimed for free at the win milestone", requirement = "10 competitive wins" },
+	},
+	["Victor's cape (50)"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", method = "Claimed for free at the win milestone", requirement = "50 competitive wins" },
+	},
+	["Victor's cape (100)"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", method = "Claimed for free at the win milestone", requirement = "100 competitive wins" },
+	},
+	["Victor's cape (500)"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", method = "Claimed for free at the win milestone", requirement = "500 competitive wins" },
+	},
+	["Victor's cape (1000)"] = {
+		{ source = "[[Justine's stuff for the Last Shopper Standing]] ([[Last Man Standing]])", method = "Claimed for free at the win milestone", requirement = "1,000 competitive wins" },
+	},
+	-- Mage Training Arena
+	["Beginner wand"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "30 Telekinetic, 30 Alchemist, 300 Enchantment, 30 Graveyard [[pizazz points]]" },
+	},
+	["Apprentice wand"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "60 Telekinetic, 60 Alchemist, 600 Enchantment, 60 Graveyard [[pizazz points]]" },
+	},
+	["Teacher wand"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "150 Telekinetic, 200 Alchemist, 1,500 Enchantment, 150 Graveyard [[pizazz points]]" },
+	},
+	["Master wand"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "240 Telekinetic, 240 Alchemist, 2,400 Enchantment, 240 Graveyard [[pizazz points]]" },
+	},
+	["Mage's book"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "500 Telekinetic, 550 Alchemist, 6,000 Enchantment, 500 Graveyard [[pizazz points]]" },
+	},
+	["Bones to Peaches"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "200 Telekinetic, 300 Alchemist, 2,000 Enchantment, 200 Graveyard [[pizazz points]]" },
+	},
+	["Infinity gloves"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "175 Telekinetic, 225 Alchemist, 1,500 Enchantment, 175 Graveyard [[pizazz points]]" },
+	},
+	["Infinity hat"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "350 Telekinetic, 400 Alchemist, 3,000 Enchantment, 350 Graveyard [[pizazz points]]" },
+	},
+	["Infinity top"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "400 Telekinetic, 450 Alchemist, 4,000 Enchantment, 400 Graveyard [[pizazz points]]" },
+	},
+	["Infinity bottoms"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "450 Telekinetic, 500 Alchemist, 5,000 Enchantment, 450 Graveyard [[pizazz points]]" },
+	},
+	["Infinity boots"] = {
+		{ source = "[[Rewards Guardian]] ([[Mage Training Arena]])", cost = "120 Telekinetic, 120 Alchemist, 1,200 Enchantment, 120 Graveyard [[pizazz points]]" },
+	},
+	-- Combat reward capes
+	["Fire cape"] = {
+		{ source = "[[TzHaar Fight Cave]]", method = "Reward for completing the Fight Cave (defeat [[TzTok-Jad]])" },
+	},
+	["Infernal cape"] = {
+		{ source = "[[The Inferno]]", method = "Reward for completing the Inferno (defeat [[TzKal-Zuk]])" },
+	},
+	["Champion's cape"] = {
+		{ source = "[[Champions' Challenge]] ([[Champions' Guild]])", method = "Reward for defeating all 11 champions of the Champions' Challenge" },
+	},
+	-- Prospector kit (two purchase sources)
+	["Prospector helmet"] = {
+		{ source = "[[Prospector Percy's Nugget Shop]] ([[Motherlode Mine]])",  cost = "40 [[golden nuggets]]" },
+		{ source = "[[Petrified Pete's Ore Shop]] ([[Volcanic Mine]])",          cost = "26,000 [[Volcanic Mine]] reward points" },
+	},
+	["Prospector jacket"] = {
+		{ source = "[[Prospector Percy's Nugget Shop]] ([[Motherlode Mine]])",  cost = "60 [[golden nuggets]]" },
+		{ source = "[[Petrified Pete's Ore Shop]] ([[Volcanic Mine]])",          cost = "39,000 [[Volcanic Mine]] reward points" },
+	},
+	["Prospector legs"] = {
+		{ source = "[[Prospector Percy's Nugget Shop]] ([[Motherlode Mine]])",  cost = "50 [[golden nuggets]]" },
+		{ source = "[[Petrified Pete's Ore Shop]] ([[Volcanic Mine]])",          cost = "34,000 [[Volcanic Mine]] reward points" },
+	},
+	["Prospector boots"] = {
+		{ source = "[[Prospector Percy's Nugget Shop]] ([[Motherlode Mine]])",  cost = "30 [[golden nuggets]]" },
+		{ source = "[[Petrified Pete's Ore Shop]] ([[Volcanic Mine]])",          cost = "21,000 [[Volcanic Mine]] reward points" },
+	},
+	-- Pheasant costume (Forestry) — each piece individually crafted
+	["Pheasant hat"] = {
+		{ source = "[[Pheasant Control]] ([[Forestry]])", method = "Use a needle and thread on [[pheasant tail feathers]]", cost = "15 [[pheasant tail feathers]] + 1 thread" },
+	},
+	["Pheasant cape"] = {
+		{ source = "[[Pheasant Control]] ([[Forestry]])", method = "Use a needle and thread on [[pheasant tail feathers]]", cost = "15 [[pheasant tail feathers]] + 1 thread" },
+	},
+	["Pheasant legs"] = {
+		{ source = "[[Pheasant Control]] ([[Forestry]])", method = "Use a needle and thread on [[pheasant tail feathers]]", cost = "15 [[pheasant tail feathers]] + 1 thread" },
+	},
+	["Pheasant boots"] = {
+		{ source = "[[Pheasant Control]] ([[Forestry]])", method = "Use a needle and thread on [[pheasant tail feathers]]", cost = "15 [[pheasant tail feathers]] + 1 thread" },
+	},
+	-- Lost Schematics (Sailing) — lockbox + dig digsite
+	["Salvaging station schematic"] = {
+		{ source = "Lockbox ([[Chinchompa Island]])",   method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 42" },
+	},
+	["Gale catcher schematic"] = {
+		{ source = "Lockbox ([[Anglers' Retreat]])",     method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 51" },
+	},
+	["Rosewood hull schematic"] = {
+		{ source = "Lockbox ([[Shimmering Atoll]])",     method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 56" },
+	},
+	["Rosewood cargo hold schematic"] = {
+		{ source = "Lockbox ([[The Crown Jewel]])",      method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 64" },
+	},
+	["Dragon helm schematic"] = {
+		{ source = "Lockbox ([[Sunbleak Island]])",      method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 72" },
+	},
+	["Dragon salvaging hook schematic"] = {
+		{ source = "Lockbox ([[Lledrith Island]])",      method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 73" },
+	},
+	["Eternal brazier schematic"] = {
+		{ source = "Lockbox ([[Buccaneers' Haven]])",    method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 76" },
+	},
+	["Dragon cannon schematic"] = {
+		{ source = "Lockbox ([[Deepfin Point]])",        method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 76" },
+	},
+	["Rosewood & cotton sails schematic"] = {
+		{ source = "Lockbox ([[Brittle Isle]])",         method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 81" },
+	},
+	["Dragon keel schematic"] = {
+		{ source = "Lockbox ([[Grimstone]])",            method = "Open the lockbox for directions, then dig up the Small key with a spade", requirement = "[[Sailing]] 87" },
+	},
+	-- Lost Schematics (Sailing) — quest reward
+	["Ballistic attractor schematic"] = {
+		{ source = "[[Ava]] ([[Draynor Manor]])", method = "Claim from Ava after completing [[Animal Magnetism]] & [[Pandemonium]]" },
+	},
+	-- Graceful recolours (Brimhaven Agility Arena) — recolour is one transaction for the whole outfit
+	["Graceful hood (Agility Arena)"] = {
+		{ source = "[[Pirate Jackie the Fruit]] ([[Brimhaven Agility Arena]])", cost = "250 [[Brimhaven voucher]]s", note = "Recolours the entire outfit in one transaction" },
+	},
+	["Graceful cape (Agility Arena)"] = {
+		{ source = "[[Pirate Jackie the Fruit]] ([[Brimhaven Agility Arena]])", note = "Recoloured together with [[Graceful hood (Agility Arena)|the hood]]" },
+	},
+	["Graceful top (Agility Arena)"] = {
+		{ source = "[[Pirate Jackie the Fruit]] ([[Brimhaven Agility Arena]])", note = "Recoloured together with [[Graceful hood (Agility Arena)|the hood]]" },
+	},
+	["Graceful legs (Agility Arena)"] = {
+		{ source = "[[Pirate Jackie the Fruit]] ([[Brimhaven Agility Arena]])", note = "Recoloured together with [[Graceful hood (Agility Arena)|the hood]]" },
+	},
+	["Graceful gloves (Agility Arena)"] = {
+		{ source = "[[Pirate Jackie the Fruit]] ([[Brimhaven Agility Arena]])", note = "Recoloured together with [[Graceful hood (Agility Arena)|the hood]]" },
+	},
+	["Graceful boots (Agility Arena)"] = {
+		{ source = "[[Pirate Jackie the Fruit]] ([[Brimhaven Agility Arena]])", note = "Recoloured together with [[Graceful hood (Agility Arena)|the hood]]" },
+	},
+	-- Graceful recolours (Varlamore) — recolour is one transaction for the whole outfit
+	["Graceful hood (Varlamore)"] = {
+		{ source = "[[Worm Tongue]] ([[Colossal Wyrm Agility Course]])", cost = "650 [[termite]]s + full uncoloured [[Graceful outfit]]", note = "Recolours the entire outfit in one transaction" },
+	},
+	["Graceful cape (Varlamore)"] = {
+		{ source = "[[Worm Tongue]] ([[Colossal Wyrm Agility Course]])", note = "Recoloured together with [[Graceful hood (Varlamore)|the hood]]" },
+	},
+	["Graceful top (Varlamore)"] = {
+		{ source = "[[Worm Tongue]] ([[Colossal Wyrm Agility Course]])", note = "Recoloured together with [[Graceful hood (Varlamore)|the hood]]" },
+	},
+	["Graceful legs (Varlamore)"] = {
+		{ source = "[[Worm Tongue]] ([[Colossal Wyrm Agility Course]])", note = "Recoloured together with [[Graceful hood (Varlamore)|the hood]]" },
+	},
+	["Graceful gloves (Varlamore)"] = {
+		{ source = "[[Worm Tongue]] ([[Colossal Wyrm Agility Course]])", note = "Recoloured together with [[Graceful hood (Varlamore)|the hood]]" },
+	},
+	["Graceful boots (Varlamore)"] = {
+		{ source = "[[Worm Tongue]] ([[Colossal Wyrm Agility Course]])", note = "Recoloured together with [[Graceful hood (Varlamore)|the hood]]" },
+	},
+	-- Elite Void
+	["Elite void top"] = {
+		{ source = "[[Elite Void Knight]] ([[Void Knights' Outpost]])", cost = "200 [[commendation points]]" },
+	},
+	["Elite void robe"] = {
+		{ source = "[[Elite Void Knight]] ([[Void Knights' Outpost]])", cost = "200 [[commendation points]]" },
+	},
+	-- Agility Arena
+	["Agility arena ticket"] = {
+		{ source = "[[Brimhaven Agility Arena]]", method = "Tag a ticket dispenser" },
+	},
+	-- Sailing pearls (Giant clam offerings, bracketed by alch value)
+	["Tiny pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 1–198" },
+	},
+	["Small pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 202–996" },
+	},
+	["Shiny pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 1,014–1,920" },
+	},
+	["Bright pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 2,100–4,800" },
+	},
+	["Big pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 5,400–9,984" },
+	},
+	["Huge pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 10,200–19,200" },
+	},
+	["Enormous pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 20,400–49,800" },
+	},
+	["Shimmering pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 57,600–96,000" },
+	},
+	["Glistening pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 112,500–183,000" },
+	},
+	["Brilliant pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 240,000–480,000" },
+	},
+	["Radiant pearl"] = {
+		{ source = "[[Giant clam]] (ocean encounter)", method = "Offer item to the clam", requirement = "Alch value 540,000+" },
+	},
+	-- Spirit angler outfit (Tempoross)
+	["Spirit angler boots"] = {
+		{ source = "[[Gita Prymes]] ([[Tempoross Cove]])", method = "Upgrade", cost = "1 [[Angler boots]] + 1,200 [[Spirit flakes]]" },
+	},
+	["Spirit angler headband"] = {
+		{ source = "[[Gita Prymes]] ([[Tempoross Cove]])", method = "Upgrade", cost = "1 [[Angler hat]] + 1,200 [[Spirit flakes]]" },
+	},
+	["Spirit angler top"] = {
+		{ source = "[[Gita Prymes]] ([[Tempoross Cove]])", method = "Upgrade", cost = "1 [[Angler top]] + 1,200 [[Spirit flakes]]" },
+	},
+	["Spirit angler waders"] = {
+		{ source = "[[Gita Prymes]] ([[Tempoross Cove]])", method = "Upgrade", cost = "1 [[Angler waders]] + 1,200 [[Spirit flakes]]" },
+	},
+	-- Barbarian Assault
+	["Fighter hat"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "275 [[honour points]] in each role", requirement = "[[Penance Queen]] kill" },
+	},
+	["Ranger hat"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "275 [[honour points]] in each role", requirement = "[[Penance Queen]] kill" },
+	},
+	["Healer hat"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "275 [[honour points]] in each role", requirement = "[[Penance Queen]] kill" },
+	},
+	["Runner hat"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "275 [[honour points]] in each role", requirement = "[[Penance Queen]] kill" },
+	},
+	["Fighter torso"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "375 [[honour points]] in each role", requirement = "[[Penance Queen]] kill" },
+	},
+	["Penance skirt"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "375 [[honour points]] in each role", requirement = "[[Penance Queen]] kill" },
+	},
+	["Runner boots"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "100 [[honour points]] in each role" },
+	},
+	["Penance gloves"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "150 [[honour points]] in each role" },
+	},
+	["Granite body"] = {
+		{ source = "[[Commander Connad]] ([[Barbarian Assault]])", cost = "95,000 coins", requirement = "[[Penance Queen]] kill" },
+	},
+	-- Theatre of Blood shroud accolades
+	["Sinhaza shroud tier 1"] = {
+		{ source = "[[Mysterious Stranger]] ([[Theatre of Blood]])", method = "Accolade reward", requirement = "100 completions" },
+	},
+	["Sinhaza shroud tier 2"] = {
+		{ source = "[[Mysterious Stranger]] ([[Theatre of Blood]])", method = "Accolade reward", requirement = "500 completions" },
+	},
+	["Sinhaza shroud tier 3"] = {
+		{ source = "[[Mysterious Stranger]] ([[Theatre of Blood]])", method = "Accolade reward", requirement = "1,000 completions" },
+	},
+	["Sinhaza shroud tier 4"] = {
+		{ source = "[[Mysterious Stranger]] ([[Theatre of Blood]])", method = "Accolade reward", requirement = "1,500 completions" },
+	},
+	["Sinhaza shroud tier 5"] = {
+		{ source = "[[Mysterious Stranger]] ([[Theatre of Blood]])", method = "Accolade reward", requirement = "2,000 completions" },
+	},
+	-- Sailing paints
+	["Armadylean paint"] = {
+		{ source = "[[Larrissa]]", method = "Fully chart the Northern Ocean" },
+	},
+	["Barracuda paint"] = {
+		{ source = "[[The Tempor Tantrum]]", method = "[[Barracuda Trial]] reward", rate = "1/240" },
+		{ source = "[[The Jubbly Jive]]",     method = "[[Barracuda Trial]] reward", rate = "1/220" },
+		{ source = "[[The Gwenith Glide]]",   method = "[[Barracuda Trial]] reward", rate = "1/400" },
+	},
+	["Merchant's paint"] = {
+		{ source = "[[Trader Stan]]", method = "Trade one of each tradeable paint (shark, inky, barracuda, salvor's, angler's)" },
+	},
+	["Zamorakian paint"] = {
+		{ source = "[[Sailing]]", method = "Fully chart the Unquiet Ocean" },
+	},
+	["Guthixian paint"] = {
+		{ source = "[[Sailing]]", method = "Fully chart the Shrouded Ocean" },
+	},
+	["Saradominist paint"] = {
+		{ source = "[[Sailing]]", method = "Fully chart the Ardent Ocean" },
+	},
+	["Shark paint"] = {
+		{ source = "Port tasks ([[Sailing]])", method = "Complete a port task", rate = "1/36" },
+	},
+	-- Chompy bird hats (Rantz, ascending kill thresholds)
+	["Chompy bird hat (ogre bowman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "30 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (bowman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "40 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre yeoman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "50 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (yeoman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "70 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre marksman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "95 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (marksman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "125 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre woodsman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "170 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (woodsman)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "225 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre forester)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "300 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (forester)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "400 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre bowmaster)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "550 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (bowmaster)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "700 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre expert)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "1,000 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (expert)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "1,300 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (ogre dragon archer)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "1,700 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (dragon archer)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "2,250 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (expert ogre dragon archer)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "3,000 [[Chompy bird]] kills" },
+	},
+	["Chompy bird hat (expert dragon archer)"] = {
+		{ source = "[[Rantz]] ([[Feldip Hills]])", requirement = "4,000 [[Chompy bird]] kills" },
+	},
+
+	-- Rogues' Den (Safecracker, one-time reward)
+	["Rogue boots"] = {
+		{ source = "[[Rogues' Den]] ([[Safecracker]])", method = "One-time reward for completing the safecracker minigame" },
+	},
+	["Rogue gloves"] = {
+		{ source = "[[Rogues' Den]] ([[Safecracker]])", method = "One-time reward for completing the safecracker minigame" },
+	},
+	["Rogue mask"] = {
+		{ source = "[[Rogues' Den]] ([[Safecracker]])", method = "One-time reward for completing the safecracker minigame" },
+	},
+	["Rogue top"] = {
+		{ source = "[[Rogues' Den]] ([[Safecracker]])", method = "One-time reward for completing the safecracker minigame" },
+	},
+	["Rogue trousers"] = {
+		{ source = "[[Rogues' Den]] ([[Safecracker]])", method = "One-time reward for completing the safecracker minigame" },
+	},
+	-- Skilling rares (fishing)
+	["Big bass"] = {
+		{ source = "[[Fishing]]", method = "Random catch while fishing", rate = "Very rare" },
+	},
+	["Big swordfish"] = {
+		{ source = "[[Fishing]]", method = "Random catch from harpoon fishing", rate = "Very rare" },
+	},
+	-- Tombs of Amascut pet
+	["Tumeken's guardian"] = {
+		{ source = "[[Tombs of Amascut]]", method = "Pet drop" },
+	},
+}

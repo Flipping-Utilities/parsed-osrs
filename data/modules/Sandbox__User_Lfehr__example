@@ -1,0 +1,103 @@
+
+local p = {}
+local addCommas = require('Module:Addcommas')._add
+local paramTest = require( 'Module:Paramtest' )
+local skillPic = require('Module:SCP')._main
+local yesNo = require('Module:Yesno')
+
+function p.invoke_main(frame)
+	return p.main(frame:getParent().args)
+end
+
+function p.main(args)
+	local woodcuttingLevel = paramTest.defaults{
+		{ tonumber(args.woodcuttingLevel), 1 },
+	}
+
+	
+	return p._calculateWoodcuttingData(agilityLvl, fishingLvl, strengthLvl, attemptsPerHour, anglersBonus)
+	
+end
+
+function p._calculateWoodcuttingData(woodcuttingLevel)
+	-- local chanceCatchSturgeon = 0
+	-- local chanceCatchSalmon = 0
+	-- local chanceCatchTrout = 0
+	-- local offset = 0
+	-- -- Sturgeon
+	-- if(canFish(agilityLevel, fishingLevel, strengthLevel, 45, 70, 45)) then
+	-- 	chanceCatchSturgeon = chanceToCatch(fishingLevel, 8, 64, offset)
+	-- 	offset = chanceCatchSturgeon
+	-- end
+	-- -- Salmon
+	-- if(canFish(agilityLevel, fishingLevel, strengthLevel, 30, 58, 30)) then
+	-- 	chanceCatchSalmon = chanceToCatch(fishingLevel, 16, 96, offset)
+	-- 	offset = offset + chanceCatchSalmon
+	-- end
+	-- -- Trout
+	-- if(canFish(agilityLevel, fishingLevel, strengthLevel, 15, 48, 15)) then
+	-- 	chanceCatchTrout = chanceToCatch(fishingLevel, 32, 192, offset)
+	-- end
+	
+	-- local totalSturgeon = math.floor((attemptsPerHour) * (chanceCatchSturgeon))
+	-- local totalSalmon = math.floor((attemptsPerHour) * (chanceCatchSalmon))
+	-- local totalTrout = math.floor((attemptsPerHour) * (chanceCatchTrout))
+	
+	-- local sturgeonFishingExp = anglersBonus > 0 and math.floor(totalSturgeon * 80 * (1 + anglersBonus)) or totalSturgeon * 80;
+	-- local sturgeonAgilityStrengthExp = totalSturgeon * 7
+	
+	-- local salmonFishingExp = anglersBonus > 0 and math.floor(totalSalmon * 70 * (1 + anglersBonus)) or totalSalmon * 70;
+	-- local salmonAgilityStrengthExp = totalSalmon * 6
+	
+	-- local troutFishingExp = anglersBonus > 0 and math.floor(totalTrout * 50 * (1 + anglersBonus)) or totalTrout * 50;
+	-- local troutAgilityStrengthExp = totalTrout * 5
+	
+	local f = string.format
+	local ret = {'{| class="wikitable"'}
+	table.insert(ret, '|-' )
+	table.insert(ret, '!colspan="2"|Fish')
+	table.insert(ret, '!% of catch')
+	table.insert(ret, '!# caught/hr')
+	table.insert(ret, f('!%s Exp/hr', skillPic('Fishing')))
+	table.insert(ret, f('!%s/%s Exp/hr', skillPic('Strength'), skillPic('Agility')))
+	table.insert(ret, '|-')
+	-- table.insert(ret, '|[[File:Leaping sturgeon.png]]')
+	-- table.insert(ret, '|[[Leaping Sturgeon]]')
+	-- table.insert(ret, f('|%.2f %%', chanceCatchSturgeon * 100))
+	-- table.insert(ret, f('|%s', addCommas(totalSturgeon)))
+	-- table.insert(ret, f('|%s', addCommas(sturgeonFishingExp)))
+	-- table.insert(ret, f('|%s', addCommas(sturgeonAgilityStrengthExp)))
+	-- table.insert(ret, '|-')
+	-- table.insert(ret, '|[[File:Leaping salmon.png]]')
+	-- table.insert(ret, '|[[Leaping Salmon]]')
+	-- table.insert(ret, f('|%.2f %%', chanceCatchSalmon * 100))
+	-- table.insert(ret, f('|%s', addCommas(totalSalmon)))
+	-- table.insert(ret, f('|%s', addCommas(salmonFishingExp)))
+	-- table.insert(ret, f('|%s', addCommas(salmonAgilityStrengthExp)))
+	-- table.insert(ret, '|-')
+	-- table.insert(ret, '|[[File:Leaping trout.png]]')
+	-- table.insert(ret, '|[[Leaping trout]]')
+	-- table.insert(ret, f('|%.2f %%', chanceCatchTrout * 100))
+	-- table.insert(ret, f('|%s', addCommas(totalTrout)))
+	-- table.insert(ret, f('|%s', addCommas(troutFishingExp)))
+	-- table.insert(ret, f('|%s', addCommas(troutAgilityStrengthExp)))
+	-- table.insert(ret, '|-')
+	-- table.insert(ret, '!colspan="2"|Totals')
+	-- table.insert(ret, f('|%.2f %%', (chanceCatchSturgeon + chanceCatchSalmon + chanceCatchTrout) * 100))
+	-- table.insert(ret, f('|%s', addCommas(totalSturgeon + totalSalmon + totalTrout)))
+	-- table.insert(ret, f('|%s', addCommas(sturgeonFishingExp + salmonFishingExp + troutFishingExp)))
+	-- table.insert(ret, f('|%s', addCommas(sturgeonAgilityStrengthExp + salmonAgilityStrengthExp + troutAgilityStrengthExp)))
+	table.insert(ret, '|}')
+	
+	return table.concat(ret, "\n")
+end
+
+function canFish(agilityLevel, fishingLevel, strengthLevel, requiredAgilityLevel, requiredFishingLevel, requiredStrengthLevel)
+	return ((agilityLevel >= requiredAgilityLevel) and (fishingLevel >= requiredFishingLevel) and (strengthLevel >= requiredStrengthLevel))
+end
+
+function chanceToCatch(level, baseChance, highChance, offset)
+	return ((baseChance / 255) + (((level - 1) * (highChance - baseChance) / 98) / 255)) * (1 - offset)
+end
+
+return p

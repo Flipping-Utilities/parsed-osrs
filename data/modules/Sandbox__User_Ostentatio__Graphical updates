@@ -1,0 +1,225 @@
+--<nowiki>
+
+local p = {}
+
+local params = require('Module:Paramtest')
+local clean = require('Module:Clean image2').clean
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	local function endDateFormat(revNum, dateType)
+		local dateTypes = {['main']='', ['upper']='up', ['middle']='mid'}
+		local endDateType = string.format('rev%s%send', revNum, dateTypes[dateType])
+
+		if params.has_content(args[endDateType]) then															-- If an ending date has been explicitely specified, use that one 
+			endDate = args[endDateType]
+		elseif params.has_content(args[string.format('rev%s%sstart', revNum +1, dateTypes[dateType])]) then		-- If there is a starting date defined for the next revision, use that as the ending date
+			endDate = args[string.format('rev%s%sstart', revNum +1, dateTypes[dateType])]
+		else																									-- If not, then the current revision is the last revision
+			endDate = 'Present'
+		end	
+	return endDate
+	end
+	
+	local function imageFormat(revNum, rowLevel)
+		
+		local rowImages = {['upper']='img', ['middle']='midimg', ['lower']='lowimg'}
+		local rowDefaultImage  = rowImages[rowLevel]
+		local rowSpecificImage = string.format('rev%s%s', revNum, rowImages[rowLevel])		
+		
+		if params.has_content(args[rowSpecificImage]) then																	-- If a filename has been specified, use that one
+			formattedImage = args[rowSpecificImage]
+		elseif params.has_content(args[rowDefaultImage]) then																-- If not, use a variation of the base filename
+			local imageArg = args[rowDefaultImage]
+			if (params.has_content(args['rev2start']) and params.is_empty(args['rev3start'])) then							-- Check if there are only two revisions in the gallery
+				if revNum == 1 then
+					formattedImage = string.format('%s (historical)', imageArg)												-- If so, append (historical) to the base filename for the first revision
+				elseif revNum == 2 then
+					formattedImage = imageArg
+				end
+			elseif params.is_empty(args['rev'..(revNum+1)..'start']) then													-- We've made it so far, so there must be three or more revisions
+				formattedImage = imageArg																					-- In which case, use the base filename for the last revision
+			else
+				local commaSeparatedHistorical = string.format('[[File:%s (historical, v%s).png]]', imageArg, revNum)
+				local cleanComma = clean({file=commaSeparatedHistorical})
+				if cleanComma == nil then																					-- Check if there is a file with (historical, v#) appended, and use it if so
+					formattedImage = string.format('%s (historical v%s)', imageArg, revNum)
+				else																										-- If not, append (historical v#) to the base filename
+					formattedImage = string.format('%s (historical, v%s)', imageArg, revNum)
+				end
+			end
+		end
+	return formattedImage
+	end
+	
+	local function sizeFormat(revNum, rowLevel)
+		local rowSizes = {['upper']='size', ['middle']='midsize', ['lower']='lowsize'}
+		local fallbackSizes = {['upper']='|300x150px', ['middle']='', ['lower']=''}				-- Define the base sizes per image row, in case no size is specified at all
+		local rowDefaultSize	= rowSizes[rowLevel]
+		local rowSpecificSize	= string.format('rev%s%s', revNum, rowSizes[rowLevel])		
+		
+		if params.has_content(args[rowSpecificSize]) then										-- If a specific size is defined for a revision, use that one 
+			formattedSize = '|' .. args[rowSpecificSize]		
+		elseif params.has_content(args[rowDefaultSize]) then									-- If not, use the size specified for all images in that row (by the user)
+			formattedSize = '|' .. args[rowDefaultSize]
+		else																					-- If neither is specified, use the base size for that row (defined in the table above)
+			formattedSize = fallbackSizes[rowLevel]
+		end
+	return formattedSize
+	end
+
+--	Iterate through the arguments, and for each rev#start that is defined, compile a list of parameters relevant to that revision and add them as an entry to the rev_list table
+--	Parameters pertaining to optional rows are checked for content, and default to nil if empty
+--	Formatted size and formatted filename are combined prior to being entered into the table
+	local function revisionList()
+		local rev_list = {}
+		for i=1,10,1 do
+			local definedRevision = args['rev'..i..'start']
+			if definedRevision and params.has_content(definedRevision) then
+				local startDate			= params.default_to(args['rev'..i..'start'],'?')
+				local endDate			= endDateFormat(i, 'main')
+				local upperStartDate	= params.default_to(args['rev'..i..'upstart'], nil)
+				local upperEndDate	    = params.has_content(args['rev'..i..'upstart']) and endDateFormat(i, 'upper') or nil
+				local middleStartDate	= params.default_to(args['rev'..i..'midstart'], nil)
+				local middleEndDate		= params.has_content(args['rev'..i..'midstart']) and endDateFormat(i, 'middle') or nil
+				local upperImage		= imageFormat(i, 'upper')
+				local upperSize			= sizeFormat(i, 'upper')
+				local middleImage		= imageFormat (i, 'middle')
+				local middleSize		= sizeFormat (i, 'middle')
+				local lowerImage		= imageFormat (i, 'lower')
+				local lowerSize			= sizeFormat (i, 'lower')
+				
+				local resizedUpperImage = string.format('[[File:%s.png%s]]', upperImage, upperSize)
+				local resizedMiddleImage = params.has_content(args['midimg']) and string.format('[[File:%s.png%s]]', middleImage, middleSize) or nil
+				local resizedLowerImage = params.has_content(args['lowimg']) and string.format('[[File:%s.png%s]]', lowerImage, lowerSize) or nil
+
+				table.insert(rev_list, {
+					startDate = startDate,
+					endDate = endDate,
+					upperImage = resizedUpperImage,
+					middleImage = resizedMiddleImage,
+					lowerImage = resizedLowerImage,
+					upperStartDate = upperStartDate,
+					upperEndDate = upperEndDate,
+					middleStartDate = middleStartDate,
+					middleEndDate = middleEndDate,
+				} )
+			end
+		end
+		return rev_list
+	end
+	
+--	Shove that big table of revisions into a variable called revisions	
+	local revisions = revisionList()
+
+--	Build a div containing the starting date, a stylised horizontal rule, and ending date
+	local function buildDateRange(revisions, revNum, dateRangeType)
+		local startDateTypes = {['main']= 'startDate', ['upper']= 'upperStartDate', ['middle']= 'middleStartDate'}
+		local endDateTypes = {['main']= 'endDate', ['upper']= 'upperEndDate', ['middle']= 'middleEndDate'}
+		local startingDate = startDateTypes[dateRangeType]
+		local endingDate   = endDateTypes[dateRangeType]
+		local dateRange = mw.html.create('div')
+		dateRange
+					:css({ ['text-align'] = 'center'})
+					:wikitext(revisions[revNum][startingDate])
+						:tag('hr')
+							:css({
+									['border-bottom'] = '0.175em solid var(--body-dark)',
+									['border-top'] = 'hidden',
+									['margin'] = '0 0.45em'
+								})
+							:done()
+						:wikitext(revisions[revNum][endingDate])
+					:done()
+						
+	return tostring(dateRange)
+	end	
+
+-- The buildRows function will be called by buildColumns later on, and will return a div for each row with content in the revisions table for that specific column
+	local function buildRows(revisions, revisionNum)
+		local rows = mw.html.create(nil)
+			rows
+				:tag('div'):wikitext(revisions[revisionNum]['upperImage']):done()
+			if params.has_content(args['rev' .. revisionNum .. 'upstart']) then
+				rows
+					:wikitext(buildDateRange(revisions, revisionNum, 'upper'))
+			end
+			if params.has_content(args['midimg']) then
+				rows:tag('div'):wikitext(revisions[revisionNum]['middleImage']):done()
+			end
+			if params.has_content(args['rev' .. revisionNum .. 'midstart']) then
+				rows
+					:wikitext(buildDateRange(revisions, revisionNum, 'middle'))
+			end
+			if params.has_content(args['lowimg']) then
+				rows:tag('div'):wikitext(revisions[revisionNum]['lowerImage']):done()
+			end
+	return tostring(rows)
+	end
+
+--	Determine the number of CSS grid rows to span for the parent div holding a single column
+	local function gridSpanFormat(revNum)
+		local gridSpan = 2
+		if params.has_content(args['midimg']) then
+			gridSpan = gridSpan + 1
+		end
+		if params.has_content(args['lowimg']) then
+			gridSpan = gridSpan + 1
+		end
+		if params.has_content(args['rev' .. revNum .. 'upstart']) then
+			gridSpan = gridSpan + 1
+		end
+		if params.has_content(args['rev' .. revNum .. 'midstart']) then
+			gridSpan = gridSpan + 1
+		end
+		gridSpan = string.format('auto / span %s', gridSpan)
+	return gridSpan
+	end
+	
+-- So let's put it all together
+--	For each entry into the revisions table, which contains the relevant args for a single historical revision, we're going to build a column
+--	First it makes a div holding the column, which is then made a subgrid of the grid container, so that the cells will align vertically between different columns
+--	We call the gridSpanFormat function to tell it how many rows the container of the column has to span
+--	Then we fill it with the buildRows function, which returns a div for each relevant row entry in that column
+--	Finally we put the main date range at the bottom to close out the column
+--	Each iteration is then adjoined to the columns variable, which will grow to contain the whole gallery by the end
+
+	local function buildColumns(revisions)
+		local columns = mw.html.create(nil)
+		for i, v in ipairs(revisions) do
+			columns
+				:tag('div') 
+				:css({
+						['display'] = 'grid',
+						['grid-template-rows'] = 'subgrid',
+						['grid-row'] = gridSpanFormat(i),
+						['justify-items'] = 'center',
+						['align-items'] = 'center',
+
+					})
+				:wikitext(buildRows(revisions, i))
+				:wikitext(buildDateRange(revisions, i, 'main'))
+		end
+		return tostring(columns)
+	end
+	
+-- Next we create a div which will hold all the columns, and we make it a CSS grid container
+-- We tell it to fill as many columns as can fit the screen along implicit grid tracks, which are as wide as the content of those columns at minimum
+-- We also need to set a max-width to be divvied up by the auto-placed grid columns
+	local revisionsTable = mw.html.create('div')
+	local gridColumnWidth	= params.has_content(args['colwidth']) and args['colwidth'] or '150'
+	local gridWidth			= params.has_content(args['colwidth']) and (args['colwidth'] + 25) * #revisions or 250 * #revisions
+		revisionsTable
+				:css({	['margin-top'] = '20px',
+						['max-width'] = string.format('%spx', gridWidth),
+						['display'] = 'grid',
+						['gap'] = '15px 25px',
+						['grid-template-columns'] = string.format('repeat(auto-fill, minmax(min-content, %spx) )', gridColumnWidth),
+					})	
+				:wikitext(buildColumns(revisions))
+	
+	return revisionsTable
+end
+
+return p

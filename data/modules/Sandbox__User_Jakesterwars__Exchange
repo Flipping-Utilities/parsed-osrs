@@ -1,0 +1,724 @@
+--[[
+{{Helper module|name=Exchange
+|fname1=_price(arg)
+|ftype1=String
+|fuse1=Gets the current median price of item named arg
+|fname2=_value(arg)
+|ftype2=String
+|fuse2=Gets the value of item named arg
+}}
+--]]
+-- <nowiki>
+--
+-- Implements various exchange templates
+-- See Individual method docs for more details
+--
+-- See also:
+-- - [[Module:ExchangeData]]
+-- - [[Module:ExchangeDefault]]
+--
+-- Original version: http://runescape.wiki/w/Module:Exchange
+
+local p = {}
+
+-- only load commonly used modules here
+local yesno = require( 'Module:Yesno' )
+local addcommas = require( 'Module:Addcommas' )._add
+
+--
+-- Makes sure first letter of item is uppercase
+-- Automatically handles any redirects
+--
+function p.checkTitle( item )
+    -- upper case first letter to make sure we can find a valid item page
+    item = mw.ustring.gsub( item, '&#0?39;', "'" )
+    item = mw.ustring.gsub( item, '&#0?38;', "&" )
+    item = mw.ustring.gsub( item, '_', ' ' )
+    item = mw.ustring.gsub( item, '  +', ' ' )
+    item = mw.text.split( item, '' )
+    item[1] = mw.ustring.upper( item[1] )
+    item = table.concat( item )
+
+    return item
+end
+--
+-- Simple mw.loadData wrapper used to access data located on module subpages
+--
+-- @param item {string} Item to retrieve data for
+-- @param suppress_err {boolean} (optional) If true and item data can not be loaded, return nil instead of error()
+-- @return {table} Table of item data
+--
+local function load( item, suppress_err )
+    item = p.checkTitle( item )
+    local noErr, ret = pcall( mw.loadData, 'Module:Exchange/' .. item )
+
+    if noErr then
+        return ret
+    elseif suppress_err then
+    	return nil
+    end
+
+    error( ret )
+end
+
+local data_module_names = {
+	price = 'Module:GEPrices/data.json',
+	volume = 'Module:GEVolumes/data.json',
+	lastPrice = 'Module:LastPrices/data.json'
+}
+local data_historical_keys = {
+	price = 'price',
+	lastPrice = 'last',
+	limit = 'limit'
+}
+
+local loaded_data_modules = {}
+
+function p.loadBulkData( key, data_type, suppress_err )
+	local module_name = data_module_names[data_type]
+	if loaded_data_modules[module_name] == nil then
+		loaded_data_modules[module_name] = mw.loadJsonData(module_name)
+	end
+	if key ~= '%LAST_UPDATE_F%' then
+		key = p.checkTitle( key )
+	end
+	if loaded_data_modules[module_name][key] then
+		return loaded_data_modules[module_name][key]
+	end
+	if not data_historical_keys[data_type] then
+		return nil
+	end
+	local exchange_data = load(key, true)
+	if exchange_data and exchange_data.historical then
+		return exchange_data[data_historical_keys[data_type]]
+	end
+	if suppress_err then
+		return nil
+	end
+	error('price not found for ' .. key)
+end
+--
+-- Returns the price of an item
+--
+-- @param item {string} Item to get current price of
+-- @param multi {number} (optional) Multiplies the output price by the specified number
+-- @param format {boolean} (optional) Format the result with commas (defaults to false)
+-- @param round {number} (optional) Round the result to a number of decimal places
+-- @param default Any non-nil value to return as the price if item's data can not be found.
+-- @return {number|string} Price of item. Will return a string if formatted, else a number.
+--
+function p._price( item, multi, format, tax, round, default )
+    local price = p.loadBulkData( item, 'price', default ~= nil )
+    local multi = type( multi ) == 'number' and multi or 1
+    local format = type( format ) == 'boolean' and format or false
+    local tax = type( tax ) == 'boolean' and tax or false
+    local ret
+    
+    if price then
+    	ret = price
+	    
+	    if tax and price > 100 then
+	    	if price > 499999999 then
+	    		ret = ret - 5000000
+	    	else
+	    		ret = ret - math.floor(ret * 0.01)
+	    	end 
+	    end
+	    
+	    ret = ret * multi
+	    
+	    -- round the number to X d.p.
+	    if round ~= nil then
+	        local multi = 10^( round )
+	        ret = math.floor( ret * multi + 0.5 ) / multi
+	    end
+	
+	    if format then
+	        return addcommas( ret )
+	    end
+	    
+	    return ret
+    else
+		return default
+	end
+end
+
+--
+-- Returns the limit of an item
+--
+-- @param item {string} Item to get the limit of
+-- @return {number} Limit of item
+--
+function p._limit( item )
+    return load( item ).limit
+end
+
+--
+-- Returns the volume of an item
+--
+-- @param item {string} Item to get the limit of
+-- @return {number} Volume of item
+--
+function p._volume( item )
+    return p.loadBulkData(item, 'volume')
+end
+
+--
+-- Returns the value of an item
+--
+-- @param item {string} Item to get the value for
+-- @return {number} Value of item
+--
+function p._value( item )
+    return load( item ).value
+end
+
+--
+-- Returns the itemId of an item
+--
+-- @param item {string} Item to get the itemId for
+-- @return {number} itemId of item
+--
+function p._itemId( item )
+    return load( item ).itemId
+end
+
+--
+-- Returns the alchability of an item
+--
+-- @param item {string} Item to get the alchability of
+-- @return {boolean} Alchability
+--
+function p._alchable( item )
+	local a = load( item ).alchable
+	if a == nil or a == true then
+		return true
+	elseif a == false then
+		return false
+	end
+	return nil
+end
+
+--
+-- Returns the alch multiplier of an item
+--
+-- @param item {string} Item to get the multiplier or
+-- @return {number} Multiplier
+--
+function p._alchmultiplier( item )
+	local a = load( item ).alchmultiplier
+	if type(a) == 'number' then
+		return a
+	end
+	return 0.6
+end
+
+
+--
+-- Internal function for alch values
+--
+-- @param item {string} Item to get the high alch for
+-- @param item {string} Alchemy multiplier
+-- @return {number} Alch value of item
+--
+function alchval(item, mul)
+	if p._alchable(item) then
+		local v = p._value(item)
+		local m = p._alchmultiplier(item)
+		if v then
+			return math.floor(v * m * mul)
+		end
+	end
+	return  -1
+end
+
+--
+-- Returns the high alch value of an item
+--
+-- @param item {string} Item to get the high alch for
+-- @return {number} High alch of item
+--
+function p._highalch( item )
+	return alchval(item, 1)
+end
+
+--
+-- Returns the low alch value of an item
+--
+-- @param item {string} Item to get the low alch for
+-- @return {number} Low alch of item
+--
+function p._lowalch( item )
+	return alchval(item, 2/3)
+end
+
+--
+-- Calculates the difference between the current price and the last price of an item
+--
+-- @param item {string} Item to calculate price difference for
+-- @param format {boolean} `true` if the output is to be formatted with commas
+--                         Defaults to `false`
+-- @return {number|string} The price difference as a number
+--                         If `format` is set to `true` then this returns a string
+--                         If either of the prices to calculate the diff from are unavailable, this returns `0` (number)
+--
+function p._diff( item, format )
+    local diff = 0
+	local price = p.loadBulkData(item, 'price')
+	local lastPrice = p.loadBulkData(item, 'lastPrice')
+    if price and lastPrice then
+        diff = price - lastPrice
+
+        if format then
+            diff = addcommas( diff )
+        end
+    end
+
+    return diff
+end
+
+--
+-- {{GEItem}} internal method
+--
+-- @todo merge into p.table
+--
+-- @param item {string} Item to get data for
+-- @return {string}
+--
+function p._table( item )
+    -- load data and any required modules
+    local item = p.checkTitle( item )
+    local data = load( item )
+	local bulkData = {
+		price = p.loadBulkData(item, 'price'),
+		date = p.loadBulkData('%LAST_UPDATE_F%', 'price'),
+		last = p.loadBulkData(item, 'lastPrice'),
+		lastDate = p.loadBulkData('%LAST_UPDATE_F%', 'lastPrice'),
+		volume = p.loadBulkData(item, 'volume'),
+	}
+	local timeago = require( 'Module:TimeAgo' )._ago
+    local changeperday = require( 'Module:ChangePerDay' )._change
+    local coins = require( 'Module:Coins' )._amount
+
+    -- set variables here to make the row building easier to follow
+    local div = '<i>Unknown</i>'
+    local limit = data.limit and addcommas( data.limit ) or '<i>Unknown</i>'
+    local volume = bulkData.volume and addcommas( bulkData.volume ) or '<i>Unknown</i>'
+    local members = '<i>Unknown</i>'
+
+    if bulkData.last then
+        local link = 'http://services.runescape.com/m=itemdb_oldschool/viewitem.ws?obj=' .. data.itemId
+        local change = math.abs( changeperday( {bulkData.price, bulkData.last, bulkData.date, bulkData.lastDate} ) )
+
+        if bulkData.price > bulkData.last then
+            arrow = '[[File:Up.svg|20px|link=' .. link .. ']]'
+        elseif bulkData.price < bulkData.last then
+            arrow = '[[File:Down.svg|20px|link=' .. link .. ']]'
+        else
+            arrow = '[[File:Unchanged.svg|40px|link=' .. link .. ']]'
+        end
+
+        if change >= 0.04 then
+            arrow = arrow  .. arrow .. arrow
+        elseif change >= 0.02 then
+            arrow = arrow .. arrow
+        end
+
+        div = mw.html.create( 'div' )
+            :css( 'white-space', 'nowrap' )
+            :wikitext( arrow )
+
+        div = tostring( div )
+    end
+
+    if data.members == true then
+        members = '[[File:Member icon.png|link=Members]]'
+    elseif data.members == false then
+        members = '[[File:Free-to-play icon.png|link=Free-to-play]]'
+    end
+
+    -- build table row
+    local tr = mw.html.create( 'tr' )
+        :tag( 'td' )
+        	:addClass( 'inventory-image' )
+            :wikitext( '[[File:' .. item .. '.png|' .. item .. ']]' )
+            :done()
+        :tag( 'td' )
+            :css( {
+                ['width'] = '15%',
+                ['text-align'] = 'left'
+            } )
+            :wikitext( '[[' .. item .. ']]' )
+            :done()
+        :tag( 'td' )
+            :wikitext( coins( bulkData.price ) )
+            :done()
+        :tag( 'td' )
+            :wikitext( div )
+            :done()
+
+    if data.alchable == nil or yesno( data.alchable ) then
+        local low, high = '<i>Unknown</i>', '<i>Unknown</i>'
+
+        if data.value then
+            low = coins( p._lowalch(item) )
+            high = coins( p._highalch(item) )
+        end
+
+        tr
+            :tag( 'td' )
+                :wikitext( low )
+                :done()
+            :tag( 'td' )
+                :wikitext( high )
+                :done()
+    else
+        tr
+            :tag( 'td' )
+                :attr( 'colspan', '2' )
+                :wikitext( '<i>Cannot be alchemised</i>' )
+                :done()
+    end
+
+    tr
+        :tag( 'td' )
+            :wikitext( limit )
+            :done()
+        :tag( 'td' )
+            :wikitext( volume )
+            :done()
+        :tag( 'td' )
+            :wikitext( members )
+            :done()
+        :tag( 'td' )
+            :css( 'white-space', 'nowrap' )
+            :wikitext( '[[Exchange:' .. item .. '|view]]' )
+            :done()
+        :tag( 'td' )
+            :css( 'font-size', '85%' )
+            :wikitext( timeago{bulkData.date} )
+            :done()
+
+    return tostring( tr )
+
+end
+
+--
+-- {{GEExists}}
+--
+function p.exists( frame )
+    local args = frame:getParent().args
+    local item = p.checkTitle( args[1] or '' )
+    local noErr, data = pcall( mw.loadData, 'Module:Exchange/' .. item )
+
+    if noErr then
+        return '1'
+    end
+
+    return '0'
+end
+
+--
+-- GEExists for modules
+--
+function p._exists( arg )
+    local item = p.checkTitle( arg or '' )
+    local noErr, data = pcall( mw.loadData, 'Module:Exchange/' .. item )
+
+    if noErr then
+        return true
+    end
+
+    return false
+end
+
+--
+-- Internal method for p.highAlchTable, p.lowAlchTable and p.genStoreTable
+--
+-- @param item {string} The name of the item
+-- @param data {table} The item's ge data
+-- @param alch {number} The item's alch/sell value
+-- @param min {number} (optional) Sets the cap for amount of items that can be converted to gp per hour
+-- @param natPrice {number} (optional) Sets the price of a Nature rune (set to `0` by `p.genStoreTable`)
+-- @param multi {number} (optional) Multiplies the profit by the specified number to allow calculating the profit for intervals other than 4 hours
+--
+local function alchTable( item, data, alch, min, natPrice, multi )
+	local bulkData = {
+		price = p.loadBulkData(item, 'price'),
+		date = p.loadBulkData('%LAST_UPDATE_F%', 'price'),
+	}
+    local timeago = require( 'Module:TimeAgo' )._ago
+    local round = require( 'Module:Number' )._round
+    -- gen store doesn't need a nat price as it's not used
+    -- therefore we'd set it to 0
+    local natPrice = natPrice or p.loadBulkData('Nature rune', 'price')
+    local multi = multi or 1
+    local profit = alch - bulkData.price - natPrice
+
+    local image = '[[File:' .. item .. '.png|' .. item .. ']]'
+    local itemStr = '[[' .. item .. ']]'
+    local priceStr = addcommas( bulkData.price )
+    local alchStr = addcommas( alch )
+    local profitStr = addcommas( profit )
+    local roi = tostring( round( ( profit / ( bulkData.price + natPrice ) * 100 ), 1 ) ) .. '%'
+    local limit = data.limit and addcommas( data.limit ) or '<i>Unknown</i>'
+    local maxProfit = '<i>Unknown</i>'
+    local members = '<i>Unknown</i>'
+    local members_sortkey = 2
+    local details = '[[Exchange:' .. item .. '|view]]'
+    local lastUpdated = timeago{bulkData.date}
+
+    if data.limit then
+        -- cap at 4800, the maximum number of alchs that can be cast every 4 hours
+        -- varies for general store rows
+        min = min or 4800 
+        min = ( data.limit > min ) and min or data.limit
+        maxProfit = addcommas( min * profit * multi)
+    end
+
+    if data.members == true then
+        members = '[[File:Member icon.png|link=Members]]'
+        members_sortkey = 1
+    elseif data.members == false then
+        members = '[[File:Free-to-play icon.png|link=Free-to-play]]'
+        members_sortkey = 0
+    end
+
+    local tr = mw.html.create( 'tr' )
+        :tag( 'td' )
+            :wikitext( image )
+            :done()
+        :tag( 'td' )
+            :css( {
+                width = '15%',
+                ['text-align'] = 'left'
+            } )
+            :wikitext( itemStr )
+            :done()
+        :tag( 'td' )
+            :wikitext( priceStr )
+            :done()
+        :tag( 'td' )
+            :wikitext( alchStr )
+            :done()
+        :tag( 'td' )
+            :wikitext( profitStr )
+            :done()
+        :tag( 'td' )
+            :wikitext( roi )
+            :done()
+        :tag( 'td' )
+            :wikitext( limit )
+            :done()
+        :tag( 'td' )
+            :wikitext( maxProfit )
+            :done()
+        :tag( 'td' )
+            :wikitext( members )
+            :attr('data-sort-value', members_sortkey)
+            :done()
+        :tag( 'td' )
+            :css( 'white-space', 'nowrap' )
+            :wikitext( details )
+            :done()
+        :tag( 'td' )
+            :css( 'font-size', '85%' )
+            :wikitext( lastUpdated )
+            :done()
+
+    return tostring( tr )
+end
+
+--
+-- {{HighAlchTableRow}}
+--
+-- @example {{HighAlchTableRow|<item>}}
+--
+function p.highAlchTable( frame )
+    local args = frame:getParent().args
+    local item = p.checkTitle( args[1] )
+    local data = load( item )
+    local alch = p._highalch(item)
+
+    return alchTable( item, data, alch )
+end
+--
+-- {{LowAlchTableRow}}
+--
+-- @example {{LowAlchTableRow|<item>}}
+--
+function p.lowAlchTable( frame )
+    local args = frame:getParent().args
+    local item = p.checkTitle( args[1] )
+    local data = load( item )
+    local alch = p._lowalch(item)
+
+    return alchTable( item, data, alch )
+end
+
+--
+-- {{GenStoreTableRow}}
+--
+-- @example {{GenStoreTableRow|<item>}}
+--
+function p.genStoreTable( frame )
+    local args = frame:getParent().args
+    local item = p.checkTitle( args[1] )
+    local data = load( item )
+    local alch = math.floor( data.value * 0.3 )
+
+    return alchTable( item, data, alch, 50000, 0 )
+end
+
+--
+-- {{Alchemiser2TableRow}}
+--
+-- @example {{Alchemiser2TableRow|<item>}}
+--
+function p.alchemiser2Table( frame )
+    local args = frame:getParent().args
+    local item = p.checkTitle( args[1] )
+    local data = load( item )
+    local alch = p._highalch(item)
+    local round = require( 'Module:Number' )._round
+    -- calculate the price of nature rune and divine charges for 1 item
+    local natPrice = load( 'Nature rune' ).price
+
+    return alchTable( item, data, alch, 100, natPrice, 6 )
+end
+
+--
+-- {{GEP}}
+-- {{GEPrice}}
+--
+-- @example {{GEPrice|<item>|<format>|<multi>}}
+-- @example {{GEPrice|<item>|<multi>}}
+-- @example {{GEP|<item>|<multi>}}
+--
+function p.price( frame )
+    -- usage: {{foo|item|format|multi}} or {{foo|item|multi}}
+    local args = frame.args
+    local pargs = frame:getParent().args
+    local item = pargs[1]
+    local expr = mw.ext.ParserFunctions.expr
+    local round = tonumber( pargs.round )
+
+    if item then
+        item = mw.text.trim( item )
+    else
+        error( '"item" argument not specified', 0 )
+    end
+
+    -- default to formatted for backwards compatibility with old GE templates
+    local format = true
+    local multi = 1
+    local tax = false
+
+    -- format is set with #invoke
+    -- so set it first to allow it to be overridden by template args
+    if args.format ~= nil then
+        format = yesno( args.format )
+    end
+
+    if tonumber( pargs[2] ) ~= nil then
+        multi = tonumber( pargs[2] )
+
+    -- indicated someone is trying to pass an equation as a mulitplier
+    -- known use cases are fractions, but pass it to #expr to make sure it's handled correctly
+    elseif pargs[2] ~= nil and mw.ustring.find( pargs[2], '[/*+-]' ) then
+        multi = tonumber( expr( pargs[2] ) )
+    end 
+    
+    if pargs.tax ~= nil then
+    	tax = yesno( pargs.tax )	
+    end
+
+    return p._price( item, multi, format, tax, round, pargs.dflt )
+end
+
+--
+-- {{GEItem}}
+--
+-- @example {{GEItem|<item>}}
+--
+function p.table( frame )
+    local args = frame:getParent().args
+    local item = args[1]
+
+    if item then
+        item = mw.text.trim( item )
+    else
+        error( '"item" argument not specified', 0 )
+    end
+
+    return p._table( item )
+end
+
+--
+-- experimental limit method for [[Grand Exchange/Buying Limits]]
+--
+function p.gemwlimit( frame )
+    local item  = frame:getParent().args[1]
+    local data = mw.loadData( 'Module:Exchange/' .. item )
+    
+    return data.limit
+end
+
+--
+-- {{ExchangeItem}}
+-- {{GEDiff}}
+-- {{GELimit}}
+-- {{ItemValue}}
+-- {{GEId}}
+--
+-- @example {{ExchangeItem|<item>}}
+-- @example {{GEDiff|<item>}}
+-- @example {{GELimit|<item>}}
+-- @example {{ItemValue|<item>}}
+-- @example {{GEId|<item>}}
+--
+function p.view( frame )
+    local fargs = frame.args
+    local pargs = frame:getParent().args
+    local item = pargs[1] or fargs.item
+    local view = fargs.view or ''
+    local loadView = {
+    	itemId=true, price=true, last=true, volume=true, value=true, limit=true, members=true,
+    	date=true, lastDate=true, volumeDate=true, icon=true, item=true, examine=true
+    }
+
+    if item then
+        item = mw.text.trim( item )
+    else
+        error( '"item" argument not specified', 0 )
+    end
+
+    view = mw.ustring.lower( view )
+
+    if view == 'itemid' then
+        view = 'itemId'
+    end
+
+	if view == 'volume' then
+		return p._volume(item)
+	end
+	
+    if view == 'diff' then
+        return p._diff( item )
+
+    elseif view == 'hialch' or view == 'highalch' or view == 'high_alch' or view == 'high alch' then
+		return p._highalch(item)
+		
+    elseif view == 'lowalch' or view == 'low_alch' or view == 'low alch' then
+    	return p._lowalch(item)
+    	
+    elseif view == 'members' then
+    	if load( item )[view] then return 1 else return 0 end
+
+    elseif loadView[view] then
+        return load( item )[view]
+    end
+end
+
+return p
+-- </nowiki>

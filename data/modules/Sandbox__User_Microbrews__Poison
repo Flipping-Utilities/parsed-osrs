@@ -1,0 +1,58 @@
+local ge = require('Module:Exchange')._price
+local vol = require('Module:Exchange')._volume
+
+local p = {}
+local min_volume = 5000
+local ammo_per_poison = 5
+
+local poisons = {
+	['Weapon poison'] = '(p)',
+	['Weapon poison(+)'] = '(p+)',
+	['Weapon poison(++)'] = '(p++)'
+}
+
+local poisonables = {
+	'Dragon arrow',
+	'Amethyst arrow',
+	'Rune arrow',
+	'Dragon dart',
+	'Amethyst dart',
+	'Rune dart',
+	'Adamant dart',
+	'Dragon knife',
+	'Dragon javelin',
+	'Dragon bolts ', -- has extra space before parentheses --
+	'Runite bolts '
+}
+
+function p.main()
+	local best_profit = -9999999999
+	local best_input = ''
+	local best_poison = ''
+	local best_output = ''
+	local best_volume = -9999999999
+	for _, input_item in ipairs(poisonables) do
+		input_clean = string.gsub(input_item, '%s$', '')
+		input_price = ge(input_clean)
+
+		for poison, suffix in pairs(poisons) do
+			output_item = input_item .. suffix
+			output_price = ge(output_item)
+			output_volume = vol(output_item)
+			
+			profit = output_price - input_price - ge(poison) / ammo_per_poison
+
+			if profit > best_profit and output_volume >= min_volume then
+				best_profit = profit
+				best_input = input_clean
+				best_poison = poison
+				best_output = output_item
+				best_volume = output_volume
+			end
+		end
+	end
+
+	return string.format('%s|%s|%s|%s|%s', best_profit, best_input, best_poison, best_output, best_volume)
+end
+
+return p

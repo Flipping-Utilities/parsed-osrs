@@ -1,0 +1,87 @@
+-- <pre>
+
+local p = {}
+
+local pics = {
+	quests = { image = 'Quest point icon', link = 'Quests' },
+	quest = { image = 'Quest point icon', link = 'Quests' },
+	['quest points'] = { image = 'Quest point icon', link = 'Quests' },
+	combat = { image = 'Attack style icon', link = 'Combat' },
+	all = { image = 'Attack style icon', link = 'Combat styles' },
+	music = { image = 'Music', link = 'Music' },
+	favour = { image = 'Kourend Favour icon', link = 'Great_Kourend\#Favour_system' },
+	activity = { image = 'Minigame icon', link = 'Minigames' },
+	activities = { image = 'Minigame icon', link = 'Minigames' },
+	minigame = { image = 'Minigame icon', link = 'Minigames' },
+	minigames = { image = 'Minigame icon', link = 'Minigames' },
+	achivements = { image = 'Achievement Diaries icon', link = 'Tasks' },
+	diary = { image = 'Achievement Diaries icon', link = 'Tasks' },
+	['achievement diaries'] = { image = 'Achievement Diaries icon', link = 'Tasks' },
+	agility = { image = 'Agility icon', link = 'Agility' },
+	attack = { image = 'Attack icon', link = 'Attack' },
+	hitpoints = { image = 'Hitpoints icon', link = 'Hitpoints' },
+	construction = { image = 'Construction icon', link = 'Construction' },
+	cooking = { image = 'Cooking icon', link = 'Cooking' },
+	crafting = { image = 'Crafting icon', link = 'Crafting' },
+	defence = { image = 'Defence icon', link = 'Defence' },
+	farming = { image = 'Farming icon', link = 'Farming' },
+	firemaking = { image = 'Firemaking icon', link = 'Firemaking' },
+	fishing = { image = 'Fishing icon', link = 'Fishing' },
+	fletching = { image = 'Fletching icon', link = 'Fletching' },
+	herblore = { image = 'Herblore icon', link = 'Herblore' },
+	hunter = { image = 'Hunter icon', link = 'Hunter' },
+	magic = { image = 'Magic icon', link = 'Magic' },
+	mining = { image = 'Mining icon', link = 'Mining' },
+	prayer = { image = 'Prayer icon', link = 'Prayer' },
+	ranged = { image = 'Ranged icon', link = 'Ranged' },
+	runecraft = { image = 'Runecraft icon', link = 'Runecraft' },
+	sailing = { image = 'Sailing icon', link = 'Sailing' },
+	slayer = { image = 'Slayer icon', link = 'Slayer' },
+	smithing = { image = 'Smithing icon', link = 'Smithing' },
+	strength = { image = 'Strength icon', link = 'Strength' },
+	thieving = { image = 'Thieving icon', link = 'Thieving' },
+	warding = { image = 'Warding icon', link = 'Warding' },
+	woodcutting = { image = 'Woodcutting icon', link = 'Woodcutting' },
+	overall = { image = 'Stats icon', link = 'Skills' },
+	stats = { image = 'Stats icon', link = 'Skills' }
+}
+
+function getSkillInformation(skill)
+	local file
+	if type(skill) == 'string' and pics[skill:lower()] then
+		file = pics[skill:lower()]
+	else
+		file = pics.stats
+	end
+	
+	local image = string.format('[[File:%s.png|21x21px|link=%s|alt=%s]]', file.image, file.link or '', file.link or '')
+	
+	return { image = image, link = file.link }
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local skill = args[1] or ''
+	local level = args[2]
+	local sort = args.sort
+	local showLink = args.link
+	local skillInfo = getSkillInformation(skill)
+	
+	if level then
+		return string.format('%s%s %s %s', sort and string.format('data-sort-value="%s"|', level) or '', skillInfo.image, level, showLink and string.format('[[%s]]', skillInfo.link) or '')
+	else
+		return string.format('%s %s', skillInfo.image, showLink and string.format('[[%s]]', skillInfo.link) or '')
+	end
+end
+
+function p._main(skill, level, link, sort)
+	local skillInfo = getSkillInformation(skill)
+	
+	if level then
+		return string.format('%s%s %s %s', sort and string.format('data-sort-value="%s"|', level) or '', level, skillInfo.image, link and string.format('[[%s]]', skillInfo.link) or '')
+	else
+		return string.format('%s %s', skillInfo.image, link and string.format('[[%s]]', skillInfo.link) or '')
+	end
+end
+
+return p

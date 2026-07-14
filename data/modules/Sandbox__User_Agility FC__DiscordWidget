@@ -1,0 +1,24 @@
+-- <nowiki>
+local p = {}
+
+function p._main(args)
+	local theme = args.theme or "dark"
+	local src = "https://discord.com/widget?id=" .. args.id .. "&theme=" .. theme
+
+    local ret = mw.html.create("iframe")
+        :attr("src", src)
+        :attr("width", args.width or "350")
+        :attr("height", args.height or "500")
+        :attr("allowTransparency", "true")
+        :attr("frameborder", "0")
+        :attr("sandbox", "allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts")
+
+    return ret
+end
+
+function p.main(frame)
+    return p._main(frame:getParent().args)
+end
+
+return p
+-- </nowiki>

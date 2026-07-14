@@ -1,0 +1,47 @@
+local p = {}
+
+local buildMap = require('Module:Map').buildMap
+local hc = require('Module:Paramtest').has_content
+
+function p.main(frame)
+	local args = frame.args or {}
+	local parentArgs = frame:getParent().args or {}
+	
+	local page_name = args.page_name or parentArgs[1] or mw.title.getCurrentTitle().text
+
+	local data = bucket('locline')
+		.select('coordinates')
+		.where('page_name', page_name)
+		.run()
+
+	local function getArg(key, default)
+		if hc(args[key]) then return args[key] end
+		if hc(parentArgs[key]) then return parentArgs[key] end
+		return default
+	end
+
+	local mapArgs = {
+		['type'] = getArg('type', 'maplink'),
+		['mtype'] = 'pin',
+		['icon'] = getArg('icon', 'redPin'),
+		['align'] = getArg('align', 'center'),
+		['text'] = getArg('text', 'Map'),
+		['mapID'] = tonumber(getArg('mapID', nil)),
+		['title'] = '[[' .. page_name .. ']]',
+		['group'] = page_name:gsub('%(', ''):gsub('%)', ''):gsub('%s', '_'),
+	}
+
+	local i = 1
+	for _, row in ipairs(data) do
+		if row['coordinates'] ~= nil then
+			for _, coordString in ipairs(row['coordinates']) do
+				mapArgs[i] = coordString
+				i = i + 1
+			end
+		end
+	end
+
+	return buildMap(mapArgs)
+end
+
+return p

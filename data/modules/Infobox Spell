@@ -132,12 +132,10 @@ function p.main(frame)
 		{ tag = 'argd', content = 'cost', colspan = '3' }
 	}
 	
-	if ret:paramDefined('speed') then
-		ret:addRow{
-			{ tag = 'th', content = '[[RuneScape clock#Magic|Casting speed]]', colspan = '2' },
-			{ tag = 'argd', content = 'speed', colspan = '3' }
-		}	
-	end
+	ret:addRow{
+		{ tag = 'th', content = '[[RuneScape clock#Magic|Casting speed]]', colspan = '2' },
+		{ tag = 'argd', content = 'speed', colspan = '3' }
+	}
 	
 	if ret:paramDefined('cooldown') then
 		ret:addRow{

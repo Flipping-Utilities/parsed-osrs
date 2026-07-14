@@ -1,0 +1,55 @@
+local p = {}
+
+local function extractTemplateCalls(content, templateName)
+    local results = {}
+    local searchStart = 1
+    local prefix = '{{' .. templateName
+
+    while true do
+        local matchStart = content:find(prefix, searchStart, true)
+        if not matchStart then break end
+
+        local depth = 0
+        local i = matchStart
+        while i <= #content do
+            local c = content:sub(i, i + 1)
+            if c == '{{' then
+                depth = depth + 1
+                i = i + 2
+            elseif c == '}}' then
+                depth = depth - 1
+                if depth == 0 then
+                    table.insert(results, content:sub(matchStart, i + 1))
+                    break
+                end
+                i = i + 2
+            else
+                i = i + 1
+            end
+        end
+
+        searchStart = i + 1
+    end
+
+    return results
+end
+
+function p.extractAndPreprocessTaskRows(frame)
+    local targetModule = frame.args["targetModule"] or ''
+    local targetPage = frame.args["targetPage"] or ''
+    local content = mw.title.new(targetPage):getContent()
+
+    if not content then
+        return "Page content could not be fetched."
+    end
+
+    local taskRows = {}
+    for _, taskRow in ipairs(extractTemplateCalls(content, targetModule)) do
+        local customTaskRow = taskRow:gsub(targetModule, "Template:Sandbox/User:Loaf/RELTaskRow", 1)
+        table.insert(taskRows, frame:preprocess(customTaskRow))
+    end
+
+    return frame:preprocess('{{Clear}}') .. frame:preprocess('{{Template:Sandbox/User:Loaf/RELTaskHeader}}') .. table.concat(taskRows, '')
+end
+
+return p

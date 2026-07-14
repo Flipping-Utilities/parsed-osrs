@@ -1,0 +1,1374 @@
+return {
+	{   
+    	name = 'Crude wooden chair',
+    	pic = 'Crude wooden chair icon',
+        level = 1,
+        xp = 58,
+        materials = {
+        	{ name = 'Plank', quantity = 2 },
+        	{ name = 'Steel nails', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Parlour, Popular'
+    }, {   
+    	name = 'Fern (big plant)',
+    	title = 'Fern',
+    	pic = 'Fern (big plant) icon',
+        level = 1,
+        xp = 31,
+        materials = {
+        	{ name = 'Bagged plant 1', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Short plant',
+    	pic = 'Short plant icon',
+        level = 1,
+        xp = 31,
+        materials = {
+        	{ name = 'Bagged plant 1', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Plant',
+    	pic = 'Plant icon',
+        level = 1,
+        xp = 31,
+        materials = {
+        	{ name = 'Bagged plant 1', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Dock leaf',
+    	pic = 'Dock leaf icon',
+        level = 1,
+        xp = 31,
+        materials = {
+        	{ name = 'Bagged plant 1', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Exit portal',
+    	pic = 'Exit portal icon',
+        level = 1,
+        xp = 100,
+        materials = {
+        	{ name = 'Iron bar', quantity = 10 }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Torn curtains',
+    	pic = 'Torn curtains icon',
+        level = 2,
+        xp = 132,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Bolt of cloth', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Dining room, Parlour'
+    }, {   
+    	name = 'Brown rug',
+    	pic = 'Brown rug icon',
+        level = 2,
+        xp = 30,
+        materials = {
+        	{ name = 'Bolt of cloth', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Clay fireplace',
+    	pic = 'Clay fireplace icon',
+        level = 3,
+        xp = 30,
+        materials = {
+        	{ name = 'Soft clay', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Dining room, Parlour'
+    }, {   
+    	name = 'Wooden bookcase',
+    	pic = 'Wooden bookcase icon',
+        level = 4,
+        xp = 115,
+        materials = {
+        	{ name = 'Plank', quantity = 4 },
+        	{ name = 'Steel nails', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Parlour, Popular'
+    }, {   
+    	name = 'Tree (Construction)',
+    	title = 'Tree',
+    	pic = 'Tree (Construction) icon',
+        level = 5,
+        xp = 31,
+        materials = {
+        	{ name = 'Bagged dead tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Decorative rock',
+    	pic = 'Decorative rock icon',
+        level = 5,
+        xp = 100,
+        materials = {
+        	{ name = 'Limestone brick', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Cat blanket',
+    	pic = 'Cat blanket icon',
+        level = 5,
+        xp = 15,
+        materials = {
+        	{ name = 'Bolt of cloth', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Firepit',
+    	pic = 'Firepit icon',
+        level = 5,
+        xp = 40,
+        materials = {
+        	{ name = 'Steel bar', quantity = 1 },
+        	{ name = 'Soft clay', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Bush',
+    	pic = 'Bush icon',
+        level = 6,
+        xp = 70,
+        materials = {
+        	{ name = 'Bagged plant 2', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Large leaf bush',
+    	pic = 'Large leaf bush icon',
+        level = 6,
+        xp = 70,
+        materials = {
+        	{ name = 'Bagged plant 2', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Small fern',
+    	pic = 'Small fern icon',
+        level = 6,
+        xp = 70,
+        materials = {
+        	{ name = 'Bagged plant 2', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Thistle',
+    	pic = 'Thistle icon',
+        level = 6,
+        xp = 70,
+        materials = {
+        	{ name = 'Bagged plant 2', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Wooden shelves 1',
+    	pic = 'Wooden shelves 1 icon',
+        level = 6,
+        xp = 87,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Beer barrel',
+    	pic = 'Beer barrel icon',
+        level = 7,
+        xp = 87,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Pump and drain',
+    	pic = 'Pump and drain icon',
+        level = 7,
+        xp = 100,
+        materials = {
+        	{ name = 'Steel bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Wooden chair',
+    	pic = 'Wooden chair icon',
+        level = 8,
+        xp = 87,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Wooden larder',
+    	pic = 'Wooden larder icon',
+        level = 9,
+        xp = 228,
+        materials = {
+        	{ name = 'Plank', quantity = 8 },
+        	{ name = 'Steel nails', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Nice tree',
+    	pic = 'Nice tree icon',
+        level = 10,
+        xp = 44,
+        materials = {
+        	{ name = 'Bagged nice tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Pond',
+    	pic = 'Pond icon',
+        level = 10,
+        xp = 100,
+        materials = {
+        	{ name = 'Soft clay', quantity = 10 }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Wooden bench',
+    	pic = 'Wooden bench icon',
+        level = 10,
+        xp = 115,
+        materials = {
+        	{ name = 'Plank', quantity = 4 },
+			{ name = 'Steel nails', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Wood dining table',
+    	pic = 'Wood dining table icon',
+        level = 10,
+        xp = 115,
+        materials = {
+        	{ name = 'Plank', quantity = 4 },
+			{ name = 'Steel nails', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Firepit with hook',
+    	pic = 'Firepit with hook icon',
+        level = 11,
+        xp = 60,
+        materials = {
+        	{ name = 'Steel bar', quantity = 2 },
+        	{ name = 'Soft clay', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Tall plant',
+    	pic = 'Tall plant icon',
+        level = 12,
+        xp = 100,
+        materials = {
+        	{ name = 'Bagged plant 3', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Huge plant',
+    	pic = 'Huge plant icon',
+        level = 12,
+        xp = 100,
+        materials = {
+        	{ name = 'Bagged plant 3', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Fern (small plant)',
+    	title = 'Fern',
+    	pic = 'Fern (small plant) icon',
+        level = 12,
+        xp = 100,
+        materials = {
+        	{ name = 'Bagged plant 3', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Reeds',
+    	pic = 'Reeds icon',
+        level = 12,
+        xp = 100,
+        materials = {
+        	{ name = 'Bagged plant 3', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Cider barrel',
+    	pic = 'Cider barrel icon',
+        level = 12,
+        xp = 91,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 },
+        	{ name = 'Cider', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Wooden shelves 2',
+    	pic = 'Wooden shelves 2 icon',
+        level = 12,
+        xp = 147,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Kitchen table',
+    	pic = 'Kitchen table icon',
+        level = 12,
+        xp = 87,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Rug',
+    	pic = 'Rug icon',
+        level = 13,
+        xp = 60,
+        materials = {
+        	{ name = 'Bolt of cloth', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Rocking chair',
+    	pic = 'Rocking chair icon',
+        level = 14,
+        xp = 87,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Oak tree (Construction)',
+    	title = 'Oak tree',
+    	pic = 'Oak tree icon',
+        level = 15,
+        xp = 70,
+        materials = {
+        	{ name = 'Bagged oak tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Imp statue',
+    	pic = 'Imp statue icon',
+        level = 15,
+        xp = 150,
+        materials = {
+        	{ name = 'Limestone brick', quantity = 5 },
+        	{ name = 'Soft clay', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Oak wall decoration',
+    	pic = 'Oak wall decoration icon',
+        level = 16,
+        xp = 120,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Bedroom'
+    }, {   
+    	name = 'Firepit with pot',
+    	pic = 'Firepit with pot icon',
+        level = 17,
+        xp = 80,
+        materials = {
+        	{ name = 'Steel bar', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Curtains',
+    	pic = 'Curtains icon',
+        level = 18,
+        xp = 225,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Bolt of cloth', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Dining room, Parlour'
+    }, {   
+    	name = 'Asgarnian ale (barrel)',
+    	title = 'Asgarnian ale barrel',
+    	pic = 'Asgarnian ale (barrel) icon',
+        level = 18,
+        xp = 184,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Asgarnian ale', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Oak chair',
+    	pic = 'Oak chair icon',
+        level = 19,
+        xp = 120,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Parlour, Popular'
+    }, {   
+    	name = 'Oak dining table',
+    	pic = 'Oak dining table icon',
+        level = 19,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Cat basket',
+    	pic = 'Cat basket icon',
+        level = 19,
+        xp = 58,
+        materials = {
+        	{ name = 'Plank', quantity = 2 },
+        	{ name = 'Steel nails', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Oak bench',
+    	pic = 'Oak bench icon',
+        level = 22,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Oak dining table',
+    	pic = 'Oak dining table icon',
+        level = 22,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Wooden shelves 3',
+    	pic = 'Wooden shelves 3 icon',
+        level = 23,
+        xp = 147,
+        materials = {
+        	{ name = 'Plank', quantity = 3 },
+        	{ name = 'Steel nails', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Small oven',
+    	pic = 'Small oven icon',
+        level = 24,
+        xp = 80,
+        materials = {
+        	{ name = 'Steel bar', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Oak armchair',
+    	pic = 'Oak armchair icon',
+        level = 26,
+        xp = 180,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Greenman\'s ale (barrel)',
+    	title = 'Greenman\'s ale barrel',
+    	pic = 'Greenman\'s ale (barrel) icon',
+        level = 26,
+        xp = 184,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Greenman\'s ale', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Rope bell-pull',
+    	pic = 'Rope bell-pull icon',
+        level = 26,
+        xp = 64,
+        materials = {
+        	{ name = 'Oak plank', quantity = 1 },
+        	{ name = 'Rope', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Pump and tub',
+    	pic = 'Pump and tub icon',
+        level = 27,
+        xp = 200,
+        materials = {
+        	{ name = 'Steel bar', quantity = 10 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Cw armour 1',
+    	pic = 'Cw armour 1 icon',
+        level = 28,
+        xp = 135,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 },
+        	{ name = 'Decorative helm (red)', title = 'Decorative helm', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Decorative armour (red platebody)', title = 'Decorative armour', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Decorative shield (red)', title = 'Decorative shield', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Cw armour 2',
+    	pic = 'Cw armour 2 icon',
+        level = 28,
+        xp = 150,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 },
+        	{ name = 'Decorative helm (white)', title = 'Decorative helm', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Decorative armour (white platebody)', title = 'Decorative armour', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Decorative shield (white)', title = 'Decorative shield', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Cw armour 3',
+    	pic = 'Cw armour 3 icon',
+        level = 28,
+        xp = 165,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 },
+        	{ name = 'Decorative helm (gold)', title = 'Decorative helm', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Decorative armour (gold platebody)', title = 'Decorative armour', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Decorative shield (gold)', title = 'Decorative shield', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Mithril armour (Construction)',
+    	title = 'Mithril armour',
+    	pic = 'Mithril armour (Construction) icon',
+        level = 28,
+        xp = 135,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 },
+        	{ name = 'Mithril full helm', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Mithril platebody', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Mithril plateskirt', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Adamantite armour (Construction)',
+    	title = 'Adamantite armour',
+    	pic = 'Adamantite armour (Construction) icon',
+        level = 28,
+        xp = 150,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 },
+        	{ name = 'Adamant full helm', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Adamant platebody', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Adamant plateskirt', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Runite armour (Construction)',
+    	title = 'Runite armour',
+    	pic = 'Runite armour (Construction) icon',
+        level = 28,
+        xp = 165,
+        materials = {
+        	{ name = 'Oak plank', quantity = 2 },
+        	{ name = 'Rune full helm', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Rune platebody', quantity = 1, onlyone = 'yes' },
+        	{ name = 'Rune plateskirt', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Oak bookcase',
+    	pic = 'Oak bookcase icon',
+        level = 29,
+        xp = 180,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Large oven',
+    	pic = 'Large oven icon',
+        level = 29,
+        xp = 100,
+        materials = {
+        	{ name = 'Steel bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Curved bone',
+        level = 30,
+        xp = 6750,
+        materials = {
+        	{ name = 'Curved bone', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Other'
+    }, {   
+    	name = 'Long bone',
+        level = 30,
+        xp = 4500,
+        materials = {
+        	{ name = 'Long bone', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Other'
+    }, {   
+    	name = 'Willow tree (Construction)',
+    	title = 'Willow tree',
+    	pic = 'Willow tree (Construction) icon',
+        level = 30,
+        xp = 100,
+        materials = {
+        	{ name = 'Bagged willow tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Carved oak bench',
+    	pic = 'Carved oak bench icon',
+        level = 31,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Carved oak table',
+    	pic = 'Carved oak table icon',
+        level = 31,
+        xp = 360,
+        materials = {
+        	{ name = 'Oak plank', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Oak kitchen table',
+    	pic = 'Oak kitchen table icon',
+        level = 32,
+        xp = 180,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Oak larder',
+    	pic = 'Oak larder icon',
+        level = 33,
+        xp = 480,
+        materials = {
+        	{ name = 'Oak plank', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Parlour, Popular'
+    }, {   
+    	name = 'Stone fireplace',
+    	pic = 'Stone fireplace icon',
+        level = 33,
+        xp = 40,
+        materials = {
+        	{ name = 'Limestone brick', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Dining room, Parlour'
+    }, {   
+    	name = 'Cushioned basket',
+    	pic = 'Cushioned basket icon',
+        level = 33,
+        xp = 58,
+        materials = {
+        	{ name = 'Plank', quantity = 2 },
+        	{ name = 'Steel nails', quantity = 2 },
+        	{ name = 'Wool', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Oak shelves 1',
+    	pic = 'Oak shelves 1 icon',
+        level = 34,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Steel range',
+    	pic = 'Steel range icon',
+        level = 34,
+        xp = 120,
+        materials = {
+        	{ name = 'Steel bar', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Teak armchair',
+    	pic = 'Teak armchair icon',
+        level = 35,
+        xp = 180,
+        materials = {
+        	{ name = 'Teak plank', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Dragon bitter (barrel)',
+    	title = 'Dragon bitter barrel',
+    	pic = 'Dragon bitter (barrel) icon',
+        level = 36,
+        xp = 224,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Steel bar', quantity = 2 },
+        	{ name = 'Dragon bitter', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Teak wall decoration',
+    	pic = 'Teak wall decoration icon',
+        level = 36,
+        xp = 180,
+        materials = {
+        	{ name = 'Teak plank', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Bedroom'
+    }, {   
+    	name = 'Bell-pull',
+    	pic = 'Bell-pull icon',
+        level = 37,
+        xp = 120,
+        materials = {
+        	{ name = 'Teak plank', quantity = 1 },
+        	{ name = 'Bolt of cloth', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Teak dining bench',
+    	pic = 'Teak dining bench icon',
+        level = 38,
+        xp = 360,
+        materials = {
+        	{ name = 'Teak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Teak table',
+    	pic = 'Teak table icon',
+        level = 38,
+        xp = 360,
+        materials = {
+        	{ name = 'Teak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Crawling hand (mounted)',
+    	title = 'Crawling hand',
+    	pic = 'Crawling hand (mounted) icon',
+        level = 38,
+        xp = 211,
+        materials = {
+        	{ name = 'Teak plank', quantity = 2 },
+        	{ name = 'Stuffed crawling hand', quantity = 1, cost = 1000 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Cockatrice head (mounted)',
+    	title = 'Cockatrice',
+    	pic = 'Cockatrice head (mounted) icon',
+        level = 38,
+        xp = 224,
+        materials = {
+        	{ name = 'Teak plank', quantity = 2 },
+        	{ name = 'Stuffed cockatrice head', quantity = 1, cost = 2000 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Basilisk head (mounted)',
+    	title = 'Basilisk',
+    	pic = 'Basilisk head (mounted) icon',
+        level = 38,
+        xp = 243,
+        materials = {
+        	{ name = 'Teak plank', quantity = 2 },
+        	{ name = 'Stuffed basilisk head', quantity = 1, cost = 4000 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Tip jar',
+    	pic = 'Tip jar icon',
+        level = 40,
+        xp = 651,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Molten glass', quantity = 1 },
+        	{ name = 'Gold leaf', quantity = 1 },
+        	{ name = 'Platinum token', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Formal garden, Garden'
+    }, {   
+    	name = 'Mahogany bookcase',
+    	pic = 'Mahogany bookcase icon',
+        level = 40,
+        xp = 420,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Opulent curtains',
+    	pic = 'Opulent curtains icon',
+        level = 40,
+        xp = 315,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 },
+        	{ name = 'Bolt of cloth', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Dining room, Parlour'
+    }, {   
+    	name = 'Fancy range',
+    	pic = 'Fancy range icon',
+        level = 42,
+        xp = 160,
+        materials = {
+        	{ name = 'Steel bar', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Teak larder',
+    	pic = 'Teak larder icon',
+        level = 43,
+        xp = 750,
+        materials = {
+        	{ name = 'Teak plank', quantity = 8 },
+        	{ name = 'Bolt of cloth', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Carved teak bench',
+    	pic = 'Carved teak bench icon',
+        level = 44,
+        xp = 360,
+        materials = {
+        	{ name = 'Teak plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Maple tree (Construction)',
+    	title = 'Maple tree',
+    	pic = 'Maple tree (Construction) icon',
+        level = 45,
+        xp = 122,
+        materials = {
+        	{ name = 'Bagged maple tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Oak shelves 2',
+    	pic = 'Oak shelves 2 icon',
+        level = 45,
+        xp = 240,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Carved teak table',
+    	pic = 'Carved teak table icon',
+        level = 45,
+        xp = 600,
+        materials = {
+        	{ name = 'Teak plank', quantity = 6 },
+			{ name = 'Bolt of cloth', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Mythical cape (mounted)',
+    	title = 'Mythical cape',
+    	pic = 'Mythical cape (mounted) icon',
+        level = 47,
+        xp = 370,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 },
+        	{ name = 'Mythical cape', quantity = 1, cost = 10000, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Sink',
+    	pic = 'Sink icon',
+        level = 47,
+        xp = 300,
+        materials = {
+        	{ name = 'Steel bar', quantity = 15 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Chef\'s delight (barrel)',
+    	title = 'Chef\'s delight barrel',
+    	pic = 'Chef\'s delight (barrel) icon',
+        level = 48,
+        xp = 224,
+        materials = {
+        	{ name = 'Oak plank', quantity = 3 },
+        	{ name = 'Steel bar', quantity = 2 },
+        	{ name = 'Chef\'s delight', quantity = 8 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Mahogany armchair',
+    	pic = 'Mahogany armchair icon',
+        level = 50,
+        xp = 280,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Mahogany table',
+    	pic = 'Mahogany table icon',
+        level = 52,
+        xp = 840,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Teak kitchen table',
+    	pic = 'Teak kitchen table icon',
+        level = 52,
+        xp = 270,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Mahogany bench',
+    	pic = 'Mahogany bench icon',
+        level = 52,
+        xp = 560,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Mahogany table',
+    	pic = 'Mahogany table icon',
+        level = 52,
+        xp = 840,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Teak shelves 1',
+    	pic = 'Teak shelves 1 icon',
+        level = 56,
+        xp = 330,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Gilded decoration',
+    	pic = 'Gilded decoration icon',
+        level = 56,
+        xp = 1020,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 3 },
+			{ name = 'Gold leaf', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Kurask head (mounted)',
+    	title = 'Kurask',
+    	pic = 'Kurask head (mounted) icon',
+        level = 58,
+        xp = 357,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Stuffed kurask head', quantity = 1, cost = 6000 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Abyssal demon head (mounted)',
+    	title = 'Abyssal demon',
+    	pic = 'Abyssal demon head (mounted) icon',
+        level = 58,
+        xp = 389,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Stuffed abyssal head', quantity = 1, cost = 12000 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Yew tree (Construction)',
+    	title = 'Yew tree',
+    	pic = 'Yew tree (Construction) icon',
+        level = 60,
+        xp = 141,
+        materials = {
+        	{ name = 'Bagged yew tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Spice rack',
+    	pic = 'Spice rack icon',
+        level = 60,
+        xp = 374,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 },
+        	{ name = 'Brown spice (4)', quantity = 1 },
+        	{ name = 'Orange spice (4)', quantity = 1 },
+        	{ name = 'Red spice (4)', quantity = 1 },
+        	{ name = 'Yellow spice (4)', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Posh bell-pull',
+    	pic = 'Posh bell-pull icon',
+        level = 60,
+        xp = 420,
+        materials = {
+        	{ name = 'Teak plank', quantity = 1 },
+        	{ name = 'Bolt of cloth', quantity = 2 },
+        	{ name = 'Gold leaf', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Gilded bench',
+    	pic = 'Gilded bench icon',
+        level = 61,
+        xp = 1760,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 4 },
+			{ name = 'Gold leaf', quantity = 4 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Marble fireplace',
+    	pic = 'Marble fireplace icon',
+        level = 63,
+        xp = 500,
+        materials = {
+        	{ name = 'Marble block', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Dining room, Parlour'
+    }, {   
+    	name = 'Opulent rug',
+    	pic = 'Opulent rug icon',
+        level = 65,
+        xp = 360,
+        materials = {
+        	{ name = 'Bolt of cloth', quantity = 4 },
+        	{ name = 'Gold leaf', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Parlour'
+    }, {   
+    	name = 'Teak garden bench',
+    	pic = 'Teak garden bench icon',
+        level = 66,
+        xp = 540,
+        materials = {
+        	{ name = 'Teak plank', quantity = 6 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Teak shelves 2',
+    	pic = 'Teak shelves 2 icon',
+        level = 67,
+        xp = 930,
+        materials = {
+        	{ name = 'Teak plank', quantity = 3 },
+        	{ name = 'Soft clay', quantity = 6 },
+        	{ name = 'Gold leaf', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Kitchen'
+    }, {   
+    	name = 'Dungeon entrance',
+    	pic = 'Dungeon entrance icon',
+        level = 70,
+        xp = 500,
+        materials = {
+        	{ name = 'Marble block', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Opulent table',
+    	pic = 'Opulent table icon',
+        level = 72,
+        xp = 3100,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 6 },
+			{ name = 'Bolt of cloth', quantity = 4 },
+			{ name = 'Gold leaf', quantity = 4 },
+			{ name = 'Marble block', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Dining room'
+    }, {   
+    	name = 'Oak door',
+    	pic = 'Oak door icon',
+        level = 74,
+        xp = 600,
+        materials = {
+        	{ name = 'Oak plank', quantity = 10 }
+        },
+        members = 'Yes',
+        type = 'Popular'
+    }, {   
+    	name = 'Magic tree (Construction)',
+    	title = 'Magic tree',
+    	pic = 'Magic tree (Construction) icon',
+        level = 75,
+        xp = 223,
+        materials = {
+        	{ name = 'Bagged magic tree', quantity = 1 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Garden'
+    }, {   
+    	name = 'Kbd head (mounted)',
+    	title = 'King Black Dragon',
+    	pic = 'Kbd head (mounted) icon',
+        level = 78,
+        xp = 1103,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Stuffed kbd heads', quantity = 1, cost = 50000 },
+        	{ name = 'Gold leaf', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Kalphite Queen head (mounted)',
+    	title = 'Kalphite Queen',
+    	pic = 'Kalphite Queen head (mounted) icon',
+        level = 78,
+        xp = 1103,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Stuffed kq head', quantity = 1, cost = 50000 },
+        	{ name = 'Gold leaf', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Mounted coins',
+    	pic = 'Mounted coins icon',
+        level = 80,
+        xp = 800,
+        materials = {
+        	{ name = 'Marble block', quantity = 1 },
+        	{ name = 'Gold leaf', quantity = 1 },
+        	{ name = 'Coins', quantity = 100000000, cost = 1 }
+        },
+        members = 'Yes',
+        type = 'Achievement gallery'
+    }, {   
+    	name = 'Vorkath\'s head (mounted)',
+    	title = 'Vorkath',
+    	pic = 'Vorkath\'s head (mounted) icon',
+        level = 82,
+        xp = 1103,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Vorkath\'s stuffed head', quantity = 1, cost = 50000 },
+        	{ name = 'Gold leaf', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Alchemical hydra heads (mounted)',
+    	title = 'Alchemical Hydra',
+    	pic = 'Alchemical hydra heads (mounted) icon',
+        level = 82,
+        xp = 1103,
+        materials = {
+        	{ name = 'Mahogany plank', quantity = 2 },
+        	{ name = 'Stuffed hydra heads', quantity = 1, cost = 50000 },
+        	{ name = 'Gold leaf', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Skill hall'
+    }, {   
+    	name = 'Volcanic theme',
+    	pic = 'Volcanic theme icon',
+        level = 85,
+        xp = 4464,
+        materials = {
+        	{ name = 'Granite (5kg)', quantity = 2 },
+        	{ name = 'Onyx', quantity = 6 },
+        	{ name = 'Fire rune', quantity = 1000 },
+        	{ name = 'Lava rune', quantity = 2000 },
+        	{ name = 'Watering can', title = 'Watering can', quantity = 1, onlyone = 'yes' }
+        },
+        members = 'Yes',
+        type = 'Superior garden'
+    }, {   
+    	name = 'Obsidian decorative bench',
+    	pic = 'Obsidian decorative bench icon',
+        level = 98,
+        xp = 2331,
+        materials = {
+        	{ name = 'Marble block', quantity = 3 },
+        	{ name = 'Onyx', quantity = 1 },
+        	{ name = 'Fire rune', quantity = 250 },
+        	{ name = 'Lava rune', quantity = 500 }
+        },
+        members = 'Yes',
+        type = 'Superior garden'
+    }, {   
+    	name = 'Demonic throne',
+    	pic = 'Demonic throne icon',
+        level = 99,
+        xp = 25000,
+        materials = {
+        	{ name = 'Magic stone', quantity = 25 }
+        },
+        members = 'Yes',
+        type = 'Throne room'
+    }
+}

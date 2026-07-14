@@ -1,0 +1,14 @@
+local p = {}
+
+function p.main(frame)
+    local args = frame:getParent().args
+
+    local result = ''
+    for arg_name, arg_val in ipairs(args) do
+        result = result..arg_name..' '..arg_val..'\n'
+    end
+    
+    return result
+end
+
+return p

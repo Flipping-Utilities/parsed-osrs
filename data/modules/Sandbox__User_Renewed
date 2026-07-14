@@ -1,0 +1,86 @@
+-- <pre>
+local p = {}
+
+local hasc = require('Module:Paramtest').has_content
+
+function formatAmount(_x)
+	local x = tonumber(_x) or 1
+	if x < 10000 then
+		return x, 'qty-1'
+	elseif x < 10000000 then
+		return tostring(math.floor(x/1000))..'K', 'qty-100k'
+	else
+		return tostring(math.floor(x/1000000))..'M', 'qty-10m'
+	end
+end
+
+function p.main(frame)
+	local bgType = frame.args.bgType
+ 	    bgType = "menagerie"
+	
+	local args = frame:getParent().args
+	local items = {}
+	for i=1,24 do
+		local v = mw.text.trim(args[i] or '')
+		local item_x
+		local amt_x = 1
+		local note_x = false
+		if hasc(v) then
+			v = v:gsub('[][]','')
+			amt_x = tonumber(v:match('\\(%d+)')) or 1
+			note_x = v:match(';n') == ';n'
+			local v2 = mw.text.split(v,'[;\\]')
+			item_x = v2[1]
+		end
+		table.insert(items,{item=item_x,amt=amt_x,isnoted=note_x})
+	end
+	local align = args.align
+	local acss
+	if hasc(align) then
+		align = align:lower()
+		if align == 'right' then
+			acss = "float:right;margin-left:7px;clear:right"
+		elseif align == 'left' then
+			acss = "float:left;margin-right:7px;clear:left"
+		elseif align == 'center' then
+			acss = 'margin:0 auto'
+		end
+	end
+	return p._main(items,acss, bgType)
+end
+
+function p._main(items,acss,bgType)
+	local className = bgType .. "table"
+	local ret = mw.html.create('table')
+				:addClass(className)
+				:cssText(acss or '')
+
+	local item = 0
+	for i=1,4 do
+		local ret_row = ret:tag('tr')
+		for j=1,6 do
+			item = item + 1
+			local itemx = items[item].item
+			local amtx = items[item].amt
+			local amtx_f, amtx_c = formatAmount(amtx)
+			local notex = items[item].isnoted
+			local td = ret_row:tag('td')
+			if hasc(itemx) then
+				td:wikitext(string.format('[[File:%s.png|link=%s|32x32px|frameless]]', itemx, itemx))
+				if notex then
+					td:addClass('noted-item')
+				end
+				if amtx > 1 or notex then
+					td:tag('span')
+						:addClass('inv-quantity-text')
+						:addClass(amtx_c)
+						:wikitext(amtx_f)
+				end
+			end
+		end
+	end
+
+	return ret
+end
+
+return p

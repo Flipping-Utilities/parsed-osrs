@@ -1,0 +1,258 @@
+--
+-- Invoked by User:Wroometh/Sandbox2
+--
+local p = {}
+local addCommas = require('Module:Addcommas')._add
+local paramTest = require( 'Module:Paramtest' )
+local skillPic = require('Module:SCP')._main
+local yesNo = require('Module:Yesno')
+	
+function p.invoke_main(frame)
+	return p.main(frame:getParent().args)
+end
+
+function p.main(args)
+	local miningLevel, varrockBody, celestialRing, celestialRingCharged, miningCape, prosHat, prosTop, prosLegs, prosBoots, pickaxe, useSandstorm, dropOne, dropTwo, dropFive, invSpace = paramTest.defaults{
+		{ tonumber(args.miningLevel), 1 },
+		{ args.varrockBody, 'no' },
+		{ args.celestialRing, 'no' },
+		{ args.celestialRingCharged, 'no' },
+		{ args.miningCape, 'no'},
+		{ args.prosHat, 'no' },
+		{ args.prosTop, 'no' },
+		{ args.prosLegs, 'no' },
+		{ args.prosBoots, 'no' },
+		{ args.pickaxe, 'Dragon'},
+		{ args.useSandstorm, 'no'},
+		{ args.dropOne, 'no'},
+		{ args.dropTwo, 'no'},
+		{ args.dropFive, 'no'},
+		{ tonumber(args.invSpace), 1 }
+	}
+	varrockBody = yesNo(varrockBody)
+	celestialRing = yesNo(celestialRing)
+	celestialRingCharged = yesNo(celestialRingCharged)
+	miningCape = yesNo(miningCape)
+	prosHat = yesNo(prosHat)
+	prosTop = yesNo(prosTop)
+	prosLegs = yesNo(prosLegs)
+	prosBoots = yesNo(prosBoots)
+	useSandstorm = yesNo(useSandstorm)
+	dropOne = yesNo(dropOne)
+	dropTwo = yesNo(dropTwo)
+	dropFive = yesNo(dropFive)
+	
+	local miningSpeedOptions = {
+		['Three tick'] = 2,
+		['Bronze'] = 8,
+		['Iron'] = 7,
+		['Steel'] = 6,
+		['Mithril'] = 5,
+		['Adamant'] = 4,
+		['Rune'] = 3,
+		['Dragon'] = 2.83,
+		['Crystal'] = 2.75
+	}
+	local miningSpeed = miningSpeedOptions[pickaxe]
+	if(celestialRing) then
+			miningLevel = miningLevel + 4
+	end
+	local miningBonus = 0
+		if(prosHat and prosTop and prosLegs and prosBoots) then
+		miningBonus = miningBonus + .025
+	else
+		miningBonus = prosHat and miningBonus + .004 or miningBonus;
+		miningBonus = prosTop and miningBonus + .008 or miningBonus;
+		miningBonus = prosLegs and miningBonus + .006 or miningBonus;
+		miningBonus = prosBoots and miningBonus + .002 or miningBonus;
+	end
+	local miningEnhancers = 0
+		miningEnhancers = varrockBody and miningEnhancers + .1 or miningEnhancers;
+		miningEnhancers = celestialRingCharged and miningEnhancers + .1 or miningEnhancers;
+		miningEnhancers = miningCape and miningEnhancers + .05 or miningEnhancers;
+
+	local offset = 0
+	local chanceTenKilo = chanceToMine(miningLevel, 4, 50, offset)
+		offset = chanceTenKilo
+	local chanceFiveKilo = chanceToMine(miningLevel, 8, 75, offset)
+		offset = offset + chanceFiveKilo
+	local chanceTwoKilo = chanceToMine(miningLevel, 16, 100, offset)
+		offset = offset + chanceTwoKilo
+	local chanceOneKilo = chanceToMine(miningLevel, 25, 200, offset)
+		offset = offset + chanceOneKilo
+
+	return p._calculateSandPerHour(miningLevel, miningEnhancers, miningBonus, miningSpeed, useSandstorm, dropOne, dropTwo, dropFive, chanceTenKilo, chanceFiveKilo, chanceTwoKilo, chanceOneKilo, invSpace, offset)
+end
+
+function p._calculateSandPerHour(miningLevel, miningEnhancers, miningBonus, miningSpeed, useSandstorm, dropOne, dropTwo, dropFive, chanceTenKilo, chanceFiveKilo, chanceTwoKilo, chanceOneKilo, invSpace, offset)
+	local oneKiloSandstorm = 0
+	local twoKiloSandstorm = 0
+	local fiveKiloSandstorm = 0
+	local tenKiloSandstorm = 0
+	local attemptsPerHour = calcAttemptsPerHour(miningSpeed)
+		local totalTenKilo = calcTenKilo(attemptsPerHour, chanceTenKilo, miningEnhancers)
+		local totalFiveKilo = calcFiveKilo(attemptsPerHour, chanceFiveKilo, miningEnhancers)
+		local totalTwoKilo = calcTwoKilo(attemptsPerHour, chanceTwoKilo, miningEnhancers)
+		local totalOneKilo = calcOneKilo(attemptsPerHour, chanceOneKilo, miningEnhancers)
+	--dbug--
+	local fillTen = chanceTenKilo * (1 + miningEnhancers)
+	local fillFive = chanceFiveKilo * (1 + miningEnhancers)
+	local fillTwo = chanceTwoKilo * (1 + miningEnhancers)
+	local fillOne = chanceOneKilo * (1 + miningEnhancers)
+	local fullInvTime = 0
+	local avgTenKilo = invSpace / (1 + fillTen)
+	local avgFiveKilo = invSpace / (1 + fillFive)
+	local avgTwoKilo = invSpace / (1 + fillTwo)
+	local avgOneKilo = invSpace / (1 + fillOne)
+	--need real formula for how attempts decrease with more trips to sandstorm (9 seconds per trip), fullInvTime should be in seconds aswell
+	--also if there is a tidier way to null oneKiloSandstorm, etc. when the drop args are true thats be nice
+	if(useSandstorm) then
+		fullInvTime = timeTillInvFull(attemptsPerHour, miningEnhancers, dropOne, dropTwo, dropFive, chanceTenKilo, chanceFiveKilo, chanceTwoKilo, chanceOneKilo, invSpace)
+		attemptsPerHourStorm = math.floor(attemptsPerHour - (fullInvTime * 9))
+		totalTenKilo = calcTenKilo(attemptsPerHourStorm, chanceTenKilo, miningEnhancers)
+		totalFiveKilo = calcFiveKilo(attemptsPerHourStorm, chanceFiveKilo, miningEnhancers)
+		totalTwoKilo = calcTwoKilo(attemptsPerHourStorm, chanceTwoKilo, miningEnhancers)
+		totalOneKilo = calcOneKilo(attemptsPerHourStorm, chanceOneKilo, miningEnhancers)
+		oneKiloSandstorm = totalOneKilo 
+		twoKiloSandstorm = 2 * totalTwoKilo
+		fiveKiloSandstorm = 4 * totalFiveKilo
+		tenKiloSandstorm = 8 * totalTenKilo
+	end
+	if(dropOne) then
+		oneKiloSandstorm = 0
+	end
+	if(dropTwo) then
+		twoKiloSandstorm = 0
+	end
+	if(dropFive) then
+		fiveKiloSandstorm = 0
+	end
+	local tenKiloMiningExp = miningBonus > 0 and math.floor(totalTenKilo * 60 * (1 + miningBonus)) or totalTenKilo * 60;
+	local fiveKiloMiningExp = miningBonus > 0 and math.floor(totalFiveKilo * 50 * (1 + miningBonus)) or totalFiveKilo * 50;
+	local twoKiloMiningExp = miningBonus > 0 and math.floor(totalTwoKilo * 40 * (1 + miningBonus)) or totalTwoKilo * 40;
+	local oneKiloMiningExp = miningBonus > 0 and math.floor(totalOneKilo * 30 * (1 + miningBonus)) or totalOneKilo * 30;
+	
+	local f = string.format
+	local ret = {'{| class="wikitable"'}
+	table.insert(ret, '|-' )
+	table.insert(ret, '!colspan="2"|Standstone')
+	table.insert(ret, '!% of mine')
+	table.insert(ret, '!# mined/hr')
+	table.insert(ret, f('!%s Exp/hr', skillPic('Mining')))
+	table.insert(ret, '!Sand/hr')
+	table.insert(ret, '!Dbug')
+	table.insert(ret, '|-')
+	table.insert(ret, '|[[File:Sandstone (10kg).png]]')
+	table.insert(ret, '|[[Sandstone (10kg)]]')
+	table.insert(ret, f('|%.2f %%', chanceTenKilo * 100))
+	table.insert(ret, f('|%s', addCommas(totalTenKilo)))
+	table.insert(ret, f('|%s', addCommas(tenKiloMiningExp)))
+	table.insert(ret, f('|%s', addCommas(tenKiloSandstorm)))
+		table.insert(ret, f('|%s', addCommas(avgTenKilo)))
+	table.insert(ret, '|-')
+	table.insert(ret, '|[[File:Sandstone (5kg).png]]')
+	table.insert(ret, '|[[Sandstone (5kg)]]')
+	table.insert(ret, f('|%.2f %%', chanceFiveKilo * 100))
+	table.insert(ret, f('|%s', addCommas(totalFiveKilo)))
+	table.insert(ret, f('|%s', addCommas(fiveKiloMiningExp)))
+	table.insert(ret, f('|%s', addCommas(fiveKiloSandstorm)))
+		table.insert(ret, f('|%s', addCommas(avgFiveKilo)))
+	table.insert(ret, '|-')
+	table.insert(ret, '|[[File:Sandstone (2kg).png]]')
+	table.insert(ret, '|[[Sandstone (2kg)]]')
+	table.insert(ret, f('|%.2f %%', chanceTwoKilo * 100))
+	table.insert(ret, f('|%s', addCommas(totalTwoKilo)))
+	table.insert(ret, f('|%s', addCommas(twoKiloMiningExp)))
+	table.insert(ret, f('|%s', addCommas(twoKiloSandstorm)))
+		table.insert(ret, f('|%s', addCommas(avgTwoKilo)))
+	table.insert(ret, '|-')
+	table.insert(ret, '|[[File:Sandstone (1kg).png]]')
+	table.insert(ret, '|[[Sandstone (1kg)]]')
+	table.insert(ret, f('|%.2f %%', chanceOneKilo * 100))
+	table.insert(ret, f('|%s', addCommas(totalOneKilo)))
+	table.insert(ret, f('|%s', addCommas(oneKiloMiningExp)))
+	table.insert(ret, f('|%s', addCommas(oneKiloSandstorm)))
+		table.insert(ret, f('|%s', addCommas(avgOneKilo)))
+	table.insert(ret, '|-')
+	table.insert(ret, '!colspan="2"|Totals')
+	table.insert(ret, f('|%.2f %%', (chanceTenKilo + chanceFiveKilo + chanceTwoKilo + chanceOneKilo) * 100))
+	table.insert(ret, f('|%s', addCommas(totalTenKilo + totalFiveKilo + totalTwoKilo + totalOneKilo)))
+	table.insert(ret, f('|%s', addCommas(tenKiloMiningExp + fiveKiloMiningExp + twoKiloMiningExp + oneKiloMiningExp)))
+	table.insert(ret, f('|%s', addCommas(tenKiloSandstorm + fiveKiloSandstorm + twoKiloSandstorm + oneKiloSandstorm)))
+		table.insert(ret, f('|%s', addCommas(fullInvTime)))
+			table.insert(ret, f('|%s', addCommas(offset)))
+	table.insert(ret, '|}')
+	return table.concat(ret, "\n")
+end
+
+	--placeholder values for threetick--
+function calcAttemptsPerHour(miningSpeed)
+	if(miningSpeed == 2) then
+		local attemptsPerHour = 2000
+		return attemptsPerHour
+	else
+		local attemptsPerHour = math.floor(3600 / ((miningSpeed * 0.6)+1.2))
+		return attemptsPerHour
+	end
+end
+
+	--needs real math, not exactly sure how this would be done. dropping more rocks should lead to larger values for fullinvtime, 
+	--since you stay at rock longer. should account for time spent mining all types of rock still, though maybe that is accounted for in fillTen?
+	--since the chaneTenKilo essentially acts as if that is all that is recieved from the rock, while every other outcome is not filling the inventory
+function timeTillInvFull(attemptsPerHour, miningEnhancers, dropOne, dropTwo, dropFive, chanceTenKilo, chanceFiveKilo, chanceTwoKilo, chanceOneKilo, invSpace)
+	local fullInvTime = 0
+	local totalTenKilo = calcTenKilo(attemptsPerHour, chanceTenKilo, miningEnhancers)
+	local totalFiveKilo = calcFiveKilo(attemptsPerHour, chanceFiveKilo, miningEnhancers)
+	local totalTwoKilo = calcTwoKilo(attemptsPerHour, chanceTwoKilo, miningEnhancers)
+	local totalOneKilo = calcOneKilo(attemptsPerHour, chanceOneKilo, miningEnhancers)
+	local fillTen = chanceTenKilo * (1 + miningEnhancers)
+	local fillFive = chanceFiveKilo * (1 + miningEnhancers)
+	local fillTwo = chanceTwoKilo * (1 + miningEnhancers)
+	local fillOne = chanceOneKilo * (1 + miningEnhancers)
+	local avgTenKilo = invSpace / (1 + fillTen)
+	local avgFiveKilo = invSpace / (1 + fillFive)
+	local avgTwoKilo = invSpace / (1 + fillTwo)
+	local avgOneKilo = invSpace / (1 + fillOne)
+	if(dropOne) and (dropTwo) and (dropFive)  then
+			fullInvTime = (avgTenKilo) / attemptsPerHour
+		elseif(dropOne) and (dropTwo) then
+			fullInvTime = (avgTenKilo + avgFiveKilo) / attemptsPerHour
+		elseif(dropOne) and (dropFive) then
+			fullInvTime = (avgTenKilo + avgTwoKilo) / attemptsPerHour
+		elseif(dropFive) and (dropTwo) then
+			fullInvTime = (avgTenKilo + avgOneKilo) / attemptsPerHour
+		elseif(dropOne) then
+			fullInvTime = (avgTenKilo + avgFiveKilo + avgTwoKilo) / attemptsPerHour
+		elseif(dropTwo) then
+			fullInvTime = (avgTenKilo + avgFiveKilo + avgOneKilo) / attemptsPerHour
+		elseif(dropFive) then
+			fullInvTime = (avgTenKilo + avgTwoKilo + avgOneKilo) / attemptsPerHour
+		else
+			fullInvTime = (avgTenKilo + avgFiveKilo + avgTwoKilo + avgOneKilo) / attemptsPerHour
+	end
+	return fullInvTime
+end
+
+function calcTenKilo(attemptsPerHour, chanceTenKilo, miningEnhancers)
+	local totalTenKilo = math.floor((attemptsPerHour) * (chanceTenKilo * (1 + miningEnhancers)))
+	return totalTenKilo
+end
+function calcFiveKilo(attemptsPerHour, chanceFiveKilo, miningEnhancers)
+	local totalFiveKilo = math.floor((attemptsPerHour) * (chanceFiveKilo * (1 + miningEnhancers)))
+	return totalFiveKilo
+end
+function calcTwoKilo(attemptsPerHour, chanceTwoKilo, miningEnhancers)
+	local totalTwoKilo = math.floor((attemptsPerHour) * (chanceTwoKilo * (1 + miningEnhancers)))
+	return totalTwoKilo
+end
+function calcOneKilo(attemptsPerHour, chanceOneKilo, miningEnhancers)
+	local totalOneKilo = math.floor((attemptsPerHour) * (chanceOneKilo * (1 + miningEnhancers)))
+	return totalOneKilo
+end
+	
+function chanceToMine(miningLevel, low, high, offset)
+	local value = math.floor((low*(99-miningLevel)/98 + high*(miningLevel-1)/98 + 0.5) + 1)
+	return math.min(math.max(value / 256, 0), 1) * (1-offset)
+end
+
+return p

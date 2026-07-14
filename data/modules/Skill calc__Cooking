@@ -479,6 +479,16 @@ return {
         members = 'Yes',
         type = 'Meat'
     }, {   
+    	name = 'Red crab meat',
+        level = 21,
+        xp = 85,
+        materials = {
+        	{ name = 'Raw red crab meat', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
     	name = 'Fat snail meat',
         level = 22,
         xp = 95,
@@ -1145,6 +1155,16 @@ return {
         members = 'Yes',
         type = 'Vegetable'
     }, {   
+    	name = 'Blue crab meat',
+        level = 48,
+        xp = 145,
+        materials = {
+        	{ name = 'Raw blue crab meat', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
     	name = 'Cheese',
         level = 48,
         xp = 64,
@@ -1284,6 +1304,16 @@ return {
         steps = 1,
         members = 'No',
         type = 'Baked'
+    }, {   
+    	name = 'Swordtip squid',
+        level = 56,
+        xp = 150,
+        materials = {
+        	{ name = 'Raw swordtip squid', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
     }, {   
     	name = 'Mushroom & onion',
         level = 57,
@@ -1457,6 +1487,16 @@ return {
         members = 'Yes',
         type = 'Vegetable'
     }, {   
+    	name = 'Giant krill',
+        level = 69,
+        xp = 177.5,
+        materials = {
+        	{ name = 'Raw giant krill', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
     	name = 'Admiral pie',
     	subtxt = 'pre-made pie',
         level = 70,
@@ -1467,6 +1507,16 @@ return {
         steps = 1,
         members = 'Yes',
         type = 'Baked'
+    }, {   
+    	name = 'Jumbo squid',
+        level = 71,
+        xp = 180,
+        materials = {
+        	{ name = 'Raw jumbo squid', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
     }, {   
     	name = 'Sacred eel',
         level = 72,
@@ -1489,6 +1539,36 @@ return {
         members = 'Yes',
         type = 'Baked'
     }, {   
+    	name = 'Haddock',
+        level = 73,
+        xp = 180,
+        materials = {
+        	{ name = 'Raw haddock', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
+    	name = 'Rainbow crab meat',
+        level = 77,
+        xp = 200,
+        materials = {
+        	{ name = 'Raw rainbow crab meat', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
+    	name = 'Yellowfin',
+        level = 79,
+        xp = 200,
+        materials = {
+        	{ name = 'Raw yellowfin', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
     	name = 'Shark',
         level = 80,
         xp = 210,
@@ -1504,6 +1584,16 @@ return {
         xp = 211.3,
         materials = {
         	{ name = 'Raw sea turtle', quantity = 1 }
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
+    	name = 'Halibut',
+        level = 83,
+        xp = 212.5,
+        materials = {
+        	{ name = 'Raw halibut', quantity = 1 },
         },
         steps = 1,
         members = 'Yes',
@@ -1530,6 +1620,16 @@ return {
         members = 'Yes',
         type = 'Baked'
     }, {   
+    	name = 'Bluefin',
+        level = 87,
+        xp = 215,
+        materials = {
+        	{ name = 'Raw bluefin', quantity = 1 },
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
     	name = 'Dark crab',
         level = 90,
         xp = 215,
@@ -1545,6 +1645,16 @@ return {
         xp = 216.2,
         materials = {
         	{ name = 'Raw manta ray', quantity = 1 }
+        },
+        steps = 1,
+        members = 'Yes',
+        type = 'Meat'
+    }, {   
+    	name = 'Marlin',
+        level = 91,
+        xp = 225,
+        materials = {
+        	{ name = 'Raw marlin', quantity = 1 },
         },
         steps = 1,
         members = 'Yes',

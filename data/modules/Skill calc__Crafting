@@ -1647,5 +1647,59 @@ return {
         },
         members = 'Yes',
         type = 'Jewellery'
+    }, {   
+    	name = 'Linen yarn',
+        level = 12,
+        xp = 16,
+        materials = {
+        	{ name = 'Flax', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Spinning'
+    }, {   
+    	name = 'Hemp yarn',
+        level = 39,
+        xp = 60,
+        materials = {
+        	{ name = 'Hemp', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Spinning'
+    }, {   
+    	name = 'Cotton yarn',
+        level = 73,
+        xp = 105,
+        materials = {
+        	{ name = 'Cotton boll', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Spinning'
+    }, {   
+    	name = 'Bolt of linen',
+        level = 12,
+        xp = 20,
+        materials = {
+        	{ name = 'Linen yarn', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Weaving'
+    }, {   
+    	name = 'Bolt of canvas',
+        level = 39,
+        xp = 75,
+        materials = {
+        	{ name = 'Hemp yarn', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Weaving'
+    }, {   
+    	name = 'Bolt of cotton',
+        level = 73,
+        xp = 132,
+        materials = {
+        	{ name = 'Cotton yarn', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Weaving'
     }
 }

@@ -1,0 +1,1233 @@
+local hc = require('Module:Paramtest').has_content
+
+-- Package
+local p = {}
+-- Feature functions
+local feat = {}
+
+local zoomRatios = {
+  { 3,  8 },
+  { 2,  4 },
+  { 1,  2 },
+  { 0,  1 },
+  { -1, 1 / 2 },
+  { -2, 1 / 4 },
+  { -3, 1 / 8 }
+}
+
+-- Default arg values
+local defaults = {
+  -- Map options
+  type = 'mapframe',
+  width = 300,
+  height = 300,
+  zoom = 2,
+  mapID = 0, -- RuneScape surface
+  x = 3233,  -- Lumbridge lodestone
+  y = 3222,
+  plane = 0,
+  align = 'center',
+  -- Feature options
+  mtype = 'pin',
+  -- Rectangles, squares, circles
+  radius = 10,
+  -- Dots
+  fill = '#ffffff',
+  -- Pins
+  icon = 'greenPin',
+  group = 'pins',
+  -- Text
+  position = 'top',
+  bucket = 'yes'
+}
+
+local mtypes = {
+  singlePoint = { pin = true, rectangle = true, square = true, circle = true, dot = true, text = true, rstext = true, media = true },
+  multiPoint = { polygon = true, line = true, highlightedarea = true, focusarea = true }
+}
+
+local mapElAttrWhitelist = { x = true, y = true, plane = true, mapID = true, zoom = true, height = true, width = true, text = true, align = true, frameless = true, mapVersion = true, group = true }
+
+-- Named-only arguments
+local namedOnlyArgs = { width = true, height = true, zoom = true, mapID = true, align = true, caption = true, text = true, nopreprocess = true, bucket = true, bucketName = true, fromBucket = true, plainTiles = true, mapVersion = true }
+
+-- Optional feature properties
+local properties = {
+  any = { title = 'string', desc = 'string' },
+  line = { stroke = true, ['stroke-opacity'] = true, ['stroke-width'] = true },
+  polygon = { stroke = true, ['stroke-opacity'] = true, ['stroke-width'] = true, fill = true, ['fill-opacity'] = true },
+  highlightedarea = { stroke = true, ['stroke-opacity'] = true, ['stroke-width'] = true },
+  focusarea = { stroke = true, ['stroke-opacity'] = true, ['stroke-width'] = true },
+  dot = { fill = true },
+  pin = { icon = true },
+  text = {},
+  media = {}
+}
+-- Template entry point
+function p.map(frame)
+  return p.buildMap(frame:getParent().args)
+end
+
+-- Module entry point to get completed map element
+function p.buildMap(_args)
+  local args = {}
+
+  for k, v in pairs(_args) do
+    args[k] = tonumber(v) or v
+  end
+
+  local features, mapOpts = ParseArgs(args)
+
+  if mapOpts.outerFill then
+    local bgFeature = CreateOuterFill(features, mapOpts.outerFill)
+    table.insert(features, bgFeature)
+  end
+
+  -- Save in Bucket so templates/modules can avoid duplication
+  if hc(mapOpts.bucket) then
+    ParseBucket(mapOpts, features)
+  end
+
+  return BuildMapFromOpts(features, mapOpts)
+end
+
+-- Build full GeoJSON and insert into HTML
+-- Can be used to turn Location JSON into completed map
+function BuildMapFromOpts(features, mapOpts)
+  local noPreprocess = mapOpts.nopreprocess
+  local collection = BuildCollection(features)
+  local map = CreateMapElement(mapOpts, collection)
+
+  if noPreprocess then
+    return tostring(map)
+  end
+
+  return mw.getCurrentFrame():preprocess(tostring(map))
+end
+
+function BuildCollection(features)
+  if #features > 0 then
+    return {
+      type = 'FeatureCollection',
+      features = features
+    }
+  end
+
+  return {}
+end
+
+-- Create map HTML element
+function CreateMapElement(mapOpts, collection)
+  local mapEl = mw.html.create(mapOpts.type)
+
+  mapOpts.x = math.floor(mapOpts.x or 0)
+  mapOpts.y = math.floor(mapOpts.y or 0)
+
+  local mapElAttrs = {}
+
+  -- Remove invalid map element attributes
+  for k, _ in pairs(mapOpts) do
+    if mapElAttrWhitelist[k] then
+      mapElAttrs[k] = mapOpts[k]
+    end
+  end
+
+  mapEl:attr(mapElAttrs):newline():wikitext(ToJSON(collection)):newline()
+
+  return mapEl
+end
+
+-- Parse all arguments
+function ParseArgs(args)
+  if hc(args.fromBucket) then
+    return LoadMap(args)
+  end
+
+  local features = {}
+  local mapOpts = ParseMapArgs(args)
+
+  -- hack fix for sailing alpha/beta, see ParseMapArgs nonsense L314 with
+  -- mapID and mapVersion. right now it's possible for the mapID provided to the
+  -- module to be different from the one it loads for the map. so we're going to
+  -- handle whatever logic for mapIDs in ParseMapArgs and pretend the user
+  -- provided that mapID directly. super awful i intend to fix this all sorry
+  -- P.S. mapID is guaranteed to be defined by this point so no issue there
+  args.mapID = mapOpts.mapID
+
+  -- Parse anon args and add features to table
+  local anonFeatures = ParseAnonArgs(args, mapOpts)
+  CombineTables(features, anonFeatures)
+
+  if #anonFeatures == 0 and hc(args.mtype) then
+    -- Parse named args and add feature to table
+    local namedFeature = ParseNamedArgs(args, mapOpts)
+    table.insert(features, namedFeature)
+  end
+
+  CalculateView(args, mapOpts, #features)
+
+  return features, mapOpts
+end
+
+-- Calculate view position and zoom from
+-- feature sizes and positions
+function CalculateView(args, mapOpts, featureCount)
+  if featureCount == 0 then
+    mapOpts.range = {
+      xMin = mapOpts.x or defaults.x,
+      xMax = mapOpts.x or defaults.x,
+      yMin = mapOpts.y or defaults.y,
+      yMax = mapOpts.y or defaults.y
+    }
+  end
+
+  if not tonumber(args.x) then
+    mapOpts.x = math.floor((mapOpts.range.xMax + mapOpts.range.xMin) / 2)
+  else
+    mapOpts.x = args.x
+  end
+
+  if not tonumber(args.y) then
+    mapOpts.y = math.floor((mapOpts.range.yMax + mapOpts.range.yMin) / 2)
+  else
+    mapOpts.y = args.y
+  end
+
+  local width, height = mapOpts.width, mapOpts.height
+
+  if args.type == 'maplink' then
+    width, height = 800, 800
+
+    mapOpts.width = nil
+    mapOpts.height = nil
+  end
+
+  if not tonumber(args.zoom) then
+    local zoom, ratio = defaults.zoom, 1
+
+    local xRange = mapOpts.range.xMax - mapOpts.range.xMin
+    local yRange = mapOpts.range.yMax - mapOpts.range.yMin
+
+    -- Ensure space between outer-most points and view border
+    local bufferX, bufferY = width / 25, height / 25
+
+    for _, v in ipairs(zoomRatios) do
+      local sizeX, sizeY = width / v[2], height / v[2]
+
+      -- Check if the dynamic sizes are greater than the buffered ranges
+      if sizeX > xRange + bufferX and sizeY > yRange + bufferY then
+        zoom = v[1]
+        ratio = v[2]
+        break
+      end
+    end
+
+    -- Default pin icons extend upwards from the point they mark,
+    -- so the view needs to fit these in nicely
+    if mapOpts.maxPinY then
+      -- Default pin height relative to zoom 1
+      local pinHeight = 40
+      -- Northern-most pin Y plus its dynamic height
+      local maxPinHeightY = mapOpts.maxPinY + (pinHeight / ratio)
+      -- New Y range using this value
+      local yRangeMaxPin = maxPinHeightY - mapOpts.range.yMin
+
+      if maxPinHeightY > mapOpts.range.yMax then
+        -- Move the view up by half the pin's dynamic height
+        mapOpts.y = mapOpts.y + (pinHeight / ratio / 2)
+
+        -- Zoom out if new range is too big
+        if yRangeMaxPin + bufferY > height / ratio then
+          zoom = zoom - 1
+        end
+      end
+    end
+
+    if zoom > defaults.zoom then
+      zoom = defaults.zoom
+    end
+
+    mapOpts.zoom = zoom
+  end
+end
+
+function AdjustRange(coords, mapOpts)
+  for _, v in ipairs(coords) do
+    if v[1] > mapOpts.range.xMax then
+      mapOpts.range.xMax = v[1]
+    end
+
+    if v[1] < mapOpts.range.xMin then
+      mapOpts.range.xMin = v[1]
+    end
+
+    if v[2] > mapOpts.range.yMax then
+      mapOpts.range.yMax = v[2]
+    end
+
+    if v[2] < mapOpts.range.yMin then
+      mapOpts.range.yMin = v[2]
+    end
+  end
+end
+
+-- Parse named map arguments
+function ParseMapArgs(args)
+  local opts = {
+    type = Ternary(hc(args.type), args.type, defaults.type),
+    x = Ternary(hc(args.x), args.x, defaults.x),
+    y = Ternary(hc(args.y), args.y, defaults.y),
+    width = Ternary(hc(args.width), args.width, defaults.width),
+    height = Ternary(hc(args.height), args.height, defaults.height),
+    mapID = Ternary(hc(args.mapID), args.mapID, defaults.mapID),
+    plane = Ternary(hc(args.plane), args.plane, defaults.plane),
+    zoom = Ternary(hc(args.zoom), args.zoom, defaults.zoom),
+    align = Ternary(hc(args.align), args.align, defaults.align),
+    nopreprocess = args.nopreprocess,
+    bucket = Ternary(hc(args.bucket), args.bucket, defaults.bucket),
+    bucketName = args.bucketname,
+    range = {
+      xMin = 10000000,
+      xMax = -10000000,
+      yMin = 10000000,
+      yMax = -10000000
+    }
+  }
+
+  -- Feature grouping across map instances
+  if hc(args.group) then
+    opts.group = args.group
+  end
+
+  -- Plain map tiles
+  if hc(args.plainTiles) then
+    opts.plainTiles = 'true'
+  end
+
+  -- Alternate map tile version
+  if hc(args.mapVersion) then
+    opts.mapVersion = args.mapVersion
+  elseif opts.mapID == -2 then
+    opts.mapVersion = '2025-03-20_a' -- Sailing alpha
+  elseif opts.mapID == -3 then
+    opts.mapVersion = '2025-06-27_a' -- Sailing beta
+    opts.mapID = -2
+  end
+
+  -- Map type
+  if hc(args.type) and args.type ~= 'mapframe' and args.type ~= 'maplink' then
+    MapError('Argument `type` must be either `mapframe`, `maplink`, or not provided')
+  end
+
+  -- Caption or link text
+  if args.type == 'maplink' then
+    if hc(args.text) then
+      if args.text:find('[%[%]]') then
+        MapError('Argument `text` cannot contain links')
+      end
+
+      opts.text = args.text
+    else
+      opts.text = 'Show map'
+    end
+  elseif hc(args.caption) then
+    opts.text = args.caption
+  else
+    opts.frameless = ''
+  end
+
+  return opts
+end
+
+-- Parse named arguments
+-- This is called per anon feature as well
+function ParseNamedArgs(_args, mapOpts)
+  local args = mw.clone(_args)
+
+  if not feat[args.mtype] then
+    MapError('Argument `mtype` has an unsupported value')
+  end
+
+  if args.mtype == 'highlightedarea' then
+    mapOpts.outerFill = 0.5
+  end
+
+  if args.mtype == 'focusarea' then
+    mapOpts.outerFill = 1
+  end
+
+  -- Use named X and Y as coords only if no other points
+  if #args.coords == 0 and args.x and args.y then
+    args.coords = { {
+      tonumber(args.x) or defaults.x,
+      tonumber(args.y) or defaults.y
+    } }
+  end
+
+  -- No feature if no coords
+  if not args.coords or #args.coords == 0 then
+    return nil
+  end
+
+  -- Save northern-most pin Y for later view adjustment
+  if args.mtype == 'pin' and not args.iconWikiLink then
+    if mapOpts.maxPinY then
+      if args.coords[1][2] > mapOpts.maxPinY then
+        mapOpts.maxPinY = args.coords[1][2]
+      end
+    else
+      mapOpts.maxPinY = args.coords[1][2]
+    end
+  end
+
+  -- Center all points of combo multi-point and line features
+  if (args.isInCombo and mtypes.multiPoint[args.mtype]) or args.mtype == 'line' then
+    for _, v in ipairs(args.coords) do
+      CenteredCoords(v)
+    end
+  end
+
+  -- Handle range adjustment individually for these types
+  if not IsCenteredPointFeature(args.mtype) then
+    AdjustRange(args.coords, mapOpts)
+  end
+
+  if not mapOpts.group and hc(args.mtype) then
+    mapOpts.group = args.group or defaults.group
+  end
+
+  args.desc = ParseDesc(args)
+
+  return feat[args.mtype](args, mapOpts)
+end
+
+-- Parse anonymous arguments and add to the features table
+-- Note 1: Anon X/Y coords generate anon features
+-- Note 2: "Repeatable" means a feature that can be created once for each X/Y
+function ParseAnonArgs(args, mapOpts)
+  local features = {}
+  local i = 1
+
+  -- Collect unusable anon coords for use by named feature
+  args.coords = {}
+
+  while args[i] do
+    local arg = mw.text.trim(args[i])
+
+    if hc(arg) then
+      local anonOpts = { coords = {} }
+      local rawOpts = {}
+      -- Track all X and Y to find mismatches
+      local xyCount = 0
+
+      -- Temporarily replace escaped commas in text options to avoid splitting
+      arg = arg:gsub('\\,', '**')
+
+      -- Split arg into options by "," and put extra commas back
+      for opt in mw.text.gsplit(arg, '%s*,%s*') do
+        opt = opt:gsub('%*%*', ',')
+        table.insert(rawOpts, opt)
+      end
+
+      for _, opt in ipairs(rawOpts) do
+        if hc(opt) then
+          -- Temporarily replace escaped colons for use in text opts
+          opt = opt:gsub('\\:', '**')
+
+          -- Split option into key/value by ":"
+          local kv = mw.text.split(opt, '%s*:%s*')
+
+          -- If option is a value with no key, assume it's a standalone X or Y
+          if #kv == 1 then
+            xyCount = xyCount + 1
+            AddXYToCoords(anonOpts.coords, kv[1])
+          else
+            if namedOnlyArgs[kv[1]] then
+              MapError('Anonymous option `' .. kv[1] .. '` can only be used as a named argument')
+              -- Add X/Y pair
+            elseif tonumber(kv[1]) and tonumber(kv[2]) then
+              xyCount = xyCount + 2
+              table.insert(anonOpts.coords, { tonumber(kv[1]), tonumber(kv[2]) })
+              -- Add individual X or Y
+            elseif kv[1] == 'x' or kv[1] == 'y' then
+              xyCount = xyCount + 1
+              AddXYToCoords(anonOpts.coords, kv[2])
+            else
+              -- Put extra colons back
+              kv[2] = kv[2]:gsub('%*%*', ':')
+              anonOpts[kv[1]] = mw.text.trim(kv[2])
+            end
+          end
+        end
+      end
+
+      if xyCount % 2 > 0 then
+        MapError('Feature contains mismatched coordinates')
+      end
+
+      -- Named args are applied to all anon features if not specified
+      -- An anon feature opts take precedence over named args
+      for k, v in pairs(args) do
+        if not tonumber(k) and
+            k ~= 'x' and k ~= 'y' and
+            not namedOnlyArgs[k] and
+            not anonOpts[k] then
+          anonOpts[k] = v
+        end
+      end
+
+      if not anonOpts.mtype then
+        if #anonOpts.coords > 0 then
+          -- Save coord without an mtype to apply to map view X/Y
+          table.insert(args.coords, anonOpts.coords[1])
+        end
+      elseif mtypes.singlePoint[anonOpts.mtype] then
+        if #anonOpts.coords == 0 then
+          MapError('Anonymous `' .. anonOpts.mtype .. '` feature must have at least one point')
+        end
+
+        AddFeaturePerCoord(features, anonOpts, mapOpts)
+      elseif mtypes.multiPoint[anonOpts.mtype] then
+        ParseMultiPointFeature(features, anonOpts, mapOpts, true, args)
+      elseif anonOpts.mtype:find('-') then
+        ParseComboFeature(features, anonOpts, mapOpts, true, args)
+      end
+    end
+
+    i = i + 1
+  end
+
+  if #args.coords > 0 then
+    -- Use first coord without mtype as map view X/Y
+    if not args.mtype then
+      mapOpts.x = args.coords[1][1]
+      mapOpts.y = args.coords[1][2]
+    elseif mtypes.singlePoint[args.mtype] then
+      AddFeaturePerCoord(features, args, mapOpts)
+    elseif mtypes.multiPoint[args.mtype] then
+      ParseMultiPointFeature(features, args, mapOpts, false)
+    elseif args.mtype:find('-') then
+      ParseComboFeature(features, args, mapOpts, false)
+    end
+  end
+
+  return features
+end
+
+-- Add individual X or Y to next coord set
+-- Handles coords split by commas (e.g., `|1000,2000`)
+function AddXYToCoords(coords, value)
+  local xy = coords[#coords]
+
+  if xy and #xy == 1 then
+    local y = tonumber(value) or defaults.y
+    table.insert(xy, y)
+  else
+    local x = tonumber(value) or defaults.x
+    table.insert(coords, { x })
+  end
+end
+
+-- Parse opts to build multi-point feature
+function ParseMultiPointFeature(features, opts, mapOpts, isAnon, namedArgs)
+  -- Anon multi-point can't have 0 coords
+  if isAnon and #opts.coords == 0 then
+    MapError('Anonymous multi-point `' .. opts.mtype .. '` feature must have at least 1 point')
+  elseif isAnon and #opts.coords == 1 then
+    if not namedArgs.mtype then
+      MapError('Anonymous multi-point `' .. opts.mtype .. '` feature must have 2 or more points')
+    end
+
+    -- Single coord for multi-point isn't possible,
+    -- so save coord to apply to named feature
+    table.insert(namedArgs.coords, opts.coords[1])
+    -- Named multi-point can't have <2 coords
+  elseif not isAnon and #opts.coords < 2 then
+    MapError('Named multi-point `' .. opts.mtype .. '` feature must have 2 or more points')
+  else
+    local feature = ParseNamedArgs(opts, mapOpts)
+    table.insert(features, feature)
+  end
+end
+
+-- Parse opts to build multi-point feature
+function ParseComboFeature(features, opts, mapOpts, isAnon, namedArgs)
+  local combo = mw.text.split(opts.mtype, '-')
+
+  if #combo ~= 2 or not mtypes.singlePoint[combo[1]] or not mtypes.multiPoint[combo[2]] then
+    MapError('Feature `' .. opts.mtype .. '` is not a single-point + multi-point combo')
+  end
+
+  if isAnon and #opts.coords == 0 then
+    MapError('Anonymous feature in `' .. opts.mtype .. '` combo must have at least 1 point')
+  elseif #opts.coords == 1 then
+    if isAnon then
+      if not namedArgs.mtype then
+        MapError('Anonymous feature `' ..
+          combo[2] .. '` in `' .. opts.mtype .. '` combo must have 2 or more points')
+      else
+        -- Create single-point and also save to use with named multi-point
+        opts.mtype = combo[1]
+        local feature = ParseNamedArgs(opts, mapOpts)
+        table.insert(features, feature)
+        table.insert(namedArgs.coords, opts.coords[1])
+      end
+    else
+      MapError('Named feature `' .. combo[2] .. '` in `' .. opts.mtype .. '` combo must have 2 or more points')
+    end
+  else
+    -- Create all anon single-points
+    if isAnon then
+      opts.mtype = combo[1]
+      AddFeaturePerCoord(features, opts, mapOpts)
+    end
+
+    -- Create named multi-point
+    opts.mtype = combo[2]
+    opts.isInCombo = true
+    local feature = ParseNamedArgs(opts, mapOpts)
+    table.insert(features, feature)
+  end
+end
+
+-- Add feature per coordinate provided
+function AddFeaturePerCoord(features, opts, mapOpts)
+  local tempOpts = mw.clone(opts)
+
+  for _, v in ipairs(opts.coords) do
+    tempOpts.coords = { v }
+
+    local feature = ParseNamedArgs(tempOpts, mapOpts)
+    table.insert(features, feature)
+  end
+end
+
+function feat.rectangle(featOpts, mapOpts)
+  local x, y = featOpts.coords[1][1], featOpts.coords[1][2]
+
+  local r = tonumber(featOpts.r)
+  local rectX = tonumber(featOpts.rectX or featOpts.squareX) or defaults.radius * 2
+  local rectY = tonumber(featOpts.rectY or featOpts.squareY) or defaults.radius * 2
+
+  if hc(r) and r % 1 > 0 then
+    x = x + 0.5
+    y = y + 0.5
+  end
+
+  local rectXR = r or math.floor(rectX / 2) or defaults.radius
+  local rectYR = r or math.floor(rectY / 2) or defaults.radius
+
+  local xLeft = x - rectXR
+  local xRight = x + rectXR
+  local yTop = y + rectYR
+  local yBottom = y - rectYR
+
+  if rectX % 2 > 0 then
+    xRight = x + (rectXR + 1)
+  end
+
+  if rectY % 2 > 0 then
+    yTop = y + (rectYR + 1)
+  end
+
+  local corners = {
+    { xLeft,  yBottom },
+    { xLeft,  yTop },
+    { xRight, yTop },
+    { xRight, yBottom }
+  }
+
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane
+    },
+    geometry = {
+      type = 'Polygon',
+      coordinates = { corners }
+    }
+  }
+
+  AdjustRange(corners, mapOpts)
+  SetProperties(featJson, featOpts, 'polygon')
+
+  return featJson
+end
+
+-- Create a square/rectangle feature
+function feat.square(featOpts, mapOpts)
+  return feat.rectangle(featOpts, mapOpts)
+end
+
+-- Create a polygon feature
+function feat.polygon(featOpts, mapOpts)
+  local points = {}
+  local lastPoint = featOpts.coords[#featOpts.coords]
+
+  for _, v in ipairs(featOpts.coords) do
+    table.insert(points, { v[1], v[2] })
+  end
+
+  -- Close polygon
+  if not (points[1][1] == lastPoint[1] and points[1][2] == lastPoint[2]) then
+    table.insert(points, { points[1][1], points[1][2] })
+  end
+
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane
+    },
+    geometry = {
+      type = 'Polygon',
+      coordinates = { points }
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'polygon')
+
+  return featJson
+end
+
+-- Create a highlightedarea feature as a polygon
+-- The darkened background is added later in p.buildMap
+function feat.highlightedarea(featOpts, mapOpts)
+  featOpts['fill-opacity'] = 0
+
+  return feat.polygon(featOpts, mapOpts)
+end
+
+-- Create a focusarea feature as a polygon
+-- The darkened background is added later in p.buildMap
+function feat.focusarea(featOpts, mapOpts)
+  featOpts['fill-opacity'] = 0
+  featOpts['stroke-opacity'] = 0
+
+  return feat.polygon(featOpts, mapOpts)
+end
+
+-- Create a line feature
+function feat.line(featOpts, mapOpts)
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      shape = 'Line',
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane
+    },
+    geometry = {
+      type = 'LineString',
+      coordinates = featOpts.coords
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'line')
+
+  return featJson
+end
+
+-- Create a circle feature
+function feat.circle(featOpts, mapOpts)
+  local radius = tonumber(featOpts.r) or defaults.radius
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      shape = 'Circle',
+      radius = radius,
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane
+    },
+    geometry = {
+      type = 'Point',
+      coordinates = featOpts.coords[1]
+    }
+  }
+
+  local corners = {
+    { featOpts.coords[1][1] - radius, featOpts.coords[1][2] - radius },
+    { featOpts.coords[1][1] - radius, featOpts.coords[1][2] + radius },
+    { featOpts.coords[1][1] + radius, featOpts.coords[1][2] - radius },
+    { featOpts.coords[1][1] + radius, featOpts.coords[1][2] + radius }
+  }
+
+  AdjustRange(corners, mapOpts)
+  SetProperties(featJson, featOpts, 'polygon')
+
+  return featJson
+end
+
+-- Create a dot feature
+function feat.dot(featOpts, mapOpts)
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      shape = 'Dot',
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane,
+      fill = featOpts.fill or defaults.fill,
+    },
+    geometry = {
+      type = 'Point',
+      coordinates = CenteredCoords(featOpts.coords[1])
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'dot')
+
+  return featJson
+end
+
+-- Create a pin feature
+function feat.pin(featOpts, mapOpts)
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      providerID = 0,
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane,
+      group = featOpts.group or defaults.group,
+      icon = featOpts.icon or defaults.icon
+    },
+    geometry = {
+      type = 'Point',
+      coordinates = CenteredCoords(featOpts.coords[1])
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'pin')
+
+  return featJson
+end
+
+-- Create a text feature
+function feat.text(featOpts, mapOpts)
+  if not featOpts.label then
+    MapError('Argument `label` missing on text feature')
+  end
+
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      shape = 'Text',
+      label = featOpts.label,
+      direction = featOpts.position or defaults.position,
+      class = featOpts.class or 'lbl-bg-grey',
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane
+    },
+    geometry = {
+      type = 'Point',
+      coordinates = CenteredCoords(featOpts.coords[1])
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'text')
+
+  return featJson
+end
+
+-- Create a text feature that replicates map text with settable colour/colour and font variables.
+function feat.rstext(featOpts, mapOpts)
+  if not featOpts.label then
+    MapError('Argument `label` missing on rstext feature')
+  end
+
+   local style
+   
+	function stylerText()
+		local style = ''
+		local colour = featOpts.color or featOpts.colour
+		
+	 if colour then
+	 	style = style .. 'color:' .. colour .. ';'
+	 end
+  
+	 if featOpts.font then
+	  	style = style .. 'font-family:\'' .. featOpts.font .. '\';'
+	 else
+	  	style = style .. 'font-family:\'verdana\';'
+	 end 	
+	 
+	 if featOpts.weight then
+		style = style .. 'font-weight:' .. featOpts.weight .. ';'
+	 end 
+ 
+	 if featOpts.fontsize then
+	 	style = style .. 'font-size:' .. featOpts.fontsize .. ';'
+	 else
+  		style = style .. 'font-size:11pt;'
+	 end 
+
+	 if featOpts.offsetX then
+	 	style = style .. 'margin-left:' .. featOpts.offsetX .. ';'
+	 end 
+   
+	 if featOpts.offsetY then
+	  	style = style .. 'margin-top:' .. featOpts.offsetY .. ';'
+	 end 
+
+	 if featOpts.rotate then
+	 	style = style .. 'transform: rotate(' .. featOpts.rotate .. ');'
+	 end
+      
+	 if featOpts.background then
+		style = style .. 'background:' .. featOpts.background .. ';padding:1px 2px;border-radius:4px;'
+	 end
+      
+	 if featOpts.css then
+      	style = style .. css
+	 end
+      
+if not featOpts.shadow and featOpts.rotate then
+	
+	 if string.find(featOpts.rotate, "rad") then
+		rotaterad = featOpts.rotate:gsub("%a", "")
+	elseif string.find(featOpts.rotate, "deg") then
+		rotaterad = math.rad(featOpts.rotate:gsub("%a", ""))	
+	elseif string.find(featOpts.rotate, "turn") then
+		rotaterad = math.rad(featOpts.rotate:gsub("%a", "")/360)	
+	end 
+ 
+	style = style .. string.format('text-shadow:%spx %spx 0 #000000;',
+    math.sin(rotaterad + math.pi/4) * math.sqrt(2) * 1.25,
+    math.cos(rotaterad + math.pi/4) * math.sqrt(2) * 1.25
+    )
+    else if not featOpts.shadow then
+    	style = style .. 'text-shadow:1.25px 1.25px 0 #000000;'
+		end
+	end
+	return style
+end
+
+
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      shape = 'Text',
+      label = string.format('<div style="%s">%s</div>', stylerText(featOpts), featOpts.label),
+      direction = 'center',
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane
+    },
+    geometry = {
+      type = 'Point',
+      coordinates = CenteredCoords(featOpts.coords[1])
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'text')
+
+  return featJson
+end
+
+-- Create a media feature
+function feat.media(featOpts, mapOpts)
+  if not featOpts.img then
+    MapError('Media feature missing source via `img` argument')
+  end
+
+  local linkSegments = {
+    'File:' .. featOpts.img,
+    'link='
+  }
+
+  if featOpts.size then
+    table.insert(linkSegments, featOpts.size)
+  end
+  
+
+  local style
+   
+
+ function stylerMedia()
+   local style = ''
+
+
+   if featOpts.offsetX then
+  	style = style .. 'margin-left:' .. featOpts.offsetX .. ';'
+   end 
+   
+   if featOpts.offsetY then
+  	style = style .. 'margin-top:' .. featOpts.offsetY .. ';'
+   end 
+   
+   if featOpts.rotate then
+  	style = style .. 'transform: rotate(' .. featOpts.rotate .. ');'
+   end
+      
+   if featOpts.background then
+  	style = style .. 'background:' .. featOpts.background .. ';padding:1px 2px;border-radius:4px;'
+   end
+      
+    if featOpts.css then
+     style = style .. css
+   end
+      
+		if featOpts.outlineColour or featOpts.outlineSize then
+			local outlineSize = featOpts.outlineSize or '1px'
+			local outlineColour = featOpts.outlineColour or 'white'
+			
+			style = style .. string.format('filter: drop-shadow(%s %s 0 %s) drop-shadow(-%s %s 0 %s) drop-shadow(-%s -%s 0 %s) drop-shadow(%s -%s 0 %s);', outlineSize, outlineSize, outlineColour, outlineSize, outlineSize, outlineColour, outlineSize, outlineSize, outlineColour, outlineSize, outlineSize, outlineColour)
+		end
+	return style
+end
+
+
+
+
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      shape = 'Text',
+      label = string.format('<div style="%s image-rendering: pixelated;"', stylerMedia(featOpts)) .. '> [[' .. table.concat(linkSegments, '|') .. ']] </div>',
+      direction = 'center',
+      mapID = featOpts.mapID or mapOpts.mapID,
+      plane = featOpts.plane or defaults.plane,
+      group = featOpts.group or defaults.group
+    },
+    geometry = {
+      type = 'Point',
+      coordinates = CenteredCoords(featOpts.coords[1])
+    }
+  }
+
+  SetProperties(featJson, featOpts, 'media')
+
+  return featJson
+end
+
+-- Create darkened background for highlightedarea and focusarea features
+function CreateOuterFill(features, fillOpacity)
+  local backgroundPoints = { { 832, 1152 }, { 832, 12672 }, { 4288, 12672 }, { 4288, 1152 }, { 832, 1152 } }
+  local finalCoordSets = { backgroundPoints }
+
+  for _, f in ipairs(features) do
+    if f.geometry.type ~= 'Point' then
+      local featCoords = mw.clone(f.geometry.coordinates)
+      CombineTables(finalCoordSets, featCoords)
+    end
+  end
+
+  local featJson = {
+    type = 'Feature',
+    properties = {
+      mapID = features[1].properties.mapID,
+      plane = features[1].properties.plane,
+      fill = '#000000',
+      ['fill-opacity'] = fillOpacity,
+      ['stroke-opacity'] = 0
+    },
+    geometry = {
+      type = 'Polygon',
+      coordinates = finalCoordSets
+    }
+  }
+
+  return featJson
+end
+
+-- Create feature description
+function ParseDesc(args)
+  local pageName = mw.title.getCurrentTitle().text
+
+  local coordsStr = 'X/Y: ' .. math.floor(args.coords[1][1]) .. ',' .. math.floor(args.coords[1][2])
+  local coordsElem = mw.html.create('p')
+      :wikitext(coordsStr)
+      :attr('style', 'font-size:10px; margin:0px;')
+
+  if args.ptype == 'item' or
+      args.ptype == 'monster' or
+      args.ptype == 'npc' or
+      args.ptype == 'object' then
+    local tableElem = mw.html.create('table')
+        :addClass('wikitable')
+        :attr('style', 'font-size:12px; text-align:left; margin:0px; width:100%;')
+
+    if args.ptype == 'item' then
+      AddTableRow(tableElem, 'Item', args.name or pageName)
+      AddTableRow(tableElem, 'Quantity', args.qty or 1)
+
+      if hc(args.respawn) then
+        AddTableRow(tableElem, 'Respawn time', args.respawn)
+      end
+    elseif args.ptype == 'monster' then
+      AddTableRow(tableElem, 'Monster', args.name or pageName)
+
+      if hc(args.levels) then
+        AddTableRow(tableElem, 'Level(s)', args.levels)
+      end
+
+      if hc(args.respawn) then
+        AddTableRow(tableElem, 'Respawn time', args.respawn)
+      end
+    elseif args.ptype == 'npc' then
+      AddTableRow(tableElem, 'NPC', args.name or pageName)
+
+      if hc(args.levels) then
+        AddTableRow(tableElem, 'Level(s)', args.levels)
+      end
+
+      if hc(args.respawn) then
+        AddTableRow(tableElem, 'Respawn time', args.respawn)
+      end
+    elseif args.ptype == 'object' then
+      AddTableRow(tableElem, 'Object', args.name or pageName)
+    end
+
+    if hc(args.id) then
+      AddTableRow(tableElem, 'ID', args.id)
+    end
+
+    return tostring(tableElem) .. tostring(coordsElem)
+  end
+
+  local desc = ''
+
+  if hc(args.desc) then
+    desc = args.desc
+  end
+
+  return desc .. tostring(coordsElem)
+end
+
+-- Add row to table element
+function AddTableRow(table, label, value)
+  local row = table:tag('tr')
+  row:tag('td'):wikitext("'''" .. label .. "'''")
+  row:tag('td'):wikitext(value)
+end
+
+-- Move coords to tile center
+function CenteredCoords(coords)
+  for k, v in ipairs(coords) do
+    coords[k] = v + 0.5
+  end
+
+  return coords
+end
+
+-- Set GeoJSON properties
+-- If an option exists in the allowed feature props, add it
+function SetProperties(featJson, opts, mtype)
+  for k, v in pairs(opts) do
+    if properties[mtype][k] or properties.any[k] then
+      if k == 'desc' then
+        featJson.properties.description = v
+      else
+        -- If marked as string, use value as is, otherwise try number
+        featJson.properties[k] = properties.any[k] == 'string' and tostring(v) or tonumber(v) or v
+      end
+    end
+  end
+end
+
+-- Parse Bucket args
+function ParseBucket(mapOpts, features)
+  local bucket = mapOpts.bucket:lower()
+  local subName = mapOpts.bucketName
+  local options = {
+    x = mapOpts.x,
+    y = mapOpts.y,
+    mapID = mapOpts.mapID,
+    plane = mapOpts.plane,
+    zoom = mapOpts.zoom,
+    mapVersion = mapOpts.mapVersion
+  }
+
+  if bucket == 'no' then
+  	return
+  end
+
+  if bucket == 'yes' or bucket == 'both' then
+    mw.ext.bucket('map').sub(subName or '').put({
+      features = mw.text.jsonEncode(features),
+      options = mw.text.jsonEncode(options),
+      is_historic = false
+    })
+  end
+
+  if bucket == 'hist' or bucket == 'both' then
+    mw.ext.bucket('map').sub(subName or '').put({
+      features = mw.text.jsonEncode(features),
+      options = mw.text.jsonEncode(options),
+      is_historic = true
+    })
+  end
+end
+
+-- Get map features and options from Bucket and
+-- merge custom map options
+function LoadMap(args)
+  local features, mapOpts = {}, {}
+  local entries = mw.ext.bucket('map')
+      .select('features', 'options')
+      .where('page_name_sub', args.fromBucket)
+      .run()
+
+  for _, entry in ipairs(entries or {}) do
+    features = mw.text.jsonDecode(entry.features)
+    mapOpts = mw.text.jsonDecode(entry.options)
+  end
+
+  -- Merge map option overrides that aren't already set
+  for k, v in pairs(args or {}) do
+    if namedOnlyArgs[k] then
+      mapOpts[k] = v
+    end
+  end
+
+  -- Merge map option defaults that aren't already set
+  for k, v in pairs(defaults) do
+    if namedOnlyArgs[k] and not mapOpts[k] then
+      mapOpts[k] = v
+    end
+  end
+
+  mapOpts.fromBucket = nil
+
+  return features, mapOpts
+end
+
+-- Test if feature is based on a center point with calculated size
+function IsCenteredPointFeature(mtype)
+  return
+      mtype == 'rectangle' or
+      mtype == 'square' or
+      mtype == 'circle'
+end
+
+-- Add all elements of table 2 to table 1
+function CombineTables(table1, table2)
+  for _, v in ipairs(table2) do
+    table.insert(table1, v)
+  end
+end
+
+-- Create JSON
+function ToJSON(val)
+  local good, json = pcall(mw.text.jsonEncode, val)
+
+  if good then
+    return json
+  end
+
+  MapError('Error converting value to JSON')
+end
+
+-- Makeshift ternary operator
+function Ternary(condition, a, b)
+  if condition then
+    return a
+  else
+    return b
+  end
+end
+
+-- Produce an error
+function MapError(message)
+  error('[Module:Sandbox/User:Keplare/Map] ' .. message, 0)
+end
+
+return p

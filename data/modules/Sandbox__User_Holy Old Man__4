@@ -1,0 +1,29 @@
+require('Module:Mw.html extension')
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+		
+	local imageBox = mw.html.create('div')
+		:cssText('display:flex;width:fit-content;padding:10px;margin:auto;border:1px solid white')
+	
+	for _,v in ipairs(args) do
+		
+	local image = imageBox:tag('div'):addClass('imageX')
+		:css({
+			['display'] = 'grid',
+			['height'] = '50px',
+			['border'] = '1px solid white',
+			['width'] = '50px',
+			['margin'] = '10px',
+			['justify-content'] = 'center'
+		})
+--		:wikitext('[[File:'..v..'|link=|50x50px]]')
+		:wikitext('[[File:'..v..'|link=]]')
+		
+	end
+	return imageBox
+	
+end
+
+return p

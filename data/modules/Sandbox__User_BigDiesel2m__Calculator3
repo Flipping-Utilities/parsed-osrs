@@ -1,0 +1,85 @@
+local coins = require('Module:Coins')._amount
+
+local lang = mw.getContentLanguage()
+function fnum(x)
+    if type(x) == 'number' then return lang:formatNum(x) end
+return x end
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args --get args from calc input
+	
+	local drop = tonumber(args.Drop) --set up basic variables from args
+	local hop = tonumber(args.Hop)
+	local sixty = args.Sixty
+	
+	local dropticks26 = math.ceil(26/drop)
+	local dropticks22 = math.ceil(22/drop)
+	
+	local methodbase = {}
+	local methodtotal = {}
+	local buyarray = {}
+	
+	if sixty == 'yes' then
+		methodbase = {15,26,41,52} --amount of ticks for basic method, without dropping or hopping
+		buyarray = {7306, 17654, 31044, 44750} --array for buy cost per cycle
+	else
+		methodbase = {22,33,48,59} --amount of ticks for basic method, without dropping or hopping
+		buyarray = {9806, 20154, 33544, 47250} --array for buy cost per cycle
+	end
+		
+	for i=1, 3 do --math section to add in drop and hop ticks
+		methodtotal[i] = methodbase[i]+(i*dropticks26)+hop
+	end
+	methodtotal[4] =  methodbase[4]+(3*dropticks26)+dropticks22+hop
+	
+	local oresarray = {26, 52, 78, 100}
+	local exparray = {1461.2, 2922.4, 4383.6, 5620} --array for exp per cycle
+	
+	local xphr = {} --setting up arrays for xp/hr, gp/hr, gp,/xp
+	local gphr = {}
+	local gpxp = {}
+	
+	for i=1,4 do --filling arrays
+		xphr[i] = 6000*exparray[i]/methodtotal[i] --6000 ticks per hour, multiplied by exp/tick
+		gphr[i] = (6000*buyarray[i]/methodtotal[i])+72000 --6000 ticks per hour, multiplied by buycost/tick, add 72000 for hour cost
+		gpxp[i] = gphr[i]/xphr[i] 
+	end
+	
+	local t = mw.html.create('table')
+	t:addClass('wikitable')
+	
+	t:tag('tr')
+		:tag('th')
+			:wikitext('Ores bought per world')
+		:done()
+		:tag('th')
+			:wikitext('Experience per hour')
+		:done()
+		:tag('th')
+			:wikitext('Cost per hour')
+		:done()
+		:tag('th')
+			:wikitext('Cost per experience point')
+		:done()
+	for i=1,4 do
+		t:tag('tr')
+			:tag('td')
+				:wikitext(math.floor(oresarray[i]+0.5))
+			:done()
+			:tag('td')
+				:wikitext(fnum(math.floor(xphr[i]+0.5)))
+			:done()
+			:tag('td')
+				:wikitext(coins(math.floor(gphr[i]+0.5)))
+			:done()
+			:tag('td')
+				:wikitext(coins(gpxp[i]))
+			:done()
+	end
+	return t
+			
+end
+
+return p

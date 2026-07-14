@@ -1,0 +1,115 @@
+local BoatBuilder = {}
+
+-- ========================================
+-- Core Parts Data
+-- ========================================
+BoatBuilder.coreParts = {
+    raft = {
+        hull = {
+            { name="Wooden Raft", sailing=1, construction=1, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Logs", qty=10} } },
+            { name="Oak Raft", sailing=20, construction=8, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Oak logs", qty=10}, {item="Iron bar", qty=4} } },
+            { name="Teak Raft", sailing=31, construction=23, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Teak logs", qty=10} } },
+            { name="Mahogany Raft", sailing=48, construction=41, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Mahogany logs", qty=10} } },
+            { name="Camphor Raft", sailing=67, construction=59, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Camphor logs", qty=10} } },
+            { name="Ironwood Raft", sailing=81, construction=75, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Ironwood logs", qty=10} } },
+            { name="Rosewood Raft", sailing=93, construction=84, hullParts=0, largeHullParts=0, planks=0,
+              materials={ {item="Rosewood logs", qty=10}, {item="Rope", qty=6}, {item="Swamp tar", qty=10}, {item="Cupronickel bar", qty=5} } }
+        },
+        helm = {
+            { name="Bronze raft helm", sailing=1, construction=1,
+              materials={ {item="Plank", qty=2}, {item="Bronze bar", qty=4}, {item="Bronze nails", qty=20}, {item="Swamp tar", qty=10} } },
+            { name="Iron raft helm", sailing=17, construction=14,
+              materials={ {item="Oak plank", qty=2}, {item="Bolt of linen", qty=5} } },
+            { name="Steel raft helm", sailing=38, construction=30,
+              materials={ {item="Teak plank", qty=2}, {item="Iron nails", qty=20}, {item="Swamp tar", qty=10}, {item="Steel bar", qty=4}, {item="Bolt of linen", qty=5} } },
+            { name="Mithril raft helm", sailing=55, construction=47,
+              materials={ {item="Mahogany plank", qty=2}, {item="Mithril bar", qty=4}, {item="Steel nails", qty=20}, {item="Swamp tar", qty=10}, {item="Bolt of canvas", qty=5} } },
+            { name="Adamant raft helm", sailing=72, construction=59,
+              materials={ {item="Camphor plank", qty=2}, {item="Adamantite bar", qty=4}, {item="Lead bar", qty=5}, {item="Bolt of canvas", qty=5} } },
+            { name="Rune raft helm", sailing=87, construction=81,
+              materials={ {item="Ironwood plank", qty=2}, {item="Runite bar", qty=4}, {item="Mithril nails", qty=20}, {item="Rope", qty=6}, {item="Bolt of canvas", qty=5}, {item="Swamp tar", qty=10} } },
+            { name="Dragon raft helm", sailing=96, construction=86,
+              materials={ {item="Rosewood plank", qty=2}, {item="Dragon metal sheet", qty=4}, {item="Adamantite nails", qty=20} } }
+        },
+        mast = {
+            { name="Wooden mast and linen sails", sailing=1, construction=1,
+              materials={ {item="Logs", qty=5}, {item="Rope", qty=6} } },
+            { name="Oak mast and linen sails", sailing=24, construction=11,
+              materials={ {item="Oak logs", qty=5}, {item="Rope", qty=6}, {item="Lead bar", qty=5}, {item="Iron nails", qty=300} } },
+            { name="Teak mast and canvas sails", sailing=36, construction=26,
+              materials={ {item="Teak logs", qty=5}, {item="Rope", qty=6}, {item="Steel nails", qty=20}, {item="Swamp tar", qty=10} } },
+            { name="Mahogany mast and canvas sails", sailing=52, construction=45,
+              materials={ {item="Mahogany logs", qty=5}, {item="Bolt of canvas", qty=5}, {item="Lead bar", qty=5} } },
+            { name="Camphor mast and canvas sails", sailing=68, construction=60,
+              materials={ {item="Camphor logs", qty=5}, {item="Lead bar", qty=5}, {item="Dragon metal sheet", qty=4}, {item="Adamantite nails", qty=20} } },
+            { name="Ironwood mast and cotton sails", sailing=83, construction=77,
+              materials={ {item="Ironwood logs", qty=5}, {item="Swamp tar", qty=10}, {item="Rune nails", qty=20}, {item="Lead bar", qty=5}, {item="Bolt of cotton", qty=5} } },
+            { name="Rosewood mast and cotton sails", sailing=94, construction=85,
+              materials={ {item="Rosewood logs", qty=5}, {item="Rope", qty=6}, {item="Dragon nails", qty=20}, {item="Swamp tar", qty=10}, {item="Bolt of cotton", qty=5}, {item="Cupronickel bar", qty=5} } }
+        }
+    },
+    -- skiff and sloop will follow the same pattern
+}
+
+-- ========================================
+-- Facilities
+-- ========================================
+BoatBuilder.facilities = {
+    cannons = {
+        { name="Bronze cannon", sailing=28, construction=21, tags={"cannon"},
+          materials={ {item="Plank", qty=4}, {item="Bronze nails", qty=16}, {item="Bronze bar", qty=8} } },
+        { name="Iron cannon", sailing=35, construction=28, tags={"cannon"},
+          materials={ {item="Oak plank", qty=4}, {item="Iron nails", qty=16}, {item="Iron bar", qty=8} } },
+        { name="Steel cannon", sailing=47, construction=39, tags={"cannon"},
+          materials={ {item="Teak plank", qty=4}, {item="Steel nails", qty=16}, {item="Steel bar", qty=8} } },
+        { name="Mithril cannon", sailing=57, construction=50, tags={"cannon"},
+          materials={ {item="Mahogany plank", qty=4}, {item="Mithril nails", qty=16}, {item="Mithril bar", qty=8} } },
+        { name="Adamant cannon", sailing=69, construction=61, tags={"cannon"},
+          materials={ {item="Camphor plank", qty=4}, {item="Adamantite nails", qty=16}, {item="Adamantite bar", qty=8} } },
+        { name="Rune cannon", sailing=80, construction=76, tags={"cannon"},
+          materials={ {item="Ironwood plank", qty=4}, {item="Rune nails", qty=16}, {item="Runite bar", qty=8} } },
+        { name="Dragon cannon", sailing=92, construction=84, tags={"cannon"},
+          materials={ {item="Rosewood plank", qty=4}, {item="Dragon nails", qty=16}, {item="Dragon sheets", qty=8}, {item="Dragon cannon barrel", qty=1} } }
+    }
+}
+
+-- ========================================
+-- Facility Slots
+-- ========================================
+BoatBuilder.facilitySlots = {
+    raft = { {"cargo","cannon","salvaging","movement","passive"} },
+    skiff = {
+        {"cargo"}, {"inoculation"}, {"salvaging","trawling"}, {"chum"},
+        {"movement","passive"}, {"cannon","movement","passive"}, {"anchor","movement"}
+    },
+    sloop = {
+        {"cargo"}, {"inoculation"}, {"salvaging","trawling"}, {"salvaging","trawling"},
+        {"chum","movement","passive"}, {"chum","movement","passive"}, {"cannon","movement","passive"},
+        {"cannon","movement","passive"}, {"movement","passive"}, {"movement","passive"}, {"anchor","movement"}
+    }
+}
+
+-- ========================================
+-- Utilities
+-- ========================================
+-- Get part by type and index
+function BoatBuilder.getCorePart(boatType, partType, index)
+    local parts = BoatBuilder.coreParts[boatType]
+    if not parts then return nil end
+    return parts[partType] and parts[partType][index]
+end
+
+-- Get facilities by slot rules
+function BoatBuilder.getFacilities(boatType, slotIndex)
+    local slots = BoatBuilder.facilitySlots[boatType]
+    if not slots then return {} end
+    return slots[slotIndex]
+end
+
+return BoatBuilder

@@ -1,0 +1,318 @@
+local p = {}
+
+local geprice = require('Module:Exchange')._price
+
+--[[
+Sources:
+
+Primarily: https://docs.google.com/spreadsheets/d/1SlxbHJokMGsPGqIHcY4SXvzouuYdbZ8TYHYCbFRTWXA/edit#gid=1576715431
+Formulas from: https://twitter.com/JagexKieren/status/828520276216385536
+
+]]--
+
+local max_workers = 10
+
+local inverse_costs = {
+	["Maple logs"] = 160,
+	["Coal"] = 98,
+	["Fish"] = 158,
+	["Flax"] = 224,
+	["Herbs"] = 11,
+	["Mahogany"] = 40,
+	["Teak logs"] = 54,
+	["Both"] = 47,
+	["Seeds"] = 86,
+}
+
+local mahogany_inv_cost = 40
+local teak_inv_cost = 54
+local hardwood_both_inv_cost = 47
+local hardwood_nest_cost = 350
+
+local coal_inv_cost = 98
+local maple_inv_cost = 160
+
+local fish_inv_cost = 158
+local tuna_inv_cost = fish_inv_cost * 0.5
+local swordfish_inv_cost = fish_inv_cost * 0.15
+
+local specials = {
+	["Gem"] = {
+		["Uncut sapphire"] = 0.575,
+		["Uncut emerald"] = 0.233,
+		["Uncut ruby"] = 0.148,
+		["Uncut diamond"] = 0.043,
+	},
+	["Ring"] = {
+		["Gold ring"] = 0.341,
+		["Sapphire ring"] = 0.401,
+		["Emerald ring"] = 0.155,
+		["Ruby ring"] = 0.093,
+		["Diamond ring"] = 0.009,
+	},
+	["Herb"] = {
+		["Grimy tarromin"] = 0.22,
+		["Grimy harralander"] = 0.198,
+		["Grimy ranarr weed"] = 0.056,
+		["Grimy irit leaf"] = 0.124,
+		["Grimy avantoe"] = 0.135,
+		["Grimy kwuarm"] = 0.075,
+		["Grimy cadantine"] = 0.064,
+		["Grimy lantadyme"] = 0.067,
+		["Grimy dwarf weed"] = 0.062,
+	},
+	["Tree seed"] = {
+		["Apple tree seed"] = 0.162,
+		["Banana tree seed"] = 0.115,
+		["Orange tree seed"] = 0.087,
+		["Curry tree seed"] = 0.087,
+		["Pineapple seed"] = 0.069,
+		["Papaya tree seed"] = 0.037,
+		["Palm tree seed"] = 0.022,
+		["Acorn"] = 0.209,
+		["Willow seed"] = 0.145,
+		["Maple seed"] = 0.057,
+		["Yew seed"] = 0.027,
+		["Magic seed"] = 0.004,
+		["Calquat tree seed"] = 0.016,
+		["Teak seed"] = 0.003,
+		["Mahogany seed"] = 0.003,
+		-- ["Spirit tree seed"] = 0.010,
+		["Celastrus seed"] = 0.003,
+		["Redwood tree seed"] = 0.003,
+		["Dragonfruit tree seed"] = 0.006,
+	},
+	["Egg"] = {
+		["Tree seed"] = 1,
+		["Bird nest (empty)"] = 1,
+	},
+	["Nest"] = {
+		["Bird nest (empty)"] = 1,
+		["Tree seed"] = 0.611,
+		["Ring"] = 0.355,
+		["Egg"] = 0.034,
+	},
+	["Fish loot"] = {
+		["Casket"] = 0.5,
+		["Gem"] = 0.5,
+	},
+	["Herb seed"] = {
+	},
+	["Seed"] = {
+	},
+}
+
+function p._get_value(item)
+	local special = specials[item]
+	if special == nil then
+		return geprice(item)
+	end
+	
+	local value = 0
+	for item, multiplier in pairs(special) do
+		value = value + p._get_value(item) * multiplier
+	end
+	return value
+end
+
+local types = {
+	["Idle"] = {},
+	["Mining"] = {
+		["Coal"] = coal_inv_cost,
+		["Gem"] = coal_inv_cost / 200, -- Actually 1 for the first 100 and then 200 after
+	},
+	["Woodcutting"] = {
+		["Maple logs"] = maple_inv_cost,
+		["Nest"] = maple_inv_cost / 100,
+	},
+	["Farming"] = {
+		["Seed"] = 86,
+		["Tree seed"] = 86 / 200,
+	},
+	["Fishing (Cooked)"] = {
+		["Tuna"] = tuna_inv_cost,
+		["Swordfish"] = swordfish_inv_cost,
+		["Fish loot"] = tuna_inv_cost / 100,
+	},
+	["Fishing (Raw)"] = {
+		["Raw tuna"] = tuna_inv_cost,
+		["Raw swordfish"] = swordfish_inv_cost,
+		["Fish loot"] = tuna_inv_cost / 100,
+	},
+	["Hardwoods (Mahogany)"] = {
+		["Mahogany logs"] = mahogany_inv_cost,
+		["Nest"] = mahogany_inv_cost / hardwood_nest_cost,
+	},
+	["Hardwoods (Teak)"] = {
+		["Teak logs"] = teak_inv_cost,
+		["Nest"] = teak_inv_cost / hardwood_nest_cost,
+	},
+	["Hardwoods (Both)"] = {
+		["Mahogany logs"] = hardwood_both_inv_cost / 2,
+		["Teak logs"] = hardwood_both_inv_cost / 2,
+		["Nest"] = hardwood_both_inv_cost / hardwood_nest_cost,
+	},
+	["Herbs (Herbs)"] = {
+		["Herb"] = 11,
+		["Herb seed"] = 11 / 11
+	},
+	["Herbs (Flax)"] = {
+		["Flax"] = 224,
+		["Herb seed"] = 224 / 600,
+	},
+}
+
+local type_notes = {
+	["Mining"] = "In reality you get one gem after the first 100 coal and then a gem for each additional 200 coal. This assumes that you get one gem per 200 coal.",
+	["Farming"] = "Only includes the very uncommon tree seeds and not the normal ones.",
+	["Fishing (Cooked)"] = "Assumes all loot is caskets/gems",
+	["Fishing (Raw)"] = "Assumes all loot is caskets/gems",
+	["Herbs (Herbs)"] = "Doesn't include herb seeds",
+	["Herbs (Flax)"] = "Doesn't include herb seeds",
+}
+
+function get_quantity(inverse_cost)
+	local magic_constant = 1143 -- Somehow related to 262,143 ???
+	
+	return inverse_cost * magic_constant * max_workers / 2048
+end
+
+function p.get_income(type)
+	local items = types[type]
+	
+	local value = 0
+	for item, inv_quantity in pairs(items) do
+		value = value + p._get_value(item) * get_quantity(inv_quantity)
+	end
+	
+	return value
+end
+
+function lex_cmp(a, b)
+	i = 0
+	while true do
+		i = i + 1
+		
+		if a[i] == nil and b[i] == nil then
+			return false -- a == b	
+		end
+		if a[i] == nil then
+			return true -- a shorter than b
+		end
+		if b[i] == nil then
+			return false -- b shorter than a
+		end
+		
+		if a[i] < b[i] then
+			return true
+		end
+		if a[i] > b[i] then
+			return false
+		end
+	end
+end
+
+function rev_cmp(f)
+	return function(a, b)
+		return not f(a, b)
+	end
+end
+
+function p.get_bests()
+	local t = {}
+	
+	for type, _ in pairs(types) do
+		table.insert(t, {p.get_income(type), type})
+	end
+	
+	table.sort(t, rev_cmp(lex_cmp))
+	
+	return t
+end
+
+function p.get_two_bests()
+	bests = p.get_bests()
+	
+	for i, method in ipairs(bests) do
+		if i == 1 then
+			best = method
+		else
+			best_type = best[2]:match("%w+")
+			this_type = method[2]:match("%w+")
+			
+			if this_type ~= best_type then
+				second_best = method
+				break
+			end
+		end
+	end
+	
+	return best, second_best
+end
+
+function p.main(frame)
+	local best, second_best = p.get_two_bests()
+	
+	local div = mw.html.create('div')
+	
+	local expected_profit = best[1] + second_best[1] / 2 - 75000
+	
+	div
+		:tag('p')
+			:wikitext('Expected profit per day when having 10 workers on ')
+			:tag('b')
+				:wikitext(best[2])
+			:done()
+			:wikitext(' and 5 workers on ')
+			:tag('b')
+				:wikitext(second_best[2])
+			:done()
+			:wikitext(': ' .. frame:expandTemplate{title='Coins', args={expected_profit}})
+	
+	local t = div:tag('table')
+	
+	t
+		:addClass('wikitable sortable')
+			:tag('tr')
+				:tag('th')
+					:wikitext('Method')
+				:done()
+				:tag('th')
+					:wikitext('Income (10 workers)')
+				:done()
+				:tag('th')
+					:wikitext('Profit (10 workers)')
+				:done()
+				:tag('th')
+					:wikitext('Notes')
+	
+	for _, method in ipairs(p.get_bests()) do
+		local extra_class = ''
+		if method[2] == best[2] then
+			extra_class = 'table-bg-green'
+		elseif method[2] == second_best[2] then
+			extra_class = 'table-bg-yellow'
+		end
+		
+		local profit = method[1] - 50000
+		
+		t
+			:tag('tr')
+				:addClass(extra_class)
+				:tag('td')
+					:wikitext(method[2])
+				:done()
+				:tag('td')
+					:wikitext(frame:expandTemplate{title='Coins', args={method[1]}})
+				:done()
+				:tag('td')
+					:wikitext(frame:expandTemplate{title='Coins', args={profit}})
+				:done()
+				:tag('td')
+					:wikitext(type_notes[method[2]] or '')
+	end
+	
+	return tostring(div)
+end
+
+return p

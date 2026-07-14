@@ -1,0 +1,112 @@
+local helper = require('Module:Chart data')
+
+local attRollMin = 0
+local attRollMax = 45000
+local attRollStep = 200
+
+-- Source for def rolls:
+-- https://discord.com/channels/177206626514632704/269673599554551808/1070094764797595729
+local buckets = {
+	{ name = 'miss', score = 0 },
+	{ name = 'black', score = 10, defRoll = 1000 },
+	{ name = 'blue', score = 20, defRoll = 2000 },
+	{ name = 'red', score = 30, defRoll = 3000 },
+	{ name = 'yellow', score = 50, defRoll = 4000 },
+	{ name = 'bullseye', score = 100, defRoll = 7000 }
+}
+
+local function accuracy(attRoll, defRoll)
+    if attRoll < defRoll then
+    	return attRoll / (2 * defRoll + 2)
+    else
+    	return 1 - ((defRoll + 2) / (2 * attRoll + 2))
+    end
+end
+
+local function rollNextBucket(oddsAccum, attRoll, currentBucket, nextBucket)
+	local successChance = accuracy(attRoll, nextBucket.defRoll)
+	local cumulativeChance = oddsAccum[currentBucket.name] * successChance
+	oddsAccum[currentBucket.name] = oddsAccum[currentBucket.name] - cumulativeChance
+	oddsAccum[nextBucket.name] = cumulativeChance
+end
+
+local function calcOdds(attRoll)
+    local odds = { miss = 1 }
+    for i = 2, #buckets do
+    	rollNextBucket(odds, attRoll, buckets[i - 1], buckets[i])
+    end
+    return odds
+end
+
+local function scorePerShot(odds)
+	local s = 0
+    for i, bucket in ipairs(buckets) do
+    	s = s + (odds[bucket.name] * bucket.score)
+    end
+    return s
+end
+
+local attRolls = {}
+local roundScores = {}
+for attRoll = attRollMin, attRollMax, attRollStep do
+	-- 10 shots per round
+	local score = scorePerShot(calcOdds(attRoll)) * 10
+	table.insert(attRolls, attRoll)
+	table.insert(roundScores, score)
+end
+
+local data = {
+	type = 'line',
+	data = {
+		datasets = {
+			{
+				label = 'Score',
+				fill = false,
+				borderColor = 'rgb(255, 0, 0)',
+				data = helper.convertToXYFormat(roundScores, attRolls)
+			}
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		title = {
+			display = true,
+			text = 'Average score per round',
+			font = {
+				size = 18
+			}
+		},
+		tooltips = {
+			mode = 'x',
+			position = 'nearest',
+			intersect = false
+		},
+		elements = {
+			point = {
+				radius = 0
+			}
+		},
+		scales = {
+			x = {
+				type = 'linear',
+				min = attRollMin,
+				max = attRollMax,
+				scaleLabel = {
+					display = true,
+					labelString = 'Ranged attack roll'
+				}
+			},
+			y = {
+				scaleLabel = {
+					display = true,
+					labelString = 'Score'
+				},
+			    ticks = {
+					format = 'decimal'
+				}
+			}
+		}
+	}
+}
+
+return data

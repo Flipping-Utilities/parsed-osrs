@@ -1,0 +1,102 @@
+
+local p = {}
+
+function p.musicpage()
+	return p.print()
+end
+
+function p.fetchResults()
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local b = bucket('soundtrack')
+			.select('title', 'page_name', 'cover', 'release_date', 'link_tidal', 'link_bandcamp', 'link_qobuz', 'link_itunes', 'link_spotify', 'link_youtube', 'link_amazon', 'link_deezer', 'link_soundcloud')
+			.orderBy('title', 'asc')
+			.limit(batchSize)
+			.offset(offset)
+			.run()
+		
+			for _, result in ipairs(b) do
+				
+				if result.title ~= nil then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #b < batchSize then
+				break;
+			end
+
+	end
+	
+	return results
+end
+
+function p.print()
+	local results = p.fetchResults()
+	local output = {
+		'{| class="wikitable sortable align-center-1"',
+		'! class="unsortable" | Album',
+		'! class="unsortable" | Links',
+		'! Release date'
+	}
+
+	
+	
+		for _, result in ipairs(results) do
+
+	local titleShort
+	if string.find(result.title, ":") then
+		titleShort = string.sub(result.title, string.find(result.title, ":") + 1)
+	else
+		titleShort = result.title
+	end
+	local year = string.match(result.release_date, '%d%d%d%d')
+	local day, month = string.match(result.release_date, '(%d+)%s(%a+)')
+	local release = '[[' .. day .. ' ' .. month .. ']] [[' .. year .. ']]'
+	local links = ''
+if result.link_tidal then
+	links = links .. '[[File:Tidal icon.png|55px|' .. result.link_tidal .. '|Tidal]]'
+end
+if result.link_bandcamp then
+	links = links .. '[[File:Bandcamp icon.png|55px|link=https://lacedrecords.bandcamp.com/' .. result.link_bandcamp .. '|Bandcamp]]<br>'
+end
+if result.link_qobuz then
+	links = links .. '[[File:Qobuz icon.png|55px|link=https://open.qobuz.com/album' .. result.link_qobuz .. '|Qobuz]]'
+end
+if result.link_itunes then
+	links = links .. '[[File:Apple Music icon.png|55px|link=https://music.apple.com/gb/album/' .. result.link_itunes .. '|Apple Music]]<br>'
+end
+if result.link_spotify then
+	links = links .. '[[File:Spotify icon.png|55px|link=https://open.spotify.com/album/' .. result.link_spotify .. '|Spotify]]'
+end
+if result.link_youtube then
+	links = links .. '[[File:Youtube icon.png|55px|link=https://music.youtube.com/playlist?list=' .. result.link_youtube .. '|Youtube]]<br>'
+end
+if result.link_amazon then
+	links = links .. '[[File:Amazon Music icon.png|55px|link=https://music.amazon.com/albums/' .. result.link_amazon .. '|Amazon Music]]'
+end
+if result.link_deezer then
+	links = links .. '[[File:Deezer icon.png|55px|link=https://www.deezer.com/en/album/' .. result.link_deezer .. '|Deezer]]<br>'
+end
+if result.link_soundcloud then
+	links = links .. '[[File:Soundcloud icon.png|55px|link=https://on.soundcloud.com/' .. result.link_soundcloud .. '|Soundcloud]] '
+end
+		
+
+		table.insert(output, '|-')
+		table.insert(output, '|[[' .. result.cover .. '|250px|link=' .. result.page_name ..']]<br>' .. '[[' .. result.page_name .. '|\'\'\'\'\'' .. titleShort .. '\'\'\'\'\']]')
+		table.insert(output, '|' .. links)
+		table.insert(output, '|' .. release)
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+return p

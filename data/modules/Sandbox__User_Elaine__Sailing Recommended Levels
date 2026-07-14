@@ -1,0 +1,27 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame.args;
+	mw.logObject(args)
+	
+	local ret = makeTable(args['WoodcuttinglvlInput'])
+	return mw.getCurrentFrame():extensionTag{
+		name = 'templatestyles', args = { src = 'Module:Sandbox/User:Elaine/Sailing_Recommended_Levels/styles.css' }
+	} .. tostring(ret)
+end
+
+function makeTable(level)
+	local t = mw.html.create('table')
+	t:addClass('wikitable')
+	t:addClass('skills-table')
+	t:tag('tr')
+		:tag('td')
+		:addClass('skills-cell')
+			:wikitext('[[File:woodcutting_icon.png|woodcutting]] ' .. level .. '/' .. '92')
+		:done()
+	:done()
+	return t
+end
+
+
+return p

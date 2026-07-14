@@ -1,0 +1,20 @@
+{{Documentation}}
+
+{{APIDoc
+|funcName = main
+|funcDesc = The main entry point for templates and pages. Should only be called via <code>{{#invoke}}</code> outside of a module.
+|arg1 = frame
+|type1 = [https://www.mediawiki.org/wiki/Extension:Scribunto/Lua_reference_manual#frame-object frame object]
+|desc1 = The frame object automatically passed via <code>{{#invoke}}</code>.
+|returnType = string
+|returnDesc = A fully rendered button with optional preview map.
+}}
+{{APIDoc
+|funcName = _main
+|funcDesc = The main entry point for other modules.
+|arg1 = args
+|type1 = table
+|desc1 = Any [[Template:Tile_markers_box#Arguments|feature arguments]].
+|returnType = string
+|returnDesc = A fully rendered button with optional preview map.
+}}

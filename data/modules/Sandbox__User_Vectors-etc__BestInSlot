@@ -1,0 +1,89 @@
+local p = {}
+
+local yesNo = require('Module:Yesno')
+local paramTest = require('Module:Paramtest')
+local contains = require('Module:Array').contains
+
+local slotOptions = {'head', 'cape', 'neck', 'ammo', 'weapon', 'shield', 'body', 'legs', 'hands', 'feet', 'ring', '2h'}
+local statOptions = {'stab_attack_bonus', 'slash_attack_bonus', 'crush_attack_bonus', 'range_attack_bonus', 'magic_attack_bonus',
+					'stab_defence_bonus', 'slash_defence_bonus', 'crush_defence_bonus', 'range_defence_bonus', 'magic_defence_bonus',
+					'strength_bonus', 'ranged_strength_bonus', 'prayer_bonus', 'magic_damage_bonus'}
+local memberOptions = {'all', 'f2p', 'members'}
+local tradeableOptions = {'all', 'tradeable_only'}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local slot = string.lower(paramTest.default_to(args.slot, ''))
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+	local stat = string.lower(paramTest.default_to(args.stat, ''))
+	assert(contains(statOptions, slot), 'Invalid stat specified')
+	local members = string.lower(paramTest.default_to(args.members, 'all'))
+	assert(contains(memberOptions, members), 'Invalid members status specified')
+	local tradeable = string.lower(paramTest.default_to(args.tradeable, 'all'))
+	assert(contains(tradeableOptions, tradeable), 'Invalid tradeability specified')
+	
+	-- if two items' stats are the same but one is tradeable, prefer that one
+	local preferTradeable yesNo(paramTest.default_to(args.preferTradeable, false), false)
+	
+	-- might end up not implementing any of these for filtering
+	local beta = yesNo(paramTest.default_to(args.beta, false), false) -- Beta world items
+	local bounty = yesNo(paramTest.default_to(args.bounty, false), false) -- Bounty Hunter items
+	local discontinued = yesNo(paramTest.default_to(args.discontinued, false), false) -- discontinued items
+	local dmm = yesNo(paramTest.default_to(args.dmm, false), false) -- DeadMan Mode items
+	local emir = yesNo(paramTest.default_to(args.emir, false), false) -- Emir's Arena items
+	local failedPoll = yesNo(paramTest.default_to(args.failedpoll, false), false) -- items that failed polls
+	local gauntlet = yesNo(paramTest.default_to(args.gauntlet, false), false) -- Gauntlet items
+	local lms = yesNo(paramTest.default_to(args.lms, false), false) -- Last Man Standing items
+	local quest = yesNo(paramTest.default_to(args.quest, true), true) -- quest items
+	local future = yesNo(paramTest.default_to(args.future, false), false) -- future/unreleased items
+	local allVariants = yesNo(paramTest.default_to(args.allVariants, true), true) -- equivalent variants of each item
+	local uim = yesNo(paramTest.default_to(args.uim, false), false) -- UIM special items: shop buyable, STASH or POH storeable
+	
+	-- default to show only the very top 1 BIS item
+	local topN = paramTest.default_to(args.topN, 1)
+	-- if multiple items are tied, up to how many should be displayed?
+	local maxN = args.maxN
+	-- maximum overall number of rows to return
+	local maxRows = paramTest.default_to(args.maxRows, 1)
+	
+	local bucket1 = "infobox_bonuses"
+	local bucket2 = "infobox_item"
+	local itemQuery = bucket("infobox_bonuses")
+		.select("page_name", "page_name_sub", "equipment_slot", stat)
+		.where("equipment_slot", slot)
+		.orderBy(stat, "DESC")
+		.join("infobox_item", "infobox_item.page_name_sub", "infobox_bonuses.page_name_sub")
+	
+	if members == "members" then
+		itemQuery.where("infobox_item.is_members_only", "Yes")
+	elseif members == "f2p" then
+		itemQuery.where("infobox_item.is_members_only", "No")
+	end
+	
+	if tradeable == "tradeable_only" then
+		itemQuery.where("infobox_item.tradeable", "Yes")
+	end
+	
+	if not quest then
+		itemQuery.where("infobox_item.quest", "No")
+	end
+	
+	local itemData = itemQuery.run()
+	assert(data ~= nil and #data > 0, 'Bucket query failed')
+	
+	topNData = itemData.limit(topN)
+	
+	-- TODO: implement logic for including items with tied stats at the bottom of the list
+	
+	return itemData
+end
+	
+function HighestBonusesRow(args)
+	
+end
+
+return p

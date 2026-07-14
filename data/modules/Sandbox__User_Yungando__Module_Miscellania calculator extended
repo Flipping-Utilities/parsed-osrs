@@ -1,0 +1,380 @@
+local p = {}
+
+--Add favour maintaining every other day, every 3 days sorta thing to help see how much it drops off by as times go on
+
+local coins = require('Module:Coins')._amount
+local gePrice = require('Module:Exchange')._price
+local yesNo = require('module:Yesno')
+
+local materials = {
+	{category = 'Wood (Maple)', inverseCost = 160, icon = 'Maple logs.png'},
+	{category = 'Mining (Coal)', inverseCost = 98, icon = 'Coal.png'},
+	{category = 'Fishing (Raw)', inverseCost = 158, icon = 'Raw tuna.png'},
+	{category = 'Fishing (Cooked)', inverseCost = 158, icon = 'Tuna.png'},
+	{category = 'Herbs (Grimy)', inverseCost = 11, icon = 'Grimy tarromin.png'},
+	{category = 'Herbs (Cleaned)', inverseCost = 11, icon = 'tarromin.png'},
+	{category = 'Flax', inverseCost = 224, icon = 'Flax.png'},
+	{category = 'Hardwood (Mahogany)', inverseCost = 40, icon = 'Mahogany logs.png'},
+	{category = 'Hardwood (Teak)', inverseCost = 54, icon = 'Teak logs.png'},
+	{category = 'Hardwood (Both)', inverseCost = 47, icon = 'Mahogany logs.png'},
+	{category = 'Farm (Seeds)', inverseCost = 86, icon = 'Potato seed 5.png'},
+}
+
+local priceOverrides = {
+	['Bird nest (ring)'] = gePrice('Bird nest (empty)') + 40/100 * gePrice('Sapphire ring') + 35/100 * gePrice('Gold ring') + 15/100 * gePrice('Emerald ring') + 9/100 * gePrice('Ruby ring') + 1/100 * gePrice('Diamond ring'),
+	['Bird nest (blue egg)'] = gePrice('Bird nest (empty)'),
+	['Bird nest (green egg)'] = gePrice('Bird nest (empty)'),
+	['Bird nest (red egg)'] = gePrice('Bird nest (empty)'),
+	['Bird nest (seed)'] = gePrice('Bird nest (empty)') + 214/1011 * gePrice('Acorn') + 170/1011 * gePrice('Apple tree seed') + 135/1011 * gePrice('Willow seed') + 108/1011 * gePrice('Banana tree seed') + 85/1011 * gePrice('Orange tree seed') + 68/1011 * gePrice('Curry tree seed') + 54/1011 * gePrice('Maple seed') + 42/1011 * gePrice('Pineapple seed') + 34/1011 * gePrice('Papaya tree seed') + 27/1011 * gePrice('Yew seed') + 22/1011 * gePrice('Palm tree seed') + 17/1011 * gePrice('Calquat tree seed') + 11/1011 * 0 + 6/1011 * gePrice('Dragonfruit tree seed') + 5/1011 * gePrice('Magic seed') + 4/1011 * gePrice('Teak seed') + 4/1011 * gePrice('Mahogany seed') + 3/1011 * gePrice('Celastrus seed') + 2/1011 * gePrice('Redwood tree seed'),
+	['Clue scroll (easy)'] = 0,
+	['Spirit seed'] = 0,
+}
+local rateTables = {}
+rateTables['Nests'] = {
+	{item = 'Bird nest (seed)', rate = 65/100},
+	{item = 'Bird nest (ring)', rate = 32/100},
+	{item = 'Bird nest (green egg)', rate = 1/100},
+	{item = 'Bird nest (blue egg)', rate = 1/100},
+	{item = 'Bird nest (red egg)', rate = 1/100},
+}
+rateTables['Mining gems'] = {
+	{item = 'Uncut sapphire', rate = 32/58},
+	{item = 'Uncut emerald', rate = 16/58},
+	{item = 'Uncut ruby', rate = 8/58},
+	{item = 'Uncut diamond', rate = 2/58},
+}
+rateTables['Fishing loot'] = {
+	{item = 'Uncut sapphire', rate = 32/104},
+	{item = 'Uncut emerald', rate = 16/104},
+	{item = 'Uncut ruby', rate = 8/104},
+	{item = 'Uncut diamond', rate = 2/104},
+	{item = 'Casket', rate = 32/104},
+	{item = 'Fremennik boots', rate = 4/104},
+	{item = 'Fremennik gloves', rate = 4/104},
+	{item = 'Loop half of key', rate = 1/104},
+	{item = 'Tooth half of key', rate = 1/104},
+	{item = 'Clue scroll (easy)', rate = 4/104},
+}
+rateTables['Grimy herbs'] = {
+	{item = 'Grimy tarromin', rate = 10/46},
+	{item = 'Grimy harralander', rate = 9/46},
+	{item = 'Grimy irit leaf', rate = 6/46},
+	{item = 'Grimy avantoe', rate = 6/46},
+	{item = 'Grimy ranarr weed', rate = 3/46},
+	{item = 'Grimy kwuarm', rate = 3/46},
+	{item = 'Grimy cadantine', rate = 3/46},
+	{item = 'Grimy dwarf weed', rate = 3/46},
+	{item = 'Grimy lantadyme', rate = 3/46},
+}
+rateTables['Clean herbs'] = {
+	{item = 'Tarromin', rate = 10/46},
+	{item = 'Harralander', rate = 9/46},
+	{item = 'Irit leaf', rate = 6/46},
+	{item = 'Avantoe', rate = 6/46},
+	{item = 'Ranarr weed', rate = 3/46},
+	{item = 'Kwuarm', rate = 3/46},
+	{item = 'Cadantine', rate = 3/46},
+	{item = 'Dwarf weed', rate = 3/46},
+	{item = 'Lantadyme', rate = 3/46},
+}
+rateTables['Herb seeds'] = {
+	{item = 'Guam seed', rate = 320/1000},
+	{item = 'Marrentill seed', rate = 218/1000},
+	{item = 'Tarromin seed', rate = 149/1000},
+	{item = 'Harralander seed', rate = 101/1000},
+	{item = 'Ranarr seed', rate = 69/1000, maximum = 2},
+	{item = 'Toadflax seed', rate = 47/1000},
+	{item = 'Irit seed', rate = 32/1000},
+	{item = 'Avantoe seed', rate = 22/1000},
+	{item = 'Kwuarm seed', rate = 15/1000},
+	{item = 'Snapdragon seed', rate = 10/1000},
+	{item = 'Cadantine seed', rate = 7/1000},
+	{item = 'Lantadyme seed', rate = 5/1000},
+	{item = 'Dwarf weed seed', rate = 3/1000},
+	{item = 'Torstol seed', rate = 2/1000},
+}
+rateTables['Flax seeds'] = {
+	{item = 'Guam seed', rate = 320/1000},
+	{item = 'Marrentill seed', rate = 218/1000},
+	{item = 'Tarromin seed', rate = 149/1000},
+	{item = 'Harralander seed', rate = 101/1000},
+	{item = 'Ranarr seed', rate = 69/1000},
+	{item = 'Toadflax seed', rate = 47/1000},
+	{item = 'Irit seed', rate = 32/1000},
+	{item = 'Avantoe seed', rate = 22/1000},
+	{item = 'Kwuarm seed', rate = 15/1000},
+	{item = 'Snapdragon seed', rate = 10/1000},
+	{item = 'Cadantine seed', rate = 7/1000},
+	{item = 'Lantadyme seed', rate = 5/1000},
+	{item = 'Dwarf weed seed', rate = 3/1000},
+	{item = 'Torstol seed', rate = 2/1000},
+}
+rateTables['Tree seeds'] = {
+	{item = 'Acorn', rate = 214/1011, maximum = 4},
+	{item = 'Apple tree seed', rate = 170/1011, maximum = 4},
+	{item = 'Willow seed', rate = 135/1011, maximum = 4},
+	{item = 'Banana tree seed', rate = 108/1011, maximum = 4},
+	{item = 'Orange tree seed', rate = 85/1011, maximum = 4},
+	{item = 'Curry tree seed', rate = 68/1011, maximum = 4},
+	{item = 'Maple seed', rate = 54/1011, maximum = 4},
+	{item = 'Pineapple seed', rate = 42/1011, maximum = 4},
+	{item = 'Papaya tree seed', rate = 34/1011, maximum = 4},
+	{item = 'Yew seed', rate = 27/1011, maximum = 4},
+	{item = 'Palm tree seed', rate = 22/1011, maximum = 4},
+	{item = 'Calquat tree seed', rate = 17/1011, maximum = 4},
+	{item = 'Spirit seed', rate = 11/1011, maximum = 4},
+	{item = 'Dragonfruit tree seed', rate = 6/1011, maximum = 4},
+	{item = 'Magic seed', rate = 5/1011, maximum = 4},
+	{item = 'Teak seed', rate = 4/1011, maximum = 4},
+	{item = 'Mahogany seed', rate = 4/1011, maximum = 4},
+	{item = 'Celastrus seed', rate = 3/1011, maximum = 4},
+	{item = 'Redwood tree seed', rate = 2/1011, maximum = 4},
+}
+-- we don't know the actual rates, but these are very close...
+rateTables['Seeds'] = {
+	{item = 'Potato seed', rate = 1567735/8858315},
+	{item = 'Onion seed', rate = 1180708/8858315},
+	{item = 'Cabbage seed', rate = 619972/8858315},
+	{item = 'Tomato seed', rate = 561932/8858315},
+	{item = 'Barley seed', rate = 497148/8858315},
+	{item = 'Hammerstone seed', rate = 494318/8858315},
+	{item = 'Marigold seed', rate = 409668/8858315},
+	{item = 'Asgarnian seed', rate = 369067/8858315},
+	{item = 'Jute seed', rate = 368455/8858315},
+	{item = 'Redberry seed', rate = 343409/8858315},
+	{item = 'Nasturtium seed', rate = 270351/8858315},
+	{item = 'Yanillian seed', rate = 245383/8858315},
+	{item = 'Cadavaberry seed', rate = 242164/8858315},
+	{item = 'Sweetcorn seed', rate = 197249/8858315},
+	{item = 'Rosemary seed', rate = 173977/8858315},
+	{item = 'Dwellberry seed', rate = 172110/8858315},
+	{item = 'Guam seed', rate = 135320/8858315},
+	{item = 'Woad seed', rate = 129804/8858315},
+	{item = 'Krandorian seed', rate = 122649/8858315},
+	{item = 'Limpwurt seed', rate = 103567/8858315},
+	{item = 'Strawberry seed', rate = 97042/8858315},
+	{item = 'Marrentill seed', rate = 93062/8858315},
+	{item = 'Jangerberry seed', rate = 69567/8858315},
+	{item = 'Wildblood seed', rate = 62976/8858315},
+	{item = 'Tarromin seed', rate = 62551/8858315},
+	{item = 'Watermelon seed', rate = 47071/8858315},
+	{item = 'Harralander seed', rate = 43198/8858315},
+	{item = 'Snape grass seed', rate = 34094/8858315},
+	{item = 'Whiteberry seed', rate = 24586/8858315},
+	{item = 'Toadflax seed', rate = 19990/8858315},
+	{item = 'Mushroom spore', rate = 19266/8858315},
+	{item = 'Irit seed', rate = 14019/8858315},
+	{item = 'Belladonna seed', rate = 11594/8858315},
+	{item = 'Avantoe seed', rate = 9229/8858315},
+	{item = 'Poison ivy seed', rate = 9199/8858315},
+	{item = 'Cactus seed', rate = 7850/8858315},
+	{item = 'Kwuarm seed', rate = 6599/8858315},
+	{item = 'Ranarr seed', rate = 5305/8858315, maximum = 2},
+	{item = 'Snapdragon seed', rate = 3901/8858315},
+	{item = 'Potato cactus seed', rate = 3790/8858315},
+	{item = 'Cadantine seed', rate = 2817/8858315},
+	{item = 'Lantadyme seed', rate = 2097/8858315},
+	{item = 'Seaweed spore', rate = 1508/8858315},
+	{item = 'Dwarf weed seed', rate = 1208/8858315},
+	{item = 'Torstol seed', rate = 810/8858315},
+}
+
+-- from WP
+function choose(n,k)
+	if k < 0 or k > n then
+		return 0
+	end
+	if k == 0 or k == n then
+		return 1
+	end
+	k = math.min(k, n-k) -- symmetry
+	c = 1
+	for i=0,k-1 do
+		c = c * (n-i) / (i+1)
+	end
+	return c
+end
+
+function computeExpectedValueWithMax(n, p, maximum)
+	local ev = 0
+	local p_mass = 0
+	for k = 0, maximum-1 do
+		local prob_k = choose(n, k) * math.pow(p, k) * math.pow(1 - p, n - k)
+		p_mass = p_mass + prob_k
+		ev = ev + k * prob_k
+	end
+	return ev + (1 - p_mass) * maximum
+end
+
+function addFromRateTable(outputs, rateTable, amount)
+	for _, row in ipairs(rateTable) do
+		local ev = row.rate * amount
+		if row.maximum ~= nil then
+			ev = computeExpectedValueWithMax(amount, row.rate, row.maximum)
+		end
+		table.insert(outputs, {item = row.item, qty = ev})
+	end
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local days = tonumber(args.days)
+	local workers = tonumber(args.workers)
+	local royalTrouble = yesNo(args.royalTrouble)
+	local startingFavour = tonumber(args.startingFavour)
+	local constantFavour = yesNo(args.constantFavour)
+	local startingCoffer = tonumber(args.startingCoffer)
+
+	return p._main(days, workers, royalTrouble, startingFavour, constantFavour, startingCoffer)
+end
+	
+function p._main(days, workers, royalTrouble, startingFavour, constantFavour, startingCoffer)
+	local resourcePoints = 0
+	local currentFavour = startingFavour
+	local currentCoffer = startingCoffer
+	
+	local favourSubtraction = 160
+	local cofferMax = 50000
+	local maxWorkers = 10
+	if royalTrouble then
+		favourSubtraction = 131
+		cofferMax = 75000
+		maxWorkers = 15
+	end
+	
+	for day=1,days do
+		local cofferReduction = math.min(5 + math.floor(currentCoffer / 10), cofferMax, currentCoffer)
+		currentCoffer = currentCoffer - cofferReduction
+		local workerEffectiveness = math.floor(cofferReduction * 100 / 8333)
+		-- need to test: is it math.floor(workerEffectiveness / 100) * currentFavour?
+		resourcePoints = resourcePoints + math.floor(workerEffectiveness * currentFavour / 100)
+		if currentFavour > 32 and not constantFavour then
+			-- TODO: this is not precisely correct and is off by one on certain favour amounts
+			currentFavour = math.max(32, currentFavour - math.ceil((favourSubtraction - currentFavour) / 15))
+		end
+	end
+	
+	resourcePoints = math.min(262143, resourcePoints)
+	
+	local ret = {}
+	local evs = {}
+	for _, materialInfo in ipairs(materials) do
+		local outputs = {}
+		
+		local baseQty = math.floor(workers * materialInfo.inverseCost * resourcePoints / 2048)
+		if materialInfo.category == 'Wood (Maple)' then
+			outputs = {
+				{item = 'Maple logs', qty = baseQty}
+			}
+			addFromRateTable(outputs, rateTables['Nests'], math.min(999, math.floor(baseQty / 100)))
+		elseif materialInfo.category == 'Mining (Coal)' then
+			outputs = {
+				{item = 'Coal', qty = baseQty}
+			}
+			addFromRateTable(outputs, rateTables['Mining gems'], math.floor(baseQty / 200 + 0.5))
+		elseif materialInfo.category == 'Fishing (Raw)' then
+			outputs = {
+				{item = 'Raw tuna', qty = math.floor(0.5 * baseQty)},
+				{item = 'Raw swordfish', qty = math.floor(0.15 * baseQty)}
+			}
+			addFromRateTable(outputs, rateTables['Fishing loot'], math.floor(baseQty / 200))
+		elseif materialInfo.category == 'Fishing (Cooked)' then
+			outputs = {
+				{item = 'Tuna', qty = math.floor(0.5 * baseQty)},
+				{item = 'Swordfish', qty = math.floor(0.15 * baseQty)}
+			}
+			addFromRateTable(outputs, rateTables['Fishing loot'], math.floor(baseQty / 200))
+		elseif materialInfo.category == 'Herbs (Grimy)' then
+			addFromRateTable(outputs, rateTables['Grimy herbs'], baseQty)
+			addFromRateTable(outputs, rateTables['Herb seeds'], math.floor(baseQty / 100))
+		elseif materialInfo.category == 'Herbs (Cleaned)' then
+			addFromRateTable(outputs, rateTables['Clean herbs'], baseQty)
+			addFromRateTable(outputs, rateTables['Herb seeds'], math.floor(baseQty / 100))
+		elseif materialInfo.category == 'Flax' then
+			outputs = {
+				{item = 'Flax', qty = baseQty}
+			}
+			addFromRateTable(outputs, rateTables['Flax seeds'], math.floor(baseQty / 600))
+		elseif materialInfo.category == 'Hardwood (Mahogany)' then
+			outputs = {
+				{item = 'Mahogany logs', qty = baseQty}
+			}
+			addFromRateTable(outputs, rateTables['Nests'], math.floor(baseQty / 350))
+		elseif materialInfo.category == 'Hardwood (Teak)' then
+			outputs = {
+				{item = 'Teak logs', qty = baseQty}
+			}
+			addFromRateTable(outputs, rateTables['Nests'], math.floor(baseQty / 350))
+		elseif materialInfo.category == 'Hardwood (Both)' then
+			outputs = {
+				{item = 'Mahogany logs', qty = math.floor(0.5 * baseQty)},
+				{item = 'Teak logs', qty = math.floor(0.5 * baseQty)}			
+			}
+			addFromRateTable(outputs, rateTables['Nests'], math.floor(baseQty / 350))
+		elseif materialInfo.category == 'Farm (Seeds)' then
+			addFromRateTable(outputs, rateTables['Seeds'], baseQty)
+			addFromRateTable(outputs, rateTables['Tree seeds'], math.floor(baseQty / 200))
+		end
+		
+		local materialTable = mw.html.create('table')
+		table.insert(ret, '===' .. materialInfo.category .. '===')
+		materialTable:addClass('wikitable align-center-1')
+			:tag('tr')
+				:tag('th'):wikitext('Item'):attr('colspan', 2):done()
+				:tag('th'):wikitext('Price'):done()
+				:tag('th'):wikitext('Expected amount'):done()
+				:tag('th'):wikitext('Expected value'):done()
+		
+		local totalExpectation = 0
+		for _, row in ipairs(outputs) do
+			local price = priceOverrides[row.item]
+			if price == nil then
+				price = gePrice(row.item)
+			end
+			totalExpectation = totalExpectation + price * row.qty
+			materialTable:tag('tr')
+				:tag('td'):wikitext('[[File:' .. row.item .. '.png|link=' .. row.item .. ']]'):done()
+				:tag('td'):wikitext('[[' .. row.item .. ']]'):done()
+				:tag('td'):wikitext(coins(price)):done()
+				:tag('td'):wikitext(string.format('%.3f', row.qty)):done()
+				:tag('td'):wikitext(coins(price * row.qty)):done()
+		end
+		materialTable:tag('tr')
+			:tag('th'):attr('colspan', 4):done()
+			:tag('th'):wikitext(coins(totalExpectation)):done()
+		table.insert(ret, tostring(materialTable))
+		table.insert(evs, {category = materialInfo.category, icon = materialInfo.icon, expectedValue = totalExpectation})
+	end
+	
+	local favourVerb = 'never regaining favour, '
+	if constantFavour then
+		favourVerb = 'regaining favour every day, '
+	end
+
+	if days == 1 then
+		favourVerb = ''
+	end
+
+	local message = 'With [[Royal Trouble]] ' ..  (royalTrouble and 'done' or 'not done') .. ' and a starting coffer of ' .. coins(startingCoffer) .. ' and going for ' ..
+		days .. ' ' .. (days > 1 and 'days' or 'day') .. ', ' .. favourVerb .. 'you will end up with ' ..
+		resourcePoints .. ' resource points, costing ' .. coins(startingCoffer - currentCoffer) .. '.\n\nWith ' .. workers ..
+		' workers, that gives the following expected values:'
+	local evTable = mw.html.create('table')
+	evTable:addClass('wikitable sortable align-center-1')
+		:tag('tr')
+			:tag('th'):wikitext('Worker Choice'):attr('colspan', 2):done()
+			:tag('th'):wikitext('Expected value'):done()
+			:tag('th'):wikitext('Expected profit'):done()
+	
+	for _, ev in ipairs(evs) do
+		evTable:tag('tr')
+			:tag('td'):wikitext('[[File:' .. ev.icon .. '|link=#' .. ev.category .. ']]'):done()
+			:tag('td'):wikitext('[[#' .. ev.category .. '|' .. ev.category .. ']]'):done()
+			:tag('td'):wikitext(coins(ev.expectedValue)):done()
+			:tag('td'):wikitext(coins(ev.expectedValue + (currentCoffer - startingCoffer) * workers / maxWorkers)):done()	
+	end
+
+	return message .. '\n\n' .. tostring(evTable) .. '\n\n' .. table.concat(ret, '\n\n')
+end
+
+return p

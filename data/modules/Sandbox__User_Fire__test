@@ -1,0 +1,36 @@
+local gePrice = require('Module:Exchange')._price
+
+local p = {}
+
+local herbs = {"Guam leaf", "Marrentill", "Tarromin", "Harralander",
+	"Ranarr weed", "Toadflax", "Irit leaf", "Avantoe", "Kwuarm", "Snapdragon",
+	"Cadantine", "Lantadyme", "Dwarf weed" , "Torstol"}
+
+
+function p.showTable(frame)
+	
+	local herbTable = "{| class=\"wikitable sortable\" \n"
+	herbTable = herbTable .. "|- \n"
+	herbTable = herbTable .. "! Herb !! Grimy Price !! Clean Price !! Profit \n"
+	
+	for _, herb in ipairs(herbs) do
+    	herbTable = herbTable .. addRow(frame, herb)
+	end
+	
+	herbTable = herbTable .. "|}"
+	return herbTable
+end
+
+
+function addRow(frame, herb)
+    local grimyPrice = frame:expandTemplate{title='coins', args={gePrice("Grimy "..string.lower(herb))}}
+    local cleanPrice = frame:expandTemplate{title='coins', args={gePrice(herb)}}
+    local profit = frame:expandTemplate{title='coins', args={gePrice(herb) - gePrice("Grimy "..string.lower(herb))}}
+    
+	local row = "|-\n"
+	row = row .. "|[[".. herb .."]]||".. grimyPrice .."||".. cleanPrice .."||".. profit .. "\n"
+	return row
+end
+
+
+return p

@@ -1,0 +1,235 @@
+local p = {}
+
+-- The root of the diary skill requirements.
+local namespaceRoot = 'User:Hjalmar/DiaryRework'
+
+-- All of the possible diaries.
+local diaries = {
+	['Ardougne']=1,
+	['Desert']=1,
+	['Falador']=1,
+	['Fremennik']=1,
+	['Kandarin']=1,
+	['Karamja']=1,
+	['Kourend & Kebos']=1,
+	['Lumbridge & Draynor']=1,
+	['Morytania']=1,
+	['Varrock']=1,
+	['Western Provinces']=1,
+	['Wilderness']=1,
+}
+
+-- All the possible levels
+local levels = {
+	'Easy',
+	'Medium',
+	'Hard',
+	'Elite',
+}
+
+-- All of the skill and skill-like requirements for a given diary, as keys on a
+-- table for faster lookups.
+local skills = {
+	Agility=1,
+	Attack=1,
+	Construction=1,
+	Cooking=1,
+	Crafting=1,
+	Defence=1,
+	Farming=1,
+	Firemaking=1,
+	Fishing=1,
+	Fletching=1,
+	Herblore=1,
+	Hitpoints=1,
+	Hunter=1,
+	Magic=1,
+	Mining=1,
+	Prayer=1,
+	Ranged=1,
+	Runecraft=1,
+	Slayer=1,
+	Smithing=1,
+	Strength=1,
+	Thieving=1,
+	Woodcutting=1,
+	Combat=1,
+	Quest=1,
+}
+-- Build a table with all the allowed keys
+local skillKeys = {}
+for key in pairs(skills) do
+	skillKeys[key] = 1
+	skillKeys[key .. 'Ref'] = 1
+end
+
+-- Merges two requirements tables together, taking the higher of two equivalent
+-- numerical values.
+function mergeRequirements(reqA, reqB)
+	local combined = {}
+	
+	-- Merge B onto A
+	for key, value in pairs(reqA) do
+		-- Key is only on A
+		if reqB[key] == nil then
+			combined[key] = value
+
+		-- Take higher of two numerical values
+		elseif skills[key] ~= nil then
+			combined[key] = math.max(value, reqB[key])
+			
+		-- Otherwise combine the refs together
+		else
+			combined[key] = value .. ' ' .. reqB[key]
+		end
+	end
+	
+	-- Then add in the ones that only exist on B
+	for key, value in pairs(reqB) do
+		if reqA[key] == nil then
+			combined[key] = value
+		end
+	end
+	
+	return combined
+end
+
+-- Splits a string on the given text
+-- https://stackoverflow.com/a/7615129
+-- License: CC BY-SA 4.0
+function split(inputstr, sep)
+	-- Default to whitespace
+	if sep == nil then
+		sep = "%s"
+	end
+	
+	-- Split the string on the separator
+	local pieces = {}
+	for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+		table.insert(pieces, str)
+	end
+	
+	return pieces
+end
+
+-- Fetches the raw contents of a page.
+-- Modified <onlyinclude/> -> <includeonly/>
+-- https://www.mediawiki.org/wiki/Module:Transcluder
+-- License: MIT
+function getText(page, noFollow)
+	local title = mw.title.new(page)
+	if not title then return false, false end
+
+	local target = title.redirectTarget
+	if target and not noFollow then title = target end
+
+	local text = title:getContent()
+	if not text then return false, title.prefixedText end
+
+	-- Remove <noinclude> tags
+	text = string.gsub(text, '<[Nn][Oo][Ii][Nn][Cc][Ll][Uu][Dd][Ee]>.-</[Nn][Oo][Ii][Nn][Cc][Ll][Uu][Dd][Ee]>', '') -- remove noinclude bits
+
+	-- Keep <includeonly> tags
+	if string.find(text, '[Ii][Nn][Cc][Ll][Uu][Dd][Ee][Oo][Nn][Ll][Yy]') then -- avoid expensive search if possible
+		text = text
+			:gsub('</[Ii][Nn][Cc][Ll][Uu][Dd][Ee][Oo][Nn][Ll][Yy]>.-<[Ii][Nn][Cc][Ll][Uu][Dd][Ee][Oo][Nn][Ll][Yy]>', '') -- remove text between onlyinclude sections
+			:gsub('^.-<[Ii][Nn][Cc][Ll][Uu][Dd][Ee][Oo][Nn][Ll][Yy]>', '') -- remove text before first onlyinclude section
+			:gsub('</[Ii][Nn][Cc][Ll][Uu][Dd][Ee][Oo][Nn][Ll][Yy]>.*', '') -- remove text after last onlyinclude section
+	end
+
+	return text
+end
+
+-- Get the parameters for a given diary by level and mode
+function getRequirements(diary, level, mode)
+	-- No diary by that name
+	if diaries[diary] == nil then
+		return "Invalid diary name"
+	end
+	
+	-- Build the page title so we can get the page contents. Each diary has its
+	-- own set of subpages based on level (Easy, Medium, Hard, Elite) and mode
+	-- (Normal, NormalBoosted, Ironman, IronmanBoosted)
+	local page = namespaceRoot .. '/' .. diary .. '/' .. level .. '/' .. mode
+	page = 'User:Hjalmar/Template/DiarySkills'
+	local contents = getText(page)
+	
+	-- Page does not exist
+	if contents == false then
+		return "Page does not exist: " .. page
+	end
+	
+	-- The skill requirements for this diary.
+	local requirements = {}
+	
+	-- For each line of the page, we want to extract its type (Skill or SkillRef)
+	-- and value. 
+	local pageLines = split(contents, '\n')
+	for i=1, table.getn(pageLines), 1 do
+		repeat -- makes 'break' equivalent to 'continue'
+			-- Each line is of the form `Skill=...`
+			local parts = split(pageLines[i], '=')
+	
+			-- No value
+			if table.getn(parts) < 2 then break end
+				
+			-- Skill does not exist
+			local skill = parts[1]
+			if skillKeys[skill] == nil then break end
+			
+			-- It's possible for there to be '=' in the value (e.g., ref groups)
+			table.remove(parts, 1)
+			local value = table.concat(parts, '=')
+			
+			-- This is a skill, so convert the value to a number
+			if skills[skill] ~= nill then
+				value = tonumber(value)
+			end
+			
+			-- Keep track of the requirement
+			requirements[skill] = value
+			
+			break
+		until true
+	end
+	
+	return requirements
+end
+
+-- Combines all the skill requirements for combinable pages (where diary or
+-- level is 'All')
+function getCombinedRequirements(diary, level, mode)
+	-- This is a standard lookup
+	if diary ~= 'All' and mode ~= 'All' then
+		return getRequirements(diary, level, mode)
+	end
+	
+	-- Track the combined requirements
+	local combined = {}
+	
+	-- We are combining all diaries
+	if diary == 'All' then
+		for key in pairs(diaries) do
+			-- We recurse in case the level is also 'All'
+			merge(combined, getCombinedRequirements(key, level, mode))
+		end
+		
+	-- Single diary, all levels
+	else
+		for key in pairs(levels) do
+			merge(combined, getRequirements(diary, key, mode))
+		end
+	end
+	
+	return combined
+end
+
+function p.main()
+	local diary = 'Ardougne'
+	local level = 'Easy'
+	local mode = 'Normal'
+	
+	mw.logObject(getCombinedRequirements(diary, level, mode))
+end
+
+return p

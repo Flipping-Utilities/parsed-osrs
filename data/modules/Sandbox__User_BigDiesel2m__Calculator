@@ -1,0 +1,115 @@
+-- <nowiki>
+--
+-- Implements {{Template:Calculator/Combat level}}
+--
+
+local p = {}
+
+function p.calc( frame )
+    local args = frame:getParent().args
+    local base = args.base
+    local head = args.head
+    local body = args.body
+    local legs = args.legs
+    local gloves = args.gloves
+    local neck = args.neck
+    local cape = args.cape
+    local staff = args.staff
+    local shield = args.shield
+    local charge = args.charge
+    return p._calc( base, head, body, legs, gloves, neck, cape, staff, shield, charge )
+end
+
+function p._calc( base, head, body, legs, gloves, neck, cape, staff, shield, charge )
+	-- Start with the base max hit
+	local maxhit = base
+	-- Set up additive bit
+	if gloves == 'Chaos gauntlets' then
+		maxhit = maxhit + 3
+	elseif charge == 'Charged' then
+		maxhit = maxhit + 10
+	else 
+		maxhit = maxhit
+	end
+    -- Set up the multiplier bit
+    local strtot = 0
+    -- HEAD SLOT
+	if head == 'Ancestral hat' then
+		strtot = strtot + 2
+	else
+		strtot = strtot
+	end
+    -- BODY SLOT
+	if body == 'Ancestral robe top' then
+		strtot = strtot + 2
+	else
+		strtot = strtot
+	end
+    -- LEGS SLOT
+	if legs == 'Ancestral robe bottom' then
+		strtot = strtot + 2
+	else
+		strtot = strtot
+	end
+    -- GLOVES SLOT
+	if gloves == 'Tormented bracelet' then
+		strtot = strtot + 5
+	else
+		strtot = strtot
+	end
+	-- NECK SLOT
+	if neck == 'Occult necklace' then
+		strtot = strtot + 10
+	elseif neck == 'Salve amulet(i)' then
+		strtot = strtot + 15
+	elseif neck == 'Salve amulet(ei)' then
+		strtot = strtot + 20
+	else
+		strtot = strtot
+	end
+	-- CAPE SLOT
+	if cape == 'Imbued god cape' then
+		strtot = strtot + 2
+	else
+		strtot = strtot
+	end
+	-- STAFF
+	if staff == 'Ahrims staff' then
+		strtot = strtot + 5
+	elseif staff == "Smoke battlestaff" then
+		strtot = strtot + 10
+	elseif staff == "Staff of light" then
+		strtot = strtot + 15
+	elseif staff == "Staff of the dead" then
+		strtot = strtot + 15
+	elseif staff == "Toxic staff of the dead" then
+		strtot = strtot + 15
+	elseif staff == "Kodai wand" then
+		strtot = strtot + 15
+	else
+		strtot = strtot
+	end
+	-- Now time to actually use that magic strength we just calculated
+	strtot = 0.01*strtot
+	strtot = 1+strtot
+	maxhit = math.floor(maxhit*strtot)
+	-- Now a few special things that add up differently
+	if head == 'Slayer helmet (i)' then
+		maxhit = math.floor(maxhit*1.15)
+	elseif head == 'Black mask (i)' then
+		maxhit = math.floor(maxhit*1.15)
+	end
+	if shield == 'Tome of fire' then
+		maxhit = math.floor(maxhit*1.5)
+	end
+	if gloves == 'Castle wars bracelet' then
+		maxhit = math.floor(maxhit*1.2)
+	end 
+	
+	--local strength = 'Your magic strength is ' .. tostring(100*(strtot-1)) .. ' percent '
+    local max = 'Your max hit is ' .. tostring(maxhit) .. '.'
+    return max
+
+end
+
+return p

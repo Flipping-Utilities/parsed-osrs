@@ -1,0 +1,70 @@
+local p = {}
+
+local function trim(s)
+    return s:match("^%s*(.-)%s*$")
+end
+
+
+-- hopefully i've improved this function for edge cases so slashes dont interfere with the code
+function p.toLatex(expr)
+    if not expr or expr == "" then return "" end
+    expr = trim(expr)
+    expr = expr:gsub("%*", " \\cdot ")
+    expr = expr:gsub("%^%s*([%d%a]+)", "^{%1}")
+    local function frac_replace(s)
+        local changed = false
+        local new_s, count = s:gsub("(%b()%s*)/%s*(%b())", function(a, b)
+            return "\\frac{" .. a .. "}{" .. b .. "}"
+        end)
+        if count > 0 then changed = true; s = new_s end
+        new_s, count = s:gsub("(%b()%s*)/%s*([^%s%(%)]+)", function(a, b)
+            return "\\frac{" .. a .. "}{" .. b .. "}"
+        end)
+        if count > 0 then changed = true; s = new_s end
+        new_s, count = s:gsub("([^%s%(%)]+)%s*/%s*(%b())", function(a, b)
+            return "\\frac{" .. a .. "}{" .. b .. "}"
+        end)
+        if count > 0 then changed = true; s = new_s end
+        new_s, count = s:gsub("([^%s%(%)]+)%s*/%s*([^%s%(%)]+)", function(a, b)
+            return "\\frac{" .. a .. "}{" .. b .. "}"
+        end)
+        if count > 0 then changed = true; s = new_s end
+        
+        return s, changed
+    end
+    
+    local changed
+    repeat
+        expr, changed = frac_replace(expr)
+    until not changed
+    
+    return expr
+end
+
+
+function p.render(frame)
+    local expr = frame.args[1] or ""
+    local display = frame.args[2] or "false"
+    local debug = frame.args[3] or "false"
+    
+    local latex = p.toLatex(expr)
+    
+    if latex == "" then
+        latex = "\\text{Invalid expression}"
+        if debug:lower() == "true" then
+            latex = latex .. " (Debug: Original expr was '" .. (expr or "nil") .. "')"
+        end
+    end
+    
+    if debug:lower() == "true" then
+        return "\n'''Debug LaTeX Output:'''\n<pre>" .. latex .. "</pre>\n'''Original Expr:'''\n<pre>" .. (expr or "none") .. "</pre>"
+    end
+
+    local displayAttr = ""
+    if display:lower() == "true" then
+        displayAttr = " display='block'"
+    end
+    return "<math" .. displayAttr .. ">" .. latex .. "</math>"
+end
+
+return p

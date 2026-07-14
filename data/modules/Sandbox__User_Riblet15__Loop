@@ -1,0 +1,11 @@
+local p = {}
+
+function p.main(frame)
+    local args = frame.args
+
+	local prev = tonumber(args['1']) or 0
+	
+    return '{{subst:#invoke:Sandbox/User:Riblet15/Loop|main|'..(prev+1)..'}}'
+end
+
+return p

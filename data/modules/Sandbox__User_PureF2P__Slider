@@ -1,0 +1,7 @@
+local p = {}
+
+function p.main()
+	return mw.html.create('input'):attr('type', 'range'):attr('min', 1):attr('max', 99):done()
+end
+
+return p

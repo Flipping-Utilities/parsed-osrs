@@ -835,5 +835,42 @@ return {
     	},
     	members = 'Yes',
     	type = 'Ensouled'
-    }
+    }, {   
+   		name = 'Guppy',
+   		level = 1,
+    	xp = 4,
+    	materials = {
+       		{ name = 'Guppy', quantity = 1 }
+    	},
+    	members = 'No',
+    	type = 'Camdozaal fish'
+	}, {   
+   		name = 'Cavefish',
+   		level = 1,
+    	xp = 7,
+    	materials = {
+       		{ name = 'Cavefish', quantity = 1 }
+    	},
+    	members = 'No',
+    	type = 'Camdozaal fish'
+	}, {   
+   		name = 'Tetra',
+   		level = 1,
+    	xp = 10,
+    	materials = {
+       		{ name = 'Tetra', quantity = 1 }
+    	},
+    	members = 'No',
+    	type = 'Camdozaal fish'
+	}, {   
+   		name = 'Catfish',
+   		level = 1,
+    	xp = 16,
+    	materials = {
+       		{ name = 'Catfish', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Camdozaal fish'
+	}
+
 }

@@ -1,0 +1,89 @@
+local p = {}
+
+local limits = mw.loadJsonData('Module:GELimits/data.json')
+local volumes = mw.loadJsonData('Module:GEVolumes/data.json')
+
+local html = mw.html
+local lang = mw.getContentLanguage()
+
+local function fnum(x)
+	if tonumber(x) then
+		return lang:formatNum(tonumber(x))
+	end
+
+	return x
+end
+
+local function collectItems()
+	local items = {}
+
+	for name, limit in pairs(limits) do
+		if name ~= '%LAST_UPDATE%'
+			and name ~= '%LAST_UPDATE_F%'
+			and tonumber(limit) == 4
+		then
+			table.insert(items, {
+				name = name,
+				limit = limit,
+				volume = tonumber(volumes[name]) or 0
+			})
+		end
+	end
+
+	table.sort(items, function(a, b)
+		if a.volume ~= b.volume then
+			return a.volume > b.volume
+		end
+
+		return a.name < b.name
+	end)
+
+	return items
+end
+
+local function buildTable(items)
+	local tbl = html.create('table')
+		:addClass('wikitable sortable')
+
+	local header = tbl:tag('tr')
+
+	header:tag('th')
+		:wikitext('Item')
+		:done()
+
+	header:tag('th')
+		:wikitext('Buy limit')
+		:done()
+
+	header:tag('th')
+		:wikitext('Daily volume')
+		:done()
+
+	for _, item in ipairs(items) do
+		local row = tbl:tag('tr')
+
+		row:tag('td')
+			:wikitext('[[' .. item.name .. ']]')
+			:done()
+
+		row:tag('td')
+			:attr('data-sort-value', item.limit)
+			:wikitext(fnum(item.limit))
+			:done()
+
+		row:tag('td')
+			:attr('data-sort-value', item.volume)
+			:wikitext(fnum(item.volume))
+			:done()
+	end
+
+	return tostring(tbl)
+end
+
+function p.main(frame)
+	local items = collectItems()
+
+	return buildTable(items)
+end
+
+return p

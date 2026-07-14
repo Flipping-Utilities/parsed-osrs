@@ -1,0 +1,1062 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local specialattacks = require('Module:Sandbox/User:ThaFrenchFry/Module:Infobox Weapon Special Attack/data')
+
+local CombatOptionLink = {
+	['Melee'] = 'Combat Options#Melee weapons',
+	['Ranged'] = 'Combat Options#Ranged weapons',
+	['Magic'] = 'Combat Options#Magic weapons',
+	['Multiple'] = 'Combat Options',
+	['None'] = '',
+}
+
+-- Combat type
+--  Weapon Style
+--   Weapon Style
+--   Experience gained
+--   Invisible boost
+local WeaponStyles = {
+	['Magic'] = {
+		['Accurate'] = { -- Trident only
+			['Weapon Style'] = 'Accurate',
+			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Magic',
+		},
+		['Defensive'] = {
+			['Weapon Style'] = 'Defensive',
+			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Defence',
+		},
+		['Autocast'] = {
+			['Weapon Style'] = 'Autocast',
+			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = 'None',
+		},
+		['Defensive Autocast'] = {
+			['Weapon Style'] = 'Defensive Autocast',
+			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]] [[File:Defence icon.png|alt=Defence|link=Defence]]',
+			['Boost'] = 'None',
+		},
+		['Longrange'] = { -- Trident only
+			['Weapon Style'] = 'Longrange',
+			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Defence icon.png|alt=Defence|link=Defence]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+1 Magic, +3 Defence',
+		},
+	},
+	['Melee'] = {
+		['Accurate'] = {
+			['Weapon Style'] = 'Accurate',
+			['Experience'] = '[[File:Attack icon.png|alt=Attack|link=Attack]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Attack',
+		},
+		['Aggressive'] = {
+			['Weapon Style'] = 'Aggressive',
+			['Experience'] = '[[File:Strength icon.png|alt=Strength|link=Strength]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Strength',
+		},
+		['Controlled'] = {
+			['Weapon Style'] = 'Controlled',
+			['Experience'] = '[[File:Attack icon.png|alt=Attack|link=Attack]] [[File:Strength icon.png|alt=Strength|link=Strength]] [[File:Defence icon.png|alt=Defence|link=Defence]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+1 Attack, Strength, Defence',
+		},
+		['Defensive'] = {
+			['Weapon Style'] = 'Defensive',
+			['Experience'] = '[[File:Defence icon.png|alt=Defence|link=Defence]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Defence',
+		},
+	},
+	['Ranged'] = {
+		['Accurate'] = {
+			['Weapon Style'] = 'Accurate',
+			['Experience'] = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Ranged',
+		},
+		['Rapid'] = {
+			['Weapon Style'] = 'Rapid',
+			['Experience'] = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = 'None',
+		},
+		['Longrange'] = {
+			['Weapon Style'] = 'Longrange',
+			['Experience'] = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]] [[File:Defence icon.png|alt=Defence|link=Defence]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Defence',
+		},
+		['Short fuse'] = {
+			['Weapon Style'] = 'Short fuse',
+			['Experience'] = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = '+3 Ranged',
+		},
+		['Medium fuse'] = {
+			['Weapon Style'] = 'Medium fuse',
+			['Experience'] = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = 'None',
+		},
+		['Long fuse'] = {
+			['Weapon Style'] = 'Long fuse',
+			['Experience'] = '[[File:Ranged icon.png|alt=Ranged|link=Ranged]] [[File:Defence icon.png|alt=Defence|link=Defence]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
+			['Boost'] = 'None',
+		},
+	},
+	['None'] = {
+		['Weapon Style'] = 'None',
+		['Experience'] = 'None',
+		['Boost'] = 'None',
+	},
+}
+
+-- WeaponType
+--  Combat Type
+--  {
+--    Combat Style
+--    Attack type
+--    Style type (The above tables)
+--  }
+local WeaponTypes = {
+	['2h Sword'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Axe'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Hack',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Banner'] = {
+		'Melee',
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Bladed Staff'] = {
+		'Multiple',
+		{
+			'Jab',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Fend',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Defensive Autocast'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Autocast'],
+		},
+	},
+	['Blaster'] = {
+		'None',
+		{
+			'Explosive',
+			'Fires explosive round',
+		},
+		{
+			'Flamer',
+			'Emits a jet of flame',
+		},
+	},
+	['Bludgeon'] = {
+		'Melee',
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+	},
+	['Blunt'] = {
+		'Melee',
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Bow'] = {
+		'Ranged',
+		{
+			'Accurate',
+			'Standard',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Rapid',
+			'Standard',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Longrange',
+			'Standard',
+			WeaponStyles['Ranged']['Longrange'],
+		},
+	},
+	['Bulwark'] = {
+		'Melee',
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Block',
+			'None',
+			WeaponStyles['None'],
+		},
+	},
+	['Chinchompas'] = {
+		'Ranged',
+		{
+			'Short fuse',
+			'Heavy',
+			WeaponStyles['Ranged']['Short fuse'],
+		},
+		{
+			'Medium fuse',
+			'Heavy',
+			WeaponStyles['Ranged']['Medium fuse'],
+		},
+		{
+			'Long fuse',
+			'Heavy',
+			WeaponStyles['Ranged']['Long fuse'],
+		},
+	},
+	['Claw'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Crossbow'] = {
+		'Ranged',
+		{
+			'Accurate',
+			'Heavy',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Rapid',
+			'Heavy',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Longrange',
+			'Heavy',
+			WeaponStyles['Ranged']['Longrange'],
+		},
+	},
+	['Gun'] = {
+		'Melee',
+		{
+			'Aim and Fire',
+			'None',
+			WeaponStyles['None'],
+		},
+		{
+			'Kick',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+	},
+	['Multi-Style'] = {
+		'Multiple',
+		{
+			'Melee',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Ranged',
+			'Ranged',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Magic',
+			'Magic',
+			WeaponStyles['Magic']['Defensive'],
+		},
+	},
+	['Multi-Melee'] = {
+		'Multiple',
+		{
+			'Poke',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Partisan'] = {
+		'Melee',
+		{
+			'Stab',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Pickaxe'] = {
+		'Melee',
+		{
+			'Spike',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Impale',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Polearm'] = {
+		'Melee',
+		{
+			'Jab',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Fend',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Polestaff'] = {
+		'Melee',
+		{
+			'Bash',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Powered Staff'] = {
+		'Magic',
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Longrange',
+			'Magic',
+			WeaponStyles['Magic']['Longrange'],
+		},
+	},
+	['Powered Wand'] = {
+		'Magic',
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Longrange',
+			'Magic',
+			WeaponStyles['Magic']['Longrange'],
+		},
+	},
+	['Salamander'] = {
+		'Multiple',
+		{
+			'Scorch',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Flare',
+			'Standard',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Blaze',
+			'Magic',
+			WeaponStyles['Magic']['Defensive'],
+		},
+	},
+	['Scythe'] = {
+		'Melee',
+		{
+			'Reap',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Jab',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Slash Sword'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Spear'] = {
+		'Melee',
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Spiked'] = {
+		'Melee',
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Spike',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Stab Sword'] = {
+		'Melee',
+		{
+			'Stab',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Staff'] = {
+		'Multiple',
+		{
+			'Bash',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Focus',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Defensive Autocast'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Autocast'],
+		},
+	},
+	['Thrown'] = {
+		'Ranged',
+		{
+			'Accurate',
+			'Light',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Rapid',
+			'Light',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Longrange',
+			'Light',
+			WeaponStyles['Ranged']['Longrange'],
+		},
+	},
+	['Unarmed'] = {
+		'Melee',
+		{
+			'Punch',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Kick',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Whip'] = {
+		'Melee',
+		{
+			'Flick',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Lash',
+			'Slash',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Deflect',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	}
+}
+
+function p.getSpecialAttackData(name)
+    if not name or name == '' then
+        return nil
+    end
+    return specialattacks[name]
+end
+
+local function buildSpecialAttackRow(args)
+    local data = p.getSpecialAttackData(args.specialattack)
+
+    if not data then
+        return nil
+    end
+
+    if not (data.range or data.speed or data.defence_roll) then
+        return nil
+    end
+
+    local row = mw.html.create('tr')
+
+    -- Column 1: Icon
+    row:tag('td')
+    :css({
+        ['border-right'] = 'none',
+        ['padding-right'] = '0',
+    })
+    :wikitext('[[File:Special attack orb.png|20px]]')
+    
+    -- Column 2: Spec name
+    row:tag('td')
+    :css({
+		['border-left'] = 'none',
+        ['padding-left'] = '0',
+    })
+    :wikitext('[[' .. args.specialattack .. ']]')
+
+	-- Column 3: Attack type (N/A)
+    row:tag('td'):addClass('table-na nohighlight'):wikitext('N/A')
+    
+    -- Column 4: Weapon style (N/A)
+    row:tag('td'):addClass('table-na nohighlight'):wikitext('N/A')
+
+    -- Column 5: Speed
+    local speedDisplay = row:tag('td')
+    if data.speed then
+    speedDisplay:wikitext(data.speed .. ' ticks (' .. (data.speed * 0.6) .. 's)')
+	else
+    speedDisplay:addClass('table-na nohighlight'):wikitext('N/A')
+	end
+
+    -- Column 6: Range
+    local rangeDisplay = row:tag('td')
+    if data.range then
+    rangeDisplay:wikitext(data.range .. ' tiles')
+	else
+    rangeDisplay:addClass('table-na nohighlight'):wikitext('N/A')
+	end
+
+    -- Column 7: Experience (N/A)
+    row:tag('td'):addClass('table-na nohighlight'):wikitext('N/A')
+    
+    -- Column 8: Level boost (N/A)
+    row:tag('td'):addClass('table-na nohighlight'):wikitext('N/A')
+
+    return row
+end
+
+function speedarg(arg, weaponType, elementNum)
+	if paramTest.is_empty(arg) then
+		return nil
+	end
+
+	rootyTootyRapidShooty = {['Rapid']=true, ['Medium fuse']=true, ['Flare']=true, ['Ranged']=true}								--Combat styles that provide an attack speed bonus. "Ranged" is for 'Multi-Style' weapons
+	phallic = {['Staff']=true, ['Bladed Staff']=true}
+	local pageName = mw.title.getCurrentTitle().text
+	local numarg = tonumber(arg)
+    local lowarg = string.lower(arg)
+
+	if numarg ~= nil then
+		if rootyTootyRapidShooty[WeaponTypes[weaponType][elementNum][1]] then
+			return string.format('%s ticks (%.1fs)', numarg - 1, (numarg - 1) * 0.6)
+   		elseif not (phallic[weaponType] and elementNum == 5) then
+			return string.format('%s ticks (%.1fs)', numarg, numarg * 0.6)
+		end
+	end
+
+	if (phallic[weaponType] and elementNum == 5) then
+		if pageName == 'Harmonised nightmare staff' then
+			return string.format('%s ticks (%.1fs)<br/><span title="The harmonised nightmare staff has an attack speed of 4 ticks when autocasting offensive spells from the standard spellbook." style="cursor:help; border-bottom:1px dotted;"><i><small>standard spells</small></i></span>', 4, 4 * 0.6)
+		elseif pageName == 'Twinflame staff' then
+			return string.format('%s ticks (%.1fs)', 6, 6 * 0.6)
+		else
+			return string.format('%s ticks (%.1fs)', 5, 5 * 0.6)
+		end
+	end
+
+	if lowarg ~= nil then
+		if lowarg == 'varies' then																		--As of writing only the beta item "Tumeken's heka" uses "varies"
+    		return '<span title="This weapon has a variable attack speed." style="cursor:help; border-bottom:1px dotted;">Variable</span>'
+		end
+		return string.format('N/A')
+	end
+	return nil
+end
+
+function rangearg(arg, weaponType, elementNum)
+	if paramTest.is_empty(arg) then
+		return nil
+	end
+
+	rootyTootyLongrangeShooty = {['Longrange']=true, ['Long fuse']=true}								--Weapon styles that provide an attack range bonus
+	tooStronk = false
+	local numarg = tonumber(arg)
+    local lowarg = string.lower(arg)
+
+    if numarg ~= nil then
+		if rootyTootyLongrangeShooty[WeaponTypes[weaponType][elementNum][1]] then
+			if (numarg ~= 9 and numarg ~= 10) then
+				return string.format('%s %s', numarg + 2, 'tiles')
+			elseif 	numarg == 9 then
+				return string.format('%s %s', numarg + 1, 'tiles')
+			elseif numarg == 10 then
+				tooStronk = true
+				return string.format('%s %s', numarg, 'tiles')
+			end
+   		elseif not phallic[weaponType] then
+			return string.format('%s %s', numarg, (numarg > 1) and 'tiles' or 'tile')
+		end
+    end
+
+	if phallic[weaponType] then
+		if elementNum == 2 then
+			return '1 tile'
+		elseif elementNum == 5 then
+			return '10 tiles'
+		end
+	end
+
+	if lowarg ~= nil then
+		if lowarg == 'varies' then
+    		return '<span title="This weapon has a variable attack range." style="cursor:help; border-bottom:1px dotted;">Variable</span>'
+		end
+		return 'N/A'
+	end
+	return nil
+end
+
+-- Build table rows
+function buildRow(elementNum, weaponType, range, speed)
+	local ret = mw.html.create('tr')
+	local combatStyleIcon = string.lower(WeaponTypes[weaponType][elementNum][1])						--Add image of corresponding icon to each combat style
+	local phallic = {['Staff']=true, ['Bladed Staff']=true}
+		if phallic[weaponType] then
+			if (WeaponTypes[weaponType][elementNum][3]['Weapon Style']:match('Defensive Autocast')) then
+			combatStyleIcon = string.format(combatStyleIcon .. ', defensive')								--Account for autocast and defensive autocast both being labelled 'Spell' by checking against weapon style
+			end
+		end
+
+			ret:tag('td')																				--WeaponTypes enters the second table
+					:css({																				--WeaponTypes[weaponType] selects the combat options category in that table
+							['border-right-style'] = 'hidden',											--WeaponTypes[weaponType][elementNum] iterates starting from the second option
+							['padding-right'] = '0',													--		(e.g. skips 'Ranged', selects following three tables in succession)
+							['text-align'] = 'center',													--WeaponTypes[weaponType][elementNum][1] selects the first entry in each of those tables
+					})
+
+					:wikitext('[[File:CombatStyles_(' .. string.lower(weaponType:gsub("%s+", "_")) .. ',_' .. combatStyleIcon .. ').png|link=Weapons/Categories]]')
+					:done()
+
+	for i, v in ipairs(WeaponTypes[weaponType][elementNum]) do
+		if(type(v) == 'table') then
+
+			ret:tag('td'):wikitext(v['Weapon Style']):done()
+
+			if speedarg(speed, weaponType, elementNum) ~= nil then
+				if phallic[weaponType]	then
+					if elementNum == 2 then
+						ret:tag('td')
+							:wikitext(speedarg(speed, weaponType, elementNum))
+							:attr('rowspan', 3):done()
+					elseif elementNum == 5 then
+						ret:tag('td')
+							:wikitext(speedarg(speed, weaponType, elementNum))
+							:attr('rowspan', 2):done()
+					end
+
+				elseif	(WeaponTypes[weaponType][1]:match('Melee') or string.lower(weaponType) == 'powered staff') then
+					if elementNum == 2 then
+						ret:tag('td')
+							:wikitext(speedarg(speed, weaponType, elementNum))
+							:attr('rowspan', #WeaponTypes[weaponType] - 1)
+							:css('text-align', 'center'):done()
+					end
+				else
+					if  rootyTootyRapidShooty[WeaponTypes[weaponType][elementNum][1]] then
+						ret:tag('td')
+							:wikitext(speedarg(speed, weaponType, elementNum))
+							:addClass('table-yes'):done()
+					else
+						ret:tag('td')
+							:wikitext(speedarg(speed, weaponType, elementNum)):done()
+					end
+				end
+			end
+
+			if rangearg(range, weaponType, elementNum) ~= nil then
+				if phallic[weaponType]	then
+					if elementNum == 2 then
+						ret:tag('td')
+							:wikitext(rangearg(range, weaponType, elementNum))
+							:attr('rowspan', 3):done()
+					elseif elementNum == 5 then
+						ret:tag('td')
+							:wikitext(rangearg(range, weaponType, elementNum))
+							:attr('rowspan', 2):done()
+					end
+				elseif	(WeaponTypes[weaponType][1]:match('Melee')) then
+					if elementNum == 2 then
+						ret:tag('td')
+							:wikitext(rangearg(range, weaponType, elementNum))
+							:attr('rowspan', #WeaponTypes[weaponType] - 1)
+							:css('text-align', 'center'):done()
+					end
+				else
+					if  (rootyTootyLongrangeShooty[WeaponTypes[weaponType][elementNum][1]] and tooStronk ~= true) then
+						ret:tag('td')
+							:wikitext(rangearg(range, weaponType, elementNum))
+							:addClass('table-yes'):done()
+					else
+						ret:tag('td')
+							:wikitext(rangearg(range, weaponType, elementNum)):done()
+					end
+				end
+			end
+
+			ret:tag('td')
+					:addClass('combat-styles-icons')
+					:wikitext(v['Experience'])
+					:done()
+
+            if (string.lower(weaponType) == 'salamander' and elementNum == 3) then
+                ret:tag('td')
+                        :wikitext('<span title="Although the in-game tooltip says Accurate, this style behaves the same as Rapid, and does not provide a +3 boost to ranged." style="cursor:help; border-bottom:1px dotted;">None</span>')
+                        :done()
+            else
+                ret:tag('td'):wikitext(v['Boost']):done()
+            end
+
+		else
+			ret:tag('td'):wikitext(v):done()
+		end
+	end
+	return ret
+end
+
+-- Two header rows
+--  First is full table span link to weaponType
+--  Second is Style type, Weapon style, Attack speed, Range, Experience, Invisible level boosts
+--  CombatOptionLink changes subsection of [[Combat Options]] linked to
+function createHeader(weaponType, range, speed)
+	local ret = mw.html.create('table'):addClass('wikitable combat-styles')
+	-- colspan is 8 except for weapons without attack optons, which use 3
+	local colCount = WeaponTypes[weaponType][1] == 'None' and 3 or 8
+	ret:tag('tr'):done()
+	ret:tag('th'):addClass('combat-styles-header'):wikitext('[[Weapons/Categories#' .. weaponType .. '|Combat style]]'):attr('colspan',2):done()
+	ret:tag('th'):addClass('combat-styles-header'):wikitext('[[Attack types|Attack type]]'):done()
+	
+	if(colCount == 8) then
+		ret:tag('th'):addClass('combat-styles-header'):wikitext('[[' .. CombatOptionLink[WeaponTypes[weaponType][1]] .. '|Weapon style]]'):done()
+		if paramTest.has_content(speed) then
+			ret:tag('th'):addClass('combat-styles-header'):wikitext('[[Attack speed]]'):done()
+		end
+		if paramTest.has_content(range) then
+			ret:tag('th'):addClass('combat-styles-header'):wikitext('[[Attack range|Range]]'):done()
+		end
+		ret:tag('th'):addClass('combat-styles-header'):wikitext('[[Experience]]'):done()
+		ret:tag('th'):addClass('combat-styles-header'):wikitext('[[' .. CombatOptionLink[WeaponTypes[weaponType][1]] .. '|Level boost]]'):done()
+	end
+	return ret
+end
+
+function p._main(args)
+    local weaponType, range, speed
+
+    if args[1] ~= nil then
+        weaponType = args[1]
+        range = args.attackrange
+        speed = args.speed
+        specialattack = args.specialattack
+    end
+
+    weaponType = string.gsub(" " .. weaponType:lower(), "%W%l", string.upper):sub(2)
+
+    if WeaponTypes[weaponType] ~= nil then
+
+        local ret = createHeader(weaponType, range, speed)
+
+        -- Normal rows
+        for i = 2, #WeaponTypes[weaponType], 1 do
+            ret:node(buildRow(i, weaponType, range, speed))
+        end
+
+        -- Special attack row appended at bottom
+        local specialAttackRowNode = buildSpecialAttackRow(args)
+        if specialAttackRowNode then
+            ret:node(specialAttackRowNode)
+        end
+
+        local clear = mw.html.create('div'):css('clear','left'):done()
+
+        return tostring(ret), tostring(clear)
+
+    else
+        error('Invalid or empty parameter for weaponType with value: ' .. (weaponType or ''))
+    end
+end
+
+--mw.log(p._main({'Bow', ['range'] = 9}))
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

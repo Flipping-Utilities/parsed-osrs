@@ -1,0 +1,170 @@
+-- <nowiki>
+local p = {}
+
+local function itap(tbl)
+  local idx = 1
+  return function ()
+    local data = tbl[idx]
+    if not data then
+      return
+    end
+    idx = idx + 1
+    return unpack(data)
+  end
+end
+
+function p.main(frame)
+  return p._main(frame:getParent().args)
+end
+
+function p.invoke(frame)
+  return p._main(frame.args)
+end
+
+function p._main(args)
+  local cutrate = tonumber(args[1] or "2600")
+  local craftrate = tonumber(args[2] or "1100")
+  local minvolume = tonumber(args.volume or "0")
+
+  local types = { "ring", "necklace", "amulet (u)" }
+  local cases = {
+    { { 15, 20, 30 }, { }, "Gold" },
+    { { 40, 55, 65 }, { { "Uncut", 50 } }, "Sapphire" },
+    { { 55, 60, 70 }, { { "Uncut", 67.5 } }, "Emerald" },
+    { { 70, 75, 85 }, { {"Uncut", 85 } }, "Ruby" },
+    { { 85, 90, 100 }, { { "Uncut", 107.5 } }, "Diamond" },
+  }
+
+  local all_variants = {}
+
+  for type_xps, variants, name in itap(cases) do
+    if #variants == 0 then
+      for i, type in ipairs(types) do
+        table.insert(all_variants, { type_xps[i], 0, name .. " " .. type, { "Gold bar" }, 300 })
+      end
+    else
+      for i, type in ipairs(types) do
+        table.insert(all_variants, { type_xps[i], 0, name .. " " .. type, { "Gold bar", name }, 0 })
+
+        for variant_name, variant_xp in itap(variants) do
+          table.insert(all_variants, { type_xps[i], variant_xp, name .. " " .. type, { "Gold bar", variant_name .. " " .. string.lower(name) }, 0 })
+        end
+      end
+    end
+  end
+
+  return p.create_table(all_variants, cutrate, craftrate, minvolume)
+end
+
+function p._ge_revenue(value)
+  if value > 500000000 then
+    return value - 5000000
+  end
+
+  return math.ceil(0.98 * value)
+end
+
+function p.create_table(rows, cutrate, craftrate, minvolume)
+  local exchange = require('Module:Exchange')
+  local coins = require('Module:Coins')._amount
+  local addcommas = require('Module:Addcommas')._add
+
+  local _gep = exchange._price
+  local _gev = exchange._volume
+  local function _smwfile(_fn)
+    return string.format("[[File:%s.png|link=%s]]", _fn, _fn)
+  end
+  local function plink(_in)
+    return string.format("%s [[%s]]", _smwfile(_in), _in)
+  end
+
+  local combined_rate = (1 / ((cutrate + craftrate) / (cutrate * craftrate)))
+
+  local output = mw.html.create('table')
+    :addClass('wikitable sortable')
+    :tag('caption')
+      :wikitext('F2P crafting rates')
+    :done()
+    :tag('tr')
+      :tag('th')
+        :attr('colspan', 2)
+        :wikitext('Item')
+      :done()
+      :tag('th'):wikitext('XP'):done()
+      :tag('th'):wikitext('XP/h'):done()
+      :tag('th'):wikitext('Materials'):done()
+      :tag('th'):wikitext('Cost'):done()
+      :tag('th'):wikitext('Revenue'):done()
+      :tag('th'):wikitext('GP/XP'):done()
+      :tag('th'):wikitext('GP/Hour'):done()
+      :tag('th'):wikitext('Margin'):done()
+      :tag('th'):wikitext('ROI'):done()
+      :tag('th'):wikitext('Trade Volume'):done()
+    :done()
+
+  for xp_craft, xp_cut, item, ingredients, aph_delta in itap(rows) do
+    local revenue = p._ge_revenue(_gep(item))
+    local vol = _gev(item)
+    local ingredient_cost = 0
+    local ingredient_links = {}
+
+    for _, ingredient in pairs(ingredients) do
+      table.insert(ingredient_links, plink(ingredient))
+      ingredient_cost = ingredient_cost + _gep(ingredient)
+    end
+
+    local profit = revenue - ingredient_cost
+    local xp_item = xp_craft + xp_cut
+    local actions_hour = craftrate + aph_delta
+
+    if xp_cut > 0 then
+      actions_hour = 1 / ((craftrate + cutrate) / (craftrate * cutrate))
+    end
+
+    if vol > minvolume then
+      output:tag('tr')
+        :tag('td') -- Item pic
+          :wikitext(_smwfile(item))
+        :done()
+        :tag('td') -- Item name
+          :wikitext(string.format("[[%s]]", item))
+        :done()
+        :tag('td') -- Experience
+          :wikitext(addcommas(xp_item))
+        :done()
+        :tag('td') -- Experience/Hour
+          :wikitext(addcommas(math.floor((actions_hour * xp_item) / 1000) * 1000))
+        :done()
+        :tag('td') -- Materials
+          :wikitext(table.concat(ingredient_links, "<br/>"))
+        :done()
+        :tag('td') -- Cost
+          :wikitext(coins(ingredient_cost))
+        :done()
+        :tag('td') -- Revenue
+          :wikitext(coins(revenue))
+        :done()
+        :tag('td') -- GP/XP
+          :wikitext(coins(ingredient_cost / xp_item))
+        :done()
+        :tag('td') -- GP/Hour
+          :wikitext(coins(profit * actions_hour))
+        :done()
+        :tag('td') -- Margin
+          :wikitext(coins(profit))
+        :done()
+        :tag('td') -- ROI
+          :wikitext(string.format("%.2f %%", (profit / ingredient_cost) * 100))
+        :done()
+        :tag('td') -- Trade Volume
+          :wikitext(addcommas(vol))
+        :done()
+      :done()
+    end
+  end
+
+  return output
+end
+
+return p
+-- </nowiki>

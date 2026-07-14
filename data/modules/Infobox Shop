@@ -39,7 +39,8 @@ function p.main(frame)
 		special = 'specialty',
 		location = 'location',
 		owner = 'owner',
-		members = 'is_members_only'
+		members = 'is_members_only',
+		name = 'shop_name'
 	})
 
 	ret:customButtonPlacement(true)

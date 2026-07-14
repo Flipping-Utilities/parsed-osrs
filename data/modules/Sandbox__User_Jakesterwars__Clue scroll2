@@ -1,0 +1,42 @@
+local p = {}
+
+local string = string
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local type = args.type
+	local rarity = args.Rarity
+	local altrarity = args.AltRarity
+	local altraritydash = args.AltRarityDash
+	local raritynotes = args.Raritynotes ~= nil and args.Raritynotes ~= '' and args.Raritynotes or nil
+	
+	local adjusted = getAdjustedRarity(rarity, altrarity)
+	local ret = mw.html.create('tr')
+	local altnote = altrarity ~= nil and string.format('%s%s', altraritydash ~= nil and '–' or '; ', adjusted.alt) or ''
+	
+	local note = string.format('The %s clue scroll drop rate increases to %s%s with the completion of the [[%s combat diary]].', type, adjusted.original, altnote, type)
+	local refnote = frame:extensionTag{ name = 'ref', content = note, args = { group = 'd' } }
+	if raritynotes ~= nil then
+		refnote = refnote .. raritynotes	
+	end
+	ret:wikitext(frame:expandTemplate{ title='DropsLine', args = { Name = string.format('Clue scroll (%s)', type), Quantity = 1, Rarity = rarity, AltRarity = altrarity, AltRarityDash = altraritydash, Raritynotes = refnote } })
+	
+	return tostring(ret)
+end
+
+function getAdjustedRarity(rarity, altrarity)
+	local modifier = 0.05
+	local rv1, rv2 = string.match(rarity, '([%d%.]+)/([%d%.]+)')
+	local arv1, arv2
+	local adjustedrarity, adjustedaltrarity
+	if altrarity then
+		arv1, arv2 = string.match(altrarity, '([%d%.]+)/([%d%.]+)')
+		adjustedaltrarity = string.format('%s/%s', arv1, math.floor((arv2 - (arv2 * modifier))))
+	end
+	
+	adjustedrarity = string.format('%s/%s', rv1, math.floor((rv2 - (rv2 * modifier))))
+	
+	return { original = adjustedrarity, alt = adjustedaltrarity }
+end
+
+return p

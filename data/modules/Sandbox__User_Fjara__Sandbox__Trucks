@@ -1,0 +1,138 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local onMain = require('Module:Mainonly').on_main
+local yesNo = require('Module:Yesno')
+
+-- Input rules: rune# = "Law rune"
+--				rune#quantity = #
+--				banana = yes/no
+--				orb = yes/no
+--				bolts = "Onyx dragon bolts"
+--				prayer = string (to support [[Bloom]])
+--				bookofthedead = yes/no
+--				staff# = "Staff of light"
+
+--		Fire rune Air rune Chaos rune Iban's staff
+
+-- Create 'Spell JSON' including runes, banana, orb, bolts, prayer, bookOfTheDead, and staves
+--  Set 'Uses material' runes, banana, orb, and bolts
+function p.setSMW(runes, banana, orb, bolts, prayer, bookOfTheDead, staves)
+	local jsonObject = {runes = {},
+						banana = banana,
+						orb = orb,
+						bolts = bolts,
+						prayer = prayer,
+						bookOfTheDead = bookOfTheDead,
+						staves = staves}
+	local materialNames = {}
+	for _, rune in ipairs(runes) do
+		if(rune.quantity > 0) then
+			table.insert(jsonObject.runes, {rune = rune.rune, quantity = rune.quantity})
+			table.insert(materialNames, rune.rune)
+		end
+	end
+	if(banana ~= nil) then
+		table.insert(materialNames, banana)
+	end
+	if(orb ~= nil) then
+		table.insert(materialNames, orb)
+	end
+	if(bolts ~= nil) then
+		table.insert(materialNames, bolts)
+	end
+	local smwMap = {
+		['Uses material'] = materialNames,
+		['Spell JSON'] = mw.text.jsonEncode(jsonObject),
+	}
+	for _, v in pairs(smwMap) do
+		-- Trim {{!}}foo
+		if(type(v) == 'table') then
+			for j, w in ipairs(v) do
+				v[j] = mw.text.split(w, '|')[1]
+			end
+		end
+	end
+	mw.smw.set(smwMap)
+end
+
+-- Create a span to list all requirements for a spell
+function p.buildOutput(runes, banana, orb, bolts, prayer, bookOfTheDead, staves, runesOnly)
+	local ret = ''
+	for _, rune in ipairs(runes) do
+		if(rune.quantity > 0) then
+			-- hoverText equals 'Air' in 'Air rune'
+			local hoverText = rune.rune:sub(1, rune.rune:find(' ') - 1)
+			ret = ret .. '<sup>' .. rune.quantity .. '</sup>[[File:' .. rune.rune .. '.png|25px|' .. hoverText .. '|link=' .. rune.rune .. ']] '
+		end
+	end
+	
+	if(not runesOnly) then
+		if(banana) then
+			ret = ret .. '<sup>1</sup>[[File:Banana.png|25px|Banana|link=Banana]] '
+		end
+		if(orb) then
+			ret = ret .. '<sup>1</sup>[[File:Unpowered orb.png|25px|Unpowered orb|link=Unpowered orb]] '
+		end
+		if(bolts ~= nil) then
+			ret = ret .. '<sup>10</sup>[[File:' .. bolts .. ' 5.png|25px|' .. bolts .. '|link=' .. bolts .. ']] '
+		end
+		if(prayer ~= nil) then
+			ret = ret .. '<sup>' .. prayer .. '</sup>[[File:Prayer icon.png|25px|Prayer points|link=Prayer]] '
+		end
+		if(bookOfTheDead) then
+			ret = ret .. '[[File:Book of the dead.png|25px|Does \'\'\'not\'\'\' have to be equipped.|link=Book of the dead]] '
+		end
+		for i, staff in ipairs(staves) do
+			ret = ret .. '[[File:' .. staff .. '.png|25x25px|' .. staff .. '|link=' .. staff .. ']]'
+			if(i ~= #staves) then
+				ret = ret .. ' \'\'\'or\'\'\' '
+			end
+		end
+	end
+	if(ret == '') then
+		ret = 'None'
+	end
+	return '<span style="white-space:nowrap">' .. ret .. '</span>'
+end
+
+function p._main(args)
+	local runesOnly = yesNo(paramTest.default_to(args.runesonly, false))
+
+	runes = {}
+	for i = 1, 8, 1 do
+		local rune = args['rune'..i]
+		if(paramTest.has_content(rune)) then
+			local quantity = paramTest.default_to(tonumber(args['rune'..i..'quantity']), 1)
+			table.insert(runes, { rune = rune, quantity = quantity })
+		end
+	end
+	
+	staves = {}
+	for i = 1, 8, 1 do
+		local staff = args['staff'..i]
+		if(paramTest.has_content(staff)) then
+			table.insert(staves, staff)
+		end
+	end
+	
+	local banana = yesNo(paramTest.default_to(args.banana, false))
+	local orb = yesNo(paramTest.default_to(args.orb, false))
+	local bolts = paramTest.default_to(args.bolts, nil)
+	local prayer = paramTest.default_to(args.prayer, nil)
+	local bookOfTheDead = yesNo(paramTest.default_to(args.bookofthedead, false))
+	
+	if(yesNo(paramTest.default_to(yesNo(args.smw), true)) and onMain()) then
+		p.setSMW(runes, banana, orb, bolts, prayer, bookOfTheDead, staves)
+	end
+
+	return p.buildOutput(runes, banana, orb, bolts, prayer, bookOfTheDead, staves, runesOnly)
+end
+
+function p.main(frame)
+	--mw.logObject(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

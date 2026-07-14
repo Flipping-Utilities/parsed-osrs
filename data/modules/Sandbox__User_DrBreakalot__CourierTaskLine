@@ -1,0 +1,160 @@
+local p = {}
+
+local params = require('Module:Paramtest')
+local buildMap = require('Module:Map').buildMap
+
+local mapSettings = {
+	noticeboard = {
+		icon = 'greenPin',
+		title = 'Notice Board',
+	},
+	origin = {
+		icon = 'yellowPin',
+		title = 'Withdraw cargo',
+	},
+	destination = {
+		icon = 'redPin',
+		title = 'Deposit cargo',
+	},
+}
+
+-- todo dynamic or json or something
+-- can do leagueregion in this too
+local locations = {
+	['Aldarin'] = { noticeboard = {1438,2969}, ledgertable = {1449,2969}},
+	['Ardougne'] = { noticeboard = {2676,3276}, ledgertable = {2674,3269}},
+	['Brimhaven'] = { noticeboard = {2764,3227}, ledgertable = {2769,3225}},
+	['Cairn Isle'] = { noticeboard = nil, ledgertable = {2756,2949}},
+	['Catherby'] = { noticeboard = {2803,3418}, ledgertable = {2799,3413}},
+	['Civitas Illa Fortis'] = { noticeboard = { 1782,3142}, ledgertable = {1781,3147}},
+	['Corsair Cove'] = { noticeboard = { 2579,2853}, ledgertable = {2581,2848}},
+	['Deepfin Point'] = { noticeboard = {1931,2761}, ledgertable = {1927,2761}},
+	['Entrana'] = { noticeboard = nil, ledgertable = {2874,3339}},
+	['Etceteria'] = { noticeboard = {2617,3849}, ledgertable = {2612,3846}},
+	['Hosidius'] = { noticeboard = nil, ledgertable = {2612,3846}},
+	['Jatizso'] = { noticeboard = nil, ledgertable = {2401,3788}},
+	['Land\'s End'] = { noticeboard = {1502,3407}, ledgertable = {1506,3407}},
+	['Lunar Isle'] = { noticeboard = {2139,3884}, ledgertable = {2146,3879}},
+	['Musa Point'] = { noticeboard = {2940,3144}, ledgertable = {2952,3150}},
+	['Neitiznot'] = { noticeboard = nil, ledgertable = {2308,3775}},
+	['Piscatoris'] = { noticeboard = nil, ledgertable = {2313,3693}},
+	['Port Khazard'] = { noticeboard = {2678,3162}, ledgertable = {2684,3164}},
+	['Port Piscarilius'] = { noticeboard = {1839,3691}, ledgertable = {1837,3691}},
+	['Port Roberts'] = { noticeboard = {1872,3303}, ledgertable = {1867,3306}},
+	['Port Sarim'] = { noticeboard = {3030,3197}, ledgertable = {3028,3194}},
+	['Port Tyras'] = { noticeboard = {2146,3123}, ledgertable = {2151,3123}},
+	['Prifddinas'] = { noticeboard = {2163,3326}, ledgertable = {2170,3328}},
+	['Rellekka'] = { noticeboard = {2629,3685}, ledgertable = {2629,3699}},
+	['Ruins of Unkah'] = { noticeboard = {3145,2828}, ledgertable = {3148,2826}},
+	['Sunset Coast'] = { noticeboard = nil, ledgertable = {1515,2977}},
+	['The Pandemonium'] = { noticeboard = {3058,2985}, ledgertable = {3061,2985}},
+	['The Summer Shore'] = { noticeboard = {3183,2368}, ledgertable = {3173,2370}},
+	['Void Knights\' Outpost'] = { noticeboard = {2659,2672}, ledgertable = {2652,2673}},
+}
+local locationsOverrideForTaskName = {
+	['Ruins of Unkah'] = 'Ruin of Unkah',
+	['The Pandemonium'] = 'Pandemonium'
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	local origin = args.origin
+	local destination = args.dest
+	local cargo = args.cargo
+	local level,xp,noticeboard,cargoTask,quantity = params.defaults{
+		{args.level, '1'},
+		{args.xp, '0'},
+		{args.noticeboard, origin},
+		{args.cargoTask, cargo},
+		{args.quantity, '1'},
+	}
+	
+	return createLine(level, xp, origin, destination, noticeboard, cargo, cargoTask, quantity)
+end
+
+function createLine(level, xp, origin, destination, noticeboard, cargo, cargoTask, quantity)
+	local fullTaskName = string.format('%s %s delivery', locationsOverrideForTaskName[destination] or destination, cargoTask)
+	local transcriptPage = findTranscriptPage(fullTaskName, origin)
+	
+	local row = mw.html.create('tr')
+	
+	row:tag('td'):wikitext(level):done()
+	row:tag('td'):wikitext(xp):done()
+	row:tag('td'):wikitext(transcriptPage):done()
+	local noticeboardCellContent = noticeboard
+	if (locations[noticeboard]) then
+		noticeboardCellContent = string.format('[[%s]]', noticeboard)
+	end
+	row:tag('td'):wikitext(noticeboardCellContent):done()
+	row:tag('td'):wikitext(string.format('[[%s]]', origin)):done()
+	row:tag('td'):wikitext(string.format('[[%s]]', destination)):done()
+	
+	local linkDest = string.format('Crate of %s#%s', cargo, destination)
+	local imageString = string.format('[[File:Crate of %s (%s).png|link=%s]]', cargo, destination, linkDest)
+	local linkString = string.format('[[%s|%s]]', linkDest, firstToUpper(cargo))
+	row:tag('td'):addClass('plinkt-image'):addClass('inventory-image'):wikitext(imageString):done()
+	row:tag('td'):addClass('plinkt-link'):wikitext(linkString):done()
+	row:tag('td'):wikitext(quantity):done()
+	row:tag('td'):wikitext(createMap(origin, destination, noticeboard)):done()
+	
+	return tostring(row)
+end
+
+function firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end
+
+function createMap(origin, destination, noticeboard)
+	local args = {
+		type = 'maplink',
+		mtype = 'pin',
+		text = 'Map',
+		nopreprocess = True,
+		createIconForMap(merge(mapSettings.noticeboard, {
+			x = locations[noticeboard].noticeboard[1],
+			y = locations[noticeboard].noticeboard[2],
+		})),
+		createIconForMap(merge(mapSettings.origin, {
+			x = locations[origin].ledgertable[1],
+			y = locations[origin].ledgertable[2],
+		})),
+		createIconForMap(merge(mapSettings.destination, {
+			x = locations[destination].ledgertable[1],
+			y = locations[destination].ledgertable[2],
+		})),
+	}
+	mw.logObject(args)
+	return buildMap(args)
+end
+
+function createIconForMap(args) 
+	local ret = ''
+	for k, v in pairs(args) do
+		ret = string.format('%s:%s,%s', k, v, ret)
+	end
+	return ret
+end
+
+function findTranscriptPage(taskname, cargoLocation) 
+	local includingCargoLocation = taskname .. ' (' .. cargoLocation .. ')'
+	if (mw.title.new(includingCargoLocation, 'transcript').exists) then
+		return string.format('[[Transcript:%s|%s]]', includingCargoLocation, taskname)
+	end
+	
+	return string.format('[[Transcript:%s]]', taskname)
+end
+
+-- Merge two lua objects, creating a new object with all keys in a and b, with b taking priority
+function merge(a, b)
+	local ret = {}
+	for k, v in pairs(a) do
+		ret[k] = v
+	end
+	for k, v in pairs(b) do
+		ret[k] = v
+	end
+	return ret
+end
+
+return p

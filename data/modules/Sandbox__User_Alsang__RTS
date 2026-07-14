@@ -1,0 +1,426 @@
+require("strict")
+require('Module:Mw.html extension')
+local hc = require('Module:Paramtest').has_content
+local yn = require('Module:Yesno')
+local lang = mw.getContentLanguage()
+
+local function plink(link, args)
+	local args = args or {}	local pic = args.pic or link
+	local txt = args.txt or link
+	local size = args.size
+	local sizetxt = size and ('|' .. size .. 'px') or ''
+	local linktxt = #txt ~= 0 and ('[[' .. link .. '|' .. txt .. ']]') or ''
+ 	return string.format('<span class="pic-link inventory-image">[[File:%s.png|frameless|link=%s%s|alt=%s.png: RS3 Inventory image of %s]]</span>%s',
+		pic, link, sizetxt, pic, link, linktxt)
+end
+
+local function deepCopy(orig)
+    if type(orig) ~= "table" then
+        return orig
+    end
+    local copy = {}
+    for orig_key, orig_value in pairs(orig) do
+        copy[deepCopy(orig_key)] = deepCopy(orig_value)
+    end
+    return copy
+end
+
+local function keysToList(t)
+    local list = {}
+    local listIndex = 1
+    for key, _ in pairs(t) do
+        list[listIndex] = key
+        listIndex = listIndex + 1
+    end
+    return list
+end
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	
+	local params = p.parse_args(args)
+	
+	if not hc(params.item) then
+		return 'Invalid item specified.'
+	end
+	
+	-- looks through every recipe in the tree in a non-recursive manner to fill 
+	-- the cache of recipe JSON data, ''before'' it tried to construct the tree 
+	-- itself
+	local cache = p.fill_cache(params)
+
+	-- build the tree structure from the cached data
+	local tree = p.build_tree(params,cache)
+	
+	local list = p.create_checklist(params,tree,args)
+	
+	return list
+	
+end
+
+-- takes a case-insensitive name of an item, and returns the case-sensitive name
+local function check_item(item) 
+	local query = bucket('infobox_item')
+		.where(bucket.Or({'page_name', item },{'page_name_sub', item },{'item_name', item }))
+		.select('page_name','image')
+		.limit(1)
+		.run()
+	local result = query and type(query)=='table' and query[1] and type(query[1])=='table' and query[1] or {}
+	local page_name = result.page_name
+	local image = result.image and type(result.image)=='table' and result.image[1] or result.image
+	if type(image)=='string' then
+		image = image:gsub('^File:',''):gsub("%.png$", "")
+	end
+	return page_name, image
+end
+
+-- takes a list of comma-separated item names, and returns a table where each 
+-- item name is a key and the value at each key is {}.
+local function parse_list(list)
+	if not (type(list)=='string' and hc(list)) then
+		return {}
+	end
+	local parts = mw.text.split(list,',')
+	local out = {}
+	for _,part in ipairs(parts) do
+		part = part:gsub("^%s*(.-)%s*$", "%1")
+		if hc(part) then
+			out[part] = {}
+		end
+	end
+	return out
+end
+
+-- parses the input args, either from the calculator or from a template use
+function p.parse_args(args)
+	
+	local params = {}
+	
+	params.item = (args[1] or args.item) or ''
+	params.page, params.image = check_item(params.item)
+	if not hc(params.page) then
+		params.item = nil
+	end
+	params.page = params.item
+	params.qty = tonumber(args[2]) or tonumber(args.qty) or 1
+	params.force_base = parse_list(args.force_base)
+	params.force_intermediate = parse_list(args.force_intermediate)
+	params.exclude_intermediate = parse_list(args.exclude_intermediate)
+	params.transmute = yn(args.transmute)
+	params.wikiout = yn(args.wikiout)
+	
+	return params
+	
+end
+
+-- the inverse function, takes the params that were used and reproduces the 
+-- input args
+function p.output_args(args)
+	
+	local out = '<pre>{{Sandbox/User:Alsang/RTS'
+	if hc(args.item) then
+		out = out  .. '<br>|item=' .. args.item
+	end
+	if hc(args.qty) and tonumber(args.qty)~=1 then
+		out = out  .. '<br>|qty=' .. args.qty
+	end
+	if hc(args.force_base) then
+		out = out  .. '<br>|force_base=' .. args.force_base
+	end
+	if hc(args.force_intermediate) then
+		out = out  .. '<br>|force_intermediate=' .. args.force_intermediate
+	end
+	if hc(args.exclude_intermediate) then
+		out = out  .. '<br>|exclude_intermediate=' .. args.exclude_intermediate
+	end
+	if yn(args.transmute) then
+		out = out  .. '<br>|transmute=yes'
+	end
+	out = out .. '<br>}}</pre>'
+	
+	return out
+	
+end
+
+-- non-recursively traverses the recipe tree, extracting the production_json 
+-- tables for each recipe it finds in the tree
+function p.fill_cache(params)
+	
+	local item = params.item
+	
+	if type('item')~='string' then
+		return nil
+	end
+	
+	-- achieves this non-recursively by creating a to do list of recipes search
+	-- for, adding the jsons to the cache as it goes, and not re-searching a
+	-- recipe that is already in the cache.
+	local to_do_list = {item}
+	local cache = {}
+	for cache_item,_ in pairs(params.force_base) do
+		cache[cache_item] = {}
+	end
+	
+	while #to_do_list>0 do
+		item = table.remove(to_do_list)
+		
+		if not cache[item] then 
+			cache[item] = {}
+			local query = bucket('recipe')
+				.where({'page_name',item})
+				.select('uses_material','production_json')
+				.limit(1)
+				
+			local results = query.run()
+			local result
+			
+			for _,result in ipairs(results) do
+				local json = result.production_json and type(result.production_json)=='string' and mw.text.jsonDecode(result.production_json) or {}
+				cache[item] = json
+				local materials = result.uses_material or {}
+				for i,material in ipairs(materials) do
+					table.insert(to_do_list,material)
+				end
+			end
+			cache[item].intermediate = params.force_intermediate[item] and true
+		else
+			cache[item].intermediate = not params.exclude_intermediate[item]
+		end
+	end
+	
+	return cache
+end
+
+-- recursively builds the tree structure for the recipe
+function p.build_tree(params,cache)
+	
+	-- the main tree table will have an entry called "main" that is the top level
+	local tree = {
+		main={
+			item = params.item,
+			qty = params.qty,
+			page = params.page,
+			image = params.image
+		}
+	}
+	
+	-- this first call finds all intermediates within the recipe tree, and a 
+	-- list of base items which gets added to with each recursive call
+	local _, intermediates, bases = p.build_subtree(tree.main,cache,{},{},{},false)
+	
+	-- for each intermediate, repeat the recursive search and save it under the 
+	-- key of the name of the intermediate item
+	for i,intermediate in pairs(intermediates) do
+		tree[i],_,bases = p.build_subtree(intermediate,cache,{},{},bases,true)
+	end
+	
+	-- the base materials
+	tree.base = bases
+		
+	return tree
+	
+end
+
+function p.build_subtree(tree,cache,branch,intermediates,bases,show_intermediate)
+	
+	intermediates = intermediates or {}
+	bases = bases or {}
+	
+	local item = tree.item
+	local qty = tree.qty
+	local page = tree.page
+	local image = tree.image
+	local intermediate = tree.intermediate
+	
+	local new_branch = deepCopy(branch)
+	table.insert(new_branch,item)
+	for _,branch_item in ipairs(branch) do
+		if branch_item==item then
+			error('Recipe loop detected in branch: ' .. table.concat(new_branch,'<') .. '. Force at one of these items to be a base material to break the loop')
+		end
+	end
+	
+	local item_cache = cache[page]
+	if item_cache==nil or type(item_cache.output)~='table' or type(item_cache.materials)~='table' then
+		bases[item] = bases[item] or {}
+		bases[item].item = item
+		bases[item].qty = bases[item].qty or 0
+		bases[item].qty = qty and bases[item].qty + qty
+		bases[item].page = page
+		bases[item].image = image
+		return tree, intermediates, bases
+	end
+	if item_cache.intermediate and not show_intermediate then
+		intermediates[item] = intermediates[item] or {}
+		intermediates[item].item = item
+		intermediates[item].qty = intermediates[item].qty or 0
+		intermediates[item].qty = qty and intermediates[item].qty + qty
+		intermediates[item].page = page
+		intermediates[item].image = image
+		tree.intermediates = true
+		return tree, intermediates, bases
+	end
+	
+	local output_quantity = 1
+	for _,out in ipairs(item_cache.output) do
+		if out.name==item then
+			output_quantity = out.quantity
+		end
+	end
+	
+	local recipe_qty = qty / output_quantity
+	
+	for i,mat in ipairs(item_cache.materials) do
+		local subtree = {
+			item = mat.name,
+			qty = mat.quantity * recipe_qty,
+			page = mat.name,
+			image = mat.imagename,
+		}
+		tree[i] = p.build_subtree(subtree,cache,new_branch,intermediates,bases,show_intermediate)
+	end
+	
+	return tree, intermediates, bases
+
+end
+
+function p.create_checklist(params,tree,args)
+	
+	local out = mw.html.create('div')
+	
+	if params.wikiout then
+		out:tag('span')
+			:node(p.output_args(args))
+	end
+	
+	local first_header = out:tag('h4')
+		:wikitext('Main recipe tree')
+
+	
+	local first_list = out:tag('div')
+		:addClass('lighttable checklist')
+		:tag('ul')
+			:css('list-style', 'none')
+			:node(p.create_sublist(tree.main))
+
+	local first_material=true
+	for k,v in pairs(tree) do
+		if k~='main' and k~='base' then
+			if first_material then
+				first_material = false
+				local int_header = out:tag('h4')
+					:wikitext('Intermediate materials')
+			end
+			
+			local int_list = out:tag('div')
+				:addClass('lighttable checklist')
+				:tag('ul')
+					:css('list-style', 'none')
+					:node(p.create_sublist(v))
+				:done()
+			
+		end
+	end
+	
+	local base_header = out:tag('h4')
+		:wikitext('Base materials')
+		:done()
+		
+	local base_list = out:tag('div')
+		:addClass('lighttable checklist')
+		:tag('ul')
+			:css('list-style', 'none')
+			:node(p.create_baselist(tree.base))
+		:done()
+		
+	return out
+	
+end
+
+function p.create_sublist(tree)
+	
+	local li = mw.html.create('li')
+	
+	if type(tree)=='table' then
+		
+		local item = tree.item
+		local qty = tree.qty
+		local qtystring = lang:formatNum(tonumber(('%.3f'):format(qty)))
+		local page = tree.page or item
+		local image = string.gsub(tree.image or item,"%.png$", "") or item
+		local intermediates = tree.intermediates
+		
+		if tree[1] then
+			li:addClass('mw-collapsible coloured-collapse')
+				:attr('data-expandtext', '⊕')
+				:attr('data-collapsetext', '⊖')
+				
+			local header = li:tag('div')
+				:addClass('mw-collapsible-toggle')
+				:tag('span')
+					:addClass('mw-collapsible-text')
+					:wikitext('⊖')
+				:done()
+				:wikitext(('&nbsp;&nbsp;&nbsp; %s × %s'):format(qtystring, plink(page, {pic = image, txt = item})))
+			
+			local content = li:tag('div')
+				:addClass('mw-collapsible-content')
+			
+			local ul = content:tag('ul')
+				:css('list-style', 'none')
+			for _,subtree in ipairs(tree) do
+				ul:node(p.create_sublist(subtree))
+			end
+		else
+			local header = li:tag('div')
+				:tag('span')
+					:css('margin-left','0.2em')
+					:wikitextIf(intermediates,'⊗')
+					:wikitextIf(not intermediates,'⊙')
+				:done()
+				:wikitext(('&nbsp;&nbsp;&nbsp; %s × %s'):format(qtystring, plink(page, {pic = image, txt = item})))
+				:wikitextIf(intermediates,' - [Intermediate item]')
+		end
+	end
+	
+	return li
+end
+
+function p.create_baselist(tree)
+	
+	local out = mw.html.create('div')
+		:addClass('lighttable checklist')
+	
+	if type(tree)=='table' then
+		
+		local keys = keysToList(tree)
+		
+		for _,key in ipairs(keys) do
+			
+			local item = tree[key].item
+			local qty = tree[key].qty
+			local qtystring = lang:formatNum(tonumber(('%.3f'):format(qty)))
+			local page = tree[key].page or item
+			local image = string.gsub(tree[key].image or item,"%.png$", "") or item
+			
+			out:tag('li')
+				:tag('span')
+					:css('margin-left','0.2em')
+					:wikitext('⊙')
+				:done()
+				:wikitext(('&nbsp;&nbsp;&nbsp; %s × %s'):format(qtystring, plink(page, {pic = image, txt = item})))
+			:done()
+			
+		end
+	end
+	
+	return out
+end
+
+return p

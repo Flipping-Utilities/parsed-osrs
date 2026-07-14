@@ -1,0 +1,209 @@
+--copy from https://oldschool.runescape.wiki/w/Module:Hiscores
+
+local p = {}
+local var = mw.ext.VariablesLua
+
+local GAME_DEFAULT = 'osrs'
+
+local stats_order = {
+	osrs = {
+		'Overall',
+		'Attack',
+		'Defence',
+		'Strength',
+		'Hitpoints',
+		'Ranged',
+		'Prayer',
+		'Magic',
+		'Cooking',
+		'Woodcutting',
+		'Fletching',
+		'Fishing',
+		'Firemaking',
+		'Crafting',
+		'Smithing',
+		'Mining',
+		'Herblore',
+		'Agility',
+		'Thieving',
+		'Slayer',
+		'Farming',
+		'Runecraft',
+		'Hunter',
+		'construction',
+		-- minigames
+		'Bounty Hunter - Hunter',
+		'Bounty Hunter - Rogue',
+		'Clue Scrolls (all)',
+		'Clue Scrolls (beginner)',
+		'Clue Scrolls (easy)',
+		'Clue Scrolls (medium)',
+		'Clue Scrolls (hard)',
+		'Clue Scrolls (elite)',
+		'Clue Scrolls (master)',
+		'LMS - Rank',
+		'Soul Wars Zeal',
+		-- bosses
+		'Abyssal Sire',
+		'alchemical hydra',
+		'barrows chests',
+		'bryophyta',
+		'callisto',
+		'cerberus',
+		'chambers of xeric',
+		'chambers of xeric: Challenge',
+		'chaos elemental',
+		'chaos fanatic',
+		'commander zilyana',
+		'corporeal beast',
+		'crazy archaeologist',
+		'dagannoth prime',
+		'dagannoth rex',
+		'dagannoth supreme',
+		'Deranged Archaeologist',
+		'General Graardor',
+		'Giant Mole',
+		'Grotesque Guardians',
+		'Hespori',
+		'Kalphite Queen',
+		'King Black Dragon',
+		'Kraken',
+		'Kree\'Arra',
+		'K\'ril Tsutsaroth',
+		'Mimic',
+		'Nightmare',
+		'Obor',
+		'Sarachnis',
+		'Scorpia',
+		'Skotizo',
+		'Tempoross',
+		'The Gauntlet',
+		'The Corrupted Gauntlet',
+		'Theatre of Blood',
+		'Thermonuclear Smoke Devil',
+		'TzKal-Zuk',
+		'TzTok-Jad',
+		'Venenatis',
+		'Vet\'ion',
+		'Corkath',
+		'Wintertodt',
+		'Zalcano',
+		'Zulrah',
+	}
+}
+local aliases = {
+	constitution = {'hitpoints'},
+	runecrafting = {'runecraft'},
+	['bounty hunter'] = {'bh'},
+	['bounty hunter rogue'] = { 'bhr' },
+	['dominion tower'] = { 'dom' },
+	['crucible'] = { 'cru' },
+	['castle wars'] = { 'cw' },
+	['barbarian assault attacker'] = { 'baa' },
+	['barbarian assault defender'] = { 'bad' },
+	['barbarian assault collector'] = { 'bac' },
+	['barbarian assault healer'] = { 'bah' },
+	['duel tournament'] = { 'duel' },
+	['mobilising armies'] = { 'ma' },
+	['conquest'] = { 'conq' },
+	['fist of guthix'] = { 'fog' },
+	['gielinor games athletics'] = { 'gga' },
+	['gielinor games resource race'] = { 'ggrr' },
+	['we2: armadyl contribution'] = { 'we2ac' },
+	['we2: bandos contribution'] = { 'we2bc' },
+	['we2: armadyl pvp kills'] = { 'we2ak' },
+	['we2: bandos pvp kills'] = { 'we2bk' },
+	['heist guard level'] = { 'hgl' },
+	['heist robber level'] = { 'hrl' },
+	['cfp: 5 games'] = { 'cfp' },
+	['af15: cow tipping'] = { 'afcow' },
+	['af15: rat kills'] = { 'afrat' },
+	['clue scrolls easy'] = { 'tt easy' },
+	['clue scrolls medium'] = { 'tt med' },
+	['clue scrolls hard'] = { 'tt hard' },
+	['clue scrolls elite'] = { 'tt elite' },
+	['clue scrolls master'] = { 'tt master' },
+}
+local types = {
+	rank = 'rank',
+	r = 'rank',
+	level = 'level',
+	lvl = 'level',
+	lv = 'level',
+	l = 'level',
+	xp = 'xp',
+	exp = 'xp',
+	experience = 'xp',
+	x = 'xp',
+	score = 'score',
+	s = 'score'
+}
+
+function get_hiscores_lite(game, name)
+	game = game or GAME_DEFAULT
+	local key = string.format('_hiscores_%s_%s', game, name)
+	if var.varexists(key) then
+		return var.var(key)
+	end
+	local s = mw.getCurrentFrame():preprocess(string.format('{{#hs:%s|%s}}', game, name))
+	var.vardefine(key, s)
+	if s:match('class="error"') then
+		s = s:gsub('<span class="error">', ''):gsub('</span>', '')
+		error('Error from #hs: "'..s..'"')
+	end
+	return s
+end
+
+function p.get_stats(name, game)
+	local s = get_hiscores_lite(game, name)
+	local out = {}
+	local splt = mw.text.split(s, '%s')
+	local skill_names = stats_order[game or GAME_DEFAULT]
+	for i,t in ipairs(splt) do
+		local stat = {}
+		local sp = mw.text.split(t, ',')
+		if #sp == 2 then
+			stat = {
+				rank = tonumber(sp[1]),
+				score = tonumber(sp[2])
+			}
+		else
+			stat = {
+				rank = tonumber(sp[1]),
+				level = tonumber(sp[2]),
+				xp = tonumber(sp[3])
+			}
+		end
+		out[skill_names[i]] = stat
+	end
+
+	for orig,new_list in pairs(aliases) do
+		for i,new in ipairs(new_list) do
+			out[new] = out[orig]
+		end
+	end
+	return out
+end
+
+function p.get_stat(name, stat, game)
+	return p.get_stats(name, game)[stat]
+end
+
+function p.get_stat_number(name, stat, val, game)
+	local t = types[val]
+	if t then
+		return p.get_stat(name, stat, game)[t]
+	end
+	error('Invalid type: '..tostring(val))
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local name = args.Name or args.name or args[1]
+	local skill = args.Skill or args.skill or args[2] or 'overall'
+	local val = args.Type or args.type or args[3] or 'level'
+	local game = args.Game or args.game or args[4] or GAME_DEFAULTr
+	return p.get_stat_number(name, stat, val, game)
+end
+
+return p

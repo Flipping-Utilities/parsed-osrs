@@ -1,0 +1,41 @@
+local p = {}
+local box = require('Module:Sandbox/User:Varied2350/Tile markers button')._main
+
+function p._main(args)
+	local align = args['align'] ~= nil and args['align'] or 'right'
+	local title = args[2] ~= nil and args[2] or 'Tile markers'
+	local jsonPage = args[1]
+	local boxArgs = {}
+	
+	local tab = mw.html.create('table')
+		:addClass('wikitable')
+		:addClass('tilemarker-box')
+		:attr('style', 'text-align:center;clear:'..align..';float:'..align..'; width:100%; max-width:200px; margin:4px;'.. align == right and 'margin-right:0;' or 'margin-left:0;')
+	
+	tab:tag('tr'):tag('th'):wikitext(title)
+	if jsonPage ~= nil then
+		boxArgs[1] = args[1]
+		boxArgs[2] = args[2]
+		boxArgs['x'] = args['x']
+		boxArgs['y'] = args['y']
+		boxArgs['zoom'] = args['zoom']
+		boxArgs['multimap'] = args['multimap']
+		boxArgs['showpreview'] = args['showpreview']
+		
+		tab:tag('tr'):tag('td'):node(box(args))
+	else
+		tab:tag('tr'):tag('td'):wikitext('<small>([[RuneScape:Tile markers#Adding new tile markers|\'\'\'?\'\'\' add tile data]])</small>')
+	end
+		
+	local dataLink = jsonPage ~= nil and '[['..jsonPage..'|Data]]' or 'Data'
+	tab:tag('tr'):tag('td'):wikitext('[[RuneScape:Tile markers|Tile markers guide]] <span style="user-select:none;"><b>•</b></span> ' .. dataLink )
+	
+	return tab
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

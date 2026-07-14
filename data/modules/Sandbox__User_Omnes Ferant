@@ -1,0 +1,88 @@
+local Coins = require( 'Module:Coins' )
+local gePrice = require('Module:Exchange')._price
+
+local p = {}
+
+local bin = 15
+local bigBin = 30
+
+
+function p.invoke_main( frame )
+	return p.main(frame:getParent().args.ingredient, frame:getParent().args.cocomilk_offset, frame:getParent().args.bucket_offset)
+end
+
+function p.main( item, cocomilk, bucket )
+	--Gets cost of ingredients and value of a bin/big bin of compost
+	if item == 'Coconut shell' and cocomilk == 'true' then
+		price = gePrice('Coconut') + gePrice('Vial') - gePrice('Coconut milk')
+	elseif item == 'Coconut shell' then
+		price = gePrice('Coconut')
+	elseif item == 'White tree fruit' or item == 'Tenti pineapple' then
+		price = 0
+	elseif item then
+		price = gePrice(item)
+	else
+		price = 0
+	end
+	
+	local superPrice = gePrice('Supercompost')
+	local profit = (superPrice * bin) - (price * bin)
+	local bigProfit = (superPrice * bigBin) - (price * bigBin)
+	if bucket == 'true' then
+		bucketPrice = gePrice('Bucket')
+		profit = profit - bucketPrice
+		bigProfit = bigProfit - bucketPrice
+	end
+	
+	return p.resultsTable({(price * bin), (price * bigBin), profit, bigProfit})
+end
+
+--Creates table
+function p.resultsTable(results)
+	local resultsTable = mw.html.create('table')
+	local header = mw.html.create('tr')
+	header:tag( 'th' )
+		:wikitext( '<small>Cost and profit<br/>per bin and big bin</small>' )
+	:done()
+	:tag( 'th' )
+		:wikitext( 'Cost' )
+	:done()
+	:tag( 'th' )
+		:wikitext( 'Profit' )
+	:done()
+	
+	local bin = mw.html.create('tr')
+		bin:tag( 'th' )
+		:tag( 'b' )
+			:wikitext( 'Bin' )
+		:done()
+		:tag( 'td' )
+			:wikitext(Coins._amount(results[1] * -1))
+		:done()
+		:tag( 'td' )
+			:wikitext(Coins._amount(results[3]))
+		:done()
+
+	local bigbin = mw.html.create('tr')
+		bigbin:tag( 'th' )
+			:tag( 'b' )
+				:wikitext( 'Big bin' )
+			:done()
+		
+		:tag( 'td' )
+			:wikitext(Coins._amount(results[2] * -1))
+		:done()
+		:tag( 'td' )
+			:wikitext(Coins._amount(results[4]))
+		:done()
+
+	resultsTable:addClass( 'wikitable' ):addClass( 'align-center-1' )
+		:node(header)
+		:node(bin)
+		:node(bigbin)
+	:done()
+
+	return resultsTable
+end
+
+return p

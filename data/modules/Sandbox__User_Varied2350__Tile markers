@@ -1,0 +1,37 @@
+local p = {}
+local map = require('Module:Map')
+
+function regionToCoords(region)
+		
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local bit32 = require("bit32")
+	
+	local jsonData = mw.loadJsonData(args[1])
+	local parsedAnonMaps = {}
+	for i, tileMarker in ipairs(jsonData) do
+		local regionId = tileMarker['regionId']
+		local regionX = tileMarker['regionX']
+		local regionY = tileMarker['regionY']
+		local color = tileMarker['color']
+		local label = tileMarker['label']
+		
+		local worldX = (bit32.lshift(bit32.rshift(regionId, 8), 6)) + regionX
+		local worldY = (bit32.lshift(bit32.band(regionId, 0xFF), 6)) + regionY
+		
+		table.insert(parsedAnonMaps, 
+			'mtype:rectangle,rectX:1,rectY:1,'
+			.. worldX .. ',' 
+			.. worldY)
+	end
+	
+	mw.logObject(parsedAnonMaps)
+
+	local html = map.buildMap(parsedAnonMaps)
+	
+	return html
+end
+
+return p

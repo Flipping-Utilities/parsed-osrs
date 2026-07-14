@@ -1,0 +1,1033 @@
+
+local utils = require('Module:Sandbox/User:Oo00oo00oO/utils')
+local DPL = require("Module:DPLlua")
+utils.debug.updateLogConfigSetting('LEVEL', utils.debug.LOG_LEVEL.ERROR)
+
+local MAX_CASH = {
+	["runescape"] = (2^31-1)*(10^9)+(2^31-1),
+	["oldschool"] = (2^31-1) * 1000
+}
+MAX_CASH = mw.site.server:find("oldschool") and MAX_CASH["oldschool"] or MAX_CASH["runescape"]
+
+local p = {}
+
+
+--- normalizes string for comparison. trim. lowercase.
+-- @param var (string) the value to be normalized
+-- @return (string) normalized string
+function p.normalizeName(var) 
+	return utils.trim(tostring(var)):lower()
+end
+
+
+--- edits keys of the table to be a normalized key value
+-- @param tbl (table) the table to normalize the keys for
+-- @return (table) where each of the given tables keys have been normalized (values unchanged, original table not edited, creates copy)
+function p.getNormalizedTableKeys(tbl)
+	local temp = {}
+	for k, v in pairs(tbl) do
+		local norm = p.normalizeName(k)
+		if tbl[norm] == nil or tbl[norm] == tbl[k] then
+			temp[norm] = v
+		else
+			utils.debug.debug("Normalized table key conflict: '" .. k .. "' -> '" .. norm .. "'")
+		end
+	end
+	return temp
+end
+
+--- will edit the data table given and return a table of normalized column values
+-- @param data (table) 
+-- @param colsToNormalize (string[])
+-- @return () 
+function p.normalizeByColNames(data, colsToNormalize)
+	local ids = {}
+	local normalized = {}
+	
+	for cidx, colname in ipairs(colsToNormalize) do
+		local uid = 1
+		local temp = {}
+		-- get uniques
+		for i, storeline in pairs(data) do
+			local key = p.normalizeName(storeline[colname]) 
+			local kuid = temp[key]
+			if kuid == nil then 
+				kuid = uid
+				uid = uid + 1
+				temp[key] = kuid
+			end
+			storeline[colname] = kuid
+		end
+		-- flip kvp now that storeline is reversed
+		normalized[colname] = {}
+		for norm, uid in pairs(temp) do
+			normalized[colname][uid] = norm
+			temp[norm] = nil
+		end
+		utils.debug.debug('normalized col "' .. colname .. '" has ' .. table.maxn(normalized[colname]) .. ' unique values.')
+	end
+	return normalized
+end
+
+--- normalized ge data
+local GEMW = {
+	price = p.getNormalizedTableKeys(mw.loadJsonData('Module:GEPrices/data.json')),
+	alch = p.getNormalizedTableKeys(mw.loadJsonData('Module:GEHighAlchs/data.json')),
+	lim = p.getNormalizedTableKeys(mw.loadJsonData('Module:GELimits/data.json')),
+	vol = p.getNormalizedTableKeys(mw.loadJsonData('Module:GEVolumes/data.json')),
+	mem = p.getNormalizedTableKeys(mw.loadJsonData('Module:GEMembers/data.json')),
+	lastPrice = p.getNormalizedTableKeys(mw.loadJsonData('Module:LastPrices/data.json')),
+	-- ids = p.getNormalizedTableKeys(mw.loadJsonData('Module:GEIDs/data.json')),
+	-- value = p.getNormalizedTableKeys(mw.loadJsonData('Module:GEValues/data.json'))
+}
+
+--- [not used] Gets all mw.title objects for stores that are not deleted. searches via dpl category shops
+-- @returns table of mw.titles
+function p._unused_queryForAllActiveStores()
+	local ret = {}
+		local dpl_template = [=[{{#dpl:
+		| category=Shops
+		| linksto=Template:Infobox Shop|Template:Infobox_shop_multi
+		| format=,<<%%TITLE%%>>,,
+		| offset=%s
+		| notuses = Template:Deleted_content
+		}}
+		]=]
+		local nresults = 0
+		repeat
+		local dpl = dpl_template:format(nresults)
+		local res = mw.getCurrentFrame():preprocess(dpl)
+		local out = {}
+		for v in mw.ustring.gmatch(res, '<<(.-)>>') do
+			nresults = nresults + 1
+			local title = mw.title.new(v)
+			local pageContent = title:getContent()
+			if pageContent ~= nil then
+				-- page exists
+				local ok, hasinfobox = pcall(mw.ustring.find, pageContent:lower(), 'infobox')
+				local ok, hasdeletedcontent = pcall(mw.ustring.find, pageContent:lower(), 'deleted content')
+				if hasinfobox and hasdeletedcontent == nil then
+					-- check #1 store exists today
+					ret[title.fullText] = {unparsedContent=pageContent,}
+					--table.insert(ret, title)
+				end
+			end
+			
+		end
+		until nresults % 500 > 0
+	
+	return ret
+end 
+
+--- [not used] Given a tag name it extracts the first occurance of {{<tag> ... }} until the proper close brace
+function p._unused_extractUnparsedData(tag, text)
+	local startindex, endindex = text:lower():find("{{%s*"..tag:lower())
+	local openBraceCount = 2
+	local closeBraceCount = 0
+	while (startindex) and (endindex < #text) and (closeBraceCount < openBraceCount) do
+		local chr = text:sub(endindex, endindex)
+		if chr == "}" then
+			closeBraceCount = closeBraceCount + 1
+		elseif chr == "{" then
+			openBraceCount = openBraceCount + 1
+		end
+		endindex = endindex + 1
+	end
+	return startindex, endindex
+end
+_unused_testpagecontent = "{{External|os|rsc}}\n{{Infobox Shop\n|name = Rimmington General Store\n|imageext = Rimmington General Store exterior.png\n|imageint = Rimmington General Store interior.png\n|release = [[6 April]] [[2001]]\n|update = Massive update!\n|members = No\n|location = [[Rimmington]]\n|owner = [[Shopkeeper]]\n|special = [[General Store]]\n|icon = [[File:General store map icon.png]]\n|map = {{Map|mtype=square|x=2948|y=3216|r=6}}\n}}\nThe '''Rimmington General Store''' is a [[general store]] located in the north-west of [[Rimmington]]. It is run by a [[Shopkeeper]].\n\nThe shop was commonly used upon the release of the [[Construction]] skill, for quicker [[Prayer]] training on a [[gilded altar]].\n\n==Stock==\n{{StoreTableHead}}\n{{StoreLine|Name=Empty pot|Stock=30|Sell=1|Buy=1}}\n{{StoreLine|Name=Jug|Stock=10|Sell=1|Buy=1}}\n{{StoreLine|Name=Shears|Stock=10|Sell=1|Buy=1}}\n{{StoreLine|Name=Bucket|Stock=30|Sell=2|Buy=1}}\n{{StoreLine|Name=Bowl|Stock=10|Sell=4|Buy=1}}\n{{StoreLine|Name=Cake tin|Stock=10|Sell=10|Buy=3}}\n{{StoreLine|Name=Tinderbox|Stock=10|Sell=1|Buy=1}}\n{{StoreLine|Name=Chisel|Stock=10|Sell=14|Buy=4}}\n{{StoreLine|Name=Hammer|Stock=10|Sell=13|Buy=3}}\n{{StoreLine|Name=Newcomer map|Stock=10|Sell=1|Buy=1}}\n{{StoreLine|Name=Security book|Stock=10|Sell=2|Buy=1}}\n{{StoreTableEnd}}\n\n==Update history==\n{{UH|\n* {{UL|type=patch|update=Patch Notes (2 November 2010)|date=2 November 2010}}\n** Rimmington's general store now has floors attached to the walls.\n\n* {{UL|type=update|update=Massive update!|date=6 April 2001}}\n** Added to game.\n}}\n\n{{Asgarnia shops}}\n{{Rimmington}}\n[[Category:General stores]]\n[[pt:Armazém Geral de Rimmington]]"
+
+--- [not used]
+-- @param  () 
+-- @return () 
+function p._unused_getShopInfo(pageContent)
+	local ret = {
+		['infobox'] = {}
+	}
+	local lastlen = 0
+	while lastlen ~= #pageContent do
+		local startindex, endindex = p.extractUnparsedData("infobox", pageContent)
+		if startindex ~= nil then
+			table.insert(ret.infobox, pageContent:sub(startindex, endindex))
+			pageContent = pageContent:sub(1, startindex - 1) .. pageContent:sub(endindex+1, #pageContent)
+		end
+	end
+	
+	-- 436 stores today
+	return ret
+end
+
+--- retrieve all {{Storeline|...}} template calls, excluded if the Storeline templates page uses Template:Deleted_content. 
+-- @BUG If the currency argument is defined in a Template:StoreTableHead, we are unable to take that into account for now. 
+-- @return (table) where each element in the table follows the pattern: {
+--	gemwname:string = the name of the GE traded item,
+--	store:string = the name of the store,
+--	isnoted:string* = non nil value indicates this item is sold as noted items,
+--	ispack:boolean = if this item is sold as a pack (item name in gemwname),
+--	stock: number = the number of items in stock, math.huge for infinite,
+--	sell: number* = value the store sells this item for,
+--	buy: number* = value the store buys this item for,
+-- })
+function p.getAllStoreLines(infiniteValue, batchSize, offset)
+	infiniteValue = infiniteValue or MAX_CASH
+	--- the only thing thats missing for now is when the nogemw is in the {{storetablehead}}
+	offset = tonumber(offset) or 0
+	limit = utils.tonumber(limit) or 0
+	local rows = {}
+	local batch = {}
+	local batchSize = (limit > 0 and limit < 500) and limit or 500
+	local templateName = "StoreLine"
+	local infiniteStockKeys = {
+		[math.huge] = infiniteValue,
+		["inf"] = infiniteValue,
+		["infinite"] = infiniteValue,
+		["inf"] = infiniteValue,
+		["∞"] = infiniteValue,
+	}
+	-- query for data
+	-- TODO: this method of getting the data (by storeline only) doesnt work when the Currency=<other> is in the StoreTableHead, idk how to remove those from the query
+	repeat
+		batch = DPL.ask({
+			namespace = "",
+			include = "{" .. templateName .. "}",
+			notuses = 'Template:Deleted_content',	-- NOTE: dont include data from pages that use deleted content!
+			uses = "Template:" .. templateName,
+			count = batchSize,
+			offset = offset
+		})
+		offset = offset + #batch
+		
+		-- add results to main data struct
+		for i, r in ipairs(batch) do
+			-- clean data row
+			local temp = {}
+			local c = 0
+			for k, v in pairs(r['include'][templateName]) do
+				-- 1. convert numerical values to numbers
+				-- val = utils.tonumber(v)
+				-- 2. remove the inline citations from strings & 3. save updated kvp
+				--temp[type(k) == "number" and k or utils.trim(k:lower())] = val == val and val or v:gsub("\127'\"`UNIQ%-%-ref%-%x+%-QINU`\"'\127", "")
+				temp[type(k) == "number" and k or utils.trim(k:lower())] = v --:gsub("\127'\"`UNIQ%-%-ref%-%x+%-QINU`\"'\127", "")
+				c = c + 1
+			end
+			if (c > 0) then 
+				local specialCurrency =  temp['currency'] == nil
+				local isCurrencyCoins = specialCurrency and p.normalizeName(temp['currency'])  == "coins"
+				local nongeitem = p.normalizeName(temp['gemw'])  == "no" or (temp['nosmw'] and (p.normalizeName(temp['nosmw'])  ~= 'no') and (p.normalizeName(temp['nosmw']) :sub(1,1) == 'y' or p.normalizeName(temp['nosmw'])  == 'true'))
+				local nonStockItem = temp['restock'] ~= nil
+				local nameKeyActuallyIn_id = temp['id'] and p.normalizeName(temp['id'])  ~= p.normalizeName(temp['name']) 
+				local subShopName = nameKeyActuallyIn_id and p.normalizeName(temp['name'])  ~= p.normalizeName(r['title'])  and temp['name']
+				local nameKeyActuallyIn_pack = temp['pack'] and p.normalizeName(temp['pack'])  ~= p.normalizeName(temp['name']) 
+				-- we filter out rows that are neither buy nor sell or cannot be sold on GE
+				if (specialCurrency and not isCurrencyCoins) and not nongeitem then
+					-- normalize data
+					local storeline = {
+						-- set gemw name
+						['gemwname'] = temp['gemwname'] or (nameKeyActuallyIn_pack and temp['pack']) or (nameKeyActuallyIn_id and temp['id']) or temp['name'],
+						-- fix store name
+						['storename'] = r['title'] .. (nameKeyActuallyIn_id and '#' or '') .. (nameKeyActuallyIn_id and temp['id'] or ''),
+						['isnoted'] = temp['sellnotes'] ~= nil,
+						['ispack'] = temp['pack'] ~= nil,
+						-- fix infinite stocks to be math.huge
+						['stock'] = infiniteStockKeys[p.normalizeName(temp['stock']) ] or utils.tonumber(temp['stock']) or temp['stock'],
+						['sell'] = utils.tonumber(temp['sell']) or temp['sell'],
+						['buy'] = utils.tonumber(temp['buy']) or temp['buy'],
+					}
+					table.insert(rows, storeline)
+				end
+			else 
+				utils.debug.info("No data inside the included " .. templateName .. "template use? " .. mw.dumpObject(r))
+			end
+			batch[i] = nil	-- memory efficency
+		end
+	until offset % batchSize > 0 or (limit > 0 and #rows >= limit)
+	
+	return rows
+end
+
+--- retrieve information from a given Template:InfoBox Shop/NPC
+-- @param storename (string) the store/npc to get data for 
+-- @return (table) with keys being indexes, and values being getNormalizedTableKeys being called on the argument(normalized)/parameter pairs for the Template:Infobox Shop, or Template:Infobox NPC. Should always be at least 1, but possibly more; reccomended to ignore all after the first. 
+function p.getShopInfobox(storename)
+	local templateNames = {"Infobox shop","Infobox NPC"}
+	local data = DPL.ask({
+		namespace = "",
+		title=storename,
+		include = '{' .. table.concat(templateNames, '},{') .. '}'
+	})
+	local ret = {}
+	for idx, row in ipairs(data) do
+		for k, v in pairs(row['include']) do
+			local norm = p.getNormalizedTableKeys(v)
+			-- only add if we have data
+			for a,b in pairs(norm) do
+				table.insert(ret, norm)
+				break
+			end
+		end
+	end
+	return ret
+end
+
+--- same as getShopInfobox but takes in a table of store names and returns a tale where keys are store names and keys are the table values
+function p.getShopInfoboxMult(storenames)
+	local templateNames = {"Infobox shop","Infobox NPC"}
+	local ret = {}
+	local maxGroupSize=100
+	local idx=1
+	while idx <= #storenames do
+		local grp={}
+		while idx<=#storenames and #grp<maxGroupSize do 
+			table.insert(grp,"^"..storenames[idx].."$")
+			idx = idx+1 
+		end 
+		local data = DPL.ask({
+			namespace = "",
+			title=table.concat(grp,"|"),
+			include = '{' .. table.concat(templateNames, '},{') .. '}'	})
+		for idx, row in ipairs(data) do
+			ret[row["title"]] = {}
+			for k, v in pairs(row['include']) do
+				local norm = p.getNormalizedTableKeys(v)
+				-- only add the first if we have data
+				for a,b in pairs(norm) do
+					table.insert(ret[row["title"]], norm)
+					break
+				end 
+			end
+		end
+	end
+	return ret
+end
+
+function p.extractShopInfoboxMetadata(infoboxes) 
+	for i, infobox in ipairs(infoboxes) do
+		local ismems = p.normalizeName(infobox['members']):sub(1,1)
+		ismems = ismems == 'y' or ismems == 't'
+		-- y, yes, t, true...
+		return {
+			location = (infobox['location'] or infobox['location1'] or infobox['location2']):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+			mems = ismems
+		}
+	end
+	return nil
+end
+	
+	
+--- Gets all the relevant store data in order to calculate profitable shop runs
+-- @param data (OPTIONAL: table) a table from p.getAllStoreLines() (can be filtered). defaults to the unfiltered data from p.getAllStoreLines
+-- @return (table) {
+--	storeInfo:table = where keys are store names and values are tables with information about this store (see p.getShopInfobox: location, mems)
+--	mapping:table = where the keys are indexes and the values are tables representing each Template:StoreLine call with the following pattern: {
+--		location:string = the store location as a relative wiki link ( [[pageName]] ), 
+--		mems: boolean = if the instance is for members only (aka shop is mems, or item is mems), 
+--		sells: number = the value the store sells the item for
+--		buys: number = the value the store buys the item for,
+--		stock: number = the number of items in stock by default; math.huge for infinite stock
+--		store = string; relational key for the storeInfo key, 
+--		gemwname = string; relational key for the GEMW sub tables, 
+--		}
+--}
+-- @examplereturn {
+--		['storeInfo'] = {
+--			["Ak-Haranu's Exotic Shop"] = {
+--				["location"] = "[[Port Phasmatys]] docks",
+--				["mems"] = true,
+--			}
+--		},
+--		['mapping'] = {
+--			{
+--				["buys"] = 126,
+--				["gemwname"] = "bolt rack",
+--				["location"] = "[[Port Phasmatys]] docks",
+--				["mems"] = true,
+--				["sells"] = 420,
+--				["stock"] = 100,
+--				["store"] = "Ak-Haranu's Exotic Shop",
+--			}
+--		}
+--	}
+function p.getAllStoreLineRunData(data, args)
+	args = args or {}
+	args.mode = args.mode or p.argDefaults["mode"]
+	args.allowMembers = args.allowMembers or p.argDefaults["allowMembers"]
+	args.onlyProfitable = args.onlyProfitable or p.argDefaults["onlyProfitable"]
+	local infiniteValue = args.mode == "json" and MAX_CASH or math.huge
+	data = data or p.getAllStoreLines(infiniteValue, args.limit, args.offset)
+	local ret = {
+		storeInfo = {},
+		mapping = {},
+		itemInfo = {},
+	}
+	-- generate store metadata
+	-- generate item metadata
+	for idx, storeline in pairs(data) do
+		local storename = storeline['storename']
+		local storeInstance = ret.storeInfo[storename]
+		if not storeInstance then
+			storeInstance = {}
+			local infoboxes = p.getShopInfobox(storename)
+			for i, infobox in ipairs(infoboxes) do
+				local ismems = p.normalizeName(infobox['members']):sub(1,1)
+				ismems = ismems == 'y' or ismems == 't'	-- y, yes, t, true...
+				table.insert(storeInstance, {
+					location = (infobox['location'] or infobox['location1'] or infobox['location2']):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+					mems = ismems,
+					rpt = 0, -- resale profit total
+				})
+			end
+			if #storeInstance > 1 then
+				utils.debug.error(storeInstance)
+				utils.debug.error(storeline)
+				return ret
+			end
+			storeInstance = storeInstance[1]
+		end
+		local gemwname = p.normalizeName(storeline['gemwname'])
+		local mappingInstance = nil
+		if storeInstance and GEMW.price[gemwname] then
+			mappingInstance = {
+				location = (storeInstance['location'] or storeInstance['location1'] or storeInstance['location2'] or "ERR NO LOC?"):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+				mems = storeInstance['mems'] or GEMW.mem[gemwname] or false,
+				sells = utils.tonumber(storeline['sell']),
+				buys = utils.tonumber(storeline['buy']),
+				stock = utils.tonumber(storeline['stock']),
+				store = storename,
+				gemwname = gemwname,
+			}
+		end
+		if mappingInstance then
+			ret.storeInfo[storename] = storeInstance
+			table.insert(ret.mapping, mappingInstance)
+			
+			if ret.itemInfo[gemwname] == nil then
+				ret.itemInfo[gemwname] = {
+					max=0, 
+					n=0, 
+					gen=math.max(math.floor((GEMW.alch[gemwname] or 0)/2), 1 
+						)
+				}
+			end
+			ret.itemInfo[gemwname].n = ret.itemInfo[gemwname].n + 1
+			if mappingInstance.buys and mappingInstance.buys > ret.itemInfo[gemwname].max then
+				ret.itemInfo[gemwname].max = mappingInstance.buys
+			end
+		end
+		data[idx] = nil -- for memory reasons, remove it?
+	end
+	
+	-- mark favorite sells
+	for gemwname, itemInfo in pairs(ret.itemInfo) do
+		if itemInfo.gen >= itemInfo.max then
+			ret.itemInfo[gemwname] = nil
+		end
+	end
+	-- convert to readable table
+	return ret
+end
+
+--- calculates the profitable activity for each store line mapping. edits data.mapping in place.
+-- @param data (table) **See return value from p.getAllStoreLineRunData, can be filtered.
+-- @return (table) The updated data.mapping table. 
+function p.calcProfitableActions(data, args)
+	local profitableThresh = 0
+	local calculatedKeys = {
+		geResale = 'Resale',
+		geResaleStock = '~Resale*Stock',
+		favorable = 'favorable dump',
+		dump = 'Dump to store',
+		dump24 = 'est 24hr dump profit', 
+		-- dumpMinVal = 'dump @ min val',
+	}
+	local taxRates = utils.getGameTaxRate()
+	for idx=#data.mapping, 1, -1 do
+		storeline = data.mapping[idx]
+		if storeline['sells'] then
+			local sellPrice = (GEMW.price[storeline.gemwname] or GEMW.lastPrice[storeline.gemwname] or 0)
+			local buyPrice = storeline['sells']
+			-- nontaxed resale ea
+			storeline[calculatedKeys.geResale] = sellPrice - buyPrice
+			-- taxed returns on all stock
+			local stock = (storeline['stock'] == math.huge and 1 or storeline['stock']) or 0 
+			local taxedReturns = (sellPrice * stock) * (sellPrice > taxRates.thresh and (1-taxRates.rate) or 1)
+			local resaleStockTaxedProfit = taxedReturns - (stock * buyPrice)
+			storeline[calculatedKeys.geResaleStock] = resaleStockTaxedProfit
+		end
+		if storeline['buys'] then
+			storeline[calculatedKeys.favorable] = data.itemInfo[storeline.gemwname] and data.itemInfo[storeline.gemwname].max <=  (storeline['buys'] or 0)
+			storeline[calculatedKeys.dump] = storeline['buys'] - (GEMW.price[storeline.gemwname] or GEMW.lastPrice[storeline.gemwname] or math.huge)
+			storeline[calculatedKeys.dump24] = ((storeline['buys'] - (GEMW.price[storeline.gemwname] or GEMW.lastPrice[storeline.gemwname] or math.huge)) * math.min((GEMW.lim[storeline.gemwname] or 0) * 6, GEMW.vol[storeline.gemwname] or 0))
+			-- storeline[calculatedKeys.dumpMinVal] = math.max(math.floor((GEMW.value[storeline.gemwname] or 1)*0.1),1) - (GEMW.price[storeline.gemwname] or GEMW.lastPrice[storeline.gemwname] or math.huge)
+		end
+		local isProfitable = (storeline[calculatedKeys.geResale] or profitableThresh-1) > profitableThresh or (storeline[calculatedKeys.dump] or profitableThresh-1) > profitableThresh
+		if (args.allowMembers == false and storeline.mems == true) or (args.onlyProfitable == true and isProfitable == false) then
+			-- remove from list if not profitable at all
+			table.remove(data.mapping, idx)
+		else
+			if (storeline[calculatedKeys.geResaleStock] or 0) > 0 then 
+				data.storeInfo[storeline["store"]]["rpt"] = (data.storeInfo[storeline["store"]]["rpt"] or 0) + storeline[calculatedKeys.geResaleStock]
+			end
+		end
+	end
+	
+	-- try to get total by store?
+	return data.mapping
+end
+
+function p.toShopRunHTMLTable(data)
+	local t = mw.html.create('table')
+	t:addClass('wikitable lighttable mw-collapsible sortable sticky-header align-left-1 align-left-2 align-right-3 align-right-4 align-right-5 align-center-6 align-center-7 align-center-8 align-right-9 align-right-10 align-right-11 align-center-12 align-right-13 align-right-14 align-right-15 align-left-16 align-center-17 mw-collapsed'):css("table-layout","fixed"):css("border-collapse","collapse")
+	t:tag("caption"):wikitext("shop runs (" .. (#data.mapping) .. ")"):done()
+	local profitableColIdxs = {}
+	function colorGreenIfProfitable(cell, itable, cScale,rowIdx, colIndexToSort) 
+		return false
+		-- for idx, colname in pairs(profitableColIdxs) do
+			-- is the given cells row in this col > 0 ? then return true
+			-- note this rowIdx may not match the other row idx bc this colIdx was independently sorted
+		-- end
+	end
+	local colorMap = {
+		redish = 'ff00047f',
+		greenish = '04ff007f',
+		yellowish = 'eaff007f'
+	}
+	local colorRowIfColProfitable = { [colorGreenIfProfitable] = colorMap.greenish } 
+	
+	local columns = {
+		{ header="Shop", type="link", colorScale=nil, css={['white-space']='nowrap'}, key='store'}, 
+		{ header="Item", type="link", colorScale=nil, css={['white-space']='nowrap'}, key='gemwname'}, 
+		{ header="Sell", type="number", colorScale=nil, css={['white-space']='nowrap'}, key='sells'}, 
+		{ header="Buy", type="number", colorScale=nil, css={['white-space']='nowrap'}, key='buys'}, 
+		{ header="Stock", type="number", colorScale={[0]=colorMap.redish, [1]= colorMap.greenish, [''] = colorMap.redish }, css={['white-space']='nowrap'}, key='stock'}, 
+		{ header="is noted", type="boolean", colorScale={T = colorMap.greenish}, css={['white-space']='nowrap'}, key="isnoted"},
+		{ header="is pack", type="boolean", colorScale={T = colorMap.greenish}, css={['white-space']='nowrap'}, key="ispack"},
+		{ header="GE", type="number", colorScale=nil, css={['white-space']='nowrap'}, geSrc='price'}, 
+		{ header="Resale profit (notax)", type="number", colorScale={[0]=colorMap.redish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='Resale', profitCalc=true},
+		{ header="Resale×stock profit (taxed)", type="number", colorScale={[0]=colorMap.redish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='~Resale*Stock', profitCalc=true},
+		{ header="Dump ea", type="number", colorScale={[0]=colorMap.redish, [1]=colorMap.yellowish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='Dump to store', profitCalc=true},
+		-- { header="dump @ min val ea", type="number", colorScale={[0]=colorMap.redish, [1]=colorMap.yellowish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='dump @ min val', profitCalc=true},
+		{ header="Best loc to Dump ?", type="boolean", colorScale=={T = colorMap.greenish}, css={['white-space']='nowrap'}, key='favorable dump'}, 
+		{ header="Est 24h Dump Profit", type="number", colorScale={[0]=colorMap.redish, [1]=colorMap.yellowish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='est 24hr dump profit', profitCalc=true}, 
+		{ header="Volume", type="number", colorScale= --[[relative to limit?]] nil, css={['white-space']='nowrap'}, geSrc='vol'}, 
+		{ header="Limit", type="number", colorScale=nil, css={['white-space']='nowrap'}, geSrc='lim'}, 
+		{ header="Location", type="text", colorScale=nil --[[relative to total resale profit per location?]] , css={['white-space']='nowrap'}, key='location'}, 
+		{ header="Mems", type="boolean", colorScale={T = colorMap.redish, F=colorMap.greenish}, css={['white-space']='nowrap'}, key='mems'},
+	}
+	local tr = mw.html.create('tr')	-- open header row
+	-- append headers
+	for idx, col in ipairs(columns) do
+		local th = mw.html.create("th")
+		th:wikitext(col.header):css("word-wrap","break-word")
+		if col.type == "number" then
+			th:attr("data-sort-type","number")
+		end
+		th:done()
+		tr:node(th)
+		if col.profitCalc == true then
+			profitableColIdxs[idx] = col.header
+		end
+	end
+	tr:done()	-- close header row
+	t:node(tr)
+	-- add rows of data
+	for idx, storeline in pairs(data.mapping) do
+		local tr = mw.html.create('tr')
+		-- append cell
+		for idx, col in ipairs(columns) do
+			local td = mw.html.create('td')
+			local txt = (col.key and storeline[col.key]) or (col.geSrc and GEMW[col.geSrc][storeline['gemwname']]) or (col.type == 'boolean' and not not storeline[col.key]) or (col.type == 'number' and 0) or 'ERR?: wikitext content'
+			if col.type == "number" then
+				if utils.isfinite(txt) then
+					td:attr('data-sort-value', txt)
+					txt = utils.fnum(math.floor(txt or 0)) or txt
+				elseif txt == math.huge or txt == MAX_CASH then
+					td:attr('data-sort-value', 'Infinity')
+					txt = '∞'
+				end
+			elseif col.type == "boolean" then
+				td:attr('data-sort-value', txt == true and 1 or 0)
+				txt = txt == true and 'T' or 'F'
+			-- elseif col.type == "link" then
+				-- pass? idk if anything special
+			elseif col.type == "link" then
+				txt = "[["..txt.."|"..txt.."]]"
+			end
+			td:wikitext(txt)
+			td:done()
+			tr:node(td)
+		end
+		tr:done()
+		t:node(tr)
+	end
+	-- close off table
+	t:done()
+	-- Todo: apply color scale?
+	
+	local tbody = mw.html.create("tbody")
+	local c = 0
+	for storename, storeInstance in pairs(data.storeInfo) do
+		if (storeInstance["rpt"] or 0) > 0 then
+			local tr = mw.html.create("tr")
+			tr
+				:tag("td"):wikitext("[["..storename.."|"..storename.."]]"):done()
+				:tag("td"):wikitext(utils.fnum(math.floor(storeInstance.rpt or 0))):attr("data-sort-value",storeInstance.rpt):done()
+				:tag("td"):wikitext(storeInstance.location):done()
+			:done()
+			tbody:node(tr)
+			c=c+1
+		end
+	end
+	tbody:done()
+	if c > 0 then 
+		local summaryTbl = mw.html.create("table")
+		summaryTbl:addClass('wikitable lighttable mw-collapsible sortable sticky-header align-left-1 align-right-2 align-left-3 mw-collapsed'):css("table-layout","fixed"):css("border-collapse","collapse")
+		local caption = mw.html.create("caption")
+		caption:wikitext("Total resale profit per store (" .. c .. ")")
+		summaryTbl:node(caption)
+		local tr = mw.html.create("tr")
+		tr
+			:tag("th"):wikitext("Store"):done()
+			:tag("th"):wikitext("Total resale profit"):done()
+			:tag("th"):wikitext("Location"):done()
+		:done()
+		summaryTbl:node(tr)
+		summaryTbl:node(tbody)
+		summaryTbl:allDone()
+		t:node(summaryTbl)
+	end
+	return t
+end
+
+
+--- for generating a summary of tables with nested by stores
+-- @param data (table) the return value from p.calcProfitableActions 
+function p.toShopRunHTMLTableNested(data)
+	local t = mw.html.create('table')
+	t:addClass('wikitable lighttable mw-collapsible sortable sticky-header align-left-1 mw-collapsed'):css("table-layout","fixed"):css("border-collapse","collapse")
+	t:tag("caption"):wikitext("shop runs (" .. (#data.mapping) .. ")"):done()
+	-- add headers
+	local tr = mw.html.create("tr")
+	tr
+		:tag("th"):wikitext("store"):done()
+		:tag("th"):wikitext("items"):done()
+		:tag("th"):wikitext("total resale profit"):attr("data-sort-type","number"):done()
+		:tag("th"):wikitext("location"):done()
+		:tag("th"):wikitext("mems"):done()
+	:done()
+	t:node(tr)
+	
+	-- group rows by stores
+	for idx=#data.mapping, 1, -1 do
+		if data.storeInfo[data.mapping[idx].store].items == nil then
+			data.storeInfo[data.mapping[idx].store].items = {}
+		end
+		table.insert(data.storeInfo[data.mapping[idx].store].items, data.mapping[idx])
+		table.remove(data.mapping,  idx)
+	end
+	
+	-- add rows of data with subtables
+	for storename, storeInstance in pairs(data.storeInfo) do
+		if storeInstance.items then
+			local tr = mw.html.create("tr")
+			tr
+				:tag("td"):wikitext("[["..storename.."|"..storename.."]]"):done()
+				:tag("td"):node(p.toShopRunHTMLTableByStoreNested(storeInstance.items)):done()
+				:tag("td"):wikitext(utils.fnum(math.floor(storeInstance.rpt or 0))):done()
+				:tag("td"):wikitext(storeInstance.location):done()
+				:tag("td"):wikitext(storeInstance.mems == true and 'T' or 'F'):done()
+			:done()
+			t:node(tr)
+		end
+	end
+	return t
+end
+--- for generating the nested table for a single store
+-- @param data (table) a subset of items from a data.mapping
+function p.toShopRunHTMLTableByStoreNested(data)
+	local t = mw.html.create('table')
+	local profitableColIdxs = {}
+	function colorGreenIfProfitable(cell, itable, cScale,rowIdx, colIndexToSort) 
+		return false
+		-- for idx, colname in pairs(profitableColIdxs) do
+			-- is the given cells row in this col > 0 ? then return true
+			-- note this rowIdx may not match the other row idx bc this colIdx was independently sorted
+		-- end
+	end
+	local colorMap = {
+		redish = 'ff00047f',
+		greenish = '04ff007f',
+		yellowish = 'eaff007f'
+	}
+	local colorRowIfColProfitable = { [colorGreenIfProfitable] = colorMap.greenish } 
+	
+	local columns = {
+		{ header="Item", type="link", colorScale=nil, css={['white-space']='nowrap'}, key='gemwname'}, 
+		{ header="Sell", type="number", colorScale=nil, css={['white-space']='nowrap'}, key='sells'}, 
+		{ header="Buy", type="number", colorScale=nil, css={['white-space']='nowrap'}, key='buys'}, 
+		{ header="Stock", type="number", colorScale={[0]=colorMap.redish, [1]= colorMap.greenish, [''] = colorMap.redish }, css={['white-space']='nowrap'}, key='stock'}, 
+		{ header="is noted", type="boolean", colorScale={T = colorMap.greenish}, css={['white-space']='nowrap'}, key="isnoted"},
+		{ header="is pack", type="boolean", colorScale={T = colorMap.greenish}, css={['white-space']='nowrap'}, key="ispack"},
+		{ header="GE", type="number", colorScale=nil, css={['white-space']='nowrap'}, geSrc='price'}, 
+		{ header="Resale profit (notax)", type="number", colorScale={[0]=colorMap.redish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='Resale', profitCalc=true},
+		{ header="Resale×stock profit (taxed)", type="number", colorScale={[0]=colorMap.redish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='~Resale*Stock', profitCalc=true},
+		{ header="Dump ea", type="number", colorScale={[0]=colorMap.redish, [1]=colorMap.yellowish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='Dump to store', profitCalc=true},
+	--	{ header="dump @ min val ea", type="number", colorScale={[0]=colorMap.redish, [1]=colorMap.yellowish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='dump @ min val', profitCalc=true},
+		{ header="Best loc to Dump ?", type="boolean", colorScale={T = colorMap.greenish}, css={['white-space']='nowrap'}, key='favorable dump'}, 
+		{ header="Est 24h Dump Profit", type="number", colorScale={[0]=colorMap.redish, [1]=colorMap.yellowish, ['90p']=colorMap.greenish}, css={['white-space']='nowrap'}, key='est 24hr dump profit', profitCalc=true}, 
+		{ header="Volume", type="number", colorScale= --[[relative to limit?]] nil, css={['white-space']='nowrap'}, geSrc='vol'}, 
+		{ header="Limit", type="number", colorScale=nil, css={['white-space']='nowrap'}, geSrc='lim'}, 
+		{ header="Mems", type="boolean", colorScale={T = colorMap.redish, F=colorMap.greenish}, css={['white-space']='nowrap'}, key='mems'},
+	}
+	local tr = mw.html.create('tr')	-- open header row
+	-- append headers
+	local tableClasses = utils.List.new()
+	utils.List.pushright(tableClasses, 'wikitable')
+	utils.List.pushright(tableClasses, 'lighttable')
+	utils.List.pushright(tableClasses, 'mw-collapsible')
+	utils.List.pushright(tableClasses, 'sortable')
+	utils.List.pushright(tableClasses, 'sticky-header')
+	utils.List.pushright(tableClasses, 'mw-collapsed')
+	for idx, col in ipairs(columns) do
+		local th = mw.html.create("th")
+		th:wikitext(col.header):css("word-wrap","break-word")
+		if col.type == "number" then
+			th:attr("data-sort-type","number")
+			utils.List.pushright(tableClasses, 'align-right-' .. idx)
+		elseif col.type == "boolean" then
+			utils.List.pushright(tableClasses, 'align-center-' .. idx)
+		else
+			utils.List.pushright(tableClasses, 'align-left-' .. idx)
+		end
+		th:done()
+		tr:node(th)
+		if col.profitCalc == true then
+			profitableColIdxs[idx] = col.header
+		end
+	end
+	tr:done()	-- close header row
+
+	t:addClass(utils.List.join(tableClasses, " "))
+	t:css("table-layout","fixed"):css("border-collapse","collapse")
+	t:node(tr)
+	-- add rows of data
+	for idxR, storeline in pairs(data) do
+		local tr = mw.html.create('tr')
+		-- append cell
+		for idxC, col in ipairs(columns) do
+			local td = mw.html.create('td')
+			local txt = (col.key and storeline[col.key]) or (col.geSrc and GEMW[col.geSrc][storeline['gemwname']]) or (col.type == 'boolean' and not not storeline[col.key]) or (col.type == 'number' and 0) or 'ERR?: wikitext content'
+			if col.type == "number" then
+				if txt == math.huge or txt == MAX_CASH then
+					td:attr('data-sort-value', 'Infinity')
+					txt = '∞'
+				else 
+					td:attr('data-sort-value', txt)
+					txt = utils.fnum(math.floor(txt or 0)) or txt
+				end
+			elseif col.type == "boolean" then
+				td:attr('data-sort-value', txt == true and 1 or 0)
+				txt = txt == true and 'T' or 'F'
+			-- elseif col.type == "link" then
+				-- pass? idk if anything special
+			elseif col.type == "link" then
+				txt = "[["..txt.."|"..txt.."]]"
+			end
+			td:wikitext(txt)
+			td:done()
+			tr:node(td)
+		end
+		tr:done()
+		t:node(tr)
+	end
+	-- close off table
+	t:done()
+	-- Todo: apply color scale?
+	return t
+end
+
+
+p.argDefaults = {
+	mode = "json",
+	onlyProfitable = false,
+	allowMembers = true 
+}
+--- extract args from frame/table for main. we convert specific keywords into the standardized key. (e.g. "f2ponly" sets "allowMembers"=false; "table" sets "mode"="html")
+-- @args (table) table to parse 
+--- @returns (table) with the following kvp:
+---  mode ("json"|"html"|html1) (defaults to json)
+---  onlyProfitable (boolean) (defaults to false)
+---  allowMembers (boolean) (defaults to true)
+function p.parseExecArgs(args) 
+	local opts = {
+		mode = {
+			json = {'data','json'},
+			html =  {"text", "table", "html"},
+			html1 = {"html1"},
+			_default = 'json'
+		},
+		onlyProfitable = {
+			[true] = {'profitable','profit'},
+			[false] = {},
+			_default = false,
+		},
+		allowMembers = {
+			[false] = {	"f2p", "nomem", "f2ponly"	},
+			[true] = { "p2p", "mem", "mems", "members" },
+			_default = true
+		},
+	}
+	local vals = {}
+	for ka_raw, va_raw in pairs(args) do
+		ka = p.normalizeName(ka_raw)
+		va = p.normalizeName(va_raw)
+		if opts[ka] then
+			-- parse known named opt
+			for val, valOpts in pairs (vo) do
+				if val ~= '_default' then
+					for i, vopt in pairs(valOpts) do
+						if vopt == va then
+							vals[ko] = val
+							break
+						end
+					end
+				end
+				if vals[ko] then
+					break
+				end
+			end
+			if vals[ko] == nil then
+				vals[ko] = p.argDefaults[ko] or opts[ko]._default
+			end
+		else
+			-- assume its an unnamed argument type to be matched
+			for ko, vo in pairs(opts) do
+				for val, valOpts in pairs (vo) do
+					if val ~= '_default' then
+						for i, vopt in pairs(valOpts) do
+							if vopt == ka or vopt == va then
+								vals[ko] = val
+								break
+								end
+						end
+						if vals[ko] then
+							break
+						end
+					end
+				end
+			end
+			if vals[ka] == nil and tostring(tonumber(ka)) ~= tostring(ka) then
+				-- assume named argument that's supposed to be there so add it
+				vals[ka] = utils.tonumber(ka_raw) or va_raw
+			end
+		end
+	end
+	for ko, vo in pairs(opts) do
+		if vals[ko] == nil then
+			vals[ko] = vo._default
+		end
+	end
+	return vals
+end
+
+--- main callable
+-- @param frame (*) something with the args to be extracted
+-- @return (string) data as HTML pre/json table/formatted text
+function p.main(frame)
+	local args = p.parseExecArgs(utils.extractArgs(frame))
+	utils.debug.debug(args)
+	--utils.debug.debug(args)
+	-- get storeline data
+	local data = p.getAllStoreLineData(args)
+	utils.debug.debug(data)
+	-- calcProfitableActions gabdled filtering out unwanted rows
+	data.mapping = p.calcProfitableActions(data, args)
+	utils.debug.debug(data.mapping)
+	if args.mode == 'json' then
+		return utils.convertToJson(data)
+	elseif args.mode == "html" then
+		return p.toShopRunHTMLTableNested(data)
+	elseif args.mode == "html1" then
+		return p.toShopRunHTMLTable(data)
+	end
+end
+
+function p.getAllStoreLineData(args)
+	args = args or {}
+	args.mode = args.mode or p.argDefaults["mode"]
+	args.allowMembers = args.allowMembers or p.argDefaults["allowMembers"]
+	args.onlyProfitable = args.onlyProfitable or p.argDefaults["onlyProfitable"]
+	local infiniteValue = args.mode == "json" and MAX_CASH or math.huge
+	--data =p.getAllStoreLines(args.mode == 'table' and math.huge or MAX_CASH)
+	local ret = {
+		storeInfo = {},
+		mapping = {},
+		itemInfo = {},
+		raw = p.getAllStoreLines(infiniteValue, args.limit, args.offset)
+	}
+	-- sort data table by buys so that we can get favorable stores?
+	table.sort(ret.raw, function(a,b) return (tonumber(a.buy) or 0) > (tonumber(b.buy) or 0) end)
+	-- generate store metadata
+	-- generate item metadata
+	
+	local storenameBanlist = {
+		-- RS3
+		["Fist of Guthix Reward Shop"]=0, ["Fun Item Shop"]=0, ["Cosmetic Item Shop"]=0, ["Cosmetic Item Shop#Crustacea armour override token"]=0,["Cosmetic Item Shop#Bronzed Sun Sandals token"]=0,["Cosmetic Item Shop#Bucket and The Leveller token"]=0,
+		
+		-- OSRS
+		["Trufitus"]=1, ["Simon Templeton"]=1, ["Yanni Salika"]=1,["Zavistic Rarve"]=1, ["Bounty Hunter Shop (historical)"]=1, 
+		["Emblem Trader"]="outdated/bad formatted", 
+		
+		
+	} 
+	for idx, storeline in pairs(ret.raw) do
+		local storename = storeline['storename']
+		local storeInstance = ret.storeInfo[storename]
+		if not storeInstance and storenameBanlist[storename] == nil then
+			storeInstance = {}
+			local infoboxes = p.getShopInfobox(storename)
+			for i, infobox in ipairs(infoboxes) do
+				local ismems = p.normalizeName(infobox['members']):sub(1,1)
+				ismems = ismems == 'y' or ismems == 't'	-- y, yes, t, true...
+				table.insert(storeInstance, {
+					location = (infobox['location'] or infobox['location1'] or infobox['location2'] or ""):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+					mems = ismems
+				})
+			end
+			if #storeInstance > 1 then
+				utils.debug.error(storeInstance)
+				utils.debug.error(storeline)
+				return ret
+			end
+			storeInstance = storeInstance[1]
+		end
+		local gemwname = p.normalizeName(storeline['gemwname'])
+		local mappingInstance = nil
+		if storeInstance then
+			mappingInstance = {
+				location = (storeInstance['location'] or storeInstance['location1'] or storeInstance['location2']  or "ERR NO LOC?"):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+				mems = storeInstance['mems'] or GEMW.mem[gemwname] or false,
+				sells = utils.tonumber(storeline['sell']),
+				buys = utils.tonumber(storeline['buy']),
+				stock = utils.tonumber(storeline['stock']),
+				store = storename,
+				gemwname = gemwname,
+			}
+			
+		end
+		if mappingInstance then
+			-- dont return members
+			ret.storeInfo[storename] = storeInstance
+			if (mappingInstance.buys or 0)> 0 then
+				-- bc its sorted in descending order by buy value we can store o(1) if this is favorable
+				if ret.itemInfo[gemwname] == nil then
+					ret.itemInfo[gemwname] = {
+						max=mappingInstance.buys, 
+						gen=math.ceil(GEMW.alch[gemwname] or 0)/2,
+					}
+				end
+				if math.max(mappingInstance.buys, ret.itemInfo[gemwname].gen) >= ret.itemInfo[gemwname].max then
+					mappingInstance["favorable dump"] = true
+				end
+			end
+			table.insert(ret.mapping, mappingInstance)
+		end
+	end
+	-- convert to readable table
+	return ret
+end
+
+function p.getAllStaticStoreLineData(asJSON)
+	asJSON = asJSON or false
+	local ret = {
+		storeInfo = {},
+		mapping = {},
+		itemInfo = {},
+		raw = p.getAllStoreLines(MAX_CASH)
+	}
+	-- sort data table by buys so that we can get favorable stores?
+	table.sort(ret.raw, function(a,b) return (tonumber(a.buy) or 0) > (tonumber(b.buy) or 0) end)
+	-- generate store metadata
+	-- generate item metadata
+	for idx, storeline in pairs(ret.raw) do
+		local storename = storeline['storename']
+		local storeInstance = ret.storeInfo[storename]
+		if not storeInstance then
+			storeInstance = {}
+			local infoboxes = p.getShopInfobox(storename)
+			for i, infobox in ipairs(infoboxes) do
+				local ismems = p.normalizeName(infobox['members']):sub(1,1)
+				ismems = ismems == 'y' or ismems == 't'	-- y, yes, t, true...
+				table.insert(storeInstance, {
+					location = (infobox['location'] or infobox['location1'] or infobox['location2']):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+					mems = ismems
+				})
+			end
+			if #storeInstance > 1 then
+				utils.debug.error(storeInstance)
+				utils.debug.error(storeline)
+				return ret
+			end
+			storeInstance = storeInstance[1]
+		end
+		local gemwname = p.normalizeName(storeline['gemwname'])
+		local mappingInstance = nil
+		if storeInstance and GEMW.price[gemwname] then
+			mappingInstance = {
+				location = (storeInstance['location'] or storeInstance['location1'] or storeInstance['location2']  or "ERR NO LOC?"):gsub("{{[fF]loor[nN]umber|([0-9]*)(|?.*)}} of","Floor #%1 of"),
+				mems = storeInstance['mems'] or GEMW.mem[gemwname] or false,
+				sells = utils.tonumber(storeline['sell']),
+				buys = utils.tonumber(storeline['buy']),
+				stock = utils.tonumber(storeline['stock']),
+				store = storename,
+				gemwname = gemwname,
+			}
+			
+		end
+		if mappingInstance then
+			-- dont return members
+			--if not (args.allowMembers == false and mappingInstance.mems == true) then
+				ret.storeInfo[storename] = storeInstance
+				if (mappingInstance.buys or 0)> 0 then
+					-- bc its sorted in descending order by buy value we can store o(1) if this is favorable
+					if ret.itemInfo[gemwname] == nil then
+						ret.itemInfo[gemwname] = {
+							max=mappingInstance.buys, 
+							gen=math.ceil(GEMW.alch[gemwname] or 0)/2,
+						}
+					end
+					if math.max(mappingInstance.buys, ret.itemInfo[gemwname].gen) >= ret.itemInfo[gemwname].max then
+						mappingInstance["favorable dump"] = true
+					end
+				end
+				table.insert(ret.mapping, mappingInstance)
+			-- end
+		end
+	end
+	-- convert to readable table
+	if not not asJSON then
+		return mw.text.jsonEncode(ret , mw.text.JSON_PRESERVE_KEYS + mw.text.JSON_PRETTY)
+	end
+	return ret
+end
+--[==[ISSUES TO SOLVE:
+pre July 2025 issues:
+this is just patched rs3 code
+need to take the dynamic store prices into account somehow... not sure how to read or extract that data tbh...
+<math>\frac{\text{item value}*(\text{∆stock}*A+B)}{1000}</math>
+(value*(∆stock*A+B)/(1000))
+Where 𝐴 is always the same for a store, but 𝐵 changes based on whether you're buying or selling. Each store has its own 𝐴 and 𝐵 values, and there are some cases where diary/favor/quest status can change the 𝐵 value.
+
+When selling, the price is bound between 10% item value (this can be 0) and  ((value*(1000+𝐵))/1000)
+
+When buying, the price is normally bound between item ((value*(𝐵−1000))/(1000)) and item ((value*(5000+𝐵)/(1000)). Prices below 10% item value are set to 10% item value, and prices below 1 are set to 1.
+
+more pressing issues brought by changes to storeline template between july 2025 to march 2026:
+all args to storeline are optional, and buy/sell price are now dynamically calculated if it is not supplied.
+will need to check i think in getAllStoreLines to see if buy/sell prices are missing, if so, locate price, and inject 
+> buyvalue = math.floor(math.max(itemvalue*buymultiplier/1000,itemvalue*0.1))
+> sellvalue = math.floor(math.max(itemvalue*sellmultiplier/1000,1))
+where itemvalue is gotten from some precached location (itemvalue.json file?) see how storeline template does it
+
+--]==]
+
+return p

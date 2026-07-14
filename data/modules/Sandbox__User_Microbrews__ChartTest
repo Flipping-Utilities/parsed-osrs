@@ -1,0 +1,46 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function p.linearTotal()
+	local data = {}
+	local dataHalf = {}
+    local labels = {}
+    local xp = 0
+	for level = 1, 99 do
+		if level > 1 then
+			xp = xp + math.floor( level - 1 + 300 * 2^( (level - 1)/7 ) ) / 4
+		end
+		if level > 89 then
+			table.insert(data, { x=level, y=math.floor(xp), label="Custom label: x=" .. tostring(level) .. "; y=" .. tostring(math.floor(xp)) })
+			table.insert(dataHalf, { x=level, y=math.floor(xp/2), label="Half of the other thing"})
+			table.insert(labels, "Lvl " .. tostring(level))
+		end
+	end
+	
+	local plot = chart.newChart{ type = 'bar' }
+		:setDimensions( '540px', '400px', '540px', '400px', true )
+		:setXLabel('Skill level')
+		:setYLabel('Experience')
+		:setTitle('><> / hr')
+		:setXLimits(90, 100, 10)
+		:showLegend(true)
+		:setTooltipFormat("custom")
+		:setDatasetsPerGroup(1)
+	
+	plot:newDataSet({
+		data = data,
+		label = "Green stuff",
+		color = chart.colorPallets.green[3]
+	})
+	plot:newDataSet({
+		data = dataHalf,
+		label = "Orange stuff",
+		color = chart.colorPallets.orange[3]
+	})
+	plot:addDataLabels(labels)  -- feel like this should be called xTickLabels or smth but whatever
+	
+	return plot
+end
+
+return p

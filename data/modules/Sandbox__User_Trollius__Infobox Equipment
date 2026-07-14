@@ -1,0 +1,127 @@
+--------------------------
+-- Working? Module for [[Template:Infobox Equipment]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+	
+    local signed_numeric_args = {
+	'astab', 'aslash', 'acrush', 'amagic', 'arange',
+	'dstab', 'dslash', 'dcrush', 'dmagic', 'drange',
+	'str',   'mdmg',   'rstr',   'prayer', 'weight',
+	}
+	
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'image' },
+		{ name = 'astab', func = 'hasContent'},
+		{ name = 'aslash', func = 'hasContent'},
+		{ name = 'acrush', func = 'hasContent'},
+		{ name = 'amagic', func = 'hasContent'},
+		{ name = 'arange', func = 'hasContent'},
+		{ name = 'dstab', func = 'hasContent'},
+		{ name = 'dslash', func = 'hasContent'},
+		{ name = 'dcrush', func = 'hasContent'},
+		{ name = 'dmagic', func = 'hasContent'},
+		{ name = 'drange', func = 'hasContent'},
+		{ name = 'str', func = 'hasContent'},
+		{ name = 'mdmg', func = 'hasContent'},
+		{ name = 'rstr', func = 'hasContent'},
+		{ name = 'prayer', func = 'hasContent'},
+		{ name = 'weight', func = 'hasContent'},
+
+	}
+	
+	ret:create()
+	ret:cleanParams()
+	
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Equipment')
+	ret:addClass('infobox-equipment')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '25' }
+	}
+
+	:pad(24)
+	:addRow{
+		{ tag = 'argd', content = 'image', class='infobox-image infobox-full-width-content', colspan = '25' }
+	}
+	:pad(24)
+
+	ret:addRow{
+		{ tag = 'th', content = 'Attack Bonuses', colspan = '25', class = 'infobox-subheader' }
+	}
+	:pad(25)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:White dagger.png|link=|Stab attack]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White scimitar.png|link=|Slash attack]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White warhammer.png|link=|Crush attack]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=|Magic attack]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=|Ranged attack]]', colspan = '5', class = 'infobox-nested' },
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'astab', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'aslash', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'acrush', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'amagic', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'arange', colspan = '5', class = 'infobox-nested' },
+	}
+
+	:pad(25)
+	:addRow{
+		{ tag = 'th', content = 'Defense Bonuses', colspan = '25', class = 'infobox-subheader' }
+	}
+	:pad(25)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:White dagger.png|link=|Stab defence]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White scimitar.png|link=|Slash defence]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White warhammer.png|link=|Crush defence]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=|Magic defence]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=|Ranged defence]]', colspan = '5', class = 'infobox-nested' },
+        }
+        
+	:addRow{
+		{ tag = 'argd', content = 'dstab', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dslash', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dcrush', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dmagic', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'drange', colspan = '5', class = 'infobox-nested' },
+	}
+
+	:pad(25)
+	:addRow{
+		{ tag = 'th', content = 'Other', colspan = '25', class = 'infobox-subheader' }
+	}
+	:pad(25)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Strength icon.png|link=|Melee strength]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic Damage icon.png|link=|Magic damage]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged Strength icon.png|link=|Ranged strength]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Prayer icon.png|link=|Prayer bonus]]', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Weight icon.png|link=|Weight]]', colspan = '5', class = 'infobox-nested' },
+
+}
+	:addRow{
+		{ tag = 'argd', content = 'str', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mdmg', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'rstr', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'prayer', colspan = '5', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'weight', colspan = '5', class = 'infobox-nested' },
+    }
+	ret:finish()
+	return ret:tostring()
+end
+
+return p

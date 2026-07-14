@@ -1,0 +1,21 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p.calc(args.points or 0)
+end
+
+function p.calc(points)
+	local guaranteed = (points-2000)/700+1
+	local chance = (points-2000)%700/700*100
+	if tonumber(points) < 2000 then
+		return "You need at least 2000 points to be eligible for a single reward."
+	end
+	if tonumber(points) < 2701 then
+		return string.format("You are guaranteed %d reward, and a %.1f%% chance at an extra reward.", guaranteed, chance)
+	end	
+	return string.format("<div align=\"center\">You are guaranteed %d rewards, and a %.1f%% chance at an extra reward.</div>", guaranteed, chance)
+end
+
+
+return p

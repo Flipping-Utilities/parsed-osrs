@@ -1,0 +1,481 @@
+local experience = require( 'Module:Experience' )
+local paramtest = require( 'Module:Paramtest' )
+local herbData = require( 'Module:Skill calc/Herblore' )
+local gePrices = mw.loadJsonData('Module:GEPrices/data.json')
+local commas = require('Module:Addcommas')._add
+local coins = require('Module:Coins')._amount
+
+local p = {}
+
+function p.strtobool(str)
+	local result = false
+	if str == 'true' then
+		result = true
+	end
+	return result
+end
+
+local herbs = {
+	'Guam leaf',
+	'Marrentill',
+	'Tarromin',
+	'Harralander',
+	'Ranarr weed',
+	'Irit leaf',
+	'Avantoe',
+	'Kwuarm',
+	'Snapdragon',
+	'Cadantine',
+	'Lantadyme',
+	'Dwarf weed',
+	'Torstol'
+}
+
+local success_chance = {
+	{
+		name = 'Ranarr weed',
+		low = -10,
+		high = 20,
+		req = 31
+	}, {
+		name = 'Torstol',
+		low = -70,
+		high = 20,
+		req = 31
+	}, {
+		name = 'Snapdragon',
+		low = -60,
+		high = 20,
+		req = 31
+	}, {
+		name = 'Dwarf weed',
+		low = -50,
+		high = 30,
+		req = 31
+	}, {
+		name = 'Lantadyme',
+		low = -30,
+		high = 40,
+		req = 31
+	}, {
+		name = 'Cadantine',
+		low = -10,
+		high = 50,
+		req = 31
+	}, {
+		name = 'Kwuarm',
+		low = 10,
+		high = 60,
+		req = 31
+	}, {
+		name = 'Avantoe',
+		low = 20,
+		high = 60,
+		req = 31
+	}, {
+		name = 'Irit leaf',
+		low = 30,
+		high = 70,
+		req = 31
+	}, {
+		name = 'Tarromin',
+		low = 70,
+		high = -20,
+		req = 31
+	}, {
+		name = 'Harralander',
+		low = 100,
+		high = -30,
+		req = 31
+	}, {
+		name = 'Marrentill',
+		low = 170,
+		high = -40,
+		req = 31
+	}, {
+	--numbers are very high
+		name = 'Guam leaf',
+		low = 1000,
+		high = 1000,
+		req = 31
+	}
+}
+
+function p.nameToIndex(str)
+	local res = 13
+	for i,herb in ipairs(success_chance) do
+		if herb.name == str then
+			res = i
+		end
+	end
+	return res
+end
+
+--borrowed from module:skilling success chart
+function p.interp(low, high, level)
+	local value = math.modf(low*(99-level)/98) + math.modf(high*(level-1)/98) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+function p.cascadeInterp(bounds, level, index)
+	local rate = 1.0
+	for i, v in ipairs(bounds) do
+		if i == index then
+			rate = rate * p.interp(v.low, v.high, level)
+			return rate
+		end
+		if level >= v.req then
+			rate = rate * (1 - p.interp(v.low, v.high, level))
+		end
+	end
+end
+
+function p.hunter_experience(level)
+	-- you would theoretically get -450 xp per herbiboar at level 0, plus average of 2.56 searches
+	local xp = -450 + 2.56*50
+	xp = xp + 30*math.min(level,94)
+	if level>94 then
+		xp = xp + 15
+		xp = xp + 19*(level-95)
+	end
+	return xp
+end
+
+--converts remaining hunter xp to herbis
+function p.herbisForHunter(goal,start)
+	if goal < start or goal ==0 then
+		return 0
+	end
+	local resnum = 0
+	local left = goal - start
+	local currentxp = start
+	local currentLevel = experience.level_at_xp({args = {start}})
+	while left > 0 do
+		local xp = p.hunter_experience(currentLevel)
+		if xp<0 then
+			xp = 1
+		end
+		local xpforlevel = left
+		if currentLevel < 99 then
+			currentLevel = currentLevel + 1
+			xpforlevel = math.min(left,experience.xp_to_level({args = {currentxp,currentLevel}}))
+		end
+		local herbisForNext = math.ceil(xpforlevel/xp)
+		local xpFromThis = xp*herbisForNext
+		resnum = resnum + herbisForNext
+		currentxp = currentxp + xpFromThis
+		left = left - xpFromThis
+	end
+	
+	return resnum
+end
+
+--converts herbis to hunterxp
+function p.xpForHerbis(number,start)
+	local resxp = 0
+	local left = number
+	local currentxp = start
+	local currentLevel = experience.level_at_xp({args = {start}})
+	
+	while left > 0 do
+		local xp = p.hunter_experience(currentLevel)
+		if xp<0 then
+			xp = 1
+		end
+		local xpforlevel = 200000000
+		if currentLevel < 99 then
+			currentLevel = currentLevel + 1
+			xpforlevel = experience.xp_to_level({args = {currentxp,currentLevel}})
+		end
+		local herbisForNext = math.min(left,math.ceil(xpforlevel/xp))
+		local xpFromThis = xp*herbisForNext
+		resxp = resxp+xpFromThis
+		currentxp = currentxp + xpFromThis
+		left = left - herbisForNext
+	end
+	if resxp+start > 200000000 then
+		resxp = 200000000 - start
+	end
+	
+	return resxp
+end
+
+function p.herbXp(herb,clean,product,mult)
+	local res = 0
+	for _,entry in pairs(herbData) do
+		if clean and entry.name == herb then
+			res = res + entry.xp*mult
+		elseif entry.name == product or entry.title == product then
+			res = res + entry.xp
+		end
+	end
+	return res
+end
+
+function p.createHerbHeader(complex)
+	local header = mw.html.create('table'):addClass('wikitable sortable sticky-header alternating-rows align-left-1')
+	
+	header:tag('caption'):wikitext('Herbs')
+	if complex then
+		header:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Herb')
+			:tag('th'):wikitext('Average quantity')
+			:tag('th'):wikitext('Price')
+			:tag('th'):wikitext('Experience')
+		:done()
+	else
+		header:tag('tr')
+			:tag('th'):attr('colspan', 2):wikitext('Herb')
+			:tag('th'):wikitext('Average quantity')
+			:tag('th'):wikitext('Price')
+		:done()
+	end
+	return header	
+end
+
+function p.createHerbRow(complex,herbName,quantity,price,xp)
+	local herbGrimy = 'Grimy ' .. herbName:lower()
+	local quantityRound = math.floor(1000*quantity+0.5)/1000
+	--+0.5 provides rounding to nearest int
+	local geprice = price
+	local xpRound = math.floor(10*xp)/10
+	quantityRound = commas(quantityRound)
+	xpRound = commas(xpRound)
+	local row
+	if complex then
+		row = mw.html.create('tr')
+			:tag('td'):wikitext('[[File:' .. herbGrimy .. '.png]]'):done()
+			:tag('td'):wikitext('[['.. herbGrimy .. ']]'):done()
+			:tag('td'):wikitext(quantityRound):done()
+			:tag('td'):wikitext(coins(geprice)):done()
+			:tag('td'):wikitext(xpRound):done()
+	else
+		row = mw.html.create('tr')
+			:tag('td'):wikitext('[[File:' .. herbGrimy .. '.png]]'):done()
+			:tag('td'):wikitext('[['.. herbGrimy .. ']]'):done()
+			:tag('td'):wikitext(quantityRound):done()
+			:tag('td'):wikitext(coins(geprice)):done()
+	end
+	return row
+end
+
+function p.createHerbFooter(complex,quantity,price,xp)
+	local footer
+	local xpRound = math.floor(10*xp)/10
+	if complex then
+		footer = mw.html.create('tr'):addClass('sortbottom')
+		:tag('th'):attr('colspan', 2):wikitext('Total:'):done()
+		:tag('td'):wikitext(commas(quantity)):done()
+		:tag('td'):wikitext(coins(price)):done()
+		:tag('td'):wikitext(commas(xpRound)):done()
+	else
+		footer = mw.html.create('tr'):addClass('sortbottom')
+		:tag('th'):attr('colspan', 2):wikitext('Total:'):done()
+		:tag('td'):wikitext(commas(quantity)):done()
+		:tag('td'):wikitext(coins(price)):done()
+	end
+	return footer
+end
+
+function p._main(args)
+	--we don't need to test these as strtobool will set nil to false
+	local complex = p.strtobool(args.complex)
+	local herbProcess = p.strtobool(args.herbToggle)
+	local secateurs = p.strtobool(args.secateurs)
+	local herbXp = 0
+	local herbLevel = 1
+	local herbToggle = paramtest.default_to(args.currentHerbToggle,'Level')
+	local currentHerb = paramtest.default_to(tonumber(args.currentHerb),31)
+	if herbToggle == 'Level' and currentHerb < 127 and currentHerb > 0 then
+		herbXp = experience.xp_at_level_unr({args = {currentHerb}})
+		herbLevel = math.min(currentHerb,99)
+	else
+		herbXp = currentHerb
+		herbLevel = experience.level_at_xp({args = {currentHerb}})
+	end
+	local hunterXp = 0
+	local hunterLevel = 1
+	local hunterToggle = paramtest.default_to(args.currentHunterToggle,'Level')
+	local currentHunter = paramtest.default_to(tonumber(args.currentHunter),80)
+	if hunterToggle == 'Level' and currentHunter < 127 and currentHunter > 0 then
+		hunterXp = experience.xp_at_level_unr({args = {currentHunter}})
+		hunterLevel = math.min(currentHunter,99)
+	else
+		hunterXp = currentHunter
+		hunterLevel = experience.level_at_xp({args = {currentHunter}})
+	end
+	local levelWarning = ''
+	if complex and (herbLevel <31 or hunterLevel < 75) then
+		levelWarning = '<b>Warning!</b> You need at least 31 herblore and 80 hunter (boostable) to catch these creatures. Expect unexpected results below.<br>'
+	end
+	local clean = {}
+	local products = {}
+	clean['Guam leaf'] = p.strtobool(paramtest.default_to(args.guamClean,'false'))
+	products['Guam leaf'] = paramtest.default_to(args.guam,'None')
+	clean['Marrentill'] = p.strtobool(paramtest.default_to(args.marClean,'false'))
+	products['Marrentill'] = paramtest.default_to(args.mar,'None')
+	clean['Tarromin'] = p.strtobool(paramtest.default_to(args.tarClean,'false'))
+	products['Tarromin'] = paramtest.default_to(args.tar,'None')
+	clean['Harralander'] = p.strtobool(paramtest.default_to(args.harClean,'false'))
+	products['Harralander'] = paramtest.default_to(args.har,'None')
+	clean['Ranarr weed'] = p.strtobool(paramtest.default_to(args.ranarrClean,'false'))
+	products['Ranarr weed'] = paramtest.default_to(args.ranarr,'None')
+	clean['Irit leaf'] = p.strtobool(paramtest.default_to(args.iritClean,'false'))
+	products['Irit leaf'] = paramtest.default_to(args.irit,'None')
+	clean['Avantoe'] = p.strtobool(paramtest.default_to(args.avantoeClean,'false'))
+	products['Avantoe'] = paramtest.default_to(args.avantoe,'None')
+	clean['Kwuarm'] = p.strtobool(paramtest.default_to(args.kwuarmClean,'false'))
+	products['Kwuarm'] = paramtest.default_to(args.kwuarm,'None')
+	clean['Snapdragon'] = p.strtobool(paramtest.default_to(args.snapClean,'false'))
+	products['Snapdragon'] = paramtest.default_to(args.snap,'None')
+	clean['Cadantine'] = p.strtobool(paramtest.default_to(args.cadClean,'false'))
+	products['Cadantine'] = paramtest.default_to(args.cad,'None')
+	clean['Lantadyme'] = p.strtobool(paramtest.default_to(args.lanClean,'false'))
+	products['Lantadyme'] = paramtest.default_to(args.lan,'None')
+	clean['Dwarf weed'] = p.strtobool(paramtest.default_to(args.dwarfClean,'false'))
+	products['Dwarf weed'] = paramtest.default_to(args.dwarf,'None')
+	clean['Torstol'] = p.strtobool(paramtest.default_to(args.torstolClean,'false'))
+	products['Torstol'] = paramtest.default_to(args.torstol,'None')
+	
+	local cleanMethod = paramtest.default_to(args.cleanMethod,'Manual')
+	local cleanMult
+	if cleanMethod == 'Manual' then
+		cleanMult = 1
+	elseif cleanMethod == 'Degrime' then
+		cleanMult = 0.5
+	else
+		cleanMult = 0
+	end
+	
+	local chance
+	local amount = secateurs and 3 or 2
+	local quantities = {}
+	local xps = {}
+	local prices = {}
+	local quantitySum = 0
+	local priceSum = 0
+	local xpSum = 0
+	for _,herb in ipairs(herbs) do
+		chance = p.cascadeInterp(success_chance,herbLevel,p.nameToIndex(herb))
+		quantities[herb] = amount*chance
+		xps[herb] = p.herbXp(herb,clean[herb],products[herb],cleanMult)*quantities[herb]
+		xpSum = xpSum + xps[herb]
+		quantitySum = quantitySum + quantities[herb]
+		prices[herb] = gePrices['Grimy ' .. herb:lower()]*quantities[herb]
+		priceSum = priceSum + prices[herb]
+	end
+	
+	local herbis = 1
+	local goal
+	local goalType = paramtest.default_to(args.goalType,'Herbiboars')
+	local goalLevel = 1
+	local goalXp = 0
+	local hunterGained = 0
+	local herbGained = 0
+	local goalText = ''
+	local progressText = ''
+	if complex then
+		goal = tonumber(paramtest.default_to(args.goal,1))
+		local xpPerHerbi = xpSum + (amount-1)*25
+		herbis = goal
+		local goalToggle = paramtest.default_to(args.goalToggle,'Level')
+		if goalType ~= 'Herbiboars' then
+			if goalToggle == 'Level' and goal > 0 and goal < 127 then
+				goalXp = experience.xp_at_level_unr({args = {goal}})
+				goalLevel = math.min(goal,99)
+			else
+				goalXp = goal
+				goalLevel = experience.level_at_xp({args = {goal}})
+			end
+		end
+		if goalType == 'Hunter' then
+			herbis = math.max(p.herbisForHunter(goalXp,hunterXp),0)
+			goalText = 'To reach ' .. commas(goalXp) .. ' hunter experience (level ' .. tostring(goalLevel) .. ') from ' .. commas(hunterXp) .. ' experience (level ' .. tostring(hunterLevel) .. ') you will need to catch <b>' .. commas(herbis) .. '</b> [[herbiboar]]s.\n'
+		elseif goalType == 'Herblore' then
+			herbis = math.max(math.ceil((goalXp-herbXp)/xpPerHerbi),0)
+			goalText = 'To reach ' .. commas(goalXp) .. ' herblore experience (level ' .. tostring(goalLevel) .. ') from ' .. commas(herbXp) .. ' experience (level ' .. tostring(herbLevel) .. ') you will need to catch <b>' .. commas(herbis) .. '</b> [[herbiboar]]s.\n'
+		else
+			goalText = 'You are aiming to catch ' .. commas(herbis) .. ' [[herbiboar]]s.\n'
+		end
+		local herbisPerHour = paramtest.default_to(tonumber(args.perHour),1)
+		local timeTaken = math.floor(10*herbis/herbisPerHour+0.5)/10
+		goalText = goalText .. 'This will take ' .. commas(timeTaken)
+		if timeTaken == 1 then
+			goalText = goalText .. ' hour.\n'
+		else
+			goalText = goalText .. ' hours.\n'
+		end
+		hunterGained = p.xpForHerbis(herbis,hunterXp)
+		herbGained = math.floor(herbis*xpPerHerbi)
+		if herbGained + herbXp > 200000000 then
+			herbGained = 200000000 - herbXp
+		end
+		hunterLevelGained = experience.level_at_xp({args={hunterGained + hunterXp}})
+		herbLevelGained = experience.level_at_xp({args={herbGained + herbXp}})
+		progressText = 'You will gain ' .. commas(hunterGained) .. ' hunter experience, reaching reaching level ' .. tostring(hunterLevelGained) .. ' hunter and gain ' .. commas(herbGained) .. ' herblore experience, reaching level ' .. tostring(herbLevelGained) .. ' herblore.\n'
+	end
+	
+	local petText = ''
+	if complex and herbis > 0 then
+		local baseChance = 1/6500
+		local petChance = 1-(1-baseChance)^herbis
+		local petChanceReverse = math.floor(100/petChance+0.5)/100
+		petChance = math.floor(1000*petChance+0.5)/10
+		petText = 'Catching ' .. commas(herbis) .. ' herbiboars gives a ~' .. commas(petChance) .. '% chance (or ~1/' .. commas(petChanceReverse) .. ') to get the [[Herbi]] pet.\n'
+	end
+	local herbXpColumn = complex and herbProcess
+	
+	local herbTable = p.createHerbHeader(herbXpColumn)
+	for _,herb in ipairs(herbs) do
+		if quantities[herb] > 0 then
+			herbTable:node(p.createHerbRow(herbXpColumn,herb,herbis*quantities[herb],herbis*prices[herb],herbis*xps[herb]))
+		end
+	end
+	herbTable:node(p.createHerbFooter(herbXpColumn,herbis*quantitySum,herbis*priceSum,herbis*xpSum))
+	
+	local fossilTable = ''
+	if complex then
+		local fossils = {
+			math.floor(1000*2.56*herbis/50+0.5)/1000,
+			math.floor(1000*2.56*herbis/100+0.5)/1000,
+			math.floor(1000*2.56*herbis/125+0.5)/1000,
+			math.floor(1000*2.56*herbis/500+0.5)/1000
+		}
+		local fossilsTable = mw.html.create('table'):addClass('wikitable sortable sticky-header alternating-rows align-left-1')
+		fossilsTable
+			:tag('caption'):wikitext('Fossils')
+			:tag('tr')
+				:tag('th'):attr('colspan',2):wikitext('Fossil')
+				:tag('th'):wikitext('Average quantity')
+			:done()
+			:tag('tr')
+				:tag('td'):wikitext('[[File:Unidentified small fossil.png]]')
+				:tag('td'):wikitext('[[Unidentified small fossil]]')
+				:tag('td'):wikitext(commas(fossils[1]))
+			:done()
+			:tag('tr')
+				:tag('td'):wikitext('[[File:Unidentified medium fossil.png]]')
+				:tag('td'):wikitext('[[Unidentified medium fossil]]')
+				:tag('td'):wikitext(commas(fossils[2]))
+			:done()
+			:tag('tr')
+				:tag('td'):wikitext('[[File:Unidentified large fossil.png]]')
+				:tag('td'):wikitext('[[Unidentified large fossil]]')
+				:tag('td'):wikitext(commas(fossils[3]))
+			:done()
+			:tag('tr')
+				:tag('td'):wikitext('[[File:Unidentified rare fossil.png]]')
+				:tag('td'):wikitext('[[Unidentified rare fossil]]')
+				:tag('td'):wikitext(commas(fossils[4]))
+			:done()
+		fossilTable = tostring(fossilsTable)
+	end
+	return levelWarning .. goalText .. progressText .. petText .. tostring(herbTable) .. fossilTable
+end
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+return p

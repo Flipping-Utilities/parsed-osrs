@@ -1,0 +1,73 @@
+--[[
+preview:
+]]--
+require('Module:Mw.html extension')
+local p = {}
+
+function p.main(frame)
+  local args = frame:getParent().args
+	
+	local template = mw.html.create('div')
+		:addClass("EmberTemplate")
+		:wikitext(args.content)
+	
+	local emberContainer = template:tag('div')
+		:addClass("EmberContainer")
+		:css({
+			['width'] = args.width or '-moz-available',
+			['height'] = args.height or 'auto',
+			['pointer-events'] = 'none',
+			['position'] = 'fixed',
+			['z-index'] = '5',
+			['top'] = '0',
+			['bottom'] = '0',
+			})
+		:IF(args.width or args.height or args.content)
+		 :cssText('top:unset;bottom:unset;position:absolute')
+		:END()
+		
+	local emberCount = 1
+	local emberStop = tonumber(args.embers) or 20
+	
+	local Class = {
+			[1] = 'backEmber',
+			[2] = 'ember',
+			[3] = 'frontEmber',
+		}
+	
+	repeat
+	local emberSize = {
+			[1] = math.random(1,3) .. 'px',
+			[2] = math.random(4,7) .. 'px',
+			[3] = math.random(7,9) .. 'px',
+		}
+	local Animation = {
+			[1] =  math.random(15,20) .. 's ' .. math.random(10) .. 's ' .. 'infinite linear ember',
+			[2] =  math.random(10,15) .. 's ' .. math.random(10) .. 's ' .. 'infinite linear ember',
+			[3] =  math.random(5,10) .. 's ' .. math.random(10) .. 's ' .. 'infinite linear ember'
+		}
+	local randomNumber = math.random(3)
+	
+	local embers = emberContainer
+		:tag('div')
+		:addClass(Class[randomNumber])
+		:css({
+			['width'] = emberSize[randomNumber],
+			['height'] = emberSize[randomNumber],
+			['position'] = 'relative',
+			['bottom'] =  '-100%',
+			['left'] = math.random(100) .. '%',
+			['opacity'] = '0',
+			['animation'] = Animation[randomNumber],
+			['pointer-events'] = 'none',
+			})
+		
+	emberCount = emberCount + 1
+
+	until emberCount > emberStop
+	
+	return template
+	
+end
+
+return p

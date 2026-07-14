@@ -1,0 +1,298 @@
+--
+-- All functions relating to experience needed etc
+-- 
+
+local p = {}
+local commas = require('Module:Addcommas')
+
+local XPAtLevel = mw.loadData('Module:Sandbox/User:MxFox/Experience/data')
+local XPAtLevelUnr = mw.loadData('Module:Sandbox/User:MxFox/Experience/dataunr')
+
+--
+-- Returns lowest needed XP to have required level
+-- [[Template:XP]]
+-- 
+function p.xp_at_level(frame)
+	local level = tonumber(frame.args[1])
+
+	if not level then
+		 return "You must pass numbers as arguments"
+	end	
+	-- calling tonumber on a string returns nil
+
+	if level < 0 or level > 99 then
+		return "Value must be in the range 1 - 99"
+	-- Level range is 1 to 99
+	else
+		return XPAtLevel[level]
+	end
+end
+
+-- Same as above, but with the 99 level cap removed
+function p.xp_at_level_unr(frame)
+	local level = tonumber(frame.args[1])
+
+	if not level then
+		 return "You must pass numbers as arguments"
+	end	
+	-- calling tonumber on a string returns nil
+
+	if level < 0 or level > 126 then
+		return "Value must be in the range 1 - 126"
+	-- Virtual level range is 1 to 126
+	else
+		return XPAtLevelUnr[level]
+	end
+end
+
+--
+-- The maximum amount of experience you can have at a given level
+-- [[Template:Max XP for level]]
+--
+function p.max_xp_at_level(frame)
+	local level = tonumber(frame.args[1])
+
+	-- calling tonumber on a string returns nil
+	if not level then
+		 return "You must pass numbers as arguments"
+	end
+	
+	-- Just in case
+	level = math.floor(level)
+
+	if level == -1 then
+		return 0
+	elseif level <= 0 or level > 99 then
+		return "Value must be in the range 1 - 99"
+	-- Highest level is 99, highest XP is 200M
+	elseif (level == 99) then
+		return 200000000
+	end
+
+	-- Return XP required for the *next* level minus 1
+	local xp_at_next = XPAtLevel[level + 1]
+	return xp_at_next - 1
+end
+
+--
+-- What level you have when at a given xp
+-- [[Template:Level]]
+--
+function p.level_at_xp(frame)
+	local xp = frame.args[1]
+
+	-- just in case
+	if type(xp) == 'string' then
+		 xp = commas._strip(xp)
+		 xp = tonumber(xp)
+	end
+
+	-- calling tonumber on an empty string returns nil
+	if not xp then
+		 return "You must pass numbers as arguments"
+	elseif xp < 0 or xp > 200000000 then
+		return "Value must be in the range 0 - 200,000,000"
+	end
+	
+	for i=99,1,-1 do
+		if (XPAtLevel[i]<= xp) then
+			return i
+		end
+	end
+end
+
+-- Same as above, but with the 99 level cap removed
+function p.level_at_xp_unr(frame)
+	local xp = frame.args[1]
+	
+	-- just in case
+	if type(xp) == 'string' then
+		 xp = commas._strip(xp)
+		 xp = tonumber(xp)
+	end
+
+	-- calling tonumber on a string returns nil
+	if not xp then
+		 return "You must pass numbers as arguments"
+	end
+
+	if xp == -1 then
+		return 0
+	elseif xp < 0 or xp > 200000000 then
+		return "Value must be in the range 0 - 200,000,000"
+	end
+	
+	for i=126,1,-1 do
+		if (XPAtLevelUnr[i]<= xp) then
+			return i
+		end
+	end
+end
+
+--
+-- Experience needed to obtain a level from a given amount of xp
+-- If current xp is greater than target, returns 0
+-- [[Template:XP to Level]]
+--
+function p.xp_to_level(frame)
+	local xp = frame.args[1]
+	local target = tonumber(frame.args[2])
+
+	-- just in case
+	if type(xp) == 'string' then
+		 xp = commas._strip(xp)
+		 xp = tonumber(xp)
+	end
+	
+	-- calling tonumber on a string returns nil
+	if not xp or not target then
+		 return "You must pass numbers as arguments"
+	elseif (xp < 0 or xp > 200000000) then
+		return "XP value must be in the range 0 - 200,000,000"
+	elseif (target < 2 or target > 99) then
+		return "Level value must be in the range 2 - 99"
+	end
+
+	local target_xp = XPAtLevel[target]
+
+	if (xp >= target_xp) then
+		return 0
+	else
+		return target_xp - xp
+	end
+end
+
+-- Same as above, but with the 99 level cap removed
+function p.xp_to_level_unr(frame)
+	local xp = frame.args[1]
+	local target = tonumber(frame.args[2])
+
+	-- just in case
+	if type(xp) == 'string' then
+		 xp = commas._strip(xp)
+		 xp = tonumber(xp)
+	end
+	
+	-- calling tonumber on a string returns nil
+	if not xp or not target then
+		 return "You must pass numbers as arguments"
+	elseif (xp < 0 or xp > 200000000) then
+		return "XP value must be in the range 0 - 200,000,000"
+	elseif (target < 2 or target > 126) then
+		return "Level value must be in the range 2 - 99"
+	end
+
+	local target_xp = XPAtLevelUnr[target]
+
+	if (xp >= target_xp) then
+		return 0
+	else
+		return target_xp - xp
+	end
+end
+
+--
+-- Experience between two levels; will always return absolute value
+-- [[Template:XP level to level]]
+--
+function p.level_to_level(frame)
+	local level1 = tonumber(frame.args[1])
+	local level2 = tonumber(frame.args[2])
+
+	-- just in case
+	if type(level1) == 'string' then
+		 level1 = commas._strip(level1)
+		 level1 = tonumber(level1)
+	end
+
+	if type(level2) == 'string' then
+		 level2 = commas._strip(level2)
+		 level2 = tonumber(level2)
+	end
+
+	if not level1 or not level2 then
+		 return "You must pass numbers as arguments"
+	elseif level1 < 1 or level1 > 99 or level2 < 1 or level2 > 99 then
+		return "Level must be in the range 1 - 99"
+	end
+
+	local difference = XPAtLevel[level1]- XPAtLevel[level2]
+	difference = math.abs(difference)
+	return difference
+end
+
+-- Same as above, but with the 120/150 level cap removed
+
+function p.level_to_level_unr(frame)
+	local level1 = tonumber(frame.args[1])
+	local level2 = tonumber(frame.args[2])
+
+	-- just in case
+	if type(level1) == 'string' then
+		 level1 = commas._strip(level1)
+		 level1 = tonumber(level1)
+	end
+
+	if type(level2) == 'string' then
+		 level2 = commas._strip(level2)
+		 level2 = tonumber(level2)
+	end
+
+	if not level1 or not level2 then
+		 return "You must pass numbers as arguments"
+	elseif level1 < 1 or level1 > 126 or level2 < 1 or level2 > 126 then
+		return "Level must be in the range 1 - 126"
+	end
+
+	local difference = XPAtLevelUnr[level1]- XPAtLevelUnr[level2]
+	difference = math.abs(difference)
+	return difference
+end
+
+function p.exp_diff(frame)
+	local args = frame:getParent().args
+	
+	local startxp = 0
+	local targetxp
+	
+	local startlevel
+	if args.startxp then
+		startxp = tonumber(args.startxp)
+		if startxp < 0 or startxp > 200000000 then
+			return "Experience must be in the range 0 - 200,000,000"
+		end
+	elseif args.startlevel then
+		startlevel = tonumber(args.startlevel)
+		if not startlevel then 
+			return "You must pass numbers as arguments"
+		elseif startlevel < 1 or startlevel > 99 then
+			return "Level must be in the range 1 - 99"
+		end
+		startxp = XPAtLevel[startlevel]
+	end
+	
+	local targetlevel
+	if args.xp then
+		targetxp = tonumber(args.xp)
+		if targetxp < 1 or targetxp > 200000000 then
+			return "Experience must be in the range 0 - 200,000,000"
+		end
+	elseif args.level then
+			targetlevel = tonumber(args.level)
+		if not targetlevel then 
+			return "You must pass numbers as arguments"
+		elseif targetlevel < 1 or targetlevel > 99 then
+			return "Level must be in the range 1 - 99"
+		end
+		targetxp = XPAtLevel[targetlevel]
+	else
+		return "You must pass either a target level or target xp."
+	end
+	
+	if targetxp < startxp then
+		return "Target must be higher than start."
+	end
+	return targetxp - startxp
+end
+
+return p

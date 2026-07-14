@@ -1,0 +1,404 @@
+local p = {}
+
+-- For rendering the tables
+local yesno = require('Module:Yesno')
+
+local swampLizardData = {
+	{'30-34', 6},
+	{'35-39', 7},
+	{'40-45', 8},
+	{'46-50', 9},
+	{'51-55', 10},
+	{'56-61', 11},
+	{'62-66', 12},
+	{'67-71', 13},
+	{'72-77', 14},
+	{'78-82', 15},
+	{'83-87', 16},
+	{'88-93', 17},
+	{'94-98', 18},
+	{'99-103', 19},
+	{'104-109', 20},
+	{'110-114', 21},
+	{'115-119', 22},
+	{'120-125', 23},
+}
+
+local orangeSalamanderData = {
+	{'50-54', 10},
+	{'55-59', 11},
+	{'60-65', 12},
+	{'66-70', 13},
+	{'71-75', 14},
+	{'76-80', 15},
+	{'81-85', 16},
+	{'86-91', 17},
+	{'92-96', 18},
+	{'97-101', 19},
+	{'102-106', 20},
+	{'107-111', 21},
+	{'112-117', 22},
+	{'118-122', 23},
+	{'123-125', 24},
+}
+
+local redSalamanderData = {
+	{'60-61', 13},
+	{'62-65', 14},
+	{'66-70', 15},
+	{'71-74', 16},
+	{'75-79', 17},
+	{'80-83', 18},
+	{'84-88', 19},
+	{'89-93', 20},
+	{'94-97', 21},
+	{'98-102', 22},
+	{'103-106', 23},
+	{'107-111', 24},
+	{'112-115', 25},
+	{'116-120', 26},
+	{'121-124', 27},
+	{'125', 28},
+}
+
+local blackSalamanderData = {
+	{'70-71', 17},
+	{'72-75', 18},
+	{'76-79', 19},
+	{'80-84', 20},
+	{'85-88', 21},
+	{'89-92', 22},
+	{'93-96', 23},
+	{'97-100', 24},
+	{'101-104', 25},
+	{'105-108', 26},
+	{'109-112', 27},
+	{'113-116', 28},
+	{'117-121', 29},
+	{'122-125', 30},
+}
+
+local tecuSalamanderData = {
+	{'80-81', 21},
+	{'82-85', 22},
+	{'86-89', 23},
+	{'90-93', 24},
+	{'94-97', 25},
+	{'98-100', 26},
+	{'101-104', 27},
+	{'105-108', 28},
+	{'109-112', 29},
+	{'113-116', 30},
+	{'117-119', 31},
+	{'120-123', 32},
+	{'124-125', 33},
+}
+
+local magicDartData = {
+	{'50-59', 15},
+	{'60-69', 16},
+	{'70-79', 17},
+	{'80-89', 18},
+	{'90-99', 19},
+	{'100-109', 20},
+	{'110-119', 21},
+	{'120-125', 22},
+}
+
+local magicDartEData = {
+	{'75-77', 25},
+	{'78-83', 26},
+	{'84-89', 27},
+	{'90-95', 28},
+	{'96-101', 29},
+	{'102-107', 30},
+	{'108-113', 31},
+	{'114-119', 32},
+	{'120-125', 33},
+}
+
+local warpedSceptreData = {
+	{'62-66', 16},
+	{'67-71', 17},
+	{'72-75', 18},
+	{'76-80', 19},
+	{'81-85', 20},
+	{'86-89', 21},
+	{'90-94', 22},
+	{'95-98', 23},
+	{'99-103', 24},
+	{'104-108', 25},
+	{'109-112', 26},
+	{'113-117', 27},
+	{'118-122', 28},
+	{'123-125', 29},
+}
+
+local seaTridentData = {
+	{'75-77', 20},
+	{'78-80', 21},
+	{'81-83', 22},
+	{'84-86', 23},
+	{'87-89', 24},
+	{'90-92', 25},
+	{'93-95', 26},
+	{'96-98', 27},
+	{'99-101', 28},
+	{'102-104', 29},
+	{'105-107', 30},
+	{'108-110', 31},
+	{'111-113', 32},
+	{'114-116', 33},
+	{'117-119', 34},
+	{'120-122', 35},
+	{'123-125', 36},
+}
+
+local swampTridentData = {
+	{'78-80', 24},
+	{'81-83', 25},
+	{'84-86', 26},
+	{'87-89', 27},
+	{'90-92', 28},
+	{'93-95', 29},
+	{'96-98', 30},
+	{'99-101', 31},
+	{'102-104', 32},
+	{'105-107', 33},
+	{'108-110', 34},
+	{'111-113', 35},
+	{'114-116', 36},
+	{'117-119', 37},
+	{'120-122', 38},
+	{'123-125', 39},
+}
+
+local sanguinestiData = {
+	{'82-83', 26},
+	{'84-86', 27},
+	{'87-89', 28},
+	{'90-92', 29},
+	{'93-95', 30},
+	{'96-98', 31},
+	{'99-101', 32},
+	{'102-104', 33},
+	{'105-107', 34},
+	{'108-110', 35},
+	{'111-113', 36},
+	{'114-116', 37},
+	{'117-119', 38},
+	{'120-122', 39},
+	{'123-125', 40},
+}
+
+local shadowData = {
+	{'85-86', 29},
+	{'87-89', 30},
+	{'90-92', 31},
+	{'93-95', 32},
+	{'96-98', 33},
+	{'99-101', 34},
+	{'102-104', 35},
+	{'105-107', 36},
+	{'108-110', 37},
+	{'111-113', 38},
+	{'114-116', 39},
+	{'117-119', 40},
+	{'120-122', 41},
+	{'123-125', 42},
+}
+
+local thammaronData = {
+	{'60-62', 12},
+	{'63-65', 13},
+	{'66-68', 14},
+	{'69-71', 15},
+	{'72-74', 16},
+	{'75-77', 17},
+	{'78-80', 18},
+	{'81-83', 19},
+	{'84-86', 20},
+	{'87-89', 21},
+	{'90-92', 22},
+	{'93-95', 23},
+	{'96-98', 24},
+	{'99-101', 25},
+	{'102-104', 26},
+	{'105-107', 27},
+	{'108-110', 28},
+	{'111-113', 29},
+	{'114-116', 30},
+	{'117-119', 31},
+	{'120-122', 32},
+	{'123-125', 33},
+}
+
+local accursedData = {
+	{'70-71', 17},
+	{'72-74', 18},
+	{'75-77', 19},
+	{'78-80', 20},
+	{'81-83', 21},
+	{'84-86', 22},
+	{'87-89', 23},
+	{'90-92', 24},
+	{'93-95', 25},
+	{'96-98', 26},
+	{'99-101', 27},
+	{'102-104', 28},
+	{'105-107', 29},
+	{'108-110', 30},
+	{'111-113', 31},
+	{'114-116', 32},
+	{'117-119', 33},
+	{'120-122', 34},
+	{'123-125', 35},
+}
+
+	-- WeaponDataTable, #Rows
+local weaponsData = {
+	["Swamp lizard"] = {swampLizardData, 18},
+	["Orange salamander"] = {orangeSalamanderData, 15},
+	["Red salamander"] = {redSalamanderData, 16},
+	["Black salamander"] = {blackSalamanderData, 14},
+	["Tecu salamander"] = {tecuSalamanderData, 13},
+	["Magic dart"] = {magicDartData, 8},
+	["Magic dart (e)"] = {magicDartEData, 9},
+	["Warped sceptre"] = {warpedSceptreData, 14},
+	["Trident of the seas"] = {seaTridentData, 17},
+	["Trident of the swamp"] = {swampTridentData, 16},
+	["Sanguinesti staff"] = {sanguinestiData, 15},
+	["Tumeken's shadow"] = {shadowData, 14},
+	["Thammaron's sceptre"] = {thammaronData, 22},
+	["Accursed sceptre"] = {accursedData, 19},
+}
+
+local prayerModifier = {
+	0,
+	0.01,
+	0.02,
+	0.04,
+}
+
+function p.main(frame)
+	-- Parse the args
+	local args = frame.args
+	
+	local selectedWeapon = tostring(args.weapon)
+	local selectedWeaponData = weaponsData[tostring(args.weapon)]
+	local gearModifier = tonumber(args.gearModifier) / 100
+	local specialModifier = tostring(args.specialModifier)
+	local inTombsOfAmascut = yesno(args.inTombsOfAmascut)
+	local inWilderness = yesno(args.inWilderness)
+	local haveForinthrySurge = yesno(args.haveForinthrySurge)
+	local wieldingElementalTome = yesno(args.wieldingElementalTome)
+	
+	local calculatedDamage = p.calc(selectedWeapon, selectedWeaponData, gearModifier, specialModifier, inTombsOfAmascut, inWilderness, haveForinthrySurge, wieldingElementalTome)
+	
+	return renderTable(calculatedDamage)
+end
+
+function p.calc(selectedWeapon, selectedWeaponData, gearModifier, specialModifier, inTombsOfAmascut, inWilderness, haveForinthrySurge, wieldingElementalTome)	
+	if selectedWeapon == "Tumeken's shadow" then
+		if inTombsOfAmascut then
+			gearModifier = gearModifier * 4
+		else
+			gearModifier = gearModifier * 3
+		end
+		
+		gearModifier = math.min(gearModifier, 1)
+	end
+	
+	-- Primary Magic Damage (Visible bonuses, Salve, Avarice, Maledictus)
+	local primaryDamageMultiplier = 1 + gearModifier
+	if specialModifier == 'Salve amulet (i)' then
+		primaryDamageMultiplier = primaryDamageMultiplier + .15
+	end
+	if specialModifier == 'Salve amulet (ei)' then
+		primaryDamageMultiplier = primaryDamageMultiplier + .2
+	end
+	if specialModifier == 'Amulet of avarice' then
+		primaryDamageMultiplier = primaryDamageMultiplier + .2
+		
+		if haveForinthrySurge then
+			primaryDamageMultiplier = primaryDamageMultiplier + .15
+		end
+	end
+	
+	-- Secondary Magic Damage (Slayer, Wildy Sceptre)		
+	local secondaryDamageMultiplier = 1
+	if specialModifier == 'Slayer helmet (i)' then
+		secondaryDamageMultiplier = secondaryDamageMultiplier + .15
+	end		
+	if selectedWeapon == "Thammaron's sceptre" or selectedWeapon == 'Accursed sceptre' then
+		if inWilderness then
+			secondaryDamageMultiplier = secondaryDamageMultiplier + .5
+		end
+	end
+		
+	-- Post Hit Roll (Tomes)
+	local postHitRollModifier = 1
+	if wieldingElementalTome then
+		postHitRollModifier = postHitRollModifier + .1
+	end
+	
+	-- Iterate through weapon damage table
+	for r = 1, selectedWeaponData[2], 1 do
+		for p = 1, 4, 1 do
+			local baseDamage = tonumber(selectedWeaponData[1][r][2])
+		
+			local primaryDamage = math.floor(baseDamage * (primaryDamageMultiplier + prayerModifier[p]))
+			
+			local secondaryDamage = math.floor(primaryDamage * secondaryDamageMultiplier)
+			
+			local finalDamage = math.floor(secondaryDamage * postHitRollModifier)
+			
+			selectedWeaponData[1][r][p+2] = finalDamage
+		end		
+	end
+	
+	return selectedWeaponData
+end
+
+function renderTable(calculatedDamage)
+	frame = mw.getCurrentFrame()
+	
+	-- Create the table
+	local hTable = mw.html.create('table')
+		:addClass('wikitable sticky-header align-center-1')
+		:attr('style', 'text-align:right')
+		
+	-- Add the headers
+	hTable
+		:tag('caption'):wikitext('Maximum hit')
+		:tag('tr')
+			:tag('th'):wikitext('Magic Level')
+			:tag('th'):wikitext('Base Damage')
+			:tag('th'):wikitext('No Prayer')
+			:tag('th'):wikitext('[[File:Mystic_Lore.png|link=Mystic Lore|x21px]] Mystic Lore')
+			:tag('th'):wikitext('[[File:Mystic_Might.png|link=Mystic Might|x21px]] Mystic Might')
+			:tag('th'):wikitext('[[File:Augury.png|link=Augury|x21px]] Augury')
+		:done()
+		
+	-- Add the rows
+	for r=1, calculatedDamage[2], 1 do
+		hTable:tag('tr')
+			:tag('td'):wikitext(calculatedDamage[1][r][1])
+			:tag('td'):wikitext(calculatedDamage[1][r][2])
+			:tag('td'):wikitext(calculatedDamage[1][r][3])
+			:tag('td'):wikitext(calculatedDamage[1][r][4])
+			:tag('td'):wikitext(calculatedDamage[1][r][5])
+			:tag('td'):wikitext(calculatedDamage[1][r][6])
+		:done()
+	end
+	
+	local div = mw.html.create('div')
+	
+	div	
+		:node(hTable)
+		:done()
+		
+	return tostring(div)
+end
+
+return p

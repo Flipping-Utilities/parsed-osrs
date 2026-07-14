@@ -1,0 +1,7 @@
+p = {}
+
+function p.main(frame)
+	t = mw.title.getCurrentTitle()
+	return t:getContent()
+end
+return p

@@ -1,0 +1,1930 @@
+--[=[
+-- For documentation, see [[Module:Infobox/doc]]
+--]=]
+
+-- <nowiki>
+local Infobox = {}
+Infobox.__index = Infobox
+Infobox.__tostring = Infobox.tostring
+
+-- Edit button for unknown params
+local editbutton = require('Module:Edit button')
+local var = mw.ext.VariablesLua
+local edit = editbutton("'''?''' (edit)")
+
+-- Page title
+local pagename = mw.title.getCurrentTitle().fullText
+
+-- map of flags to html tags used by Infobox.addRow()
+-- let's only define it once, since :addRow() is used multiple times per module
+local tagmap = {
+	tr = 'tr',
+	th = 'th',
+	td = 'td',
+	argh = 'th',
+	argd = 'td'
+}
+
+--[=[
+-- Standardised functions
+-- called as string with defineParams
+--]=]
+
+-- Standardised "has content" function
+function hasContent(arg, default)
+	-- Return arg if any non-whitespace character is found
+	return string.match(arg or '','%S') and arg or default
+end
+
+
+-- Standardised "name" function
+function subjectName(arg)
+	return string.match(arg or '','%S') and arg or nil
+end
+
+-- Create a standardised release function, since so many pages use it
+-- Turns release and update into a single parameter
+function releaseUpdate(release, update)
+	if not Infobox.isDefined(release) then
+		return nil
+	end
+	if string.lower(release) == 'no' then
+		return 'N/A'
+	end
+	if not Infobox.isDefined(update) then
+		return string.format('%s (Update unknown)',release)
+	end
+	if string.lower(update) == 'no' then
+		return release
+	end
+	return string.format('%s ([[Update:%s|Update]])', release, update)
+end
+
+-- Standardised image function
+function image(img)
+	if img and img:find('%S') then
+		return img
+	else
+		return nil
+	end
+end
+
+-- Standardised numbers
+function numbers(num)
+	num = string.gsub(num or '',',','')
+	return tonumber(num)
+end
+
+-- Generate chisel MOID link
+-- linkType is one of { 'npc', 'item', 'object' }
+function chiselLink(id, name, linkType)
+	if Infobox.isDefined(id) and not string.find(id, '[^%d%s,]') then
+		ids = string.gsub(id, '%s', '')
+		return string.format('[https://chisel.weirdgloop.org/moid/%s_id.html#%s MOID]', linkType, ids)
+	end
+	-- fall back to name if ids contain stuff like "hist" or "removed" or "no"
+	if Infobox.isDefined(name) then
+		-- the {{Null name}} template causes trouble
+		if string.find(name, '^null') then
+			name = 'null'
+		end
+		name_sanitized = string.gsub(name, ' ', '%%20')
+		return string.format('[https://chisel.weirdgloop.org/moid/%s_name.html#%s MOID]', linkType, name_sanitized)
+	end
+	return '[https://chisel.weirdgloop.org/moid/%s_name.html MOID]'
+end
+
+-- Wrap content with line breaks if it contains list-like wiki syntax
+function wrapContent(content)
+	if type(content) == "string" then
+		local firstListItem = math.min(content:find('^[*#]') or math.huge, content:find('\n[*#]') or math.huge)
+		if firstListItem ~= math.huge then
+			local suffix = content:find('\n[*#][^\n]+$') and '\n' or ''
+			content = content:sub(1, firstListItem - 1) .. '\n' .. content:sub(firstListItem) .. suffix
+		end
+	end
+	
+	return content
+end
+
+-- map of names to pre-defined functions, used by Infobox:defineParams
+local func_map = {
+	name = subjectName,
+	release = { name = releaseUpdate, params = { 'release', 'update' }, flag = 'p' },
+	removal = { name = releaseUpdate, params = { 'removal', 'removalupdate' }, flag = 'p' },
+	has_content = hasContent,
+	hasContent = hasContent,
+	image = image,
+	numbers = numbers,
+	chisel_link = chiselLink,
+	chiselLink = chiselLink
+}
+
+-- used to fill nil params in switching sections
+-- this message isn't kidding
+-- If you see this message anywhere outside of this code
+-- (including inside switchfo box data)
+-- report it
+local nil_param = 'UH OH YOU SHOULDN\'T SEE THIS!'
+
+-- In case the nil_param is needed outside of this module
+-- give it an easy way to be accessed
+function Infobox.nilParam()
+	return nil_param
+end
+
+-- switch infobox globals
+local LINE_WIDTH = 300
+local MAX_LINES = 2
+local DEFAULT_MAX_BUTTONS = 6
+-- calculate with width of a switch infobox button
+-- potential @TODO: rework to use actual character widths
+function button_width(label)
+	local PX_PER_CHAR = 6
+	local PX_PAD_MAR = 24
+	return string.len(label) * PX_PER_CHAR + PX_PAD_MAR
+end
+
+Infobox.splitpoint = '&&SPLITPOINT&&'
+
+-- quick test to see if a value is considered nil
+function Infobox.isDefined(arg)
+	if arg == nil then
+		return false
+	end
+
+	if type(arg) == 'string' then
+		if arg == nil_param then
+			return false
+		elseif arg:find('%S') then
+			if arg:find('action=edit') then
+				return false
+			else
+				return true
+			end
+		else
+			return false
+		end
+	end
+
+	return true
+end
+
+
+--[[
+	Infobox class
+	-- args : parameters from frame to pass through
+	-- Sets a meta table and creates a <div> tag wrapper
+	-- other fields are initialised in other functions
+--]]
+function Infobox.new(args)
+	local obj = setmetatable({
+				args = args, -- parameters (uncleaned)
+				rargs = {}, -- parameters (cleaned)
+				params = {}, -- parameters mapped to functions
+				paramnames = {}, -- parameter names
+				dupeable = {}, -- parameters that are allowed to have duplicated switch data
+				addrswibclass = true,
+				switchfo = false, -- switch infobox? or not?
+				switchfoattr = {}, -- switch data class changes
+				maxbuttons = DEFAULT_MAX_BUTTONS, -- maximum number of buttons before switching becomes a menu
+				switch_tag = '', -- switchfo data
+				switch_buttons_tag = '', -- switchfo buttons
+				custom_buttons = false,
+				smw_error_tag = '',
+				rtable = nil, -- returned infobox table
+				labels = nil, -- returned labels
+				_smw = {}, -- semantic mediawiki data
+				_smwOne = {}, -- semantic mediawiki data part 2
+				_smwSubobject = {}, -- semantic mediawiki data part 3
+				_smwSubobjectName = nil, -- semantic mediawiki data part 3.5
+				_smwElement = {}, -- semantic mediawiki data part 4
+				set_default_version_smw = false, -- whether to set [[Property:Default version]]
+				setSMWElement = true,
+				suppressAllSMW = false,
+				suppressVersionSMW = {},
+				versions = -1, -- number of switch versions (-1 is uncalculated)
+				infoboxname = nil, -- template name
+				appendStrs = {},
+				bottomlinks = { -- template bottom links
+						links = {
+								{ 'Template talk:%s', 'talk' },
+								{ 'Template:%s', 'view' }
+							},
+						colspan = 2
+					},
+				catdata = {}, -- meta category data
+				catlist = {}, -- defined table of category names (strings)
+				__finished = false, -- infobox status
+				},
+			Infobox)
+	return obj
+end
+
+--[[
+Toggles the addition of infobox class
+use before :create()
+noop if not a boolean
+--]]
+function Infobox:setAddRSWInfoboxClass(bool)
+	if type(bool) == 'boolean' then
+		self.addrswibclass = bool
+	end
+end
+
+--[[
+	Creates an infobox
+	-- If Infobox:maxVersions() has not been run, it will be run here
+	-- If the infobox should be a switch infobox, all labels will be added
+	-- Creates a wikitable that will be the infobox
+	THIS SHOULD BE DONE AFTER ADDING AND CLEANING PARAMETERS
+--]]
+function Infobox:create()
+	-- Run to find if this is a switch infobox and if so, how many boxes
+	if self.versions == -1 then
+		self:maxVersion()
+	end
+	
+	-- Run if switch infobox
+	if self.switchfo then
+		-- Buttons wrapper
+		-- Hidden by default, unhidden by javascript
+		self.switch_buttons_tag = mw.html.create('div')
+					:addClass('infobox-buttons')
+
+		-- default version to immediately switch to via js
+		local defv = tonumber(self.args.defver)
+		if defv and defv <= self.versions then -- you troll, don't try to show something that isn't there
+			self.switch_buttons_tag:attr('data-default-version',defv)
+		end
+
+		local numlines = 1
+		local width_working = 0
+		local total_width = 0
+		local buttons = {}
+		-- Add individual buttons to the wrapper
+		for i=1,self.versions do
+			local wid = button_width(self.labels[i] or i)
+			width_working  = width_working + wid
+			total_width = total_width + wid
+			if width_working > LINE_WIDTH then
+				numlines = numlines + 1
+				width_working = wid
+			end
+			local b = mw.html.create('span')
+					:attr('data-switch-index',tostring(i))
+					-- space to underscore
+					:attr('data-switch-anchor','#'..string.gsub(self.labels[i] or i,' ','_'))
+					:addClass('button')
+					:wikitext(self.labels[i] or i)
+			table.insert(buttons, {b, wid})
+		end
+		
+		local best = {-1, 100000}
+		if (numlines > 1) and (numlines <= MAX_LINES) then
+			-- attempt to balance line widths
+			local w_s, w_e = 0,total_width
+			for i = 1,#buttons-1 do
+				w_s = w_s + buttons[i][2]
+				w_e = w_e - buttons[i][2]
+				if w_s > LINE_WIDTH then
+					-- w_s only increases, so we're done once it exceeds the width
+					break
+				end
+				if w_e <= LINE_WIDTH then
+					-- w_e only decreases, so just continue if it exceeds line
+					local diff = math.abs(w_s - w_e)
+					if diff < best[2] then
+						best = { i, diff }
+					end
+				end
+			end
+			if best[1] == -1 then
+				best = { math.floor(#buttons/2), 100000 }
+			end
+		end
+		for i,v in ipairs(buttons) do
+			self.switch_buttons_tag:node(v[1])
+			if i == best[1] then
+				self.switch_buttons_tag:tag('span'):addClass('line-break')
+			end
+		end
+		
+		-- Used by JavaScript to turn the buttons into a menu list if too many variants
+		if self.versions > self.maxbuttons or numlines > MAX_LINES then
+			self.switch_buttons_tag:addClass('infobox-buttons-select')
+		end
+		
+		self.switch_buttons_tag:done()
+	end
+
+	-- Create infobox table
+	self.rtable = mw.html.create('table')
+	if self.addrswibclass then
+		self.rtable:addClass('infobox')
+	end
+	-- Add necessary class if switch infobox
+	if self.switchfo then
+		self.rtable:addClass('infobox-switch')
+	end
+
+end
+
+-- Defines an infobox name ({{Template:arg}})
+-- Used to create a link at the bottom of pages
+function Infobox:defineName(arg)
+	self.infoboxname = arg
+end
+
+-- Defines the bottom links of the infobox
+-- pass a table whose elements are tables that define a link and a label
+-- {
+--	{ 'link', 'label },
+--	...
+-- }
+-- The template name can be substituted into the tables using '%s'
+-- If we wanted Template:InFooBar to link to it's /doc page with a "doc" label:
+-- { ...
+--	{ 'Template:%s/doc', 'doc' },
+-- ... }
+-- The template's name can only be called 5 times
+function Infobox:defineLinks(arg)
+	if type(arg) == 'table' then
+		if arg.colspan then
+			self.bottomlinks.colspan = arg.colspan
+		end
+		if arg.links then
+			if type(arg.links) == 'table' then
+				self.bottomlinks.links = arg.links
+			end
+		end
+		if arg.hide then
+			self.bottomlinks.hide = arg.hide
+		end
+	end
+end
+
+-- Change max number of buttons before switching to menu
+-- defaults to 5
+-- MUST BE RUN BEFORE :create()
+function Infobox:setMaxButtons(arg)
+	-- if not a number, just go back to default
+	self.maxbuttons = tonumber(arg) or DEFAULT_MAX_BUTTONS
+end
+
+--[[
+	Add parameters functions
+	All parameters should be tables
+	The first parameter defines the type of cell to create
+		-- th : <th>
+		-- td : <td>
+		-- argh : <th>
+		-- argd : <td>
+	The second parameter defines what is inside the tag
+		-- th | th : text passed
+		-- argh | argd : parameter with the name passed
+	Additional named parameters can be used to add any styling or attributes
+		-- attr : mw.html:attr({ arg1 = '1', ... })
+		-- css : mw.html:css({ arg1 = '1', ...)
+		-- class : mw.html:addClass('arg')
+		---- class also supports a table of values, even though mw.html:addClass() does not
+		-- rowspan : mw.html:attr('rowspan',arg)
+		-- colspan : mw.html:attr('colspan',arg)
+		-- title : mw.html:attr('title',arg)
+	Example:
+		ipsobox:addRow( { 'th' , 'Header', title = 'Title' },
+				{ 'argh', 'arg1', class = 'parameter' } })
+	produces:
+		<tr><th title="Title">Header</th><th class="parameter">args.arg1</th></tr>
+
+	adding it to the infobox table of ipsobox
+
+	Cells defined as 'argh' and 'argd' will automatically have data-attr-param="" added, and defined as the passed argument if the infobox in creation is defined as a switch infobox
+
+	The row itself may be modified with metadata using the named index at "meta"
+		-- meta.addClass : mw.html:addClass('arg')
+		-- this function currently only supports a single string
+--]]
+function Infobox.addRow(box, ...)
+	-- New row to add
+	local args = ...
+	local _row = box.rtable:tag('tr')
+	-- For each member of tags
+	for i, v in ipairs(args) do
+		-- map tag name to appropriate tag, default to <td>
+		local _cell = _row:tag(tagmap[v.tag] or 'td')
+
+		-- mw.html:attr() and mw.html:css() both accept table input
+		-- colspan, rowspan, title will be quick ways to access attr
+		-- these functions also do all the necessary work
+		if v.attr then
+			_cell:attr(v.attr)
+		end
+		if v.colspan then
+			_cell:attr('colspan',v.colspan)
+		end
+		if v.rowspan then
+			_cell:attr('rowspan',v.rowspan)
+		end
+		if v.title then
+			_cell:attr('title',v.title)
+		end
+		if v.css then
+			_cell:css(v.css)
+		end
+
+		-- if class is a string, it can be added directly
+		-- if a table, add every value
+		-- mw.html:addClass() doesn't function with tables
+		-- so iterate over the class names here and add them individually
+		if v.class then
+			if type(v.class) == 'string' then
+				_cell:addClass(v.class)
+			elseif type(v.class) == 'table' then
+				for _, w in ipairs(v.class) do
+					_cell:addClass(w)
+				end
+			end
+		end
+
+		-- if the cell is a normal th or td, add the exact argument passed
+		if v.tag == 'th' or v.tag == 'td' then
+			_cell:wikitext(wrapContent(v.content))
+		-- if defined with "arg", add the argument with name passed
+		elseif v.tag == 'argh' or v.tag == 'argd' then
+			local content = box.rargs[v.content]
+			-- if the requested parameter doesn't exist whatsoever, just return a blank string
+			if not content then
+				content = ''
+			-- If switches exist, first attempt to use the version1 values
+			elseif content.switches then
+				if content.switches[1] ~= nil_param then
+					content = content.switches[1] or ''
+				else
+					content = content.d or ''
+				end
+			-- fallback to default value
+			else
+				content = content.d or ''
+			end
+
+			_cell:wikitext(wrapContent(content))
+
+			-- add necessary attribute for switch infoboxes
+			if box.switchfo then
+				_cell:attr('data-attr-param',v.content)
+			end
+		end
+	end
+
+	-- not that meta
+	-- allow classes to be defined on the whole row
+	-- okay, sort of meta
+	if args.meta then
+		if args.meta.addClass then
+			_row:addClass(args.meta.addClass)
+		end
+	end
+
+	return box
+end
+
+function Infobox.customButtonPlacement(box,arg)
+	box.custom_buttons = arg
+	return box
+end
+
+-- Choose whether to set [[Property:Default version]]
+-- Defaults to false.
+function Infobox.setDefaultVersionSMW(box, arg)
+	box.set_default_version_smw = arg
+	return box
+end
+
+function Infobox.addButtonsRow(box, args)
+	if box.switchfo then
+		box.custom_buttons = true
+		local _row = box.rtable:tag('tr')
+						:addClass('infobox-switch-buttons-row')
+						:tag('td')
+							:addClass('infobox-switch-buttons')
+							:attr('colspan', args.colspan)
+							:node(box.switch_buttons_tag)
+	end
+	return box
+end
+function Infobox.addButtonsCaption(box)
+	if box.switchfo then
+		box.custom_buttons = true
+		local _row = box.rtable:tag('caption')
+						:addClass('infobox-switch-buttons-caption')
+							:node(box.switch_buttons_tag)
+	end
+	return box
+end
+
+--[[
+	-- adds a blank row of padding spanning the given number of columns
+--]]
+function Infobox.pad(box, colspan, class)
+	local tr = box:tag('tr')
+			:tag('td'):attr('colspan', colspan or 1):addClass('infobox-padding')
+			:done()
+	if class then
+		tr:addClass(class)	
+	end
+	tr:done()
+	return box
+end
+
+--[[
+	-- functions the same as mw.html:wikitext() on the wrapper
+	-- Should only be used for categories really
+--]]
+function Infobox.wikitext(box, arg)
+	box.rtable:wikitext(arg)
+	return box
+end
+
+--[[
+	-- Adds the specified item(s) to the end of the infobox, outside of the table
+	-- items are concatenated together with an empty space
+--]]
+function Infobox.append(box, ...)
+	for i,v in ipairs({...}) do
+		table.insert(box.appendStrs, v)
+	end
+	return box
+end
+
+--[[
+	-- Adds a caption to the infobox
+	-- defaults to the pagename
+	-- or the default argument if defined
+--]]
+function Infobox.caption(box)
+	-- default to the article's name
+	local name = pagename
+	-- first see if the name parameter exists
+	if box.rargs.name then
+		-- then try the default
+		if box.rargs.name.d then
+			name = box.rargs.name.d
+		-- then look for swithes
+		elseif box.rargs.name.switches then
+			-- then look at version 1
+			if box.rargs.name.switches[1] ~= nil_param then
+				name = box.rargs.name.switches[1]
+			end
+		end
+	end
+
+	local caption = box.rtable:tag('caption')
+				:wikitext(name)
+
+	-- add necessary attribute for switch infoboxes
+	if box.switchfo then
+		caption:attr('data-attr-param','name')
+	end
+
+	return box
+end
+
+--[[
+	-- Functions for styling the infobox
+	-- works the same as the respective mw.html functions
+--]]
+-- attr
+function Infobox.attr(box, arg)
+	box.rtable:attr(arg)
+	return box
+end
+
+-- css
+function Infobox.float(box,float)
+	box.rtable:css('float',float)
+	return box
+end
+
+function Infobox.css(box, ...)
+	box.rtable:css(...)
+	return box
+end
+
+-- addClass
+function Infobox.addClass(box, arg)
+	box.rtable:addClass(arg)
+	return box
+end
+
+-- Much like Infobox.addClass, but adds multiple classes
+function Infobox.addClasses(box, ...)
+	for _, v in ipairs(...) do
+		box.rtable:addClass(box)
+	end
+	return box
+end
+
+--[[
+	Add tags directly to the infobox table
+	Use sparingly
+	Returns the tag created rather than the entire box
+	Which is an mw.html object
+	Further uses of :tag() will be mw.html.tag, rather than Infobox.tag
+	As such, Infobox:addRow() cannot be used afterwards without restating the infobox as the object
+--]]
+function Infobox.tag(box, arg)
+	return box.rtable:tag(arg)
+end
+
+--[[
+	Allows the infobox to use Semantic Media Wiki and give parameters properties
+	Pass a table to this function to map parameter names to properties
+
+	Calling syntax:
+	-- {{#show:page|?property}}:
+	-- "<property>" - unqualified and without a number will display the default value
+	-- "<property#>" - with a number will show the switch data from that index
+	-- "all <property>" - adding all will display every unique value in a comma separated list
+
+	Properties initiated in Infobox:finish()
+--]]
+function Infobox:useSMW(arg)
+	if type(arg) == 'table' then
+		for w, v in pairs(arg) do
+			self._smw[w] = v
+		end
+	end
+end
+--[[
+	As above, but only assigns to "<property>", which will act like "all <property>" - "<property>#" not present
+
+	Properties initiated in Infobox:finish()
+--]]
+function Infobox:useSMWOne(arg)
+	if type(arg) == 'table' then
+		for w, v in pairs(arg) do
+			self._smwOne[w] = v
+		end
+	end
+end
+--[[
+    Set up the infobox to set properties in a SMW subobject. This will create a subobject for each version
+    	- if there is only one version, it will put the properties directly on to the page, like useSMWOne
+
+	Properties initiated in Infobox:finish()
+--]]
+function Infobox:useSMWSubobject(arg)
+	if type(arg) == 'table' then
+		for w, v in pairs(arg) do
+			self._smwSubobject[w] = v
+		end
+	end
+end
+
+function Infobox:useSMWElement(arg)
+	if type(arg) == 'table' then
+		for w, v in pairs(arg) do
+			self._smwElement[w] = v
+		end
+		self.setSMWElement = true
+	end
+end
+--[[
+	Finishing function
+	-- Finishes the return, adding necessary final tags
+--]]
+function Infobox:finish()
+	local currentNamespace = mw.title.getCurrentTitle().namespace
+	-- 0 = mainspace, 4 = RuneScape
+	local onContentNamespace = currentNamespace == 0 or currentNamespace == 4
+	-- Don't finish twice
+	if self.__finished then
+		return
+	end
+	
+	-- Add switch infobox resources
+	if self.switchfo then
+		self.rtable:attr('data-resource-class', '.infobox-resources-'..string.gsub(tostring(self.infoboxname), ' ', '_'))
+		-- Wrapper tag, hidden
+		self.switch_tag = mw.html.create('div')
+									:addClass('infobox-switch-resources')
+									:addClass('infobox-resources-'..string.gsub(tostring(self.infoboxname), ' ', '_'))
+									:addClass('hidden')
+									:addClass('navigation-not-searchable')
+
+		for _, v in ipairs(self.paramnames) do
+			local param = self.rargs[v]
+			local default_value = param.d or edit
+			-- Parameters may not have any switches data, those are ignored
+				local switchattr = self.switchfoattr[v]
+				-- Parameter data wrapper
+				local res_span = self.switch_tag:tag('span')
+											:attr('data-attr-param',v)
+				-- Child for default value
+				local def = res_span:tag('span')
+							:attr('data-attr-index',0)
+							:wikitext(wrapContent(tostring(default_value)))
+
+				-- Switch classes
+				if switchattr then
+					def:attr('data-addclass',switchattr.d)
+				end
+
+				def:done()
+
+			if param.switches then
+				-- Add all switches, ignore those defined as nil
+				for i, w in ipairs(param.switches) do
+					if w ~= nil_param and w ~= nil and w ~= default_value then
+						local _w = res_span:tag('span')
+									:attr('data-attr-index',i)
+									:wikitext(wrapContent(tostring(w)))
+						-- Switch classes
+						if switchattr and switchattr.switches then
+							_w:attr('data-addclass',switchattr.switches[i])
+						elseif switchattr then
+							mw.logObject({string.format("Expected switches for `%s` but got none:", v), switchattr})
+						end
+
+						_w:done()
+					end
+				end
+				res_span:done()
+			end
+		end
+
+		-- Add a tracking category for pages that have more than 1 version
+		if onContentNamespace and self.versions > 1 then
+			-- version count data
+			self.switch_tag:wikitext('[[Category:Pages that contain switch infobox data]]')
+
+			if not self.suppressAllSMW then
+				self.switch_tag:tag('span')
+					:wikitext(string.format('Versions: [[Version count::%s]]',self.versions))
+				:done()
+
+				-- set default version smw
+				local defver = tonumber(self.args.defver) or 1
+				local default_subobject_value = self.args['smwname'..defver] or self.args['version'..defver]
+				if default_subobject_value and self.set_default_version_smw then
+					-- Only take first subobject if multiple are defined using "¦"
+					local default_subobject_name = default_subobject_value:match("[^¦]+")
+					self.switch_tag:tag('span')
+						:wikitext(string.format('Default version: [[Default version::%s]]',default_subobject_name))
+				end
+			end
+		end
+
+		self.switch_tag:done()
+	end
+	
+	-- smw data
+	if onContentNamespace and not self.suppressAllSMW then
+		-- members smw display, yes --> true; no --> false; other --> unknown
+		local function smwMembers(smw_arg)
+			local smw_argv = string.lower(smw_arg or '')
+			if smw_argv == 'yes' then
+				return 'true'
+			elseif smw_argv == 'no' then
+				return 'false'
+			else
+				return 'unknown'
+			end
+		end
+
+		-- release date smw display
+		local function smwRelease(smw_arg)
+			local _d,_m,_y = string.match(smw_arg or '', '%[%[(%d%d?) (%a+)%]%] %[%[(%d%d%d%d)%]%]')
+			if _d == nil then
+				return nil
+			end
+			return table.concat({_d,_m,_y},' ')
+		end
+
+		-- default, just return the text
+		local function smwDefault(smw_arg)
+			if smw_arg ~= nil_param and smw_arg ~= edit then
+				return smw_arg
+			else
+				return 'unknown'
+			end
+		end
+
+		local smw_to_func = {
+			members = smwMembers,
+			release = smwRelease,
+			removal = smwRelease,
+			default = smwDefault
+		}
+		local smw_data_arr = {}
+
+		-- custom properties
+		for w, v in pairs(self._smw) do
+			-- only needed to give special formatting to release
+			-- and to make members true/false
+			local smwfunc = smw_to_func[w] or smw_to_func.default
+
+			local curarg = self.rargs[w]
+			if curarg then
+				local _arg = curarg.d
+				local argdefault = _arg
+				if _arg == edit then
+					argdefault = 'unknown'
+				else
+					local _x = mw.text.split(tostring(_arg), Infobox.splitpoint, true)
+					if not smw_data_arr[v] then
+						smw_data_arr[v] = {}
+					end
+					if not smw_data_arr['All '..v] then
+						smw_data_arr['All '..v] = {}
+					end
+					for _,y in ipairs(_x) do
+						local temp_smw_data = smwfunc(y)
+						table.insert(smw_data_arr[v], temp_smw_data)
+						table.insert(smw_data_arr['All '..v], temp_smw_data)
+					end
+				end
+
+				if curarg.switches then
+					local _args = {}
+
+					for x_i, x in ipairs(curarg.switches) do
+						if not self.suppressVersionSMW[x_i] then
+							if x ~= nil_param then
+								table.insert(_args,x)
+							else
+								table.insert(_args,argdefault or nil_param)
+							end
+						end
+					end
+
+					for i, x in ipairs(_args) do
+						local _x = mw.text.split(tostring(x), Infobox.splitpoint, true)
+						if not smw_data_arr[v..i] then
+							smw_data_arr[v..i] = {}
+						end
+						if not smw_data_arr['All '..v] then
+							smw_data_arr['All '..v] = {}
+						end
+						for _,y in ipairs(_x) do
+							local temp_smw_data = smwfunc(y)
+							table.insert(smw_data_arr[v..i], temp_smw_data)
+							table.insert(smw_data_arr['All '..v], temp_smw_data)
+						end
+					end
+				end
+			end
+		end
+		
+		-- if one version, put smwSubobject into smwOne and just do that
+		if self.versions < 2 and not self._smwSubobjectName then
+			for w,v in pairs(self._smwSubobject) do
+				if not self._smwOne[w] then
+					self._smwOne[w] = v
+				elseif type(self._smwOne[w]) == 'table' then
+					table.insert(self._smwOne[w], v)
+				else
+					self._smwOne[w] = { self._smwOne[w], v }
+				end
+			end
+		end
+		
+		for w, _v in pairs(self._smwOne) do
+			-- only needed to give special formatting to release
+			-- and to make members true/false
+			local smwfunc = smw_to_func[w] or smw_to_func.default
+
+			local curarg = self.rargs[w]
+			
+			if curarg then
+				local _arg = curarg.d
+				local argdefault = _arg
+				if _arg == edit then
+					argdefault = 'unknown'
+				end
+				if curarg.switches then
+					local _args = {}
+
+					for x_i, x in ipairs(curarg.switches) do
+						if not self.suppressVersionSMW[x_i] then
+							if x ~= nil_param then
+								table.insert(_args,x)
+							else
+								table.insert(_args,argdefault or nil_param)
+							end
+						end
+					end
+
+					for i, x in ipairs(_args) do
+						local _x = mw.text.split(tostring(x), Infobox.splitpoint, true)
+						for _,y in ipairs(_x) do
+							local temp_smw_data = smwfunc(y)
+							for _,v in ipairs(type(_v) == 'table' and _v or {_v}) do
+								if not smw_data_arr[v] then
+									smw_data_arr[v] = {}
+								end
+								table.insert(smw_data_arr[v], temp_smw_data)
+							end
+						end
+					end
+				else
+					if Infobox.isDefined(_arg) then
+						local _targ = mw.text.split(tostring(_arg), Infobox.splitpoint, true)
+						for _,y in ipairs(_targ) do
+							local temp_smw_data = smwfunc(y)
+							for _,v in ipairs(type(_v) == 'table' and _v or {_v}) do
+								if not smw_data_arr[v] then
+									smw_data_arr[v] = {}
+								end
+								table.insert(smw_data_arr[v], temp_smw_data)
+							end
+						end
+					end
+				end
+			end
+		end
+		local smw_data_arr_elem = {}
+		for w, v in pairs(self._smwElement) do
+			-- only needed to give special formatting to release
+			-- and to make members true/false
+			local smwfunc = smw_to_func[w] or smw_to_func.default
+
+			local curarg = self.rargs[w]
+			
+			if curarg then
+				local _arg = curarg.d
+				local argdefault = _arg
+				if _arg == edit then
+					argdefault = 'unknown'
+				end
+				if curarg.switches then
+					local _args = {}
+
+					for x_i, x in ipairs(curarg.switches) do
+						if not self.suppressVersionSMW[x_i] then
+							if x ~= nil_param then
+								table.insert(_args,x)
+							else
+								table.insert(_args,argdefault or nil_param)
+							end
+						end
+					end
+
+					for i, x in ipairs(_args) do
+						if Infobox.isDefined(x) then
+							local _x = mw.text.split(tostring(x), Infobox.splitpoint, true)
+							for _,y in ipairs(_x) do
+								local temp_smw_data = smwfunc(y)
+								if not smw_data_arr_elem[v] then
+									smw_data_arr_elem[v] = {}
+								end
+								table.insert(smw_data_arr_elem[v], temp_smw_data)
+							end
+						end
+					end
+				else
+					if Infobox.isDefined(_arg) then
+						local _targ = mw.text.split(tostring(_arg), Infobox.splitpoint, true)
+						for _,y in ipairs(_targ) do
+							local temp_smw_data = smwfunc(y)
+							if not smw_data_arr_elem[v] then
+								smw_data_arr_elem[v] = {}
+							end
+							table.insert(smw_data_arr_elem[v], temp_smw_data)
+						end
+					end
+				end
+			end
+		end
+		-- if is a switchfo, setup for subobjects
+		local smw_data_arr_subobj = {}
+		if self._smwSubobjectName then
+			for i,k in ipairs(self._smwSubobjectName) do
+				if not self.suppressVersionSMW[i] then
+					local subobj_data = {
+						['Is variant of'] = {pagename},
+					}
+					for w,v in pairs(self._smwSubobject) do
+						local smwfunc = smw_to_func[w] or smw_to_func.default
+						local curarg = self.rargs[w]
+						if curarg then
+							local argval = curarg.d
+							if curarg.switches then
+								argval = curarg.switches[i]
+								if not Infobox.isDefined(argval) then
+									argval = curarg.d
+								end
+							end
+							if Infobox.isDefined(argval) then
+								local _x = mw.text.split(tostring(argval), Infobox.splitpoint, true)
+								for _, _x1 in ipairs(_x) do
+									_x1 = smwfunc(_x1)
+									if _x1 ~= 'unknown' then
+										if not subobj_data[v] then
+											subobj_data[v] = {}
+										end
+										table.insert(subobj_data[v], _x1)
+									end
+								end
+							end
+						end
+					end
+					for w,v in ipairs(k) do
+						local subobj_name = v
+						-- can't have a . in the first 5 characters of a subobject identifier
+						if mw.ustring.find(mw.ustring.sub(subobj_name,0,5), '%.') then
+							self:wikitext('[[Category:Pages with an invalid subobject name]]')
+							subobj_name = mw.ustring.gsub(subobj_name, '%.', '')
+						end
+						if subobj_name == '0' or subobj_name == '' then
+							self:wikitext('[[Category:Pages with an invalid subobject name]]')
+							subobj_name = 'v_'..subobj_name
+						end
+						smw_data_arr_subobj[subobj_name] = subobj_data
+					end
+				end
+			end
+		end
+		local res = mw.smw.set(smw_data_arr)
+		local res_subobj = true
+		for w,v in pairs(smw_data_arr_subobj) do
+			res_subobj = mw.smw.subobject(v, w)
+			if not res_subobj == true then
+				break
+			end
+		end
+		if not (res == true and res_subobj == true)  then
+			self.smw_error_tag = mw.html.create('div'):css('display','none'):addClass('infobox-smw-data'):addClass('navigation-not-searchable')
+			if not res == true then
+				self.smw_error_tag:tag('div'):wikitext('Error setting SMW properties: '+res.error):done()
+			end
+			if not res_subobj == true then
+				self.smw_error_tag:tag('div'):wikitext('Error setting SMW subobject properties: '+res_subobj.error):done()
+			end
+		end
+		
+		if self.setSMWElement then
+			if self.smw_error_tag == '' then
+				self.smw_error_tag = mw.html.create('div'):css('display','none'):addClass('infobox-smw-data'):addClass('navigation-not-searchable')
+			end
+			for i,v in pairs(smw_data_arr_elem) do
+				for j,k in ipairs(v) do
+					if k ~= 'unknown' then
+						self.smw_error_tag:tag('span'):wikitext(mw.ustring.format('%s: [[%s::%s]]', i,i,k ))
+					end
+				end
+			end
+		end
+		if self._smwSubobjectName then
+			if self.smw_error_tag == '' then
+				self.smw_error_tag = mw.html.create('div'):css('display','none'):addClass('infobox-smw-data'):addClass('navigation-not-searchable')
+			end
+			for w,v in pairs(smw_data_arr_subobj) do
+				local subobjdiv = self.smw_error_tag:tag('div')
+				subobjdiv:tag('span'):wikitext('SMW Subobject for '..w)
+				for j,k in pairs(v) do
+					subobjdiv:tag('span'):wikitext(mw.ustring.format('%s: %s', j, table.concat(k, ', ')))
+				end
+			end
+		end
+	end 
+	
+
+	-- Add view and talk links to infobox
+	-- Only done if a name is defined
+	if self.infoboxname and not self.bottomlinks.hide then
+		local bottom_links = {}
+		for _, v in ipairs(self.bottomlinks.links) do
+			table.insert(bottom_links,
+					string.format(
+						table.concat({'[[',
+								v[1],
+								'|',
+								v[2],
+								']]'}),
+						self.infoboxname,
+						self.infoboxname,
+						self.infoboxname,
+						self.infoboxname,
+						self.infoboxname)
+				)
+		end
+
+		bottom_links = table.concat(bottom_links,' &bull; ')
+		self.rtable:tag('tr'):tag('td')
+				:addClass('infobox-template-links')
+				:attr('colspan', self.bottomlinks.colspan)
+				:wikitext(bottom_links)
+			:done()
+	end
+	-- Define as finished
+	self.__finished = true
+end
+
+--[[
+	Function for defining parameters
+	-- name : parameter name
+	-- func : function to define param, defaults to looking at blanks
+	DO NOT DEFINE VERSION HERE
+	USE :maxVersion()
+	Can be used any number of times for efficient definition
+--]]
+function Infobox:defineParams(...)
+	for _, v in ipairs(...) do
+		-- For every parameter, store its corresponding function to self.params
+		if v.name then
+			-- If the value is a function or a table (which should define a function)
+			if type(v.func) == 'function' or type(v.func) == 'table' then
+				self.params[v.name] = v.func
+			-- If the value is a string, use the predefined Infobox function of that name
+			elseif type(v.func) == 'string' then
+				self.params[v.name] = func_map[v.func] or hasContent
+			-- Everything else just looks for blanks
+			else
+				self.params[v.name] = hasContent()
+			end
+			-- Create a list of all param names
+			table.insert(self.paramnames,v.name)
+			-- function to allow duplicated values
+			if v.dupes then
+				self.dupeable[v.name] = true
+			end
+		end
+	end
+end
+
+--[[
+	-- Forces an infobox to only use 1 variant
+	-- Mainly used by lite infoboxes
+	-- This should be run before creation
+--]]
+function Infobox:noSwitch()
+	self.versions = 1
+	self.switchfo = false
+end
+
+--[[
+	-- Calculates the max version
+	-- Adds labels
+	-- Sees if this needs to be a switch infobox
+	-- Returns extra version count (even if already run)
+--]]
+function Infobox.maxVersion(box)
+	-- Only allowed to run once
+	if box.versions ~= -1 then
+		return box.versions
+	end
+
+	box.labels = {}
+	box.versions = 0
+	local smwname = {}
+	
+	if string.lower(box.args['smw'] or '') == 'no' then
+		box.suppressAllSMW = true
+	end
+	-- Look for up to 125 variants, defined in order
+	for i=1, 125 do
+		-- If variant# exists
+		if box.args['version'..i] then
+			-- Increase version count
+			box.versions = box.versions + 1
+
+			-- Add its label
+			local label = box.args['version'..i] or ('Version '..i)
+			table.insert(box.labels,label)
+			
+			-- add to smwname
+			if box.args['smwname'..i] then
+				table.insert(smwname, mw.text.split(box.args['smwname'..i], '¦'))
+			else
+				table.insert(smwname, {label})
+			end
+			
+			box.suppressVersionSMW[i] = (box.args['smw'..i] and string.lower(box.args['smw'..i] or '') == 'no')
+		else
+			-- Stop if it doesn't exist
+			break
+		end
+	end
+
+	-- Define self as a switch infobox if at least 1 other version is found
+	if box.versions > 0 then
+		box.switchfo = true
+		box._smwSubobjectName = smwname
+	else
+		-- single version, check for smwname
+		if box.args['smwname'] then
+			box._smwSubobjectName = {mw.text.split(box.args['smwname'], '¦')}
+		end
+	end
+
+	-- versions calculated
+	return box.versions
+end
+
+--[[
+	-- Cleans parameters as defined by the above function
+	-- SHOULD NOT BE RUN UNTIL ALL THINGS ARE DEFINED
+	-- Handles switches as well
+	-- adds table _add to rargs, a cleaned up version of arguments
+	-- d : default value
+	-- switches : table of switches (in numerical order)
+	-- Functions can be defined with tables
+	---- name : name of function
+	---- params : table of args to pass to functions
+	---- flag : flags for input
+				d | #default : use the cleaned parameter first, otherwise passed
+				p : use the passed value of parameters
+				r | l : use raw (literal) text, rather than values
+		-- Defining a single flag will use that flag on all parameters
+		-- Defining a table of flags will use the respective flag by position
+--]]
+function Infobox:cleanParams()
+	-- map of flags to functionality
+	local flagmap = {
+		r = 'r',
+		l = 'r',
+		d = 'd',
+		p = 'p'
+	}
+	-- For all parameters named
+	for _, v in ipairs(self.paramnames) do
+		-- Parameter to add
+		local _add = {}
+		local catdata = { all_defined = true, one_defined = false }
+		-- If the value of params is a function
+		if type(self.params[v]) == 'function' then
+			-- Perform that function with the parameter
+			self.params[v] = { name = self.params[v], params = { v } , flag = 'd' }
+		end
+		-- If it's a table, parse it into a function
+		if type(self.params[v]) == 'table' then
+			-- Find the functions name
+			local func = self.params[v].name
+
+			if type(func) == 'string' then
+				func = func_map[func]
+			end
+
+			-- catch all
+			if type(func) ~= 'function' then
+				func = has_content
+			end
+
+			-- Recreate table of args and flags
+			local func_args = {}
+			local flag = {}
+			-- If the flags are NOT a table, turn them into a table
+			-- Same size as the parameter table
+			-- Every flag will be the same
+			if type(self.params[v].flag) ~= 'table' then
+				-- Map flags, if unmapped, use default
+				local _flag = flagmap[self.params[v].flag] or 'd'
+				-- recreate table
+				for x=1,#self.params[v].params do
+					table.insert(flag,_flag)
+				end
+			-- If flags are already a table, recreate them in new table
+			elseif type(self.params[v].flag) == 'table' then
+				local _flag = self.params[v].flag
+				-- recreate table
+				for x=1,#self.params[v].params do
+					-- Map flags, if unmapped, use default
+					table.insert(flag,flagmap[_flag[x]] or 'd')
+				end
+			end
+			-- Recreate param table, parsing flags as instructions
+			for x, w in ipairs(self.params[v].params) do
+				local xarg
+				-- By default or defined as 'd'
+				-- looks for the cleaned value of the named parameter first
+				-- if it doesn't exist, look at the passed value next
+				-- if that doesn't exist, use blank
+				if flag[x] == 'd' then
+					xarg = self.rargs[w] and self.rargs[w].d
+					-- compare to nil explicitly because false is a valid value
+					if xarg == nil then
+						xarg = self.args[w] or ''
+					end
+				-- Look only at the passed value of the named parameter
+				-- if that doesn't exist, use blank
+				elseif flag[x] == 'p' then
+					xarg = self.args[w] or ''
+				-- Don't interpret value as a parameter name, and paste the as is
+				elseif flag[x] == 'r' then
+					xarg = w
+				end
+				-- Add parsed argument to table
+				table.insert(func_args,xarg)
+			end
+			-- Run function
+			_add.d = func(unpack(func_args))
+		end
+
+		if _add.d == nil or _add.d == nil_param then
+			-- have to do pagename defaults here to prevent weird behaviour with switch values
+			if v == 'name' then
+				_add.d = pagename
+			else
+				_add.d = edit
+			end
+			catdata.all_defined = false
+		else
+			--_add.d is not nil
+			catdata.one_defined = true
+		end
+		
+		if self.switchfo then
+			-- Table of switches values and count of them
+			local _add_switch = {}
+			local switches = 0
+			-- Look for up to the maximum number
+			for i=1, self.versions do
+				local _addarg
+				-- see if this param is allowed to have switch
+				if v ~= 'image' and v ~= 'examine' and string.find(self.args[v..i] or '','%$%d') then
+					local refi = string.match(self.args[v..i],'%$(%d+)')
+					_addarg = _add_switch[tonumber(refi)] or nil_param
+				else
+					-- If the value of params is a function
+					if type(self.params[v]) == 'function' then
+						-- Perform that function with the parameter at that index
+						_addarg = self.params[v](self.args[v..i])
+					-- If it's a table, parse it into a function
+					elseif type(self.params[v]) == 'table' then
+						-- Find the functions name
+						local func = self.params[v].name
+
+
+						if type(func) == 'string' then
+							func = func_map[func]
+						end
+
+						-- catch all
+						if type(func) ~= 'function' then
+							func = has_content
+						end
+
+						-- Recreate table of args and flags
+						local func_args = {}
+						local flag = {}
+						-- If the flags are NOT a table, turn them into a table
+						-- Same size as the parameter table
+						-- Every flag will be the same
+						if type(self.params[v].flag) ~= 'table' then
+							-- Map flags, if unmapped, use default
+							local _flag = flagmap[self.params[v].flag] or 'd'
+							 -- recreate table
+							for x=1,#self.params[v].params do
+								table.insert(flag,_flag)
+							end
+						-- If flags are already a table, recreate them in new table
+						elseif type(self.params[v].flag) == 'table' then
+							local _flag = self.params[v].flag
+							-- recreate table
+							for x=1,#self.params[v].params do
+								-- Map flags, if unmapped, use default
+								table.insert(flag,flagmap[_flag[x]] or 'd')
+							end
+						end
+						-- Recreate param table, parsing flags as instructions
+						for x, w in ipairs(self.params[v].params) do
+							local xarg
+							-- By default or defined as 'd'
+							-- looks for the cleaned value of the named parameter first
+							-- if it doesn't exist, look at the passed value next
+							-- if that doesn't exist, look at the default
+							-- if that doesn't exist, use blank
+							if flag[x] == 'd' then
+								if self.rargs[w] then
+									if self.rargs[w].switches then
+										xarg = self.rargs[w].switches[i]
+									else
+										xarg = self.args[w..i]
+									end
+									if xarg == nil or xarg == nil_param then
+										xarg = self.rargs[w].d
+									end
+								end
+								-- multiple catches in a row just to cover everything
+								if xarg == nil or xarg == nil_param then
+									xarg = self.args[w..i]
+								end
+								if xarg == nil or xarg == edit or xarg == nil_param then
+									xarg = self.args[w]
+								end
+								if xarg == nil or xarg == edit or xarg == nil_param then
+									xarg = ''
+								end
+							-- Look only at the passed value of the named parameter
+							-- if that doesn't exist, use unnumbered parameter
+							-- if that doesn't exist, use blank
+							elseif flag[x] == 'p' then
+								xarg = self.args[w..i] or self.args[w] or ''
+							-- Don't interpret value as a parameter name, and paste the as is
+							elseif flag[x] == 'r' then
+								xarg = w
+							end
+							-- Add parsed argument to table
+							table.insert(func_args,xarg)
+						end
+						-- Run function
+						_addarg = func(unpack(func_args))
+					end
+				end
+				-- If not defined, add the nil_param value
+				-- An actual nil would cause errors in placement
+				-- So it needs to be filled with an actual value
+				-- "nil_param" is understood as nil in other functions
+				-- Include table in case parameter isn't defined by template
+
+				if _addarg == nil or _addarg == nil_param then
+					table.insert(_add_switch, nil_param)
+				else
+					switches = switches + 1
+					table.insert(_add_switch, _addarg)
+					catdata.one_defined = true
+				end
+			end
+			-- If there are actually other values to switch to
+			-- Define a switches subtable, otherwise ignore it
+			if switches > 0 then
+				_add.switches = _add_switch
+			end
+		end
+
+		-- Quick fix for names (which defaults to pagename)
+		if v == 'name' then
+			if _add.d == pagename then
+				if _add.switches and _add.switches[1] ~= pagename and _add.switches[1] ~= nil_param then
+					_add.d = _add.switches[1]
+				end
+			end
+		end
+
+		-- Parameter cleaning finished, add to table of cleaned args
+		self.rargs[v] = _add
+
+		-- Category metadata
+		-- If every param except default is defined, all_defined = true
+		if catdata.all_defined == false then
+			if _add.d == edit then
+				if _add.switches then
+					catdata.all_defined = true
+					for _, v in ipairs(_add.switches) do
+						if v == nil_param then
+							catdata.all_defined = false
+							break
+						end
+					end
+				end
+			end
+		end
+
+		self.catdata[v] = catdata
+	end
+
+	-- mass dupe removal
+	-- this needs to be done at the end to keep dependent parameters working
+	-- also removes incompatible data types
+	for _, v in ipairs(self.paramnames) do
+		-- not removed from dupe enabled params parameters
+		if not self.dupeable[v] and self.rargs[v] and self.rargs[v].switches then
+			-- tells us whether or not we'll need to remove the switch data
+			-- switched to false if a switch values does not match the default
+			local rmvswitch = true
+			for q, z in ipairs(self.rargs[v].switches) do
+				-- remove types that don't turn into strings properly
+				if type(z) == 'table' or type(z) == 'function' then
+					self.rargs[v].switches[q] = nil_param
+
+				-- if it isn't nil or an edit button
+				-- change variable to keep the switch data
+				elseif z ~= nil_param and z ~= edit then
+					rmvswitch = false
+				end
+			end
+			-- remove switch data if everything was a dupe
+			if rmvswitch then
+				self.rargs[v].switches = nil
+			end
+		end
+	end
+
+	-- Title parentheses (has to be done here, sadly)
+	local _name
+	if self.rargs.name then
+		_name = self.rargs.name.d
+		-- replace html entities to their actual character
+		_name = mw.text.decode(_name)
+
+		-- if the page name matches the item name, don't add parentheses
+		if _name == mw.title.getCurrentTitle().fullText then
+			self.rtable:addClass('no-parenthesis-style')
+		end
+	end	
+end
+
+--[[
+	Function to link internal use parameters with JS class attribution
+	-- self:linkParams{ { arg1, arg2 }, ... { arg1a, arg2a } }
+	-- arg1: parameter name being linked
+	-- arg2: parameter name that holds the classes
+	-- THIS FUNCTION SHOULD BE RUN AFTER :cleanParams()
+	-- THIS FUNCTION SHOULD BE RUN BEFORE :finish()
+	-- The second argument's data should always contain a value (a CSS class name) at every index
+	-- This function is cancelled for non switch boxes
+--]]
+function Infobox:linkParams(...)
+	if not self.switchfo then
+		return
+	end
+	for _, v in ipairs(...) do
+		self.switchfoattr[v[1]] = self.rargs[v[2]]
+	end
+end
+
+--[==========================================[
+-- Functions for accessing parameters easily
+--]==========================================]
+--[[
+	Access the param
+	-- arg : param name
+	-- retp : return type
+		d | #default : self.rargs[arg].d -- Default value
+		f | full : self.rargs[arg] -- Entire table
+		s | switches : self.rargs[arg].switches -- Entire switch table
+		s# : self.rargs[arg].switches[#] -- Single switch value at index #
+		r : switches[1] or d
+--]]
+function Infobox:param(arg, retp)
+	-- All parameters
+	if arg == 'all' then
+		return self.rargs
+	end
+	-- case-insensitive flagging
+	retp = tostring(retp):lower()
+	local fmap = {
+		d = 'd', default = 'd', s0 = 'd', -- let s-naught count as default (since that's what it is)
+		f = 'f', full = 'f',
+		s = 's', switch = 's', switches = 's',
+		r = 'r'
+	}
+	local ret_func
+	-- quickly see if the parameter is a value greater than 0
+	if retp:match('s[1-9]') then
+		ret_func = 's2'
+	else
+		-- Otherwise map it to the correct flag, or the default
+		ret_func = fmap[retp] or fmap.d
+	end
+
+	-- Fetch parameter
+	local param = self.rargs[arg]
+	-- Return nil if no table found
+	if not param then return nil end
+
+	-- Return default
+	if ret_func == 'd' then
+		return param.d
+	end
+
+	-- Return full table
+	if ret_func == 'f' then
+		return param
+	end
+
+	-- Return switch table
+	if ret_func == 's' then
+		return param.switches
+	end
+
+	-- Return the first switch, otherwise the default
+	if ret_func == 'r' then
+		if not param.switches then
+			return param.d
+		elseif param.switches[1] == nil_param then
+			return param.d
+		else
+			return param.switches[1]
+		end
+	end
+
+	-- If s2, reread the param
+	if ret_func == 's2' then
+		-- no switches
+		if not param.switches then
+			return nil
+		end
+		-- Parse index by removing the s
+		local index = retp:match('s(%d+)')
+		-- nil_param
+		if param.switches[index] == nil_param then
+			return nil
+		else
+			return param.switches[index]
+		end
+	end
+end
+
+--[[
+	Checks if a parameter is defined and not blank
+	-- arg : parameter to look at
+	-- index : index of switches to look at (defaults to default param)
+		-- defining 'all' will look at every possible value for the parameter
+--]]
+function Infobox:paramDefined(arg,index)
+	-- Can use cleaned params for switches
+	-- but need the passed to identify blanks in the template
+	local param = self.rargs[arg]
+	local _arg = self.args[arg]
+	if string.find(_arg or '','%?action=edit') then
+		_arg = ''
+	end
+	index = index or 0
+	local ret
+	-- create a long strong of every value to test for things if 'all'
+	if string.lower(index) == 'all' then
+		return self.catdata[arg] and (self.catdata[arg].one_defined or self.catdata[arg].all_defined)
+	-- index to number otherwise
+	else
+		index = tonumber(index) or 0
+		if index == 0 then
+			if param.switches then
+				if Infobox.isDefined(param.switches[1]) then
+					ret = param.switches[1]
+				else
+					ret = _arg
+				end
+			else
+				ret = _arg
+			end
+		else
+			if not param.switches then
+				return nil
+			end
+			if param.switches[index] == nil_param then
+				return nil
+			end
+			ret = param.switches[index]
+		end
+	end
+	return tostring(ret or ''):find('%S')
+end
+
+--[[
+	Function to perform a search on all parameters of a defined name
+	-- param: param name
+	-- val: a value or function
+		-- functions passed must return either true or false
+		-- with true being counted as a match
+--]]
+function Infobox:paramGrep(param,val)
+	local arg = self.rargs[param]
+	-- if no parameters, return nil
+	if not arg then
+		return nil
+	end
+
+	local ret
+	local valtype = type(val)
+	-- start with the default value
+	-- if it's a function, run it
+	if valtype == 'function' then
+		ret = val(arg.d)
+
+		-- true means it matched
+		if ret == true then
+			return ret
+		end
+
+		-- switches up here for functions
+		if arg.switches then
+			for _, v in ipairs(arg.switches) do
+				ret = val(v)
+				if ret == true then
+					return true
+				end
+			end
+		end
+
+	-- if it's just a value, compare the two
+	-- only run if types match to avoid errors
+	-- compare switches later
+	elseif valtype == type(arg.d) then
+		-- if a string, make case insensitive
+		if valtype == 'string' then
+			if string.lower(val) == string.lower(arg.d) then
+				return true
+			end
+		-- everything else just test directly
+		elseif val == arg.d then
+			return true
+		end
+	end
+
+	-- switch cases
+	-- more organised putting them here
+	if arg.switches then
+		for _, v in ipairs(arg.switches) do
+			if valtype == type(v) then
+				if valtype == 'string' then
+					if val:lower() == v:lower() then
+						return true
+					end
+				elseif val == v then
+					return true
+				end
+			end
+		end
+	end
+
+	-- return false in every other case
+	return false
+end
+------
+
+function Infobox.paramRead(arg,val)
+	-- if no parameters, return nil
+	if not arg then
+		return nil
+	end
+
+	local ret
+	local valtype = type(val)
+	-- start with the default value
+	-- if it's a function, run it
+	if valtype == 'function' then
+		ret = val(arg.d)
+
+		-- true means it matched
+		if ret == true then
+			return ret
+		end
+
+		-- switches up here for functions
+		if arg.switches then
+			for _, v in ipairs(arg.switches) do
+				ret = val(v)
+				if ret == true then
+					return true
+				end
+			end
+		end
+
+	-- if it's just a value, compare the two
+	-- only run if types match to avoid errors
+	-- compare switches later
+	elseif valtype == type(arg.d) then
+		-- if a string, make case insensitive
+		if valtype == 'string' then
+			if string.lower(val) == string.lower(arg.d) then
+				return true
+			end
+		-- everything else just test directly
+		elseif val == arg.d then
+			return true
+		end
+	end
+
+	-- switch cases
+	-- more organised putting them here
+	if arg.switches then
+		for _, v in ipairs(arg.switches) do
+			if valtype == type(v) then
+				if valtype == 'string' then
+					if val:lower() == v:lower() then
+						return true
+					end
+				elseif val == v then
+					return true
+				end
+			end
+		end
+	end
+
+	-- return false in every other case
+	return false
+end
+
+----
+
+-- Return collected category data
+function Infobox:categoryData()
+	return self.catdata
+end
+
+
+function comparatorSortNumbersFirst(a, b)
+	local num_a = tonumber(a)
+	local num_b = tonumber(b)
+
+	if num_a and num_b then
+		return num_a < num_b
+	elseif num_a then
+		return true
+	elseif num_b then
+		return false
+	else
+		return tostring(a) < tostring(b)
+	end
+end
+
+-- Sets variables for each infobox version of the form:
+--   DropLevel_{key}_{dropversion[i]} = {dataParamName[i]}
+-- as well as
+--   DropLevel_{key}_DEFAULT = {dataParamName[0],dataParamName[1],...}
+function Infobox:addDropLevelVars(key, dataParamName)
+	self:addVersionBasedVars(string.format('DropLevel_%s', key), 'dropversion', dataParamName)
+end
+
+-- Sets variables for each infobox version of the form:
+--   {key}_{versionParamName[i]} = {dataParamName[i]}
+-- as well as
+--   {key}_DEFAULT = {dataParamName[0],dataParamName[1],...}
+function Infobox:addVersionBasedVars(key, versionParamName, dataParamName)
+	local dataParams = self:param(dataParamName, 'f')
+	if dataParams == nil then
+		return
+	end
+	local versionParams = self:param(versionParamName, 'f')
+	if versionParams == nil then
+		versionParams = {}
+	end
+	if Infobox.isDefined(versionParams.d) then
+		versionParams.d = versionParams.d .. ',DEFAULT'
+	else
+		versionParams.d = 'DEFAULT'
+	end
+	if versionParams.switches == nil then
+		versionParams.switches = {}
+	end
+	-- First build table of dataPerVersion[versionName][value] = true, to merge duplicate values
+	local dataPerVersion = {}
+	-- versionParams.switches should only read data from a single dataParam
+	for i=1,#versionParams.switches do
+		for versionName in string.gmatch(versionParams.switches[i], ' *([^,]+) *') do
+			if dataPerVersion[versionName] == nil then
+				dataPerVersion[versionName] = {}
+			end
+			local dataValue = dataParams.switches and dataParams.switches[i] or dataParams.d
+			if Infobox.isDefined(dataValue) then
+				dataPerVersion[versionName][dataValue] = true
+			end
+		end
+	end
+	-- versionParams.d should read data from all dataParams (DEFAULT versionName always included)
+	for versionName in string.gmatch(versionParams.d, ' *([^,]+) *') do
+		if dataPerVersion[versionName] == nil then
+			dataPerVersion[versionName] = {}
+		end
+		local dataValues = dataParams.switches or {dataParams.d}
+		for _, dataValue in ipairs(dataValues) do
+			if Infobox.isDefined(dataValue) then
+				dataPerVersion[versionName][dataValue] = true
+			end
+		end
+	end
+	-- This part is to append data from previous Infobox invocations
+	for versionName, _ in pairs(dataPerVersion) do
+		-- set dummy property on versioned SMW subobject, otherwise it can't be part of an #ask
+		mw.smw.subobject({["Dummy property"] = true}, versionName)
+		-- example variable: 'DropLevel_combat_High level'
+		local var_name = string.format("%s_%s", key, versionName)
+		local previousVar = var.var(var_name)
+		if previousVar ~= "" then
+			for v in string.gmatch(previousVar, ' *([^,]+) *') do
+				dataPerVersion[versionName][v] = true
+			end
+		end
+		local orderedValues = {}
+		for dataValue, _ in pairs(dataPerVersion[versionName]) do
+			table.insert(orderedValues, dataValue)
+		end
+		table.sort(orderedValues, comparatorSortNumbersFirst)
+		mw.log('defining var',var_name,table.concat(orderedValues, ', '))
+		var.vardefine(var_name, table.concat(orderedValues, ', '))
+	end
+end
+
+-- Override tostring
+function Infobox.tostring(box)
+	-- If not finished, finish
+	if not box.__finished then
+		box:finish()
+	end
+
+	-- Make entire html wrapper a string and return it
+	local btns = box.switch_buttons_tag
+	if box.custom_buttons then
+		btns = ''
+	end
+	if box.args.__dump__ then
+		return '<pre>'..mw.dumpObject(box) .. '</pre>[[Category:Dumping infoboxes]]'
+	end
+	return tostring(btns) .. tostring(box.rtable) .. table.concat(box.appendStrs, '') .. tostring(box.switch_tag) .. tostring(box.smw_error_tag)
+end
+
+return Infobox
+-- </nowiki>

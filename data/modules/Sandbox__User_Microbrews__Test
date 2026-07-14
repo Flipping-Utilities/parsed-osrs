@@ -1,0 +1,8 @@
+local p = {}
+
+function p.main(frame)
+	local j = frame.args.json
+	return mw.text.jsonEncode(mw.loadJsonData(j))
+end
+
+return p

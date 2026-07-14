@@ -1,0 +1,601 @@
+local p = {}
+
+-- Do we want to maintain warnings instead of erroring out
+-- GE TAX setting
+local prices = mw.loadJsonData('Module:GEPrices/data.json')
+local volumes = mw.loadJsonData('Module:GEVolumes/data.json')
+
+local commas = require('Module:Addcommas')._add
+local hasContent = require('Module:Paramtest').has_content
+local ucflc = require('Module:Paramtest').ucflc
+local yesNo = require('Module:Yesno')
+local round = require('Module:Number')._round
+local coins = require('Module:Currency')._amount
+local onMain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local contains = require('Module:Array').contains
+local scp = require('Module:SCP')._main
+
+local varDef = mw.ext.VariablesLua.vardefine
+local lang = mw.getContentLanguage()
+local title = mw.title.getCurrentTitle()
+local html = mw.html
+
+local Globals = {
+	MAX_INPUT = 75,
+	MAX_OUTPUT = 75,
+	MAX_EXPERIENCE = 75,
+}
+
+local Intensities = {
+	'High',
+	'Medium',
+	'Low',
+}
+
+local Difficulties = {
+	'Easy',
+	'Medium',
+	'Hard',
+	'Very hard',
+}
+
+local Categories = {
+	'Collecting',
+	'Combat',
+	'Combat/Low',
+	'Combat/Mid',
+	'Combat/High',
+	'Processing',
+	'Recurring',
+	'Skilling',
+}
+
+local Skills = {
+	"Combat",
+	"Agility",
+	"Attack",
+	"Construction",
+	"Cooking",
+	"Crafting",
+	"Defence",
+	"Farming",
+	"Firemaking",
+	"Fishing",
+	"Fletching",
+	"Herblore",
+	"Hitpoints",
+	"Hunter",
+	"Magic",
+	"Mining",
+	"Prayer",
+	"Ranged",
+	"Runecraft",
+	"Slayer",
+	"Smithing",
+	"Strength",
+	"Thieving",
+	"Woodcutting",
+}
+
+function expr(x)
+	local good, answer = pcall(mw.ext.ParserFunctions.expr, x)
+	if(good) then
+		return answer
+	end
+	return nil
+end
+
+function sigfig(x, p)
+	local sign = x < 0 and -1 or 1
+	local x = math.abs(x)
+	if(x == 0) then
+		return 0
+	end
+	local n = math.floor(math.log10(x)) + 1 - p
+	return sign * math.pow(10, n) * round(x / math.pow(10, n), 0)
+end
+
+function autoround(x, f)
+	x = tonumber(x) or 0
+	if((x < 0.1) and (x > -0.1)) then
+		x = sigfig(x, 2)
+	elseif((x >= 100) or (x <= -100)) then
+		x = round(x, 0)
+	else
+		x = round(x, 2)
+	end
+	if(f) then
+		return lang:formatNum(x)
+	end
+	return x
+end
+
+function createItemTable(tableType, args)
+	local isPerKill = args.kph and true or false
+	local ret = mw.html.create('table'):addClass('wikitable mmg-table align-center-1 align-center-2')
+	ret:tag('tr'):tag('th'):wikitext('Quantity'):done()
+		:tag('th'):attr('colspan', 2):wikitext(ucflc(tableType)):done()
+		:tag('th'):wikitext(tableType == 'input' and 'Cost' or 'Profit'):done()
+	for i,v in ipairs(args[tableType .. 's'].spans) do
+		ret:node(v)
+	end
+
+	if(args[tableType .. 's'].value ~= 0) then
+		ret:tag('tr'):tag('th'):attr('colspan', 4)
+			:tag('span')
+				:addClass('mmg-varieswithkph')
+				:attr({['data-mmg-cost-ph'] = args[tableType .. 's'].valueph, ['data-mmg-cost-pk'] = args[tableType .. 's'].valuepk})
+				:wikitext(coins(autoround(args[tableType .. 's'].value), 'coins'))
+			:done():done()
+	end
+	
+	if(isPerKill and tableType == 'input') then -- Only want one kph incrementer
+		ret:addClass('mmg-isperkill')
+			:attr('data-default-kph', args.kph)
+			:attr('data-default-kph-name', args.kphName or 'Kills per hour')
+	end
+	
+	return ret
+end
+
+function createOverviewtable(allArgs)
+	local ret = mw.html.create('table'):addClass('wikitable mmg-table align-center-1 align-center-2')
+	ret:tag('tr'):tag('th'):wikitext(allArgs.kphName):css( 'text-align', 'right' ):done()
+		:tag('td'):wikitext('butts'):done()
+		:tag('tr'):tag('th'):wikitext('Input cost'):css( 'text-align', 'right' ):done()
+		:tag('td'):wikitext(coins(autoround(allArgs.inputs.value), 'coins')):done()
+		:tag('tr'):tag('th'):wikitext('Gross output'):css( 'text-align', 'right' ):done()
+		:tag('td'):wikitext(coins(autoround(allArgs.outputs.value), 'coins')):done()
+		:tag('tr'):tag('th'):wikitext('Net profit'):css( 'text-align', 'right' ):done()
+		:tag('td'):wikitext(coins(autoround(allArgs.profit), 'coins')):done()
+		
+	return ret
+end
+
+function defineVars(allArgs)
+	--[[
+	
+	vdf('kph', string.format('<span class="mmg-variable mmg-kph">%s</span>', args.kph))
+			vdf('default_kph', args.kph)
+			vdf('inputPH', string.format('<span class="mmg-variable mmg-input-ph" data-mmg-cost-ph="%s">%s</span>', parsedInput.valueph, _coins(autoround(parsedInput.valueph), 'nocoins')))
+			vdf('inputPK', string.format('<span class="mmg-variable mmg-input-pk" data-mmg-cost-pk="%s">%s</span>', parsedInput.valuepk, _coins(autoround(parsedInput.valuepk), 'nocoins')))
+			vdf('input', string.format('<span class="mmg-variable mmg-input" data-mmg-cost-ph="%s", data-mmg-cost-pk="%s">%s</span>', parsedInput.valueph, parsedInput.valuepk, _coins(autoround(parsedInput.value), 'nocoins')))
+			vdf('outputPH', string.format('<span class="mmg-variable mmg-output-ph" data-mmg-cost-ph="%s">%s</span>', parsedOutput.valueph, _coins(autoround(parsedOutput.valueph), 'nocoins')))
+			vdf('outputPK', string.format('<span class="mmg-variable mmg-output-pk" data-mmg-cost-pk="%s">%s</span>', parsedOutput.valuepk, _coins(autoround(parsedOutput.valuepk), 'nocoins')))
+			vdf('output', string.format('<span class="mmg-variable mmg-varieswithkph mmg-output" data-mmg-cost-ph="%s", data-mmg-cost-pk="%s">%s</span>', parsedOutput.valueph, parsedOutput.valuepk, _coins(autoround(parsedOutput.value), 'nocoins')))
+			vdf('profitPH', string.format('<span class="mmg-variable mmg-profit-ph" data-mmg-cost-ph="%s">%s</span>', parsedOutput.valueph-parsedInput.valueph, _coins(autoround(parsedOutput.valueph-parsedInput.valueph), 'nocoins')))
+			vdf('profitPK', string.format('<span class="mmg-variable mmg-profit-pk" data-mmg-cost-pk="%s">%s</span>', parsedOutput.valuepk-parsedInput.valuepk, _coins(autoround(parsedOutput.valuepk-parsedInput.valuepk), 'nocoins')))
+			vdf('profit', string.format('<span class="mmg-variable mmg-varieswithkph mmg-profit" data-mmg-cost-ph="%s", data-mmg-cost-pk="%s">%s</span>', parsedOutput.valueph-parsedInput.valueph, parsedOutput.valuepk-parsedInput.valuepk, _coins(autoround(parsedOutput.value-parsedInput.value), 'nocoins')))
+		else
+			vdf('input', string.format('<span class="mmg-input">%s</span>', parsedInput.value, _coins(autoround(parsedInput.value), 'nocoins')))
+			vdf('output', string.format('<span class="mmg-input">%s</span>', parsedOutput.value, _coins(autoround(parsedOutput.value), 'nocoins')))
+			vdf('profit', string.format('<span class="mmg-input">%s</span>', parsedOutput.value-parsedInput.value, _coins(autoround(parsedOutput.value-parsedInput.value), 'nocoins')))
+			vdf('input_raw', parsedInput.value)
+			vdf('output_raw', parsedOutput.value)
+			vdf('profit_raw', parsedOutput.value-parsedInput.value)
+--]]
+	
+end
+
+function createInfobox(args, profit)
+	local ret = infobox.new(args)
+	
+	ret:defineParams{
+		{ name = 'activity', func = 'activity' },
+		{ name = 'image', func = 'image' },
+		
+		{ name = 'members', 'has_content' },
+		
+		{ name = 'isRecurring', 'has_content' },
+		{ name = 'recurrance', 'has_content' },
+		{ name = 'duration', 'has_content' },
+		
+		{ name = 'GP/hr', func = 'profit' },
+		{ name = 'XP/hr', func = 'experience.spans' },
+		
+		{ name = 'intensity', func = 'intensity' },
+		{ name = 'location', func = 'location' },
+		{ name = 'category', func = 'category' },
+		{ name = 'skillCategory', func = 'has_content' },
+	}
+	
+	ret:create()
+	ret:cleanParams()
+	ret:customButtonPlacement(true)
+	ret:setDefaultVersionSMW(true)
+	ret:defineLinks({
+		colspan = 5,
+		links = {
+		{ tostring(title), 'Edit' },
+		{ 'Talk:Money making guide?action=edit&section=new&preloadtitle=[[' .. tostring(title) .. '|' .. title.subpageText .. ']]', 'Discuss' },
+	}})
+	ret:defineName('Infobox MMG')
+	ret:addClass('infobox-mmg')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'activity', class='infobox-header', colspan = '5' }
+	}
+	:addRow{
+		{ tag = 'argd', content = 'image', class = 'infobox-image infobox-full-width-content', colspan = '5' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Members', colspan = '2' },
+		{ tag = 'argd', content = 'members', colspan = '3' }
+	}
+	if(ret:paramDefined('isRecurring')) then
+		ret:addRow{
+			{ tag = 'th', content = 'Recurrance interval', colspan = '2' },
+			{ tag = 'argd', content = 'recurrance', colspan = '3' }
+		}
+		ret:addRow{
+			{ tag = 'th', content = 'Activity duration', colspan = '2' },
+			{ tag = 'argd', content = 'dration', colspan = '3' }
+		}
+		--addRow for gp/instance or effective gp/hr
+	end
+	ret:addRow{
+		{ tag = 'th', content = 'GP/hr', colspan = '2' },
+		{ tag = 'argd', content = 'profit', colspan = '3' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'XP/hr', colspan = '2' },
+		{ tag = 'argd', content = 'experience', colspan = '3' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Intensity', colspan = '2' },
+		{ tag = 'argd', content = 'intensity', colspan = '3' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Location', colspan = '2' },
+		{ tag = 'argd', content = 'location', colspan = '3' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Category', colspan = '2' },
+		{ tag = 'argd', content = 'category', colspan = '3' }
+	}
+	if(not ret:paramGrep('category', 'combat')) then
+		ret:addRow{
+			{ tag = 'th', content = 'Skill Category', colspan = '2' },
+			{ tag = 'argd', content = 'skillCategory', colspan = '3' }
+		}
+	end
+	
+	return ret:tostring()
+end
+
+-- Feel free to remove/change unused data
+function setSMW(allArgs)
+	--[[local smwData = {
+		activity = allArgs.activity,
+		members = yesNo(allArgs.members, true),
+		location = allArgs.location,
+		category = allArgs.category,
+		skillcategory = allArgs.skillCategory,
+		intensity = allArgs.intensity,
+		difficulty = allArgs.difficulty,
+		skillList = allArgs.skillList,
+		questList = allArgs.questList,
+		itemList = allArgs.itemList,
+		otherList = allArgs.otherList,
+		isperkill = allArgs.kph and true or false,
+		prices = {
+			input = allArgs.inputs.value,
+			output = allArgs.outputs.value,
+			value = allArgs.outputs.profit,
+		},
+		inputs = allArgs.inputs.items,
+		outputs = allArgs.outputs.items,
+		experience = allArgs.experience,
+		version = allArgs.version,
+	}
+	if(allArgs.isRecurring) then
+		smwData.duration = allArgs.duration,
+		smwData.duration_text = allArgs.durationString,
+		smwData.recurrence = allArgs.recurrance,
+	end
+	if(allArgs.kph) then
+		smwData.default_kph = allArgs.kph,
+		smwData.kph_text = allArgs.kphName,
+		smwData.prices = {
+			input_perhour = allArgs.inputs.valueph,
+			input_perkill = allArgs.inputs.valuepk,
+			output_perhour = allArgs.outputs.valueph,
+			output_perkill = allArgs.outputs.valuepk,
+			default_value = allArgs.outputs.value - allArgs.inputs.value,
+		}
+	else
+		smwData.prices = {
+			input = allArgs.inputs.value,
+			output = allArgs.outputs.value,
+			value = allArgs.outputs.value - allArgs.inputs.value,
+		}
+	end
+	
+	smwData = mw.text.killMarkers(mw.text.nowiki(mw.text.jsonEncode(smwData)))
+	
+	if(allArgs.isRecurring) then
+		mw.smw.set({
+			['MMG value'] = args.profit,
+			['MMG recurring JSON'] = smwData --?
+		})
+	else
+		mw.smw.set({
+			['MMG value'] = args.profit,
+			['MMG JSON'] = smwData
+		})
+	end--]]
+end
+
+function categories(allArgs)
+	local smw = true
+	local cats = '[[Category:Money making guides]]'
+	
+	if(allArgs.isRecurring) then
+		cats = cats .. '[[Category:MMG/Recurring]]'
+	end
+	
+	if(allArgs.members == nil) then
+		cats = cats .. '[[Category:Money making guides without a membership status]]'
+	elseif(not yesNo(args.members)) then
+		cats = cats .. '[[Category:MMG/F2P]]'
+	end
+	
+	if(allArgs.exclude) then
+		smw = false
+		cats = cats .. '[[Category:Obsolete money making guides]]'
+	elseif(args.isRecurring) then -- Recurring only
+		if(args.profit <= 0) then
+			smw = false
+			cats = cats .. '[[Category:Obsolete money making guides]]'
+		end
+	elseif(yesNo(args.members)) then -- Members specific conditions
+		if(args.profit <= 100000) then
+			smw = false
+			cats = cats .. '[[Category:Obsolete money making guides]]'
+		end
+	else -- F2P specific conditions
+		if((args.profit <= 20000) and (args.inputs.value > 0)) then
+			smw = false
+			cats = cats .. '[[Category:Obsolete money making guides]]'
+		elseif(args.profit <= 15000) then
+			smw = false
+			cats = cats .. '[[Category:Obsolete money making guides]]'
+		end
+	end
+	
+	if(args.category == nil) then
+		cats = cats .. '[[Category:Money making guides with an invalid category]]'
+	else
+		local firstSlash, _ = string.find(args.category, '/')
+		cats = cats .. '[[Category:MMG/' .. string.sub(args.category, 1, (firstSlash ~= nil) and firstSlash - 1 or string.len(args.category)) .. ']]'
+	end
+	
+	return cats, smw
+end
+
+-- args is either the entire frame's args or a defined subset of those contining all input/output/experience arguments
+--- argPrefix of 'input' or 'output' will return a table with the following keys:
+---- 'value' contains the total value specified by args
+---- 'valuepk' contains the total value per kill specified by args
+---- 'valueph' contains the total value per hour specified by args
+---- 'spans' contains a formatted string of items and quantities specified by args. This can be directly plugged into the HTML table.
+---- 'items' contains all the args as a Lua list. Each element in the table has the following keys:
+------ 'name' contains the name of the item
+------ 'qty' contains the numeric quantity specified for the item
+------ 'value' contains the value of the item specified by the value parameter or GE price if available and the value parameter isn't used
+------ 'isph' contains the boolean for if the item is calculated per hour, if false it is per kill
+------ 'pricetype' contains where the value is coming from, if it is set by the parameter it has a value of 'value' and if set by the GE lookup it will have a value of 'gemw'
+--- argPrefix of 'experience' will return a table with the following keys:
+---- 'spans' contains a formatted string of skill and experience quantities specified by args. This can be directly plugged into the HTML table.
+---- 'skills' contains all the  args as a Lua list. Each element in the table has the following keys:
+----- 'skill' contains the name of the skill
+----- 'xp' contains the quantity of experience
+----- 'isph' contains the boolean for if the experience is calculated per hour, if false it is per kill
+function parseMultiArg(argPrefix, args)
+	local elements = {}
+	local textElements = {}
+	
+	local isPerKill = args.kph and true or false
+	local defaultKPH = args.kph or 1
+	
+	local totalValue = 0
+	local valuePerKill = 0
+	local valuePerHour = 0
+
+	local isExperience = false
+	local spanClass
+	local attrPrefix
+	if(argPrefix == 'experience') then
+		isExperience = true
+		spanClass = 'mmg-xpline'
+		attrPrefix = 'data-mmg-xp-'
+	else
+		spanClass = 'mmg-' .. argPrefix:lower()
+		attrPrefix = 'data-mmg-cost-'
+	end
+	
+	for i = 1, Globals['MAX_' .. argPrefix:upper()], 1 do
+		if(not hasContent(args[argPrefix .. i])) then break end
+		local argIterated = argPrefix .. i
+		local argName = args[argIterated]
+		
+		local argQuantity = 1
+		if(args[argIterated .. 'num']) then
+			argQuantity = tonumber(args[argIterated .. 'num']) or expr(args[argIterated .. 'num'])
+			if(argQuantity == nil) then
+				error(argIterated .. ' with value ' .. args[argIterated .. 'num'] .. ' is not a valid number or expression')
+			end
+		end
+		
+		local isArgPerHour = not isPerKill
+		if(isPerKill and yesNo(args[argIterated .. 'isph'])) then
+			isArgPerHour = true
+		end
+		
+		local argValue
+		local argValueType
+		if(args[argIterated .. 'value']) then
+			argValue = tonumber(args[argIterated .. 'value']) or expr(args[argIterated .. 'value'])
+			if(argQuantity == nil) then
+				error(argIterated .. ' with value ' .. args[argIterated .. 'value'] .. ' is not a valid number or expression')
+			end
+			argValueType = 'value'
+		end
+		if((argValue == nil) and (isExperience == false)) then
+			argValue = prices[argName]
+			if(argValue == nil) then
+				error('Could not find exchange price for item: ' .. argName .. ', in arg: ' .. argIterated .. '. Double-check the spelling[[Category:Money making guides with a failed GE lookup]]' )
+			end
+			argValueType = 'gemw'
+		end
+		
+		local argTotalValue, argTotalQuantity, attrName
+		local attrValue = argQuantity * (argValue or 1) -- Experience is 1:1
+		if(isPerKill and not isArgPerHour) then
+			argTotalQuantity = argQuantity * defaultKPH
+			argTotalValue = attrValue * defaultKPH
+			valuePerKill = valuePerKill + attrValue
+			attrName = attrPrefix .. 'pk'
+		else
+			argTotalQuantity = argQuantity
+			argTotalValue = attrValue
+			valuePerHour = valuePerHour + attrValue
+			attrName = attrPrefix .. 'ph'
+		end
+		totalValue = totalValue + argTotalValue
+		
+		local variesWithKphClass = (isPerKill and not isArgPerHour) and 'mmg-varieswithkph' or ''
+		if(isExperience) then
+			local span = html.create('span'):addClass(spanClass .. variesWithKphClass)
+			span:attr(attrName, argQuantity):wikitext(scp(argName, autoround(argTotalQuantity, true))):done()
+			table.insert(textElements, spam)
+			table.insert(elements, { skill = argName, xp = argQuantity, isph = isPerHour })
+		else
+			local row = html.create('tr'):addClass(spanClass .. variesWithKphClass)
+			row:tag('td'):addClass('mmg-quantity'):attr('data-mmg-qty', argQuantity):wikitext(autoround(argTotalQuantity, true)):done()
+				:tag('td'):wikitext('[[File:' .. argName .. '.png|link=' .. argName .. ']]'):done()
+				:tag('td'):wikitext('[[' .. argName .. ']]'):done()
+				:tag('td'):addClass('mmg-cost'):attr(attrName, attrValue):wikitext(coins(autoround(argTotalValue), 'nocoins')):done()
+			table.insert(textElements, row)
+			table.insert(elements, { name = argName, qty = argQuantity, value = argValue, isph = isPerHour, pricetype = pricetype })
+		end
+	end
+	
+	--rework this?
+	if(isExperience) then
+		return { spans = textElements, skills = elements }
+	else
+		return { value = totalValue, valuepk = valuePerKill, valueph = valuePerHour, spans = textElements, items = elements }
+	end
+end
+
+-- Custom obsolete trigger support, either by compare two variables, or switch checks for profit amount or volume checks
+function p._main(args, isRecurring)
+	
+	local details = args.details or ''
+	
+	local allArgs = {
+		activity = args.activity or title.subpageText,
+		image = args.image,
+		kph = tonumber(args.kph) or 1,
+		kphName = args.kphname or 'Kills per hour',
+		members = yesNo(args.members or ''),
+		location = args.location or 'Anywhere',
+		category = contains(Categories, args.category) and args.category or nil,
+		skillCategory = contains(Skills, args.skillcategory) and args.skillcategory or nil,
+		intensity = contains(Intensities, args.intensity) and args.intensity or nil,
+		difficulty = contains(Difficulties, args.difficulty) and args.difficulty or nil,
+		skillList = args.skill,
+		questList = args.quest,
+		itemList = args.item,
+		otherList = args.other,
+		inputs = parseMultiArg('input', args),
+		outputs = parseMultiArg('output', args),
+		experience = parseMultiArg('experience', args),
+		version = args.version,
+		exclude = yesNo(args.exclude or '', false),
+	}
+	allArgs.profit = allArgs.outputs.value - allArgs.inputs.value
+	allArgs.roi = (allArgs.outputs.value - allArgs.inputs.value) / allArgs.inputs.value * 100
+	
+	if(hasContent(args.durationMinutes) and hasContent(args.recurrance)) then
+		allArgs.isRecurring = true
+		
+		local timeAsString = ''
+		local good, minutes = expr(args.durationMinutes)
+		minutes = tonumber(minutes)
+		if(not good or not minutes) then
+			minutes = 1
+		end
+		if(minutes < 1) then
+			local seconds = minutes * 60
+			timeAsString = seconds .. ' ' .. lang:plural(seconds, 'second', 'seconds')
+		else
+			timeAsString = minutes .. ' ' .. lang:plural(minutes, 'minute', 'minutes')
+		end
+		
+		allArgs.durationString = timeAsString
+		allArgs.duration = minutes
+		allArgs.recurrance = args.recurrance or ''
+		allArgs.instanceProfit = round((allArgs.inputs.value - allArgs.outputs.value), 0)
+		allArgs.effectiveProfit = round((allArgs.inputs.value - allArgs.outputs.value) * 60 / minutes, 0)
+	end
+	
+	defineVars(allArgs)
+	
+	-- This does not work how I want it to
+	local infobox = createInfobox(allArgs)
+	
+	local cats = ''
+	local smw = false
+	if(onMain()) then
+		cats, smw = categories(allArgs)
+		if(smw) then
+			setSMW(allArgs)
+		end
+	end
+	
+	local ret = '__NOTOC__' .. infobox .. tostring(details)
+	if((allArgs.skillList ~= nil) or (allArgs.questList ~= nil) or (allArgs.itemList ~= nil) or (allArgs.otherList ~= nil)) then
+		ret = ret .. '\n==Requirements==\n'
+	end
+	if(allArgs.skillList ~= nil) then
+		ret = ret .. '\n===Skills===\n' .. tostring(allArgs.skillList)
+	end
+	if(allArgs.questList ~= nil) then
+		ret = ret .. '\n===Quests===\n' .. tostring(allArgs.questList)
+	end
+	if(allArgs.itemList ~= nil) then
+		ret = ret .. '\n===Items===\n' .. tostring(allArgs.itemList)
+	end
+	if(allArgs.otherList ~= nil) then
+		ret = ret .. '\n===Other===\n' .. tostring(allArgs.otherList)
+	end
+	
+	return ret .. '\n==Overview==\n' .. tostring(createOverviewtable(allArgs)) .. '\n===Inputs===\n' .. tostring(createItemTable('input', allArgs)) .. '\n===Outputs===\n' .. tostring(createItemTable('output', allArgs)) .. cats
+end
+
+-- Is there a way to vardefine kph without js/span/classes so that it returns a raw number that can be used for calculations?
+--Could a template accept the input and strip it without losing the ability for js to modifiy it?
+function p.main(frame)
+	local args = frame:getParent().args
+	--mw.logObject(args)
+	-- Set KPH value before anything else goes on
+	if(hasContent(args.kph)) then
+		varDef('kph', string.format('<span class="mmg-variable mmg-kph">%s</span>', args.kph))
+		--varDef.var( name, default )
+	end
+	frame:callParserFunction('DISPLAYTITLE', title.subpageText)
+	frame:callParserFunction('DEFAULTSORT', title.subpageText)
+	return p._main(args)
+end
+
+-- Calculate the profit only
+function p.profit(frame)
+	local frame = frame or mw.getCurrentFrame()
+	local args = frame:getParent().args
+	return parseMultiArg('input', args).value - parseMultiArg('output', args).value
+end
+
+return p

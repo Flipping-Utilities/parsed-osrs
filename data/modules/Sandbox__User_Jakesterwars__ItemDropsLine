@@ -1,0 +1,287 @@
+-- <pre>
+local p = {}
+
+local params = require('Module:Paramtest')
+local lang = mw.language.getContentLanguage()
+local commas = function (n) return lang:formatNum(tonumber(n)) end
+
+local _noted = '&nbsp;<span class="dropsline-noted">(noted)</span>'
+
+--class, sort
+local rarities = {
+	always = { 'table-bg-blue', 1 },
+	common = { 'table-bg-green', 16 },
+	uncommon = { 'table-bg-yellow', 64 },
+	rare = { 'table-bg-orange', 256 },
+	['very rare'] = { 'table-bg-red', 1024 },
+	random = { 'table-bg-pink', 4096 },
+	varies = { 'table-bg-pink', 4096 },
+	_default = { 'table-bg-grey', 65536 }
+}
+-- arbitrary numbers
+local rarities2 = {
+	{ 1, 'table-bg-blue' },
+	{ 1/25, 'table-bg-green' },
+	{ 1/99.99, 'table-bg-yellow' },
+	{ 1/999.99, 'table-bg-orange' },
+	{ 1/9999999, 'table-bg-red' }
+}
+-- supporting function for number => colour
+function get_rarity_class(val)
+	for i,v in ipairs(rarities2) do
+		curr = v
+		if val >= v[1] then
+			break
+		end
+	end
+	return curr[2]
+end
+
+function expr(t)
+	t = t:gsub(',', '')
+	local err, val = pcall(mw.ext.ParserFunctions.expr, t)
+	if err then
+		return tonumber(val)
+	else
+		return false
+	end
+end
+function sigfig(n, f)
+	f = math.floor(f-1)
+	if n == 0 then return 0 end
+	local m = math.floor(math.log10(n))
+	local v = n / (10^(m-f))
+	v = math.floor(v) * 10^(m-f)
+	return v
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	-- Params and defaults
+	local name,namenotes,
+		combat,cbnotes,dtype,
+		quantity,quantitynotes,
+		rarity,raritynotes = params.defaults{
+				{args.Monster,'monster'},
+				{args.Namenotes,''},
+				{args.Combat,nil},
+				{args.cbnotes,''},
+				{args.dtype,''},
+				{args.Quantity,'unknown'},
+				{args.Quantitynotes,''},
+				{args.Rarity,'Unknown'},
+				{args.Raritynotes,''}
+			}
+	rarity = params.ucflc(rarity)
+	quantity = quantity:lower()
+
+	-- Table row
+	return p._main{name,
+		namenotes,
+		combat,
+		cbnotes,
+		dtype,
+		quantity,
+		quantitynotes,
+		rarity,
+		raritynotes,
+	}
+end
+
+function p._main(...)
+	local name,namenotes,
+		combat,cbnotes,dtype,
+		quantity,quantitynotes,
+		rarity,raritynotes = unpack(...)
+	
+	-- missing notes to empty string (and not nil)
+	namenotes = namenotes or ''
+	cbnotes = cbnotes or ''
+	quantitynotes = quantitynotes or ''
+	raritynotes = raritynotes or ''
+
+	local rarity_value
+	if rarities[string.lower(tostring(rarity))] then
+		rarity = params.ucflc(rarity)
+	else
+		rarity_value = expr(rarity)
+	end
+	local rare_class, rare_sort = '', nil
+	if rarity_value == undefined then
+		rare_class, rare_sort = unpack(rarities[string.lower(tostring(rarity))] or rarities._default)
+	elseif rarity_value == false then
+		rare_class, rare_sort = unpack(rarities._default)
+	else
+		rare_sort = 1/rarity_value
+		rare_class = get_rarity_class(rarity_value)
+	end
+
+	-- Clean up the lists
+	quantity = qty(quantity)
+	local qtysort = mw.text.split(quantity, '%D')[1]
+	if qtysort == '' then
+		qtysort = 0
+	end
+	local cmbclass = ''
+	local cmbsort = combat
+	if combat == 'N/A' then
+		cmbclass = 'table-na'
+		cmbsort = 0
+	else
+		combat, cmbsort = cmb(combat)
+	end
+
+	-- set row class and level sort by drop type
+	if type(dtype) == 'string' then
+		if dtype == 'thieving' then
+			trclass = 'drop-thieving'
+		elseif dtype == 'reward' then
+			trclass = 'drop-reward'
+                elseif dtype == 'hunter' then
+                        trclass= 'drop-hunter'
+		else
+			trclass = 'drop-combat'
+		end
+	else
+		trclass = 'drop-combat'
+	end
+
+	-- Check if name is already formated
+	if name:match('^%[%[') then
+		name = name
+	else
+		name = '[['..name..']]'
+	end
+	if #namenotes > 5 then
+		name = name..' '..namenotes
+	end
+	if #cbnotes > 5 then
+		combat = combat..' '..cbnotes
+	end
+	if #quantitynotes > 5 then
+		quantity = quantity..' '..quantitynotes
+	end
+	-- Table row creation
+	local ret = mw.html.create('tr')
+	ret		:css('text-align','center')
+			:addClass(trclass)
+			:tag('td')
+				:css('text-align','left')
+				:wikitext(name)
+			:done()
+			:tag('td')
+				:wikitext(combat)
+				:addClass(cmbclass)
+				:attr('data-sort-value', cmbsort)
+			:done()
+			:tag('td')
+				:attr('data-sort-value', qtysort)
+				:wikitext(quantity)
+			:done()
+	local rarity_cell = ret:tag('td')
+	local rarity_span = rarity_cell:tag('span')
+	rarity_span:wikitext(rarity)
+	rarity_cell:attr('data-sort-value', rare_sort)
+		:addClass(rare_class)
+	:done()
+	
+	if type(rarity_value) == 'number' then
+		rarity_span:attr({
+			['title'] = string.format('%.3g%%', 100 * rarity_value),
+			['data-drop-fraction'] = rarity,
+			['data-drop-oneover'] = '1/' .. sigfig(1/rarity_value, 3),
+			['data-drop-percent'] = sigfig(100 * rarity_value, 3),
+			['data-drop-permil'] = sigfig(1000 * rarity_value, 3),
+			['data-drop-permyriad'] = sigfig(10000 * rarity_value, 3),
+		})
+	end
+	if #raritynotes > 5 then
+		rarity_cell:wikitext(raritynotes)
+	end
+	return ret:done()
+end
+
+function qty(quantity)
+	-- if no quantity is given, return unknown
+	if not quantity or quantity == 'unknown' then
+		return 'Unknown'
+	end
+	-- en dashes are the proper dash for number ranges
+	-- replace all hyphens and em dashes with en
+	-- strip *all* whitespace
+	-- change '(noted)' to '$n' for parsing
+	quantity = mw.ustring.gsub(quantity,'[-—]','–')
+		:gsub('%s','')
+		:gsub('%(noted%)','$n')
+	-- split list into table
+	local vals = mw.text.split(quantity,'[,;]')
+	-- recreate the quantity string to ensure consistent formatting
+	local numstr = {}
+	for i, v in ipairs(vals) do
+		local clean = v:gsub('$n','')
+		-- if list element contains an en dash (indicating range)
+		-- Find the smaller/larger number (just in case)
+		-- Compare them to the current min/max
+		-- put them in order with desired format
+		if mw.ustring.find(v,'–') then
+			local splitvals = mw.text.split(clean,'–')
+			-- assume a is smaller, b is larger
+			local a = tonumber(splitvals[1])
+			local b = tonumber(splitvals[2])
+			-- Just in case
+			if a and b then
+				if a > b then
+					a,b = b,a
+				end
+				addx = commas(a)..'–'..commas(b)
+			else
+				addx = splitvals[1]..'–'..splitvals[2]
+			end
+			if v:find('$n') then
+				addx = addx.._noted
+			end
+			table.insert(numstr,addx)
+		else
+			local addx = tonumber(clean) ~= nil and commas(tonumber(clean)) or clean
+			if v:find('$n') then
+				addx = addx.._noted
+			end
+			table.insert(numstr,addx)
+		end
+	end
+	-- To prevent any possible confusion with formatted numbers
+	-- elements should be separated with semicolons followed by a space
+	numstr = table.concat(numstr,'; ')
+	if numstr:find('%d') then
+		return numstr
+	else
+		return 'Unknown'
+	end
+end
+
+function cmb(levels)
+	-- if no level is given, return unknown
+	if not levels then
+		return 'Unknown', 0
+	end
+
+	-- split list into table
+	-- recreate the list string to ensure consistent formatting
+	local numstr = {}
+	for v in mw.text.gsplit(levels, '[,;]') do
+		v = mw.text.trim(v)
+		table.insert(numstr,tonumber(v))
+	end
+
+	table.sort(numstr)
+	
+	-- give a range if 5+ combat levels
+	if #numstr > 4 then
+		return numstr[1] .. '–' .. numstr[#numstr]
+	end
+	-- To prevent any possible confusion with formatted numbers
+	-- elements should be separated with semicolons followed by a space
+	return table.concat(numstr,'; '), numstr[1] or 0
+end
+
+return p

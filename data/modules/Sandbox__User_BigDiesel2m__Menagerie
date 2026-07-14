@@ -1,0 +1,55 @@
+-- <pre>
+local p = {}
+
+local hasc = require('Module:Paramtest').has_content
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local items = {}
+	for i=1,24 do
+		local v = mw.text.trim(args[i] or '')
+		local item_x
+		if hasc(v) then
+			item_x = v:gsub('[][]','')
+		end
+		table.insert(items,{item=item_x})
+	end
+	local caption = args.caption
+	local align = args.align
+	local acss
+	if hasc(align) then
+		align = align:lower()
+		if align == 'right' then
+			acss = "float:right"
+		elseif align == 'left' then
+			acss = "float:left"
+		elseif align == 'center' then
+			acss = 'margin:0 auto'
+		end
+	end
+	return p._main(items,caption,acss)
+end
+
+function p._main(items,caption,acss)
+	local className = "menagerietable"
+	local ret = mw.html.create('table')
+				:addClass(className)
+				:cssText(acss or '')
+
+	local item = 0
+	for i=1,4 do
+		local ret_row = ret:tag('tr')
+		for j=1,6 do
+			item = item + 1
+			local itemx = items[item].item
+			local td = ret_row:tag('td')
+			if hasc(itemx) then
+				td:wikitext(string.format('[[File:%s.png|link=%s|32x32px|frameless]]', itemx, itemx))
+			end
+		end
+	end
+
+	return ret
+end
+
+return p

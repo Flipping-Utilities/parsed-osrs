@@ -1,0 +1,242 @@
+local p = {}
+
+local mat_data = {
+	["shards"] = {name = "Crystal shard", img = "Crystal shard 25", page = "Crystal shards (The Gauntlet)"},
+	["frame"] = {name = "Weapon frame", img = "Weapon frame", page = "Weapon frame"},
+	["bowstring"] = {name = "Crystalline bowstring", img = "Crystalline bowstring", page = "Crystalline bowstring"},
+	["spike"] = {name = "Crystal spike", img = "Crystal spike", page = "Crystal spike"},
+	["orb"] = {name = "Crystal orb", img = "Crystal orb", page = "Crystal orb"},
+	["ore"] = {name = "Crystal ore", img = "Crystal ore", page = "Crystal ore"},
+	["bark"] = {name = "Phren bark", img = "Phren bark", page = "Phren bark"},
+	["tirinum"] = {name = "Linum tirinum", img = "Linum tirinum", page = "Linum tirinum"},
+	["leaf"] = {name = "Grym leaf", img = "Grym leaf", page = "Grym leaf"},
+	["paddlefish"] = {name = "Raw paddlefish", img = "Raw paddlefish", page = "Raw paddlefish"}
+}
+
+local mats = {
+	weapon = {
+		None = {
+			bow = {},
+			halberd = {},
+			staff = {}
+		},
+		Basic = {
+			bow = {
+				shards = 20,
+				frame = 1
+			},
+			halberd = {
+				shards = 20,
+				frame = 1
+			},
+			staff = {
+				shards = 20,
+				frame = 1
+			}
+		},
+		Attuned = {
+			bow = {
+				shards = 80,
+				frame = 1
+			},
+			halberd = {
+				shards = 80,
+				frame = 1
+			},
+			staff = {
+				shards = 80,
+				frame = 1
+			}
+		},
+		Perfected = {
+			bow = {
+				shards = 80,
+				frame = 1,
+				bowstring = 1
+			},
+			halberd = {
+				shards = 80,
+				frame = 1,
+				spike = 1
+			},
+			staff = {
+				shards = 80,
+				frame = 1,
+				orb = 1
+			}
+		}
+	},
+	armour = {
+		None = {
+			helm = {},
+			body = {},
+			legs = {}
+		},
+		Basic = {
+			helm = {
+				shards = 40,
+				ore = 1,
+				bark = 1,
+				tirinum = 1
+			},
+			body = {
+				shards = 40,
+				ore = 1,
+				bark = 1,
+				tirinum = 1
+			},
+			legs = {
+				shards = 40,
+				ore = 1,
+				bark = 1,
+				tirinum = 1
+			}
+		},
+		Attuned = {
+			helm = {
+				shards = 100,
+				ore = 2,
+				bark = 2,
+				tirinum = 2
+			},
+			legs = {
+				shards = 100,
+				ore = 2,
+				bark = 2,
+				tirinum = 2
+			},
+			body = {
+				shards = 100,
+				ore = 3,
+				bark = 3,
+				tirinum = 3
+			}
+		},
+		Perfected = {
+			helm = {
+				shards = 180,
+				ore = 4,
+				bark = 4,
+				tirinum = 4
+			},
+			legs = {
+				shards = 180,
+				ore = 4,
+				bark = 4,
+				tirinum = 4
+			},
+			body = {
+				shards = 180,
+				ore = 5,
+				bark = 5,
+				tirinum = 5
+			}
+		}
+	},
+	food = {
+		egniol = {
+			shards = 20,
+			leaf = 1
+		},
+		fish = {
+			paddlefish = 1
+		},
+		corrupted_fish = {
+			shards = 10,
+			paddlefish = 1
+		}
+	},
+	other = {
+		teleport_crystal = {
+			shards = 40
+		},
+		escape_crystal = {
+			shards = 200
+		}
+	}
+}
+
+function p.main(frame)
+	args = frame.args
+	return p._main(args)
+end
+
+function p._main(args)
+	required_mats = calc_mat_requirements(args)
+	return create_table(required_mats)
+end
+
+function create_table(materials)
+	local t = mw.html.create('table')
+	t:addClass('wikitable sortable')
+	:tag('tr')
+	:tag('th')  :wikitext('Item')       :attr('colspan', 2) :done()
+	:tag('th')  :wikitext('Quantity')                       :done()
+	:done()
+	for mat, quantity in pairs(materials) do
+		t:tag('tr')
+	    :tag('td')	:wikitext("[[File:" .. mat_data[mat].img .. ".png|25px]]") :done()
+	    :tag('td')	:wikitext("[[" .. mat_data[mat].page .. "|" .. mat_data[mat].name .. "]]") :done()
+	    :tag('td')	:wikitext(quantity) :done()
+	    :done()
+	end
+	return t
+end
+
+function calc_mat_requirements(args)
+	current_mats = {}
+	
+	if args.weapons
+	then 
+		current_mats = add_mats(current_mats, get_item_cost('weapon', 'staff', args.staffTier))
+		current_mats = add_mats(current_mats, get_item_cost('weapon', 'bow', args.bowTier))
+		current_mats = add_mats(current_mats, get_item_cost('weapon', 'halberd', args.halberdTier))
+	end
+	
+	if args.armour
+	then 
+		current_mats = add_mats(current_mats, get_item_cost('armour', 'helm', args.helmTier))
+		current_mats = add_mats(current_mats, get_item_cost('armour', 'legs', args.bodyTier))
+		current_mats = add_mats(current_mats, get_item_cost('armour', 'body', args.legsTier))
+	end
+	
+	if args.food
+	then 
+		current_mats = add_mats(current_mats, get_consumable_cost('egniol', args.egniolQuantity))
+		current_mats = add_mats(current_mats, get_consumable_cost('fish', args.paddlefishQuantity))
+		current_mats = add_mats(current_mats, get_consumable_cost('corrupted_fish', args.corrPadQuantity))
+	end
+	
+	if args.other
+	then 
+		current_mats = add_mats(current_mats, get_consumable_cost('teleport_crystal', args.teleCrystal))
+		current_mats = add_mats(current_mats, get_consumable_cost('escape_crystal', 1))
+	end
+	
+	return current_mats
+end
+
+function get_item_cost(item_type, item, tier)
+	return mats[item_type][tier][item]
+end
+
+function get_consumable_cost(item, quantity)
+	food_mats = {}
+	for i, mat_quantity in ipairs(mats.item) do
+      food_mats[i] = mat_quantity * quantity
+    end
+	return food_mats
+end
+
+function add_mats(current_mats, new_tier_mats)
+	for k,v in pairs(new_tier_mats) do
+		if current_mats[k] ~= nil then
+			current_mats[k] = current_mats[k] + new_tier_mats[k]
+		else
+			current_mats[k] = new_tier_mats[k]
+		end
+	end
+	return current_mats
+end
+
+return p

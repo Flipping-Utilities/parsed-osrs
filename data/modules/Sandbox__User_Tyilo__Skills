@@ -1,0 +1,111 @@
+local p = {}
+
+local addcommas = require( 'Module:Addcommas' )._add
+
+local SKILLS = {
+	'Overall',
+	'Attack',
+	'Defence',
+	'Strength',
+	'Hitpoints',
+	'Ranged',
+	'Prayer',
+	'Magic',
+	'Cooking',
+	'Woodcutting',
+	'Fletching',
+	'Fishing',
+	'Firemaking',
+	'Crafting',
+	'Smithing',
+	'Mining',
+	'Herblore',
+	'Agility',
+	'Thieving',
+	'Slayer',
+	'Farming',
+	'Runecraft',
+	'Hunter',
+	'Construction',
+}
+
+local MINIGAMES = {
+	'Bounty Hunter - Hunter',
+	'Bounty Hunter - Rogue',
+	'Clue Scrolls (all)',
+	'Clue Scrolls (easy)',
+	'Clue Scrolls (medium)',
+	'Clue Scrolls (hard)',
+	'Clue Scrolls (elite)',
+	'Clue Scrolls (master)',
+	'LMS - Rank',
+}
+
+local NAME = 1
+local RANK = 2
+local LEVEL = 3
+local EXP = 4
+
+function get_skill_data(frame)
+	local hs_data = frame:callParserFunction('#hs', 'osrs', 'Tyilo')
+	local lines = mw.text.split(hs_data, '\n', true)
+	
+	local skill_data = {}
+	for i, skill in ipairs(SKILLS) do
+		local line_data = {skill}
+		for num in mw.text.gsplit(lines[i], ',', true) do
+			table.insert(line_data, tonumber(num))
+		end
+		table.insert(skill_data, line_data)
+	end
+	
+	return skill_data
+end
+
+function p.main(frame)
+	skill_data = get_skill_data(frame)
+	
+	-- Sort skills by exp
+	function cmp_third(t1, t2)
+		return t1[3] < t2[3]
+	end
+	table.sort(skill_data, cmp_third)
+	
+	-- Create table
+	local t = mw.html.create('table')
+	t
+		:addClass('wikitable sortable')
+--		:tag('thead')
+			:tag('tr')
+				:tag('th')
+					:wikitext('Skill')
+				:done()
+				:tag('th')
+					:wikitext('Level')
+				:done()
+				:tag('th')
+					:wikitext('Experience')
+	
+	--local tbody = t:tag('tbody')
+	local tbody = t
+	
+	for _, fields in ipairs(skill_data) do
+		local name, rank, level, experience = unpack(fields)
+		tbody
+			:tag('tr')
+				:tag('td')
+					:wikitext(frame:expandTemplate{title='SCP', args={name}} .. ' [[' .. name .. ']]')
+				:done()
+				:tag('td')
+					:wikitext(level)
+				:done()
+				:tag('td')
+					:wikitext(addcommas(experience))
+				:done()
+			:done()
+	end
+
+	return tostring(t)
+end
+
+return p

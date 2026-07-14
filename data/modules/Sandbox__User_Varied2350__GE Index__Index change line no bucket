@@ -1,0 +1,139 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local dateOrder, parsedArgs = parseArgs(args)
+	return render(args['render'], parsedArgs, dateOrder)
+end
+
+function render(renderType, data, dateOrder)
+	if renderType == 'Table' then
+		local rows = mw.html.create()
+		for i,chgDate in ipairs(dateOrder) do
+			local chgData = data[chgDate]
+			local maxNum = math.max(count(chgData['items']['add']), count(chgData['items']['rem']))
+			for itemIdx = 1, maxNum, 1 do
+				local row = rows:tag('tr')
+				if itemIdx == 1 then
+					row:tag('td'):attr('rowspan', maxNum):wikitext(chgDate)
+				end
+				
+				local k, v = getAtIndex(chgData['items']['add'], itemIdx)
+				if count(chgData['items']['add']) >= itemIdx then
+					row:tag('td'):wikitext(k)
+				elseif count(chgData['items']['add']) == itemIdx - 1 then
+					row:tag('td'):attr('rowspan', maxNum-itemIdx+1):wikitext('N/A')
+				end
+				row:tag('td'):wikitext(v['price'])
+				if count(chgData['items']['rem']) >= itemIdx then
+					row:tag('td'):attr('rowspan', maxNum-itemIdx):wikitext('N/A')
+				elseif count(chgData['items']['rem']) == itemIdx - 1 then
+					row:tag('td'):attr('rowspan', maxNum-itemIdx+1):wikitext('N/A')
+				end
+			end
+		end
+		return rows
+	end
+end
+
+function count(dict)
+	local count = 0
+	for _ in pairs(dict) do count = count + 1 end
+	return count
+end
+
+function getAtIndex(tab, idx)
+	local i = 1
+	for k,v in pairs(tab) do
+		if i == idx then
+			return k, v
+		end
+		i = i + 1
+	end
+	return returnVal
+end
+
+function parseArgs(args)
+	local parsedArgs = {}
+	local basePrices = {}
+	local dateOrder = {}
+	
+	local lastData = {}
+	for argIdx = 1, 50, 1 do
+		local changeDate = args['date'..argIdx]
+		local changeItemsStr = args['date'..argIdx..'items']
+		
+		if not changeDate then
+			mw.log('No date for arg index ' .. argIdx)
+			break
+		end
+		
+		dateOrder[argIdx] = changeDate
+		
+		parsedArgs[changeDate] = {}
+		
+		
+		local changeItems = {}
+		local currPrices = {}
+		changeItems['add'] = {}
+		changeItems['rem'] = {}
+		local tmpIdx = 1
+		local tmpItem = ''
+		local tmpPrice = 0
+		local qty = 0
+		local newQty = 0
+		for str in string.gmatch(changeItemsStr, "([^,]+)") do
+			if tmpIdx % 2 == 1 then
+				tmpItem = str
+			else
+				local isRemove = string.find(tmpItem, "^-")
+				local listStr = string.find(tmpItem, "^-") and "rem" or "add"
+				tmpItem = string.gsub(tmpItem, "%-", "")
+				tmpPrice = tonumber(str)
+				if not basePrices[tmpItem] then
+					basePrices[tmpItem] = tmpPrice
+					qty = qty + 1
+				end
+				currPrices[tmpItem] = tmpPrice
+				local basePrice = basePrices[tmpItem] or tmpPrice
+				
+				changeItems[listStr][tmpItem] = {['price'] = tmpPrice, ['baseprice'] = basePrice}
+			end
+			tmpIdx = tmpIdx + 1
+		end
+		parsedArgs[changeDate]['items'] = changeItems
+		
+		if argIdx == 1 then
+			-- the first divisor is just the quantity
+			parsedArgs[changeDate]['divisor'] = qty
+		else
+			local priorRatioSum = 0.0
+			for k,v in pairs(lastData['items']['add']) do
+				local basePrice = basePrices[k]
+				local currPrice = currPrices[k]
+				priorRatioSum = priorRatioSum + currPrice / basePrice
+			end
+			local removedRatioSum = 0.0
+			for k,v in pairs(parsedArgs[changeDate]['items']['rem']) do
+				removedRatioSum = removedRatioSum + currPrice[k] / basePrice[k]
+			end
+			
+			local newDivisor = lastData['divisor'] * ((priorRatioSum - removedRatioSum + qty)/priorRatioSum)
+			parsedArgs[changeDate]['divisor'] = roundToDecimal(newDivisor, 4)
+		end
+		
+		lastData = parsedArgs[changeDate]
+	end
+	return dateOrder, parsedArgs
+end
+
+function roundToDecimal(num, decimalPlaces)
+	local multiple = 10 ^ decimalPlaces
+	return math.floor(num * multiple + 0.5) / multiple
+end
+
+return p

@@ -1,0 +1,505 @@
+-- <pre>
+local p = {}
+
+local params = require('Module:Paramtest')
+local lang = mw.language.getContentLanguage()
+local commas = function (n) return lang:formatNum(n) end
+local coins_image = require('Module:Coins image')
+local geprice = require('Module:Exchange')._price
+
+local ns = mw.title.getCurrentTitle().nsText
+
+local _noted = '&nbsp;<span class="dropsline-noted">(noted)</span>'
+
+--bg, txt, sort
+local rarities = {
+	always = { 'table-bg-blue', 1 },
+	common = { 'table-bg-green', 16 },
+	uncommon = { 'table-bg-yellow', 64 },
+	rare = { 'table-bg-orange', 256 },
+	['very rare'] = { 'table-bg-red', 1024 },
+	random = { 'table-bg-pink', 4096 },
+	varies = { 'table-bg-pink', 4096 },
+	_default = { 'table-bg-grey', 65536 }
+}
+
+-- arbitrary numbers
+local rarities2 = {
+	{ 1, 'table-bg-blue' },
+	{ 1/16, 'table-bg-green' },
+	{ 1/64, 'table-bg-yellow' },
+	{ 1/256, 'table-bg-orange' },
+	{ 1/1024, 'table-bg-red' }
+}
+
+function get_rarity_class(val)
+	for i,v in ipairs(rarities2) do
+		curr = v
+		if val >= v[1] then
+			break
+		end
+	end
+	return curr[2]
+end
+
+-- list of items to automatically not use gemw
+-- this should only be used for items dropped by many monsters
+local nogemw = {
+	'clue scroll', 'starved ancient effigy', 'rare drop table', 'warpriest', 'court summons'
+}
+
+function expr(t)
+	local err, val = pcall(mw.ext.ParserFunctions.expr, t)
+	if err then
+		return tonumber(val)
+	else
+		return false
+	end
+end
+function sigfig(n, f)
+	f = math.floor(f-1)
+	if n == 0 then return 0 end
+	local m = math.floor(math.log10(n))
+	local v = n / (10^(m-f))
+	v = math.floor(v) * 10^(m-f)
+	return v
+end
+p.sigfig = sigfig
+
+function p.main(frame)
+	local args = frame:getParent().args
+	-- Params and defaults
+	local name,namenotes,
+		quantity,quantitynotes,
+		rarity,raritynotes,members = params.defaults{
+					{args.Name,'Item'},
+					{args.Namenotes,''},
+					{args.Quantity,'unknown'},
+					{args.Quantitynotes,''},
+					{args.Rarity,'unknown'},
+					{args.Raritynotes,''},
+					{args.Members,''}
+				}
+	local isCoins = name:lower() == 'coins'
+	local altname = params.default_to(args.Alt,name)
+	local gemwname = params.default_to(args.gemwname,name)
+	local raritynotes = args.Raritynotes or ''
+	
+	local rarity_value
+	if rarities[rarity:lower()] then
+		rarity = params.ucflc(rarity)
+	else
+		rarity_value = expr(rarity)
+	end
+		
+	quantity = quantity:lower()
+	local gemw = string.lower(args.gemw or 'yes') == 'yes'
+
+	-- automatic no gemw
+	for _, v in ipairs(nogemw) do
+		if string.match(string.lower(name or ''), v) then
+				gemw = false
+			break
+		end
+	end
+
+	local price
+	local alt = false
+	-- Test for existence of an exchange page
+	local hasgemw
+	if gemw and not isCoins then
+		hasgemw, price = pcall(geprice,gemwname)
+	elseif args.AltValue and not isCoins then
+		price = args.AltValue:gsub(',','')
+		alt = true
+	elseif isCoins then
+		price = 1
+		alt = true
+		gemw = false
+	end
+	-- Clean up price
+	price = tonumber(price,10) or false
+
+	-- Use 'File:<name>.png' if no image param
+	-- Use 'File:<image>' if image param; image param will include extension
+	-- Special catch for coins
+	if string.lower(members) == 'yes' then
+		image_members = '[[File:Member_icon.png|link=Members]]'
+	else
+		image_members = '[[File:Free-to-play_icon.png|link=Free-to-play]]'
+	end
+	local image,image_n
+	if isCoins then
+		image_n = coins_image(quantity)
+	else
+		image_n = params.default_to(args.Image, name .. '.png')
+	end
+	if image_n:lower() == 'no' or params.is_empty(args.Name) then
+		image = ''
+	else
+		image = '[[File:' .. image_n .. '|link=' .. name .. ']]'
+	end
+	-- this only affects the JSON
+	local smwjson = string.lower(args.smwjson or '')
+	if smwjson == 'no' then
+		smwjson = false
+		elseif smwjson == 'rdt' then
+		smwjson = 'rdt'
+	else
+		smwjson = true
+	end
+		
+	-- Table row
+	local ret =  p._main{ name,
+			altname,
+			namenotes,
+			quantity,
+			quantitynotes,
+			rarity,
+			rarity_value,
+			raritynotes,
+			price,
+			alt,
+			image,
+			members,
+			gemw,
+			hasgemw,
+			smwjson }
+
+	-- categories for mainspace
+	local cats = ''
+	
+	if ns == '' then
+		cats = categories{name,quantity,rarity}
+	end
+	return ret..cats
+end
+
+function p._main(...)
+	local name,altname,namenotes,
+		quantity,quantitynotes,
+		rarity,rarity_value,raritynotes,
+		price,alt,image,gemw,hasgemw,smwjson = unpack(...)
+	local total, vsort, _h, _l
+	quantity, total, vsort, _h, _l = qty(price,quantity)
+	
+	
+	local rare_class, rare_sort
+	if rarity_value == undefined then
+		rare_class, rare_sort = unpack(rarities[rarity:lower()] or rarities._default)
+	elseif rarity_value == false then
+		rare_class, rare_sort = unpack(rarities._default)
+	else
+		rare_sort = 1/rarity_value
+		rare_class = get_rarity_class(rarity_value)
+	end
+
+	if type(vsort) ~= 'number' then
+		vsort = 0
+	end
+
+	local _r = rarity
+
+	if #quantitynotes > 3 then
+		quantity = quantity..quantitynotes
+	end
+
+	-- Table row creation
+	local ret = mw.html.create('tr')
+			:css('text-align','center')
+			:tag('td')
+				:addClass('inventory-image')
+				:wikitext(image)
+			:done()
+			:tag('td')
+				:css('text-align','left')
+				:attr('data-sort-value',namesort(name,rare_sort))
+				:wikitext(string.format('[[%s|%s]]%s',name,altname, #namenotes > 3 and namenotes or '' ))
+			:done()
+			:tag('td')
+				:wikitext(quantity)
+			:done()
+			:tag('td')
+				:addClass('members-image')
+				:wikitext(image_members)
+			:done()
+	local rarity_cell = ret:tag('td')
+	local rarity_span = rarity_cell:tag('span')
+	rarity_span:wikitext(rarity)
+	rarity_cell:attr('data-sort-value',rare_sort)
+				:addClass(rare_class)
+	if type(rarity_value) == 'number' then
+		rarity_cell:attr('title', string.format('%.3g%%', 100 * rarity_value))
+		rarity_span:attr({
+			['data-drop-fraction'] = rarity,
+			['data-drop-oneover'] = '1/' .. sigfig(1/rarity_value, 3),
+			['data-drop-percent'] = sigfig(100 * rarity_value, 3),
+			['data-drop-permil'] = sigfig(1000 * rarity_value, 3),
+			['data-drop-permyriad'] = sigfig(10000 * rarity_value, 3),
+		})
+	end
+	if #raritynotes > 3 then
+		rarity_cell:wikitext(raritynotes)
+	end
+	if gemw and hasgemw and not alt then
+		local _coins = ' coin'..(price > 1 and 's' or '')
+
+		ret	:tag('td')
+				:attr('title',commas(price).._coins..' each')
+				:attr('data-sort-value',vsort)
+				:css({ ['text-align'] = 'center',
+					cursor = 'help' })
+				:wikitext(total)
+			:done()
+	elseif alt then
+		local _coins = ' coin'..(price > 1 and 's' or '')
+		ret	:tag('td')
+				:attr('data-sort-value',vsort)
+				:attr('title',commas(price).._coins..' each; this item has a distinct value, even though it cannot be traded on the Grand Exchange.')
+				:css({ ['text-align'] = 'center',
+					cursor = 'help' })
+				:wikitext(total)
+			:done()
+	elseif gemw and not hasgemw then
+		ret	:tag('td')
+				:attr('data-sort-value',vsort)
+				:attr('title','This item cannot be traded on the Grand Exchange and has no applicable value to display.')
+				:css({ ['text-align'] = 'center',
+					cursor = 'help',
+					color = '#FF0000' })
+				:wikitext('Not sold')
+			:done()
+	else
+		ret	:tag('td')
+				:attr('data-sort-value',vsort)
+				:css({ ['text-align'] = 'center',
+					cursor = 'help' })
+				:tag('span')
+					:attr('title','Exchange page not found for "'..name..'". Double check that the exact item name and casing is used for the "name" parameter. Add "gemw=no" to this template if this item cannot be traded on the Grand Exchange or ignore this error and wait for the exchange page to be made.')
+					:css({  ['text-align'] = 'right',
+						color = '#FF0000',
+						cursor = 'help',
+						['border-bottom'] = '1px dashed',
+						['font-weight'] = 'bold' })
+					:wikitext('Error')
+				:done()
+			:done()
+	end
+
+	-- SMW
+	if ns == '' then
+		local smw = {}
+		local smw_done = false
+		local smw_variant_pattern = '[%(]' -- things to apply the variant property to - if name matches this pattern, apply property
+		if smwjson == true then
+			smw['Drops item'] = name
+			smw['Drop JSON'] = string.format('&#123; "name": "%s", "quantity": &#91;%s,%s&#93;, "rarity": "%s" &#125;', name, _l or "'?'", _h or "'?'", _r)
+			if name:find(smw_variant_pattern) then
+				smw['Drops item variant'] = name
+			end
+			smw_done = true
+		elseif smwjson == 'rdt' then
+			smw['Drops item from RDT'] = name
+			if name:find(smw_variant_pattern) then
+				smw['Drops item variant from RDT'] = name
+			end
+			smw_done = true
+		end
+		if smw_done then
+			mw.smw.set(smw)
+		end
+	end
+	
+	return tostring(ret)
+end
+
+
+function qty(price,quantity)
+	-- if no quantity is given, return unknown and the price
+	if quantity == 'varies' then
+		return 'Varies', price
+	end
+	if not quantity or quantity == 'unknown' then
+		return 'Unknown', price
+	end
+	-- en dashes are the proper dash for number ranges
+	-- replace all hyphens and em dashes with en
+	-- strip *all* whitespace
+	-- change '(noted)' to '$n' for parsing
+	quantity = mw.ustring.gsub(quantity,'[-—]','–')
+		:gsub('%s','')
+		:gsub('%(noted%)','$n')
+	-- split list into table
+	local vals = mw.text.split(quantity,'[,;]')
+	-- All prices ranges will be a range
+	-- e.g. if items valued at 100 coins are dropped in quantities of 1, 3, 5
+	-- the price will be 100–500 rather than 100; 300; 500
+	-- If low and high vars are the same in the end, only 1 price is displayed
+	local low = 2147483648
+	local high = 0
+	-- recreate the quantity string to ensure consistent formatting
+	local numstr = {}
+	for i, v in ipairs(vals) do
+		local clean = v:gsub('$n','')
+		-- if list element contains an en dash (indicating range)
+		-- Find the smaller/larger number (just in case)
+		-- Compare them to the current min/max
+		-- put them in order with desired format
+		if mw.ustring.find(v,'–') then
+			local splitvals = mw.text.split(clean,'–')
+			-- assume a is smaller, b is larger
+			local a = tonumber(splitvals[1])
+			local b = tonumber(splitvals[2])
+			-- Just in case
+			if a > b then
+				a,b = b,a
+			end
+			if a < low then
+				low = a
+			end
+			if b > high then
+				high = b
+			end
+			local addx = commas(a)..'–'..commas(b)
+			if v:find('$n') then
+				addx = addx.._noted
+			end
+			table.insert(numstr,addx)
+		else
+			local a = tonumber(clean)
+			if a < low then
+				low = a
+			end
+			if a > high then 
+				high = a
+			end
+			local addx = commas(a)
+			if v:find('$n') then
+				addx = addx.._noted
+			end
+			table.insert(numstr,addx)
+		end
+	end
+	-- Add a line break if there are too many elements
+	-- To keep the tables thin
+	if #numstr > 11 then
+		local mid = math.floor(#numstr/2)
+		numstr[mid] = '<br/>'..numstr[mid]
+	end
+	-- To prevent any possible confusion with formatted numbers
+	-- elements should be separated with semicolons followed by a space
+	numstr = table.concat(numstr,'; ')
+	-- If no numbers are found in the string, return unknown
+	if not numstr:find('%d') then
+		return 'Unknown', price
+	end
+
+	local qtys
+
+	if high == low then
+		qtys = { high = high }
+	else
+		qtys = { low = low, high = high }
+	end
+
+	local priceret = get_price(price,qtys)
+
+	-- highest val to also be used as a sort key
+	local sort = 0
+	if tonumber(price) then
+		sort = high * tonumber(price)
+	end
+
+	return numstr, priceret, sort, high, low
+end
+
+-- function to parse the quantity ranges and give a price range
+-- also returns the desired format
+function get_price(price,quantity)
+	local ttl
+	if not price then
+		ttl = 'Not sold'
+	elseif not quantity.low then
+		ttl = price * quantity.high
+		ttl = commas(ttl)
+	else
+		local lower = price * quantity.low
+		local higher = price * quantity.high
+		ttl = commas(lower) .. '–' .. commas(higher)
+	end
+	return ttl
+end
+
+-- match -> category
+-- pattern matching allowed
+-- all lowercase
+-- DO NOT INFLATE THIS TABLE
+-- If a specific item does not fall into the category you want it to
+-- then oh well
+-- get over it
+-- if items fall into a category they shouldn't, that's fine too
+-- these aren't directly visible and are only used a rough sort
+local sortnames = {
+	runes = { ' rune$' },
+	talismans = { 'talisman' },
+	armour = { 'platebody', 'platelegs', 'plateskirt', 'helm', 'kiteshield', 'shield ', 'shield$', 'gloves', 'boots', 
+			'chainbody', 'cape' },
+	weapons = { 'axe', 'sword', 'staff', 'javelin', 'bow', 'hatchet', 'wand', 'spear', 'halberd', 'claw',
+			'mace', 'warhammer', 'whip', 'dagger', 'throwing', 'dart', 'hasta', 'scimitar' },
+	ammunition = { 'arrow', 'bolt' },
+	logs = { 'logs' },
+	herbs = { 'grimy', '^clean' },
+	seeds = { 'seed', 'spore' },
+	ores = { ' ore$', 'coal' },
+	bars = { ' bar$' },
+	gems = { 'uncut' },
+	raw = { '^raw' },
+	potions = { '%([1-4]%)$' }, -- this might match too much, but whatever
+
+	-- Sorting of common items to consistent places
+	-- sort rare drop table to back
+	zzz = { 'rare drop table' },
+	-- sort coins to front
+	['!!!'] = { '^coins' },
+}
+
+-- adds a category in front of the name to give it a slightly improved sorting function
+function namesort(arg,rarg)
+	local arg = string.lower(arg or '')
+	local cat = '!other' -- "!" to keep in front
+
+	for w, v in pairs(sortnames) do
+		for _, x in ipairs(v) do
+			if mw.ustring.match(arg,x) then
+				cat = w
+				break
+			end
+		end
+	end
+
+	return string.format('%s %s %s',cat,rarg,arg)
+end
+
+-- adding categories to mainspace
+function categories(...)
+	local name,quantity,rarity = unpack(...)
+	local ret = ''
+	name = name:lower()
+	quantity = quantity:lower()
+	if name:find('effigy') then
+		ret = ret .. '[[Category:Effigy dropping monsters]]'
+	elseif name:find('clue scroll') then
+		ret = ret .. '[[Category:Clue scroll dropping monsters]]'
+	elseif name:find('rare drop table') then
+		ret = ret .. '[[Category:Monsters with access to the rare drop table]]'
+	end
+	if not rarities[rarity:lower()] then
+		ret = ret .. '[[Category:Needs drop rarity added]]'
+	end
+	if quantity:find('unknown') then
+		ret = ret .. '[[Category:Needs drop quantity added]]'
+	end
+	return ret
+end
+
+return p

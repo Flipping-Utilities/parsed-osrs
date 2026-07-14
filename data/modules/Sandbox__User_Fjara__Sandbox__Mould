@@ -1,0 +1,18 @@
+local p = {}
+
+function p._main(args)
+	return ''
+end
+
+--[[ DEBUG
+
+--]]
+
+function p.main(frame)
+	--local args = frame:getParent().args -- normal template
+	--local args = frame.args -- calculator
+	--mw.logObject(args)
+	return p._main(args)
+end
+
+return p

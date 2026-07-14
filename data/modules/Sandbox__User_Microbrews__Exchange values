@@ -1,0 +1,54 @@
+local dpl = require( 'Module:DPLlua' )
+
+local p = {}
+
+function p.main()
+	local a = dpl.ask({
+		namespace = 'Module',
+		titlematch = 'Exchange/%%',
+		count = 5000
+	})
+
+	local t = mw.html.create('table')
+		:addClass('wikitable')
+	local header = mw.html.create('tr')
+		:tag('th')
+			:wikitext('Page')
+		:done()
+		:tag('th')
+			:wikitext('Item ID')
+		:done()
+		:tag('th')
+			:wikitext('Wiki value')
+		:done()
+	t:node(header)
+	
+	local row
+	for i, result in ipairs(a) do
+		item = result:gsub("Module:Exchange/", "")
+		if item ~= "doc" and not item:find(".json$") then
+			local noErr, ret = pcall( mw.loadData, 'Module:Exchange/' .. item )
+			if noErr then
+				val = ret.value
+				itemId = ret.itemId
+				hist = ret["historical"]
+				if hist == nil or hist ~= nil and not hist then
+					row = mw.html.create('tr')
+						:tag('td')
+							:wikitext('[[Module:Exchange/' .. item .. '|' .. item .. ']]')
+						:done()
+						:tag('td')
+							:wikitext(itemId)
+						:done()
+						:tag('td')
+							:wikitext(val)
+						:done()
+					t:node(row)
+				end
+			end
+		end
+	end
+	return tostring(t)
+end
+
+return p

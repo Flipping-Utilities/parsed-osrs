@@ -1,0 +1,19 @@
+.skills-table {
+	background-image: url(https://oldschool.runescape.wiki/images/Blank_slot_wide.png?a6ff0);
+	border: none;
+	height: 32px;
+	width: 62px;
+	font-family: RuneScape;
+	font-size: 16px;
+    color: yellow;
+    text-shadow: 1px 1px 0px #000000;
+
+}
+
+.skills-cell{
+	align-items: flex-end;
+	display: flex;
+    padding-right: 2px;
+    padding-left: 3px;
+    border: none;
+}

@@ -1,0 +1,16 @@
+--<nowiki>
+local Enum = require("Module:Array")
+local p = {}
+
+function p.explode(str, delim, index, count)
+	return table.concat(Enum.take(mw.text.split(str, delim), count or #str, index or 1), delim)
+end
+
+function p.explode_m(frame)
+	local args = mw.getCurrentFrame():getParent().args
+	return p.explode(args[1], args[2], tonumber(args[3]), tonumber(args[4]))
+end
+
+return p
+
+--</nowiki>

@@ -42,6 +42,7 @@ p.QUEST_DESERT_TREASURE_2 = 25
 p.QUEST_PERILOUS_MOONS = 26
 p.QUEST_SHADOWS_OF_CUSTODIA = 27
 p.QUEST_TROUBLED_TORTUGANS = 28
+p.QUEST_THE_BLOOD_MOON_RISES = 29
 
 p.ENTERED_ANCIENT_CAVERN = 1
 p.ACCESS_GWD = 3
@@ -221,6 +222,8 @@ p.TASK_GRYPHONS = 157
 p.TASK_AQUANITES = 158
 p.TASK_FROST_DRAGONS = 159
 
+p.TASK_BOSS_MAGGOT_KING = 160
+
 UNLOCK_IDS = {
 	["Seeing red"] = p.UNLOCK_SEEING_RED,
 	["I hope you mith me"] = p.UNLOCK_I_HOPE_YOU_MITH_ME,
@@ -283,6 +286,7 @@ QUEST_IDS = {
 	["Shadows of Custodia"] = p.QUEST_SHADOWS_OF_CUSTODIA,
 	["Pandemonium"] = p.QUEST_PANDEMONIUM,
 	["Troubled Tortugans"] = p.QUEST_TROUBLED_TORTUGANS,
+	["The Blood Moon Rises"] = p.QUEST_THE_BLOOD_MOON_RISES,
 }
 
 function p.get_quest_id(name)
@@ -471,6 +475,7 @@ MONSTER_IDS = {
     ["Gryphons"] = p.TASK_GRYPHONS,
     ["Aquanites"] = p.TASK_AQUANITES,
     ["Frost dragons"] = p.TASK_FROST_DRAGONS,
+    ["Maggot King"] = p.TASK_BOSS_MAGGOT_KING,
 }
 
 function p.get_monster_id(name)

@@ -1,0 +1,235 @@
+local p = {}
+local colourname = {
+	aliceblue            = 0.92880068253475,
+	antiquewhite         = 0.84646951707754,
+	aqua                 = 0.7874,
+	aquamarine           = 0.8078549208338,
+	azure                = 0.97265264954166,
+	beige                = 0.8988459998705,
+	bisque               = 0.80732327372979,
+	black                = 0,
+	blanchedalmond       = 0.85084439608156,
+	blue                 = 0.0722,
+	blueviolet           = 0.12622014321946,
+	brown                = 0.098224287876511,
+	burlywood            = 0.51559844533893,
+	cadetblue            = 0.29424681085422,
+	chartreuse           = 0.76032025902623,
+	chocolate            = 0.23898526114557,
+	coral                = 0.37017930872924,
+	cornflowerblue       = 0.30318641994179,
+	cornsilk             = 0.93562110372965,
+	crimson              = 0.16042199953026,
+	cyan                 = 0.7874,
+	darkblue             = 0.018640801980939,
+	darkcyan             = 0.20329317839046,
+	darkgoldenrod        = 0.27264703559993,
+	darkgray             = 0.39675523072563,
+	darkgreen            = 0.091143429047575,
+	darkgrey             = 0.39675523072563,
+	darkkhaki            = 0.45747326349994,
+	darkmagenta          = 0.07353047651207,
+	darkolivegreen       = 0.12651920884889,
+	darkorange           = 0.40016167026524,
+	darkorchid           = 0.13413142174857,
+	darkred              = 0.054889674531132,
+	darksalmon           = 0.40541471563381,
+	darkseagreen         = 0.43789249325969,
+	darkslateblue        = 0.065792846227988,
+	darkslategray        = 0.067608151928044,
+	darkslategrey        = 0.067608151928044,
+	darkturquoise        = 0.4874606277449,
+	darkviolet           = 0.10999048339343,
+	deeppink             = 0.23866895828276,
+	deepskyblue          = 0.44481603395575,
+	dimgray              = 0.14126329114027,
+	dimgrey              = 0.14126329114027,
+	dodgerblue           = 0.27442536991456,
+	firebrick            = 0.10724525535015,
+	floralwhite          = 0.95922484825004,
+	forestgreen          = 0.18920812076002,
+	fuchsia              = 0.2848,
+	gainsboro            = 0.71569350050648,
+	ghostwhite           = 0.94311261886323,
+	gold                 = 0.69860877428159,
+	goldenrod            = 0.41919977809569,
+	gray                 = 0.2158605001139,
+	green                = 0.15438342968146,
+	greenyellow          = 0.80609472611453,
+	grey                 = 0.2158605001139,
+	honeydew             = 0.96336535554782,
+	hotpink              = 0.34658438169715,
+	indianred            = 0.21406134963884,
+	indigo               = 0.03107561486337,
+	ivory                = 0.99071270600615,
+	khaki                = 0.77012343394121,
+	lavender             = 0.80318750514521,
+	lavenderblush        = 0.90172748631046,
+	lawngreen            = 0.73905893124963,
+	lemonchiffon         = 0.94038992245622,
+	lightblue            = 0.63709141280807,
+	lightcoral           = 0.35522120733135,
+	lightcyan            = 0.94587293494829,
+	lightgoldenrodyellow = 0.93348351018297,
+	lightgray            = 0.65140563741982,
+	lightgreen           = 0.69091979956865,
+	lightgrey            = 0.65140563741982,
+	lightpink            = 0.58566152734898,
+	lightsalmon          = 0.4780675225206,
+	lightseagreen        = 0.35050145117042,
+	lightskyblue         = 0.56195637618331,
+	lightslategray       = 0.23830165007287,
+	lightslategrey       = 0.23830165007287,
+	lightsteelblue       = 0.53983888284666,
+	lightyellow          = 0.98161818392882,
+	lime                 = 0.7152,
+	limegreen            = 0.44571042246098,
+	linen                = 0.88357340984379,
+	magenta              = 0.2848,
+	maroon               = 0.045891942324215,
+	mediumaquamarine     = 0.49389703310801,
+	mediumblue           = 0.044077780212328,
+	mediumorchid         = 0.21639251153773,
+	mediumpurple         = 0.22905858091648,
+	mediumseagreen       = 0.34393112338131,
+	mediumslateblue      = 0.20284629471622,
+	mediumspringgreen    = 0.70704308194184,
+	mediumturquoise      = 0.5133827926448,
+	mediumvioletred      = 0.14371899849357,
+	midnightblue         = 0.02071786635086,
+	mintcream            = 0.97834604947588,
+	mistyrose            = 0.82183047859185,
+	moccasin             = 0.80083000991567,
+	navajowhite          = 0.76519682342785,
+	navy                 = 0.015585128108224,
+	oldlace              = 0.91900633405549,
+	olive                = 0.20027537200568,
+	olivedrab            = 0.22593150951929,
+	orange               = 0.4817026703631,
+	orangered            = 0.25516243753416,
+	orchid               = 0.31348806761439,
+	palegoldenrod        = 0.78792647887614,
+	palegreen            = 0.77936759006353,
+	paleturquoise        = 0.76436077921714,
+	palevioletred        = 0.28754994117889,
+	papayawhip           = 0.87797100199835,
+	peachpuff            = 0.74905589878251,
+	peru                 = 0.30113074877936,
+	pink                 = 0.63271070702466,
+	plum                 = 0.45734221587969,
+	powderblue           = 0.68254586500605,
+	purple               = 0.061477070432439,
+	rebeccapurple        = 0.07492341159447,
+	red                  = 0.2126,
+	rosybrown            = 0.32319457649407,
+	royalblue            = 0.16663210743188,
+	saddlebrown          = 0.097922285020521,
+	salmon               = 0.36977241527596,
+	sandybrown           = 0.46628543696283,
+	seagreen             = 0.19734199706275,
+	seashell             = 0.92737862206922,
+	sienna               = 0.13697631337098,
+	silver               = 0.52711512570581,
+	skyblue              = 0.55291668518184,
+	slateblue            = 0.14784278062136,
+	slategray            = 0.20896704076536,
+	slategrey            = 0.20896704076536,
+	snow                 = 0.96533341834849,
+	springgreen          = 0.73052306068529,
+	steelblue            = 0.20562642207625,
+	tan                  = 0.48237604163921,
+	teal                 = 0.16996855778968,
+	thistle              = 0.56818401093733,
+	tomato               = 0.30638612719415,
+	turquoise            = 0.5895536427578,
+	violet               = 0.40315452986676,
+	wheat                = 0.74909702820482,
+	white                = 1,
+	whitesmoke           = 0.91309865179342,
+	yellow               = 0.9278,
+	yellowgreen          = 0.50762957208707,
+}
+
+function sRGB (v)
+	
+	if (v <= 0.04045) then
+		v = v / 12.92
+	else
+		v = math.pow((v+0.055)/1.055, 2.4)
+	end
+	return v
+end
+
+function rgb2lum(R, G, B)
+	
+	return 0.2126 * sRGB(R/255) + 0.7152 * sRGB(G/255) + 0.0722 * sRGB(B/255)
+end
+
+function checker(arg)
+	
+	if colourname[arg:lower()] == nil then
+		
+		if string.sub(arg,1,1) == '#' and tonumber(string.sub(arg,2,7),16) ~= nil and ( #arg == 7 or 4 ) then
+		return arg	
+		else
+		error(arg .. ' is not a valid colour')
+		end
+	else 
+	return arg
+	end
+end
+
+function colour2lum(c)
+	
+	if checker(c) then
+	
+		if (colourname[c:lower()] ~= nil) then
+			return colourname[c:lower()]
+		end
+
+		if( #c == 7 ) then
+			local R = tonumber(string.sub(c,2,3),16)
+			local G = tonumber(string.sub(c,4,5),16)
+			local B = tonumber(string.sub(c,6,7),16)
+			return rgb2lum(R, G, B)
+		else
+			local R = 16*tonumber(string.sub(c,2,2),16) + tonumber(string.sub(c,2,2),16)
+			local G = 16*tonumber(string.sub(c,3,3),16) + tonumber(string.sub(c,3,3),16)
+			local B = 16*tonumber(string.sub(c,4,4),16) + tonumber(string.sub(c,4,4),16)
+			return rgb2lum(R, G, B)
+		end
+	end
+end
+
+
+function p.contraster(bg,c)
+	
+	if bg == nil then
+		
+		if colour2lum(c) > 0.179 then
+		return'var(--background-contrast-dark)'
+		-- should be nothing when on dark mode
+		else 
+		return'var(--background-contrast-light)'
+		-- should be nothing when on light mode
+		end
+	elseif bg ~= nil then
+		
+		return checker(bg:lower())
+end
+end
+function p.mes(frame)
+
+	local args = frame:getParent().args
+	local bg = args.bg
+local c = args.colour or 'white'
+		return p.contraster(bg,c)
+end
+function p.colour(frame)
+
+	local args = frame:getParent().args
+	local bg = args[3]
+	local c = args[1]
+		return p.contraster(bg,c)
+end
+return p

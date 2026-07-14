@@ -1,0 +1,51 @@
+-- <nowiki>
+local p = {}
+
+-- Given a list of IDs (either "1, 2" or ["1, 2", "3, 4"]),
+-- return it as a flat string.
+function flatten(ids)
+	if type(ids) ~= "table" then
+		return ids or ''
+	end
+	return table.concat(ids, ", ")
+end
+
+-- Given a list of IDs ("1, 2"),
+-- surround each ID with a link to their wiki page.
+local function linkIds(idString)
+    local links = {}
+    for id in string.gmatch(idString, '([^,]+)') do -- Split by commas
+        local id = id:match("^%s*(.-)%s*$") -- Trim whitespace
+        local url = mw.uri.fullUrl('Special:Lookup', {type='npc', id=id, utm_source='wiki'})
+        table.insert(links, '[' .. tostring(url) .. ' ' .. id .. ']')
+    end
+
+    return table.concat(links, ', ')
+end
+
+function p.render(frame)
+	local results = nil--mw.smw--.ask('[[~*]] [[Category:Monsters]] OR [[Category:Non-player_characters]] |?All NPC ID |limit=99999')
+    
+    local output = {
+    	'Total: ' .. #results,
+	    '{| class="sortable wikitable"',
+	    '!NPC',
+	    '![[Property:NPC_ID|NPC IDs]]'
+    }
+    
+    for _, result in ipairs(results) do
+    	local title = result[1]
+        local ids = linkIds(flatten(result['All NPC ID']))
+        
+        table.insert(output, '|-')
+        table.insert(output, '|' .. title)
+        table.insert(output, '|' .. ids)
+    end
+    
+    table.insert(output, '|}')
+
+    return table.concat(output, '\n')
+end
+
+return p
+-- </nowiki>

@@ -1,0 +1,83 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function p.main(frame)
+	local args = frame.args
+	return p._main(args)
+end
+
+function halfRule()
+	local plot = chart.newChart{ type = 'scatter' }
+		:setDimensions( '540px', '400px', '540px', '400px', true )
+		:setXLabel('Skill level')
+		:setYLabel('Ratio')
+		:setTitle('Ratio of XP  to XP 7 levels above')
+		:setXLimits(0, 100, 10)
+		:showLegend(false)
+		:setOptions({
+			colorPallet = { chart.rgba.new('#ff6347ff') }
+		})
+
+    local xpData = {}
+    local xp = 0
+	for level = 1, 99 do
+		if level > 1 then
+			xp = xp + math.floor( level - 1 + 300 * 2^( (level - 1)/7 ) ) / 4
+		end
+		table.insert(xpData, xp)
+	end
+	
+	data = plot:newDataSet()
+	for level = 1, 92 do
+		xp = xpData[level]
+		sevenAboveXp = xpData[level + 7]
+		ratio = xp / sevenAboveXp
+		data:addDataPoint({ x=level, y=ratio })
+	end
+
+	return plot
+end
+
+function linearTotal()
+	local plot = chart.newChart{ type = 'scatter' }
+		:setDimensions( '540px', '400px', '540px', '400px', true )
+		:setXLabel('Skill level')
+		:setYLabel('Experience')
+		:setTitle('Total experience required')
+		:setXLimits(0, 100, 10)
+		:showLegend(false)
+		:setOptions({
+			colorPallet = { chart.rgba.new('#ff6347ff') }
+		})
+
+    local data = plot:newDataSet()
+    local xp = 0
+	for level = 1, 99 do
+		if level > 1 then
+			xp = xp + math.floor( level - 1 + 300 * 2^( (level - 1)/7 ) ) / 4
+		end
+		data:addDataPoint({ x=level, y=math.floor(xp) })
+	end
+
+	return plot
+end
+
+function logTotal()
+	local plot = linearTotal()
+	plot:setYAxisType('logarithmic')
+	return plot
+end
+
+function p._main(args)
+	mw.logObject(args)
+	if args.linear then
+		return linearTotal()
+	elseif args.log then
+		return logTotal()
+	elseif args.seven then
+		return halfRule()
+	end
+end
+
+return p

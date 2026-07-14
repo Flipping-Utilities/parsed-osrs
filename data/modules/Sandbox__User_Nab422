@@ -1,0 +1,57 @@
+local p = {}
+
+local function parseHtmlTable(htmlString)
+    local dataTable = {}
+    local rowStart, rowEnd = 0, 0
+
+    while true do
+        -- Find the next table row
+        rowStart, rowEnd = string.find(htmlString, "<tr.-</tr>", rowEnd + 1)
+        if not rowStart then break end
+
+        local rowString = string.sub(htmlString, rowStart, rowEnd)
+
+        -- Extract data from this row
+        local rowData = {}
+        for td in string.gmatch(rowString, "<td.->(.-)</td>") do
+            table.insert(rowData, td)
+        end
+
+        -- Insert the row data into the main data table
+        if #rowData > 0 then
+            table.insert(dataTable, rowData)
+        end
+    end
+
+    return dataTable
+end
+
+
+local function getRandomRowFromTable(tableData)
+    -- Check if the table is not empty
+    if not tableData or #tableData == 0 then
+        return "Table is empty or nil"
+    end
+
+    -- Generate a random index
+    local randomIndex = math.random(#tableData)
+
+    -- Return the row at the random index
+    return tableData[randomIndex]
+end
+
+
+function p.getRandomAchievement(frame)
+	local args = frame:getParent().args  -- Template args are customary stored in the 'args' variable
+	
+    local tableDataString = args.tableData or ''  -- Set default value in case no parameters were passed to the template
+    if tableDataString == '' then
+    	return "Table Data was blank"
+    end
+    local tableData = parseHtmlTable(tableDataString)
+    --return type(tableData)
+	return getRandomRowFromTable(tableData)
+end
+
+
+return p

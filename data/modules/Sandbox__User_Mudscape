@@ -1,0 +1,62 @@
+
+local p = {}
+
+function p.main()
+	local res = p.print('infobox_item', 'HA Item values')
+
+	return res
+end
+
+function p.fetchResults(bucketName)
+	local results = {}
+	local batchSize = 5000
+	local offset = 0
+	
+	while true do
+		local batchResults = bucket(bucketName)
+			.select('page_name', 'page_name_sub', 'high_alchemy_value')
+			.where(bucket.Not("Category:Beta items"))
+			.where("Category:Tradeable items")
+			.offset(offset)
+			.limit(batchSize)
+			.run()
+			
+			for _, result in ipairs(batchResults) do
+				if result.high_alchemy_value and result.high_alchemy_value > 0 then
+					table.insert(results, result)
+				end
+			end
+			
+			offset = offset + batchSize
+			
+			if #batchResults < batchSize then
+				break;
+			end
+	end
+	
+	return results
+end
+
+function p.print(bucketName, thingName)
+	local results = p.fetchResults(bucketName)
+
+	local output = {
+		'<br>',
+		'{| class="sortable wikitable"',
+		'!Value '..thingName,
+		'![[Bucket:' .. bucketName .. '|'..thingName..']]'
+	}
+
+	for _, result in ipairs(results) do
+		table.insert(output, '|-')
+		table.insert(output, '|[[' .. result.page_name_sub..']]')
+		table.insert(output, '|' .. result.high_alchemy_value)
+	end
+
+	table.insert(output, '|}')
+
+	return table.concat(output, '\n')
+end
+
+
+return p

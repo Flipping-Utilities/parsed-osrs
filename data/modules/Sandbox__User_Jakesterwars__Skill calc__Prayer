@@ -1,0 +1,433 @@
+return {
+    {   
+    	name = 'Bones',
+    	level = 1,
+        xp = 4.5,
+        materials = {
+        	{ name = 'Bones', quantity = 1 }
+        },
+        members = 'No',
+        type = 'Regular'
+    }, {   
+    	name = 'Monkey bones',
+    	level = 1,
+        xp = 5,
+        materials = {
+        	{ name = 'Monkey bones', quantity = 1 }
+        },
+        members = 'No',
+        type = 'Regular'
+    }, {   
+    	name = 'Bat bones',
+    	level = 1,
+        xp = 5.3,
+        materials = {
+        	{ name = 'Bat bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Big bones',
+    	level = 1,
+        xp = 15,
+        materials = {
+        	{ name = 'Big bones', quantity = 1 }
+        },
+        members = 'No',
+        type = 'Regular'
+    }, {   
+    	name = 'Jogre bones',
+    	level = 1,
+        xp = 15,
+        materials = {
+        	{ name = 'Jogre bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Zogre bones',
+    	level = 1,
+        xp = 22.5,
+        materials = {
+        	{ name = 'Zogre bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Shaikahan bones',
+    	level = 1,
+        xp = 25,
+        materials = {
+        	{ name = 'Shaikahan bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Babydragon bones',
+    	level = 1,
+        xp = 30,
+        materials = {
+        	{ name = 'Babydragon bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Wyrm bones',
+    	level = 1,
+        xp = 50,
+        materials = {
+        	{ name = 'Wyrm bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Dragon bones',
+    	level = 1,
+        xp = 72,
+        materials = {
+        	{ name = 'Dragon bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Wyvern bones',
+    	level = 1,
+        xp = 72,
+        materials = {
+        	{ name = 'Wyvern bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Drake bones',
+    	level = 1,
+        xp = 80,
+        materials = {
+        	{ name = 'Drake bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Fayrg bones',
+    	level = 1,
+        xp = 84,
+        materials = {
+        	{ name = 'Fayrg bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Lava dragon bones',
+    	level = 1,
+        xp = 85,
+        materials = {
+        	{ name = 'Lava dragon bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Raurg bones',
+    	level = 1,
+        xp = 96,
+        materials = {
+        	{ name = 'Raurg bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Hydra bones',
+    	level = 1,
+        xp = 110,
+        materials = {
+        	{ name = 'Hydra bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Dagannoth bones',
+    	level = 1,
+        xp = 125,
+        materials = {
+        	{ name = 'Dagannoth bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Ourg bones',
+    	level = 1,
+        xp = 140,
+        materials = {
+        	{ name = 'Ourg bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {   
+    	name = 'Superior dragon bones',
+    	level = 70,
+        xp = 150,
+        materials = {
+        	{ name = 'Superior dragon bones', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Regular'
+    }, {
+    	name = 'Ensouled goblin head',
+    	level = 1,
+    	xp = 130,
+    	materials = {
+    		{ name = 'Ensouled goblin head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 2 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled monkey head',
+    	level = 1,
+    	xp = 182,
+    	materials = {
+    		{ name = 'Ensouled monkey head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 3 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled imp head',
+    	level = 1,
+    	xp = 286,
+    	materials = {
+    		{ name = 'Ensouled imp head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Body rune', quantity = 3 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled minotaur head',
+    	level = 1,
+    	xp = 364,
+    	materials = {
+    		{ name = 'Ensouled minotaur head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Body rune', quantity = 4 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled scorpion head',
+    	level = 1,
+    	xp = 454,
+    	materials = {
+    		{ name = 'Ensouled scorpion head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 1 },
+    		{ name = 'Soul rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled bear head',
+    	level = 1,
+    	xp = 480,
+    	materials = {
+    		{ name = 'Ensouled bear head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 1 },
+    		{ name = 'Soul rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled unicorn head',
+    	level = 1,
+    	xp = 494,
+    	materials = {
+    		{ name = 'Ensouled unicorn head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 1 },
+    		{ name = 'Soul rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 2 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled dog head',
+    	level = 1,
+    	xp = 520,
+    	materials = {
+    		{ name = 'Ensouled dog head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 2 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled chaos druid head',
+    	level = 1,
+    	xp = 584,
+    	materials = {
+    		{ name = 'Ensouled chaos druid head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 3 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled giant head',
+    	level = 1,
+    	xp = 650,
+    	materials = {
+    		{ name = 'Ensouled giant head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 4 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled ogre head',
+    	level = 1,
+    	xp = 716,
+    	materials = {
+    		{ name = 'Ensouled ogre head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 3 },
+    		{ name = 'Soul rune', quantity = 1 },
+    		{ name = 'Body rune', quantity = 4 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled elf head',
+    	level = 1,
+    	xp = 754,
+    	materials = {
+    		{ name = 'Ensouled elf head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Body rune', quantity = 2 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled troll head',
+    	level = 1,
+    	xp = 780,
+    	materials = {
+    		{ name = 'Ensouled troll head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Body rune', quantity = 3 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled horror head',
+    	level = 1,
+    	xp = 832,
+    	materials = {
+    		{ name = 'Ensouled horror head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Body rune', quantity = 4 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled kalphite head',
+    	level = 1,
+    	xp = 884,
+    	materials = {
+    		{ name = 'Ensouled kalphite head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 3 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Body rune', quantity = 4 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled dagannoth head',
+    	level = 1,
+    	xp = 936,
+    	materials = {
+    		{ name = 'Ensouled dagannoth head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 3 },
+    		{ name = 'Soul rune', quantity = 3 },
+    		{ name = 'Body rune', quantity = 4 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled bloodveld head',
+    	level = 1,
+    	xp = 1040,
+    	materials = {
+    		{ name = 'Ensouled bloodveld head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 2 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Blood rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled tzhaar head',
+    	level = 1,
+    	xp = 1104,
+    	materials = {
+    		{ name = 'Ensouled tzhaar head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 3 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Blood rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled demon head',
+    	level = 1,
+    	xp = 1170,
+    	materials = {
+    		{ name = 'Ensouled demon head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 4 },
+    		{ name = 'Soul rune', quantity = 2 },
+    		{ name = 'Blood rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled aviansie head',
+    	level = 1,
+    	xp = 1234,
+    	materials = {
+    		{ name = 'Ensouled aviansie head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 4 },
+    		{ name = 'Soul rune', quantity = 3 },
+    		{ name = 'Blood rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled abyssal head',
+    	level = 1,
+    	xp = 1300,
+    	materials = {
+    		{ name = 'Ensouled abyssal head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 4 },
+    		{ name = 'Soul rune', quantity = 4 },
+    		{ name = 'Blood rune', quantity = 1 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }, {
+    	name = 'Ensouled dragon head',
+    	level = 1,
+    	xp = 1560,
+    	materials = {
+    		{ name = 'Ensouled dragon head', quantity = 1 },
+    		{ name = 'Nature rune', quantity = 4 },
+    		{ name = 'Soul rune', quantity = 4 },
+    		{ name = 'Blood rune', quantity = 2 }
+    	},
+    	members = 'Yes',
+    	type = 'Ensouled'
+    }
+}

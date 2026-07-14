@@ -1,0 +1,36 @@
+local p = {}
+
+local function render_effect(text, effect)
+    local maxChars = 50
+    local result = {}
+    local charIndex = 1
+
+    for char in mw.ustring.gmatch(text, ".") do
+        if char == " " then
+            table.insert(result, " ")
+        else
+            local span = string.format('<span class="char%d">%s</span>', charIndex, mw.text.nowiki(char))
+            table.insert(result, span)
+            charIndex = charIndex + 1
+            if charIndex > maxChars then
+                charIndex = 1
+            end
+        end
+    end
+
+    return table.concat(result)
+end
+
+function p.wave(frame)
+    return render_effect(frame.args[1] or "", "wave")
+end
+
+function p.wave2(frame)
+    return render_effect(frame.args[1] or "", "wave2")
+end
+
+function p.shake(frame)
+    return render_effect(frame.args[1] or "", "shake")
+end
+
+return p

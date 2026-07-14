@@ -1,0 +1,51 @@
+-- This is a copy of Module:Mmgtable geared towards making generic resource
+-- gathering guides, primarily estimating the output of certain activities
+-- which are not easily captured by GP/h. ironman btw
+--
+-- WIP
+--
+local p = {}
+
+-- imports
+-- local gePrice = require('Module:Exchange')._price
+local yn = require('Module:Yesno')
+local round = require('Module:Number')._round
+local _coins = require('Module:Currency')._amount
+local vdf = mw.ext.VariablesLua.vardefine
+local lang = mw.getContentLanguage()
+local title = mw.title.getCurrentTitle()
+local onmain = require('Module:Mainonly').on_main
+local alchable = require('Module:Exchange')._alchable
+local highAlchValue = require('Module:Exchange')._highalch
+local lowAlchValue = require('Module:Exchange')._lowalch
+
+-- Config constants, change as needed
+MAX_INPUTS = 75
+MAX_OUTPUTS = 75
+MAX_XP = 75
+
+function p.testrggtable(args)
+	return p._rggtable(mw.getCurrentFrame(), args)
+end
+
+function p.rggtable(frame)
+	local args = frame:getParent().args
+	return p._rggtable(frame, args)
+end
+
+-- Create an RGG (Resource Gathering Guide) table.
+-- Frame is the frame the module was invoked from.
+-- Args are the template arguments used when creating the table.
+function p._rggtable(frame, args)
+	-- test imports:
+	-- $ = p._rggtable(nil, {"Dragon mace", "Blood rune"})
+	for k, v in ipairs(args) do
+		local valHigh = highAlchValue(v)
+		local valLow = lowAlchValue(v)
+		mw.logObject({v, valLow, valHigh})
+	end
+	
+	return {}
+end
+
+return p

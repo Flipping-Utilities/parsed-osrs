@@ -1,0 +1,574 @@
+-- copy from https://runescape.wiki/w/Module:Debug
+
+-- <nowiki>
+local Debug = {}
+
+-- Localise some global functions to improve performance and to make sure we use
+-- the untracked version inside the profiler functions
+local print = mw.log
+local tostring = tostring
+local type = type
+local pairs = pairs
+local ipairs = ipairs
+local error = error
+local table = {
+    concat = table.concat,
+    sort = table.sort,
+    insert = table.insert
+}
+local string = {
+    lower = string.lower,
+    format = string.format,
+    rep = string.rep
+}
+local getCurrentFrame = mw.getCurrentFrame
+local newTitleObj = mw.title.new
+local clock = os.clock
+
+---------------------------------
+----- Create a frame object -----
+---------------------------------
+
+function Debug.makeFrame(t)
+    local frame = getCurrentFrame():newChild(t)
+    
+    frame.getParent = function() return frame end
+    mw.getCurrentFrame = function() return frame end
+    
+    if t.title then
+    	local titleObj = newTitleObj(t.title)
+    	mw.title.getCurrentTitle = function() return titleObj end
+    end
+    
+    return frame
+end
+
+-------------------------------------------------
+----- Print all table access to the console -----
+-------------------------------------------------
+
+function Debug.trackTableAccess(t, name)
+    name = name or ""
+    local proxy = {} -- proxy table for 't'
+    -- create metatable for the proxy
+    local mt = {
+        __index = function(_, k)
+            if type(k) == "number" then
+                print("*access to: " .. name .. "[" .. k .. "]")
+            else
+                print("*access to: " .. name .. "['" .. k .. "']")
+            end
+            return t[k] -- access the original table
+        end,
+        __newindex = function(_, k, v)
+            if type(k) == "number" then
+                print("*update of: " .. name .. "[" .. k .. "] = " .. tostring(v))
+            else
+                print("*update of: " .. name .. "['" .. k .. "'] = " .. tostring(v))
+            end
+            t[k] = v -- update original table
+        end,
+        __pairs = function()
+            return function(_, k) -- iteration function
+                local nextkey, nextvalue = next(t, k)
+                if type(nextkey) == "number" then
+                    print("*traversing element: " .. name .. "[" .. nextkey .. "]")
+                elseif nextkey ~= nil then -- avoid last value
+                    print("*traversing element: " .. name .. "['" .. nextkey .. "']")
+                end
+                return nextkey, nextvalue
+            end
+        end,
+        __ipairs = function()
+            return function(_, k) -- iteration function
+                k = k + 1
+                if t[k] ~= nil then
+                    print("*traversing element: " .. name .. "[" .. k .. "]")
+                else
+                    return nil, nil
+                end
+                return k, t[k]
+            end, nil, 0
+        end,
+        __call = function()
+            -- __len and table.setn() don't exist in Scribunto so we have to use a workaround to proxy table length
+            -- To get the length now use t() instead of #t
+            return #t
+        end
+    }
+    setmetatable(proxy, mt)
+
+    return proxy
+end
+
+-------------------------------------
+----- Function profiler section -----
+-------------------------------------
+
+--[[
+    Return a new profiler object
+--]]
+function Debug:newProfiler(type)
+    local obj = {
+        originalFunctions = {},
+        setHookErrorDepth = 2,
+        callStack = {
+            -- Keep sepperate tables each storing a part of the callstack info. This is more efficient than initializing
+            -- a new table with a name-startTime pair for each function call
+            funcName = {}, -- Name of the called function
+            startTime = {}, -- Start time of the function
+            profilerSelfTime = {}, -- Time spend inside functions of the profiler class
+            index = 0
+        },
+        functionTimes = {},
+        callStackLog = {    -- This table will only be used if the profiler is used in "callstack" mode
+            funcName = {},
+            funcTime = {},
+            funcDept = {},
+            index = 0
+        }
+    }
+
+    type = type or "time"
+    if type == "time" then
+        obj.profilerType = 1    -- Using numbers instead of stings for type since it is faster to compare numbers than strings
+    elseif type == "callstack" then
+        obj.profilerType = 2
+    else
+        error("Profiler type must be either 'time' or 'callstack'", 2)
+    end
+
+    -- Set metatable to functionTimes table to create a prototype value in case a key is accessed that does not exist yet
+    setmetatable(
+        obj.functionTimes,
+        {
+            __index = function(t, key)
+                t[key] = {
+                    callCount = 0,
+                    totalTime = 0,
+                    childTime = 0
+                }
+                return t[key]
+            end
+        }
+    )
+
+    -- Set a value for the parent of the top most function (index 1) so we don't need to check each function call if it has a parent
+    obj.callStack.profilerSelfTime[0] = 0
+    obj.callStack.funcName[0] = ""
+
+    -- Add metatable to obj to make it act like a buffer for functions in the Debug package
+    self.__index = function(t, key)
+        t[key] = self[key]
+        return self[key]
+    end
+    setmetatable(obj, self)
+
+    return obj
+end
+
+
+--[[
+    Setup a function reasy for tacking
+    -- func : the function to be tracked
+    -- name : a name to represent this function, usually this is the same as the name of the function itself
+
+    Example:
+        local profiler = Debug:newProfiler()
+        func1 = profiler:setHook(func1, 'func1')
+--]]
+function Debug:setHook(func, name)
+    if self.originalFunctions[name] or name == "" then
+        -- Dynamic error depth to make sure the error points to the correct calling
+        -- location since this function can be called both direct and indirect
+        error("Function name '" .. name .. "' is already in use", self.setHookErrorDepth)
+    end
+
+    if self.checkIfExluded(func) then
+        error("Function '" .. name .. "' is exluded from profiling to prevent infinite loops", self.setHookErrorDepth)
+    end
+
+    self.originalFunctions[name] = func
+
+    return function(...)
+        -- THIS FUNCTION IS TIME CRITICAL, EDIT WITH CARE
+        self:timeStart(name)
+        --[[
+            Pass the return values of 'func' to 'self:timeStop' so we don't need to use a variable to temporarialy store
+            the values. This is much more efficient than doing the following:
+
+            self:timeStart(name)
+            local temp = {func(...)}
+            self:timeStop(name)
+            return table.unpack(temp)
+        --]]
+        return self:timeStop(name, true, func(...))
+    end
+end
+
+
+--[[
+    Quickly set hooks to multiple functions stored in tables
+    -- t : a table containg tables the functions to be tracked
+        table
+            ["table"] = name of the table to query for functions, use _G for globale functions
+            ["tname"] = optional name of the table to make the report easier to read
+            ["R"] = boolean, if true recursively hook all functions in the given table and its sub tables
+            [1] = function name as a string, if no names given it will track all functions in ["table"]
+            [2] = another function name
+            ...
+        table
+            ...
+
+    Examples:
+        local profiler = Debug:newProfiler()
+        -- Track the global function func1 and the functions func2 and func3 stored in table p
+        profiler:setHooks{{table = _G, "func1"}, {table = p, "func2", "func3"}}
+
+        -- Track all functions strored in table p
+        profiler:setHooks{{table = p}}
+
+        -- Track all global functions (including all functions from the libraries)
+        profiler:setHooks{{table = _G, R = true}}
+
+    This function can not be used for local functions, use Debug:setHook instead
+--]]
+function Debug:setHooks(t)
+    if type(t) ~= "table" and type(t[1]) ~= "table" then
+        error("Input must be a table containing tables", 2)
+    end
+
+    self.setHookErrorDepth = 3
+    for i, group in ipairs(t) do
+        -- Check if the given table is indead a table
+        if type(group.table) ~= "table" then
+            if group.tname then
+                error("'" .. group.tname .. "' is not a table", 2)
+            else
+                error("Input " .. i .. " is not a table", 2)
+            end
+        end
+
+        if group.R then
+            -- Recusively track all functions in the given table
+            local function hookAll(t, name)
+                for key, value in pairs(t) do
+                    local fullName = (name and (name .. ".") or "") .. key  -- Only add a dot if the name has a prefix
+                    if type(value) == "function" and not self.checkIfExluded(value) and not self.originalFunctions[fullName] then
+                        t[key] = self:setHook(value, fullName)
+                    elseif type(value) == "table" and not self.checkIfExluded(value) then
+                        hookAll(value, fullName)
+                    end
+                end
+            end
+            hookAll(group.table, group.tname)
+        elseif #group == 0 then
+            -- Find all functions in the given table and track them
+            for funcName, func in pairs(group.table) do
+                local fullName = (group.tname and (group.tname .. ".") or "") .. funcName
+                if type(func) == "function" and not self.checkIfExluded(func) and not self.originalFunctions[fullName] then
+                    group.table[funcName] =
+                        self:setHook(group.table[funcName], fullName)
+                end
+            end
+        else
+            -- Track all named functions
+            for _, funcName in ipairs(group) do
+                if type(group.table[funcName]) == "function" then
+                    if self.checkIfExluded(group.table[funcName]) then
+                        error("Function '" .. funcName .. "' is exluded from profiling to prevent infinite loops", 2)
+                    end
+                    group.table[funcName] =
+                        self:setHook(group.table[funcName], (group.tname and (group.tname .. ".") or "") .. funcName)
+                else
+                    error("No function '" .. funcName .. "' found in the given table", 2)
+                end
+            end
+        end
+    end
+    self.setHookErrorDepth = 2
+end
+
+
+--[[
+    Return back the original function that was linked to a name
+    -- name : a string of the function name to return
+
+    Example:
+        -- Return the function that we originally had hooded with "func1 = profiler:setHook(func1, 'func1')"
+        func1 = profiler:removeHook("func1")
+]]
+function Debug:removeHook(name)
+    local func = self.originalFunctions[name]
+    if not func then
+        error("Unknown function name '" .. name .. "'", 2)
+    end
+    self.originalFunctions[name] = nil
+    return func
+end
+
+
+function Debug:timeStart(name)
+    -- THIS FUNCTION IS TIME CRITICAL, EDIT WITH CARE
+    local time = clock()
+
+    -- Localise some table queries to improve performance
+    local callStack = self.callStack
+    local profilerSelfTime = callStack.profilerSelfTime
+    local parentCallStackIndex = callStack.index
+    local callStackIndex = parentCallStackIndex + 1
+    local selfFunctionTimes = self.functionTimes[name]
+
+    selfFunctionTimes.callCount = selfFunctionTimes.callCount + 1
+    callStack.index = callStackIndex
+
+    callStack.funcName[callStackIndex] = name
+    profilerSelfTime[callStackIndex] = 0
+
+    -- The time spend inside this function has to be substracted from the runtime of the previous function in the stack
+    profilerSelfTime[parentCallStackIndex] = profilerSelfTime[parentCallStackIndex] - time + clock()
+    callStack.startTime[callStackIndex] = clock()
+end
+
+
+function Debug:timeStop(name, noError, ...)
+    -- THIS FUNCTION IS TIME CRITICAL, EDIT WITH CARE
+    local time = clock()
+
+    -- Localise some table queries to improve performance
+    local callStack = self.callStack
+    local profilerSelfTime = callStack.profilerSelfTime
+    local callStackIndex = callStack.index
+    local parentCallStackIndex = callStackIndex - 1
+    local currentFunctionTime = time - callStack.startTime[callStackIndex] - profilerSelfTime[callStackIndex]
+
+    if name ~= callStack.funcName[callStackIndex] then
+        if name == 'pcall' then
+            while callStack.funcName[callStackIndex] ~= 'pcall' do
+            	self:timeStop(callStack.funcName[callStackIndex], false)
+            	callStackIndex = callStackIndex - 1
+            end
+            
+            parentCallStackIndex = callStackIndex - 1
+            currentFunctionTime = clock() - callStack.startTime[callStackIndex] - profilerSelfTime[callStackIndex]
+        else
+            error("Missing 'profiler:timeStart(" .. name .. ")' or 'profiler:timeStop(" .. callStack.funcName[callStackIndex] .. ")'")
+        end
+    end
+
+    if self.profilerType == 1 then
+        local selfFunctionTimes = self.functionTimes[name]
+        local parentFunctionTimes = self.functionTimes[ callStack.funcName[parentCallStackIndex] ]
+
+        selfFunctionTimes.totalTime = selfFunctionTimes.totalTime + currentFunctionTime
+        parentFunctionTimes.childTime = parentFunctionTimes.childTime + currentFunctionTime
+    else
+        local callStackLog = self.callStackLog
+        local callStackLogIndex = callStackLog.index + 1
+
+        callStackLog.index = callStackLogIndex
+        callStackLog.funcName[callStackLogIndex] = name
+        callStackLog.funcDept[callStackLogIndex] = callStackIndex
+        callStackLog.funcTime[callStackLog.index] = noError and currentFunctionTime or 'Error'
+    end
+
+    -- Decrement callStack index
+    callStack.index = parentCallStackIndex
+
+    -- Add own profiler self time + time spend inside this function to parent profilerSelfTime
+    profilerSelfTime[parentCallStackIndex] = profilerSelfTime[parentCallStackIndex] + profilerSelfTime[callStackIndex] - time + clock()
+
+    return ...
+end
+
+
+function Debug:report(sortOrder)
+    if self.profilerType == 1 then
+        return self:generateTimingList(sortOrder)
+    elseif self.profilerType == 2 then
+        return self:generateCallstackLog()
+    end
+end
+
+
+--[[
+    Return a string with the report of all tracked functions
+    -- sortOrder : optional. Define the order of the report, supported values are
+        -- name (default if nothing is passed)
+        -- time or totaltime
+        -- selftime
+        -- childtime
+]]
+function Debug:generateTimingList(sortOrder)
+    sortOrder = string.lower(sortOrder or "")
+    local sortedKeys = {}
+    local sortFunction
+    local report = {}
+    local totalCallCount = 0
+
+    for name, data in pairs(self.functionTimes) do
+        if name ~= "" and data.callCount > 0 then
+            table.insert(sortedKeys, name)
+        end
+    end
+
+    if sortOrder == "time" or sortOrder == "totaltime" then
+        sortFunction = function(upper, lower)
+            return self.functionTimes[lower].totalTime < self.functionTimes[upper].totalTime
+        end
+    elseif sortOrder == "selftime" then
+        sortFunction = function(upper, lower)
+            return (self.functionTimes[lower].totalTime - self.functionTimes[lower].childTime) <
+                (self.functionTimes[upper].totalTime - self.functionTimes[upper].childTime)
+        end
+    elseif sortOrder == "childtime" then
+        sortFunction = function(upper, lower)
+            return self.functionTimes[lower].childTime < self.functionTimes[upper].childTime
+        end
+    elseif sortOrder == "count" or sortOrder == "call count" then
+        sortFunction = function(upper, lower)
+            return self.functionTimes[lower].callCount < self.functionTimes[upper].callCount
+        end
+    else
+        -- Sort by name
+        sortFunction = function(lower, upper)
+            return (string.lower(lower) < string.lower(upper))
+        end
+    end
+
+    table.sort(sortedKeys, sortFunction)
+
+    for _, key in ipairs(sortedKeys) do
+        totalCallCount = totalCallCount + self.functionTimes[key].callCount
+        table.insert(report, key)
+        table.insert(report, string.format("    Call count:\t\t%d",		-- Usese unicode characters to make better alignement in the console
+            self.functionTimes[key].callCount))
+        table.insert(report, string.format("    Total time:\t\t%1.5f",
+            self.functionTimes[key].totalTime))
+        table.insert(report, string.format("    Self time: \t\t%1.5f",
+            self.functionTimes[key].totalTime - self.functionTimes[key].childTime))
+        table.insert(report, string.format("    Child time:\t\t%1.5f",
+            self.functionTimes[key].childTime))
+        table.insert(report, string.format("    Average time:\t%1.5f",
+            self.functionTimes[key].totalTime / self.functionTimes[key].callCount))
+        table.insert(report, "")
+    end
+    table.insert(report, string.format("Total function call count: %d", totalCallCount))
+    table.insert(report, string.format("Profiler self time: %1.5f", self.callStack.profilerSelfTime[0]))
+
+    return table.concat(report, "\n")
+end
+
+
+function Debug:generateCallstackLog()
+    local report = {}
+    local csl = self.callStackLog
+    local length = #self.callStackLog.funcName
+    local totalCallCount = 0
+    local highestFuncCallDepth = 0
+
+    local indexMap = {}
+    local currentDept = 0
+    local prevDepth = 1
+    local offset = 0
+    local reportIndex = 1
+    local formatStr
+    for i = 1, length do
+        currentDept = csl.funcDept[i]
+
+        if currentDept > highestFuncCallDepth then
+            highestFuncCallDepth = currentDept
+        end
+
+        if currentDept > prevDepth then
+            for j = prevDepth, currentDept-1 do
+                indexMap[j] = i + offset
+                offset = offset + 1
+            end
+            reportIndex = i + offset
+        elseif currentDept < prevDepth then
+            offset = offset - 1
+            reportIndex = indexMap[currentDept]
+        else
+            reportIndex = i + offset
+        end
+
+        local splitchar = ""
+        if currentDept > 1 then
+            if csl.funcDept[i+1] < currentDept then
+                splitchar = "└─ "
+            else
+                splitchar = "├─ "
+            end
+        end
+        
+        if type(csl.funcTime[i]) == 'string' then
+        	formatStr = "%s%s%s - %s"
+        else
+        	formatStr = "%s%s%s - %1.5f"
+        end
+        	
+        report[reportIndex] = string.format(
+            formatStr,
+            string.rep("│   ", currentDept - 2),
+            splitchar,
+            csl.funcName[i],
+            csl.funcTime[i]
+        )
+
+        prevDepth = currentDept
+    end
+
+    table.insert(report, "")
+    table.insert(report, string.format("Total function call count: %d", length))
+    table.insert(report, string.format("Highest function call depth: %d", highestFuncCallDepth))
+    table.insert(report, string.format("Profiler self time: %1.5f", self.callStack.profilerSelfTime[0]))
+
+    return table.concat(report, "\n")
+end
+
+
+function Debug.checkIfExluded(item)
+    if type(item) == "function" then
+        for _, v in ipairs(Debug.excludedFunctions) do
+            if v == item then
+                return true
+            end
+        end
+    else
+        for _, v in ipairs(Debug.excludedTables) do
+            if v == item then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+
+-- List of functions exluded from profiling to prevent infinite loops
+Debug.excludedFunctions = {
+    Debug.newProfiler,
+    Debug.setHook,
+    Debug.setHooks,
+    Debug.timeStart,
+    Debug.timeStop,
+    Debug.removeHook,
+    Debug.report,
+    Debug.generateTimingList,
+    Debug.generateCallstackLog,
+    Debug.checkIfExluded
+}
+Debug.excludedTables = {
+    _G, 		-- Needed when setting hooks recursively because _G links to itself
+    _G.package, -- Same as for _G
+    _G.mw.site,
+    Debug,
+    Debug.excludedFunctions,
+    Debug.excludedTables
+}
+
+
+return Debug
+-- </nowiki>

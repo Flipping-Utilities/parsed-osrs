@@ -1,0 +1,143 @@
+--Module:Invocable
+--Table
+local invocable = {}
+local Exchange = require("Module:Exchange");
+
+function GEPrice(item, amount)
+   return Exchange._price(item, amount)
+end
+
+function ternary(cond ,T ,F)
+    if cond then return T else return F end
+end
+
+function invocable.KingdomMostProfitable(frame)
+	local bestOption = getKingdomBestOption()
+	return bestOption.option1
+end
+
+function invocable.KingdomSecondMostProfitable(frame)
+	local bestOption = getKingdomBestOption()
+	return bestOption.option2
+end
+
+function invocable.KingdomProfit(frame)
+	local bestOption = getKingdomBestOption()
+	return math.floor(bestOption.profit)
+end
+
+function getKingdomBestOption()
+	local options = getKingdomOptions()
+	
+	local bestOption = {}
+	
+	bestOption.profit = 0;
+	
+	for k1, v1 in pairs(options) do
+		for k2, v2 in pairs(options) do
+			if k1 ~= k2 and v1 + v2 * 0.5 > bestOption.profit then
+				bestOption.profit = v1 + v2 * 0.5
+				bestOption.option1 = k1
+				bestOption.option2 = k2
+			end
+		end
+	end
+	
+	return bestOption
+end
+
+function getKingdomOptions()
+  local AverageGemstone = (
+    GEPrice("Uncut sapphire", 8)
+    + GEPrice("Uncut emerald", 4)
+    + GEPrice("Uncut ruby", 2)
+    + GEPrice("Uncut diamond")
+  ) / 7
+  local nest =  7887.72
+
+  local options = {}
+  options["Mining"] = GEPrice("Coal", 542) + AverageGemstone * 3 - 50000
+  options["Woodcutting"] = GEPrice("Maple logs", 892) + 8 * nest - 50000
+  options["Fishing (cooked)"] = (
+    GEPrice("Tuna", 440)
+    + GEPrice("Swordfish", 132)
+    + AverageGemstone * 4
+    + GEPrice("Casket", 4)
+    - 50000)
+  options["Fishing (raw)"] = (
+    GEPrice("Raw tuna", 440)
+    + GEPrice("Raw swordfish", 132)
+    + AverageGemstone * 4
+    + GEPrice("Casket", 4)
+    - 50000)
+  options["Herbs"] = (
+  GEPrice("Grimy tarromin", 13.424)
+  + GEPrice("Grimy harralander", 11.952)
+  + GEPrice("Grimy ranarr weed", 3.955)
+  + GEPrice("Grimy irit leaf", 7.818)
+  + GEPrice("Grimy avantoe", 7.916)
+  + GEPrice("Grimy kwuarm", 3.982)
+  + GEPrice("Grimy cadantine", 3.892)
+  + GEPrice("Grimy lantadyme", 3.926)
+  + GEPrice("Grimy dwarf weed", 4.136)
+    - 50000)
+  options["Herbs (Flax)"] = GEPrice("Flax", 1250) - 50000
+  options["Hardwoods (Teak)"] = GEPrice("Teak logs", 301) - 50000
+  options["Hardwoods (Mahogany)"] = GEPrice("Mahogany logs", 204) - 50000
+  options["Hardwoods (both)"] = (
+    GEPrice("Mahogany logs", 121)
+    + GEPrice("Teak logs", 121)
+    - 50000)
+
+  --[[
+  options["Mining"]
+  options["Woodcutting"]
+  options["Fishing (cooked)"]
+  options["Fishing (raw)"]
+  options["Herbs"]
+  options["Herbs (Flax)"]
+  options["Hardwoods (Teak)"]
+  options["Hardwoods (Mahogany)"]
+  options["Hardwoods (both)"]
+  ]]
+
+  return options
+end
+
+function invocable.CreateTable(frame)
+	local output = [[
+		{| class=\"wikitable article-table\"
+		!a!b!c
+		|-
+		|a|b|c
+		|}
+	]]
+	return output
+end
+ 
+function invocable.RuneRunProfit(frame)
+	local rune = frame.args[1]
+	local multiplier = frame.args[2]
+	local level = 75
+	local totalEssense = 27
+	if (level < 25) then
+		totalEssense = totalEssense + 0
+	elseif (level < 50 ) then
+		totalEssense = totalEssense + 8
+	elseif (level < 75 ) then
+		totalEssense = totalEssense + 16
+	elseif (level < 85 ) then
+		totalEssense = totalEssense + 27
+	else
+		totalEssense = totalEssense + 40
+	end
+	
+	local valueOfCraftedRunes = GEPrice(rune, totalEssense * multiplier * 1.6)
+	local valueOfPureEssenses = GEPrice("pure essence", totalEssense)
+	local costOfGloryTeleport = (GEPrice("amulet of glory(4)") - GEPrice("amulet of glory")) * 1/4
+	local costOfStaminaPotion = GEPrice("Stamina potion(3)") * 1/3 * 2/5
+	
+	return valueOfCraftedRunes - math.floor(valueOfPureEssenses - costOfGloryTeleport - costOfStaminaPotion)
+end
+
+return invocable

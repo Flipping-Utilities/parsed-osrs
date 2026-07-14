@@ -1,0 +1,29 @@
+local dpl = require('Module:DPLlua')
+local p = {}
+
+function p.main()
+	local bukkits = dpl.ask({namespace='bucket'})
+	local out = mw.html.create('table')
+	out:addClass('wikitable mw-collapsible mw-collapsed'):tag('caption'):wikitext('Show/hide table -->'):done():tag('tr'):tag('th'):wikitext('bucket name'):done():tag('th'):wikitext('fields')
+	out:newline()
+	for i,bukkit in ipairs(bukkits) do
+		local row = out:tag('tr')
+		row:tag('td'):wikitext('[['..bukkit:lower()..']]')
+		local div = row:tag('td'):tag('div'):css({display='flex',['flex-wrap']='wrap',gap='5px'})
+		local b = mw.title.new(bukkit)
+		local def = mw.text.jsonDecode(b.content)
+		for field,info in pairs(def) do
+			local txt = info.type
+			if info.repeated == false then
+				txt = txt .. ' REPEATED'
+			end
+			if info.index == false then
+				txt = txt .. ' NOINDEX'
+			end
+			div:tag('div'):css({display='flex',['flex-direction']='column',border='2px solid var(--wikitable-border)',['border-radius']='4px',['font-family']='monospace'}):wikitext('<span style="font-weight:bold;">'..field..'</span><span>'..txt..'</span>')
+		end
+	end
+	return out
+end
+
+return p

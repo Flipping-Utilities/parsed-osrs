@@ -1,0 +1,5 @@
+local p = {}
+p.main = function() 
+	return "Hello " .. "world!"
+end
+return p

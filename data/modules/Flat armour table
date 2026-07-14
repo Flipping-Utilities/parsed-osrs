@@ -10,6 +10,7 @@ function p.header(tbl, verbose)
         :tag('th'):wikitext('[[File:Attack style icon.png|link=|Combat level]]'):done()
         :tag('th'):wikitext('[[File:Hitpoints icon.png|link=|Hitpoints]]'):done()
         :tag('th'):wikitext('Flat armour'):done()
+        :tag('th'):wikitext('Experience bonus'):done()
 end
 
 -- Main entrypoint
@@ -21,7 +22,7 @@ end
 function p._main(args)
     -- Gather the data
     local data = bucket('infobox_monster')
-		.select('page_name_sub', 'image', 'is_members_only', 'combat_level', 'hitpoints', 'flat_armour')
+		.select('page_name_sub', 'image', 'is_members_only', 'combat_level', 'hitpoints', 'flat_armour', 'experience_bonus')
 		.where('flat_armour', '!=', 0)
 		.where(bucket.Not('Category:Discontinued content'))
 		.where(bucket.Not('Category:Pages using information from game APIs or cache'))
@@ -52,6 +53,7 @@ function p._main(args)
             :tag('td'):wikitext(entry['combat_level'] or "N/A"):done()
             :tag('td'):wikitext(entry['hitpoints']):done()
             :tag('td'):wikitext(entry['flat_armour']):done()
+            :tag('td'):wikitext(entry['experience_bonus'] and (entry['experience_bonus'] .. '%') or '0%'):done()
         return tr
 	end
     

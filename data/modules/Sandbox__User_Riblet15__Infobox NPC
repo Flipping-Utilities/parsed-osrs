@@ -1,0 +1,296 @@
+--------------------------
+-- Module for [[Template:Infobox NPC]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local paramtest = require('Module:Paramtest')
+local infobox = require('Module:Infobox')
+local tb = require('Module:Trailblazer Region')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'image' },
+		{ name = 'image_smw', func = { name = image_smw, params = { 'image' }, flag = 'p' } },
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'aka', func = 'has_content' },
+		{ name = 'level', func = 'has_content' },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'race', func = 'has_content' },
+		{ name = 'quest', func = 'has_content' },
+		{ name = 'location', func = 'has_content' },
+		{ name = 'leagueRegion', func = tb.regionsForInfobox },
+		{ name = 'leagueRegion_raw', func = { name = 'has_content', params = { 'leagueRegion' }, flag = 'p' } },
+		{ name = 'shop', func = 'has_content' },
+		{ name = 'gender', func = 'has_content' },
+		{ name = 'options', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+		{ name = 'map', func = maparg },
+
+		{ name = 'shopversion', func = 'has_content' },
+        { name = 'usesinfobox', func = { name = tostring, params = { 'NPC' }, flag = 'r' } },
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_smw', func = { name = idsmw, params = { 'id' }, flag = 'p' } },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox NPC')
+	ret:addClass('infobox-npc')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+	:pad(20)
+
+	:addRow{
+		{ tag = 'argd', content = 'image', colspan = '20', class = 'infobox-full-width-content' }
+	}
+	:pad(20)
+
+	ret:addRow{
+		{ tag = 'th', content = 'Released', colspan = '8' },
+		{ tag = 'argd', content = 'release', colspan = '12' }
+	}
+
+	if ret:paramDefined('removal') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removal', colspan = '8' },
+			{ tag = 'argd', content = 'removal', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '8' },
+			{ tag = 'argd', content = 'aka', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('level') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Combat level]]', colspan = '8' },
+			{ tag = 'argd', content = 'level', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '8' },
+		{ tag = 'argd', content = 'members', colspan = '12' }
+	}
+	
+	if ret:paramDefined('race') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Races|Race]]', colspan = '8' },
+			{ tag = 'argd', content = 'race', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('quest') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Quest]]', colspan = '8' },
+			{ tag = 'argd', content = 'quest', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Locations|Location]]', colspan = '8' },
+		{ tag = 'argd', content = 'location', colspan = '12' }
+	}
+
+	if ret:paramDefined('leagueRegion', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Raging Echoes League|League]] region', colspan = '8' },
+			{ tag = 'argd', content = 'leagueRegion', colspan = '12' },
+			meta = {addClass = 'leagues-global-flag'}
+		}
+	end
+
+	if ret:paramDefined('shop') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Shop]]', colspan = '8' },
+			{ tag = 'argd', content = 'shop', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('gender') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Gender]]', colspan = '8' },
+			{ tag = 'argd', content = 'gender', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('options') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Choose Option|Options]]', colspan = '8' },
+			{ tag = 'argd', content = 'options', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Examine]]', colspan = '8' },
+		{ tag = 'argd', content = 'examine', colspan = '12' }
+	}
+
+	ret:pad(20)
+
+	local map_defined = ret:paramGrep('map', function(x) return (x or 'N/A') ~= 'N/A' end)
+	if map_defined then
+		ret:addRow{
+			{ tag = 'th', content = 'Map', class = 'infobox-subheader', colspan = '20' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'map', colspan = '20', class = 'infobox-full-width-content infobox-image' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'NPC ID', colspan = '8' },
+		{ tag = 'argd', content = 'id',  colspan = '12' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+	
+	ret:addVersionBasedVars('ShopInfo_members', 'shopversion', 'members')
+	ret:addVersionBasedVars('ShopInfo_location', 'shopversion', 'location')
+	ret:addVersionBasedVars('ShopInfo_LeagueRegion', 'shopversion', 'leagueRegion_raw')
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function maparg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if string.lower(arg) == 'no' then
+		return 'N/A'
+	end
+
+	return arg
+end
+
+function image_smw(arg)
+	local _img = string.match(arg, "File:.-%.png")
+	return _img
+end
+
+local idsmw_nil_ids = {
+	removed = true,
+	no = true
+}
+
+function idsmw(id)
+	if infobox.isDefined(id) then
+		if idsmw_nil_ids[string.lower(tostring(id))] then
+			return nil
+		end
+		local r = string.gsub(id, ',', '&&SPLITPOINT&&')
+		return r
+	end
+	return nil
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Non-player characters' }
+
+	-- Add the associated category if the parameter has content
+	local defined_args = {
+		aka = 'Pages with AKA',
+		shop = 'Merchants'
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+	-- Add the associated category if the parameter doesn't have content
+	local notdefined_args = {
+		image = 'Needs image',
+		members = 'Needs members status',
+		release = 'Needs release date',
+		examine = 'Needs examine added',
+		update = 'Needs update added',
+		id = 'Needs ID',
+		map = 'Needs map',
+		options = 'Needs options',
+		leagueRegion = 'Needs League region',
+	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+	
+	local cat_map = {
+		-- Parameters that have text
+		-- map a category to a value
+		matches = {
+			members = { yes = 'Members\' NPCs', no = 'Free-to-play NPCs' },
+		}
+	}
+	
+	-- searches
+	for n, v in pairs(cat_map.matches) do
+		for m, w in pairs(v) do
+			if args[n] then
+				if string.lower(tostring(args[n].d) or '') == m then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if string.lower(tostring(x)) == m then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	-- quest items
+	-- just look for a link
+	if args.quest.d:find('%[%[') then
+		table.insert(ret, 'Quest NPCs')
+	elseif args.quest.switches then
+		for _, v in ipairs(args.quest.switches) do
+			if v:find('%[%[') then
+				table.insert(ret, 'Quest items')
+				break
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

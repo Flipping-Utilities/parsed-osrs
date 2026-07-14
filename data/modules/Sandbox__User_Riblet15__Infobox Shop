@@ -1,0 +1,200 @@
+--------------------------
+-- Module for [[Template:Infobox Shop]]
+--------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local paramtest = require('Module:Paramtest')
+local infobox = require('Module:Sandbox/User:Riblet15/Infobox')
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'has_content' },
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'icon', func = iconarg },
+		{ name = 'location', func = 'has_content' },
+		{ name = 'owner', func = 'has_content' },
+		{ name = 'special', func = 'has_content' },
+		{ name = 'map', func = maparg },
+		{ name = 'shopversion', func = 'has_content' },
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Shop' }, flag = 'r' } },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:useSMWSubobject({
+		members = 'Store Is members only',
+		location = 'Store location',
+		special = 'Store specialty',
+		usesinfobox = 'Uses infobox',
+	})
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Shop')
+	ret:addClass('infobox-shop')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'image', colspan = '20', class = 'infobox-full-width-content infobox-image' }
+	}
+
+	:pad(20)
+
+	:addRow{
+		{ tag = 'th', content = 'Released', colspan = '8' },
+		{ tag = 'argd', content = 'release', colspan = '12' }
+	}
+
+	if ret:paramDefined('removal') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removed', colspan = '8' },
+			{ tag = 'argd', content = 'removal', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '8' },
+		{ tag = 'argd', content = 'members', colspan = '12' }
+	}
+
+	local icon_defined = ret:paramGrep('icon', function(x) return string.lower(x or 'n/a') ~= 'n/a' end)
+	if icon_defined then
+		ret:addRow{
+			{ tag = 'th', content = '[[Icon|Minimap icon]]', colspan = '8' },
+			{ tag = 'argd', content = 'icon', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Location', colspan = '8' },
+		{ tag = 'argd', content = 'location', colspan = '12' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = 'Owner', colspan = '8' },
+		{ tag = 'argd', content = 'owner', colspan = '12' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = 'Specialty', colspan = '8' },
+		{ tag = 'argd', content = 'special', colspan = '12' }
+	}
+
+	:pad(20)
+
+	local map_defined = ret:paramGrep('map', function(x) return string.lower(x or 'n/a') ~= 'n/a' end)
+	if map_defined then
+		ret:addRow{
+			{ tag = 'th', content = 'Location', class = 'infobox-subheader', colspan = '20' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'map', colspan = '20', class = 'infobox-full-width-content infobox-image' }
+		}
+	end
+	
+	ret:addVersionBasedVars('ShopInfo_members', 'shopversion', 'members')
+	ret:addVersionBasedVars('ShopInfo_location', 'shopversion', 'location')
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function iconarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if string.lower(arg) == 'no' then
+		return 'N/A'
+	end
+
+	return arg
+end
+
+function maparg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if string.lower(arg) == 'no' then
+		return 'N/A'
+	end
+
+	return arg
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Shops' }
+
+	-- Add the associated category if the parameter doesn't have content
+	local notdefined_args = {
+		image = 'Needs image',
+		release = 'Needs release date',
+		members = 'Needs members status',
+		map = 'Needs map',
+	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+	
+	if string.lower(args['special'].d or '') == 'general store' then
+		table.insert(ret, 'General stores')
+	end
+	
+	local cat_map = {
+		-- Parameters that have text
+		-- map a category to a value
+		matches = {
+			members = { yes = 'Members\' shops', no = 'Free-to-play shops' },
+		}
+	}
+	
+	-- searches
+	for n, v in pairs(cat_map.matches) do
+		for m, w in pairs(v) do
+			if args[n] then
+				if string.lower(tostring(args[n].d) or '') == m then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if string.lower(tostring(x)) == m then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

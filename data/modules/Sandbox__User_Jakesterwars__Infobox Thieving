@@ -1,0 +1,201 @@
+--------------------------
+-- Module for [[Template:Infobox Agility]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+
+-- Main function called with invokes
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'image' },
+		{ name = 'release', func = 'release' },
+		{ name = 'level', func = 'has_content' },
+		{ name = 'level_smw', func = { name = levelsmw, params = { 'level' }, flag = 'p' } },
+		{ name = 'experience', func = experiencearg },
+		{ name = 'location', func = 'has_content' },
+		{ name = 'stun', func = 'has_content' },
+		{ name = 'damage', func = 'has_content' },
+		{ name = 'actions', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+		{ name = 'map', func = maparg },
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_smw', func = { name = idsmw, params = { 'id' }, flag = 'p' } },
+	}
+
+	ret:defineLinks({ hide = true })
+	
+	ret:useSMWSubobject({
+        level_smw = 'Thieving level',
+        id_smw = 'Object ID',
+    })
+
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Thieving')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'argd', content = 'image', class='infobox-image infobox-full-width-content', colspan = '20' }
+	}
+	:pad(20)
+	:addRow{
+		{ tag = 'th', content = 'Released', colspan = '7' },
+		{ tag = 'argd', content = 'release', colspan = '13' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Thieving|Level]]', colspan = '7' },
+		{ tag = 'argd', content = 'level', colspan = '13' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Experience]]', colspan = '7' },
+		{ tag = 'argd', content = 'experience', colspan = '13' }
+	}
+	:addRow{
+		{ tag = 'th', content = 'Location', colspan = '7' },
+		{ tag = 'argd', content = 'location', colspan = '13' }
+	}
+	if ret:paramDefined('stun') then
+		ret:addRow{
+			{ tag = 'th', content = 'Stun duration', colspan = '7' },
+			{ tag = 'argd', content = 'stun', colspan = '13' }
+		}
+	end
+	if ret:paramDefined('stun') then
+		ret:addRow{
+			{ tag = 'th', content = 'Fail damage', colspan = '7' },
+			{ tag = 'argd', content = 'damage', colspan = '13' }
+		}
+	end
+	if ret:paramDefined('actions') then
+		ret:addRow{
+			{ tag = 'th', content = 'Actions', colspan = '7' },
+			{ tag = 'argd', content = 'actions', colspan = '13' }
+		}
+	end
+	ret:addRow{
+		{ tag = 'th', content = 'Examine', colspan = '7' },
+		{ tag = 'argd', content = 'examine', colspan = '13' }
+	}
+	:pad(20)
+
+	local map_defined = ret:paramGrep('map', function(x) return (x or 'N/A') ~= 'N/A' end)
+	if map_defined then
+		ret:addRow{
+			{ tag = 'th', content = 'Map', class = 'infobox-subheader', colspan = '20' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'map', colspan = '20', class = 'infobox-full-width-content infobox-image' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Object ID', colspan = '7' },
+		{ tag = 'argd', content = 'id',  colspan = '13' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function experiencearg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local argNoCommas = string.gsub(arg, ',', '')
+	if tonumber(argNoCommas) == nil then
+		return arg
+	else
+		return string.format('<span class="infobox-quantity" data-val-each="%s"><span class="infobox-quantity-replace">%s</span> xp</span>', argNoCommas, arg)
+	end
+end
+
+function levelsmw(level)
+	if infobox.isDefined(level) then
+		local r = tonumber(level)
+		return r
+	end
+	return nil
+end
+
+function maparg(arg)
+    if not infobox.isDefined(arg) then
+        return nil
+    end
+    if string.lower(arg) == 'no' then
+        return 'N/A'
+    end
+    return arg
+end
+
+-- Filter non-numerical IDs and separate with splitpoint for use in SMW
+-- Example: '123 ,hist234, 456' => '123&&SPLITPOINT&&456'
+function idsmw(id)
+	if not infobox.isDefined(id) then
+		return nil
+	end
+	local res = {}
+	for id_i in string.gmatch(id, "[^,]+") do
+		local trimmed = id_i:gsub("^%s*(.-)%s*$", "%1")
+		if tonumber(trimmed) then
+			table.insert(res, trimmed)
+		end
+	end
+	return table.concat(res, '&&SPLITPOINT&&')
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Thieving' }
+
+	-- Add the associated category if the parameter doesn't have content
+	local notdefined_args = {
+		image = 'Needs image',
+		members = 'Needs members status',
+		release = 'Needs release date',
+		examine = 'Needs examine added',
+		experience = 'Needs experience info',
+		type = 'Needs type defined',
+		map = 'Needs map',
+		id = 'Needs ID',
+	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

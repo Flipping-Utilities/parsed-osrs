@@ -1,0 +1,106 @@
+-- Implements {{Coins}}
+-- Original source: http://runescape.wiki/w/Module:Coins?action=history
+
+local p = {}
+
+-- a: string to be evaluated and formatted
+-- places: number of decimal places to round to and display
+-- threshold: if abs(num) >= threshold, it will round to nearest integer
+--   set threshold to -1 to always round to <places>
+local function amount(a, places, threshold)
+	-- cache globals to improve performance
+	local math = math
+	local string = string
+	local table = table
+	local mw = mw
+	local tonumber = tonumber
+	local tostring = tostring
+
+	local ret = {'<span class="coins inventory-image coins-', true, true, true, '</span>'}
+
+	a = string.gsub(a, ',', '')
+
+	-- evaluate expr if required
+	if tonumber(a) == nil then
+		a = tonumber(mw.ext.ParserFunctions.expr(a)) or 0
+	else
+		a = tonumber(a)
+	end
+	local absVal = math.abs(a)
+
+	-- round to <places> decimal places or to nearest integer and format
+	-- always do decimal places if threshold is disabled (-1)
+	local hasDecimals = threshold == -1 or (places > 0 and absVal < threshold)
+	local absValRounded
+	if hasDecimals then
+		absValRounded = math.floor(absVal * 10 ^ places + 0.5) / (10 ^ places)
+	else
+		absValRounded = math.floor(absVal + 0.5)
+	end
+
+	-- edge case when numbers get rounded to be exactly the threshold
+	-- e.g. don't want 99.99 to be 100.00 if threshold is 100
+	if hasDecimals and absValRounded == threshold then
+		hasDecimals = false
+	end
+
+	-- coin stack image to display
+	-- don't use 10,000 stack because it's slightly taller
+	local stackSizes = {1000, 250, 100, 25, 5, 4, 3, 2, 1}
+	local stackSize
+	for _, qty in ipairs(stackSizes) do
+		stackSize = qty
+		if absValRounded >= qty then
+			break
+		end
+	end
+	ret[2] = tostring(stackSize)
+
+	-- add commas and trailing zeroes
+	local formatted
+	if hasDecimals then
+		local integerPart, decimalPart = math.modf(absValRounded)
+
+		if integerPart == 0 then
+			formatted = string.format('%.' .. places .. 'f', decimalPart)
+		else
+			formatted = mw.language.getContentLanguage():formatNum(integerPart)
+				.. string.format('%.' .. places .. 'f', decimalPart):sub(2)  -- remove "0" from "0.X"
+		end
+	else
+		formatted = mw.language.getContentLanguage():formatNum(absValRounded)
+	end
+
+	-- handle negative signs and set class to denote positive or negative (css sets the colour)
+	if absValRounded == 0 then
+		ret[3] = '">'
+	elseif a > 0 then
+		ret[3] = ' coins-pos">'
+	else
+		formatted = '−' .. formatted  -- unicode U+2122 'Minus Sign'
+		ret[3] = ' coins-neg">'
+	end
+	ret[4] = formatted
+
+	return table.concat( ret )
+end
+
+-- {{Coins}} access point
+function p.amount(frame)
+	local args = frame:getParent().args
+	local a = args[1] or '0'
+	local places = tonumber(args['places']) or 2
+	local threshold = tonumber(args['threshold']) or 10000
+
+	return amount(a, places, threshold)
+end
+
+-- Module access point
+function p._amount(a, places, threshold)
+	a = tostring(a) or '0'
+	places = places or 2
+	threshold = threshold or 10000
+	return amount(a, places, threshold)
+end
+
+return p

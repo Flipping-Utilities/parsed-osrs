@@ -1,0 +1,16 @@
+local dpl = require('Module:DPLlua')
+
+local p = {}
+
+
+
+function p.main(frame)
+	return p._main(frame, frame:getParent().args)
+end
+
+function p._main(frame, args)
+	return "test.txt"
+end
+
+
+return p

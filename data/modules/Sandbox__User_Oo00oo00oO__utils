@@ -1,0 +1,1365 @@
+local p = {}
+p.tests = {}
+p.__THIS_MODULE_PATH = mw.title.getCurrentTitle().fullText -- "Module:Sandbox/User:Oo00oo00oO/utils";
+local lang = mw.language.getContentLanguage()
+-------------------------------------
+-- Game specific info --
+
+--- getGameTaxRate 
+-- @returns { 
+--   thresh: int, -- the ge tax threshold
+--   rate: float, -- the GE tax rate between 0 and 1
+-- }
+function p.getGameTaxRate()
+	if mw.site.server:lower():find("oldschool") then
+		return {thresh = 50, rate = 0.02}
+	else
+		--assume rs3
+		return {thresh = 50, rate = 0.02}
+	end
+end
+
+-------‐----------------------------- 
+-- QUEUE/STACK list type --
+p.List = {}
+--- Initalize new List type.
+function p.List.new ()
+  return {first = 0, last = -1, data={}}
+end
+--- Insert item to left/beginning side of list
+-- @param list <p.List> -- the list object
+-- @param value <any> -- the value to be inserted
+function p.List.pushleft (list, value)
+  local first = list.first - 1
+  list.first = first
+  list.data[first] = value
+end
+--- Insert item to right/end side of list
+-- @param list <p.List> -- the list object
+-- @param value <any> -- the value to be inserted
+function p.List.pushright (list, value)
+  local last = list.last + 1
+  list.last = last
+  list.data[last] = value
+end
+--- Remove item at the left/beginning side of list
+-- @param list <p.List> -- the list object
+-- @returns <any> the value removed from the list
+function p.List.popleft (list)
+  local first = list.first
+  if first > list.last then error("list is empty") end
+  local value = list.data[first]
+  list.data[first] = nil        -- to allow garbage collection
+  list.first = first + 1
+  return value
+end
+--- Remove item at the right/end side of list
+-- @param list <p.List> -- the list object
+-- @returns <any> the value removed from the list
+function p.List.popright (list)
+  local last = list.last
+  if list.first > last then error("list is empty") end
+  local value = list.data[last]
+  list.data[last] = nil         -- to allow garbage collection
+  list.last = last - 1
+  return value
+end
+--- Get item at the left/beginning side of list
+-- @param list <p.List> -- the list object
+-- @returns <any> the value at the left/beginning of the list
+function p.List.peekleft(list) 
+	local first = list.first
+  if first > list.last then error("list is empty") end
+  return list.data[first]
+end
+--- Get item at the right/end side of list
+-- @param list <p.List> -- the list object
+-- @returns <any> the value at the right/end of the list
+function p.List.peekright(list)
+	local last = list.last
+  if list.first > last then error("list is empty") end
+  return list.data[last]
+end
+--- Get size of list
+-- @returns <number> the size of the list
+function p.List.size(list)
+	return list.last - list.first + 1
+end
+--- Search list for value contents
+-- @param list <p.List> -- the list object
+-- @param val <any> -- the alue 
+function p.List.contains(list, val)
+	for i=list.first, list.last, 1 do
+		if list.data[i] == val then
+			return true
+		end
+	end
+	return false
+end
+function p.List.foreach(list, func) 
+	for i=list.first, list.last, 1 do
+		func(list.data[i], i-list.first+1)
+	end
+end
+function p.List.join(list, str)
+	local ret = ""
+	local i = list.first
+	while i < list.last do
+		ret = ret .. tostring(list.data[i]) .. str
+		i = i+1
+	end
+	if i==list.last and list.last ~= list.first then
+		ret = ret .. tostring(list.data[i])
+	end
+	return ret
+end
+-------‐-----------------------------
+-- Data conversion --
+--- converts lua data to a an html <pre> element containing the jsonified data
+function p.convertToJson(data, asPreBlock)
+	asPreBlock = asPreBlock == nil and true or asPreBlock
+	local jsonified = mw.text.jsonEncode( data, mw.text.JSON_PRESERVE_KEYS + mw.text.JSON_PRETTY)
+	if not asPreBlock then
+		return jsonified
+	end
+	local html = mw.html.create('pre')
+	html:newline()
+	html:wikitext(jsonified)
+	html:newline()
+	html:done():allDone()
+	return html
+end
+-------‐-----------------------------
+-- Test execution --
+-- @param obj (table) the table containing the test functions to be run
+-- @param format (boolean) will make this return the results of the tests as an html table with results
+-- @param objectsToProfile (table) objects to profile, defaults to nil. nil will profile the module being run.
+-- @param runMultipleTimes (boolean) if we want to try to rerun tests as many times as possible without hitting the overall script max runtime
+function p.runTests(obj, format, objectsToProfile, runMultipleTimes)
+	if runMultipleTimes == nil then
+		runMultipleTimes = true
+	end
+	local x = debug.traceback()
+	mw.logObject(x, "current stack")
+	-- local thisFuncName = "runTests"
+	-- local runTestsDepth = select(2, string.gsub(debug.traceback(), thisFuncName, ""))
+	if objectsToProfile == nil then
+		if obj["tests"] and type(obj["tests"]) == "table" then 
+			objectsToProfile = obj
+			obj = obj["tests"]
+		else
+			objectsToProfile = objectsToProfile or {}
+		end
+	end
+	-- Module:Debug DNE in osrs wiki...
+	local DebugModulePaths = { 
+		["runescape"] = "Module:Debug",
+		["oldschool"] = "Module:Sandbox/User:Oo00oo00oO/RS3/Module:Debug",
+	}
+	local debugPathVersion = mw.site.server:find("oldschool") and "oldschool" or "runescape"
+	local _debug = require(DebugModulePaths[debugPathVersion])
+	local profiles = {
+		["TIME"] = _debug:newProfiler("time"),
+		["CALLSTACK"] = _debug:newProfiler("callstack"),
+	}
+	local testCoverageProfiler = _debug:newProfiler("time")
+	format = tostring(format):lower()
+	format = format and format
+	local currFuncName = debug.traceback():match("in function (['<][^'>]+['>])")
+	local count = {
+		[true]=0,
+		[false]=0,
+	}
+	profiles["TIME"]:setHooks{{table = obj, tname = "obj"}}
+	profiles["CALLSTACK"]:setHooks{{table = obj, tname = "obj"}}
+	testCoverageProfiler:setHooks{{table=objectsToProfile, R=true, tname="•"}}
+	local subgroups = {}
+	local ret = p.List.new()
+	-- run tests and store result reports
+	local totalRuns = 0
+	repeat 
+	totalRuns = totalRuns + 1
+	for k,v in pairs(obj) do
+		if type(v) == "table" then
+			subgroups[tostring(k)] = p.runTests(v, "subgroup", nil, false)
+		end
+		if type(v) == "function" then
+			-- call with try/catch and try to get full traceback
+			local status, result =  xpcall(function(...) return v(arg) end, debug.traceback)
+			if status == false then
+				-- on error, remove this function from the bottom of the stack
+				result = "<pre>" .. result:gsub("%[C%]: in function 'xpcall'\n\t" .. p.__THIS_MODULE_PATH .. ":%d+: in function " .. currFuncName .. ".*", "") .. "</pre>"
+			end
+			if totalRuns == 1 or status == false then 
+				-- only add result from first run or subsequent failures
+			local f = status and p.List.pushleft or p.List.pushright
+			f(ret, {["status"]=status, ["name"] = k, ["result"] = result})
+			count[status] = count[status] + 1
+			end
+		end
+	end
+	mw.logObject(subgroups,"subgroups")
+	-- retry rerun multiple times (if we have time, not enough samples, and we are allowed to run multiple time)
+	mw.logObject({
+		runMultipleTimes=runMultipleTimes, totalTime=os.clock(),
+		totalRuns = totalRuns,
+		avgTime = os.clock() /totalRuns,
+		cond = {a=runMultipleTimes == false ,b=(os.clock() / totalRuns) + os.clock() < 8 , c=totalRuns >= 10, d=mw.dumpObject(obj)}
+	})
+	until runMultipleTimes == false or (os.clock() / totalRuns) + os.clock() > 8 or totalRuns >= 10
+	local funcExecStatus = nil
+	if objectsToProfile then
+		-- find all missing functions from the executed ones relative to the objectsToProfile
+		local function extractAllFuncs(inp, out, path)
+			path = path or ""
+			for k,v in pairs(inp) do
+				-- go to children unless its a test function.
+				if type(v) == "table" and v ~= obj then
+					extractAllFuncs(v, out, path .. (#path > 0 and "." or "") .. k)
+				elseif type(v) == "function" then
+					out[path .. (#path > 0 and "." or "") .. k] = false
+				end
+			end
+		end
+		funcExecStatus = {}
+		extractAllFuncs(objectsToProfile, funcExecStatus)
+		
+		local funcNamePattern = "^•%.*(.*)$"
+		local txt = testCoverageProfiler:report()
+		local l = p.ListOfLines(txt)
+		p.List.foreach(l, function(e,i)
+			local m = e:match(funcNamePattern)
+			if m then
+				funcExecStatus[m] = true
+			end
+		end)
+	end
+	-- mw.logObject(profiles)
+	if format then
+		local printable = mw.html.create("table")
+		printable:addClass('wikitable mw-collapsible sortable sticky-header align-center-1 align-left-2 align-left-3'):tag("caption"):wikitext("TEST SUMMARY: " .. count[true] .. " PASS | " .. count[false] .. " FAIL"):done()
+		-- ADD HEADERS
+		printable:tag("tr"):tag("th"):wikitext("STATUS"):done():tag("th"):wikitext("TEST"):done():tag("th"):wikitext(""):done():done()
+		-- ADD RESULTS
+		p.List.foreach(ret, function(e, i) 
+			printable
+				:tag("tr")
+					:tag("td")
+						:wikitext(e["status"]==true and "✓" or "☓")
+						:attr('data-sort-value', e["status"] == true and 1 or 0)
+						:done()
+					:tag("td")
+						:wikitext(tostring(e["name"]))
+						:attr('data-sort-value', e["name"])
+						:done()
+					:tag("td")
+						:wikitext(tostring(e["result"]))
+						:done()
+					:done()
+			end)
+		printable:allDone()
+		local profileNode = mw.html.create("table")
+		profileNode:addClass('mw-collapsible mw-collapsed align-left-1 align-left-2')
+		profileNode
+			:tag("tr")
+				:tag("th")
+					:wikitext("Type")
+					:css("display","inline-block")
+					:css("vertical-align","top")
+					:done()
+				:tag("th")
+					:wikitext("Profile info")
+					:done()
+				:done()
+		for name, prof in pairs(profiles) do
+			local tr = mw.html.create("tr")
+			local prs, prep = pcall(function () return prof:report() end)
+			tr
+				:tag("td")
+					:wikitext(name)
+					:done()
+				:tag("td")
+					:tag("pre")
+						:wikitext(prep)
+						:done()
+					:done()
+				:done()
+			profileNode:node(tr)
+		end
+		profileNode:allDone()
+		printable:node(profileNode)
+		-- if we have code coverage, add it
+		if funcExecStatus then
+			local td2pre = mw.html.create("table")
+			td2pre:addClass("wikitable sortable lighttable mw-collapsible mw-collapsed align-left-1 align-center-2")
+			td2pre:tag("tr"):tag("th"):wikitext("function"):done():tag("th"):wikitext("Covered?"):done():done()
+			for n, s in pairs(funcExecStatus) do
+				td2pre:tag("tr"):tag("td"):wikitext(n):done():tag("td"):wikitext((not not s) and "☑" or "⁉️"):done():done()
+			end
+			td2pre:allDone()
+			printable:node(td2pre)
+		end
+		return printable
+	else
+		for name, prof in pairs(profiles) do
+			ret.data["PROFILE: " .. name] = prof:report()
+		end
+		return ret.data
+	end
+end
+
+function p.invokeTests(frame)
+	local modulePath = frame and type(frame)== "string" or frame.args[1]
+	modulePath = tostring(modulePath):gsub("/doc$","")
+	local m = require(modulePath)
+	if (m and type(m) == "table" and type(m.tests) == "table" ) then 
+		return p.runTests(m.tests, frame and true, m)
+	else 
+		error("The given module was not found or no tests exists for the given module '" .. modulePath .. "'!")
+	end
+end
+-------‐-----------------------------
+-- Tables --
+--- transposes the rows and columns indexable by ipairs. 
+--@param tbl (table) a rectangular table to transpose (sequentially indexed starting from 1, aka passable by ipairs)
+--@returns (table) the transposed table
+function p.transpose(tbl)
+   local transposed = {}
+   for c, m_1_c in ipairs(tbl[1]) do
+      local col = {m_1_c}
+      for r = 2, #tbl do
+         col[r] = tbl[r][c]
+      end
+      table.insert(transposed, col)
+   end
+   return transposed
+end
+
+--[[ helper func: generates a sorting function that sorts a table by the given index, sorts by descending value ]]--
+--- Generates a function to sort a table by a given index. 
+--- @example ```
+---		-- @exampleVar myTable (table<table>) A table of tables (aka: 2d array, or array of dicts)
+---		-- @exampleVar (number|string|any) Any valid table key such as the index number, or a key name
+---		-- Sort myTable table in ascending order by the `keyName` index. 
+---		table.sort(myTable, utils.sortTableByIndex(keyName))
+-- @param idxKey (number|string|any) Any valid table key such as the index number, or a key name
+-- @param reversed (boolean) If true, will return a function for descending order, otherwise ascending. Defaults for ascending.
+-- @returns (function: (T, T) => boolean) a function that accepts two values and returns a boolean representing their ordering with respect to the revered option.
+function p.sortTableByIndex(idxKey, reversed)
+	if reversed then
+		-- descending
+		return function (a,b)
+			return a[idxKey] > b[idxKey]
+		end
+	else
+		-- ascending
+		return function (a,b)
+			return a[idxKey] < b[idxKey]
+		end
+	end
+end
+
+--- will not work as expected on tables that are not perfectly rectangular or that do not meet the expected structure 
+-- @param tbl (mw.html) a <table> tag of data. must have #table.tr.th for header cell and #table.tr.td for data cell. other html tags will be ignored. table data rows or columns nested any more than expected are not read. 
+-- @param transposed (boolean) if true, will return the data extracted as transposed so that its by column first instead of by row.
+-- @returns (table) where keys are row indexes, values are sub-tables. the table's row index sub-tables have keys that are column indexes and values are sub-tables. the column index sub-tables have keys {
+-- 		["data"] = the raw data if it was extracted, (data key will be missing if failed to extract or cell was empty)
+-- 		["pos"] = {true row index, true column index},
+-- 	 	["src"] = reference to the source <td> cell
+--		}
+-- EXAMPLE:
+--[==[ 
+{
+	Example: 
+	 From a table that looks like the following:
+	    +------+------+------+
+	    | R1C1 | R1C2 | R1C3 |
+	    |  H1  |  H2  |  H3  |
+	    +------+------+------+
+	    | R2C1 | R2C2 | R2C3 |
+	    +------+------+------+
+	    | R3C1 |      | R3C3 |  (NOTE: R3C2 intentionally left blank)
+	    +------+------+------+
+	    | R4C1 | R4C2 | R4C3 |
+	    +------+------+------+
+	
+	## raw table:
+		local myTable = mw.html.create("table")											 |<table>
+			:tag('tr')																	 |	<tr>
+				:tag('th'):wikitext('R1C1'):tag('br'):done():wikitext('H1'):done()		 |		<th>R1C1<br>H1</th>
+				:tag('th'):wikitext('R1C2'):tag('br'):done():wikitext('H2'):done()		 |		<th>R1C2<br>H2</th>
+				:tag('th'):wikitext('R1C3'):tag('br'):done():wikitext('H3'):done()		 |		<th>R1C3<br>H3</th>
+			:done()																		 |	</tr>
+			:tag('tr')																	 |	<tr>
+				:tag('td'):wikitext('R2C1'):done()										 |		<td>R2C1</td>
+				:tag('td'):wikitext('R2C2'):done()										 |		<td>R2C2</td>
+				:tag('td'):wikitext('R2C3'):done()										 |		<td>R2C3</td>
+			:done()																		 |	</tr>
+			:tag('tr')																	 |	<tr>
+				:tag('td'):wikitext('R3C1'):done()										 |		<td>R3C1</td>
+				:tag('td') --[===[this cell was intentionally left empty]===] :done()	 |		<td></td>
+				:tag('td'):wikitext('R3C3'):done()										 |		<td>R3C3</td>
+			:done()																		 |	</tr>
+			:tag('tr')																	 |	<tr>
+				:tag('td'):wikitext('R4C1'):done()										 |		<td>R4C1</td>
+				:tag('td'):wikitext('R4C2'):done()										 |		<td>R4C2</td>
+				:tag('td'):wikitext('R4C3'):done()										 |		<td>R4C3</td>
+			:done()																		 |	</tr>
+		:allDone()																		 |</table>
+	
+	## mw.html.indexableTable(myTable, false) returns: 
+		-- (...["src"]'s are references to the actual mw.html element object)
+		{
+			{
+				{
+					["data"] = "R2C1",
+					["pos"] = {
+						2,
+						1,
+					},
+					["src"] = <td>R2C1</td>,
+				},
+				{
+					["data"] = "R2C2",
+					["pos"] = {
+						2,
+						2,
+					},
+					["src"] = <td>R2C2</td>,
+				},
+				{
+					["data"] = "R2C3",
+					["pos"] = {
+						2,
+						3,
+					},
+					["src"] = <td>R2C3</td>,
+				},
+			},
+			{
+				{
+					["data"] = "R3C1",
+					["pos"] = {
+						3,
+						1,
+					},
+					["src"] = <td>R3C1</td>,
+				},
+				{
+					["pos"] = {
+						3,
+						2,
+					},
+					["src"] = <td></td>,
+				},
+				{
+					["data"] = "R3C3",
+					["pos"] = {
+						3,
+						3,
+					},
+					["src"] = <td>R3C3</td>,
+				},
+			},
+			{
+				{
+					["data"] = "R4C1",
+					["pos"] = {
+						4,
+						1,
+					},
+					["src"] = <td>R4C1</td>,
+				},
+				{
+					["data"] = "R4C2",
+					["pos"] = {
+						4,
+						2,
+					},
+					["src"] = <td>R4C2</td>,
+				},
+				{
+					["data"] = "R4C3",
+					["pos"] = {
+						4,
+						3,
+					},
+					["src"] = <td>R4C3</td>,
+				},
+			},
+		}
+  } 
+]==]
+function p.htmlToIndexableTable(tbl, transposed)
+	-- check args
+	if type(tbl) ~= "table" or tbl.tagName ~= "table" then
+		error("bad argument #1 <tbl> to 'extractColumnData' (expected to be a mw.html with tag of <table>)")
+	end
+	
+	local dataTable = {}
+	local headerIdxs = {} 
+	for ir, row in pairs(tbl.nodes) do
+		if type(row) == "table" and row.tagName:lower() == "tr" then 
+			-- real row, get data column.
+			local dataRow = {}
+			for columnIdx, colNode in ipairs(row.nodes) do
+				if type(colNode) == "table" and colNode.tagName:lower() == "th" then
+					headerIdxs[columnIdx] = tonumber(colNode.nodes[1]) or tostring(colNode.nodes[1])
+				end
+				if type(colNode) == "table" and colNode.tagName:lower() == "td" then
+					local dataNode = {
+						-- pointer to the source mw.html <td> element object
+						["src"] = colNode,
+						-- {1=rowIndex, 2=columnIndex} index position from the original table (indexes start at 1)
+						["pos"] = {ir, columnIdx}
+					}
+					-- get data from node
+					-- first see if theres an attribute data-sort-value=<value>
+					for i, t in pairs(colNode.attributes) do
+						if type(t) == "table" then 
+							if t["name"] and t["name"]:lower() == "data-sort-value" then
+								-- this is the attribute that holds the data-sort-value
+								dataNode.data = tonumber(t["val"])
+								break
+							end
+						end
+					end
+					if dataNode.data == nil then
+						-- no value got from sort-data-value attribute, so get raw value
+						-- NOTE this does not work properly for comma separated numbers as strings
+						dataNode.data = p.tonumber(tostring(colNode.nodes[1])) or tonumber(tostring(colNode.nodes[1])) or tostring(colNode.nodes[1])
+					end
+					table.insert(dataRow, dataNode)
+				end
+			end
+			if #dataRow > 0 then 
+				table.insert(dataTable, dataRow)
+			end
+		end
+	end
+	if transposed then 
+		dataTable = p.transpose(dataTable)
+	end
+	dataTable["headerIdxs"] = headerIdxs
+	return dataTable
+end
+
+--- Breadth first search on a table.
+-- @param conditionFunc -> function that takes in 2 args: (key, value) and returns boolean for if that key value pair is what you are looking for
+-- @returns the first node that returns true when passed to the conditionFunc:
+-- {["k"]=<string>,["v"]=<any>}
+function p.BSF(node, conditionFunc)
+	-- mw.logObject(mw.dumpObject(node))
+	local q = p.List.new()
+	local explored = p.List.new()
+	if type(node) == "table" then
+		
+	p.List.pushleft(q, {["k"]="",["v"]=node})
+	
+	repeat
+		local curr = p.List.popright(q)
+		if conditionFunc(curr["k"], curr["v"]) == true then
+			return curr
+		end
+		if type(curr["v"]) == "table" then
+			for k, v in pairs(curr["v"]) do
+				p.List.pushleft(q, {["k"]=k, ["v"]=v})
+			end
+		end
+	until p.List.size(q) == 0 end
+	return nil
+end
+
+--- Extracts the "args" key from a given table or frame object. if none exists returns what it got.
+function p.extractArgs(frame)
+	if frame and type(frame["getParent"]) == "function" then
+		frame.getParent = frame:getParent()
+	end
+	local temp = p.BSF(frame, function(k,v) return k == "args" end)
+	args = (temp and temp["v"]) or frame
+	return args
+end
+
+-------‐-----------------------------
+-- Strings --
+--- Returns the Levenshtein distance between the two given strings
+-- @param str1 string 1
+-- @param str2 string 2
+-- @returns (number)
+function p.levenshteinDistance(str1, str2)
+	str1 = tostring(str1)
+	str2 = tostring(str2)
+	local len1 = string.len(str1)
+	local len2 = string.len(str2)
+	local matrix = {}
+	local cost = 0
+	-- quick cut-offs to save time
+	if (len1 == 0) then
+		return len2
+	elseif (len2 == 0) then
+		return len1
+	elseif (str1 == str2) then
+		return 0
+	end
+	
+	-- initialise the base matrix values
+	for i = 0, len1, 1 do
+		matrix[i] = {}
+		matrix[i][0] = i
+	end
+	for j = 0, len2, 1 do
+		matrix[0][j] = j
+	end
+	
+	-- actual Levenshtein algorithm
+	for i = 1, len1, 1 do
+		for j = 1, len2, 1 do
+			if (str1:byte(i) == str2:byte(j)) then
+				cost = 0
+			else
+				cost = 1
+			end
+			
+			matrix[i][j] = math.min(matrix[i-1][j] + 1, matrix[i][j-1] + 1, matrix[i-1][j-1] + cost)
+		end
+	end
+	
+	-- return the last value - this is the Levenshtein distance
+	return matrix[len1][len2]
+end
+
+--- Splits a string to a List by lines
+-- @param inputstr (string) the input string to be split
+-- @returns (List) a QUEUE/STACK List where each element is a line (the end of line \n not included in each element)
+function p.ListOfLines(inputstr)
+	local t=p.List.new()
+	for str in string.gmatch(inputstr, "([^\n]+)") do
+		p.List.pushright(t, str)
+	end
+	return t
+end
+
+
+--- Trims a string (both ends). Removes chars that match %s
+--- Dec		Chr		Name
+--- ---		----	---------------------------
+---   9		'\t'	TAB (horizontal tab)
+---  10		'\n'	LF (NL line feed, new line)
+---  11		'\v'	VT (vertical tab)
+---  12		'\f'	FF (NP form feed, new page)
+---  13		'\r'	CR (carriage return)
+---  32		' '		SPACE
+-------------------------------------------
+-- @param inputstr (string) the string to trim
+-- @returns (string) the trimmed input string
+function p.trim(inputStr)
+	return inputStr:match("^%s*(.-)%s*$")
+end
+
+
+--- String startsWith
+-- @param inputStr (string) the string to search
+-- @param prefix (string) the prefix to match
+-- @param ignoreCase (boolean) [Optional] when true, will ignore case when matching
+-- @returns (boolean) if the inputStr starts with the given prefix (ignoring case if ignoreCase is truthy)
+function p.startsWith(inputStr, prefix, ignoreCase)
+	if ignoreCase then
+		return inputStr:sub(1,#prefix):lower() == prefix:lower()
+	else
+		return inputStr:sub(1,#prefix) == prefix
+	end
+end
+
+--- String endswith
+-- @param inputStr (string) the string to search
+-- @param suffix (string) the suffix to match
+-- @param ignoreCase (boolean) [Optional] when true, will ignore case when matching
+-- @returns (boolean) if the inputStr ends with the given suffix (ignoring case if ignoreCase is truthy)
+function p.endsWith(inputStr, suffix, ignoreCase)
+	if ignoreCase then
+		return inputStr:sub(#inputStr - #suffix + 1, #inputStr):lower() == suffix:lower()
+	else
+		return inputStr:sub(#inputStr - #suffix + 1, #inputStr) == suffix
+	end
+end
+
+-------‐-----------------------------
+-- Numbers --
+--- tonumber: Converts stringified numerical values to their number form. Can simplify basic numerical expressions as well.
+-- Works with: Number, Decimal, Fractions, Scientific notation, Floating points, Numerical expressions
+-- @param value any: The value to extract the number from.
+-- @return number | nil: the number if it was able to be parsed, otherwise nil for invalid.
+function p.tonumber(value)
+	if type(value) == "number" then 
+		return value
+	end 
+	local num = tonumber(value)
+	if num ~= nil then
+		return num
+	end 
+	local status, num = pcall(mw.ext.ParserFunctions.expr, value)
+	num = status == true and num ~= "" and tonumber(num) or nil
+	if num == nil and type(value) == "string" and value:match("^-?[0-9,]+%.?%d*$") then
+		num = tonumber(value:gsub(",",""),10)
+	end
+	return num
+end
+
+--- isfinite: tests if value is numeric finite (aka not nan and not ±inf)
+-- @param value (number) value to test
+-- @return (boolean) true if number is finite, otherwise false. 
+function p.isfinite(value) 
+	return type(value) == "number" and value ~= math.huge and value ~= -math.huge and (value == value)
+end
+
+--- fnum: formats the given number to human readable text. formatted with commas and decimal points if needed. 
+-- @param x (number): the value to process
+-- @return (string): the stringified number.
+function p.fnum(x)
+	return lang:formatNum(p.tonumber(x) or 0)
+end
+
+--- isnan: Lua has no native support for checking if a number is NaN, however NaN is the only entity that does not equal itself. 
+-- @param value (number): the number to check 
+-- @return (boolean): if the given number is nan. 
+function p.isnan (value) 	
+	return value ~= value or type(value) ~= "number" 
+end
+
+-------‐-----------------------------
+-- DEBUGGING TOOLS --
+p.debug = {}
+
+--- Updates log config settings. NOTE: Does not fully validate new value.
+--- @param key any the p.debug.config.LOG key to be updated (case insensitive)
+--- @param value any the value to set.
+function p.debug.updateLogConfigSetting(key, value)
+	key = p.trim(key):upper()
+	if p.debug.config.LOG[key] == nil then 
+		error("Invalid debug config key: " .. key)
+	end
+	if type(p.debug.config.LOG[key]) ~= type(value) then 
+		error("Invalid debug config value of (<".. type(value) .. "> " .. mw.dumpObject(value) .. ") for key (" .. key .. "). Valid value type is (<" .. type(p.debug.config.LOG[key]) .. ">)!")
+	end
+	p.log("Updated debug logging config [" .. key .. "] = " .. mw.dumpObject(p.debug.config.LOG[key]) .. " --> ".. mw.dumpObject(value))
+	p.debug.config.LOG[key] = value
+end
+
+---Generates a function that prints to STD.OUT depending on the configured log values.
+---@param levelValue number the numerical value for this log function to determine if it should print or not
+---@param levelName string the name/level/header to be used when printing to std.out
+---@return function dynamically generated function that prints custom info to std.out. to be used the same way as mw.logObject(...)
+function generateDebugLogLevelFunction(levelValue, levelName)
+	-- dynamically generated function --
+	---If the current configured debug.config.LOG.LOG_LEVEL allows this function to print, 
+	---then this will print the given data to std.out
+	---@param arg any[] each item in the argument will be printed on its own line.
+	---@returns (boolean) for if a value was logged or the log was suppressed
+	return function (...)
+		-- We print when the the given func's corresponding log level value is less than or equal to the current p.debug.config.LOG.LEVEL value
+		-- if the corresponding log level value is greater than the current p.debug.config.LOG.LEVEL value then we do not print.
+		-- if we are given no data, then we do not print.
+		if (arg['n'] == 0) or (levelValue > p.debug.config.LOG.LEVEL) then
+			-- nothing to log
+			return false
+		end
+		local toLog = {}
+		-- log level name --
+		table.insert(toLog, levelName .. " (" .. tostring(levelValue) .. ")")
+
+		-- timestamp -- 
+		if p.debug.config.LOG.TIMESTAMP == true then
+			table.insert(toLog, os.date(p.debug.config.LOG.TIMESTAMP_FORMAT, os.time() + p.debug.config.LOG.LOCAL_TIMEZONE_OFFSET_FROM_UTC_IN_SECONDS))
+		end
+
+		-- stack info --
+		if p.debug.config.LOG.MINIFIED_STACK == true then
+			local s = ""
+			local stack = p.debug.toStackTraceList()
+			for i=#stack.stack, 2, -1 do
+				local n = stack.stack[i]['function'] and stack.stack[i]['function']['name']
+				if n then
+					s = s .. (#s > 0 and "." or "") .. n
+					if stack.stack[i]['location'] and stack.stack[i]['location']['lineno'] then
+						s = s .. ":" .. stack.stack[i]['location']['lineno']
+					elseif stack.stack[i]['function']['lineno'] then
+						s = s .. ":" .. stack.stack[i]['function']['lineno']
+					end
+				end
+			end
+			table.insert(toLog, s)
+		end
+		
+		-- data --
+		table.insert(toLog, arg[1])
+
+		-- key --
+		if arg[2] then
+			table.insert(toLog, arg[2])
+		end
+
+		-- where to output --
+		-- STD.OUT -- 
+		mw.logObject(toLog, "LOG>")
+		return true
+	end
+end
+
+--- Gets current script path, and the active page it was called from and if they are the same path.
+-- @returns { 
+--    scriptPath (string) the executing script path (original script, not necessarily this utils), 
+--    activePagePath (string) the active page that kicked off the execution,
+--    activePageIsRoot (boolean) if scriptPath and activePagePath are the same
+--  }
+function p.debug.getExecInfo()
+	local info = {
+		["scriptPath"] = mw.getCurrentFrame():getTitle(), 
+		["activePagePath"] = mw.title.getCurrentTitle().fullText
+	}
+	info["activePageIsRoot"] = info.scriptPath == info.activePagePath
+	return info
+end
+
+--[[ LOG_LEVEL ENUM : We print when the the given func's corresponding log level is less than or equal to the current p.debug.config.LOG.LEVEL]]--
+p.debug.LOG_LEVEL = {
+	FATAL    = -math.huge,
+	ERR      = 10,
+	ERROR    = 10,
+	WARN     = 20,
+	WARNING  = 20,
+	INFO     = 30,
+	DEBUG    = 30,
+	VERBOSE  = 50,
+	TRACE    = 60,
+	ALL      = math.huge,
+	LOG      = math.huge,
+}
+
+--[[ CONFIG: currently holds default values ]]--
+p.debug.config = {
+	LOG = {
+		-- LOGGING LEVEL --
+		LEVEL = p.debug.getExecInfo().activePageIsRoot and p.debug.LOG_LEVEL.ALL or p.debug.LOG_LEVEL.ERROR, --[[ (number): print at or below this level, DEFAULTS to ALL if running inside script editor, otherwise it will default to ERROR ]]
+		-- LOG MESSAGE WITH TIMESTAMP --
+		TIMESTAMP = true, --[[ (boolean): if we want to include a timestamp (Note: customizable format with config.LOG.TIMESTAMP_FORMAT) ]]
+		TIMESTAMP_FORMAT = "%Y-%m-%dT%H:%M:%S.%s", --[[ (string): time format (Note: not validated) ]]
+		LOCAL_TIMEZONE_OFFSET_FROM_UTC_IN_SECONDS = 0, --[[ (number): number of seconds local timezone is offset when compared to UTC. (Note: not validated). EXAMPLE: USA EAST (+05:00) = -60*60*5]]
+		-- LOG MESSAGE WITH STACK INFO --
+		MINIFIED_STACK = true, --[[ (boolean): if we want to include shorthand information about the current stack ]]
+		FULL_STACK = false, --[[ (boolean): if we want to include a p.LIST of the current stack (Note: see p.) ]]
+	}
+}
+
+--[[ DYNAMICALLY ENABLE LOGGING FUNCTIONS BY EXPLICIT LEVEL FUNCTION CALLS ]]--
+for enum, log_level in pairs(p.debug.LOG_LEVEL) do
+	-- for each of the p.debug.LOG_LEVEL enums, dynamically generate a logging function with that enum name
+	if p.debug[enum:lower()] == nil then
+		p.debug[enum:lower()] = generateDebugLogLevelFunction(log_level, enum)
+	else
+		error("Debug logger function already exists? --> p.debug." .. enum:lower())
+	end
+end
+-- link utils root level .log function
+p.log = p.debug.log
+
+---converts a stack trace string to a stack like object
+---@param stacktraceStr string a debug.traceback() string
+--@return table with the following kvp
+--[[
+			message = (string): data before traceback, 
+			stack = (table): where each indexed item is a (table) {
+					["location"] = {
+							["lineno"] = (number), -- the line number from current stack frame
+							["name"] = (string), -- the line's location
+					},
+					["function"] = {
+						["lineno"] = (number), -- the line number of the encapsulating function for the current stack frame
+						["name"] = (string) -- the function's location or name,
+					},
+					["raw"] = (string), -- the raw value of the stack frame
+]]-- 
+function p.debug.toStackTraceList(stacktraceStr)
+	local removeSelfFromStack = stacktraceStr == nil
+	local stacktraceStr = stacktraceStr or debug.traceback()
+	local message = stacktraceStr:match("(.*)stack traceback:\n")
+	stacktraceStr = stacktraceStr:gsub(".*stack traceback:\n", "")
+	local stacktrace = p.ListOfLines(stacktraceStr)
+	if removeSelfFromStack == true then
+		p.List.popleft(stacktrace) -- remove this function from stack
+	end
+	local stack = {
+		message = message,
+		stack = {}
+	}
+	-- parse stack string
+	for i = 1, p.List.size(stacktrace), 1 do
+		local lineInfo = {
+			raw = p.List.popleft(stacktrace)
+		}
+		lineInfo.str = lineInfo.raw:gsub("^([%c%s]*)", "")	-- remove start of line whitespace
+		lineInfo.str = lineInfo.str:gsub("^%p+%P+%p+: %?$", "") -- remove useless '[C]: ?'/'(tail call): ?' lines
+		lineInfo['location'] = {}
+		lineInfo['location']['name'], lineInfo['location']['lineno'] = lineInfo.str:match("^(.+):(%d+): ")
+		if lineInfo['location']['name'] or lineInfo['location']['lineno'] then
+			lineInfo.str = lineInfo.str:gsub("^(.+):(%d+): ", "")
+			lineInfo['location']['lineno'] = tonumber(lineInfo['location']['lineno'])
+		end
+		lineInfo.str = lineInfo.str:gsub("^.*in function ", "") -- remove standard seperator
+		lineInfo['function'] = {}
+		lineInfo['function']['name'] = lineInfo.str:match("^[<'](.+)['>]$")
+		if lineInfo['function']['name'] then
+			lineInfo['function']['lineno'] = lineInfo['function']['name']:match(":(%d+)$")
+			if lineInfo['function']['lineno'] then
+				lineInfo['function']['lineno'] = tonumber(lineInfo['function']['lineno'])
+				lineInfo['function']['name'] = lineInfo['function']['name']:gsub(":(%d+)$","")
+			end
+			lineInfo.str = lineInfo.str:gsub("^[<'](.+)['>]$", "")
+		end
+		if #lineInfo.str == 0 then
+			lineInfo.str = nil
+		end
+		table.insert(stack.stack, lineInfo)
+	end
+	return stack
+end
+
+-------‐-----------------------------
+--------------  TESTS  --------------
+-------‐-----------------------------
+function p._runUtilsTests(frame)
+	-- to actually run these tests from an #invoke
+	return p.runTests(p.tests, frame and true, p)
+end
+
+function p.tests.tonumber() 
+	-- test NAN
+	local NaN = 0/0
+	local actual = p.tonumber(NaN)
+	if not (actual and tonumber(NaN) ~= NaN) then
+		error('Failed to catch nan case 1')
+	end
+	local actual = p.tonumber("0/0")
+	if actual then
+		error('Failed to catch nan case 2')
+	end
+
+	-- test invalid data
+	local invalidDataTests = {
+		'     1 2 3 4 . 5 ',
+		'0/0',
+		'ASD',
+		'ffffff',
+		'infinite',
+		'',
+	}
+	for i, testVal in ipairs(invalidDataTests) do
+		local actual = p.tonumber(testVal)
+		if actual then
+			error("In invalid data test #" .. i .. ": Expected (nil), got (" .. mw.dumpObject(testVal) .. ").")
+		end
+	end
+	local validDataTests = {
+	--[[{ TEST CASE								, EXPECTED RETURN						 } 		-- NOTE ]]
+		{ 0										, 0										 }, 
+		{ 1										, 1										 },
+		{ 9876543210							, 9876543210							 },
+		{ 1.7976931348623E+308					, 1.7976931348623E+308					 }, 	-- lua max float
+		{ -1.7976931348622e+308					, -1.7976931348622E+308					 }, 	-- lua min float
+		{ -9.981312916825e-324					, -9.8813129168249e-324					 }, 	-- Smaller than the smallest magnitude lua can handle reverts to smallest magnitude
+		{ -math.huge							, -math.huge							 }, 	-- Signed infinite literal
+		{ 1.79769313486234E+308					, math.huge								 }, 	-- over max float
+		{ 2^0									, 2^0									 }, 	-- regular number we would encounter
+		{ 2^1									, 2^1									 }, 	-- regular number we would encounter
+		{ 2^2									, 2^2									 }, 	-- regular number we would encounter
+		{ 2^3									, 2^3									 }, 	-- regular number we would encounter
+		{ 2^4									, 2^4									 }, 	-- regular number we would encounter
+		{ 2^5									, 2^5									 }, 	-- regular number we would encounter
+		{ 2^6									, 2^6									 }, 	-- regular number we would encounter
+		{ 2^7									, 2^7									 }, 	-- regular number we would encounter
+		{ 2^8									, 2^8									 }, 	-- regular number we would encounter
+		{ 9.881312916825e-324					, 9.881312916825e-324					 }, 	-- smallest magnitude of value lua can handle before zero
+		{ 9.881312916825e-34					, 9.881312916825e-34					 },
+		{ math.huge								, math.huge								 }, 	-- infinite literal
+		{ '  000001000.010000   '				, 1000.01								 }, 	-- leading and trailing spaces and zeroes
+		{ '  30303  '							, 30303									 }, 	-- leading and trailing spaces
+		{ '-0'									, 0										 }, 	-- negative zero
+		{ '-1000'								, -1000									 },
+		{ '-inf'								, -math.huge							 }, 	-- Signed infinite literal
+		{ '000001000.010000'					, 1000.01								 }, 	-- leading and trailing zeroes
+		{ '030303'								, 30303									 }, 	-- leading and trailing zeroes
+		{ '1,000,000'							, 1000000								 }, 	-- comma formatted integer that might be mistaken for hex
+		{ '1,000.245'							, 1000.245								 }, 	-- comma formatted decimal
+		{ '1.79769313486230E + 308+1.5e294'		, 1.7976931348623E+308					 }, 	-- addition right before max float
+		{ '1.8E+308-1.4e+308'					, math.huge								 }, 	-- addition over max float
+		{ '1.2E+13-1.4e12'						, 10600000000000						 }, 	-- lots of + and - with e
+		{ '1/1'									, 1/(2^0)								 }, 	-- fraction/division
+		{ '1/2'									, 1/(2^1)								 }, 	-- fraction/division
+		{ '1/4'									, 1/(2^2)								 }, 	-- fraction/division
+		{ '1/8'									, 1/(2^3)								 }, 	-- fraction/division
+		{ '1/16'								, 1/(2^4)								 }, 	-- fraction/division
+		{ '1/32'								, 1/(2^5)								 }, 	-- fraction/division
+		{ '1/64'								, 1/(2^6)								 }, 	-- fraction/division
+		{ '1/128'								, 1/(2^7)								 }, 	-- fraction/division
+		{ '1/256'								, 1/(2^8)								 }, 	-- fraction/division
+		{ '1/512'								, 1/(2^9)								 }, 	-- fraction/division
+		{ '2E.2'								, 3.1697863849222						 }, 	-- wacky number with E actually converts to 2*(10^0.2)
+		{ '2*E*.2'								, 1.0873127313836						 }, 	-- wacky expression with eulers E
+		{ '3+3'									, 6										 }, 	-- addition
+		{ '3-3'									, 0										 }, 	-- subtraction
+		{ '32/64'								, 32/64									 },		--
+		{ '35*0'								, 0										 }, 	-- multiplication
+		{ '9.3556*10^33'						, 9.3556*10^33							 },
+		{ '9.3556*10^33/9.881312916825e-34'		, 9.4679726052093e+66					 }, 	-- arbitrary multi step float expression
+		{ 'inf'									, math.huge								 }, 	-- infinite literal
+		{ '\t\n\n-\t0.25e3\t\n\n'				, -0.25e3								 }, 	-- funny whitespace
+		{ 'E'									, 2.718281828459						 },		-- known constants are available, eulers
+		{ 'PI'									, 3.1415926535898						 }, 	-- known constants are available, pi
+		{ '1,234,567,634,234,234,356.98769876'	, 1.2345676342342e+18 + 34356.98769876	 }, 	-- big number comma sperated
+		{ '-1,234,567,634,234,234,356.98769876'	, -1.2345676342342E+018 - 34356.98769876 }, 	-- large comma formatted decimal
+	}
+	for i, testVal in ipairs(validDataTests) do
+		local actual = p.tonumber(testVal[1])
+		local expected = testVal[2]
+		if actual ~= testVal[2] then
+			msg = "In valid data test #" .. i .. ": Expected " .. mw.dumpObject(testVal[1]) .. "<" .. type(testVal[1]) .. "> to result in (" ..  mw.dumpObject(expected) .. " <number>), but got (" .. mw.dumpObject(actual) .. " <" .. type(actual) .. ">)."
+			if type(actual) == number then
+				msg = msg + " difference of " .. tostring(actual - testVal[2])	
+			end
+			error(msg)
+		end
+	end
+	
+	local knownBuggyTests = {
+		{ '2E.2'								, 2*10^0.2								}, 	-- it looses accuracy 
+	}
+	for i, testVal in ipairs(knownBuggyTests) do
+		local actual = p.tonumber(testVal[1])
+		local expected = testVal[2]
+		if actual == testVal[2] then
+			error("VALUE NO LONGER BUGGY: test #" .. i .. ": Expected (" ..  mw.dumpObject(expected) .. " <number>), got (" .. mw.dumpObject(actual) .. " <" .. type(actual) .. ">).")
+		else 
+			p.debug.warn("In test tonumber: VALUE DOES NOT WORK AS EXPECTED: test #" .. i .. ": Expected (" ..  mw.dumpObject(expected) .. " <number>), got (" .. mw.dumpObject(actual) .. " <" .. type(actual) .. ">).")	
+		end
+		
+	end
+	
+end
+
+function p.tests.isfinite() 
+	local expectedFalse = {
+		math.huge, 
+		-math.huge,
+		0/0,
+		1/0,
+		"non number",
+		false,
+		nil,
+		"2244",
+	}
+	for i,v in pairs(expectedFalse) do
+		local s,r = pcall(p.isfinite, v)
+		assert(s==true and r==false, 'got ' .. tostring(r) .. ', expected false when testing value ' .. tostring(v) .. ' ar index #' .. tostring(i))
+	end
+	local expectedTrue = {
+		0,
+		1,
+		2,
+		9*10^300,
+		math.pi, 
+		-0,
+		-math.pi,
+		2^0.2,
+	}
+	for i,v in pairs(expectedTrue) do
+		local s,r = pcall(p.isfinite, v)
+		assert(s==true and r==true, 'got ' .. tostring(r) .. ', expected true when testing value ' .. tostring(v) .. ' ar index #' .. tostring(i))
+	end
+end
+
+function p.tests.isnan() 
+	local expectedTrue = {
+		0/0,
+		"non number",
+		false,
+		nil,
+		"2244"
+	}
+	for i,v in pairs(expectedTrue) do
+		local s,r = pcall(p.isnan, v)
+		assert(s==true and r==true, 'got ' .. tostring(r) .. ', expected true when testing value ' .. tostring(v) .. ' ar index #' .. tostring(i))
+	end
+	local expectedFalse = {
+		0,
+		1,
+		2,
+		9*10^300,
+		math.pi, 
+		-0,
+		-math.pi,
+		2^0.2,
+		math.huge,
+		1/0,
+	}
+	for i,v in pairs(expectedFalse) do
+		local s,r = pcall(p.isnan, v)
+		assert(s==true and r==false, 'got ' .. tostring(r) .. ', expected false when testing value ' .. tostring(v) .. ' ar index #' .. tostring(i))
+	end
+end
+
+function p.tests.trim() 
+	local expectedToBeTrimmed = {
+		[9] = string.char(9),
+		[10] = string.char(10),
+		[11] = string.char(11),
+		[12] = string.char(12),
+		[13] = string.char(13),
+		[32] = string.char(32),
+	}
+	for i=0, 255, 1 do
+		local a = string.char(i)
+		local status, b = pcall(p.trim, a)
+		if status == false or #a ~= #b then
+			if expectedToBeTrimmed[i] == nil then
+				error("Unexpected char (code=" .. i .. ") was trimmed out of the string!")
+			end
+		end
+		local r = math.ceil(math.random()*10)
+		local prefix = string.char(i):rep(r)
+		local suffix = string.char(i):rep(r*2)
+		local a = prefix .. 'my string' .. suffix
+		local b = p.trim(a)
+		if expectedToBeTrimmed[i] == nil and #a ~= #b then
+			error("Trim trimmed too much from: " .. mw.dumpObject(a))
+		elseif expectedToBeTrimmed[i] ~= nil then
+			local err = ""
+			local startsWith = b:sub(1,#prefix)
+			local endsWith = b:sub(#b - #suffix + 1, #b)
+			if startsWith == prefix then
+				err = err .. "Did not trim the start of the string: " .. mw.dumpObject(startsWith) .. "; "
+			end
+			if endsWith == suffix then
+				err = err .. "Did not trim the end of the string: " .. mw.dumpObject(endsWith) .. "; "
+			end
+			if #err > 0 then
+				error("Failed to trim the string: " .. mw.dumpObject(a) .. "; Failure: " .. err)
+			end
+		end
+	end
+	
+	local toBeTrimmed = ""
+	for a, chr in pairs(expectedToBeTrimmed) do
+		toBeTrimmed = toBeTrimmed .. chr .. toBeTrimmed .. chr
+	end
+	local testVal = ""
+	local status, actual = pcall(p.trim, testVal)
+	if actual ~= testVal then
+		error("Failed to trim empty string")
+	end
+	testVal = "!"
+	for i=0, 255, 1 do
+		testVal = testVal .. string.char(i)
+	end
+	testVal = testVal .. "~"
+	local status, actual = pcall(p.trim, testVal)
+	if actual ~= testVal then
+		error("Failed to trim string with nothing to trim!")
+	end
+	local status, actual = pcall(p.trim, testVal .. toBeTrimmed .. testVal)
+	if actual ~= testVal .. toBeTrimmed .. testVal then
+		error("Failed to trim suffix of string: " .. mw.dumpObject(actual))
+	end
+	local status, actual = pcall(p.trim, toBeTrimmed .. testVal)
+	if actual ~= testVal then
+		error("Failed to trim prefix of string: " .. mw.dumpObject(actual))
+	end
+	local status, actual = pcall(p.trim, testVal .. toBeTrimmed)
+	if actual ~= testVal then
+		error("Failed to trim suffix of string: " .. mw.dumpObject(actual))
+	end
+	local status, actual = pcall(p.trim, toBeTrimmed .. testVal .. toBeTrimmed .. testVal .. toBeTrimmed)
+	if actual ~= testVal .. toBeTrimmed .. testVal then
+		error("Failed to trim string: " .. mw.dumpObject(actual))
+	end
+end
+
+function p.tests.startsWith() 
+	local testVal = ""
+	local toFind = ""
+	local actual = p.startsWith(testVal, toFind)
+	assert(actual == true, 'failed empty string starts with empty string')
+	testVal = "asd"
+	local actual = p.startsWith(testVal, toFind)
+	assert(actual == true, 'failed value string starts with empty string')
+	toFind = "s"
+	local actual = p.startsWith(testVal, toFind)
+	assert(actual == false, 'startsWith reported that ' .. mw.dumpObject(testVal) .. ' started with ' .. mw.dumpObject(toFind))
+	toFind = "asd"
+	local actual = p.startsWith(testVal, toFind)
+	assert(actual == true, 'startsWith reported that ' .. mw.dumpObject(testVal) .. ' does not start with ' .. mw.dumpObject(toFind))
+	toFind = "ASD"
+	local actual = p.startsWith(testVal, toFind)
+	assert(actual == false, 'startsWith reported that ' .. mw.dumpObject(testVal) .. ' started with ' .. mw.dumpObject(toFind))
+	local actual = p.startsWith(testVal, toFind, true)
+	assert(actual == true, 'startsWith reported that ' .. mw.dumpObject(testVal) .. ' does not start with ' .. mw.dumpObject(toFind) .. ' when we were supposed to ignore case!')
+end
+
+function p.tests.endsWith() 
+	local testVal = ""
+	local toFind = ""
+	local actual = p.endsWith(testVal, toFind)
+	assert(actual == true, 'failed empty string ends with empty string')
+	testVal = "asd"
+	local actual = p.endsWith(testVal, toFind)
+	assert(actual == true, 'failed value string ends with empty string')
+	toFind = "s"
+	local actual = p.endsWith(testVal, toFind)
+	assert(actual == false, 'endsWith reported that ' .. mw.dumpObject(testVal) .. ' ends with ' .. mw.dumpObject(toFind))
+	toFind = "asd"
+	local actual = p.endsWith(testVal, toFind)
+	assert(actual == true, 'endsWith reported that ' .. mw.dumpObject(testVal) .. ' does not end with ' .. mw.dumpObject(toFind))
+	toFind = "ASD"
+	local actual = p.endsWith(testVal, toFind)
+	assert(actual == false, 'endsWith reported that ' .. mw.dumpObject(testVal) .. ' ends with ' .. mw.dumpObject(toFind))
+	local actual = p.endsWith(testVal, toFind, true)
+	assert(actual == true, 'endsWith reported that ' .. mw.dumpObject(testVal) .. ' does not end with ' .. mw.dumpObject(toFind) .. ' when we were supposed to ignore case!')
+end
+
+function p.tests.ListJoin()
+	local tbl = p.List.new()
+	for i=1,5,1 do 
+		p.List.pushright(tbl, i)
+	end
+	local actual = p.List.join(tbl, "_")
+	local expected = "1_2_3_4_5"
+	assert(actual == expected, "Actual " .. actual .. " did not match expected " .. expected)
+end
+
+function p.tests.updatingLogLevelIsReflectedInLoggingFunctions(preventMock)
+	local doMock = not preventMock
+	local currconf = p.debug.config
+	-- mock function so we dont spam logs?
+	local mockedLog = mw.logObject
+	local mockedLogCalls = {}
+	local mockedLogImplementation = function(msg, key) 
+			local st =  p.debug.toStackTraceList(debug.traceback())
+			table.insert(mockedLogCalls, {msg=msg, key=key, trace=st})
+		end
+	if doMock then
+		mw.logObject = mockedLogImplementation
+	end
+	local errors = p.List.new()
+	for configLevelEnum, configLevelValue in pairs(p.debug.LOG_LEVEL) do
+		p.debug.updateLogConfigSetting('LEVEL', configLevelValue)
+		for loggingFuncEnum, loggingFuncCorrespondingValue in pairs(p.debug.LOG_LEVEL) do
+			if p.debug.config.LOG.LEVEL ~= configLevelEnum then
+				p.List.pushright(errors, 'the config log level failed to persist!')
+			end
+			if p.debug[configLevelEnum:lower()] == nil then
+				p.List.pushright(errors, 'The p.debug.' .. configLevelEnum:lower() .. ' logging function is missing! A')
+			end
+			if p.debug[loggingFuncEnum:lower()] == nil then
+				p.List.pushright(errors, 'The p.debug.' .. loggingFuncEnum:lower() .. ' logging function is missing! B')
+			end
+			-- We print when the the given func's corresponding log level value is less than or equal to the current p.debug.config.LOG.LEVEL value
+			-- if the corresponding log level value is greater than the current p.debug.config.LOG.LEVEL value then we do not print.
+			local doWeExpectToLog = loggingFuncCorrespondingValue <= configLevelValue
+			local testMessage = configLevelEnum .. ", " .. configLevelValue .. ", " .. loggingFuncEnum .. ", " .. loggingFuncCorrespondingValue .. ", " .. tostring(doWeExpectToLog)
+			local status, didWeActuallyLog = pcall(p.debug[loggingFuncEnum:lower()], testMessage)
+			if status == false then
+				p.List.pushright(errors, "failed to execute " .. loggingFuncEnum:lower() .. " with : " .. testMessage)
+			elseif didWeActuallyLog ~= doWeExpectToLog then
+				p.List.pushright(errors, 'The following message was ' .. (didWeActuallyLog and '' or 'NOT ') .. ' logged when it was ' .. (doWeExpectToLog and '' or 'NOT ') .. 'supposed to be logged: ' .. testMessage)
+			end
+			if doWeExpectToLog == true and doMock then
+				if mockedLogCalls[#mockedLogCalls]['msg'][4] ~= testMessage then
+					p.List.pushright(errors, 'Last message to get logged: ' .. mw.dumpObject(mockedLogCalls[#mockedLogCalls].msg) .. ' does not match what we expected it to be ' .. mw.dumpObject(testMessage))
+				end
+			end
+		end
+	end
+	p.debug.updateLogConfigSetting('LEVEL', p.debug.LOG_LEVEL.FATAL)
+	-- We print when the the given func's corresponding log level value is less than or equal to the current p.debug.config.LOG.LEVEL value
+	-- if the corresponding log level value is greater than the current p.debug.config.LOG.LEVEL value then we do not print.
+	local doWeExpectToLog = p.debug.LOG_LEVEL.INFO <= p.debug.LOG_LEVEL.FATAL
+	local testMessage = 'TEST MESSAGE'
+	local status, didWeActuallyLog = pcall(p.debug.info, testMessage)
+	if status == false then
+		p.List.pushright(errors, "failed to execute fatal with : " .. testMessage)
+	elseif didWeActuallyLog ~= doWeExpectToLog then
+		p.List.pushright(errors, 'The following message was ' .. (didWeActuallyLog and '' or 'NOT ') .. ' logged when it was ' .. (doWeExpectToLog and '' or 'NOT ') .. 'supposed to be logged: ' .. testMessage)
+	end
+	-- restore mocks
+	if doMock then
+		mw.logObject = mockedLog
+		-- test we restored properly
+		mw.logObject('restored mock of mw.logObject')
+		
+	end
+	if #errors > 0 then
+		error(p.List.join(errors, "; "))
+	end
+end
+
+function p.tests.sortTableByIndex()
+	local numericalTable = {
+		["test"] = { 0, 1, 2, 9, -10, -math.huge, math.huge, 8, 6, 7, 3, 5, 4, -100},
+		["ascending"] = { -math.huge, -100, -10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, math.huge },
+		["descending"] = { math.huge, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -10, -100, -math.huge }
+	}
+	local stringTable = {
+		["test"] = {"aaa","z","ccb","","bbc","bbb"},
+		["ascending"] = { "","aaa","bbb","bbc","ccb","z" },
+		["descending"] = { "z","ccb","bbc","bbb","aaa","" },
+	}
+	local ascTestKey = 3
+	local descTestKey = "k3"
+	
+	local numericalAsc = {}
+	local numericalDesc = {}
+	local stringAsc = {}
+	local stringDesc = {}
+	for i = 1, #numericalTable.test do
+		table.insert(numericalAsc, {"1", "2", numericalTable.test[i], 4})
+		table.insert(numericalDesc, {["k1"]=i, ["k2"]=2 * i, [descTestKey]=numericalTable.test[i], ["k4"]=4 * i})
+	end
+	for i = 1, #stringTable.test do
+		table.insert(stringAsc, {"1", "2", stringTable.test[i], 4})
+		table.insert(stringDesc, {["k1"]=i, ["k2"]=2 * i, [descTestKey]=stringTable.test[i], ["k4"]=4 * i})
+	end
+	table.sort(numericalTable.test)
+	table.sort(stringTable.test)
+	table.sort(numericalAsc, p.sortTableByIndex(ascTestKey))
+	table.sort(numericalDesc, p.sortTableByIndex(descTestKey, true))
+	table.sort(stringAsc, p.sortTableByIndex(ascTestKey))
+	table.sort(stringDesc, p.sortTableByIndex(descTestKey, true))
+	
+    local errors = "Error in sortTableByIndex:\n"
+    local et = #errors
+    local nameIdx = {"numerical ascending", "numerical descending", "string ascending", "string descending" }
+    for i = 1, #numericalTable.test do
+    	local actual = {
+    		numericalAsc[i][ascTestKey] or nil, 
+    		numericalDesc[i][descTestKey] or nil, 
+    		(#stringAsc >= i and stringAsc[i][ascTestKey]) or nil, 
+    		(#stringDesc >= i and stringDesc[i][descTestKey]) or nil
+    	}
+    	local expected = {
+    		numericalTable.ascending[i] or nil,
+    		numericalTable.descending[i] or nil,
+    		(#stringTable >= i and stringTable.ascending[i]) or nil,
+    		(#stringTable >= i and stringTable.descending[i]) or nil,
+    	}
+
+    	for j = 1, #expected do
+    		if actual[j] ~= expected[j] then
+    			errors = errors .. "Expected " .. nameIdx[j] .. "[" .. i .. "]" .. " to be " .. expected[j] .. " but got " .. actual[j] .. "\n"
+    		end
+    	end
+    end
+    if #errors > et then
+    	error(errors)
+    end
+end
+
+return p
+-- TODO: FIX CONERAGE THING

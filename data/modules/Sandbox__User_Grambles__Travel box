@@ -1,0 +1,77 @@
+local p = {}
+
+function p.main(frame)
+    local args = frame:getParent().args
+    if not args.location and not args[1] then
+        args = frame.args
+    end
+
+    local location = args.location or args[1] or 'Unknown'
+    local width = args.width or '300px'
+
+    local options = {}
+    local i = 1
+    while args['opt' .. i] do
+        table.insert(options, args['opt' .. i])
+        i = i + 1
+    end
+
+    if #options == 0 then
+        local start = args.location and 1 or 2
+        for j = start, 20 do
+            if args[j] then
+                table.insert(options, args[j])
+            end
+        end
+    end
+
+    if #options == 0 then
+        return '<span class="error">Travel box: no travel options provided</span>'
+    end
+
+    local listItems = {}
+    for _, opt in ipairs(options) do
+        table.insert(listItems, '<li>' .. opt .. '</li>')
+    end
+
+    local root = mw.html.create('div')
+        :addClass('mw-collapsible')
+        :addClass('mw-collapsed')
+        :css('border', '1px solid #94866d')
+        :css('background', '#e2dbc8')
+        :css('border-radius', '2px')
+        :css('margin', '4px 0')
+        :css('width', width)
+
+    root:tag('div')
+        :css('font-weight', 'bold')
+        :css('padding', '6px 10px')
+        :css('background', '#b8a282')
+        :css('border-bottom', '1px solid #94866d')
+        :css('cursor', 'pointer')
+        :wikitext('Travel to [[' .. location .. ']]')
+
+    local content = root:tag('div')
+        :addClass('mw-collapsible-content')
+        :css('padding', '6px 10px')
+        :css('background', '#e2dbc8')
+
+    content:tag('div')
+        :addClass('travelbox-player-lookup')
+        :css('margin-bottom', '6px')
+        :css('padding', '4px 6px')
+        :css('background', '#d8ccb4')
+        :css('border', '1px solid #94866d')
+        :css('border-radius', '2px')
+        :css('font-size', '90%')
+        :wikitext("''Player lookup coming soon''")
+
+    content:tag('ul')
+        :css('margin', '4px 0 0 0')
+        :css('padding-left', '20px')
+        :wikitext(table.concat(listItems, '\n'))
+
+    return tostring(root)
+end
+
+return p

@@ -1,0 +1,67 @@
+local p = {}
+
+local Exchange = require('Module:Exchange')
+
+function p.makeUndervaluedTable(frame)
+    local query = bucket('exchange')
+    .select('name', 'value', 'limit')
+    .where('is_historical', false)
+    .limit(9000)
+    
+    local ok, data = pcall(query.run)
+    if not ok then
+    	mw.log('an error occurred')
+    	mw.logObject(data)
+    	return 'error'
+    else
+    	mw.log('successful query')
+    	mw.logObject(data)
+    end
+
+    local _table = mw.html.create('table')
+    _table:addClass('wikitable sortable')
+
+    -- header
+    _table:tag('tr')
+    :tag('th'):wikitext('Item'):done()
+    :tag('th'):wikitext('Value'):done()
+    :tag('th'):wikitext('GE Price'):done()
+    :tag('th'):wikitext('Min. Profit'):done()
+    :tag('th'):wikitext('Buy Limit'):done()
+    :tag('th'):wikitext('Profit per Buy Limit'):done()
+    :tag('th'):wikitext('Volume'):done()
+
+    -- rows
+    local total_rows = 0
+    for i, item in ipairs(data) do
+        local item_value = item.value or 0
+        local item_buy_limit = item.limit or 0
+        local item_price = Exchange._price(item.name) or 0
+        local item_volume = Exchange._volume(item.name) or 0
+
+        -- lua has no continue statement, yay deep nesting!!
+        local min_sell_value = item_value * 0.1
+        if min_sell_value > item_price then
+
+            local min_profit = min_sell_value - item_price
+            local profit_per_buy_limit = min_profit * item_buy_limit
+
+            local row = _table:tag('tr')
+            :tag('td'):wikitext(frame:preprocess('{{plink|' .. item.name .. '}}')):done()
+            :tag('td'):wikitext(frame:preprocess('{{formatnum: ' .. item_value .. '}}')):done()
+            :tag('td'):wikitext(frame:preprocess('{{formatnum: ' .. item_price .. '}}')):done()
+            :tag('td'):wikitext(frame:preprocess('{{formatnum: ' .. min_profit .. '}}')):done()
+            :tag('td'):wikitext(frame:preprocess('{{formatnum: ' .. item_buy_limit .. '}}')):done()
+            :tag('td'):wikitext(frame:preprocess('{{formatnum: ' .. profit_per_buy_limit .. '}}')):done()
+            :tag('td'):wikitext(frame:preprocess('{{formatnum: ' .. item_volume .. '}}')):done()
+            :done()
+            total_rows = total_rows + 1
+        end
+    end
+
+    _table:done()
+
+    return "total items found: " .. total_rows .. '\n' .. tostring(_table)
+end
+
+return p

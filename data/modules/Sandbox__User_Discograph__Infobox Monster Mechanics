@@ -1,0 +1,215 @@
+-- Module:Monster Infobox Mechanics
+local p = {}
+local html = mw.html
+local inTabber = mw.getCurrentFrame():getParent():getTitle():match('^Tabber')
+
+local sharedPaddingStyle = {
+  ['font-weight'] = 'bold',
+  ['padding'] = '1px 3px',
+  ['margin'] = '0.25em 0 0.1em',
+  ['border-radius'] = '4px',
+  ['border'] = '1px outset #525252',
+  ['background-color'] = 'var(--body-main, #313e59)'
+}
+
+local sharedFieldStyle = {
+  ['background-color'] = 'var(--diff-context-background, #d0bd97)',
+  ['padding'] = '2px 4px',
+  ['margin'] = '0px 0'
+}
+
+local function versioned(args, key, fallback)
+	local versionedKey = key .. (args.versionIndex or '')
+	return args[versionedKey]
+	or args[key]
+	or (fallback and args[fallback .. (args.versionIndex or '')])
+	or (fallback and args[fallback])
+end
+
+local function addGridSection(label, icon, items)
+	local container = html.create('div')
+	container:tag('div')
+		:addClass('infobox-subheader')
+		:css(sharedPaddingStyle)
+		:wikitext(string.format("[[File:%s|20px|link=]] %s", icon, label))
+
+    local rowWrap = container:tag('div')
+    	:css({
+    		display = 'flex',
+    		['flex-direction'] = 'column',
+    		['gap'] = '0',
+    		['padding'] = '0',
+    		['background-color'] = 'var(--diff-context-background, #d0bd97)'
+    	})
+
+	local rowIcons = rowWrap:tag('div')
+		:css({ display = 'flex', ['gap'] = '0' })
+	local rowVals = rowWrap:tag('div')
+		:css({ display = 'flex', ['gap'] = '0' })
+
+	for _, item in ipairs(items) do
+		rowIcons:tag('div')
+			:css({
+				['flex'] = '1',
+				['text-align'] = 'center',
+                ['border-left'] = '1px solid var(--body-background-color, #1b1612)',
+				['background-color'] = 'var(--diff-context-background, #d0bd97)',
+				['padding'] = '2px 3px'
+			})
+			:wikitext(item.icon and string.format("[[File:%s|20x20px|center|link=|title=%s]]", item.icon, item.title or item.icon:gsub('%.png$', '')) or '')
+
+		rowVals:tag('div')
+        	:css({
+        		['flex'] = '1',
+        		['text-align'] = 'center',
+        		['border-left'] = '1px solid var(--body-background-color, #1b1612)',
+        		['background-color'] = 'var(--diff-context-background, #d0bd97)',
+        		['display'] = 'flex',
+        		['align-items'] = 'center',
+        		['justify-content'] = 'center',
+        		['padding'] = '1px 3px'
+        	})
+			:wikitext(item.val or '')
+	end	
+	return container
+end
+
+local function wrapSection(section)
+	return html.create('div')
+		:css({
+			display = 'flex',
+			['flex-direction'] = 'column',
+			['gap'] = '8px',
+			['flex'] = '1 1 auto',
+			['min-width'] = '220px',
+			['max-width'] = '420px'
+		})
+		:node(section)
+end
+
+function p._main(args)
+	local container = html.create('div')
+		:addClass('infobox')
+		:css({
+            ['background-color'] = 'var(--navbox-background, #3e362f)',
+			['float'] = 'none',
+			['margin'] = inTabber and '0 auto' or '0',
+			['box-sizing'] = 'border-box',
+			['padding'] = '0.75em',
+			['max-width'] = '100%',
+            ['width'] = 'fit-content'
+		})
+
+	local topTable = container:tag('div')
+		:css({
+			display = 'flex',
+			['flex-wrap'] = 'wrap',
+			['gap'] = '8px',
+			['align-items'] = 'flex-start'
+		})
+
+	local image = args['image' .. (args.versionIndex or '')] or args.image
+	if args.name or image then
+		local combined = html.create('div')
+			:css({ ['text-align'] = 'center' })
+		if args.name then
+			combined:tag('div')
+				:addClass('infobox-subheader')
+				:css(sharedPaddingStyle)
+				:wikitext(args.name)
+		end
+		if image then
+			combined:tag('div')
+				:wikitext((image:gsub('|(%d+)px', '|120px'):match('^[^\n]+')))
+		end
+		topTable:node(wrapSection(combined))
+	end
+
+	local defGroup = html.create('div')
+		:css({ display = 'flex', ['flex-direction'] = 'column', ['gap'] = '2px' })
+		:node(addGridSection('Melee defence', 'Defence icon.png', {
+			{ val = versioned(args, 'dstab'), icon = 'White_scimitar.png' },
+			{ val = versioned(args, 'dslash'), icon = 'White_dagger.png' },
+			{ val = versioned(args, 'dcrush'), icon = 'White_warhammer.png' }
+		}))
+		local weaknessVal = versioned(args, 'elementalweaknesspercent')
+        local weaknessType = versioned(args, 'elementalweaknesstype')
+        local showWeakness = weaknessVal and weaknessVal:match('%S') and weaknessType and weaknessType:match('%S')
+        
+        local magicDefItems = {}
+        if showWeakness then
+        	table.insert(magicDefItems, {
+        		val = weaknessVal:match('%%') and weaknessVal or (weaknessVal .. '%'),
+        		icon = weaknessType:lower():match('air') and 'Air rune.png'
+        			or weaknessType:lower():match('water') and 'Water rune.png'
+        			or weaknessType:lower():match('earth') and 'Earth rune.png'
+        			or weaknessType:lower():match('fire') and 'Fire rune.png'
+        			or 'Pure essence.png'
+        	})
+        end
+       table.insert(magicDefItems, { val = versioned(args, 'dmagic'), icon = 'Magic icon.png' })
+        defGroup:node(addGridSection('Magic defence', 'Magic defence icon.png', magicDefItems))
+
+
+
+		:node(addGridSection('Ranged defence', 'Ranged defence icon.png', {
+			{ val = versioned(args, 'dlight', 'drange'), icon = 'Steel_dart.png' },
+			{ val = versioned(args, 'dstandard', 'drange'), icon = 'Steel_arrow_5.png' },
+			{ val = versioned(args, 'dheavy', 'drange'), icon = 'Steel_bolts_5.png' }
+		}))
+	topTable:node(wrapSection(defGroup))
+
+	local combatGroup = html.create('div')
+		:css({ display = 'flex', ['flex-direction'] = 'column', ['gap'] = '2px' })
+		:node(addGridSection('Combat stats', 'Combat icon.png', {
+			{ val = versioned(args, 'hitpoints'), icon = 'Hitpoints icon.png' },
+			{ val = versioned(args, 'att'), icon = 'Attack icon.png' },
+			{ val = versioned(args, 'str'), icon = 'Strength icon.png' },
+			{ val = versioned(args, 'def'), icon = 'Defence icon.png' },
+			{ val = versioned(args, 'mage'), icon = 'Magic icon.png' },
+			{ val = versioned(args, 'range'), icon = 'Ranged icon.png' }
+		}))
+		:node(addGridSection('Aggressive stats', 'Attack icon.png', {
+			{ val = versioned(args, 'attbns'), icon = 'Attack icon.png' },
+			{ val = versioned(args, 'strbns'), icon = 'Strength icon.png' },
+			{ val = versioned(args, 'amagic'), icon = 'Magic icon.png' },
+			{ val = versioned(args, 'mbns'), icon = 'Magic Damage icon.png' },
+			{ val = versioned(args, 'arange'), icon = 'Ranged icon.png' },
+			{ val = versioned(args, 'rngbns'), icon = 'Ranged Strength icon.png' }
+		}))
+	topTable:node(wrapSection(combatGroup))
+
+	return tostring(container)
+end
+
+function p.main(frame)
+	local parentArgs = frame:getParent().args
+	local args = {}
+	for k, v in pairs(parentArgs) do args[k] = v end
+
+	local versions = {}
+	for i = 1, 10 do
+		local key = 'version' .. i
+		if args[key] then table.insert(versions, { name = args[key], index = i }) end
+	end
+
+	if #versions == 0 then return p._main(args) end
+
+	local tabber = {}
+	for _, v in ipairs(versions) do
+		local subargs = {}
+		for k, val in pairs(args) do
+			local numbered = k .. v.index
+			subargs[k] = args[numbered] or val
+			subargs.versionIndex = v.index
+		end
+		table.insert(tabber, string.format("%s=%s", v.name, p._main(subargs)))
+	end
+
+	return tostring(mw.html.create('div')
+		:addClass('infobox-tabber-wrapper')
+		:css{ width = '100%', ['max-width'] = '100%', ['overflow-x'] = 'auto' }
+		:wikitext(frame:extensionTag('tabber', table.concat(tabber, '|-|'))))
+end
+
+return p

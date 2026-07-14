@@ -1,0 +1,1102 @@
+--------------------------
+-- Module for [[Template:Infobox Monster]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local commas = require('Module:Addcommas')._add
+local infobox = require('Module:Infobox')
+local signed = require('Module:Format eq stat').signed
+local tb = require('Module:Trailblazer Region')
+
+local slayer_masters = { 'turael', 'spria', 'krystilia', 'mazchna', 'vannaka', 'chaeldar', 'konar', 'nieve', 'steve', 'duradel', 'kuradal' }
+local attributes = {
+	demon = '[[Demon (attribute)|Demon]]',
+	dragon = '[[Draconic (attribute)|Draconic]]',
+	fiery = '[[Fiery (attribute)|Fiery]]',
+	flying = '[[Flying (attribute)|Flying]]',
+	golem = '[[Golem (attribute)|Golem]]',
+	icy = '[[Icy (attribute)|Icy]]',
+	kalphite = '[[Kalphite (attribute)|Kalphite]]',
+	leafy = '[[Leafy (attribute)|Leafy]]',
+	penance = '[[Penance (attribute)|Penance]]',
+	rat = '[[Rat (attribute)|Rat]]',
+	shade = '[[Shade (attribute)|Shade]]',
+	spectral = '[[Spectral (attribute)|Spectral]]',
+	undead = '[[Undead (attribute)|Undead]]',
+	vampyre1 = '[[Vampyre (attribute)|Vampyre (tier 1)]]',
+	vampyre2 = '[[Vampyre (attribute)|Vampyre (tier 2)]]',
+	vampyre3 = '[[Vampyre (attribute)|Vampyre (tier 3)]]',
+	xerician = '[[Xerician (attribute)|Xerician]]',
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	return p._main(args)
+end
+
+function p._main(args)
+	local ret = infobox.new(args)
+
+	local numeric_args = {
+		'att', 'str', 'def', 'range', 'mage',
+	}
+	for _, v in ipairs(numeric_args) do
+		ret:defineParams{
+			{ name = v, func = { name = numericarg, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_smw', func = { name = tonumber_norefs, params = { v }, flag = { 'd' } } },
+		}
+	end
+
+	local numeric_args_commas = {
+		'combat', 'hitpoints'
+	}
+	for _, v in ipairs(numeric_args_commas) do
+		ret:defineParams{
+			{ name = v, func = { name = numericarg_commas, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_smw', func = { name = tonumber_norefs, params = { v }, flag = { 'p' } } },
+		}
+	end
+
+	local signed_numeric_args = {
+		'amagic', 'arange',
+		'dstab', 'dslash', 'dcrush', 'dmagic',
+		'attbns', 'strbns', 'mbns', 'rngbns'
+	}
+
+	for _, v in ipairs(signed_numeric_args) do
+		ret:defineParams{
+			{ name = v, func = { name = signednumericarg, params = { v, v }, flag = { 'd', 'r' } } },
+			{ name = v..'_smw', func = { name = tonumber_norefs, params = { v }, flag = { 'd' } } },
+		}
+	end
+	
+	local default_version_index = tonumber(args.defver) or 1
+	ret:defineParams{
+		{ name = 'default_version', func = { name = is_default_version, params = { 'smwname'..default_version_index, 'version'..default_version_index, 'smwname', 'version' } } },
+		{ name = 'name', func = 'name'},
+		{ name = 'image', func = 'image' },
+		{ name = 'image_smw', func = { name = image_smw, params = { 'image' }, flag = 'p' } },
+
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'aka', func = 'has_content' },
+
+		{ name = 'size', func = sizeparam },
+		{ name = 'size_smw', func = { name = 'has_content', params = {'size'}, flag = 'p'} },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+
+		{ name = 'aggressive', func = 'has_content' },
+		{ name = 'poisonous', func = 'has_content' },
+		{ name = 'attributes', func = attributesarg },
+		{ name = 'attributes_smw', func = { name = attributes_smw, params = { 'attributes' }, flag = 'p' } },
+		{ name = 'attack style', func = 'has_content' },
+		{ name = 'attack style_smw', func = { name = csv_to_multi, params = { 'attack style', true }, flag = { 'd', 'r' } } },
+		{ name = 'attack speed', func = attackspeedarg },
+		{ name = 'attack speed_smw', func = { name = attackspeed_smw, params = { 'attack speed' }, flag = 'p' } },
+		{ name = 'elementalweaknesstype', func = elementalweaknesstypearg },
+		{ name = 'elementalweaknesstype_smw', func = { name = 'has_content', params = { 'elementalweaknesstype' }, flag = 'p' } },
+		{ name = 'elementalweaknesspercent', func = { name = elementalweaknesspercentarg, params = {'elementalweaknesspercent', 'elementalweaknesstype'}, flag = {'p', 'p'}} },
+		{ name = 'elementalweaknesspercent_smw', func = { name = 'has_content', params = { 'elementalweaknesspercent' }, flag = 'p' } },
+
+		{ name = 'xpbonus', func = { name = signedpercentnumericarg, params = { 'xpbonus', 'xpbonus' }, flag = { 'd', 'r' } } },
+		{ name = 'xpbonus_smw', func = { name = tonumber_norefs, params = { 'xpbonus' }, flag = { 'p' } } },
+		{ name = 'flatarmour', func = 'has_content' },
+		{ name = 'flatarmour_smw', func = { name = tonumber_norefs, params = { 'flatarmour' }, flag = { 'p' } } },
+
+		{ name = 'max hit', func = 'has_content' },
+		{ name = 'max_hit_fmt', func = { name = csv_to_formatted, params = { 'max hit' }, flag = { 'd' } } },
+		{ name = 'max_hit_smw', func = { name = csv_to_multi, params = { 'max hit', true }, flag = { 'd', 'r' } } },
+
+		{ name = 'respawn', func = respawnarg },
+
+		{ name = 'cat', func = 'has_content' },
+		{ name = 'cat_smw', func = { name = csv_to_multi, params = { 'cat', true }, flag = { 'd', 'r' } } },
+		{ name = 'slaylvl', func = { name = 'has_content', params = {'slaylvl', 'None' }, flag = { 'd', 'r' } } },
+		{ name = 'slaylvl_smw', func = { name = tonumber_norefs, params = { 'slaylvl' }, flag = { 'd' } } },
+		{ name = 'assignedby', func = 'has_content' },
+		{ name = 'assignedby_pics', func = { name = assignedbyarg, params = { 'assignedby' }, flag = 'd' } },
+		{ name = 'assignedby_smw', func = { name = csv_to_multi, params = { 'assignedby', true }, flag = { 'd', 'r' } } },
+		{ name = 'slayxp', func = exp_arg },
+		{ name = 'slayxp_smw', func = { name = tonumber_norefs, params = { 'slayxp' }, flag = { 'p' } } },
+
+		{ name = 'immunepoison', func = { name = immunearg, params = {'immunepoison', 'immunepoison'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunepoison_smw', func = { name = immunearg_smw, params = {'immunepoison', 'immunepoison'}, flag = { 'p', 'r' } } },
+		{ name = 'immunevenom', func = { name = immunearg, params = {'immunevenom', 'immunevenom'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunevenom_smw', func = { name = immunearg_smw, params = {'immunevenom', 'immunevenom'}, flag = { 'p', 'r' } } },
+		{ name = 'immunecannon', func = { name = immunearg, params = {'immunecannon', 'immunecannon'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunecannon_smw', func = { name = immunearg_smw, params = {'immunecannon', 'immunecannon'}, flag = { 'p', 'r' } } },
+		{ name = 'immunethrall', func = { name = immunearg, params = {'immunethrall', 'immunethrall'}, flag = { 'd', 'r', 'r' } } },
+		{ name = 'immunethrall_smw', func = { name = immunearg_smw, params = {'immunethrall', 'immunethrall'}, flag = { 'p', 'r' } } },
+		{ name = 'immuneburn', func = 'has_content' },
+		{ name = 'freezeresistance', func = freezeresistancearg },
+		
+		{ name = 'leagueRegion', func = tb.regionsForInfobox },
+		{ name = 'leagueRegion_raw', func = { name = 'has_content', params = { 'leagueRegion' }, flag = 'p' } },
+
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_smw', func = { name = csv_to_multi, params = { 'id', false }, flag = { 'p', 'r' } } },
+		{ name = 'chisel_link', func = { name = 'chisel_link', params = { 'id', 'name', 'npc' }, flag = { 'p', 'p', 'r' } } },
+		{ name = 'version', func = 'has_content' },
+		{ name = 'usesinfobox', func = { name = tostring, params = { 'Monster' }, flag = 'r' } },
+		{ name = 'usesskill', func = { name = usesskillarg, params = { 'slayxp_smw' }, flag = 'd' } },
+		{ name = 'dropversion', func = 'has_content' },
+		{ name = 'dpscalc', func = { name = usedpscalcarg, params = {'dpscalc', 'id'} } },
+	}
+
+	ret:defineParams {
+		-- TODO: Merge these into signed_numeric_args once the pages have been backfilled
+		{ name = 'dlight', func = { name = rangedargs, params = { 'dlight', 'drange' }, flag = { 'p', 'p' } } },
+		{ name = 'dstandard', func = { name = rangedargs, params = { 'dstandard', 'drange' }, flag = { 'p', 'p' } } },
+		{ name = 'dheavy', func = { name = rangedargs, params = { 'dheavy', 'drange' }, flag = { 'p', 'p' } } },
+		{ name = 'dlight_smw', func = { name = rangedargs_smw, params = { 'dlight', 'drange' }, flag = { 'p', 'p' } } },
+		{ name = 'dstandard_smw', func = { name = rangedargs_smw, params = { 'dstandard', 'drange' }, flag = { 'p', 'p' } } },
+		{ name = 'dheavy_smw', func = { name = rangedargs_smw, params = { 'dheavy', 'drange' }, flag = { 'p', 'p' } } },
+		-- TODO: Remove this entirely once all uses are updated to light/standard/heavy
+		{ name = 'drange_smw', func = { name = drange_smw, params = { 'dstandard', 'drange' }, flag = { 'p', 'p' } } },
+	}
+
+	ret:defineLinks({ hide = true })
+	
+	ret:useBucket("infobox_monster", {
+		members = 'is_members_only',
+		release = 'release_date',
+		id_smw = 'id',
+		image_smw = 'image',
+		combat_smw = 'combat_level',
+		examine = 'examine',
+		poisonous = 'poisonous',
+		attributes_smw = 'attribute',
+		hitpoints_smw = 'hitpoints',
+		max_hit_smw = 'max_hit',
+		slaylvl_smw = 'slayer_level',
+		slayxp_smw = 'slayer_experience',
+		usesskill = 'uses_skill',
+		assignedby_smw = 'assigned_by',
+		att_smw = 'attack_level',
+		str_smw = 'strength_level',
+		def_smw = 'defence_level',
+		range_smw = 'ranged_level',
+		mage_smw = 'magic_level',
+		amagic_smw = 'magic_attack_bonus',
+		arange_smw = 'range_attack_bonus',
+		dstab_smw = 'stab_defence_bonus',
+		dslash_smw = 'slash_defence_bonus',
+		dcrush_smw = 'crush_defence_bonus',
+		dmagic_smw = 'magic_defence_bonus',
+		drange_smw = 'range_defence_bonus', -- TODO: Remove this after light/standard/heavy are used
+		dlight_smw = 'light_range_defence_bonus',
+		dstandard_smw = 'standard_range_defence_bonus',
+		dheavy_smw = 'heavy_range_defence_bonus',
+		attbns_smw = 'attack_bonus',
+		strbns_smw = 'strength_bonus',
+		rngbns_smw = 'range_strength_bonus',
+		mbns_smw = 'magic_damage_bonus',
+		version = 'version_anchor',
+		name = 'name',
+		cat_smw = 'slayer_category',
+		immunepoison_smw = 'poison_immune',
+		immunevenom_smw = 'venom_immune',
+		immunethrall_smw = "thrall_immune",
+		immunecannon_smw = "cannon_immune",
+		immuneburn = 'burn_immune',
+		['attack style_smw'] = 'attack_style',
+		['attack speed_smw'] = 'attack_speed',
+		xpbonus_smw = 'experience_bonus',
+		flatarmour_smw = 'flat_armour',
+		size_smw = 'size',
+		freezeresistance = 'freeze_resistance',
+		elementalweaknesstype_smw = 'elemental_weakness',
+		elementalweaknesspercent_smw = 'elemental_weakness_percent',
+		leagueRegion_raw = 'league_region',
+		default_version = 'default_version',
+	})
+
+	ret:useBucket('npc_id', {
+			id_smw = 'id'
+	})
+
+	ret:customButtonPlacement(true)
+	ret:create()
+	ret:cleanParams()
+
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Monster')
+	ret:addClass('infobox-monster')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '24' }
+	}
+
+	:pad(24)
+	:addRow{
+		{ tag = 'argd', content = 'image', class='infobox-image infobox-full-width-content', colspan = '24' }
+	}
+	:pad(24)
+
+	:addRow{
+		{ tag = 'th', content = 'Released', colspan = '8' },
+		{ tag = 'argd', content = 'release', colspan = '16' }
+	}
+
+	if ret:paramDefined('removal', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removal', colspan = '8' },
+			{ tag = 'argd', content = 'removal', colspan = '16' }
+		}
+	end
+
+	if ret:paramDefined('aka', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '8' },
+			{ tag = 'argd', content = 'aka', colspan = '16' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '8' },
+		{ tag = 'argd', content = 'members', colspan = '16' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Combat level]]', colspan = '8' },
+		{ tag = 'argd', content = 'combat', colspan = '16' }
+	}
+
+	if ret:paramDefined('size', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Size]]', colspan = '8' },
+			{ tag = 'argd', content = 'size', colspan = '16' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Examine]]', colspan= '8' },
+		{ tag = 'argd', content = 'examine', colspan = '16' }
+	}
+	
+	if ret:paramDefined('leagueRegion', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Raging Echoes League|League]] region', colspan = '8' },
+			{ tag = 'argd', content = 'leagueRegion', colspan = '16' },
+			meta = {addClass = 'leagues-global-flag'}
+		}
+	end
+	ret:pad(24)
+	:addRow{
+		{ tag = 'th', content = 'Combat info', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	if ret:paramDefined('attributes', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Monster attribute|Attribute]]', colspan = '8' },
+			{ tag = 'argd', content = 'attributes', colspan = '16' }
+		}
+	end
+
+	if ret:paramDefined('xpbonus', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Experience bonus|XP bonus]]', colspan = '8' },
+			{ tag = 'argd', content = 'xpbonus', colspan = '16' }
+		}
+	end
+
+	if ret:paramDefined('flatarmour', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Flat armour]]', colspan = '8' },
+			{ tag = 'argd', content = 'flatarmour', colspan = '16' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Monster maximum hit|Max hit]]', colspan = '8' },
+		{ tag = 'argd', content = 'max_hit_fmt', colspan = '16' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Aggressiveness|Aggressive]]', colspan = '8' },
+		{ tag = 'argd', content = 'aggressive', colspan = '16' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Poison|Poisonous]]', colspan = '8' },
+		{ tag = 'argd', content = 'poisonous', colspan = '16' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Combat Options|Attack style]]', colspan = '8' },
+		{ tag = 'argd', content = 'attack style', colspan = '16' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Monster attack speed|Attack speed]]', colspan = '8' },
+		{ tag = 'argd', content = 'attack speed', colspan = '16' }
+	}
+
+	if ret:paramDefined('respawn', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = 'Respawn time', colspan = '8' },
+			{ tag = 'argd', content = 'respawn', colspan = '16' }
+		}
+	end
+
+	ret:pad(24)
+
+	-- If a monster is assigned or has a slayer level, include slayer info
+	local slaylvl_defined = ret:paramGrep('slaylvl', function(x) return string.lower(x or 'none') ~= 'none' end)
+	if ret:paramDefined('assignedby', 'all') or slaylvl_defined then
+		ret:addRow{
+			{ tag = 'th', content = '[[File:Slayer icon.png|link=Slayer]] [[Slayer|Slayer info]]', colspan = '24', class = 'infobox-subheader' }
+		}
+		:pad(24)
+		:addRow{
+			{ tag = 'th', content = '[[Slayer|Slayer level]]', colspan = '8' },
+			{ tag = 'argd', content = 'slaylvl', colspan = '16' }
+		}
+
+		-- If a monster is assigned, include assignment info
+		if ret:paramDefined('assignedby', 'all') then
+			ret:addRow{
+				{ tag = 'th', content = '[[Slayer|Slayer XP]]', colspan = '8' },
+				{ tag = 'argd', content = 'slayxp', colspan = '16' }
+			}
+
+			:addRow{
+				{ tag = 'th', content = '[[Slayer task#List of assignments|Category]]', colspan = '8' },
+				{ tag = 'argd', content = 'cat', colspan = '16' }
+			}
+
+			:addRow{
+				{ tag = 'th', content = '[[Slayer Master|Assigned by]]', colspan = '8' },
+				{ tag = 'argd', content = 'assignedby_pics', colspan = '16' }
+			}
+		else
+			ret:addRow{
+				{ tag = 'th', content = '[[Slayer Master|Assigned by]]', colspan = '8' },
+				{ tag = 'td', content = 'Not assigned', colspan = '16' }
+			}
+		end
+
+		ret:pad(24)
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[File:Combat icon.png|link=Combat]] [[Combat|Combat stats]]', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Hitpoints icon.png|link=Hitpoints]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Strength icon.png|link=Strength]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Defence icon.png|link=Defence]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', colspan = '4', class = 'infobox-nested' },
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'hitpoints', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'att', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'str', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'def', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mage', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'range', colspan = '4', class = 'infobox-nested' },
+	}
+
+	:pad(24)
+	:addRow{
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack]] [[Attack|Aggressive stats]]', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Attack icon.png|link=Attack#Attack_bonuses|Monster attack bonus]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Strength icon.png|link=Strength#Strength_bonus|Monster strength bonus]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Magic Damage icon.png|link=Magic damage|Monster magic strength bonus]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged icon.png|link=Ranged]]', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Ranged Strength icon.png|link=Ranged Strength|Monster ranged strength bonus]]', colspan = '4', class = 'infobox-nested' },
+	}
+
+	:addRow{
+		{ tag = 'argd', content = 'attbns', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'strbns', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'amagic', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'mbns', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'arange', colspan = '4', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'rngbns', colspan = '4', class = 'infobox-nested' },
+	}
+
+	:pad(24)
+	:addRow{
+		{ tag = 'th', content = '[[File:Defence icon.png|link=Defence]] [[Defence|Melee defence]]', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:White dagger.png|link=Stab weapons]]', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White scimitar.png|link=Slash weapons]]', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:White warhammer.png|link=Crush weapons]]', colspan = '8', class = 'infobox-nested' },
+	}
+	:addRow{
+		{ tag = 'argd', content = 'dstab', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dslash', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dcrush', colspan = '8', class = 'infobox-nested' },
+	}
+
+
+	:pad(24)
+	:addRow{
+		{ tag = 'th', content = '[[File:Magic defence icon.png|link=Defence]] [[Magic|Magic defence]]', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Magic icon.png|link=Magic]]', colspan = '24', class = 'infobox-nested' }
+	}
+	:addRow{
+		{ tag = 'argd', content = 'dmagic', colspan = '24', class = 'infobox-nested' }
+	}
+
+	:pad(24)
+	:addRow{
+		{ tag = 'th', content = '[[File:Ranged defence icon.png|link=Defence]] [[Ranged|Ranged defence]]', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	:addRow{
+		{ tag = 'th', content = '[[File:Steel dart.png|Light|link=Ranged weapons#Light]]', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Steel arrow 5.png|Standard|link=Ranged weapons#Standard]]', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'th', content = '[[File:Steel bolts 5.png|Heavy|link=Ranged weapons#Heavy]]', colspan = '8', class = 'infobox-nested' },
+	}
+	:addRow{
+		{ tag = 'argd', content = 'dlight', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dstandard', colspan = '8', class = 'infobox-nested' },
+		{ tag = 'argd', content = 'dheavy', colspan = '8', class = 'infobox-nested' },
+	}
+
+	-- A "nice" 1-1 mapping for now between attributes and weakness. Expecting exceptions and more logic in the future. (Loar shade gadderhammer ignore?).
+	local demonbane_weapons = ret:paramGrep('attributes', function(val) return val:find("Demon") ~= nil end)
+	local dragonbane_weapons = ret:paramGrep('attributes', function(val) return val:find("Draconic") ~= nil end)
+	local golembane_weapons = ret:paramGrep('attributes', function(val) return val:find("Golem") ~= nil end)
+	local vampyrebane_weapons = ret:paramGrep('attributes', function(val) return val:find("Vampyre") ~= nil end)
+	local keris_weapons = ret:paramGrep('attributes', function(val) return val:find("Kalphite") ~= nil end)
+	local rat_bone_weapons = ret:paramGrep('attributes', function(val) return val:find("Rat") ~= nil end)
+	local leaf_bladed_battleaxe = ret:paramGrep('attributes', function(val) return val:find("Leafy") ~= nil end)
+	local gadderhammer = ret:paramGrep('attributes', function(val) return val:find("Shade") ~= nil end)
+	local salve_amulets = ret:paramGrep('attributes', function(val) return val:find("Undead") ~= nil end)
+	local sea_curse = ret:paramGrep('attributes', function(val) return val:find("Fiery") ~= nil end)
+
+	local weaknesses = {demonbane_weapons, dragonbane_weapons, golembane_weapons, vampyrebane_weapons, keris_weapons, rat_bone_weapons, leaf_bladed_battleaxe, gadderhammer, salve_amulets, sea_curse}
+	local weaknesses_count = 1 -- Starts at 1 because we always have elemental weakness shown, even without elemental weakness.
+	for _, v in ipairs(weaknesses) do
+		if v then weaknesses_count = weaknesses_count + 1
+		end
+	end
+
+	-- Determine column span based on the amount of weaknesses.
+	local weakness_colspan = 24/weaknesses_count
+
+	ret:pad(24)
+	:addRow{
+		{ tag = 'th', content = '[[File:Weaken.png]] Weaknesses', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	-- Always add elemental weakness
+	local weakness_headers = {{ tag = 'argh', content = 'elementalweaknesstype', colspan = weakness_colspan, class = 'infobox-nested' }}
+	local weakness_values = {{ tag = 'argd', content = 'elementalweaknesspercent', colspan = weakness_colspan, class = 'infobox-nested' }}
+
+	if demonbane_weapons
+	then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Silverlight.png|link=Demonbane weapons|Demonbane weapons]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Demonbane weapons', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if dragonbane_weapons then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Dragon hunter crossbow.png|link=Dragonbane weapons|Dragonbane weapons]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Dragonbane weapons', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if golembane_weapons then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Barronite mace.png|link=Golembane weapons|Golembane weapons]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Golembane weapons', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if vampyrebane_weapons then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Rod of ivandis.png|link=Monster_attribute|Vampyrebane weapons]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Vampyrebane weapons', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if keris_weapons then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Keris.png|link=Monster_attribute|Keris weapons]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Keris weapons', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if rat_bone_weapons then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Bone mace.png|link=Rat bone weapons|Rat bone weapons]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Rat bone weapons', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+	
+	if salve_amulets then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Salve amulet.png|link=Salve_amulet#Comparison|Salve amulets]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Salve amulets', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if sea_curse then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Pearl_dragon_bolts_(e)_5.png|link=Pearl_dragon_bolts_(e)#Special_effect|Sea curse]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Sea curse', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if leaf_bladed_battleaxe then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Leaf-bladed_battleaxe.png|link=Leaf-bladed_battleaxe|Leaf-bladed battleaxe]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Leaf-bladed battleaxe', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	if gadderhammer then
+    	table.insert(weakness_headers,{ tag = 'th', content = '[[File:Gadderhammer.png|link=Gadderhammer|Gadderhammer]]', colspan = weakness_colspan, class = 'infobox-nested' })
+		table.insert(weakness_values,{ tag = 'td', content = 'Gadderhammer', colspan = weakness_colspan, class = 'infobox-nested' })
+	end
+
+	ret:addRow(weakness_headers)
+	ret:addRow(weakness_values)
+
+	:pad(24)
+	:addRow{
+		{ tag = 'th', content = 'Immunities', colspan = '24', class = 'infobox-subheader' }
+	}
+	:pad(24)
+
+	:addRow{
+		{ tag = 'th', content = '[[Poison]]', colspan = '8' },
+		{ tag = 'argd', content = 'immunepoison', colspan = '16' }
+	}
+	:addRow{
+		{ tag = 'th', content = '[[Venom]]', colspan = '8' },
+		{ tag = 'argd', content = 'immunevenom', colspan = '16' }
+	}
+	if ret:paramDefined('immunecannon', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Cannons]]', colspan = '8' },
+			{ tag = 'argd', content = 'immunecannon', colspan = '16' }
+		}
+	end
+	if ret:paramDefined('immunethrall', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Thralls]]', colspan = '8' },
+			{ tag = 'argd', content = 'immunethrall', colspan = '16' }
+		}
+	end
+	if ret:paramDefined('immuneburn', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Burn]]', colspan = '8' },
+			{ tag = 'argd', content = 'immuneburn', colspan = '16' }
+		}
+	end
+	if ret:paramDefined('freezeresistance', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Freeze]]', colspan = '8' },
+			{ tag = 'argd', content = 'freezeresistance', colspan = '16' }
+		}
+	end
+	ret:pad(24)
+	if ret:paramDefined('dpscalc', 'all') then
+		ret:addRow{
+			{tag = 'argd', content = 'dpscalc', class = 'dps-calc-button infobox-full-width-content', colspan = '24'}
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '24' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(24, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Monster ID', colspan = '8' },
+		{ tag = 'argd', content = 'id',  colspan = '16' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:addRow{
+		{ tag = 'th', content = 'Link', colspan = '8' },
+		{ tag = 'argd', content = 'chisel_link',  colspan = '16' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(24, 'advanced-data')
+
+	ret:addDropLevelVars('combat', 'combat_smw')
+	ret:addVersionBasedVars('LeagueRegion', 'dropversion', 'leagueRegion_raw')
+	
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function numericarg(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	return arg
+end
+
+function numericarg_commas(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	local n = tonumber(arg)
+	if n == nil then
+		return arg
+	else
+		return commas(tonumber(arg))
+	end
+end
+
+-- If the arg is numeric, return the signed version (starts with + or -)
+function signednumericarg(arg, arg_name)
+	local _arg = numericarg(arg, arg_name)
+	if tonumber(_arg) ~= nil then
+		return signed(_arg)
+	end
+	if arg ~= '' then
+		return arg
+	end
+	return nil
+end
+
+-- Sign the arg and append a percent sign
+function signedpercentnumericarg(arg, arg_name)
+	local _arg = signednumericarg(arg, arg_name)
+	if _arg ~= nil then
+		return _arg..'%'
+	end
+	return nil
+end
+
+-- Remove <ref></ref> from the string before converting tonumber()
+function tonumber_norefs(arg)
+	local raw = string.gsub(arg, ".'\"`UNIQ[^`]*QINU`\"'.", '')
+	return tonumber(raw)
+end
+
+function attributesarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return 'None'
+	end
+
+	local result = {}
+	for attribute_i in string.gmatch(arg, "[^,]+") do
+		local trimmed = attribute_i:gsub("^%s*(.-)%s*$", "%1")
+		if attributes[trimmed] then
+			table.insert(result, attributes[trimmed])
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, ', ')
+	else
+		return 'None'
+	end
+end
+
+-- Returns list of types in smw format
+function attributes_smw(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return nil
+	end
+
+	local result = {}
+	for attribute_i in string.gmatch(arg, "[^,]+") do
+		local trimmed = attribute_i:gsub("^%s*(.-)%s*$", "%1")
+		if attributes[trimmed] then
+			table.insert(result, trimmed)
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, '&&SPLITPOINT&&')
+	else
+		return nil
+	end
+end
+
+function respawnarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	-- if arg is a valid number, display ticks and seconds
+	if tonumber(arg) then
+		local plural = tonumber(arg) ~= 1 and 's' or ''
+		return arg .. ' tick' .. plural .. ' (' .. arg * 0.6 .. ' seconds)'
+	end
+
+	-- if arg isn't a number, return it unmodified
+	return arg
+end
+
+-- Generate pics for defined slayer masters, or return nil if undefined
+function assignedbyarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return 'Not assigned'
+	end
+
+	local result = {}
+	for i, slayer_master in ipairs(slayer_masters) do
+		if string.match(arg, slayer_master) then
+			table.insert(result, string.format('[[File:%s chathead.png|x40px|link=%s|class=notpageimage]]', slayer_master, slayer_master))
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, ' ')
+	else
+		return nil
+	end
+end
+
+function exp_arg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if not tonumber(arg) then
+		return arg
+	end
+	return string.format('<span class="infobox-quantity" data-val-each="%s"><span class="infobox-quantity-replace">%s</span> xp</span>', arg, commas(arg))
+end
+
+function immunearg_smw(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' or arg == 'not immune' then
+		return 'Not immune'
+	elseif arg == 'yes' or arg == 'immune' then
+		return 'Immune'
+	elseif arg:sub(1, #'poison') == 'poison' then
+		return 'Poisons'
+	else
+		return badarg(arg_name, "should be 'yes' or 'no'.")
+	end
+end
+
+function immunearg(arg, arg_name)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' or arg == 'not immune' then
+		return 'Not immune'
+	elseif arg == 'yes' or arg == 'immune' then
+		return 'Immune'
+	elseif arg:sub(1, #'poison') == 'poison' then
+		return '<span '..
+			'title="This monster will be poisoned instead of envenomed." '..
+			'style="cursor:help; border-bottom:1px dotted;">'..
+			'Converts to poison</span>'
+	else
+		return badarg(arg_name, "should be 'yes' or 'no'.")
+	end
+end
+
+function freezeresistancearg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	
+	return arg..'% resistance'
+end
+
+function image_smw(arg)
+	local _img = string.match(arg, "File:.-%.png")
+	return _img
+end
+
+function attackspeedarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local lowarg = string.lower(arg)
+	local numarg = tonumber(arg)
+	
+	if lowarg == 'no' or lowarg == 'n/a' then
+		return 'Does not attack'
+	elseif lowarg == 'varies' or lowarg == 'random' then
+		return '<span title="This monster has a variable attack speed." style="cursor:help; border-bottom:1px dotted;">Variable</span>'
+	end
+	
+	if numarg ~= nil then
+		return string.format('%s %s (%.1f seconds)', numarg, (numarg > 1) and 'ticks' or 'tick', numarg * 0.6)
+	end	
+end
+
+function attackspeed_smw(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	local arg = string.lower(arg)
+	if arg == 'no' then
+		return -1
+	end
+	return arg
+end
+
+function elementalweaknesstypearg(arg)
+	if not infobox.isDefined(arg) then
+		return '[[File:Pure essence.png|No elemental weakness|link=Elemental weakness]]'
+	end
+
+	local lowarg = string.lower(arg)
+
+	if string.find(lowarg, 'air') then
+		return '[[File:Air rune.png|Air elemental weakness|link=Elemental weakness]]'
+	elseif string.find(lowarg, 'earth') then
+		return '[[File:Earth rune.png|Earth elemental weakness|link=Elemental weakness]]'
+	elseif string.find(lowarg, 'fire') then
+		return '[[File:Fire rune.png|Fire elemental weakness|link=Elemental weakness]]'
+	elseif string.find(lowarg, 'water') then
+		return '[[File:Water rune.png|Water elemental weakness|link=Elemental weakness]]'
+	end
+	
+	return '[[File:Pure essence.png|No elemental weakness|link=Elemental weakness]]'
+end
+
+function elementalweaknesspercentarg(percentage, elementaltype)
+	if not infobox.isDefined(percentage) or string.lower(percentage) == 'no' then
+		return 'No elemental weakness'
+	end
+
+	return '+' .. percentage .. '% ' .. elementaltype .. ' spells'
+end
+
+function csv_to_formatted(raw)
+	if not infobox.isDefined(raw) then
+		return nil
+	end
+
+	local r = string.gsub(raw, '%s*,%s*', '<br/>')
+
+	return r
+end
+
+function csv_to_multi(raw, striplinks)
+	assert(type(striplinks) == 'boolean')
+
+	local r = raw
+	if infobox.isDefined(raw) then
+		if striplinks then
+			r = string.gsub(raw,'[%[%]]', '')	
+		end
+		r = string.gsub(r, '%s*,%s*', '&&SPLITPOINT&&')
+		return r
+	end
+	return nil
+end
+
+-- red ERR span with title hover for explanation
+function badarg(argname, argmessage)
+	return '<span '..
+			'title="The parameter «'..argname..'» '..argmessage..'" '..
+			'style="color:red; font-weight:bold; cursor:help; border-bottom:1px dotted red;">'..
+			'ERR</span>'
+end
+
+function sizeparam(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	return string.format('%sx%s', arg, arg)
+end
+
+function usesskillarg(slayxp)
+	local ret = {}
+	if infobox.isDefined(slayxp) then
+		table.insert(ret, "Slayer")
+	end
+	-- If needed, insert additional skills to the ret table here.
+	return csv_to_multi(table.concat(ret, ","), false)
+end
+
+function usedpscalcarg(arg, id)
+	-- If dpscalc is no or we don't have an id to grab, don't show the button
+	if not infobox.isDefined(id) then
+		return nil
+	end
+	if infobox.isDefined(arg) and string.lower(arg) == 'no' then
+		return nil
+	end
+	local ids = {}
+	-- If multiple ids exist, just default to the first one
+	for id_i in string.gmatch(id, "[^,]+") do
+			table.insert(ids, id_i)
+	end
+	local firstid = ids[1]
+	return '<div class="dps-calc plainlinks">[https://tools.runescape.wiki/osrs-dps/?monster=' .. firstid .. ' <span class="cdx-button cdx-button--action-progressive cdx-button--weight-primary dps-calc-openbtn" style="min-height:0; margin-bottom: 8px; display: inline-flex; align-items: center; gap: 4px; padding:5px 12px">[[File:Dps calc logo.png|32px|link=]] Open in DPS calculator</span>]</div>'
+end
+
+-- TODO: Remove this fallback behavior once dlight/dstandard/dheavy are backfilled
+function rangedargs(arg, drangearg)
+	if infobox.isDefined(arg) then
+		return signednumericarg(arg)
+	end
+
+	return signednumericarg(drangearg)
+end
+
+-- TODO: Remove this fallback behavior once dlight/dstandard/dheavy are backfilled
+function rangedargs_smw(arg, drangearg)
+	if infobox.isDefined(arg) then
+		return tonumber_norefs(arg)
+	end
+
+	return tonumber_norefs(drangearg)
+end
+
+-- TODO: Remove this fallback behavior once nothing uses drange
+function drange_smw(dstandard, drange)
+	if infobox.isDefined(dstandard) then
+		return tonumber_norefs(dstandard)
+	end
+
+	return tonumber_norefs(drange)
+end
+
+function is_default_version(default_smwVer, default_textVer, smwVer, textVer)
+	if default_smwVer ~= '' then
+		local tmp = default_smwVer == smwVer
+		return tmp
+	end
+	if default_textVer ~= '' then
+		local tmp = default_textVer == textVer
+		return tmp
+	end
+	return true --If we don't have any versions then we are the default version
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Monsters' }
+
+ 	-- Add the associated category if the parameter has content
+	local defined_args = {
+		aka = 'Pages with AKA',
+		aspeed = 'Pages with aspeed',
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+ 	-- Add the associated category if the parameter doesn't have content
+ 	local notdefined_args = {
+ 		image = 'Needs image',
+ 		members = 'Needs members status',
+ 		release = 'Needs release date',
+ 		examine = 'Needs examine added',
+  		update = 'Needs update added',
+ 		combat = 'Needs combat level',
+ 		id = 'Needs ID'
+ 	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+
+	-- Adds Category:Needs Monster Examine if any of these are not defined
+	local monster_examine_args = {
+		'att', 'str', 'def', 'range', 'mage',
+		'amagic', 'arange',
+		'dstab', 'dslash', 'dcrush', 'dmagic',
+		'dlight', 'dstandard', 'dheavy',
+		'attbns', 'strbns', 'rngbns', 'mbns',
+		'immunepoison', 'immunevenom', 'attack speed'
+	}
+	for _, arg in ipairs(monster_examine_args) do
+		if not catargs[arg] or not catargs[arg].all_defined then
+			table.insert(ret, 'Needs Monster Examine')
+			break
+		end
+	end
+
+	-- Adds Category:Needs slayer information if slayer info is required
+	-- but not all args are defined
+	local slayer_args = {
+		'slaylvl', 'slayxp', 'cat'
+	}
+	if catargs['assignedby'].one_defined then
+		table.insert(ret, 'Slayer monsters')
+		for i, arg in ipairs(slayer_args) do
+			if not catargs[arg] or not catargs[arg].all_defined then
+				table.insert(ret, 'Needs slayer information')
+				break
+			end
+		end
+	end
+	
+	local cat_map = {
+		-- Parameters that have text
+		-- map a category to a value
+		matches = {
+			members = { yes = 'Members\' monsters', no = 'Free-to-play monsters' },
+			immunepoison = { immune = 'Monsters immune to poison', ['not immune'] = 'Monsters susceptible to poison' },
+			immunevenom = { immune = 'Monsters immune to venom', ['not immune'] = 'Monsters susceptible to venom' },
+		}
+	}
+	
+	-- searches
+	for n, v in pairs(cat_map.matches) do
+		for m, w in pairs(v) do
+			if args[n] then
+				if string.lower(tostring(args[n].d) or '') == m then
+					table.insert(ret, w)
+				end
+				if args[n].switches then
+					for _, x in ipairs(args[n].switches) do
+						if string.lower(tostring(x)) == m then
+							table.insert(ret, w)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

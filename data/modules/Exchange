@@ -294,7 +294,7 @@ function p._table( item )
     local members = '<i>Unknown</i>'
 
     if bulkData.last then
-        local link = 'http://services.runescape.com/m=itemdb_oldschool/viewitem.ws?obj=' .. data.itemId
+        local link = 'https://services.runescape.com/m=itemdb_oldschool/viewitem.ws?obj=' .. data.itemId
         local change = math.abs( changeperday( {bulkData.price, bulkData.last, bulkData.date, bulkData.lastDate} ) )
 
         if bulkData.price > bulkData.last then

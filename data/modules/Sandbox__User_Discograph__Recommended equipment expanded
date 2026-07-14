@@ -1,0 +1,181 @@
+-- Main table that stores the module's functions
+local p = {}
+
+-- Required dependencies from other Lua modules:
+local paramTest = require('Module:Paramtest')  -- Used to check if certain parameters have content
+local onMain = require('Module:Mainonly').on_main  -- Ensures code only runs on main namespace pages
+local yesNo = require('Module:Yesno')  -- Converts user input like 'yes', 'no', and boolean values to true/false
+
+-- SlotInfo defines the equipment slots, their icons, text, and linked pages.
+-- Each entry has:
+-- - `name`: Used as a key to categorize equipment
+-- - `icon`: Image filename (without extension)
+-- - `txt`: Display name (used as alt text)
+-- - `link`: Page link when clicking the image
+local SlotInfo = {
+	{name = 'head', icon = 'Head slot', txt = 'Head', link = 'Head slot table'},
+	{name = 'neck', icon = 'Neck slot', txt = 'Neck', link = 'Neck slot table'},
+	{name = 'cape', icon = 'Cape slot', txt = 'Back', link = 'Cape slot table'},
+	{name = 'body', icon = 'Body slot', txt = 'Body', link = 'Body slot table'},
+	{name = 'legs', icon = 'Legs slot', txt = 'Legs', link = 'Legs slot table'},
+	{name = 'weapon', icon = 'Weapon slot', txt = 'Weapon', link = 'Weapon slot table'},
+	{name = 'shield', icon = 'Shield slot', txt = 'Shield', link = 'Shield slot table'},
+	{name = '2h', icon = '2h slot', txt = 'Two-handed weapon', link = 'Two-handed slot table'},
+	{name = 'ammo', icon = 'Ammo slot', txt = 'Ammo/Spell', link = 'Ammunition slot table'},
+	{name = 'hands', icon = 'Hands slot', txt = 'Hands', link = 'Hand slot table'},
+	{name = 'feet', icon = 'Feet slot', txt = 'Boots', link = 'Feet slot table'},
+	{name = 'ring', icon = 'Ring slot', txt = 'Ring', link = 'Ring slot table'},
+	{name = 'special', icon = 'Special attack orb', txt = 'Special attack', link = 'Special attacks'}
+}
+
+-- Function to build a table row for each equipment slot
+function buildRow(slot, rowData, largestRowSize, rowScale, rowColor)
+    local row = mw.html.create('tr')
+
+    -- Row Resizing: Adjust font size and padding based on rowScale
+    local textSize = 14 * rowScale .. "px"
+    local padding = 8 * rowScale .. "px"
+    local imageSize = math.floor(39 * rowScale) .. "px"
+
+    -- Apply background color if provided
+    if rowColor then
+        row:css({
+            ['background-color'] = rowColor
+        })
+    end
+
+    -- First column: Icon with a link (with scaling applied)
+    row:tag('td')
+        :css({
+            ['text-align'] = 'center',
+            ['vertical-align'] = 'middle',
+            ['width'] = imageSize,
+            ['height'] = imageSize,
+            ['padding'] = padding
+        })
+        :wikitext('[[File:' .. slot.icon .. '.png|' .. imageSize .. '|' .. slot.txt .. '|link=' .. slot.link .. ']]')
+
+    -- Next columns: Equipment items in order (scaled text and padding)
+    for _, cellData in ipairs(rowData) do
+        row:tag('td')
+            :css({
+                ['font-size'] = textSize,
+                ['padding'] = padding
+            })
+            :wikitext(cellData)
+    end
+
+    -- Fill remaining cells with "N/A"
+    for i = 1, largestRowSize - #rowData do
+        row:tag('td')
+            :addClass('table-na')
+            :css({
+                ['font-size'] = textSize,
+                ['padding'] = padding
+            })
+            :wikitext('N/A')
+    end
+
+    return row
+end
+
+
+
+
+
+-- Main function to generate the equipment table
+function p._main(args)
+	local largestRowSize = 0  -- Tracks the largest number of items in any row
+	local maxRowsPerSlot = tonumber(args.rows) or 5  -- Max items per slot (default: 5)
+
+	-- Initialize an empty table to store equipment by slot
+	local categorizedSlots = {}
+	for _, slot in ipairs(SlotInfo) do
+		categorizedSlots[slot.name] = {}
+	end
+
+	-- Populate `categorizedSlots` by parsing `args` using pattern matching:
+	for key, gear in pairs(args) do
+		for _, slot in ipairs(SlotInfo) do
+			local baseSlotName = slot.name
+
+			-- Pattern 1: `slotName + number` (e.g., `head1`, `weapon3`)
+			if key:match('^' .. baseSlotName .. '%d+$') then
+				local index = tonumber(key:match('%d+'))  -- Extract number
+				categorizedSlots[baseSlotName]["default"] = categorizedSlots[baseSlotName]["default"] or {}
+				categorizedSlots[baseSlotName]["default"][index] = gear
+
+			-- Pattern 2: `slotName + letter + number` (e.g., `weaponA1`, `shieldB2`)
+			elseif key:match('^' .. baseSlotName .. '[A-Za-z]%d+$') then
+				local subCategory, index = key:match('^' .. baseSlotName .. '([A-Za-z])(%d+)$')
+				categorizedSlots[baseSlotName][subCategory] = categorizedSlots[baseSlotName][subCategory] or {}
+				categorizedSlots[baseSlotName][subCategory][tonumber(index)] = gear
+			end
+		end
+	end
+
+	-- Create the main table element with classes for styling
+	local ret = mw.html.create('table'):addClass('wikitable sticky-header')
+
+	-- Add caption if `args.style` is provided
+	if paramTest.has_content(args.style) then
+		ret:tag('caption'):wikitext('Recommended equipment for ' .. args.style)
+	end
+
+	-- Create table headers (Slot | Items)
+	ret:tag('tr')
+		:tag('th'):wikitext('Slot'):done()
+		:tag('th'):attr('colspan', largestRowSize):wikitext('Item (most effective → least effective)'):done()
+
+	-- Loop through each slot and category to generate rows
+for _, slot in ipairs(SlotInfo) do
+    local slotRow = categorizedSlots[slot.name]
+
+    -- Order categories: Default -> B -> C
+    local categoryOrder = {"default", "B", "C"}
+
+    for _, category in ipairs(categoryOrder) do
+        if slotRow[category] then
+            local rowScale = 1   -- Default 100% size
+            local rowColor = nil
+
+            if category == "B" then
+                rowScale = 0.75
+                rowColor = "rgba(0, 255, 0, 0.05)"  -- Light green with 0.05 transparency
+            elseif category == "C" then
+                rowScale = 0.75
+                rowColor = "rgba(0, 0, 255, 0.05)"  -- Light blue with 0.05 transparency
+            end
+
+            -- Ensure the items are in order and fill missing indices with 'N/A'
+            local orderedRow = {}
+            for i = 1, #slotRow[category] do
+                orderedRow[i] = slotRow[category][i] or 'N/A'
+            end
+
+            if #orderedRow > 0 then
+                -- Pass scale and color to buildRow
+                ret:node(buildRow(slot, orderedRow, largestRowSize, rowScale, rowColor))
+            end
+        end
+    end
+end
+
+
+	-- If SMW (Semantic MediaWiki) is enabled, store JSON data for later use
+	if yesNo(args.smw or '', true) and onMain() then
+		local jsonObject = { ['Recommended Equipment'] = categorizedSlots, style = args.style }
+		mw.smw.set({ ['Recommended Equipment JSON'] = mw.text.jsonEncode(jsonObject) })
+	end
+
+	return ret
+end
+
+-- Wrapper function for compatibility with MediaWiki templates
+function p.main(frame)
+	local args = frame:getParent().args  -- Retrieve arguments passed from the template
+	return p._main(args)
+end
+
+-- Return the module table
+return p

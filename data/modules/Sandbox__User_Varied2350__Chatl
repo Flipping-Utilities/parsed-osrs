@@ -1,0 +1,30 @@
+local p = {}
+
+function p._chatl(_args, _frame)
+	mw.logObject(_args)
+	local span = mw.html.create('span')
+	span
+		:addClass('plink-template')
+	
+	local pictures = _args['pic']
+	mw.log(pictures)
+	local index = 1
+	for pic in string.gmatch(pictures, '([^:]+)') do
+		local part = _frame:preprocess('{{Template:Sandbox/User:Varied2350/ChatlPart|' .. _args[1] .. '|' .. index .. '|pic=' .. pic .. '}}')
+		span:node(part)
+		
+		index = index + 1
+	end
+	
+	-- local style = mw.html.create('style')
+		-- style:wikitext('@keyframes fadeCycle{0%{opacity:0;z-index:2}11.1111111111%{opacity:1}44.4444444444%{opacity:1}45.4444444444%{opacity:0;z-index:1}100%{opacity:0}}.u-fadeCycle-1 > a > img,.u-fadeCycle-2 > a > img,.u-fadeCycle-3 > a > img{animation-duration:18s;animation-fill-mode:both;animation-iteration-count:infinite;animation-name:fadeCycle;animation-timing-function:ease-in;transition:opacity 2s ease-in}.u-fadeCycle-1 > a > img{animation-delay:0s}.u-fadeCycle-2 > a > img{animation-delay:6s}.u-fadeCycle-3 > a > img{animation-delay:12s}img{left:0;position:absolute;top:0}')
+	-- span:node(style)
+	return span
+end
+
+function p.chatl(frame)
+	local args = frame:getParent().args
+	return p._chatl(args, frame)
+end
+	
+return p

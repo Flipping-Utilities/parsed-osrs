@@ -1,0 +1,39 @@
+--[[
+	This module is intended to be used to determine the value of untradeable
+	items when they would be lost in PvP. This allows a user to accurately
+	calculate how much money a given gear setup would cost to obtain, in the
+	event that it is lost in a PvP death.
+	
+	Some items correspond to an item that is tradeable on the GE, and in those 
+	cases GE values of that corresponding item will be used. However, some items
+	are untradeable completely, and must have a hardcoded value.
+]]
+local ex = require('Module:Exchange')
+local p = {}
+
+-- Lookup table for untradeable items.
+-- Each entry in the table is in the format: itemName = itemValue
+local items = {
+	["Ava's accumulator"] = 7000, -- Perdu
+	["Rune gloves"] = 6500, -- Culinaromancer's chest
+	["Barrows gloves"] = 130000, -- Culinaromancer's chest
+	["Ring of wealth (i)"] = 50000, -- 50k from imbue is always lost in PvP death
+	["Moonclan hat"] = 1000, -- Moonclan shop
+	["Moonclan armour"] = 1000, -- Moonclan shop
+	["Moonclan skirt"] = 1000, -- Moonclan shop
+	["Ring of shadows"] = 75000, -- Mysterious Bandit in Ancient Vault
+	["Imbued zamorak cape"] = 250000, -- Perdu
+	["Imbued saradomin cape"] = 250000, -- Perdu
+	["Imbued guthix cape"] = 250000, -- Perdu
+	["Granite ring (i)"] = ex._price("Granite ring"),
+    ["Crystal shield"] = ex._price("Crystal weapon seed"),
+    ["Vesta's blighted longsword"] = 50000000, -- 50m from imbue is always lost in PvP death
+    ["Vesta's longsword (bh)"] = 50000000 -- 50m from imbue is always lost in PvP death
+}
+
+function p.value(name, amount)
+	local value = items[name]
+	return value and value * (amount or 1)
+end
+
+return p

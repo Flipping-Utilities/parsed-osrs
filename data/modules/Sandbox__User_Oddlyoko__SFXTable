@@ -1,0 +1,127 @@
+local SFXTable = {}
+
+local function lazy_init(init)
+  local value = nil
+  return function()
+    if value == nil then
+      value = init()
+    end
+    return value
+  end
+end
+
+function SFXTable.main(frame)
+  local args = {}
+  for i, v in ipairs(frame:getParent().args) do
+    args[i] = mw.text.jsonDecode(v)
+  end
+
+  local unknown = lazy_init(function()
+    return frame:expandTemplate {title = "unknown"}
+  end)
+
+  local result_map = {}
+  do
+    query_count = 0
+    query_targets = {}
+    for _, record in ipairs(args) do
+      if record.file then
+        query_count = query_count + 1
+        query_targets[query_count] = "[[File:" .. record.file .. "]]"
+      end
+    end
+
+    if query_count ~= 0 then
+      local results = mw.text.jsonDecode(
+        "[" .. 
+        frame:callParserFunction("#ask", {
+          table.concat(query_targets, " OR "),
+          "?#-=file",
+          "?Sound effect name#-=name",
+          "?Sound effect ID#-=id",
+          -- generic JSON formatting parameters
+          "format=plainlist",
+          "named args=yes",
+          "import-annotation=true",
+          "sep=,",
+          "searchlabel=",
+          "template=$"
+        }) ..
+        "]"
+      )
+
+      for _, row in ipairs(results) do
+        result_map[row["file"]] = row
+      end
+    end
+  end
+
+  local sfx_table = mw.html.create("table")
+    :addClass("wikitable")
+    :addClass("align-center-1")
+    :addClass("align-right-4")
+    :tag("tr")
+      :tag("th")
+        :wikitext("Sound")
+        :done()
+      :tag("th")
+        :tag("span")
+          :css("text-decoration", "underline dotted")
+          :attr("title", "Sound effects released after 26 February 2025 have no known official name.")
+          :wikitext("Name")
+          :done()
+        :done()
+      :tag("th")
+        :wikitext("Description")
+        :done()
+      :tag("th")
+        :wikitext("[[List of sound IDs|ID]]")
+        :done()
+      :done()
+
+  for _, record in ipairs(args) do
+    if record.name then
+      if string.lower(record.name) == "no" then
+        record.name = "''No official name''"
+      else
+        record.name = "<code>" .. record.name .. "</code>"
+      end
+    end
+
+    if record.file then
+      local row = result_map["File:" .. record.file]
+
+      if not row then
+        record.file = "[[File:" .. record.file .. "]]" .. " <small>([[Special:Upload|Please upload an audio sample!]])</small>"
+      else
+        record.file = "[[" .. row.file .. "]]"
+        record.name = record.name or row.name
+        record.id = record.id or row.id
+      end
+    end
+
+    record.file = record.file or unknown()
+    record.name = record.name or "''N/A''"
+    record.desc = record.desc or unknown()
+    record.id = record.id or unknown()
+
+    sfx_table:tag("tr")
+      :tag("td")
+        :wikitext(record.file)
+        :done()
+      :tag("td")
+        :wikitext(record.name)
+        :done()
+      :tag("td")
+        :wikitext(record.desc)
+        :done()
+      :tag("td")
+        :wikitext(record.id)
+        :done()
+      :done()
+  end
+  
+  return sfx_table
+end
+
+return SFXTable

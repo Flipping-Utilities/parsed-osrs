@@ -1,0 +1,83 @@
+-- <nowiki>
+
+local chart = require( 'Module:Chart data' )
+local rgba = require( 'Module:Rgba' )
+
+local p = {}
+
+p._MAX_ENERGY = 10000
+
+function p._energy_gain(lvl, bonus)
+	return math.floor((1.0 + bonus) * (math.floor(lvl / 10) + 15))
+end
+
+function p._energy_loss(lvl, weight, reduction)
+	return math.floor((1.0 - reduction) * math.floor(60 + (67 / 64) * math.max(0, math.min(64, weight))) * (1.0 - lvl / 300))
+end
+
+function p._calculate_data_sets(lvl, weight, gracefull, stamina)
+	-- lvl: agility level; weight: visible weight; gracefull: gracefull set bonus [0, 0.3]; stamina: stamina pot./end. ring bonus e.g., 0.7 or 0.15
+	-- If lvl < 0 then we vary lvl; otherwise, vary weight
+	local data_loss = {}
+	local data_uptime = {}
+
+	if lvl < 0 then
+		for lvl = 1,99 do
+			local ticks_loss = math.ceil(p._MAX_ENERGY / p._energy_loss(lvl, weight, stamina))
+			local label_loss = "Level: " .. lvl .. "; Ticks: " .. ticks_loss
+			table.insert(data_loss, {x=lvl, y=ticks_loss, label=label_loss})
+			local ticks_gain = math.ceil(p._MAX_ENERGY / p._energy_gain(lvl, gracefull))
+			local uptime = ticks_loss / (ticks_gain + ticks_loss) * 100
+			local label_gain = "Level: " .. lvl .. "; Uptime: " .. string.format("%.2f %%", uptime)
+			table.insert(data_uptime, {x=lvl, y=uptime, label=label_gain})
+		end
+	else
+		local ticks_gain = math.ceil(p._MAX_ENERGY / p._energy_gain(lvl, gracefull))
+		for weight = 0,64 do
+			local ticks_loss = math.ceil(p._MAX_ENERGY / p._energy_loss(lvl, weight, stamina))
+			local label_loss = "Level: " .. lvl .. "; Ticks: " .. ticks_loss
+			table.insert(data_loss, {x=lvl, y=ticks_loss, label=label_loss})
+			local uptime = ticks_loss / (ticks_gain + ticks_loss) * 100
+			local label_gain = "Level: " .. lvl .. "; Uptime: " .. string.format("%.2f %%", uptime)
+			table.insert(data_uptime, {x=lvl, y=uptime, label=label_gain})
+		end	
+	end
+
+	local labels = { "Max Ticks Running", "Uptime" }
+	local colors = { rgba.new("#888800ff"), rgba.new("#0000ffff") }
+    return {
+        {
+	        data = data_loss,
+	        label = labels[1],
+	        backgroundColor = colors[1]:lighten(2),
+	        borderColor = colors[1]:lighten(1.5),
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+		}, {
+	        data = data_uptime,
+	        label = labels[2],
+	        backgroundColor = colors[2]:lighten(2),
+	        borderColor = colors[2]:lighten(1.5),
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+		}
+    }
+end
+
+function p.main(frame)
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( "Run Time" )
+        :setDimensions( 'min(540px, 100vw - 32px)', '400px', '300px', '300px', true )
+        :setXLabel( 'Level' )
+        :setTooltipFormat( 'custom' )
+
+	for i, data_set in ipairs(p._calculate_data_sets(-1, 0, 0, 0)) do
+		plot:newDataSet(data_set)
+	end
+
+    return plot
+end
+
+return p
+
+-- </nowiki>

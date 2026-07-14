@@ -1,0 +1,73 @@
+local p = {}
+
+local string = string
+local commas = require('Module:Addcommas')._add
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local type = args.type
+	local rarity = args.rarity
+	local altrarity = args.altrarity
+	local altraritydash = args.altraritydash
+	local raritynotes = args.raritynotes ~= nil and args.raritynotes ~= '' and args.raritynotes or nil
+	local f2p = args.f2p ~= nil and args.f2p ~= '' and frame:expandTemplate{ title='(m)' } or nil
+	local skill = args.skill ~= nil and args.skill ~= '' and args.skill or nil
+	local reward = args.reward ~= nil and args.reward ~= '' and args.reward or nil
+	local noteoverride = args.noteoverride ~= nil and args.noteoverride ~= '' and args.noteoverride or nil
+	local smw = args.smw
+	local templateName
+	local note
+	
+	if skill ~= nil then
+		templateName = 'DropsLineSkill'
+	elseif reward ~= nil then
+		templateName = 'DropsLineReward'
+	else
+		templateName = 'DropsLine'	
+	end
+	
+	local adjusted = getAdjustedRarity(rarity, altrarity)
+	local ret = mw.html.create('tr')
+	local altnote = altrarity ~= nil and string.format('%s%s', altraritydash ~= nil and '–' or '; ', adjusted.alt) or ''
+	
+	if noteoverride ~= nil then
+		note = noteoverride
+	else
+		note = string.format('The %s clue scroll drop rate increases to %s%s after unlocking the [[%s Combat Achievements]] rewards tier.', type, adjusted.original, altnote, type, type)
+	end
+	
+	local refnote = frame:extensionTag{ name = 'ref', content = note, args = { group = 'd' } }
+	if raritynotes ~= nil then
+		refnote = refnote .. raritynotes
+	end
+	ret:wikitext(frame:expandTemplate{ title=templateName, args = { name = string.format('Clue scroll (%s)', type), quantity = 1, rarity = rarity, altrarity = altrarity, altraritydash = altraritydash, raritynotes = refnote, citation = args.citation, namenotes = f2p, gemw = 'no', smw = smw, skill = skill } })
+	
+	return tostring(ret)
+end
+
+function getAdjustedRarity(rarity, altrarity)
+	local modifier = 0.05
+	local rv1, rv2 = string.match(rarity, '([%d%.]+)/([%d%.]+)')
+	local arv1, arv2
+	local adjustedrarity, adjustedaltrarity
+	if altrarity then
+		arv1, arv2 = string.match(altrarity, '([%d%.]+)/([%d%.]+)')
+		if tonumber(arv1) > 1 then
+			local reduced = arv2 / arv1
+			adjustedaltrarity = string.format('%s/%s', 1, commas(math.floor((reduced - (reduced * modifier)))))
+		else
+			adjustedaltrarity = string.format('%s/%s', arv1, commas(math.floor((arv2 - (arv2 * modifier)))))
+		end
+	end
+	
+	if tonumber(rv1) > 1 then
+		local reduced = rv2 / rv1
+		adjustedrarity = string.format('%s/%s', 1, commas(math.floor((reduced - (reduced * modifier)))))
+	else
+		adjustedrarity = string.format('%s/%s', rv1, commas(math.floor((rv2 - (rv2 * modifier)))))
+	end
+	
+	return { original = adjustedrarity, alt = adjustedaltrarity }
+end
+
+return p

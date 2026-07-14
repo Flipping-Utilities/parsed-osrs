@@ -1,0 +1,17 @@
+local p = {}
+
+function p.main()
+	local skills = '[{"xp":"20","name":"Crafting","lvl":"15"}]'
+	local materials = '[{"image":"[[File:Oak logs.png|px|frameless]]","quantity":"1","name":"Oak logs","cost":33},{"image":"[[File:Clockwork.png|px|frameless]]","quantity":"1","name":"Clockwork","cost":747}]'
+	local tools = '["Hammer", "Chisel"]'
+	local obj = {}
+	obj.tools = mw.text.jsonDecode(tools)
+	obj.materials = mw.text.jsonDecode(materials)
+	obj.skills = mw.text.jsonDecode(skills)
+	for i=1,100000 do
+		obj.skills.xp = i
+		local s = mw.text.jsonEncode(obj)
+	end
+end
+
+return p

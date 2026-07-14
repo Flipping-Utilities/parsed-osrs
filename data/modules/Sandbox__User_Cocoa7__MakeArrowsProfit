@@ -1,0 +1,64 @@
+local p = {}
+
+local VariablesLua = mw.ext.VariablesLua
+
+local Exchange = require('Module:Exchange')
+
+local GE_TAX = 0.02
+local ARROWS = {
+    {
+        name = 'Mithril arrow',
+        ingredient = 'Mithril arrowtips',
+        exp = 7.5,
+    },
+    {
+        name = 'Adamant arrow',
+        ingredient = 'Adamant arrowtips',
+        exp = 10,
+    },
+    {
+        name = 'Rune arrow',
+        ingredient = 'Rune arrowtips',
+        exp = 12.5,
+    },
+    {
+        name = 'Amethyst arrow',
+        ingredient = 'Amethyst arrowtips',
+        exp = 13.5,
+    },
+    {
+        name = 'Dragon arrow',
+        ingredient = 'Dragon arrowtips',
+        exp = 15,
+    },
+}
+
+function deduct_ge_tax(value)
+    return value - math.min(5000000, math.floor(value * 0.02))
+end
+
+function p.main(frame)
+    local best_arrow = nil
+    local best_profit = -9999999
+
+    for i, arrow in ipairs(ARROWS) do
+        local output_value = Exchange._price(arrow.name)
+        output_value = deduct_ge_tax(output_value)
+        local input_value = Exchange._price('Headless arrow') + Exchange._price(arrow.ingredient)
+        local profit = output_value - input_value
+
+        if profit > best_profit then
+            best_arrow = arrow
+            best_profit = profit
+        end
+    end
+    
+    -- mw.log("the most profitable arrow is:")
+    -- mw.logObject(best_arrow)
+
+    VariablesLua.vardefine('bestArrowName', best_arrow.name)
+    VariablesLua.vardefine('bestArrowIngredient', best_arrow.ingredient)
+    VariablesLua.vardefine('bestArrowExp', best_arrow.exp)
+end
+
+return p

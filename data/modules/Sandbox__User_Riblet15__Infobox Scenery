@@ -1,0 +1,333 @@
+--------------------------
+-- Module for [[Template:Infobox Scenery]]
+------------------------
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local infobox = require('Module:Infobox')
+local tb = require('Module:Trailblazer Region')
+local var = mw.ext.VariablesLua
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = 'image' },
+		{ name = 'image_smw', func = { name = image_smw, params = { 'image' }, flag = 'p' } },
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'aka', func = 'has_content' },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'quest', func = 'has_content' },
+		{ name = 'location', func = 'has_content' },
+		{ name = 'trailblazerRegion', func = trailblazerarg },
+		{ name = 'trailblazerRegion_raw', func = { name = 'has_content', params = { 'trailblazerRegion' }, flag = 'p' } },
+		{ name = 'options', func = 'has_content' },
+		{ name = 'respawn', func = respawnarg },
+		{ name = 'icon', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+		{ name = 'map', func = maparg },
+
+        { name = 'usesinfobox', func = { name = tostring, params = { 'Scenery' }, flag = 'r' } },
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_smw', func = { name = idsmw, params = { 'id' }, flag = 'p' } },
+		{ name = 'npcid', func = 'has_content' },
+		{ name = 'npc_id_smw', func = { name = idsmw, params = { 'npcid' }, flag = 'p' } },
+	}
+
+	ret:defineLinks({ hide = true })
+
+	ret:setMaxButtons(8)
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox Scenery')
+	ret:addClass('infobox-npc')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+	:pad(20)
+
+	ret:addRow{
+		{ tag = 'argd', content = 'image', class='infobox-image infobox-full-width-content', colspan = '20' }
+	}
+	:pad(20)
+
+	ret:addRow{
+		{ tag = 'th', content = 'Released', colspan = '8' },
+		{ tag = 'argd', content = 'release', colspan = '12' }
+	}
+
+	if ret:paramDefined('removal') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removal', colspan = '8' },
+			{ tag = 'argd', content = 'removal', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'AKA', colspan = '8' },
+			{ tag = 'argd', content = 'aka', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '8' },
+		{ tag = 'argd', content = 'members', colspan = '12' }
+	}
+	
+	if ret:paramDefined('quest', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Quest]]', colspan = '8' },
+			{ tag = 'argd', content = 'quest', colspan = '12' }
+		}
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = '[[Locations|Location]]', colspan = '8' },
+		{ tag = 'argd', content = 'location', colspan = '12' }
+	}
+	
+	if ret:paramDefined('respawn') then
+		ret:addRow{
+			{ tag = 'th', content = 'Respawn time', colspan = '8' },
+			{ tag = 'argd', content = 'respawn', colspan = '12' }
+		}
+	end
+	
+	if ret:paramDefined('icon', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Map icon]]', colspan = '8' },
+			{ tag = 'argd', content = 'icon', colspan = '12' }
+		}
+	end
+	
+	if ret:paramDefined('trailblazerRegion') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Trailblazer Reloaded League|Trailblazer]] region', colspan = '8' },
+			{ tag = 'argd', content = 'trailblazerRegion', colspan = '12' }
+		}
+	end
+
+	if ret:paramDefined('options') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Choose Option|Options]]', colspan = '8' },
+			{ tag = 'argd', content = 'options', colspan = '12' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Examine]]', colspan = '8' },
+		{ tag = 'argd', content = 'examine', colspan = '12' }
+	}
+	:pad(20)
+
+	local map_defined = ret:paramGrep('map', function(x) return (x or 'N/A') ~= 'N/A' end)
+	if map_defined then
+		ret:addRow{
+			{ tag = 'th', content = 'Map', class = 'infobox-subheader', colspan = '20' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'map', colspan = '20', class = 'infobox-full-width-content infobox-image' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'Object ID', colspan = '8' },
+		{ tag = 'argd', content = 'id',  colspan = '12' },
+		meta = {addClass = 'advanced-data'}
+	}
+	if ret:paramDefined('npcid') then
+		ret:addRow{
+			{ tag = 'th', content = 'NPC ID', colspan = '8' },
+			{ tag = 'argd', content = 'npcid',  colspan = '12' },
+			meta = {addClass = 'advanced-data'}
+		}
+	end
+	ret:pad(20, 'advanced-data')
+
+	setRegionVars(ret)
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function setRegionVars(ret)
+	-- Infobox Scenery doesn't support dropversion param, so we will
+	-- assume all regions should be set into DropRegion_DEFAULT.
+	local seenRegions = {}
+
+	-- read any existing values for this var so we can append to it
+	local varName = 'DropRegion_DEFAULT'
+	local previousRegions = var.var(varName)
+	for previousRegion in string.gmatch(previousRegions, ' *([^,]+) *') do
+		seenRegions[previousRegion] = true
+	end
+
+	local tbzRegionsTable = ret:param('trailblazerRegion_raw', 'f')
+	for region in string.gmatch(tbzRegionsTable.d or '', ' *([^,]+) *') do
+		seenRegions[region] = true
+	end
+	if tbzRegionsTable.switches then
+		for _, curVersionRegions in pairs(tbzRegionsTable.switches) do
+			for region in string.gmatch(curVersionRegions or '', ' *([^,]+) *') do
+				seenRegions[region] = true
+			end
+		end
+	end
+
+	-- set new values
+	local ordered = {}
+	for regionName, _ in pairs(seenRegions) do
+		if infobox.isDefined(regionName) then
+			table.insert(ordered, regionName)
+		end
+	end
+	table.sort(ordered)
+	var.vardefine(varName, table.concat(ordered, ','))
+end
+
+function respawnarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	-- if arg is a valid number, display ticks and seconds
+	if tonumber(arg) then
+		local plural = tonumber(arg) ~= 1 and 's' or ''
+		return arg .. ' tick' .. plural .. ' (' .. arg * 0.6 .. ' seconds)'
+	end
+
+	-- if arg isn't a number, return it unmodified
+	return arg
+end
+
+function maparg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if string.lower(arg) == 'no' then
+		return 'N/A'
+	end
+
+	return arg
+end
+
+function image_smw(arg)
+	local _img = {}
+	for i in string.gmatch(arg, "[Ff]ile:.-%.png") do
+		table.insert(_img, i)
+	end
+	for i in string.gmatch(arg, "[Ff]ile:.-%.gif") do
+		table.insert(_img, i)
+	end
+	if #_img == 0 then
+		return nil
+	end
+	return table.concat(_img, '&&SPLITPOINT&&')
+end
+
+-- Filter non-numerical IDs and separate with splitpoint for use in SMW
+-- Example: '123 ,hist234, 456' => '123&&SPLITPOINT&&456'
+function idsmw(id)
+	if not infobox.isDefined(id) then
+		return nil
+	end
+	local res = {}
+	for id_i in string.gmatch(id, "[^,]+") do
+		local trimmed = id_i:gsub("^%s*(.-)%s*$", "%1")
+		if tonumber(trimmed) then
+			table.insert(res, trimmed)
+		end
+	end
+	return table.concat(res, '&&SPLITPOINT&&')
+end
+
+function trailblazerarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+	
+	if string.lower(arg) == 'no' then
+		return 'N/A'
+	end
+	
+	local ret = {}
+	local comma_count = select(2, string.gsub(arg, ",", ""))
+	for region in string.gmatch(arg, "[^,]+") do
+		local trimmed = region:gsub("^%s*(.-)%s*$", "%1")
+		if comma_count < 2 then
+			table.insert(ret, tb._main(trimmed))
+		else
+			table.insert(ret, tb._badge(trimmed))
+		end
+	end
+	return table.concat(ret, '')
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Scenery' }
+
+ 	-- Add the associated category if the parameter has content
+	local defined_args = {
+		aka = 'Pages with AKA',
+		trailblazerRegion = 'Has Trailblazer region'
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+ 	-- Add the associated category if the parameter doesn't have content
+ 	local notdefined_args = {
+ 		image = 'Needs image',
+ 		map = 'Needs map',
+ 		members = 'Needs members status',
+ 		release = 'Needs release date',
+ 		examine = 'Needs examine added',
+ 		options = 'Needs options',
+ 		id = 'Needs ID'
+ 	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+	
+	if args['options'] and catargs['options'].one_defined then
+		if string.lower(args['options'].d or '') == 'none' then
+			table.insert(ret, 'Non-interactive scenery')
+		else
+			table.insert(ret, 'Interactive scenery')
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

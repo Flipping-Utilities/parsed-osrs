@@ -1,0 +1,94 @@
+-- Helper module for converting portable infobox syntax to normal wikitext
+-- @author User:Cook Me Plox
+
+local InfoboxBuilder = {}
+
+local htmlmt = getmetatable(mw.html.create())
+local htmlindex = htmlmt.__index
+
+setmetatable(InfoboxBuilder, {
+	-- Constructor for a new InfoboxBuilder object.
+	__call = function(self)
+		return mw.html.create('div')
+			:addClass("infobox-root")
+	end,
+	__index = htmlindex,
+	__tostring = htmlmt.__tostring
+})
+
+--What is the difference between header and title?
+--We don't have a class infobox-title
+htmlindex.title = function(self, value)
+	return self:tag('div'):addClass("infobox-header"):wikitext(value):done()
+end
+
+htmlindex.header = function(self, value)
+	return self:tag('div'):addClass("infobox-subheader"):wikitext(value):done()
+end
+
+htmlindex.group = function(self)
+	return self:tag('div'):addClass("infobox-group")
+end
+
+htmlindex.image = function(self, args)
+	local image = args.image
+	local caption = args.caption
+	local container = self:tag('div'):addClass('infobox-image-container')
+		:tag('div'):addClass('infobox-image'):wikitext(image):done()
+	if caption ~= nil then
+		container:tag('div'):addClass('infobox-image-caption'):wikitext(caption):done()
+	end
+	return container:done()
+end
+
+htmlindex.row = function(self, args)
+	local label = args.label
+	local value = args.value
+	local fullwidthclass = args.fullwidth and 'infobox-full-width-content' or nil
+	if value == nil or value == '' then
+		return self
+	end
+	
+	local row = self:tag('div'):addClass('infobox-row-container')
+	if label ~= nil then
+		row:tag('div'):addClass('infobox-row-label'):wikitext(label):addClass(fullwidthclass):done()
+	end
+	
+	return row
+		:tag('div'):addClass('infobox-row-value'):wikitext(value):addClass(fullwidthclass):done()
+	:done()
+end
+
+htmlindex.pad = function(self)
+	return self:tag('div'):addClass('infobox-padding')
+end
+
+
+local Tabber = {}
+Tabber.__index = Tabber
+setmetatable(Tabber, {__index = htmlindex})
+
+htmlindex.tabber = function(self)
+	local obj = mw.html.create()
+	obj.parent = self
+	setmetatable(obj, Tabber)
+	self:node(obj)
+	return obj
+end
+
+function Tabber:_build(ret)
+    local tabs = {}
+    for i, tab in ipairs(self.nodes) do
+        -- each node should be a tab
+        table.insert(tabs, {name=tab.name, content=tostring(tab)})
+    end
+	table.insert(ret, require('Module:Tabber').main(tabs))
+end
+
+function Tabber:tab(name)
+	local obj = self:tag('div'):addClass("infobox-tab")
+	obj.name = name
+	return obj
+end
+
+return InfoboxBuilder

@@ -1,0 +1,222 @@
+--local tables = require('Module:Tables')
+local VariablesLua = mw.ext.VariablesLua
+local p = {}
+local tb = require('Module:Trailblazer Region')
+require('Module:Mw.html extension')
+
+local function _row( row, elts, header )
+    local _tag = header and 'th' or 'td'
+    local ret = {}
+    for _, v in ipairs(elts) do
+        if type(v) == 'table' then
+        	if v.tag == 'input' then
+            	table.insert(ret,row:tag(_tag):tag(v.tag):attr(v.attr):done())
+            else
+            	table.insert(ret,row:tag(_tag):wikitext(v.text):attr(v.attr or {}):addClass(v.class or ""):css(v.css or {}):done())
+            end
+        else
+            table.insert(ret,row:tag(_tag):wikitext(v):done())
+        end
+    end
+    row:done()
+    return unpack(ret)
+end
+
+local prose = {
+	monster = '',
+	taskamount = 0,
+	ptsamount = 0
+}
+
+local leagueautocompletes = {
+	["Demonic Rebound"] = "misthalin",
+	["The Worst Ranged Weapon"] = "asgarnia",
+	["Faithless Crypt Run"] = "morytania",
+	["Demonbane Weaponry"] = "kourend",
+	["Finding the Weak Spot"] = "wilderness",
+	["Hitting Them Where It Hurts"] = "kandarin",
+	["No Pressure"] = "kourend",
+	["Chitin Penetrator"] = "desert",
+	["Insect Deflection"] = "desert",
+	["Prayer Smasher"] = "desert",
+	["Snake Rebound"] = "tirannwn",
+	["The Bane of Demons"] = "asgarnia",
+	["Dress Like You Mean It"] = "desert",
+	["Chally Time"] = "morytania",
+	["Nylocas, On the Rocks"] = "morytania",
+	["More than just a ranged weapon"] = "fremennik",
+	["Versatile Drainer"] = "fremennik",
+	["Back to Our Roots"] = "varlamore"
+}
+
+local headers = {
+	monster = "Monster",
+	name = "Name",
+	description = { text = "Description", attr = { class = 'unsortable' } },
+	tier = "Tier",
+	_type = "Type",
+	league_region = "Region(s)",
+	completion = '<span style="cursor:help; border-bottom:1px dotted;" title="Estimated percentage of players (with at least one CA completion) who have completed this achievement, based on wiki crowdsourcing">Comp%</span>',
+	user_ability = "Can you complete?"
+}
+
+local tiers = {
+	easy = 1,
+	medium = 2,
+	hard = 3,
+	elite = 4,
+	master = 5,
+	grandmaster = 6
+}
+
+local function sortByTierAndMonster(k1, k2) 
+	local k1_tier = tiers[string.lower(k1.tier)]
+	local k2_tier = tiers[string.lower(k2.tier)]
+	if k1_tier < k2_tier then
+		return true
+	elseif k1_tier > k2_tier then
+		return false
+	elseif k1.monster < k2.monster then
+		return true
+	elseif k1.monster > k2.monster then
+		return false
+	else
+		return false
+	end
+end
+
+local function completionCell(id)
+	local completion_percent = mw.loadJsonData("Module:Combat Achievements/completion.json")[tonumber(id)]
+	if (completion_percent ~= nil) then
+		local color = ""
+		if (completion_percent < 0.1) then
+			completion_percent = "<0.1"
+			color = "red"
+		elseif (completion_percent < 1) then
+			color = "orange"
+		elseif (completion_percent < 10) then
+			color = "yellow"
+		elseif (completion_percent < 50) then
+			color = "green"
+		elseif (completion_percent <= 100) then
+			color = "blue"
+		end
+		return {text = tostring(completion_percent)..'%', class = "table-bg-" .. color}
+	else
+		return {text = "N/A", class="table-na nohighlight"}
+	end	
+end
+
+local function makeTable(data, columns)
+	local taskTable = mw.html.create('table'):addClass('wikitable lighttable sortable qc-active ca-tasks'):cssText('max-width: 800px')
+	
+	local columnValues = {}
+	for _, v in ipairs(columns) do
+		table.insert(columnValues, headers[v])
+	end
+	_row(taskTable:tag('tr'), columnValues, true)
+	
+	for _, v in ipairs(data) do
+		local icon = string.format("[[File:Combat Achievements - %s tier icon.png]] ", v.tier:lower())
+		local tierText = icon .. v.tier .. '&nbsp;(' .. tiers[v.tier:lower()] .. '&nbsp;' .. (tiers[v.tier:lower()] == 1 and 'pt' or 'pts') .. ')'
+		local sanitisedName = v.name:gsub("{{.-}}", "")
+		local moreSanitisedName = tostring(sanitisedName:gsub('[%p%c%s]', '')) or ''
+		local checkbox = mw.html.create( 'checkbox' ):attr('id', moreSanitisedName)
+		local rowData = {
+			monster = v.monster == "None" and "N/A" or string.format("[[%s]]", v.monster),
+			name = string.format("[[%s]]", sanitisedName),
+			description = v.task,
+			tier = { text = ( tierText ), attr = { style = "white-space: nowrap;", ['data-sort-value'] = tiers[v.tier:lower()] } },
+			_type = v["type"],
+			--_type = nil,
+			completion = completionCell(v.id),
+			--user_ability = checkbox
+			user_ability = {tag = 'input', attr = {type='checkbox',class=moreSanitisedName}}
+			--user_ability = { type = "", text = checkbox }
+			--user_ability = { text = "", attr = {class=moreSanitisedName}}
+			--user_ability = { text = "<inputbox> type  = create </inputbox>", attr = {class = moreSanitisedName}}
+		}
+		if leagueautocompletes[v.name] ~= nil then 
+			rowData["league_region"] = "Autocompleted in:<br>"..tb._main(leagueautocompletes[v.name],"","","","Raging Echoes League")
+		elseif v["league_region"] ~= nil then
+			rowData["league_region"] = tb._main(v["league_region"],"","","","Raging Echoes League")
+		else
+			rowData["league_region"] = ""
+		end
+		local leaguesyesno = false
+		local row = {}
+		for _, column in ipairs(columns) do
+			table.insert(row, rowData[column])
+			if column == "league_region" then
+				leaguesyesno = true
+			end
+		end
+		
+		local htmlRow = taskTable:tag('tr'):attr('data-ca-task-id', v.id)
+		if leaguesyesno then 
+			htmlRow:attr('data-league-areas-for-filtering', string.lower(v["league_region"] or ''):gsub("&", ","):gsub("(.-)", ""))
+		end
+		_row(htmlRow, row, false)
+		
+		prose.taskamount = prose.taskamount + 1
+		prose.ptsamount = prose.ptsamount + tiers[v.tier:lower()]
+	end
+
+	return taskTable
+end
+
+function p.list(frame)
+	local args = frame:getParent().args
+	
+	local columns = {"name", "description", "_type"}
+	local query = bucket("combat_achievement").select("id", "name", "monster", "task", "tier", "type", "league_region").limit(5000)
+	
+	if args[1] == 'all' then
+		-- No where condition, give us all of them
+		table.insert(columns, 1, "monster")
+        table.insert(columns, "tier")
+	elseif args[1] == 'Non-boss' then
+		query.where('Category:Non-boss achievements')
+        table.insert(columns, "tier")
+	elseif tiers[string.lower(args[1])] ~= nil then
+		-- Get all Combat Achievement tasks for a tier and display its monster
+		query.where("tier", args[1])
+		table.insert(columns, 1, "monster")
+	else
+		-- Get all Combat Achievement tasks for a boss and display its tier
+		query.where("monster", args[1])
+        table.insert(columns, "tier")
+	end
+	if args['leagues'] and args['leagues'] == 'yes' then
+		table.insert(columns, "league_region")
+	else
+		table.insert(columns, "completion")
+	end
+	
+	table.insert(columns, "user_ability")
+	
+	prose.monster = args.mobname or args[1]
+	
+	local data = query.run()
+	table.sort(data, sortByTierAndMonster)
+		
+	local rettbl = tostring( makeTable(data, columns) )
+	local strplural = (prose.taskamount ~= 1)
+	local moduleInvokedOnce = VariablesLua.varexists('caListModuleInvoked')
+	local retstr = ( string.find( mw.title.getCurrentTitle().text, 'Combat Achievements') and '' or
+		string.format('<p>There %s %s %s task%s (totalling %s point%s) available for %s.</p>',
+			(strplural and 'are' or 'is'),
+			prose.taskamount,
+			(moduleInvokedOnce and 'Combat Achievement' or '[[Combat Achievements|Combat Achievement]]'),
+			(strplural and 's' or ''),
+			prose.ptsamount,
+			(prose.ptsamount ~= 1 and 's' or ''),
+			prose.monster
+		) )
+	
+	VariablesLua.vardefine( 'caListModuleInvoked', 0 )
+
+	return retstr .. rettbl
+end
+
+return p

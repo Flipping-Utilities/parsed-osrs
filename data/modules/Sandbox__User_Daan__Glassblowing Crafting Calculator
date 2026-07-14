@@ -1,0 +1,370 @@
+-- Trying to re-create my older work from google sheets:
+-- https://docs.google.com/spreadsheets/d/1vhR_dyhILgHLfb9NEJ6XgvYSJz6yjBr7xeHUk8y36oQ/edit?usp=sharing
+
+-- First time working with lua.
+-- When i finish work, looking into json style 
+
+-- Look into an match function with comparing to rows
+-- second version work in progress: 
+-- https://oldschool.runescape.wiki/w/Module:Sandbox/User:Daan/Glassblow
+
+local XPAtLevel = mw.loadData('Module:Experience/data')
+local commas = require('Module:Addcommas')
+local hs = require('Module:Hiscores')
+local xp = require('Module:Experience')
+
+local def
+local all
+local p = {}
+local playername		--Username to lookup in HiScore
+local GlassResult ={}
+local target			--Target crafting level
+local averageyield		--Average giant seaweed yield 
+local use_lunar			--Lunar check
+local glass_method		--Lunar method
+local c_craft_exp		--Current crafting exp
+local c_craft_lvl		--Current crafting lvl
+local b_giantseaweed	--Banked Giant seaweed
+local b_moltenglass		--Banked Molten glass
+local b_bucketofsand	--Banked Bucket of sand
+local spellc_ph			--Spell cast per hour
+local glassb_ph			--Glass blowing per hour
+local sand_ph			--Sand gather per hour
+local after46
+local after49
+local after87
+local compostselect = 4
+local text46 = ""
+local text49 = ""
+local text87 = ""
+local textSGM = ""
+local textCompost = ""
+local textuse_lunar = ""
+local composttypes = {"None","Normal","Super","Ultra"}
+local composttype
+local SGM = {1.0, 1.3, 1.45, 1.488, 1.6}		--Superglass make method
+local Cexp = {52.5, 55, 70}		--Unpowered orb, Latern lens, Light orb
+local Gitems = {Cexp[1],Cexp[2],Cexp[3]}
+
+--average yield
+--None =   {08.26, 08.63, 09.25, 10.11, 10.97, 12.00, 13.24, 14.77, 16.70}
+--Normal = {11.01, 11.51, 12.34, 13.47, 14.63, 16.00, 17.66, 19.69, 22.26}
+--Super =  {13.76, 14.38, 15.42, 16.84, 18.29, 20.00, 22.07, 24.62, 27.83}
+--Ultra =  {16.52, 17.26, 18.51, 20.21, 21.94, 24.00, 26.48, 29.54, 33.39}
+
+--9x4
+local yieldmatrix = {{8.26,11.01,13.76,16.52},{8.63,11.51,14.38,17.26},{9.25,12.34,15.42,18.51},{10.11,13.47,16.84,20.21},{10.97,14.63,18.29,21.94},{12.00,16.00,20.00,24.00},{13.24,17.66,22.07,26.48},{14.77,19.69,24.62,29.54},{16.70,22.26,27.83,33.39}}
+
+--Table1 Content
+local T1_Level = {49,0,0}	-- Level goal
+local T1_Goal = {0,0,0}		-- Exp goal
+local T1_Left = {0,0,0}		-- Exp left
+local T1_Items = {0,0,0}	-- Amount of items
+local T1_BG = {0,0,0}		-- Banked glass
+local T1_GG = {0,0,0}		-- Gather glass
+
+--Table2 Content
+local T2_Left = {0,0,0}		-- Exp left
+local T2_GSW = {0,0,0}		-- Required Giant Seaweed
+local T2_MG = {0,0,0}		-- Required Molten Glass
+local T2_BoS = {0,0,0}		-- Required Bucket of sand
+
+--Table3 Content
+local T3_Amount	= {0,0,0,0,0}
+local T3_Hours	= {0,0,0,0,0,0,0}
+local T3_Farming	= {0,0,0,0,0}
+local T3_Crafting	= {0,0,0,0,0}
+local T3_Magic	= {0,0,0,0,0}
+
+
+-- userinput
+--name = none
+--target = 99
+--b_giantseaweed = 0 
+--b_moltenglass =	0	
+--b_bucketofsand = 0
+--composttype = composttypes[4]
+--use_lunar = 1
+--glass_method = SGM[4]
+after46 = 52.5
+--after49 = Cexp[2]
+--after87 = Cexp[3]
+--sand_ph = 1200
+--spellc_ph =	600		
+--glassb_ph =	1600	
+
+--Lookup highscore crafting exp, dummy data
+--c_craft_exp = 219105
+--farming_lvl = 99
+--averageyield = 18.51
+--amountsandpinv = 18 
+
+--Console: = p.main()
+function p.main(frame)
+	local args = frame:getParent().args
+	playername = args.name
+	b_giantseaweed = tonumber(args.f_giantseaweed)
+	b_moltenglass =	tonumber(args.f_moltenglass)
+	b_bucketofsand = tonumber(args.f_bucketofsand)
+	target = tonumber(args.goal)
+	sand_ph = tonumber(args.f_sand_ph)
+	spellc_ph =	tonumber(args.f_spellc_ph)		
+	glassb_ph =	tonumber(args.f_glassb_ph)
+	c_craft_exp = tonumber(args.crafting)
+	text87 = args.f_after87
+	text49 = args.f_after49
+	textSGM = args.f_SGM
+	textCompost = args.f_composttype
+	--c_craft_lvl = dirtylvlatxp(c_craft_exp)
+	--def = hs.get_stat('Plankje Kaas', 'farming', 'osrs')
+	farming_lvl = tonumber(args.farming)
+	c_craft_lvl = tonumber(args.craftlvl)
+	
+	--farming_lvl = hs.get_stat_number(playername, 'farming' , 'lvl', 'osrs')
+	--c_craft_lvl = hs.get_stat_number(playername, 'crafting' , 'lvl', 'osrs')
+	
+	
+	
+	if textCompost == "None" then
+		compostselect = 1
+	elseif textCompost == "Normal" then
+		compostselect = 2
+	elseif textCompost == "Super" then
+		compostselect = 3
+	elseif textCompost == "Ultra" then
+		compostselect = 4
+	end
+	
+	if		farming_lvl >= 99 then
+		averageyield = yieldmatrix[9][compostselect]
+	elseif  farming_lvl >= 90 then
+		averageyield = yieldmatrix[8][compostselect]
+	elseif  farming_lvl>=80 then
+		averageyield = yieldmatrix[7][compostselect]
+	elseif  farming_lvl>=70 then
+		averageyield = yieldmatrix[6][compostselect]
+	elseif  farming_lvl>=60 then
+		averageyield = yieldmatrix[5][compostselect]
+	elseif  farming_lvl>=50 then
+		averageyield = yieldmatrix[4][compostselect]
+	elseif  farming_lvl>=40 then
+		averageyield = yieldmatrix[3][compostselect]
+	elseif  farming_lvl>=30 then
+		averageyield = yieldmatrix[2][compostselect]
+	elseif  farming_lvl>=23 then
+		averageyield = yieldmatrix[1][compostselect]
+	end
+	
+	--averageyield = 33.39
+	--52.5, 55, 70
+	if		text87 == "Unpowerd orb" then
+		after87 = 52.5
+	elseif	text87 == "Lantern lens" then	
+		after87 = 55
+	elseif	text87 == "Light orb" then
+		after87 = 70
+	end
+	
+	if		text49 == "Unpowerd orb" then
+		after49 = 52.5
+	elseif	text49 == "Lantern lens" then	
+		after49 = 55
+	end
+	
+	if		textSGM == "1.0(1:1)" then
+		glass_method = 1.0
+		amountsandpinv = 14
+		use_lunar = 0
+	elseif	textSGM == "1.3(1:1)" then
+		glass_method = 1.3
+		amountsandpinv = 14
+		use_lunar = 1
+	elseif	textSGM == "1.45(2:12)" then
+		glass_method = 1.45
+		amountsandpinv = 12
+		use_lunar = 1
+	elseif	textSGM == "1.488(3:18)" then
+		glass_method = 1.488
+		amountsandpinv = 18
+		use_lunar = 1
+	elseif	textSGM == "1.6(3:18)" then
+		glass_method = 1.6
+		amountsandpinv = 18
+		use_lunar = 1
+	end
+	
+	
+	
+	--PART 1 of 3
+	--Table1 Level Goal Cells
+	if target > 87 then
+		T1_Level[3] = target
+	else
+		T1_Level[3] = 1
+	end
+	if target < 50 then
+		T1_Level[2] = 1
+	else
+		if target < 87 then
+			T1_Level[2] = target
+		else
+			T1_Level[2] = 87
+		end
+	end
+	--Table1 Exp Goal Cells
+	T1_Goal[1] = XPAtLevel[T1_Level[1]]
+	T1_Goal[2] = XPAtLevel[T1_Level[2]]
+	T1_Goal[3] = XPAtLevel[T1_Level[3]]
+	--Table1 Exp Left Cells
+	if		(T1_Goal[1] - c_craft_exp) < 0 then
+		T1_Left[1] = 0
+	else
+		T1_Left[1] = T1_Goal[1] - c_craft_exp
+	end	
+	if		(T1_Goal[2] - c_craft_exp) < 0 then
+		T1_Left[2] = 0
+	else
+		T1_Left[2] = T1_Goal[2] - c_craft_exp
+	end
+	if		(T1_Goal[3] - c_craft_exp) < 0 then
+		T1_Left[3] = 0
+	else
+		if c_craft_lvl < 87 then
+			T1_Left[3] = T1_Goal[3] - 3972294
+		else
+			T1_Left[3] = T1_Goal[3] - c_craft_exp
+		end
+	end
+	--Table1 Amount of items
+	T1_Items[1] = T1_Left[1]/after46
+	T1_Items[2] = T1_Left[2]/after49
+	T1_Items[3] = T1_Left[3]/after87
+	-- Table1 Banked glass
+	if (b_moltenglass - T1_BG[2] - T1_BG[3]) > 0 then
+		if T1_Items[1] == 0 then
+			T1_BG[1] = 0
+		else
+			T1_BG[1] = b_moltenglass - T1_BG[2] - T1_BG[3]
+		end
+	else
+		T1_BG[1] = 0
+	end
+	if (b_moltenglass - T1_Items[2] - T1_BG[3]) > 0   then
+		T1_BG[2] = T1_Items[2]
+	else
+		T1_BG[2] = b_moltenglass - T1_BG[3]
+	end	
+	if T1_Items[3] < b_moltenglass then
+		T1_BG[3] = T1_Items[3]
+	else
+		T1_BG[3] = b_moltenglass
+	end	
+	-- Table1 Gather glass
+	if T1_Items[1] == 0 then
+		T1_GG[1] = 0
+	else
+		T1_GG[1] = T1_Items[1] - T1_BG[1] 
+	end
+	if T1_Items[2] == 0 then
+		T1_GG[2] = 0
+	else
+		T1_GG[2] = T1_Items[2] - T1_BG[2] 
+	end
+	if T1_Items[3] == 0 then
+		T1_GG[3] = 0
+	else
+		T1_GG[3] = T1_Items[3] - T1_BG[3] 
+	end
+			
+	-- PART 2 of 3
+	--Table2 Exp Left
+	T2_Left[1] = T1_GG[1]*after46
+	T2_Left[2] = T1_GG[2]*after49
+	T2_Left[3] = T1_GG[3]*after87
+	--Table2 Requirement bucket of sand
+	T2_BoS[1] = T2_Left[1]/((after46*glass_method)+(10*use_lunar))
+	T2_BoS[2] = T2_Left[2]/((after49*glass_method)+(10*use_lunar))
+	T2_BoS[3] = T2_Left[3]/((after87*glass_method)+(10*use_lunar))
+	--Table2 Molten glass
+	T2_MG[1] = T2_BoS[1]*glass_method
+	T2_MG[2] = T2_BoS[2]*glass_method
+	T2_MG[3] = T2_BoS[3]*glass_method
+	--Table2 Required giant seaweed
+	T2_GSW[1] = T2_BoS[1]/6
+	T2_GSW[2] = T2_BoS[2]/6
+	T2_GSW[3] = T2_BoS[3]/6
+	
+	-- PART 3 of 3
+	--Table3 Amount
+	if (T2_BoS[1]+T2_BoS[2]+T2_BoS[3]) < 0 then
+		T3_Amount[1] = 0
+	else
+		T3_Amount[1] = T2_BoS[1]+T2_BoS[2]+T2_BoS[3] - b_bucketofsand
+	end
+	T3_Amount[2] = T2_MG[1] + T2_MG[2] + T2_MG[3]
+	T3_Amount[3] = T3_Amount[2] + T1_BG[1] + T1_BG[2] + T1_BG[3]
+	if (T2_GSW[1] + T2_GSW[2] + T2_GSW[3] - b_giantseaweed) < 0 then
+		T3_Amount[4] = 0
+	else
+		T3_Amount[4] = T2_GSW[1] + T2_GSW[2] + T2_GSW[3] - b_giantseaweed
+	end
+	T3_Amount[5] = T3_Amount[4] / averageyield
+	--Table3 Hours
+	T3_Hours[1] = T3_Amount[1] / sand_ph
+	T3_Hours[2] = T3_Amount[2] / (spellc_ph*glass_method*amountsandpinv)
+	T3_Hours[3] = T3_Amount[3] / glassb_ph	
+	if averageyield < 0 then
+		T3_Hours[4] = "99999"
+	else
+		T3_Hours[4] = T3_Amount[4] / ((averageyield / 40) * 60 * 2)
+	end
+	T3_Hours[6] = T3_Hours[1] + T3_Hours[2] + T3_Hours[3] + T3_Hours[4]
+	
+
+
+	ret = mw.html.create('table'):addClass('wikitable sticky-header align-left-1 align-right-2 align-right-3')
+	ret:tag('tr')
+	:tag('th'):wikitext('Todo'):done()
+	:tag('th'):wikitext('Amount'):done()
+	:tag('th'):wikitext('Hours'):done()
+	ret:tag('tr')
+	:tag('td'):wikitext('Gather bucket of sand'):done()
+	:tag('td'):wikitext(round(T3_Amount[1])):done()
+	:tag('td'):wikitext(round(T3_Hours[1],2)):done()
+	ret:tag('tr')
+	:tag('td'):wikitext('Creating molten glass'):done()
+	:tag('td'):wikitext(round(T3_Amount[2])):done()
+	:tag('td'):wikitext(round(T3_Hours[2],2)):done()
+	ret:tag('tr')
+	:tag('td'):wikitext('Glass blowing'):done()
+	:tag('td'):wikitext(round(T3_Amount[3])):done()
+	:tag('td'):wikitext(round(T3_Hours[3],2)):done()
+	ret:tag('tr')
+	:tag('td'):wikitext('Farming giant seaweed'):done()
+	:tag('td'):wikitext(round(T3_Amount[4])):done()
+	:tag('td'):wikitext(round(T3_Hours[4],2)):done()
+	ret:tag('tr')
+	:tag('td'):wikitext('Gather seaweed spores'):done()
+	:tag('td'):wikitext(round(T3_Amount[5])):done()
+	:tag('td'):wikitext(''):done()
+	ret:tag('tr')
+	:tag('td'):wikitext(''):done()
+	:tag('td'):wikitext(''):done()
+	:tag('td'):wikitext(round(T3_Hours[6],2)):done()
+	:done()
+
+
+
+
+
+	--def = hs.get_stat('Gaz Lloyd', 'defence', 'rs3')
+	return ret
+end
+
+--http://lua-users.org/wiki/SimpleRound
+function round(num, numDecimalPlaces)
+  local mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+return p

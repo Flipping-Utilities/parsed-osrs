@@ -145,7 +145,7 @@ function makeTable(usingGoggles, necklace, baseType, compoundDoses, refs)
 	makeTableRowCompound(t, refs, 'Ancient brew', 'Ancient essence' , 'Forgotten brew', 91, 145, usingGoggles, compoundDoses, 80)
 	makeTableRowCompound(t, refs, 'Antifire potion', 'crushed superior dragon bones' , 'Super antifire potion', 92, 130, usingGoggles, compoundDoses)
 	makeTableRowCompound(t, refs, 'Anti-venom', 'torstol' , 'Anti-venom+', 94, 125, usingGoggles, compoundDoses)
-	makeTableRowCompound(t, refs, 'Anti-venom+', 'araxyte venom sack' , 'Extended anti-venom+', 94, 80, usingGoggles, compoundDoses, 4)
+	makeTableRowCompound(t, refs, 'Anti-venom+', 'araxyte venom sac' , 'Extended anti-venom+', 94, 80, usingGoggles, compoundDoses, 4)
 	makeTableRowCompound(t, refs, 'Super antifire potion', 'lava scale shard' , 'Extended super antifire', 98, 160, usingGoggles, compoundDoses, 4)
 	makeTableRowCompound(t, refs, 'Extended antifire', 'crushed superior dragon bones' , 'Extended super antifire', 98, 180, usingGoggles, compoundDoses)
 	

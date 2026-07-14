@@ -1,0 +1,67 @@
+local chart = require( 'Module:Chart data' )
+local iThinkThisIsHowItWorks = require( 'Module:Skilling success chart').interp
+
+local p = {}
+
+function p._calculateDataSets(args)
+	local dataSets = {}
+	
+	local data = {}
+	local dataBoost = {}
+	for x = 1, 99 do
+		
+		afterBuildXP = (5.45 * x) - (0.02 * x * x)
+		
+		table.insert(dataBoost, {x=x, y=afterBuildXP})
+	end
+
+	table.insert(dataSets, {
+        data = {},
+        label = 'Standard',
+    	borderDash = {5, 5},
+        borderCapStyle = 'round',
+        pointRadius = 0,
+        baseColor = 'brown',
+        pointStyleImg = nil
+    })
+	table.insert(dataSets, {
+        data = data,
+        label = 'Standard',
+    	borderDash = {},
+        borderCapStyle = 'round',
+        pointRadius = 0,
+        baseColor = 'brown',
+    })
+    table.insert(dataSets, {})
+
+	return dataSets
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	return p._main(args)
+end
+
+function p._main(args)
+
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( args.label )
+        :setDimensions( '540px', '400px', '540px', '400px', true )
+        :setXLimits( nil, nil, 1 )
+        :setYLimits( nil, nil, 1 )
+        :setTitle('Bonus XP After Beehive Built')
+        :setXLabel('Woodcutting Level')
+        :setYLabel('Bonus XP')
+        :setTooltipFormat('harvestLives')
+        :setDatasetsPerGroup(3)
+    
+	local dataSets = p._calculateDataSets(args)
+	for i, dataSet in ipairs(dataSets) do
+		plot:newDataSet(dataSet)
+	end
+
+    return plot
+end
+
+return p

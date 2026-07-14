@@ -1,0 +1,223 @@
+local gePrice = require('Module:Exchange')._price
+local alchPrice = require('Module:Exchange')._highalch
+local yesNo = require('module:Yesno')
+local coins = require('module:Coins')._amount
+local addCommas = require('module:Addcommas')._add
+
+local p = {}
+
+local lapRanges = {{1, 15}, {16, 30}, {31, 60}, {61, 10000}}
+
+local resources1 = {
+	['Blighted anglerfish']=4.5*8/31,
+	['Blighted manta ray']=4.5*8/31,
+	['Blighted karambwan']=4.5*8/31,
+	['Blighted super restore(4)']=1.5*7/31
+}
+
+local resources16 = {
+	['Blighted anglerfish']=8.5*8/31,
+	['Blighted manta ray']=8.5*8/31,
+	['Blighted karambwan']=8.5*8/31,
+	['Blighted super restore(4)']=3*7/31
+}
+
+local resources31 = {
+	['Blighted anglerfish']=13*8/31,
+	['Blighted manta ray']=13*8/31,
+	['Blighted karambwan']=13*8/31,
+	['Blighted super restore(4)']=4.5*7/31
+}
+
+local resources61 = {
+	['Blighted anglerfish']=17*8/31,
+	['Blighted manta ray']=17*8/31,
+	['Blighted karambwan']=17*8/31,
+	['Blighted super restore(4)']=6*7/31
+}
+
+local resourceTables = {
+	[1]=resources1,
+	[16]=resources16,
+	[31]=resources31,
+	[61]=resources61
+}
+
+local armour1 = {
+	['Steel platebody']=1/10,
+	['Mithril chainbody']=1/10,
+	['Mithril platelegs']=1/10,
+	['Mithril plateskirt']=1/10,
+	['Adamant full helm']=1/10,
+	['Adamant platelegs']=1/10,
+	['Adamant platebody']=2/10,
+	['Rune med helm']=2/10
+}
+
+local armour16 = {
+	['Mithril chainbody']=1/9,
+	['Mithril platelegs']=1/9,
+	['Mithril plateskirt']=1/9,
+	['Adamant full helm']=1/9,
+	['Adamant platelegs']=1/9,
+	['Adamant platebody']=1/9,
+	['Rune med helm']=1/9,
+	['Rune chainbody']=1/9,
+	['Rune kiteshield']=1/9
+}
+
+local armour31 = {
+	['Mithril platelegs']=1/10,
+	['Mithril plateskirt']=1/10,
+	['Adamant full helm']=1/10,
+	['Adamant platelegs']=1/10,
+	['Adamant platebody']=1/10,
+	['Rune med helm']=1/10,
+	['Rune chainbody']=2/10,
+	['Rune kiteshield']=2/10
+}
+
+local armour61 = {
+	['Mithril platelegs']=1/20,
+	['Mithril plateskirt']=1/20,
+	['Adamant full helm']=1/20,
+	['Adamant platelegs']=1/20,
+	['Adamant platebody']=1/10,
+	['Rune med helm']=1/10,
+	['Rune chainbody']=3/10,
+	['Rune kiteshield']=3/10
+}
+
+local armourTables = {
+	[1]=armour1,
+	[16]=armour16,
+	[31]=armour31,
+	[61]=armour61
+}
+
+
+function getPrice(item, qty, ge)
+	if ge then
+		value = gePrice(item)
+		return qty * (value - math.floor(0.01 * value))  -- consider tax
+	end
+	return qty * alchPrice(item)
+end
+
+
+-- get value of loot from one lap in a given lap range
+function lapGroupValue(lowerLap, tradeArmour, tradeResources)
+	local armourTable = armourTables[lowerLap]
+	local resourceTable = resourceTables[lowerLap]
+	
+	local armourVal = 0
+	if tradeArmour ~= "no" then
+		for item, qty in pairs(armourTable) do
+			armourVal = armourVal + getPrice(item, qty, tradeArmour == "ge")
+		end
+	end
+	
+	local resourceVal = 0
+	if tradeResources == "ge" then
+		for item, qty in pairs(resourceTable) do
+			resourceVal = resourceVal + getPrice(item, qty, true)
+		end
+	end
+
+	return {armourVal, resourceVal}
+end
+
+
+function getXp(laps)
+	local courseXp = 571.4 * laps
+	local ticketXp = 0
+	if laps <= 10 then
+		ticketXp = 200 * laps
+	elseif laps <= 50 then
+		ticketXp = 210 * laps
+	elseif laps <= 100 then
+		ticketXp = 220 * laps
+	else
+		ticketXp = 230 * laps
+	end
+	
+	return {courseXp, ticketXp}
+end
+
+
+function p.main(frame)
+	local args = frame.args
+	local laps = tonumber(args.laps)
+	if laps == nil then
+		return "Number of laps must be between 1 and 10000."
+	end
+
+	local armour = args.armour
+	if armour == "Sell on GE" then
+		armour = "ge"
+	elseif armour == "High alch" then
+		armour = "ha"
+	else
+		armour = "no"
+	end
+
+	local resources = args.resources
+	if resources == "Sell on GE" then
+		resources = "ge"
+	else
+		resources = "no"
+	end
+
+	return p.calc(laps, armour, resources)
+end
+
+
+function p.calc(laps, armour, resources)
+	local totalArmourVal = 0
+	local totalResourceVal = 0
+	for i, lapRange in ipairs(lapRanges) do
+		local lowerLap = lapRange[1]
+		local upperLap = lapRange[2]
+		local lapsInRange = upperLap - lowerLap + 1
+		if laps < lowerLap then
+			break
+		end
+		
+		local armourVal, resourceVal = unpack(lapGroupValue(lowerLap, armour, resources))
+		if laps > upperLap then
+			totalArmourVal = totalArmourVal + armourVal * lapsInRange
+			totalResourceVal = totalResourceVal + resourceVal * lapsInRange
+		else
+			totalArmourVal = totalArmourVal + armourVal * (laps - lowerLap + 1)
+			totalResourceVal = totalResourceVal + resourceVal * (laps - lowerLap + 1)
+		end
+	end
+	
+	local totalProfit = totalArmourVal + totalResourceVal - 150000
+	local totalCourseXp, totalTicketXp = unpack(getXp(laps))
+	local totalXp = totalCourseXp + totalTicketXp
+	
+	local out = {
+		string.format("Completing <b>%s</b> consecutive laps will give you, on average:", laps),
+		string.format("* Total profit: %s", coins(totalProfit)),
+		string.format("** %s entry fee", coins(-150000))
+	}
+	
+	if armour == "ge" then
+		table.insert(out, string.format("** %s (after taxes) from armour", coins(totalArmourVal)))
+	elseif armour == "ha" then
+		table.insert(out, string.format("** %s from armour", coins(totalArmourVal)))
+	end
+	if resources == "ge" then
+		table.insert(out, string.format("** %s (after taxes) from resources", coins(totalResourceVal)))
+	end
+	
+	table.insert(out, string.format("* Total Agility experience: %s", addCommas(totalXp)))
+	table.insert(out, string.format("** %s from the obstacles", addCommas(totalCourseXp)))
+	table.insert(out, string.format("** %s from the tickets", addCommas(totalTicketXp)))
+	
+	return table.concat(out, "\n")
+end
+
+
+return p

@@ -1,0 +1,115 @@
+local p = {}
+
+local CANNONBALLS = {
+	Bronze = 43,
+	Iron = 56,
+	Steel = 74,
+	Mithril = 105,
+	Granite = 125,
+	Adamant = 157,
+	Rune = 201,
+	Dragon = 270,
+}
+
+local CANNONS = {
+	Bronze = 8,
+	Iron = 10,
+	Steel = 12,
+	Mithril = 15,
+	Adamant = 23,
+	Rune = 26,
+	Dragon = 32,
+}
+
+local HEAVY_STRENGTH_BONUS = {
+	Bronze = 15,
+	Iron = 30,
+	Steel = 40,
+	Mithril = 50,
+	Granite = 65,
+	Adamant = 80,
+	Rune = 90,
+	Dragon = 100,
+}
+
+local PRAYERLIST = {
+	['None'] = 1.00,
+	['Sharp Eye'] = 1.05,
+	['Hawk Eye'] = 1.10,
+	['Eagle Eye'] = 1.15,
+	['Dead Eye'] = 1.18,
+	['Rigour'] = 1.23,
+}
+
+local VOIDBONUS = {
+	['None'] = 1,
+	['Regular Void'] = 1.1,
+	['Elite Void'] = 1.125,
+}
+
+local CREWMATES = {
+    ['Jobless Jim'] = 1,
+    ['Jolly Jim'] = 1,
+    ['Sailor Jakob'] = 1,
+    ['Ex-Captain Siad'] = 2,
+    ['Adventurer Ada'] = 2,
+    ['Cabin Boy Jenkins'] = 2,
+    ['Spotter Virginia'] = 2,
+    ['Bosun Zarah'] = 3,
+    ['Oarswoman Olga'] = 4,
+    ['Jittery Jim'] = 4,
+}
+
+function p.main(frame)
+	local args = frame.args or {}
+	
+	local cannon_str = CANNONS[args.cannon_type or 'Bronze']
+	
+	local cannonball_str = CANNONBALLS[args.cball_bronze or args.cball_iron 
+		or args.cball_steel or args.cball_mithril or args.cball_granite or args.cball_adamant 
+		or args.cball_rune or args.cball_dragon or 'Bronze']
+	
+	local heavy_bonus_str = HEAVY_STRENGTH_BONUS[args.cball_bronze or args.cball_iron 
+		or args.cball_steel or args.cball_mithril or args.cball_granite or args.cball_adamant 
+		or args.cball_rune or args.cball_dragon or 'Bronze']
+	
+	local max_hit = 1
+	
+	if args.crew_toggle == 'Crewmate' then
+		local eff_lvl = tonumber(args.sailing_lvl) or 99
+		max_hit = math.max(1, calc_max_hit_crew(eff_lvl, cannon_str, cannonball_str))
+		if args.perildance == 'true' then
+			max_hit = max_hit + 1
+		end
+		
+		local privateering_lvl = CREWMATES[args.crew_select] or 1
+		max_hit = math.floor(max_hit * (privateering_lvl + 13) / 20)
+		
+	else
+		local prayerbonus = PRAYERLIST[args.prayer or 'None']
+		local voidset = VOIDBONUS[args.void or 'None']
+		local gearstrengthbonus = tonumber(args.ranged_str)		
+		local eff_lvl = math.floor((math.floor((tonumber(args.ranged_lvl) or 99)*prayerbonus)+8)*voidset)
+		max_hit = math.max(1, calc_max_hit_player(eff_lvl, cannon_str, cannonball_str, heavy_bonus_str,gearstrengthbonus))
+		
+		if args.perildance == 'true' then
+			max_hit = max_hit + 1
+		end
+	end
+	
+	local formatted_output = 'Cannon max hit: <b>' .. max_hit .. '<b>'
+	
+	return formatted_output
+end
+
+function calc_max_hit_crew(eff_lvl, cannon_str, cannonball_str)
+	local total_str_bonus = cannon_str + cannonball_str
+	return math.floor((eff_lvl * (total_str_bonus + 64) + 320)/640)
+end
+
+function calc_max_hit_player(eff_lvl, cannon_str, cannonball_str, heavy_bonus_str,gearstrengthbonus)
+	local total_str_bonus = cannon_str + cannonball_str + heavy_bonus_str + gearstrengthbonus 
+	return math.floor(0.5+(eff_lvl * (total_str_bonus + 64) / 640))
+end
+
+return p

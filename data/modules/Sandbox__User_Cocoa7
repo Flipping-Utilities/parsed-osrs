@@ -1,0 +1,13 @@
+local p = {}
+
+local Coins = require('Module:Coins')
+
+function p.coins(frame)
+	local args = frame.args
+	local the_calculation_string_hopefully = args[1]
+	
+	return the_calculation_string_hopefully .. " is: " .. Coins._amount(the_calculation_string_hopefully)
+	-- return Coins._amount(the_calculation_string_hopefully)
+end
+
+return p

@@ -1,0 +1,32 @@
+require('Module:Mw.html extension')
+local p = {}
+
+function p.main(frame)
+	
+	local yesno = require('Module:Yesno')
+	local args = frame:getParent().args
+	local coords = {}
+
+	for k, v in pairs(args) do
+		if type(k) == "number" then
+	    coords[k] = tonumber(v) or v
+	    end
+	end
+
+	local pageLocation = string.match(args.location or '', "%[+(.-)%]")
+	local html = mw.html.create('table'):addClass('wikitable')
+		html:tag('th'):wikitext("location: "..args.location):tr():done()
+		html:tag('td'):wikitext("where: "..'[['..pageLocation..']]')
+	
+    bucket('testing_bucket').sub("FakeLocLine").put({
+  		page_nr = args.name,
+  		text_nr = pageLocation,
+  		text_r = coords,
+  		integer_nr = args.mapID,
+  		boolean_nr = yesno(args.members)
+  	})
+  
+	return html
+end
+
+return p

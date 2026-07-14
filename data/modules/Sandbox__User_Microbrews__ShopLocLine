@@ -1,0 +1,60 @@
+local p = {}
+
+local editBtn = '<small>' .. require('Module:Edit button')() .. '</small>'
+local yesno = require('Module:Yesno')
+local isEmpty = require('Module:Paramtest').is_empty
+local hc = require('Module:Paramtest').has_content
+local buildMap = require('Module:Sandbox/User:Microbrews/Map').buildMap
+
+local membscol = {
+	[true] = '[[File:Member icon.png|link=Members|alt=Members]]',
+	[false] = '[[File:Free-to-play icon.png|link=Free-to-play|alt=Free-to-play]]',
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local templateArgs = frame.args
+
+	-- Copy args into new table to avoid custom scribunto iteration behavior on args
+	local mapArgs = {}
+	for k,v in pairs(args) do
+    	mapArgs[k] = v
+	end
+	
+	if not hc(mapArgs.mtype) then mapArgs.mtype = 'pin' end
+	mapArgs.icon = templateArgs.icon
+	mapArgs.ptype = templateArgs.ptype
+	mapArgs.type = 'maplink'
+	
+	if args.name then
+		mapArgs.title = args.name
+	end
+
+	local loc = args.name or '? ' .. editBtn
+	if (isEmpty(loc)) then loc = '? ' .. editBtn end
+
+	local membs = yesno(args.members ~= nil and args.members or "no")
+	local membsIcon = membscol[membs]
+	if membs then
+		mapArgs.icon = "redPin"
+	else
+		mapArgs.icon = "bluePin"
+	end
+	
+	local notes = args.notes
+	
+	local mapping = buildMap(mapArgs)
+	
+	-- build table row to return
+	local locationRow = mw.html.create('tr')
+	locationRow:tag('td'):wikitext(loc):done()
+	if notes ~= nil then
+		locationRow:tag('td'):wikitext(tostring(notes)):done()
+	end
+	locationRow:tag('td'):wikitext(membsIcon):done()
+	locationRow:tag('td'):wikitext(mapping):done()
+
+	return tostring(locationRow)
+end
+
+return p

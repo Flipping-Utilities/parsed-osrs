@@ -1,0 +1,73 @@
+--Directional-caption module
+
+require('Module:Mw.html extension')
+
+local p = {}
+
+function p.main(frame)
+
+    local args = frame:getParent().args
+    local direction = args.direction
+    local align = args.align
+    local caption = args.caption
+
+    local container = mw.html.create('div')
+    		:addClass('mw-kartographer-container')
+    		:css({
+    			['float'] = align,
+    			['max-height'] = args.height or '400px'
+    		})
+    		:cssIf(direction=='top','max-height','auto')
+			:cssText('display:flex;background:var(--thumb-bg);padding:3px')
+			:cssIf(direction=='top','display','inline-block')
+	    
+		container:IF(direction == 'left')
+			:tag('div')
+			:addClass('thumbcaption')
+			 :IF(args.width == 'auto')
+				:css({
+					['max-width'] = '200px',
+					['min-width'] = 'auto',
+					['overflow'] = 'scroll'
+				})
+			  :ELSEIF(args.width ~= 'auto')
+				:cssText('max-width:300px;min-width:300px')
+			 :END()
+
+			:wikitext(caption)
+			:END()
+		
+		container:IF(direction == 'top')
+			:tag('div')
+			:addClass('thumbcaption')
+			:css({
+				['max-height'] = '200px',
+				['max-width'] = args.width or '300px',
+				['min-width'] = args.width or '300px',
+				['overflow'] = 'scroll'
+				})
+			:wikitext(caption)
+			:END()
+		
+		container:tag('div')
+			:wikitext(args.item)
+    		
+		container:IF(direction == 'right')
+			:tag('div')
+			:addClass('thumbcaption')
+				:IF(args.width == 'auto')
+					:css({['max-width'] = '200px',['min-width'] = 'auto',['overflow'] = 'scroll'})
+				:ELSEIF(args.width ~= 'auto')
+					:cssText('max-width:300px;min-width:300px')
+				:END()
+			:wikitext(caption)
+			:END()
+		
+    	
+    return container
+    
+end
+return p
+--[[
+User:Holy_Old_Man/Directional_Caption
+--]]

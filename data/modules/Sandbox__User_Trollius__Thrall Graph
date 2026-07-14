@@ -1,0 +1,134 @@
+local xp = mw.loadData('User:Trollius/Thrall Data')
+
+local helper = require('Module:Chart data')
+
+local data = {
+	type = 'scatter',
+	data = {
+		datasets = {
+			{
+				label = 'line 1',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[1]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[1]),
+				data = helper.generateXYFromFunc(function(x) return x/10 end, 1, 100, 10)
+			},
+			{
+				label = 'line 2',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[2]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[2]),
+				data = helper.generateXYFromFunc(function(x) return x/5 end, 1, 100, 10)
+			},
+			{
+				label = 'line 3',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[3]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[3]),
+				data = helper.generateXYFromFunc(function(x) return x/2 end, 1, 100, 10)
+			},
+			{
+				label = 'line 4',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[4]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[4]),
+				data = helper.generateXYFromFunc(function(x) return x end, 1, 100, 10)
+			},
+			{
+				label = 'line 5',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[5]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[5]),
+				data = helper.generateXYFromFunc(function(x) return 1.5*x end, 1, 100, 10)
+			},
+			{
+				label = 'line 6',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[1]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[1]),
+				borderDash = { 5, 5 },
+				pointStyle = 'triangle',
+				pointRadius = 5,
+				data = helper.generateXYFromFunc(function(x) return 2*x end, 1, 100, 10)
+			},
+			{
+				label = 'line 7',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[2]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[2]),
+				borderDash = { 5, 5 },
+				pointStyle = 'triangle',
+				pointRadius = 5,
+				data = helper.generateXYFromFunc(function(x) return 3*x end, 1, 100, 10)
+			},
+			{
+				label = 'line 8',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[3]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[3]),
+				borderDash = { 5, 5 },
+				pointStyle = 'triangle',
+				pointRadius = 5,
+				data = helper.generateXYFromFunc(function(x) return 4*x end, 1, 60, 10)
+			},
+			{
+				label = 'line 9',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[4]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[4]),
+				borderDash = { 5, 5 },
+				pointStyle = 'triangle',
+				pointRadius = 5,
+				data = helper.generateXYFromFunc(function(x) return 5*x end, 1, 50, 10)
+			},
+			{
+				label = 'line 10',
+				showLine = true,
+				fill = false,
+				backgroundColor = tostring(helper.colorPallets.qualitative[5]:fade(0.2)),
+				borderColor = tostring(helper.colorPallets.qualitative[5]),
+				borderDash = { 5, 5 },
+				pointStyle = 'triangle',
+				pointRadius = 5,
+				data = helper.generateXYFromFunc(function(x) return 100 end, 1, 100, 10)
+			},
+		}
+	},
+	options = {
+		maintainAspectRatio = false,
+		tooltips = {
+			mode = 'x',
+			position = 'nearest',
+			intersect = false
+		},
+		scales = {
+			xAxes = {
+				{
+					scaleLabel = {
+						display = true,
+						labelString = 'x'
+					}
+				}
+			},
+			yAxes = {
+				{
+					scaleLabel = {
+						display = true,
+						labelString = 'y'
+					}
+				}
+			}
+		}
+	}
+}
+
+return data

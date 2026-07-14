@@ -1,0 +1,138 @@
+local weapon_spec = {
+--[=[ Quick copy
+    ["Spec_name"] = {
+    	{
+		version = "default" --can leave empty
+		weapon = {""},
+		seasonal = nil,
+		style = "Melee",
+		target = "Single",
+		range = nil,
+		maxtargets = nil,
+		energy = 50,
+		attack_roll = nil,
+		defence_roll = nil,
+		damage_roll = nil,
+		damage_type = nil,
+		speed = nil,
+		dot = {
+			type = nil, 
+			chance = nil,
+			total = nil,
+			instance = nil,
+			frequency = nil,
+			duration = nil,
+			},
+		hp = nil,
+		pray = nil,
+		duration = nil,
+		tooltip = "",
+		requirements = nil
+		},
+		{
+		version = "pvp",
+		damage_roll = nil
+	}
+},    {
+--]=] 
+    ["Soul Rend"] = {
+		{
+		version = "default",
+		weapon = {"Eye of ayak","Eye of ayak2"},
+		seasonal = nil,
+		style = "Magic",
+		target = "Single",
+		range = nil,
+		maxtargets = nil,
+		energy = 50,
+		attack_roll = '+100%',
+		defence_roll = nil,
+		damage_roll = '+30%',
+		damage_type = nil,
+		speed = nil,
+		dot = {
+			type = nil,
+			chance = nil,
+			instance = nil,
+			frequency = nil,
+			duration = nil,
+			},
+		hp = nil,
+		pray = nil,
+		duration = nil,
+		pvp = false,
+		tooltip = "Perform a devastating blow to your enemy with 50% increased accuracy and damage. If your attack successfully hits, the target will burn for 10 damage over 24 seconds. ",
+		requirements = nil
+		},
+	},
+		{
+		version = "pvp"
+		
+		}
+	}, {
+   ["Flames of Ralos"] = {
+		{
+			version = "default",
+			weapon = {"Arkan blade"},
+			seasonal = nil,
+			style = "Melee",
+			target = "Single",
+			range = nil,
+			maxtargets = nil,
+			energy = 30,
+			attack_roll = '+50%',
+			defence_roll = 'Slash',
+			damage_roll = '+50%',
+			damage_type = nil,
+			speed = nil,
+			dot = {
+				type = "Burn",
+				chance = 100,
+				total = 10,
+				instance = 1,
+				frequency = 4,
+				duration = 40
+				},
+			hp = "max 25",
+			pray = nil,
+			duration = nil,
+			pvp = nil,
+			tooltip = "Deliver a strike with doubled accuracy and 30% higher max hit, draining Magic Defence equal to the damage dealt.",
+			requirements = nil,
+		},
+			{
+			version = "pvp",
+			hp = "max 15"
+			}
+		}
+	}, {
+   ["Blood sacrifice"] = {
+		{
+			version = "default",
+			weapon = {"Ancient godsword"},
+			seasonal = nil,
+			style = "Melee",
+			target = "Single",
+			range = nil,
+			maxtargets = nil,
+			energy = 50,
+			attack_roll = '+100%',
+			defence_roll = 'Slash',
+			damage_roll = '+10% +25',
+			damage_type = nil,
+			speed = nil,
+			dot = nil,
+			hp = "15% of target HP lvl, max 25",
+			pray = nil,
+			duration = nil,
+			pvp = nil,
+			tooltip = "Deal an attack that inflicts 10% more damage with double accuracy and marks your target for a blood sacrifice. Targets marked for a blood sacrifice will be hit for 25 damage after a short delay, unless they move away. If they are hit, you'll also be healed for the damage dealt. (Heal is capped at 15 in PvP)",
+			requirements = nil
+		},
+		{
+		version = "pvp",
+		hp = "15% of target HP lvl, max 15"
+		}
+	}
+}
+return weapon_spec

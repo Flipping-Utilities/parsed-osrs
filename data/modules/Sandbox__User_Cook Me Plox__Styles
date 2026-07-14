@@ -1,0 +1,679 @@
+local p = {}
+local WeaponStyles = {
+	['Magic'] = {
+		['Accurate'] = { -- Trident only
+			['Weapon Style'] = 'Accurate',
+			['Experience'] = '[[Magic]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Magic]]',
+		},
+		['Defensive'] = {
+			['Weapon Style'] = 'Defensive',
+			['Experience'] = '[[Magic]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Defence]]',
+		},
+		['Autocast'] = {
+			['Weapon Style'] = 'Autocast',
+			['Experience'] = '[[Magic]] and [[Hitpoints]]',
+			['Boost'] = 'None',
+		},
+		['Defensive Autocast'] = {
+			['Weapon Style'] = 'Defensive Autocast',
+			['Experience'] = '[[Magic]], [[Defence]], and [[Hitpoints]]',
+			['Boost'] = 'None',
+		},
+		['Longrange'] = { -- Trident only
+			['Weapon Style'] = 'Longrange',
+			['Experience'] = '[[Magic]], [[Defence]], and [[Hitpoints]]',
+			['Boost'] = '+1 [[Magic]], +3 [[Defence]], and +2 [[Attack range]]',
+		},
+	},
+	['Melee'] = {
+		['Accurate'] = {
+			['Weapon Style'] = 'Accurate',
+			['Experience'] = '[[Attack]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Attack]]',
+		},
+		['Aggressive'] = {
+			['Weapon Style'] = 'Aggressive',
+			['Experience'] = '[[Strength]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Strength]]',
+		},
+		['Controlled'] = {
+			['Weapon Style'] = 'Controlled',
+			['Experience'] = '[[Attack]], [[Strength]], [[Defence]], and [[Hitpoints]]',
+			['Boost'] = '+1 [[Attack]], [[Strength]], and [[Defence]]',
+		},
+		['Defensive'] = {
+			['Weapon Style'] = 'Defensive',
+			['Experience'] = '[[Defence]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Defence]]',
+		},
+	},
+	['Ranged'] = {
+		['Accurate'] = {
+			['Weapon Style'] = 'Accurate',
+			['Experience'] = '[[Ranged]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Ranged]]',
+		},
+		['Rapid'] = {
+			['Weapon Style'] = 'Rapid',
+			['Experience'] = '[[Ranged]] and [[Hitpoints]]',
+			['Boost'] = '+1 [[Attack speed]]',
+		},
+		['Longrange'] = {
+			['Weapon Style'] = 'Longrange',
+			['Experience'] = '[[Ranged]], [[Defence]], and [[Hitpoints]]',
+			['Boost'] = '+3 [[Defence]] and +2 [[Attack range]]',
+		},
+		['Short fuse'] = {
+			['Weapon Style'] = 'Short fuse',
+			['Experience'] = '[[Ranged]] and [[Hitpoints]]',
+			['Boost'] = '+3 [[Ranged]]',
+		},
+		['Medium fuse'] = {
+			['Weapon Style'] = 'Medium fuse',
+			['Experience'] = '[[Ranged]] and [[Hitpoints]]',
+			['Boost'] = '+1 [[Attack speed]]',
+		},
+		['Long fuse'] = {
+			['Weapon Style'] = 'Long fuse',
+			['Experience'] = '[[Ranged]], [[Defence]], and [[Hitpoints]]',
+			['Boost'] = '+2 [[Attack range]]',
+		},
+	},
+	['None'] = {
+		['Weapon Style'] = 'None',
+		['Experience'] = 'None',
+		['Boost'] = 'None',
+	},
+}
+
+-- WeaponType
+--  Combat Type
+--  {
+--    Combat Style
+--    Attack type
+--    Style type (The above tables)
+--  }
+return {
+	['2h Sword'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Axe'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Hack',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Banner'] = {
+		'Melee',
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Bladed Staff'] = {
+		'Multiple',
+		{
+			'Jab',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Fend',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Defensive Autocast'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Autocast'],
+		},
+	},
+	['Blaster'] = {
+		'None',
+		{
+			'Explosive',
+			'Fires explosive round',
+		},
+		{
+			'Flamer',
+			'Emits a jet of flame',
+		},
+	},
+	['Bludgeon'] = {
+		'Melee',
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+	},
+	['Blunt'] = {
+		'Melee',
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Bow'] = {
+		'Ranged',
+		{
+			'Accurate',
+			'Ranged',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Rapid',
+			'Ranged',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Longrange',
+			'Ranged',
+			WeaponStyles['Ranged']['Longrange'],
+		},
+	},
+	['Bulwark'] = {
+		'Melee',
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Block',
+			'None',
+			WeaponStyles['None'],
+		},
+	},
+	['Chinchompas'] = {
+		'Ranged',
+		{
+			'Short fuse',
+			'Ranged',
+			WeaponStyles['Ranged']['Short fuse'],
+		},
+		{
+			'Medium fuse',
+			'Ranged',
+			WeaponStyles['Ranged']['Medium fuse'],
+		},
+		{
+			'Long fuse',
+			'Ranged',
+			WeaponStyles['Ranged']['Long fuse'],
+		},
+	},
+	['Claw'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Crossbow'] = {
+		'Ranged',
+		{
+			'Accurate',
+			'Ranged',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Rapid',
+			'Ranged',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Longrange',
+			'Ranged',
+			WeaponStyles['Ranged']['Longrange'],
+		},
+	},
+	['Gun'] = {
+		'Melee',
+		{
+			'Aim and Fire',
+			'None',
+			WeaponStyles['None'],
+		},
+		{
+			'Kick',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+	},
+	['Partisan'] = {
+		'Melee',
+		{
+			'Stab',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Pickaxe'] = {
+		'Melee',
+		{
+			'Spike',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Impale',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Polearm'] = {
+		'Melee',
+		{
+			'Jab',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Fend',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Polestaff'] = {
+		'Melee',
+		{
+			'Bash',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Powered Staff'] = {
+		'Magic',
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Longrange',
+			'Magic',
+			WeaponStyles['Magic']['Longrange'],
+		},
+	},
+	['Powered Wand'] = {
+		'Magic',
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Longrange',
+			'Magic',
+			WeaponStyles['Magic']['Longrange'],
+		},
+	},
+	['Salamander'] = {
+		'Multiple',
+		{
+			'Scorch',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Flare',
+			'Ranged',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Blaze',
+			'Magic',
+			WeaponStyles['Magic']['Defensive'],
+		},
+	},
+	['Scythe'] = {
+		'Melee',
+		{
+			'Reap',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Jab',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Slash Sword'] = {
+		'Melee',
+		{
+			'Chop',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Spear'] = {
+		'Melee',
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Swipe',
+			'Slash',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Spiked'] = {
+		'Melee',
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pummel',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Spike',
+			'Stab',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Stab Sword'] = {
+		'Melee',
+		{
+			'Stab',
+			'Stab',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Lunge',
+			'Stab',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Slash',
+			'Slash',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Stab',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Staff'] = {
+		'Multiple',
+		{
+			'Bash',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Pound',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Focus',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Defensive Autocast'],
+		},
+		{
+			'Spell',
+			'Magic',
+			WeaponStyles['Magic']['Autocast'],
+		},
+	},
+	['Thrown'] = {
+		'Ranged',
+		{
+			'Accurate',
+			'Ranged',
+			WeaponStyles['Ranged']['Accurate'],
+		},
+		{
+			'Rapid',
+			'Ranged',
+			WeaponStyles['Ranged']['Rapid'],
+		},
+		{
+			'Longrange',
+			'Ranged',
+			WeaponStyles['Ranged']['Longrange'],
+		},
+	},
+	['Unarmed'] = {
+		'Melee',
+		{
+			'Punch',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Kick',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Block',
+			'Crush',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Whip'] = {
+		'Melee',
+		{
+			'Flick',
+			'Slash',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Lash',
+			'Slash',
+			WeaponStyles['Melee']['Controlled'],
+		},
+		{
+			'Deflect',
+			'Slash',
+			WeaponStyles['Melee']['Defensive'],
+		},
+	}
+}

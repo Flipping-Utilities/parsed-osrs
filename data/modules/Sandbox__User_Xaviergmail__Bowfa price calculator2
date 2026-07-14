@@ -1,0 +1,35 @@
+local gePrice = require('Module:Exchange')._price
+
+local addCommas = require('module:Addcommas')._add
+
+local p = {}
+
+function p.main(frame)
+	local args = frame.args
+	
+	local shardCost = gePrice("Enhanced crystal teleport seed") / 150
+	local bowfaCost = gePrice("Enhanced crystal weapon seed") + shardCost * 100
+	local corruptionCost = shardCost * 2000
+	
+	local armorSeedCost = gePrice("Crystal armour seed")
+	local helmCost = armorSeedCost + shardCost * 50
+	local topCost = armorSeedCost * 3 + shardCost * 150
+	local legsCost = armorSeedCost * 2 + shardCost + 100
+	local armorCost = helmCost + topCost + legsCost
+	local lines = {
+		string.format("Cost of bow bow: %s", addCommas(bowfaCost)),
+		string.format("Cost of helm: %s", addCommas(helmCost)),
+		string.format("Cost of top: %s", addCommas(topCost)),
+		string.format("Cost of legs: %s", addCommas(legsCost)),
+		"",
+		string.format("Cost of armor: %s", addCommas(armorCost)),
+		string.format("Combined Cost: %s", addCommas(bowfaCost + armorCost)),
+		"",
+		string.format("Cost of corruption: %s", addCommas(corruptionCost)),
+		string.format("Combined Cost (c): %s", addCommas(bowfaCost + armorCost + corruptionCost))
+	}
+	return table.concat(lines, "\n\n")
+end
+
+
+return p

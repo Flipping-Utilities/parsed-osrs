@@ -1,0 +1,760 @@
+-- <nowiki>
+local hc = require('Module:Paramtest').has_content
+
+local p = {}
+
+local zoomSizes = {
+	{ 3, 8 },
+	{ 2, 4 },
+	{ 1, 2 },
+	{ 0, 1 },
+	{ -1, 1/2 },
+	{ -2, 1/4 },
+	{ -3, 1/8 }
+}
+-- Default size of maps (to calc zoom)
+local default_size = 800 -- 800px for full screen
+-- Map feature (overlay) types
+local featureMap = {
+	none = {},
+	square = { square=true },
+	rectangle = { square=true },
+	polygon = { polygon=true },
+	line = { line=true },
+	lines = { line=true },
+	circle = { circle=true },
+	pin = { pins=true },
+	pins = { pins=true },
+	['pin-polygon'] = { polygon=true, pins=true },
+	['pins-polygon'] = { polygon=true, pins=true },
+	['pin-line'] = { line=true, pins=true },
+	['pins-line'] = { line=true, pins=true },
+	['pin-circle'] = { circle=true, pins=true },
+	['pins-circle'] = { circle=true, pins=true }
+}
+-- Possible properties
+local simplestyle = {'title', 'description', 'marker-size', 'marker-symbol', 'marker-color',
+	'stroke', 'stroke-opacity', 'stroke-width', 'fill', 'fill-opacity'}
+local properties = {
+	polygon = { title=true, description=true, stroke=true, ['stroke-opacity']=true, ['stroke-width']=true, fill=true, ['fill-opacity']=true },
+	line = { title=true, description=true, stroke=true, ['stroke-opacity']=true, ['stroke-width']=true },
+	circle = { title=true, description=true, stroke=true, ['stroke-opacity']=true, ['stroke-width']=true, fill=true, ['fill-opacity']=true },
+	pin = { title=true, description=true, icon=true, iconWikiLink=true, iconSize=true, iconAnchor=true, popupAnchor=true}
+}
+
+-- Create JSON
+function toJSON(j)
+	local json_good, json = pcall(mw.text.jsonEncode, j)--, mw.text.JSON_PRETTY)
+	if json_good then
+		return json
+	end
+	return error('Error converting to JSON')
+end
+-- Create SMW string
+function setSMW(obj, prop)
+	mw.smw.set({[prop] = toJSON(obj)})
+end
+-- Create map html element
+function createMapElement(elem, args, json)
+	local mapelem = mw.html.create(elem)
+	mapelem:attr(args):newline():wikitext(toJSON(json)):newline()
+	return mapelem
+end
+-- Create pin description
+function parseDesc(args, pin, pgname, ptype)
+	local desc = {}
+	if ptype == 'item' then
+		desc = {
+			"'''Item''': ".. (args.name or pgname),
+			"'''Quantity''': ".. (pin.qty or 1)
+		}
+		if pin.respawn then
+			table.insert(desc, "'''Respawn time''': "..pin.respawn)
+		elseif args.respawn then
+			table.insert(desc, "'''Respawn time''': "..args.respawn)
+		end
+		if pin.notes then
+			table.insert(desc, "'''Notes''': "..pin.notes)
+		elseif args.notes then
+			table.insert(desc, "'''Notes''': "..args.notes)
+		end
+	elseif ptype == 'monster' then
+		table.insert(desc, "'''Monster''': " .. (args.name or pgname))
+		if pin.levels then
+			table.insert(desc, "'''Level(s)''': " .. pin.levels)
+		elseif args.levels then
+			table.insert(desc, "'''Level(s)''': " .. args.levels)
+		end
+	elseif ptype == 'npc' then
+		table.insert(desc, "'''NPC''': "..(args.name or pgname))
+		if pin.version then
+			table.insert(desc, "'''Version''': "..pin.version)
+		elseif args.version then
+			table.insert(desc, "'''Version''': "..args.version)
+		end
+		if pin.npcid then
+			table.insert(desc, "'''NPC ID''': "..pin.npcid)
+		elseif args.npcid then
+			table.insert(desc, "'''NPC ID''': "..args.npcid)
+		end
+		if pin.objectid then
+			table.insert(desc, "'''Object ID''': "..pin.objectid)
+		elseif args.objectid then
+			table.insert(desc, "'''Object ID''': "..args.objectid)
+		end
+		if pin.respawn then
+			table.insert(desc, "'''Respawn time''': "..pin.respawn)
+		elseif args.respawn then
+			table.insert(desc, "'''Respawn time''': "..args.respawn)
+		end
+		if pin.notes then
+			table.insert(desc, "'''Notes''': "..pin.notes)
+		elseif args.notes then
+			table.insert(desc, "'''Notes''': "..args.notes)
+		end
+	elseif ptype == 'object' then
+		table.insert(desc, "'''Object''': "..(args.name or pgname))
+		if pin.version then
+			table.insert(desc, "'''Version''': "..pin.version)
+		elseif args.version then
+			table.insert(desc, "'''Version''': "..args.version)
+		end
+		if pin.objectid then
+			table.insert(desc, "'''Object ID''': "..pin.objectid)
+		elseif args.objectid then
+			table.insert(desc, "'''Object ID''': "..args.objectid)
+		end
+		if pin.npcid then
+			table.insert(desc, "'''NPC ID''': "..pin.npcid)
+		elseif args.npcid then
+			table.insert(desc, "'''NPC ID''': "..args.npcid)
+		end
+		if pin.respawn then
+			table.insert(desc, "'''Respawn time''': "..pin.respawn)
+		elseif args.respawn then
+			table.insert(desc, "'''Respawn time''': "..args.respawn)
+		end
+		if pin.notes then
+			table.insert(desc, "'''Notes''': "..pin.notes)
+		elseif args.notes then
+			table.insert(desc, "'''Notes''': "..args.notes)
+		end
+	else
+		if args.desc then
+			table.insert(desc, args.desc)
+		end
+		if pin.desc then
+			table.insert(desc, pin.desc)
+		elseif pin.x and pin.y then
+			table.insert(desc, 'X,Y: '..pin.x..','..pin.y)
+		end
+	end
+
+	return table.concat(desc, '<br>')
+end
+-- Parse unnamed arguments (arg = pin)
+function p.parseArgs(args, ptype)
+	args.pins = {}
+	local sep = args.sep or '%s*,%s*'
+	local pgname = mw.title.getCurrentTitle().text
+	local rng = {
+		xmin = 10000000,
+		xmax = -10000000,
+		ymin = 10000000,
+		ymax = -10000000
+	}
+
+	local i,cnt = 1,0
+	while (args[i]) do
+		local v = mw.text.trim(args[i])
+		if hc(v) then
+			local pin = {}
+			for u in mw.text.gsplit(v, sep) do
+				local _u = mw.text.split(u, '%s*:%s*')
+				if _u[2] then
+					local k = mw.text.trim(_u[1])
+					if k == 'x' or k == 'y' then
+						pin[k] = tonumber(mw.text.trim(_u[2]))
+					else
+						pin[k] = mw.text.trim(_u[2])
+					end
+				else
+					if pin.x then
+						pin.y = tonumber(_u[1])
+					else
+						pin.x = tonumber(_u[1])
+					end
+				end
+			end
+
+			if pin.x > rng.xmax then
+				rng.xmax = pin.x
+			end
+			if pin.x < rng.xmin then
+				rng.xmin = pin.x
+			end
+			if pin.y > rng.ymax then
+				rng.ymax = pin.y
+			end
+			if pin.y <  rng.ymin then
+				rng.ymin = pin.y
+			end
+
+			-- Pin size/location args
+			if pin.iconSizeX and pin.iconSizeY then
+				pin.iconSize = {tonumber(pin.iconSizeX), tonumber(pin.iconSizeY) }
+			elseif pin.iconSize then
+				pin.iconSize = { tonumber(pin.iconSize), tonumber(pin.iconSize)}
+			end
+			if pin.iconAnchorX and pin.iconAnchorY then
+				pin.iconAnchor = {tonumber(pin.iconAnchorX), tonumber(pin.iconAnchorY) }
+			elseif pin.iconAnchor then
+				pin.iconAnchor = {tonumber(pin.iconAnchor), tonumber(pin.iconAnchor)}
+			end
+			if pin.popupAnchorX and pin.popupAnchorY then
+				pin.popupAnchor = {tonumber(pin.popupAnchorX), tonumber(pin.popupAnchorY) }
+			elseif pin.popupAnchor then
+				pin.popupAnchor = {tonumber(pin.popupAnchor), tonumber(pin.popupAnchor)}
+			end
+
+			pin.desc = parseDesc(args, pin, pgname, ptype)
+			
+			table.insert( args.pins, pin)
+			cnt =  cnt + 1
+		end
+		i =  i + 1
+	end
+
+	-- In no anonymous args then x,y are pin
+	if cnt == 0 then
+		local x = tonumber(args.x) or 3233 -- Default is Lumbridge loadstone
+		local y = tonumber(args.y) or 3222
+		rng.xmax = x
+		rng.xmin = x
+		rng.ymax = y
+		rng.ymin = y
+		local desc = parseDesc(args, {}, pgname, ptype)
+		table.insert( args.pins, {x = x, y = y, desc = desc} )
+		cnt = cnt + 1
+	end
+
+	local xrange = rng.xmax - rng.xmin
+	local yrange = rng.ymax - rng.ymin
+
+	if not tonumber(args.x) then
+		args.x = math.floor(rng.xmin + xrange/2)
+	end
+	if not tonumber(args.y) then
+		args.y = math.floor(rng.ymin + yrange/2)
+	end
+	-- Default range (1 pin) is 40
+	if not tonumber(args.x_range) then
+		if xrange > 0 then
+			args.x_range = xrange
+		else
+			args.x_range = 40
+		end
+	end
+	if not tonumber(args.y_range) then
+		if yrange > 0 then
+			args.y_range = yrange
+		else
+			args.y_range = 40
+		end
+	end
+	-- Default square (1 pin) is 20
+	if not tonumber(args.squareX) then
+		if xrange > 0 then
+			args.squareX = xrange
+		else
+			args.squareX = 20
+		end
+	end
+	if not tonumber(args.squareY) then
+		if yrange > 0 then
+			args.squareY = yrange
+		else
+			args.squareY = 20
+		end
+	end
+
+	args.pin_count = cnt
+	
+	if args.smw == 'yes' or args.smw == 'y' or tonumber(args.smw) == 1 then
+		args.smw = "Location JSON"
+	elseif args.smw == 'hist' then
+		args.smw = "Historic Location JSON"
+	else
+		args.smw = nil
+	end
+
+	return args
+end
+-- Add styles
+function styles(ftjson, args, this, ptype)
+	local props = properties[ptype]
+	for i,v in pairs(args) do
+		if props[i] then
+			ftjson.properties[i] = v
+		end
+	end
+	for i,v in pairs(this) do
+		if props[i] then
+			ftjson.properties[i] = v
+		end
+	end
+
+	return ftjson
+end
+
+function p.map(frame)
+	return p.buildMap(frame:getParent().args)	
+end
+
+-- Functions for templates --
+function p.buildMap(arguments)
+	local args = {}
+	for i,v in pairs(arguments) do
+		args[i] = v
+	end
+	-- Allow map/element type per template easily
+	local inv_args = {}
+	for i,v in pairs(arguments) do
+		inv_args[i] = v
+	end
+	
+	--[[ Each unnamed arg is 1 pin in format:
+		x,y
+		or
+		x:#,y:#,desc:#
+	]]
+	args = p.parseArgs(args, args.ptype)
+
+	if hc(args.iconSize) then
+		if string.find(args.iconSize, ',') then
+			local isize = mw.text.split(args.iconSize, '%s*,%s*')
+			args.iconSize = { tonumber(isize[1]) or 25, tonumber(isize[2]) or 25}
+		else
+			args.iconSize = { tonumber(args.iconSize) or 25, tonumber(args.iconSize) or 25}
+		end
+	end
+	if hc(args.iconAnchor) then
+		if string.find(args.iconAnchor, ',') then
+			local ianch = mw.text.split(args.iconAnchor, '%s*,%s*')
+			args.iconAnchor = { tonumber(ianch[1]) or 0, tonumber(ianch[2]) or 0}
+		else
+			args.iconAnchor = { tonumber(args.iconAnchor) or 0, tonumber(args.iconAnchor) or 0}
+		end
+	end
+	if hc(args.popupAnchor) then
+		if string.find(args.popupAnchor, ',') then
+			local panch = mw.text.split(args.popupAnchor, '%s*,%s*')
+			args.popupAnchor = { tonumber(panch[1]) or 0, tonumber(panch[2]) or 0}
+		else
+			args.popupAnchor = { tonumber(args.popupAnchor) or 0, tonumber(args.popupAnchor) or 0}
+		end
+	end
+	
+	if args.showPins then
+		if args.pin_count > 1 then
+			if not hc(args.text) then
+				args.text = 'Show exact locations'
+			end
+			local capt = string.format('%s locations', args.pin_count)
+			if hc(args.caption) then
+				capt = args.caption
+			end
+	
+			args.etype = 'maplink'
+			args.features = 'pins'
+			local link = tostring(p.createMap(args))
+			capt = capt .. link
+	
+			args.etype = 'mapframe'
+			args.caption = ''
+			args.features = 'square'
+			local map = tostring(p.createMap(args))
+	
+			local classes = 'mw-kartographer-container thumb'
+			if hc(args.align) then
+				local align = string.lower(args.align)
+				if align == 'left' then
+					classes = classes..' tleft'
+				elseif align == 'right' then
+					classes = classes..' tright'
+				else
+					classes = classes..' center'
+				end
+			else
+				classes = classes..' center'
+			end
+	
+			local width = args.width or 300
+			local ret = mw.html.create('div')
+			ret:addClass(classes)
+				:tag('div')
+					:addClass('thumbinner')
+					:css('width', width .. 'px')
+					:node(map)
+					:tag('div')
+						:addClass('thumbcaption')
+						:css('text-align', 'center')
+						:node(capt)
+	
+			return ret
+		end
+	end
+
+	if hc(inv_args.mtype) then
+		args.features = string.lower(inv_args.mtype)
+	end
+	if hc(args.mtype) then
+		args.features = string.lower(args.mtype)
+	end
+	if not args.features then
+		args.features = 'none'
+	end
+
+	args.etype = 'mapframe'
+	
+	if hc(inv_args.type) then
+		args.etype = string.lower(inv_args.type)
+	end
+	if hc(args.type) then
+		args.etype = string.lower(args.type)
+	end
+
+	return p.createMap(args)
+end
+
+-- Function for creating map or link
+function p.createMap(args)
+	local x, y = args.x, args.y
+	local opts = {
+		x = x,
+		y = y,
+		width = args.width or 300,
+		height = args.height or 300,
+		mapID = args.mapID or 0, -- RuneScape Surface
+		plane = tonumber(args.plane) or 0,
+		zoom = args.zoom or 2,
+		align = args.align or 'center',
+		icon = args.icon or 'redPin'
+	}
+	if hc(args.group) then
+		opts.group = args.group
+	end
+	if hc(args.show) then
+		opts.show = args.show
+	end
+	
+	-- plain map tiles
+	if hc(args.plaintiles) then
+		opts.plainTiles = 'true'
+	end
+	if hc(args.plainTiles) then
+		opts.plainTiles = 'true'
+	end
+	
+	-- other map tile version
+	if hc(args.mapversion) then
+		opts.mapVersion = args.mapversion
+	end
+	if hc(args.mapVersion) then
+		opts.mapVersion = args.mapVersion
+	end
+
+	-- mapframe, maplink
+	local etype = 'mapframe'
+	if hc(args.etype) then
+		etype = args.etype
+	end
+	
+	-- translate "centre" spelling for align
+	if opts.align == 'centre' then
+		opts.align = 'center'
+	end
+
+	-- Caption or link text
+	if etype == 'maplink' then
+		opts.text = args.text or 'Maplink'
+		if string.find(opts.text,'[%[%]]') then 
+			return error('Text cannot contain links')
+		end
+	elseif hc(args.caption) then
+		opts.text = args.caption
+	else
+		opts.frameless = ''
+	end
+
+	local featColl, features = {}, {}
+	local smwstr = ""
+	if hc(args.features) then
+		local _features = string.lower(args.features)
+		features = featureMap[_features] or {}
+	end
+	if features.square then
+		local feat = p.featSquare(args, opts)
+		table.insert(featColl, feat)
+		if args.smw then
+			setSMW(feat, args.smw)
+		end
+	elseif features.circle then
+		local feat = p.featCircle(args, opts)
+		table.insert(featColl, feat)
+		if args.smw then
+			setSMW(feat, args.smw)
+		end
+	end
+	if features.polygon then
+		local feat = p.featPolygon(args, opts)
+		table.insert(featColl, feat)
+		if args.smw then
+			setSMW(feat, args.smw)
+		end
+	elseif features.line then
+		local feat = p.featLine(args, opts)
+		table.insert(featColl, feat)
+		if args.smw then
+			setSMW(feat, args.smw)
+		end
+	end
+	if features.pins then
+		if not opts.group then
+			opts.group = 'pins'
+		end
+		-- opts.icon = args.icon or 'greenPin'
+		for _,pin in ipairs(args.pins) do
+			local feat = p.featPin(args, opts, pin)
+			table.insert(featColl, feat)
+			if args.smw then
+				setSMW(feat, args.smw)
+			end
+			
+			local fake_pin = pin
+			local pin_plane = pin.plane or opts.plane
+			local pin_plane = tonumber(pin_plane)
+			for i=0,3 do
+				if i ~= pin_plane then
+					local fake_feat = p.featPin(args, opts, fake_pin)
+					fake_feat.properties.icon = 'greyPin'
+					fake_feat.properties.plane = i
+					table.insert(featColl, fake_feat)
+				end
+			end
+		end
+	end
+
+	local json = {}
+	if #featColl > 0 then
+		json = {
+			type = 'FeatureCollection',
+			features = featColl
+		}
+
+		-- Zoom
+		local width,height = opts.width, opts.height
+		if etype == 'maplink' then
+			width,height = default_size, default_size
+		end
+		local x_range = tonumber(args.squareX) or 40
+		local y_range = tonumber(args.squareY) or 40
+		if tonumber(args.r) then
+			x_range = tonumber(args.r)
+			y_range = tonumber(args.r)
+		end
+		if tonumber(args.x_range) then
+			x_range = tonumber(args.x_range)
+		end
+		if tonumber(args.y_range) then
+			y_range = tonumber(args.y_range)
+		end
+
+		local zoom = -3
+		for i,v in ipairs(zoomSizes) do
+			local sqsx, sqsy = width/v[2], height/v[2]
+			if sqsx > x_range and sqsy > y_range then
+				zoom = v[1]
+				break
+			end
+		end
+		if zoom > 2 then
+			zoom = 2
+		end
+
+		if tonumber(args.zoom) then
+			opts.zoom = args.zoom
+		else
+			opts.zoom = zoom
+		end
+	end
+	local map = createMapElement(etype, opts, json)
+	if args.nopreprocess then
+		return tostring(map) .. smwstr
+	end
+	return mw.getCurrentFrame():preprocess(tostring(map) .. smwstr)
+end
+
+-- Create a square feature
+function p.featSquare(args, opts)
+	local x, y = args.x, args.y
+	local r = tonumber(args.r)
+	local squareX = tonumber(args.squareX) or 20
+	local squareY = tonumber(args.squareY) or 20
+	
+	if (r ~= nil and r ~= "") then
+		if (r ~= math.floor(r)) then
+			x = x + 0.5
+			y = y + 0.5
+		end
+	end
+	
+	local squareXR = math.max(1, r or math.floor(squareX / 2))
+	local squareYR = math.max(1, r or math.floor(squareY / 2))
+	local xLeft = x - squareXR
+	local xRight = x + squareXR
+	local yTop = y + squareYR
+	local yBottom = y - squareYR
+	
+	if (squareX % 2 > 0) then
+		xRight = x + (squareXR + 1)
+	end
+	
+	if (squareY % 2 > 0) then
+		yTop = y + (squareYR + 1)
+	end
+
+	local ftjson = {
+		type = 'Feature',
+		properties = {['_']='_', mapID=opts.mapID, plane=opts.plane},
+		geometry = {
+			type = 'Polygon',
+			coordinates = {
+				{
+					{ xLeft, yBottom },
+					{ xLeft, yTop },
+					{ xRight, yTop },
+					{ xRight, yBottom }
+				}
+			}
+		}
+	}
+
+	ftjson = styles(ftjson, args, {}, 'polygon')
+	return ftjson
+end
+
+-- Create a polygon feature
+function p.featPolygon(args, opts)
+	local points, lastpoint = {}, {}
+	for _,v in ipairs(args.pins) do
+		table.insert(points, {v.x, v.y,})
+		lastpoint = {v.x, v.y,}
+	end
+	-- Close polygon
+	if not (points[1][1] == lastpoint[1] and points[1][2] == lastpoint[2]) then
+		table.insert(points, {points[1][1], points[1][2]})
+	end
+
+	local ftjson = {
+		type = 'Feature',
+		properties = {['_']='_', mapID=opts.mapID, plane=opts.plane},
+		geometry = {
+			type = 'Polygon',
+			coordinates = { points }
+		}
+	}
+
+	ftjson = styles(ftjson, args, {}, 'polygon')
+	return ftjson
+end
+
+-- Create a line feature
+function p.featLine(args, opts)
+	local points, lastpoint = {}, {}
+	for _,v in ipairs(args.pins) do
+		table.insert(points, {v.x, v.y,})
+		lastpoint = {v.x, v.y,}
+	end
+	if hc(args.close) then
+		-- Close line
+		if not (points[1][1] == lastpoint[1] and points[1][2] == lastpoint[2]) then
+			table.insert(points, {points[1][1], points[1][2]})
+		end
+	end
+
+	local ftjson = {
+		type = 'Feature',
+		properties = {
+			['_'] = '_',
+			shape = 'Line',
+			mapID = opts.mapID,
+			plane = opts.plane
+		},
+		geometry = {
+			type = 'LineString',
+			coordinates = points
+		}
+	}
+
+	ftjson = styles(ftjson, args, {}, 'line')
+	return ftjson
+end
+
+-- Create a circle feature
+function p.featCircle(args, opts)
+	local rad = tonumber(args.r) or 10
+	local ftjson = {
+		type = 'Feature',
+		properties = {
+			['_']='_',
+			shape = 'Circle',
+			radius = rad,
+			mapID = opts.mapID,
+			plane = opts.plane
+		},
+		geometry = {
+			type = 'Point',
+			coordinates = {
+				args.x, args.y, opts.plane
+			}	
+		}
+	}
+
+	ftjson = styles(ftjson, args, {}, 'circle')
+	return ftjson
+end
+
+-- Create a pin feature
+-- Pin types: greyPin, greenPin, redPin
+function p.featPin(args, opts, pin)
+	local desc = pin.desc or pin.x..', '..pin.y
+	local ftjson = {
+		type = 'Feature',
+		properties = {
+			providerID = 0,
+			description = desc,
+			mapID = opts.mapID,
+			plane = pin.plane or opts.plane
+		},
+		geometry = {
+			type = 'Point',
+			coordinates = {
+				pin.x, pin.y, opts.plane
+			}
+		}
+	}
+	if pin.iconWikiLink then
+		pin.iconWikiLink = mw.ext.GloopTweaks.filepath(pin.iconWikiLink)
+	end
+	ftjson = styles(ftjson, args, pin, 'pin')
+	
+	if not (ftjson.properties.icon or ftjson.properties.iconWikiLink) then
+		ftjson.properties.icon = 'redPin'
+	end
+
+	return ftjson
+end
+
+return p
+-- </nowiki>

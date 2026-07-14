@@ -1,0 +1,124 @@
+local p = {}
+
+local helpers = require('Module:Skill calc/Helpers')
+local xpatlevel = require('Module:Experience').xp_at_level
+local levelatxp = require('Module:Experience').level_at_xp
+local args = frame:getParent().args
+
+local potions = {
+  ["Alco-augmentator"] = { level = 60, xp = 190, weight = 5, resin = {Aga = 20, Mox = 0, Lye = 0}, paste = {Aga = 30, Mox = 0, Lye = 0} },
+  ["Mammoth-might mix"] = { level = 60, xp = 190, weight = 5, resin = {Aga = 0, Mox = 20, Lye = 0}, paste = {Aga = 0, Mox = 30, Lye = 0} },
+  ["Liplack liquor"] = { level = 60, xp = 190, weight = 5, resin = {Aga = 0, Mox = 0, Lye = 20}, paste = {Aga = 0, Mox = 0, Lye = 30} },
+  ["Mystic mana amalgam"] = { level = 63, xp = 215, weight = 4, resin = {Aga = 10, Mox = 20, Lye = 0}, paste = {Aga = 10, Mox = 20, Lye = 0} },
+  ["Marley's moonlight"] = { level = 66, xp = 240, weight = 4, resin = {Aga = 0, Mox = 20, Lye = 10}, paste = {Aga = 0, Mox = 20, Lye = 10} },
+  ["Azure aura mix"] = { level = 69, xp = 265, weight = 4, resin = {Aga = 20, Mox = 10, Lye = 0}, paste = {Aga = 20, Mox = 10, Lye = 0} },
+  ["Aqualux amalgam"] = { level = 72, xp = 290, weight = 4, resin = {Aga = 20, Mox = 0, Lye = 10}, paste = {Aga = 20, Mox = 0, Lye = 10} },
+  ["Megalite liquid"] = { level = 75, xp = 315, weight = 4, resin = {Aga = 0, Mox = 10, Lye = 20}, paste = {Aga = 0, Mox = 10, Lye = 20} },
+  ["Anti-leech lotion"] = { level = 78, xp = 340, weight = 4, resin = {Aga = 10, Mox = 0, Lye = 20}, paste = {Aga = 10, Mox = 0, Lye = 20} },
+  ["Mixalot"] = { level = 81, xp = 365, weight = 3, resin = {Aga = 20, Mox = 20, Lye = 20}, paste = {Aga = 10, Mox = 10, Lye = 10} }
+}
+
+local resinGoal = 0
+local xpGoal = 0
+local currentXP = 0
+
+if args.Goal_Select == 'Points' then
+	resinGoal = {Aga = args.Target_Aga, Mox = args.Target_Mox, Lye = args.Target_Lye}
+elseif args.Goal_Select == 'Level' then 
+	xpGoal = xpatlevel(args.Target_Level)
+else
+	xpGoal = args.Target_XP
+end
+
+if args.Current_Select == 'Level' then
+	currentXP = xpatlevel(args.Current_Level) 
+else
+	currentXP = args.Current_XP
+end
+
+local function getTotalWeightAtLevel(level)
+  local totalWeight = 0
+  for _, potion in pairs(potions) do
+    if potion.level <= level then
+      totalWeight = totalWeight + potion.weight
+    end
+  end
+  return totalWeight
+end
+
+
+function getAveragesAtLevel(level)
+  local totalWeight = getTotalWeightAtLevel(level)
+  local weightedXp = 0
+  local weightedResin = {Aga = 0, Mox = 0, Lye = 0}
+  local weightedPaste = {Aga = 0, Mox = 0, Lye = 0}
+  
+  for _, potion in pairs(potions) do
+    if potion.level <= level then
+      local weight = potion.weight
+      
+      weightedXp = weightedXp + (weight * potion.xp)
+      weightedResin.Aga = weightedResin.Aga + (weight * potion.resin.Aga)
+      weightedResin.Mox = weightedResin.Mox + (weight * potion.resin.Mox)
+      weightedResin.Lye = weightedResin.Lye + (weight * potion.resin.Lye)
+      weightedPaste.Aga = weightedPaste.Aga + (weight * potion.paste.Aga)
+      weightedPaste.Mox = weightedPaste.Mox + (weight * potion.paste.Mox)
+      weightedPaste.Lye = weightedPaste.Lye + (weight * potion.paste.Lye)
+    end
+  end
+  
+  return {
+    xp = weightedXp / totalWeight,
+    resin = {
+      Aga = weightedResin.Aga / totalWeight,
+      Mox = weightedResin.Mox / totalWeight,
+      Lye = weightedResin.Lye / totalWeight
+    },
+    paste = {
+      Aga = weightedPaste.Aga / totalWeight,
+      Mox = weightedPaste.Mox / totalWeight,
+      Lye = weightedPaste.Lye / totalWeight
+    }
+  }
+end
+
+local function nextPotionThresholdXP(currentXP)
+  local currentLevel = levelatxp(currentXP)
+  local potionLevels = {60, 63, 66, 69, 72, 75, 78, 81}
+  
+  for _, level in ipairs(potionLevels) do
+    if level > currentLevel then
+      return xpatlevel(level)
+    end
+  end
+  
+  return nil
+end
+
+local thresholdGoal = 0
+local nextThreshold = nextPotionThresholdXP(currentXP)
+
+if nextThreshold and xpGoal > nextThreshold then
+    thresholdGoal = nextThreshold
+else
+    thresholdGoal = xpGoal
+end
+
+local actionsRequired = 0
+if args.Goal_Select == 'Points' then
+    local currentLevel = levelatxp(currentXP)
+    local averages = getAveragesAtLevel(currentLevel)
+    local agaActions = resinGoal.Aga / averages.resin.Aga or 0
+    local moxActions = resinGoal.Mox / averages.resin.Mox or 0
+    local lyeActions = resinGoal.Lye / averages.resin.Lye or 0
+    actionsRequired = math.max(agaActions, moxActions, lyeActions)
+else
+    local xpNeeded = thresholdGoal - currentXP
+    if xpNeeded > 0 then
+        local currentLevel = levelatxp(currentXP)
+        local averages = getAveragesAtLevel(currentLevel)
+        actionsRequired = xpNeeded / averages.xp
+    end
+end
+
+return p

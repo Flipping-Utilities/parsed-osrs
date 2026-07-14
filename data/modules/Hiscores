@@ -64,9 +64,9 @@ local stats_order = {
 		'mobilising armies',
 		'conquest',
 		'fist of guthix',
-		-- other
-		'gielinor games athletics',
+		-- historical
 		'gielinor games resource race',
+		'gielinor games athletics',
 		'we2: armadyl contribution',
 		'we2: bandos contribution',
 		'we2: armadyl pvp kills',
@@ -76,12 +76,14 @@ local stats_order = {
 		'cfp: 5 games',
 		'af15: cow tipping',
 		'af15: rat kills',
+		-- other
 		'runescore',
 		'clue scrolls easy',
 		'clue scrolls medium',
 		'clue scrolls hard',
 		'clue scrolls elite',
-		'clue scrolls master'
+		'clue scrolls master',
+		'leagues'
 	},
 	osrs = {
 		'overall',
@@ -109,6 +111,7 @@ local stats_order = {
 		'hunter',
 		'construction',
 		'sailing',
+		-- seasonal
 		'grid points',
 		'leagues',
 		'deadman score',
@@ -117,6 +120,7 @@ local stats_order = {
 		'bounty hunter rogue',
 		'legacy bounty hunter',
 		'legacy bounty hunter rogue',
+		-- clues
 		'clue scrolls all',
 		'clue scrolls beginner',
 		'clue scrolls easy',
@@ -124,6 +128,7 @@ local stats_order = {
 		'clue scrolls hard',
 		'clue scrolls elite',
 		'clue scrolls master',
+		-- other
 		'last man standing',
 		'emir\'s arena',
 		'soul wars zeal',
@@ -166,6 +171,7 @@ local stats_order = {
 		'k\'ril tsutsaroth',
 		'lunar chests',
 		'the mimic',
+		'maggot king',
 		'nex',
 		'the nightmare',
 		'phosani\'s nightmare',

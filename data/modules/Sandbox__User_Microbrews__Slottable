@@ -1,0 +1,394 @@
+local p = {}
+
+require('Module:Mw.html extension')
+
+local yesNo = require('Module:Yesno')
+local paramTest = require('Module:Paramtest')
+local contains = require('Module:Array').contains
+local minimum = require('Module:Array').min
+local pagesWithCats = require('Module:PageListTools').pageswithcatsdpl
+local pagesWithConditions = require('Module:PageListTools').pageswithconditionsdpl
+local editbtn = require('Module:Edit button')
+
+local memberOptions = {'members', 'f2p', 'all'}
+local slotOptions = {'head', 'cape', 'neck', 'ammo', 'weapon', 'shield', 'body', 'legs', 'hands', 'feet', 'ring', '2h'}
+local statOptions = {'astab', 'aslash', 'acrush', 'amagic', 'arange', 'dstab', 'dslash', 'dcrush', 'dmagic', 'drange', 'str', 'rstr', 'mdmg', 'prayer'}
+
+function statFormat(_arg, default)
+	local arg = tonumber(_arg)
+	if(not arg) then return (default or _arg) end
+	if(arg < 0) then return tostring(arg) end
+	return '+' .. arg
+end
+
+function buildRow(item, attackSpeedColumn, uim)
+	local row = mw.html.create('tr')
+		:tag('td'):wikitext(item.image and '[[' .. item.image .. '|link=|' .. item.name .. ']]' or ''):done()
+		:tag('td'):wikitext('[[' .. item.name .. ']]'):done()
+		:tag('td'):wikitext(item.members and '[[File:Member icon.png|link=|Members]]' or '[[File:Free-to-play icon.png|link=|Free-to-play]]'):done()
+
+	for _, stat in ipairs(statOptions) do
+		local statNum = tonumber(item[stat])
+		row:tag('td'):wikitext((statFormat(item[stat]) or editbtn("'''?''' (edit)", item.name)) .. (stat == 'mdmg' and '%' or ''))
+			:addClassIf(statNum and (statNum > 0), 'table-positive')
+			:addClassIf(statNum and (statNum < 0), 'table-negative')
+	end
+	
+	local weightNum = tonumber(item.weight)
+	row:tag('td'):wikitext(item.weight)
+
+	if(attackSpeedColumn) then
+		if((item.speed == nil) or (item.speed < 0)) then
+			row:tag('td'):addClass('table-na nohighlight'):css('text-align', 'center'):wikitext('<small>N/A</small>')
+		else
+			row:tag('td'):wikitext(item.speed):done()
+		end
+	end
+	
+	if(uim) then
+		local storeability = 'Shop'
+		if(item.emote) then
+			storeability = 'STASH'
+		elseif(item.costume) then
+			storeability = 'POH'
+		end
+		row:tag('td'):wikitext(storeability):done()
+	end
+
+	return row
+end
+
+function createHeader(slotName, attackSpeedColumn, uim)
+	local tabl = mw.html.create('table'):addClass('wikitable lighttable sortable sticky-header align-center-1 align-left-2 align-center-3 align-right-4 align-right-5 align-right-6 align-right-7 align-right-8 align-right-9 align-right-10 align-right-11 align-right-12 align-right-13 align-right-14 align-right-15 align-right-16 align-right-17 align-center-18'):done()
+	local header = tabl:tag('tr')
+	header:tag('th'):attr('colspan', '2'):wikitext('Name'):done()
+		:tag('th'):wikitext('[[File:Member icon.png|link=|Members]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White dagger.png|link=|Stab attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White scimitar.png|link=|Slash attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White warhammer.png|link=|Crush attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Magic icon.png|link=|Magic attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Ranged icon.png|link=|Ranged attack]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White dagger.png|link=|Stab defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White scimitar.png|link=|Slash defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:White warhammer.png|link=|Crush defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Magic icon.png|link=|Magic defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Ranged icon.png|link=|Ranged defence]]<sup>[[File:Defence icon.png|link=]]</sup>'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Strength icon.png|link=|Strength]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Ranged Strength icon.png|link=|Ranged Strength]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Magic Damage icon.png|link=|Magic Damage]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Prayer icon.png|link=|Prayer]]'):done()
+		:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Weight icon.png|link=|Weight]]'):done()
+		
+	if(attackSpeedColumn) then
+		header:tag('th'):attr('data-sort-type', 'number'):wikitext('[[File:Watch.png|link=|Speed]]'):done()
+	end
+	
+	if(uim) then
+		header:tag('th'):wikitext('[[File:Marble magic wardrobe icon.png|link=]]Stored/Buy'):done()
+	end
+	
+	return tabl
+end
+
+function filterData(data, slotName, options)
+
+	if(slotName == 'ammo') then slotName = 'Ammunition' end -- hacky shit until ammo/ammunition is resolved
+	slotCat =  paramTest.ucfirst(slotName) .. ' slot items'
+	if slotName == '2h' then
+		slotCat = 'Two-handed slot items'	
+	end
+	local exclusionListCategories = {
+		{ options.beta,			slotCat .. '& Beta items' },
+		{ options.bounty,		slotCat .. '& Bounty Hunter'	},
+		{ options.discontinued,	slotCat .. '& Discontinued content' },
+		{ options.dmm,			slotCat .. '& Deadman seasonal items' },
+		{ options.emir,			slotCat .. '& Emir\'s Arena' },
+		{ options.failedPoll,	slotCat .. '& Pages containing information from failed polls' },
+		{ options.gauntlet,		slotCat .. '& The Gauntlet' },
+		{ options.lms,			slotCat .. '& Last Man Standing in-game items' },
+		{ options.quest,		slotCat .. '& Quest items' },
+	}
+
+	local exclusionList = { }
+	for _, excl in ipairs(exclusionListCategories) do
+		if(not excl[1]) then
+			table.insert(exclusionList, excl[2])
+		end
+	end
+	local pagesToExclude = #exclusionList > 0 and pagesWithCats(exclusionList) or {}
+	
+	function split(inputstr, sep)
+    	sep=sep or '%s' local t={}
+    	for field,s in string.gmatch(inputstr, "([^"..sep.."]*)("..sep.."?)") do
+    		table.insert(t,(field:gsub("^%s*(.-)%s*$", "%1")))
+    		table.insert(t,(field:gsub("^%s*(.-)%s*$", "%1")).." (or)")
+    		if s=="" then
+    			return t
+    		end
+    	end
+	end
+    
+    for _, p in ipairs(split(options.exclude, ';')) do
+    	table.insert(pagesToExclude, p)	
+    end
+    
+	local emotePagesToInclude, costumePagesToInclude
+	if(options.uim) then
+		emotePagesToInclude = pagesWithCats({ slotCat .. '& Items needed for an emote clue' }) or {}
+		costumePagesToInclude = pagesWithCats({ slotCat .. '& Items storable in the costume room' }) or {}
+	end
+
+	-- Filter the data
+	local retData = {}
+	
+	local soldItems = {}
+	if options.uim then
+		local data = bucket("storeline")
+			.select("infobox_bonuses.page_name")
+			.join("infobox_bonuses", "infobox_bonuses.page_name", "storeline.sold_item")
+			.where("store_stock", ">", 0)
+			.run()
+		
+		for _, i in ipairs(data) do
+			i = i["infobox_bonuses.page_name"]
+			table.insert(soldItems, i)
+		end
+	end
+
+	-- items for which we want to show all variants regardless of option
+	local distinctVersions = {}
+	if not options.allversions then
+		distinctVersions = pagesWithCats({
+			'Items with different stats between versions',
+			'Items with no default version' -- TODO: these should not exist
+		})
+	end
+
+	for _, item in ipairs(data) do 
+		local keep = true
+
+		if(((options.members == 'members') and (item['members'] == false)) or
+			((options.members == 'f2p') and (item['members'] == true)) or
+			((contains(pagesToExclude, item['variantof'])) or (contains(pagesToExclude, item['name'])))) then
+			keep = false
+		end
+
+		if(options.uim) then
+			if((not (contains(emotePagesToInclude, item['variantof']) or (contains(emotePagesToInclude, item['name'])))) and
+				(not (contains(costumePagesToInclude, item['variantof']) or (contains(costumePagesToInclude, item['name'])))) and
+				(not (contains(soldItems, item['name'])))) then
+				keep = false
+			elseif(contains(costumePagesToInclude, item['variantof']) or (contains(costumePagesToInclude, item['name']))) then
+				item.costume = true
+			elseif(contains(emotePagesToInclude, item['variantof']) or (contains(emotePagesToInclude, item['name']))) then
+				item.emote = true
+			end
+		end
+
+		if not options.allversions then
+			-- if this page has identical stats between all item versions,
+			-- only use the default version.
+			-- if stats vary, or there is no default version, use all versions.
+			if ((not (contains(distinctVersions, item['variantof']) or contains(distinctVersions, item['name']))) and
+				not item['defver']) then
+				keep = false
+			end
+		end
+
+		if(keep) then
+			table.insert(retData, item)
+		end
+		
+	end
+	
+	mw.log(string.format('Filter: exclusion list size: %i, start size: %i, end size: %i, removed %i.', #pagesToExclude, #data, #retData, #data - #retData))
+
+	return retData
+end
+
+function loadData(slotName, attackSpeed, members)
+	local mapping = {
+        astab = "stab_attack_bonus",
+    	aslash = "slash_attack_bonus",
+    	acrush = "crush_attack_bonus",
+    	amagic = "magic_attack_bonus",
+    	arange = "range_attack_bonus",
+    	dstab = "stab_defence_bonus",
+    	dslash = "slash_defence_bonus",
+    	dcrush = "crush_defence_bonus",
+    	dmagic = "magic_defence_bonus",
+    	drange = "range_defence_bonus",
+    	str = "strength_bonus",
+    	mdmg = "magic_damage_bonus",
+    	rstr = "ranged_strength_bonus",
+    	prayer = "prayer_bonus",
+    	weight = "infobox_item.weight",
+    	image = "infobox_item.image",
+    	members = "infobox_item.is_members_only",
+    	name = "page_name_sub",
+    	variantof = "page_name",
+    	speed = "weapon_attack_speed",
+    	defver = "infobox_item.default_version"
+    }
+    
+    local reverse_mapping = {}
+    
+    local selects = {}
+    for k, v in pairs(mapping) do
+    	table.insert(selects, v)
+    	reverse_mapping[v] = k
+    end
+    
+    local b = bucket("infobox_bonuses")
+    	.select(unpack(selects))
+    	.join("infobox_item", "infobox_item.page_name_sub", "infobox_bonuses.page_name_sub")
+    	.where("equipment_slot", slotName)
+    	-- .orderBy("infobox_bonuses.page_name_sub", "ASC") --TODO bugged
+    	.limit(2000)
+
+	local t1 = os.clock()
+	local data = b.run()
+	local t2 = os.clock()
+	assert(data ~= nil and #data > 0, 'Bucket query failed')
+
+	local ret_data = {}
+	for _, item in ipairs(data) do 
+    	local ret_result = {}
+    	for k, v in pairs(item) do
+	    	ret_result[reverse_mapping[k]] = v
+    	end
+    	if ret_result.image and #ret_result.image > 0 then
+    		ret_result.image = ret_result.image[1]
+    	else
+    		ret_result.image = 'File:' .. ret_result.name .. '.png'
+    	end
+    	table.insert(ret_data, ret_result)
+	end
+
+	mw.log(string.format('Bucket: entries %d, time elapsed: %.3f ms.', #data, (t2 - t1) * 1000))
+
+	return ret_data
+end
+
+-- JSON data dump entry-point
+function p.dumpData(frame)
+	local args = frame:getParent().args
+	return p._dumpData(args)
+end
+
+function p._dumpData(args)
+	local slot = args.slot
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+
+	local data = loadData(slot, true)
+
+	-- Tests indicate that JSON pretty-printing increases the size by a factor of 1.78.
+	-- Removing indenting results in an increase in size by a factor of 1.15.
+	-- The latter is a very reasonable trade-off to make the files more wiki-friendly.
+	local prefix = string.format('-- Data for item slot \'%s\' @ %s.\n-- Generated by Module:Slottable, function dumpData()\nreturn mw.text.jsonDecode([=[\n', slot, os.date('%F %T', os.time()))
+	local rawjson = mw.text.jsonEncode(data, mw.text.JSON_PRETTY)
+	local jsondata, subst = rawjson:gsub('\n%s+', '\n')
+	local postfix = '\n]=])\n'
+
+	mw.log(string.format('Dumping JSON data for item slot \'%s\'. Raw size: %d bytes, formatted size: %d bytes (factor: %.2f).', slot, rawjson:len(), jsondata:len(), jsondata:len() / rawjson:len()))
+
+	return prefix .. jsondata .. postfix
+end
+
+
+-- Turtle data dump entry-point
+function p.dumpDataTTL(frame)
+	local args = frame:getParent().args
+	return p._dumpDataTTL(args)
+end
+
+function p._dumpDataTTL(args)
+	local slot = args.slot
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+
+	local data = loadData(slot, true)
+
+    local slot_
+    if(slot == "2h") then
+    	slot_ = "zweihander"
+    else
+    	slot_ = slot
+    end
+
+	local prefix = string.format('# Data for item slot \'%s\' @ %s.\n# Generated by Module:Slottable, function dumpDataTTL()\n\n', slot, os.date('%F %T', os.time()))
+	prefix = prefix .. "@prefix " .. slot_ .. ": <http://oldschool.runescape.wiki/rdf/" .. slot_ .. "/> .\n"
+	prefix = prefix .. "@prefix prop: <http://oldschool.runescape.wiki/rdf/prop/> .\n\n"
+
+	local ttlData = ""
+	for _, i in ipairs(data) do
+		ttlData = ttlData .. slot_ .. ":" .. _ .. " " .. "prop:slot \"" .. slot_ .. "\"; "
+		local outl = {}
+		for k, v in pairs(i) do
+			if((k == "image") or (k == "name") or (k == "variantof")) then
+				table.insert(outl, "prop:" .. k .. " \"" .. tostring(v) .. "\"")
+			else
+				table.insert(outl, "prop:" .. k .. " " .. tostring(v))
+			end
+		end
+		ttlData = ttlData .. table.concat(outl, "; ") .. " .\n"
+	end
+
+	local postfix = '\n\n'
+	mw.log(string.format('Dumping Turtle data for item slot \'%s\'. Size: %d bytes.', slot, ttlData:len()))
+
+	return prefix .. ttlData .. postfix
+end
+
+function p._main(args)
+	local slot = string.lower(paramTest.default_to(args.slot, ''))
+	local members = string.lower(paramTest.default_to(args.members, 'all'))
+
+	assert(contains(slotOptions, slot), 'Invalid slot specified')
+	assert(contains(memberOptions, members), 'Invalid members status specified')
+
+	local beta = yesNo(paramTest.default_to(args.beta, false), false)
+	local bounty = yesNo(paramTest.default_to(args.bounty, true), true)
+	local discontinued = yesNo(paramTest.default_to(args.discontinued, false), false)
+	local dmm = yesNo(paramTest.default_to(args.dmm, false), false)
+	local emir = yesNo(paramTest.default_to(args.emir, false), false)
+	local failedPoll = yesNo(paramTest.default_to(args.failedpoll, false), false)
+	local gauntlet = yesNo(paramTest.default_to(args.beta, false), false)
+	local lms = yesNo(paramTest.default_to(args.lms, false), false)
+	local quest = yesNo(paramTest.default_to(args.quest, true), true)
+	local future = yesNo(paramTest.default_to(args.future, false), false)
+	local exclude = paramTest.default_to(args.exclude, "")
+	local allversions = yesNo(paramTest.default_to(args.allversions, false), false)
+
+	-- UIM specific tables, that only display items that can be:
+	--  purchased, stored in the POH, or stored in STASH untsi
+	local uim = yesNo(paramTest.default_to(args.uim, false), false)
+
+	local attackSpeed = false
+	if((slot == '2h') or (slot == 'weapon')) then
+		attackSpeed = true
+	end
+
+	local data = loadData(slot, attackSpeed, members, uim)
+	data = filterData(data, slot, {members = members, uim = uim, beta = beta, bounty = bounty, discontinued = discontinued, dmm = dmm, emir = emir, failedPoll = failedPoll, gauntlet = gauntlet, lms = lms, quest = quest, future = future, exclude = exclude, allversions = allversions })
+	
+	local ret = createHeader(slot, attackSpeed, uim)
+	for _, item in ipairs(data) do
+		ret:node(buildRow(item, attackSpeed, uim))
+	end
+
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+--[[ DEBUG
+mw.logObject(p.getData('weapon'))
+p._main({slot='weapon', members='all'})
+p._dumpData({slot='weapon'})
+p._dumpDataTTL({slot='weapon'})
+--]]
+
+return p

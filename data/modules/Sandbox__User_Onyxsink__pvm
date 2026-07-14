@@ -1,0 +1,134 @@
+-- <nowiki>
+local p = {}
+
+local hasc = require('Module:Paramtest').has_content
+local tablehasc = require('Module:Paramtest').table_has_content
+local gep = require('Module:Exchange')._price
+local coins = require('Module:Coins')._amount
+local pvmdata = require('Module:Sandbox/User:Onyxsink/pvm/data').main()
+require('Module:Mw.html extension')
+
+local style = { "melee", "ranged", "magic", "all" }
+
+function upperfirst(text)
+	if type(text) ~= 'string' then return text end
+	return text:sub(1, 1):upper()..text:sub(2)
+end
+
+function displayvalue(item)
+	if not item then
+		return 'N/A'
+	end
+
+	item = tostring(item)
+	local amount = gep(item)
+	return coins(amount)
+end
+
+function p.main()
+	local section = mw.html.create('div')
+	section:tag('h2'):addClass('mw-header')
+		:tag('span'):addClass('mw-headline')
+			:wikitext('Gear')
+		:done()
+	:done()
+		:node(p.weapons())
+		:node(p.armour())
+		:node(p.shields())
+		:node(p.other())
+		:node(p.unlocks())
+		:node(p.costs())
+		:node(p.supplies())
+	:done()
+	return section
+end
+
+function p.weapons()
+	local data = pvmdata['weapons']
+	local section = mw.html.create('div')
+	
+	return section
+end
+
+function p.armour()
+	local data = pvmdata['armour']
+	local section = mw.html.create('div')
+	
+	return section
+end
+
+function p.shields()
+	local data = pvmdata['shields']
+	local section = mw.html.create('div')
+	
+	return section
+end
+
+function p.other()
+	local data = pvmdata['other']
+	local section = mw.html.create('div')
+	
+	return section
+end
+
+function p.unlocks()
+	local data = pvmdata['unlocks']
+	local section = mw.html.create('div')
+	
+	return section
+end
+
+function p.costs()
+	local data = pvmdata['costs']
+	local section = mw.html.create('div')
+	
+	return section
+end
+
+function p.supplies()
+	local data = pvmdata['supplies']
+	local section = mw.html.create('div')
+	section:tag('h3'):addClass('mw-header')
+		:tag('span'):addClass('mw-headline')
+			:wikitext("Supplies")
+		:done()
+	:done()
+	local suppliestable = mw.html.create('table'):addClass('wikitable')
+	:tag('tr')
+		:tag('th'):attr('colspan', 2)
+			:wikitext('Supplies table')
+		:done()
+	:done()
+	for i=1,#data do
+		local header = data['headers'][i]
+		local costheader = data['costheaders'][i]
+		local styledata = data[i]
+		suppliestable:tag('tr')
+			:tag('th')
+				:wikitext(upperfirst(header))
+			:done()
+			:tag('th')
+				:wikitext(upperfirst(costheader))
+			:done()
+		:done()
+		for j=1,#styledata do
+			local name = upperfirst(styledata[j]['item'])
+			local price = styledata[j]['cost']
+			suppliestable:tag('tr')
+				:tag('td')
+					:wikitext(string.format("[[File:%s.png|30x30px|link=%s]] [[%s]]", name, name, name))
+				:done()
+				:tag('td')
+					:wikitext(displayvalue(price))
+				:done()
+			:done()
+		end
+	end
+	suppliestable:done()
+	section:node(suppliestable)
+	
+	return section
+end
+
+return p
+-- </nowiki>

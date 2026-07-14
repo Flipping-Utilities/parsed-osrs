@@ -1,0 +1,281 @@
+-- <nowiki>
+local p = {}
+
+local MAX_SLOTS = 10
+local SPELL_COST_TEMPLATE = 'Spell cost table'
+local NON_RUNE_COST_ITEMS = {
+    banana = true,
+    ['unpowered orb'] = true,
+    ['soft clay'] = true,
+}
+local spellRowsCache = nil
+
+local function trim(value)
+    return mw.text.trim(tostring(value or ''))
+end
+
+local function getSpellRows()
+    if spellRowsCache ~= nil then
+        return spellRowsCache
+    end
+
+    local rawRows = bucket("infobox_spell")
+        .select("page_name", "spellbook", "uses_material")
+        .orderBy("page_name", "ASC")
+        .run()
+
+    local rows = {}
+    for _, row in ipairs(rawRows) do
+        local name = trim(row.page_name)
+        if name ~= '' then
+            row.page_name = name
+            rows[#rows + 1] = row
+        end
+    end
+
+    spellRowsCache = rows
+    return spellRowsCache
+end
+
+local function getSpellNames()
+    local rows = getSpellRows()
+
+    local spellNames = {}
+    for _, row in ipairs(rows) do
+        spellNames[#spellNames + 1] = row.page_name
+    end
+
+    return spellNames
+end
+
+local function getSpellData()
+    local rows = getSpellRows()
+
+    local byName = {}
+    for _, row in ipairs(rows) do
+        byName[row.page_name] = row
+    end
+
+    return byName
+end
+
+local function buildOptionsList(spellNames)
+    return ',' .. table.concat(spellNames, ',')
+end
+
+local function buildToggleSpec(spellNames, targetGroup)
+    local toggles = {}
+
+    for _, name in ipairs(spellNames) do
+        toggles[#toggles + 1] = name .. '=' .. targetGroup
+    end
+
+    return table.concat(toggles, ';')
+end
+
+local function getSpellMaterials(spell)
+    local materials = {}
+
+    for _, runeName in ipairs(spell.uses_material) do
+        materials[#materials + 1] = {
+            name = runeName,
+            qty = 1,
+        }
+    end
+
+    return materials
+end
+
+local function normalizeRuneName(runeName)
+    local normalized = trim(runeName):lower():gsub('%s+', ' ')
+
+    if NON_RUNE_COST_ITEMS[normalized] then
+        return normalized
+    end
+
+    return normalized:gsub('%s+rune$', '')
+end
+
+local function formatMaterial(material)
+    return material.qty .. 'x ' .. material.name
+end
+
+local function buildSpellCostTable(frame, materials)
+    if #materials == 0 then
+        return 'No materials.'
+    end
+
+    local templateArgs = {}
+
+    for index, material in ipairs(materials) do
+        templateArgs['Rune' .. index] = material.name
+        templateArgs['Rune' .. index .. 'num'] = tostring(material.qty)
+    end
+
+    return frame:expandTemplate {
+        title = SPELL_COST_TEMPLATE,
+        args = templateArgs,
+    }
+end
+
+local function buildSpellBreakdown(selected)
+    local root = mw.html.create('div')
+        :addClass('mw-collapsible')
+        :addClass('mw-collapsed')
+
+    root:tag('span')
+        :addClass('collapsed-sec')
+        :wikitext('Per-Spell Breakdown')
+
+    local content = root:tag('div')
+        :addClass('mw-collapsible-content')
+
+    for _, spell in ipairs(selected) do
+        content:tag('div')
+            :css('font-weight', 'bold')
+            :wikitext(spell.page_name)
+
+        local materials = getSpellMaterials(spell)
+        local list = content:tag('ul')
+
+        if #materials == 0 then
+            list:tag('li'):wikitext('No materials')
+        else
+            for _, material in ipairs(materials) do
+                list:tag('li'):wikitext(formatMaterial(material))
+            end
+        end
+    end
+
+    return tostring(root)
+end
+
+function p.main(frame)
+    local args = frame.args
+    local spellsByName = getSpellData()
+
+    local selected = {}
+    local missing = {}
+
+    for i = 1, MAX_SLOTS do
+        local name = trim(args['spell' .. i])
+
+        if name ~= '' then
+            local spell = spellsByName[name]
+            if spell then
+                selected[#selected + 1] = spell
+            else
+                missing[#missing + 1] = name
+            end
+        end
+    end
+
+    if #selected == 0 then
+        return 'No spells selected.'
+    end
+
+    local spellbooksSeen = {}
+    local spellbookLinks = {}
+
+    for _, spell in ipairs(selected) do
+        local spellbook = trim(spell.spellbook)
+        if spellbook ~= '' and not spellbooksSeen[spellbook] then
+            spellbooksSeen[spellbook] = true
+            local capitalizedSpellbook = string.upper(string.sub(spellbook, 1, 1)) .. string.sub(spellbook, 2)
+            spellbookLinks[#spellbookLinks + 1] = '[[' .. capitalizedSpellbook .. ' Spellbook]]'
+        end
+    end
+
+    -- Aggregate materials from all selected spells
+    local materialTotals = {}
+    local materialOrder = {}
+
+    for _, spell in ipairs(selected) do
+        for _, material in ipairs(getSpellMaterials(spell)) do
+            local normalizedName = normalizeRuneName(material.name)
+
+            if not materialTotals[normalizedName] then
+                materialOrder[#materialOrder + 1] = normalizedName
+            end
+            materialTotals[normalizedName] = (materialTotals[normalizedName] or 0) + material.qty
+        end
+    end
+
+    local out = {}
+
+    if #spellbookLinks > 1 then
+        out[#out + 1] = frame:expandTemplate {
+            title = 'MessageBox',
+            args = {
+                'Spells from multiple spellbooks selected',
+                'Selected spellbooks: ' .. table.concat(spellbookLinks, ', '),
+            },
+        }
+        out[#out + 1] = ''
+    end
+
+    -- Display aggregated materials
+    if next(materialTotals) ~= nil then
+        local totalMaterials = {}
+
+        for _, runeName in ipairs(materialOrder) do
+            totalMaterials[#totalMaterials + 1] = {
+                name = runeName,
+                qty = materialTotals[runeName],
+            }
+        end
+
+        out[#out + 1] = buildSpellCostTable(frame, totalMaterials)
+    end
+
+    -- Per-spell breakdown in collapsed section
+    if #selected > 0 then
+        out[#out + 1] = ''
+        out[#out + 1] = '----'
+        out[#out + 1] = ''
+        out[#out + 1] = buildSpellBreakdown(selected)
+    end
+
+    if #missing > 0 then
+        out[#out + 1] = ''
+        out[#out + 1] = 'Unknown spell names: ' .. table.concat(missing, ', ')
+    end
+
+    return table.concat(out, '\n')
+end
+
+function p.config(frame)
+    local spellNames = getSpellNames()
+    local optionsList = buildOptionsList(spellNames)
+
+    local lines = {
+        '<pre class="jcConfig">',
+        'module = Sandbox/User:Makeshift/RuneComboCalc',
+        'form = spells',
+        'result = runes',
+        'autosubmit = true'
+    }
+
+    for i = 1, MAX_SLOTS do
+        local toggles = ''
+        if i < MAX_SLOTS then
+            toggles = buildToggleSpec(spellNames, 'spell' .. (i + 1))
+        end
+
+        lines[#lines + 1] =
+            'param = spell' .. i
+            .. '|Spell'
+            .. '||combobox|'
+            .. optionsList
+            .. '|'
+            .. toggles
+            .. '|Select a spell'
+    end
+
+    lines[#lines + 1] = '</pre>'
+
+    return table.concat(lines, '\n')
+end
+
+return p
+-- </nowiki>

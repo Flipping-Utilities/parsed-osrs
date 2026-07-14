@@ -1,0 +1,81 @@
+--[[
+User:Holy Old Man/sandbox
+https://oldschool.runescape.wiki/w/Bucket:Testing_bucket
+]]
+
+require('Module:Mw.html extension')
+
+local p = {}
+
+function p.main(frame)
+  
+	local args = frame:getParent().args
+--------------------------------------------------------------------------------
+	local location = args.location
+	
+	local pageLocation = 
+	string.match(mw.title.getCurrentTitle().text, "(.*)/") or 
+	string.match(mw.title.getCurrentTitle().text, "(.*)")
+--------------------------------------------------------------------------------
+	local bucketWhat = {}
+	for k,v in ipairs(args) do
+	table.insert(bucketWhat,{"page_nr", v})
+	end
+
+	local bucketData = bucket("testing_bucket")
+			.select("page_nr","text_r","integer_nr","boolean_nr")
+			.where(
+				bucket.And(
+					bucket.Or(bucketWhat),
+					{"text_nr",'=', location or pageLocation}))
+			.run() 
+--------------------------------------------------------------------------------
+	local html = mw.html.create('table'):addClass('wikitable sortable align-center-1 align-center-2 align-center-3 align-center-4')
+	
+	html:tag('th'):attr('colspan','4'):wikitext("[[bucket:Testing_bucket]]"):tr():done()
+	:th('Object'):th('Members'):th('Spawns'):th('Map'):tr():done()
+	
+	for _, entry in ipairs(bucketData) do
+		
+			mapArgs = {
+			type = "maplink",
+			mtype = "pin",
+			group = entry.page_nr,	--Equiv. (page_name)
+			mapID = entry.integer_nr or "-1",	--Equiv. (mapid)
+			plane = entry.integer_r or "0"	--Equiv. (plane)
+		}
+		local members = entry.boolean_nr --Equiv. (members)
+		local spawns = #(entry.text_r) --Equiv. (coordinates)
+	
+	html:tag('tr'):done()
+	:td((entry.page_nr))
+	:td()
+		:wikitextIf(members == false,'[[File:Free-to-play icon.png|link=Free-to-play|alt=Free-to-play]]')
+		:wikitextIf(members == true,'[[File:Member icon.png|link=Members|alt=Members]]')
+	:td(spawns)
+	
+		for _,v in ipairs(entry.text_r) do --locline field eq. (coordinates)
+		table.insert(mapArgs,'|mtype:pin,'..v)
+		end
+	
+	html:tag('td'):wikitext(require('Module:Map').buildMap(mapArgs)):done()
+	end
+--------------------------------------------------------------------------------
+	local html2 = mw.html.create('table'):addClass('wikitable align-center-1 align-center-2')
+	
+	html2:tag('th'):attr('colspan','2'):wikitext("template"):tr():done()
+	:tag('th'):attr('colspan','2'):wikitext('What:'):tr():done()
+	for _,v in ipairs(args) do
+	html2:tag('td'):attr('colspan','2'):wikitext(v):tr():done()
+	end
+	html2:tag('th'):attr('colspan','2'):wikitext('Where:'):tr():done()
+	:tag('th'):wikitext("location:")
+	:tag('td'):wikitext(location):tr():done()
+	:tag('th'):wikitext("PageLocation:")
+	:tag('td'):wikitext(pageLocation):tr():done()
+--------------------------------------------------------------------------------
+	return html,html2
+	
+end
+
+return p

@@ -1,0 +1,39 @@
+.char-image {
+	padding-right: 2px;
+	filter: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><defs><filter id="000000" color-interpolation-filters="sRGB"><feDropShadow dx="1" dy="1" stdDeviation="0" flood-color="%23000000" flood-opacity="1"/></filter></defs></svg>#000000');
+}
+
+.char-image img {
+    vertical-align: baseline;
+    transform: translateX(0px);
+}
+
+.char-image.black {
+    filter: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><defs><filter id="000000" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/><feDropShadow dx="1" dy="1" stdDeviation="0" flood-color="%23000000" flood-opacity="1"/></filter></defs></svg>#000000');
+}
+
+.char-image.yellow {
+    filter: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><defs><filter id="000000" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0"/><feDropShadow dx="1" dy="1" stdDeviation="0" flood-color="%23000000" flood-opacity="1"/></filter></defs></svg>#000000');
+}
+
+.char-image.hanging img {
+    transform: translateY(-2px);
+    vertical-align: bottom;
+}
+
+.rsfont-wrapper {
+	padding: 0 2px 2px 4px;
+	border-radius: 3px;
+}
+
+.rsfont-char {
+    position: relative;
+    display: inline-block;
+}
+
+.rsfont-text {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    user-select: text;
+}

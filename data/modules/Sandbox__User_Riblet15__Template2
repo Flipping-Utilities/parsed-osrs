@@ -1,0 +1,30 @@
+local p = {}
+
+function p._main(args)
+    local duration = 1000
+    if args['duration'] then
+        duration = args['duration']
+    end
+    local res = mw.html.create('span'):addClass('cycle-parent'):attr('data-duration', duration)
+
+    local cur = 1
+    while args[cur] do
+        local cur_item = res:tag('span'):addClass('cycle-item'):wikitext(args[cur])
+        if cur == 1 then
+            cur_item:addClass('cycle-visible')
+        else
+            cur_item:css('display','none')
+        end
+        res:done()
+
+        cur = cur + 1
+    end
+    return tostring(res)
+end
+
+function p.main(frame)
+    local args = frame:getParent().args
+    return p._main(args)
+end
+
+return p

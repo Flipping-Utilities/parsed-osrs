@@ -1,0 +1,163 @@
+local p = {}
+
+local stepQuality = {
+	{ step = "My life was spared but these voices remain, now guarding these iron gates is my bane.", timeTaken = 2, teleUsed = {{name = "Key master teleport", quantity = 1 }} },
+	{ step = "The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is.", timeTaken = 4, teleUsed = {{name = 'Games necklace', quantity = 1 }} },
+	{ step = "Here, there are tears, but nobody is crying. Speak to the guardian and show off your alignment to balance.", timeTaken = 12, teleUsed = {{name = 'Games necklace', quantity = 1 }} },
+	{ step = "She's small but can build both literally and figuratively.", timeTaken = 14, teleUsed = {{name = "Xeric's talisman", quantity = 1 }} },
+	{ step = "Shhhh!", timeTaken = 14, teleUsed = {{name = "Arceuus library teleport (tablet)", quantity = 1 }} },
+	{ step = "Anger Abbot Langley.", timeTaken = 16, teleUsed = {{name = "Combat bracelet", quantity = 1 }} },
+	{ step = "Anger those who adhere to Saradomin's edicts to prevent travel.", timeTaken = 16 },
+	{ step = "South of a river in a town surrounded by the undead, what lies beneath the furnace?", timeTaken = 18, teleUsed = {{name = "Karamja gloves 4", quantity = 1 }} },
+	{ step = "Elvish onions.", timeTaken = 22, teleUsed = {{name = "Ring of returning", quantity = 1, txt='Ring of returning (Prifddinas respawn point)' }} },
+	{ step = "A chisel and hammer reside in his home, strange for one of magic. Impress him with your magical equipment.", timeTaken = 22 },
+	{ step = "Darkness wanders around me, but fills my mind with knowledge.", timeTaken = 22 },
+	{ step = "Robin wishes to see your finest ranged equipment.", timeTaken = 23 },
+	{ step = "Under a giant robotic bird that cannot fly.", timeTaken = 24 },
+	{ step = "Where safe to speak, the man who offers the pouch of smallest size wishes to see your alignment.", timeTaken = 24 },
+	{ step = "Fiendish cooks probably won't dig the dirty dishes.", timeTaken = 24 },
+	{ step = "This place sure is a mess.", timeTaken = 24 },
+	{ step = "A massive battle rages beneath so be careful when you dig by the large broken crossbow.", timeTaken = 27 },
+	{ step = "Hopefully this set of armour will help you to keep surviving.", timeTaken = 28 },
+	{ step = "I lie beneath the first descent to the holy encampment.", timeTaken = 32 },
+	{ step = "One of several rhyming brothers, in business attire with an obsession for paper work.", timeTaken = 32 },
+	{ step = "A dwarf, approaching death, but very much in the light.", timeTaken = 48 },
+	{ step = "Come brave adventurer, your sense is on fire. If you talk to me, it's an old god you desire.", timeTaken = 60 },
+	{ step = "Guthix left his mark in a fiery lake, dig at the tip of it.", timeTaken = 62 },
+	{ step = "Pentagrams and demons, burnt bones and remains, I wonder what the blood contains.", timeTaken = 63 },	
+	{ step = "2 musical birds. Dig in front of the spinning light.", timeTaken = 75 },
+	{ step = "Great demons, dragons, and spiders protect this blue rock, beneath which, you may find what you seek.", timeTaken = 84 },
+	{ step = "Faint sounds of 'Arr', fire giants found deep, the eastern tip of a lake, are the rewards you could reap.", timeTaken = 85 },
+	{ step = "Dig in front of the icy arena where 1 of 4 was fought.", timeTaken = 89 },
+	{ step = "The far north eastern corner where 1 of 4 was defeated, the shadows still linger.", timeTaken = 118 },
+	{ step = "If you're feeling brave, dig beneath the dragon's eye.", timeTaken = 150 }
+}
+
+function p.buildTable()
+	return _buildTable('full', nil)
+end
+
+function p.buildCalcPre()
+	table.sort(stepQuality, function(a, b)
+		return a.timeTaken < b.timeTaken
+	end)
+	
+	local stepParamStr = ""
+	for _, v in ipairs(stepQuality) do
+		stepParamStr = stepParamStr .. ',' .. string.gsub(v.step, ",", "‚")
+	end
+	local formatted = string.format([[
+		<pre class="jcConfig">
+		template = User:Varied2350/calculators/Calculator:Cryptic_clue_quality_calculator/Template
+		form = typein
+		result = tableout
+		param = stepone|Step 1|Select|select|Select,%s
+		param = steptwo|Step 2|Select|select|Select,%s
+		param = stepthree|Step 3|Select|select|Select,%s
+		param = newstepone|New step 1|Select|select|Select,%s
+		param = newsteptwo|New step 2|Select|select|Select,%s
+		param = newstepthree|New step 3|Select|select|Select,%s
+		</pre>
+		]], stepParamStr, stepParamStr, stepParamStr, stepParamStr, stepParamStr, stepParamStr)
+	return formatted
+end
+
+function _buildTable(tableType, args)
+	local tab = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-6 align-right-7')
+	tab:tag('tr')
+		:tag('th'):wikitext('Step text')
+		:tag('th'):wikitext('Time taken')
+		:tag('th'):wikitext('Teleports used')
+		
+	for _,step in pairs(stepQuality) do
+		if tableType == 'full' or _isArgsStep(tableType, args, step) then
+			local itemStr = ''
+			if step['teleUsed'] ~= nil and #step['teleUsed'] > 0 then
+				for idx,itemReq in ipairs(step['teleUsed']) do
+					-- local tmpStr = '{{plink|'..itemReq['name']
+					-- if itemReq['pic'] ~= nil then
+					-- 	tmpStr = tmpStr..'|pic='..itemReq['pic']
+					-- end
+					-- tmpStr = tmpStr .. '}}'
+					-- itemStr = itemStr .. mw.getCurrentFrame():preprocess(tmpStr)
+					mw.logObject(parseStepItem(itemReq))
+					itemStr = itemStr .. mw.getCurrentFrame():preprocess(parseStepItem(itemReq))
+					if idx ~= #step['teleUsed'] then
+						itemStr = itemStr .. ', '
+					end
+				end
+			end
+			tab:tag('tr')
+				:tag('td'):wikitext(step['step'])
+				:tag('td'):wikitext(step['timeTaken'])
+				:tag('td'):wikitext(itemStr)
+		end
+	end
+	
+	return tab
+end
+
+function parseStepItem(stepItem)
+	
+	local baseStr = string.format('{{plink|%s', stepItem['name'])
+	local picStr = stepItem['pic'] ~= nil and '|pic='..stepItem['pic'] or ''
+	local txtStr = stepItem['txt'] ~= nil and '|txt='..stepItem['txt'] or ''
+	
+	return baseStr .. picStr .. txtStr .. '}}'
+end
+
+function _isArgsStep(stepType, args, step)
+	local replaced = string.gsub(step['step'], ",", "‚")
+	if stepType == 'full' then
+		return true
+	elseif stepType == 'old' then
+		return replaced == args['stepone'] or replaced == args['steptwo'] or replaced == args['stepthree']
+	else
+		return replaced == args['newstepone'] or replaced == args['newsteptwo'] or replaced == args['newstepthree']
+	end
+end
+
+
+
+function p._main(args)
+	local quality = 0
+	local newquality = 0
+	
+	for _,step in pairs(stepQuality) do
+		if _isArgsStep('old', args, step) then
+			quality = quality + tonumber(step['timeTaken'])
+		end
+		if _isArgsStep('new', args, step) then
+			newquality = newquality + tonumber(step['timeTaken'])
+		end
+	end
+	local resultDiv = mw.html.create('div')
+	
+	resultDiv:node(mw.html.create('p'):wikitext('Old Steps'))
+	resultDiv:node(_buildTable('old', args))
+	resultDiv:node(mw.html.create('p'):wikitext('New Steps'))
+	resultDiv:node(_buildTable('new', args))
+	
+	
+	local returnStr = 'Your current 3 step should take ' .. tostring(quality) .. ' seconds to complete. '
+	returnStr = returnStr .. 'Your new 3 step would take ' .. tostring(newquality) .. ' seconds to complete, '
+	
+	if newquality > quality then
+		returnStr = returnStr .. 'which is ' .. newquality - quality .. ' seconds slower.'
+	elseif newquality == quality then
+		returnStr = returnStr .. 'which is equal to your current juggle clue.'
+	else
+		returnStr = returnStr .. 'which is ' .. quality - newquality .. ' seconds faster.'
+	end
+	
+	resultDiv:node('p'):wikitext(returnStr)
+	
+	return resultDiv
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+return p

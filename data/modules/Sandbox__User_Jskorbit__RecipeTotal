@@ -1,0 +1,76 @@
+local p = {}
+
+local coins = require('Module:Coins')._amount
+local geprice = require('Module:Exchange')._price
+local commas = require('Module:Addcommas')
+local currencies = require('Module:Currencies')._amount
+
+function p.main(frame)
+    local args = frame:getParent().args
+    local pageName = args[1] or mw.title.getCurrentTitle().text
+    
+    -- Clean up page name
+    pageName = pageName:gsub("%[%[", ""):gsub("%]%]", ""):gsub("|.+", "")
+
+    -- CHECK: Does the Cargo extension exist?
+    if not mw.ext or not mw.ext.cargo then
+        return '<span class="error">Cargo extension not found in Lua environment</span>'
+    end
+
+    -- 1. Query the Cargo table
+    -- In OSRS Wiki, the table is usually 'Recipes' (capitalized)
+    local results = mw.ext.cargo.query(
+        'Recipes',
+        'production_json',
+        {
+            where = string.format('_pageName = "%s"', pageName:gsub('"', '\\"')),
+            limit = 1
+        }
+    )
+    
+    if not results or #results == 0 then
+        return 'N/A (No recipe data found)'
+    end
+    
+    -- 2. Decode the JSON data
+    local data = results[1].production_json
+    if not data or data == '' then 
+        return 'N/A' 
+    end
+    
+    local success, recipeData = pcall(mw.text.jsonDecode, data)
+    if not success then return '<span class="error">JSON Decode Failed</span>' end
+    
+    -- 3. Calculate Total Cost
+    local totalCost = 0
+    local currencyUsed = 'Coins'
+    
+    if recipeData.materials then
+        for _, mat in ipairs(recipeData.materials) do
+            local qty = tonumber(commas._strip(tostring(mat.quantity))) or 0
+            local unitCost = 0
+            
+            -- Use stored cost if available, otherwise lookup GE
+            if mat.cost and tonumber(mat.cost) then
+                unitCost = tonumber(mat.cost)
+            else
+                unitCost = geprice(mat.name) or 0
+            end
+            
+            totalCost = totalCost + (unitCost * qty)
+            
+            if mat.currency and mat.currency ~= 'Coins' then
+                currencyUsed = mat.currency
+            end
+        end
+    end
+    
+    -- 4. Return Formatted Output
+    if currencyUsed == 'Coins' then
+        return coins(totalCost)
+    else
+        return currencies(totalCost, currencyUsed)
+    end
+end
+
+return p

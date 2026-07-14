@@ -1,0 +1,78 @@
+--[[
+{{Helper module
+|name = Currency Image
+|fname1 = (name, quantity)
+|ftype1 = String, Number/String
+|fuse1 = Creates the correct currency image for the number.
+<code>name</code> is the case insensitive currency name.
+<code>quantity</code> is a number, or comma-separated string of numbers, the maximum of which will be used.
+Supported currency names are: Coins, Rusty coins, Zemmomark, Tokkul, Runecrafting guild tokens, Trading sticks, Ecto-tokens, Chimes, Beans, Pieces of eight, Barronite shards
+}}
+--]]
+
+-- Static table to map currency names to filename and available quantities
+local lookup = {
+	['barronite shards'] = { filename = 'Barronite_shards_%d.png', bins = { 1, 2, 3, 4, 5, 10, 25 } },
+	['blood money'] = { filename = 'Blood_money_%d.png', bins = { 1, 2, 3, 4, 5, 25, 100, 250, 1000, 10000 } },
+	['coins'] = { filename = 'Coins_%d.png', bins = { 1, 2, 3, 4, 5, 25, 100, 250, 1000, 10000 } },
+	['ecto-tokens'] = { filename = 'Ecto-token_%d.png', bins = { 1, 2, 3 } },
+	['hallowed mark'] = { filename = 'Hallowed_mark_%d.png', bins = { 1, 2, 3, 4, 5, 25 } },
+	['mermaid\'s tear'] = { filename = 'Mermaid\'s_tear_%d.png', bins = { 1, 2, 3, 4, 5 } },
+	['minnow'] = { filename = 'Minnow_%d.png', bins = { 1, 2, 3, 4, 5 } },
+	['molch pearl'] = { filename = 'Molch_pearl_%d.png', bins = { 1, 2, 3, 4, 5 } },
+	['numulite'] = { filename = 'numulite_%d.png', bins = { 1, 2, 3, 4, 5, 25 } },
+	['pieces of eight'] = { filename = 'Pieces_of_eight_%d.png', bins = { 1, 2, 3 } },
+	['platinum tokens'] = { filename = 'Platinum_token_%d.png', bins = { 1, 2, 3, 4, 5 } },
+	['stardust'] = { filename = 'Stardust_%d.png', bins = { 1, 25, 75, 125, 175 } },
+	['survival tokens'] = { filename = 'Survival_token_%d.png', bins = { 1, 2, 3, 4, 5 } },
+	['trading sticks'] = { filename = 'Trading_sticks_%d.png', bins = { 1, 10, 100, 1000, 10000 } },
+	['tokkul'] = { filename = 'Tokkul_%d.png', bins = { 1, 2, 3, 4, 5, 25 } },
+	['warrior guild tokens'] = { filename = 'Warrior_guild_token_%d.png', bins = { 1, 2, 3, 4, 5 } },
+}
+
+local lookup_fixed = {
+	['agility arena ticket'] = {filename = 'Agility arena ticket.png'},
+	['archaic emblem'] = {filename = 'Archaic_emblem_(tier_1).png'},
+	['archery ticket'] = {filename = 'Archery_ticket.png'},
+	['castle wars ticket'] = {filename = 'Castle_wars_ticket.png'},
+	['frog token'] = {filename = 'Frog token.png'},
+	['golden nugget'] = {filename = 'Golden_nugget.png'},
+	['league points'] = {filename = 'League Points.png'},
+	['mark of grace'] = {filename = 'Mark_of_grace.png'},
+	['twisted league points'] = {filename = 'Twisted League icon.png'},
+	['unidentified minerals'] = {filename = 'Unidentified_minerals.png'},
+}
+
+--
+-- Like Module:Coins image, but for multiple currency types
+--
+return function(name, quantity)
+	quantity = mw.text.split(tostring(quantity or ''),'[,%-–]')
+	local q = 1
+	for _, v in ipairs(quantity) do
+		if (tonumber(v) or 0) > q then
+			q = tonumber(v)
+		end
+	end
+	
+	name = string.lower(name or '')
+	
+	local info = lookup[name]
+	if info == nil then
+		info = lookup_fixed[name]
+		if info == nil then
+			-- Unrecognized currency type
+			return
+		end
+		return info.filename
+	end
+	local max_q = q
+	for _, j in ipairs( info.bins ) do
+		if q >= j then
+			max_q = j
+		else
+			break
+		end
+	end
+	return string.format(info.filename, max_q)
+end

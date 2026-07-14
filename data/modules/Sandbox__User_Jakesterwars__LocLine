@@ -1,0 +1,71 @@
+local p = {}
+
+local editBtn = '<small>' .. require('Module:Edit button')() .. '</small>'
+local yesno = require('Module:Yesno')
+local isEmpty = require('Module:Paramtest').is_empty
+local buildMap = require('Module:Sandbox/User:Jakesterwars/Map').buildMap
+local tb = require('Module:Trailblazer Region')._main
+
+function p.main(frame)
+	local membscol = {
+		[true] = '[[File:Member icon.png|link=Members]]',
+		[false] = '[[File:Free-to-play icon.png|link=Free-to-play]]',
+	}
+	local args = frame:getParent().args
+	local loc = args.location or '? ' .. editBtn
+	local levels = args.levels
+	local membs = membscol[yesno(args.members ~= nil and args.members or "no")]
+	local mapID = args.mapID
+	local plane = args.plane
+	local mtype = args.mtype
+	local name = args.name or mw.title.getCurrentTitle().text
+	local spawns = args.spawns
+	local region = args.trailblazerRegion
+	local ret = mw.html.create('tr')
+	
+	if (isEmpty(loc)) then loc = '? ' .. editBtn end
+	if (isEmpty(levels)) then levels = '? ' .. editBtn end
+
+	local buildArgs = {
+		icon = 'redPin',
+		desc = name,
+		mtype = mtype,
+		mapID = mapID,
+		plane = plane,
+		type = 'maplink'
+	}
+	
+	local i = 1
+	while args[i] do
+		-- local coordinate = string.format('%s,desc:%s', args[i], isEmpty(args.levels) and '' or string.format('Level(s) %s', levels))
+		local coordinate = string.format('%s', args[i])
+		table.insert(buildArgs, coordinate)
+		
+		i = i + 1
+	end
+	-- Check if spawns is already populated
+	if spawns == nil then spawns = i - 1 end
+	if spawns == 0 then spawns = '? ' .. editBtn end
+	
+	local mapping = buildMap(buildArgs)
+	
+	-- build table row to return
+	-- column order (from {{LocTableHead}}): Location, Levels, Members, Spawns, Map, Region (if Trailblazer header is used)
+	ret:tag('td'):wikitext(loc):done()
+	ret:tag('td'):addClass(levels == 'N/A' and 'table-na' or ''):wikitext(levels):done()
+	ret:tag('td'):wikitext(membs):done()
+	ret:tag('td'):wikitext(spawns):done()
+	ret:tag('td'):wikitext(mapping):done()
+
+	if region then
+		if yesno(region,true) then
+			ret:tag('td'):wikitext(tb(region, string.format('This monster is in the %s Trailblazer region.', region)))
+		else
+			ret:tag('td'):attr('class','table-na'):wikitext('<small>N/A</small>')
+		end
+	end
+	
+	return ret
+end
+
+return p

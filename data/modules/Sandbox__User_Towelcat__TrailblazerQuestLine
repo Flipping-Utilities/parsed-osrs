@@ -1,0 +1,44 @@
+local tb = require('Module:Trailblazer Region')._main
+local yesno = require('Module:Yesno')
+
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	
+	local regions = {'misthalin', 'karamja', 'asgarnia', 'desert', 'fremennik', 'kandarin', 'morytania', 'tirannwn', 'wilderness'}
+	local ret = mw.html.create('tr')
+	mw.log(args[1])
+	mw.log(tostring(ret))
+	
+	if yesno(args['incompletable'],false) then
+		ret:addClass('table-bg-red')
+	end
+	
+	local reqregions = ''
+	local autoregions = ''
+	for _, region in ipairs(regions) do
+		if yesno(args[region],false) then
+			if reqregions ~= '' then
+				reqregions = reqregions .. '<br/>' .. tb(region)
+			else
+				reqregions = tb(region)
+			end
+		elseif args[region] == 'auto' then
+			if autoregions ~= '' then
+				autoregions = autoregions .. '<br/>' .. tb(region)
+			else
+				autoregions = tb(region)
+			end
+		end
+	end
+	
+	ret:tag('td'):wikitext(args[1])
+	ret:tag('td'):wikitext(reqregions)
+	ret:tag('td'):wikitext(autoregions)
+	ret:tag('td'):wikitext(args['notes'] or '')
+
+	return tostring(ret)
+end
+
+return p

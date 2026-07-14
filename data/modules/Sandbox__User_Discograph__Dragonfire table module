@@ -1,0 +1,68 @@
+local p = {}
+
+function p.renderTable(frame)
+    local args = frame.args
+    local mode = args[1] or "all"  -- Default to "all" if no argument is given
+
+    -- Define table headers
+    local headers = {
+        "Protection used",
+        "Metal Dragons",
+        "Galvek",
+        "Drake"
+    }
+
+    -- Define table data
+    local rows = {
+        {"Unprotected", 50, 66, 32},
+        {"Anti-dragon shield", 5, 18, 16},
+        {"Antifire potion(4)", 35, 51, 16},
+        {"Super antifire potion(4)", 0, 46, 0},
+        {"Anti-dragon shield + Antifire potion(4)", 0, 3, 0},
+        {"Anti-dragon shield + Super antifire potion(4)", 0, 0, 0}
+    }
+
+    -- Start table
+    local html = {}
+    table.insert(html, '<table class="wikitable sortable" style="text-align:center;">')
+
+    -- Headers
+    table.insert(html, "<tr>")
+    table.insert(html, "<th>" .. headers[1] .. "</th>")  -- Always visible
+
+    if mode == "all" or mode == "metal" then
+        table.insert(html, "<th>" .. headers[2] .. "</th>")
+    end
+    if mode == "all" or mode == "galvek" then
+        table.insert(html, "<th>" .. headers[3] .. "</th>")
+    end
+    if mode == "all" or mode == "drake" then
+        table.insert(html, "<th>" .. headers[4] .. "</th>")
+    end
+    table.insert(html, "</tr>")
+
+    -- Data Rows
+    for _, row in ipairs(rows) do
+        table.insert(html, "<tr>")
+        table.insert(html, "<td>" .. row[1] .. "</td>")  -- Always visible
+
+        if mode == "all" or mode == "metal" then
+            table.insert(html, "<td>" .. row[2] .. "</td>")
+        end
+        if mode == "all" or mode == "galvek" then
+            table.insert(html, "<td>" .. row[3] .. "</td>")
+        end
+        if mode == "all" or mode == "drake" then
+            table.insert(html, "<td>" .. row[4] .. "</td>")
+        end
+
+        table.insert(html, "</tr>")
+    end
+
+    -- End table
+    table.insert(html, "</table>")
+
+    return table.concat(html, "\n")
+end
+
+return p

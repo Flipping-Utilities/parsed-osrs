@@ -1,0 +1,86 @@
+-- <nowiki>
+--
+-- Implements Template:Calculator/Combat level
+--
+
+local p = {}
+
+function p.calc( frame )
+    local args = frame:getParent().args
+    local attack = tonumber(args.attack or 1)
+    local strength = tonumber(args.strength or 1)
+    local defence = tonumber(args.defence or 1)
+    local ranged = tonumber(args.ranged or 1)
+    local magic = tonumber(args.magic or 1)
+    local hitpoints = tonumber(args.hitpoints or 10)
+    local prayer = tonumber(args.prayer or 1)
+    
+    return p._calc( attack, strength, defence, ranged, magic, hitpoints, prayer )
+end
+
+function p._calc ( attack, strength, defence, ranged, magic, hitpoints, prayer )
+    -- This will be used several times:
+    local attstr = attack + strength
+
+    -- Used formula, with every subcalculation being floored:
+    -- 1/4 * [1.3 * Max(Att+Str, 1.5*Mag, 1.5*Rng) + Def + Hp + Pray/2]
+    local lvl = ( math.max( attstr, magic * 1.5, ranged * 1.5 ) * 1.3 + defence + hitpoints + math.floor( prayer * 0.5 ) ) * 0.25
+
+    -- Calculate what's needed for another combat level
+    -- formula: 1 - (current level - floor(current level)) / weight
+    -- The weight of pray for example is 1/8, that of def/hp is 1/4 etc.
+    local HpDef = math.ceil( ( 1 - ( lvl % 1 ) ) * 4 )
+    local Pray = math.ceil( ( 1 - ( lvl % 1 ) ) * 8 )
+    local AttStr, Mage, Range
+    local cbtype
+    
+    -- Prayer has an effect to a combat level only if it is an even number.
+    -- Therefore needed levels to the next combat level must account for one 
+    -- already accuired level if the current level is an odd number.
+    if prayer % 2 ~= 0 then
+    	Pray = Pray - 1
+	end
+	
+	-- An extra level needs to be added to the needed levels if the final
+	-- prayer level is an odd number for reasons mentioned above.
+	if (prayer + Pray) % 2 ~= 0  then
+		Pray = Pray + 1
+	end
+
+    if attstr >= 1.5*magic and attstr >= 1.5*ranged then
+        cbtype = 'melee'
+        AttStr = math.floor ( ( 1 - ( lvl % 1 ) ) / 0.325 )
+        Mage = math.floor( ( attstr - magic * 1.5 ) / 2 + ( 1 - ( lvl % 1 ) ) / 0.65 )
+        Range = math.floor( ( attstr - ranged * 1.5 ) / 2 + ( 1 - ( lvl % 1 ) ) / 0.65 )
+    else
+        -- calculate att/str levels needed for combat level up:
+        -- first calculate how many levels to get to make your combat melee-based, then add the amount of levels needed from there.
+        AttStr = math.max( ranged, magic ) * 1.5 - attstr + math.floor( ( 1 - ( lvl % 1 ) ) / 0.325 )
+
+        -- store this value in variable Mage first: assume mage-based combat first
+        Mage = math.floor( ( 1 - ( lvl % 1 ) ) / 0.65 )
+        if ranged > magic then
+            cbtype = 'ranged'
+            -- move the calculated value to variable Range: the combat is range-based
+            Range = Mage
+            -- same logic for melee: amount of levels to get mage-based combat PLUS levels to another cb from there
+            Mage = ranged - magic + Range
+        else
+            cbtype = 'magic'
+            -- same logic again
+            Range = magic - ranged + Mage
+        end
+    end
+
+    local level = 'Your combat level is <b>' .. math.floor( lvl ) .. '</b>, ' .. cbtype .. '-based. '
+    local tips = 'For level ' .. ( math.floor( lvl ) + 1 ) .. ', you need one of:\n*' ..
+        HpDef .. ' [[Hitpoints]] or [[Defence]] levels,\n*' ..
+        Pray .. ' [[Prayer]] levels,\n*' ..
+        AttStr .. ' [[Attack]] or [[Strength]] levels,\n*' ..
+        Mage .. ' [[Magic]] levels,\n*' ..
+        Range .. ' [[Ranged]] levels.\n'
+    return level .. tips
+
+end
+
+return p

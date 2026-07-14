@@ -1,0 +1,9 @@
+-- Module:User:YourUsername/Clog completion
+local p = {}
+function p.get(frame)
+    local id = tonumber(frame.args[1])
+    local pct = mw.loadJsonData('Module:Collection_log/completion.json')[id]
+    if pct == nil then return '' end
+    return tostring(pct) .. '%'
+end
+return p

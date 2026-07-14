@@ -1,0 +1,100 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function interp(low, high, level)
+	local value = math.modf(low*(99-level)/98) + math.modf(high*(level-1)/98) + 1
+	return 1 - math.min(math.max(value / 256, 0), 1)	
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local inputs = {}
+	local i = 1
+	while args['label' .. i] do
+		table.insert(inputs, {
+			label = args['label' .. i],
+			low = args['low' .. i] or 0,
+			high = args['high' .. i],
+			denom = args['denom' .. i],
+			req = tonumber(args['req' .. i] or 1),
+			image = args['image' .. i] or 'hi',
+			color = args['color' .. i] or '',
+			exponent = args['exponent' .. i] or 1
+		})
+		i = i + 1
+	end
+	
+	local lowLevel = tonumber(args.lowLevel or 1)
+	local highLevel = tonumber(args.highLevel or 99)
+	
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( args.label )
+        :setDimensions( '540px', '400px', '540px', '400px', true )
+        :setXLabel( args.xlabel or 'Level' )
+        :setYLabel( args.ylabel or 'Burn rate' )
+        :setXLimits( nil, nil, 1 )
+        :setYLimits( nil, nil, 0.1 )
+        :setDatasetsPerGroup(3)
+        :setYFormat( 'percent' )
+        :setTooltipFormat( 'skillingSuccess' )
+    
+	for i, input in ipairs(inputs) do
+		local cutoffLevel = nil
+		local data = {}
+		for x = 1, input.req do
+			local y
+			y = interp(input.low, input.high, x)
+			if args.showbefore ~= 'no' or input.req == x or y <= 0.000 then
+				table.insert(data, {x=x, y=y})
+			end
+			if y <= 0.000 then
+				cutoffLevel = x
+			end
+		end
+	    plot:newDataSet{
+	        data = data,
+	        label = input.label .. "  ",
+	        borderDash = {5, 5},
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+	        baseColor = input.color,
+	        pointStyleImg = input.image,
+	    }
+	    
+	    data = {}
+		for x = input.req, highLevel do
+			if cutoffLevel ~= nil then
+				break
+			end
+			local y
+			y = interp(input.low, input.high, x)
+			if y <= 0.000 and cutoffLevel == nil then
+				cutoffLevel = x
+			end
+			table.insert(data, {x=x, y=y})
+		end
+	    plot:newDataSet{
+	        data = data,
+	        label = input.label .. "  ",
+	        borderDash = {},
+	        borderCapStyle = 'round',
+	        baseColor = input.color,
+	        pointRadius = 0,
+	    }
+	    if cutoffLevel ~= nil then
+	    	plot:newDataSet{
+		        data = {{x = cutoffLevel, y = 0}},
+		        borderDash = {},
+		        borderCapStyle = 'round',
+		        baseColor = input.color,
+		        pointRadius = 5,
+		    }
+	    else
+	    	plot:newDataSet{}
+	    end
+	end
+    return plot
+end
+
+return p

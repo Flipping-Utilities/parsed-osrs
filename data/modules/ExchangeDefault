@@ -396,7 +396,7 @@ end
 function p.exchangeItem( frame )
 	local fargs = frame.args
     local pargs = frame:getParent().args
-    local item = pargs[1] or fargs.item	
+    local item = pargs[1] or fargs.item or mw.title.getCurrentTitle().text
     item = exchange.checkTitle( item )
     return p.main( item )
 end

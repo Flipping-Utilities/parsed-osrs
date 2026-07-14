@@ -1,0 +1,335 @@
+-- <nowiki>
+-- {{Quest details}}
+
+local p = {}
+local yesno = require('Module:Yesno')
+local onmain = require('Module:Mainonly').on_main()
+local buildMap --= require('Module:Map').buildMap -- lazy loaded
+
+local title = mw.title.getCurrentTitle()
+
+local difficulties = {
+    none = 'None',
+    novice = 'Novice',
+    intermediate = 'Intermediate',
+    experienced = 'Experienced',
+    master = 'Master',
+    grandmaster = 'Grandmaster',
+    special = 'Special'
+}
+
+difficulties['1'] = difficulties.novice
+difficulties['2'] = difficulties.intermediate
+difficulties['3'] = difficulties.experienced
+difficulties['4'] = difficulties.master
+difficulties['5'] = difficulties.special
+difficulties['6'] = difficulties.grandmaster
+
+function p.details( frame )
+    local _args = frame:getParent().args
+    local tbl = mw.html.create( 'table' )
+        :addClass( 'questdetails' )
+        -- @todo replace with CSS
+        :attr( 'cellspacing',  '3' )
+    local titleurl = mw.uri.fullUrl( title.fullText, { action = 'edit' } )
+    local unknown = 'Unknown <small>[' .. tostring( titleurl ) .. ' edit]</small>'
+    local args = {}
+    
+    for k, v in pairs(_args) do
+        if v ~= '' then
+            args[k] = v
+        end
+    end
+    
+    local start = args.start or unknown
+    local map = args.startmap or nil
+    local mapplane = map and tonumber( string.match(map, 'plane:%s*(%d)$') ) or 0
+    local difficultylevel = difficulties[string.lower(args.difficulty or '')]
+    local difficulty = difficultylevel and ('[[Quests/' .. difficultylevel .. '|' .. difficultylevel .. ']]') or unknown
+    local desc = args.description or unknown
+    local length = args.length or unknown
+    local reqs = args.requirements or 'None'
+    local leagueRegion = args.leagueRegion
+    local items = args.items or 'None'
+    local kills = args.kills or 'None'
+    local checklist = items
+    local ironman = args.ironman or unknown
+    local locations = args.locations or unknown
+    if items ~= 'None' then
+    	checklist = '<div class="lighttable checklist no-toggle-parent">\n'..items..'</div>' --frame:expandTemplate{ title = 'Checklist', args = { items } }
+    end
+    
+    -- check for being a miniquest
+	local mq = string.match(title:getContent() , '[Ii]nfobox [Mm]iniquest')
+	buildMap = map and require('Module:Map').buildMap
+
+	local mapArgs = {
+		[1] = map,
+		['title'] = 'Start point',
+		['plane'] = mapplane,
+		['mapID'] = '-1',
+		['mtype'] = 'pin',
+		['type'] = 'maplink',
+		['text'] = '<b>Show on map</b>'
+	}
+	
+    tbl
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Start point' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( (mq and '' or '[[File:Quest point icon.png|21px|link=|Map icon]] ') -- miniquests don't have icon on map
+                	.. start
+                	.. ' '
+                	.. ( map and buildMap(mapArgs) or '' ) )
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Official difficulty' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( difficulty )
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Official length' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( length )
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Description' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :wikitext( desc )
+                :done()
+            :done()
+		:tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Requirements' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :addClass('qc-input')
+                :addClass('qc-active')
+                :newline():newline()
+                :wikitext(reqs)
+                :done()
+            :done()
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Items required' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :newline():newline()
+                :wikitext( checklist )
+                :done()
+            :done()
+            
+    if args.recommended ~= nil and yesno(args.recommended, true) ~= false then
+        tbl
+            :tag( 'tr' )
+                :tag( 'th' )
+                    :addClass( 'questdetails-header' )
+                    :wikitext( 'Recommended' )
+                    :done()
+                :tag( 'td' )
+                    :addClass( 'questdetails-info' )
+                    :newline():newline()
+                    :addClass('qc-active')
+                    :wikitext( '<div class="lighttable checklist no-toggle-parent">\n'..args.recommended..'</div>') -- frame:expandTemplate{ title = 'Checklist', args = { args.recommended } } )
+                    :done()
+                :done()
+    end
+    
+      if args.locations ~= nil and yesno(args.locations, true) ~= false then
+        tbl
+        	:tag( 'tr' )
+            	:tag( 'th' )
+                	:addClass( 'questdetails-header' )
+	                :wikitext( 'Locations' )
+	                :done()
+	            :tag( 'td' )
+	                :addClass( 'questdetails-info' )
+                    :newline():newline()
+	                :wikitext( '<div class="lighttable checklist no-toggle-parent">\n'..args.locations..'</div>') -- frame:expandTemplate{ title = 'Checklist', args = { args.locations }
+	                :done()
+	            :done()
+      end
+
+    tbl
+        :tag( 'tr' )
+            :tag( 'th' )
+                :addClass( 'questdetails-header' )
+                :wikitext( 'Enemies to defeat' )
+                :done()
+            :tag( 'td' )
+                :addClass( 'questdetails-info' )
+                :newline():newline()
+                :wikitext( kills )
+                :done()
+            :done()
+     if args.ironman ~= nil and yesno(args.ironman, true) ~= false then
+        tbl
+        	:tag( 'tr' )
+            	:tag( 'th' )
+                	:addClass( 'questdetails-header' )
+	                :wikitext( 'Ironman concerns' )
+	                :done()
+	            :tag( 'td' )
+	                :addClass( 'questdetails-info' )
+                    :newline():newline()
+	                :wikitext( '<div class="lighttable checklist no-toggle-parent">\n'..args.ironman..'</div>') -- frame:expandTemplate{ title = 'Checklist', args = { args.ironman }
+	                :done()
+	            :done()
+    end
+
+    if args.leagueRegion ~= nil then
+       tbl:tag( 'tr' ):addClass('leagues-global-flag')
+           :tag( 'th' )
+               :addClass( 'questdetails-header' )
+               :wikitext( '[[Raging Echoes League|League]] notes' )
+               :done()
+           :tag( 'td' )
+               :addClass( 'questdetails-info' )
+               :wikitext( leagueRegion )
+               :done()
+           :done()
+    end
+    
+    return tostring( tbl ) .. catsadd(difficultylevel, length, leagueRegion) .. smw(frame,_args)
+end
+
+function smw(frame,args)
+	if not onmain or title.text:find('/[Ss]peedrun') or title.text:find('/[Qq]uick') then
+		return ''
+	end
+	-- more to come
+	local err = mw.html.create('div')
+	err:addClass('hidden'):css('display','none')
+	local haserr = false
+	local info = ''
+	local smwJSON = {
+		name = title.text,
+		desc = args.description or nil,
+		difficulty = difficulties[string.lower(args.difficulty or '')],
+		start = args.start or nil,
+		length = args.length or nil,
+		requirements = args.requirements or 'None',
+		items = args.items or 'None',
+		kills = args.kills or 'None',
+		ironman = args.ironman or nil,
+		locations = args.locations or nil
+	}
+	local jsongood, encsmwJSON = pcall(mw.text.jsonEncode, smwJSON)
+	local bucketJSON = encsmwJSON
+	
+	if jsongood then
+		-- for easier debug, please do not remove
+		encsmwJSON = mw.text.nowiki(encsmwJSON)
+		local div = mw.html.create('div')
+		div	:addClass('hidden')
+			:css('display', 'none')
+			:wikitext('[[Quest JSON::'..encsmwJSON..']]')
+		info = frame:preprocess(tostring(div))
+	else
+		haserr = true
+		err:wikitext('Error setting SMW JSON, string: ' .. mw.dumpObject(smwJSON))
+	end
+	if not haserr then
+		err = ''
+	end
+	
+	local smw = {}
+	if args.description then
+    	smw['Quest Description'] = args.description
+    end
+	if args.difficulty then
+    	smw['Quest Official difficulty'] = difficulties[string.lower(args.difficulty)]
+    end
+	if args.start then
+    	smw['Quest Start point'] = args.start
+    end
+	if args.length then
+    	smw['Quest Official length'] = args.length
+    end
+    if(args.ironman) then
+    	smw['Quest Ironman concerns'] = args.ironman
+    end
+    if args.locations then
+    	smw['Quest Locations'] = args.locations
+    end
+	smw['Quest Requirements'] = args.requirements or 'None'
+	smw['Quest Items required'] = args.items or 'None'
+	smw['Quest Enemies to defeat'] = args.kills or 'None'
+    mw.smw.set(smw)
+    
+    local bucket_data = {}
+	if args.description then
+    	bucket_data['description'] = args.description
+    end
+	if args.difficulty then
+    	bucket_data['official_difficulty'] = difficulties[string.lower(args.difficulty)]
+    end
+	if args.start then
+    	bucket_data['start_point'] = args.start
+    end
+	if args.length then
+    	bucket_data['official_length'] = args.length
+    end
+    if(args.ironman) then
+    	bucket_data['ironman_concerns'] = args.ironman
+    end
+    if(args.locations) then
+    	bucket_data['locations'] = args.locations
+    end
+	bucket_data['requirements'] = args.requirements or 'None'
+	bucket_data['items_required'] = args.items or 'None'
+	bucket_data['enemies_to_defeat'] = args.kills or 'None'
+	bucket_data['json'] = bucketJSON
+    bucket("quest").put(bucket_data)
+    
+	return tostring(info) .. tostring(err)
+end
+
+function catsadd(difficulty, length, leagueRegion)
+	if not onmain or title.text:find('/[Ss]peedrun') or title.text:find('/[Qq]uick') then
+		return ''
+	end
+	local cats = ''
+	
+	if difficulty then
+		cats = cats .. '[[Category:' .. difficulty .. ' quests]]'
+	else
+		cats = cats .. '[[Category:Needs official difficulty added]]'
+	end
+	
+	if not length then
+		cats = cats .. '[[Category:Needs official length added]]'
+	end
+
+    if leagueRegion == nil then
+        cats = cats .. '[[Category:Needs League region]]'
+    end
+	
+	return cats
+end
+
+return p
+-- </nowiki>

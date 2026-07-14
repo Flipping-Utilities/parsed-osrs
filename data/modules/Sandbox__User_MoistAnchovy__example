@@ -1,0 +1,26 @@
+local p = {}
+
+function p.main( frame )
+    local invokeArgs = frame.args
+    local args = frame:getParent().args  -- Template args are customary stored in the 'args' variable
+
+    mw.log( args[1] ) --> 'text'
+    mw.log( args[2] ) --> '3'
+    mw.log( args.separator ) --> ';'
+    mw.log( invokeArgs.last ) --> 'suffix'
+
+    local text = args[1] or ''  -- Set default value in case no parameters were passed to the template
+    local multiplier = tonumber( args[2] ) or 0
+    local separator = args.separator or ''
+    local last = invokeArgs.last or ''
+
+    local res = ''
+
+    for i = 1, multiplier do
+        res = res .. text .. separator
+    end
+
+    return res .. last
+end
+
+return p

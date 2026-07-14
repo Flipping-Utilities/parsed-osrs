@@ -1,0 +1,293 @@
+--------------------------
+-- Module for [[Template:Infobox NPC]]
+------------------------
+local p = {}
+
+-- "imports"
+local onmain = require('Module:Mainonly').on_main
+local paramtest = require('Module:Paramtest')
+local infobox = require('Module:Infobox')
+local clean_image = require('Module:Clean image').clean
+VariablesLua = mw.ext.VariablesLua
+
+-- Main function called with invokes
+function p.main(frame)
+	local args = frame:getParent().args
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'name', func = 'name' },
+		{ name = 'image', func = { name = imagearg, params = { 'image', 'imagewidth', 'imageheight', 300, 300 }, flag = { 'd', 'd', 'd', 'r', 'r' } } },
+		{ name = 'release', func = 'release' },
+		{ name = 'removal', func = 'removal' },
+		{ name = 'aka', func = 'has_content' },
+		{ name = 'level', func = 'has_content' },
+		{ name = 'members', func = 'has_content' },
+		{ name = 'race', func = 'has_content' },
+		{ name = 'quest', func = 'has_content' },
+		{ name = 'location', func = 'has_content' },
+		{ name = 'shop', func = 'has_content' },
+		{ name = 'gender', func = 'has_content' },
+		{ name = 'features', func = 'has_content' },
+		{ name = 'examine', func = 'has_content' },
+		{ name = 'map', func = maparg },
+
+		{ name = 'id', func = 'has_content' },
+		{ name = 'id_smw', func = { name = idsmw, params = { 'id' }, flag = 'p' } },
+		{ name = 'twisted', func = 'has_content' },
+		{ name = 'twisteddisp', func = { name = twistedarg, params = { 'twisted' }, flag = 'p' } },
+	}
+
+	ret:defineLinks({ hide = true })
+	
+	ret:create()
+	ret:cleanParams()
+
+	ret:customButtonPlacement(true)
+	ret:addButtonsCaption()
+
+	ret:defineName('Infobox NPC')
+	ret:addClass('infobox-npc')
+
+	ret:addRow{
+		{ tag = 'argh', content = 'name', class='infobox-header', colspan = '20' }
+	}
+	:pad(20)
+
+	:addRow{
+		{ tag = 'argd', content = 'image', colspan = '20', class = 'infobox-full-width-content' }
+	}
+	:pad(20)
+
+	ret:addRow{
+		{ tag = 'th', content = 'Released', colspan = '7' },
+		{ tag = 'argd', content = 'release', colspan = '13' }
+	}
+
+	if ret:paramDefined('removal') then
+		ret:addRow{
+			{ tag = 'th', content = 'Removal', colspan = '7' },
+			{ tag = 'argd', content = 'removal', colspan = '13' }
+		}
+	end
+
+	if ret:paramDefined('aka') then
+		ret:addRow{
+			{ tag = 'th', content = 'Also called', colspan = '7' },
+			{ tag = 'argd', content = 'aka', colspan = '13' }
+		}
+	end
+
+	if ret:paramDefined('level') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Combat level]]', colspan = '7' },
+			{ tag = 'argd', content = 'level', colspan = '13' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = '[[Members]]', colspan = '7' },
+		{ tag = 'argd', content = 'members', colspan = '13' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Races|Race]]', colspan = '7' },
+		{ tag = 'argd', content = 'race', colspan = '13' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Quest]] NPC', colspan = '7' },
+		{ tag = 'argd', content = 'quest', colspan = '13' }
+	}
+
+	:addRow{
+		{ tag = 'th', content = '[[Locations|Location]]', colspan = '7' },
+		{ tag = 'argd', content = 'location', colspan = '13' }
+	}
+
+	if ret:paramDefined('shop') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Shop|Sells items]]', colspan = '7' },
+			{ tag = 'argd', content = 'shop', colspan = '13' }
+		}
+	end
+	
+	ret:addRow{
+		{ tag = 'th', content = '[[Gender]]', colspan = '7' },
+		{ tag = 'argd', content = 'gender', colspan = '13' }
+	}
+
+	if ret:paramDefined('features') then
+		ret:addRow{
+			{ tag = 'th', content = 'Features', colspan = '7' },
+			{tag = 'argd', content = 'features', colspan = '13' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Examine', colspan = '7' },
+		{ tag = 'argd', content = 'examine', colspan = '13' }
+	}
+
+	if ret:paramDefined('twisteddisp', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Twisted League]]', colspan = '7' },
+			{ tag = 'argd', content = 'twisteddisp', colspan = '13' }
+		}
+	end
+	
+	ret:pad(20)
+
+	if ret:paramDefined('map') then
+		ret:addRow{
+			{ tag = 'th', content = 'Map', class = 'infobox-subheader', colspan = '20' }
+		}
+		:addRow{
+			{ tag = 'argd', content = 'map', colspan = '20', class = 'infobox-full-width-content' }
+		}
+	end
+
+	ret:addRow{
+		{ tag = 'th', content = 'Advanced data', class = 'infobox-subheader', colspan = '20' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+	:addRow{
+		{ tag = 'th', content = 'NPC ID', colspan = '7' },
+		{ tag = 'argd', content = 'id',  colspan = '13' },
+		meta = {addClass = 'advanced-data'}
+	}
+	:pad(20, 'advanced-data')
+
+	if onmain() then
+		local a1 = ret:param('all')
+		local a2 = ret:categoryData()
+		ret:wikitext(addcategories(a1, a2))
+	end
+	return ret:tostring()
+end
+
+function imagearg(img, imgw, imgh, w, h)
+	if infobox.isDefined(imgw) then
+		w = imgw
+	end
+	if infobox.isDefined(imgh) then
+		h = imgh
+	end
+	return clean_image({
+		file = img,
+		width = w,
+		height = h
+	})
+end
+
+function maparg(arg)
+	if not infobox.isDefined(arg) or string.lower(arg) == 'no' then
+		return nil
+	end
+
+	if string.find(arg, '%[') then
+		return arg
+	end
+	
+	-- if mapframe
+	local findMapframe = string.find(arg, 'mapframe')
+	if findMapframe ~= nil then
+		return arg
+	end
+
+	-- if image
+	local start = string.sub(arg, 1, 5)
+	local filetext = ''
+	if start ~= 'File:' then
+		filetext = 'File:'
+	end
+	
+	return '[['..filetext..arg..']]'
+end
+
+local idsmw_nil_ids = {
+	removed = true,
+	no = true
+}
+
+function idsmw(id)
+	if infobox.isDefined(id) then
+		if idsmw_nil_ids[string.lower(tostring(id))] then
+			return nil
+		end
+		local r = string.gsub(id, ',', '&&SPLITPOINT&&')
+		return r
+	end
+	return nil
+end
+
+function twistedarg(arg)
+	if not infobox.isDefined(arg) then
+		return nil
+	end
+
+	if string.lower(arg or '') == 'yes' then
+		return "[[File:Twisted League icon.png|20x20px|This content is present in Twisted League.|link=Twisted League]] Yes"
+	else
+		return 'No'
+	end
+end
+
+function addcategories(args, catargs)
+	local ret = { 'Non-player characters' }
+
+	-- Add the associated category if the parameter has content
+	local defined_args = {
+		aka = 'Pages with AKA',
+	}
+	for n, v in pairs(defined_args) do
+		if catargs[n] and catargs[n].one_defined then
+			table.insert(ret, v)
+		end
+	end
+
+	-- Add the associated category if the parameter doesn't have content
+	local notdefined_args = {
+		image = 'Needs image',
+		members = 'Needs members status',
+		release = 'Needs release date',
+		examine = 'Needs examine added',
+		id = 'Needs ID'
+	}
+	for n, v in pairs(notdefined_args) do
+		if catargs[n] and catargs[n].all_defined == false then
+			table.insert(ret, v)
+		end
+	end
+	
+	if args['twisted'] then
+		if string.lower(args['twisted'].d or '') == 'yes' then
+			table.insert(ret, 'NPCs accessible in Twisted League')
+			VariablesLua.vardefine('is_twisted', 'Yes')
+		end
+		if args['twisted'].switches then
+			for i, twisted_i in ipairs(args['twisted'].switches) do
+				if string.lower(twisted_i or '') == 'yes' then
+					table.insert(ret, 'NPCs accessible in Twisted League')
+					if args['version'].switches then
+						local suffix = args['version'].switches[i] or i
+						VariablesLua.vardefine('is_twisted_'..suffix, 'Yes')
+						VariablesLua.vardefine('is_twisted', 'Yes')
+					end
+				end
+			end
+		end
+	end
+
+	-- combine table and format category wikicode
+	for i, v in ipairs(ret) do
+		if (v ~= '') then
+			ret[i] = string.format('[[Category:%s]]', v)
+		end
+	end
+
+	return table.concat(ret, '')
+end
+
+return p

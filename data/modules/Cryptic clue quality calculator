@@ -1,6 +1,7 @@
 local p = {}
 
 local stepQuality = {
+	{ step = "My life was spared but these voices remain‚ now guarding these iron gates is my bane.", timeTaken = 2 },
 	{ step = "The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is.", timeTaken = 4 },
 	{ step = "Here‚ there are tears‚ but nobody is crying. Speak to the guardian and show off your alignment to balance.", timeTaken = 12 },
 	{ step = "She's small but can build both literally and figuratively.", timeTaken = 14 },
@@ -25,7 +26,6 @@ local stepQuality = {
 	{ step = "Guthix left his mark in a fiery lake‚ dig at the tip of it.", timeTaken = 62 },
 	{ step = "Pentagrams and demons‚ burnt bones and remains‚ I wonder what the blood contains.", timeTaken = 63 },	
 	{ step = "2 musical birds. Dig in front of the spinning light.", timeTaken = 75 },
-	{ step = "My life was spared but these voices remain‚ now guarding these iron gates is my bane.", timeTaken = 77 },
 	{ step = "Great demons‚ dragons‚ and spiders protect this blue rock‚ beneath which‚ you may find what you seek.", timeTaken = 84 },
 	{ step = "Faint sounds of 'Arr'‚ fire giants found deep‚ the eastern tip of a lake‚ are the rewards you could reap.", timeTaken = 85 },
 	{ step = "Dig in front of the icy arena where 1 of 4 was fought.", timeTaken = 89 },

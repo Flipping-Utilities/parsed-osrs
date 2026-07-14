@@ -1,0 +1,157 @@
+local Arr = require('Module:Array')
+local p = {}
+
+function p.getItems()
+	local count = 0
+	local items = {}
+	while(true) do
+		--local b = bucket("infobox_item").select("item_name").where(bucket.And({"Category:Items appearing in drop table"}, {"is_members_only", false}, bucket.Not('Category:Treasure Trails rewards'))).limit(5000).offset(count)
+		local b = bucket("infobox_item").select("item_name").where({"is_members_only", false}, 'Category:Items dropped by monster').limit(5000).offset(count)
+		local data = b.run()
+		for _, item in ipairs(data) do
+			table.insert(items, item.item_name)
+		end
+		count = count + #data
+		
+		if #data < 5000 then
+			return items
+		end
+	end
+end
+
+function p.queryDropsLine(item)
+    local drop_sources = {}
+    local b = bucket("dropsline")
+        .select("page_name", "page_name_sub", "drop_json")
+        .where({"item_name", item})
+    local data = b.run()
+    for _, drop in ipairs(data) do
+        local parsed = mw.text.jsonDecode(drop['drop_json'] or '{}')
+        if parsed["Drop type"] and parsed["Drop type"] == "combat" then
+            table.insert(drop_sources, {
+                source_name = drop.page_name,
+                source_name_sub = drop.page_name_sub,
+                notes = parsed["Name Notes"],
+                rarity_notes = parsed["Rarity Notes"],
+                rarity = parsed["Rarity"],
+                approx = parsed["Approx"],
+                alt_rarity_dash = parsed["Alt Rarity Dash"],
+                drop_level = parsed["Drop level"],
+                drop_type = parsed["Drop type"],
+                drop_quantity = parsed["Drop Quantity"],
+                league_region = parsed["League region"],
+                dropped_from = parsed["Dropped from"],
+                drop_value = parsed["Drop Value"],
+                rolls = parsed["Rolls"],
+                alt_rarity = parsed["Alt Rarity"],
+                dropped_item = parsed["Dropped item"],
+            })
+        end
+    end
+    return drop_sources
+end
+
+function p.getSources()
+    local items = p.getItems()
+    local sources = {}
+    for _, item in ipairs(items) do
+        local drop_sources = p.queryDropsLine(item)
+        if #drop_sources > 0 then
+            --sources[item]["sources"] = drop_sources
+            local droppers = {}
+            for _, source in ipairs(drop_sources) do
+                local b = bucket("infobox_monster")
+                    .select("page_name", "page_name_sub", "is_members_only")
+                    .where({"page_name", source.source_name})
+                local data = b.run()
+                for _, mob in ipairs(data) do
+                    table.insert(droppers, {page_name=mob.page_name, page_name_sub=mob.page_name_sub, is_mems=mob.is_members_only})
+                end
+            end
+            table.insert(sources, {item=item, droppers=droppers, all_mems=Arr.all(droppers, function(status) return status.is_mems end)})
+        end
+    end
+    return sources
+end
+
+function p.getDropData(mob)
+	local bucket_data = {}
+	bucket_data = bucket("infobox_item")
+		.select("is_members_only")
+		.run()
+	if bucket_data and #bucket_data > 0 then
+		return bucket_data --drops were successfully retrieved for the mob
+	end
+	return bucket_data
+end
+
+function count_matches(list)
+	local res = {0, 0}
+	for _, item in pairs(list) do
+		if item then
+			res[1] = res[1] + 1
+		else
+			res[2] = res[2] + 1
+		end
+	end
+	return res
+end
+
+function get_f2p_droppers(list)
+    local f2p = {}
+    for _, item in pairs(list) do
+    	for _, dropper in pairs(item.droppers) do
+	        if not dropper.is_mems then
+	            table.insert(f2p, {item=item.item, dropper=dropper.page_name, dropper_sub=dropper.page_name_sub})
+	        end
+	    end
+    end
+    return f2p
+end
+
+function get_unique_monsters(list)
+    local uniques = {}
+    for _, item in pairs(list) do
+    	if uniques[item.dropper] then 
+    		uniques[item.dropper][item.dropper_sub] = true
+    	else
+    		uniques[item.dropper] = {}
+    		uniques[item.dropper][item.dropper_sub] = true
+    	end
+    end
+    local out = {}
+    for dropper, subs in pairs(uniques) do
+    	table.insert(out, {dropper=dropper, subs=subs})
+    end
+    return out
+end
+
+function get_mems_only(list)
+	local mems_only_drops = Arr.filter(sources, function (source) return source.all_mems end)
+	
+	local items = {}
+	for _, item_data in ipairs(mems_only_drops) do
+		table.insert(items, item_data.item)
+	end
+    return items
+end
+
+function get_page_names(list)
+	local out = {}
+	for _, drop_data in ipairs(list) do
+		table.insert(out, drop_data.dropper)
+	end
+	return out
+end
+
+function p.main(frame, args)
+	local sources = p.getSources()
+    local not_all_p2p_drops = Arr.filter(sources, function (source) return not source.all_mems end)
+
+    local f2p_droppers = get_f2p_droppers(not_all_p2p_drops)
+    local unique_f2p_droppers = get_unique_monsters(f2p_droppers)
+	mw.logObject(#unique_f2p_droppers)
+	mw.log(table.concat(get_page_names(unique_f2p_droppers), ", "))
+end
+
+return p

@@ -1,0 +1,57 @@
+local p = {}
+
+function p.main( frame )
+    return p._main( frame:getParent().args )
+end
+
+function p._main( args )
+	-- Collect data from the Music track pages themselves
+	local b = bucket("music")
+		.select("map.features", "page_name", "title", "map.is_historic")
+		.join("map", "map.page_name", "music.page_name")
+		.limit(500)
+		.where('title', args[1])
+
+	if args.bucket == 'onlyhist' then
+		--Filter to historical tracks
+		b.where("map.is_historic", true)
+	elseif args.bucket == 'hist' then
+		-- No additional where clause, grab everything
+	else
+		-- Only show non-historical tracks
+		b.where("map.is_historic", false)
+	end
+	local polys = b.run()
+	
+	if #polys == 0 then
+		return "'''Error: No coordinates found for music title '" .. args[1] .. "'. Please specify the track title, not the page name, and ensure a map is defined on that track's page.'''"
+	end
+	
+	local indices = {1}
+	if args[2] then
+		indices = {}
+		for index in string.gmatch(args[2], '([^,]+)') do
+			table.insert(indices, tonumber(index))
+		end
+	end
+	
+	local result = {}
+	for _, i in ipairs(indices) do
+		if #polys >= i then
+			local features = mw.text.jsonDecode(polys[i]['map.features'])
+			local coords = features[1]['geometry']['coordinates']
+			if not args.fillholes or string.lower(args.fillholes) ~= 'no' then
+				-- Only include first polygon, otherwise we'll include any holes within the track's polygon
+				coords = {coords[1]}
+			end
+			local json = mw.text.jsonEncode(coords)
+			-- trim [ and ] since we only store one polygon in `result`; it's not a list of polygons.
+			table.insert(result, string.sub(json, 2, -2))
+			mw.logObject(string.sub(json, 2, -2))
+		end
+	end
+	
+	return table.concat(result, ",")
+end
+
+return p

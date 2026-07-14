@@ -1,0 +1,21 @@
+local p = {}
+local farmingData = require("Module:Skill calc/Farming")
+local arr = require('Module:Array')
+
+function getSeedNameTest( name )
+    return function( elem, idx )
+        return elem.materials[1].name == name
+    end    
+end
+
+function p.main( frame )
+    local args = frame.args
+
+    local source = args["Source"]
+    local count = args["Amount"]
+
+    local result, idx = arr.find(farmingData, getSeedNameTest("Yew seed"))
+    return tostring(source)..tostring(count)
+end
+
+return p

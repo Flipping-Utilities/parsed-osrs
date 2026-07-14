@@ -1,0 +1,30 @@
+local p = {}
+
+local infobox = require('Module:Infobox')
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	return p._main(args)
+end
+
+function p._main(args)
+	local ret = infobox.new(args)
+
+	ret:defineParams{
+		{ name = 'firstarg', func = testfunc },
+		{ name = 'secondarg', func = { name = testfunc, params = { 'secondarg' }, flag = 'd' } },
+		{ name = 'thirdarg', func = { name = testfunc, params = { 'thirdarg' }, flag = 'p' } },
+	}
+	ret:create()
+	ret:cleanParams()
+
+	return ret:tostring()
+end
+
+
+function testfunc(arg)
+	return arg
+end
+
+return p

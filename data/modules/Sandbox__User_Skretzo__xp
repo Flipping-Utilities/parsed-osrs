@@ -1,0 +1,176 @@
+local chart = require( 'Module:Chart data' )
+
+local p = {}
+
+function interp(low, high, level)
+	local value = math.floor(low*(99-level)/98 + high*(level-1)/98 + 0.5) + 1
+	return math.min(math.max(value / 256, 0), 1)	
+end
+
+-- Split a string into an array of numbers clipped between a minimum and maximum
+function splitConvertClip(s, delimiter, minimum, maximum, minimum_length)
+	local delimiter = delimiter or ','
+	local minimum = minimum or -math.huge
+	local maximum = maximum or math.huge
+	local minimum_length = minimum_length or 1
+    local result = {}
+    local from = 1
+    local delim_start, delim_end = string.find(s, delimiter, from)
+
+    while delim_start do
+        table.insert(result, math.min(math.max(tonumber(string.sub(s, from, delim_start - 1) or 1), minimum), maximum))
+        from = delim_end + 1
+        delim_start, delim_end = string.find(s, delimiter, from)
+    end
+
+	-- Add the last part
+    table.insert(result, math.min(math.max(tonumber(string.sub(s, from) or 1), minimum), maximum))
+
+	-- Extend by duplicating to ensure minimum length is reached
+	for i = #result, minimum_length - 1 do
+		table.insert(result, result[i] or 1)
+	end
+
+    return result
+end
+
+-- A permutation of the data to use for sorting in descending order
+local function permutationsort(data)
+	if type(data) ~= "table" then
+		return {1}   -- 1 is both the first and last index in the list
+	end
+    m = 99   -- The maximum skill level, and the minimum is 1
+    n = #data
+    counts = {}
+    for i = 1, m + 1 do
+        table.insert(counts, 0)
+    end
+    counts[m+1] = 1
+    for i = 1, n do
+        counts[data[i]+1] = counts[data[i]+1] + 1
+    end
+    for i = 1, m - 1 do
+        counts[m-i] = counts[m-i] + counts[m-i+1]
+    end
+    order = {}
+    for i = 1, n do
+        table.insert(order, 0)
+    end
+    for i = 1, n do
+        counts[data[i]+1] = counts[data[i]+1] - 1
+        order[counts[data[i]+1]+1] = i
+    end
+    return order
+end
+
+function p._calculateDataSets(args)
+	local dataSets = {}
+	local inputs = {}
+	local i = 1
+	while args['label' .. i] do
+		thresholds = splitConvertClip(args['thresholds' .. i] or args['threshold' .. i] or 1, ',', 1, 99)
+		table.insert(inputs, {
+			label = args['label' .. i],   -- name of the method
+			req = tonumber(args['req' .. i] or 1),   -- skill level requirement
+			color = args['color' .. i] or '',   -- colour of the line
+			xp = tonumber(args['xp' .. i] or 1),   -- number of xp received per success
+			rolls = tonumber(args['rolls' .. i] or 1),   -- number of attempts (usually 1, but can sometimes be increased with tick manipulation)
+			boost = tonumber(args['boost' .. i] or 1),   -- modifier to increase xp, e.g. +10% = 1.1
+			deboost = tonumber(args['deboost' .. i] or 1),   -- modifier to decrease xp, e.g. 1-1/256 = 0.99609375 pre-roll without xp that replaces main roll
+			depletionrate = tonumber(args['depletionrate' .. i] or 1),   -- chance of depleting the resource, e.g 100% = 1 for rocks and 12.5% = 0.125 for trees
+			thresholds = thresholds,   -- skill levels where either the rates, lows or highs changes (limited to 1 to 99)
+			rates = splitConvertClip(args['rates' .. i] or args['rate' .. i] or
+				args['intervals' .. i] or args['interval' .. i] or 1, ',', nil, nil, #thresholds),   -- interval in ticks between rolls
+			lows = splitConvertClip(args['lows' .. i] or args['low' .. i] or 1, ',', nil, nil, #thresholds),   -- integer skill success chance at level 1
+			highs = splitConvertClip(args['highs' .. i] or args['high' .. i] or 1, ',', nil, nil, #thresholds),   -- integer skill success chance at level 99
+			order = permutationsort(thresholds),   -- indices to re-order the thresholds, rates, lows and highs in descending order
+			image = args['image' .. i] or 'hi'   -- small image next to the label text
+		})
+		i = i + 1
+	end
+
+	args.lowLevel = tonumber(args.lowLevel or 1)
+	args.highLevel = tonumber(args.highLevel or 99)
+
+	for i, input in ipairs(inputs) do
+		local data = {}
+
+		for x = args.lowLevel, input.req do
+			local y = 0
+			for j = 1, #input.thresholds do
+				if x >= input.thresholds[input.order[j]] then
+					local prob = interp(input.lows[input.order[j]], input.highs[input.order[j]], x)
+					local modifier = (1 - (1 - prob * input.depletionrate)^input.rolls) / input.depletionrate
+					y = ((6000 / input.rates[input.order[j]]) * input.xp *
+						(1 - (1 - input.deboost)^input.rolls) * input.boost *
+						(modifier ~= modifier and (input.rolls * prob) or modifier))
+					break
+				end
+			end
+			table.insert(data, {x=x, y=y})
+		end
+
+		table.insert(dataSets, {
+	        data = data,
+	        label = input.label .. "  ",
+	        borderDash = {5, 5},
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+	        baseColor = input.color,
+	        pointStyleImg = input.image,
+	    })
+
+		data = {}
+
+		for x = input.req, args.highLevel do
+			local y = 0
+			for j = 1, #input.thresholds do
+				if x >= input.thresholds[input.order[j]] then
+					local prob = interp(input.lows[input.order[j]], input.highs[input.order[j]], x)
+					local modifier = (1 - (1 - prob * input.depletionrate)^input.rolls) / input.depletionrate
+					y = ((6000 / input.rates[input.order[j]]) * input.xp *
+						(1 - (1 - input.deboost)^input.rolls) * input.boost *
+						(modifier ~= modifier and (input.rolls * prob) or modifier))
+					break
+				end
+			end
+			table.insert(data, {x=x, y=y})
+		end
+
+		table.insert(dataSets, {
+	        data = data,
+	        label = input.label .. "  ",
+	        borderDash = {},
+	        borderCapStyle = 'round',
+	        pointRadius = 0,
+	        baseColor = input.color,
+	        pointStyleImg = input.image,
+	    })
+	    
+	    table.insert(dataSets, {})
+	end
+
+	return dataSets
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+    local plot = chart.newChart{ type = 'scatter' }
+        :setTitle( args.label )
+        :setDimensions( '540px', '400px', '540px', '400px', true )
+        :setXLabel( args.xlabel or 'Level' )
+        :setYLabel( args.ylabel or 'Experience per hour' )
+        :setXLimits( nil, nil, 1 )
+        :setDatasetsPerGroup(3)
+	local dataSets = p._calculateDataSets(args)
+	for i, dataSet in ipairs(dataSets) do
+		plot:newDataSet(dataSet)
+	end
+    return plot
+end
+
+return p

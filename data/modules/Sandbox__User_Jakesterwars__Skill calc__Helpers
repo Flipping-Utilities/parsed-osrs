@@ -1,0 +1,158 @@
+local p = {}
+
+local yesNo = require('Module:Yesno')
+local xp = require('Module:Experience').xp_at_level
+local level = require('Module:Experience').level_at_xp_unr
+local commas = require('Module:Addcommas')._add
+
+function p.filterData(data, method, dataCriteria, goalLevel)
+	local methodData = {}
+	local addRow = false
+
+	for i, v in ipairs(data) do
+		if dataCriteria ~= 'Hide' or tonumber(v.level) < tonumber(goalLevel) then
+			if method == 'All' then
+				table.insert(methodData, v)
+			else
+				for type in string.gmatch(v.type, '([^,]*)') do
+					local formatted = string.gsub(type, '^%s*(.-)%s*$', '%1')
+					if formatted == method then
+						table.insert(methodData, v)
+					end
+				end	
+			end
+		end
+	end
+
+	-- Sort the data
+	table.sort(methodData, function(a, b) return p.sortTable(a, b) end)
+	
+	return methodData
+end
+
+function p.calculateCurrentGoalInformation(curr, currToggle, goal, goalToggle)
+	local currLevel, currXP, goalLevel, goalXP
+    
+    if currToggle == 'Level' and tonumber(curr) <= 99 then
+    	if tonumber(curr) == 0 then
+    		currLevel = 1
+    		currXP = xp({args = {1}})
+    	else
+    		currLevel = curr
+        	currXP = xp({args = {curr}})
+        end
+    else
+    	currLevel = level({args = {curr}})
+        currXP = curr
+    end
+    
+    if goalToggle == 'Level' and tonumber(goal) <= 99 then
+    	if tonumber(goal) == 0 then
+    		goalLevel = 1
+    		goalXP = xp({args = {1}})
+    	else
+    		goalLevel = goal
+        	goalXP = xp({args = {goal}})
+        end
+    else
+    	goalLevel = level({args = {goal}})
+        goalXP = goal
+    end
+
+    -- Prevent negative values
+    local remaining = math.ceil(goalXP - currXP)
+    if remaining < 0 then
+        remaining = 0
+    end
+    
+    return { currentLevel = tonumber(currLevel), currentExperience = currXP, goalLevel = tonumber(goalLevel), goalExperience = goalXP, experienceRemaining = remaining }
+end
+
+function p.membersIcon(data)
+	local icon
+	if data then
+		local membersOnly = yesNo(data, true)
+		if membersOnly then
+			icon = '[[File:Member icon.png|center|link=Members]]'
+		else
+			icon = '[[File:Free-to-play icon.png|center|link=Free-to-play]]'
+		end
+	else
+		icon = '[[File:Free-to-play icon.png|center|link=Free-to-play]]'
+	end
+	
+	return icon	
+end
+
+function p.checkForBoostingSetSkill(skill)
+  return not not ({
+    Woodcutting = true, Farming = true, Fishing = true, Mining = true, Firemaking = true, Construction = true, Prayer = true
+  })[skill]
+end
+
+function p.determineSetValue(pieces, skill)
+	local isEverythingTrue = true
+	local value = 0
+	for _, v in ipairs(pieces) do
+		if v[1] == 'false' or v[1] == nil then
+			isEverythingTrue = false
+		else
+			value = value + tonumber(v[2])
+		end
+	end
+	
+	if isEverythingTrue then
+		return skill == 'Prayer' and 0.05 or 0.025
+	else
+		return value
+	end
+end
+
+function p.createMessage(skill, bulkData)
+    return string.format('To train %s from %s experience (level %s) to %s experience (level %s), %s experience is required.', 
+    	skill, commas(bulkData.currentExperience), bulkData.currentLevel, commas(bulkData.goalExperience), bulkData.goalLevel, commas(bulkData.experienceRemaining))
+end
+
+function p.sortTable(a, b)
+	local value = false
+	
+	if a.level == b.level then
+		if a.xp == b.xp then
+			if a.name == b.name then
+				if a.title and b.title then
+					value = a.title < b.title
+				elseif a.title and not b.title then
+					value = a.title < b.name
+				elseif not a.title and b.title then
+					value = a.name < b.title
+				end
+			else
+				value = a.name < b.name	
+			end
+		else
+			value = a.xp < b.xp
+		end
+	else
+		value = a.level < b.level
+	end
+    
+    return value
+end
+
+function p.jagexFloor(num, numDecimalPlaces)
+  local mult = 10 ^ (numDecimalPlaces or 0)
+  return math.floor(num * mult) / mult
+end
+
+function p.isRowGrey(actionLevel, currentLevel)
+	local color = ''
+	local aLevel = actionLevel and actionLevel or 1
+	
+	if aLevel > tonumber(currentLevel) then
+		color = 'table-bg-fade'
+	end
+	
+	return color
+end
+
+return p

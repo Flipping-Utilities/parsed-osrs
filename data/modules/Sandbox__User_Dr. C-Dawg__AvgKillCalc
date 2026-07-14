@@ -1,0 +1,289 @@
+local geprices = mw.loadJsonData('Module:GEPrices/data.json')
+local coins = require('Module:Coins')._amount
+local _avgValue = require('Module:Average drop value').totalval
+local commas = require('Module:Addcommas')._add
+local dropData = require('Module:Average drop value')
+local yesno = require('Module:Yesno')
+
+local p = {}
+
+function p.main(frame)
+	args = frame.args
+	return p._main(args.mobName, yesno(args.brimstone), yesno(args.clue))
+end
+
+function avgValueGE(drop_source)
+	return _avgValue(drop_source, nil, nil, nil, nil, nil, false)
+end
+
+local rarities_class = {
+    { 1, 'table-bg-blue' },
+    { 1/25, 'table-bg-green' },
+    { 1/99.99, 'table-bg-yellow' },
+    { 1/999.99, 'table-bg-orange' },
+    { 1/9999999, 'table-bg-red' }
+}
+
+local percentage_class = {
+    { 80.0, 'table-bg-blue' },
+    { 45.0, 'table-bg-green' },
+    { 10.0, 'table-bg-yellow' },
+    { 1.0, 'table-bg-orange' },
+    { 0.1, 'table-bg-red' }
+}
+
+function get_class(val, class_table)
+    for i,v in ipairs(class_table) do
+        curr = v
+        if val >= v[1] then
+            break
+        end
+    end
+    --mw.log('test3 - ' .. val .. ' - ' .. curr[1] .. ' - ' .. curr[2])
+    return curr[2]
+end
+
+function makeTable()
+	local header1 = mw.html.create('tr')
+		:tag('th')
+			:wikitext('Item')
+			:attr('colspan', 2):attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Average Quantity')
+			:attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Rarity')
+			:attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Price')
+			:attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Average GP per kill')
+			:attr('rowspan', 2)
+		:done()
+		:tag('th')
+			:wikitext('Percentage of GP per kill')
+			:attr('rowspan', 2)
+		:done()
+
+	return mw.html.create('table')
+		:addClass('wikitable sortable align-center-1 align-left-2 align-center-3 align-center-4 align-center-6')
+		:css('text-align','right')
+		:node(header1)
+end
+
+function makeTableBottom(inTable, sum)
+	inTable:tag('tr')
+		:addClass('sortbottom')
+		:tag('th')
+			:attr('colspan', 6)
+			:css('text-align','right')
+			:wikitext('Total:')
+		:done()
+		:tag('th')
+			:css('text-align','right')
+			:wikitext(coins(string.format('%d', sum)))
+		:done()
+end
+
+function makeLine(name, avgQty, chance, rolls, sum, brimstone, clue)
+	--mw.log('test1 - ' .. name .. ' - ' .. chance)
+	local price = geprices[name:gsub('#','')] or geprices[name:gsub('#',' ')] or 0
+	
+	if price == 0 then
+		price = getAbnormalPrice(name, brimstone, clue)
+	end
+	
+	local rar_good
+	local rarity = chance
+	if rarity:lower() == 'always' then
+		rarity = 1
+	else
+		rarity = rarity:gsub(',', '')
+		rar_good, rarity= pcall(mw.ext.ParserFunctions.expr, rarity)
+		if not rar_good then
+			return nil
+		end
+		rarity = tonumber(rarity)
+		if not rarity then
+			return nil
+		end
+	end
+	--mw.log('test 2 - ' .. name .. ' - ' .. chance.. ' - ' .. rarity)
+	
+	local avgPrice = price * avgQty * rarity * rolls
+	local percentOfSum = (avgPrice/sum)*100
+	local rarityClass = get_class(rarity, rarities_class)
+	local percentageClass = get_class(percentOfSum, percentage_class)
+
+	return mw.html.create('tr')
+		:tag('td')
+			:wikitext('[[File:' .. name .. '.png|link=' .. name .. ']]')
+		:done()
+		:tag('td')
+			:wikitext('[[' .. name .. ']]')
+		:done()
+		:tag('td')
+			:wikitext(avgQty)
+		:done()
+		:tag('td')
+			:addClass(rarityClass)
+			:wikitext((rolls > 1 and rolls .. ' x ' or '') .. chance)
+			:attr('data-sort-value', chance)
+		:done()
+		:tag('td')
+			:wikitext(commas(string.format('%d', price * avgQty)))
+		:done()
+		:tag('td')
+			:wikitext(coins(string.format('%.4g', avgPrice)))
+		:done()
+		:tag('td')
+			:addClass(percentageClass)
+			:wikitext(string.format('%.2f', percentOfSum) .. '%')
+		:done()
+end
+
+function getAbnormalPrice(name, brimstone, clue)
+	local item = name:lower()
+	if item == "coins" then
+		return 1.0
+	elseif item == "brimstone key" and brimstone then
+		return dropData.totalval('Brimstone chest', nil, nil, nil, nil, nil, false)
+	elseif item == "clue scroll (beginner)" and clue then
+		return 2.0*dropData.totalval('Reward casket (beginner)', nil, nil, nil, nil, nil, false)
+	elseif item == "clue scroll (easy)" and clue then
+		return 3.0*dropData.totalval('Reward casket (easy)#Standard', nil, nil, nil, nil, nil, false)
+	elseif item == "clue scroll (medium)" and clue then
+		return 4.0*dropData.totalval('Reward casket (medium)#Standard', nil, nil, nil, nil, nil, false)
+	elseif item == "clue scroll (hard)" and clue then
+		return 5.0*dropData.totalval('Reward casket (hard)', nil, nil, nil, nil, nil, false)
+	elseif item == "clue scroll (elite)" and clue then
+		return 5.0*dropData.totalval('Reward casket (elite)', nil, nil, nil, nil, nil, false)
+	elseif item == "clue scroll (master)" and clue then
+		return 6.0*dropData.totalval('Reward casket (master)', nil, nil, nil, nil, nil, false)
+	elseif item == "hydra's eye" or item == "hydra's heart" or item == "hydra's fang" then
+		return geprices['Brimstone ring']/9.0
+	elseif item == "unsired" then
+		return (26.0/128.0)*geprices['Abyssal dagger']+(12.0/128.0)*geprices['Abyssal whip']+(13.0/128.0)*geprices['Jar of miasma']+(62.0/128.0/3.0)*geprices['Abyssal bludgeon']
+	elseif item == "noxious pommel" or item == "noxious point" or item == "noxious blade" then
+		return geprices['Noxious halberd']/9.0
+	elseif item == "araxyte fang" then
+		return geprices['Amulet of rancour'] - geprices['Amulet of torture']
+	elseif item == "forgotten lockbox" then
+		return dropData.totalval('Forgotten lockbox', nil, nil, nil, nil, nil, false)
+	elseif item == "dossier" then
+		return dropData.totalval('Dossier', nil, nil, nil, nil, nil, false)
+	elseif item == "leviathan's lure" or item == "siren's staff" or item == "executioner's axe head"  or item == "eye of the duke" then
+		return (geprices['Soulreaper axe'] - 500.0*geprices['Blood rune'])/4.0
+	elseif item == "ultor vestige" then
+		return geprices['Ultor ring'] - 500.0*geprices['Blood rune'] - 3.0*geprices['Chromium ingot'] - geprices['Berserker icon']
+	elseif item == "bellator vestige" then
+		return geprices['Bellator ring'] - 500.0*geprices['Blood rune'] - 3.0*geprices['Chromium ingot'] - geprices['Warrior icon']
+	elseif item == "magus vestige" then
+		return geprices['Magus ring'] - 500.0*geprices['Blood rune'] - 3.0*geprices['Chromium ingot'] - geprices['Seers icon']
+	elseif item == "venator vestige" then
+		return geprices['Venator ring'] - 500.0*geprices['Blood rune'] - 3.0*geprices['Chromium ingot'] - geprices['Archer icon']
+	elseif item == "smoke quartz" then
+		return dropData.totalval('Chest (Ancient Vault)#Smoke quartz', nil, nil, nil, nil, nil, false)
+	elseif item == "shadow quartz" then
+		return dropData.totalval('Chest (Ancient Vault)#Shadow quartz', nil, nil, nil, nil, nil, false)
+	elseif item == "blood quartz" then
+		return dropData.totalval('Chest (Ancient Vault)#Blood quartz', nil, nil, nil, nil, nil, false)
+	elseif item == "ice quartz" then
+		return dropData.totalval('Chest (Ancient Vault)#Ice quartz', nil, nil, nil, nil, nil, false)
+	elseif item == "frozen cache" then
+		return dropData.totalval('Frozen cache', nil, nil, nil, nil, nil, false)
+	elseif item == "ancient icon" then
+		return 5000.0*geprices['Ancient essence']
+	elseif item == "crystal shard" then
+		return (geprices['Divine super combat potion(4)'] - geprices['Super combat potion(4)'])*2.5
+	elseif item == "dizana's quiver" then
+		return 4000.0*geprices['Sunfire splinters']
+	elseif item == "cache of runes" then
+		return dropData.totalval('Cache of runes', nil, nil, nil, nil, nil, false)
+	elseif item == "bludgeon claw" or item == "bludgeon spine" or item == "bludgeon axon" then
+		return geprices['Abyssal bludgeon']/9.0
+	elseif item == "giantsoul amulet" then
+		return 30.0*geprices['Big bones']
+	elseif item == "hallowed mark" then
+		return dropData.totalval('Hallowed sack', nil, nil, nil, nil, nil, false)/100.0
+	elseif item == "intricate pouch" then
+		return dropData.totalval('Intricate pouch', nil, nil, nil, nil, nil, false)
+	elseif item == "abyssal pearls" then
+		return geprices['Ring of the elements']/400.0
+	elseif item == "mokhaiotl cloth" then
+		return geprices['Confliction gauntlets'] - geprices['Tormented bracelet'] - 10000*geprices['Demon tear']
+	elseif item == "alchemist's signet" then
+		return dropData.totalval("Chest (alchemist's signet)", nil, nil, nil, nil, nil, false)
+	elseif item == "platinum token" then
+		return 1000.0
+	elseif item == "fremennik salvage" then
+		return dropData.totalval("Fremennik salvage", nil, nil, nil, nil, nil, false)
+	elseif item == "plundered salvage" then
+		return dropData.totalval("Plundered salvage", nil, nil, nil, nil, nil, false)
+	elseif item == "large salvage" then
+		return dropData.totalval("Large salvage", nil, nil, nil, nil, nil, false)
+	elseif item == "barracuda salvage" then
+		return dropData.totalval("Barracuda salvage", nil, nil, nil, nil, nil, false)
+	elseif item == "fishy salvage" then
+		return dropData.totalval("Fishy salvage", nil, nil, nil, nil, nil, false)
+	end
+	return 0
+end
+
+function augmentSum(name, avgQty, chance, rolls, sum, brimstone, clue)
+	local price = getAbnormalPrice(name, brimstone, clue)
+	if price == 0 then
+		return 0
+	end
+	
+	local rar_good
+	local rarity = chance
+	if rarity:lower() == 'always' then
+		rarity = 1
+	else
+		rarity = rarity:gsub(',', '')
+		rar_good, rarity= pcall(mw.ext.ParserFunctions.expr, rarity)
+		if not rar_good then
+			return 0
+		end
+		rarity = tonumber(rarity)
+		if not rarity then
+			return 0
+		end
+	end
+	return price * avgQty * rarity * rolls
+end
+
+function p._main(mob, brimstone, clue)
+	local dropTable = makeTable()
+	local sum = dropData.totalval(mob, nil, nil, nil, nil, nil, false)
+	local drops = dropData.getDropData(mob)
+	if not drops then
+		return 'Unable to find drops for ' .. mob .. ', please use a more specific drop table.'
+	end
+	--mw.log('sum 1 - ' .. sum)
+	for i,v in ipairs(drops) do
+		local j = mw.text.jsonDecode(v['drop_json'] or '{}')
+		local avgQty = (tonumber(j['Quantity Low']) + tonumber(j['Quantity High'])) / 2
+		sum = sum + augmentSum(j['Dropped item'], avgQty, j['Rarity'], j['Rolls'], sum, brimstone, clue)
+	end
+	--mw.log('sum 2 - ' .. sum)
+	
+	--name, avgQty, chance, rolls, sum
+	for i,v in ipairs(drops) do
+		local j = mw.text.jsonDecode(v['drop_json'] or '{}')
+		local avgQty = (tonumber(j['Quantity Low']) + tonumber(j['Quantity High'])) / 2
+		dropTable:node(makeLine(j['Dropped item'], avgQty, j['Rarity'], j['Rolls'], sum, brimstone, clue))
+	end
+	
+	makeTableBottom(dropTable, sum)
+	
+	return tostring(dropTable)
+end
+
+return p

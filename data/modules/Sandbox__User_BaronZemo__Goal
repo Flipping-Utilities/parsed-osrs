@@ -1,0 +1,331 @@
+-- <nowiki>
+local p = {}
+local var = mw.ext.VariablesLua
+
+local GAME_DEFAULT = 'osrs'
+
+local allowed_games = {
+	['rs3'] = 'rs3',
+	['rs3-ironman'] = 'rs3',
+	['rs3-hardcore'] = 'rs3',
+	['osrs'] = 'osrs',
+	['osrs-ironman'] = 'osrs',
+	['osrs-hardcore'] = 'osrs',
+	['osrs-ultimate'] = 'osrs',
+	['osrs-deadman'] = 'osrs',
+	['osrs-seasonal'] = 'osrs',
+	['osrs-tournament'] = 'osrs',
+	['osrs-skiller'] = 'osrs',
+	['osrs-pure'] = 'osrs'
+}
+
+local stats_order = {
+	rs3 = {
+		'overall',
+		'attack',
+		'defence',
+		'strength',
+		'constitution',
+		'ranged',
+		'prayer',
+		'magic',
+		'cooking',
+		'woodcutting',
+		'fletching',
+		'fishing',
+		'firemaking',
+		'crafting',
+		'smithing',
+		'mining',
+		'herblore',
+		'agility',
+		'thieving',
+		'slayer',
+		'farming',
+		'runecrafting',
+		'hunter',
+		'construction',
+		'summoning',
+		'dungeoneering',
+		'divination',
+		'invention',
+		'archaeology',
+		'necromancy',
+		-- minigames
+		'bounty hunter',
+		'bounty hunter rogue',
+		'dominion tower',
+		'crucible',
+		'castle wars',
+		'barbarian assault attacker',
+		'barbarian assault defender',
+		'barbarian assault collector',
+		'barbarian assault healer',
+		'duel tournament',
+		'mobilising armies',
+		'conquest',
+		'fist of guthix',
+		-- other
+		'gielinor games athletics',
+		'gielinor games resource race',
+		'we2: armadyl contribution',
+		'we2: bandos contribution',
+		'we2: armadyl pvp kills',
+		'we2: bandos pvp kills',
+		'heist guard level',
+		'heist robber level',
+		'cfp: 5 games',
+		'af15: cow tipping',
+		'af15: rat kills',
+		'runescore',
+		'clue scrolls easy',
+		'clue scrolls medium',
+		'clue scrolls hard',
+		'clue scrolls elite',
+		'clue scrolls master'
+	},
+	osrs = {
+		'overall',
+		'attack',
+		'defence',
+		'strength',
+		'constitution',
+		'ranged',
+		'prayer',
+		'magic',
+		'cooking',
+		'woodcutting',
+		'fletching',
+		'fishing',
+		'firemaking',
+		'crafting',
+		'smithing',
+		'mining',
+		'herblore',
+		'agility',
+		'thieving',
+		'slayer',
+		'farming',
+		'runecrafting',
+		'hunter',
+		'construction',
+		'sailing',
+		'grid points',
+		'leagues',
+		-- minigames
+		'bounty hunter',
+		'bounty hunter rogue',
+		'legacy bounty hunter',
+		'legacy bounty hunter rogue',
+		'deadman score',
+		'clue scrolls all',
+		'clue scrolls beginner',
+		'clue scrolls easy',
+		'clue scrolls medium',
+		'clue scrolls hard',
+		'clue scrolls elite',
+		'clue scrolls master',
+		'last man standing',
+		'emir\'s arena',
+		'soul wars zeal',
+		'guardians of the rift',
+		'colosseum glory',
+		'collections logged',
+		-- bosses
+		'abyssal sire',
+		'alchemical hydra',
+		'amoxliatl',
+		'araxxor',
+		'artio',
+		'barrows chests',
+		'bryophyta',
+		'callisto',
+		'calvar\'ion',
+		'cerberus',
+		'chambers of xeric',
+		'chambers of xeric challenge',
+		'chaos elemental',
+		'chaos fanatic',
+		'commander zilyana',
+		'corporeal beast',
+		'crazy archaeologist',
+		'dagannoth prime',
+		'dagannoth rex',
+		'dagannoth supreme',
+		'deranged archaeologist',
+		'doom of mokhaiotl',
+		'duke sucellus',
+		'general graardor',
+		'giant mole',
+		'grotesque guardians',
+		'hespori',
+		'kalphite queen',
+		'king black dragon',
+		'kraken',
+		'kree\'arra',
+		'k\'ril tsutsaroth',
+		'lunar chests',
+		'the mimic',
+		'nex',
+		'the nightmare',
+		'phosani\'s nightmare',
+		'obor',
+		'phantom muspah',
+		'sarachnis',
+		'scorpia',
+		'scurrius',
+		'shellbane gryphon',
+		'skotizo',
+		'sol heredit',
+		'spindel',
+		'tempoross',
+		'the gauntlet',
+		'the corrupted gauntlet',
+		'the hueycoatl',
+		'the leviathan',
+		'the royal titans',
+		'the whisperer',
+		'theatre of blood',
+		'theatre of blood hard',
+		'thermonuclear smoke devil',
+		'tombs of amascut',
+		'tombs of amascut expert',
+		'tzkal-zuk',
+		'tztok-jad',
+		'vardorvis',
+		'venenatis',
+		'vet\'ion',
+		'vorkath',
+		'wintertodt',
+		'yama',
+		'zalcano',
+		'zulrah'
+	}
+}
+local aliases = {
+	constitution = {'hitpoints'},
+	runecrafting = {'runecraft'},
+	['bounty hunter'] = {'bh'},
+	['bounty hunter rogue'] = { 'bhr' },
+	['dominion tower'] = { 'dom' },
+	['crucible'] = { 'cru' },
+	['castle wars'] = { 'cw' },
+	['barbarian assault attacker'] = { 'baa' },
+	['barbarian assault defender'] = { 'bad' },
+	['barbarian assault collector'] = { 'bac' },
+	['barbarian assault healer'] = { 'bah' },
+	['duel tournament'] = { 'duel' },
+	['mobilising armies'] = { 'ma' },
+	['conquest'] = { 'conq' },
+	['fist of guthix'] = { 'fog' },
+	['gielinor games athletics'] = { 'gga' },
+	['gielinor games resource race'] = { 'ggrr' },
+	['we2: armadyl contribution'] = { 'we2ac' },
+	['we2: bandos contribution'] = { 'we2bc' },
+	['we2: armadyl pvp kills'] = { 'we2ak' },
+	['we2: bandos pvp kills'] = { 'we2bk' },
+	['heist guard level'] = { 'hgl' },
+	['heist robber level'] = { 'hrl' },
+	['cfp: 5 games'] = { 'cfp' },
+	['af15: cow tipping'] = { 'afcow' },
+	['af15: rat kills'] = { 'afrat' },
+	['clue scrolls easy'] = { 'tt easy' },
+	['clue scrolls medium'] = { 'tt med' },
+	['clue scrolls hard'] = { 'tt hard' },
+	['clue scrolls elite'] = { 'tt elite' },
+	['clue scrolls master'] = { 'tt master' },
+}
+local types = {
+	rank = 'rank',
+	r = 'rank',
+	level = 'level',
+	lvl = 'level',
+	lv = 'level',
+	l = 'level',
+	xp = 'xp',
+	exp = 'xp',
+	experience = 'xp',
+	x = 'xp',
+	score = 'score',
+	s = 'score'
+}
+
+local function get_hiscores_lite(game, name)
+	game = game or GAME_DEFAULT
+	if not allowed_games[game] then
+		game = GAME_DEFAULT
+	end
+	local key = string.format('_hiscores_%s_%s', game, name)
+	local keyExists = var.varexists(key)
+	if keyExists and keyExists ~= "" then
+		return var.var(key)
+	end
+	local s = mw.getCurrentFrame():callParserFunction{name = "#hs", args = {game, name}}
+	if s:match('class="error"') then
+		s = s:gsub('<span class="error">', ''):gsub('</span>', '')
+		error('Error from #hs: "'..s..'"')
+	end
+	s = mw.text.trim(s)
+	var.vardefine(key, s)
+	return s
+end
+p.get_hiscores_lite = get_hiscores_lite
+
+function p.get_stats(name, game)
+	local s = get_hiscores_lite(game, name)
+	local out = {}
+	local splt = mw.text.split(s, '%s')
+	local base_game = allowed_games[game or GAME_DEFAULT] or GAME_DEFAULT
+	local skill_names = stats_order[base_game]
+	for i, t in ipairs(splt) do
+		local stat = {}
+		local sp = mw.text.split(t, ',')
+		if #sp == 2 then
+			stat = {
+				rank = tonumber(sp[1]),
+				score = tonumber(sp[2])
+			}
+		else
+			stat = {
+				rank = tonumber(sp[1]),
+				level = tonumber(sp[2]),
+				xp = tonumber(sp[3])
+			}
+		end
+		if skill_names[i] then -- Check that the index is not nil
+			out[skill_names[i]] = stat
+		else
+		end
+	end
+
+	for orig, new_list in pairs(aliases) do
+		for i, new in ipairs(new_list) do
+			out[new] = out[orig]
+		end
+	end
+	return out
+end
+
+function p.get_stat(name, stat, game)
+	return p.get_stats(name, game)[stat]
+end
+
+function p.get_stat_number(name, stat, val, game)
+	local t = types[val]
+	if t then
+		return p.get_stat(name, stat, game)[t]
+	end
+	error('Invalid type: ' .. tostring(val))
+end
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local name = args.Name or args.name or args[1] or 'Player Name'
+	local skill = args.Skill or args.skill or args[2] or 'overall'
+	local val = args.Type or args.type or args[3] or 'level'
+	local game = args.Game or args.game or args[4] or GAME_DEFAULT
+	return p.get_stat_number(name, skill, val, game)
+end
+
+return p
+-- </nowiki>

@@ -1,0 +1,159 @@
+-- <pre>
+-- This will likely be expanded when other infoboxes are converted to Lua
+-- For now, it will just be a categories handler
+
+local p = {}
+
+local onmain = require('Module:Mainonly').on_main
+local yesno = require('Module:Yesno')
+local empty = require('Module:Paramtest').is_empty
+
+local composers = {
+	['ian t'] = 'Ian Taylor',
+	['grace d'] = 'Grace Docksey',
+	['adam b'] = 'Adam Bond',
+	['stephen l'] = 'Stephen Lord',
+	['jed s'] = 'Jed Sanderson',
+	['adam r'] = 'Adam Ritchie',
+	['michael m'] = 'Michael Manning',
+	['ian h'] = 'Iain Hetherington',
+	['iain h'] = 'Iain Hetherington',
+	['chris j'] = 'Chris Jolley',
+	['dan a'] = 'Dan Atkinson',
+	['james h'] = 'James Hannigan',
+	['sam j'] = 'Sam Jones',
+	['ashleigh b'] = 'Ashleigh Bridges',
+	['abbie d'] = 'Abbie Day',
+	['julian s'] = 'Julian Surma',
+	['ashton m'] = 'Ashton Mills',
+	['sebastian b'] = 'Sebastian Boulton',
+	['ed p'] = 'Ed Pilkington',
+	['mod jodgers'] = 'James Rodgers',
+	['j rodgers'] = 'James Rodgers',
+	['j rogers'] = 'James Rodgers',
+	['mod rainbow'] = 'Mod Rainbow',
+	['mod arismel'] = 'Mod Arismel'
+}
+
+function p.cats(frame)
+	if not onmain() then
+		return ''
+	end
+	local args = frame:getParent().args
+	return p.categories {
+			number = args.number,
+			file = args.file,
+			release = args.release,
+			update = args.update,
+			members = args.members,
+			location = args.location,
+			hint = args.hint,
+			vocals = args.vocals,
+			instruments = args.instruments,
+			cacheid = args.cacheid,
+			duration = args.duration,
+			composer = args.composer,
+			map = args.map
+	}
+end
+
+-- Function that can perform case-insensitive replaces
+function replace_i(s, search, replace)
+	local i, j = s:lower():find(search:lower())
+	return s:sub(0, i-1) .. replace .. s:sub(j+1)
+end
+
+function p.composers(frame)
+	if not onmain() then
+		return ''
+	end
+	local args = frame:getParent().args
+	local ret = args.composer
+	local ctgy = ''
+	local complist = string.lower(args.composer)
+	local compcount = 0
+	local composedByList = {}
+	for name, cat in pairs(composers) do
+		if complist:find(name) then
+			ctgy = ctgy..'[[Category:Music composed by '..cat..']]'
+			ret = replace_i(ret, name..'%a*', '[[:Category:Music composed by '..cat..'|'..cat..']]')
+			table.insert(composedByList, cat)
+			compcount = compcount + 1
+		end
+	end
+	mw.smw.set({['Composed by'] = composedByList})
+	if compcount == 0 then
+		ctgy = ctgy .. '[[Category:Invalid composer]]'
+	end
+	if compcount > 1 then
+		ctgy = ctgy..'[[Category:Tracks with multiple composers]]'
+	end
+	return ret .. ctgy
+end
+
+function p.categories(...)
+	local args = ...
+	local ctgy = '<div class="infobox-smw-data" style="display: none;">[[Category:Music tracks]]'
+	if yesno(args.vocals) then
+		ctgy = ctgy..'[[Category:Music tracks with vocals]]'
+	end
+	if args.hint == "Not unlockable" then
+		ctgy = ctgy..'[[Category:Unlisted music tracks]]'
+	end
+	if empty(args.number) then
+		ctgy = ctgy..'[[Category:Missing track number]]'
+	end
+	if empty(args.file) then
+		ctgy = ctgy..'[[Category:Needs audio added]]'
+	else
+		ctgy = ctgy..'[[Music track::File:'..args.file..']]'
+	end
+	if empty(args.release) then
+		ctgy = ctgy..'[[Category:Needs release date]]'
+	else
+		local release = string.gsub(args.release, '[%[%]]', '')
+		local pattern = "(%d%d?)%s*-%s*(%d%d?)%s+(%a+)%s+(%d%d%d%d)"
+		day1, day2, month, year = string.match(release, pattern)
+		if day2 then
+			local fmt = '[[Release date::%s %s %s]][[Release date::%s %s %s]]'
+			ctgy = ctgy .. string.format(fmt, day1, month, year, day2, month, year)
+		else
+			ctgy = ctgy..'[[Release date::'..release..']]'
+		end
+	end
+	if empty(args.update) then
+		ctgy = ctgy..'[[Category:Needs update added]]'
+	end
+	if empty(args.members) then
+		ctgy = ctgy..'[[Category:Needs members status]]'
+	end
+	if empty(args.location) then
+	    ctgy = ctgy..'[[Category:Missing track location]]'
+	end
+	if empty(args.hint) then
+		ctgy = ctgy..'[[Category:Missing unlock hint]]'
+	else
+		ctgy = ctgy..'[[Unlock hint::'..string.gsub(args.hint, '[%[%]]', '')..']]'
+	end
+	if empty(args.instruments) then
+		ctgy = ctgy..'[[Category:Needs instruments]]'
+	end
+	if empty(args.cacheid) then
+		ctgy = ctgy..'[[Category:Needs music ID]]'
+	else
+		ctgy = ctgy..'[[Music ID::'..args.cacheid:match("%d+")..']]'
+	end
+	if empty(args.duration) then
+		ctgy = ctgy..'[[Category:Needs track duration added]]'
+	end
+	if empty(args.map) then
+		ctgy = ctgy..'[[Category:Needs map]]'
+	end
+	if empty(args.composer) then
+		ctgy = ctgy..'[[Category:Needs composer added]]'
+	end
+	ctgy = ctgy .. '</div>'
+	return ctgy
+end
+
+return p

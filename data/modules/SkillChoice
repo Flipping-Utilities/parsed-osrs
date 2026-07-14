@@ -1,4 +1,4 @@
---Quests are organised by least to most cumulative experience; quests with the same experience rewards are organised alphabetically--
+--Quests are organised by least to most cumulative experience; quests with the same experience rewards are organised alphabetically (as they appear in the in-game quest list)--
 
 local SCP = require('Module:SCP')._main
 local commas = require('Module:Addcommas')._add
@@ -39,12 +39,6 @@ local questList = {
 		restrictions = 30
 	},
 	{
-		name = 'A Tail of Two Cats',
-		requirements = 'None',
-		rewards = { 2500, 2 },
-		restrictions = 30
-	},
-	{
 		name = 'The Great Brain Robbery',
 		requirements = string.format('%s, %s, %s', SCP('Crafting', '16'), SCP('Construction', '30'), SCP('Prayer', '50')),
 		rewards = { 5000, 1 },
@@ -55,6 +49,12 @@ local questList = {
 		requirements = string.format('%s', SCP('Defence', '65')),
 		rewards = { 5000, 1 },
 		restrictions = 50
+	},
+	{
+		name = 'A Tail of Two Cats',
+		requirements = 'None',
+		rewards = { 2500, 2 },
+		restrictions = 30
 	},
 	{
 		name = 'Darkness of Hallowvale',
@@ -75,23 +75,17 @@ local questList = {
 		restrictions = 'Agility Fletching Smithing Thieving'
 	},
 	{
-		name = 'A Kingdom Divided',
-		requirements = string.format('%s, %s, %s, %s, %s,<br/>%s, %s', SCP('Agility', '54'), SCP('Thieving', '52'), SCP('Woodcutting', '52'), SCP('Herblore', '50'), SCP('Mining', '42'), SCP('Crafting', '38'), SCP('Magic', '35')),
-		rewards = { 10000, 2 },
-		restrictions = 40
+		name = 'Curse of the Empty Lord',
+		requirements = string.format("Some players will need %s", SCP('Prayer', '31')),
+		rewards = { 10000, 1 },
+		restrictions = 50,
+		qualifier = '([[Miniquests|miniquest]])'
 	},
 	{
 		name = 'In Search of Knowledge',
 		requirements = 'None',
 		rewards = { 10000, 1 },
 		restrictions = 40,
-		qualifier = '([[Miniquests|miniquest]])'
-	},
-	{
-		name = 'Curse of the Empty Lord',
-		requirements = string.format("Some players will need %s", SCP('Prayer', '31')),
-		rewards = { 10000, 1 },
-		restrictions = 50,
 		qualifier = '([[Miniquests|miniquest]])'
 	},
 	{
@@ -119,12 +113,10 @@ local questList = {
 		restrictions = 'Attack Strength Defence Hitpoints'
 	},
 	{
-		name = 'A Night at the Theatre',
-		requirements = string.format('%s recommended', SCP('Combat', '90')),
-		rewards = { 20000, 4 },
-		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints',
-		notes = 'The chosen skill must be at least level 50'
-		
+		name = 'A Kingdom Divided',
+		requirements = string.format('%s, %s, %s, %s, %s,<br/>%s, %s', SCP('Agility', '54'), SCP('Thieving', '52'), SCP('Woodcutting', '52'), SCP('Herblore', '50'), SCP('Mining', '42'), SCP('Crafting', '38'), SCP('Magic', '35')),
+		rewards = { 10000, 2 },
+		restrictions = 40
 	},
 	{
 		name = 'One Small Favour',
@@ -140,17 +132,25 @@ local questList = {
 		qualifier = '([[Recipe for Disaster/Defeating the Culinaromancer|The final battle]])'
 	},
 	{
-		name = 'Legends\' Quest',
-		requirements = string.format('%s, %s, %s, %s, %s, %s,<br/>%s, %s, %s, %s, %s', SCP('Quest', '107'), SCP('Agility', '50'), SCP('Crafting', '50'), SCP('Herblore', '45'), SCP('Magic', '56'), SCP('Mining', '52'), SCP('Prayer', '42'), SCP('Smithing', '50'), SCP('Strength', '50'), SCP('Thieving', '50'), SCP('Woodcutting', '50')),
-		rewards = { 30000, 4 },
-		restrictions = 'Attack Strength Defence Magic Hitpoints Prayer <br/> Woodcutting Crafting Smithing Herblore Agility Thieving'
+		name = 'Into the Tombs',
+		requirements = string.format('%s recommended', SCP('Combat', '95')),
+		rewards = { 50000, 1 },
+		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints',
+		qualifier = '([[Miniquests|miniquest]])'
 	},
 	{
-		name = 'Monkey Madness I',
-		requirements = 'None',
-		rewards = { 35000, 1, '& 20,000' },
-		restrictions = 'Attack Strength Defence Hitpoints',
-		notes = '35,000 experience is granted to the chosen pair of skills, and 20,000 is granted to the pair of skills not chosen.'
+		name = 'The Final Dawn',
+		requirements = string.format('%s, %s, %s, %s recommended', SCP('Thieving', '66'), SCP('Runecraft', '52'), SCP('Fletching','52'), SCP('Combat', '85')),
+		rewards = { 55000, 1 },
+		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints Prayer',
+	},
+	{
+		name = 'A Night at the Theatre',
+		requirements = string.format('%s recommended', SCP('Combat', '90')),
+		rewards = { 20000, 4 },
+		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints',
+		notes = 'The chosen skill must be at least level 50'
+		
 	},
 	{
 		name = 'Sins of the Father',
@@ -165,23 +165,29 @@ local questList = {
 		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints'
 	},
 	{
-		name = 'Into the Tombs',
-		requirements = string.format('%s recommended', SCP('Combat', '95')),
-		rewards = { 50000, 1 },
-		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints',
-		qualifier = '([[Miniquests|miniquest]])'
-	},
-	{
-		name = 'The Final Dawn',
-		requirements = string.format('%s, %s, %s, %s recommended', SCP('Thieving', '66'), SCP('Runecraft', '52'), SCP('Fletching','52'), SCP('Combat', '85')),
-		rewards = { 55000, 1 },
-		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints Prayer',
-	},
-	{
 		name = 'Monkey Madness II',
 		requirements = string.format('%s, %s, %s, %s, %s, %s', SCP('Slayer', '69'), SCP('Crafting', '70'), SCP('Hunter', '60'), SCP('Agility', '55'), SCP('Thieving', '55'), SCP('Firemaking', '60')),
 		rewards = { 50000, 2 },
 		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints'
+	},
+	{
+		name = 'Monkey Madness I',
+		requirements = 'None',
+		rewards = { 35000, 1, '& 20,000' },
+		restrictions = 'Attack Strength Defence Hitpoints',
+		notes = '35,000 experience is granted to the chosen pair of skills, and 20,000 is granted to the pair of skills not chosen.'
+	},
+	{
+		name = 'Legends\' Quest',
+		requirements = string.format('%s, %s, %s, %s, %s, %s,<br/>%s, %s, %s, %s, %s', SCP('Quest', '107'), SCP('Agility', '50'), SCP('Crafting', '50'), SCP('Herblore', '45'), SCP('Magic', '56'), SCP('Mining', '52'), SCP('Prayer', '42'), SCP('Smithing', '50'), SCP('Strength', '50'), SCP('Thieving', '50'), SCP('Woodcutting', '50')),
+		rewards = { 30000, 4 },
+		restrictions = 'Attack Strength Defence Magic Hitpoints Prayer <br/> Woodcutting Crafting Smithing Herblore Agility Thieving'
+	},
+	{
+		name = 'The Blood Moon Rises',
+		requirements = string.format('%s, %s, %s, %s, %s, %s, %s, %s, %s, %s', SCP('Slayer', '74'), SCP('Woodcutting', '74'), SCP('Smithing', '72'), SCP('Cooking', '72'), SCP('Fletching', '70'), SCP('Mining', '66'), SCP('Hunter', '65'), SCP('Crafting', '64'), SCP('Herblore', '64'), SCP('Magic', '57')),
+		rewards = { 30000, 6 },
+		restrictions = 70
 	},
 	{
 		name = 'Desert Treasure II - The Fallen Empire',

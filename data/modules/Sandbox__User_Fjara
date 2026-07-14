@@ -1,0 +1,16 @@
+local i = 0
+local start = os.clock()
+while(i < 99999) do
+	--CODE
+	i = i + 1
+end
+mw.log(os.clock() - start .. " seconds")
+-------------------
+local i = 0
+local start = os.clock()
+--ALTCODE
+while(i < 99999) do
+	--ALTCODE
+	i = i + 1
+end
+mw.log(os.clock() - start .. " seconds")

@@ -1,0 +1,59 @@
+local p = {}
+
+local editBtn = '<small>' .. require('Module:Edit button')() .. '</small>'
+local yesno = require('Module:Yesno')
+local isEmpty = require('Module:Paramtest').is_empty
+local hc = require('Module:Paramtest').has_content
+local buildMap = require('Module:Map').buildMap
+
+local membscol = {
+	[true] = '[[File:Member icon.png|link=Members|alt=Members]]',
+	[false] = '[[File:Free-to-play icon.png|link=Free-to-play|alt=Free-to-play]]',
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local templateArgs = frame.args
+
+	-- Copy args into new table to avoid custom scribunto iteration behavior on args
+	local mapArgs = {}
+	for k,v in pairs(args) do
+    	mapArgs[k] = v
+	end
+	
+	if not hc(mapArgs.mtype) then mapArgs.mtype = 'pin' end
+	mapArgs.icon = templateArgs.icon
+	mapArgs.ptype = templateArgs.ptype
+	mapArgs.type = 'maplink'
+
+	local loc = args.location or '? ' .. editBtn
+	if (isEmpty(loc)) then loc = '? ' .. editBtn end
+
+	local membs = membscol[yesno(args.members ~= nil and args.members or "no")]
+	
+	local spawns = args.spawns
+	if spawns == nil then
+		local i = 1
+		while args[i] do i = i + 1 end -- Counts up the amount of spawns
+		spawns = i - 1
+	end
+	if spawns == 0 then spawns = '? ' .. editBtn end
+	
+	local mapping = buildMap(mapArgs)
+	
+	-- build table row to return
+	local locationRow = mw.html.create('tr')
+	locationRow:tag('td'):wikitext(loc):done()
+	if templateArgs.ptype == 'monster' then
+		local levels = args.levels
+		if (isEmpty(levels)) then levels = '? ' .. editBtn end
+		locationRow:tag('td'):addClass(levels == 'N/A' and 'table-na' or ''):wikitext(levels):done()
+	end
+	locationRow:tag('td'):wikitext(membs):done()
+	locationRow:tag('td'):wikitext(spawns):done()
+	locationRow:tag('td'):wikitext(mapping):done()
+
+	return tostring(locationRow)
+end
+
+return p

@@ -1,0 +1,36 @@
+local templates = {"PlainCiteDevBlog", "CiteDevBlog", "PlainCiteForum", "CiteForum", "PlainCiteGeneral", "CiteGeneral", "PlainCiteGodLetter", "CiteGodLetter", "CiteLore", "PlainCiteNews", "CiteNews", "PlainCiteNPC", "CiteNPC", "PlainCiteSupport", "PlainCitePoll", "CitePoll", "PlainCitePostbag", "CitePostbag", "PlainCitePub", "CitePub", "PlainCiteReddit", "CiteReddit", "CiteText", "PlainCiteTwitter", "CiteTwitter", "PlainCiteVideo", "CiteVideo", "PlainCiteDevBlog", "CiteDevBlog", "CiteDevDiary", "PlainCiteDevDiary", "PlainCiteDiscord", "CiteDiscord", "PlainCiteForum", "CiteForum", "PlainCiteGeneral", "CiteGeneral", "PlainCiteGodLetter", "CiteGodLetter", "PlainCiteLore", "CiteLore", "PlainCiteNews", "CiteNews", "PlainCiteNPC", "CiteNPC", "PlainCitePoll", "CitePoll", "PlainCitePostbag", "CitePostbag", "PlainCitePub", "CitePub", "PlainCiteReddit", "CiteReddit", "PlainCiteSupport", "CiteSupport", "PlainCiteText", "CiteText", "PlainCiteTwitter", "CiteTwitter", "PlainCiteVid"}
+
+local hc = require('Module:Paramtest').has_content
+local dpl = require('Module:DPLlua')
+local p = {}
+
+p.go = function(x)
+	local res = dpl.ask({
+		uses = 'Template:'..x,
+		include = '{'..x..'}'
+	})
+	--mw.logObject(res)
+	local out = {}
+	for _,r in ipairs(res) do
+		local incs = r or {}
+		incs = incs['include'] or {}
+		incs = incs[x] or {}
+		aurl = incs['archiveurl']
+		if hc(aurl) then --string.find(aurl, 'archive\.') or string.find(aurl, 'webcit') then
+			table.insert(out, aurl)
+		end
+	end
+	return out
+	--mw.logObject(out)
+end
+
+p.getall = function(frame)
+	local out = {}
+	for _,t in ipairs(templates) do
+		out[t] = p.go(t)
+	end
+	return mw.text.jsonEncode(out)
+	--mw.logObject(out)
+end
+
+return p

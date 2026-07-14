@@ -1,0 +1,136 @@
+local p = {}
+local lang = mw.getContentLanguage()
+
+local regions = {
+	misthalin = true,
+	karamja = true,
+	asgarnia = true,
+	desert = true,
+	fremennik = true,
+	kandarin = true,
+	morytania = true,
+	tirannwn = true,
+	wilderness = true,
+	kourend = true,
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	local region = args[1]
+	local note = args.note
+	return p._main(region, note)
+end
+
+function p._main(region, note)
+	if region == nil or string.lower(region) == "no" then
+		return "None"
+	end
+	local ret = {}
+	for value in string.gmatch(region, "[^,]+") do
+		local group = string.gmatch(value, "[^&]+")
+		local groupTable = {}
+		for g in group do table.insert(groupTable, g) end
+		if #groupTable > 1 then
+			local group_ret = string.format('<span class="league-regions">%s</span>', p._regions(groupTable))
+			table.insert(ret, group_ret)
+		else
+			table.insert(ret, p._region(value, note))
+		end
+	end
+	return table.concat(ret, '')
+end
+
+function p._region(value)
+	local lower = string.lower(value)
+	local trimmed = lower:gsub("^%s*(.-)%s*$", "%1")
+	if regions[trimmed] then
+		local uc_region = lang:ucfirst(trimmed)
+		local icon = p._icon(trimmed)
+		local cur_ret = highlight(string.format('%s [[Trailblazer Reloaded League/Areas/%s|%s]]', icon, uc_region, uc_region), uc_region)
+		return cur_ret
+	else
+		return value
+	end	
+end
+
+function p._regions(comboRegions)
+	local icons = {}
+	local links = {}
+	local names = ""
+	for index,region in ipairs(comboRegions) do
+		local lower = string.lower(region)
+		local trimmed = lower:gsub("^%s*(.-)%s*$", "%1")
+		if regions[trimmed] then
+			local uc_region = lang:ucfirst(trimmed)
+			table.insert(icons, p._icon(trimmed))
+			table.insert(links, string.format('%s[[Trailblazer Reloaded League/Areas/%s|%s]]', index > 1 and ' & ' or '', uc_region, uc_region))
+			names = names .. (index > 1 and '&' or '') .. trimmed
+		else
+			table.insert(links, region)
+		end
+	end
+	return highlight(table.concat(icons, '') .. table.concat(links, ''), names)
+end
+
+function highlight(s, r)
+	r = string.lower(r)
+	return string.format('<span class="league-region" data-league-area="%s">%s<span class="league-check">✓</span></span>', r, s)
+end
+
+function p._icon(region, note)
+	if string.lower(region or '') == "no" then
+		return ""
+	else
+		region = lang:ucfirst(region)
+	end
+	if note == nil then
+		note = region
+	end
+	return string.format('[[File:%s Area Badge.png|%s|link=Trailblazer Reloaded League/Areas/%s]]', region, note, region)
+end
+
+function p._badge(region, note)
+	if region == nil or string.lower(region) == "no" then
+		return ""
+	end
+	local ret = {}
+	for value in string.gmatch(region, "[^,]+") do
+		local lower = string.lower(value)
+		local trimmed = lower:gsub("^%s*(.-)%s*$", "%1")
+		if regions[trimmed] then
+			local icon = p._icon(trimmed, note)
+			local cur_ret = string.format('<span class="league-badge" data-league-area="%s">%s</span>', trimmed, icon)
+			table.insert(ret, cur_ret)
+		else
+			table.insert(ret, value)
+		end
+	end
+	return table.concat(ret, '')
+end
+
+function p._highlightedIcon(region, note)
+	return highlight(p._icon(region, note), region)
+end
+
+function p.highlightedIcon(frame)
+	local args = frame:getParent().args
+	local region = args[1]
+	local note = args.note
+	return p._highlight(region, note)
+end
+
+function p.icon(frame)
+	local args = frame:getParent().args
+	local region = args[1]
+	local note = args.note
+	return p._icon(region, note)
+end
+
+function p.badge(frame)
+	local args = frame:getParent().args
+	local region = args[1]
+	local note = args.note
+	return p._badge(region, note)
+end
+
+return p

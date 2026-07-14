@@ -1,0 +1,243 @@
+--<nowiki>
+
+local p = {}
+
+local yesno = require('Module:Yesno')
+local params = require('Module:Paramtest')
+local commas = require('Module:Addcommas')
+local skillpic = require('Module:SCP')._main
+local editbutton = require('Module:Edit button')
+local clean_image = require('Module:Clean image').clean
+local coins = require('Module:Coins')._amount
+local onmain = require('Module:Mainonly').on_main
+local mats = require('Module:Sandbox/User:Faison/Materials')
+
+local toolsList = {
+	['Axe'] = '[[File:Bronze axe.png|link=Axe]]',
+}
+
+local facilitiesIcons = {
+	['Anvil'] = '[[File:Anvil icon.png]]',
+	['Brewery'] = '[[File:Brewery icon.png]]',
+	['Dairy churn'] = '[[File:Dairy churn icon.png]]',
+	['Clay oven'] = '[[File:Cooking range icon.png]]',
+	['Crafting table 1'] = '[[File:Crafting table 1 icon.png]]',
+	['Crafting table 2'] = '[[File:Crafting table 2 icon.png]]',
+	['Crafting table 3'] = '[[File:Crafting table 3 icon.png]]',
+	['Crafting table 4'] = '[[File:Crafting table 4 icon.png]]',
+	['Demon lectern'] = '[[File:Demon lectern icon.png]]',
+	['Eagle lectern'] = '[[File:Eagle lectern icon.png]]',
+	['Banner easel'] = '[[File:Banner easel icon.png]]',
+	['Furnace'] = '[[File:Furnace icon.png]]',
+	['Loom'] = '[[File:Loom icon.png]]',
+	['Mahogany eagle lectern'] = '[[File:Mahogany eagle lectern icon.png]]',
+	['Mahogany demon lectern'] = '[[File:Mahogany demon lectern icon.png]]',
+	['Oak lectern'] = '[[File:Oak lectern icon.png]]',
+	['Pluming stand'] = '[[File:Pluming stand icon.png]]',
+	['Pottery wheel'] = '[[File:Pottery wheel icon.png]]',
+	['Cooking range'] = '[[File:Cooking range icon.png]]',
+	['Sandpit'] = '[[File:Sandpit icon.png]]',
+	['Shield easel'] = '[[File:Shield easel icon.png]]',
+	['Singing bowl'] = '[[File:Singing bowl icon.png]]',
+	['Spinning wheel'] = '[[File:Spinning wheel icon.png]]',
+	['Woodcutting stump'] = '[[File:Woodcutting stump icon.png]]',
+	['Tannery'] = '[[File:Tannery icon.png]]',
+	['Taxidermist'] = '[[File:Taxidermist icon.png]]',
+	['Teak demon lectern'] = '[[File:Teak demon lectern icon.png]]',
+	['Teak eagle lectern'] = '[[File:Teak eagle lectern icon.png]]',
+	['Water'] = '[[File:Water source icon.png]]',
+	['Whetstone'] = '[[File:Whetstone icon.png]]'
+}
+
+function p.main(frame)
+	local args = frame:getParent().args
+
+	local skills = {}
+	if args.skill ~= nil then
+		table.insert(skills, {name = args.skill, xp = args.skillexp or 0, lvl = args.skilllvl or 1})
+		if args.skill2 ~= nil then
+			table.insert(skills, {name = args.skill2, xp = args.skill2exp or 0, lvl = args.skill2lvl or 1})
+		end
+		if args.skill3 ~= nil then
+			table.insert(skills, {name = args.skill3, xp = args.skill3exp or 0, lvl = args.skill3lvl or 1})
+		end
+	end
+
+	local members = ''
+	if params.has_content(args.members) then
+		members = yesno(args.members, true)
+		if members then
+			members = 'Yes'
+		else
+			members = 'No'
+		end
+	end
+
+	local materials, output = mats.parse_materials_args(args)
+	
+	local r = p._main(args.tools, skills, members, args.quest, materials, output, args.facilities, args.ticks)
+	
+	if (onmain) then
+		r = tostring(r) .. tostring(categories(args))
+	end
+
+	return r
+end
+
+--
+-- Main
+--
+function p._main(tools, skills, members, quest, materials, output, facilities, ticks)
+	local function make_row(item_data)
+		local classOverride
+		local textAlign = 'right'
+		if item_data.cost == 0 then
+			mat_ttl = 'N/A'
+			classOverride = 'table-na'
+			textAlign = 'center'
+		else
+			mat_ttl = coins(item_data.quantity * item_data.cost)
+		end
+		return mw.html.create('tr')
+			:tag('td'):wikitext(item_data.image):done()
+			:tag('td'):wikitext('[[' .. item_data.name .. ']]'):done()
+			:tag('td'):wikitext(commas._add(item_data.quantity)):done()
+			:tag('td'):addClass(classOverride):css({ ['text-align'] = textAlign }):wikitext(mat_ttl):done(), item_data.quantity * item_data.cost
+	end
+	
+	local function toolImages(t)
+		local images = {}
+				
+		if t == nil then
+			return 'None'
+		end
+		
+		local spl = mw.text.split(t, ",")
+		for _, image_i in ipairs(spl) do
+			image_i = mw.text.trim(image_i)
+			if toolsList[image_i] then
+				table.insert(images, toolsList[trimmed])
+			else
+				table.insert(images, string.format("[[File:%s.png|link=%s]]", image_i, image_i))
+			end
+		end
+		return table.concat(images)
+	end
+	
+	local function facilityLinks(f)
+		local links = {}
+		
+		if f == nil then
+			return 'None'
+		end
+		
+		local spl = mw.text.split(f, ",")
+		for _, link_i in ipairs(spl) do
+			if facilitiesIcons[link_i] ~= nil then
+				table.insert(links, string.format("%s [[%s]]", facilitiesIcons[link_i], link_i))
+			else
+				table.insert(links, string.format("[[%s]]", link_i))
+			end
+		end
+		return table.concat(links, "<br />")
+	end
+	local parent = mw.html.create('div')
+			:css({width = 'max-content' })
+
+	local requirements = mw.html.create('table')
+			:addClass('wikitable align-center-2 align-right-3')
+			:css({ width = '100%',
+				['margin-bottom'] = '0' })
+	
+	requirements:tag('caption'):wikitext("Requirements"):done()
+	local tr = requirements:tag('tr')
+		if #skills ~= 0 then
+			tr:tag('th'):attr('colspan', 2):wikitext('Skill'):done()
+			tr:tag('th'):wikitext('Level'):done()
+			tr:tag('th'):wikitext('XP'):done()
+		end	
+	
+	local membersTemplate = editbutton('?')
+	if members == 'Yes' then
+		membersTemplate = "[[File:Member icon.png|center|link=Members]]"	
+	elseif members == 'No' then
+		membersTemplate = "[[File:Free-to-play icon.png|center|link=Free-to-play]]"	
+	end
+
+	if #skills ~= 0 then
+		for i, v in ipairs(skills) do
+			requirements:tag('tr')
+				:tag('td'):attr('colspan', 2):wikitext(skillpic(v.name) .. ' [[' .. v.name .. ']]'):done()
+				:tag('td'):wikitext(v.lvl):done()
+				:tag('td'):wikitext(v.xp):done()
+		end
+	end
+	
+	if quest ~= nil then
+		requirements:tag('tr')
+			:tag('td'):attr('colspan', 4):wikitext(skillpic('Quest') .. ' ' ..quest):done()
+	end
+	
+	local tr = requirements:tag('tr')
+	tr:tag('th'):wikitext('Members'):done()
+	tr:tag('td'):wikitext(membersTemplate):done()
+	tr:tag('th'):attr('title', 'Ticks per action'):wikitext('[[RuneScape clock#Length of a tick|Ticks]]'):done()
+	if ticks == nil then
+		tr:tag('td'):wikitext('?'):done()
+	else
+		local secs = tonumber(ticks, 10) * 0.6
+		tr:tag('td'):attr('title', ticks .. ' ticks (' .. secs .. 's) per action'):wikitext(ticks .. ' (' .. secs .. 's)'):done()
+	end
+	
+	if tools ~= nil or facilities ~= nil then
+		local toolImgs = toolImages(tools)
+		local facilityLnks = facilityLinks(facilities)
+		requirements:tag('tr')
+			:tag('th'):wikitext('Tools'):done()
+			:tag('td'):css({ ['text-align'] = 'center' }):wikitext(toolImgs):done()
+			:tag('th'):wikitext('Facilities'):done()
+			:tag('td'):css({ ['text-align'] = 'left' }):wikitext(facilityLnks):done()
+	end
+	
+	local materialsTable = mats.materials(materials, output)
+	
+	parent:node(requirements)
+	parent:node(materialsTable)
+	
+	local jsonObject = {skills = skills, materials = {}, output = output}
+	local materialNames = {}
+	for _, v in ipairs(materials) do
+		table.insert(jsonObject.materials, {name = v.name, quantity = v.quantity})
+		table.insert(materialNames, v.name)
+	end
+	
+	-- mw.smw.set({
+	-- 	["Uses material"] = materialNames,
+	-- 	['Production JSON'] = mw.text.jsonEncode(jsonObject)
+	-- })
+
+	return tostring(parent)
+end
+
+function categories(args)
+	local cats = {}
+	
+	if args.ticks == nil then
+		table.insert(cats, 'Recipes missing ticks')
+	end
+	
+	if args.tools ~= nil then
+		table.insert(cats, 'Recipes that require a tool')
+	end
+	
+	if args.facilities ~= nil then
+		table.insert(cats, 'Recipes that use a facility')
+	end
+	
+	for i,v in ipairs(cats) do
+		cats[i] = string.format('[[Category:%s]]',v)
+	end
+	return table.concat(cats,'')
+end
+
+return p

@@ -209,7 +209,9 @@ function p.categories(...)
 	if empty(args.sortname) then
 		ctgy = ctgy..'[[Category:Needs sort string added]]'
 	end
-
+	if args.composer == "N/A" then
+		ctgy = ctgy..'[[Category:Silent music]]'
+	end
 	ctgy = ctgy .. '</div>'
 	
 	p.composers(args.frame) --Call it again to set bucket_data values

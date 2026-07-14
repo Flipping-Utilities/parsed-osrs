@@ -59,7 +59,7 @@ function p.print()
 	local release = '[[' .. day .. ']] [[' .. year .. ']]'
 	local links = ''
 if result.link_tidal then
-	links = links .. '[[File:Tidal icon.png|55px|' .. result.link_tidal .. '|Tidal]]'
+	links = links .. '[[File:Tidal icon.png|55px|link=https://tidal.com/album/' .. result.link_tidal .. '|Tidal]]'
 end
 if result.link_bandcamp then
 	links = links .. '[[File:Bandcamp icon.png|55px|link=https://lacedrecords.bandcamp.com/' .. result.link_bandcamp .. '|Bandcamp]]<br>'

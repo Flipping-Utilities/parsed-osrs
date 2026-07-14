@@ -1,0 +1,42 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	mw.logObject(args)
+	return p.calc(args.log_type, args.do_string == 'true', args.endless_harvest == 'true', args.production_master == 'true', tonumber(args.bowstring_rate))
+end
+
+function p.calc(log_type, do_string, endless_harvest, production_master, bowstring_rate)
+	local data = {
+		oak = {25, 1100},
+		willow = {41.5, 600},
+		maple = {58.25, 400},
+		yew = {75, 220},
+		magic = {91.5, 130}
+	}
+	mw.log(log_type)
+	local xp, chop_rate = unpack(data[log_type])
+
+	if do_string then
+		xp = xp * 2
+	end
+	if endless_harvest then
+		chop_rate = chop_rate * 2
+	end
+	
+	local time_per_bow = 0 -- in hours
+	time_per_bow = time_per_bow + 1 / chop_rate
+	if not production_master then
+		-- assuming 1700 fletched bows per hour
+		time_per_bow = time_per_bow + 1 / 1700
+	end
+	if do_string then
+		if not production_master then
+			time_per_bow = time_per_bow + 1 / 2450
+		end
+		time_per_bow = time_per_bow + 1 / bowstring_rate
+	end
+	return xp / time_per_bow
+end
+
+return p
