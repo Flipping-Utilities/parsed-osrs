@@ -54,7 +54,7 @@ function p._main(description, id, level, type, sea, ocean, location, location2, 
 			["diving"] = "Fishbowl helmet"
 		}
 		local typeImage = typeNameMap[string.lower(type)] or "Captain's log"
-		row:tag('td'):wikitext("<span class=\"plink-template\">[[File:"..typeImage..".png|22px]]</span>[[Sea_charting#Tools|"..type.."]]")
+		row:tag('td'):wikitext("<span class=\"plink-template\">[[File:"..typeImage..".png]]</span>[[Sea_charting#Tools|"..type.."]]")
 	end
 	
 	local descCell = row:tag('td'):wikitext(description)

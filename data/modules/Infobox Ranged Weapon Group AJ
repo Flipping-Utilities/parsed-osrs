@@ -1,4 +1,4 @@
--- Module for [[Template:Infobox Ranged Weapon Group]]
+-- Module for [[Template:Infobox Ranged Weapon Group AJ]]
 
 local p = {}
 
@@ -11,13 +11,12 @@ function p.main(frame)
 	ret:defineParams{
 		{ name = 'name', func = 'name' },
 		{ name = 'images', func = 'has_content' },
-		{ name = 'type', func = typearg },
 		{ name = 'ammunition', func = 'has_content' },
 		{ name = 'twohanded', func = 'has_content' },
 		{ name = 'speed', func = attackspeedarg },
 		{ name = 'speed_rapid', func = attackspeedarg },
-		{ name = 'attackrange', func = rangearg },
-		{ name = 'attackrange_long', func = rangearg },
+		{ name = 'attackrange', func = 'has_content' },
+		{ name = 'attackrange_long', func = 'has_content' },
 	}
 
 	ret:defineLinks({ hide = true })
@@ -35,10 +34,6 @@ function p.main(frame)
 		{ tag = 'argd', content = 'images', class='infobox-image', colspan = '20' }
 	}
 	ret:pad(20)
-	ret:addRow{
-		{ tag = 'th', content = '[[Attack_types|Type]]', colspan = '7' },
-		{ tag = 'argd', content = 'type', colspan = '13' }
-	}
 	ret:addRow{
 		{ tag = 'th', content = '[[Ammunition]]', colspan = '7' },
 		{ tag = 'argd', content = 'ammunition', colspan = '13' }
@@ -60,9 +55,9 @@ function p.main(frame)
 		{ tag = 'th', content = '[[Combat_Options#Rapid|Rapid]]', colspan = '7' },
 		{ tag = 'argd', content = 'speed_rapid', colspan = '13' }
 	}
-	ret:pad(20)
 	if ret:paramDefined('attackrange', 'all') then
-			ret:addRow{
+		ret:pad(20)
+		ret:addRow{
 			{ tag = 'th', content = '[[Attack range]]', class = 'infobox-subheader', colspan = '20' }
 		}
 		ret:pad(20)
@@ -74,7 +69,6 @@ function p.main(frame)
 			{ tag = 'th', content = '[[Combat_Options#Longrange|Longrange]]', colspan = '7' },
 			{ tag = 'argd', content = 'attackrange_long', colspan = '13' }
 		}
-		ret:pad(20)
 	end
 	return ret:tostring()
 end
@@ -96,36 +90,6 @@ function attackspeedarg(arg)
 	if numarg ~= nil then
 		return string.format('%s %s (%.1f seconds)', numarg, (numarg > 1) and 'ticks' or 'tick', numarg * 0.6)
 	end	
-end
-
-function typearg(arg)
-	if not infobox.isDefined(arg) then
-		return nil
-	end
-
-	local lowarg = string.lower(arg)
-	
-	if lowarg == 'light' then
-		return '[[Attack_types#Light|Light]]'
-	elseif lowarg == 'standard' then
-		return '[[Attack_types#Standard|Standard]]'
-	elseif lowarg == 'heavy' then
-		return '[[Attack_types#Heavy|Heavy]]'
-	else return arg
-	end
-end
-
-function rangearg(arg)
-	if not infobox.isDefined(arg) then
-		return nil
-	end
-
-	local numarg = tonumber(arg)
-	
-	if numarg ~= nil then
-		return string.format('%s %s', numarg, (numarg > 1) and 'tiles' or 'tile')
-	end	
-	return arg
 end
 
 return p

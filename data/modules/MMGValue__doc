@@ -1,0 +1,13 @@
+{{Documentation}}
+
+This module retrieves the hourly value of a [[Money making guide]]
+
+== Usage ==
+
+<pre> {{#invoke:MMGValue|main|Salvaging Merchant Shipwrecks}} </pre>
+
+The page name should be given without the Money making guide/ prefix.
+
+== Current use ==
+
+The module is invoked directly by [[Guide:AFK Skilling Methods]] to retrieve values from several money-making guides.

@@ -1,0 +1,22 @@
+local p = {}
+
+function p.main(frame)
+	local args = frame:getParent().args
+	return p._main(args)
+end
+
+function p._main(args)
+	local jsonData = {}
+	
+	local containerDiv = mw.html.create('div')
+	local resultsDiv = mw.html.create('div')
+		resultsDiv:css({display = 'none'})
+		resultsDiv:addClass('kill-worth-div')
+		resultsDiv:node(mw.text.jsonEncode(jsonContent))
+		
+	
+	
+	return
+end
+
+return p

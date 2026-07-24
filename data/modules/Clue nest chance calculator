@@ -3,20 +3,24 @@ local p = {}
 local lang = mw.language.getContentLanguage()
 
 local baseChanceArray = {
-	{tree = 'Magic trees', chance = 72321},
-	{tree = 'Redwood trees', chance = 72321},
-	{tree = 'Yew trees', chance = 145013},
-	{tree = 'Arctic pine trees', chance = 145758},
-	{tree = 'Hollow trees', chance = 214367},
-	{tree = 'Mahogany trees', chance = 220623},
-	{tree = 'Maple trees', chance = 221918},
-	{tree = 'Teak trees', chance = 264336},
-	{tree = 'Willow trees', chance = 289286},
+	{tree = 'Oak trees', chance = 361146},
+	{tree = 'Juniper trees', chance = 360000},
+	{tree = 'Sulliusceps', chance = 343000},
 	{tree = 'Achey trees', chance = 317647},
 	{tree = 'Normal trees', chance = 317647},
-	{tree = 'Sulliusceps', chance = 343000},
-	{tree = 'Juniper trees', chance = 360000},
-	{tree = 'Oak trees', chance = 361146}
+	{tree = 'Willow trees', chance = 289286},
+	{tree = 'Teak trees', chance = 264336},
+	{tree = 'Jatoba trees', chance = 264336},
+	{tree = 'Maple trees', chance = 221918},
+	{tree = 'Mahogany trees', chance = 220623},
+	{tree = 'Hollow trees', chance = 214367},
+	{tree = 'Arctic pine trees', chance = 145758},
+	{tree = 'Yew trees', chance = 145013},
+	{tree = 'Camphor trees', chance = 145013},
+	{tree = 'Magic trees', chance = 72321},
+	{tree = 'Redwood trees', chance = 72321},
+	{tree = 'Ironwood trees', chance = 72321},
+	{tree = 'Rosewood trees', chance = 72321}
 }
 
 local clueTierArray = {

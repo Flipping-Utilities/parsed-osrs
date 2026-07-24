@@ -238,6 +238,7 @@ local konar = {
 	[SlayerConsts.TASK_BOSS_PHANTOM_MUSPAH] = { name = "[[Phantom Muspah]]", requirements= {Quest = SlayerConsts.QUEST_SECRETS_OF_THE_NORTH}, weight= 1},
 	[SlayerConsts.TASK_BOSS_SARACHNIS] = { name = "[[Sarachnis]]", requirements= {}, weight= 1},
 	[SlayerConsts.TASK_BOSS_SCORPIA] = { name = "[[Scorpia]]", requirements= {}, weight= 1},
+	[SlayerConsts.TASK_BOSS_SHELLBANE_GRYPHON] = { name = "[[Shellbane gryphon]]", requirements= {Slayer = 51, Quest = SlayerConsts.QUEST_TROUBLED_TORTUGANS}, weight= 1},
 	[SlayerConsts.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL] = { name = "[[Thermonuclear smoke devil]]", requirements= {Slayer = 93}, weight= 1},
 	[SlayerConsts.TASK_BOSS_VARDORVIS] = { name = "[[Vardorvis]]", requirements= {Quest = SlayerConsts.QUEST_DESERT_TREASURE_2}, weight= 1},
 	[SlayerConsts.TASK_BOSS_VENENATIS] = { name = "[[Venenatis]]", requirements= {}, weight= 1},
@@ -314,6 +315,7 @@ local nieve = {
 	[SlayerConsts.TASK_BOSS_PHANTOM_MUSPAH] = { name = "[[Phantom Muspah]]", requirements= {Quest = SlayerConsts.QUEST_SECRETS_OF_THE_NORTH}, weight= 1},
 	[SlayerConsts.TASK_BOSS_SARACHNIS] = { name = "[[Sarachnis]]", requirements= {}, weight= 1},
 	[SlayerConsts.TASK_BOSS_SCORPIA] = { name = "[[Scorpia]]", requirements= {}, weight= 1},
+	[SlayerConsts.TASK_BOSS_SHELLBANE_GRYPHON] = { name = "[[Shellbane gryphon]]", requirements= {Slayer = 51, Quest = SlayerConsts.QUEST_TROUBLED_TORTUGANS}, weight= 1},
 	[SlayerConsts.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL] = { name = "[[Thermonuclear smoke devil]]", requirements= {Slayer = 93}, weight= 1},
 	[SlayerConsts.TASK_BOSS_VARDORVIS] = { name = "[[Vardorvis]]", requirements= {Quest = SlayerConsts.QUEST_DESERT_TREASURE_2}, weight= 1},
 	[SlayerConsts.TASK_BOSS_VENENATIS] = { name = "[[Venenatis]]", requirements= {}, weight= 1},
@@ -333,7 +335,18 @@ local nieve = {
 [SlayerConsts.TASK_ELVES] = { name = "[[Elves]]", requirements= {Combat= 70, Quest= SlayerConsts.QUEST_REGICIDE}, weight= 4},
 [SlayerConsts.TASK_FIRE_GIANTS] = { name = "[[Fire giant]]", requirements= {Combat= 65}, weight= 9},
 [SlayerConsts.TASK_FOSSIL_ISLAND_WYVERNS] = { name = "[[Fossil Island Wyvern]]s", requirements= {Slayer= 66, Combat= 60, Unlock= SlayerConsts.UNLOCK_STOP_THE_WYVERN, Quest= {SlayerConsts.QUEST_BONE_VOYAGE, SlayerConsts.QUEST_ELEMENTAL_WORKSHOP_I}}, weight= 5},
-[SlayerConsts.TASK_FROST_DRAGONS] = { name = "[[Frost dragon]]s", requirements= {Sailing= 87, Combat = 85}, weight= 5},
+[SlayerConsts.TASK_FROST_DRAGONS] = {
+	name = "[[Frost dragon]]s",
+	requirements = {
+		Sailing = 87,
+		Combat = 85
+	},
+	weight = 5,
+	unlockWeight = {
+		unlock = SlayerConsts.UNLOCK_CHANCE_OF_HEAVY_FROST,
+		weight = 8
+	}
+},
 [SlayerConsts.TASK_GARGOYLES] = { name = "[[Gargoyle]]s", requirements= {Slayer= 75, Combat= 80, Quest= SlayerConsts.QUEST_PRIEST_IN_PERIL}, weight= 6},
 [SlayerConsts.TASK_GREATER_DEMONS] = { name = "[[Greater demon]]s", requirements= {Combat= 75}, weight= 7},
 [SlayerConsts.TASK_GRYPHONS] = { name = "[[Gryphon]]s", requirements= {Slayer= 51, Sailing= 45, Quest= SlayerConsts.QUEST_TROUBLED_TORTUGANS, Unlock= SlayerConsts.UNLOCK_WINGS_SPREAD}, weight= 7},
@@ -396,6 +409,7 @@ local duradel = {
 	[SlayerConsts.TASK_BOSS_PHANTOM_MUSPAH] = { name = "[[Phantom Muspah]]", requirements= {Quest = SlayerConsts.QUEST_SECRETS_OF_THE_NORTH}, weight= 1},
 	[SlayerConsts.TASK_BOSS_SARACHNIS] = { name = "[[Sarachnis]]", requirements= {}, weight= 1},
 	[SlayerConsts.TASK_BOSS_SCORPIA] = { name = "[[Scorpia]]", requirements= {}, weight= 1},
+	[SlayerConsts.TASK_BOSS_SHELLBANE_GRYPHON] = { name = "[[Shellbane gryphon]]", requirements= {Slayer = 51, Quest = SlayerConsts.QUEST_TROUBLED_TORTUGANS}, weight= 1},
 	[SlayerConsts.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL] = { name = "[[Thermonuclear smoke devil]]", requirements= {Slayer = 93}, weight= 1},
 	[SlayerConsts.TASK_BOSS_VARDORVIS] = { name = "[[Vardorvis]]", requirements= {Quest = SlayerConsts.QUEST_DESERT_TREASURE_2}, weight= 1},
 	[SlayerConsts.TASK_BOSS_VENENATIS] = { name = "[[Venenatis]]", requirements= {}, weight= 1},
@@ -413,7 +427,15 @@ local duradel = {
 [SlayerConsts.TASK_ELVES] = { name = "[[Elves]]", requirements= {Combat= 70, Quest= SlayerConsts.QUEST_REGICIDE}, weight= 4},
 [SlayerConsts.TASK_FIRE_GIANTS] = { name = "[[Fire giant]]", requirements= {Combat= 65}, weight= 7},
 [SlayerConsts.TASK_FOSSIL_ISLAND_WYVERNS] = { name = "[[Fossil Island Wyvern]]s", requirements= {Slayer= 66, Combat= 60, Unlock= SlayerConsts.UNLOCK_STOP_THE_WYVERN, Quest= {SlayerConsts.QUEST_BONE_VOYAGE, SlayerConsts.QUEST_ELEMENTAL_WORKSHOP_I}}, weight= 7},
-[SlayerConsts.TASK_FROST_DRAGONS] = { name = "[[Frost dragon]]s", requirements= {Sailing= 87}, weight= 5},
+[SlayerConsts.TASK_FROST_DRAGONS] = {
+	name = "[[Frost dragon]]s",
+	requirements = {Sailing = 87},
+	weight = 5,
+	unlockWeight = {
+		unlock = SlayerConsts.UNLOCK_CHANCE_OF_HEAVY_FROST,
+		weight = 8
+	}
+},
 [SlayerConsts.TASK_GARGOYLES] = { name = "[[Gargoyle]]s", requirements= {Slayer= 75, Combat= 80, Quest= SlayerConsts.QUEST_PRIEST_IN_PERIL}, weight= 8},
 [SlayerConsts.TASK_GREATER_DEMONS] = { name = "[[Greater demon]]s", requirements= {Combat= 75}, weight= 9},
 [SlayerConsts.TASK_GRYPHONS] = { name = "[[Gryphon]]s", requirements= {Slayer= 51, Sailing= 45, Quest= SlayerConsts.QUEST_TROUBLED_TORTUGANS, Unlock= SlayerConsts.UNLOCK_WINGS_SPREAD}, weight= 7},

@@ -2,15 +2,15 @@ local p = {}
 
 local staves = {
 	Basic = {
-		shards = 20,
+		shards = 0,
 		frame = 1
 	},
 	Attuned = {
-		shards = 80,
+		shards = 50,
 		frame = 1
 	},
 	Perfected = {
-		shards = 80,
+		shards = 50,
 		frame = 1,
 		orb = 1
 	}
@@ -18,15 +18,15 @@ local staves = {
 
 local halberds = {
 	Basic = {
-		shards = 20,
+		shards = 0,
 		frame = 1
 	},
 	Attuned = {
-		shards = 80,
+		shards = 50,
 		frame = 1
 	},
 	Perfected = {
-		shards = 80,
+		shards = 50,
 		frame = 1,
 		spike = 1
 	}
@@ -34,15 +34,15 @@ local halberds = {
 
 local bows = {
 	Basic = {
-		shards = 20,
+		shards = 0,
 		frame = 1
 	},
 	Attuned = {
-		shards = 80,
+		shards = 50,
 		frame = 1
 	},
 	Perfected = {
-		shards = 80,
+		shards = 50,
 		frame = 1,
 		bowstring = 1
 	}
@@ -50,7 +50,7 @@ local bows = {
 
 local helms = {
 	Basic = {
-		shards = 40,
+		shards = 50,
 		ore = 1,
 		bark = 1,
 		tirinum = 1
@@ -62,7 +62,7 @@ local helms = {
 		tirinum = 2
 	},
 	Perfected = {
-		shards = 180,
+		shards = 200,
 		ore = 4,
 		bark = 4,
 		tirinum = 4
@@ -71,7 +71,7 @@ local helms = {
 
 local bodies = {
 	Basic = {
-		shards = 40,
+		shards = 50,
 		ore = 1,
 		bark = 1,
 		tirinum = 1
@@ -83,7 +83,7 @@ local bodies = {
 		tirinum = 3
 	},
 	Perfected = {
-		shards = 180,
+		shards = 250,
 		ore = 5,
 		bark = 5,
 		tirinum = 5
@@ -92,7 +92,7 @@ local bodies = {
 
 local legs = {
 	Basic = {
-		shards = 40,
+		shards = 50,
 		ore = 1,
 		bark = 1,
 		tirinum = 1
@@ -104,7 +104,7 @@ local legs = {
 		tirinum = 2
 	},
 	Perfected = {
-		shards = 180,
+		shards = 200,
 		ore = 4,
 		bark = 4,
 		tirinum = 4

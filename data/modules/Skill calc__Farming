@@ -765,5 +765,35 @@ return {
         },
         members = 'Yes',
         type = 'Special'
+    }, {   
+    	name = 'Camphor tree',
+    	pic = 'Camphor logs',
+        level = 66,
+        xp = 17840,
+        materials = {
+        	{ name = 'Camphor seed', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Special'
+    }, {   
+    	name = 'Ironwood tree',
+    	pic = 'Ironwood logs',
+        level = 80,
+        xp = 20380,
+        materials = {
+        	{ name = 'Ironwood seed', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Special'
+    }, {   
+    	name = 'Rosewood tree',
+    	pic = 'Rosewood logs',
+        level = 92,
+        xp = 23100,
+        materials = {
+        	{ name = 'Rosewood seed', quantity = 1 }
+        },
+        members = 'Yes',
+        type = 'Special'
     }
 }

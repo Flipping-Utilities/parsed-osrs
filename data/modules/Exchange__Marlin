@@ -4,7 +4,7 @@ return {
 	icon      = 'Marlin.png',
     alchable  = true,
 	value     = 170,
-	limit     = nil,
+	limit     = 10000,
 	members   = true,
 	category  = nil,
 	examine   = "Some nicely cooked marlin."

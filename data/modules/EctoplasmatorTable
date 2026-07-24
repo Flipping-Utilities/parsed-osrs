@@ -19,7 +19,7 @@ end
 function p._main(args)
     -- Gather the data
     local data = bucket('infobox_monster')
-		.select('name', 'image', 'is_members_only', 'combat_level', 'hitpoints')
+		.select('page_name', 'page_name_sub', 'version_anchor', 'name', 'image', 'is_members_only', 'combat_level', 'hitpoints')
 		.where('attribute', 'spectral')
 		.where(bucket.Not('Category:Discontinued content'))
 		.where(bucket.Not('Category:Pages using information from game APIs or cache'))
@@ -35,15 +35,17 @@ function p._main(args)
 
     -- Render rows
     local function makeRow(entry)
-        local name = mw.text.split(entry['name'], '#', true)
+        local name = entry['page_name']
+        local subname = entry['page_name_sub']:gsub('_', ' ')
+        local anchor = entry['version_anchor']
         if name[2] then
         	name[2] = name[2]:gsub('_', ' ')
         end
         local hp = entry['hitpoints']
         local prayer_xp = math.floor(hp * 0.2)
         local tr = mw.html.create('tr')
-            :tag('td'):css('height', '64px'):wikitext(entry['image'][1] and string.format('[[%s|link=|64x64px|%s%s]]', entry['image'][1], name[1], (name[2] and ' - ' .. name[2]) or '') or '' ):done()
-            :tag('td'):wikitext( string.format('[[%s|%s]]%s', entry['name'], name[1], name[2] and '<br/><i>' .. name[2] .. '</i>' or '') ):done()
+            :tag('td'):css('height', '64px'):wikitext(entry['image'][1] and string.format('[[%s|link=|64x64px|%s%s]]', entry['image'][1], subname, (anchor and ' - ' .. anchor) or '') or '' ):done()
+            :tag('td'):wikitext( string.format('[[%s|%s]]%s', subname, name, anchor and '<br/><i>' .. anchor .. '</i>' or '') ):done()
             :tag('td'):wikitext(entry['is_members_only'] and '[[File:Member icon.png|center|link=Members|alt=Members]]' or '[[File:Free-to-play icon.png|center|link=Free-to-play|alt=Free-to-play]]'):done()
             :tag('td'):wikitext(entry['combat_level']):done()
             :tag('td'):wikitext(hp):done()

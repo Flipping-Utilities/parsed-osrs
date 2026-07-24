@@ -9,6 +9,7 @@ local scp = require('Module:SCP')._main
 local p = {}
 
 -- GF-compatible item suffixes and their bar worth in the crucible
+-- Spears cost bar + logs to smith but count as 2 bars in GF
 local gfCompatible = {
     ['platebody']  = 4,
     ['warhammer']  = 2,
@@ -162,6 +163,7 @@ local itemBarWorth = {
     ['full helm']  = 1,
     ['sq shield']  = 1,
     ['claws']      = 1,
+    ['spear']      = 2,
 }
 
 local requestCombinations = {

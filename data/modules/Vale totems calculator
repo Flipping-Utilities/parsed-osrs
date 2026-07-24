@@ -194,13 +194,15 @@ function p.main(frame)
         local material_cost = 0
         local material_cost_logs = 0
         local material_cost_decor = 0
-        if (args.noSelfWoodcut == "true" and use_bowstring == "true") then
-            material_cost_logs = gePrice(logs)*totems_needed + gePrice("Bow string")*totems_needed*args.decCount
-        elseif (args.noSelfWoodcut == "true") then
+        if (args.noSelfWoodcut == "true") then
             material_cost_logs = gePrice(logs)*totems_needed
         end
         if (args.noSelfFletch == "true") then
             material_cost_decor = gePrice(name)*totems_needed*args.decCount
+        elseif (args.noSelfWoodcut == "true" and use_bowstring == "true") then
+        	material_cost_decor = gePrice("Bow string")*totems_needed*args.decCount + gePrice(logs)*totems_needed*args.decCount*log_count
+    	elseif (args.noSelfWoodcut == "true") then
+        	material_cost_decor = gePrice(logs)*totems_needed*args.decCount*log_count
         end
         material_cost = material_cost_logs + material_cost_decor
 

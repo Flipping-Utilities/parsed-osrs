@@ -442,34 +442,63 @@ end
 function p.get_effective_table(tableToReduce, status, returnDisallowed)
 	local availableMonsterTable = {}
 	local unavailableTable = {}
-	for taskMonsterId, taskValue in pairs(tableToReduce) do
-		if check_requirements(status, taskValue['requirements'], taskMonsterId) then
+
+	for taskMonsterId, originalTaskValue in pairs(tableToReduce) do
+		if check_requirements(
+			status,
+			originalTaskValue['requirements'],
+			taskMonsterId
+		) then
+			-- Always copy the task so conditional changes do not modify
+			-- the original master table.
+			local taskValue = {}
+
+			for k, v in pairs(originalTaskValue) do
+				taskValue[k] = v
+			end
+
+			-- Apply an alternate weight when the associated unlock is active.
+			local unlockWeight = taskValue['unlockWeight']
+
+			if unlockWeight ~= nil then
+				local unlockName =
+					SlayerConsts.get_unlock_name(unlockWeight['unlock'])
+
+				if unlockName ~= nil
+					and status['Unlocks'][unlockName] == true
+				then
+					taskValue['weight'] = unlockWeight['weight']
+				end
+			end
+
 			local subtable = taskValue['subtable']
 
 			if subtable ~= nil then
-				effectiveSubtable, unavailableSubtable = p.get_effective_table(subtable, status, returnDisallowed)
+				local effectiveSubtable, unavailableSubtable =
+					p.get_effective_table(
+						subtable,
+						status,
+						returnDisallowed
+					)
 
-				local taskValueCopy = {}
-				for k, v in pairs(taskValue) do
-					taskValueCopy[k] = v
-				end
+				taskValue['subtable'] = {}
+				taskValue['unavailableSubtable'] = {}
 
-				taskValueCopy['subtable'] = {}
-				taskValueCopy['unavailableSubtable'] = {}
 				for subKey, subVal in pairs(effectiveSubtable) do
-					taskValueCopy['subtable'][subKey] = subVal
-				end
-				for subKey, subVal in pairs(unavailableSubtable) do
-					taskValueCopy['unavailableSubtable'][subKey] = subVal
+					taskValue['subtable'][subKey] = subVal
 				end
 
-				taskValue = taskValueCopy
+				for subKey, subVal in pairs(unavailableSubtable) do
+					taskValue['unavailableSubtable'][subKey] = subVal
+				end
 			end
+
 			availableMonsterTable[taskMonsterId] = taskValue
 		elseif returnDisallowed == true then
-			unavailableTable[taskMonsterId] = taskValue
+			unavailableTable[taskMonsterId] = originalTaskValue
 		end
 	end
+
 	return availableMonsterTable, unavailableTable
 end
 

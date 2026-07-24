@@ -29,6 +29,8 @@ local pets = {
 		['Ironwood'] = { base = 72321, level = 80, link =  'Ironwood tree'},
 		['Redwood'] = { base = 72321, level = 90, link =  'Redwood tree'},
 		['Rosewood'] = { base = 72321, level = 92, link =  'Rosewood tree'},
+		['Bloodwood'] = { base = 969283, level = 77, link = 'Bloodwood tree'},
+		['Engorged bloodwood'] = { base = 319283, level = 77, link = 'Engorged bloodwood tree'},
 	},
 	['Giant squirrel'] = {
 		['Gnome Stronghold'] = { base = 35609, level = 1, link = 'Gnome Stronghold Agility Course'},
@@ -95,6 +97,7 @@ local pets = {
 		['Halibut'] = { base = 227770, level = 83, link = 'Raw halibut'},
 		['Bluefin'] = { base = 217770, level = 87, link = 'Raw bluefin'},
 		['Marlin'] = { base = 207770, level = 91, link = 'Raw marlin'},
+		['Leechfin'] = { base = 1847827, level = 78, link = 'Leechfin'},
 	},
 	['Rift guardian'] = {
 		['Blood rune (Arceuus)'] = { base = 804984, level = 77, link =  'Blood_rune#False_Blood_Altar'},

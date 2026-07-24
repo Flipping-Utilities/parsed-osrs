@@ -13,6 +13,7 @@ p.UNLOCK_I_WILDY_MORE_SLAYER = 10
 p.UNLOCK_WARPED_REALITY = 11
 p.UNLOCK_WINGS_SPREAD = 12
 p.UNLOCK_LURED_IN = 13
+p.UNLOCK_CHANCE_OF_HEAVY_FROST = 14
 
 p.QUEST_PRIEST_IN_PERIL = 1
 p.QUEST_DRAGON_SLAYER_II = 2
@@ -224,6 +225,9 @@ p.TASK_FROST_DRAGONS = 159
 
 p.TASK_BOSS_MAGGOT_KING = 160
 
+p.TASK_BOSS_SHELLBANE_GRYPHON = 161
+
+
 UNLOCK_IDS = {
 	["Seeing red"] = p.UNLOCK_SEEING_RED,
 	["I hope you mith me"] = p.UNLOCK_I_HOPE_YOU_MITH_ME,
@@ -238,6 +242,7 @@ UNLOCK_IDS = {
 	["Warped Reality"] = p.UNLOCK_WARPED_REALITY,
 	["Wings Spread"] = p.UNLOCK_WINGS_SPREAD,
     ["Lured In"] = p.UNLOCK_LURED_IN,
+    ["Chance of Heavy Frost"] = p.UNLOCK_CHANCE_OF_HEAVY_FROST
 }
 
 function p.get_unlock_id(name)
@@ -457,6 +462,7 @@ MONSTER_IDS = {
 	["Kreearra"] = p.TASK_BOSS_KREEARRA,
 	["Sarachnis"] = p.TASK_BOSS_SARACHNIS,
 	["Scorpia"] = p.TASK_BOSS_SCORPIA,
+	["Shellbane gryphon"] = p.TASK_BOSS_SHELLBANE_GRYPHON,
 	["Thermonuclear Smoke Devil"] = p.TASK_BOSS_THERMONUCLEAR_SMOKE_DEVIL,
 	["Venenatis"] = p.TASK_BOSS_VENENATIS,
 	["Vetion"] = p.TASK_BOSS_VETION,
