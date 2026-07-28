@@ -1,4 +1,4 @@
-import { MapPoint, MapPolygon } from './location';
+import { MapPoint, MapPolygon } from "./location";
 
 export interface MusicTrack {
   name: string;

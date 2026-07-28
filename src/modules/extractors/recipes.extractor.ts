@@ -1,67 +1,62 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_RECIPES } from '../../constants/paths';
-import { PageTags } from '../../constants/tags';
-import { Recipe, RecipeMaterial, RecipeSkill, Set } from '../../types';
-import { wikiBool, wikiNumber } from '../../utils/wiki-coercion';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { ItemsExtractor } from './items.extractor';
-import { SetsExtractor } from './sets.extractor';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_RECIPES } from "../../constants/paths";
+import { PageTags } from "../../constants/tags";
+import { Recipe, RecipeMaterial, RecipeSkill, Set } from "../../types";
+import { wikiBool, wikiNumber } from "../../utils/wiki-coercion";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { ItemsExtractor } from "./items.extractor";
+import { SetsExtractor } from "./sets.extractor";
 
-type WikiMaterialKey = '' | 'quantity' | 'cost' | 'itemnote' | 'txt' | 'subtxt';
-const WikiMaterialKeyToRecipeMaterialKey: Record<
-  WikiMaterialKey,
-  keyof RecipeMaterial
-> = {
-  '': 'id',
-  quantity: 'quantity',
-  cost: 'cost',
-  itemnote: 'notes',
-  txt: 'text',
-  subtxt: 'subText',
+type WikiMaterialKey = "" | "quantity" | "cost" | "itemnote" | "txt" | "subtxt";
+const WikiMaterialKeyToRecipeMaterialKey: Record<WikiMaterialKey, keyof RecipeMaterial> = {
+  "": "id",
+  quantity: "quantity",
+  cost: "cost",
+  itemnote: "notes",
+  txt: "text",
+  subtxt: "subText",
 };
-type WikiSkillKeys = '' | 'lvl' | 'boostable' | 'exp';
+type WikiSkillKeys = "" | "lvl" | "boostable" | "exp";
 const WikiSkillKeyToRecipeSkillKey: Record<WikiSkillKeys, keyof RecipeSkill> = {
-  '': 'name',
-  boostable: 'boostable',
-  exp: 'xp',
-  lvl: 'lvl',
+  "": "name",
+  boostable: "boostable",
+  exp: "xp",
+  lvl: "lvl",
 };
 
 export function convertMaterialsToObject(
   rawRecipe: Record<string, string>,
   prefix: string,
-  itemLookup: (name: string) => { id: number } | null
+  itemLookup: (name: string) => { id: number } | null,
 ): RecipeMaterial[] {
   const baseMaterial: RecipeMaterial = {
     id: 0,
     quantity: 1,
   };
   const materials: RecipeMaterial[] = [];
-  const materialKeys = Object.keys(rawRecipe).filter((k) =>
-    k.startsWith(prefix)
-  );
+  const materialKeys = Object.keys(rawRecipe).filter((k) => k.startsWith(prefix));
 
   materialKeys.forEach((key) => {
     const withoutMat = key.split(prefix)[1];
     const property = withoutMat.split(/^\d+/)[1] as WikiMaterialKey;
-    const index = Number(withoutMat.replace(property, '')) - 1;
+    const index = Number(withoutMat.replace(property, "")) - 1;
 
     if (!materials[index]) {
       materials[index] = { ...baseMaterial };
     }
     let value: any = rawRecipe[key];
     switch (property) {
-      case '':
-        const id = value === 'Coins' ? 995 : itemLookup(value)?.id;
+      case "":
+        const id = value === "Coins" ? 995 : itemLookup(value)?.id;
         if (!id) {
           return;
         }
         value = id;
         break;
-      case 'quantity':
-      case 'cost':
+      case "quantity":
+      case "cost":
         const nb = wikiNumber(value);
         // Ignore default strings
         if (nb !== 0) {
@@ -70,9 +65,9 @@ export function convertMaterialsToObject(
           value = baseMaterial[WikiMaterialKeyToRecipeMaterialKey[property]];
         }
         break;
-      case 'itemnote':
-      case 'txt':
-      case 'subtxt':
+      case "itemnote":
+      case "txt":
+      case "subtxt":
         // Keep string
         break;
       default:
@@ -87,37 +82,35 @@ export function convertMaterialsToObject(
 
 export function parseRecipeProperties(
   recipeProperties: Record<string, string | boolean>,
-  itemLookup: (name: string) => { id: number } | null
+  itemLookup: (name: string) => { id: number } | null,
 ): Recipe | null {
   const skills: RecipeSkill[] = [];
-  const skillKeys = Object.keys(recipeProperties).filter((k) =>
-    k.startsWith('skill')
-  );
+  const skillKeys = Object.keys(recipeProperties).filter((k) => k.startsWith("skill"));
   const baseSkill: RecipeSkill = {
     boostable: true,
     lvl: 1,
-    name: 'Unknown',
+    name: "Unknown",
     xp: 0,
   };
 
   skillKeys.forEach((key) => {
-    const withoutSkill = key.split('skill')[1];
+    const withoutSkill = key.split("skill")[1];
     const property = withoutSkill.split(/^\d+/)[1] as WikiSkillKeys;
-    const index = Number(withoutSkill.replace(property, '')) - 1;
+    const index = Number(withoutSkill.replace(property, "")) - 1;
 
     if (!skills[index]) {
       skills[index] = { ...baseSkill };
     }
     let value: string | number | boolean = recipeProperties[key] as string;
     switch (property) {
-      case 'lvl':
-      case 'exp':
+      case "lvl":
+      case "exp":
         value = wikiNumber(value, 1);
         break;
-      case 'boostable':
+      case "boostable":
         value = wikiBool(value);
         break;
-      case '':
+      case "":
         break;
       default:
         break;
@@ -128,13 +121,13 @@ export function parseRecipeProperties(
 
   const inputs: RecipeMaterial[] = convertMaterialsToObject(
     recipeProperties as Record<string, string>,
-    'mat',
-    itemLookup
+    "mat",
+    itemLookup,
   );
   const outputs: RecipeMaterial[] = convertMaterialsToObject(
     recipeProperties as Record<string, string>,
-    'output',
-    itemLookup
+    "output",
+    itemLookup,
   );
 
   const ticks = wikiNumber(recipeProperties.ticks, 0) || null;
@@ -142,7 +135,7 @@ export function parseRecipeProperties(
   if (recipeProperties.tools) {
     toolIds = recipeProperties.tools
       .toString()
-      .split(',')
+      .split(",")
       .map((v) => {
         const item = itemLookup(v);
         return item?.id;
@@ -175,11 +168,11 @@ export class RecipesExtractor {
     private itemExtractor: ItemsExtractor,
     private setsExtractor: SetsExtractor,
     private pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllRecipes() {
-    this.logger.log('Starting to extract recipes');
+    this.logger.log("Starting to extract recipes");
 
     // Recipe templates can live on item pages OR dedicated skill pages.
     // Scan both ITEM-tagged pages and RECIPE-tagged pages (which transclude
@@ -212,7 +205,7 @@ export class RecipesExtractor {
         .map((set) => {
           const setItem = this.itemExtractor.getItemById(set.id);
           const makeRecipe: Recipe = {
-            name: `Making ${setItem?.name || 'Unknown set'}`,
+            name: `Making ${setItem?.name || "Unknown set"}`,
             inputs: set.componentIds.map((v) => ({
               id: v,
               quantity: 1,
@@ -251,11 +244,11 @@ export class RecipesExtractor {
         });
     }
     if (recipes.length) {
-      recipes.sort((a, b) => a?.name?.localeCompare(b.name || '') || 0);
+      recipes.sort((a, b) => a?.name?.localeCompare(b.name || "") || 0);
       writeFileSync(ALL_RECIPES, JSON.stringify(recipes));
     }
 
-    this.logger.log('End of recipes extraction');
+    this.logger.log("End of recipes extraction");
     return recipes;
   }
 
@@ -266,23 +259,21 @@ export class RecipesExtractor {
         return null;
       }
 
-      const pageContent = readFileSync(candidatePath, 'utf8');
+      const pageContent = readFileSync(candidatePath, "utf8");
       try {
         this.cachedRecipes = JSON.parse(pageContent);
       } catch (e) {
-        this.logger.warn('all recipes has invalid content', e);
+        this.logger.warn("all recipes has invalid content", e);
       }
     }
 
     return this.cachedRecipes;
   }
 
-  private async extractRecipesFromPageId(
-    pageId: number
-  ): Promise<Recipe[] | null> {
+  private async extractRecipesFromPageId(pageId: number): Promise<Recipe[] | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
 
-    const hasRecipe = page?.text?.includes('{{Recipe');
+    const hasRecipe = page?.text?.includes("{{Recipe");
     if (!page || !hasRecipe) {
       return null;
     }
@@ -290,15 +281,13 @@ export class RecipesExtractor {
     const text = page.text!;
     const tfPage = parseWikitext(text);
     const recipes: Record<string, string | boolean>[] = tfPage
-      .getTemplates('recipe')
+      .getTemplates("recipe")
       .map((t) => t as Record<string, string | boolean>)
-      .filter((t) => Object.hasOwn(t, 'template') && t?.template === 'recipe');
+      .filter((t) => Object.hasOwn(t, "template") && t?.template === "recipe");
 
     const newRecipes: Recipe[] = recipes
       .map((value) =>
-        parseRecipeProperties(value, (name) =>
-          this.itemExtractor.getItemByName(name)
-        )
+        parseRecipeProperties(value, (name) => this.itemExtractor.getItemByName(name)),
       )
       .filter((v) => v) as Recipe[];
 

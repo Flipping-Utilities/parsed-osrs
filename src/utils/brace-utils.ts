@@ -26,10 +26,10 @@ export function findTemplateEnd(text: string, startOffset = 0): number {
   const len = text.length;
 
   while (i < len) {
-    if (i + 1 < len && text[i] === '{' && text[i + 1] === '{') {
+    if (i + 1 < len && text[i] === "{" && text[i + 1] === "{") {
       depth++;
       i += 2;
-    } else if (i + 1 < len && text[i] === '}' && text[i + 1] === '}') {
+    } else if (i + 1 < len && text[i] === "}" && text[i + 1] === "}") {
       depth--;
       if (depth === 0) {
         return i + 2;
@@ -48,7 +48,7 @@ export function findTemplateEnd(text: string, startOffset = 0): number {
  * that build patterns from user-supplied template names.
  */
 function escapeRegex(s: string): string {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 /**
@@ -75,10 +75,7 @@ function escapeRegex(s: string): string {
  */
 export function extractTemplate(text: string, templateName: string): string[] {
   const results: string[] = [];
-  const pattern = new RegExp(
-    `\\{\\{\\s*${escapeRegex(templateName)}\\s*\\|`,
-    'g'
-  );
+  const pattern = new RegExp(`\\{\\{\\s*${escapeRegex(templateName)}\\s*\\|`, "g");
   let match: RegExpExecArray | null;
 
   while ((match = pattern.exec(text)) !== null) {
@@ -121,13 +118,13 @@ export function splitTemplateParams(body: string): string[] {
   for (let i = 0; i < body.length; i++) {
     const c = body[i];
     const c2 = body[i + 1];
-    if ((c === '{' && c2 === '{') || (c === '[' && c2 === '[')) {
+    if ((c === "{" && c2 === "{") || (c === "[" && c2 === "[")) {
       depth++;
       i++;
-    } else if ((c === '}' && c2 === '}') || (c === ']' && c2 === ']')) {
+    } else if ((c === "}" && c2 === "}") || (c === "]" && c2 === "]")) {
       depth = Math.max(0, depth - 1);
       i++;
-    } else if (c === '|' && depth === 0) {
+    } else if (c === "|" && depth === 0) {
       parts.push(body.slice(start, i));
       start = i + 1;
     }
@@ -150,7 +147,7 @@ export function splitTemplateParams(body: string): string[] {
 export function parseTemplateFields(body: string): Record<string, string> {
   const params: Record<string, string> = {};
   for (const part of splitTemplateParams(body)) {
-    const eq = part.indexOf('=');
+    const eq = part.indexOf("=");
     if (eq === -1) continue;
     const key = part.slice(0, eq).trim().toLowerCase();
     const value = part.slice(eq + 1).trim();

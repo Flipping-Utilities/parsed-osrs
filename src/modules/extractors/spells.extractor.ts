@@ -1,14 +1,14 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_SPELLS } from '../../constants/paths';
-import { RuneCost, Spell } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { ItemsExtractor } from './items.extractor';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { wikiBool, wikiNumber, wikiString } from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_SPELLS } from "../../constants/paths";
+import { RuneCost, Spell } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { ItemsExtractor } from "./items.extractor";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { wikiBool, wikiNumber, wikiString } from "../../utils/wiki-coercion";
 
-const IGNORED_RUNE_REQ_KEYS = new Set(['template', 'name']);
+const IGNORED_RUNE_REQ_KEYS = new Set(["template", "name"]);
 
 function toRuneItemName(key: string): string {
   const cased = `${key.charAt(0).toUpperCase()}${key.slice(1).toLowerCase()}`;
@@ -17,7 +17,7 @@ function toRuneItemName(key: string): string {
 
 function parseRuneCosts(
   runeReqTemplates: Array<Record<string, unknown>>,
-  itemLookup: (name: string) => { id: number } | null
+  itemLookup: (name: string) => { id: number } | null,
 ): RuneCost[] {
   const costs: RuneCost[] = [];
   for (const tmpl of runeReqTemplates) {
@@ -45,13 +45,13 @@ export function parseSpellFromContent(
   pageText: string,
   pageTitle: string,
   pageAliases: string[],
-  itemLookup: (name: string) => { id: number } | null
+  itemLookup: (name: string) => { id: number } | null,
 ): Spell | null {
   const parsed = parseWikitext(pageText);
-  const data = parsed.getInfobox('spell');
+  const data = parsed.getInfobox("spell");
   if (!data) return null;
 
-  const runeReqTemplates = parsed.getTemplates('runereq');
+  const runeReqTemplates = parsed.getTemplates("runereq");
   const runeCost = parseRuneCosts(runeReqTemplates, itemLookup);
   const speed = parseSpeed(data.speed);
 
@@ -84,15 +84,13 @@ export class SpellsExtractor {
   constructor(
     private readonly itemExtractor: ItemsExtractor,
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllSpells(): Promise<Spell[]> {
-    this.logger.log('Start: Extracting spells');
+    this.logger.log("Start: Extracting spells");
 
-    const spellPages = await this.pageListDumper.getPagesFromTag(
-      PageTags.SPELL
-    );
+    const spellPages = await this.pageListDumper.getPagesFromTag(PageTags.SPELL);
     const length = spellPages.length;
     const spells: Spell[] = [];
     let i = 0;
@@ -111,7 +109,7 @@ export class SpellsExtractor {
       writeFileSync(ALL_SPELLS, JSON.stringify(spells, null, 2));
     }
 
-    this.logger.log('Done: Extracting spells');
+    this.logger.log("Done: Extracting spells");
     return spells;
   }
 
@@ -121,9 +119,9 @@ export class SpellsExtractor {
         return null;
       }
       try {
-        this.cachedSpells = JSON.parse(readFileSync(ALL_SPELLS, 'utf8'));
+        this.cachedSpells = JSON.parse(readFileSync(ALL_SPELLS, "utf8"));
       } catch (e) {
-        this.logger.warn('all spells has invalid content', e);
+        this.logger.warn("all spells has invalid content", e);
       }
     }
     return this.cachedSpells;
@@ -134,13 +132,7 @@ export class SpellsExtractor {
     if (!page || !page.text) {
       return null;
     }
-    const lookup = (name: string) =>
-      this.itemExtractor.getItemByName(name) ?? null;
-    return parseSpellFromContent(
-      page.text,
-      page.title,
-      page.aliases || [],
-      lookup
-    );
+    const lookup = (name: string) => this.itemExtractor.getItemByName(name) ?? null;
+    return parseSpellFromContent(page.text, page.title, page.aliases || [], lookup);
   }
 }

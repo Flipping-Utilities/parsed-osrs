@@ -1,42 +1,42 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_SCENERY } from '../../constants/paths';
-import { Scenery } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { getVariantField, extractVariants } from '../../utils/variant-utils';
-import { parseListValue, wikiString } from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_SCENERY } from "../../constants/paths";
+import { Scenery } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { getVariantField, extractVariants } from "../../utils/variant-utils";
+import { parseListValue, wikiString } from "../../utils/wiki-coercion";
 
 const SCENERY_FIELDS = [
-  'name',
-  'id',
-  'members',
-  'quest',
-  'location',
-  'options',
-  'examine',
+  "name",
+  "id",
+  "members",
+  "quest",
+  "location",
+  "options",
+  "examine",
 ] as const;
 
 function parseSceneryMembers(val: unknown): boolean | null {
-  const lower = String(val ?? '')
+  const lower = String(val ?? "")
     .toLowerCase()
     .trim();
-  if (lower === 'yes') return true;
-  if (lower === 'no') return false;
+  if (lower === "yes") return true;
+  if (lower === "no") return false;
   return null;
 }
 
 function buildScenery(
   fields: Record<string, unknown>,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): Scenery | null {
   const idRaw = wikiString(fields.id);
-  if (!idRaw || idRaw.toLowerCase() === 'no') return null;
+  if (!idRaw || idRaw.toLowerCase() === "no") return null;
 
   const ids = idRaw
-    .split(',')
+    .split(",")
     .map((s) => Number(s.trim()))
     .filter((n) => Number.isFinite(n) && n > 0);
   if (!ids.length) return null;
@@ -57,10 +57,10 @@ function buildScenery(
 export function parseSceneryFromContent(
   pageText: string,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): Scenery[] {
   const parsed = parseWikitext(pageText);
-  const data = parsed.getInfobox('scenery');
+  const data = parsed.getInfobox("scenery");
   if (!data) return [];
 
   const { hasVariants, variants, commonFields } = extractVariants(data);
@@ -90,11 +90,11 @@ export class SceneryExtractor {
 
   constructor(
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllScenery(): Promise<Scenery[]> {
-    this.logger.log('Start: Extracting scenery');
+    this.logger.log("Start: Extracting scenery");
 
     const pages = await this.pageListDumper.getPagesFromTag(PageTags.SCENERY);
     const length = pages.length;
@@ -112,7 +112,7 @@ export class SceneryExtractor {
       writeFileSync(ALL_SCENERY, JSON.stringify(scenery, null, 2));
     }
 
-    this.logger.log('Done: Extracting scenery');
+    this.logger.log("Done: Extracting scenery");
     return scenery;
   }
 
@@ -122,9 +122,9 @@ export class SceneryExtractor {
         return null;
       }
       try {
-        this.cachedScenery = JSON.parse(readFileSync(ALL_SCENERY, 'utf8'));
+        this.cachedScenery = JSON.parse(readFileSync(ALL_SCENERY, "utf8"));
       } catch (e) {
-        this.logger.warn('all scenery has invalid content', e);
+        this.logger.warn("all scenery has invalid content", e);
       }
     }
     return this.cachedScenery;

@@ -1,23 +1,18 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_QUESTS } from '../../constants/paths';
-import {
-  MapPoint,
-  Quest,
-  QuickGuideStep,
-  WalkthroughSection,
-} from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { extractTemplate, parseTemplateFields } from '../../utils/brace-utils';
-import { wikiBool, wikiNumber, wikiString } from '../../utils/wiki-coercion';
-import { DatabaseService } from '../database/database.service';
-import { WikiPage } from '../database/schema';
-import { eq } from 'drizzle-orm';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_QUESTS } from "../../constants/paths";
+import { MapPoint, Quest, QuickGuideStep, WalkthroughSection } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { extractTemplate, parseTemplateFields } from "../../utils/brace-utils";
+import { wikiBool, wikiNumber, wikiString } from "../../utils/wiki-coercion";
+import { DatabaseService } from "../database/database.service";
+import { WikiPage } from "../database/schema";
+import { eq } from "drizzle-orm";
 
 function parseStartCoords(val: unknown): MapPoint | undefined {
-  const m = String(val ?? '').match(/(\d+)[,:](\d+)/);
+  const m = String(val ?? "").match(/(\d+)[,:](\d+)/);
   return m ? { x: Number(m[1]), y: Number(m[2]) } : undefined;
 }
 
@@ -36,64 +31,58 @@ function cleanWikiInline(raw: string): string {
   // Also handles {{SCP|Skill}} (just the skill name).
   s = s.replace(/\{\{\s*SCP\s*\|([^}]*?)\}\}/gi, (_m, inner) => {
     const parts = String(inner)
-      .split('|')
+      .split("|")
       .map((p) => p.trim())
       // Drop named params like `link=yes`
       .filter((p) => !/=/.test(p));
-    return parts.filter(Boolean).join(' ');
+    return parts.filter(Boolean).join(" ");
   });
 
   // {{Boostable|yes}} / {{Boostable}} → "(boostable)"
-  s = s.replace(/\{\{\s*Boostable\s*\|?[^}]*\}\}/gi, '(boostable)');
+  s = s.replace(/\{\{\s*Boostable\s*\|?[^}]*\}\}/gi, "(boostable)");
 
   // {{Chat option|...}} → drop entirely (dialogue noise)
-  s = s.replace(/\{\{\s*Chat option\s*\|[^}]*\}\}/gi, '');
+  s = s.replace(/\{\{\s*Chat option\s*\|[^}]*\}\}/gi, "");
 
   // {{Questreqstart|yes}} / {{Questreqstart|no}} — quest-point requirement
   // marker, not useful in flattened output. Drop.
-  s = s.replace(/\{\{\s*Questreqstart\s*\|?[^}]*\}\}/gi, '');
+  s = s.replace(/\{\{\s*Questreqstart\s*\|?[^}]*\}\}/gi, "");
 
   // {{Fairycode|blr}} → "blr"
-  s = s.replace(/\{\{\s*Fairycode\s*\|([^}|]+)[^}]*\}\}/gi, '$1');
+  s = s.replace(/\{\{\s*Fairycode\s*\|([^}|]+)[^}]*\}\}/gi, "$1");
 
   // {{LeagueRegion|Asgarnia}} → "Asgarnia"
-  s = s.replace(/\{\{\s*LeagueRegion\s*\|([^}|]+)[^}]*\}\}/gi, '$1');
+  s = s.replace(/\{\{\s*LeagueRegion\s*\|([^}|]+)[^}]*\}\}/gi, "$1");
 
   // {{RE|Fremennik}} → "Fremennik"
-  s = s.replace(/\{\{\s*RE\s*\|([^}|]+)[^}]*\}\}/gi, '$1');
+  s = s.replace(/\{\{\s*RE\s*\|([^}|]+)[^}]*\}\}/gi, "$1");
 
   // {{okay}} / {{colour|...|text}} → strip wrapper, keep text
-  s = s.replace(/\{\{\s*okay\s*\}\}/gi, '');
-  s = s.replace(/\{\{\s*[Cc]olour\s*\|[^|}]*\|([^}|]+)[^}]*\}\}/g, '$1');
+  s = s.replace(/\{\{\s*okay\s*\}\}/gi, "");
+  s = s.replace(/\{\{\s*[Cc]olour\s*\|[^|}]*\|([^}|]+)[^}]*\}\}/g, "$1");
 
   // {{NoCoins|5}} → "5 coins"
-  s = s.replace(/\{\{\s*NoCoins\s*\|(\d+)[^}]*\}\}/gi, '$1 coins');
+  s = s.replace(/\{\{\s*NoCoins\s*\|(\d+)[^}]*\}\}/gi, "$1 coins");
 
   // {{FloorNumber|uk=0}} → "ground floor"
-  s = s.replace(
-    /\{\{\s*FloorNumber\s*\|\s*uk\s*=\s*0\s*\}\}/gi,
-    'ground floor'
-  );
-  s = s.replace(
-    /\{\{\s*FloorNumber\s*\|\s*uk\s*=\s*(\d+)\s*\}\}/gi,
-    'floor $1'
-  );
+  s = s.replace(/\{\{\s*FloorNumber\s*\|\s*uk\s*=\s*0\s*\}\}/gi, "ground floor");
+  s = s.replace(/\{\{\s*FloorNumber\s*\|\s*uk\s*=\s*(\d+)\s*\}\}/gi, "floor $1");
 
   // {{Ironman}} → "(Ironman)"
-  s = s.replace(/\{\{\s*Ironman\s*\}\}/gi, '(Ironman)');
+  s = s.replace(/\{\{\s*Ironman\s*\}\}/gi, "(Ironman)");
 
   // {{UIMnote|...}} — Ultimate Ironman tip; collapse to nothing (the body is
   // preserved as surrounding text).
-  s = s.replace(/\{\{\s*UIMnote\s*\|[^}]*\}\}/gi, '');
+  s = s.replace(/\{\{\s*UIMnote\s*\|[^}]*\}\}/gi, "");
 
   // {{Needed|items|skills=...|recommended=...}} — inline step requirements box.
   // We drop the wrapper but keep the inner item/skill lists as text.
   s = s.replace(/\{\{\s*Needed\s*\|([^}]*)\}\}/gi, (_m, inner) => {
     const parts = String(inner)
-      .split('|')
+      .split("|")
       .map((p) => p.trim())
       .filter((p) => !/^(skills|recommended)\s*=/.test(p));
-    return parts.filter(Boolean).join(' ');
+    return parts.filter(Boolean).join(" ");
   });
 
   return s;
@@ -106,9 +95,9 @@ function cleanWikiInline(raw: string): string {
  */
 function finalClean(s: string): string {
   return s
-    .replace(/\s+/g, ' ')
-    .replace(/\s+([.,;!?])/g, '$1')
-    .replace(/\(\s*\)/g, '')
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,;!?])/g, "$1")
+    .replace(/\(\s*\)/g, "")
     .trim();
 }
 
@@ -124,7 +113,7 @@ function finalClean(s: string): string {
 function parseBulletList(val: unknown): string[] {
   if (!val) return [];
   const out: string[] = [];
-  for (const line of String(val).split('\n')) {
+  for (const line of String(val).split("\n")) {
     const m = line.match(/^\s*\*+\s*(.*)$/);
     if (!m) continue;
     const text = finalClean(wikiString(cleanWikiInline(m[1])));
@@ -140,7 +129,7 @@ function parseBulletList(val: unknown): string[] {
  * `[[File:...|thumb|caption]]` are dropped along with the file reference.
  */
 function parseProse(val: unknown): string {
-  if (!val) return '';
+  if (!val) return "";
   return finalClean(wikiString(cleanWikiInline(String(val))));
 }
 
@@ -149,13 +138,13 @@ function parseProse(val: unknown): string {
  * between the quest intro and `==Rewards==` is treated as a walkthrough step.
  */
 const NON_WALKTHROUGH_SECTIONS = new Set([
-  'details',
-  'introduction',
-  'rewards',
-  'required for completing',
-  'transcript',
-  'trivia',
-  'changes',
+  "details",
+  "introduction",
+  "rewards",
+  "required for completing",
+  "transcript",
+  "trivia",
+  "changes",
 ]);
 
 /**
@@ -171,15 +160,11 @@ const NON_WALKTHROUGH_SECTIONS = new Set([
  * Returns `undefined` when neither layout yields any sections.
  */
 function parseWalkthrough(pageText: string): WalkthroughSection[] | undefined {
-  const sections =
-    parseLevel3WithinWalkthrough(pageText) ||
-    parseLevel2GuideSections(pageText);
+  const sections = parseLevel3WithinWalkthrough(pageText) || parseLevel2GuideSections(pageText);
   return sections.length ? sections : undefined;
 }
 
-function parseLevel3WithinWalkthrough(
-  pageText: string
-): WalkthroughSection[] | undefined {
+function parseLevel3WithinWalkthrough(pageText: string): WalkthroughSection[] | undefined {
   const startMatch = pageText.match(/\n==\s*Walkthrough\s*==\s*\n/i);
   if (!startMatch || startMatch.index === undefined) return undefined;
 
@@ -188,7 +173,7 @@ function parseLevel3WithinWalkthrough(
   const endIdx = endMatch ? startIdx + endMatch.index! : pageText.length;
   // Prepend a newline so the leading `===heading===` (immediately after
   // `==Walkthrough==\n`) is matched by the `\n===` regex below.
-  const body = '\n' + pageText.slice(startIdx, endIdx);
+  const body = "\n" + pageText.slice(startIdx, endIdx);
 
   const out: WalkthroughSection[] = [];
   const headingRe = /\n===\s*([^=][^=]*?)\s*===\s*\n/g;
@@ -214,7 +199,7 @@ function parseLevel3WithinWalkthrough(
   // heading so callers still get the prose.
   if (!out.length && lastHeading === null) {
     const cleaned = parseProse(body);
-    if (cleaned) out.push({ heading: 'Walkthrough', body: cleaned });
+    if (cleaned) out.push({ heading: "Walkthrough", body: cleaned });
   }
 
   return out;
@@ -254,9 +239,7 @@ function parseLevel2GuideSections(pageText: string): WalkthroughSection[] {
  * quests that unlock nothing further).
  */
 function parseRequiredFor(pageText: string): string[] {
-  const startMatch = pageText.match(
-    /\n==\s*Required for completing\s*==\s*\n/i
-  );
+  const startMatch = pageText.match(/\n==\s*Required for completing\s*==\s*\n/i);
   if (!startMatch) return [];
 
   const startIdx = startMatch.index! + startMatch[0].length;
@@ -293,7 +276,7 @@ export function parseQuickGuideFromContent(pageText: string): QuickGuideStep[] {
   const endMatch = pageText.slice(startIdx).match(/\n==\s*[^=].*?==\s*\n/);
   const endIdx = endMatch ? startIdx + endMatch.index! : pageText.length;
   // Prepend a newline so the leading `===heading===` is matched by `\n===`.
-  const body = '\n' + pageText.slice(startIdx, endIdx);
+  const body = "\n" + pageText.slice(startIdx, endIdx);
 
   const steps: QuickGuideStep[] = [];
   const headingRe = /\n===\s*([^=][^=]*?)\s*===\s*\n/g;
@@ -303,9 +286,7 @@ export function parseQuickGuideFromContent(pageText: string): QuickGuideStep[] {
 
   while ((m = headingRe.exec(body)) !== null) {
     if (lastHeading !== null) {
-      steps.push(
-        parseQuickGuideSection(lastHeading, body.slice(lastStart, m.index))
-      );
+      steps.push(parseQuickGuideSection(lastHeading, body.slice(lastStart, m.index)));
     }
     lastHeading = m[1].trim();
     lastStart = headingRe.lastIndex;
@@ -317,10 +298,7 @@ export function parseQuickGuideFromContent(pageText: string): QuickGuideStep[] {
   return steps;
 }
 
-function parseQuickGuideSection(
-  heading: string,
-  chunk: string
-): QuickGuideStep {
+function parseQuickGuideSection(heading: string, chunk: string): QuickGuideStep {
   // Italic `''Items needed: ...''` line OUTSIDE a checklist. Tolerates the
   // unclosed-italic case (some wiki pages open `''` but never close it) by
   // also matching up to a blank line.
@@ -331,7 +309,7 @@ function parseQuickGuideSection(
   }
 
   // {{Checklist|...}} body — may contain nested templates, so use brace-utils.
-  const checklistBodies = extractTemplate(chunk, 'Checklist');
+  const checklistBodies = extractTemplate(chunk, "Checklist");
   const steps: string[] = [];
   for (let body of checklistBodies) {
     // The wiki often places the italic "Items needed: ..." line *inside* the
@@ -342,12 +320,12 @@ function parseQuickGuideSection(
       const innerItems = body.match(/\n?''([^'\n][^]*?)(?:''|\n\n)/);
       if (innerItems && /^items needed/i.test(innerItems[1].trim())) {
         itemsNeeded = finalClean(wikiString(cleanWikiInline(innerItems[1])));
-        body = body.replace(innerItems[0], '\n');
+        body = body.replace(innerItems[0], "\n");
       }
     } else {
       // Already have itemsNeeded from outside the checklist; strip any inner
       // italic blocks so they don't pollute the bullet steps.
-      body = body.replace(/\n?''[^'\n][^]*?(?:''|\n\n)/g, '\n');
+      body = body.replace(/\n?''[^'\n][^]*?(?:''|\n\n)/g, "\n");
     }
     steps.push(...parseBulletList(body));
   }
@@ -360,31 +338,25 @@ function parseQuickGuideSection(
 export function parseQuestFromContent(
   pageText: string,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): Quest | null {
   const parsed = parseWikitext(pageText);
-  const infobox = parsed.getInfobox('quest');
+  const infobox = parsed.getInfobox("quest");
   if (!infobox) return null;
 
   // Raw bodies preserve nested templates (e.g. {{SCP|Agility|50|link=yes}})
   // which the registered `quest details` / `quest rewards` templates resolve
   // to '' inside wtf — see wikitext-parser.ts. We re-parse the raw text so
   // requirements / kills / ironman / recommended come through intact.
-  const detailsBodies = extractTemplate(pageText, 'Quest details');
-  const rewardsBodies = extractTemplate(pageText, 'Quest rewards');
-  const infoboxBodies = extractTemplate(pageText, 'Infobox Quest');
-  const details = detailsBodies.length
-    ? parseTemplateFields(detailsBodies[0])
-    : {};
-  const rewards = rewardsBodies.length
-    ? parseTemplateFields(rewardsBodies[0])
-    : {};
+  const detailsBodies = extractTemplate(pageText, "Quest details");
+  const rewardsBodies = extractTemplate(pageText, "Quest rewards");
+  const infoboxBodies = extractTemplate(pageText, "Infobox Quest");
+  const details = detailsBodies.length ? parseTemplateFields(detailsBodies[0]) : {};
+  const rewards = rewardsBodies.length ? parseTemplateFields(rewardsBodies[0]) : {};
   // For `image`, `release`, `update`, `developer` — pull from the raw Infobox
   // Quest body so values like `[[File:Foo.png|300px]]` aren't stripped by
   // wikiString before we can extract the filename.
-  const infoboxRaw = infoboxBodies.length
-    ? parseTemplateFields(infoboxBodies[0])
-    : {};
+  const infoboxRaw = infoboxBodies.length ? parseTemplateFields(infoboxBodies[0]) : {};
 
   const startCoords = parseStartCoords(details.startmap);
 
@@ -422,9 +394,7 @@ export function parseQuestFromContent(
   // `[[File:Foo.png|300px]]`; pull the bare filename out so consumers can
   // rebuild a Special:FilePath URL.
   if (infoboxRaw.image) {
-    const fileMatch = String(infoboxRaw.image).match(
-      /\[\[\s*File:\s*([^\]|]+)/i
-    );
+    const fileMatch = String(infoboxRaw.image).match(/\[\[\s*File:\s*([^\]|]+)/i);
     if (fileMatch) quest.image = fileMatch[1].trim();
   }
   if (infoboxRaw.release) quest.release = wikiString(infoboxRaw.release);
@@ -442,11 +412,11 @@ export class QuestsExtractor {
   constructor(
     private readonly pageListDumper: PageListDumper,
     private readonly pageContentDumper: PageContentDumper,
-    private readonly databaseService: DatabaseService
+    private readonly databaseService: DatabaseService,
   ) {}
 
   public async extractAllQuests(): Promise<Quest[]> {
-    this.logger.log('Start: Extracting quests');
+    this.logger.log("Start: Extracting quests");
 
     const pages = await this.pageListDumper.getPagesFromTag(PageTags.QUEST);
     const length = pages.length;
@@ -465,7 +435,7 @@ export class QuestsExtractor {
       writeFileSync(ALL_QUESTS, JSON.stringify(quests, null, 2));
     }
 
-    this.logger.log('Done: Extracting quests');
+    this.logger.log("Done: Extracting quests");
     return quests;
   }
 
@@ -475,9 +445,9 @@ export class QuestsExtractor {
         return null;
       }
       try {
-        this.cachedQuests = JSON.parse(readFileSync(ALL_QUESTS, 'utf8'));
+        this.cachedQuests = JSON.parse(readFileSync(ALL_QUESTS, "utf8"));
       } catch (e) {
-        this.logger.warn('all quests has invalid content', e);
+        this.logger.warn("all quests has invalid content", e);
       }
     }
     return this.cachedQuests;
@@ -488,11 +458,7 @@ export class QuestsExtractor {
     if (!page || !page.text) {
       return null;
     }
-    const quest = parseQuestFromContent(
-      page.text,
-      page.title,
-      page.aliases || []
-    );
+    const quest = parseQuestFromContent(page.text, page.title, page.aliases || []);
     if (!quest) return null;
 
     // Merge in the matching `/Quick guide` subpage if we have one. The guide
@@ -509,15 +475,9 @@ export class QuestsExtractor {
     return quest;
   }
 
-  private async getDBPageByTitle(
-    title: string
-  ): Promise<typeof WikiPage.$inferSelect | undefined> {
+  private async getDBPageByTitle(title: string): Promise<typeof WikiPage.$inferSelect | undefined> {
     const db = this.databaseService.getDb();
-    const rows = await db
-      .select()
-      .from(WikiPage)
-      .where(eq(WikiPage.title, title))
-      .limit(1);
+    const rows = await db.select().from(WikiPage).where(eq(WikiPage.title, title)).limit(1);
     return rows?.[0];
   }
 }

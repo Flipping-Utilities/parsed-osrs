@@ -1,28 +1,24 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_ACTIVITIES } from '../../constants/paths';
-import { Activity } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { parseMapTemplate } from '../../utils/map-parser';
-import {
-  wikiBool,
-  wikiString,
-  parseListValue,
-} from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_ACTIVITIES } from "../../constants/paths";
+import { Activity } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { parseMapTemplate } from "../../utils/map-parser";
+import { wikiBool, wikiString, parseListValue } from "../../utils/wiki-coercion";
 
 export function parseActivityFromContent(
   pageText: string,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): Activity | null {
   const parsed = parseWikitext(pageText);
-  const data = parsed.getInfobox('activity');
+  const data = parsed.getInfobox("activity");
   if (!data) return null;
 
   let position: { x: number; y: number } | undefined;
-  for (const mapTemplate of parsed.getTemplates('map')) {
+  for (const mapTemplate of parsed.getTemplates("map")) {
     const map = parseMapTemplate(mapTemplate);
     if (map?.point) {
       position = map.point;
@@ -56,11 +52,11 @@ export class ActivitiesExtractor {
 
   constructor(
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllActivities(): Promise<Activity[]> {
-    this.logger.log('Start: Extracting activities');
+    this.logger.log("Start: Extracting activities");
 
     const pages = await this.pageListDumper.getPagesFromTag(PageTags.ACTIVITY);
     const length = pages.length;
@@ -79,7 +75,7 @@ export class ActivitiesExtractor {
       writeFileSync(ALL_ACTIVITIES, JSON.stringify(activities, null, 2));
     }
 
-    this.logger.log('Done: Extracting activities');
+    this.logger.log("Done: Extracting activities");
     return activities;
   }
 
@@ -89,19 +85,15 @@ export class ActivitiesExtractor {
         return null;
       }
       try {
-        this.cachedActivities = JSON.parse(
-          readFileSync(ALL_ACTIVITIES, 'utf8')
-        );
+        this.cachedActivities = JSON.parse(readFileSync(ALL_ACTIVITIES, "utf8"));
       } catch (e) {
-        this.logger.warn('all activities has invalid content', e);
+        this.logger.warn("all activities has invalid content", e);
       }
     }
     return this.cachedActivities;
   }
 
-  private async extractActivityFromPageId(
-    pageId: number
-  ): Promise<Activity | null> {
+  private async extractActivityFromPageId(pageId: number): Promise<Activity | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page || !page.text) {
       return null;

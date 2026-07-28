@@ -1,7 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import http from 'http';
-import https from 'https';
+import { Injectable, Logger } from "@nestjs/common";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import http from "http";
+import https from "https";
 
 export interface ApiQueryBase {
   batchcomplete: string;
@@ -58,10 +58,7 @@ export interface WikiPageWithContent {
   properties: { name: string; value: string }[];
 }
 
-export type WikiPageSlim = Pick<
-  WikiPageWithContent,
-  'pageid' | 'title' | 'redirects'
->;
+export type WikiPageSlim = Pick<WikiPageWithContent, "pageid" | "title" | "redirects">;
 
 interface WikiPageQueryRevision {
   revid?: number;
@@ -82,7 +79,7 @@ interface WikiPageQueryPage {
   missing?: boolean;
   invalid?: boolean;
   revisions?: WikiPageQueryRevision[];
-  properties?: { name: string; '*': string }[];
+  properties?: { name: string; "*": string }[];
   redirects?: { pageid: number; ns: number; title: string }[];
 }
 
@@ -92,15 +89,13 @@ interface WikiPageQueryResponse {
   query?: { pages: WikiPageQueryPage[] };
 }
 
-const WIKI_ORIGIN = 'https://oldschool.runescape.wiki';
-const API_PATH = '/api.php';
+const DEFAULT_WIKI_ORIGIN = "https://oldschool.runescape.wiki";
+const API_PATH = "/api.php";
 /**
  * Minimum delay between two outgoing wiki requests, in milliseconds.
  * Override at runtime with the `WIKI_REQUEST_INTERVAL_MS` environment variable.
  */
-const REQUEST_INTERVAL_MS = Number(
-  process.env.WIKI_REQUEST_INTERVAL_MS ?? 1000
-);
+const REQUEST_INTERVAL_MS = Number(process.env.WIKI_REQUEST_INTERVAL_MS ?? 1000);
 const REQUEST_TIMEOUT_MS = 30_000;
 const MAX_RETRIES = 4;
 // MediaWiki allows up to 50 pageids per request for anonymous/bot users
@@ -116,12 +111,16 @@ const MAX_PAGEIDS_PER_REQUEST = 50;
  * are retried with exponential backoff, the underlying axios instance keeps
  * connections alive, and the User-Agent is derived centrally from
  * `DISCORD_USERNAME`.
+ *
+ * The wiki origin is passed to the constructor (defaulting to the OSRS wiki)
+ * so a per-game subclass can target a different MediaWiki instance (e.g. the
+ * RS3 wiki at `https://runescape.wiki`) without otherwise touching this class.
  */
 @Injectable()
 export class WikiRequestService {
   private logger: Logger = new Logger(WikiRequestService.name);
 
-  public readonly baseUrl: string = `${WIKI_ORIGIN}${API_PATH}`;
+  public readonly baseUrl: string;
 
   /**
    * Process-wide throttle chain. Every scheduled request appends itself to
@@ -134,21 +133,41 @@ export class WikiRequestService {
   private readonly client: AxiosInstance;
 
   constructor() {
+    const wikiOrigin = this.resolveWikiOrigin();
+    const userAgentLabel = this.resolveUserAgentLabel();
+    this.baseUrl = `${wikiOrigin}${API_PATH}`;
     this.client = axios.create({
-      baseURL: WIKI_ORIGIN,
+      baseURL: wikiOrigin,
       timeout: REQUEST_TIMEOUT_MS,
       maxRedirects: 5,
       httpAgent: new http.Agent({ keepAlive: true }),
       httpsAgent: new https.Agent({ keepAlive: true }),
       headers: {
-        'User-Agent': WikiRequestService.buildUserAgent(),
+        "User-Agent": this.buildUserAgent(userAgentLabel),
       },
     });
   }
 
-  private static buildUserAgent(): string {
-    const id = process.env.DISCORD_USERNAME || 'anonymous';
-    return `parsed-osrs wiki-scraper - ${id}`;
+  /**
+   * MediaWiki instance this service talks to. Subclasses override to target
+   * a different wiki (e.g. the RS3 wiki at `https://runescape.wiki`).
+   *
+   * Implementation note: this is a method rather than a constructor arg so
+   * that NestJS DI doesn't try to inject a `String` token — calling a virtual
+   * method from the parent constructor still dispatches to the subclass's
+   * override.
+   */
+  protected resolveWikiOrigin(): string {
+    return DEFAULT_WIKI_ORIGIN;
+  }
+
+  protected resolveUserAgentLabel(): string {
+    return "osrs";
+  }
+
+  protected buildUserAgent(userAgentLabel: string): string {
+    const id = process.env.DISCORD_USERNAME || "anonymous";
+    return `parsed-${userAgentLabel} wiki-scraper - ${id}`;
   }
 
   /**
@@ -171,7 +190,7 @@ export class WikiRequestService {
     // failure can never wedge the chain for everyone else.
     WikiRequestService.throttleChain = run.then(
       () => undefined,
-      () => undefined
+      () => undefined,
     );
     return run;
   }
@@ -186,35 +205,29 @@ export class WikiRequestService {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       try {
-        const response = await this.schedule(() =>
-          this.client.request<T>(config)
-        );
+        const response = await this.schedule(() => this.client.request<T>(config));
         return response.data;
       } catch (error) {
         const status = (error as any)?.response?.status as number | undefined;
         const code = (error as any)?.code as string | undefined;
         const retryable =
           status === 429 ||
-          (typeof status === 'number' && status >= 500 && status <= 599) ||
-          code === 'ECONNABORTED' ||
-          code === 'ETIMEDOUT';
+          (typeof status === "number" && status >= 500 && status <= 599) ||
+          code === "ECONNABORTED" ||
+          code === "ETIMEDOUT";
 
         if (!retryable || attempt >= MAX_RETRIES) {
           throw error;
         }
 
-        const retryAfterHeader = (error as any)?.response?.headers?.[
-          'retry-after'
-        ];
+        const retryAfterHeader = (error as any)?.response?.headers?.["retry-after"];
         const backoffMs = retryAfterHeader
           ? Number(retryAfterHeader) * 1000
           : Math.min(30_000, 500 * 2 ** attempt);
         this.logger.warn(
           `Wiki request failed (status=${status ?? code}, url=${
             config.url ?? API_PATH
-          }); retrying in ${backoffMs}ms (attempt ${
-            attempt + 1
-          }/${MAX_RETRIES})`
+          }); retrying in ${backoffMs}ms (attempt ${attempt + 1}/${MAX_RETRIES})`,
         );
         await new Promise((r) => setTimeout(r, backoffMs));
         attempt += 1;
@@ -228,12 +241,12 @@ export class WikiRequestService {
    * historical lenient contract used by callers).
    */
   public async query<T>(
-    params: { action: string } & Record<string, string>
+    params: { action: string } & Record<string, string>,
   ): Promise<T | undefined> {
     try {
       return await this.send<T>({
         url: API_PATH,
-        method: 'GET',
+        method: "GET",
         params,
       });
     } catch (e) {
@@ -253,14 +266,14 @@ export class WikiRequestService {
    */
   public async getRawText(
     path: string,
-    params?: Record<string, string>
+    params?: Record<string, string>,
   ): Promise<string | undefined> {
     try {
       return await this.send<string>({
-        url: path.startsWith('/') ? path : `/${path}`,
-        method: 'GET',
+        url: path.startsWith("/") ? path : `/${path}`,
+        method: "GET",
         params,
-        responseType: 'text',
+        responseType: "text",
         transformResponse: (d) => d,
       });
     } catch (e) {
@@ -277,12 +290,12 @@ export class WikiRequestService {
   public async post<T = unknown>(
     path: string,
     data: unknown,
-    headers: Record<string, string> = {}
+    headers: Record<string, string> = {},
   ): Promise<T | undefined> {
     try {
       return await this.send<T>({
-        url: path.startsWith('/') ? path : `/${path}`,
-        method: 'POST',
+        url: path.startsWith("/") ? path : `/${path}`,
+        method: "POST",
         data,
         headers,
         transformResponse: (d) => d as T,
@@ -294,9 +307,9 @@ export class WikiRequestService {
   }
 
   public async queryAllPagesPromise<T>(
-    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue' | 'rdcontinue',
-    resultKey: 'categorymembers' | 'allpages' | 'embeddedin' | 'pages',
-    params: { action: string } & Record<string, string>
+    paginationKey: "cmcontinue" | "apcontinue" | "eicontinue" | "rdcontinue",
+    resultKey: "categorymembers" | "allpages" | "embeddedin" | "pages",
+    params: { action: string } & Record<string, string>,
   ) {
     const result: T[] = [];
     const query = this.queryAllPages<T>(paginationKey, resultKey, params);
@@ -304,7 +317,7 @@ export class WikiRequestService {
       if (!value) continue;
       if (Array.isArray(value)) {
         result.push(...value);
-      } else if (resultKey === 'pages') {
+      } else if (resultKey === "pages") {
         // paginated query.pages is an object map in v1 format
         result.push(...(Object.values(value as object) as T[]));
       } else {
@@ -316,9 +329,9 @@ export class WikiRequestService {
 
   public queryAllPages = async function* <T>(
     this: WikiRequestService,
-    paginationKey: 'cmcontinue' | 'apcontinue' | 'eicontinue' | 'rdcontinue',
-    resultKey: 'categorymembers' | 'allpages' | 'embeddedin' | 'pages',
-    params: { action: string } & Record<string, string>
+    paginationKey: "cmcontinue" | "apcontinue" | "eicontinue" | "rdcontinue",
+    resultKey: "categorymembers" | "allpages" | "embeddedin" | "pages",
+    params: { action: string } & Record<string, string>,
   ): AsyncGenerator<T[]> {
     let next: string | undefined = undefined;
     let hasNext = true;
@@ -342,13 +355,15 @@ export class WikiRequestService {
       }
       const response = await this.send<PageSearch & CategorySearch>({
         url: API_PATH,
-        method: 'GET',
+        method: "GET",
         params: requestParams,
       });
 
-      const err = (response as unknown as {
-        error?: { code?: string; info?: string };
-      }).error;
+      const err = (
+        response as unknown as {
+          error?: { code?: string; info?: string };
+        }
+      ).error;
       if (err) {
         throw new Error(`Wiki API error: ${err.info ?? err.code}`);
       }
@@ -358,7 +373,7 @@ export class WikiRequestService {
       const values = response.query?.[resultKey] as T[] | undefined;
       yield values ?? [];
     } while (hasNext);
-    this.logger.log('Done!');
+    this.logger.log("Done!");
   };
 
   /**
@@ -375,25 +390,23 @@ export class WikiRequestService {
    * rendered HTML and it does not support batching. Use {@link dumpWikiPageById}
    * for the rare pages that need HTML.
    */
-  public async queryPagesByIds(
-    pageIds: number[]
-  ): Promise<WikiPageWithContent[]> {
+  public async queryPagesByIds(pageIds: number[]): Promise<WikiPageWithContent[]> {
     const results: WikiPageWithContent[] = [];
     for (let i = 0; i < pageIds.length; i += MAX_PAGEIDS_PER_REQUEST) {
       const chunk = pageIds.slice(i, i + MAX_PAGEIDS_PER_REQUEST);
       const data = await this.send<WikiPageQueryResponse>({
         url: API_PATH,
-        method: 'GET',
+        method: "GET",
         params: {
-          action: 'query',
-          format: 'json',
-          formatversion: '2',
-          pageids: chunk.join('|'),
-          prop: 'revisions|properties|info|redirects',
-          rvprop: 'content|ids|timestamp',
-          rvslots: 'main',
-          inprop: 'displaytitle|url',
-          rdlimit: 'max',
+          action: "query",
+          format: "json",
+          formatversion: "2",
+          pageids: chunk.join("|"),
+          prop: "revisions|properties|info|redirects",
+          rvprop: "content|ids|timestamp",
+          rvslots: "main",
+          inprop: "displaytitle|url",
+          rdlimit: "max",
         },
       });
 
@@ -403,10 +416,10 @@ export class WikiRequestService {
           continue;
         }
         const rev = page.revisions[0];
-        const rawContent = rev?.slots?.main?.content ?? rev?.content ?? '';
+        const rawContent = rev?.slots?.main?.content ?? rev?.content ?? "";
 
-        const cleanTitle = (page.displaytitle || page.title || '')
-          .replaceAll(/<.*?>/g, '')
+        const cleanTitle = (page.displaytitle || page.title || "")
+          .replaceAll(/<.*?>/g, "")
           .replace(/&#(\d+);/g, (_match, dec) => String.fromCharCode(dec));
 
         results.push({
@@ -418,9 +431,9 @@ export class WikiRequestService {
           redirects: (page.redirects ?? []).map((r) => r.title),
           properties: (page.properties ?? []).map((p) => ({
             name: p.name,
-            value: p['*'],
+            value: p["*"],
           })),
-          content: '',
+          content: "",
           rawContent,
         });
       }
@@ -435,11 +448,11 @@ export class WikiRequestService {
    */
   public async getRedirectsToPage(pageId: number): Promise<string[]> {
     const params = {
-      action: 'query',
-      format: 'json',
-      prop: 'redirects',
+      action: "query",
+      format: "json",
+      prop: "redirects",
       pageids: pageId,
-      rdlimit: '500',
+      rdlimit: "500",
     };
 
     const data = await this.send<{
@@ -454,12 +467,10 @@ export class WikiRequestService {
       };
     }>({
       url: API_PATH,
-      method: 'GET',
+      method: "GET",
       params,
     });
 
-    return (
-      data?.query?.pages?.[String(pageId)]?.redirects?.map((r) => r.title) ?? []
-    );
+    return data?.query?.pages?.[String(pageId)]?.redirects?.map((r) => r.title) ?? [];
   }
 }

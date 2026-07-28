@@ -1,20 +1,20 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_LOCATIONS } from '../../constants/paths';
-import { GameLocation, RelativeLocation } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { parseMapTemplate } from '../../utils/map-parser';
-import { wikiBool, wikiString } from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_LOCATIONS } from "../../constants/paths";
+import { GameLocation, RelativeLocation } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { parseMapTemplate } from "../../utils/map-parser";
+import { wikiBool, wikiString } from "../../utils/wiki-coercion";
 
 export function parseLocationFromContent(
   pageText: string,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): GameLocation | null {
   const parsed = parseWikitext(pageText);
-  const data = parsed.getInfobox('location');
+  const data = parsed.getInfobox("location");
   if (!data) return null;
 
   const location: GameLocation = {
@@ -28,7 +28,7 @@ export function parseLocationFromContent(
   if (data.capital) location.capital = wikiString(data.capital);
   if (data.leagueregion) location.leagueRegion = wikiString(data.leagueregion);
 
-  const relativeTemplates = parsed.getTemplates('relativelocation');
+  const relativeTemplates = parsed.getTemplates("relativelocation");
   if (relativeTemplates.length) {
     const rl = relativeTemplates[0];
     const rel: RelativeLocation = {};
@@ -43,7 +43,7 @@ export function parseLocationFromContent(
     if (Object.keys(rel).length) location.relativeLocation = rel;
   }
 
-  for (const mapTemplate of parsed.getTemplates('map')) {
+  for (const mapTemplate of parsed.getTemplates("map")) {
     const map = parseMapTemplate(mapTemplate);
     if (map?.polygon) {
       location.polygon = map.polygon;
@@ -51,7 +51,7 @@ export function parseLocationFromContent(
     }
   }
   if (!location.polygon) {
-    for (const mapTemplate of parsed.getTemplates('map')) {
+    for (const mapTemplate of parsed.getTemplates("map")) {
       const map = parseMapTemplate(mapTemplate);
       if (map?.point) {
         location.position = map.point;
@@ -70,15 +70,13 @@ export class LocationsExtractor {
 
   constructor(
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllLocations(): Promise<GameLocation[]> {
-    this.logger.log('Start: Extracting locations');
+    this.logger.log("Start: Extracting locations");
 
-    const locationPages = await this.pageListDumper.getPagesFromTag(
-      PageTags.LOCATION
-    );
+    const locationPages = await this.pageListDumper.getPagesFromTag(PageTags.LOCATION);
     const length = locationPages.length;
     const locations: GameLocation[] = [];
     let i = 0;
@@ -97,7 +95,7 @@ export class LocationsExtractor {
       writeFileSync(ALL_LOCATIONS, JSON.stringify(locations, null, 2));
     }
 
-    this.logger.log('Done: Extracting locations');
+    this.logger.log("Done: Extracting locations");
     return locations;
   }
 
@@ -107,17 +105,15 @@ export class LocationsExtractor {
         return null;
       }
       try {
-        this.cachedLocations = JSON.parse(readFileSync(ALL_LOCATIONS, 'utf8'));
+        this.cachedLocations = JSON.parse(readFileSync(ALL_LOCATIONS, "utf8"));
       } catch (e) {
-        this.logger.warn('all locations has invalid content', e);
+        this.logger.warn("all locations has invalid content", e);
       }
     }
     return this.cachedLocations;
   }
 
-  private async extractLocationFromPageId(
-    pageId: number
-  ): Promise<GameLocation | null> {
+  private async extractLocationFromPageId(pageId: number): Promise<GameLocation | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page || !page.text) {
       return null;

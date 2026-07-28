@@ -2,6 +2,8 @@
 
 Scrapes the [OSRS Wiki](https://oldschool.runescape.wiki/) via MediaWiki API, parses wikitext markup into structured JSON, and stores extracted data locally.
 
+Also supports the [RS3 Wiki](https://runescape.wiki/) — see [RS3 pipeline](#rs3-pipeline) below.
+
 ## Repository Layout
 
 ```
@@ -136,3 +138,80 @@ Required (validated by NestJS ConfigModule):
 - `WIKI_FOLDER_PATH` — Path for raw wiki page dumps
 - `DB_PATH` — SQLite database file path (relative to cwd)
 - `NODE_ENV` — development | production | test | provision
+
+## RS3 pipeline
+
+The scraper supports a second, parallel pipeline targeting the RS3 wiki
+(`https://runescape.wiki`). It is selected at boot via the `GAME` env var:
+
+| Env var | Default | Purpose |
+|---|---|---|
+| `GAME` | `osrs` | Selects pipeline. `osrs` keeps the OSRS modules; `rs3` swaps in the RS3 ones. |
+| `DB_PATH_RS3` | `data/database-rs3.sqlite` | SQLite file for RS3 pages. Two DB files — OSRS and RS3 never share. |
+| `DATA_FOLDER_PATH_RS3` | `./data/rs3` | Extracted JSON root for RS3. |
+| `WIKI_FOLDER_PATH_RS3` | `./wiki-data-rs3` | Raw wiki dump root for RS3. |
+
+### Architecture (parallel modules, no OSRS code touched)
+
+```
+src/modules-rs3/
+├── app/
+│   ├── rs3-app.module.ts        # Root RS3 module — wired by AppModule when GAME=rs3
+│   └── rs3-dev.service.ts       # Orchestrates RS3 dump → extract pipeline
+├── wiki/
+│   ├── rs3-wiki.module.ts
+│   └── rs3-wiki-request.service.ts  # Subclass of WikiRequestService → runescape.wiki
+├── database/
+│   ├── rs3-database.module.ts
+│   └── rs3-database.service.ts  # Subclass of DatabaseService → DB_PATH_RS3
+├── dumpers/
+│   ├── rs3-dumpers.module.ts
+│   ├── rs3-page-list.dumper.ts
+│   ├── rs3-page-content.dumper.ts
+│   └── rs3-module.dumper.ts
+└── extractors/
+    ├── rs3-extractors.module.ts
+    └── rs3-*.extractor.ts       # 16 extractors mirroring the OSRS ones
+```
+
+The RS3 wiki service and database service **subclass** their OSRS counterparts
+(`WikiRequestService`, `DatabaseService`); OSRS behaviour is unchanged.
+Output paths live in `src/constants/rs3-paths.ts` rooted at `data/rs3/`.
+
+### Extractor reuse strategy
+
+Each RS3 extractor delegates its parsing to the **OSRS pure function** (e.g.
+`parseItemFromWikiData`, `parseMonsterFromContent`) and only re-implements
+the orchestration layer (DB read → parse → JSON write). RS3-specific markup
+differences (e.g. RS3 has no `{{LocLine}}`, no `Module:GELimits`) are noted
+inline per extractor and yield null/empty fields until a specialised RS3
+parser is written.
+
+### RS3-specific tweaks already applied
+
+- **News namespace**: RS3 `Update:` is ns=100 (verified via
+  `meta=siteinfo&siprop=namespaces`). OSRS uses ns=112; RS3's ns=112 is
+  `Exchange:`.
+- **Monsters category**: RS3 uses `Category:Bestiary` (not
+  `Category:Monsters` which has 0 pages).
+- **GE items**: `Category:Grand Exchange items` exists on RS3 (same as OSRS).
+- **Recipes**: RS3 uses `{{Infobox Recipe}}` (not `{{Recipe}}`). The RS3
+  extractor normalises RS3 param names (`mat1qty` → `mat1quantity`, `tool`
+  → `tools`, etc.) then delegates to the OSRS `parseRecipeProperties`.
+- **GE limits**: RS3 has no `Module:GELimits/data.json` counterpart — every
+  RS3 item gets `limit = 0`.
+- **Music / news URLs**: the OSRS pure parsers hardcode
+  `oldschool.runescape.wiki`; the RS3 extractors post-process the host to
+  `runescape.wiki`.
+- **OSRS-only templates** (return 0 on RS3, producing empty output — not
+  bugs, just content differences): `{{ItemSpawnLine}}`, `{{CostLine}}`.
+
+### Running
+
+```bash
+# OSRS (default)
+GAME=osrs npm run start
+
+# RS3
+GAME=rs3 DB_PATH_RS3=data/database-rs3.sqlite npm run start
+```

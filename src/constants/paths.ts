@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-export const DATA_FOLDER = process.env.DATA_FOLDER_PATH || './data';
-export const WIKI_DATA_FOLDER = process.env.WIKI_FOLDER_PATH || './wiki-data';
+import * as fs from "fs";
+export const DATA_FOLDER = process.env.DATA_FOLDER_PATH || "./data";
+export const WIKI_DATA_FOLDER = process.env.WIKI_FOLDER_PATH || "./wiki-data";
 
 // Wiki content must be on a different path as it's on its own repo
 export const WIKI_PAGES_FOLDER = `${WIKI_DATA_FOLDER}/wiki-pages`;

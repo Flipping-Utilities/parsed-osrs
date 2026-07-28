@@ -1,5 +1,5 @@
-import { readFileSync } from 'fs';
-import path from 'path';
+import { readFileSync } from "fs";
+import path from "path";
 
 export interface TestPage {
   id: number;
@@ -9,9 +9,9 @@ export interface TestPage {
   aliases: string[];
 }
 
-const pagesDir = path.resolve(__dirname, 'pages');
+const pagesDir = path.resolve(__dirname, "pages");
 
 export function loadTestPage(pageId: number): TestPage {
   const filePath = path.join(pagesDir, `${pageId}.json`);
-  return JSON.parse(readFileSync(filePath, 'utf8')) as TestPage;
+  return JSON.parse(readFileSync(filePath, "utf8")) as TestPage;
 }

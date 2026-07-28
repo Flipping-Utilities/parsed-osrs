@@ -1,4 +1,4 @@
-import { MapPoint, MapPolygon } from '../types';
+import { MapPoint, MapPolygon } from "../types";
 
 export interface ParsedMap {
   mtype: string;
@@ -8,18 +8,18 @@ export interface ParsedMap {
 }
 
 const POLYGON_IGNORED_KEYS = new Set([
-  'template',
-  'name',
-  'mtype',
-  'type',
-  'x',
-  'y',
-  'r',
-  'zoom',
-  'plane',
-  'mapid',
-  'rectx',
-  'recty',
+  "template",
+  "name",
+  "mtype",
+  "type",
+  "x",
+  "y",
+  "r",
+  "zoom",
+  "plane",
+  "mapid",
+  "rectx",
+  "recty",
 ]);
 
 // Matches a single coordinate value, e.g. "2633" or "2633.7". The optional
@@ -28,7 +28,7 @@ const POLYGON_IGNORED_KEYS = new Set([
 // "2633.7" leaves the trailing "7" to be picked up as a stray vertex,
 // corrupting the bounding box.
 const COORD_TOKEN = String.raw`\d+(?:\.\d+)?`;
-const COORD_PAIR_RE = new RegExp(`(${COORD_TOKEN})[,:](${COORD_TOKEN})`, 'g');
+const COORD_PAIR_RE = new RegExp(`(${COORD_TOKEN})[,:](${COORD_TOKEN})`, "g");
 
 function toNumber(value: unknown): number | null {
   if (value === null || value === undefined) return null;
@@ -44,7 +44,7 @@ function getPositionalValues(tmpl: Record<string, unknown>): string[] {
     out.push(...list.map((v) => String(v)));
   }
   for (const [key, value] of Object.entries(tmpl)) {
-    if (/^\d+$/.test(key) && typeof value === 'string') {
+    if (/^\d+$/.test(key) && typeof value === "string") {
       out.push(value);
     }
   }
@@ -62,10 +62,10 @@ function parsePolygon(tmpl: Record<string, unknown>): MapPolygon | null {
     // Fallback: any non-ignored string value
     for (const [key, value] of Object.entries(tmpl)) {
       if (POLYGON_IGNORED_KEYS.has(key)) continue;
-      if (typeof value === 'string') parts.push(value);
+      if (typeof value === "string") parts.push(value);
     }
   }
-  const joined = parts.join(',');
+  const joined = parts.join(",");
 
   const vertices: Array<{ x: number; y: number }> = [];
   COORD_PAIR_RE.lastIndex = 0;
@@ -75,12 +75,8 @@ function parsePolygon(tmpl: Record<string, unknown>): MapPolygon | null {
   }
   if (!vertices.length) return null;
 
-  const cx = Math.round(
-    vertices.reduce((s, v) => s + v.x, 0) / vertices.length
-  );
-  const cy = Math.round(
-    vertices.reduce((s, v) => s + v.y, 0) / vertices.length
-  );
+  const cx = Math.round(vertices.reduce((s, v) => s + v.x, 0) / vertices.length);
+  const cy = Math.round(vertices.reduce((s, v) => s + v.y, 0) / vertices.length);
   return { raw: joined, vertices, centroid: { x: cx, y: cy } };
 }
 
@@ -110,20 +106,18 @@ function parsePoint(tmpl: Record<string, unknown>): MapPoint | null {
  * `mtype=polygon`, a point for pin/rectangle/square markers, or just the
  * `name`/`mtype` when no coordinates could be parsed.
  */
-export function parseMapTemplate(
-  tmpl: Record<string, unknown>
-): ParsedMap | null {
-  const mtype = String(tmpl.mtype ?? '').toLowerCase();
+export function parseMapTemplate(tmpl: Record<string, unknown>): ParsedMap | null {
+  const mtype = String(tmpl.mtype ?? "").toLowerCase();
   const name = tmpl.name ? String(tmpl.name) : undefined;
 
-  if (mtype === 'polygon') {
+  if (mtype === "polygon") {
     const polygon = parsePolygon(tmpl);
     return polygon ? { mtype, name, polygon } : { mtype, name };
   }
 
   const point = parsePoint(tmpl);
   if (point) {
-    return { mtype: mtype || 'pin', name, point };
+    return { mtype: mtype || "pin", name, point };
   }
   return name ? { mtype, name } : null;
 }

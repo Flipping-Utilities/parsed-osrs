@@ -1,39 +1,31 @@
-import { loadTestPage, type TestPage } from '../../../test/test-utils';
-import { TestPages } from '../../constants/test-pages';
-import { parseLocationFromContent } from './locations.extractor';
+import { loadTestPage, type TestPage } from "../../../test/test-utils";
+import { TestPages } from "../../constants/test-pages";
+import { parseLocationFromContent } from "./locations.extractor";
 
-describe('parseLocationFromContent', () => {
-  it('parses Varrock settlement with region, league region, and adjacency', () => {
+describe("parseLocationFromContent", () => {
+  it("parses Varrock settlement with region, league region, and adjacency", () => {
     const page = loadTestPage(TestPages.Varrock);
 
-    const location = parseLocationFromContent(
-      page.text,
-      page.title,
-      page.aliases
-    );
+    const location = parseLocationFromContent(page.text, page.title, page.aliases);
 
     expect(location).not.toBeNull();
-    expect(location!.name).toBe('Varrock');
-    expect(location!.type).toBe('settlement');
+    expect(location!.name).toBe("Varrock");
+    expect(location!.type).toBe("settlement");
     expect(location!.members).toBe(false);
-    expect(location!.region).toBe('Misthalin');
-    expect(location!.leagueRegion).toBe('Misthalin');
+    expect(location!.region).toBe("Misthalin");
+    expect(location!.leagueRegion).toBe("Misthalin");
 
     expect(location!.relativeLocation).toEqual({
-      north: 'Wilderness',
-      south: 'Lumbridge',
-      east: 'Digsite',
-      west: 'Barbarian Village',
+      north: "Wilderness",
+      south: "Lumbridge",
+      east: "Digsite",
+      west: "Barbarian Village",
     });
   });
 
-  it('parses the Varrock boundary polygon vertices and centroid', () => {
+  it("parses the Varrock boundary polygon vertices and centroid", () => {
     const page = loadTestPage(TestPages.Varrock);
-    const location = parseLocationFromContent(
-      page.text,
-      page.title,
-      page.aliases
-    );
+    const location = parseLocationFromContent(page.text, page.title, page.aliases);
 
     expect(location).not.toBeNull();
     expect(location!.polygon).toBeDefined();
@@ -55,23 +47,15 @@ describe('parseLocationFromContent', () => {
     expect(y).toBeLessThanOrEqual(maxY);
   });
 
-  it('returns null for a page with no location infobox', () => {
+  it("returns null for a page with no location infobox", () => {
     const page = loadTestPage(TestPages.StoneBowl);
-    const location = parseLocationFromContent(
-      page.text,
-      page.title,
-      page.aliases
-    );
+    const location = parseLocationFromContent(page.text, page.title, page.aliases);
     expect(location).toBeNull();
   });
 
-  it('detects being inside Varrock via the polygon (point-in-polygon)', () => {
+  it("detects being inside Varrock via the polygon (point-in-polygon)", () => {
     const page = loadTestPage(TestPages.Varrock);
-    const location = parseLocationFromContent(
-      page.text,
-      page.title,
-      page.aliases
-    );
+    const location = parseLocationFromContent(page.text, page.title, page.aliases);
     const vertices = location!.polygon!.vertices;
 
     // Standard ray-casting point-in-polygon test
@@ -82,10 +66,7 @@ describe('parseLocationFromContent', () => {
         const yi = vertices[i].y;
         const xj = vertices[j].x;
         const yj = vertices[j].y;
-        if (
-          yi > py !== yj > py &&
-          px < ((xj - xi) * (py - yi)) / (yj - yi) + xi
-        ) {
+        if (yi > py !== yj > py && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) {
           hit = !hit;
         }
       }

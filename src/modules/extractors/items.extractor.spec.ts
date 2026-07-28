@@ -1,36 +1,29 @@
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { loadTestPage, type TestPage } from '../../../test/test-utils';
-import { TestPages } from '../../constants/test-pages';
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { loadTestPage, type TestPage } from "../../../test/test-utils";
+import { TestPages } from "../../constants/test-pages";
 import {
   parseEquipmentStats,
   parseItemFromWikiData,
   extractImagesFromHtml,
-} from './items.extractor';
+} from "./items.extractor";
 
 const parseFixtureInfo = (page: TestPage): Record<string, string> => {
   const parsed = parseWikitext(page.text);
-  return parsed.getInfobox('item') ?? {};
+  return parsed.getInfobox("item") ?? {};
 };
 
-describe('parseItemFromWikiData', () => {
-  it('parses a single-variant non-tradeable item from real wiki data', () => {
+describe("parseItemFromWikiData", () => {
+  it("parses a single-variant non-tradeable item from real wiki data", () => {
     const page = loadTestPage(TestPages.Bucket15ths);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0]).toMatchObject({
       id: 3726,
-      name: '1/5ths full bucket',
-      examine:
-        'This bucket is twenty percent full. It has a 5 painted on its side.',
+      name: "1/5ths full bucket",
+      examine: "This bucket is twenty percent full. It has a 5 painted on its side.",
       isMembers: true,
       isTradeable: false,
       isEquipable: false,
@@ -40,29 +33,25 @@ describe('parseItemFromWikiData', () => {
       value: 1,
       weight: 0.001,
       drop: "You'll have to find another from within the building.",
-      aliases: ['1-5ths full bucket'],
+      aliases: ["1-5ths full bucket"],
       limit: 0,
       isInMainGame: true,
     });
   });
 
-  it('parses a tradeable and equipable GE item with a provided GE limit', () => {
+  it("parses a tradeable and equipable GE item with a provided GE limit", () => {
     const page = loadTestPage(TestPages.ThirdAgeFellingAxe);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      { '3rd age felling axe': 8 }
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {
+      "3rd age felling axe": 8,
+    });
 
     expect(items).toHaveLength(1);
     expect(items[0]).toMatchObject({
       id: 28226,
-      name: '3rd age felling axe',
-      examine: 'A beautifully crafted felling axe, shaped by ancient smiths.',
+      name: "3rd age felling axe",
+      examine: "A beautifully crafted felling axe, shaped by ancient smiths.",
       isMembers: true,
       isTradeable: true,
       isEquipable: true,
@@ -72,11 +61,11 @@ describe('parseItemFromWikiData', () => {
       value: 55000,
       weight: 1.814,
       aliases: [
-        '3rd age 2h axe',
-        '3a felling',
-        'Third age felling axe',
-        '3rd age felling',
-        '2h 3rd age axe',
+        "3rd age 2h axe",
+        "3a felling",
+        "Third age felling axe",
+        "3rd age felling",
+        "2h 3rd age axe",
       ],
       limit: 8,
       isInMainGame: true,
@@ -95,31 +84,27 @@ describe('parseItemFromWikiData', () => {
         rangedStrength: 0,
         magicDamage: 0,
         prayer: 0,
-        slot: '2h',
+        slot: "2h",
         speed: 7,
         attackRange: 1,
-        combatStyle: 'Axe',
+        combatStyle: "Axe",
       },
     });
   });
 
-  it('passes aliases and extracts values from another real single-variant item', () => {
+  it("passes aliases and extracts values from another real single-variant item", () => {
     const page = loadTestPage(TestPages.AdamantSetLg);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      { 'Adamant set (lg)': 70 }
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {
+      "Adamant set (lg)": 70,
+    });
 
     expect(items).toHaveLength(1);
     expect(items[0]).toMatchObject({
       id: 13012,
-      name: 'Adamant set (lg)',
-      examine: 'A set containing a full helm, platebody, legs and kiteshield.',
+      name: "Adamant set (lg)",
+      examine: "A set containing a full helm, platebody, legs and kiteshield.",
       isMembers: false,
       isTradeable: true,
       isEquipable: false,
@@ -127,28 +112,22 @@ describe('parseItemFromWikiData', () => {
       value: 8000,
       weight: 6,
       aliases: [
-        'Adamant set (lg',
-        'Adamant armour set (lg)',
-        'Adamant set lg',
-        'Addy set',
-        'Adamant lg',
-        'Addamant plate',
+        "Adamant set (lg",
+        "Adamant armour set (lg)",
+        "Adamant set lg",
+        "Addy set",
+        "Adamant lg",
+        "Addamant plate",
       ],
       limit: 70,
     });
   });
 
-  it('parses real multi-variant wiki data and links related variants', () => {
+  it("parses real multi-variant wiki data and links related variants", () => {
     const page = loadTestPage(TestPages.Mixture);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(3);
 
@@ -162,27 +141,22 @@ describe('parseItemFromWikiData', () => {
 
     expect(hot).toMatchObject({
       id: 5589,
-      name: '??? mixture',
-      examine:
-        "A very hot vial of something or other. The label says 'Cupric Sulfate'.",
+      name: "??? mixture",
+      examine: "A very hot vial of something or other. The label says 'Cupric Sulfate'.",
       isMembers: true,
       isTradeable: false,
       isEquipable: false,
       isStackable: false,
       value: 1,
       weight: 0.056,
-      aliases: [
-        '??? mixture (hot)',
-        '??? mixture (warm)',
-        '??? mixture (horrible)',
-      ],
+      aliases: ["??? mixture (hot)", "??? mixture (warm)", "??? mixture (horrible)"],
       relatedItems: [5590, 5591],
       limit: 0,
     });
 
     expect(warm).toMatchObject({
       id: 5590,
-      name: '??? mixture',
+      name: "??? mixture",
       examine: "A very warm vial of something or other. It's a bit lumpy.",
       isMembers: true,
       isTradeable: false,
@@ -190,141 +164,103 @@ describe('parseItemFromWikiData', () => {
       isStackable: false,
       value: 1,
       weight: 0.056,
-      aliases: [
-        '??? mixture (hot)',
-        '??? mixture (warm)',
-        '??? mixture (horrible)',
-      ],
+      aliases: ["??? mixture (hot)", "??? mixture (warm)", "??? mixture (horrible)"],
       relatedItems: [5589, 5591],
       limit: 0,
     });
 
     expect(horrible).toMatchObject({
       id: 5591,
-      name: '??? mixture',
-      examine: 'It looks horrible. I think I messed something up.',
+      name: "??? mixture",
+      examine: "It looks horrible. I think I messed something up.",
       isMembers: true,
       isTradeable: false,
       isEquipable: false,
       isStackable: false,
       value: 1,
       weight: 0.056,
-      aliases: [
-        '??? mixture (hot)',
-        '??? mixture (warm)',
-        '??? mixture (horrible)',
-      ],
+      aliases: ["??? mixture (hot)", "??? mixture (warm)", "??? mixture (horrible)"],
       relatedItems: [5589, 5590],
       limit: 0,
     });
   });
 
-  it('does not include equipmentStats for non-equipable items', () => {
+  it("does not include equipmentStats for non-equipable items", () => {
     const page = loadTestPage(TestPages.Bucket15ths);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0].equipmentStats).toBeUndefined();
   });
 });
 
-describe('parseItemFromWikiData additional fields', () => {
-  it('extracts quest association from 1/5ths full bucket', () => {
+describe("parseItemFromWikiData additional fields", () => {
+  it("extracts quest association from 1/5ths full bucket", () => {
     const page = loadTestPage(TestPages.Bucket15ths);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0]).toMatchObject({
-      quest: 'The Fremennik Trials',
+      quest: "The Fremennik Trials",
       isPlaceholder: false,
       isNoteable: false,
       isBankable: true,
       isEdible: false,
-      options: ['Destroy'],
+      options: ["Destroy"],
     });
   });
 
-  it('extracts geName from gemwname on Woven top (brown)', () => {
+  it("extracts geName from gemwname on Woven top (brown)", () => {
     const page = loadTestPage(TestPages.WovenTopBrown);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
-    expect(items[0].geName).toBe('Woven top (brown)');
+    expect(items[0].geName).toBe("Woven top (brown)");
     expect(items[0].id).toBe(5024);
     expect(items[0].isTradeable).toBe(true);
     expect(items[0].isOnGrandExchange).toBe(true);
   });
 
-  it('extracts wornOptions from equipable item with default empty list when absent', () => {
+  it("extracts wornOptions from equipable item with default empty list when absent", () => {
     const page = loadTestPage(TestPages.AbyssalWhip);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0].isEquipable).toBe(true);
     expect(items[0].wornOptions).toEqual([]);
-    expect(items[0].options).toEqual(['Wield', 'Drop']);
+    expect(items[0].options).toEqual(["Wield", "Drop"]);
   });
 
-  it('keeps existing item parsing behavior while adding new defaults', () => {
+  it("keeps existing item parsing behavior while adding new defaults", () => {
     const page = loadTestPage(TestPages.BronzeBar);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0]).toMatchObject({
       id: 2349,
-      name: 'Bronze bar',
+      name: "Bronze bar",
       isTradeable: true,
       isOnGrandExchange: true,
       isPlaceholder: true,
       isNoteable: true,
       respawnTime: 100,
-      options: ['Drop'],
+      options: ["Drop"],
     });
   });
 });
 
-describe('parseEquipmentStats', () => {
-  it('extracts weapon stats from Abyssal whip', () => {
+describe("parseEquipmentStats", () => {
+  it("extracts weapon stats from Abyssal whip", () => {
     const page = loadTestPage(TestPages.AbyssalWhip);
 
     const stats = parseEquipmentStats(page.text);
@@ -344,14 +280,14 @@ describe('parseEquipmentStats', () => {
       rangedStrength: 0,
       magicDamage: 0,
       prayer: 0,
-      slot: 'weapon',
+      slot: "weapon",
       speed: 4,
       attackRange: 1,
-      combatStyle: 'Whip',
+      combatStyle: "Whip",
     });
   });
 
-  it('extracts armor stats from Bandos chestplate with missing weapon fields', () => {
+  it("extracts armor stats from Bandos chestplate with missing weapon fields", () => {
     const page = loadTestPage(TestPages.BandosChestplate);
 
     const stats = parseEquipmentStats(page.text);
@@ -371,14 +307,14 @@ describe('parseEquipmentStats', () => {
       rangedStrength: 0,
       magicDamage: 0,
       prayer: 1,
-      slot: 'body',
+      slot: "body",
       speed: 0,
       attackRange: 0,
-      combatStyle: '',
+      combatStyle: "",
     });
   });
 
-  it('extracts magic gear stats from Ancestral hat with magicDamage', () => {
+  it("extracts magic gear stats from Ancestral hat with magicDamage", () => {
     const page = loadTestPage(TestPages.AncestralHat);
 
     const stats = parseEquipmentStats(page.text);
@@ -398,11 +334,11 @@ describe('parseEquipmentStats', () => {
       rangedStrength: 0,
       magicDamage: 3,
       prayer: 0,
-      slot: 'head',
+      slot: "head",
     });
   });
 
-  it('returns null when page has no combat stats section', () => {
+  it("returns null when page has no combat stats section", () => {
     const page = loadTestPage(TestPages.Bucket15ths);
 
     const stats = parseEquipmentStats(page.text);
@@ -411,70 +347,52 @@ describe('parseEquipmentStats', () => {
   });
 });
 
-describe('parseItemFromWikiData with equipmentStats', () => {
-  it('includes equipmentStats for Abyssal whip', () => {
+describe("parseItemFromWikiData with equipmentStats", () => {
+  it("includes equipmentStats for Abyssal whip", () => {
     const page = loadTestPage(TestPages.AbyssalWhip);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0].isEquipable).toBe(true);
     expect(items[0].equipmentStats).toBeDefined();
-    expect(items[0].equipmentStats!.slot).toBe('weapon');
+    expect(items[0].equipmentStats!.slot).toBe("weapon");
     expect(items[0].equipmentStats!.strength).toBe(82);
   });
 
-  it('includes equipmentStats for Bandos chestplate with defaults for missing weapon fields', () => {
+  it("includes equipmentStats for Bandos chestplate with defaults for missing weapon fields", () => {
     const page = loadTestPage(TestPages.BandosChestplate);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0].isEquipable).toBe(true);
     expect(items[0].equipmentStats).toBeDefined();
-    expect(items[0].equipmentStats!.slot).toBe('body');
+    expect(items[0].equipmentStats!.slot).toBe("body");
     expect(items[0].equipmentStats!.defendCrush).toBe(105);
     expect(items[0].equipmentStats!.speed).toBe(0);
-    expect(items[0].equipmentStats!.combatStyle).toBe('');
+    expect(items[0].equipmentStats!.combatStyle).toBe("");
   });
 
-  it('includes equipmentStats for Ancestral hat with magicDamage bonus', () => {
+  it("includes equipmentStats for Ancestral hat with magicDamage bonus", () => {
     const page = loadTestPage(TestPages.AncestralHat);
     const parsed = parseFixtureInfo(page);
 
-    const items = parseItemFromWikiData(
-      parsed,
-      page.title,
-      page.text,
-      page.aliases,
-      {}
-    );
+    const items = parseItemFromWikiData(parsed, page.title, page.text, page.aliases, {});
 
     expect(items).toHaveLength(1);
     expect(items[0].isEquipable).toBe(true);
     expect(items[0].equipmentStats).toBeDefined();
-    expect(items[0].equipmentStats!.slot).toBe('head');
+    expect(items[0].equipmentStats!.slot).toBe("head");
     expect(items[0].equipmentStats!.magicDamage).toBe(3);
     expect(items[0].equipmentStats!.attackMagic).toBe(8);
   });
 });
 
-describe('extractImagesFromHtml', () => {
-  it('extracts image from a single-variant infobox', () => {
+describe("extractImagesFromHtml", () => {
+  it("extracts image from a single-variant infobox", () => {
     const html = `
       <table class="infobox-item">
         <tr><th>Members</th><td>Yes</td></tr>
@@ -486,10 +404,10 @@ describe('extractImagesFromHtml', () => {
     const images = extractImagesFromHtml(html);
 
     expect(images.has(1321)).toBe(true);
-    expect(images.get(1321)).toBe('File:Bronze_sword.png');
+    expect(images.get(1321)).toBe("File:Bronze_sword.png");
   });
 
-  it('extracts images per variant in a multi-variant infobox', () => {
+  it("extracts images per variant in a multi-variant infobox", () => {
     const html = `
       <table class="infobox-item">
         <tr><td colspan="2"><a href="/w/Ahrim%27s_hood"><img src="/images/Ahrim%27s_hood_equipped_male.png" /></a></td></tr>
@@ -509,7 +427,7 @@ describe('extractImagesFromHtml', () => {
     expect(images.get(4856)).toBe("File:Ahrim's_hood_100.png");
   });
 
-  it('handles ID rows with comma-separated values', () => {
+  it("handles ID rows with comma-separated values", () => {
     const html = `
       <table class="infobox-item">
         <tr><td colspan="2"><img src="/images/Amulet_of_glory.png" /></td></tr>
@@ -520,15 +438,15 @@ describe('extractImagesFromHtml', () => {
     const images = extractImagesFromHtml(html);
 
     expect(images.has(1704)).toBe(true);
-    expect(images.get(1704)).toBe('File:Amulet_of_glory.png');
+    expect(images.get(1704)).toBe("File:Amulet_of_glory.png");
   });
 
-  it('returns empty map when html is empty', () => {
-    const images = extractImagesFromHtml('');
+  it("returns empty map when html is empty", () => {
+    const images = extractImagesFromHtml("");
     expect(images.size).toBe(0);
   });
 
-  it('returns empty map when no img elements exist', () => {
+  it("returns empty map when no img elements exist", () => {
     const html = `<table class="infobox-item"><tr><th>ID</th><td>1321</td></tr></table>`;
     const images = extractImagesFromHtml(html);
     expect(images.size).toBe(0);

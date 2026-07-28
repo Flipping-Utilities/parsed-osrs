@@ -1,6 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { eq, inArray } from 'drizzle-orm';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { Injectable, Logger } from "@nestjs/common";
+import { eq, inArray } from "drizzle-orm";
+import { existsSync, readFileSync, writeFileSync } from "fs";
 import {
   ALL_ITEM_PAGE_LIST,
   ALL_ITEM_SPAWNS_PAGE_LIST,
@@ -20,11 +20,11 @@ import {
   ALL_MUSIC_PAGE_LIST,
   GE_ITEM_PAGE_LIST,
   WIKI_PAGE_LIST,
-} from '../../constants/paths';
-import { PageTags } from '../../constants/tags';
-import { DatabaseService } from '../database/database.service';
-import { PageTag, WikiPage } from '../database/schema';
-import { WikiPageSlim, WikiRequestService } from '../wiki/wikiRequest.service';
+} from "../../constants/paths";
+import { PageTags } from "../../constants/tags";
+import { DatabaseService } from "../database/database.service";
+import { PageTag, WikiPage } from "../database/schema";
+import { WikiPageSlim, WikiRequestService } from "../wiki/wikiRequest.service";
 
 type WikiRedirectResponse = {
   pageid: number;
@@ -62,14 +62,11 @@ const REDIRECT_TITLES_PER_REQUEST = 50;
  */
 export function mergeRedirects(
   pages: Array<{ id: number; aliases?: string[] | null }>,
-  responses: WikiRedirectResponse[]
+  responses: WikiRedirectResponse[],
 ): Array<{ id: number; aliases: string[] }> {
   // Local working copy keyed by page id so multiple responses for the same
   // pageid (pagination) accumulate correctly without mutating the input.
-  const work = new Map<
-    number,
-    { aliases: string[]; aliasSet: Set<string>; changed: boolean }
-  >();
+  const work = new Map<number, { aliases: string[]; aliasSet: Set<string>; changed: boolean }>();
   for (const page of pages) {
     const aliases = page.aliases ?? [];
     work.set(page.id, {
@@ -104,11 +101,11 @@ export function mergeRedirects(
 @Injectable()
 export class PageListDumper {
   private logger = new Logger(PageListDumper.name);
-  private db: ReturnType<DatabaseService['getDb']>;
+  private db: ReturnType<DatabaseService["getDb"]>;
 
   constructor(
     private readonly wikiRequestService: WikiRequestService,
-    private readonly databaseService: DatabaseService
+    private readonly databaseService: DatabaseService,
   ) {
     this.db = this.databaseService.getDb();
   }
@@ -118,20 +115,19 @@ export class PageListDumper {
    */
   async fetchWikiPageList(): Promise<WikiPageSlim[]> {
     const properties = {
-      action: 'query',
-      list: 'allpages',
-      aplimit: 'max',
-      format: 'json',
-      apfilterredir: 'nonredirects',
-      apminsize: '5',
+      action: "query",
+      list: "allpages",
+      aplimit: "max",
+      format: "json",
+      apfilterredir: "nonredirects",
+      apminsize: "5",
     };
 
-    const pages =
-      await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
-        'apcontinue',
-        'allpages',
-        properties
-      );
+    const pages = await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
+      "apcontinue",
+      "allpages",
+      properties,
+    );
     // Wiki responses have 'ns' property, remove it
     return pages.map((p) => ({
       pageid: p.pageid,
@@ -186,13 +182,11 @@ export class PageListDumper {
    * - Dead `titles = 'Members|Minigames'` placeholder removed.
    */
   async dumpRedirectList(): Promise<void> {
-    this.logger.log('Start: Dumping redirect list');
+    this.logger.log("Start: Dumping redirect list");
     const allPages = await this.getWikiPageListDB();
 
     const allTitles = allPages.map((p) => p.title);
-    const totalTitleChunks = Math.ceil(
-      allTitles.length / REDIRECT_TITLES_PER_REQUEST
-    );
+    const totalTitleChunks = Math.ceil(allTitles.length / REDIRECT_TITLES_PER_REQUEST);
 
     const responses: WikiRedirectResponse[] = [];
     for (
@@ -201,31 +195,26 @@ export class PageListDumper {
       i += REDIRECT_TITLES_PER_REQUEST, chunkIdx++
     ) {
       if (chunkIdx % 20 === 0) {
-        this.logger.verbose(
-          `Querying redirect chunk ${chunkIdx + 1} / ${totalTitleChunks}`
-        );
+        this.logger.verbose(`Querying redirect chunk ${chunkIdx + 1} / ${totalTitleChunks}`);
       }
-      const titles = allTitles
-        .slice(i, i + REDIRECT_TITLES_PER_REQUEST)
-        .join('|');
-      const chunkResults =
-        await this.wikiRequestService.queryAllPagesPromise<WikiRedirectResponse>(
-          'rdcontinue',
-          'pages',
-          {
-            action: 'query',
-            format: 'json',
-            prop: 'redirects',
-            rdlimit: 'max',
-            titles,
-          }
-        );
+      const titles = allTitles.slice(i, i + REDIRECT_TITLES_PER_REQUEST).join("|");
+      const chunkResults = await this.wikiRequestService.queryAllPagesPromise<WikiRedirectResponse>(
+        "rdcontinue",
+        "pages",
+        {
+          action: "query",
+          format: "json",
+          prop: "redirects",
+          rdlimit: "max",
+          titles,
+        },
+      );
       responses.push(...chunkResults);
     }
 
     const toUpdate = mergeRedirects(allPages, responses);
     this.logger.verbose(
-      `${toUpdate.length} / ${allPages.length} pages have new aliases to persist`
+      `${toUpdate.length} / ${allPages.length} pages have new aliases to persist`,
     );
 
     const totalDbChunks = Math.ceil(toUpdate.length / REDIRECT_DB_BATCH_SIZE);
@@ -235,41 +224,40 @@ export class PageListDumper {
       await this.db.batch(
         // @ts-expect-error - drizzle batch typing is overly strict across versions
         chunk.map(({ id, aliases }) =>
-          this.db.update(WikiPage).set({ aliases }).where(eq(WikiPage.id, id))
-        )
+          this.db.update(WikiPage).set({ aliases }).where(eq(WikiPage.id, id)),
+        ),
       );
       const chunkNo = Math.floor(i / REDIRECT_DB_BATCH_SIZE) + 1;
       this.logger.debug(
-        `Persisted redirect chunk ${chunkNo} / ${totalDbChunks} (${chunk.length} rows)`
+        `Persisted redirect chunk ${chunkNo} / ${totalDbChunks} (${chunk.length} rows)`,
       );
     }
 
-    this.logger.log('End: Dumping redirect list');
+    this.logger.log("End: Dumping redirect list");
   }
 
   /**
    * Fetches the list of all items
    * From the wiki itself, and returns a list of slim pages.
    */
-  async fetchAllItemPageList(category = 'Items'): Promise<WikiPageSlim[]> {
-    this.logger.log('Dump all item page list');
+  async fetchAllItemPageList(category = "Items"): Promise<WikiPageSlim[]> {
+    this.logger.log("Dump all item page list");
 
     const properties = {
-      action: 'query',
-      list: 'categorymembers',
+      action: "query",
+      list: "categorymembers",
       cmtitle: `Category:${category}`,
-      cmlimit: 'max',
-      format: 'json',
+      cmlimit: "max",
+      format: "json",
     };
 
-    const pages =
-      await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
-        'cmcontinue',
-        'categorymembers',
-        properties
-      );
+    const pages = await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
+      "cmcontinue",
+      "categorymembers",
+      properties,
+    );
 
-    this.logger.log('Dump all item page list - Completed');
+    this.logger.log("Dump all item page list - Completed");
 
     // Wiki responses have 'ns' property, remove it
     return pages
@@ -278,14 +266,14 @@ export class PageListDumper {
         title: p.title,
         redirects: [],
       }))
-      .filter((page) => !page.title.startsWith('Category:'));
+      .filter((page) => !page.title.startsWith("Category:"));
   }
 
   /**
    * Fetches the list of all items that are listed on the GE
    */
   fetchGEItemPageList(): Promise<WikiPageSlim[]> {
-    return this.fetchAllItemPageList('Grand Exchange items');
+    return this.fetchAllItemPageList("Grand Exchange items");
   }
 
   /**
@@ -296,7 +284,7 @@ export class PageListDumper {
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.ITEM
+      PageTags.ITEM,
     );
     // await this.saveFile(ALL_ITEM_PAGE_LIST, pages);
   }
@@ -309,13 +297,13 @@ export class PageListDumper {
    * Writes the GE page list to the disk
    */
   async dumpGEItemPageList(): Promise<void> {
-    this.logger.log('Dump GE item page list');
+    this.logger.log("Dump GE item page list");
     const pages = await this.fetchGEItemPageList();
-    this.logger.log('Dump GE item page list - Done');
+    this.logger.log("Dump GE item page list - Done");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.GE_ITEM
+      PageTags.GE_ITEM,
     );
     await this.saveFile(GE_ITEM_PAGE_LIST, pages);
   }
@@ -325,17 +313,17 @@ export class PageListDumper {
   }
 
   async fetchItemSetsPageList() {
-    return this.fetchAllItemPageList('Item_sets');
+    return this.fetchAllItemPageList("Item_sets");
   }
   async dumpItemSetsPageList() {
-    this.logger.log('Dump item set page list');
+    this.logger.log("Dump item set page list");
     const pages = await this.fetchItemSetsPageList();
     console.log(pages.length, pages.slice(60));
-    this.logger.log('Dump item set page list - Completed');
+    this.logger.log("Dump item set page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.SET
+      PageTags.SET,
     );
     // await this.saveFile(ALL_SETS_PAGE_LIST, pages);
   }
@@ -345,16 +333,16 @@ export class PageListDumper {
   }
 
   async fetchShopPageList() {
-    return this.fetchAllItemPageList('Shops');
+    return this.fetchAllItemPageList("Shops");
   }
   async dumpShopPageList() {
-    this.logger.log('Dump shop page list');
+    this.logger.log("Dump shop page list");
     const pages = await this.fetchShopPageList();
-    this.logger.log('Dump shop page list - Completed');
+    this.logger.log("Dump shop page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.SHOP
+      PageTags.SHOP,
     );
     // await this.saveFile(ALL_SHOPS_PAGE_LIST, pages);
   }
@@ -364,17 +352,17 @@ export class PageListDumper {
   }
 
   async fetchMonstersPageList() {
-    return this.fetchAllItemPageList('Monsters');
+    return this.fetchAllItemPageList("Monsters");
   }
 
   async dumpMonstersPageList() {
-    this.logger.log('Dump monster page list');
+    this.logger.log("Dump monster page list");
     const pages = await this.fetchMonstersPageList();
-    this.logger.log('Dump monster page list');
+    this.logger.log("Dump monster page list");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.MONSTER
+      PageTags.MONSTER,
     );
   }
 
@@ -383,17 +371,17 @@ export class PageListDumper {
   }
 
   async fetchPrayersPageList() {
-    return this.fetchAllItemPageList('Prayers');
+    return this.fetchAllItemPageList("Prayers");
   }
 
   async dumpPrayersPageList() {
-    this.logger.log('Dump prayer page list');
+    this.logger.log("Dump prayer page list");
     const pages = await this.fetchPrayersPageList();
-    this.logger.log('Dump prayer page list - Completed');
+    this.logger.log("Dump prayer page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.PRAYER
+      PageTags.PRAYER,
     );
   }
 
@@ -402,17 +390,17 @@ export class PageListDumper {
   }
 
   async fetchSpellsPageList() {
-    return this.fetchAllItemPageList('Spells');
+    return this.fetchAllItemPageList("Spells");
   }
 
   async dumpSpellsPageList() {
-    this.logger.log('Dump spell page list');
+    this.logger.log("Dump spell page list");
     const pages = await this.fetchSpellsPageList();
-    this.logger.log('Dump spell page list - Completed');
+    this.logger.log("Dump spell page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.SPELL
+      PageTags.SPELL,
     );
   }
 
@@ -425,17 +413,17 @@ export class PageListDumper {
    * settlements, dungeons, and other named places.
    */
   fetchLocationPageList(): Promise<WikiPageSlim[]> {
-    return this.fetchTemplatePageList('Infobox Location');
+    return this.fetchTemplatePageList("Infobox Location");
   }
 
   async dumpLocationPageList() {
-    this.logger.log('Dump location page list');
+    this.logger.log("Dump location page list");
     const pages = await this.fetchLocationPageList();
-    this.logger.log('Dump location page list - Completed');
+    this.logger.log("Dump location page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.LOCATION
+      PageTags.LOCATION,
     );
     await this.saveFile(ALL_LOCATIONS_PAGE_LIST, pages);
   }
@@ -449,13 +437,13 @@ export class PageListDumper {
   }
 
   async dumpNpcPageList() {
-    this.logger.log('Dump NPC page list');
-    const pages = await this.fetchInfoboxPageList('Infobox NPC');
+    this.logger.log("Dump NPC page list");
+    const pages = await this.fetchInfoboxPageList("Infobox NPC");
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.NPC
+      PageTags.NPC,
     );
-    this.logger.log('Dump NPC page list - Completed');
+    this.logger.log("Dump NPC page list - Completed");
   }
 
   getNpcs(): WikiPageSlim[] {
@@ -463,13 +451,13 @@ export class PageListDumper {
   }
 
   async dumpSceneryPageList() {
-    this.logger.log('Dump scenery page list');
-    const pages = await this.fetchInfoboxPageList('Infobox Scenery');
+    this.logger.log("Dump scenery page list");
+    const pages = await this.fetchInfoboxPageList("Infobox Scenery");
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.SCENERY
+      PageTags.SCENERY,
     );
-    this.logger.log('Dump scenery page list - Completed');
+    this.logger.log("Dump scenery page list - Completed");
   }
 
   getScenery(): WikiPageSlim[] {
@@ -477,13 +465,13 @@ export class PageListDumper {
   }
 
   async dumpQuestPageList() {
-    this.logger.log('Dump quest page list');
-    const pages = await this.fetchInfoboxPageList('Infobox Quest');
+    this.logger.log("Dump quest page list");
+    const pages = await this.fetchInfoboxPageList("Infobox Quest");
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.QUEST
+      PageTags.QUEST,
     );
-    this.logger.log('Dump quest page list - Completed');
+    this.logger.log("Dump quest page list - Completed");
   }
 
   getQuests(): WikiPageSlim[] {
@@ -496,23 +484,21 @@ export class PageListDumper {
    * ending in `/Quick guide` to avoid stray transclusions of the template.
    */
   async fetchQuestGuidePageList(): Promise<WikiPageSlim[]> {
-    const pages = await this.fetchTemplatePageList('Quick Guide');
+    const pages = await this.fetchTemplatePageList("Quick Guide");
     return pages.filter((p) => /\/Quick guide$/i.test(p.title));
   }
 
   async dumpQuestGuidePageList() {
-    this.logger.log('Dump quest guide page list');
+    this.logger.log("Dump quest guide page list");
     const pages = await this.fetchQuestGuidePageList();
-    this.logger.log(
-      `Dump quest guide page list - ${pages.length} guides found`
-    );
+    this.logger.log(`Dump quest guide page list - ${pages.length} guides found`);
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.QUEST_GUIDE
+      PageTags.QUEST_GUIDE,
     );
     await this.saveFile(ALL_QUEST_GUIDES_PAGE_LIST, pages);
-    this.logger.log('Dump quest guide page list - Completed');
+    this.logger.log("Dump quest guide page list - Completed");
   }
 
   getQuestGuides(): WikiPageSlim[] {
@@ -520,13 +506,13 @@ export class PageListDumper {
   }
 
   async dumpActivityPageList() {
-    this.logger.log('Dump activity page list');
-    const pages = await this.fetchInfoboxPageList('Infobox Activity');
+    this.logger.log("Dump activity page list");
+    const pages = await this.fetchInfoboxPageList("Infobox Activity");
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.ACTIVITY
+      PageTags.ACTIVITY,
     );
-    this.logger.log('Dump activity page list - Completed');
+    this.logger.log("Dump activity page list - Completed");
   }
 
   getActivities(): WikiPageSlim[] {
@@ -534,14 +520,14 @@ export class PageListDumper {
   }
 
   async dumpMusicPageList() {
-    this.logger.log('Dump music page list');
-    const pages = await this.fetchInfoboxPageList('Infobox Music');
+    this.logger.log("Dump music page list");
+    const pages = await this.fetchInfoboxPageList("Infobox Music");
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.MUSIC
+      PageTags.MUSIC,
     );
     await this.saveFile(ALL_MUSIC_PAGE_LIST, pages);
-    this.logger.log('Dump music page list - Completed');
+    this.logger.log("Dump music page list - Completed");
   }
 
   getMusic(): WikiPageSlim[] {
@@ -556,23 +542,21 @@ export class PageListDumper {
    */
   fetchNewsPageList(): Promise<WikiPageSlim[]> {
     const properties = {
-      action: 'query',
-      list: 'allpages',
-      apnamespace: '112',
-      aplimit: 'max',
-      format: 'json',
-      apfilterredir: 'nonredirects',
+      action: "query",
+      list: "allpages",
+      apnamespace: "112",
+      aplimit: "max",
+      format: "json",
+      apfilterredir: "nonredirects",
     };
 
     return this.wikiRequestService
-      .queryAllPagesPromise<WikiPageSlim>('apcontinue', 'allpages', properties)
-      .then((pages) =>
-        pages.map((p) => ({ pageid: p.pageid, title: p.title, redirects: [] }))
-      );
+      .queryAllPagesPromise<WikiPageSlim>("apcontinue", "allpages", properties)
+      .then((pages) => pages.map((p) => ({ pageid: p.pageid, title: p.title, redirects: [] })));
   }
 
   async dumpNewsPageList() {
-    this.logger.log('Dump news page list');
+    this.logger.log("Dump news page list");
     const pages = await this.fetchNewsPageList();
     this.logger.log(`Dump news page list - ${pages.length} articles found`);
 
@@ -580,14 +564,14 @@ export class PageListDumper {
     // rows here. Once they exist with null text, `dumpPagesWithMissingContent`
     // will fetch their bodies on the next pass.
     await this.upsertWikiPages(
-      pages.map((p) => ({ id: p.pageid, title: p.title, namespace: 112 }))
+      pages.map((p) => ({ id: p.pageid, title: p.title, namespace: 112 })),
     );
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.NEWS
+      PageTags.NEWS,
     );
     await this.saveFile(ALL_NEWS_PAGE_LIST, pages);
-    this.logger.log('Dump news page list - Completed');
+    this.logger.log("Dump news page list - Completed");
   }
 
   getNews(): WikiPageSlim[] {
@@ -596,19 +580,18 @@ export class PageListDumper {
 
   async fetchTemplatePageList(template: string): Promise<WikiPageSlim[]> {
     const properties = {
-      action: 'query',
-      list: 'embeddedin',
+      action: "query",
+      list: "embeddedin",
       eititle: `Template:${template}`,
-      eilimit: 'max',
-      format: 'json',
+      eilimit: "max",
+      format: "json",
     };
 
-    const pages =
-      await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
-        'eicontinue',
-        'embeddedin',
-        properties
-      );
+    const pages = await this.wikiRequestService.queryAllPagesPromise<WikiPageSlim>(
+      "eicontinue",
+      "embeddedin",
+      properties,
+    );
 
     // Wiki responses have 'ns' property, remove it
     return pages
@@ -617,21 +600,21 @@ export class PageListDumper {
         title: p.title,
         redirects: [],
       }))
-      .filter((page) => !page.title.includes(':'));
+      .filter((page) => !page.title.includes(":"));
   }
 
   fetchItemSpawnPageList(): Promise<WikiPageSlim[]> {
-    return this.fetchTemplatePageList('ItemSpawnLine');
+    return this.fetchTemplatePageList("ItemSpawnLine");
   }
 
   async dumpItemSpawnPageList() {
-    this.logger.log('Dump item spawn page list');
+    this.logger.log("Dump item spawn page list");
     const pages = await this.fetchItemSpawnPageList();
-    this.logger.log('Dump item spawn page list - Completed');
+    this.logger.log("Dump item spawn page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.ITEM_SPAWN
+      PageTags.ITEM_SPAWN,
     );
     // await this.saveFile(ALL_ITEM_SPAWNS_PAGE_LIST, pages);
   }
@@ -645,17 +628,17 @@ export class PageListDumper {
    * on skill pages and other non-item pages, expanding coverage beyond items.
    */
   fetchRecipePageList(): Promise<WikiPageSlim[]> {
-    return this.fetchTemplatePageList('Recipe');
+    return this.fetchTemplatePageList("Recipe");
   }
 
   async dumpRecipePageList() {
-    this.logger.log('Dump recipe page list');
+    this.logger.log("Dump recipe page list");
     const pages = await this.fetchRecipePageList();
-    this.logger.log('Dump recipe page list - Completed');
+    this.logger.log("Dump recipe page list - Completed");
 
     await this.addTag(
       pages.map((p) => p.pageid),
-      PageTags.RECIPE
+      PageTags.RECIPE,
     );
     await this.saveFile(ALL_RECIPES_PAGE_LIST, pages);
   }
@@ -664,19 +647,19 @@ export class PageListDumper {
     return this.getPageList(ALL_RECIPES_PAGE_LIST);
   }
 
-  async getPagesFromTag(
-    tag: string
-  ): Promise<Array<typeof WikiPage.$inferSelect>> {
-    const tags = await this.db
-      .select()
-      .from(PageTag)
-      .where(eq(PageTag.tag, tag));
-    const pageIds = tags.map((tag) => tag.wikiPageId);
-    const pages = await this.db
-      .select()
-      .from(WikiPage)
-      .where(inArray(WikiPage.id, pageIds));
-    return pages;
+  async getPagesFromTag(tag: string): Promise<Array<typeof WikiPage.$inferSelect>> {
+    const tags = await this.db.select().from(PageTag).where(eq(PageTag.tag, tag));
+    const pageIds = tags.map((t) => t.wikiPageId);
+
+    // Chunk the IN clause to stay under SQLite's 999-variable limit.
+    const result: Array<typeof WikiPage.$inferSelect> = [];
+    const CHUNK = 500;
+    for (let i = 0; i < pageIds.length; i += CHUNK) {
+      const chunk = pageIds.slice(i, i + CHUNK);
+      const rows = await this.db.select().from(WikiPage).where(inArray(WikiPage.id, chunk));
+      result.push(...rows);
+    }
+    return result;
   }
 
   private saveFile(path: string, content: unknown) {
@@ -690,7 +673,7 @@ export class PageListDumper {
    * content dumper.
    */
   private async upsertWikiPages(
-    pages: { id: number; title: string; namespace: number }[]
+    pages: { id: number; title: string; namespace: number }[],
   ): Promise<void> {
     if (pages.length === 0) return;
     try {
@@ -707,8 +690,8 @@ export class PageListDumper {
             .onConflictDoUpdate({
               target: WikiPage.id,
               set: { title: page.title, namespace: page.namespace },
-            })
-        )
+            }),
+        ),
       );
     } catch (e) {
       // A failed batch shouldn't abort the whole dump; rows may already exist.
@@ -721,11 +704,8 @@ export class PageListDumper {
       await this.db.batch(
         // @ts-ignore
         pagesId.map((pageId) =>
-          this.db
-            .insert(PageTag)
-            .values({ wikiPageId: pageId, tag })
-            .onConflictDoNothing()
-        )
+          this.db.insert(PageTag).values({ wikiPageId: pageId, tag }).onConflictDoNothing(),
+        ),
       );
     } catch (e) {
       // This can happen if the page doesn't exist
@@ -738,6 +718,6 @@ export class PageListDumper {
     if (!existsSync(path)) {
       return [];
     }
-    return JSON.parse(readFileSync(path, 'utf-8'));
+    return JSON.parse(readFileSync(path, "utf-8"));
   }
 }

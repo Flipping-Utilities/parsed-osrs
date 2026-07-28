@@ -1,37 +1,32 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_NPCS } from '../../constants/paths';
-import { NPC } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { parseMapTemplate } from '../../utils/map-parser';
-import { getVariantField, extractVariants } from '../../utils/variant-utils';
-import {
-  parseListValue,
-  wikiBool,
-  wikiNumber,
-  wikiString,
-} from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_NPCS } from "../../constants/paths";
+import { NPC } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { parseMapTemplate } from "../../utils/map-parser";
+import { getVariantField, extractVariants } from "../../utils/variant-utils";
+import { parseListValue, wikiBool, wikiNumber, wikiString } from "../../utils/wiki-coercion";
 
 const NPC_FIELDS = [
-  'id',
-  'name',
-  'members',
-  'race',
-  'location',
-  'quest',
-  'gender',
-  'options',
-  'examine',
-  'leagueregion',
+  "id",
+  "name",
+  "members",
+  "race",
+  "location",
+  "quest",
+  "gender",
+  "options",
+  "examine",
+  "leagueregion",
 ] as const;
 
 function buildNpc(
   fields: Record<string, unknown>,
   pageTitle: string,
   pageAliases: string[],
-  position?: { x: number; y: number }
+  position?: { x: number; y: number },
 ): NPC | null {
   const id = wikiNumber(fields.id);
   if (!id) return null;
@@ -59,14 +54,14 @@ function buildNpc(
 export function parseNpcFromContent(
   pageText: string,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): NPC[] {
   const parsed = parseWikitext(pageText);
-  const data = parsed.getInfobox('npc');
+  const data = parsed.getInfobox("npc");
   if (!data) return [];
 
   let position: { x: number; y: number } | undefined;
-  for (const mapTemplate of parsed.getTemplates('map')) {
+  for (const mapTemplate of parsed.getTemplates("map")) {
     const map = parseMapTemplate(mapTemplate);
     if (map?.point) {
       position = map.point;
@@ -101,11 +96,11 @@ export class NpcsExtractor {
 
   constructor(
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllNpcs(): Promise<NPC[]> {
-    this.logger.log('Start: Extracting NPCs');
+    this.logger.log("Start: Extracting NPCs");
 
     const pages = await this.pageListDumper.getPagesFromTag(PageTags.NPC);
     const length = pages.length;
@@ -123,7 +118,7 @@ export class NpcsExtractor {
       writeFileSync(ALL_NPCS, JSON.stringify(npcs, null, 2));
     }
 
-    this.logger.log('Done: Extracting NPCs');
+    this.logger.log("Done: Extracting NPCs");
     return npcs;
   }
 
@@ -133,9 +128,9 @@ export class NpcsExtractor {
         return null;
       }
       try {
-        this.cachedNpcs = JSON.parse(readFileSync(ALL_NPCS, 'utf8'));
+        this.cachedNpcs = JSON.parse(readFileSync(ALL_NPCS, "utf8"));
       } catch (e) {
-        this.logger.warn('all npcs has invalid content', e);
+        this.logger.warn("all npcs has invalid content", e);
       }
     }
     return this.cachedNpcs;

@@ -1,41 +1,36 @@
-import { loadTestPage, type TestPage } from '../../../test/test-utils';
-import { TestPages } from '../../constants/test-pages';
-import { parseShopFromContent } from './shops.extractor';
+import { loadTestPage, type TestPage } from "../../../test/test-utils";
+import { TestPages } from "../../constants/test-pages";
+import { parseShopFromContent } from "./shops.extractor";
 
 const KNOWN_ITEMS: Record<string, { id: number }> = {
-  'Leather body': { id: 1129 },
-  'Hardleather body': { id: 1131 },
-  'Studded body': { id: 1133 },
-  'Leather chaps': { id: 1095 },
-  'Studded chaps': { id: 1097 },
+  "Leather body": { id: 1129 },
+  "Hardleather body": { id: 1131 },
+  "Studded body": { id: 1133 },
+  "Leather chaps": { id: 1095 },
+  "Studded chaps": { id: 1097 },
   Coif: { id: 1169 },
-  'Leather cowl': { id: 1167 },
-  'Leather vambraces': { id: 1063 },
-  'Pot of flour': { id: 1933 },
-  'Raw beef': { id: 2132 },
+  "Leather cowl": { id: 1167 },
+  "Leather vambraces": { id: 1063 },
+  "Pot of flour": { id: 1933 },
+  "Raw beef": { id: 2132 },
   Cabbage: { id: 1965 },
   Banana: { id: 1963 },
   Redberries: { id: 1951 },
   Bread: { id: 2309 },
-  'Chocolate bar': { id: 1973 },
+  "Chocolate bar": { id: 1973 },
   Cheese: { id: 1985 },
   Tomato: { id: 1982 },
   Potato: { id: 1942 },
 };
 
-describe('parseShopFromContent', () => {
+describe("parseShopFromContent", () => {
   const aaronPage = loadTestPage(TestPages.AaronsArcheryAppendages);
   const unusedShopsPage = loadTestPage(TestPages.UnusedShops);
 
   const itemLookup = (name: string) => KNOWN_ITEMS[name] || null;
 
   it("parses Aaron's Archery Appendages using real fixture data", () => {
-    const shop = parseShopFromContent(
-      aaronPage.text,
-      aaronPage.title,
-      aaronPage.id,
-      itemLookup
-    );
+    const shop = parseShopFromContent(aaronPage.text, aaronPage.title, aaronPage.id, itemLookup);
 
     expect(shop).not.toBeNull();
     expect(shop!.name).toBe("Aaron's Archery Appendages.");
@@ -56,16 +51,16 @@ describe('parseShopFromContent', () => {
     ]);
   });
 
-  it('parses Unused shops with first table multipliers from real fixture data', () => {
+  it("parses Unused shops with first table multipliers from real fixture data", () => {
     const shop = parseShopFromContent(
       unusedShopsPage.text,
       unusedShopsPage.title,
       unusedShopsPage.id,
-      itemLookup
+      itemLookup,
     );
 
     expect(shop).not.toBeNull();
-    expect(shop!.name).toBe('Unused shops');
+    expect(shop!.name).toBe("Unused shops");
     expect(shop!.pageId).toBe(333174);
     expect(shop!.sellPercent).toBe(1);
     expect(shop!.buyPercent).toBe(0.7);
@@ -84,10 +79,10 @@ describe('parseShopFromContent', () => {
     ]);
   });
 
-  it('skips items that are not present in the lookup map', () => {
+  it("skips items that are not present in the lookup map", () => {
     const narrowLookup = (name: string) => {
       const knownSubset: Record<string, { id: number }> = {
-        'Pot of flour': { id: 1933 },
+        "Pot of flour": { id: 1933 },
         Cheese: { id: 1985 },
       };
       return knownSubset[name] || null;
@@ -97,7 +92,7 @@ describe('parseShopFromContent', () => {
       unusedShopsPage.text,
       unusedShopsPage.title,
       unusedShopsPage.id,
-      narrowLookup
+      narrowLookup,
     );
 
     expect(shop).not.toBeNull();
@@ -107,28 +102,28 @@ describe('parseShopFromContent', () => {
     ]);
   });
 
-  it('returns null for non-shop page', () => {
+  it("returns null for non-shop page", () => {
     const nonShopPage = loadTestPage(TestPages.StoneBowl);
     const shop = parseShopFromContent(
       nonShopPage.text,
       nonShopPage.title,
       nonShopPage.id,
-      itemLookup
+      itemLookup,
     );
     expect(shop).toBeNull();
   });
 
-  it('parses Farming shops with hidebuy/hidestock/hiderestock format', () => {
+  it("parses Farming shops with hidebuy/hidestock/hiderestock format", () => {
     const farmingPage = loadTestPage(TestPages.FarmingShops);
     const farmingLookup = (name: string) => {
       const items: Record<string, { id: number }> = {
-        'Plant cure': { id: 6036 },
+        "Plant cure": { id: 6036 },
         Compost: { id: 6032 },
         Rake: { id: 5341 },
-        'Empty plant pot': { id: 5350 },
-        'Watering can': { id: 5339 },
-        'Gardening trowel': { id: 5325 },
-        'Seed dibber': { id: 5343 },
+        "Empty plant pot": { id: 5350 },
+        "Watering can": { id: 5339 },
+        "Gardening trowel": { id: 5325 },
+        "Seed dibber": { id: 5343 },
       };
       return items[name] || null;
     };
@@ -136,10 +131,10 @@ describe('parseShopFromContent', () => {
       farmingPage.text,
       farmingPage.title,
       farmingPage.id,
-      farmingLookup
+      farmingLookup,
     );
     expect(shop).not.toBeNull();
-    expect(shop!.name).toBe('Farming shops');
+    expect(shop!.name).toBe("Farming shops");
     expect(shop!.pageId).toBe(22523);
     expect(shop!.sellPercent).toBe(0);
     expect(shop!.buyPercent).toBe(0);
@@ -147,45 +142,35 @@ describe('parseShopFromContent', () => {
     expect(shop!.inventory.length).toBeGreaterThan(0);
   });
 
-  describe('shop metadata enrichment', () => {
+  describe("shop metadata enrichment", () => {
     const lumbridgeLookup = (name: string) => {
       const items: Record<string, { id: number }> = {
         Pot: { id: 1931 },
         Jug: { id: 1935 },
-        'Empty jug pack': { id: 20330 },
+        "Empty jug pack": { id: 20330 },
         Shears: { id: 1735 },
         Bucket: { id: 1925 },
-        'Empty bucket pack': { id: 20331 },
+        "Empty bucket pack": { id: 20331 },
       };
       return items[name] || null;
     };
 
-    it('parses Infobox Shop metadata (location, owner, members, specialty)', () => {
+    it("parses Infobox Shop metadata (location, owner, members, specialty)", () => {
       const page = loadTestPage(TestPages.LumbridgeGeneralStore);
-      const shop = parseShopFromContent(
-        page.text,
-        page.title,
-        page.id,
-        lumbridgeLookup
-      );
+      const shop = parseShopFromContent(page.text, page.title, page.id, lumbridgeLookup);
 
       expect(shop).not.toBeNull();
-      expect(shop!.location).toBe('Lumbridge');
-      expect(shop!.owner).toBe('Shop keeper, Shop assistant');
+      expect(shop!.location).toBe("Lumbridge");
+      expect(shop!.owner).toBe("Shop keeper, Shop assistant");
       expect(shop!.isMembers).toBe(false);
-      expect(shop!.specialty).toBe('General store');
+      expect(shop!.specialty).toBe("General store");
       // No currency specified on this shop
-      expect(shop!.currency).toBe('');
+      expect(shop!.currency).toBe("");
     });
 
-    it('captures per-item gemw flag from StoreLine', () => {
+    it("captures per-item gemw flag from StoreLine", () => {
       const page = loadTestPage(TestPages.LumbridgeGeneralStore);
-      const shop = parseShopFromContent(
-        page.text,
-        page.title,
-        page.id,
-        lumbridgeLookup
-      );
+      const shop = parseShopFromContent(page.text, page.title, page.id, lumbridgeLookup);
 
       expect(shop).not.toBeNull();
       const jugPack = shop!.inventory.find((i) => i.itemId === 20330);

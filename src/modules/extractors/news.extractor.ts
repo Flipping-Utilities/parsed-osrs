@@ -1,27 +1,25 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_NEWS } from '../../constants/paths';
-import { PageTags } from '../../constants/tags';
-import { NewsArticle } from '../../types';
-import { extractTemplate, parseTemplateFields } from '../../utils/brace-utils';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { wikiString } from '../../utils/wiki-coercion';
-import { PageContentDumper, PageListDumper } from '../dumpers';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_NEWS } from "../../constants/paths";
+import { PageTags } from "../../constants/tags";
+import { NewsArticle } from "../../types";
+import { extractTemplate, parseTemplateFields } from "../../utils/brace-utils";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { wikiString } from "../../utils/wiki-coercion";
+import { PageContentDumper, PageListDumper } from "../dumpers";
 
 /** Namespace prefix stripped from every `Update:` page title. */
-const UPDATE_PREFIX = 'Update:';
+const UPDATE_PREFIX = "Update:";
 /** Wiki origin used to build canonical article URLs. */
-const WIKI_ORIGIN = 'https://oldschool.runescape.wiki';
+const WIKI_ORIGIN = "https://oldschool.runescape.wiki";
 
 /**
  * Parses the `{{Update|date=...|url=...|category=...}}` template from a page
  * into a lower-cased key → value map. Returns an empty object when the page
  * carries no Update template (e.g. the placeholder `Update:None`).
  */
-export function parseUpdateTemplate(
-  pageText: string
-): Record<string, string> {
-  const bodies = extractTemplate(pageText, 'Update');
+export function parseUpdateTemplate(pageText: string): Record<string, string> {
+  const bodies = extractTemplate(pageText, "Update");
   if (bodies.length === 0) return {};
   return parseTemplateFields(bodies[0]);
 }
@@ -32,7 +30,7 @@ export function parseUpdateTemplate(
  * text. MediaWiki magic words (`__TOC__`, `__NOTOC__`, ...) are stripped first.
  */
 export function renderNewsBody(wikitext: string): string {
-  const cleaned = wikitext.replace(/__[A-Z]+__/g, '');
+  const cleaned = wikitext.replace(/__[A-Z]+__/g, "");
   const { doc } = parseWikitext(cleaned);
 
   const parts: string[] = [];
@@ -40,12 +38,12 @@ export function renderNewsBody(wikitext: string): string {
     const sectionTitle = section.title()?.trim();
     if (sectionTitle) {
       const level = Math.min(6, (section.depth() ?? 0) + 1);
-      parts.push(`${'#'.repeat(level)} ${sectionTitle}`);
+      parts.push(`${"#".repeat(level)} ${sectionTitle}`);
     }
     const sectionText = section.text({})?.trim();
     if (sectionText) parts.push(sectionText);
   }
-  return parts.join('\n\n').trim();
+  return parts.join("\n\n").trim();
 }
 
 /**
@@ -56,15 +54,15 @@ export function parseNewsFromContent(
   pageText: string,
   pageTitle: string,
   pageAliases: string[],
-  pageId: number
+  pageId: number,
 ): NewsArticle | null {
   const params = parseUpdateTemplate(pageText);
   if (Object.keys(params).length === 0) return null;
 
-  const title = pageTitle.replace(/^Update:/, '').trim();
+  const title = pageTitle.replace(/^Update:/, "").trim();
   const date = wikiString(params.date);
 
-  let dateIso = '';
+  let dateIso = "";
   if (date) {
     const parsed = new Date(date);
     if (!Number.isNaN(parsed.getTime())) {
@@ -92,7 +90,7 @@ export class NewsExtractor {
 
   constructor(
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   /**
@@ -100,7 +98,7 @@ export class NewsExtractor {
    * newest-first. Pages without an `{{Update}}` template are skipped.
    */
   public async extractAllNews(): Promise<NewsArticle[]> {
-    this.logger.log('Start: Extracting news');
+    this.logger.log("Start: Extracting news");
 
     const pages = await this.pageListDumper.getPagesFromTag(PageTags.NEWS);
     const length = pages.length;
@@ -114,7 +112,7 @@ export class NewsExtractor {
       if (article) news.push(article);
     }
 
-    news.sort((a, b) => (b.dateIso || '').localeCompare(a.dateIso || ''));
+    news.sort((a, b) => (b.dateIso || "").localeCompare(a.dateIso || ""));
     if (news.length) {
       writeFileSync(ALL_NEWS, JSON.stringify(news, null, 2));
     }
@@ -133,26 +131,19 @@ export class NewsExtractor {
         return null;
       }
       try {
-        this.cachedNews = JSON.parse(readFileSync(ALL_NEWS, 'utf8'));
+        this.cachedNews = JSON.parse(readFileSync(ALL_NEWS, "utf8"));
       } catch (e) {
-        this.logger.warn('all-news.json has invalid content', e);
+        this.logger.warn("all-news.json has invalid content", e);
       }
     }
     return this.cachedNews;
   }
 
-  private async extractNewsFromPageId(
-    pageId: number
-  ): Promise<NewsArticle | null> {
+  private async extractNewsFromPageId(pageId: number): Promise<NewsArticle | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page || !page.text) {
       return null;
     }
-    return parseNewsFromContent(
-      page.text,
-      page.title,
-      page.aliases || [],
-      pageId
-    );
+    return parseNewsFromContent(page.text, page.title, page.aliases || [], pageId);
   }
 }

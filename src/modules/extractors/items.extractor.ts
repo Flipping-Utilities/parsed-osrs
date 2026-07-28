@@ -1,53 +1,48 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { load } from 'cheerio';
-import { ALL_ITEMS } from '../../constants/paths';
-import { EquipmentStats, Item } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { WikiRequestService } from '../wiki/wikiRequest.service';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import {
-  parseListValue,
-  wikiBool,
-  wikiNumber,
-  wikiString,
-} from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { load } from "cheerio";
+import { ALL_ITEMS } from "../../constants/paths";
+import { EquipmentStats, Item } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { WikiRequestService } from "../wiki/wikiRequest.service";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { parseListValue, wikiBool, wikiNumber, wikiString } from "../../utils/wiki-coercion";
 
-const GELimitsModulePath = '/w/Module:GELimits/data.json';
+const GELimitsModulePath = "/w/Module:GELimits/data.json";
 
-const STRING_STAT_KEYS = new Set<keyof EquipmentStats>(['slot', 'combatStyle']);
+const STRING_STAT_KEYS = new Set<keyof EquipmentStats>(["slot", "combatStyle"]);
 
 const WikiToEquipmentStatsKeys: Record<string, keyof EquipmentStats> = {
-  astab: 'attackStab',
-  aslash: 'attackSlash',
-  acrush: 'attackCrush',
-  amagic: 'attackMagic',
-  arange: 'attackRanged',
-  dstab: 'defendStab',
-  dslash: 'defendSlash',
-  dcrush: 'defendCrush',
-  dmagic: 'defendMagic',
-  drange: 'defendRanged',
-  str: 'strength',
-  rstr: 'rangedStrength',
-  mdmg: 'magicDamage',
-  prayer: 'prayer',
-  slot: 'slot',
-  speed: 'speed',
-  attackrange: 'attackRange',
-  combatstyle: 'combatStyle',
+  astab: "attackStab",
+  aslash: "attackSlash",
+  acrush: "attackCrush",
+  amagic: "attackMagic",
+  arange: "attackRanged",
+  dstab: "defendStab",
+  dslash: "defendSlash",
+  dcrush: "defendCrush",
+  dmagic: "defendMagic",
+  drange: "defendRanged",
+  str: "strength",
+  rstr: "rangedStrength",
+  mdmg: "magicDamage",
+  prayer: "prayer",
+  slot: "slot",
+  speed: "speed",
+  attackrange: "attackRange",
+  combatstyle: "combatStyle",
 };
 
 export function parseEquipmentStats(pageText: string): EquipmentStats | null {
   const parsed = parseWikitext(pageText);
-  const bonusData = parsed.getInfobox('bonuses');
+  const bonusData = parsed.getInfobox("bonuses");
   if (!bonusData) return null;
 
   const stats: Partial<EquipmentStats> = {};
   for (const [wikiKey, ourKey] of Object.entries(WikiToEquipmentStatsKeys)) {
     const rawValue = bonusData[wikiKey];
     if (STRING_STAT_KEYS.has(ourKey)) {
-      (stats as Record<string, unknown>)[ourKey] = rawValue ?? '';
+      (stats as Record<string, unknown>)[ourKey] = rawValue ?? "";
     } else {
       (stats as Record<string, unknown>)[ourKey] = wikiNumber(rawValue);
     }
@@ -57,29 +52,29 @@ export function parseEquipmentStats(pageText: string): EquipmentStats | null {
 }
 
 export const WikiToItemKeys: Record<string, keyof Item> = {
-  gemwname: 'geName',
-  name: 'name',
-  image: 'image',
-  members: 'isMembers',
-  tradeable: 'isTradeable',
-  equipable: 'isEquipable',
-  stackable: 'isStackable',
-  exchange: 'isOnGrandExchange',
-  quest: 'quest',
-  edible: 'isEdible',
-  bankable: 'isBankable',
-  noteable: 'isNoteable',
-  stacksinbank: 'stacksInBank',
-  placeholder: 'isPlaceholder',
-  wornoptions: 'wornOptions',
-  options: 'options',
-  destroy: 'drop',
-  examine: 'examine',
-  value: 'value',
-  alchable: 'isAlchable',
-  respawn: 'respawnTime',
-  weight: 'weight',
-  id: 'id',
+  gemwname: "geName",
+  name: "name",
+  image: "image",
+  members: "isMembers",
+  tradeable: "isTradeable",
+  equipable: "isEquipable",
+  stackable: "isStackable",
+  exchange: "isOnGrandExchange",
+  quest: "quest",
+  edible: "isEdible",
+  bankable: "isBankable",
+  noteable: "isNoteable",
+  stacksinbank: "stacksInBank",
+  placeholder: "isPlaceholder",
+  wornoptions: "wornOptions",
+  options: "options",
+  destroy: "drop",
+  examine: "examine",
+  value: "value",
+  alchable: "isAlchable",
+  respawn: "respawnTime",
+  weight: "weight",
+  id: "id",
 };
 
 export function parseItemFromWikiData(
@@ -87,20 +82,20 @@ export function parseItemFromWikiData(
   pageTitle: string,
   pageText: string,
   pageAliases: string[],
-  geLimitsRecord: Record<string, number>
+  geLimitsRecord: Record<string, number>,
 ): Item[] {
-  const hasMultiple = Object.keys(parsed).some((v) => v.endsWith('2'));
+  const hasMultiple = Object.keys(parsed).some((v) => v.endsWith("2"));
 
   let isInMainGame = true;
 
   // Skip removed items and jmod items
   if (
-    'removal' in parsed ||
-    pageTitle.includes('Redundant') ||
-    pageTitle.startsWith('Sigil') ||
-    pageText.includes('{{Deadman seasonal}}') ||
-    pageText.includes('{{Beta}}') ||
-    pageText.includes('{{Gone')
+    "removal" in parsed ||
+    pageTitle.includes("Redundant") ||
+    pageTitle.startsWith("Sigil") ||
+    pageText.includes("{{Deadman seasonal}}") ||
+    pageText.includes("{{Beta}}") ||
+    pageText.includes("{{Gone")
   ) {
     isInMainGame = false;
   }
@@ -146,7 +141,7 @@ export function parseItemFromWikiData(
     Object.keys(parsed).forEach((key: string) => {
       const candidateKey = key.match(/\d+$/);
       const endIndex = candidateKey ? Number(candidateKey[0]) : 0;
-      const baseKey = key.replace(/\d+$/, '');
+      const baseKey = key.replace(/\d+$/, "");
       if (key === baseKey || endIndex === 0) {
         return;
       }
@@ -157,53 +152,51 @@ export function parseItemFromWikiData(
 
       let value;
       switch (baseKey) {
-        case 'id':
-        case 'value':
-        case 'weight':
-        case 'respawn':
+        case "id":
+        case "value":
+        case "weight":
+        case "respawn":
           value = wikiNumber(parsed[key]);
           break;
-        case 'name':
+        case "name":
           value = parsed[`gemwname${endIndex}`] || parsed[key];
           break;
-        case 'examine':
-        case 'destroy':
-        case 'image':
+        case "examine":
+        case "destroy":
+        case "image":
           value = parsed[key];
           break;
-        case 'quest':
+        case "quest":
           value = wikiString(parsed[key]);
           break;
-        case 'gemwname':
+        case "gemwname":
           value = wikiString(parsed[key]);
-          allVariants[endIndex].name =
-            parsed[key] || allVariants[endIndex].name;
+          allVariants[endIndex].name = parsed[key] || allVariants[endIndex].name;
           break;
-        case 'options':
-        case 'wornoptions':
+        case "options":
+        case "wornoptions":
           value = parseListValue(parsed[key]);
           break;
-        case 'equipable':
-        case 'alchable':
-        case 'exchange':
-        case 'tradeable':
-        case 'stackable':
-        case 'members':
-        case 'edible':
-        case 'noteable':
-        case 'placeholder':
+        case "equipable":
+        case "alchable":
+        case "exchange":
+        case "tradeable":
+        case "stackable":
+        case "members":
+        case "edible":
+        case "noteable":
+        case "placeholder":
           value = wikiBool(parsed[key]);
           break;
-        case 'bankable':
-        case 'stacksinbank':
+        case "bankable":
+        case "stacksinbank":
           value = wikiBool(parsed[key], true);
           break;
         default:
           break;
       }
-      if (value !== undefined && value !== '') {
-        allVariants[endIndex][WikiToItemKeys[baseKey] as keyof Item] =
-          value as never;
+      if (value !== undefined && value !== "") {
+        allVariants[endIndex][WikiToItemKeys[baseKey] as keyof Item] = value as never;
       }
     });
 
@@ -228,28 +221,28 @@ export function extractImagesFromHtml(html: string): Map<number, string> {
   if (!html) return images;
 
   const dom = load(html);
-  const infoboxRows = dom('.infobox-item tr, table.infobox tr');
+  const infoboxRows = dom(".infobox-item tr, table.infobox tr");
   let pendingImage: string | null = null;
 
   infoboxRows.each((_, row) => {
     const el = dom(row);
-    const th = el.find('th');
-    const td = el.find('td');
+    const th = el.find("th");
+    const td = el.find("td");
 
     // Check for an image row — it appears BEFORE the ID row in the HTML
-    const img = el.find('img').first();
+    const img = el.find("img").first();
     if (img.length) {
-      const src = img.attr('src') || '';
+      const src = img.attr("src") || "";
       const match = src.match(/\/([^/]+?\.(?:png|jpg|gif))/i);
       if (match) {
-        pendingImage = 'File:' + decodeURIComponent(match[1]);
+        pendingImage = "File:" + decodeURIComponent(match[1]);
       }
     }
 
     // When we hit an ID row, associate the pending image with this ID
-    if (th.text().trim() === 'ID' && td.length && pendingImage) {
+    if (th.text().trim() === "ID" && td.length && pendingImage) {
       const idText = td.text().trim();
-      const firstId = Number(idText.split(',')[0].trim());
+      const firstId = Number(idText.split(",")[0].trim());
       if (!isNaN(firstId)) {
         images.set(firstId, pendingImage);
       }
@@ -272,34 +265,28 @@ export class ItemsExtractor {
   constructor(
     private pageListDumper: PageListDumper,
     private readonly pageContentDumper: PageContentDumper,
-    private readonly wikiRequestService: WikiRequestService
+    private readonly wikiRequestService: WikiRequestService,
   ) {}
 
   public async extractAllItems() {
-    this.logger.log('Starting to extract all items');
-    const itemsPageList = await this.pageListDumper.getPagesFromTag('item');
+    this.logger.log("Starting to extract all items");
+    const itemsPageList = await this.pageListDumper.getPagesFromTag("item");
 
-    const GELimits = await this.wikiRequestService.getRawText(
-      GELimitsModulePath,
-      { action: 'raw' }
-    );
+    const GELimits = await this.wikiRequestService.getRawText(GELimitsModulePath, {
+      action: "raw",
+    });
     if (GELimits) {
       try {
         this.GELimitsRecord = JSON.parse(GELimits);
       } catch (e) {
-        this.logger.warn(
-          `Failed to parse GELimits module JSON; proceeding without GE limits`,
-          e
-        );
+        this.logger.warn(`Failed to parse GELimits module JSON; proceeding without GE limits`, e);
       }
     } else {
-      this.logger.warn(
-        `GELimits module fetch returned empty; proceeding without GE limits`
-      );
+      this.logger.warn(`GELimits module fetch returned empty; proceeding without GE limits`);
     }
 
     const itemsFromPage = await Promise.all(
-      itemsPageList.map((item) => this.extractItemFromPageId(item.id))
+      itemsPageList.map((item) => this.extractItemFromPageId(item.id)),
     );
     const items = itemsFromPage
       .filter((v) => v !== null)
@@ -309,7 +296,7 @@ export class ItemsExtractor {
       }, [])
       .filter((v) => v);
 
-    this.logger.log('Completed extracting all items');
+    this.logger.log("Completed extracting all items");
 
     items.sort((a, b) => a?.name?.localeCompare(b.name) || 0);
     writeFileSync(ALL_ITEMS, JSON.stringify(items));
@@ -322,12 +309,12 @@ export class ItemsExtractor {
         return null;
       }
 
-      const pageContent = readFileSync(candidatePath, 'utf8');
+      const pageContent = readFileSync(candidatePath, "utf8");
       let parsed = null;
       try {
         parsed = JSON.parse(pageContent);
       } catch (e) {
-        this.logger.warn('all items has invalid content', e);
+        this.logger.warn("all items has invalid content", e);
       }
       this.cachedItems = parsed;
     }
@@ -357,9 +344,7 @@ export class ItemsExtractor {
       if (!allItems) {
         return null;
       }
-      this.cachedGEItems = allItems.filter(
-        (i) => i.isOnGrandExchange && i.isInMainGame
-      );
+      this.cachedGEItems = allItems.filter((i) => i.isOnGrandExchange && i.isInMainGame);
     }
     return this.cachedGEItems;
   }
@@ -404,7 +389,7 @@ export class ItemsExtractor {
     }
 
     const wikiParsed = parseWikitext(page.text!);
-    const itemData = wikiParsed.getInfobox('item');
+    const itemData = wikiParsed.getInfobox("item");
     if (!itemData) {
       console.warn(`Page not parsed: (${page.id}) ${page.title}`);
       return null;
@@ -415,7 +400,7 @@ export class ItemsExtractor {
       page.title,
       page.text!,
       page.aliases || [],
-      this.GELimitsRecord
+      this.GELimitsRecord,
     );
 
     if (items.length > 0 && !items[0].image && page.html) {

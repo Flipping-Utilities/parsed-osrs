@@ -1,23 +1,23 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_SHOPS } from '../../constants/paths';
-import { Shop, ShopItem } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { ItemsExtractor } from './items.extractor';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { wikiBool, wikiNumber, wikiString } from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_SHOPS } from "../../constants/paths";
+import { Shop, ShopItem } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { ItemsExtractor } from "./items.extractor";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { wikiBool, wikiNumber, wikiString } from "../../utils/wiki-coercion";
 
 function parseStoreItemGemw(val: unknown): boolean | undefined {
-  if (val === null || val === undefined || val === '') return undefined;
+  if (val === null || val === undefined || val === "") return undefined;
   const lower = String(val).toLowerCase();
-  if (lower === 'no') return false;
-  if (lower === 'yes') return true;
+  if (lower === "no") return false;
+  if (lower === "yes") return true;
   return undefined;
 }
 
 function parseStoreItemBuy(val: unknown): number | undefined {
-  if (val === null || val === undefined || val === '') return undefined;
+  if (val === null || val === undefined || val === "") return undefined;
   const n = wikiNumber(val);
   // wikiNumber falls back to 0 for non-numerics like "N/A"; treat as absent
   if (n === 0 && !/^\s*\d/.test(String(val))) return undefined;
@@ -28,11 +28,11 @@ export function parseShopFromContent(
   pageText: string,
   pageTitle: string,
   pageId: number,
-  itemLookup: (name: string) => { id: number } | null
+  itemLookup: (name: string) => { id: number } | null,
 ): Shop | null {
   const parsed = parseWikitext(pageText);
 
-  const headTemplates = parsed.getTemplates('storetablehead');
+  const headTemplates = parsed.getTemplates("storetablehead");
   if (!headTemplates.length) return null;
 
   const headData = headTemplates[0];
@@ -41,11 +41,11 @@ export function parseShopFromContent(
   const sellPercent = wikiNumber(headData.sellmultiplier) / 1000;
   const buyChangePercent = wikiNumber(headData.delta) / 1000;
 
-  const lineTemplates = parsed.getTemplates('storeline');
+  const lineTemplates = parsed.getTemplates("storeline");
 
   const inventory: ShopItem[] = lineTemplates
     .map((lineData): ShopItem | undefined => {
-      const name = String(lineData.name ?? '');
+      const name = String(lineData.name ?? "");
       const item = itemLookup(name)?.id;
       if (!item) return undefined;
 
@@ -69,7 +69,7 @@ export function parseShopFromContent(
     .filter((v): v is ShopItem => v !== undefined);
 
   // Enrich with {{Infobox Shop}} metadata (location, owner, members, etc.)
-  const shopInfobox = parsed.getInfobox('shop');
+  const shopInfobox = parsed.getInfobox("shop");
 
   const currencyFromHead = wikiString(headData.currency);
 
@@ -79,12 +79,11 @@ export function parseShopFromContent(
     buyPercent,
     sellPercent,
     buyChangePercent,
-    location: shopInfobox ? wikiString(shopInfobox.location) : '',
-    owner: shopInfobox ? wikiString(shopInfobox.owner) : '',
+    location: shopInfobox ? wikiString(shopInfobox.location) : "",
+    owner: shopInfobox ? wikiString(shopInfobox.owner) : "",
     isMembers: shopInfobox ? wikiBool(shopInfobox.members) : null,
-    currency:
-      currencyFromHead || (shopInfobox ? wikiString(shopInfobox.currency) : ''),
-    specialty: shopInfobox ? wikiString(shopInfobox.special) : '',
+    currency: currencyFromHead || (shopInfobox ? wikiString(shopInfobox.currency) : ""),
+    specialty: shopInfobox ? wikiString(shopInfobox.special) : "",
     inventory,
   };
 
@@ -100,11 +99,11 @@ export class ShopsExtractor {
   constructor(
     private itemExtractor: ItemsExtractor,
     private pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllShops() {
-    this.logger.log('Starting to extract shops');
+    this.logger.log("Starting to extract shops");
 
     const shopPages = await this.pageListDumper.getPagesFromTag(PageTags.SHOP);
     const shops: Shop[] = [];
@@ -120,7 +119,7 @@ export class ShopsExtractor {
       writeFileSync(ALL_SHOPS, JSON.stringify(shops));
     }
 
-    this.logger.log('Finished extracting shops');
+    this.logger.log("Finished extracting shops");
 
     return shops;
   }
@@ -132,12 +131,12 @@ export class ShopsExtractor {
         return null;
       }
 
-      const pageContent = readFileSync(candidatePath, 'utf8');
+      const pageContent = readFileSync(candidatePath, "utf8");
       let parsed = null;
       try {
         parsed = JSON.parse(pageContent);
       } catch (e) {
-        this.logger.debug('all sets has invalid content', e);
+        this.logger.debug("all sets has invalid content", e);
       }
       this.cachedShops = parsed;
     }
@@ -152,7 +151,7 @@ export class ShopsExtractor {
     }
 
     return parseShopFromContent(page.text!, page.title, page.id, (name) =>
-      this.itemExtractor.getItemByName(name)
+      this.itemExtractor.getItemByName(name),
     );
   }
 }

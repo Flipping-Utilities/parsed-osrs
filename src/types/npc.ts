@@ -1,4 +1,4 @@
-import { MapPoint } from './location';
+import { MapPoint } from "./location";
 
 export interface NPC {
   id: number;

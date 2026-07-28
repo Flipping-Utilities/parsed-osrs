@@ -1,0 +1,30 @@
+# Build context — keep small to speed up `docker build`.
+node_modules
+dist
+.git
+.gitignore
+
+# Local data — never bake into the image
+data
+wiki-data
+wiki-data-rs3
+output
+output-rs3
+*.sqlite
+*.sqlite-*
+
+# IDE / OS noise
+.idea
+.vscode
+.DS_Store
+coverage
+
+# Local env — secrets must not leak into the image
+.env
+.env.*
+!sample.env
+
+# Tests + scratch
+test
+*.spec.ts
+nul

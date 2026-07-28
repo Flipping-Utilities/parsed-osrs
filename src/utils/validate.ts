@@ -8,11 +8,11 @@
  */
 export function getMissingFields(
   data: Record<string, unknown>,
-  requiredFields: string[]
+  requiredFields: string[],
 ): string[] {
   return requiredFields.filter((field) => {
     const value = data[field];
-    return value === undefined || value === null || value === '';
+    return value === undefined || value === null || value === "";
   });
 }
 
@@ -22,9 +22,9 @@ export function getMissingFields(
 export function validateId(
   rawId: unknown,
   context: string,
-  logger?: { warn: (...args: unknown[]) => void }
+  logger?: { warn: (...args: unknown[]) => void },
 ): number | null {
-  const id = typeof rawId === 'number' ? rawId : Number(rawId);
+  const id = typeof rawId === "number" ? rawId : Number(rawId);
   if (!Number.isFinite(id) || id <= 0) {
     logger?.warn(`Invalid ID in ${context}: ${String(rawId)}`);
     return null;
@@ -40,13 +40,13 @@ export function logValidationWarnings(
   context: string,
   data: Record<string, unknown>,
   requiredFields: string[],
-  logger?: { warn: (...args: unknown[]) => void }
+  logger?: { warn: (...args: unknown[]) => void },
 ): number {
   if (!logger) return 0;
 
   const missing = getMissingFields(data, requiredFields);
   if (missing.length > 0) {
-    logger.warn(`${context}: missing required fields: ${missing.join(', ')}`);
+    logger.warn(`${context}: missing required fields: ${missing.join(", ")}`);
   }
   return missing.length;
 }

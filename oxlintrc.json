@@ -1,0 +1,33 @@
+{
+  "$schema": "https://oxc.rs/schema.json",
+  "categories": {
+    "correctness": "error",
+    "perf": "warn",
+    "suspicious": "warn",
+    "style": "off"
+  },
+  "rules": {
+    // Allow `any` — this codebase uses it deliberately for drizzle batch typing
+    // and untyped wiki JSON.
+    "no-explicit-any": "off",
+    // Don't enforce naming conventions on interfaces.
+    "typescript-eslint/interface-name-prefix": "off",
+    // Don't require return type annotations — NestJS DI patterns are noisy.
+    "explicit-function-return-type": "off",
+    "explicit-module-boundary-types": "off",
+    // Allow non-null assertions — widespread in OSRS code (e.g. `page.text!`).
+    "no-non-null-assertion": "off",
+    // Allow unused vars starting with _ (intentional API contract).
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
+  },
+  "ignorePatterns": [
+    "dist/**",
+    "node_modules/**",
+    "data/**",
+    "wiki-data/**",
+    "wiki-data-rs3/**",
+    "output/**",
+    "output-rs3/**",
+    "coverage/**"
+  ]
+}

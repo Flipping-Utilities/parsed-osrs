@@ -1,8 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
-import { MODULES_FOLDER } from '../../constants/paths';
-import { WikiRequestService } from '../wiki/wikiRequest.service';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import path from "path";
+import { MODULES_FOLDER } from "../../constants/paths";
+import { WikiRequestService } from "../wiki/wikiRequest.service";
 
 // MediaWiki allows up to 50 pageids per request for anonymous/bot users
 // without the `max` limit. Match MAX_PAGEIDS_PER_REQUEST in WikiRequestService
@@ -27,7 +27,7 @@ const WINDOWS_TRIM_TRAILING = /[\s.]+$/;
 
 /**
  * Strips the `Module:` namespace prefix and flattens a wiki page title into a
- * single safe filename.
+ * single safe `.lua` filename.
  *
  * - `/` and `\` (path separators) → `__`, matching the historical convention
  *   that keeps each module as a flat file rather than nested directories.
@@ -36,16 +36,21 @@ const WINDOWS_TRIM_TRAILING = /[\s.]+$/;
  *   `Module:Module:Sandbox/…`) and would crash `writeFileSync` on Windows.
  * - `../` traversal sequences are removed entirely.
  * - Trailing whitespace and dots are stripped — see {@link WINDOWS_TRIM_TRAILING}.
+ * - `.lua` extension is appended last. Module: namespace pages on MediaWiki
+ *   are always Lua (Scribunto), so the extension matches the file's actual
+ *   content type. Applied after the trailing-dot strip so a title like
+ *   `Module:Foo.` sanitises to `Foo.lua`, not `Foo..lua`.
  *
  * Exported so it can be unit-tested without touching the filesystem.
  */
 export function sanitizeModuleFilename(title: string): string {
-  return title
-    .replace(/^Module:/, '')
-    .replace(/\.\.\//g, '')
-    .replace(/[\\/]/g, '__')
-    .replace(WINDOWS_RESERVED_CHARS, '_')
-    .replace(WINDOWS_TRIM_TRAILING, '');
+  const base = title
+    .replace(/^Module:/, "")
+    .replace(/\.\.\//g, "")
+    .replace(/[\\/]/g, "__")
+    .replace(WINDOWS_RESERVED_CHARS, "_")
+    .replace(WINDOWS_TRIM_TRAILING, "");
+  return `${base}.lua`;
 }
 
 @Injectable()
@@ -58,10 +63,7 @@ export class ModuleDumper {
   // Sidecar JSON written next to the module files: maps `Module:Title` to the
   // last persisted revision id. Read on startup so unchanged modules can be
   // skipped without re-writing the file (saves disk I/O on reruns).
-  private readonly MODULE_INDEX_FILE = path.join(
-    MODULES_FOLDER,
-    '.module-index.json'
-  );
+  private readonly MODULE_INDEX_FILE = path.join(MODULES_FOLDER, ".module-index.json");
 
   constructor(private readonly wikiRequestService: WikiRequestService) {}
 
@@ -72,19 +74,19 @@ export class ModuleDumper {
     Array<{ pageid: number; title: string; namespace: number }>
   > {
     const properties = {
-      action: 'query',
-      list: 'allpages',
+      action: "query",
+      list: "allpages",
       apnamespace: String(this.MODULE_NAMESPACE),
-      aplimit: 'max',
-      format: 'json',
-      apfilterredir: 'nonredirects',
+      aplimit: "max",
+      format: "json",
+      apfilterredir: "nonredirects",
     };
 
     const pages = await this.wikiRequestService.queryAllPagesPromise<{
       pageid: number;
       title: string;
       ns: number;
-    }>('apcontinue', 'allpages', properties);
+    }>("apcontinue", "allpages", properties);
 
     return pages.map((p) => ({
       pageid: p.pageid,
@@ -94,8 +96,8 @@ export class ModuleDumper {
   }
 
   /**
-   * Dumps the raw source of every Module: page to disk, preserving the
-   * subpage path (e.g. Module:GELimits/data → modules/GELimits__data).
+   * Dumps the raw source of every Module: page to disk as `.lua`, preserving
+   * the subpage path (e.g. Module:GELimits/data → modules/GELimits__data.lua).
    *
    * Two optimisations over the original per-module `?action=raw` loop:
    *
@@ -115,7 +117,7 @@ export class ModuleDumper {
    * {@link WikiRequestService}.
    */
   async dumpAllModules(): Promise<void> {
-    this.logger.log('Start: Dumping all modules');
+    this.logger.log("Start: Dumping all modules");
     const modules = await this.fetchModulePageList();
     this.logger.log(`Found ${modules.length} modules to dump`);
 
@@ -156,23 +158,21 @@ export class ModuleDumper {
           failed++;
           this.logger.warn(
             `Failed to write module ${page.pagename} → ${this.toFilePath(
-              page.pagename
-            )}: ${e instanceof Error ? e.message : String(e)}`
+              page.pagename,
+            )}: ${e instanceof Error ? e.message : String(e)}`,
           );
         }
       }
 
       this.logger.debug(
-        `Modules: ${Math.min(i + MODULE_BATCH_SIZE, pageIds.length)}/${
-          pageIds.length
-        } ` +
-          `(fetched ${fetched}, written ${written}, skipped ${skipped}, failed ${failed})`
+        `Modules: ${Math.min(i + MODULE_BATCH_SIZE, pageIds.length)}/${pageIds.length} ` +
+          `(fetched ${fetched}, written ${written}, skipped ${skipped}, failed ${failed})`,
       );
     }
 
     this.saveModuleIndex(knownRevisions);
     this.logger.log(
-      `End: Dumping all modules (fetched ${fetched}, written ${written}, skipped ${skipped}, failed ${failed})`
+      `End: Dumping all modules (fetched ${fetched}, written ${written}, skipped ${skipped}, failed ${failed})`,
     );
   }
 
@@ -192,13 +192,13 @@ export class ModuleDumper {
   private loadModuleIndex(): Record<string, number> {
     if (!existsSync(this.MODULE_INDEX_FILE)) return {};
     try {
-      const raw = readFileSync(this.MODULE_INDEX_FILE, 'utf-8');
+      const raw = readFileSync(this.MODULE_INDEX_FILE, "utf-8");
       const parsed = JSON.parse(raw);
-      return parsed && typeof parsed === 'object' ? parsed : {};
+      return parsed && typeof parsed === "object" ? parsed : {};
     } catch (e) {
       this.logger.warn(
         `Failed to read module index at ${this.MODULE_INDEX_FILE}; treating all modules as changed`,
-        e
+        e,
       );
       return {};
     }

@@ -63,7 +63,7 @@ export function extractVariants(kv: Record<string, unknown>): VariantResult {
     }
   }
 
-  const variants: VariantResult['variants'] = [];
+  const variants: VariantResult["variants"] = [];
 
   for (const [index, fields] of variantMap) {
     variants.push({
@@ -106,7 +106,7 @@ export function extractVariants(kv: Record<string, unknown>): VariantResult {
 export function getVariantField(
   variant: Record<string, unknown>,
   commonFields: Record<string, unknown>,
-  baseKey: string
+  baseKey: string,
 ): unknown {
   // Get the index from variant fields (look for any key ending with a digit)
   const variantKeys = Object.keys(variant);

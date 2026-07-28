@@ -1,19 +1,14 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { ALL_MUSIC } from '../../constants/paths';
-import { MusicTrack } from '../../types';
-import { PageContentDumper, PageListDumper } from '../dumpers';
-import { PageTags } from '../../constants/tags';
-import { parseWikitext } from '../../utils/wikitext-parser';
-import { parseMapTemplate } from '../../utils/map-parser';
-import {
-  parseListValue,
-  wikiBool,
-  wikiNumber,
-  wikiString,
-} from '../../utils/wiki-coercion';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, readFileSync, writeFileSync } from "fs";
+import { ALL_MUSIC } from "../../constants/paths";
+import { MusicTrack } from "../../types";
+import { PageContentDumper, PageListDumper } from "../dumpers";
+import { PageTags } from "../../constants/tags";
+import { parseWikitext } from "../../utils/wikitext-parser";
+import { parseMapTemplate } from "../../utils/map-parser";
+import { parseListValue, wikiBool, wikiNumber, wikiString } from "../../utils/wiki-coercion";
 
-const WIKI_BASE = 'https://oldschool.runescape.wiki';
+const WIKI_BASE = "https://oldschool.runescape.wiki";
 const FILE_PATH_BASE = `${WIKI_BASE}/w/Special:FilePath`;
 
 /**
@@ -32,9 +27,9 @@ function extractFileName(raw: unknown): string | undefined {
   if (fileLinkMatch) {
     str = fileLinkMatch[1];
   } else {
-    str = str.replace(/^\s*File:\s*/i, '');
+    str = str.replace(/^\s*File:\s*/i, "");
   }
-  str = str.trim().replace(/\s+/g, '_');
+  str = str.trim().replace(/\s+/g, "_");
   return str || undefined;
 }
 
@@ -50,10 +45,10 @@ function buildFileUrl(fileName: string | undefined): string | undefined {
 export function parseMusicFromContent(
   pageText: string,
   pageTitle: string,
-  pageAliases: string[]
+  pageAliases: string[],
 ): MusicTrack | null {
   const parsed = parseWikitext(pageText);
-  const data = parsed.getInfobox('music');
+  const data = parsed.getInfobox("music");
   if (!data) return null;
 
   const fileName = extractFileName(data.file);
@@ -101,7 +96,7 @@ export function parseMusicFromContent(
 
   // An inline {{Map|...}} on the page marks where the track plays/unlocks.
   // Prefer a polygon (region boundary) and fall back to a point marker.
-  for (const mapTemplate of parsed.getTemplates('map')) {
+  for (const mapTemplate of parsed.getTemplates("map")) {
     const map = parseMapTemplate(mapTemplate);
     if (map?.polygon) {
       track.polygon = map.polygon;
@@ -109,7 +104,7 @@ export function parseMusicFromContent(
     }
   }
   if (!track.polygon) {
-    for (const mapTemplate of parsed.getTemplates('map')) {
+    for (const mapTemplate of parsed.getTemplates("map")) {
       const map = parseMapTemplate(mapTemplate);
       if (map?.point) {
         track.position = map.point;
@@ -128,11 +123,11 @@ export class MusicExtractor {
 
   constructor(
     private readonly pageListDumper: PageListDumper,
-    private readonly pageContentDumper: PageContentDumper
+    private readonly pageContentDumper: PageContentDumper,
   ) {}
 
   public async extractAllMusic(): Promise<MusicTrack[]> {
-    this.logger.log('Start: Extracting music tracks');
+    this.logger.log("Start: Extracting music tracks");
 
     const pages = await this.pageListDumper.getPagesFromTag(PageTags.MUSIC);
     const length = pages.length;
@@ -151,7 +146,7 @@ export class MusicExtractor {
       writeFileSync(ALL_MUSIC, JSON.stringify(tracks, null, 2));
     }
 
-    this.logger.log('Done: Extracting music tracks');
+    this.logger.log("Done: Extracting music tracks");
     return tracks;
   }
 
@@ -161,17 +156,15 @@ export class MusicExtractor {
         return null;
       }
       try {
-        this.cachedTracks = JSON.parse(readFileSync(ALL_MUSIC, 'utf8'));
+        this.cachedTracks = JSON.parse(readFileSync(ALL_MUSIC, "utf8"));
       } catch (e) {
-        this.logger.warn('all music has invalid content', e);
+        this.logger.warn("all music has invalid content", e);
       }
     }
     return this.cachedTracks;
   }
 
-  private async extractMusicFromPageId(
-    pageId: number
-  ): Promise<MusicTrack | null> {
+  private async extractMusicFromPageId(pageId: number): Promise<MusicTrack | null> {
     const page = await this.pageContentDumper.getDBPageFromId(pageId);
     if (!page || !page.text) {
       return null;

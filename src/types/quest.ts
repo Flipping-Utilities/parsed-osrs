@@ -1,4 +1,4 @@
-import { MapPoint } from './location';
+import { MapPoint } from "./location";
 
 /**
  * One section of the main quest page's `==Walkthrough==` prose.

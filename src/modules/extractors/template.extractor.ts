@@ -1,10 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import wtf from 'wtf_wikipedia';
+import { Injectable, Logger } from "@nestjs/common";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import wtf from "wtf_wikipedia";
 
-import path from 'path';
-import { TEMPLATE_FOLDER } from '../../constants/paths';
-import { PageListDumper } from '../dumpers';
+import path from "path";
+import { TEMPLATE_FOLDER } from "../../constants/paths";
+import { PageListDumper } from "../dumpers";
 
 interface Template {
   template: string;
@@ -17,7 +17,7 @@ export class TemplateExtractor {
   constructor(private readonly pageListDumper: PageListDumper) {}
 
   public async extractAllTemplates() {
-    this.logger.log('Start: extracting templates');
+    this.logger.log("Start: extracting templates");
     const allPageList = await this.pageListDumper.getWikiPageListDB();
     const templateRecord: Record<string, Array<any>> = {};
 
@@ -28,9 +28,7 @@ export class TemplateExtractor {
       }
       const page = allPageList[i];
       const meta = wtf(page.text!);
-      const pageTemplates = meta
-        .templates()
-        .map((v) => v.json()) as Array<Template>;
+      const pageTemplates = meta.templates().map((v) => v.json()) as Array<Template>;
       pageTemplates
         .filter((t) => Object.keys(t).length > 1)
         .forEach((template) => {
@@ -45,25 +43,21 @@ export class TemplateExtractor {
     Object.keys(templateRecord).forEach((template) => {
       if (!path) {
         // @ts-ignore
-        path = require('path');
+        path = require("path");
       }
       const location =
-        TEMPLATE_FOLDER +
-        `/${template.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`;
+        TEMPLATE_FOLDER + `/${template.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.json`;
       try {
         const dir = path.dirname(location);
         if (!existsSync(dir)) {
           mkdirSync(dir, { recursive: true });
         }
 
-        writeFileSync(
-          path.resolve(location),
-          JSON.stringify(templateRecord[template])
-        );
+        writeFileSync(path.resolve(location), JSON.stringify(templateRecord[template]));
       } catch (e) {
         this.logger.error(e, template, location);
       }
     });
-    this.logger.log('End: extracting templates');
+    this.logger.log("End: extracting templates");
   }
 }

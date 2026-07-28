@@ -1,13 +1,6 @@
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  readdirSync,
-  rmSync,
-  writeFileSync,
-} from 'fs';
-import path from 'path';
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "fs";
+import path from "path";
+import { beforeEach, afterEach, describe, expect, it, vi } from "vitest";
 
 // vi.mock factories are hoisted above all top-level statements, so any value
 // they close over must itself be hoisted. We can't use the `path` import
@@ -16,7 +9,7 @@ import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 const { TEST_DIR, TEST_MODULES_FOLDER } = vi.hoisted(() => {
   // __dirname here points at src/modules/dumpers/. Go up three segments to
   // the package root, then into test/.tmp-module-dumper/modules.
-  const root = __dirname.split(/[\\/]/).slice(0, -3).join('/');
+  const root = __dirname.split(/[\\/]/).slice(0, -3).join("/");
   const testDir = `${root}/test/.tmp-module-dumper`;
   return {
     TEST_DIR: testDir,
@@ -28,15 +21,12 @@ const { TEST_DIR, TEST_MODULES_FOLDER } = vi.hoisted(() => {
 // is exposed because that is the only path symbol this dumper (and therefore
 // this test) cares about; loading the real paths.ts would eagerly mkdir a pile
 // of dev folders under the cwd.
-vi.mock('../../constants/paths', () => ({
+vi.mock("../../constants/paths", () => ({
   MODULES_FOLDER: TEST_MODULES_FOLDER,
 }));
 
-import { ModuleDumper, sanitizeModuleFilename } from './module.dumper';
-import type {
-  WikiRequestService,
-  WikiPageWithContent,
-} from '../wiki/wikiRequest.service';
+import { ModuleDumper, sanitizeModuleFilename } from "./module.dumper";
+import type { WikiRequestService, WikiPageWithContent } from "../wiki/wikiRequest.service";
 
 // Shape returned by WikiRequestService.queryPagesByIds.
 function makePage(opts: {
@@ -52,8 +42,8 @@ function makePage(opts: {
     title,
     displaytitle: title,
     revid: opts.revid ?? 1,
-    rawContent: opts.content ?? '',
-    content: '',
+    rawContent: opts.content ?? "",
+    content: "",
     properties: [],
     redirects: [],
   };
@@ -70,7 +60,7 @@ function makeMockWikiService() {
   };
 }
 
-describe('ModuleDumper', () => {
+describe("ModuleDumper", () => {
   let wiki: ReturnType<typeof makeMockWikiService>;
 
   beforeEach(() => {
@@ -83,57 +73,53 @@ describe('ModuleDumper', () => {
     rmSync(TEST_DIR, { recursive: true, force: true });
   });
 
-  describe('dumpAllModules — equivalence with old per-module approach', () => {
-    it('writes the same on-disk files the old getRawText loop would have written', async () => {
+  describe("dumpAllModules — equivalence with old per-module approach", () => {
+    it("writes the same on-disk files the old getRawText loop would have written", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Foo', ns: 828 },
-        { pageid: 2, title: 'Module:Bar/sub', ns: 828 },
-        { pageid: 3, title: 'Module:GELimits/data.json', ns: 828 },
-        { pageid: 4, title: 'Module:Has Space', ns: 828 },
+        { pageid: 1, title: "Module:Foo", ns: 828 },
+        { pageid: 2, title: "Module:Bar/sub", ns: 828 },
+        { pageid: 3, title: "Module:GELimits/data.json", ns: 828 },
+        { pageid: 4, title: "Module:Has Space", ns: 828 },
       ]);
       wiki.queryPagesByIds.mockResolvedValue([
-        makePage({ pageid: 1, title: 'Module:Foo', content: 'foo-source' }),
+        makePage({ pageid: 1, title: "Module:Foo", content: "foo-source" }),
         makePage({
           pageid: 2,
-          title: 'Module:Bar/sub',
-          content: 'bar-sub-source',
+          title: "Module:Bar/sub",
+          content: "bar-sub-source",
         }),
         makePage({
           pageid: 3,
-          title: 'Module:GELimits/data.json',
-          content: 'return { ... }',
+          title: "Module:GELimits/data.json",
+          content: "return { ... }",
         }),
         makePage({
           pageid: 4,
-          title: 'Module:Has Space',
-          content: 'with-space',
+          title: "Module:Has Space",
+          content: "with-space",
         }),
       ]);
 
       await dumper.dumpAllModules();
 
       // The OLD toFilePath() strips "Module:", replaces "/" with "__".
-      expect(readFileSync(path.join(TEST_MODULES_FOLDER, 'Foo'), 'utf8')).toBe(
-        'foo-source'
+      // Module namespace pages are always Lua → all files get `.lua`.
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Foo.lua"), "utf8")).toBe("foo-source");
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Bar__sub.lua"), "utf8")).toBe(
+        "bar-sub-source",
       );
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Bar__sub'), 'utf8')
-      ).toBe('bar-sub-source');
-      expect(
-        readFileSync(
-          path.join(TEST_MODULES_FOLDER, 'GELimits__data.json'),
-          'utf8'
-        )
-      ).toBe('return { ... }');
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Has Space'), 'utf8')
-      ).toBe('with-space');
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "GELimits__data.json.lua"), "utf8")).toBe(
+        "return { ... }",
+      );
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Has Space.lua"), "utf8")).toBe(
+        "with-space",
+      );
     });
   });
 
-  describe('dumpAllModules — batching (50x fewer requests)', () => {
-    it('never calls getRawText; only batched queryPagesByIds', async () => {
+  describe("dumpAllModules — batching (50x fewer requests)", () => {
+    it("never calls getRawText; only batched queryPagesByIds", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       const moduleList = Array.from({ length: 110 }, (_, i) => ({
         pageid: 1000 + i,
@@ -147,8 +133,8 @@ describe('ModuleDumper', () => {
             pageid: id,
             title: `Module:Test${id - 1000}`,
             content: `src-${id}`,
-          })
-        )
+          }),
+        ),
       );
 
       await dumper.dumpAllModules();
@@ -158,7 +144,7 @@ describe('ModuleDumper', () => {
       expect(wiki.queryPagesByIds).toHaveBeenCalledTimes(3);
     });
 
-    it('chunks at the MediaWiki hard cap of 50 pageids per request', async () => {
+    it("chunks at the MediaWiki hard cap of 50 pageids per request", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       const moduleList = Array.from({ length: 250 }, (_, i) => ({
         pageid: i,
@@ -167,9 +153,7 @@ describe('ModuleDumper', () => {
       }));
       wiki.queryAllPagesPromise.mockResolvedValue(moduleList);
       wiki.queryPagesByIds.mockImplementation(async (ids: number[]) =>
-        ids.map((id) =>
-          makePage({ pageid: id, title: `Module:M${id}`, content: `s-${id}` })
-        )
+        ids.map((id) => makePage({ pageid: id, title: `Module:M${id}`, content: `s-${id}` })),
       );
 
       await dumper.dumpAllModules();
@@ -181,7 +165,7 @@ describe('ModuleDumper', () => {
       }
     });
 
-    it('handles an empty module list without issuing any requests', async () => {
+    it("handles an empty module list without issuing any requests", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([]);
 
@@ -192,25 +176,25 @@ describe('ModuleDumper', () => {
     });
   });
 
-  describe('dumpAllModules — delta skip (only write changed modules)', () => {
-    it('does not rewrite files when the revid is unchanged since the previous run', async () => {
+  describe("dumpAllModules — delta skip (only write changed modules)", () => {
+    it("does not rewrite files when the revid is unchanged since the previous run", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Stable', ns: 828 },
-        { pageid: 2, title: 'Module:Changed', ns: 828 },
+        { pageid: 1, title: "Module:Stable", ns: 828 },
+        { pageid: 2, title: "Module:Changed", ns: 828 },
       ]);
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Stable',
+          title: "Module:Stable",
           revid: 100,
-          content: 'stable-v1',
+          content: "stable-v1",
         }),
         makePage({
           pageid: 2,
-          title: 'Module:Changed',
+          title: "Module:Changed",
           revid: 200,
-          content: 'changed-v1',
+          content: "changed-v1",
         }),
       ]);
 
@@ -218,49 +202,44 @@ describe('ModuleDumper', () => {
 
       // Tamper with the on-disk "Stable" file. If the second run re-writes
       // unchanged modules, this tampering would be overwritten.
-      writeFileSync(
-        path.join(TEST_MODULES_FOLDER, 'Stable'),
-        'TAMPERED-SHOULD-PERSIST'
-      );
+      writeFileSync(path.join(TEST_MODULES_FOLDER, "Stable.lua"), "TAMPERED-SHOULD-PERSIST");
 
       // Second run: Stable unchanged, Changed bumped
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Stable',
+          title: "Module:Stable",
           revid: 100,
-          content: 'stable-v1',
+          content: "stable-v1",
         }),
         makePage({
           pageid: 2,
-          title: 'Module:Changed',
+          title: "Module:Changed",
           revid: 201,
-          content: 'changed-v2',
+          content: "changed-v2",
         }),
       ]);
 
       await dumper.dumpAllModules();
 
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Stable'), 'utf8')
-      ).toBe('TAMPERED-SHOULD-PERSIST');
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Changed'), 'utf8')
-      ).toBe('changed-v2');
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Stable.lua"), "utf8")).toBe(
+        "TAMPERED-SHOULD-PERSIST",
+      );
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Changed.lua"), "utf8")).toBe(
+        "changed-v2",
+      );
     });
 
-    it('still re-writes a module when its revid changes back to a previously-seen value', async () => {
+    it("still re-writes a module when its revid changes back to a previously-seen value", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
-      wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Revert', ns: 828 },
-      ]);
+      wiki.queryAllPagesPromise.mockResolvedValue([{ pageid: 1, title: "Module:Revert", ns: 828 }]);
 
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Revert',
+          title: "Module:Revert",
           revid: 50,
-          content: 'rev-50',
+          content: "rev-50",
         }),
       ]);
       await dumper.dumpAllModules();
@@ -268,9 +247,9 @@ describe('ModuleDumper', () => {
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Revert',
+          title: "Module:Revert",
           revid: 51,
-          content: 'rev-51',
+          content: "rev-51",
         }),
       ]);
       await dumper.dumpAllModules();
@@ -278,239 +257,216 @@ describe('ModuleDumper', () => {
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Revert',
+          title: "Module:Revert",
           revid: 50,
-          content: 'rev-50-restored',
+          content: "rev-50-restored",
         }),
       ]);
       await dumper.dumpAllModules();
 
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Revert'), 'utf8')
-      ).toBe('rev-50-restored');
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Revert.lua"), "utf8")).toBe(
+        "rev-50-restored",
+      );
     });
   });
 
-  describe('dumpAllModules — edge cases preserved from old behavior', () => {
-    it('skips modules whose fetched source is empty (matches old null/empty skip)', async () => {
+  describe("dumpAllModules — edge cases preserved from old behavior", () => {
+    it("skips modules whose fetched source is empty (matches old null/empty skip)", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:HasContent', ns: 828 },
-        { pageid: 2, title: 'Module:Empty', ns: 828 },
+        { pageid: 1, title: "Module:HasContent", ns: 828 },
+        { pageid: 2, title: "Module:Empty", ns: 828 },
       ]);
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:HasContent',
-          content: 'real source',
+          title: "Module:HasContent",
+          content: "real source",
         }),
-        makePage({ pageid: 2, title: 'Module:Empty', content: '' }),
+        makePage({ pageid: 2, title: "Module:Empty", content: "" }),
       ]);
 
       await dumper.dumpAllModules();
 
-      const files = readdirSync(TEST_MODULES_FOLDER).filter(
-        (f) => !f.startsWith('.')
-      );
-      expect(files).toEqual(['HasContent']);
+      const files = readdirSync(TEST_MODULES_FOLDER).filter((f) => !f.startsWith("."));
+      expect(files).toEqual(["HasContent.lua"]);
     });
 
-    it('silently ignores pageids that no longer exist (missing in API response)', async () => {
+    it("silently ignores pageids that no longer exist (missing in API response)", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Alive', ns: 828 },
-        { pageid: 2, title: 'Module:Deleted', ns: 828 },
+        { pageid: 1, title: "Module:Alive", ns: 828 },
+        { pageid: 2, title: "Module:Deleted", ns: 828 },
       ]);
       // Real queryPagesByIds drops missing/invalid pages from its result.
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Alive',
-          content: 'alive-source',
+          title: "Module:Alive",
+          content: "alive-source",
         }),
       ]);
 
       await dumper.dumpAllModules();
 
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Alive'), 'utf8')
-      ).toBe('alive-source');
-      expect(existsSync(path.join(TEST_MODULES_FOLDER, 'Deleted'))).toBe(false);
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Alive.lua"), "utf8")).toBe("alive-source");
+      expect(existsSync(path.join(TEST_MODULES_FOLDER, "Deleted.lua"))).toBe(false);
     });
 
-    it('preserves the subpage naming convention (slashes → __)', async () => {
+    it("preserves the subpage naming convention (slashes → __)", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Deep/nested/page', ns: 828 },
+        { pageid: 1, title: "Module:Deep/nested/page", ns: 828 },
       ]);
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Deep/nested/page',
-          content: 'deep',
+          title: "Module:Deep/nested/page",
+          content: "deep",
         }),
       ]);
 
       await dumper.dumpAllModules();
 
-      expect(
-        readFileSync(
-          path.join(TEST_MODULES_FOLDER, 'Deep__nested__page'),
-          'utf8'
-        )
-      ).toBe('deep');
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Deep__nested__page.lua"), "utf8")).toBe(
+        "deep",
+      );
     });
   });
 
-  describe('dumpAllModules — index persistence across processes', () => {
-    it('persists a revision index that a fresh dumper instance reads on the next run', async () => {
+  describe("dumpAllModules — index persistence across processes", () => {
+    it("persists a revision index that a fresh dumper instance reads on the next run", async () => {
       // First "process": dump the module, expect the index to be written.
-      const firstDumper = new ModuleDumper(
-        wiki as unknown as WikiRequestService
-      );
+      const firstDumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Persist', ns: 828 },
+        { pageid: 1, title: "Module:Persist", ns: 828 },
       ]);
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Persist',
+          title: "Module:Persist",
           revid: 42,
-          content: 'persisted',
+          content: "persisted",
         }),
       ]);
       await firstDumper.dumpAllModules();
 
       // Plant a sentinel value on disk; a correctly-skipped second run will
       // NOT overwrite it.
-      writeFileSync(path.join(TEST_MODULES_FOLDER, 'Persist'), 'PRE-RUN-VALUE');
+      writeFileSync(path.join(TEST_MODULES_FOLDER, "Persist.lua"), "PRE-RUN-VALUE");
 
       // Second "process": brand-new instance, same mocks, same revid → skip.
-      const secondDumper = new ModuleDumper(
-        wiki as unknown as WikiRequestService
-      );
+      const secondDumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryPagesByIds.mockResolvedValue([
         makePage({
           pageid: 1,
-          title: 'Module:Persist',
+          title: "Module:Persist",
           revid: 42,
-          content: 'SHOULD-NOT-WRITE',
+          content: "SHOULD-NOT-WRITE",
         }),
       ]);
       await secondDumper.dumpAllModules();
 
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'Persist'), 'utf8')
-      ).toBe('PRE-RUN-VALUE');
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Persist.lua"), "utf8")).toBe(
+        "PRE-RUN-VALUE",
+      );
     });
   });
 
-  describe('dumpAllModules — crash resistance', () => {
-    it('continues dumping after a write failure instead of aborting the batch', async () => {
+  describe("dumpAllModules — crash resistance", () => {
+    it("continues dumping after a write failure instead of aborting the batch", async () => {
       const dumper = new ModuleDumper(wiki as unknown as WikiRequestService);
       wiki.queryAllPagesPromise.mockResolvedValue([
-        { pageid: 1, title: 'Module:Good', ns: 828 },
-        { pageid: 2, title: 'Module:Bad', ns: 828 },
-        { pageid: 3, title: 'Module:AlsoGood', ns: 828 },
+        { pageid: 1, title: "Module:Good", ns: 828 },
+        { pageid: 2, title: "Module:Bad", ns: 828 },
+        { pageid: 3, title: "Module:AlsoGood", ns: 828 },
       ]);
       wiki.queryPagesByIds.mockResolvedValue([
-        makePage({ pageid: 1, title: 'Module:Good', content: 'good-1' }),
-        makePage({ pageid: 2, title: 'Module:Bad', content: 'bad' }),
+        makePage({ pageid: 1, title: "Module:Good", content: "good-1" }),
+        makePage({ pageid: 2, title: "Module:Bad", content: "bad" }),
         makePage({
           pageid: 3,
-          title: 'Module:AlsoGood',
-          content: 'good-3',
+          title: "Module:AlsoGood",
+          content: "good-3",
         }),
       ]);
 
-      // Pre-create `Bad` as a directory so writeFileSync('...Bad', source)
+      // Pre-create `Bad.lua` as a directory so writeFileSync('...Bad.lua', source)
       // fails with EISDIR — a natural write failure on every OS, no fs
       // mocking required. The production trigger was an ENOENT from a
       // Windows-reserved `:` in the filename, but any write error exercises
       // the same try/catch.
-      mkdirSync(path.join(TEST_MODULES_FOLDER, 'Bad'));
+      mkdirSync(path.join(TEST_MODULES_FOLDER, "Bad.lua"));
 
       // Must NOT throw — the failure is caught and the dump continues.
       await dumper.dumpAllModules();
 
-      expect(readFileSync(path.join(TEST_MODULES_FOLDER, 'Good'), 'utf8')).toBe(
-        'good-1'
-      );
-      expect(
-        readFileSync(path.join(TEST_MODULES_FOLDER, 'AlsoGood'), 'utf8')
-      ).toBe('good-3');
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Good.lua"), "utf8")).toBe("good-1");
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "AlsoGood.lua"), "utf8")).toBe("good-3");
     });
   });
 });
 
-describe('sanitizeModuleFilename', () => {
-  it('strips the Module: namespace prefix', () => {
-    expect(sanitizeModuleFilename('Module:Foo')).toBe('Foo');
+describe("sanitizeModuleFilename", () => {
+  it("strips the Module: namespace prefix and appends .lua", () => {
+    expect(sanitizeModuleFilename("Module:Foo")).toBe("Foo.lua");
   });
 
-  it('replaces forward slashes with __ (subpage flattening)', () => {
-    expect(sanitizeModuleFilename('Module:Foo/Bar/Baz')).toBe('Foo__Bar__Baz');
+  it("replaces forward slashes with __ (subpage flattening)", () => {
+    expect(sanitizeModuleFilename("Module:Foo/Bar/Baz")).toBe("Foo__Bar__Baz.lua");
   });
 
-  it('replaces colons with _ (Windows-reserved)', () => {
-    expect(sanitizeModuleFilename('Module:User:Spoiledduc')).toBe(
-      'User_Spoiledduc'
-    );
+  it("replaces colons with _ (Windows-reserved)", () => {
+    expect(sanitizeModuleFilename("Module:User:Spoiledduc")).toBe("User_Spoiledduc.lua");
   });
 
-  it('handles the exact title from the production crash', () => {
+  it("handles the exact title from the production crash", () => {
     // This title produced an ENOENT on Windows because the sanitized name
     // still contained `:` characters from the User: namespace.
-    const title = 'Module:Sandbox/User:Spoiledduc/Skill calc/AgilityBarb';
+    const title = "Module:Sandbox/User:Spoiledduc/Skill calc/AgilityBarb";
     const result = sanitizeModuleFilename(title);
-    // No reserved characters should remain.
+    // No reserved characters should remain (other than the `.lua` extension).
     expect(result).not.toMatch(/[:<>"|?*]/);
-    expect(result).toBe('Sandbox__User_Spoiledduc__Skill calc__AgilityBarb');
+    expect(result).toBe("Sandbox__User_Spoiledduc__Skill calc__AgilityBarb.lua");
   });
 
-  it('handles a title with a double Module: prefix', () => {
+  it("handles a title with a double Module: prefix", () => {
     // Module:Module:Sandbox → strip first prefix → Module:Sandbox → : → _
-    expect(sanitizeModuleFilename('Module:Module:Sandbox')).toBe(
-      'Module_Sandbox'
-    );
+    expect(sanitizeModuleFilename("Module:Module:Sandbox")).toBe("Module_Sandbox.lua");
   });
 
-  it('replaces all Windows-reserved characters', () => {
+  it("replaces all Windows-reserved characters", () => {
     const title = 'Module:A<B>C"D|E?F*G';
     const result = sanitizeModuleFilename(title);
-    expect(result).toBe('A_B_C_D_E_F_G');
+    expect(result).toBe("A_B_C_D_E_F_G.lua");
   });
 
-  it('replaces backslashes with __', () => {
-    expect(sanitizeModuleFilename('Module:Foo\\Bar')).toBe('Foo__Bar');
+  it("replaces backslashes with __", () => {
+    expect(sanitizeModuleFilename("Module:Foo\\Bar")).toBe("Foo__Bar.lua");
   });
 
-  it('removes ../ traversal sequences', () => {
+  it("removes ../ traversal sequences", () => {
     // The `../` sequence is stripped first, then remaining `/` → `__`.
-    expect(sanitizeModuleFilename('Module:../etc/passwd')).toBe('etc__passwd');
-    expect(sanitizeModuleFilename('Module:../etc/../passwd')).toBe(
-      'etc__passwd'
-    );
+    expect(sanitizeModuleFilename("Module:../etc/passwd")).toBe("etc__passwd.lua");
+    expect(sanitizeModuleFilename("Module:../etc/../passwd")).toBe("etc__passwd.lua");
   });
 
-  it('preserves spaces and dots', () => {
-    expect(sanitizeModuleFilename('Module:GELimits/data.json')).toBe(
-      'GELimits__data.json'
-    );
-    expect(sanitizeModuleFilename('Module:Has Space')).toBe('Has Space');
+  it("preserves spaces and dots", () => {
+    expect(sanitizeModuleFilename("Module:GELimits/data.json")).toBe("GELimits__data.json.lua");
+    expect(sanitizeModuleFilename("Module:Has Space")).toBe("Has Space.lua");
   });
 
-  it('strips trailing dots and whitespace (Win32-API normalisation)', () => {
+  it("strips trailing dots and whitespace before appending .lua (Win32-API normalisation)", () => {
     // Module:Exchange/Premade blurb' sp. — the trailing `.` was preserved by
     // Node's fs but invisible to git/cmd/Explorer, so `git add` failed with
-    // `No such file or directory`. Internal dots and spaces are kept.
+    // `No such file or directory`. Internal dots and spaces are kept. The
+    // `.lua` extension is appended AFTER the trailing-strip so we don't end
+    // up with `Foo..lua`.
     expect(sanitizeModuleFilename("Module:Exchange/Premade blurb' sp.")).toBe(
-      "Exchange__Premade blurb' sp"
+      "Exchange__Premade blurb' sp.lua",
     );
-    expect(sanitizeModuleFilename('Module:trailing space ')).toBe(
-      'trailing space'
-    );
-    expect(sanitizeModuleFilename('Module:many dots...')).toBe('many dots');
-    expect(sanitizeModuleFilename('Module:mixed . . .')).toBe('mixed');
+    expect(sanitizeModuleFilename("Module:trailing space ")).toBe("trailing space.lua");
+    expect(sanitizeModuleFilename("Module:many dots...")).toBe("many dots.lua");
+    expect(sanitizeModuleFilename("Module:mixed . . .")).toBe("mixed.lua");
   });
 });

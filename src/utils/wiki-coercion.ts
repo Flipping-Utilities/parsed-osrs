@@ -31,16 +31,16 @@
  * ```
  */
 export function wikiBool(val: unknown, fallback = false): boolean {
-  if (val === null || val === undefined || val === '') {
+  if (val === null || val === undefined || val === "") {
     return fallback;
   }
   if (val === true) {
     return true;
   }
 
-  if (typeof val === 'string') {
+  if (typeof val === "string") {
     const lower = val.toLowerCase();
-    if (lower === 'yes') {
+    if (lower === "yes") {
       return true;
     }
   }
@@ -80,16 +80,16 @@ export function wikiNumber(val: unknown, fallback = 0): number {
   }
 
   let strVal: string;
-  if (typeof val === 'number') {
+  if (typeof val === "number") {
     strVal = String(val);
-  } else if (typeof val === 'string') {
+  } else if (typeof val === "string") {
     strVal = val;
   } else {
     strVal = String(val);
   }
 
-  if (strVal.includes(',')) {
-    const parts = strVal.split(',');
+  if (strVal.includes(",")) {
+    const parts = strVal.split(",");
     const firstPart = parts[0].trim();
     const firstResult = Number(firstPart);
     if (!Number.isNaN(firstResult) && Number.isFinite(firstResult)) {
@@ -98,7 +98,7 @@ export function wikiNumber(val: unknown, fallback = 0): number {
   }
 
   // Strip commas from numeric strings (e.g., "1,000" → "1000")
-  const normalized = strVal.replace(/,/g, '');
+  const normalized = strVal.replace(/,/g, "");
   const result = Number(normalized);
 
   if (Number.isNaN(result) || !Number.isFinite(result)) {
@@ -138,24 +138,24 @@ export function wikiNumber(val: unknown, fallback = 0): number {
  */
 export function wikiString(val: unknown): string {
   if (val === null || val === undefined) {
-    return '';
+    return "";
   }
 
   let str = String(val);
 
   // Remove [[File:...]] references entirely
-  str = str.replace(/\[\[File:[^\]]+\]\]/gi, '');
+  str = str.replace(/\[\[File:[^\]]+\]\]/gi, "");
 
   // Handle [[target|display text]] → display text
   // Handle [[link]] → link
-  str = str.replace(/\[\[([^|\]]+)\|([^\]]+)\]\]/g, '$2');
-  str = str.replace(/\[\[([^\]]+)\]\]/g, '$1');
+  str = str.replace(/\[\[([^|\]]+)\|([^\]]+)\]\]/g, "$2");
+  str = str.replace(/\[\[([^\]]+)\]\]/g, "$1");
 
   // Handle ''italic'' → italic
-  str = str.replace(/''([^']+)''/g, '$1');
+  str = str.replace(/''([^']+)''/g, "$1");
 
   // Handle '''bold''' → bold
-  str = str.replace(/'''([^']+)'''/g, '$1');
+  str = str.replace(/'''([^']+)'''/g, "$1");
 
   return str.trim();
 }
@@ -163,7 +163,7 @@ export function wikiString(val: unknown): string {
 export function parseListValue(value: unknown): string[] {
   if (!value) return [];
   return String(value)
-    .split(',')
+    .split(",")
     .map((v) => v.trim())
     .filter(Boolean);
 }
