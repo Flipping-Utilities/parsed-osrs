@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SHOPS } from "../../constants/paths";
 import { Shop, ShopItem } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -116,7 +117,7 @@ export class ShopsExtractor {
     shops.sort((a, b) => a.name.localeCompare(b.name));
 
     if (shops.length) {
-      writeFileSync(ALL_SHOPS, JSON.stringify(shops));
+      await safeWriteFileSync(ALL_SHOPS, JSON.stringify(shops));
     }
 
     this.logger.log("Finished extracting shops");

@@ -1,5 +1,17 @@
 [
   {
+    "name": "1v1 Arena",
+    "aliases": [
+      "All Stars Arena"
+    ],
+    "type": "",
+    "members": true,
+    "position": {
+      "x": 3328,
+      "y": 5824
+    }
+  },
+  {
     "name": "Abalone Cliffs",
     "aliases": [
       "Abalone cliff"
@@ -92,7 +104,8 @@
       "Abbysal realm",
       "Abyyss",
       "Abbyssal area",
-      "Absyss"
+      "Absyss",
+      "Abysse"
     ],
     "type": "",
     "members": true,
@@ -252,7 +265,8 @@
       "Aagility pyramid",
       "Agility paramid",
       "Agility pyrami",
-      "Agiility pyramid"
+      "Agiility pyramid",
+      "Agiilty pyramid"
     ],
     "type": "agility course",
     "members": true,
@@ -337,7 +351,8 @@
       "Al khaird",
       "Al kharid shops",
       "Alkarid teleport",
-      "Al harid"
+      "Al harid",
+      "Teleport to al kharid"
     ],
     "type": "settlement",
     "members": false,
@@ -432,11 +447,29 @@
     }
   },
   {
+    "name": "Alchemical Society",
+    "aliases": [
+      "Society",
+      "Alchemical society",
+      "Alchemical lab",
+      "Alchemist Society",
+      "Alchemy Guild",
+      "Alchamy guild"
+    ],
+    "type": "",
+    "members": true,
+    "region": "Aldarin",
+    "leagueRegion": "Varlamore",
+    "position": {
+      "x": 1389,
+      "y": 2918
+    }
+  },
+  {
     "name": "Aldarin",
     "aliases": [
       "Island of Aldarin",
       "Alderin",
-      "Darkmoon ravine",
       "Aladrin",
       "Aldrin",
       "Aldarian",
@@ -458,7 +491,10 @@
       "Alderian",
       "Aldrin port",
       "Aldarain",
-      "Aldarin docks"
+      "Aldarin docks",
+      "Aldar",
+      "Aldarin osrs",
+      "Aldaran"
     ],
     "type": "Island",
     "members": true,
@@ -523,7 +559,6 @@
   {
     "name": "Ancient Cavern",
     "aliases": [
-      "Dragon Forge",
       "Dragonkin forge",
       "Ancient cavern",
       "Ancient cave",
@@ -571,7 +606,8 @@
       "Achient cavern",
       "Antient cavern",
       "Amcient cavern",
-      "Anicient cavern"
+      "Anicient cavern",
+      "Anient cavern"
     ],
     "type": "dungeon",
     "members": true,
@@ -585,6 +621,7 @@
   {
     "name": "Ancient Guthixian Temple",
     "aliases": [
+      "Ancient Temple",
       "Ancient guthixian temple",
       "Guthixian temple",
       "Guthix temple",
@@ -594,8 +631,8 @@
       "While guthix sleeps cave",
       "Ancient Guthix Temple",
       "Ancient guthix temple",
-      "Ancient Temple",
-      "Nostril caves"
+      "Nostril caves",
+      "Safekeep"
     ],
     "type": "",
     "members": true,
@@ -626,10 +663,10 @@
     "region": "Kharidian Desert",
     "leagueRegion": "Desert",
     "relativeLocation": {
-      "north": "Quarry",
+      "north": "Bandit Camp (Kharidian Desert)",
       "south": "Menaphos",
       "east": "Nardah",
-      "west": "Bandit Camp Quarry"
+      "west": "Quarry"
     },
     "position": {
       "x": 3232,
@@ -656,7 +693,8 @@
     "name": "Ancient Vault",
     "aliases": [
       "The ancient vault",
-      "Ancient vault"
+      "Ancient vault",
+      "Acient vault"
     ],
     "type": "building",
     "members": true,
@@ -679,7 +717,8 @@
       "Angler's light",
       "Anglers light",
       "Anglerfish light",
-      "Anglerfishs light"
+      "Anglerfishs light",
+      "Angerfish's light"
     ],
     "type": "sea",
     "members": true,
@@ -721,7 +760,11 @@
       "Angler's rest",
       "Angels retreat",
       "Rowboat angler",
-      "Anger's retreat"
+      "Anger's retreat",
+      "Anglers retrear",
+      "Anglars retreat",
+      "Rowboat anglers",
+      "Angles retreat"
     ],
     "type": "Island",
     "members": true,
@@ -787,7 +830,9 @@
       "Getting to ape atoll",
       "Ape ato",
       "Atoll",
-      "Ape toll transpo"
+      "Ape toll transpo",
+      "Ape stoll",
+      "Ape atoll bass"
     ],
     "type": "island",
     "members": true,
@@ -834,7 +879,9 @@
       "Complete a lap of ape atoll agility course",
       "Monkey agility arena",
       "Monkey backapck",
-      "Osrs monkey agility"
+      "Osrs monkey agility",
+      "Agility ape atoll",
+      "Atoll agility"
     ],
     "type": "agility course",
     "members": true,
@@ -919,6 +966,19 @@
     }
   },
   {
+    "name": "Apsul Hunting Ground",
+    "aliases": [
+      "Apsul",
+      "Apsul Hunting grounds"
+    ],
+    "type": "",
+    "members": true,
+    "position": {
+      "x": 2583,
+      "y": 7773
+    }
+  },
+  {
     "name": "Arandar",
     "aliases": [
       "Elven overpass",
@@ -936,7 +996,8 @@
       "Arandar pass",
       "Arander pass",
       "Arrandar pass",
-      "Mountain pass"
+      "Mountain pass",
+      "Arandar moutain pass"
     ],
     "type": "",
     "members": true,
@@ -1050,7 +1111,6 @@
       "Arcaeus",
       "Arcuus",
       "Arcuess",
-      "Arceuus church",
       "Arcauus",
       "Arceaus",
       "Arceu",
@@ -1201,6 +1261,7 @@
       "Arcuess library",
       "You hear the shifting of books",
       "Arcues library",
+      "Arceuus library book",
       "Aceuus library",
       "Acceus library",
       "Arceaus library",
@@ -1222,7 +1283,8 @@
       "Arceuss library book",
       "Arceeus library book",
       "Arceuus libray book",
-      "Arceuus library book"
+      "Arceuus books",
+      "Arcuus library"
     ],
     "type": "building",
     "members": true,
@@ -1559,6 +1621,24 @@
     }
   },
   {
+    "name": "Ardeaglais",
+    "aliases": [
+      "Ardeglais",
+      "Ardeaglis",
+      "Cathedral door",
+      "Wyrmscraig cathedral",
+      "Ardeag",
+      "Wyrmscraig Cathedral"
+    ],
+    "type": "building",
+    "members": true,
+    "region": "Wyrmscraig",
+    "position": {
+      "x": 2532,
+      "y": 2216
+    }
+  },
+  {
     "name": "Ardent Ocean",
     "aliases": [
       "Ardent ocean",
@@ -1633,7 +1713,10 @@
       "Ardu",
       "Ardourgne",
       "Ardoughe",
-      "Aedougne"
+      "Aedougne",
+      "Argougne",
+      "Aroudgne",
+      "Aurdone"
     ],
     "type": "settlement",
     "members": true,
@@ -1852,7 +1935,10 @@
   },
   {
     "name": "Ardougne north bank",
-    "aliases": [],
+    "aliases": [
+      "Ardougne North Bank",
+      "North Ardougne Bank"
+    ],
     "type": "",
     "members": true,
     "region": "North Ardougne",
@@ -1977,7 +2063,10 @@
   },
   {
     "name": "Ardougne south bank",
-    "aliases": [],
+    "aliases": [
+      "Ardougne South Bank",
+      "South Ardougne Bank"
+    ],
     "type": "",
     "members": true,
     "region": "Ardougne",
@@ -2095,8 +2184,8 @@
     "relativeLocation": {
       "north": "Wilderness",
       "south": "Karamja",
-      "east": "Kingdom of Misthalin",
-      "west": "Kingdom of Kandarin"
+      "east": "Misthalin",
+      "west": "Kandarin"
     }
   },
   {
@@ -2141,7 +2230,8 @@
     "aliases": [
       "Redwood grove",
       "Autumn Valley",
-      "Auburn forest"
+      "Auburn forest",
+      "Aubern valley"
     ],
     "type": "woods",
     "members": true,
@@ -2167,7 +2257,11 @@
       "Alburnvale",
       "Auburnville",
       "Arburnvale",
-      "Auburnvale\\"
+      "Auburnvale\\",
+      "Auburn valley fairy ring",
+      "Aburn valley",
+      "How to get to auburnvale",
+      "Auburnvalle"
     ],
     "type": "settlement",
     "members": true,
@@ -2188,6 +2282,20 @@
     "position": {
       "x": 1416,
       "y": 3353
+    }
+  },
+  {
+    "name": "Auchrie",
+    "aliases": [
+      "Auchrie village",
+      "Wyrmscraig village"
+    ],
+    "type": "settlement",
+    "members": true,
+    "region": "Wyrmscraig",
+    "position": {
+      "x": 2576,
+      "y": 2258
     }
   },
   {
@@ -2217,7 +2325,9 @@
       "Savanah",
       "Sav",
       "Avium Savanna",
-      "Avium sav"
+      "Avium sav",
+      "Avium savanah",
+      "Atrium savannah"
     ],
     "type": "hunter area",
     "members": true,
@@ -2236,7 +2346,8 @@
       "Back water",
       "The backwater",
       "Blackwater",
-      "Deepwater horizon"
+      "Deepwater horizon",
+      "Black water"
     ],
     "type": "sea",
     "members": true,
@@ -2315,9 +2426,9 @@
     "leagueRegion": "Desert",
     "relativeLocation": {
       "north": "Bedabin Camp",
-      "south": "Bandit Camp Quarry",
+      "south": "Quarry",
       "east": "Pollnivneach",
-      "west": "Karamja"
+      "west": "The Pandemonium"
     },
     "position": {
       "x": 3171,
@@ -2368,49 +2479,6 @@
     "position": {
       "x": 3087,
       "y": 3762
-    }
-  },
-  {
-    "name": "Bandit Camp Quarry",
-    "aliases": [
-      "Quarry",
-      "Western desert mining site",
-      "Desert quarry",
-      "Enakhra's Quarry",
-      "Desert Quarry",
-      "Granite mining",
-      "Sandstone mine",
-      "Bandit camp quarry",
-      "Granite mine",
-      "Sand mine",
-      "Sand quarry",
-      "Quarry mine",
-      "Quary",
-      "Sandstone quarry",
-      "Sandmine",
-      "Desert Quarry mine",
-      "Desert quarry mine",
-      "Desert mine",
-      "Granite quarry",
-      "Mine sand",
-      "Dessert quarry",
-      "Sand stone mine",
-      "Desert quary",
-      "Bandit quarry"
-    ],
-    "type": "mine",
-    "members": true,
-    "region": "South of the Kharidian Bandit Camp",
-    "leagueRegion": "Desert",
-    "relativeLocation": {
-      "north": "Bandit Camp (Kharidian Desert)",
-      "south": "Ruins of Unkah",
-      "east": "Ancient Pyramid",
-      "west": "Ardent Ocean"
-    },
-    "position": {
-      "x": 3172,
-      "y": 2912
     }
   },
   {
@@ -2473,7 +2541,8 @@
       "Barb agility",
       "Barbarian Agility Training Course",
       "Babarian agility",
-      "Barbarian village agility course"
+      "Barbarian village agility course",
+      "Barbian agility"
     ],
     "type": "agility course",
     "members": true,
@@ -2736,7 +2805,6 @@
       "Badabin camp",
       "Bedabin",
       "Bebadin",
-      "Desert camp",
       "Benadin",
       "Bedadin camp",
       "Babadin camp",
@@ -2804,6 +2872,18 @@
         "x": 3190,
         "y": 3389
       }
+    }
+  },
+  {
+    "name": "Black Guard base",
+    "aliases": [],
+    "type": "",
+    "members": false,
+    "region": "At the base of Ice Mountain",
+    "leagueRegion": "Asgarnia",
+    "position": {
+      "x": 3016,
+      "y": 3448
     }
   },
   {
@@ -2950,15 +3030,11 @@
     }
   },
   {
-    "name": "Boneyard Hunter area",
+    "name": "Bone Yard Hunter area",
     "aliases": [
       "Boneyard hunting area",
-      "Wilderness Hunter area",
-      "Wilderness hunting area",
-      "Lava Hunter area",
-      "Lava hunting area",
-      "Wilderness hunter area",
-      "Boneyard hunter area"
+      "Boneyard hunter area",
+      "Boneyard Hunter area"
     ],
     "type": "hunter area",
     "members": false,
@@ -2987,8 +3063,8 @@
       "Braindeath isle",
       "Osrs reddit",
       "Redit",
-      "Brain",
-      "Braineath island"
+      "Braineath island",
+      "Brainrot"
     ],
     "type": "island",
     "members": true,
@@ -3071,7 +3147,8 @@
       "Bringhaven",
       "Osrs brimhaven",
       "Brihaven",
-      "Bro haven"
+      "Bro haven",
+      "Grimhaven"
     ],
     "type": "",
     "members": true,
@@ -3121,7 +3198,8 @@
       "Brimaven dungeon",
       "Osrs brimhaven dungeon",
       "Brimahven dun",
-      "Karamja slayer dungeon"
+      "Karamja slayer dungeon",
+      "Brimhaven dungon"
     ],
     "type": "dungeon",
     "members": true,
@@ -3176,7 +3254,11 @@
     "type": "dungeon",
     "members": true,
     "region": "Fremennik Province",
-    "leagueRegion": "Fremennik"
+    "leagueRegion": "Fremennik",
+    "position": {
+      "x": 2740,
+      "y": 3736
+    }
   },
   {
     "name": "Brittle Isle",
@@ -3185,7 +3267,9 @@
       "Britle isle",
       "Brittle isle",
       "Brittle isl",
-      "Birttle isle"
+      "Birttle isle",
+      "Bittle isle",
+      "Brittle is"
     ],
     "type": "island",
     "members": true,
@@ -3214,7 +3298,8 @@
       "Bucaneer haven",
       "Bucaneers",
       "Bucaneer",
-      "Haven"
+      "Haven",
+      "Buccaneer"
     ],
     "type": "Island",
     "members": true,
@@ -3299,10 +3384,11 @@
     }
   },
   {
-    "name": "Burgh de Rott pub",
+    "name": "Burgh de Rott inn",
     "aliases": [
-      "Myreque's Rest",
-      "Myreques Rest"
+      "Myreques Rest",
+      "Burgh de Rott pub",
+      "Burgh de Rott inn"
     ],
     "type": "",
     "members": true,
@@ -3349,7 +3435,8 @@
       "Burthop",
       "Burthopre",
       "Burhtrope",
-      "Burhtorpe"
+      "Burhtorpe",
+      "Birthorpe"
     ],
     "type": "settlement",
     "members": true,
@@ -3361,42 +3448,9 @@
       "east": "Wilderness",
       "west": "Warriors' Guild"
     },
-    "polygon": {
-      "raw": "2811:3582,2939:3582,2939:3534,2898:3502,2879:3502,2879:3532,2811:3532",
-      "vertices": [
-        {
-          "x": 2811,
-          "y": 3582
-        },
-        {
-          "x": 2939,
-          "y": 3582
-        },
-        {
-          "x": 2939,
-          "y": 3534
-        },
-        {
-          "x": 2898,
-          "y": 3502
-        },
-        {
-          "x": 2879,
-          "y": 3502
-        },
-        {
-          "x": 2879,
-          "y": 3532
-        },
-        {
-          "x": 2811,
-          "y": 3532
-        }
-      ],
-      "centroid": {
-        "x": 2879,
-        "y": 3538
-      }
+    "position": {
+      "x": 2870,
+      "y": 3544
     }
   },
   {
@@ -3428,7 +3482,9 @@
       "Cairn",
       "Cairns isle",
       "Carne island",
-      "Cairn is"
+      "Cairn is",
+      "Bridge (Cairn Isle)",
+      "Cairn ilse"
     ],
     "type": "island",
     "members": true,
@@ -3485,7 +3541,11 @@
       "Cam toram",
       "Cam tor",
       "Cam torun",
-      "Kamtorum"
+      "Kamtorum",
+      "Cantorum",
+      "Cam thorum",
+      "Cam turom",
+      "Kam torum"
     ],
     "type": "settlement",
     "members": true,
@@ -3677,7 +3737,8 @@
       "Canaris",
       "Werewolf trading post",
       "Cabifis",
-      "Carifs"
+      "Carifs",
+      "Werewolf Land"
     ],
     "type": "settlement",
     "members": true,
@@ -3980,11 +4041,11 @@
       "Castel drakan",
       "Drakans castle",
       "Drakens castle",
-      "Darkmeyer castle"
+      "Darkmeyer castle",
+      "Drakan's Castle"
     ],
     "type": "building",
     "members": true,
-    "region": "Darkmeyer",
     "leagueRegion": "Morytania",
     "relativeLocation": {
       "north": "Morytania Graveyard",
@@ -4077,7 +4138,8 @@
       "Kourand catacombs",
       "Catabombs of kourend",
       "Catacombs of kourens",
-      "Dragons den"
+      "Dragons den",
+      "Dungeon of kourend"
     ],
     "type": "dungeon",
     "members": true,
@@ -4106,7 +4168,8 @@
       "Chaterby",
       "How to get to catherby",
       "Caherby",
-      "Catherby herb aptch"
+      "Catherby herb aptch",
+      "Catherby farm"
     ],
     "type": "settlement",
     "members": true,
@@ -4318,7 +4381,8 @@
       "Bones altar",
       "Western chaos temple",
       "Wilderness prayer training",
-      "Chaos Temple Hut"
+      "Chaos Temple Hut",
+      "Chaos Temple (hut)"
     ],
     "type": "",
     "members": false,
@@ -4469,7 +4533,8 @@
     "aliases": [
       "Charred Island Dungeon",
       "Charred dungeon",
-      "Charred dung"
+      "Charred dung",
+      "Chared dungeon"
     ],
     "type": "Dungeon",
     "members": true,
@@ -4497,7 +4562,9 @@
       "Carred island",
       "Scorched island",
       "Osrs charred island",
-      "Charred island osrs"
+      "Charred island osrs",
+      "Charred isaland",
+      "Chard island"
     ],
     "type": "Island",
     "members": true,
@@ -4505,6 +4572,7 @@
     "leagueRegion": "No",
     "relativeLocation": {
       "north": "Void Knight Outpost",
+      "south": "Wyrmscraig",
       "east": "Last Light"
     },
     "position": {
@@ -4540,7 +4608,8 @@
       "Casam of fire",
       "Casem of fire",
       "Casim of fire",
-      "Chasm of"
+      "Chasm of",
+      "Yama task"
     ],
     "type": "dungeon",
     "members": true,
@@ -4603,7 +4672,8 @@
       "Chinchoma island",
       "Chinchompa islan",
       "Chinchimpa island",
-      "Chincompha island"
+      "Chincompha island",
+      "Chinchonpa island"
     ],
     "type": "Island",
     "members": true,
@@ -4859,7 +4929,9 @@
       "Illa fortis",
       "Cavitas illa fortis",
       "Cif",
-      "Fortus"
+      "Fortus",
+      "Civitas illa",
+      "Forti"
     ],
     "type": "settlement",
     "members": true,
@@ -4913,9 +4985,9 @@
       "Clocktower",
       "Clock Tower (building",
       "Clock tower (building)",
+      "The clocktower",
       "Ardy clock",
       "Ardougne clocktower",
-      "The clocktower",
       "The Clocktower"
     ],
     "type": "building",
@@ -5046,6 +5118,20 @@
     }
   },
   {
+    "name": "College of Bards",
+    "aliases": [
+      "College of bards"
+    ],
+    "type": "island",
+    "members": true,
+    "region": "Varlamore",
+    "leagueRegion": "Varlamore",
+    "position": {
+      "x": 1296,
+      "y": 3213
+    }
+  },
+  {
     "name": "Colossal Wyrm Agility Course",
     "aliases": [
       "Varlamore agility",
@@ -5096,7 +5182,6 @@
       "Wyrm agility course",
       "Wyrm basic",
       "Wyrm basic course",
-      "Wyrm b",
       "Wyrm advanced",
       "Wyrn agility",
       "Wurm agility",
@@ -5111,7 +5196,9 @@
       "Colossal w",
       "Advanced wyrm",
       "Advanced wyrm course",
-      "Warm agility"
+      "Warm agility",
+      "Advanced course",
+      "Wyrms agility"
     ],
     "type": "Agility course",
     "members": true,
@@ -5125,8 +5212,6 @@
   {
     "name": "Colossal Wyrm Remains",
     "aliases": [
-      "Colossal wyrm",
-      "Colossal Wyrm",
       "Collosal wyrm",
       "Collosal wyrm remains",
       "Giant wyrm",
@@ -5207,11 +5292,13 @@
       "King lathas's camp",
       "King latha's camp",
       "Combat training area",
+      "Kings training ground",
       "Ardougne training camp",
       "Combat training cmap",
       "King Lathas' camp",
       "King Lathas's camp",
-      "King lanthas camp"
+      "King lanthas camp",
+      "Ardy combat training camp"
     ],
     "type": "",
     "members": true,
@@ -5323,6 +5410,9 @@
   {
     "name": "Corporeal Beast's Lair",
     "aliases": [
+      "Corporeal Beast Lair",
+      "Corporeal Beast Cave",
+      "Corp cave",
       "Corporal beast cave",
       "Corporeal Beast's lair"
     ],
@@ -5351,7 +5441,6 @@
       "Corsair Cave",
       "Ooglog",
       "Oo'glog",
-      "Pirate cove",
       "Cosair cove",
       "Corsair's cove",
       "Corsairs cove",
@@ -5565,6 +5654,7 @@
       "Crafting guil",
       "Craftng guild",
       "Crafting guikd",
+      "Crafting guils",
       "Crafting guilde",
       "Craftiong guild",
       "Cradting guild",
@@ -5579,8 +5669,7 @@
       "Bank crafting guild",
       "Crafting guilkd",
       "Crafting guld",
-      "Crafting bank",
-      "Crafting guils"
+      "Crafting bank"
     ],
     "type": "guild",
     "members": false,
@@ -5651,7 +5740,8 @@
       "Creandor",
       "Condor island",
       "Cradnor",
-      "Cranmor"
+      "Cranmor",
+      "Southern coast of crandor"
     ],
     "type": "island",
     "members": false,
@@ -5711,7 +5801,8 @@
       "Crahs island",
       "Osrs crash island",
       "Crash islamd",
-      "Crash island osrs"
+      "Crash island osrs",
+      "Crash isladn"
     ],
     "type": "island",
     "members": true,
@@ -5748,7 +5839,8 @@
       "Crash Site Dungeon",
       "Crash site dungeon",
       "Demonics cavern",
-      "Demonic gorilla cave"
+      "Demonic gorilla cave",
+      "Ruptured cavern"
     ],
     "type": "dungeon",
     "members": true,
@@ -5821,7 +5913,8 @@
       "Tonali",
       "Tonali Dungeon",
       "Tonali crypt",
-      "Crypt of tonali"
+      "Crypt of tonali",
+      "Crpyt of tonali"
     ],
     "type": "dungeon",
     "members": true,
@@ -5851,7 +5944,10 @@
   },
   {
     "name": "Cursed Archipelago",
-    "aliases": [],
+    "aliases": [
+      "The cursed archipelago",
+      "Archipelago"
+    ],
     "type": "Island",
     "members": true,
     "region": "Eastern Ocean",
@@ -5860,7 +5956,8 @@
   {
     "name": "Custodia Mountains",
     "aliases": [
-      "Custodia mountains"
+      "Custodia mountains",
+      "Custodi"
     ],
     "type": "",
     "members": true,
@@ -5914,7 +6011,8 @@
       "Daeyalt mines",
       "Darkmeyer ess mine",
       "Deayalt mine",
-      "Darkmeyer ess. mine"
+      "Darkmeyer ess. mine",
+      "Vyre mine"
     ],
     "type": "mine",
     "members": true,
@@ -5960,7 +6058,9 @@
       "Fort Daimon",
       "Towe of bounty",
       "Bounty hunter crater",
-      "Damon's crater"
+      "Damon's crater",
+      "Damions crater",
+      "Dalmons crater"
     ],
     "type": "settlement",
     "members": true,
@@ -5972,7 +6072,9 @@
   },
   {
     "name": "Dareeyak",
-    "aliases": [],
+    "aliases": [
+      "Daareyak"
+    ],
     "type": "",
     "members": false,
     "region": "Wilderness",
@@ -6072,7 +6174,8 @@
     "name": "Darkmeyer bank",
     "aliases": [
       "Vyerwatch bank",
-      "Vyrewatch bank"
+      "Vyrewatch bank",
+      "Darmeyer bank"
     ],
     "type": "",
     "members": true,
@@ -6153,6 +6256,15 @@
     }
   },
   {
+    "name": "Deadman Arenas",
+    "aliases": [
+      "Deadman finals area"
+    ],
+    "type": "",
+    "members": true,
+    "leagueRegion": "N/A"
+  },
+  {
     "name": "Deadman Isles",
     "aliases": [],
     "type": "island",
@@ -6174,7 +6286,7 @@
     "leagueRegion": "Asgarnia",
     "relativeLocation": {
       "north": "Trollheim",
-      "south": "Warrior's Guild",
+      "south": "Warriors' Guild",
       "east": "Burthorpe",
       "west": "Fremennik Slayer Dungeon"
     },
@@ -6194,8 +6306,6 @@
       "Deaths domain",
       "Death domain",
       "Death location",
-      "Death cost",
-      "Death costs",
       "Death's door",
       "Death reclaim",
       "Dead office",
@@ -6270,7 +6380,11 @@
       "Deepfin points",
       "Deadfin point",
       "Deep in point",
-      "Deep fin port"
+      "Deep fin port",
+      "Ddepfin point",
+      "Deep Point",
+      "Deepfin point osrs",
+      "Deepsea point"
     ],
     "type": "Island",
     "members": true,
@@ -6358,7 +6472,6 @@
     "name": "Desert Mining Camp",
     "aliases": [
       "Mining camp",
-      "This crate is mine",
       "Desert mining camp",
       "Dessert mining camp",
       "Desert mining",
@@ -6520,6 +6633,25 @@
     }
   },
   {
+    "name": "Dog Shelter",
+    "aliases": [
+      "Dog shelter"
+    ],
+    "type": "",
+    "members": true,
+    "region": "South of Edgeville Monastery",
+    "relativeLocation": {
+      "north": "Edgeville Monastery",
+      "south": "Falador",
+      "east": "Barbarian Village",
+      "west": "Dwarven Mine"
+    },
+    "position": {
+      "x": 3037,
+      "y": 3457
+    }
+  },
+  {
     "name": "Dognose Island",
     "aliases": [
       "Wowee Island",
@@ -6533,7 +6665,9 @@
       "Dognoose island",
       "Dog island",
       "Dognose isle",
-      "Dagnose island"
+      "Dagnose island",
+      "Dogtooth island",
+      "Dating site"
     ],
     "type": "island",
     "members": true,
@@ -6554,7 +6688,6 @@
     "name": "Dondakan's mine",
     "aliases": [
       "Arzinian Mine",
-      "Dondakan's rock",
       "Arzinian mine",
       "Dondakans rock",
       "Dondakans mine",
@@ -6738,7 +6871,9 @@
       "Dragon nest",
       "Dragons nest",
       "Dragon den",
-      "Dragon's nest"
+      "Dragon's nest",
+      "Varlamore dragons",
+      "Dragon cave"
     ],
     "type": "dungeon",
     "members": true,
@@ -6752,7 +6887,8 @@
   {
     "name": "Dragon's Maw",
     "aliases": [
-      "The Dragon's Maw"
+      "The Dragon's Maw",
+      "Dragons maw"
     ],
     "type": "sea",
     "members": true,
@@ -7556,7 +7692,6 @@
       "Ectofu",
       "Free slime",
       "Ecofuntus",
-      "Bone altar",
       "Extofuntus",
       "Ectophunctus",
       "Ectofuntis",
@@ -7581,7 +7716,6 @@
     "name": "Edgeville",
     "aliases": [
       "Edgy",
-      "Edgeville furnace",
       "Evil ledge",
       "Dkr",
       "Enville",
@@ -7616,30 +7750,9 @@
       "east": "Varrock",
       "west": "Ice Mountain"
     },
-    "polygon": {
-      "raw": "3064:3522,3135:3522,3135:3460,3064:3460",
-      "vertices": [
-        {
-          "x": 3064,
-          "y": 3522
-        },
-        {
-          "x": 3135,
-          "y": 3522
-        },
-        {
-          "x": 3135,
-          "y": 3460
-        },
-        {
-          "x": 3064,
-          "y": 3460
-        }
-      ],
-      "centroid": {
-        "x": 3100,
-        "y": 3491
-      }
+    "position": {
+      "x": 3080,
+      "y": 3492
     }
   },
   {
@@ -7744,19 +7857,72 @@
     }
   },
   {
-    "name": "Edgeville Mausoleum",
+    "name": "Edgeville furnace",
     "aliases": [
-      "Edgeville mausoleum",
-      "Edgeville ruins",
-      "Edgeville ruines"
+      "Edgeville furnance",
+      "Edge furnace"
     ],
-    "type": "building",
+    "type": "",
     "members": false,
     "region": "Edgeville",
     "leagueRegion": "Misthalin",
-    "position": {
-      "x": 3091,
-      "y": 3475
+    "polygon": {
+      "raw": "3105,3502,3111,3502,3111,3496,3105,3496",
+      "vertices": [
+        {
+          "x": 3105,
+          "y": 3502
+        },
+        {
+          "x": 3111,
+          "y": 3502
+        },
+        {
+          "x": 3111,
+          "y": 3496
+        },
+        {
+          "x": 3105,
+          "y": 3496
+        }
+      ],
+      "centroid": {
+        "x": 3108,
+        "y": 3499
+      }
+    }
+  },
+  {
+    "name": "Edgeville jail",
+    "aliases": [],
+    "type": "",
+    "members": false,
+    "region": "Edgeville",
+    "leagueRegion": "Misthalin",
+    "polygon": {
+      "raw": ",3107,3518,3107,3511,3112,3511,3112,3518",
+      "vertices": [
+        {
+          "x": 3107,
+          "y": 3518
+        },
+        {
+          "x": 3107,
+          "y": 3511
+        },
+        {
+          "x": 3112,
+          "y": 3511
+        },
+        {
+          "x": 3112,
+          "y": 3518
+        }
+      ],
+      "centroid": {
+        "x": 3110,
+        "y": 3515
+      }
     }
   },
   {
@@ -7784,6 +7950,23 @@
     "position": {
       "x": 3052,
       "y": 3490
+    }
+  },
+  {
+    "name": "Edgeville ruins",
+    "aliases": [
+      "Edgeville mansion",
+      "Edgeville mausoleum",
+      "Edgeville ruines",
+      "Edgeville Mausoleum"
+    ],
+    "type": "building",
+    "members": false,
+    "region": "Edgeville",
+    "leagueRegion": "Misthalin",
+    "position": {
+      "x": 3091,
+      "y": 3475
     }
   },
   {
@@ -7929,7 +8112,9 @@
       "Eterna",
       "Ntrana",
       "Zamorakian instruments of death",
-      "Entrana port"
+      "Entrana port",
+      "Items allowed on entrana",
+      "Entrana weapons"
     ],
     "type": "island",
     "members": true,
@@ -8015,12 +8200,6 @@
     "members": true,
     "region": "Entrana",
     "leagueRegion": "Asgarnia",
-    "relativeLocation": {
-      "north": "Catherby",
-      "south": "Crandor",
-      "east": "Falador",
-      "west": "Legends' Guild"
-    },
     "position": {
       "x": 2820,
       "y": 3374
@@ -8153,24 +8332,6 @@
     }
   },
   {
-    "name": "Evil temple",
-    "aliases": [
-      "Evil temple",
-      "Zamorakian Temple",
-      "Varrock temple",
-      "Varrok chaos alter",
-      "Varock chaos"
-    ],
-    "type": "building",
-    "members": false,
-    "region": "South of the Varrock Museum",
-    "leagueRegion": "Misthalin",
-    "position": {
-      "x": 3259,
-      "y": 3387
-    }
-  },
-  {
     "name": "Exam Centre",
     "aliases": [
       "Exam center",
@@ -8216,7 +8377,8 @@
       "The experiments cave",
       "Access via the experiments cave",
       "Here be odd stuff",
-      "Experiment entrance"
+      "Experiment entrance",
+      "Experiements cave"
     ],
     "type": "dungeon",
     "members": true,
@@ -8300,7 +8462,6 @@
       "Falador riot",
       "Falidor",
       "Faladar",
-      "Falador agility shortcut",
       "Faladoe",
       "Falador quests",
       "Falador bank",
@@ -8315,7 +8476,8 @@
       "Felador",
       "Faladr",
       "Falador quest",
-      "Falador osrs"
+      "Falador osrs",
+      "Falador fairy ring"
     ],
     "type": "settlement",
     "members": false,
@@ -8335,7 +8497,8 @@
   {
     "name": "Falador east bank",
     "aliases": [
-      "Falador East Bank"
+      "Falador East Bank",
+      "East Falador Bank"
     ],
     "type": "",
     "members": false,
@@ -8576,7 +8739,9 @@
       "Farmimg guild",
       "Farmng guild",
       "Garming guild",
-      "Farmming guild"
+      "Farmming guild",
+      "Farming gild",
+      "Farming guild mid tier"
     ],
     "type": "guild",
     "members": true,
@@ -8651,7 +8816,8 @@
       "Feldip hils",
       "Fedlip hills",
       "Fildip hills",
-      "Hills"
+      "Hills",
+      "Lemantolly"
     ],
     "type": "region",
     "members": false,
@@ -8664,8 +8830,8 @@
       "west": "Breakbone Strait"
     },
     "position": {
-      "x": 2560,
-      "y": 2944
+      "x": 2515,
+      "y": 2954
     }
   },
   {
@@ -8760,11 +8926,13 @@
       "Farox enclave",
       "Fox enclave",
       "Ferax enclave",
-      "Farrox enclav e"
+      "Farrox enclav e",
+      "Onclave",
+      "Iron enclave"
     ],
     "type": "settlement",
     "members": false,
-    "region": "Wilderness",
+    "region": "Wilderness (safezone)",
     "leagueRegion": "Wilderness",
     "position": {
       "x": 3137,
@@ -8891,7 +9059,8 @@
       "Fishing guilkd",
       "Teleport to fishing guild",
       "Fishing gulid",
-      "Fidhing guild"
+      "Fidhing guild",
+      "Foshing guild"
     ],
     "type": "guild",
     "members": true,
@@ -8951,7 +9120,8 @@
       "The fishing platform",
       "Fishing platfrom",
       "Fishin platform",
-      "Fishing guild platform"
+      "Fishing guild platform",
+      "Fishing plat"
     ],
     "type": "",
     "members": true,
@@ -9059,6 +9229,7 @@
       "Forth dungeon",
       "The Forthos Dungeon",
       "Spider dungeon",
+      "Altar of the sun",
       "Crypt of the moon",
       "Fothos dungeon",
       "Farthouse dungeon",
@@ -9088,7 +9259,6 @@
       "Orthos dungeon",
       "Forthos dungeion",
       "Forthos dungeon osrs",
-      "Altar of the sun",
       "Tempel of sun"
     ],
     "type": "dungeon",
@@ -9210,6 +9380,7 @@
       "Things to do on fossil island",
       "Anachronia",
       "The Land Out of Time",
+      "Small island north of fossil island",
       "Kudos island",
       "Fosil islan",
       "Fossel island",
@@ -9261,7 +9432,6 @@
       "Ossil island",
       "Fossial island",
       "Fossil sland",
-      "Small island north of fossil island",
       "Foddil island",
       "Island north of fossil island",
       "Small island north of fossil"
@@ -9434,30 +9604,29 @@
   {
     "name": "Fremennik Province",
     "aliases": [
-      "Frem Prov",
-      "Province",
-      "Fremennik province",
-      "Fremenik province",
-      "Fremennik area",
-      "Fremmenik province",
-      "Freminik province",
-      "Fremminik province",
       "Fremmy",
       "Fremmenik",
       "Fremenik",
       "Frem",
       "Freminik",
+      "Frem Prov",
       "Fremmennik",
       "Fremenick",
       "Fremnik",
       "Fremminik",
+      "Province",
+      "Fremennik province",
+      "Fremenik province",
       "Fremennick",
+      "Fremennik area",
       "Freminick",
       "Fremink",
       "Freminnik",
       "Fremmenick",
       "Fremnick",
       "Fremmink",
+      "Fremmenik province",
+      "Freminik province",
       "Fermennik",
       "Fremmnik",
       "Freme",
@@ -9466,6 +9635,7 @@
       "Fremminek",
       "Freminek",
       "Fremen",
+      "Fremminik province",
       "Fremenic",
       "Fremm",
       "Fremnnik",
@@ -9543,7 +9713,8 @@
       "Freminick slayer cave",
       "Slayer cave fairy ring",
       "Fremmy cave",
-      "Green prison"
+      "Green prison",
+      "Fremmenik Slayer Caves"
     ],
     "type": "dungeon",
     "members": true,
@@ -9618,7 +9789,7 @@
     "leagueRegion": "Wilderness",
     "relativeLocation": {
       "north": "Northern Ocean",
-      "south": "Chaos Temple (hut)",
+      "south": "Chaos Temple (church)",
       "east": "Wilderness Agility Course",
       "west": "Ghorrock"
     },
@@ -9809,7 +9980,9 @@
       "Gients den",
       "Den of giant",
       "The Giants' Den",
-      "Gigant den"
+      "Gigant den",
+      "Gioants den",
+      "Fire giants kourend"
     ],
     "type": "dungeon",
     "members": true,
@@ -9832,8 +10005,7 @@
       "Giant's plateau",
       "Giants plateu",
       "Giants plateua",
-      "Giants platue",
-      "Giant's Plateau"
+      "Giants platue"
     ],
     "type": "",
     "members": false,
@@ -9855,6 +10027,7 @@
     "aliases": [
       "Gielnor",
       "Gielenor",
+      "Mainland",
       "Geilinor",
       "🙂",
       "Gilenor",
@@ -9868,8 +10041,7 @@
       "Gilnor",
       "Gileanor",
       "Geilnor",
-      "Gilienor",
-      "Mainland"
+      "Gilienor"
     ],
     "type": "realm",
     "members": false,
@@ -9987,7 +10159,8 @@
     "aliases": [
       "Goblin cave",
       "Plain of mud",
-      "The plain of mud"
+      "The plain of mud",
+      "Plain of Mud"
     ],
     "type": "dungeon",
     "members": true,
@@ -10288,7 +10461,6 @@
       "Gwd guide",
       "Gwds",
       "Gwd map",
-      "Gws",
       "Armadyl god items",
       "Ancient god items",
       "God wars dungen",
@@ -10402,7 +10574,11 @@
       "Zarmorak items",
       "Zamorac items",
       "Zamy items",
-      "Zammy itmes"
+      "Zammy itmes",
+      "Krills chamber",
+      "Bandos affiliated items",
+      "Sara gear",
+      "God wars armour"
     ],
     "type": "",
     "members": true,
@@ -10496,7 +10672,6 @@
       "Taxed",
       "Taxing",
       "Taxation",
-      "Society",
       "Ge tax",
       "G.e",
       "Teleport grand exchange",
@@ -10567,10 +10742,9 @@
       "The Grand Library of Prifddinas",
       "Priff library",
       "Prifddinas library",
-      "Arceuus library book",
+      "Great library",
       "Prifddinas grand library",
       "Prif library",
-      "Great library",
       "Library of prifddinas"
     ],
     "type": "building",
@@ -10603,6 +10777,7 @@
     "aliases": [
       "Grand tree",
       "Ta Quir Priw",
+      "Tree Door",
       "Great tree",
       "Grand treee",
       "Giant tree",
@@ -10623,7 +10798,6 @@
       "Gand tree",
       "Quir priw",
       "Mighty tree",
-      "Tree Door",
       "Mightiest tree",
       "Mightiest of trees",
       "Use a herring on a mighty tree",
@@ -10742,18 +10916,13 @@
     "name": "Graveyard of Shadows",
     "aliases": [
       "Graveyard of shadows",
-      "Carrallangar",
-      "Carrallanger",
-      "Carralanger",
-      "Carralangar",
       "I lie lonely",
       "Wilderness graveyard",
       "Graveyard of shadow",
       "Grave yard of shadows",
       "Lonely",
       "Wilderness graveyard of shadows",
-      "Grave of shadows",
-      "Caralanger"
+      "Grave of shadows"
     ],
     "type": "",
     "members": false,
@@ -10788,7 +10957,6 @@
       "Kourend",
       "House favor",
       "House favour",
-      "Zeah favour",
       "Korend",
       "Great kourend",
       "Kurend",
@@ -10796,7 +10964,6 @@
       "Kingdom of Great Kourend",
       "Korind",
       "Kourand",
-      "Zeah favor",
       "Kourend house",
       "How to travel to kourend",
       "The great kourend",
@@ -10878,6 +11045,10 @@
       "south": "Varlamore",
       "east": "Lunar Isle",
       "west": "Kebos Lowlands"
+    },
+    "position": {
+      "x": 1630,
+      "y": 3730
     }
   },
   {
@@ -10931,7 +11102,11 @@
       "Grim island",
       "Grimstone isle",
       "Grimsail Island",
-      "Brimstone isle"
+      "Brimstone isle",
+      "Grim stone",
+      "Frost dragon fairy ring",
+      "Grimmstone",
+      "Crimstone"
     ],
     "type": "Island",
     "members": true,
@@ -10959,7 +11134,6 @@
   {
     "name": "Groats' farm",
     "aliases": [
-      "Groats' farm",
       "Watermill",
       "Water mill",
       "Lumbridge watermill",
@@ -11098,7 +11272,8 @@
       "Gwinith",
       "Gwyneth",
       "Gwnith",
-      "Gwineth"
+      "Gwineth",
+      "Gwenyth"
     ],
     "type": "settlement",
     "members": true,
@@ -11283,7 +11458,6 @@
     "name": "Handelmort Mansion",
     "aliases": [
       "Handlemort mansion",
-      "Mansion",
       "Handelmort Garden",
       "Handelmort mansion",
       "Hadelmort",
@@ -11372,7 +11546,6 @@
       "Tai bwo wannai hardwood",
       "Tai bwo wannai hardwood grove",
       "Hard wood grove",
-      "Redwood grove",
       "Tai Bwo Wannai grove",
       "Tai Bwo Wannai hardwood",
       "Tai bwo wannai grove",
@@ -11612,7 +11785,9 @@
   },
   {
     "name": "Here be minotaurs",
-    "aliases": [],
+    "aliases": [
+      "Here Be Minotaurs"
+    ],
     "type": "Dungeon",
     "members": true,
     "region": "Minotaurs' Rest",
@@ -11767,19 +11942,15 @@
   {
     "name": "Hosidius",
     "aliases": [
-      "Hosidius house",
       "Hosid",
       "Hosidious",
       "Hosidus",
       "Xeric's Glade",
-      "Hosidius House",
       "Houseidius",
-      "Hosidious house",
       "Hosiduis",
       "Hos",
       "How to get to hosidius",
       "Logava's shop",
-      "Monk's house",
       "Xerics glade",
       "Hosidous",
       "Xeric glade",
@@ -11833,8 +12004,7 @@
       "Hosiduys",
       "Hosidiua",
       "Hoisidious",
-      "Hocidius",
-      "Hostilius"
+      "Hocidius"
     ],
     "type": "settlement",
     "members": true,
@@ -12085,11 +12255,7 @@
       "Hunt guild",
       "Hunting Guild",
       "Hunters' Guild",
-      "Guild hunter",
-      "Hunter meat",
-      "Hunter meats",
       "Hunter guid",
-      "Hunter food",
       "Hunter guiild",
       "Hunter quild",
       "The roost",
@@ -12105,15 +12271,9 @@
       "Hunters g",
       "Huter guild",
       "Hutner guild",
-      "Hunting meat",
-      "Hunter meatt",
-      "Cooked kebbit",
-      "Hunters meat",
-      "Varlamore food",
       "Hunter guidl",
       "Hunter guild teleport",
       "Hunter guild osrs",
-      "Hunter foods",
       "Huner guild",
       "Osrs hunter guild",
       "Valamore hunting",
@@ -12122,7 +12282,9 @@
       "Hunter's Guild",
       "Hunteres guild",
       "Hunters guilde",
-      "Gild hunter"
+      "Gild hunter",
+      "Hunters guild osrs",
+      "Osrs hunting guild"
     ],
     "type": "guild",
     "members": true,
@@ -12423,7 +12585,6 @@
       "Priffdinas slayer",
       "Priffddinas slayer",
       "Irowerth dungeon",
-      "Iorwerth camp cave",
       "Ioworth dungeon",
       "Elf slayer dungeon",
       "Iorwerth cave",
@@ -12434,7 +12595,8 @@
       "Iorwert dungeon",
       "Iowert dungeon",
       "Prifddinas cave",
-      "Ierwerth dungeon"
+      "Ierwerth dungeon",
+      "Tirannwn dungeon"
     ],
     "type": "dungeon",
     "members": true,
@@ -12678,7 +12840,8 @@
       "Isel of souls",
       "Isle of souls\\",
       "Isle opf souls",
-      "Isle of the soul"
+      "Isle of the soul",
+      "Isle of souls osrs"
     ],
     "type": "island",
     "members": true,
@@ -12706,7 +12869,8 @@
       "Isle of souls fire giant",
       "Isle of souls blue dragon",
       "Metal dragons isle of souls",
-      "Metal dragon isle of souls"
+      "Metal dragon isle of souls",
+      "Isle of souls metal dragons"
     ],
     "type": "dungeon",
     "members": true,
@@ -12743,7 +12907,8 @@
       "Pyramid of sophanem",
       "Jalsavrah pyramid",
       "Jalsavrah tombs",
-      "Jalsavrah tomb"
+      "Jalsavrah tomb",
+      "Pyramid of soph"
     ],
     "type": "building",
     "members": true,
@@ -12792,7 +12957,8 @@
       "Jahtizo",
       "Jatitzo",
       "Jazito",
-      "Yatiso"
+      "Yatiso",
+      "Jatizso port"
     ],
     "type": "settlement",
     "members": true,
@@ -12899,7 +13065,6 @@
       "Jigjig",
       "Jigig",
       "Jigging",
-      "Zogre cave",
       "Jig jig",
       "Jigg",
       "Zorge cave",
@@ -12927,7 +13092,8 @@
     "name": "Jiggig Dungeon",
     "aliases": [
       "Zogre cave",
-      "Zogre caves"
+      "Zogre caves",
+      "Zogre Caves"
     ],
     "type": "dungeon",
     "members": true,
@@ -12938,7 +13104,6 @@
     "name": "Jormungand's Prison",
     "aliases": [
       "Jormungand's prison",
-      "Prison",
       "Jormungands prison",
       "Jorgamunds prison",
       "Jorgumand's prison",
@@ -12976,7 +13141,6 @@
       "Task only kalphite cave",
       "Task only kalphite",
       "Kalphite task only",
-      "Kalphite slayer",
       "Kalphite slayer cave",
       "Kalpthite cave",
       "Khalphite cave",
@@ -13133,7 +13297,7 @@
     "relativeLocation": {
       "north": "Fremennik Province",
       "south": "Feldip Hills",
-      "east": "Kingdom of Asgarnia",
+      "east": "Asgarnia",
       "west": "Tirannwn"
     }
   },
@@ -13185,6 +13349,7 @@
       "Karamja Island",
       "Karamja Isle",
       "The Jungle",
+      "Bwana",
       "Karmaja",
       "Karajama",
       "Karamja teleport",
@@ -13233,7 +13398,6 @@
       "Karamja osrs",
       "Karamja\\",
       "Kuramja",
-      "Bwana",
       "Osrs how to get to kuramja",
       "Amja"
     ],
@@ -13334,7 +13498,6 @@
   {
     "name": "Karamjan Temple",
     "aliases": [
-      "Ancient Temple",
       "Karamjan temple"
     ],
     "type": "dungeon",
@@ -13404,7 +13567,9 @@
       "Castori",
       "Katori",
       "Kastor",
-      "Kastoria"
+      "Kastoria",
+      "Kastroi",
+      "Cornhub"
     ],
     "type": "settlement",
     "members": true,
@@ -14025,7 +14190,8 @@
       "Kharzai jungle",
       "Korazi",
       "Krazi jungle",
-      "K jungle"
+      "K jungle",
+      "The kharazi jungle"
     ],
     "type": "",
     "members": true,
@@ -14063,7 +14229,6 @@
   {
     "name": "Kharid-et",
     "aliases": [
-      "Kharid-et",
       "Kharid-Et"
     ],
     "type": "",
@@ -14202,15 +14367,15 @@
       "north": "Wilderness",
       "south": "Kharidian Desert",
       "east": "Morytania",
-      "west": "Kingdom of Asgarnia"
+      "west": "Asgarnia"
     }
   },
   {
     "name": "Kingstown",
     "aliases": [
+      "Kings Town",
       "Kingston",
-      "Kingstown teleport",
-      "Kings Town"
+      "Kingstown teleport"
     ],
     "type": "settlement",
     "members": true,
@@ -14244,7 +14409,6 @@
     "aliases": [
       "Castle of Great Kourend",
       "Xeric's Heart",
-      "Kings Town",
       "King's Town",
       "Xerics heart",
       "Dig in the center of a great kingdom of 5 cities",
@@ -14356,7 +14520,8 @@
       "Kurks dungeon",
       "Monkey maddness 2 caves",
       "Kurk's dungeon",
-      "MM2 chinning area"
+      "MM2 chinning area",
+      "Monkey caves"
     ],
     "type": "dungeon",
     "members": true,
@@ -14372,7 +14537,8 @@
     "aliases": [
       "Kualti headquarters",
       "Kualti headquaters",
-      "Kualti head"
+      "Kualti head",
+      "Varlamore dummy"
     ],
     "type": "settlement",
     "members": true,
@@ -14386,6 +14552,7 @@
   {
     "name": "Kualti Headquarters Barracks",
     "aliases": [
+      "Barrack",
       "Varlamore underground",
       "Civitas secret passage",
       "Secret passage civitas",
@@ -14396,7 +14563,9 @@
       "Secret exit",
       "Civitas secret",
       "Civitas secret exit",
-      "Exit civitas via secret passage"
+      "Exit civitas via secret passage",
+      "Barrac",
+      "Barracks"
     ],
     "type": "",
     "members": true,
@@ -14468,7 +14637,9 @@
       "Laguna auroa",
       "Laguna auroae",
       "Lagun",
-      "Lagun aurora"
+      "Lagun aurora",
+      "Laguna aur",
+      "On laguna aurorae"
     ],
     "type": "Island",
     "members": true,
@@ -14633,7 +14804,8 @@
       "Wilderness lava maze",
       "Lava mze",
       "Lava maxe",
-      "Lava mazw"
+      "Lava mazw",
+      "Lava maze osrs"
     ],
     "type": "",
     "members": false,
@@ -14818,7 +14990,6 @@
       "Legends guild mine",
       "East Ardougne mine",
       "Northeast Ardougne mine",
-      "Ardougne mine",
       "Legends' guild mine"
     ],
     "type": "mine",
@@ -14828,6 +14999,19 @@
     "position": {
       "x": 2702,
       "y": 3333
+    }
+  },
+  {
+    "name": "Leptoc mansion",
+    "aliases": [
+      "Leptoc Mansion"
+    ],
+    "type": "building",
+    "members": false,
+    "region": "South of the Grand Exchange",
+    "position": {
+      "x": 3157,
+      "y": 3435
     }
   },
   {
@@ -15099,7 +15283,6 @@
     "name": "Lizardman Temple",
     "aliases": [
       "Lizardmen temple",
-      "Strange hole",
       "Lizardman temple",
       "Shaman temple",
       "Lizard temple",
@@ -15197,6 +15380,20 @@
     "position": {
       "x": 2352,
       "y": 3162
+    }
+  },
+  {
+    "name": "Lletya shrine",
+    "aliases": [
+      "Lleyta shrine"
+    ],
+    "type": "",
+    "members": true,
+    "region": "Eastern Lletya",
+    "leagueRegion": "Tirannwn",
+    "position": {
+      "x": 2338,
+      "y": 3171
     }
   },
   {
@@ -15314,6 +15511,20 @@
     }
   },
   {
+    "name": "Lovakengj church",
+    "aliases": [
+      "Lovakengj shrine"
+    ],
+    "type": "",
+    "members": true,
+    "region": "North-eastern Loveakengj",
+    "leagueRegion": "Kourend",
+    "position": {
+      "x": 1544,
+      "y": 3809
+    }
+  },
+  {
     "name": "Lovakengj mine",
     "aliases": [
       "Lovakengj Mine",
@@ -15393,7 +15604,7 @@
     "relativeLocation": {
       "north": "Ghorrock",
       "south": "God Wars Dungeon",
-      "east": "Chaos Temple (hut)",
+      "east": "Chaos Temple (church)",
       "west": "Ice Path"
     },
     "position": {
@@ -15408,7 +15619,8 @@
       "Lum lagon",
       "Lum lagoon\\",
       "Lumb lagoon",
-      "Lm lagoon"
+      "Lm lagoon",
+      "Lum laggon"
     ],
     "type": "sea",
     "members": true,
@@ -15515,7 +15727,6 @@
       "Lumbridge npc",
       "Lumbrigde",
       "Lumbridge furnace",
-      "Bridgelum",
       "Limbridge",
       "Lumbdrige",
       "Lumbridg",
@@ -15550,7 +15761,8 @@
       "The Firth of Lum",
       "Firth of Lum",
       "Lum basin",
-      "Lumb basin"
+      "Lumb basin",
+      "Basin"
     ],
     "type": "sea",
     "members": true,
@@ -15793,7 +16005,8 @@
     "aliases": [
       "Lumbridge cow pen",
       "Cow field",
-      "Wisconsin"
+      "Wisconsin",
+      "Brutus field"
     ],
     "type": "",
     "members": false,
@@ -16185,7 +16398,8 @@
       "Swamp caves",
       "Lumbridge catacombs",
       "Lumbrige swamp cave",
-      "Lumbride swamp caves"
+      "Lumbride swamp caves",
+      "Gas"
     ],
     "type": "dungeon",
     "members": true,
@@ -16255,7 +16469,8 @@
       "Luna island",
       "Isla lunar",
       "Lunar isle\\",
-      "Lunar village"
+      "Lunar village",
+      "Lunar islae"
     ],
     "type": "",
     "members": true,
@@ -16377,7 +16592,8 @@
       "Wilderness bank",
       "Mage bank arena",
       "Wilderness mage bank",
-      "Mage ban"
+      "Mage ban",
+      "Mage arena bank"
     ],
     "type": "",
     "members": true,
@@ -16386,6 +16602,17 @@
     "position": {
       "x": 3090,
       "y": 3956
+    }
+  },
+  {
+    "name": "Maggot King's lair",
+    "aliases": [],
+    "type": "",
+    "members": true,
+    "region": "Vampyrium",
+    "position": {
+      "x": 2911,
+      "y": 8036
     }
   },
   {
@@ -16436,8 +16663,9 @@
       "Moritania mausoleum",
       "Fenkenstrain's Mausoleum",
       "Mousaleum",
-      "Mausoleum bridge repair",
-      "Maosoleum"
+      "Maosoleum",
+      "Masuleum",
+      "Moseleum"
     ],
     "type": "building",
     "members": true,
@@ -16506,7 +16734,8 @@
       "East of burgh de rott",
       "Meiyrditch",
       "Meiyer",
-      "Meryditch"
+      "Meryditch",
+      "Meiryditch"
     ],
     "type": "",
     "members": true,
@@ -16552,7 +16781,8 @@
       "Myerditch laboratory",
       "Mierditch lab",
       "Labatory",
-      "Meierditch lab"
+      "Meierditch lab",
+      "Meiyerditch Laboratorie"
     ],
     "type": "dungeon",
     "members": true,
@@ -16578,7 +16808,8 @@
       "Melzar's maze",
       "Melzar maze",
       "Melzars",
-      "Crandorian refugee camp"
+      "Crandorian refugee camp",
+      "Keeper of melzars"
     ],
     "type": "building",
     "members": false,
@@ -16655,7 +16886,6 @@
       "Hosidius mess",
       "Hosidius mess hall",
       "Servery",
-      "Foodhall",
       "Food hall",
       "Mass hall",
       "Mes",
@@ -16670,7 +16900,8 @@
       "Hosidious mess",
       "Kourend cooking",
       "Severy pizza",
-      "Cooking mini game"
+      "Cooking mini game",
+      "Zeah mess"
     ],
     "type": "building",
     "members": true,
@@ -16755,7 +16986,7 @@
     "region": "Lumbridge",
     "leagueRegion": "Misthalin",
     "polygon": {
-      "raw": "3166,3311,3163,3308,3163,3306,3166,3303,3168,3303,3171,3306,3171,3308,3168,3311",
+      "raw": "3166:3311,3163:3308,3163:3306,3166:3303,3168:3303,3171:3306,3171:3308,3168:3311,3155:3308,3157:3308,3158:3307,3159:3307,3160:3306,3160:3305,3162:3303,3162:3302,3165:3299,3165:3297,3164:3296,3164:3293,3165:3292,3165:3291,3164:3290,3162:3290,3157:3295,3155:3295,3153:3297,3153:3306,",
       "vertices": [
         {
           "x": 3166,
@@ -16788,11 +17019,91 @@
         {
           "x": 3168,
           "y": 3311
+        },
+        {
+          "x": 3155,
+          "y": 3308
+        },
+        {
+          "x": 3157,
+          "y": 3308
+        },
+        {
+          "x": 3158,
+          "y": 3307
+        },
+        {
+          "x": 3159,
+          "y": 3307
+        },
+        {
+          "x": 3160,
+          "y": 3306
+        },
+        {
+          "x": 3160,
+          "y": 3305
+        },
+        {
+          "x": 3162,
+          "y": 3303
+        },
+        {
+          "x": 3162,
+          "y": 3302
+        },
+        {
+          "x": 3165,
+          "y": 3299
+        },
+        {
+          "x": 3165,
+          "y": 3297
+        },
+        {
+          "x": 3164,
+          "y": 3296
+        },
+        {
+          "x": 3164,
+          "y": 3293
+        },
+        {
+          "x": 3165,
+          "y": 3292
+        },
+        {
+          "x": 3165,
+          "y": 3291
+        },
+        {
+          "x": 3164,
+          "y": 3290
+        },
+        {
+          "x": 3162,
+          "y": 3290
+        },
+        {
+          "x": 3157,
+          "y": 3295
+        },
+        {
+          "x": 3155,
+          "y": 3295
+        },
+        {
+          "x": 3153,
+          "y": 3297
+        },
+        {
+          "x": 3153,
+          "y": 3306
         }
       ],
       "centroid": {
-        "x": 3167,
-        "y": 3307
+        "x": 3162,
+        "y": 3302
       }
     }
   },
@@ -16844,7 +17155,10 @@
       "Mining guikld",
       "Mingin guild",
       "Mininig guild",
-      "Amythyst mine"
+      "Amythyst mine",
+      "Miining guild",
+      "Mining guilg",
+      "Minetcgya guild"
     ],
     "type": "guild",
     "members": false,
@@ -16890,7 +17204,6 @@
       "Miscallania",
       "Kingdom of miscellania",
       "Kingdom of misc",
-      "Miscellaneous",
       "Miscellanian",
       "Micellania",
       "Kingdom of mis",
@@ -16982,12 +17295,13 @@
     }
   },
   {
-    "name": "Miscellania and Etceteria Dungeon mine",
+    "name": "Miscellania and Etceteria dungeon mine",
     "aliases": [
       "Miscellania Dungeon Mine",
       "Miscellania and Etceteria Dungeon Mine",
       "Miscellania & Etceteria Dungeon Mine",
-      "Miscellania and etceteria dungeon mine"
+      "Miscellania and etceteria dungeon mine",
+      "Miscellania and Etceteria Dungeon mine"
     ],
     "type": "mine",
     "members": true,
@@ -17098,7 +17412,8 @@
   {
     "name": "Mistrock mine",
     "aliases": [
-      "Aldarin mine"
+      "Aldarin mine",
+      "Aldrin mine"
     ],
     "type": "mine",
     "members": true,
@@ -17133,7 +17448,9 @@
       "Mogre cam",
       "Moger camp",
       "Mogre cmap",
-      "Morg camp"
+      "Morg camp",
+      "Mogre camp near port khazard",
+      "In the morge camp"
     ],
     "type": "dungeon",
     "members": true,
@@ -17189,6 +17506,22 @@
     "position": {
       "x": 1760,
       "y": 5191
+    }
+  },
+  {
+    "name": "Monk camp",
+    "aliases": [
+      "Monk's house",
+      "Monk's residence",
+      "Monk's camp"
+    ],
+    "type": "",
+    "members": true,
+    "region": "Hosidius",
+    "leagueRegion": "Kourend",
+    "position": {
+      "x": 1746,
+      "y": 3494
     }
   },
   {
@@ -17294,7 +17627,9 @@
       "Thzaar fairy ring",
       "Mor ul ek",
       "Tzhar shop",
-      "Tzhaar safespot"
+      "Tzhaar safespot",
+      "Mol u rek",
+      "Tzaar shop"
     ],
     "type": "",
     "members": true,
@@ -17351,7 +17686,8 @@
       "Morte myre",
       "Mortmyre",
       "Mort myr",
-      "Mort myre"
+      "Mort myre",
+      "Morty myre swamp"
     ],
     "type": "",
     "members": true,
@@ -17416,11 +17752,11 @@
       "Moytania",
       "Moritaniya",
       "Morytiana",
-      "Morty",
       "Moryta",
       "Morytonia",
       "How to get to morytania",
-      "Dark lands"
+      "Dark lands",
+      "Moryania"
     ],
     "type": "region",
     "members": true,
@@ -17648,7 +17984,6 @@
       "Motherhood mine",
       "Motherlode mining",
       "Motherload mining",
-      "Mining minigame",
       "Motherloade",
       "Upper level",
       "Motherlo",
@@ -17738,7 +18073,14 @@
       "Mitherlode mine",
       "Mlm upper",
       "Mining motherload",
-      "Moherlode mine"
+      "Moherlode mine",
+      "The motherlode",
+      "Upper floor",
+      "Motherrload mine",
+      "Motherlode mine strategy",
+      "Motherlode mine strategies",
+      "Motherlode mine guide",
+      "Motherlode mine gear"
     ],
     "type": "dungeon",
     "members": true,
@@ -18175,7 +18517,8 @@
       "Muspa point",
       "Muspah point",
       "Medusa point",
-      "Musa port"
+      "Musa port",
+      "Masa point"
     ],
     "type": "",
     "members": false,
@@ -18224,7 +18567,6 @@
       "Camp fossil island",
       "Rebuilding fossil island",
       "Build fire",
-      "Build bank chest",
       "Build hole",
       "Build old fire pit",
       "Repair fossil island",
@@ -18390,7 +18732,8 @@
       "Myths guild basement",
       "Myth guild basement",
       "Myth guil",
-      "Library of knowledge"
+      "Library of knowledge",
+      "Mtyhs guild"
     ],
     "type": "guild",
     "members": true,
@@ -18451,7 +18794,8 @@
       "Nardh",
       "Osrs nardah",
       "Naradh",
-      "Zardah"
+      "Zardah",
+      "Nardah\\"
     ],
     "type": "settlement",
     "members": true,
@@ -18555,7 +18899,8 @@
       "Necroplis",
       "Acropolis",
       "Nekropolis",
-      "Necrop"
+      "Necrop",
+      "Necr"
     ],
     "type": "",
     "members": true,
@@ -18714,7 +19059,8 @@
       "Neypotzl",
       "Netpotzli",
       "Moons of peril map",
-      "Nezpotli"
+      "Nezpotli",
+      "Nepotism"
     ],
     "type": "",
     "members": true,
@@ -18839,7 +19185,9 @@
       "Northen ocean",
       "Noerthern ocean",
       "Ice sea",
-      "Icy ocean"
+      "Icy ocean",
+      "Frozen ocean",
+      "Fremennik sea"
     ],
     "type": "ocean",
     "members": true,
@@ -18878,7 +19226,8 @@
       "Observ",
       "Observetory",
       "Observatory\\",
-      "Obeservatory"
+      "Obeservatory",
+      "📡"
     ],
     "type": "building",
     "members": true,
@@ -18998,7 +19347,9 @@
       "Ortis Farm",
       "Varlamore patch",
       "Orthus farm",
-      "Varlamore farm"
+      "Varlamore farm",
+      "Otus farm",
+      "North of ortus farm"
     ],
     "type": "",
     "members": true,
@@ -19309,8 +19660,8 @@
       "Pirate's Cove",
       "Pirates cove",
       "Pirates' Outpost",
-      "Pirates' cove",
-      "Pirate cove"
+      "Pirate cove",
+      "Pirates' cove"
     ],
     "type": "island",
     "members": true,
@@ -19383,7 +19734,8 @@
       "Piscator",
       "Piscatori",
       "Priscatoris",
-      "Psicatoris"
+      "Psicatoris",
+      "Piscotoris"
     ],
     "type": "region",
     "members": true,
@@ -19426,7 +19778,8 @@
       "Falconry area",
       "Falconer area",
       "Falconer's area",
-      "Eagle hunting"
+      "Eagle hunting",
+      "Hunt with a falcon"
     ],
     "type": "",
     "members": true,
@@ -19561,11 +19914,9 @@
     "name": "Poison Waste Dungeon",
     "aliases": [
       "Poison Waste Slayer Dungeon",
-      "Warped creatures",
-      "Warped creature",
-      "Warped Creature",
       "Waste dungeon",
-      "Warped dungeon"
+      "Warped dungeon",
+      "Posion waste dungeon"
     ],
     "type": "dungeon",
     "members": true,
@@ -19710,7 +20061,6 @@
       "Port phantasm",
       "Port phasmatys",
       "Port phasmatis",
-      "Port phasmatys brewery",
       "Phasmatys furnace",
       "Port phasmaty",
       "Port phasm",
@@ -19721,7 +20071,8 @@
       "Port Phasmatys furnace",
       "Port Phatassmys",
       "Port fatassmiss",
-      "Port pharmacy’s"
+      "Port pharmacy’s",
+      "Port phasthymas"
     ],
     "type": "settlement",
     "members": true,
@@ -19758,7 +20109,6 @@
       "Piscarillius house",
       "Booty",
       "Piscarillius crane",
-      "Piscarilius crane",
       "Steal booty",
       "Residential district",
       "Port pisc",
@@ -19799,7 +20149,8 @@
       "Piscarilius dock",
       "Priscarilius",
       "Fixing crane",
-      "Port piscarilis"
+      "Port piscarilis",
+      "Anglerfish fishing spot"
     ],
     "type": "settlement",
     "members": true,
@@ -19858,7 +20209,21 @@
       "Port roborts",
       "Osrs port roberts",
       "Port roberts osrs",
-      "Robers port"
+      "Robers port",
+      "Port roberts theiving",
+      "Prot roberts",
+      "Port robbers",
+      "Port roberrs",
+      "Pot roberts",
+      "Port roberts stall",
+      "Port robert stall",
+      "Thieving port roberts",
+      "Ports roberts",
+      "Port rober",
+      "Port robersts",
+      "Port robet",
+      "Port robert thieving",
+      "Roborts port"
     ],
     "type": "",
     "members": true,
@@ -19885,7 +20250,6 @@
     "name": "Port Sarim",
     "aliases": [
       "Port sarim",
-      "Port Sarim Church",
       "Sarim",
       "Port sarim teleport",
       "Port sarium",
@@ -19932,7 +20296,6 @@
   {
     "name": "Port Sarim jail",
     "aliases": [
-      "Jail",
       "Port sarim jail",
       "Piracy",
       "Sarim jail",
@@ -20135,7 +20498,8 @@
       "Prifidnas",
       "Port priff",
       "Priffdinas port",
-      "Priffinas history"
+      "Priffinas history",
+      "Priff port"
     ],
     "type": "settlement",
     "members": true,
@@ -20359,6 +20723,50 @@
     }
   },
   {
+    "name": "Quarry",
+    "aliases": [
+      "Bandit Camp Quary",
+      "Western desert mining site",
+      "Desert quarry",
+      "Enakhra's Quarry",
+      "Desert Quarry",
+      "Granite mining",
+      "Sandstone mine",
+      "Bandit camp quarry",
+      "Granite mine",
+      "Sand mine",
+      "Sand quarry",
+      "Quarry mine",
+      "Quary",
+      "Sandstone quarry",
+      "Sandmine",
+      "Desert Quarry mine",
+      "Desert quarry mine",
+      "Desert mine",
+      "Granite quarry",
+      "Mine sand",
+      "Dessert quarry",
+      "Sand stone mine",
+      "Desert quary",
+      "Bandit quarry",
+      "Bandit Camp Quarry"
+    ],
+    "type": "mine",
+    "members": true,
+    "region": "South of the Kharidian Bandit Camp",
+    "leagueRegion": "Desert",
+    "relativeLocation": {
+      "north": "Bandit Camp (Kharidian Desert)",
+      "south": "Ruins of Unkah",
+      "east": "Ancient Pyramid",
+      "west": "Ardent Ocean"
+    },
+    "position": {
+      "x": 3172,
+      "y": 2912
+    }
+  },
+  {
     "name": "Quetzacalli Gorge",
     "aliases": [
       "Quetzacalli",
@@ -20464,7 +20872,8 @@
   {
     "name": "Rainbow Reef",
     "aliases": [
-      "Raindbow reef"
+      "Raindbow reef",
+      "Raibow reef"
     ],
     "type": "sea",
     "members": true,
@@ -20501,7 +20910,8 @@
       "Ralo's rise",
       "Relos rise",
       "Outflow spring",
-      "Outflow"
+      "Outflow",
+      "Ralos's rise"
     ],
     "type": "",
     "members": true,
@@ -20707,7 +21117,6 @@
     ],
     "type": "realm",
     "members": true,
-    "region": "Realm of the Fisher King",
     "leagueRegion": "Karamja&Kandarin",
     "position": {
       "x": 2656,
@@ -20748,7 +21157,14 @@
       "Red ref",
       "Red reeef",
       "Red reed",
-      "Reed reef"
+      "Reed reef",
+      "Red reef osrs",
+      "Red reaf",
+      "Redreef",
+      "Red reff",
+      "Reef quest",
+      "Osrs red reef",
+      "Red eef"
     ],
     "type": "sea",
     "members": true,
@@ -20768,7 +21184,10 @@
       "Red rock",
       "Red rock island",
       "Redrock",
-      "The Red Rock"
+      "The Red Rock",
+      "Red dock",
+      "Red rock teleport",
+      "Red rock osrs"
     ],
     "type": "Island",
     "members": true,
@@ -21140,6 +21559,210 @@
     }
   },
   {
+    "name": "Ritual Site",
+    "aliases": [],
+    "type": "",
+    "members": true,
+    "region": "The Stranglewood",
+    "polygon": {
+      "raw": "1123,3426,1124,3426,1125,3427,1127,3427,1128,3426,1131,3426,1132,3427,1133,3427,1135,3426,1136,3427,1137,3426,1138,3425,1137,3424,1138,3423,1138,3420,1137,3419,1137,3416,1138,3415,1138,3412,1137,3411,1137,3410,1133,3410,1133,3411,1130,3411,1129,3410,1128,3410,1127,3411,1124,3411,1123,3410,1122,3411,1121,3411,1121,3412,1122,3413,1122,3419,1121,3421,1122,3423,1122,3425,1121,3426,1119,3428,1118,3428,1117,3429,1115,3431,1115,3432,1116,3434,1118,3432,1119,3431,1121,3429",
+      "vertices": [
+        {
+          "x": 1123,
+          "y": 3426
+        },
+        {
+          "x": 1124,
+          "y": 3426
+        },
+        {
+          "x": 1125,
+          "y": 3427
+        },
+        {
+          "x": 1127,
+          "y": 3427
+        },
+        {
+          "x": 1128,
+          "y": 3426
+        },
+        {
+          "x": 1131,
+          "y": 3426
+        },
+        {
+          "x": 1132,
+          "y": 3427
+        },
+        {
+          "x": 1133,
+          "y": 3427
+        },
+        {
+          "x": 1135,
+          "y": 3426
+        },
+        {
+          "x": 1136,
+          "y": 3427
+        },
+        {
+          "x": 1137,
+          "y": 3426
+        },
+        {
+          "x": 1138,
+          "y": 3425
+        },
+        {
+          "x": 1137,
+          "y": 3424
+        },
+        {
+          "x": 1138,
+          "y": 3423
+        },
+        {
+          "x": 1138,
+          "y": 3420
+        },
+        {
+          "x": 1137,
+          "y": 3419
+        },
+        {
+          "x": 1137,
+          "y": 3416
+        },
+        {
+          "x": 1138,
+          "y": 3415
+        },
+        {
+          "x": 1138,
+          "y": 3412
+        },
+        {
+          "x": 1137,
+          "y": 3411
+        },
+        {
+          "x": 1137,
+          "y": 3410
+        },
+        {
+          "x": 1133,
+          "y": 3410
+        },
+        {
+          "x": 1133,
+          "y": 3411
+        },
+        {
+          "x": 1130,
+          "y": 3411
+        },
+        {
+          "x": 1129,
+          "y": 3410
+        },
+        {
+          "x": 1128,
+          "y": 3410
+        },
+        {
+          "x": 1127,
+          "y": 3411
+        },
+        {
+          "x": 1124,
+          "y": 3411
+        },
+        {
+          "x": 1123,
+          "y": 3410
+        },
+        {
+          "x": 1122,
+          "y": 3411
+        },
+        {
+          "x": 1121,
+          "y": 3411
+        },
+        {
+          "x": 1121,
+          "y": 3412
+        },
+        {
+          "x": 1122,
+          "y": 3413
+        },
+        {
+          "x": 1122,
+          "y": 3419
+        },
+        {
+          "x": 1121,
+          "y": 3421
+        },
+        {
+          "x": 1122,
+          "y": 3423
+        },
+        {
+          "x": 1122,
+          "y": 3425
+        },
+        {
+          "x": 1121,
+          "y": 3426
+        },
+        {
+          "x": 1119,
+          "y": 3428
+        },
+        {
+          "x": 1118,
+          "y": 3428
+        },
+        {
+          "x": 1117,
+          "y": 3429
+        },
+        {
+          "x": 1115,
+          "y": 3431
+        },
+        {
+          "x": 1115,
+          "y": 3432
+        },
+        {
+          "x": 1116,
+          "y": 3434
+        },
+        {
+          "x": 1118,
+          "y": 3432
+        },
+        {
+          "x": 1119,
+          "y": 3431
+        },
+        {
+          "x": 1121,
+          "y": 3429
+        }
+      ],
+      "centroid": {
+        "x": 1127,
+        "y": 3421
+      }
+    }
+  },
+  {
     "name": "River Amja",
     "aliases": [],
     "type": "",
@@ -21150,7 +21773,7 @@
       "north": "Musa Passage",
       "south": "Kharazi Jungle",
       "east": "Karamja Shipyard",
-      "west": "Shilo Village"
+      "west": "Shilo Village (location)"
     },
     "position": {
       "x": 2915,
@@ -21403,10 +22026,20 @@
     }
   },
   {
+    "name": "Ruined Village",
+    "aliases": [],
+    "type": "settlement",
+    "members": true,
+    "region": "Vampyrium",
+    "position": {
+      "x": 2710,
+      "y": 7842
+    }
+  },
+  {
     "name": "Ruins",
     "aliases": [
       "West Ruins",
-      "Dareeyak",
       "Western Ruins",
       "Ruins (west",
       "Darayek",
@@ -21475,6 +22108,7 @@
       "Camdozaal ruins",
       "Camdozaal fishing",
       "Ruins of cam",
+      "Camdozaal collection log",
       "Cazmodaal",
       "Cazmodal",
       "Comdozaal",
@@ -21692,7 +22326,9 @@
     "aliases": [
       "Tlati archive",
       "Mokhaiotl",
-      "Doom dungeon"
+      "Doom dungeon",
+      "Tower of doom",
+      "Mokhaitl"
     ],
     "type": "dungeon",
     "members": true,
@@ -21745,7 +22381,10 @@
       "Tapoyauil",
       "Tapoyauk",
       "Tapoyuiak",
-      "Tapoy"
+      "Tapoy",
+      "Gapoyauik",
+      "Tapoyaulk",
+      "Tapoyiak"
     ],
     "type": "dungeon",
     "members": true,
@@ -21821,7 +22460,6 @@
   {
     "name": "Ruins of Uzer",
     "aliases": [
-      "Ruins of Uzer",
       "Ulzer",
       "Uzar",
       "Uzur",
@@ -21830,7 +22468,8 @@
       "Uzer ruins",
       "Ruins uzer",
       "Ruins of user",
-      "Uzer"
+      "Uzer",
+      "Uzer temple"
     ],
     "type": "",
     "members": true,
@@ -21853,21 +22492,14 @@
       "Rune essense mine",
       "Rune Essence mine",
       "Rune Essence Mine",
-      "Essence Mine",
       "Teleport to rune essence",
-      "Ess mines",
-      "Essence mines",
       "Rune essence teleport",
       "Pure essence mine",
-      "Mining essence",
       "Rune essence mining",
       "Rune mines",
       "Ardougne ess mine",
-      "Essance mine",
       "Mining rune essence",
       "Where to mine rune essence",
-      "Ess mine",
-      "Essence mining",
       "Senventior disthine molenko",
       "Pure ess mine"
     ],
@@ -21881,11 +22513,11 @@
     "aliases": [
       "Salt mine",
       "Salt mines",
+      "Weiss mine",
       "Salt pit",
       "Basalt mine",
       "Mining salt",
-      "Weiss salt mine",
-      "Weiss mine"
+      "Weiss salt mine"
     ],
     "type": "mine",
     "members": true,
@@ -21907,7 +22539,8 @@
       "Salvage overlook",
       "Salvager Overlook in Varlamore",
       "Salvagers overlook",
-      "Scavenger overlook"
+      "Scavenger overlook",
+      "Savager overlook"
     ],
     "type": "settlement",
     "members": true,
@@ -21921,9 +22554,9 @@
   {
     "name": "Salve Graveyard",
     "aliases": [
+      "Salve graveyard",
       "Slave graveyard",
       "Salve grave yard",
-      "Salve graveyard",
       "Canifis ring"
     ],
     "type": "",
@@ -21978,7 +22611,6 @@
   {
     "name": "Sanguinesti region",
     "aliases": [
-      "Sanguinesti",
       "Sanguinesti Region",
       "Sangunesti"
     ],
@@ -21989,6 +22621,49 @@
     "position": {
       "x": 3600,
       "y": 3290
+    }
+  },
+  {
+    "name": "Sangvesti",
+    "aliases": [],
+    "type": "settlement",
+    "members": true,
+    "region": "Vampyrium",
+    "position": {
+      "x": 2604,
+      "y": 7838
+    }
+  },
+  {
+    "name": "Sangvesti bank",
+    "aliases": [],
+    "type": "",
+    "members": true,
+    "region": "Vampyrium",
+    "polygon": {
+      "raw": "2578,7836,2583,7836,2583,7829,2578,7829",
+      "vertices": [
+        {
+          "x": 2578,
+          "y": 7836
+        },
+        {
+          "x": 2583,
+          "y": 7836
+        },
+        {
+          "x": 2583,
+          "y": 7829
+        },
+        {
+          "x": 2578,
+          "y": 7829
+        }
+      ],
+      "centroid": {
+        "x": 2581,
+        "y": 7833
+      }
     }
   },
   {
@@ -22211,7 +22886,6 @@
       "Sears",
       "Sears village",
       "Seers vilage",
-      "Seers church",
       "Seers village bank",
       "Seers villiage",
       "Seers vilalge",
@@ -22463,7 +23137,8 @@
   {
     "name": "Settlement Ruins",
     "aliases": [
-      "Settlement ruins"
+      "Settlement ruins",
+      "Destroyed Village"
     ],
     "type": "settlement",
     "members": true,
@@ -22652,16 +23327,13 @@
       "Shayz",
       "Shazien",
       "Crime",
-      "Tackling crime",
       "Shays",
       "Shayzian",
       "Shayzan",
       "Shayzen",
       "King Shayzien",
       "Shayzien House",
-      "Gang meeting",
       "Shayizen",
-      "Gang meetings",
       "Shayzien gang",
       "Shaizen",
       "Qr code",
@@ -22808,8 +23480,10 @@
     }
   },
   {
-    "name": "Shayzien chapel",
-    "aliases": [],
+    "name": "Shayzien church",
+    "aliases": [
+      "Shayzien chapel"
+    ],
     "type": "",
     "members": true,
     "region": "Graveyard of Heroes",
@@ -22946,7 +23620,8 @@
       "Lumbridge shed",
       "Zanaris shed",
       "Zanaris map",
-      "Zanaris hideout"
+      "Zanaris hideout",
+      "Lumbridge shack"
     ],
     "type": "",
     "members": true,
@@ -23229,7 +23904,8 @@
       "Ship yard (sailing)",
       "Ship Yard (Sailing)",
       "Boatyard",
-      "Boat yard"
+      "Boat yard",
+      "Boat emporium"
     ],
     "type": "island",
     "members": true,
@@ -23249,13 +23925,10 @@
   {
     "name": "Shipyard",
     "aliases": [
-      "Shipyard",
-      "Ship yard",
       "Karamja shipyard",
       "Karamja ship yard",
       "Shipyard password",
       "Karamjan shipyard",
-      "The shipyard",
       "Karamja Shipyard",
       "Ship Yard"
     ],
@@ -23334,9 +24007,7 @@
     "name": "Silk Chasm",
     "aliases": [
       "Venenatis location",
-      "Venenatis nest",
-      "Spider silk",
-      "Spider hill"
+      "Venenatis nest"
     ],
     "type": "dungeon",
     "members": true,
@@ -23393,8 +24064,6 @@
       "Slepe Dungeon",
       "Nightmare's zone",
       "Ghost (Sisterhood Sanctuary, 2)",
-      "Ghost (Sisterhood Sanctuary)",
-      "Lizard (Sisterhood Sanctuary)",
       "Sisterhood sanctuary",
       "Sister Sanctuary",
       "Nightmare dungeon",
@@ -23530,7 +24199,6 @@
       "Slepe osrs",
       "Sleppe",
       "Sleep teleport",
-      "Slepe church",
       "Osrs slepe",
       "Sleeper plague"
     ],
@@ -23596,11 +24264,11 @@
   {
     "name": "Smoke Devil Dungeon",
     "aliases": [
+      "Smokey Cave",
       "Smoke devil dungeon",
       "Smoke devils dungeon",
       "Smoke devil cave",
-      "Smoke devil dung",
-      "Smokey Cave"
+      "Smoke devil dung"
     ],
     "type": "dungeon",
     "members": true,
@@ -23619,7 +24287,6 @@
       "Smoke Well",
       "Smoky dungeon",
       "Smoky well",
-      "Smokey Cave",
       "Dust dungeon",
       "Smoke cave",
       "Smoke dun",
@@ -23805,6 +24472,20 @@
         "x": 2703,
         "y": 3406
       }
+    }
+  },
+  {
+    "name": "Sotfa Forest",
+    "aliases": [
+      "Softa Forest",
+      "Sotfa"
+    ],
+    "type": "woods",
+    "members": true,
+    "region": "Vampyrium",
+    "position": {
+      "x": 2740,
+      "y": 7850
     }
   },
   {
@@ -24103,7 +24784,8 @@
       "Custodia Pass Slayer Dungeon",
       "Varlamore slayer cave",
       "Stalker dungeon",
-      "Stalkers den"
+      "Stalkers den",
+      "Stalker cave"
     ],
     "type": "dungeon",
     "members": true,
@@ -24308,6 +24990,19 @@
     }
   },
   {
+    "name": "Sugadinti's Hideout",
+    "aliases": [
+      "Ruined Palace"
+    ],
+    "type": "settlement",
+    "members": true,
+    "region": "Vampyrium",
+    "position": {
+      "x": 2973,
+      "y": 7678
+    }
+  },
+  {
     "name": "Sulphur Cove",
     "aliases": [
       "Karuulm Coast",
@@ -24324,7 +25019,8 @@
       "Sulphur Mine",
       "Sulfur mine",
       "Sulpher mine",
-      "Sulfer mine"
+      "Sulfer mine",
+      "Sulfur mines"
     ],
     "type": "mine",
     "members": true,
@@ -24359,7 +25055,12 @@
       "Sun bleak island",
       "Sun bleak",
       "Sun island",
-      "Ironwood island"
+      "Ironwood island",
+      "Sunbleek island",
+      "Sunbleak isalnd",
+      "Sunbleak islands",
+      "Sun leak island",
+      "Subleak island"
     ],
     "type": "Island",
     "members": true,
@@ -24427,7 +25128,8 @@
       "Valamore's sunset",
       "Sunset cove",
       "Summer coast",
-      "Sunset coat"
+      "Sunset coat",
+      "Sunset shore"
     ],
     "type": "settlement",
     "members": true,
@@ -24468,11 +25170,9 @@
       "Tai Bwo Wannai Village",
       "Tai bwo",
       "Tai",
-      "In a village made of bamboo",
       "Tbw",
       "TBW",
       "Tai bo wana",
-      "Bwana",
       "Tai bwo wanna",
       "Tai Bwo Wannai village",
       "Tai Bwo Bwannai",
@@ -24569,7 +25269,9 @@
       "Tal",
       "Ta teklan",
       "Tal tek",
-      "Tel tek"
+      "Tel tek",
+      "Tal taklan",
+      "Tal taken"
     ],
     "type": "settlement",
     "members": true,
@@ -24606,7 +25308,9 @@
   },
   {
     "name": "Tal Teok",
-    "aliases": [],
+    "aliases": [
+      "Tal teok temple"
+    ],
     "type": "building",
     "members": true,
     "region": "Tlati Rainforest",
@@ -24801,7 +25505,8 @@
       "Taverly dungeo",
       "Taverley dun",
       "Taverly dun",
-      "Averly dungeon"
+      "Averly dungeon",
+      "Taverly dungeoon"
     ],
     "type": "dungeon",
     "members": true,
@@ -24839,7 +25544,15 @@
       "Isle of tears",
       "Tear of the",
       "Tear of the sou;",
-      "Isle of the tear"
+      "Isle of the tear",
+      "Tear of tyhe soul",
+      "Isle of souls rowboat",
+      "Tear island",
+      "Row boat isle of souls",
+      "Rowboat to tear of soul",
+      "Rowboat soul",
+      "Row boat tear of soul",
+      "Isle of tear"
     ],
     "type": "Island",
     "members": true,
@@ -24942,7 +25655,11 @@
     "type": "dungeon",
     "members": true,
     "region": "Kandarin",
-    "leagueRegion": "Kandarin"
+    "leagueRegion": "Kandarin",
+    "position": {
+      "x": 2688,
+      "y": 9856
+    }
   },
   {
     "name": "Temple of Light",
@@ -25029,7 +25746,7 @@
     "aliases": [],
     "type": "",
     "members": true,
-    "region": "Infernus (speculated)",
+    "region": "Infernus",
     "position": {
       "x": 2720,
       "y": 4900
@@ -25182,6 +25899,7 @@
       "Arceuus cemetery",
       "The forgotten cemetary",
       "Cementery",
+      "MySpace",
       "Cemetry"
     ],
     "type": "",
@@ -25258,7 +25976,15 @@
       "The great cnch",
       "Teh great conch",
       "Fairy ring cjq",
-      "Tortugal"
+      "Tortugal",
+      "The creat conch",
+      "The great counch",
+      "Great counch",
+      "Great conc",
+      "Great con",
+      "Turtle Land",
+      "Counch",
+      "Osrs great conch"
     ],
     "type": "Island",
     "members": true,
@@ -25498,7 +26224,8 @@
       "Onxy island",
       "Onyx cres",
       "Oynx island",
-      "Oxyx crest"
+      "Oxyx crest",
+      "The Onyx Raiders"
     ],
     "type": "island",
     "members": true,
@@ -25524,7 +26251,9 @@
       "How to travel to pandemonium",
       "Teleport pandemonium",
       "How to get back to pandemonium",
-      "Pandemonium island"
+      "Pandemonium island",
+      "Pandi",
+      "Pandu"
     ],
     "type": "island",
     "members": true,
@@ -25712,7 +26441,8 @@
       "Stormy tempor",
       "Tempor sea",
       "The tempor storm",
-      "The storm tempr"
+      "The storm tempr",
+      "The strom tempor"
     ],
     "type": "sea",
     "members": true,
@@ -25765,7 +26495,9 @@
       "Summer Shore",
       "Summer shore",
       "Summer isle",
-      "Sumer shore"
+      "Sumer shore",
+      "Summershore",
+      "Summer shores"
     ],
     "type": "settlement",
     "members": true,
@@ -25788,7 +26520,9 @@
       "Tiamat",
       "Theomat",
       "Temple of ranul",
-      "Temple of Ranul"
+      "Temple of Ranul",
+      "Tiomat",
+      "Temoat"
     ],
     "type": "building",
     "members": true,
@@ -25802,7 +26536,6 @@
   {
     "name": "The Unquiet Ocean",
     "aliases": [
-      "Unquiet Ocean",
       "Unquiet Ocean (Sailing alpha)"
     ],
     "type": "",
@@ -26403,7 +27136,8 @@
       "Gnome tree village",
       "Tree Gnome Village (location",
       "Tree gnome village (location)",
-      "Tree gnome general store"
+      "Tree gnome general store",
+      "Priw gnomo andralo"
     ],
     "type": "",
     "members": true,
@@ -26469,7 +27203,7 @@
     }
   },
   {
-    "name": "Troll Kitchen",
+    "name": "Troll kitchen",
     "aliases": [
       "Troll Kitchen"
     ],
@@ -26665,10 +27399,10 @@
       "Character creation",
       "Tut island",
       "Tutorial islan",
-      "Virgin island",
       "Tutorial Island/Quick guide",
       "Tutorial Island quest",
-      "Tutorial island quest"
+      "Tutorial island quest",
+      "Starting items"
     ],
     "type": "island",
     "members": false,
@@ -26897,7 +27631,8 @@
       "Hangar",
       "Gnome hangar",
       "Glider hangar",
-      "Military hanger"
+      "Military hanger",
+      "Aircraft bunker"
     ],
     "type": "",
     "members": true,
@@ -26915,8 +27650,7 @@
       "Underground Pass (dungeon",
       "Underground pass (dungeon)",
       "Underground map",
-      "Ardougne underground",
-      "Guide rope"
+      "Ardougne underground"
     ],
     "type": "",
     "members": true,
@@ -26942,13 +27676,15 @@
       "Underwater farming",
       "Beneath fossil island",
       "Seaweed runs",
-      "Deep sea fishing",
       "Oxygen level",
       "Dive",
       "Drowning",
       "Deep water",
       "Underwater;",
-      "Diving osrs"
+      "Diving osrs",
+      "Osrs diving",
+      "Water breathing",
+      "Underwater weapons"
     ],
     "type": "",
     "members": true,
@@ -26959,13 +27695,6 @@
       "east": "House on the Hill",
       "west": "Mushroom Forest"
     }
-  },
-  {
-    "name": "Underwater Cavern Entrance",
-    "aliases": [],
-    "type": "",
-    "members": true,
-    "region": "Mogre Camp"
   },
   {
     "name": "Underwater Tunnel",
@@ -27079,7 +27808,8 @@
     "leagueRegion": "Kourend",
     "relativeLocation": {
       "south": "Settlement Ruins",
-      "east": "Wintertodt Camp"
+      "east": "Wintertodt Camp",
+      "west": "The White Cliffs of Lova"
     },
     "position": {
       "x": 1577,
@@ -27189,7 +27919,7 @@
   {
     "name": "Unnamed island",
     "aliases": [],
-    "type": "",
+    "type": "island",
     "members": true,
     "region": "Ardent Ocean",
     "leagueRegion": "Kandarin",
@@ -27203,7 +27933,7 @@
     "aliases": [
       "Wilhelm island"
     ],
-    "type": "",
+    "type": "island",
     "members": true,
     "region": "North-east of Fossil Island",
     "position": {
@@ -27214,7 +27944,7 @@
   {
     "name": "Unnamed island",
     "aliases": [],
-    "type": "",
+    "type": "island",
     "members": true,
     "region": "North of Fossil Island",
     "position": {
@@ -27236,7 +27966,7 @@
   {
     "name": "Unnamed island",
     "aliases": [],
-    "type": "",
+    "type": "island",
     "members": true,
     "region": "West of Fossil Island",
     "position": {
@@ -27247,7 +27977,7 @@
   {
     "name": "Unnamed island",
     "aliases": [],
-    "type": "",
+    "type": "island",
     "members": true,
     "region": "South-west of the Tar Swamp",
     "position": {
@@ -27434,7 +28164,8 @@
     "name": "Vagabonds Rest",
     "aliases": [
       "Vegabonds rest",
-      "Vagabond's rest"
+      "Vagabond's rest",
+      "The Kraken Collective"
     ],
     "type": "sea",
     "members": true,
@@ -27448,10 +28179,69 @@
     }
   },
   {
+    "name": "Vampyrium",
+    "aliases": [
+      "Vampirium",
+      "Vampirum",
+      "Vamperium",
+      "Vampyrum",
+      "Vampyreum",
+      "Vampyrim",
+      "Vampyirum",
+      "Vampyium",
+      "Vampryium",
+      "Vamprium",
+      "Vampiryum",
+      "Vampryum",
+      "Vamyrium",
+      "Vampurium",
+      "Vampyruim",
+      "Vampyrium bank",
+      "Vamporium",
+      "Vampium",
+      "Vampyrism",
+      "Vampyriuum",
+      "Vampytium",
+      "Vampyrym",
+      "Vampyryum",
+      "Vampyriun",
+      "Vanpyrium",
+      "Vapyrium",
+      "Vymperium",
+      "Vampyrium bank chest",
+      "Vampyreium",
+      "Vamparium",
+      "Vampyriam",
+      "Vampyrium chest",
+      "Maggot king bank",
+      "Campyrium",
+      "Vampire Land"
+    ],
+    "type": "",
+    "members": true,
+    "position": {
+      "x": 2603,
+      "y": 7808
+    }
+  },
+  {
+    "name": "Vampyrium Mine",
+    "aliases": [],
+    "type": "mine",
+    "members": true,
+    "region": "South of Vampyrium",
+    "position": {
+      "x": 2568,
+      "y": 7735
+    }
+  },
+  {
     "name": "Varlamore",
     "aliases": [
+      "Varlamore (disambiguation)",
       "Kingdom of Varlamore",
       "Shining Kingdom",
+      "Varlamore (disambiguation",
       "Valamore",
       "Varlamorian",
       "Valarmore",
@@ -27500,8 +28290,6 @@
       "Varlamore transport",
       "Varlamore transportation",
       "Varlamore travel",
-      "Auburnvale",
-      "Auburn",
       "Varlamore part 2",
       "Getting to varlamore",
       "Varlaless",
@@ -27523,25 +28311,30 @@
       "Valnamore",
       "Varlemore quest",
       "Varlamorew",
+      "Varlamore 2",
       "Varlamaore",
       "Kingdom of valamore",
       "How to get to valamore",
+      "Varlam",
       "Barlamore",
       "Arlamore",
       "Valamore part 2",
       "Iknami",
+      "Varlamoe",
       "Varlamore shops",
       "Varly",
       "Valramor",
       "Valaramore",
-      "Varlamore 2",
       "Varlamore the final dawn",
       "Varlamore final dawn",
       "Varlmamore",
       "Varlamore kingdom",
       "Varlamore part 1",
       "Vramalore",
-      "Varlamore osrs"
+      "Varlamore osrs",
+      "Valdimore",
+      "Varlamore bosses",
+      "Varlamore pvm"
     ],
     "type": "region",
     "members": true,
@@ -27570,8 +28363,6 @@
       "Varock",
       "Varrock standard",
       "South-east Varrock",
-      "Varrock Church",
-      "Varrock anvil",
       "Varr",
       "Warrock",
       "Varok",
@@ -27635,85 +28426,54 @@
       "east": "Digsite",
       "west": "Barbarian Village"
     },
+    "position": {
+      "x": 3210,
+      "y": 3448
+    }
+  },
+  {
+    "name": "Varrock anvil building",
+    "aliases": [
+      "Varrock anvil",
+      "Varrock west anvil"
+    ],
+    "type": "",
+    "members": false,
+    "region": "Western Varrock",
+    "leagueRegion": "Misthalin",
     "polygon": {
-      "raw": "3137:3523,3328:3523,3328:3488,3311:3488,3311:3456,3295:3456,3295:3384,3305:3384,3305:3360,3296:3360,3296:3355,3277:3355,3277:3364,3171:3364,3171:3403,3137:3403",
+      "raw": "3185,3428,3195,3428,3195,3420,3185,3420",
       "vertices": [
         {
-          "x": 3137,
-          "y": 3523
+          "x": 3185,
+          "y": 3428
         },
         {
-          "x": 3328,
-          "y": 3523
+          "x": 3195,
+          "y": 3428
         },
         {
-          "x": 3328,
-          "y": 3488
+          "x": 3195,
+          "y": 3420
         },
         {
-          "x": 3311,
-          "y": 3488
-        },
-        {
-          "x": 3311,
-          "y": 3456
-        },
-        {
-          "x": 3295,
-          "y": 3456
-        },
-        {
-          "x": 3295,
-          "y": 3384
-        },
-        {
-          "x": 3305,
-          "y": 3384
-        },
-        {
-          "x": 3305,
-          "y": 3360
-        },
-        {
-          "x": 3296,
-          "y": 3360
-        },
-        {
-          "x": 3296,
-          "y": 3355
-        },
-        {
-          "x": 3277,
-          "y": 3355
-        },
-        {
-          "x": 3277,
-          "y": 3364
-        },
-        {
-          "x": 3171,
-          "y": 3364
-        },
-        {
-          "x": 3171,
-          "y": 3403
-        },
-        {
-          "x": 3137,
-          "y": 3403
+          "x": 3185,
+          "y": 3420
         }
       ],
       "centroid": {
-        "x": 3265,
-        "y": 3417
+        "x": 3190,
+        "y": 3424
       }
     }
   },
   {
-    "name": "Varrock chapel",
+    "name": "Varrock church",
     "aliases": [
-      "Varrock church",
-      "Church of Varrock"
+      "Varrock churchs",
+      "Varrock Church",
+      "Church of Varrock",
+      "Varrock chapel"
     ],
     "type": "building",
     "members": false,
@@ -27754,20 +28514,55 @@
     }
   },
   {
+    "name": "Varrock hair salon",
+    "aliases": [],
+    "type": "",
+    "members": false,
+    "region": "Eastern Varrock",
+    "leagueRegion": "Misthalin",
+    "polygon": {
+      "raw": "3256,3463,3256,3466,3262,3466,3262,3459,3253,3459,3253,3463",
+      "vertices": [
+        {
+          "x": 3256,
+          "y": 3463
+        },
+        {
+          "x": 3256,
+          "y": 3466
+        },
+        {
+          "x": 3262,
+          "y": 3466
+        },
+        {
+          "x": 3262,
+          "y": 3459
+        },
+        {
+          "x": 3253,
+          "y": 3459
+        },
+        {
+          "x": 3253,
+          "y": 3463
+        }
+      ],
+      "centroid": {
+        "x": 3257,
+        "y": 3463
+      }
+    }
+  },
+  {
     "name": "Varrock Museum",
     "aliases": [
       "Varrock museum",
-      "Museum",
       "Fossil display",
       "Varrok museum",
       "Musuem",
       "Digsite cleaning aera",
-      "Display case 22",
-      "Case 22",
       "Kalphite Queen display (Varrock Museum)",
-      "Varrock Museum display 30",
-      "Varrock Museum display 24",
-      "Varrock Museum display 22 (Zaros pottery)",
       "Red dragon display",
       "Snake display",
       "Varock museum",
@@ -27775,9 +28570,6 @@
       "Paleontology",
       "Fossil exhibits",
       "Fossil exhibit",
-      "Display case 2",
-      "Display case 1",
-      "Display case 45",
       "Varrock musuem",
       "Natural history museum",
       "Natural museum",
@@ -27797,16 +28589,6 @@
       "Mueseum",
       "Muesem",
       "Museum varrock",
-      "Display case 43",
-      "Display case 42",
-      "Display case 36",
-      "Display 45",
-      "Display 44",
-      "Display 43",
-      "Display 42",
-      "Display number 42",
-      "Display number 43",
-      "Display 22",
       "Varrock museum display",
       "Museum fossil",
       "Museum display",
@@ -27816,7 +28598,6 @@
       "Barrack museum",
       "Fossil island displays",
       "Fossil displays",
-      "Display case 28",
       "Varrack museum",
       "Varrock mu",
       "Musium",
@@ -27952,7 +28733,8 @@
       "Varrack sewers",
       "Varroc sewers",
       "Varrock swers",
-      "Varrock sewer entrance"
+      "Varrock sewer entrance",
+      "Here be dead stuff"
     ],
     "type": "",
     "members": false,
@@ -28059,6 +28841,8 @@
   {
     "name": "Ver Sinhaza bank",
     "aliases": [
+      "VSB",
+      "Vsb",
       "Theatre of Blood bank"
     ],
     "type": "",
@@ -28135,7 +28919,11 @@
   },
   {
     "name": "Villa Lucens",
-    "aliases": [],
+    "aliases": [
+      "Aldarin villa",
+      "Villa",
+      "Villas"
+    ],
     "type": "building",
     "members": true,
     "region": "Varlamore",
@@ -28164,6 +28952,18 @@
     "position": {
       "x": 1815,
       "y": 3555
+    }
+  },
+  {
+    "name": "Virer Hunting Ground",
+    "aliases": [
+      "Virer"
+    ],
+    "type": "",
+    "members": true,
+    "position": {
+      "x": 2525,
+      "y": 7762
     }
   },
   {
@@ -28751,7 +29551,8 @@
       "Waterbird dungeon",
       "Dagannoth kings route",
       "Waterbirth isle dungeon",
-      "Waterbirth agility"
+      "Waterbirth agility",
+      "Dk lair"
     ],
     "type": "",
     "members": true,
@@ -28778,7 +29579,8 @@
       "Watefall dungeon",
       "Waterfull dungeon",
       "Waterfall dun",
-      "Waterall dungeon"
+      "Waterall dungeon",
+      "Waterfall dongeon"
     ],
     "type": "dungeon",
     "members": true,
@@ -28836,7 +29638,6 @@
       "Weiss farming",
       "Weiss farming patch",
       "Weiss herb",
-      "Weiss mine",
       "Wess",
       "Herb patch weiss",
       "Weiss mountain",
@@ -28875,7 +29676,6 @@
   {
     "name": "Weiss Melt",
     "aliases": [
-      "Weiss Melt",
       "Wiess Melt",
       "Weiss sea"
     ],
@@ -29139,8 +29939,7 @@
       "Western Sea",
       "Western sea",
       "The Crystal Coast",
-      "Western ocean",
-      "Western seas"
+      "Western ocean"
     ],
     "type": "ocean",
     "members": true,
@@ -29259,6 +30058,7 @@
       "Edgeville Wilderness Dungeon",
       "Deep Wilderness",
       "Wilderness map",
+      "Forinthry",
       "Wildy boss",
       "Wilderness teleports",
       "Wilderness monsters",
@@ -29299,6 +30099,7 @@
       "Widlerness",
       "Wildeness",
       "Winderness",
+      "Forinthy",
       "Level 30 wilderness teleport",
       "Level 30 wilderness teleports",
       "Level 30 wilderness",
@@ -29378,7 +30179,12 @@
       "Wildeners teleport",
       "Wilderness on death",
       "Teleport to wilderness",
-      "Wilderness tps"
+      "Wilderness tps",
+      "Wilderness pets",
+      "30 wildy tele",
+      "30 level teleport",
+      "30 wild",
+      "30 wildy teleport"
     ],
     "type": "region",
     "members": false,
@@ -29450,7 +30256,11 @@
       "Wildernese agility",
       "Wilderness agilityt",
       "Wilerness agility",
-      "Wilderess agility"
+      "Wilderess agility",
+      "Agility wild",
+      "Wildy agilty",
+      "Osrs wilderness agility",
+      "Wildereness agility"
     ],
     "type": "agility course",
     "members": true,
@@ -29481,7 +30291,11 @@
     "type": "",
     "members": false,
     "region": "Level 47 and 48 Wilderness",
-    "leagueRegion": "Wilderness"
+    "leagueRegion": "Wilderness",
+    "position": {
+      "x": 2977,
+      "y": 3873
+    }
   },
   {
     "name": "Wilderness God Wars Dungeon",
@@ -29525,6 +30339,36 @@
     "position": {
       "x": 3016.5,
       "y": 3739.5
+    }
+  },
+  {
+    "name": "Wilderness Hunter area",
+    "aliases": [
+      "Wilderness hunting area",
+      "Lava Hunter area",
+      "Lava hunting area",
+      "Wilderness hunter area"
+    ],
+    "type": "hunter area",
+    "members": true,
+    "region": "Wilderness",
+    "leagueRegion": "Wilderness",
+    "position": {
+      "x": 3144,
+      "y": 3776
+    }
+  },
+  {
+    "name": "Wilderness Pond",
+    "aliases": [
+      "Wilderness pond"
+    ],
+    "type": "",
+    "members": false,
+    "region": "Wilderness",
+    "position": {
+      "x": 3144,
+      "y": 3800
     }
   },
   {
@@ -29630,7 +30474,10 @@
       "Wintuber isle",
       "Winumber island",
       "Wintnumber island",
-      "Wintum"
+      "Wintum",
+      "Winumber",
+      "Wintercum island",
+      "Witumber island"
     ],
     "type": "Island",
     "members": true,
@@ -29814,7 +30661,8 @@
       "Wizards guil",
       "Yanille wizard",
       "Yanille mage",
-      "Osrs magic guild"
+      "Osrs magic guild",
+      "Wizard guild osrs"
     ],
     "type": "guild",
     "members": true,
@@ -29908,7 +30756,8 @@
       "Wizards towe",
       "Wizards towers",
       "The wizards tower",
-      "Teleport to the wizards tower"
+      "Teleport to the wizards tower",
+      "Wisards tower"
     ],
     "type": "building",
     "members": false,
@@ -30010,7 +30859,8 @@
       "Wopodcutting guild",
       "Woodcuttin gguild",
       "Woodcuttig guild",
-      "Woodcutting guildf"
+      "Woodcutting guildf",
+      "Wcguild"
     ],
     "type": "guild",
     "members": true,
@@ -30251,6 +31101,96 @@
     }
   },
   {
+    "name": "Wyrmscraig",
+    "aliases": [
+      "Player-designed island",
+      "Player island",
+      "Wyrmcraig",
+      "Wymscraig",
+      "Wormscraig",
+      "Wyrmcrag",
+      "Wyrmcragg",
+      "Wyrmscrag",
+      "Wrymscraig",
+      "Wyrms named craig",
+      "Wyrmsgraig",
+      "Wyrmscriag",
+      "Wymrscraig",
+      "Wyrmcrest",
+      "Wyrnscraig",
+      "Wyrms craig",
+      "Wyrm island",
+      "Wyrsmcraig",
+      "Wurmscraig",
+      "Wrymcraig",
+      "Wyrms scraig",
+      "Wyrm craig",
+      "Wrmscraig",
+      "Wyrm scraig",
+      "Wyrscraig",
+      "Wyrmscraigh",
+      "Wyrmsc",
+      "Wyrm's craig",
+      "Craig",
+      "Player designed island",
+      "Worms craig",
+      "Wayrmscraig",
+      "Wrym island",
+      "Wyrmscraif",
+      "Wyrmscragi",
+      "Wyrmscrai",
+      "Wyrmskraig",
+      "Whyrmscraig",
+      "Wirmscraig",
+      "Wyrmscraig teleport",
+      "Bank chest wyrmscraig",
+      "Wyrmscraig chest",
+      "Wyrms crag",
+      "Wyemscraig",
+      "Wyrmscaig",
+      "Wyrmscraid",
+      "Wormcraig",
+      "Cuil An Domainh"
+    ],
+    "type": "Island",
+    "members": true,
+    "region": "The Lonely Sea",
+    "leagueRegion": "No",
+    "relativeLocation": {
+      "north": "Charred Island",
+      "east": "Last Light",
+      "west": "Rainbow's End"
+    },
+    "position": {
+      "x": 2571,
+      "y": 2240
+    }
+  },
+  {
+    "name": "Wyrmscraig Cavern",
+    "aliases": [
+      "Wyrmscraig cavern",
+      "Wyrmscraig dungeon"
+    ],
+    "type": "Dungeon",
+    "members": true,
+    "region": "Wyrmscraig",
+    "leagueRegion": "No",
+    "position": {
+      "x": 2590,
+      "y": 8615
+    }
+  },
+  {
+    "name": "Wyrmscraig mine",
+    "aliases": [
+      "Wyrmscraig Mine"
+    ],
+    "type": "mine",
+    "members": true,
+    "region": "South-west side of the Unquiet Ocean"
+  },
+  {
     "name": "Wyvern Cave",
     "aliases": [
       "Wyvern cave",
@@ -30258,10 +31198,9 @@
       "Fossil Island Wyvern Cave",
       "Wyv cave",
       "Fossil Island Wyvern",
-      "Fossil island wyverns",
       "Fiw",
+      "Fossil Island Wyverns",
       "Fossil Island wyverns",
-      "Fossil island wyvern",
       "Fossil island cave",
       "Fossil island dungeon",
       "Living wyvern",
@@ -30436,7 +31375,21 @@
       "Yama agility course",
       "Yama lair",
       "Yama stepping stone",
-      "Yama course"
+      "Yama course",
+      "Yama Agility Course",
+      "Yama agility xourse",
+      "YAMA LAIR",
+      "Yama lair stones",
+      "Yama lair leagues",
+      "Yama stepping stones",
+      "Yama's stepping stone",
+      "Yama's stepping stones",
+      "Yamal agility course",
+      "Yamas lair stones",
+      "Yamas stepping stone",
+      "Yamas stepping stones",
+      "Yama's stepping",
+      "Yama stones"
     ],
     "type": "dungeon",
     "members": true,
@@ -30480,7 +31433,10 @@
       "Yaniile",
       "Yanille teleports",
       "Yanille fairy",
-      "Yanille shop"
+      "Yanille shop",
+      "Yaniille",
+      "Yanille telport",
+      "Yanillle teleport"
     ],
     "type": "settlement",
     "members": true,
@@ -30522,7 +31478,6 @@
       "Yanelle agility",
       "Yanville agility",
       "Yanielle agility dungeon",
-      "Yanille agility shortcut",
       "Yannille dungeon"
     ],
     "type": "dungeon",
@@ -30587,7 +31542,21 @@
       "Ynesdail",
       "Ysyndail",
       "Ynysdai",
-      "Yngsdail"
+      "Yngsdail",
+      "Ynasdail",
+      "Rowboat ynysdail",
+      "Yynsdail",
+      "Ynsdial",
+      "Yndrasil",
+      "Ymysdail",
+      "Ynusdail",
+      "Yhysdail",
+      "Yggrasil",
+      "Yggdrasil",
+      "Ynysdail rowboat",
+      "Ynysdail teleport",
+      "Ygdrasil",
+      "Ydrasil"
     ],
     "type": "Island",
     "members": true,
@@ -30600,7 +31569,9 @@
   },
   {
     "name": "Ynysdail Cavern",
-    "aliases": [],
+    "aliases": [
+      "Ynsdail cavern"
+    ],
     "type": "dungeon",
     "members": true,
     "leagueRegion": "No",
@@ -30644,6 +31615,25 @@
     "position": {
       "x": 3552,
       "y": 4384
+    }
+  },
+  {
+    "name": "Zamorakian Chapel",
+    "aliases": [
+      "Evil temple",
+      "Zamorakian Temple",
+      "Varrock temple",
+      "Varrok chaos alter",
+      "Varock chaos",
+      "Zamorakian Chapel"
+    ],
+    "type": "building",
+    "members": false,
+    "region": "South of the Varrock Museum",
+    "leagueRegion": "Misthalin",
+    "position": {
+      "x": 3259,
+      "y": 3387
     }
   },
   {
@@ -30714,7 +31704,9 @@
       "Zanaris shops",
       "Zanaris store",
       "Zanaris moon",
-      "Zanis"
+      "Zanis",
+      "Zanzris",
+      "Zanaris tax"
     ],
     "type": "settlement",
     "members": true,

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SETS } from "../../constants/rs3-paths";
 import { Set } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -35,7 +36,7 @@ export class Rs3SetsExtractor {
     }
     sets.sort((a, b) => a.id - b.id);
     if (sets.length) {
-      writeFileSync(ALL_SETS, JSON.stringify(sets));
+      await safeWriteFileSync(ALL_SETS, JSON.stringify(sets));
     }
     this.logger.log("Done extracting sets (RS3)");
     return sets;

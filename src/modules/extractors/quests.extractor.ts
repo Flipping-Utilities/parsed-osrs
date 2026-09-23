@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_QUESTS } from "../../constants/paths";
 import { MapPoint, Quest, QuickGuideStep, WalkthroughSection } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -432,7 +433,7 @@ export class QuestsExtractor {
 
     quests.sort((a, b) => a.number - b.number);
     if (quests.length) {
-      writeFileSync(ALL_QUESTS, JSON.stringify(quests, null, 2));
+      await safeWriteFileSync(ALL_QUESTS, JSON.stringify(quests, null, 2));
     }
 
     this.logger.log("Done: Extracting quests");

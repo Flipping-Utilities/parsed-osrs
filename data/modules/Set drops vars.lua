@@ -1,0 +1,50 @@
+local var = mw.ext.VariablesLua
+
+local p = {}
+
+function p.main(frame)
+	return p._main(frame:getParent().args)
+end
+
+function p._main(args)
+	local type = args.type or ''
+	local levels = args.level or ''
+	local versions = args.version or ''
+
+	-- All levels are additionally saved to the DEFAULT drop version
+	versions = versions .. ',DEFAULT'
+
+	local valuesToSet = {}
+	for dropVersion in string.gmatch(versions, ' *([^,]+) *') do
+		local varName = string.format('DropLevel_%s_%s', type, dropVersion)
+
+		local valuesForVersion = {}
+		-- read any existing values for this var so we can append to it
+		local previousLevels = var.var(varName)
+		for previousLevel in string.gmatch(previousLevels, ' *([^,]+) *') do
+			valuesForVersion[previousLevel] = true
+		end
+
+		-- add in new levels
+		for level in string.gmatch(levels, ' *([^,]+) *') do
+			valuesForVersion[level] = true
+		end
+
+		valuesToSet[varName] = valuesForVersion
+	end
+
+	-- set new values for each var
+	for varName, levels in pairs(valuesToSet) do
+		local ordered = {}
+		for level, _ in pairs(levels) do
+			local n = tonumber(level)
+			if n ~= nil then
+				table.insert(ordered, n)
+			end
+		end
+		table.sort(ordered)
+		var.vardefine(varName, table.concat(ordered, ','))
+	end
+end
+
+return p

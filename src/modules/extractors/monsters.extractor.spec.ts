@@ -34,6 +34,21 @@ describe("parseMonsterFromContent", () => {
     expect(monsters[0].id).toBe(2);
   });
 
+  it("spreads a comma-separated id list across versioned variants on Great Olm", () => {
+    const page = loadTestPage(TestPages.GreatOlm);
+    const monsters = parseMonsterFromContent(page.text, page.title, page.aliases, itemLookup);
+
+    // Great Olm's infobox carries id = "7551,7554" with version1/version2
+    // stat columns and no id2 key — the ids must map onto the variants
+    // instead of dropping every variant for lacking an id.
+    expect(monsters).toHaveLength(2);
+    expect(monsters.map((m) => m.id).sort((a, b) => a - b)).toEqual([7551, 7554]);
+    for (const monster of monsters) {
+      expect(monster.name).toBe("Great Olm");
+      expect(monster.hitpoints).toBe(800);
+    }
+  });
+
   it("extracts examine text from wiki markup", () => {
     const page = loadTestPage(TestPages.AbhorrentSpectre);
     const monsters = parseMonsterFromContent(page.text, page.title, page.aliases, itemLookup);

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_ITEMS } from "../../constants/rs3-paths";
 import { Item } from "../../types";
 import {
@@ -57,7 +58,7 @@ export class Rs3ItemsExtractor {
     this.logger.log("Completed extracting all items (RS3)");
 
     items.sort((a, b) => a?.name?.localeCompare(b.name) || 0);
-    writeFileSync(ALL_ITEMS, JSON.stringify(items));
+    await safeWriteFileSync(ALL_ITEMS, JSON.stringify(items));
   }
 
   public getAllItems(): Item[] | null {

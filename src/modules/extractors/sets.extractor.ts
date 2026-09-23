@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { parseWikitext } from "../../utils/wikitext-parser";
 import { ALL_SETS } from "../../constants/paths";
 import { PageTags } from "../../constants/tags";
@@ -30,7 +31,7 @@ export class SetsExtractor {
     }
     sets.sort((a, b) => a.id - b.id);
     if (sets.length) {
-      writeFileSync(ALL_SETS, JSON.stringify(sets));
+      await safeWriteFileSync(ALL_SETS, JSON.stringify(sets));
     }
     this.logger.log("Done extracting sets");
     return sets;

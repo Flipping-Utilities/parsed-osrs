@@ -309,7 +309,9 @@ describe("ModuleDumper", () => {
 
       await dumper.dumpAllModules();
 
-      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Alive.lua"), "utf8")).toBe("alive-source");
+      expect(readFileSync(path.join(TEST_MODULES_FOLDER, "Alive.lua"), "utf8")).toBe(
+        "alive-source",
+      );
       expect(existsSync(path.join(TEST_MODULES_FOLDER, "Deleted.lua"))).toBe(false);
     });
 

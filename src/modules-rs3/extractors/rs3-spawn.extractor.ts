@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SPAWNS } from "../../constants/rs3-paths";
 import { ItemSpawn } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -41,7 +42,7 @@ export class Rs3SpawnExtractor {
     spawns.sort((a, b) => a.id - b.id);
     this.logger.log("End: extracting spawns (RS3)");
 
-    writeFileSync(ALL_SPAWNS, JSON.stringify(spawns));
+    await safeWriteFileSync(ALL_SPAWNS, JSON.stringify(spawns));
   }
 
   public getAllSpawns(): ItemSpawn[] | null {

@@ -1,7 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync } from "fs";
 import path from "path";
 import { MODULES_FOLDER } from "../../constants/paths";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { WikiRequestService } from "../wiki/wikiRequest.service";
 
 // MediaWiki allows up to 50 pageids per request for anonymous/bot users
@@ -151,7 +152,7 @@ export class ModuleDumper {
         try {
           const filePath = this.toFilePath(page.pagename);
           mkdirSync(path.dirname(filePath), { recursive: true });
-          writeFileSync(filePath, source);
+          await safeWriteFileSync(filePath, source);
           knownRevisions[page.pagename] = page.revid;
           written++;
         } catch (e) {
@@ -170,7 +171,7 @@ export class ModuleDumper {
       );
     }
 
-    this.saveModuleIndex(knownRevisions);
+    await this.saveModuleIndex(knownRevisions);
     this.logger.log(
       `End: Dumping all modules (fetched ${fetched}, written ${written}, skipped ${skipped}, failed ${failed})`,
     );
@@ -204,7 +205,7 @@ export class ModuleDumper {
     }
   }
 
-  private saveModuleIndex(index: Record<string, number>): void {
-    writeFileSync(this.MODULE_INDEX_FILE, JSON.stringify(index, null, 2));
+  private async saveModuleIndex(index: Record<string, number>): Promise<void> {
+    await safeWriteFileSync(this.MODULE_INDEX_FILE, JSON.stringify(index, null, 2));
   }
 }

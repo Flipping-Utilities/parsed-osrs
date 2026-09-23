@@ -1,9 +1,10 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync } from "fs";
 import wtf from "wtf_wikipedia";
 
 import path from "path";
 import { TEMPLATE_FOLDER } from "../../constants/paths";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { PageListDumper } from "../dumpers";
 
 interface Template {
@@ -40,11 +41,7 @@ export class TemplateExtractor {
         });
     }
 
-    Object.keys(templateRecord).forEach((template) => {
-      if (!path) {
-        // @ts-ignore
-        path = require("path");
-      }
+    for (const template of Object.keys(templateRecord)) {
       const location =
         TEMPLATE_FOLDER + `/${template.replace(/[^a-z0-9]/gi, "_").toLowerCase()}.json`;
       try {
@@ -53,11 +50,11 @@ export class TemplateExtractor {
           mkdirSync(dir, { recursive: true });
         }
 
-        writeFileSync(path.resolve(location), JSON.stringify(templateRecord[template]));
+        await safeWriteFileSync(path.resolve(location), JSON.stringify(templateRecord[template]));
       } catch (e) {
         this.logger.error(e, template, location);
       }
-    });
+    }
     this.logger.log("End: extracting templates");
   }
 }

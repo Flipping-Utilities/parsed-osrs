@@ -14,6 +14,7 @@ import { Rs3RecipesExtractor } from "./rs3-recipes.extractor";
 import { Rs3SceneryExtractor } from "./rs3-scenery.extractor";
 import { Rs3SetsExtractor } from "./rs3-sets.extractor";
 import { Rs3ShopsExtractor } from "./rs3-shops.extractor";
+import { Rs3SkillResourcesExtractor } from "./rs3-skill-resources.extractor";
 import { Rs3SpellsExtractor } from "./rs3-spells.extractor";
 import { Rs3SpawnExtractor } from "./rs3-spawn.extractor";
 import { Rs3TemplateExtractor } from "./rs3-template.extractor";
@@ -43,6 +44,7 @@ import { Rs3TemplateExtractor } from "./rs3-template.extractor";
     Rs3SceneryExtractor,
     Rs3SetsExtractor,
     Rs3ShopsExtractor,
+    Rs3SkillResourcesExtractor,
     Rs3SpellsExtractor,
     Rs3SpawnExtractor,
     Rs3TemplateExtractor,
@@ -61,6 +63,7 @@ import { Rs3TemplateExtractor } from "./rs3-template.extractor";
     Rs3SceneryExtractor,
     Rs3SetsExtractor,
     Rs3ShopsExtractor,
+    Rs3SkillResourcesExtractor,
     Rs3SpellsExtractor,
     Rs3SpawnExtractor,
     Rs3TemplateExtractor,

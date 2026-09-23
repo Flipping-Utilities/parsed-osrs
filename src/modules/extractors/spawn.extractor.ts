@@ -1,6 +1,7 @@
 import { PageTags } from "../../constants/tags";
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SPAWNS } from "../../constants/paths";
 import { ItemSpawn } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -30,7 +31,7 @@ export class SpawnExtractor {
     spawns.sort((a, b) => a.id - b.id);
     this.logger.log("End: extracting spawns");
 
-    writeFileSync(ALL_SPAWNS, JSON.stringify(spawns));
+    await safeWriteFileSync(ALL_SPAWNS, JSON.stringify(spawns));
   }
 
   public getAllSpawns(): ItemSpawn[] | null {

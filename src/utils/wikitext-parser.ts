@@ -139,10 +139,10 @@ function initOsrTemplates(): void {
       return "";
     }) as TemplateParseFunction;
 
-    // {{DropsLineSkill|name|quantity|rarity|skill}} - Skilling drop line
+    // {{DropsLineSkill|name|quantity|rarity|skill|altrarity|raritynotes}} - Skilling drop line
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (templates as any).dropslineskill = ((tmpl, list, parse): string => {
-      const obj = parse(tmpl, ["name", "rarity", "quantity", "skill"]);
+      const obj = parse(tmpl, ["name", "rarity", "quantity", "skill", "altrarity", "raritynotes"]);
       list.push(obj);
       return "";
     }) as TemplateParseFunction;

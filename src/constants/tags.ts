@@ -11,6 +11,7 @@ export enum PageTags {
   LOCATION = "location",
   NPC = "npc",
   SCENERY = "scenery",
+  SKILL_RESOURCE = "skill-resource",
   QUEST = "quest",
   QUEST_GUIDE = "quest-guide",
   ACTIVITY = "activity",

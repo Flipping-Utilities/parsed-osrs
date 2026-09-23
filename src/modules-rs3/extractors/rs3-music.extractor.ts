@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_MUSIC } from "../../constants/rs3-paths";
 import { MusicTrack } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -43,7 +44,7 @@ export class Rs3MusicExtractor {
 
     tracks.sort((a, b) => a.name.localeCompare(b.name));
     if (tracks.length) {
-      writeFileSync(ALL_MUSIC, JSON.stringify(tracks, null, 2));
+      await safeWriteFileSync(ALL_MUSIC, JSON.stringify(tracks, null, 2));
     }
 
     this.logger.log("Done: Extracting music tracks (RS3)");

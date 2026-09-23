@@ -1,6 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { eq, inArray } from "drizzle-orm";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { and, eq, gt, inArray, isNotNull } from "drizzle-orm";
+import { existsSync, readFileSync } from "fs";
 import {
   ALL_ITEM_PAGE_LIST,
   ALL_ITEM_SPAWNS_PAGE_LIST,
@@ -22,7 +22,9 @@ import {
   WIKI_PAGE_LIST,
 } from "../../constants/rs3-paths";
 import { PageTags } from "../../constants/tags";
+import { SKILL_INFO_TEMPLATE_PATTERN } from "../../constants/skills";
 import { Rs3DatabaseService } from "../database/rs3-database.service";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { PageTag, WikiPage } from "../../modules/database/schema";
 import { WikiPageSlim } from "../../modules/wiki/wikiRequest.service";
 import { Rs3WikiRequestService } from "../wiki/rs3-wiki-request.service";
@@ -109,9 +111,7 @@ export class Rs3PageListDumper {
   async dumpRedirectList(): Promise<void> {
     // Reuse the OSRS pure merge helper — it's just a Map-based diff, no wiki
     // coupling. Imported lazily so test fixtures don't pull the OSRS module.
-    const { mergeRedirects } = await import(
-      "../../modules/dumpers/page-list.dumper"
-    );
+    const { mergeRedirects } = await import("../../modules/dumpers/page-list.dumper");
 
     this.logger.log("Start: Dumping redirect list (RS3)");
     const allPages = await this.getWikiPageListDB();
@@ -119,9 +119,7 @@ export class Rs3PageListDumper {
     const REDIRECT_TITLES_PER_REQUEST = 50;
     const REDIRECT_DB_BATCH_SIZE = 1000;
     const allTitles = allPages.map((p) => p.title);
-    const totalTitleChunks = Math.ceil(
-      allTitles.length / REDIRECT_TITLES_PER_REQUEST,
-    );
+    const totalTitleChunks = Math.ceil(allTitles.length / REDIRECT_TITLES_PER_REQUEST);
 
     type WikiRedirectResponse = {
       pageid: number;
@@ -136,25 +134,20 @@ export class Rs3PageListDumper {
       i += REDIRECT_TITLES_PER_REQUEST, chunkIdx++
     ) {
       if (chunkIdx % 20 === 0) {
-        this.logger.verbose(
-          `Querying redirect chunk ${chunkIdx + 1} / ${totalTitleChunks}`,
-        );
+        this.logger.verbose(`Querying redirect chunk ${chunkIdx + 1} / ${totalTitleChunks}`);
       }
-      const titles = allTitles
-        .slice(i, i + REDIRECT_TITLES_PER_REQUEST)
-        .join("|");
-      const chunkResults =
-        await this.wikiRequestService.queryAllPagesPromise<WikiRedirectResponse>(
-          "rdcontinue",
-          "pages",
-          {
-            action: "query",
-            format: "json",
-            prop: "redirects",
-            rdlimit: "max",
-            titles,
-          },
-        );
+      const titles = allTitles.slice(i, i + REDIRECT_TITLES_PER_REQUEST).join("|");
+      const chunkResults = await this.wikiRequestService.queryAllPagesPromise<WikiRedirectResponse>(
+        "rdcontinue",
+        "pages",
+        {
+          action: "query",
+          format: "json",
+          prop: "redirects",
+          rdlimit: "max",
+          titles,
+        },
+      );
       responses.push(...chunkResults);
     }
 
@@ -169,10 +162,7 @@ export class Rs3PageListDumper {
       await this.db.batch(
         // @ts-expect-error - drizzle batch typing is overly strict across versions
         chunk.map(({ id, aliases }) =>
-          this.db
-            .update(WikiPage)
-            .set({ aliases })
-            .where(eq(WikiPage.id, id)),
+          this.db.update(WikiPage).set({ aliases }).where(eq(WikiPage.id, id)),
         ),
       );
       const chunkNo = Math.floor(i / REDIRECT_DB_BATCH_SIZE) + 1;
@@ -489,6 +479,43 @@ export class Rs3PageListDumper {
     return this.getPageList(ALL_RECIPES_PAGE_LIST);
   }
 
+  /**
+   * RS3 counterpart of `PageListDumper.dumpSkillResourcePageList`: tags every
+   * DB page whose dumped wikitext transcludes a `{{<Skill> info}}` template
+   * (including RS3-only skills such as Divination and Necromancy). Runs
+   * entirely offline against the RS3 SQLite DB — call it after the content
+   * dumper has filled the page text.
+   */
+  async dumpSkillResourcePageList(): Promise<void> {
+    this.logger.log("Scan DB for skill resource pages (RS3)");
+
+    const BATCH_SIZE = 2000;
+    const pageIds: number[] = [];
+    let cursor = 0;
+    for (;;) {
+      const rows = await this.db
+        .select({ id: WikiPage.id, text: WikiPage.text })
+        .from(WikiPage)
+        .where(and(gt(WikiPage.id, cursor), isNotNull(WikiPage.text)))
+        .orderBy(WikiPage.id)
+        .limit(BATCH_SIZE);
+      if (rows.length === 0) break;
+      cursor = rows[rows.length - 1].id;
+
+      for (const row of rows) {
+        if (row.text && SKILL_INFO_TEMPLATE_PATTERN.test(row.text)) {
+          pageIds.push(row.id);
+        }
+      }
+
+      if (rows.length < BATCH_SIZE) break;
+    }
+
+    this.logger.log(`Scan DB for skill resource pages (RS3) - ${pageIds.length} pages tagged`);
+    await this.addTag(pageIds, PageTags.SKILL_RESOURCE);
+    this.logger.log("Scan DB for skill resource pages (RS3) - Completed");
+  }
+
   async getPagesFromTag(tag: string): Promise<Array<typeof WikiPage.$inferSelect>> {
     const tags = await this.db.select().from(PageTag).where(eq(PageTag.tag, tag));
     const pageIds = tags.map((t) => t.wikiPageId);
@@ -504,8 +531,8 @@ export class Rs3PageListDumper {
     return result;
   }
 
-  private saveFile(path: string, content: unknown) {
-    writeFileSync(path, JSON.stringify(content, null, 2));
+  private async saveFile(path: string, content: unknown): Promise<void> {
+    await safeWriteFileSync(path, JSON.stringify(content, null, 2));
   }
 
   // SQLite caps bound variables per statement at 999 by default. Each
@@ -565,9 +592,7 @@ export class Rs3PageListDumper {
     namespace: number = 0,
   ): Promise<void> {
     if (pages.length === 0) return;
-    await this.upsertWikiPages(
-      pages.map((p) => ({ id: p.pageid, title: p.title, namespace })),
-    );
+    await this.upsertWikiPages(pages.map((p) => ({ id: p.pageid, title: p.title, namespace })));
     await this.addTag(
       pages.map((p) => p.pageid),
       tag,

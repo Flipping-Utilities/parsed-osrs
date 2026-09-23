@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_LOCATIONS } from "../../constants/rs3-paths";
 import { GameLocation } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -37,7 +38,7 @@ export class Rs3LocationsExtractor {
 
     locations.sort((a, b) => a.name.localeCompare(b.name));
     if (locations.length) {
-      writeFileSync(ALL_LOCATIONS, JSON.stringify(locations, null, 2));
+      await safeWriteFileSync(ALL_LOCATIONS, JSON.stringify(locations, null, 2));
     }
 
     this.logger.log("Done: Extracting locations (RS3)");

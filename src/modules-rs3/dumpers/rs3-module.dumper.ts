@@ -1,7 +1,8 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, readFileSync } from "fs";
 import path from "path";
 import { MODULES_FOLDER } from "../../constants/rs3-paths";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { Rs3WikiRequestService } from "../wiki/rs3-wiki-request.service";
 
 const MODULE_BATCH_SIZE = 50;
@@ -89,7 +90,7 @@ export class Rs3ModuleDumper {
         try {
           const filePath = this.toFilePath(page.pagename);
           mkdirSync(path.dirname(filePath), { recursive: true });
-          writeFileSync(filePath, source);
+          await safeWriteFileSync(filePath, source);
           knownRevisions[page.pagename] = page.revid;
           written++;
         } catch (e) {
@@ -108,7 +109,7 @@ export class Rs3ModuleDumper {
       );
     }
 
-    this.saveModuleIndex(knownRevisions);
+    await this.saveModuleIndex(knownRevisions);
     this.logger.log(
       `End: Dumping all modules (fetched ${fetched}, written ${written}, skipped ${skipped}, failed ${failed})`,
     );
@@ -133,7 +134,7 @@ export class Rs3ModuleDumper {
     }
   }
 
-  private saveModuleIndex(index: Record<string, number>): void {
-    writeFileSync(this.MODULE_INDEX_FILE, JSON.stringify(index, null, 2));
+  private async saveModuleIndex(index: Record<string, number>): Promise<void> {
+    await safeWriteFileSync(this.MODULE_INDEX_FILE, JSON.stringify(index, null, 2));
   }
 }

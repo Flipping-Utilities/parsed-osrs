@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_ACTIVITIES } from "../../constants/rs3-paths";
 import { Activity } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -35,7 +36,7 @@ export class Rs3ActivitiesExtractor {
 
     activities.sort((a, b) => a.name.localeCompare(b.name));
     if (activities.length) {
-      writeFileSync(ALL_ACTIVITIES, JSON.stringify(activities, null, 2));
+      await safeWriteFileSync(ALL_ACTIVITIES, JSON.stringify(activities, null, 2));
     }
 
     this.logger.log("Done: Extracting activities (RS3)");

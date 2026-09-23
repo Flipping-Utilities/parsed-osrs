@@ -11,4 +11,5 @@ export * from "./recipe";
 export * from "./scenery";
 export * from "./sets";
 export * from "./shops";
+export * from "./skill-resource";
 export * from "./spell";

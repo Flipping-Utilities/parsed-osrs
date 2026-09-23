@@ -16,6 +16,7 @@ import { RecipesExtractor } from "../extractors/recipes.extractor";
 import { SceneryExtractor } from "../extractors/scenery.extractor";
 import { SetsExtractor } from "../extractors/sets.extractor";
 import { ShopsExtractor } from "../extractors/shops.extractor";
+import { SkillResourcesExtractor } from "../extractors/skill-resources.extractor";
 import { SpellsExtractor } from "../extractors/spells.extractor";
 import { SpawnExtractor } from "../extractors/spawn.extractor";
 import { TemplateExtractor } from "../extractors/template.extractor";
@@ -35,6 +36,7 @@ export class DevService implements OnModuleInit {
     private readonly setsExtractor: SetsExtractor,
     private readonly recipesExtractor: RecipesExtractor,
     private readonly shopsExtractor: ShopsExtractor,
+    private readonly skillResourcesExtractor: SkillResourcesExtractor,
     private readonly monstersExtractor: MonstersExtractor,
     private readonly spawnExtractor: SpawnExtractor,
     private readonly templateExtractor: TemplateExtractor,
@@ -124,32 +126,48 @@ export class DevService implements OnModuleInit {
     await this.pageListDumper.dumpMusicPageList();
     await this.moduleDumper.dumpAllModules();
     await this.pageContentDumper.dumpPagesWithMissingContent();
+    // Skill-resource identification scans the dumped wikitext in the DB, so
+    // it must run after the content dumper has filled the page text.
+    await this.pageListDumper.dumpSkillResourcePageList();
     // Aliases change slowly — fetching them is ~30 min for OSRS (~80k pages
     // at 50 titles per request, 1s throttle). Gate on SKIP_REDIRECT_REFRESH
     // so daily cron can opt out and only the weekly run pays the cost.
-    if (process.env.SKIP_REDIRECT_REFRESH !== 'true') {
+    if (process.env.SKIP_REDIRECT_REFRESH !== "true") {
       await this.pageListDumper.dumpRedirectList();
     } else {
-      this.logger.log('Skipping redirect refresh (SKIP_REDIRECT_REFRESH=true)');
+      this.logger.log("Skipping redirect refresh (SKIP_REDIRECT_REFRESH=true)");
     }
   }
 
   async extractWikiContent() {
-    await this.itemsExtractor.extractAllItems();
-    await this.setsExtractor.extractAllSets();
-    await this.recipesExtractor.extractAllRecipes();
-    await this.shopsExtractor.extractAllShops();
-    await this.monstersExtractor.extractAllMonsters();
-    await this.spawnExtractor.extractAllItemSpawns();
-    await this.prayersExtractor.extractAllPrayers();
-    await this.spellsExtractor.extractAllSpells();
-    await this.locationsExtractor.extractAllLocations();
-    await this.npcsExtractor.extractAllNpcs();
-    await this.sceneryExtractor.extractAllScenery();
-    await this.questsExtractor.extractAllQuests();
-    await this.activitiesExtractor.extractAllActivities();
-    await this.newsExtractor.extractAllNews();
-    await this.musicExtractor.extractAllMusic();
-    await this.templateExtractor.extractAllTemplates();
+    // Each extractor is isolated: a failure in one (e.g. a transient
+    // Windows file lock on its output) logs an error but lets the rest
+    // of the pipeline finish instead of crashing the whole run.
+    const steps: Array<[string, () => Promise<unknown>]> = [
+      ["items", () => this.itemsExtractor.extractAllItems()],
+      ["sets", () => this.setsExtractor.extractAllSets()],
+      ["recipes", () => this.recipesExtractor.extractAllRecipes()],
+      ["shops", () => this.shopsExtractor.extractAllShops()],
+      ["skill resources", () => this.skillResourcesExtractor.extractAllSkillResources()],
+      ["monsters", () => this.monstersExtractor.extractAllMonsters()],
+      ["spawns", () => this.spawnExtractor.extractAllItemSpawns()],
+      ["prayers", () => this.prayersExtractor.extractAllPrayers()],
+      ["spells", () => this.spellsExtractor.extractAllSpells()],
+      ["locations", () => this.locationsExtractor.extractAllLocations()],
+      ["npcs", () => this.npcsExtractor.extractAllNpcs()],
+      ["scenery", () => this.sceneryExtractor.extractAllScenery()],
+      ["quests", () => this.questsExtractor.extractAllQuests()],
+      ["activities", () => this.activitiesExtractor.extractAllActivities()],
+      ["news", () => this.newsExtractor.extractAllNews()],
+      ["music", () => this.musicExtractor.extractAllMusic()],
+      ["templates", () => this.templateExtractor.extractAllTemplates()],
+    ];
+    for (const [name, step] of steps) {
+      try {
+        await step();
+      } catch (e) {
+        this.logger.error(`Extractor failed: ${name} — continuing with the rest`, e);
+      }
+    }
   }
 }

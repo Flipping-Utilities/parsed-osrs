@@ -44,12 +44,10 @@ const pipelineProviders = isRs3 ? [] : [DevService];
         // When "true", both dev services skip dumpRedirectList. Used by the
         // daily cron to skip the ~30 min alias sweep; the weekly run leaves
         // it unset so aliases refresh.
-        SKIP_REDIRECT_REFRESH: Joi.string()
-          .valid("true", "false")
-          .default("false"),
+        SKIP_REDIRECT_REFRESH: Joi.string().valid("true", "false").default("false"),
         // Minimum hours between wiki dumps. When the previous dump started
         // within this window, the dev service skips the dump phase and only
-        // re-extracts from the existing DB contents. 
+        // re-extracts from the existing DB contents.
         MIN_REFRESH_HOURS: Joi.number().min(0).default(24),
         NODE_ENV: Joi.string()
           .valid("development", "production", "test", "provision")

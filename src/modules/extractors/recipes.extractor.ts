@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_RECIPES } from "../../constants/paths";
 import { PageTags } from "../../constants/tags";
 import { Recipe, RecipeMaterial, RecipeSkill, Set } from "../../types";
@@ -245,7 +246,7 @@ export class RecipesExtractor {
     }
     if (recipes.length) {
       recipes.sort((a, b) => a?.name?.localeCompare(b.name || "") || 0);
-      writeFileSync(ALL_RECIPES, JSON.stringify(recipes));
+      await safeWriteFileSync(ALL_RECIPES, JSON.stringify(recipes));
     }
 
     this.logger.log("End of recipes extraction");

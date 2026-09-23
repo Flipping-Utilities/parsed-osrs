@@ -1,6 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { eq, inArray } from "drizzle-orm";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { and, eq, gt, inArray, isNotNull } from "drizzle-orm";
+import { existsSync, readFileSync } from "fs";
 import {
   ALL_ITEM_PAGE_LIST,
   ALL_ITEM_SPAWNS_PAGE_LIST,
@@ -22,8 +22,10 @@ import {
   WIKI_PAGE_LIST,
 } from "../../constants/paths";
 import { PageTags } from "../../constants/tags";
+import { SKILL_INFO_TEMPLATE_PATTERN } from "../../constants/skills";
 import { DatabaseService } from "../database/database.service";
 import { PageTag, WikiPage } from "../database/schema";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { WikiPageSlim, WikiRequestService } from "../wiki/wikiRequest.service";
 
 type WikiRedirectResponse = {
@@ -282,10 +284,7 @@ export class PageListDumper {
   async dumpAllItemPageList(): Promise<void> {
     const pages = await this.fetchAllItemPageList();
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.ITEM,
-    );
+    await this.registerAndTagPages(pages, PageTags.ITEM);
     // await this.saveFile(ALL_ITEM_PAGE_LIST, pages);
   }
 
@@ -301,10 +300,7 @@ export class PageListDumper {
     const pages = await this.fetchGEItemPageList();
     this.logger.log("Dump GE item page list - Done");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.GE_ITEM,
-    );
+    await this.registerAndTagPages(pages, PageTags.GE_ITEM);
     await this.saveFile(GE_ITEM_PAGE_LIST, pages);
   }
 
@@ -321,10 +317,7 @@ export class PageListDumper {
     console.log(pages.length, pages.slice(60));
     this.logger.log("Dump item set page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.SET,
-    );
+    await this.registerAndTagPages(pages, PageTags.SET);
     // await this.saveFile(ALL_SETS_PAGE_LIST, pages);
   }
 
@@ -340,10 +333,7 @@ export class PageListDumper {
     const pages = await this.fetchShopPageList();
     this.logger.log("Dump shop page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.SHOP,
-    );
+    await this.registerAndTagPages(pages, PageTags.SHOP);
     // await this.saveFile(ALL_SHOPS_PAGE_LIST, pages);
   }
 
@@ -360,10 +350,7 @@ export class PageListDumper {
     const pages = await this.fetchMonstersPageList();
     this.logger.log("Dump monster page list");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.MONSTER,
-    );
+    await this.registerAndTagPages(pages, PageTags.MONSTER);
   }
 
   getMonsters(): WikiPageSlim[] {
@@ -379,10 +366,7 @@ export class PageListDumper {
     const pages = await this.fetchPrayersPageList();
     this.logger.log("Dump prayer page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.PRAYER,
-    );
+    await this.registerAndTagPages(pages, PageTags.PRAYER);
   }
 
   getPrayers(): WikiPageSlim[] {
@@ -398,10 +382,7 @@ export class PageListDumper {
     const pages = await this.fetchSpellsPageList();
     this.logger.log("Dump spell page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.SPELL,
-    );
+    await this.registerAndTagPages(pages, PageTags.SPELL);
   }
 
   getSpells(): WikiPageSlim[] {
@@ -421,10 +402,7 @@ export class PageListDumper {
     const pages = await this.fetchLocationPageList();
     this.logger.log("Dump location page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.LOCATION,
-    );
+    await this.registerAndTagPages(pages, PageTags.LOCATION);
     await this.saveFile(ALL_LOCATIONS_PAGE_LIST, pages);
   }
 
@@ -439,10 +417,7 @@ export class PageListDumper {
   async dumpNpcPageList() {
     this.logger.log("Dump NPC page list");
     const pages = await this.fetchInfoboxPageList("Infobox NPC");
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.NPC,
-    );
+    await this.registerAndTagPages(pages, PageTags.NPC);
     this.logger.log("Dump NPC page list - Completed");
   }
 
@@ -453,10 +428,7 @@ export class PageListDumper {
   async dumpSceneryPageList() {
     this.logger.log("Dump scenery page list");
     const pages = await this.fetchInfoboxPageList("Infobox Scenery");
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.SCENERY,
-    );
+    await this.registerAndTagPages(pages, PageTags.SCENERY);
     this.logger.log("Dump scenery page list - Completed");
   }
 
@@ -467,10 +439,7 @@ export class PageListDumper {
   async dumpQuestPageList() {
     this.logger.log("Dump quest page list");
     const pages = await this.fetchInfoboxPageList("Infobox Quest");
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.QUEST,
-    );
+    await this.registerAndTagPages(pages, PageTags.QUEST);
     this.logger.log("Dump quest page list - Completed");
   }
 
@@ -493,10 +462,7 @@ export class PageListDumper {
     const pages = await this.fetchQuestGuidePageList();
     this.logger.log(`Dump quest guide page list - ${pages.length} guides found`);
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.QUEST_GUIDE,
-    );
+    await this.registerAndTagPages(pages, PageTags.QUEST_GUIDE);
     await this.saveFile(ALL_QUEST_GUIDES_PAGE_LIST, pages);
     this.logger.log("Dump quest guide page list - Completed");
   }
@@ -508,10 +474,7 @@ export class PageListDumper {
   async dumpActivityPageList() {
     this.logger.log("Dump activity page list");
     const pages = await this.fetchInfoboxPageList("Infobox Activity");
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.ACTIVITY,
-    );
+    await this.registerAndTagPages(pages, PageTags.ACTIVITY);
     this.logger.log("Dump activity page list - Completed");
   }
 
@@ -522,10 +485,7 @@ export class PageListDumper {
   async dumpMusicPageList() {
     this.logger.log("Dump music page list");
     const pages = await this.fetchInfoboxPageList("Infobox Music");
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.MUSIC,
-    );
+    await this.registerAndTagPages(pages, PageTags.MUSIC);
     await this.saveFile(ALL_MUSIC_PAGE_LIST, pages);
     this.logger.log("Dump music page list - Completed");
   }
@@ -563,13 +523,7 @@ export class PageListDumper {
     // The Update namespace is not part of the main dump, so seed the WikiPage
     // rows here. Once they exist with null text, `dumpPagesWithMissingContent`
     // will fetch their bodies on the next pass.
-    await this.upsertWikiPages(
-      pages.map((p) => ({ id: p.pageid, title: p.title, namespace: 112 })),
-    );
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.NEWS,
-    );
+    await this.registerAndTagPages(pages, PageTags.NEWS, 112);
     await this.saveFile(ALL_NEWS_PAGE_LIST, pages);
     this.logger.log("Dump news page list - Completed");
   }
@@ -612,10 +566,7 @@ export class PageListDumper {
     const pages = await this.fetchItemSpawnPageList();
     this.logger.log("Dump item spawn page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.ITEM_SPAWN,
-    );
+    await this.registerAndTagPages(pages, PageTags.ITEM_SPAWN);
     // await this.saveFile(ALL_ITEM_SPAWNS_PAGE_LIST, pages);
   }
 
@@ -636,15 +587,51 @@ export class PageListDumper {
     const pages = await this.fetchRecipePageList();
     this.logger.log("Dump recipe page list - Completed");
 
-    await this.addTag(
-      pages.map((p) => p.pageid),
-      PageTags.RECIPE,
-    );
+    await this.registerAndTagPages(pages, PageTags.RECIPE);
     await this.saveFile(ALL_RECIPES_PAGE_LIST, pages);
   }
 
   getRecipes(): WikiPageSlim[] {
     return this.getPageList(ALL_RECIPES_PAGE_LIST);
+  }
+
+  /**
+   * Identifies skill-resource pages (trees, rocks, fishing spots, ...) by
+   * scanning the wikitext already stored in the local DB for
+   * `{{<Skill> info}}` template transclusions — no wiki API call.
+   *
+   * Unlike the other dump methods this runs entirely offline, so it MUST be
+   * called after `dumpPagesWithMissingContent()` has filled the page text.
+   * Pages are read in keyset batches keyed on `id` to keep memory flat.
+   */
+  async dumpSkillResourcePageList(): Promise<void> {
+    this.logger.log("Scan DB for skill resource pages");
+
+    const BATCH_SIZE = 2000;
+    const pageIds: number[] = [];
+    let cursor = 0;
+    for (;;) {
+      const rows = await this.db
+        .select({ id: WikiPage.id, text: WikiPage.text })
+        .from(WikiPage)
+        .where(and(gt(WikiPage.id, cursor), isNotNull(WikiPage.text)))
+        .orderBy(WikiPage.id)
+        .limit(BATCH_SIZE);
+      if (rows.length === 0) break;
+      cursor = rows[rows.length - 1].id;
+
+      for (const row of rows) {
+        if (row.text && SKILL_INFO_TEMPLATE_PATTERN.test(row.text)) {
+          pageIds.push(row.id);
+        }
+      }
+
+      if (rows.length < BATCH_SIZE) break;
+    }
+
+    this.logger.log(`Scan DB for skill resource pages - ${pageIds.length} pages tagged`);
+    await this.addTag(pageIds, PageTags.SKILL_RESOURCE);
+    this.logger.log("Scan DB for skill resource pages - Completed");
   }
 
   async getPagesFromTag(tag: string): Promise<Array<typeof WikiPage.$inferSelect>> {
@@ -662,51 +649,87 @@ export class PageListDumper {
     return result;
   }
 
-  private saveFile(path: string, content: unknown) {
-    writeFileSync(path, JSON.stringify(content, null, 2));
+  private async saveFile(path: string, content: unknown): Promise<void> {
+    await safeWriteFileSync(path, JSON.stringify(content, null, 2));
   }
 
   /**
-   * Inserts slim WikiPage rows (id + title + namespace) for pages that live
-   * outside the main namespace and therefore aren't part of the bulk XML dump.
-   * The remaining fields (text, revisionId, ...) are filled in later by the
-   * content dumper.
+   * Inserts slim WikiPage rows (id + title + namespace) so the content dumper
+   * (`dumpPagesWithMissingContent`) finds them and fills in the remaining
+   * fields (text, revisionId, ...). Without these rows, tagged pages have no
+   * `wiki_page` entry, the content dumper fetches nothing, and every
+   * extractor sees zero pages — which is how a run against a fresh local DB
+   * produced an empty all-items.json.
+   *
+   * Mirrors the RS3 dumpers' `registerAndTagPages` preconditions.
    */
   private async upsertWikiPages(
     pages: { id: number; title: string; namespace: number }[],
   ): Promise<void> {
     if (pages.length === 0) return;
+    // Chunk to stay under SQLite's bound-variable limit (each upsert uses 3
+    // vars; 250 per batch matches the RS3 dumpers).
+    const BATCH = 250;
     try {
-      await this.db.batch(
-        // @ts-ignore - drizzle batch typing is overly strict across versions
-        pages.map((page) =>
-          this.db
-            .insert(WikiPage)
-            .values({
-              id: page.id,
-              title: page.title,
-              namespace: page.namespace,
-            })
-            .onConflictDoUpdate({
-              target: WikiPage.id,
-              set: { title: page.title, namespace: page.namespace },
-            }),
-        ),
-      );
+      for (let i = 0; i < pages.length; i += BATCH) {
+        const chunk = pages.slice(i, i + BATCH);
+        await this.db.batch(
+          // @ts-ignore - drizzle batch typing is overly strict across versions
+          chunk.map((page) =>
+            this.db
+              .insert(WikiPage)
+              .values({
+                id: page.id,
+                title: page.title,
+                namespace: page.namespace,
+              })
+              .onConflictDoUpdate({
+                target: WikiPage.id,
+                set: { title: page.title, namespace: page.namespace },
+              }),
+          ),
+        );
+      }
     } catch (e) {
       // A failed batch shouldn't abort the whole dump; rows may already exist.
       this.logger.error(e);
     }
   }
 
+  /**
+   * Upserts slim `wiki_page` rows for every page in the list AND tags them —
+   * the OSRS equivalent of the RS3 dumpers' `registerAndTagPages`. The rows
+   * are what `dumpPagesWithMissingContent` iterates; tagging alone leaves
+   * page IDs with no row to fetch content for.
+   */
+  private async registerAndTagPages(
+    pages: WikiPageSlim[],
+    tag: string,
+    namespace: number = 0,
+  ): Promise<void> {
+    if (pages.length === 0) return;
+    await this.upsertWikiPages(pages.map((p) => ({ id: p.pageid, title: p.title, namespace })));
+    await this.addTag(
+      pages.map((p) => p.pageid),
+      tag,
+    );
+  }
+
   private async addTag(pagesId: number[], tag: string) {
+    if (pagesId.length === 0) return;
     try {
-      await this.db.batch(
-        // @ts-ignore
-        pagesId.map((pageId) =>
-          this.db.insert(PageTag).values({ wikiPageId: pageId, tag }).onConflictDoNothing(),
-        ),
-      );
+      // Each tag insert binds 2 vars; chunk at 500 to stay under SQLite's
+      // 999-variable default limit.
+      const BATCH = 500;
+      for (let i = 0; i < pagesId.length; i += BATCH) {
+        const chunk = pagesId.slice(i, i + BATCH);
+        await this.db.batch(
+          // @ts-ignore
+          chunk.map((pageId) =>
+            this.db.insert(PageTag).values({ wikiPageId: pageId, tag }).onConflictDoNothing(),
+          ),
+        );
+      }
     } catch (e) {
       // This can happen if the page doesn't exist
       // Not optimal as it'll fail the batch, should fix

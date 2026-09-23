@@ -38,8 +38,7 @@ const itemIds: Record<string, number> = {
   "Black dragonhide vambraces": 2491,
   Needle: 1733,
 };
-const lookup = (name: string) =>
-  itemIds[name] ? { id: itemIds[name] } : null;
+const lookup = (name: string) => (itemIds[name] ? { id: itemIds[name] } : null);
 
 function extractRs3RecipeTemplates(text: string) {
   return parseWikitext(text)

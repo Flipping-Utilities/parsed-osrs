@@ -15,6 +15,7 @@ import { RecipesExtractor } from "./recipes.extractor";
 import { SceneryExtractor } from "./scenery.extractor";
 import { SetsExtractor } from "./sets.extractor";
 import { ShopsExtractor } from "./shops.extractor";
+import { SkillResourcesExtractor } from "./skill-resources.extractor";
 import { SpellsExtractor } from "./spells.extractor";
 import { SpawnExtractor } from "./spawn.extractor";
 import { TemplateExtractor } from "./template.extractor";
@@ -35,6 +36,7 @@ import { TemplateExtractor } from "./template.extractor";
     SceneryExtractor,
     SetsExtractor,
     ShopsExtractor,
+    SkillResourcesExtractor,
     SpellsExtractor,
     SpawnExtractor,
     TemplateExtractor,
@@ -53,6 +55,7 @@ import { TemplateExtractor } from "./template.extractor";
     SceneryExtractor,
     SetsExtractor,
     ShopsExtractor,
+    SkillResourcesExtractor,
     SpellsExtractor,
     SpawnExtractor,
     TemplateExtractor,

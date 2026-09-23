@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SHOPS } from "../../constants/rs3-paths";
 import { Shop } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -38,7 +39,7 @@ export class Rs3ShopsExtractor {
     shops.sort((a, b) => a.name.localeCompare(b.name));
 
     if (shops.length) {
-      writeFileSync(ALL_SHOPS, JSON.stringify(shops));
+      await safeWriteFileSync(ALL_SHOPS, JSON.stringify(shops));
     }
 
     this.logger.log("Finished extracting shops (RS3)");

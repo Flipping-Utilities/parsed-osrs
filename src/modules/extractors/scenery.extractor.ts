@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SCENERY } from "../../constants/paths";
 import { Scenery } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -109,7 +110,7 @@ export class SceneryExtractor {
 
     scenery.sort((a, b) => a.name.localeCompare(b.name));
     if (scenery.length) {
-      writeFileSync(ALL_SCENERY, JSON.stringify(scenery, null, 2));
+      await safeWriteFileSync(ALL_SCENERY, JSON.stringify(scenery, null, 2));
     }
 
     this.logger.log("Done: Extracting scenery");

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_PRAYERS } from "../../constants/paths";
 import { Prayer } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -61,7 +62,7 @@ export class PrayersExtractor {
 
     prayers.sort((a, b) => a.name.localeCompare(b.name));
     if (prayers.length) {
-      writeFileSync(ALL_PRAYERS, JSON.stringify(prayers, null, 2));
+      await safeWriteFileSync(ALL_PRAYERS, JSON.stringify(prayers, null, 2));
     }
 
     this.logger.log("Done: Extracting prayers");

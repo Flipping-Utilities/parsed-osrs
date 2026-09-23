@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_MONSTERS } from "../../constants/rs3-paths";
 import { Monster } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -45,7 +46,7 @@ export class Rs3MonstersExtractor {
     }
 
     if (monsters.length) {
-      writeFileSync(ALL_MONSTERS, JSON.stringify(monsters));
+      await safeWriteFileSync(ALL_MONSTERS, JSON.stringify(monsters));
     }
 
     this.logger.log("Done: Extracting monsters (RS3)");

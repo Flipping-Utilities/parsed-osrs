@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_MONSTERS } from "../../constants/paths";
 import { DropTable, Monster, MonsterDrop, MonsterLocation } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -422,6 +423,24 @@ export function parseMonsterFromContent(
       }
     });
 
+    // Some multi-version pages (e.g. Great Olm) list every id in the base
+    // `id` param as a comma-separated list instead of id2/id3 keys. Spread
+    // those across the variants so they aren't all dropped for lacking ids.
+    if (!Object.keys(monsterData).some((k) => /^id\d+$/.test(k))) {
+      const baseIds = String(monsterData.id ?? "")
+        .split(",")
+        .map((s) => Number(s.trim()))
+        .filter((n) => Number.isFinite(n) && n > 0);
+      if (baseIds.length > 1) {
+        for (let i = 1; i < allVariants.length; i++) {
+          const variant = allVariants[i];
+          if (variant && !variant.id && baseIds[i - 1]) {
+            variant.id = baseIds[i - 1];
+          }
+        }
+      }
+    }
+
     allVariants = allVariants.filter((v) => v.id);
     candidateMonsters.push(...allVariants);
   } else {
@@ -463,7 +482,7 @@ export class MonstersExtractor {
     }
 
     if (monsters.length) {
-      writeFileSync(ALL_MONSTERS, JSON.stringify(monsters));
+      await safeWriteFileSync(ALL_MONSTERS, JSON.stringify(monsters));
     }
 
     this.logger.log("Done: Extracting monsters");

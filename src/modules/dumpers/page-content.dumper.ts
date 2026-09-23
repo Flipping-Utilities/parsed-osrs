@@ -182,10 +182,7 @@ export class PageContentDumper {
         .select({ id: WikiPage.id })
         .from(WikiPage)
         .where(
-          and(
-            inArray(WikiPage.id, chunk),
-            eq(WikiPage.revisionId, WikiPage.fullfetchRevisionId),
-          ),
+          and(inArray(WikiPage.id, chunk), eq(WikiPage.revisionId, WikiPage.fullfetchRevisionId)),
         );
       for (const r of rows) upToDateSet.add(r.id);
     }

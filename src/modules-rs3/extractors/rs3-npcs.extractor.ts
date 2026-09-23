@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_NPCS } from "../../constants/rs3-paths";
 import { NPC } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -34,7 +35,7 @@ export class Rs3NpcsExtractor {
 
     npcs.sort((a, b) => a.name.localeCompare(b.name));
     if (npcs.length) {
-      writeFileSync(ALL_NPCS, JSON.stringify(npcs, null, 2));
+      await safeWriteFileSync(ALL_NPCS, JSON.stringify(npcs, null, 2));
     }
 
     this.logger.log("Done: Extracting NPCs (RS3)");

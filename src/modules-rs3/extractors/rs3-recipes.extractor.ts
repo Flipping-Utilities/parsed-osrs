@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_RECIPES } from "../../constants/rs3-paths";
 import { PageTags } from "../../constants/tags";
 import { Recipe } from "../../types";
@@ -129,7 +130,7 @@ export class Rs3RecipesExtractor {
 
     if (recipes.length) {
       recipes.sort((a, b) => a?.name?.localeCompare(b.name || "") || 0);
-      writeFileSync(ALL_RECIPES, JSON.stringify(recipes));
+      await safeWriteFileSync(ALL_RECIPES, JSON.stringify(recipes));
     }
 
     this.logger.log(`End of recipes extraction (RS3) — ${recipes.length} recipes`);
@@ -178,9 +179,7 @@ export class Rs3RecipesExtractor {
         if (!normalized.name) {
           normalized.name = `Making ${page.title}`;
         }
-        return parseRecipeProperties(normalized, (name) =>
-          this.itemExtractor.getItemByName(name),
-        );
+        return parseRecipeProperties(normalized, (name) => this.itemExtractor.getItemByName(name));
       })
       .filter((v): v is Recipe => v !== null);
   }

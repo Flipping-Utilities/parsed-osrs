@@ -25,6 +25,7 @@ export const LOCATIONS_FOLDER = `${DATA_FOLDER}/locations`;
 export const NPCS_FOLDER = `${DATA_FOLDER}/npcs`;
 export const SCENERY_FOLDER = `${DATA_FOLDER}/scenery`;
 export const QUESTS_FOLDER = `${DATA_FOLDER}/quests`;
+export const SKILL_RESOURCES_FOLDER = `${DATA_FOLDER}/skill-resources`;
 export const ACTIVITIES_FOLDER = `${DATA_FOLDER}/activities`;
 export const NEWS_FOLDER = `${DATA_FOLDER}/news`;
 export const MUSIC_FOLDER = `${DATA_FOLDER}/music`;
@@ -41,6 +42,7 @@ fs.mkdirSync(LOCATIONS_FOLDER, { recursive: true });
 fs.mkdirSync(NPCS_FOLDER, { recursive: true });
 fs.mkdirSync(SCENERY_FOLDER, { recursive: true });
 fs.mkdirSync(QUESTS_FOLDER, { recursive: true });
+fs.mkdirSync(SKILL_RESOURCES_FOLDER, { recursive: true });
 fs.mkdirSync(ACTIVITIES_FOLDER, { recursive: true });
 fs.mkdirSync(NEWS_FOLDER, { recursive: true });
 fs.mkdirSync(MUSIC_FOLDER, { recursive: true });
@@ -79,6 +81,7 @@ export const ALL_SCENERY = `${SCENERY_FOLDER}/all-scenery.json`;
 export const ALL_SCENERY_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-scenery-page-list.json`;
 
 export const ALL_QUESTS = `${QUESTS_FOLDER}/all-quests.json`;
+export const ALL_SKILL_RESOURCES = `${SKILL_RESOURCES_FOLDER}/all-skill-resources.json`;
 export const ALL_QUESTS_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-quests-page-list.json`;
 export const ALL_QUEST_GUIDES_PAGE_LIST = `${WIKI_PAGE_LIST_FOLDER}/all-quest-guides-page-list.json`;
 

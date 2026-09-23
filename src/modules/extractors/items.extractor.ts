@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { load } from "cheerio";
 import { ALL_ITEMS } from "../../constants/paths";
 import { EquipmentStats, Item } from "../../types";
@@ -299,7 +300,14 @@ export class ItemsExtractor {
     this.logger.log("Completed extracting all items");
 
     items.sort((a, b) => a?.name?.localeCompare(b.name) || 0);
-    writeFileSync(ALL_ITEMS, JSON.stringify(items));
+    if (items.length) {
+      await safeWriteFileSync(ALL_ITEMS, JSON.stringify(items));
+    } else {
+      // An empty result almost always means the DB has no item page content
+      // (e.g. a run against a fresh, not-yet-dumped database) — don't wipe a
+      // previously good snapshot with [].
+      this.logger.warn("No items extracted — keeping existing all-items.json");
+    }
   }
 
   public getAllItems(): Item[] | null {

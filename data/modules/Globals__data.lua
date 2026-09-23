@@ -1,0 +1,224 @@
+-- <nowiki>
+
+local ca_info = { 
+	easy_tasks = 41,
+	medium_tasks = 64,
+	hard_tasks = 89,
+	elite_tasks = 166,
+	master_tasks = 173,
+	grandmaster_tasks = 122
+}
+local skill_info = {
+	free_skills = 15,
+	members_skills = 9
+}
+
+return {
+
+-- Quests
+	['quests'] = {
+		'the total amount of quests',
+		'184'
+	},
+	['quests p2p'] = {
+		'the total amount of quests exclusive for members',
+		'160'
+	},
+	['quests f2p'] = {
+		'the total amount of free-to-play quests',
+		'24'
+	},
+	['quests speedrunning'] = {
+		'the total amount of quests available to speedrun on Quest Speedrunning worlds',
+		'15'
+	},
+	['quest points'] = {
+		'the total amount of quest points',
+		'343'
+	},
+	['quest points f2p'] = {
+		'the total amount of quest points obtained with free-to-play quests',
+		'46'
+	},
+	['quest points p2p'] = {
+		'the total amount of quest points obtained with pay-to-play quests',
+		'297'
+	},
+	['latest quest'] = {
+		'the name of the latest released quest',
+		'[[Crab Quest]]'
+	},
+	['latest quest f2p'] = {
+		'the name of the latest released free-to-play quest',
+		'[[The Ides of Milk]]'
+	},
+	['latest quest p2p'] = {
+		'the name of the latest released quest exclusive for members',
+		'[[Crab Quest]]'
+	},
+	['latest quest release date'] = {
+		'the date of the latest released quest',
+		'[[8 September]] [[2026]]'
+	},
+	['latest quest release date f2p'] = {
+		'the date of the latest released free-to-play quest',
+		'[[25 February]] [[2026]]'
+	},
+
+-- Music tracks
+	['music tracks'] = {
+		'the total amount of music tracks',
+		'853'
+	},
+	['latest music release date'] = {
+		'the date of when the latest music track was released',
+		'[[29 July]] [[2026]]'
+	},
+
+-- Combat achievements
+	['ca total tasks'] = {
+		'the total amount of Combat Achievements tasks',
+		tostring(
+			ca_info.easy_tasks+
+			ca_info.medium_tasks+
+			ca_info.hard_tasks+
+			ca_info.elite_tasks+
+			ca_info.master_tasks+
+			ca_info.grandmaster_tasks
+		)
+	},
+	['ca easy tasks'] = {
+		'the total amount of easy-tier Combat Achievements tasks',
+		tostring(ca_info.easy_tasks)
+	},
+	['ca medium tasks'] = {
+		'the total amount of medium-tier Combat Achievements tasks',
+		tostring(ca_info.medium_tasks)
+	},
+	['ca hard tasks'] = {
+		'the total amount of hard-tier Combat Achievements tasks',
+		tostring(ca_info.hard_tasks)
+	},
+	['ca elite tasks'] = {
+		'the total amount of elite-tier Combat Achievements tasks',
+		tostring(ca_info.elite_tasks)
+	},
+	['ca master tasks'] = {
+		'the total amount of master-tier Combat Achievements tasks',
+		tostring(ca_info.master_tasks)
+	},
+	['ca gm tasks'] = {
+		'the total amount of grandmaster-tier Combat Achievements tasks',
+		tostring(ca_info.grandmaster_tasks)
+	},
+	
+	['ca easy task points'] = {
+		'the total amount of points granted by easy-tier Combat Achievements',
+		tostring(ca_info.easy_tasks * 1)
+	},
+	['ca medium task points'] = {
+		'the total amount of points granted by medium-tier Combat Achievements',
+		tostring(ca_info.medium_tasks * 2)
+	},
+	['ca hard task points'] = {
+		'the total amount of points granted by hard-tier Combat Achievements',
+		tostring(ca_info.hard_tasks * 3)
+	},
+	['ca elite task points'] = {
+		'the total amount of points granted by elite-tier Combat Achievements',
+		tostring(ca_info.elite_tasks * 4)
+	},
+	['ca master task points'] = {
+		'the total amount of points granted by master-tier Combat Achievements',
+		tostring(ca_info.master_tasks * 5)
+	},
+	['ca gm task points'] = {
+		'the total amount of points granted by grandmaster-tier Combat Achievements',
+		tostring(ca_info.grandmaster_tasks * 6)
+	},
+
+	['ca easy points'] = {
+		'the total amount of points required to claim the easy-tier Combat Achievements rewards',
+		tostring(ca_info.easy_tasks * 1)
+	},
+	['ca medium points'] = {
+		'the total amount of points required to claim the medium-tier Combat Achievements rewards',
+		tostring(
+			ca_info.easy_tasks * 1 +
+			ca_info.medium_tasks * 2
+		)
+	},
+	['ca hard points'] = {
+		'the total amount of points required to claim the hard-tier Combat Achievements rewards',
+		tostring(
+			ca_info.easy_tasks * 1 +
+			ca_info.medium_tasks * 2 +
+			ca_info.hard_tasks * 3
+		)
+	},
+	['ca elite points'] = {
+		'the total amount of points required to claim the elite-tier Combat Achievements rewards',
+		tostring(
+			ca_info.easy_tasks * 1 +
+			ca_info.medium_tasks * 2 +
+			ca_info.hard_tasks * 3 +
+			ca_info.elite_tasks * 4
+		)
+	},
+	['ca master points'] = {
+		'the total amount of points required to claim the master-tier Combat Achievements rewards',
+		tostring(
+			ca_info.easy_tasks * 1 +
+			ca_info.medium_tasks * 2 +
+			ca_info.hard_tasks * 3 +
+			ca_info.elite_tasks * 4 +
+			ca_info.master_tasks * 5
+		)
+	},
+	['ca gm points'] = {
+		'the total amount of Combat Achievements points',
+		tostring(
+			ca_info.easy_tasks * 1 +
+			ca_info.medium_tasks * 2 +
+			ca_info.hard_tasks * 3 +
+			ca_info.elite_tasks * 4 +
+			ca_info.master_tasks * 5 +
+			ca_info.grandmaster_tasks * 6
+		)
+	},
+
+-- Collection log
+    ['collection log slots'] = {
+    	'the total amount of Collection Log slots',
+    	'1717'
+    },
+
+-- Skills
+	['total skills'] = {
+		'the total amount of skills',
+		tostring(skill_info.free_skills + skill_info.members_skills)
+	},
+	['total skills p2p'] = {
+		'the total amount of skills exclusive to members',
+		tostring(skill_info.members_skills)
+	},
+	['total skills f2p'] = {
+		'the total amount of free-to-play skills',
+		tostring(skill_info.free_skills)
+	},
+	['total level'] = {
+		'the absolute maximum total level achievable',
+		tostring((skill_info.free_skills + skill_info.members_skills) * 99)
+	},
+	['total level f2p'] = {
+		'the absolute maximum total level achievable in free-to-play',
+		tostring(skill_info.free_skills * 99)
+	},
+
+-- Time
+	['today'] = {
+		'the date of today',
+		os.date('%d %B %Y')
+	}
+}
+-- </nowiki>

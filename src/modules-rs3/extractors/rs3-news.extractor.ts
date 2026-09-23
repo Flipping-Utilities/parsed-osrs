@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_NEWS } from "../../constants/rs3-paths";
 import { NewsArticle } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -42,7 +43,7 @@ export class Rs3NewsExtractor {
 
     news.sort((a, b) => (b.dateIso || "").localeCompare(a.dateIso || ""));
     if (news.length) {
-      writeFileSync(ALL_NEWS, JSON.stringify(news, null, 2));
+      await safeWriteFileSync(ALL_NEWS, JSON.stringify(news, null, 2));
     }
 
     this.logger.log(`Done: Extracting news (RS3) (${news.length} articles)`);

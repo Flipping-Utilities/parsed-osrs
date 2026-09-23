@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_ACTIVITIES } from "../../constants/paths";
 import { Activity } from "../../types";
 import { PageContentDumper, PageListDumper } from "../dumpers";
@@ -72,7 +73,7 @@ export class ActivitiesExtractor {
 
     activities.sort((a, b) => a.name.localeCompare(b.name));
     if (activities.length) {
-      writeFileSync(ALL_ACTIVITIES, JSON.stringify(activities, null, 2));
+      await safeWriteFileSync(ALL_ACTIVITIES, JSON.stringify(activities, null, 2));
     }
 
     this.logger.log("Done: Extracting activities");

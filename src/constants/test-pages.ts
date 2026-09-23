@@ -35,4 +35,7 @@ export const TestPages = {
   LegendsQuestQuickGuide: 76213,
   TombsOfAmascut: 326230,
   Adventure: 97649,
+  OakTree: 10008,
+  CopperRocks: 18143,
+  GreatOlm: 82466,
 } as const;

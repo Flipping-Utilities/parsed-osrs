@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_NEWS } from "../../constants/paths";
 import { PageTags } from "../../constants/tags";
 import { NewsArticle } from "../../types";
@@ -114,7 +115,7 @@ export class NewsExtractor {
 
     news.sort((a, b) => (b.dateIso || "").localeCompare(a.dateIso || ""));
     if (news.length) {
-      writeFileSync(ALL_NEWS, JSON.stringify(news, null, 2));
+      await safeWriteFileSync(ALL_NEWS, JSON.stringify(news, null, 2));
     }
 
     this.logger.log(`Done: Extracting news (${news.length} articles)`);

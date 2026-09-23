@@ -1,0 +1,103 @@
+local p = {}
+
+local paramTest = require('Module:Paramtest')
+local onMain = require('Module:Mainonly').on_main
+local yesNo = require('Module:Yesno')
+
+local SlotInfo = {
+	{ name = 'head', icon = 'Head slot', txt = 'Head', link = 'Head slot table' },
+	{ name = 'neck', icon = 'Neck slot', txt = 'Neck', link = 'Neck slot table' },
+	{ name = 'cape', icon = 'Cape slot', txt = 'Back', link = 'Cape slot table' },
+	{ name = 'body', icon = 'Body slot', txt = 'Body', link = 'Body slot table' },
+	{ name = 'legs', icon = 'Legs slot', txt = 'Legs', link = 'Legs slot table' },
+	{ name = 'weapon', icon = 'Weapon slot', txt = 'One-handed weapon', link = 'One-handed slot table' },
+	{ name = 'shield', icon = 'Shield slot', txt = 'Shield', link = 'Shield slot table' },
+	{ name = '2h', icon = '2h slot', txt = 'Two-handed weapon', link = 'Two-handed slot table' },
+	{ name = 'ammo', icon = 'Ammo slot', txt = 'Ammo/Spell', link = 'Ammunition slot table' },
+	{ name = 'hands', icon = 'Hands slot', txt = 'hands', link = 'Hand slot table' },
+	{ name = 'feet', icon = 'Feet slot', txt = 'Boots', link = 'Feet slot table' },
+	{ name = 'ring', icon = 'Ring slot', txt = 'Ring', link = 'Ring slot table' },
+	{ name = 'special', icon = 'Special attack orb', txt = 'Special attack', link = 'Special attacks' },
+}
+
+function buildRow(slot, rowData, largestRowSize)
+	local row = mw.html.create('tr')
+	row:tag('td'):wikitext('[[File:' .. slot.icon .. '.png|' .. slot.txt .. '|link=' .. slot.link .. ']]')
+	for _, cellData in ipairs(rowData) do
+		row:tag('td'):wikitext(cellData)
+	end
+	
+	-- If there are any rows that empty compared to other rows fill up the remaining td's with N/As
+	for i = 1, largestRowSize - #rowData, 1 do
+		row:tag('td'):addClass('table-na'):wikitext('N/A')	
+	end
+	return row
+end
+
+function p._main(args)
+	
+	-- Tracking for colspan and N/A cells
+	local largestRowSize = 0
+	-- Intended as a hidden setting, use sparingly
+	local maxRowsPerSlot = paramTest.default_to(args.rows, 5)
+	
+	-- Find the greatest row count
+	for i, slot in ipairs(SlotInfo) do
+		local slotRowSize = 0
+		
+		for i = 1, maxRowsPerSlot, 1 do
+			if(paramTest.has_content(args[slot.name .. i])) then
+				slotRowSize = i
+			end
+		end
+		
+		if(largestRowSize < slotRowSize) then
+			largestRowSize = slotRowSize	
+		end
+		if(largestRowSize == maxRowsPerSlot) then
+			break
+		end
+	end
+	
+	local ret = mw.html.create('table'):addClass('wikitable sticky-header')
+	
+	if(paramTest.has_content(args.style)) then
+		ret:tag('caption'):wikitext('Recommended equipment for ' .. args.style)
+	end
+	
+	ret:tag('tr')
+		:tag('th'):wikitext('Slot'):done()
+		:tag('th'):attr('colspan', largestRowSize):wikitext('Item (most effective → least effective)'):done()
+	
+	
+	local slotInputs = {}
+	for _, slot in ipairs(SlotInfo) do
+		local slotRow = {}
+		for i = 1, maxRowsPerSlot, 1 do
+			local gear = args[slot.name .. i]
+			if(paramTest.has_content(gear)) then
+				table.insert(slotRow, gear)
+			end
+		end
+		
+		if(#slotRow > 0) then
+			ret:node(buildRow(slot, slotRow, largestRowSize))
+			slotInputs[slot.name] = slotRow
+		end
+	end
+	
+	local useBucket = yesNo(args.bucket or '', true)
+	if(useBucket and onMain()) then
+		local jsonObject = { ['Recommended Equipment'] = slotInputs, style = args.style}
+		bucket("recommended_equipment").put({json = mw.text.jsonEncode(jsonObject)})
+	end
+	
+	return ret
+end
+
+function p.main(frame)
+	local args = frame:getParent().args	
+	return p._main(args)
+end
+
+return p

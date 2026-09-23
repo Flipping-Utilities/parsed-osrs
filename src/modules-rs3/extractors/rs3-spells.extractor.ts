@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { existsSync, readFileSync, writeFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
+import { safeWriteFileSync } from "../../utils/safe-write";
 import { ALL_SPELLS } from "../../constants/rs3-paths";
 import { Spell } from "../../types";
 import { PageTags } from "../../constants/tags";
@@ -39,7 +40,7 @@ export class Rs3SpellsExtractor {
 
     spells.sort((a, b) => a.name.localeCompare(b.name));
     if (spells.length) {
-      writeFileSync(ALL_SPELLS, JSON.stringify(spells, null, 2));
+      await safeWriteFileSync(ALL_SPELLS, JSON.stringify(spells, null, 2));
     }
 
     this.logger.log("Done: Extracting spells (RS3)");
