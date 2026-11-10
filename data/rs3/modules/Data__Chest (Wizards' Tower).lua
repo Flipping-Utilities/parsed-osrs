@@ -1,0 +1,15 @@
+return {
+	{ total = 21, mist = 35, dust = 25, nature = 40, death = 50, evidence = '', username = 'null', timestamp = '2026-02-25 04:13:34' },
+	{ total = 100, mist = 95, dust = 135, nature = 230, death = 310, evidence = '', username = 'Kisurage', timestamp = '2026-03-09 03:56:28' },
+	{ total = 860, mist = 1075, dust = 1090, nature = 2150, death = 2120, evidence = 'Tracked via spreadsheet', username = 'null', timestamp = '2026-03-09 06:48:23' },
+	{ total = 59, mist = 75, dust = 65, nature = 150, death = 160, evidence = 'Not confirmable by anyone, just the results of farming that level.', username = 'null', timestamp = '2026-03-13 09:43:46' },
+	{ total = 10, mist = 20, dust = 15, nature = 20, death = 10, evidence = '', username = 'null', timestamp = '2026-04-08 03:07:56' },
+	{ total = 13, mist = 10, dust = 10, nature = 60, death = 30, evidence = '', username = 'null', timestamp = '2026-05-19 12:28:48' },
+	{ total = 13, mist = 20, dust = 20, nature = 20, death = 30, evidence = '', username = 'null', timestamp = '2026-05-23 00:30:08' },
+	{ total = 100, mist = 115, dust = 135, nature = 240, death = 260, evidence = '', username = '~2026-TorvaSaucepanMould5282', timestamp = '2026-07-24 01:33:11' },
+	{ total = 9, mist = 20, dust = 0, nature = 30, death = 20, evidence = '', username = 'null', timestamp = '2026-07-31 05:42:03' },
+	{ total = 71, mist = 70, dust = 115, nature = 220, death = 120, evidence = '', username = '~2026-HumanBlockerContainer14391', timestamp = '2026-08-06 01:58:22' },
+	{ total = 837, mist = 1145, dust = 1025, nature = 1940, death = 2090, evidence = 'https://imgur.com/ICtP6Qj', username = 'NordicRest', timestamp = '2026-08-11 16:16:51' },
+	{ total = 6, mist = 5, dust = 15, nature = 0, death = 20, evidence = '', username = 'Kristjanlink', timestamp = '2026-09-01 21:05:14' },
+	{ total = 50, mist = 70, dust = 45, nature = 170, death = 100, evidence = '170 Nature = 17 chests, 100 Death = 10 chests, 45 Dust = 9 chests, 70 Mist =  14 chests. 17+10+9+14=50', username = '~2026-SmokedCoinWoven17505', timestamp = '2026-09-24 22:09:59' },
+}

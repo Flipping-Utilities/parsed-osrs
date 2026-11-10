@@ -1,0 +1,17 @@
+return {
+	{ total = 5, oriSpirit = 2, drakoSpirit = 3, necriteSpirit = 5, phasmaSpirit = 2, oriBar = 0, necroBar = 0, evidence = '', username = 'Walrus4432', timestamp = '2026-02-20 09:38:51' },
+	{ total = 5, oriSpirit = 2, drakoSpirit = 3, necriteSpirit = 5, phasmaSpirit = 2, oriBar = 0, necroBar = 0, evidence = '', username = 'Walrus4432', timestamp = '2026-02-20 09:38:52' },
+	{ total = 42, oriSpirit = 26, drakoSpirit = 18, necriteSpirit = 37, phasmaSpirit = 20, oriBar = 2, necroBar = 2, evidence = '', username = 'Creigan', timestamp = '2026-02-22 07:46:45' },
+	{ total = 85, oriSpirit = 51, drakoSpirit = 38, necriteSpirit = 47, phasmaSpirit = 42, oriBar = 9, necroBar = 8, evidence = '', username = '~2026-SpoilsShrinkNuts3518', timestamp = '2026-03-04 23:38:55' },
+	{ total = 200, oriSpirit = 87, drakoSpirit = 98, necriteSpirit = 101, phasmaSpirit = 82, oriBar = 29, necroBar = 24, evidence = 'https://imgur.com/a/IRGWin5', username = 'null', timestamp = '2026-03-18 12:14:14' },
+	{ total = 80, oriSpirit = 33, drakoSpirit = 30, necriteSpirit = 58, phasmaSpirit = 48, oriBar = 4, necroBar = 9, evidence = 'https://i.imgur.com/ibazT0s.png', username = 'PrepYo', timestamp = '2026-06-04 20:42:32' },
+	{ total = 325, oriSpirit = 167, drakoSpirit = 148, necriteSpirit = 168, phasmaSpirit = 159, oriBar = 31, necroBar = 36, evidence = 'https://imgur.com/a/43biDoP', username = 'null', timestamp = '2026-06-12 06:56:00' },
+	{ total = 88, oriSpirit = 62, drakoSpirit = 68, necriteSpirit = 37, phasmaSpirit = 29, oriBar = 8, necroBar = 6, evidence = '', username = 'null', timestamp = '2026-07-13 18:32:12' },
+	{ total = 12, oriSpirit = 2, drakoSpirit = 9, necriteSpirit = 3, phasmaSpirit = 16, oriBar = 1, necroBar = 0, evidence = '', username = 'null', timestamp = '2026-08-24 20:12:44' },
+	{ total = 215, oriSpirit = 112, drakoSpirit = 105, necriteSpirit = 93, phasmaSpirit = 118, oriBar = 20, necroBar = 27, evidence = '', username = 'Sparta142', timestamp = '2026-09-06 06:36:14' },
+	{ total = 50, oriSpirit = 15, drakoSpirit = 21, necriteSpirit = 31, phasmaSpirit = 20, oriBar = 8, necroBar = 6, evidence = '', username = 'Woetnie', timestamp = '2026-09-16 22:16:52' },
+	{ total = 23, oriSpirit = 5, drakoSpirit = 15, necriteSpirit = 16, phasmaSpirit = 14, oriBar = 3, necroBar = 0, evidence = 'https://files.catbox.moe/yvp8ye.png', username = 'Arty', timestamp = '2026-09-23 21:00:54' },
+	{ total = 20, oriSpirit = 6, drakoSpirit = 14, necriteSpirit = 12, phasmaSpirit = 14, oriBar = 1, necroBar = 2, evidence = 'https://files.catbox.moe/v2td9q.png', username = 'Arty', timestamp = '2026-09-24 17:44:23' },
+	{ total = 145, oriSpirit = 85, drakoSpirit = 70, necriteSpirit = 83, phasmaSpirit = 76, oriBar = 13, necroBar = 10, evidence = '', username = 'null', timestamp = '2026-10-05 17:46:19' },
+	{ total = 18, oriSpirit = 17, drakoSpirit = 13, necriteSpirit = 4, phasmaSpirit = 5, oriBar = 1, necroBar = 0, evidence = '', username = 'PayneTrain', timestamp = '2026-10-09 06:09:42' },
+}

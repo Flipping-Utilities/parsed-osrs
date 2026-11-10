@@ -1,0 +1,15 @@
+return {
+	{ total = 169, light = 41, lightSpirit = 115, dark = 34, darkSpirit = 105, banite = 45, baniteSpirit = 132, evidence = '', username = 'null', timestamp = '2026-02-21 10:40:22' },
+	{ total = 300, light = 53, lightSpirit = 152, dark = 47, darkSpirit = 135, banite = 60, baniteSpirit = 262, evidence = '', username = '~2026-FiremakingLocatorWarrior4213', timestamp = '2026-03-15 10:04:27' },
+	{ total = 5, light = 0, lightSpirit = 0, dark = 1, darkSpirit = 1, banite = 0, baniteSpirit = 9, evidence = '', username = '~2026-SeasUnholyPainting4451', timestamp = '2026-03-18 18:07:12' },
+	{ total = 11, light = 5, lightSpirit = 5, dark = 4, darkSpirit = 1, banite = 4, baniteSpirit = 2, evidence = '', username = '~2026-SeasUnholyPainting4451', timestamp = '2026-03-18 18:19:06' },
+	{ total = 1, light = 0, lightSpirit = 3, dark = 0, darkSpirit = 0, banite = 0, baniteSpirit = 0, evidence = '', username = '~2026-SeasUnholyPainting4451', timestamp = '2026-03-18 18:19:25' },
+	{ total = 63, light = 8, lightSpirit = 50, dark = 4, darkSpirit = 31, banite = 12, baniteSpirit = 45, evidence = '', username = 'null', timestamp = '2026-03-20 12:23:04' },
+	{ total = 107, light = 20, lightSpirit = 47, dark = 26, darkSpirit = 37, banite = 30, baniteSpirit = 97, evidence = '', username = 'null', timestamp = '2026-03-20 13:02:43' },
+	{ total = 20, light = 7, lightSpirit = 2, dark = 3, darkSpirit = 7, banite = 4, baniteSpirit = 28, evidence = '', username = 'null', timestamp = '2026-04-14 00:05:18' },
+	{ total = 1675, light = 358, lightSpirit = 897, dark = 298, darkSpirit = 885, banite = 453, baniteSpirit = 1227, evidence = '', username = 'JoshIsSquash', timestamp = '2026-04-28 15:40:38' },
+	{ total = 100, light = 19, lightSpirit = 53, dark = 16, darkSpirit = 53, banite = 26, baniteSpirit = 84, evidence = '', username = 'MrDew', timestamp = '2026-04-28 20:07:10' },
+	{ total = 2, light = 3, lightSpirit = 0, dark = 3, darkSpirit = 0, banite = 0, baniteSpirit = 0, evidence = '', username = '~2026-NightshadeElixirGypsum7499', timestamp = '2026-04-28 20:50:21' },
+	{ total = 100, light = 15, lightSpirit = 68, dark = 25, darkSpirit = 41, banite = 7, baniteSpirit = 81, evidence = 'https://imgur.com/a/pSwlSMo', username = 'null', timestamp = '2026-06-07 14:07:58' },
+	{ total = 6, light = 3, lightSpirit = 4, dark = 0, darkSpirit = 1, banite = 0, baniteSpirit = 5, evidence = '', username = 'null', timestamp = '2026-10-06 00:03:44' },
+}

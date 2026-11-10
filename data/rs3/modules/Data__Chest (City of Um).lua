@@ -18,4 +18,5 @@ return {
 	{ total = 22, ashes = 73, slime = 12, ectoplasm = 40, greaterInk = 0, candle = 1, powerfulInk = 3, skull = 0, evidence = '', username = 'Stickpeople4', timestamp = '2026-06-13 02:30:15' },
 	{ total = 134, ashes = 460, slime = 90, ectoplasm = 230, greaterInk = 21, candle = 2, powerfulInk = 12, skull = 2, evidence = '', username = 'Sparta142', timestamp = '2026-06-14 03:47:17' },
 	{ total = 130, ashes = 366, slime = 66, ectoplasm = 275, greaterInk = 21, candle = 4, powerfulInk = 30, skull = 2, evidence = '', username = 'Coledude0', timestamp = '2026-07-28 01:20:17' },
+	{ total = 16, ashes = 32, slime = 21, ectoplasm = 25, greaterInk = 3, candle = 0, powerfulInk = 0, skull = 0, evidence = '', username = 'null', timestamp = '2026-11-02 13:44:58' },
 }

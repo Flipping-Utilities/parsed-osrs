@@ -1,46 +1,57 @@
+local yn = require('Module:Yesno')
+
 local p = {}
 
 function p.main(frame)
 	
-	local items = bucket('recipe')
-		.where('Category:Item sets')
-		.select('page_name','uses_material','production_output')
-		.limit(5000)
-		.offset(off)
-		.run()
-
+	local args = frame:getParent().args
+	local nobucket = yn(args.nobucket)
+	
+	-- keys have to be numbers
+	-- repeated keys are impossible
+	local data = {}
+	for val,state in pairs(args) do
+		if type(val)=='number' then
+			table.insert(data,{val=val,state=state})
+		end
+	end
+	
+	-- sort to numerical order of key
+	local function val_sort(a,b)
+		local a_val = a and type(a)=='table' and a.val or 0
+		local b_val = b and type(b)=='table' and b.val or 0
+		return a_val < b_val
+	end
+	table.sort(data,val_sort)
+	
+	-- create the output table
 	local out = mw.html.create('table')
-		:addClass('wikitable sortable')
-		:tag('caption')
-			:wikitext(#items..' found sets')
-		:done()
+		:addClass('wikitable')
 		:tag('tr')
 			:tag('th')
-				:wikitext('page')
+				:wikitext('Value')
 			:done()
 			:tag('th')
-				:wikitext('leftright')
+				:wikitext('State')
 			:done()
 		:done()
 	
-	for _,item in ipairs(items) do
-		local str = ''
-		for i,mat in ipairs(item.uses_material) do
-			str = str..'|left'..tostring(i)..'='..mat..'BRHR'
+	-- add in each value and state
+	for _,d in pairs(data) do
+		if not nobucket then
+			bucket('varbit_state').put(d) -- write to bucket (in numerical order)
 		end
-		str = str..'|right1='..item.production_output[1]..'BRHR'
 		out:tag('tr')
 			:tag('td')
-			:wikitext('[[')
-				:wikitext(item.page_name)
-			:wikitext(']]')
+				:wikitext(d.val)
 			:done()
 			:tag('td')
-				:wikitext(str)
+				:wikitext(d.state)
 			:done()
 		:done()
 	end
 	
+	out:done()
 	return out
 	
 end

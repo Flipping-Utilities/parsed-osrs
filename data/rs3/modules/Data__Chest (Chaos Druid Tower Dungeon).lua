@@ -1,0 +1,16 @@
+return {
+	{ total = 100, blood = 190, chaos = 75, ess = 364, coins = 22011, staff = 10, enchant5 = 1, enchant6 = 2, evidence = '', username = 'MrDew', timestamp = '2026-02-18 08:11:17' },
+	{ total = 150, blood = 310, chaos = 109, ess = 478, coins = 40195, staff = 7, enchant5 = 1, enchant6 = 1, evidence = '', username = 'MrDew', timestamp = '2026-02-21 06:01:48' },
+	{ total = 436, blood = 772, chaos = 469, ess = 1532, coins = 100418, staff = 41, enchant5 = 1, enchant6 = 2, evidence = '', username = 'Spede', timestamp = '2026-02-22 10:39:20' },
+	{ total = 245, blood = 395, chaos = 284, ess = 718, coins = 62251, staff = 22, enchant5 = 2, enchant6 = 1, evidence = 'I have a picture saved locally if required', username = 'Faae', timestamp = '2026-03-01 21:05:45' },
+	{ total = 211, blood = 409, chaos = 242, ess = 394, coins = 53203, staff = 21, enchant5 = 1, enchant6 = 0, evidence = 'I have a picture saved locally if required, but I am doing these for a long time so will stop saving pictures. I reset thieving exp and start with empty inv/coinpouch so all data is accurate', username = 'Faae', timestamp = '2026-03-02 05:52:42' },
+	{ total = 40, blood = 52, chaos = 56, ess = 104, coins = 11450, staff = 3, enchant5 = 0, enchant6 = 1, evidence = '', username = '~2026-IntelBoroChainmace3486', timestamp = '2026-05-02 10:29:14' },
+	{ total = 126, blood = 216, chaos = 118, ess = 258, coins = 34297, staff = 14, enchant5 = 1, enchant6 = 2, evidence = 'Started with reset exp tracker and empty coin pouch', username = 'Faae', timestamp = '2026-05-19 01:36:04' },
+	{ total = 2, blood = 0, chaos = 0, ess = 17, coins = 0, staff = 1, enchant5 = 0, enchant6 = 0, evidence = '', username = 'Icejash18', timestamp = '2026-05-28 09:08:37' },
+	{ total = 3, blood = 0, chaos = 7, ess = 24, coins = 1392, staff = 0, enchant5 = 0, enchant6 = 0, evidence = '', username = 'Icejash18', timestamp = '2026-05-28 09:09:50' },
+	{ total = 29, blood = 63, chaos = 31, ess = 164, coins = 2792, staff = 2, enchant5 = 0, enchant6 = 0, evidence = '', username = 'null', timestamp = '2026-06-22 21:43:19' },
+	{ total = 100, blood = 156, chaos = 95, ess = 407, coins = 22189, staff = 11, enchant5 = 0, enchant6 = 1, evidence = '', username = 'Woetnie', timestamp = '2026-08-21 19:21:29' },
+	{ total = 34, blood = 57, chaos = 25, ess = 142, coins = 9975, staff = 2, enchant5 = 0, enchant6 = 0, evidence = '', username = 'Oshtur', timestamp = '2026-09-22 23:39:31' },
+	{ total = 153, blood = 302, chaos = 201, ess = 522, coins = 37000, staff = 14, enchant5 = 0, enchant6 = 1, evidence = '', username = 'null', timestamp = '2026-10-05 09:44:36' },
+	{ total = 121, blood = 188, chaos = 94, ess = 462, coins = 29442, staff = 10, enchant5 = 1, enchant6 = 2, evidence = 'Fresh tracker, empty coin pouch', username = 'Faae', timestamp = '2026-10-27 09:59:13' },
+}

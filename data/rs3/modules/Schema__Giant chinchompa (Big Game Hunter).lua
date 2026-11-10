@@ -1,0 +1,221 @@
+return {
+	["title"] = "Giant chinchompa (Big Game Hunter)",
+	["sample"] = "killed",
+	["dropsLine"] = "DropsLineHunt",
+	["fields"] = {
+		{
+			["name"] = "total",
+			["type"] = "number",
+			["icon"] = nil,
+			["label"] = "Total killed",
+			["placeholder"] = "# killed",
+			["info"] = "The amount of Giant chinhompas you have killed",
+			["required"] = true
+		},
+		{
+			["name"] = "emSpirit",
+			["type"] = "number",
+			["icon"] = "Eternal magic wood spirit.png",
+			["label"] = "Eternal magic wood spirits",
+			["placeholder"] = "# Eternal magic wood spirits",
+			["info"] = "The amount of Eternal magic wood spirits you received",
+			["required"] = true,
+			["quantity"] = "4-5",
+			["page"] = "Eternal magic wood spirit"
+		},
+		{
+			["name"] = "battlestaff",
+			["type"] = "number",
+			["icon"] = "Battlestaff.png",
+			["label"] = "Battlestaves",
+			["placeholder"] = "# Battlestaves",
+			["info"] = "The amount of battlestaves you received",
+			["required"] = true,
+			["quantity"] = 11,
+			["noted"] = true,
+			["page"] = "Battlestaff"
+		},
+		{
+			["name"] = "ivy",
+			["type"] = "number",
+			["icon"] = "Poison ivy berries.png",
+			["label"] = "Poison ivy berries",
+			["placeholder"] = "# Poison ivy berries",
+			["info"] = "The amount of bunches of Poison ivy berries you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = "10-11",
+			["page"] = "Poison ivy berries"
+		},
+		{
+			["name"] = "dragonstone",
+			["type"] = "number",
+			["icon"] = "Uncut dragonstone.png",
+			["label"] = "Uncut dragonstones",
+			["placeholder"] = "# Uncut dragonstones",
+			["info"] = "The amount of uncut dragonstones you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = "5-6",
+			["page"] = "Uncut dragonstone"
+		},
+		{
+			["name"] = "key",
+			["type"] = "number",
+			["icon"] = "Crystal key.png",
+			["label"] = "Crystal keys",
+			["placeholder"] = "# Crystal keys",
+			["info"] = "The amount of Crystal keys you received",
+			["required"] = true,
+			["quantity"] = 1,
+			["page"] = "Crystal key"
+		},
+		{
+			["name"] = "mudRune",
+			["type"] = "number",
+			["icon"] = "Mud rune.png",
+			["label"] = "Mud runes",
+			["placeholder"] = "# Mud runes",
+			["info"] = "The amount of Mud runes you received",
+			["required"] = true,
+			["quantity"] = 20,
+			["page"] = "Mud rune"
+		},
+		{
+			["name"] = "chinchompa",
+			["type"] = "number",
+			["icon"] = "Chinchompa.png",
+			["label"] = "Chinchompas",
+			["placeholder"] = "# Chinchompas",
+			["info"] = "The amount of chinchompas you received",
+			["required"] = true,
+			["quantity"] = 25,
+			["page"] = "Chinchompa"
+		},
+		{
+			["name"] = "horn",
+			["type"] = "number",
+			["icon"] = "Unicorn horn.png",
+			["label"] = "Unicorn horns",
+			["placeholder"] = "# Unicorn horns",
+			["info"] = "The amount of Unicorn horns you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = "10-11",
+			["page"] = "Unicorn horn"
+		},
+		{
+			["name"] = "mysticStaff",
+			["type"] = "number",
+			["icon"] = "Mystic air staff.png",
+			["label"] = "Mystic air staves",
+			["placeholder"] = "# Mystic air staves",
+			["info"] = "The amount of Mystic air staves you received",
+			["required"] = true,
+			["quantity"] = 1,
+			["page"] = "Mystic air staff"
+		},
+		{
+			["name"] = "starbloom",
+			["type"] = "number",
+			["icon"] = "Starbloom flower seed.png",
+			["label"] = "Starbloom flower seeds",
+			["placeholder"] = "# Starbloom flower seeds",
+			["info"] = "The amount of Starbloom flower seeds you received",
+			["required"] = true,
+			["quantity"] = 1,
+			["page"] = "Starbloom flower seed"
+		},
+		{
+			["name"] = "whiteBerry",
+			["type"] = "number",
+			["icon"] = "White berries.png",
+			["label"] = "White berries",
+			["placeholder"] = "# White berries",
+			["info"] = "The amount of bunches of White berries you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = "10-11",
+			["page"] = "White berries"
+		},
+		{
+			["name"] = "shark",
+			["type"] = "number",
+			["icon"] = "Raw shark.png",
+			["label"] = "Raw sharks",
+			["placeholder"] = "# Raw sharks",
+			["info"] = "The amount of Raw sharks you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = "15-16",
+			["page"] = "Raw shark"
+		},
+		{
+			["name"] = "ruby",
+			["type"] = "number",
+			["icon"] = "Uncut ruby.png",
+			["label"] = "Uncut rubies",
+			["placeholder"] = "# Uncut rubies",
+			["info"] = "The amount of uncut rubies you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = "11-15",
+			["page"] = "Uncut ruby"
+		},
+		{
+			["name"] = "diamond",
+			["type"] = "number",
+			["icon"] = "Uncut diamond.png",
+			["label"] = "Uncut diamonds",
+			["placeholder"] = "# Uncut diamonds",
+			["info"] = "The amount of uncut diamonds you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = 10,
+			["page"] = "Uncut diamond"
+		},
+		{
+			["name"] = "papaya",
+			["type"] = "number",
+			["icon"] = "Papaya fruit.png",
+			["label"] = "Papaya fruits",
+			["placeholder"] = "# Papaya fruits",
+			["info"] = "The amount of Papaya fruits you received",
+			["required"] = true,
+			["noted"] = true,
+			["quantity"] = 10,
+			["page"] = "Papaya fruit"
+		},
+		{
+			["name"] = "pofChin",
+			["type"] = "number",
+			["icon"] = "Grey chinchompa (unchecked).png",
+			["label"] = "Grey chinchompas (unchecked)",
+			["placeholder"] = "# Grey chinchompas (unchecked)",
+			["info"] = "The amount of Grey chinchompas (unchecked) you received",
+			["required"] = true,
+			["quantity"] = 1,
+			["page"] = "Grey chinchompa (unchecked)"
+		},
+		{
+			["name"] = "salvage",
+			["type"] = "number",
+			["icon"] = "Tiny plated rune salvage.png",
+			["label"] = "Tiny plated rune salvages",
+			["placeholder"] = "# Tiny plated rune salvages",
+			["info"] = "The amount of Tiny plated rune salvages you received",
+			["required"] = true,
+			["quantity"] = 1,
+			["page"] = "Tiny plated rune salvage"
+		},
+		{
+			["name"] = "evidence",
+			["type"] = "text",
+			["icon"] = nil,
+			["label"] = "Evidence",
+			["placeholder"] = "Optional",
+			["info"] = "Any notes or a link to an image",
+			["required"] = false
+		}
+	}
+}

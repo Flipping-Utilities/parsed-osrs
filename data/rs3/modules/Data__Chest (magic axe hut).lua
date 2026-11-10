@@ -1,0 +1,13 @@
+return {
+	{ total = 109, woodSpirit = 86, oakSpirit = 97, willowSpirit = 70, muddyKey = 10, mithrilHatchet = 5, adamantHatchet = 3, runeHatchet = 1, evidence = '', username = 'null', timestamp = '2026-03-05 02:05:20' },
+	{ total = 21, woodSpirit = 10, oakSpirit = 16, willowSpirit = 10, muddyKey = 6, mithrilHatchet = 0, adamantHatchet = 1, runeHatchet = 0, evidence = '', username = 'Yumehaa', timestamp = '2026-03-05 02:11:51' },
+	{ total = 56, woodSpirit = 34, oakSpirit = 29, willowSpirit = 31, muddyKey = 8, mithrilHatchet = 6, adamantHatchet = 1, runeHatchet = 2, evidence = '', username = 'null', timestamp = '2026-03-15 02:18:35' },
+	{ total = 50, woodSpirit = 32, oakSpirit = 60, willowSpirit = 16, muddyKey = 7, mithrilHatchet = 2, adamantHatchet = 2, runeHatchet = 1, evidence = 'https://www.notion.so/baldwinchang/Hatchet-of-bloom-and-blight-326159b3e05680c08e8df25240a50cc2', username = 'Baldwin', timestamp = '2026-03-17 10:27:34' },
+	{ total = 263, woodSpirit = 253, oakSpirit = 197, willowSpirit = 157, muddyKey = 23, mithrilHatchet = 13, adamantHatchet = 13, runeHatchet = 13, evidence = '', username = '~2026-EventVultureDraynor4485', timestamp = '2026-03-19 17:44:56' },
+	{ total = 270, woodSpirit = 263, oakSpirit = 233, willowSpirit = 104, muddyKey = 32, mithrilHatchet = 14, adamantHatchet = 6, runeHatchet = 8, evidence = '', username = '~2026-EventVultureDraynor4485', timestamp = '2026-03-19 18:49:16' },
+	{ total = 38, woodSpirit = 34, oakSpirit = 38, willowSpirit = 15, muddyKey = 1, mithrilHatchet = 3, adamantHatchet = 4, runeHatchet = 0, evidence = '', username = 'Jafus', timestamp = '2026-05-17 02:25:40' },
+	{ total = 9, woodSpirit = 6, oakSpirit = 12, willowSpirit = 1, muddyKey = 0, mithrilHatchet = 1, adamantHatchet = 0, runeHatchet = 1, evidence = 'https://i.imgur.com/8ozwHjU.png', username = 'null', timestamp = '2026-06-12 20:41:42' },
+	{ total = 3, woodSpirit = 3, oakSpirit = 2, willowSpirit = 1, muddyKey = 0, mithrilHatchet = 0, adamantHatchet = 0, runeHatchet = 0, evidence = '', username = 'null', timestamp = '2026-07-29 14:11:00' },
+	{ total = 242, woodSpirit = 166, oakSpirit = 174, willowSpirit = 157, muddyKey = 33, mithrilHatchet = 18, adamantHatchet = 11, runeHatchet = 14, evidence = 'https://imgur.com/a/zgk9iUY', username = 'NordicRest', timestamp = '2026-08-18 16:33:56' },
+	{ total = 55, woodSpirit = 51, oakSpirit = 56, willowSpirit = 30, muddyKey = 2, mithrilHatchet = 2, adamantHatchet = 2, runeHatchet = 0, evidence = '', username = 'null', timestamp = '2026-08-29 02:44:04' },
+}

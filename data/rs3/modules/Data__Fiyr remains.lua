@@ -1,0 +1,13 @@
+return {
+	{ total = 30, coins = 10065, silverKeyRed = 5, silverKeyBrown = 5, silverKeyCrimson = 13, silverKeyBlack = 0, silverKeyPurple = 1, goldKey = 1, evidence = '', username = 'null', timestamp = '2020-12-11 09:48:49' },
+	{ total = 50, coins = 13000, silverKeyRed = 8, silverKeyBrown = 11, silverKeyCrimson = 22, silverKeyBlack = 1, silverKeyPurple = 1, goldKey = 1, evidence = 'Burned Using Morytania Legs 4', username = 'null', timestamp = '2021-05-18 12:21:11' },
+	{ total = 50, coins = 20094, silverKeyRed = 8, silverKeyBrown = 8, silverKeyCrimson = 20, silverKeyBlack = 1, silverKeyPurple = 0, goldKey = 3, evidence = 'Burned Using Morytania Legs 4', username = 'null', timestamp = '2021-05-18 13:52:12' },
+	{ total = 50, coins = 32172, silverKeyRed = 8, silverKeyBrown = 8, silverKeyCrimson = 15, silverKeyBlack = 0, silverKeyPurple = 1, goldKey = 2, evidence = 'Burned Using Morytania Legs 4', username = 'null', timestamp = '2021-05-18 14:01:56' },
+	{ total = 50, coins = 28129, silverKeyRed = 11, silverKeyBrown = 10, silverKeyCrimson = 9, silverKeyBlack = 1, silverKeyPurple = 1, goldKey = 4, evidence = 'Burned Using Morytania Legs 4', username = 'null', timestamp = '2021-05-18 14:16:43' },
+	{ total = 24, coins = 0, silverKeyRed = 3, silverKeyBrown = 5, silverKeyCrimson = 5, silverKeyBlack = 1, silverKeyPurple = 2, goldKey = 0, evidence = '', username = 'null', timestamp = '2021-12-25 23:41:18' },
+	{ total = 22, coins = 0, silverKeyRed = 1, silverKeyBrown = 1, silverKeyCrimson = 10, silverKeyBlack = 1, silverKeyPurple = 3, goldKey = 1, evidence = '', username = 'null', timestamp = '2021-12-25 23:57:02' },
+	{ total = 15, coins = 14035, silverKeyRed = 3, silverKeyBrown = 0, silverKeyCrimson = 4, silverKeyBlack = 0, silverKeyPurple = 0, goldKey = 1, evidence = '', username = 'null', timestamp = '2022-11-01 17:22:47' },
+	{ total = 1, coins = 0, silverKeyRed = 0, silverKeyBrown = 0, silverKeyCrimson = 1, silverKeyBlack = 0, silverKeyPurple = 0, goldKey = 0, evidence = '', username = 'ExInferi', timestamp = '2022-12-16 10:39:26' },
+	{ total = 1, coins = 0, silverKeyRed = 1, silverKeyBrown = 0, silverKeyCrimson = 0, silverKeyBlack = 0, silverKeyPurple = 0, goldKey = 0, evidence = '', username = 'null', timestamp = '2023-01-16 12:57:51' },
+	{ total = 605, coins = 369900, silverKeyRed = 88, silverKeyBrown = 89, silverKeyCrimson = 217, silverKeyBlack = 43, silverKeyPurple = 31, goldKey = 12, evidence = '', username = 'null', timestamp = '2023-04-04 04:49:34' },
+}

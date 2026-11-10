@@ -8,6 +8,7 @@ local exchange = require('Module:Exchange')
 local yesno = require('Module:Yesno')
 local round = require('Module:Round')
 local on_main = require('Module:Mainonly').on_main
+local any = require('Module:Array').any
 require("Module:Mw.html extension")
 
 local var = mw.ext.VariablesLua
@@ -33,7 +34,7 @@ local _priceStrings = {
     ge_alch_alt = "%s %s each; this item has a distinct value, " ..
         "even though it cannot be traded on the Grand Exchange.",
     ge_alt = "%s %s each; this item has a distinct value, even though it cannot " ..
-        "be traded on the Grand Exchange or be alchemised."
+        "be traded on the Grand Exchange or be alchemised.",
 }
 
 local _altval =
@@ -42,7 +43,7 @@ local valueImages = {
     alch_alt = _altval,
     ge_alt = _altval,
     ge_alch = '<span class="dropsline-gealch" style="margin-left:0.3em;">' ..
-        '[[File:High Level Alchemy icon.png|link=High Level Alchemy|frameless|20px]]</span>'
+        '[[File:High Level Alchemy icon.png|link=High Level Alchemy|frameless|20px]]</span>',
 }
 
 -- txt = bg, sort, needs_exact; acceptable non-quantity rarity names
@@ -56,7 +57,7 @@ local rarities = {
     random = { 'table-bg-pink', 4096, true },
     varies = { 'table-bg-pink', 4096, false },
     once = { 'table-bg-pink', 65536, false },
-    _default = { 'table-bg-grey', 65536, true }
+    _default = { 'table-bg-grey', 65536, true },
 }
 
 -- Treasure Hunter gem icons
@@ -99,6 +100,40 @@ local sof_slot_rarities = {
     rare = 1 / 3,
     ['super rare'] = 1 / 4,
     no = 0,
+}
+
+local images = {
+    combat = '<span style="margin-left:0.3em;">[[File:Multicombat.png|link=Combat level|frameless|20px]]</span>',
+    -- skills
+    agility = '<span style="margin-left:0.3em;">[[File:Agility-icon.png|link=Agility|frameless|20px]]</span>',
+    archaeology = '<span style="margin-left:0.3em;">[[File:Archaeology-icon.png|link=Archaeology|frameless|20px]]</span>',
+    attack = '<span style="margin-left:0.3em;">[[File:Attack-icon.png|link=Attack|frameless|20px]]</span>',
+    constitution = '<span style="margin-left:0.3em;">[[File:Constitution-icon.png|link=Constitution|frameless|20px]]</span>',
+    construction = '<span style="margin-left:0.3em;">[[File:Construction-icon.png|link=Construction|frameless|20px]]</span>',
+    cooking = '<span style="margin-left:0.3em;">[[File:Cooking-icon.png|link=Cooking|frameless|20px]]</span>',
+    crafting = '<span style="margin-left:0.3em;">[[File:Crafting-icon.png|link=Crafting|frameless|20px]]</span>',
+    defence = '<span style="margin-left:0.3em;">[[File:Defence-icon.png|link=Defence|frameless|20px]]</span>',
+    divination = '<span style="margin-left:0.3em;">[[File:Divination-icon.png|link=Divination|frameless|20px]]</span>',
+    dungeoneering = '<span style="margin-left:0.3em;">[[File:Dungeoneering-icon.png|link=Dungeoneering|frameless|20px]]</span>',
+    farming = '<span style="margin-left:0.3em;">[[File:Farming-icon.png|link=Farming|frameless|20px]]</span>',
+    firemaking = '<span style="margin-left:0.3em;">[[File:Firemaking-icon.png|link=Firemaking|frameless|20px]]</span>',
+    fishing = '<span style="margin-left:0.3em;">[[File:Fishing-icon.png|link=Fishing|frameless|20px]]</span>',
+    fletching = '<span style="margin-left:0.3em;">[[File:Fletching-icon.png|link=Fletching|frameless|20px]]</span>',
+    herblore = '<span style="margin-left:0.3em;">[[File:Herblore-icon.png|link=Herblore|frameless|20px]]</span>',
+    hunter = '<span style="margin-left:0.3em;">[[File:Hunter-icon.png|link=Hunter|frameless|20px]]</span>',
+    invention = '<span style="margin-left:0.3em;">[[File:Invention-icon.png|link=Invention|frameless|20px]]</span>',
+    magic = '<span style="margin-left:0.3em;">[[File:Magic-icon.png|link=Magic|frameless|20px]]</span>',
+    mining = '<span style="margin-left:0.3em;">[[File:Mining-icon.png|link=Mining|frameless|20px]]</span>',
+    necromancy = '<span style="margin-left:0.3em;">[[File:Necromancy-icon.png|link=Necromancy|frameless|20px]]</span>',
+    prayer = '<span style="margin-left:0.3em;">[[File:Prayer-icon.png|link=Prayer|frameless|20px]]</span>',
+    ranged = '<span style="margin-left:0.3em;">[[File:Ranged-icon.png|link=Ranged|frameless|20px]]</span>',
+    runecrafting = '<span style="margin-left:0.3em;">[[File:Runecrafting-icon.png|link=Runecrafting|frameless|20px]]</span>',
+    slayer = '<span style="margin-left:0.3em;">[[File:Slayer-icon.png|link=Slayer|frameless|20px]]</span>',
+    smithing = '<span style="margin-left:0.3em;">[[File:Smithing-icon.png|link=Smithing|frameless|20px]]</span>',
+    strength = '<span style="margin-left:0.3em;">[[File:Strength-icon.png|link=Strength|frameless|20px]]</span>',
+    summoning = '<span style="margin-left:0.3em;">[[File:Summoning-icon.png|link=Summoning|frameless|20px]]</span>',
+    thieving = '<span style="margin-left:0.3em;">[[File:Thieving-icon.png|link=Thieving|frameless|20px]]</span>',
+    woodcutting = '<span style="margin-left:0.3em;">[[File:Woodcutting-icon.png|link=Woodcutting|frameless|20px]]</span>',
 }
 
 -- colour-code (arbitrary numbers)
@@ -230,7 +265,7 @@ local function parse_dropnotes(notes)
             notes_new = notes_new .. mw.getCurrentFrame():extensionTag {
                 name = 'ref',
                 content = note_table.content,
-                args = { group = 'd', name = note_table.name }
+                args = { group = 'd', name = note_table.name },
             }
         end
     end
@@ -328,7 +363,7 @@ local function get_price_cell_data(ctx)
             title =
             'This item cannot be traded on the Grand Exchange nor alchemised and has no applicable value to display.',
             is_na = true,
-            sort = nil
+            sort = nil,
         }
     end
 
@@ -338,7 +373,7 @@ local function get_price_cell_data(ctx)
             content = 'N/A',
             title = 'This item cannot be alchemised and has no applicable value to display.',
             is_na = true,
-            sort = nil
+            sort = nil,
         }
     end
 
@@ -347,9 +382,9 @@ end
 
 -- category mappings
 local name_categories = {
-    { 'effigy',                       '[[Category:Ancient effigy drop sources]]' },
-    { 'clue scroll ',                 '[[Category:Clue scroll drop sources]]' },
-    { 'rare drop table',              '[[Category:Rare drop table sources]]' },
+    { 'effigy', '[[Category:Ancient effigy drop sources]]' },
+    { 'clue scroll ', '[[Category:Clue scroll drop sources]]' },
+    { 'rare drop table', '[[Category:Rare drop table sources]]' },
     { 'wilderness shared loot table', '[[Category:Wilderness shared loot table sources]]' },
 }
 
@@ -381,13 +416,13 @@ end
 local function add_rarity_attrs(span, info, prefix)
     if type(info.value) ~= 'number' then return nil end
     prefix = prefix or ''
-    span:attr({
+    span:attr {
         ['data-drop-fraction'] = prefix .. info.text,
         ['data-drop-oneover'] = prefix .. info.oneover,
         ['data-drop-percent'] = prefix .. info.percent,
         ['data-drop-permil'] = prefix .. info.permil,
         ['data-drop-permyriad'] = prefix .. info.permyriad,
-    })
+    }
     return prefix .. info.title_percent
 end
 
@@ -401,7 +436,7 @@ local function parse_rarity(rarity_arg)
             value = nil,
             class = class,
             sort = sort,
-            needs_exact = needs_exact_tf and rarity_lower or nil
+            needs_exact = needs_exact_tf and rarity_lower or nil,
         }
     end
 
@@ -449,7 +484,7 @@ local function parse_rarity(rarity_arg)
         value = false,
         class = class,
         sort = sort,
-        needs_exact = needs_exact_tf and '_default' or nil
+        needs_exact = needs_exact_tf and '_default' or nil,
     }
 end
 
@@ -510,13 +545,13 @@ local function get_value_info(bucket_name, gemw, alch, altvalue, altcur)
             value_info.ge = {
                 value = parsed_value,
                 type = value_info.alch and 'ge_alch_alt' or 'ge_alt',
-                currency = altcur
+                currency = altcur,
             }
             if not value_info.alch then
                 value_info.alch = {
                     value = parsed_value,
                     type = 'alch_alt',
-                    currency = altcur
+                    currency = altcur,
                 }
             end
         end
@@ -528,10 +563,48 @@ end
 local IMAGE_STRING = '[[File:%s|link=%s|alt=%s: RS3 %s drops %s with rarity %s%s in quantity %s]]'
 local NOTHING_STRING = '[[File:Nothing.png|link=Nothing|alt=This does not exist.]]'
 
+local function dropLevels(dropType, versionKey)
+    local seenLevels = {}
+    local drop_version_found = true
+
+    for dropVersion in string.gmatch(versionKey, ' *([^,]+) *') do
+        local dropLevelVar = string.format("DropLevel_%s_%s", dropType, dropVersion)
+
+        if not var.varexists(dropLevelVar) then
+            if versionKey ~= 'DEFAULT' then
+                -- Fallback to 'DEFAULT' version
+                dropLevelVar = string.format("DropLevel_%s_%s", dropType, 'DEFAULT')
+            end
+
+            if not var.varexists(dropLevelVar) then
+                drop_version_found = false
+            end
+        end
+
+        local curDropLevelValues = var.var(dropLevelVar)
+        for curDropLevel in string.gmatch(curDropLevelValues, ' *([^,]+) *') do
+            seenLevels[curDropLevel] = true
+        end
+    end
+
+    local orderedLevels = {}
+    for lvl, _ in pairs(seenLevels) do
+        local n = tonumber(lvl)
+        if n ~= nil then
+            table.insert(orderedLevels, n)
+        end
+    end
+
+    table.sort(orderedLevels)
+
+    return orderedLevels, drop_version_found
+end
+
 function p.main(frame)
     local args = frame:getParent().args
     local frameArgs = frame.args
-    local dropType = params.default_to(frameArgs.dtype, 'combat')
+    local dropTypes = mw.text.split(string.lower(params.default_to(frameArgs.dtype, 'combat')), '%s*,%s*')
+    local dropType1 = dropTypes[1]
 
     -- Name
     local hasName = params.has_content(args.name)
@@ -597,15 +670,17 @@ function p.main(frame)
     -- Alt rarities (altrarity, altrarity2, altrarity3, ...)
     local alt_rarity_endash = params.default_to(args.altraritydash, '')
     local alt_rarities = {}
-    local i = 1
+    local idx = 1
     while true do
-        local suffix = i ~= 1 and i or ''
+        local suffix = idx ~= 1 and idx or ''
         local suffixed_alt_rarity = args['altrarity' .. suffix]
-        if params.is_empty(suffixed_alt_rarity) then break end
+        if params.is_empty(suffixed_alt_rarity) then
+            break
+        end
         local alt_info = parse_rarity(suffixed_alt_rarity)
         alt_info.dash = params.has_content(args['altrarity' .. suffix .. 'dash'])
         table.insert(alt_rarities, alt_info)
-        i = i + 1
+        idx = idx + 1
     end
     local alt_rarity = alt_rarities[1] and alt_rarities[1].text or '' -- bucket compat
 
@@ -650,11 +725,23 @@ function p.main(frame)
         raritynotes_new = raritynotes_new .. mw.getCurrentFrame():extensionTag {
             name = 'ref',
             content = ref_content,
-            args = { group = 'd', name = refname }
+            args = { group = 'd', name = refname },
         }
     end
 
-    local level = tonumber(args.level) or 0
+    local levels = {}
+    -- Level for Fishing, Archaeology, Mining, Woodcutting and Divination
+    local arg_level = args.level or args.Level
+    if arg_level then
+        levels = mw.text.split(arg_level, '%s*,%s*')
+        for i, v in ipairs(levels) do
+            local l = tonumber(v)
+            if l ~= nil then
+                levels[i] = l
+            end
+        end
+    end
+
     local rdt = yesno(args.rdt, false) or false
     local memsover = params.default_to(args.members, '')
     local members = yesno(memsover, false)
@@ -666,7 +753,7 @@ function p.main(frame)
     local thgem = mw.ustring.lower(params.default_to(args.thgem, ''))
     local sofslot = mw.ustring.lower(params.default_to(args.sofslot, ''))
     local convert = tonumber(params.default_to(args.convert, ''))
-    local defaultConvertCurrency = dropType == 'sof' and 'Coins' or 'Oddments'
+    local defaultConvertCurrency = dropType1 == 'sof' and 'Coins' or 'Oddments'
     local convertcurrencyKey = params.default_to(args.convertcurrency, '')
     if not params.has_content(convertcurrencyKey) then
         convertcurrencyKey = params.default_to(frameArgs.convertcurrency, defaultConvertCurrency)
@@ -676,35 +763,41 @@ function p.main(frame)
     local ret = mw.html.create('tr')
         :css('text-align', 'center')
     -- inventory image
-    ret:td({
+    ret:td {
         class = 'inventory-image',
         attr = { ['data-sort-value'] = name },
-        wikitext = image
-    })
+        wikitext = image,
+    }
     -- item name
-    ret:td({
+    ret:td {
         class = 'item-col',
         css = { ['text-align'] = 'left' },
-        wikitext = string.format('[[%s|%s]]%s%s', name, altname, namenotes_display, members and members_note or '')
-    })
-    if level > 0 then
-        ret:td({
-            attr = { ['data-sort-value'] = level },
-            wikitext = level
-        })
+        wikitext = string.format('[[%s|%s]]%s%s', name, altname, namenotes_display, members and members_note or ''),
+    }
+    if #levels > 0 then
+        local disp = {}
+        for i, level in ipairs(levels) do
+            local img = images[dropTypes[i]] or ''
+            table.insert(disp, level .. ' ' .. img)
+        end
+
+        ret:td {
+            attr = { ['data-sort-value'] = levels[1] },
+            wikitext = table.concat(disp, ';'),
+        }
     end
     -- quantity
-    ret:td({
+    ret:td {
         attr = { ['data-sort-value'] = qty_high },
-        wikitext = quantity_html
-    })
+        wikitext = quantity_html,
+    }
         :addClassIf(isNothing, 'table-na')
         :cssIf(isNothing, 'text-align', 'center')
 
     -- rarity
     local prefix = rollstext .. tilde
     local rarity_span_text = prefix .. rarity_info.text
-    local rarity_cell = ret:td({ class = rarity_info.class, attr = { ['data-sort-value'] = rarity_info.sort } })
+    local rarity_cell = ret:td { class = rarity_info.class, attr = { ['data-sort-value'] = rarity_info.sort } }
     local rarity_span = rarity_cell:tag('span'):wikitext(rarity_span_text)
     local rarity_cell_title = add_rarity_attrs(rarity_span, rarity_info, prefix)
 
@@ -726,14 +819,14 @@ function p.main(frame)
         :attrIf(rarity_cell_title, 'title', rarity_cell_title)
         :wikitextIf(#raritynotes_new > 3, raritynotes_new)
 
-    if dropType == 'th' then
+    if dropType1 == 'th' then
         -- Treasure Hunter gem
         ret:tag('td')
             :addClassIf(thgem == 'no', 'table-na')
             :cssIf(thgem == 'no', 'text-align', 'center')
             :wikitext(th_gem_icons[thgem] or '')
             :attr('data-sort-value', th_gem_rarities[thgem] or 2)
-    elseif dropType == 'sof' then
+    elseif dropType1 == 'sof' then
         -- Squeal of Fortune slot
         ret:tag('td')
             :addClassIf(sofslot == 'no', 'table-na')
@@ -743,31 +836,31 @@ function p.main(frame)
     end
 
     -- Determine GE and alch cell data
-    local ge_data, alch_data = get_price_cell_data({
+    local ge_data, alch_data = get_price_cell_data {
         is_nothing = isNothing,
         is_coins = isCoins,
         value_info = value_info,
         qty_high = qty_high,
-        qty_low = qty_low
-    })
+        qty_low = qty_low,
+    }
 
     -- Render GE and alch cells
     local value_cell_css = { ['text-align'] = 'right', cursor = 'help' }
-    ret:td({
+    ret:td {
         class = 'ge-column',
         attr = { ['data-sort-value'] = ge_data.sort, title = ge_data.title },
         css = value_cell_css,
-        wikitext = ge_data.content
-    })
+        wikitext = ge_data.content,
+    }
         :addClassIf(ge_data.is_na, 'table-na')
         :cssIf(ge_data.is_na, 'text-decoration', 'underline dotted')
         :cssIf(ge_data.is_na, 'text-align', 'center')
-    ret:td({
+    ret:td {
         class = 'alch-column',
         attr = { ['data-sort-value'] = alch_data.sort, title = alch_data.title },
         css = value_cell_css,
-        wikitext = alch_data.content
-    })
+        wikitext = alch_data.content,
+    }
         :addClassIf(alch_data.is_na, 'table-na')
         :cssIf(alch_data.is_na, 'text-decoration', 'underline dotted')
         :cssIf(ge_data.is_na, 'text-align', 'center')
@@ -781,8 +874,9 @@ function p.main(frame)
     elseif convert then
         converttotal, vcsort = get_total(convert, qty_high, qty_low)
     end
+
     -- SoF/TH convert value
-    if dropType == 'sof' or dropType == 'th' then
+    if dropType1 == 'sof' or dropType1 == 'th' then
         -- Determine convert cell data
         local convert_data = { content = nil, title = nil, is_disabled = false }
         if params.has_content(convert) then
@@ -799,19 +893,62 @@ function p.main(frame)
         end
 
         -- Render convert cell
-        ret:td({
+        ret:td {
             class = 'convert-column',
             attr = { ['data-sort-value'] = convert or -1 },
-            css = { ['text-align'] = 'right', cursor = 'help' }
-        })
+            css = { ['text-align'] = 'right', cursor = 'help' },
+        }
             :wikitextIf(convert_data.content, convert_data.content)
             :attrIf(convert_data.title, 'title', convert_data.title)
             :cssIf(convert_data.is_disabled, 'color', '#999')
     end
 
+    local leaguesCategory = ''
+    -- 1: Try taking regions from LeagueRegion variables
+    local seenRegions = {}
+    for dropVersion in string.gmatch(versionKey, ' *([^,]+) *') do
+        local leagueRegionVar = string.format('LeagueRegion_%s', dropVersion)
+        if not var.varexists(leagueRegionVar) and versionKey ~= 'DEFAULT' then
+            if var.varexists('LeagueRegion_DEFAULT') then
+                leagueRegionVar = 'LeagueRegion_DEFAULT'
+            else
+                mw.log('Expected dropversion region variable: ' .. leagueRegionVar .. ' for drop ' .. bucketName)
+                leaguesCategory = leaguesCategory .. '[[Category:Uses unrecognized drop region version]]'
+            end
+        end
+        local curRegionValues = var.var(leagueRegionVar)
+        for curRegion in string.gmatch(curRegionValues, ' *([^,]+) *') do
+            seenRegions[curRegion] = true
+        end
+    end
+
+    local orderedRegions = {}
+    for region, _ in pairs(seenRegions) do
+        table.insert(orderedRegions, region)
+    end
+
+    table.sort(orderedRegions)
+    local leagueRegions = table.concat(orderedRegions, ',')
+
+    -- 2: Try taking regions from DropsTableHead
+    local regionFromDropsTableHead = var.var('_leagueRegion')
+    if regionFromDropsTableHead ~= '' then
+        leagueRegions = regionFromDropsTableHead
+        leaguesCategory = leaguesCategory .. '[[Category:Pages with League region]]'
+    end
+
+    -- 3: Try taking regions set directly on DropsLine
+    if leagueRegionOverride and leagueRegionOverride ~= '' then
+        leagueRegions = leagueRegionOverride
+        leaguesCategory = leaguesCategory .. '[[Category:Pages with League region]]'
+    end
+
+    if leagueRegions == '' then
+        leaguesCategory = leaguesCategory .. '[[Category:DropsLine missing League region]]'
+    end
+
     -- Bucket
     local drop_version_found = true
-    local leaguesCategory = ''
     if on_main() and use_bucket and not isNothing then
         local bucketNameNote = mw.text.killMarkers(namenotes)
         local bucketQuantity = qty_bucket(qty_parsed)
@@ -847,54 +984,62 @@ function p.main(frame)
             ['Drop GEMW'] = gemw,
             ['Drop Alch'] = alch,
             ['Dropped from'] = dropFrom,
-            ['Drop type'] = dropType,
-            ['Approx'] = approx
+            ['Approx'] = approx,
         }
 
-        if dropType == 'store' then
-            local dropLevelVar = string.format("DropLevel_%s_%s", dropType, versionKey)
+        -- Drop level
+        if dropType1 == 'store' then
+            local dropLevelVar = string.format("DropLevel_%s_%s", dropType1, versionKey)
 
             if not var.varexists(dropLevelVar) then
                 drop_version_found = false
             else
-                bucket_json['Drop level'] = var.var(dropLevelVar)
-                bucket_json['Drop currency'] = var.var(string.format("DropStoreCurrency_%s_%s", dropType, versionKey))
+                bucket_json['Drop level'] = { var.var(dropLevelVar) }
+                bucket_json['Drop currency'] = var.var(string.format("DropStoreCurrency_%s_%s", dropType1, versionKey))
             end
-        elseif level > 0 then
-            bucket_json['Drop level'] = tostring(level)
-        elseif dropType == 'reward' or dropType == 'search' or dropType == 'th' or dropType == 'sof' then
-            bucket_json['Drop level'] = 'N/A'
+        elseif #levels > 0 then
+            bucket_json['Drop level'] = { levels }
+        elseif dropType1 == 'reward' or dropType1 == 'search' or dropType1 == 'th' or dropType1 == 'sof' then
+            bucket_json['Drop level'] = nil
+        elseif dropType1 == 'combat' then
+            -- If it is 'combat' drop type, only accepts 'combat' or 'combat'&'slayer' currently
+            local levelsByType = {}
+
+            -- Combat levels
+            local orderedLevels, versionFound = dropLevels('combat', versionKey)
+            table.insert(levelsByType, orderedLevels)
+            drop_version_found = drop_version_found and versionFound
+
+            -- Try to find Slayer levels
+            orderedLevels, versionFound = dropLevels('slayer', versionKey)
+
+            -- Check if it is greater than 0 Slayer
+            -- Generally, it should be the same level
+            local containsSlayer = false
+            if versionFound then
+                containsSlayer = any(orderedLevels, function(v) return v ~= nil and v > 0 end)
+            end
+
+            if containsSlayer then
+                dropTypes[2] = 'slayer'
+                table.insert(levelsByType, orderedLevels)
+            end
+
+            bucket_json['Drop level'] = levelsByType
         else
-            local seenLevels = {}
-            for dropVersion in string.gmatch(versionKey, ' *([^,]+) *') do
-                local dropLevelVar = string.format("DropLevel_%s_%s", dropType, dropVersion)
+            local levelsByType = {}
 
-                if not var.varexists(dropLevelVar) then
-                    if versionKey ~= 'DEFAULT' then
-                        -- Fallback to 'DEFAULT' version
-                        dropLevelVar = string.format("DropLevel_%s_%s", dropType, 'DEFAULT')
-                    end
+            for _, dropType in ipairs(dropTypes) do
+                local orderedLevels, versionFound = dropLevels(dropType, versionKey)
 
-                    if not var.varexists(dropLevelVar) then
-                        drop_version_found = false
-                    end
-                end
-
-                local curDropLevelValues = var.var(dropLevelVar)
-                for curDropLevel in string.gmatch(curDropLevelValues, ' *([^,]+) *') do
-                    seenLevels[curDropLevel] = true
-                end
+                table.insert(levelsByType, orderedLevels)
+                drop_version_found = drop_version_found and versionFound
             end
-            local orderedLevels = {}
-            for lvl, _ in pairs(seenLevels) do
-                local n = tonumber(lvl)
-                if n ~= nil then
-                    table.insert(orderedLevels, n)
-                end
-            end
-            table.sort(orderedLevels)
-            bucket_json['Drop level'] = table.concat(orderedLevels, ',')
+
+            bucket_json['Drop level'] = levelsByType
         end
+
+        bucket_json['Drop type'] = dropTypes
 
         if rarity_has_ref then
             bucket_json['RarityNote Ref'] = true
@@ -902,7 +1047,8 @@ function p.main(frame)
         if qty_has_ref then
             bucket_json['QuantityNote Ref'] = true
         end
-        if dropType == 'archaeology' then
+
+        if dropTypes[1] == 'archaeology' then
             if var.var('dropsline_is_arch_soil') == 'true' then
                 bucket_json['Is soil screening'] = 'true'
             else
@@ -910,46 +1056,13 @@ function p.main(frame)
             end
         end
 
-        -- 1: Try taking regions from LeagueRegion variables
-        local seenRegions = {}
-        for dropVersion in string.gmatch(versionKey, ' *([^,]+) *') do
-            local leagueRegionVar = string.format("LeagueRegion_%s", dropVersion)
-            if not var.varexists(leagueRegionVar) and versionKey ~= 'DEFAULT' then
-                mw.log('Expected dropversion region variable: ' .. leagueRegionVar .. ' for drop ' .. bucketName)
-                leaguesCategory = leaguesCategory .. '[[Category:Uses unrecognized drop region version]]'
-            end
-            local curRegionValues = var.var(leagueRegionVar)
-            for curRegion in string.gmatch(curRegionValues, ' *([^,]+) *') do
-                seenRegions[curRegion] = true
-            end
-        end
-        local orderedRegions = {}
-        for region, _ in pairs(seenRegions) do
-            table.insert(orderedRegions, region)
-        end
-        table.sort(orderedRegions)
-        local leagueRegions = table.concat(orderedRegions, ',')
-        -- 2: Try taking regions from DropsTableHead
-        local regionFromDropsTableHead = var.var('_leagueRegion')
-        if regionFromDropsTableHead ~= '' then
-            leagueRegions = regionFromDropsTableHead
-            leaguesCategory = leaguesCategory .. '[[Category:Pages with League region]]'
-        end
-        -- 3: Try taking regions set directly on DropsLine
-        if leagueRegionOverride and leagueRegionOverride ~= '' then
-            leagueRegions = leagueRegionOverride
-            leaguesCategory = leaguesCategory .. '[[Category:Pages with League region]]'
-        end
-        if leagueRegions == '' then
-            leaguesCategory = leaguesCategory .. '[[Category:DropsLine missing League region]]'
-        end
 
         bucket_json['League region'] = leagueRegions
 
         local bucket_sub = {
             item_name = bucketName,
             rare_drop_table = rdt,
-            drop_json = mw.text.jsonEncode(bucket_json)
+            drop_json = mw.text.jsonEncode(bucket_json),
         }
 
         if needs_exact_rarity then

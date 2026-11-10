@@ -1,0 +1,16 @@
+return {
+    itemId     = 63884,
+    icon       = "Reap 'n' Creep stew.png",
+    item       = "Reap 'n' Creep stew",
+    alchable   = nil,
+    value      = 1,
+    limit      = 100,
+    members    = true,
+    category   = "Miscellaneous",
+    examine    = "It&#x27;s a...stew? Bear-ly.",
+    historical = true,
+    price      = 1,
+    last       = 1,
+    date       = "19 October 2026 11:50:36 (UTC)",
+    lastDate   = "18 October 2026 17:40:35 (UTC)",
+}
