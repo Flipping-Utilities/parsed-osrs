@@ -479,7 +479,7 @@ function generateRow(name,
     local rollstext = ''
     if rolls then
         rollstext = rolls .. ' × '
-        if rarity:lower() ~= 'varies' then
+        if rarity:lower() ~= 'varies' and rarity:lower() ~= 'unknown' then
 	        rare_sort = rare_sort / rolls
 	        rare_class = get_rarity_class(math.min(1/rare_sort,0.99))
 	    end
@@ -776,7 +776,7 @@ function qty(quantity, isNothing)
         :gsub('%(noted%)','$n')
     -- split list into table
     local vals = mw.text.split(quantity,'[,;]')
-    local low = 2147483648
+    local low = 2147483647000+2147483648
     local high = 0
     -- recreate the quantity string to ensure consistent formatting
     local numstr = {}
@@ -863,7 +863,7 @@ function get_total(value,qhigh,qlow)
     -- e.g. if items valued at 100 coins are dropped in quantities of 1, 3, 5
     -- the value returned will be 100–500 rather than 100; 300; 500
     -- If low and high vars are the same in the end, only 1 value is displayed
-    local low = 2147483648
+    local low = 2147483647000+2147483648
     local high = 0
     -- recreate the alchval string to ensure consistent formatting
     for i, v in ipairs(vals) do

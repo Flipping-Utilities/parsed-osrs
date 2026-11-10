@@ -17,20 +17,24 @@ Future goals:
 
 --]]
 local stepQuality = require("Module:Sandbox/User:Varied2350/cryptic/Cryptic clue quality calculator/steps")
+local fakeComma = '‚'
 
 --[[
-Data structure containing a variety of override types. Can be of type:
-- "linked": allow two steps to be combined for a new improved quality
-- "req": a requirement to improve the speed required
+Data structure containing a variety of override times. If the order the steps are
+completed in matters, ensure that the step that should be completed first
+is the outer ID and the subsequent step ID is contained within it. Refer
+to the required /steps module above to get the step ID
 --]]
 local overrides = {
-	{
-		
+	[5] = { -- Shhhh!
+		[11] = { -- Darkness wanders around me
+			timeTaken = 14
+		}
 	}
 }
 
 function p.buildTable()
-	return _buildTable('full', nil)
+	return _buildTable('Full table', stepQuality)
 end
 
 --[[
@@ -45,7 +49,7 @@ function p.buildCalcPre()
 	
 	local stepParamStr = ""
 	for _,step in ipairs(sorted) do
-		stepParamStr = stepParamStr .. ',' .. string.gsub(step.step, ",", "‚")
+		stepParamStr = stepParamStr .. ',' .. string.gsub(step.step, ",", fakeComma)
 	end
 	local formatted = string.format(
 [[<pre class="jcConfig">
@@ -53,45 +57,41 @@ module = Sandbox/User:Varied2350/cryptic/Cryptic clue quality calculator
 modulefunc = main
 form = typein
 result = tableout
-param = currgroup|Current Steps:||group|stepone,steptwo,stepthree
-param = stepone|Step 1|Select|select|Select%s
-param = steptwo|Step 2|Select|select|Select%s
-param = stepthree|Step 3|Select|select|Select%s
-param = newgroup|New Steps:||group|newstepone,newsteptwo,newstepthree
-param = newstepone|New step 1|Select|select|Select%s
-param = newsteptwo|New step 2|Select|select|Select%s
-param = newstepthree|New step 3|Select|select|Select%s
+param = currgroup|Current Steps:||group|step1,step2,step3
+param = step1|Step 1|Select|select|Select%s
+param = step2|Step 2|Select|select|Select%s
+param = step3|Step 3|Select|select|Select%s
+param = newgroup|New Steps:||group|newstep1,newstep2,newstep3
+param = newstep1|New step 1|Select|select|Select%s
+param = newstep2|New step 2|Select|select|Select%s
+param = newstep3|New step 3|Select|select|Select%s
 </pre>]], stepParamStr, stepParamStr, stepParamStr, stepParamStr, stepParamStr, stepParamStr)
 	return formatted
 end
 
-function _buildTable(tableType, args)
+function _buildTable(title, steps)
 	-- create main wikitable to return
 	local tab = mw.html.create('table'):addClass('wikitable sortable sticky-header align-center-1 align-center-3 align-center-4 align-center-5 align-right-6 align-right-7')
 	tab:tag('tr')
 		:tag('th'):wikitext('Step text')
 		:tag('th'):wikitext('Time taken')
 		:tag('th'):wikitext('Teleports used')
-		
-	local sorted = sortedSteps()
 	
 	-- iterate all possible cryptic steps
-	for _,step in ipairs(sorted) do
-		if tableType == 'full' or _isArgsStep(tableType, args, step['step']) then
-			local itemStr = ''
-			if step.stats['routes'] ~= nil and #step.stats['routes'] > 0 then
-				for idx,itemReq in ipairs(step.stats['routes']) do
-					itemStr = itemStr .. parseStepItem(itemReq)
-					if idx ~= #step.stats['routes'] then
-						itemStr = itemStr .. ','
-					end
+	for k,step in pairs(steps) do
+		local itemStr = ''
+		if step['routes'] ~= nil and #step['routes'] > 0 then
+			for idx,itemReq in ipairs(step['routes']) do
+				itemStr = itemStr .. parseStepItem(itemReq)
+				if idx ~= #step['routes'] then
+					itemStr = itemStr .. ','
 				end
 			end
-			tab:tag('tr')
-				:tag('td'):wikitext(step.step)
-				:tag('td'):wikitext(step.stats['timeTaken'] or step.stats['routes'][1]['timeTaken'])
-				:tag('td'):wikitext(itemStr)
 		end
+		tab:tag('tr')
+			:tag('td'):wikitext(step['stepText'] or k)
+			:tag('td'):wikitext(step['newTimeTaken'] or step['timeTaken'] or step['routes'][1]['timeTaken'])
+			:tag('td'):wikitext(itemStr)
 	end
 	
 	return tab
@@ -106,7 +106,7 @@ function parseStepItem(stepItem)
 		baseStr = baseStr .. '|pic=' .. stepItem['pic']
 	end
 	if stepItem['txt'] ~= nil then
-		baseStr = baseStr .. '|txt=' .. stepItem['txt']
+		baseStr = baseStr .. ']][[' .. stepItem['name'] .. '|' .. stepItem['txt']
 	end
 	baseStr = baseStr .. ']] (' .. stepItem['timeTaken'] .. ')'
 	
@@ -127,46 +127,135 @@ function sortedSteps()
 end
 
 --[[
-Determine if the given step is one of the steps set in the args based on step type
-full	= always true, used for building the full step table display
-old		= true if the step given is specified as one of the currently owned steps
-new		= true if the step given is specified as one of the new steps to compare to
+Filter the overrides table to only include ones that are applicable
+to the cryptic steps given. Topologically sort it such that primary steps and
+their linked secodary steps are completed in the required order using an implementation
+of Kahn's algorithm
+
+https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
 ]]
-function _isArgsStep(stepType, args, step)
-	-- replace comma with visually similar character to not break calc functionality
-	local replaced = string.gsub(step, ",", "‚")
-	if stepType == 'full' then
-		return true
-	elseif stepType == 'old' then
-		return replaced == args['stepone'] or replaced == args['steptwo'] or replaced == args['stepthree']
-	else
-		return replaced == args['newstepone'] or replaced == args['newsteptwo'] or replaced == args['newstepthree']
+function sortStepsWithOverrides(steps, overrides)
+	local byId = {}
+	
+	for stepText,step in pairs(steps) do
+		step['stepText'] = stepText
+		byId[step.id] = step
 	end
+	
+	local dependents = {}
+	local dependencyCount = {}
+	
+	-- filter overrides down to where primary and secondary IDs are both contained in the passed in list
+	for firstStepId, subSteps in pairs(overrides) do
+		if byId[firstStepId] then
+			for subStepId, override in pairs(subSteps) do
+				if byId[subStepId] then
+					
+					-- increment the count of steps this step depends on
+					dependencyCount[subStepId] = (dependencyCount[subStepId] or 0) + 1
+					
+					-- add the secondary step to the list of dependents for the primary step
+					dependents[firstStepId] = dependents[firstStepId] or {}
+					table.insert(dependents[firstStepId], subStepId)
+					
+					-- override the timeTaken with the new timeTaken
+					byId[subStepId]['newTimeTaken'] = override.timeTaken
+				end
+			end
+		end
+	end
+	
+	local queue = {}
+	local queueHead = 1
+	
+	local independentSteps = {}
+	local contiguousSteps = {}
+	
+	-- insert steps without any linked override steps at the end of the queue
+	for _,step in pairs(steps) do
+		local id = step.id
+		if not dependencyCount[id] then
+			if dependents[id] then
+				table.insert(contiguousSteps, id)
+				mw.log("Inserting contiguous step " .. step.id .. " into list.")
+			else
+				table.insert(independentSteps, id)
+				mw.log("Inserting independent step " .. step.id .. " into list.")
+			end
+		end
+	end
+	
+	for i = 1, #independentSteps do
+		table.insert(queue, independentSteps[i])
+	end
+	for i = 1, #contiguousSteps do
+		table.insert(queue, contiguousSteps[i])
+	end
+	
+	local sorted = {}
+	
+	while queueHead <= #queue do
+		local id = queue[queueHead]
+		queueHead = queueHead + 1
+		
+		local step = byId[id]
+		sorted[#sorted + 1] = step
+		
+		
+		local children = dependents[id]
+		if children then
+			for i = 1, #children do
+				local childId = children[i]
+				-- decrement the count of steps this child depends on
+				dependencyCount[childId] = dependencyCount[childId] - 1
+				
+				-- if it's no longer dependent on any steps, add it to the queue
+				if dependencyCount[childId] == 0 then
+					mw.log("Inserting step " .. childId .. " into list.")
+					queue[#queue + 1] = childId
+				end
+			end
+		end
+	end
+	return sorted
 end
 
 function p._main(args)
 	local quality = 0
 	local newquality = 0
+	local oldsteps = {}
+	local newsteps = {}
 	
-	-- iterate all cryptic steps
-	for step,stats in pairs(stepQuality) do
-		mw.logObject(step)
-		mw.logObject(stats)
-		-- old step, track current 3-step quality
-		if _isArgsStep('old', args, step) then
-			quality = quality + tonumber(stats['timeTaken'] or stats['routes'][1]['timeTaken'])
-		end
-		-- new step, track new 3-step quality
-		if _isArgsStep('new', args, step) then
-			newquality = newquality + tonumber(stats['timeTaken'] or stats['routes'][1]['timeTaken'])
-		end
+	-- Grab only the steps we need
+	for i=1,3 do
+		local stepTxt = string.gsub(args['step'..i], fakeComma, ",")
+		oldsteps[stepTxt] = stepQuality[stepTxt]
+		
+		local newStepTxt = string.gsub(args['newstep'..i], fakeComma, ",")
+		newsteps[newStepTxt] = stepQuality[newStepTxt]
 	end
+	
+	-- Sort the steps into the order they must be completed in
+	local sortedOldSteps = sortStepsWithOverrides(oldsteps, overrides)
+	local sortedNewSteps = sortStepsWithOverrides(newsteps, overrides)
+	
+	-- add up timeTaken to determine quality
+	for _,v in pairs(sortedOldSteps) do
+		mw.log("Step")
+		mw.logObject(v)
+		quality = quality + tonumber(v['newTimeTaken'] or v['timeTaken'] or (v['routes'] and #v['routes'] > 0 and v['routes'][1]['timeTaken']) or 0)
+	end
+	for _,v in pairs(sortedNewSteps) do
+		mw.logObject(sortedOldSteps)
+		newquality = newquality + tonumber(v['newTimeTaken'] or v['timeTaken'] or (v['routes'] and #v['routes'] > 0 and v['routes'][1]['timeTaken']) or 0)
+	end
+	
 	local resultDiv = mw.html.create('div')
 	
 	resultDiv:node(mw.html.create('p'):wikitext('Old Steps'))
-	resultDiv:node(_buildTable('old', args))
+	resultDiv:node(_buildTable('Old steps', sortedOldSteps))
 	resultDiv:node(mw.html.create('p'):wikitext('New Steps'))
-	resultDiv:node(_buildTable('new', args))
+	resultDiv:node(_buildTable('New steps', sortedNewSteps))
 	
 	
 	local returnStr = 'Your current 3 step should take ' .. tostring(quality) .. ' seconds to complete. '

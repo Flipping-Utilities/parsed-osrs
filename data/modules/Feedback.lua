@@ -1,3 +1,4 @@
+require('strict')
 local pt = require('Module:Paramtest')
 local yn = require('Module:Yesno')
 local p = {}
@@ -53,6 +54,10 @@ end
 
 function p._main(args)
 	local namespace = mw.title.getCurrentTitle().nsText
+	local username
+	if pt.has_content(args.user) then
+		username = args.user
+	end
 	local isResolved = false
 	if pt.has_content(args.resolved) then
 		isResolved = yn(args.resolved)
@@ -133,7 +138,7 @@ function p._main(args)
 		:css({
 			['font-size'] = '0.9em'
 		})
-		:wikitext('—Submitted via [[RuneScape:Article feedback|Article feedback]]')
+		:wikitext('—Submitted ' .. (username and ('by ' .. username) or '') .. ' via [[RuneScape:Article feedback|Article feedback]]')
 
 	if enabled_namespaces[namespace] then
 		bucket("feedback").put({
@@ -221,9 +226,9 @@ function p._list(args)
 				:wikitext(mw.text.nowiki(v['comment'])):done()
 		if pt.has_content(args.show) and string.lower(args.show) == 'all' then
 			if yn(v['resolved']) then
-				tr:tag('td'):wikitext('[[File:Yes check.svg|15px|link=]]')
+				tr:tag('td'):wikitext('[[File:Yes check.svg|15px|link=|Resolved]]')
 			else
-				tr:tag('td'):wikitext('[[File:X mark.svg|15px|link=]]')
+				tr:tag('td'):wikitext('[[File:X mark.svg|15px|link=|Unresolved]]')
 			end
 		end
 		tr:tag('td'):wikitext(fbcat)

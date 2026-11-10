@@ -32,6 +32,7 @@ local composers = {
 	'Jed Sanderson',
 	'Joseph Rainey',
 	'Julian Surma',	
+	'Mod Abbie',	
 	'Michael Manning',
 	'Oliver Nixon',
 	'Pilagari Sivapathasundaram',
@@ -230,6 +231,7 @@ function p.categories(...)
 	bucket_data["number"] = args.number
 	bucket_data["is_members_only"] = yesno(args.members)
 	bucket_data["duration"] = args.duration
+	bucket_data["tempo"] = args.tempo
 	bucket_data["release_update"] = args.update
 	bucket_data["sort_name"] = args.sortname
 	bucket_data["is_jingle"] = yesno(args.jingle)

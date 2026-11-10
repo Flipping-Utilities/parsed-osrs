@@ -4,7 +4,7 @@ return {
     item       = "Orikalkum gravel",
     alchable   = true,
     value      = 170000,
-    limit      = nil,
+    limit      = 4500,
     members    = true,
     category   = nil,
     examine    = "Unrefined dragon metal.",

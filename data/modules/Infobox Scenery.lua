@@ -37,7 +37,7 @@ function p.main(frame)
 		{ name = 'id', func = 'has_content' },
 		{ name = 'id_bucket', func = { name = idbucket, params = { 'id' }, flag = 'p' } },
 		{ name = 'chisel_link_obj', func = { name = 'chisel_link', params = { 'id', 'name', 'object' }, flag = { 'p', 'p', 'r' } } },
-		{ name = 'default_version', func = { name = is_default_version, params = { 'bucketname'..default_version_index, 'version'..default_version_index, 'bucketname', 'version' } } },
+		{ name = 'default_version', func = { name = is_default_version, params = { args['bucketname' .. default_version_index] or '', args['version' .. default_version_index] or '', 'bucketname', 'version' }, flag = { 'r', 'r', 'd', 'd' } } },
 	}
 
 	ret:defineLinks({ hide = true })

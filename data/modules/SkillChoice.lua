@@ -21,6 +21,24 @@ local questList = {
 		restrictions = 'None'
 	},
 	{
+		name = 'Romeo & Juliet',
+		requirements = 'None',
+		rewards = { 500, 1 },
+		restrictions = 'None'
+	},
+	{
+		name = 'Shield of Arrav',
+		requirements = 'None',
+		rewards = { 500, 1 },
+		restrictions = 'None'
+	},
+	{
+		name = 'Ernest the Chicken',
+		requirements = 'None',
+		rewards = { 500, 1 },
+		restrictions = 'None'
+	},
+	{
 		name = 'Client of Kourend',
 		requirements = 'None',
 		rewards = { 500, 2 },
@@ -30,6 +48,24 @@ local questList = {
 		name = 'The Ides of Milk',
 		requirements = 'None',
 		rewards = { 1000, 1 },
+		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints Prayer'
+	},
+	{
+		name = 'Mudfoot\'s Big Adventure',
+		requirements = 'None',
+		rewards = { 500, 4 },
+		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints Prayer'
+	},
+	{
+		name = 'Demon Slayer',
+		requirements = 'None',
+		rewards = { 1000, 2 },
+		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints Prayer'
+	},
+	{
+		name = 'Black Knights\' Fortress',
+		requirements = string.format('%s', SCP('Quest', '12')),
+		rewards = { 1000, 2 },
 		restrictions = 'Attack Strength Defence Magic Ranged Hitpoints Prayer'
 	},
 	{
@@ -221,7 +257,7 @@ function p.main(frame, skill)
 			:wikitext('Skill requirements')
 		:done()
 	
-	resultsTable:addClass('wikitable sortable qc-active lighttable oqg-table'):css('text-align', 'center')
+	resultsTable:addClass('wikitable sortable qc-active lighttable oqg-table mw-collapsible'):css('text-align', 'center')
 		:node(header)
 	:done()
 	

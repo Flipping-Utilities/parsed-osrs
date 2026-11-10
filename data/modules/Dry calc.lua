@@ -10,7 +10,7 @@ function expr(x)
 	return nil
 end
 
-function flavourText(x, obtained)
+function flavourText(x, obtained,droprate,kills)
 	local flavourTexts = {
 		{ -1, 1, "You are some sort of sentient water being you're so not-dry. How'd you even do this?" },
 		{ 1, 10, "You're a higher % water than a watermelon.", "Or you would be if you had gotten any drops. But you didn't." },
@@ -20,16 +20,16 @@ function flavourText(x, obtained)
 		{ 40, 49, "You're quite the lucker aren't you.", "Or not, since you got no drops." },
 		{ 49, 51, "A perfect mix of dry and undry, as all things should be." },
 		{ 51, 61, 'Nothing interesting happens.', "Over half of your friends would have got a drop by now, though." },
-		{ 61, 65, "An unenlightened being would say 'but 1/x over x kills means I should get it', but you know better now." },
+		{ 61, 65, string.format("An unenlightened being would say 'but 1/%.0f over %.0f kills means I should have %.0f', but you know better now.",droprate,kills,math.floor(kills/droprate + 0.05)) },
 		{ 65, 73, 'Nothing interesting happens.', "Not even any drops." },
 		{ 73, 74, "😂😂😂" },
-		{ 74, 85, "oof" },
+		{ 74, 85, "oof",", that kinda hurts." },
 		{ 85, 90, "A national emergency has been declared in your drop log." },
 		{ 90, 95, "Right, time to post on reddit." },
 		{ 95, 99, "You after being this dry: [[File:Skeleton (level 21, 1).png|link=Skeleton|80x80px]]" },
 		{ 99, 99.5, "You are so dry you have collapsed into the dry singularity. The dryularity, if you will." },
 		{ 99.5, 99.9, "The vacuum of space has more activity than your drop log." },
-		{ 99.9, 99.99, "Wow that's so rare! Seems like it's bugged. We tweeted @JagexAsh for you, we're sure he'll get to the bottom of it in the next 24 hours." },
+		{ 99.9, 99.99, string.format("%.0f in %.0f kills? That's so rare! Seems like it's bugged. We tweeted @JagexAsh for you, we're sure he'll get to the bottom of it in the next 24 hours.",obtained,kills) },
 		{ 99.99, 1000, "Did you forget to talk to [[Oziach]]?" }
 	}
 	for i, v in ipairs(flavourTexts) do
@@ -101,12 +101,19 @@ function p.calc(chanceTxt, kc, obtained)
 		pLessThanObtained = 1.0 - pMoreThanObtained - pExactlyObtained
 	end
 	
-	local flavour = flavourText(pMoreThanObtained * 100, obtained)
+	-- if obtained > 0, include half the chance of hitting exactly that many drops for flavour text purposes
+	local flavourP = pMoreThanObtained  * 100
+	if obtained > 0
+	then
+		flavourP = flavourP + (pExactlyObtained * 50)	
+	end
+	
+	local flavour = flavourText(flavourP, obtained,1/chance,kc)
 	if kc == 1 and obtained == 1
 	then
 		flavour = "Perfect drop rate."
 	end
-	local introText = string.format("You killed %s monsters for an item with a %s (%.6f%% or 1/%0.2f) drop chance. You had a:\n",
+	local introText = string.format("You killed %s monsters for an item with a %s (%.6f%% or 1/%0.1f) drop chance. You had a:\n",
 		kc, chanceTxt, 100 * chance, 1/chance)
 	local probabilitiesText = string.format("* %.8f%% chance (1/%.2f) of getting exactly %s drops,\n",
 		100*pExactlyObtained, 1/pExactlyObtained, obtained)

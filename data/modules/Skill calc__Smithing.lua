@@ -318,7 +318,7 @@ return {
         members = 'Yes',
         type = 'Bronze'
     }, {   
-    	name = 'Bronze sword',
+    	name = 'Bronze shortsword',
         level = 4,
         xp = 12.5,
         materials = {
@@ -469,6 +469,15 @@ return {
         members = 'No',
         type = 'Bronze'
     }, {   
+    	name = 'Bronze keel parts',
+        level = 10,
+        xp = 62.5,
+        materials = {
+        	{ name = 'Bronze bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Bronze'
+    }, {   
     	name = 'Bronze chainbody',
         level = 11,
         xp = 37.5,
@@ -587,7 +596,7 @@ return {
 	    members = 'Yes',
 	    type = 'Iron'
 	}, {   
-	    name = 'Iron sword',
+	    name = 'Iron shortsword',
 	    level = 19,
 	    xp = 25,
 	    materials = {
@@ -701,6 +710,15 @@ return {
 	    outputQuantity = 5,
 	    members = 'Yes',
 	    type = 'Iron'
+    }, {   
+    	name = 'Iron keel parts',
+        level = 22,
+        xp = 125,
+        materials = {
+        	{ name = 'Iron bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Iron'
 	}, {   
 	    name = 'Iron sq shield',
 	    level = 23,
@@ -847,7 +865,7 @@ return {
 	    members = 'Yes',
 	    type = 'Steel'
 	}, {   
-	    name = 'Steel sword',
+	    name = 'Steel shortsword',
 	    level = 34,
 	    xp = 37.5,
 	    materials = {
@@ -981,6 +999,15 @@ return {
 	    members = 'No',
 	    type = 'Steel'
 	}, {   
+    	name = 'Steel keel parts',
+        level = 38,
+        xp = 187.5,
+        materials = {
+        	{ name = 'Steel bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Steel'
+	}, { 
 	    name = 'Steel warhammer',
 	    level = 39,
 	    xp = 112.5,
@@ -1117,7 +1144,7 @@ return {
 	    members = 'Yes',
 	    type = 'Mithril'
 	}, {   
-	    name = 'Mithril sword',
+	    name = 'Mithril shortsword',
 	    level = 54,
 	    xp = 50,
 	    materials = {
@@ -1222,6 +1249,15 @@ return {
 	    outputQuantity = 5,
 	    members = 'Yes',
 	    type = 'Mithril'
+	}, {   
+    	name = 'Mithril keel parts',
+        level = 56,
+        xp = 250,
+        materials = {
+        	{ name = 'Mithril bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Mithril'
 	}, {   
 	    name = 'Mithril full helm',
 	    level = 57,
@@ -1397,7 +1433,7 @@ return {
 	    members = 'Yes',
 	    type = 'Adamantite'
 	}, {   
-	    name = 'Adamant sword',
+	    name = 'Adamant shortsword',
 	    level = 74,
 	    xp = 62.5,
 	    materials = {
@@ -1425,6 +1461,15 @@ return {
 	    outputQuantity = 15,
 	    members = 'Yes',
 	    type = 'Adamantite'
+	}, {   
+    	name = 'Adamant keel parts',
+        level = 74,
+        xp = 312.5,
+        materials = {
+        	{ name = 'Adamantite bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Adamantite'
 	}, {   
 	    name = 'Adamant scimitar',
 	    level = 75,
@@ -1593,6 +1638,15 @@ return {
 	    members = 'No',
 	    type = 'Adamantite'
 	}, {   
+    	name = 'Rune keel parts',
+        level = 86,
+        xp = 375,
+        materials = {
+        	{ name = 'Runite bar', quantity = 5 }
+        },
+        members = 'Yes',
+        type = 'Runite'
+	}, {   
 	    name = 'Adamant platebody',
 	    level = 88,
 	    xp = 312.5,
@@ -1648,7 +1702,7 @@ return {
 	    members = 'Yes',
 	    type = 'Runite'
 	}, {   
-	    name = 'Rune sword',
+	    name = 'Rune shortsword',
 	    level = 89,
 	    xp = 75,
 	    materials = {
@@ -1780,6 +1834,15 @@ return {
 	    },
 	    members = 'No',
 	    type = 'Runite'
+	}, {   
+    	name = 'Dragon keel parts',
+        level = 94,
+        xp = 700,
+        materials = {
+        	{ name = 'Dragon metal sheet', quantity = 2 }
+        },
+        members = 'Yes',
+        type = 'Other'
 	}, {   
 	    name = 'Rune battleaxe',
 	    level = 95,

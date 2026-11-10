@@ -16,6 +16,7 @@ function p.header(tbl, verbose)
         :tag('th'):wikitext('[[File:Attack style icon.png|link=|Combat level]]'):done()
         :tag('th'):wikitext('[[File:Hitpoints icon.png|link=|Hitpoints]]'):done()
         :tag('th'):wikitext('[[File:Attack icon.png|link=|Attack level]]'):done()
+        :tag('th'):wikitext('[[File:Strength icon.png|link=|Strength level]]'):done()
         :tag('th'):wikitext('[[File:Defence icon.png|link=|Defence level]]'):done()
         :tag('th'):wikitext('[[File:Magic icon.png|link=|Magic level]]'):done()
         :tag('th'):wikitext('[[File:Ranged icon.png|link=|Ranged level]]'):done()
@@ -208,6 +209,7 @@ function p._main(args)
             :tag('td'):wikitext(entry.combat_level):done()
             :tag('td'):wikitext(entry.hitpoints):done()
             :tag('td'):wikitext(entry.attack_level):done()
+            :tag('td'):wikitext(entry.strength_level):done()
             :tag('td'):wikitext(entry.defence_level):done()
             :tag('td'):wikitext(entry.magic_level):done()
             :tag('td'):wikitext(entry.ranged_level):done()
@@ -272,6 +274,7 @@ function p.loadData(fromlevel, tolevel, fromletter, toletter, levelselect, mems,
         'combat_level',
         'hitpoints',
         'attack_level',
+        'strength_level',
         'defence_level',
         'magic_level',
         'ranged_level',

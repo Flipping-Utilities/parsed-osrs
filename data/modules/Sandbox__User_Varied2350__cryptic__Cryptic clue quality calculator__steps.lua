@@ -11,7 +11,6 @@ return {
 	},
 	["The doorman of the Warriors' Guild wishes to be impressed by how strong your equipment is."] = {
 		id = 2,
-		timeTaken = 4,
 		routes = {
 			{
 				name = "Games necklace",
@@ -102,27 +101,71 @@ return {
 	},
 	["Darkness wanders around me, but fills my mind with knowledge."] = {
 		id = 11,
-		timeTaken = 22
+		routes = {
+			{
+				name = "Arceuus library teleport (tablet)",
+				quantity = 1,
+				timeTaken = 22
+			},
+			{
+				name = "Dramen staff",
+				timeTaken = 35,
+				txt = "C.I.S Fairy ring"
+			}
+		},
 	},
 	["Robin wishes to see your finest ranged equipment."] = {
 		id = 12,
-		timeTaken = 23
+		routes = {
+			{
+				name = "Ectophial",
+				timeTaken = 23
+			}
+		}
 	},
 	["Under a giant robotic bird that cannot fly."] = {
 		id = 13,
-		timeTaken = 24
+		routes = {
+			{
+				name = "Varrock teleport (tablet)",
+				quantity = 1,
+				timeTaken = 24
+			}
+		}
 	},
 	["Where safe to speak, the man who offers the pouch of smallest size wishes to see your alignment."] = {
 		id = 14,
-		timeTaken = 24
+		routes = {
+			{
+				name = "Varrock teleport (tablet)",
+				quantity = 1,
+				timeTaken = 24
+			}
+		}
 	},
 	["Fiendish cooks probably won't dig the dirty dishes."] = {
 		id = 15,
-		timeTaken = 24
+		routes = {
+			{
+				name = "Games necklace",
+				timeTaken = 24
+			}
+		}
 	},
 	["This place sure is a mess."] = {
 		id = 16,
-		timeTaken = 24
+		routes = {
+			{
+				name = "Watson teleport",
+				quantity = 1,
+				timeTaken = 20
+			},
+			{
+				name = "Xeric's talisman",
+				quantity = 1,
+				timeTaken = 24
+			}
+		}
 	},
 	["A massive battle rages beneath so be careful when you dig by the large broken crossbow."] = {
 		id = 17,
@@ -141,7 +184,17 @@ return {
 	},
 	["Hopefully this set of armour will help you to keep surviving."] = {
 		id = 18,
-		timeTaken = 28
+		routes = {
+			{
+				name = "Achievement diary cape",
+				timeTaken = 18
+			},
+			{
+				name = "Falador teleport (tablet)",
+				quantity = 1,
+				timeTaken = 38
+			}
+		}
 	},
 	["I lie beneath the first descent to the holy encampment."] = {
 		id = 19,
@@ -169,7 +222,13 @@ return {
 	},
 	["2 musical birds. Dig in front of the spinning light."] = {
 		id = 25,
-		timeTaken = 75
+		routes = {
+			{
+				name = "Dramen staff",
+				txt = "Fairy ring D.K.S",
+				timeTaken = 75
+			}
+		}
 	},
 	["Great demons, dragons, and spiders protect this blue rock, beneath which, you may find what you seek."] = {
 		id = 26,

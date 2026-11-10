@@ -13,6 +13,15 @@ local PRAYER_MODIFIER = {
 	0.04,
 }
 
+local DEMON_TYPE_MULTIPLIERS = {
+    ["Non-demon"]          = 0.0,
+    ["Duke Sucellus"]      = 0.7,
+    ["Regular Demon"]      = 1.0,
+    ["Ice Demon"]          = 1.15,
+    ["Yama"]               = 1.2,
+    ["Void Flare (Yama)"]  = 2.0,
+}
+
 function p.main(frame)
 	-- Parse the args
 	local args = frame.args
@@ -33,18 +42,19 @@ function p.main(frame)
 	local equipChaosGauntlets = yesno(args.equipChaosGauntlets)
 	
 	local castMarkOfDarkness = yesno(args.castMarkOfDarkness)
+	local demonTypeMult = DEMON_TYPE_MULTIPLIERS[args.demonType] or 0
 	local castCharge = yesno(args.castCharge)
 	
 	local elementalWeakness = (tonumber(args.elementalWeakness) or 0) / 100
 	
 	local calculatedDamage = p.calc(selectedSpell, selectedSpellData, selectedWeapon, magicStrength, specialModifier,
-		inTombsOfAmascut, haveForinthrySurge, equipTome, pvp, equipChaosGauntlets, castMarkOfDarkness, castCharge, elementalWeakness, elementalAmulet)
+		inTombsOfAmascut, haveForinthrySurge, equipTome, pvp, equipChaosGauntlets, castMarkOfDarkness, castCharge, elementalWeakness, elementalAmulet, demonTypeMult)
 	
 	return renderTable(calculatedDamage)
 end
 
 function p.calc(selectedSpell, selectedSpellData, selectedWeapon, magicStrength, specialModifier,
-	inTombsOfAmascut, haveForinthrySurge, equipTome, pvp, equipChaosGauntlets, castMarkOfDarkness, castCharge, elementalWeakness, elementalAmulet)
+	inTombsOfAmascut, haveForinthrySurge, equipTome, pvp, equipChaosGauntlets, castMarkOfDarkness, castCharge, elementalWeakness, elementalAmulet, demonTypeMult)
 	
 	-- Tumeken's multiplier to (visible) % magic strength
 	if selectedSpell == "Tumeken's shadow" then
@@ -127,11 +137,12 @@ function p.calc(selectedSpell, selectedSpellData, selectedWeapon, magicStrength,
 			
 			-- mark of darkness (and purging staff)
 			if castMarkOfDarkness then
+				local staffMult = 0.25
 				if selectedWeapon == 'Purging staff' then
-					maxHit = math.modf(maxHit * 1.5)
-				else
-					maxHit = math.modf(maxHit * 1.25)
+					staffMult = 0.5
 				end
+				local demonMult = 1 + round(staffMult * demonTypeMult, 2)
+				maxHit = math.modf(maxHit * demonMult)
 			end
 			
 			-- dawnbringer
@@ -166,6 +177,11 @@ function p.calc(selectedSpell, selectedSpellData, selectedWeapon, magicStrength,
 	end
 	
 	return selectedSpellData
+end
+
+function round(num, dp)
+	local mult = 10 ^ (dp or 0)
+	return math.floor(num * mult + 0.5 + 1e-9) / mult
 end
 
 function renderTable(calculatedDamage)

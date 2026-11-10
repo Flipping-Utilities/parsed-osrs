@@ -258,6 +258,16 @@ return {
         members = 'Yes',
         type = 'Vegetable'
     }, {   
+    	name = 'Cooked t-bone steak',
+        level = 13,
+        xp = 90,
+        materials = {
+        	{ name = 'Raw t-bone steak', quantity = 1 }
+        },
+        steps = 1,
+        members = 'No',
+        type = 'Meat'
+    }, {   
     	name = 'Cider',
         level = 14,
         xp = 182,

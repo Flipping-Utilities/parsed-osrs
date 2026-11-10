@@ -346,6 +346,24 @@ local WeaponTypes = {
 			WeaponStyles['Ranged']['Longrange'],
 		},
 	},
+	['Extending Chain Mace'] = {
+		'Melee',
+		{
+			'Thrust',
+			'Crush',
+			WeaponStyles['Melee']['Accurate'],
+		},
+		{
+			'Thrust',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		},
+		{
+			'Smash',
+			'Crush',
+			WeaponStyles['Melee']['Aggressive'],
+		}
+	},
 	['Gun'] = {
 		'Melee',
 		{
@@ -480,6 +498,24 @@ local WeaponTypes = {
 			'Block',
 			'Crush',
 			WeaponStyles['Melee']['Defensive'],
+		},
+	},
+	['Powered Book'] = {
+		'Magic',
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Accurate',
+			'Magic',
+			WeaponStyles['Magic']['Accurate'],
+		},
+		{
+			'Longrange',
+			'Magic',
+			WeaponStyles['Magic']['Longrange'],
 		},
 	},
 	['Powered Staff'] = {
@@ -767,6 +803,8 @@ function speedarg(arg, weaponType, elementNum)
 	if numarg ~= nil then
 		if rootyTootyRapidShooty[WeaponTypes[weaponType][elementNum][1]] then
 			return string.format('%s ticks (%.1fs)', numarg - 1, (numarg - 1) * 0.6)
+		elseif weaponType == 'Extending Chain Mace' and WeaponTypes[weaponType][elementNum][1] == 'Smash' then
+			return string.format('%s ticks (%.1fs)', 3, 3 * 0.6)
    		elseif not (phallic[weaponType] and elementNum == 5) then
 			return string.format('%s ticks (%.1fs)', numarg, numarg * 0.6)
 		end
@@ -837,6 +875,10 @@ end
 function buildRow(elementNum, weaponType, range, speed)
 	local ret = mw.html.create('tr')
 	local combatStyleIcon = string.lower(WeaponTypes[weaponType][elementNum][1])						--Add image of corresponding icon to each combat style
+	if string.lower(weaponType) == 'extending chain mace' then
+		local stance = string.lower(WeaponTypes[weaponType][elementNum][3]['Weapon Style'])
+		combatStyleIcon = combatStyleIcon .. ', ' .. stance
+	end
 	local phallic = {['Staff']=true, ['Bladed Staff']=true}
 		if phallic[weaponType] then
 			if (WeaponTypes[weaponType][elementNum][3]['Weapon Style']:match('Defensive Autocast')) then
@@ -871,7 +913,10 @@ function buildRow(elementNum, weaponType, range, speed)
 							:attr('rowspan', 2):done()
 					end
 
-				elseif	(WeaponTypes[weaponType][1]:match('Melee') or string.lower(weaponType) == 'powered staff') then
+				elseif (
+					(WeaponTypes[weaponType][1]:match('Melee') and weaponType ~= 'Extending Chain Mace')
+					or string.lower(weaponType) == 'powered staff' 
+				) then
 					if elementNum == 2 then
 						ret:tag('td')
 							:wikitext(speedarg(speed, weaponType, elementNum))

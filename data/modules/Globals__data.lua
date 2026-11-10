@@ -18,15 +18,15 @@ return {
 -- Quests
 	['quests'] = {
 		'the total amount of quests',
-		'184'
+		'187'
 	},
 	['quests p2p'] = {
 		'the total amount of quests exclusive for members',
-		'160'
+		'161'
 	},
 	['quests f2p'] = {
 		'the total amount of free-to-play quests',
-		'24'
+		'25'
 	},
 	['quests speedrunning'] = {
 		'the total amount of quests available to speedrun on Quest Speedrunning worlds',
@@ -34,45 +34,45 @@ return {
 	},
 	['quest points'] = {
 		'the total amount of quest points',
-		'343'
+		'346'
 	},
 	['quest points f2p'] = {
 		'the total amount of quest points obtained with free-to-play quests',
-		'46'
+		'47'
 	},
 	['quest points p2p'] = {
 		'the total amount of quest points obtained with pay-to-play quests',
-		'297'
+		'299'
 	},
 	['latest quest'] = {
 		'the name of the latest released quest',
-		'[[Crab Quest]]'
+		'[[The Writing\'s on the Wall]]'
 	},
 	['latest quest f2p'] = {
 		'the name of the latest released free-to-play quest',
-		'[[The Ides of Milk]]'
+		'[[Mudfoot\'s Big Adventure]]'
 	},
 	['latest quest p2p'] = {
 		'the name of the latest released quest exclusive for members',
-		'[[Crab Quest]]'
+		'[[The Writing\'s on the Wall]]'
 	},
 	['latest quest release date'] = {
 		'the date of the latest released quest',
-		'[[8 September]] [[2026]]'
+		'[[3 November]] [[2026]]'
 	},
 	['latest quest release date f2p'] = {
 		'the date of the latest released free-to-play quest',
-		'[[25 February]] [[2026]]'
+		'[[3 November]] [[2026]]'
 	},
 
 -- Music tracks
 	['music tracks'] = {
 		'the total amount of music tracks',
-		'853'
+		'864'
 	},
 	['latest music release date'] = {
 		'the date of when the latest music track was released',
-		'[[29 July]] [[2026]]'
+		'[[3 November]] [[2026]]'
 	},
 
 -- Combat achievements
@@ -190,7 +190,7 @@ return {
 -- Collection log
     ['collection log slots'] = {
     	'the total amount of Collection Log slots',
-    	'1717'
+    	'1734'
     },
 
 -- Skills

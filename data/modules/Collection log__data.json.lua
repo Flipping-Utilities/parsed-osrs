@@ -7159,7 +7159,7 @@
 	},
 	{
 		"id": 21009,
-		"name": "Dragon sword",
+		"name": "Dragon shortsword",
 		"tabs": [
 			"Slayer"
 		]
@@ -12226,6 +12226,125 @@
 		"name": "Fire ruby",
 		"tabs": [
 			"Slayer"
+		]
+	},
+	{
+		"id": 34646,
+		"name": "Orion",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34659,
+		"name": "Living record (tier 1)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34661,
+		"name": "Living record (tier 2)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34663,
+		"name": "Living record (tier 3)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34665,
+		"name": "Living record (tier 4)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34667,
+		"name": "Living record (tier 5)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34669,
+		"name": "Ascension shards",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34671,
+		"name": "Fragment of living earth",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34673,
+		"name": "Fragment of deep water",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34675,
+		"name": "Fragment of whispering wind",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34677,
+		"name": "Fragment of burning fire",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34679,
+		"name": "Horn of Bran",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34681,
+		"name": "Ascension crossbows",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34717,
+		"name": "Obligator (uncharged)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34719,
+		"name": "Rondache",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34722,
+		"name": "Archivist's folio (inert)",
+		"tabs": [
+			"The Fractured Archive"
+		]
+	},
+	{
+		"id": 34727,
+		"name": "Zorya's tome (uncharged)",
+		"tabs": [
+			"The Fractured Archive"
 		]
 	}
 ]

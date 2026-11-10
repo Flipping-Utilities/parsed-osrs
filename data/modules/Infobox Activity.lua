@@ -14,7 +14,7 @@ function p.main(frame)
 
 	ret:defineParams{
 		{ name = 'name', func = 'name' },
-		{ name = 'default_version', func = { name = is_default_version, params = { 'bucketname'..default_version_index, 'version'..default_version_index, 'bucketname', 'version' } } },
+		{ name = 'default_version', func = { name = is_default_version, params = { args['bucketname' .. default_version_index] or '', args['version' .. default_version_index] or '', 'bucketname', 'version' }, flag = { 'r', 'r', 'd', 'd' } } },
 		{ name = 'image', func = 'image' },
 		{ name = 'image_bucket', func = { name = image_bucket, params = { 'image' }, flag = 'p' } },
 		{ name = 'aka', func = 'has_content' },

@@ -2,6 +2,9 @@ local p = {}
 
 local Bucket = mw.ext.bucket
 local dpl = require("Module:DPLlua")
+local videos = mw.loadData("Module:Sandbox/User:Alder/ReleaseData/Videos")
+local livestreams = mw.loadData("Module:Sandbox/User:Alder/ReleaseData/Livestreams")
+local lore_data = mw.loadData("Module:Sandbox/User:Alder/ReleaseData/Lore")
 
 local PAGE_SIZE = 5000
 
@@ -23,6 +26,7 @@ local MONTH_NUMBERS = {
 local ITEM_FIELDS = {
 	"page_name",
 	"item_name",
+	"item_id",
 	"image",
 	"is_members_only",
 	"examine",
@@ -38,6 +42,7 @@ local ITEM_FIELDS = {
 local NPC_FIELDS = {
 	"page_name",
 	"npc_name",
+	"npc_id",
 	"image",
 	"is_members_only",
 	"release",
@@ -49,6 +54,7 @@ local NPC_FIELDS = {
 local MONSTER_FIELDS = {
 	"page_name",
 	"name",
+	"id",
 	"image",
 	"is_members_only",
 	"examine",
@@ -66,6 +72,7 @@ local UPDATE_FIELDS = {
 	"day"
 }
 
+-- Adjusting unknown dates for approximate release
 local adjusted_dates = {
 	npcs = {
 		["Smithing catalyst (Blast Furnace)"] = "2005-08-23",
@@ -78,6 +85,10 @@ local adjusted_dates = {
 		["Soldier (Lizardman kill count)"] = "2016-01-07",
 		["Parrot (Sailing alpha)"] = "2025-03-20",
 		["Hammerhead shark"] = "2025-11-19",
+	},
+	monsters = {
+		["Bedabin Nomad Fighter"] = "2004-10-14",
+		["Wild dog (Last Man Standing)"] = "2016-08-04"
 	},
 	music = {
 		["Ambience 2"] = "2004-03-15",
@@ -107,6 +118,14 @@ local adjusted_dates = {
 
 local function identity(value)
 	return value
+end
+
+local function ensure_date(data, date)
+	if data[date] == nil then
+		data[date] = {}
+	end
+
+	return data[date]
 end
 
 local function strip_brackets(value)
@@ -183,11 +202,38 @@ local function parse_date(date)
 	)
 end
 
+local function to_string_array(value)
+    if value == nil then
+        return {}
+    end
+
+    if type(value) ~= "table" then
+        value = { value }
+    end
+
+    local result = {}
+
+    for _, item in ipairs(value) do
+        if item ~= nil then
+            table.insert(result, tostring(item))
+        end
+    end
+
+    return result
+end
+
 local field_transforms = {
-	npcs = {
-		image = strip_brackets,
-		quest = parse_links,
-	},
+    items = {
+        item_id = to_string_array,
+    },
+    npcs = {
+        image = strip_brackets,
+        quest = parse_links,
+        npc_id = to_string_array,
+    },
+    monsters = {
+        id = to_string_array,
+    },
 }
 
 local function make_transform(
@@ -195,7 +241,8 @@ local function make_transform(
 	adjusted_dates,
 	field_transforms,
 	name_field,
-	date_field
+	date_field,
+	data_type
 )
 	return function(row)
 		local date = parse_date(row[date_field])
@@ -220,10 +267,19 @@ local function make_transform(
 			record[key] = transform(value)
 		end
 
-		record.date = date
 		record[date_field] = nil
 
-		return record
+		-- Standardize the identifying field.
+		record.name = record[name_field]
+		if name_field ~= "name" then
+			record[name_field] = nil
+		end
+
+		return {
+			date = date,
+			type = data_type,
+			record = record
+		}
 	end
 end
 
@@ -246,14 +302,7 @@ local function get_from_bucket(bucket, fields, transform)
 			local record = transform(row)
 
 			if record then
-				local date = record.date
-				record.date = nil -- omit from record, since we're grouping
-				
-				if records[date] == nil then
-					records[date] = {}
-				end
-				
-				table.insert(records[date], record)
+				table.insert(records, record)
 			end
 		end
 
@@ -267,387 +316,632 @@ local function get_from_bucket(bucket, fields, transform)
 	return records
 end
 
--- groups by date, then by the given fields
-local function group_by_fields(records, fields)
-	local grouped = {}
+-- Groups by date, then by the given fields.
+-- Skips grouping levels for fields that are nil.
+-- local function group_by_fields(records, fields)
+-- 	local grouped = {}
 
-	for date, date_records in pairs(records) do
-		grouped[date] = {}
+-- 	for date, date_records in pairs(records) do
+-- 		grouped[date] = {}
 
-		for _, record in ipairs(date_records) do
-			local current = grouped[date]
+-- 		for _, record in ipairs(date_records) do
+-- 			local current = grouped[date]
 
-			for _, field in ipairs(fields) do
-				local value = record[field]
+-- 			for _, field in ipairs(fields) do
+-- 				local value = record[field]
 
-				if current[value] == nil then
-					current[value] = {}
-				end
+-- 				if value ~= nil then
+-- 					if current[value] == nil then
+-- 						current[value] = {}
+-- 					end
 
-				current = current[value]
-			end
+-- 					current = current[value]
+-- 				end
+-- 			end
 
-			table.insert(current, record)
-		end
-	end
+-- 			table.insert(current, record)
+-- 		end
+-- 	end
 
-	return grouped
-end
+-- 	return grouped
+-- end
 
-local function values_equal(a, b)
-	if type(a) ~= type(b) then
-		return false
-	end
+-- local function values_equal(a, b)
+-- 	if type(a) ~= type(b) then
+-- 		return false
+-- 	end
 
-	if type(a) ~= "table" then
-		return a == b
-	end
+-- 	if type(a) ~= "table" then
+-- 		return a == b
+-- 	end
 
-	for key, value in pairs(a) do
-		if not values_equal(value, b[key]) then
-			return false
-		end
-	end
+-- 	for key, value in pairs(a) do
+-- 		if not values_equal(value, b[key]) then
+-- 			return false
+-- 		end
+-- 	end
 
-	for key, value in pairs(b) do
-		if not values_equal(value, a[key]) then
-			return false
-		end
-	end
+-- 	for key, value in pairs(b) do
+-- 		if not values_equal(value, a[key]) then
+-- 			return false
+-- 		end
+-- 	end
 
-	return true
-end
+-- 	return true
+-- end
 
-local function remove_duplicates(records, fields)
-	local result = {}
+-- local function remove_duplicates(records, fields)
+-- 	local result = {}
 
-	for date, date_records in pairs(records) do
-		result[date] = {}
+-- 	for date, date_records in pairs(records) do
+-- 		result[date] = {}
 
-		for _, record in ipairs(date_records) do
-			local duplicate = false
+-- 		for _, record in ipairs(date_records) do
+-- 			local duplicate = false
 
-			for _, existing in ipairs(result[date]) do
-				local same = true
+-- 			for _, existing in ipairs(result[date]) do
+-- 				local same = true
 
-				for _, field in ipairs(fields) do
-					if not values_equal(record[field], existing[field]) then
-						same = false
-						break
-					end
-				end
+-- 				for _, field in ipairs(fields) do
+-- 					if not values_equal(record[field], existing[field]) then
+-- 						same = false
+-- 						break
+-- 					end
+-- 				end
 
-				if same then
-					duplicate = true
-					break
-				end
-			end
+-- 				if same then
+-- 					duplicate = true
+-- 					break
+-- 				end
+-- 			end
 
-			if not duplicate then
-				table.insert(result[date], record)
-			end
-		end
-	end
+-- 			if not duplicate then
+-- 				table.insert(result[date], record)
+-- 			end
+-- 		end
+-- 	end
 
-	return result
-end
+-- 	return result
+-- end
 
 local function get_items(year)
 	return get_from_bucket(
 		"infobox_item",
 		ITEM_FIELDS,
-		make_transform(year, adjusted_dates.items, field_transforms.items, "item_name", "release_date")
+		make_transform(
+			year,
+			adjusted_dates.items,
+			field_transforms.items,
+			"item_name",
+			"release_date",
+			"items"
+		)
 	)
 end
 
 local function get_npcs(year)
-	local records = get_from_bucket(
+	return get_from_bucket(
 		"infobox_npc",
 		NPC_FIELDS,
-		make_transform(year, adjusted_dates.npcs, field_transforms.npcs, "page_name", "release")
+		make_transform(year, adjusted_dates.npcs, field_transforms.npcs, "page_name", "release", "npcs")
 	)
-	return group_by_fields(records, {"page_name"})
 end
 
 local function get_monsters(year)
-	local records = get_from_bucket(
+	return get_from_bucket(
 		"infobox_monster",
 		MONSTER_FIELDS,
-		make_transform(year, adjusted_dates.monsters, field_transforms.monsters, "page_name", "release_date")
+		make_transform(year, adjusted_dates.monsters, field_transforms.monsters, "page_name", "release_date", "monsters")
 	)
-	records = remove_duplicates(records, {
-		"page_name", "name", "combat_level", "hitpoints", "examine", "image"
-	})
-
-	return group_by_fields(records, {"page_name", "combat_level"})
-end
-
-local function get_quests(year)
-	local quests = {}
-	local seen_numbers = {}
-
-	local results = dpl.ask({
-		uses = "Template:Infobox Quest",
-		include = "{Infobox Quest}",
-		count = PAGE_SIZE,
-		ordermethod = "title",
-	})
-
-	for _, row in ipairs(results) do
-		local template = row.include
-			and row.include["Infobox Quest"]
-
-		if template then
-			local name = template.name
-			local number = template.number
-			local release = template.release
-
-			if has_valid_name(name)
-				and number
-				and number ~= ""
-				and number ~= "null"
-				and not seen_numbers[number]
-			then
-				local date = parse_date(release)
-
-				if date
-					and string.sub(date, 1, 4) == tostring(year)
-				then
-					seen_numbers[number] = true
-
-					if quests[date] == nil then
-						quests[date] = {}
-					end
-
-					if quests[date][name] == nil then
-						quests[date][name] = {}
-					end
-
-					table.insert(quests[date][name], {
-						number = strip_brackets(number),
-						image = strip_brackets(template.image),
-						members = strip_brackets(template.members),
-						series = strip_brackets(template.series),
-						developer = strip_brackets(template.developer),
-						update = strip_brackets(template.update),
-						aka = strip_brackets(template.aka),
-						difficulty = strip_brackets(template.difficulty),
-					})
-				end
-			end
-		end
-	end
-
-	return quests
-end
-
-local function get_locations(year)
-	local locations = {}
-	local seen_names = {}
-
-	local results = dpl.ask({
-		uses = "Template:Infobox Location",
-		include = "{Infobox Location}",
-		count = PAGE_SIZE,
-		ordermethod = "title",
-	})
-
-	for _, row in ipairs(results) do
-		local template = row.include
-			and row.include["Infobox Location"]
-
-		if template then
-			local name = template.name
-			local release = template.release
-
-			if has_valid_name(name)
-				and not seen_names[name]
-			then
-				local date = parse_date(release)
-
-				if date
-					and string.sub(date, 1, 4) == tostring(year)
-				then
-					seen_names[name] = true
-
-					if locations[date] == nil then
-						locations[date] = {}
-					end
-
-					locations[date][name] = {
-						image = strip_brackets(template.image),
-						removal = strip_brackets(template.removal),
-						members = strip_brackets(template.members),
-						type = strip_brackets(template.type),
-					}
-				end
-			end
-		end
-	end
-
-	return locations
-end
-
-local function get_music(year)
-	local music = {}
-	local seen_names = {}
-
-	local results = dpl.ask({
-		uses = "Template:Infobox Music",
-		include = "{Infobox Music}",
-		count = PAGE_SIZE,
-		ordermethod = "title",
-	})
-
-	for _, row in ipairs(results) do
-		local template = row.include
-			and row.include["Infobox Music"]
-
-		if template then
-			local name = template.name
-			local release = template.release
-
-			if has_valid_name(name)
-				and not seen_names[name]
-			then
-				local date = parse_date(release)
-
-				if not date then
-					date = adjusted_dates.music[name]
-				end
-
-				if date
-					and string.sub(date, 1, 4) == tostring(year)
-				then
-					seen_names[name] = true
-
-					if music[date] == nil then
-						music[date] = {}
-					end
-
-					music[date][name] = {
-						number = strip_brackets(template.number),
-						file = strip_brackets(template.file),
-						removal = strip_brackets(template.removal),
-						members = strip_brackets(template.members),
-						location = strip_brackets(template.location),
-						hint = strip_brackets(template.hint),
-						duration = strip_brackets(template.duration),
-						composer = strip_brackets(template.composer),
-					}
-				end
-			end
-		end
-	end
-
-	return music
 end
 
 local function get_updates(year)
 	return get_from_bucket(
 		"update",
 		UPDATE_FIELDS,
-		-- function(row)
-		-- 	-- update bucket doesn't have a single date field, so transform manually here
-		-- 	local update_year = tonumber(row.year)
-		-- 	local month_number = MONTH_NUMBERS[row.month]
-		-- 	local day = tonumber(row.day)
-
-		-- 	if not update_year
-		-- 		or not month_number
-		-- 		or not day
-		-- 		or update_year ~= tonumber(year)
-		-- 	then
-		-- 		return nil
-		-- 	end
-
-		-- 	return {
-		-- 		page_name = strip_brackets(row.page_name),
-		-- 		type = strip_brackets(row.type),
-		-- 		date = string.format(
-		-- 			"%04d-%02d-%02d",
-		-- 			update_year,
-		-- 			month_number,
-		-- 			day
-		-- 		),
-		-- 	}
 		function(row)
+			if not row.year
+				or not row.month
+				or not row.day
+				or tonumber(row.year) ~= tonumber(year)
+			then
+				return nil
+			end
+
 			return {
-				page_name = row.page_name,
-				type = row.type,
-				year = row.year,
-				month = row.month,
-				day = row.day,
-				date = "2001-01-01",
+				date = string.format(
+					"%04d-%02d-%02d",
+					tonumber(row.year),
+					tonumber(row.month),
+					tonumber(row.day)
+				),
+				type = "updates",
+				record = {
+					name = row.page_name,
+					type = row.type,
+				},
 			}
 		end
 	)
 end
 
-local function get_god_letters(year)
-	-- TODO: Query God letters released during this year.
-	return {}
-end
 
-local function get_lore(year)
-	-- TODO: Query lore released during this year.
-	return {}
-end
-
-local function get_polls(year)
-	local polls = {}
-	local seen_ids = {}
-
+-- Shared DPL helper
+local function get_from_dpl(template_name, transform)
 	local results = dpl.ask({
-		uses = "Template:PollNotice",
-		include = "{PollNotice}",
+		uses = "Template:" .. template_name,
+		include = "{" .. template_name .. "}",
 		count = PAGE_SIZE,
 		ordermethod = "title",
 	})
 
+	local records = {}
+
 	for _, row in ipairs(results) do
-		local title = row.title
 		local template = row.include
-			and row.include.PollNotice
+			and row.include[template_name]
 
-		if title and template then
-			local poll_id
-			local release_date
+		if template then
+			local record = transform(row, template)
 
-			if year < 2013 then
-				-- Archived poll format:
-				-- {{PollNotice|Archive|ID|Date}}
-				poll_id = template[2]
-				release_date = template[3]
-			else
-				-- Modern poll format:
-				-- {{PollNotice|ID|Open date|Close date}}
-				poll_id = template[1]
-				release_date = template[2]
-			end
-
-			local date = parse_date(release_date)
-
-			if poll_id
-				and date
-				and string.sub(date, 1, 4) == tostring(year)
-				and not seen_ids[poll_id]
-			then
-				seen_ids[poll_id] = true
-
-				if polls[date] == nil then
-					polls[date] = {}
-				end
-
-				table.insert(polls[date], {
-					name = strip_brackets(title),
-					id = strip_brackets(poll_id),
-				})
+			if record then
+				table.insert(records, record)
 			end
 		end
 	end
 
-	return polls
+	return records
+end
+
+-- DPL: Quests
+local function get_quests(year)
+	local seen_numbers = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Quest", function(row, template)
+		local name = template.name
+		local number = template.number
+
+		if not has_valid_name(name)
+			or not number
+			or number == ""
+			or number == "null"
+			or seen_numbers[number]
+		then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_numbers[number] = true
+
+		return {
+			date = date,
+			type = "quests",
+			record = {
+				name = name,
+				number = number,
+				image = template.image,
+				members = template.members,
+				series = template.series,
+				developer = template.developer,
+				update = template.update,
+				aka = template.aka,
+				difficulty = template.difficulty,
+			},
+		}
+	end)
+end
+
+-- DPL Locations
+local function get_locations(year)
+    local seen_names = {}
+
+    return get_from_dpl("Infobox Location", function(row, template)
+        local name = template.name
+
+        if not has_valid_name(name) or seen_names[name] then
+            return nil
+        end
+
+        local date = parse_date(template.release)
+        if not date or string.sub(date, 1, 4) ~= tostring(year) then
+            return nil
+        end
+
+        seen_names[name] = true
+
+        local image = template.image
+        if not image or image == "" then
+            image = template.image1
+        end
+
+        local record = {
+            name = name,
+            image = image,
+            removal = template.removal,
+            members = template.members,
+            type = template.type,
+        }
+
+        return {
+            date = date,
+            type = "locations",
+            record = record,
+        }
+    end)
+end
+
+-- DPL: Music
+local function get_music(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Music", function(row, template)
+		local name = template.name
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date then
+			date = adjusted_dates.music[name]
+		end
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "music",
+			record = {
+				name = name,
+				number = template.number,
+				file = template.file,
+				removal = template.removal,
+				members = template.members,
+				location = template.location,
+				hint = template.hint,
+				duration = template.duration,
+				composer = template.composer,
+			},
+		}
+	end)
+end
+
+-- DPL: God letters
+local function get_god_letters(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("God letter", function(row, template)
+		local page_name = row.title
+		local name = string.gsub(page_name, "^Transcript:", "")
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.date)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "god_letters",
+			record = {
+				name = name,
+				page_name = page_name,
+			},
+		}
+	end)
+end
+
+-- DPL: Players' Gallery transcripts
+local function get_players_gallery_transcripts(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl(
+		"Players' Gallery transcript",
+		function(row, template)
+			local page_name = row.title
+			local name = string.gsub(page_name, "^Transcript:", "")
+
+			if not has_valid_name(name) or seen_names[name] then
+				return nil
+			end
+
+			local date = parse_date(template.date)
+
+			if not date or string.sub(date, 1, 4) ~= year then
+				return nil
+			end
+
+			seen_names[name] = true
+
+			return {
+				date = date,
+				type = "players_gallery_transcripts",
+				record = {
+					name = name,
+					page_name = page_name,
+				},
+			}
+		end
+	)
+end
+
+-- DPL: Polls
+local function get_polls(year)
+	local seen_ids = {}
+	local target_year = tonumber(year)
+
+	return get_from_dpl("PollNotice", function(row, template)
+		local title = row.title
+
+		if not title then
+			return nil
+		end
+
+		local poll_id
+		local release_date
+
+		if target_year < 2013 then
+			-- Archived poll format:
+			-- {{PollNotice|Archive|ID|Date}}
+			poll_id = template[2]
+			release_date = template[3]
+		else
+			-- Modern poll format:
+			-- {{PollNotice|ID|Open date|Close date}}
+			poll_id = template[1]
+			release_date = template[2]
+		end
+
+		if not poll_id or seen_ids[poll_id] then
+			return nil
+		end
+
+		local date = parse_date(release_date)
+
+		if not date
+			or string.sub(date, 1, 4) ~= tostring(year)
+		then
+			return nil
+		end
+
+		seen_ids[poll_id] = true
+
+		return {
+			date = date,
+			type = "polls",
+			record = {
+				name = title,
+				id = poll_id,
+			},
+		}
+	end)
+end
+
+-- DPL: Rooms
+local function get_rooms(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Room", function(row, template)
+		local name = template.name
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "rooms",
+			record = {
+				name = name,
+				image = template.image,
+				update = template.update,
+				icon = template.icon,
+				level = template.level,
+				cost = template.cost,
+			},
+		}
+	end)
+end
+
+-- DPL: Activities
+local function get_activities(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Activity", function(row, template)
+		local name = template.name
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "activities",
+			record = {
+				name = name,
+				image = template.image,
+				update = template.update,
+				removal = template.removal,
+				type = template.type,
+				members = template.members,
+				location = template.location,
+			},
+		}
+	end)
+end
+
+-- DPL: Miniquests
+local function get_miniquests(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Miniquest", function(row, template)
+		local name = template.name
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "miniquests",
+			record = {
+				name = name,
+				image = template.image,
+				update = template.update,
+				removal = template.removal,
+				members = template.members,
+				series = template.series,
+				developer = template.developer,
+			},
+		}
+	end)
+end
+
+-- DPL: Emotes
+local function get_emotes(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Emote", function(row, template)
+		local name = template.name
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "emotes",
+			record = {
+				name = name,
+				image = template.image,
+				update = template.update,
+				sound = template.sound,
+			},
+		}
+	end)
+end
+
+-- DPL: Events
+local function get_events(year)
+	local seen_names = {}
+	year = tostring(year)
+
+	return get_from_dpl("Infobox Event", function(row, template)
+		local name = template.name
+
+		if not has_valid_name(name) or seen_names[name] then
+			return nil
+		end
+
+		local date = parse_date(template.release)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_names[name] = true
+
+		return {
+			date = date,
+			type = "events",
+			record = {
+				name = name,
+				image = template.image,
+				update = template.update,
+				removal = template.removal,
+			},
+		}
+	end)
+end
+
+-- DPL: Postbag
+local function get_postbag(year)
+	local seen_issues = {}
+	year = tostring(year)
+
+	return get_from_dpl("Postbag", function(row, template)
+		local page_name = row.title
+		local name = string.gsub(page_name, "^Transcript:", "")
+		local issue = template.issue
+
+		if not issue or seen_issues[issue] then
+			return nil
+		end
+
+		local date = parse_date(template.date)
+
+		if not date or string.sub(date, 1, 4) ~= year then
+			return nil
+		end
+
+		seen_issues[issue] = true
+
+		return {
+			date = date,
+			type = "postbag",
+			record = {
+				name = name,
+				issue = issue,
+				page_name = page_name,
+			},
+		}
+	end)
 end
 
 local function aggregate_by_release_date(template)
@@ -688,6 +982,7 @@ local function aggregate_by_release_date(template)
 	return releases
 end
 
+-- DPL, special case
 local function get_construction(year)
 	local construction = {}
 
@@ -707,75 +1002,36 @@ local function get_construction(year)
 
 			for date, indices in pairs(releases) do
 				if string.sub(date, 1, 4) == tostring(year) then
-					if construction[date] == nil then
-						construction[date] = {}
-					end
+					-- Create one entry for each version released
+					-- on this date.
+					for _, release_index in ipairs(indices) do
+						local record = {}
 
-					local record = {}
+						for key, value in pairs(template) do
+							local field, index =
+								string.match(key, "^(.+)(%d+)$")
 
-					-- Copy all template fields into the record.
-					--
-					-- Numbered fields are collected from every version
-					-- belonging to this release date.
-					-- Unnumbered fields are shared by all versions.
-					local numbered_fields = {}
+							if field and index then
+								index = tonumber(index)
 
-					for key, value in pairs(template) do
-						local field, index =
-							string.match(key, "^(.+)(%d+)$")
-
-						if field and index then
-							numbered_fields[field] = true
-						end
-					end
-
-					for key, value in pairs(template) do
-						local field, index =
-							string.match(key, "^(.+)(%d+)$")
-
-						if field and index then
-							index = tonumber(index)
-
-							-- Only include this numbered value if
-							-- it belongs to this release-date group.
-							for _, release_index in ipairs(indices) do
 								if index == release_index then
-									if record[field] == nil then
-										record[field] = {}
-									end
-
-									table.insert(
-										record[field],
-										strip_brackets(value)
-									)
-
-									break
+									record[field] = value
 								end
+							else
+								-- Copy shared, unnumbered fields.
+								record[key] = value
 							end
-						elseif not numbered_fields[key] then
-							-- This is an unnumbered/shared field.
-							record[key] = strip_brackets(value)
 						end
+
+						-- Use the normalized release date.
+						record.release = date
+
+						table.insert(construction, {
+							date = date,
+							type = "construction",
+							record = record,
+						})
 					end
-
-					-- If a version-specific field has only one value,
-					-- store it as a scalar rather than a one-element list.
-					for field, value in pairs(record) do
-						if type(value) == "table"
-							and #value == 1
-						then
-							record[field] = strip_brackets(value[1])
-						end
-					end
-
-					-- Use the normalized release date as the record's
-					-- release field.
-					record.release = date
-
-					table.insert(
-						strip_brackets(construction[date]),
-						record
-					)
 				end
 			end
 		end
@@ -784,22 +1040,72 @@ local function get_construction(year)
 	return construction
 end
 
-local function get_postbag(year)
-	-- TODO: Query Postbag from the Hedge entries released during this year.
-	return {}
-end
+-- Manual
+local function get_lore(year)
+	local lore = {}
+	year = tostring(year)
 
-local function get_players_gallery_transcripts(year)
-	-- TODO: Query Players' Gallery transcripts released during this year.
-	return {}
-end
-
-local function ensure_date(data, date)
-	if data[date] == nil then
-		data[date] = {}
+	for _, entry in ipairs(lore_data) do
+		if string.sub(entry.date, 1, 4) == year then
+			table.insert(lore, {
+				date = entry.date,
+				type = "lore",
+				record = {
+					name = entry.name,
+					link = entry.link,
+				},
+			})
+		end
 	end
 
-	return data[date]
+	return lore
+end
+
+-- Manual
+local function get_videos(year)
+	local result = {}
+	year = tostring(year)
+
+	for _, video in ipairs(videos) do
+		if string.sub(video.date, 1, 4) == year then
+			table.insert(result, {
+				date = video.date,
+				type = "videos",
+				record = {
+					name = video.name,
+					link = video.link,
+				},
+			})
+		end
+	end
+
+	return result
+end
+
+-- Manual
+local function get_livestreams(year)
+	local result = {}
+	year = tostring(year)
+
+	for _, livestream in ipairs(livestreams) do
+		if string.sub(livestream.date, 1, 4) == year then
+			local record = {
+				name = livestream.name,
+			}
+
+			if livestream.link ~= nil then
+				record.link = livestream.link
+			end
+
+			table.insert(result, {
+				date = livestream.date,
+				type = "livestreams",
+				record = record,
+			})
+		end
+	end
+
+	return result
 end
 
 local function merge_type(data, data_type, entries)
@@ -809,119 +1115,96 @@ local function merge_type(data, data_type, entries)
 	end
 end
 
+
 local function is_array(value)
-	if type(value) ~= "table" then
-		return false
-	end
+    if type(value) ~= "table" then
+        return false
+    end
 
-	local count = 0
+    local count = 0
 
-	for key, _ in pairs(value) do
-		if type(key) ~= "number"
-			or key < 1
-			or key % 1 ~= 0
-		then
-			return false
-		end
+    for key, _ in pairs(value) do
+        if type(key) ~= "number"
+            or key < 1
+            or key % 1 ~= 0
+        then
+            return false
+        end
 
-		count = count + 1
-	end
+        count = count + 1
+    end
 
-	for i = 1, count do
-		if value[i] == nil then
-			return false
-		end
-	end
+    for i = 1, count do
+        if value[i] == nil then
+            return false
+        end
+    end
 
-	return true
+    return true
 end
 
-local function serialize_value(value, indent)
-	local value_type = type(value)
+-- Fields that identify a record should appear first.
+local FIELD_PRIORITY = {
+    page_name = 1,
+    item_name = 2,
+    npc_name = 3,
+    name = 4,
+    quest_name = 5,
+    location_name = 6,
+    track_name = 7,
+    title = 8,
+    id = 9,
+    number = 10,
+}
 
-	if value_type == "string" then
-		return string.format("%q", value)
+local function sanitize_string(value)
+    -- Replace runs of newlines (including Windows CRLF) with a space.
+    return (value:gsub("[\r\n]+", " "))
+end
 
-	elseif value_type == "number"
-		or value_type == "boolean"
-	then
-		return tostring(value)
 
-	elseif value_type == "nil" then
-		return "nil"
+local function is_scalar(value)
+    local value_type = type(value)
 
-	elseif value_type ~= "table" then
-		error(
-			"Cannot serialize value of type "
-				.. value_type
-		)
-	end
+    return value_type == "string"
+        or value_type == "number"
+        or value_type == "boolean"
+        or value_type == "nil"
+end
 
-	local parts = {}
-	local next_indent = indent + 1
-	local prefix = string.rep("\t", next_indent)
+local function is_inline_table(value)
+    for _, entry in pairs(value) do
+        if type(entry) == "table" then
+            -- Allow arrays containing only scalar values,
+            -- such as image = { "File:Crossbow.png" }.
+            if not is_array(entry) then
+                return false
+            end
 
-	if is_array(value) then
-		for i = 1, #value do
-			table.insert(
-				parts,
-				prefix
-					.. serialize_value(
-						value[i],
-						next_indent
-					)
-			)
-		end
-	else
-		local keys = {}
+            for _, item in ipairs(entry) do
+                if not is_scalar(item) then
+                    return false
+                end
+            end
+        elseif not is_scalar(entry) then
+            return false
+        end
+    end
 
-		for key, _ in pairs(value) do
-			table.insert(keys, key)
-		end
-
-		table.sort(keys, function(a, b)
-			return tostring(a) < tostring(b)
-		end)
-
-		for _, key in ipairs(keys) do
-			local key_string
-
-			if type(key) == "string"
-				and string.match(
-					key,
-					"^[%a_][%w_]*$"
-				)
-			then
-				key_string = key
-			else
-				key_string =
-					"["
-					.. serialize_value(key, next_indent)
-					.. "]"
-			end
-
-			table.insert(
-				parts,
-				prefix
-					.. key_string
-					.. " = "
-					.. serialize_value(
-						value[key],
-						next_indent
-					)
-			)
-		end
-	end
-
-	return "{\n"
-		.. table.concat(parts, ",\n")
-		.. "\n"
-		.. string.rep("\t", indent)
-		.. "}"
+    return true
 end
 
 local function serialize(data)
-	return "return " .. serialize_value(data, 0)
+	local json = mw.text.jsonEncode(data)
+	
+	return '<div style="overflow-x:auto; max-width:100%;">'
+	    .. '<pre style="white-space:pre; width:max-content; min-width:100%; margin:0;">'
+	    .. mw.text.nowiki(json)
+	    .. '</pre></div>'
+end
+
+local function merge_output(data, type, nextOutput)
+	return data .. "<b>" .. type .. "</b><br/>" .. nextOutput
 end
 
 local function generate(year)
@@ -933,30 +1216,33 @@ local function generate(year)
 
 	year = math.floor(year)
 
-	local data = {}
+	local data = ""
 
-	-- Temporarily disabled while testing individual data types.
-	-- merge_type(data, "items", get_items(year))
-	-- merge_type(data, "npcs", get_npcs(year))
-	-- merge_type(data, "monsters", get_monsters(year))
-	-- merge_type(data, "quests", get_quests(year))
-	-- merge_type(data, "locations", get_locations(year))
-	-- merge_type(data, "construction", get_construction(year))
-	-- merge_type(data, "music", get_music(year))
+	-- data = merge_output(data, "updates", serialize(get_updates(year)))
+	-- data = merge_output(data, "videos", serialize(get_videos(year)))
+	-- data = merge_output(data, "livestreams", serialize(get_livestreams(year)))
+	-- data = merge_output(data, "quests", serialize(get_quests(year)))
+	-- data = merge_output(data, "miniquests", serialize(get_miniquests(year)))
+	
+	-- data = merge_output(data, "locations", serialize(get_locations(year)))
+	-- data = merge_output(data, "activities", serialize(get_activities(year)))
+	-- data = merge_output(data, "events", serialize(get_events(year)))
+	data = merge_output(data, "items", serialize(get_items(year)))
+	data = merge_output(data, "npcs", serialize(get_npcs(year)))
+	
+	data = merge_output(data, "monsters", serialize(get_monsters(year)))
+	-- data = merge_output(data, "emotes", serialize(get_emotes(year)))
+	-- data = merge_output(data, "music", serialize(get_music(year)))
+	-- data = merge_output(data, "construction", serialize(get_construction(year)))
+	-- data = merge_output(data, "rooms", serialize(get_rooms(year)))
+	
+	-- data = merge_output(data, "lore", serialize(get_lore(year)))
+	-- data = merge_output(data, "god_letters", serialize(get_god_letters(year)))
+	-- data = merge_output(data, "postbag", serialize(get_postbag(year)))
+	-- data = merge_output(data, "polls", serialize(get_polls(year)))
+	-- data = merge_output(data, "players_gallery_transcripts", serialize(get_players_gallery_transcripts(year)))
 
-	merge_type(data, "updates", get_updates(year))
-
-	-- merge_type(data, "god_letters", get_god_letters(year))
-	-- merge_type(data, "lore", get_lore(year))
-	-- merge_type(data, "polls", get_polls(year))
-	-- merge_type(data, "postbag", get_postbag(year))
-	-- merge_type(
-	-- 	data,
-	-- 	"players_gallery_transcripts",
-	-- 	get_players_gallery_transcripts(year)
-	-- )
-
-	return serialize(data)
+	return data
 end
 
 function p.generate(frame)

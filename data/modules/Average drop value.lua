@@ -178,13 +178,11 @@ function p._main(frame, args)
 		return ''
 	end
 	
-	if args.round then
-		totalval = math.floor(totalval)
-	end
-	
 	if args.raw then
 		return totalval
 	end
+	
+	totalval = math.floor(totalval)
 	
 	local brimString = args.brimstone ~= nil and ' while on a [[Konar]] task' or ''
 	local wildyString = args.wildernessslayer ~= nil and ' while on a [[Krystilia]] task' or ''

@@ -18,9 +18,9 @@ function p._main(item, limit, offset, priorityMaterial, frame, image)
 			for _, mat in ipairs(node.materials) do
 				table.insert(html, '<li>')
 				if mat.subrecipe and mat.subrecipe.facility then
-					table.insert(html, string.format('{{Sandbox/User:Varied2350/Item count|%s|%s}}{{Plinkp|%s}}', mat.name, mat.quantity, mat.subrecipe.facility))
+					table.insert(html, string.format('{{Sandbox/User:Varied2350/DW Tree Port/Item count|%s|%s|%d}}{{Plinkp|%s}}', mat.name, mat.quantity, 45, mat.subrecipe.facility))
 				else
-					table.insert(html, string.format('{{Sandbox/User:Varied2350/Item count|%s|%s}}', mat.name, mat.quantity))
+					table.insert(html, string.format('{{Sandbox/User:Varied2350/DW Tree Port/Item count|%s|%s|%d}}', mat.name, mat.quantity, 45))
 				end
 				if mat.subrecipe then
 					table.insert(html, renderNode(mat.subrecipe))

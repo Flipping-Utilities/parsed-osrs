@@ -40,7 +40,7 @@ function p.main(frame)
 		{ name = 'itemid', func = 'has_content' },
 		{ name = 'item_id_bucket', func = { name = idbucket, params = { 'itemid' }, flag = 'p' } },
 		{ name = 'uses_skill', func = { name = tostring, params = { 'Construction' }, flag = 'r' } },
-		{ name = 'default_version', func = { name = is_default_version, params = { 'bucketname'..default_version_index, 'version'..default_version_index, 'bucketname', 'version' } } },
+		{ name = 'default_version', func = { name = is_default_version, params = { args['bucketname' .. default_version_index] or '', args['version' .. default_version_index] or '', 'bucketname', 'version' }, flag = { 'r', 'r', 'd', 'd' } } },
 	}
 
 	ret:defineLinks({ hide = true })

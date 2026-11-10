@@ -194,6 +194,7 @@ local stats_order = {
 		'the whisperer',
 		'theatre of blood',
 		'theatre of blood hard',
+		'the fractured archive',
 		'thermonuclear smoke devil',
 		'tombs of amascut',
 		'tombs of amascut expert',

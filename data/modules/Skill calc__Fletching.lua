@@ -1,5 +1,37 @@
 return {
-	 {   
+	{   
+    	name = 'Onyx ascension bolts',
+        level = 86,
+        xp = 94,
+        materials = {
+        	{ name = 'Ascension bolts', quantity = 10 },
+        	{ name = 'Onyx bolt tips', quantity = 10 }
+        },
+        outputQuantity = 10,
+        members = 'Yes',
+        type = 'Bolts'
+    }, {   
+    	name = 'Diamond ascension bolts',
+        level = 86,
+        xp = 70,
+        materials = {
+        	{ name = 'Ascension bolts', quantity = 10 },
+        	{ name = 'Diamond bolt tips', quantity = 10 }
+        },
+        outputQuantity = 10,
+        members = 'Yes',
+        type = 'Bolts'
+    }, {   
+    	name = 'Ascension bolts',
+        level = 86,
+        xp = 140,
+        materials = {
+        	{ name = 'Ascension shards', quantity = 1 }
+        },
+        outputQuantity = 10,
+        members = 'Yes',
+        type = 'Bolts'
+    }, {   
     	name = 'Headless arrow',
         level = 1,
         xp = 15,

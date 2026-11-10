@@ -973,7 +973,7 @@
 		true,
 		10
 	],
-	"Dragon sword": [
+	"Dragon shortsword": [
 		true,
 		43200
 	],
@@ -1093,7 +1093,7 @@
 		true,
 		60000
 	],
-	"Black sword": [
+	"Black shortsword": [
 		false,
 		374
 	],
@@ -1835,7 +1835,7 @@
 		false,
 		120
 	],
-	"Adamant sword": [
+	"Adamant shortsword": [
 		false,
 		1248
 	],
@@ -3660,7 +3660,7 @@
 		true,
 		264
 	],
-	"Rune sword": [
+	"Rune shortsword": [
 		false,
 		12480
 	],
@@ -4071,7 +4071,7 @@
 		true,
 		300
 	],
-	"Steel sword": [
+	"Steel shortsword": [
 		false,
 		195
 	],
@@ -4219,7 +4219,7 @@
 		false,
 		270
 	],
-	"Mithril sword": [
+	"Mithril shortsword": [
 		false,
 		507
 	],
@@ -4510,7 +4510,7 @@
 		true,
 		0
 	],
-	"Iron sword": [
+	"Iron shortsword": [
 		false,
 		54
 	],

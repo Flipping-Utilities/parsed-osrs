@@ -1,0 +1,1 @@
+mw.loadJsonData("Module:Tile_markers/Commander_Zilyana_Bowfa_No_Stamina.json")

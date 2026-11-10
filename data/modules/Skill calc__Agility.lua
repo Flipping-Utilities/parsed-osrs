@@ -338,7 +338,7 @@ return {
         title = 'Colossal Wyrm (advanced)',
         pic = 'Termites',
         level = 62,
-        xp = 749.6,
+        xp = 1053.6,
         members = 'Yes',
         type = 'Agility Course'
     }, {   
@@ -346,7 +346,7 @@ return {
         title = 'Colossal Wyrm (basic)',
         pic = 'Termites',
         level = 50,
-        xp = 504.1,
+        xp = 633,
         members = 'Yes',
         type = 'Agility Course'
     }, {   

@@ -80,6 +80,27 @@ function overwrite2(args, map, labels)
 	return newargs
 end
 
+-- Slayer master heads for slayer info box
+function slayerheads(arg)
+	if arg == nil or arg == '' then
+		return ''
+	end
+	local slayer_masters = { 'turael', 'spria', 'krystilia', 'mazchna', 'vannaka', 'chaeldar', 'konar', 'nieve', 'steve', 'duradel', 'kuradal', 'mortimer' }
+	
+	local result = {}
+	for i, slayer_master in ipairs(slayer_masters) do
+		if string.match(arg, slayer_master) then
+			table.insert(result, string.format('[[File:%s chathead.png|x40px|link=%s|class=notpageimage]]', slayer_master, slayer_master))
+		end
+	end
+
+	if #result > 0 then
+		return table.concat(result, ' ')
+	else
+		return nil
+	end
+end
+
 function p.agility(args)
 	local map = {
 		level = 'skill1lvl',
@@ -107,7 +128,6 @@ function p.firemaking(args)
 	}
 	local labels = {
 		skill1name = "Firemaking",
-		tool = "[[Tinderbox]]",
 	}
 	local mustargs = {
 		'tool', 'type'
@@ -116,11 +136,13 @@ function p.firemaking(args)
 	if lc(args.type) == 'logs' then
 		-- nothing which explicitly sets bowlevel to "no":
 		-- if bowlevel = no then only the main version is shown.
+		labels.tool1 = '[[Tinderbox]]'
 		if args.bowlevel == nil or yesno(args.bowlevel, true) then
 			labels.version1 = "Tinderbox"
 			labels.skill1note2 = "Requires [[Barbarian Firemaking]] training.<br/>"..(args.xpnote2 or args.xpnote or '')
 			labels.version2 = "Bow"
 			labels.tool2 = "[[Bow]]"
+			labels.members2 = "yes"
 			map.bowlevel = 'skill1lvl2'
 			-- same xp, so no xp2
 			table.insert(mustargs, 'skill1lvl2') -- prevent this from assuming the value from normal burning
@@ -135,13 +157,29 @@ function p.firemaking(args)
 				labels.tool3 = "[[Tinderbox]] or [[bow]], and an [[axe]]"
 				labels.facility = "N/A"
 				labels.facility3 = "[[Funeral Pyre (barbarian)|Barbarian funeral pyre]]"
+				labels.members3 = "yes"
+				
+				labels.version4 = "Bonfire"
+				labels.skill1lvl4 = args.skill1lvl1
+				labels.skill1exp4 = args.skill1exp1
+				labels.facility4 = "[[Fire]] or [[Forester's Campfire]]"
+				labels.tool4 = "N/A"
+			else
+				labels.version3 = "Bonfire"
+				labels.skill1lvl3 = args.skill1lvl1
+				labels.skill1exp3 = args.skill1exp1
+				labels.facility3 = "[[Fire]] or [[Forester's Campfire]]"
+				labels.tool3 = "N/A"
 			end
 		end
 	elseif lc(args.type) == 'pyre' then
+		labels.tool = "[[Tinderbox]]"
 		labels.facility = "[[Funeral Pyre (Mort'ton)|Mort'ton funeral pyre]]"
 		labels.skill2name = "Prayer"
 		labels.skill2lvl = '1'
+		labels.members = "yes"
 	elseif lc(args.type) == 'light' then
+		labels.tool = '[[Tinderbox]]'
 		labels.skill1exp = '0'
 	end
 	local newargs = overwrite2(args, map, labels)
@@ -267,6 +305,7 @@ function p.prayer(args)
 			labels['skill2label'..i] = "No [[burners]]"
 			labels['skill2exp'..i] = times(args.xp, 2.5) or nil
 			labels['facility'..i] = "[[Gilded altar]], [[Chaos altar (Wilderness)|Wilderness chaos altar]]"
+			labels['members'..i] = "yes"
 			i = i + 1
 		end
 		if lc(args.sinister) ~= "no" then
@@ -276,6 +315,7 @@ function p.prayer(args)
 			labels['skill1exp'..i] = times(args.xp, 3) or nil
 			labels['skill2exp'..i] = 180
 			labels['facility'..i] = "[[Sinister Offering]]"
+			labels['members'..i] = "yes"
 			i = i + 1
 		end
 		if lc(args.ectofuntus) ~= "no" then
@@ -285,6 +325,7 @@ function p.prayer(args)
 			labels['skill2exp'..i] = -1
 			labels['type'..i] = "Bonemeal"
 			labels['facility'..i] = "[[Ectofuntus]]"
+			labels['members'..i] = "yes"
 			i = i + 1
 		end
 		if lc(args.libation) ~= "no" then
@@ -302,13 +343,16 @@ function p.prayer(args)
 			end
 			labels['type'..i] = "Blessed bone shards"
 			labels['facility'..i] = "[[Libation bowl]]"
+			labels['members'..i] = "yes"
 			i = i + 1
 		end
 	elseif lc(args.type) == 'bonemeal' then
 		labels.item = "[[Bucket of slime]]"
 		labels.facility = "[[Ectofuntus]]"
+		labels.members = "yes"
 	elseif lc(args.type) == 'fossil' then
 		labels.facility = "[[Strange Machine]]"
+		labels.members = "yes"
 	elseif lc(args.type) == 'ashes' then
 		labels.version1 = "Scattering"
 		labels.skill2label1 = "-"
@@ -320,8 +364,10 @@ function p.prayer(args)
 		labels.skill1exp2 = times(args.xp, 3) or nil
 		labels.skill2exp2 = 175
 		labels.facility2 = "[[Demonic Offering]]"
+		labels.members2 = "yes"
 	elseif lc(args.type) == 'spectral' then
 		labels.tool = "[[Ectoplasmator]]"
+		labels.members = "yes"
 	end
 	local mustargs = {
 		'type',
@@ -338,6 +384,61 @@ function p.prayer(args)
 		other = 'Other',
 	}
 	newargs.type = types[lc(args.type)]
+	return newargs, mustargs
+end
+
+function p.sailing(args)
+	local map = {
+		level = 'skill1lvl',
+		xp = 'skill1exp',
+		xpnote = 'skill1note'
+	}
+	local labels = {
+		skill1name = "Sailing",
+		toolname = "Tool",
+		facilityname = "Facility",
+	}
+	local mustargs = {
+	}
+	if (string.find(lc(args.name) or '', 'shipwreck')) then
+		labels.skill1label = 'Salvaging XP'
+	elseif (string.find(lc(args.name) or '', 'salvage')) then
+		labels.skill1label = 'Sorting XP'
+	end
+	return overwrite2(args, map, labels), mustargs
+end
+
+function p.slayer(args)
+	local map = {
+		level = 'skill1lvl',
+		xp = 'skill1exp',
+		xpnote = 'skill1note',
+		category = 'loc',
+		master = 'facility',
+		superior = 'tool',
+		taskonly = 'type',
+	}
+	local labels = {
+		skill1name = "Slayer",
+		itemname = "Requires item",
+		locname = "[[Slayer task#List of assignments|Category]]",
+		facilityname = "[[Slayer Master|Assigned by]]",
+		toolname = "[[Superior monster]]",
+		typename = 'Requires task?',
+	}
+	local mustargs = {
+		'loc', 'facility', 'tool'
+	}
+	args.facility = slayerheads(lc(args.master))
+	if args.superiorOf ~= nil and args.superiorOf ~= '' then
+		map.superior = nil
+		map.superiorOf = 'tool'
+		labels.toolname = "[[Superior monster]] of"
+	end
+	local newargs = overwrite2(args, map, labels)
+	if args.icon ~= nil and args.icon ~= '' then
+		newargs.name = '[[File:' .. args.icon .. ' icon.png]] ' .. args.name
+	end
 	return newargs, mustargs
 end
 
@@ -374,29 +475,6 @@ function p.woodcutting(args)
 	local mustargs = {
 		'tool', 'time',
 	}
-	mw.logObject({map, labels, mustargs})
-	return overwrite2(args, map, labels), mustargs
-end
-
-function p.sailing(args)
-	local map = {
-		level = 'skill1lvl',
-		xp = 'skill1exp',
-		xpnote = 'skill1note'
-	}
-	local labels = {
-		skill1name = "Sailing",
-		toolname = "Tool",
-		facilityname = "Facility",
-	}
-	local mustargs = {
-	}
-	if (string.find(lc(args.name) or '', 'shipwreck')) then
-		labels.skill1label = 'Salvaging XP'
-	elseif (string.find(lc(args.name) or '', 'salvage')) then
-		labels.skill1label = 'Sorting XP'
-	end
-	mw.logObject({map, labels, mustargs})
 	return overwrite2(args, map, labels), mustargs
 end
 

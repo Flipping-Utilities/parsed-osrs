@@ -47,7 +47,7 @@ function parseArgs(args)
 	-- override args
 	-- ensure both or neither x and y are specified
 	if args['x'] ~= nil or args['y'] ~= nil then
-		if args['x'] == nill or args['x'] == '' or args['y'] == nil or args['y'] == '' then
+		if args['x'] == nil or args['x'] == '' or args['y'] == nil or args['y'] == '' then
 			error('[Module:Tile markers button] Both x and y must be specified if you are overriding the map window location.')
 		else
 			newArgs['x'] = args['x']
@@ -65,14 +65,6 @@ function parseArgs(args)
 	end
 	
 	newArgs['showpreview'] = parseBoolean(args['showpreview'], true)
-	
-	if args['align'] ~= nil then
-		if args['align'] ~= 'left' and args['align'] ~= 'center' and args['align'] ~= 'right' then
-			error('[Module:Tile markers button] An invalid align value was specified.')
-		else
-			newArgs['align'] = args['align']	
-		end
-	end
 	
 	return newArgs
 end
@@ -124,8 +116,6 @@ function renderMapPreview(splitJson, parsedArgs)
 			
 			if color ~= nil then
 				anonArgsStr = anonArgsStr .. 'stroke:' .. color .. ','
-				-- anonArgsStr = anonArgsStr .. 'fill:' .. color .. ','
-				-- anonArgsStr = anonArgsStr .. 'fill-opacity:' .. opacity .. ','
 			end
 			
 			anonArgsStr = anonArgsStr .. worldX .. ','

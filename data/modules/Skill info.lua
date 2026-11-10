@@ -73,7 +73,7 @@ function p._main(args, mand)
 		{ name = 'damage', func = 'hasContent' },
 		{ name = 'damagename', func = { name = paramtest.default_to, params = { 'damagename', "Damage" }, flag = { 'p', 'r' } } },
 		{ name = 'damage_bucket', func = { name = csv_to_multi, params = { 'damage', true }, flag = { 'p', 'r' } } },
-		{ name = 'members', func = yesno },
+		{ name = 'members', func = 'hasContent' },
 		{ name = 'dropversion', func = 'hasContent' },
 		{ name = 'source_template', func = { name = tostring, params = { 'skill info' }, flag = 'r' } },
 	}

@@ -75,7 +75,7 @@ function p._main(args)
 	
 	local default_version_index = tonumber(args.defver) or 1
 	ret:defineParams{
-		{ name = 'default_version', func = { name = is_default_version, params = { 'bucketname'..default_version_index, 'version'..default_version_index, 'bucketname', 'version' } } },
+		{ name = 'default_version', func = { name = is_default_version, params = { args['bucketname' .. default_version_index] or '', args['version' .. default_version_index] or '', 'bucketname', 'version' }, flag = { 'r', 'r', 'd', 'd' } } },
 		{ name = 'name', func = 'name'},
 		{ name = 'image', func = 'image' },
 		{ name = 'image_bucket', func = { name = image_bucket, params = { 'image', 'bucketimage' }, flag = 'p' } },
@@ -108,12 +108,15 @@ function p._main(args)
 		{ name = 'xpbonus_bucket', func = { name = tonumber_norefs, params = { 'xpbonus' }, flag = { 'p' } } },
 		{ name = 'flatarmour', func = 'has_content' },
 		{ name = 'flatarmour_bucket', func = { name = tonumber_norefs, params = { 'flatarmour' }, flag = { 'p' } } },
+		{ name = 'magicresistance', func = 'has_content' },
+		{ name = 'magicresistance_bucket', func = { name = tonumber_norefs, params = { 'magicresistance' }, flag = { 'p' } } },
 
 		{ name = 'max hit', func = 'has_content' },
 		{ name = 'max_hit_fmt', func = { name = csv_to_formatted, params = { 'max hit' }, flag = { 'd' } } },
 		{ name = 'max_hit_bucket', func = { name = csv_to_multi, params = { 'max hit', true }, flag = { 'd', 'r' } } },
 
 		{ name = 'respawn', func = respawnarg },
+		{ name = 'respawn_bucket', func = { name = tonumber_norefs, params = { 'respawn' }, flag = { 'p' } } },
 
 		{ name = 'cat', func = 'has_content' },
 		{ name = 'cat_bucket', func = { name = csv_to_multi, params = { 'cat', true }, flag = { 'd', 'r' } } },
@@ -197,12 +200,15 @@ function p._main(args)
 		['attack speed_bucket'] = 'attack_speed',
 		xpbonus_bucket = 'experience_bonus',
 		flatarmour_bucket = 'flat_armour',
+		magicresistance_bucket = 'magic_resistance',
 		size_bucket = 'size',
 		freezeresistance = 'freeze_resistance',
 		elementalweaknesstype_bucket = 'elemental_weakness',
 		elementalweaknesspercent_bucket = 'elemental_weakness_percent',
 		leagueRegion_raw = 'league_region',
 		default_version = 'default_version',
+		aggressive = 'is_aggressive',
+		respawn_bucket = 'respawn_time',
 	})
 
 	ret:useBucket('npc_id', {
@@ -314,6 +320,13 @@ function p._main(args)
 		ret:addRow{
 			{ tag = 'th', content = '[[Flat armour]]', colspan = '8' },
 			{ tag = 'argd', content = 'flatarmour', colspan = '16' }
+		}
+	end
+	
+	if ret:paramDefined('magicresistance', 'all') then
+		ret:addRow{
+			{ tag = 'th', content = '[[Magic resistance|Magic resist.]]', colspan = '8' },
+			{ tag = 'argd', content = 'magicresistance', colspan = '16' }
 		}
 	end
 

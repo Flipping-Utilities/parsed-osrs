@@ -65,7 +65,7 @@ local staves = {
 local offhands = {
 	--Tomes only sometimes use pages, so we want to condition the extras to the uses_pages arg that
 	{ name = 'tome of Fire', ['fire rune'] = true, extras = {{conditions = {args = {{'uses_pages_fire'}}}, item = 'Burnt page', quantity = 1/20 }} },
-	{ name = 'tome of Fire', ['fire rune'] = true, extras = {{conditions = {args = {{'uses_pages_fire'}}}, item = 'Searing page', quantity = 1/20 }} },
+    { name = 'tome of Fire', ['fire rune'] = true, conditions = {args = {{'is_offensive'}, {'uses_pages_fire'}}}, extras = {{conditions = {args = {{'uses_pages_fire'}}}, item = 'Searing page', quantity = 1/20 }} },
 	{ name = 'tome of Water', ['water rune'] = true, extras = {{conditions = {args = {{'uses_pages_water'}}}, item = 'Soaked page', quantity = 1/20}} },
 	{ name = 'tome of Earth', ['earth rune'] = true, extras = {{conditions = {args = {{'uses_pages_earth'}}}, item = 'Soiled page', quantity = 1/20}} },
 }

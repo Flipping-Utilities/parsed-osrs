@@ -173,6 +173,7 @@ local tabOverrides = {
 	["Fossil Island Notes"] = "[[Fossil island note book|Fossil Island Notes]]",
 	["Scroll Cases"] = "[[Scroll case|Scroll Cases]]",
 	["Vale Totems"] = "[[Vale Totems (minigame)|Vale&nbsp;Totems]]", -- &nbsp; to prevent wikisync matching as quest name
+	["The Fractured Archive"] = "[[The Fractured Archive|The Fractured&nbsp;Archive]]", -- &nbsp; to prevent wikisync matching as quest name
 	["Boat Paints"] = "[[Boat paint|Boat Paints]]",
 	["Lost Schematics"] = "[[Lost schematics|Lost Schematics]]",
 	["Ocean Encounters"] = "[[Giant clam|Ocean Encounters]]",

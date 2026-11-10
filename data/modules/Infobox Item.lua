@@ -15,6 +15,7 @@ function p.main(frame)
 	local args = frame:getParent().args
 	local ret = infobox.new(args)
 	local default_version_index = tonumber(args.defver) or 1
+    local has_multiple_versions = (args.version1 ~= nil and args.version2  ~= nil) or 0
 
 	ret:defineParams{
 		{ name = 'name', func = 'name' },
@@ -71,7 +72,7 @@ function p.main(frame)
 		{ name = 'volume', func = { name = volumearg, params = { 'gemwprice', 'gemwname' } }, dupes = true },
 		{ name = 'realtime', func = { name = realtimearg, params = { 'gemwprice', 'gemwname' } }, dupes = true},
 		{ name = 'realtimedmm', func = { name = realtimedmmarg, params = { 'gemwname', 'gemw' } } },
-		{ name = 'graph', func = { name = gemwgrapharg, params = { 'gemwprice', 'gemwname' } } },
+		{ name = 'graph', func = { name = gemwgrapharg, params = { 'gemwprice', 'gemwname', 'has_multiple_versions' } } },
 
 		{ name = 'dropversion', func = 'has_content' },
         { name = 'usesinfobox', func = { name = tostring, params = { 'Item' }, flag = 'r' } },
@@ -537,9 +538,12 @@ function exchangearg(gemwprice, gemwname)
 	return string.format('<span class="infobox-quantity" data-val-each="%s"><span class="infobox-quantity-replace">%s</span> coin%s ([[Exchange:%s|info]])</span>', gemwprice, commas(gemwprice), gemwprice > 1 and 's' or '', gemwname)
 end
 
-function gemwgrapharg(gemwprice, gemwname)
+function gemwgrapharg(gemwprice, gemwname, has_multiple_versions)
 	if gemwprice == 0 then
-		return 'No data to display'
+        if has_multiple_versions then
+            return 'No data for this version'
+        end
+        return  'No data to display'
 	end
 
 	if gemwprice == -1 then

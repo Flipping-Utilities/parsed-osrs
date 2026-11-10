@@ -160,7 +160,7 @@ function p._code(code)
 		name = name,
 		content = mw.text.nowiki(location_title),
 		inline = 'yes'
-	}
+	}:css('padding', '0')
 
 	return tostring(trigger) .. tostring(box)
 end

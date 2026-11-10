@@ -155,7 +155,7 @@ return {
     	name = 'Wild kebbit',
     	pic = 'Wild kebbit icon',
         level = 23,
-        xp = 128,
+        xp = 102.4,
         outputItem = 'Kebbit claws',
         members = 'Yes',
         type = 'Deadfall'
@@ -239,7 +239,7 @@ return {
     	name = 'Barb-tailed kebbit',
     	pic = 'Barb-tailed kebbit icon',
         level = 33,
-        xp = 168,
+        xp = 134.4,
         outputItem = 'Barb-tail harpoon',
         members = 'Yes',
         type = 'Deadfall'
@@ -440,7 +440,7 @@ return {
     	name = 'Sabre-toothed kebbit',
     	pic = 'Sabre-toothed kebbit icon',
         level = 51,
-        xp = 200,
+        xp = 160,
         outputItem = 'Kebbit teeth',
         members = 'Yes',
         type = 'Deadfall'
@@ -470,7 +470,7 @@ return {
     	name = 'Pyre fox',
     	pic = 'Pyre fox icon',
         level = 57,
-        xp = 222,
+        xp = 177.6,
         outputItem = 'Fox fur',
         members = 'Yes',
         type = 'Deadfall'
@@ -664,6 +664,15 @@ return {
         members = 'Yes',
         type = 'Butterfly net'
     }, {   
+    	name = 'Letvek (Hunter)',
+    	title = 'Letvek',
+    	pic = 'Letvek icon',
+        level = 76,
+        xp = 208.5,
+        outputItem = 'Letvek',
+        members = 'Yes',
+        type = 'Box trap'
+    }, {   
     	name = 'Rainbow crab',
     	pic = 'Rainbow crab',
         level = 77,
@@ -694,6 +703,18 @@ return {
     	},
         members = 'Yes',
         type = 'Butterfly net'
+    }, {   
+    	name = 'Stymphike',
+    	pic = 'Stymphike icon',
+        level = 82,
+        xp = 1725,
+        materials = {
+    		{ name = 'Letvek', quantity = 2 }
+    	},
+        outputItem = 'Stymphike feather',
+        outputQuantity = 15,
+        members = 'Yes',
+        type = ''
     }, {   
     	name = 'Dragon impling',
     	title = 'Dragon impling<br>(Puro-Puro)',

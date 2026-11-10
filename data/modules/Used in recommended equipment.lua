@@ -31,7 +31,10 @@ function loadItemData(item)
 	local bucketData = bucket("infobox_bonuses")
 		.select("infobox_item.item_name", "equipment_slot", 'Category:Weapons with Special attacks')
 		.join("infobox_item", "infobox_item.page_name_sub", "infobox_bonuses.page_name_sub")
-		.where(bucket.Or({"infobox_item.item_name", item}, {"infobox_item.page_name", item}))
+		.where(bucket.And(
+			bucket.Or({"infobox_item.item_name", item}, {"infobox_item.page_name", item}),
+			bucket.Not("Category:Beta items")
+		))
 		.limit(1)
 		.run()
 	local t2 = os.clock()
