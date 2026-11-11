@@ -19101,7 +19101,8 @@
       "Yellowfin tuna Shoal",
       "Yellowfin tuna shoal",
       "Yellow fin shoal",
-      "Yellowfin shaol"
+      "Yellowfin shaol",
+      "Yellowfin shoals"
     ],
     "level": 79,
     "xp": null,
@@ -22996,6 +22997,66 @@
     ]
   },
   {
+    "name": "Honey Buzzard",
+    "skill": "Hunter",
+    "aliases": [
+      "Honey buzzard"
+    ],
+    "level": 1,
+    "xp": 34,
+    "tool": "",
+    "time": "",
+    "variants": [],
+    "drops": [
+      {
+        "name": "Bones",
+        "itemId": 526,
+        "quantity": "1",
+        "rarity": "Always",
+        "altRarity": "",
+        "rarityNotes": ""
+      },
+      {
+        "name": "Brown feather",
+        "itemId": 34783,
+        "quantity": "Varies",
+        "rarity": "Always",
+        "altRarity": "",
+        "rarityNotes": ""
+      }
+    ]
+  },
+  {
+    "name": "Honey Buzzard",
+    "skill": "Hunter",
+    "aliases": [
+      "Black honey buzzard"
+    ],
+    "level": 17,
+    "xp": 87.4,
+    "tool": "",
+    "time": "",
+    "variants": [],
+    "drops": [
+      {
+        "name": "Bones",
+        "itemId": 526,
+        "quantity": "1",
+        "rarity": "Always",
+        "altRarity": "",
+        "rarityNotes": ""
+      },
+      {
+        "name": "Black feather",
+        "itemId": 34785,
+        "quantity": "Varies",
+        "rarity": "Always",
+        "altRarity": "",
+        "rarityNotes": ""
+      }
+    ]
+  },
+  {
     "name": "Horned graahk",
     "skill": "Hunter",
     "aliases": [
@@ -25852,6 +25913,52 @@
         "itemId": 29225,
         "quantity": "1",
         "rarity": "1/25",
+        "altRarity": "",
+        "rarityNotes": ""
+      }
+    ]
+  },
+  {
+    "name": "Swarm of wasps",
+    "skill": "Hunter",
+    "aliases": [
+      "Swarm of wasps (furious)"
+    ],
+    "level": 1,
+    "xp": 1.5,
+    "tool": "",
+    "time": "",
+    "variants": [],
+    "drops": [
+      {
+        "name": "Wasp sting",
+        "itemId": 34779,
+        "quantity": "1",
+        "rarity": "Always",
+        "altRarity": "",
+        "rarityNotes": ""
+      }
+    ]
+  },
+  {
+    "name": "Swarm of wasps",
+    "skill": "Hunter",
+    "aliases": [
+      "Swarm of killer wasps (furious)",
+      "Killer wasp",
+      "Killer wasps"
+    ],
+    "level": 12,
+    "xp": 2.5,
+    "tool": "",
+    "time": "",
+    "variants": [],
+    "drops": [
+      {
+        "name": "Killer wasp sting",
+        "itemId": 34781,
+        "quantity": "1",
+        "rarity": "Always",
         "altRarity": "",
         "rarityNotes": ""
       }

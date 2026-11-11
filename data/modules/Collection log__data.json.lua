@@ -12232,7 +12232,8 @@
 		"id": 34646,
 		"name": "Orion",
 		"tabs": [
-			"The Fractured Archive"
+			"The Fractured Archive",
+			"All Pets"
 		]
 	},
 	{

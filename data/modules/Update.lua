@@ -1,13 +1,9 @@
 --<nowiki>
 
 -- IMPORTS
-local pt = require('Module:Paramtest')
-local hc = pt.has_content
-local dt = pt.default_to
+local hc = require('Module:Paramtest').has_content
 local top_icons -- [[Module:Top icons]]
-local contains -- [[Module:Array]]
 local ordinal -- [[Module:Ordinal]]
-local pagesWithCats = require('Module:PageListTools').pageswithcatsdpl
 
 -- exposed table
 local p = {}

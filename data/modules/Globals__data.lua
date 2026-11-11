@@ -18,11 +18,11 @@ return {
 -- Quests
 	['quests'] = {
 		'the total amount of quests',
-		'187'
+		'189'
 	},
 	['quests p2p'] = {
 		'the total amount of quests exclusive for members',
-		'161'
+		'164'
 	},
 	['quests f2p'] = {
 		'the total amount of free-to-play quests',
@@ -34,7 +34,7 @@ return {
 	},
 	['quest points'] = {
 		'the total amount of quest points',
-		'346'
+		'349'
 	},
 	['quest points f2p'] = {
 		'the total amount of quest points obtained with free-to-play quests',
@@ -42,11 +42,11 @@ return {
 	},
 	['quest points p2p'] = {
 		'the total amount of quest points obtained with pay-to-play quests',
-		'299'
+		'302'
 	},
 	['latest quest'] = {
 		'the name of the latest released quest',
-		'[[The Writing\'s on the Wall]]'
+		'[[A Shell of a Friend]]'
 	},
 	['latest quest f2p'] = {
 		'the name of the latest released free-to-play quest',
@@ -54,11 +54,11 @@ return {
 	},
 	['latest quest p2p'] = {
 		'the name of the latest released quest exclusive for members',
-		'[[The Writing\'s on the Wall]]'
+		'[[A Shell of a Friend]]'
 	},
 	['latest quest release date'] = {
 		'the date of the latest released quest',
-		'[[3 November]] [[2026]]'
+		'[[11 November]] [[2026]]'
 	},
 	['latest quest release date f2p'] = {
 		'the date of the latest released free-to-play quest',

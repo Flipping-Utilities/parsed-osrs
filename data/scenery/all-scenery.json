@@ -24447,6 +24447,100 @@
     "examine": "A mystically everlasting torch."
   },
   {
+    "id": 53726,
+    "ids": [
+      53726
+    ],
+    "name": "Brazier",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "None"
+    ],
+    "examine": "An empty brazier."
+  },
+  {
+    "id": 53725,
+    "ids": [
+      53725
+    ],
+    "name": "Brazier",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Inspect"
+    ],
+    "examine": "An empty brazier."
+  },
+  {
+    "id": 53819,
+    "ids": [
+      53819
+    ],
+    "name": "Brazier",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Inspect"
+    ],
+    "examine": "It's burning with an ethereal white light."
+  },
+  {
+    "id": 53820,
+    "ids": [
+      53820
+    ],
+    "name": "Brazier",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Inspect"
+    ],
+    "examine": "It's burning with an ethereal blue light."
+  },
+  {
+    "id": 53730,
+    "ids": [
+      53730,
+      53734
+    ],
+    "name": "Brazier",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "None"
+    ],
+    "examine": "A broken brazier."
+  },
+  {
+    "id": 53728,
+    "ids": [
+      53728,
+      53729,
+      53732,
+      53733
+    ],
+    "name": "Brazier",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Inspect"
+    ],
+    "examine": "A broken brazier."
+  },
+  {
     "id": 49561,
     "ids": [
       49561
@@ -55118,6 +55212,21 @@
     "examine": "A wooden crate."
   },
   {
+    "id": 42067,
+    "ids": [
+      42067
+    ],
+    "name": "Crate",
+    "aliases": [],
+    "members": true,
+    "quest": "No",
+    "location": "Shayzien",
+    "options": [
+      "Search"
+    ],
+    "examine": "A crate for storing things."
+  },
+  {
     "id": 58406,
     "ids": [
       58406
@@ -73543,6 +73652,37 @@
       "None"
     ],
     "examine": "I'm not sure what Atza's going to use this for."
+  },
+  {
+    "id": 33152,
+    "ids": [
+      33152
+    ],
+    "name": "Equipment crate",
+    "aliases": [],
+    "members": true,
+    "quest": "The Birds and the Wasps",
+    "location": "South-east of Varrock",
+    "options": [
+      "Take-from",
+      "Take-all"
+    ],
+    "examine": "Bee prepared."
+  },
+  {
+    "id": 33151,
+    "ids": [
+      33151
+    ],
+    "name": "Equipment crate",
+    "aliases": [],
+    "members": true,
+    "quest": "The Birds and the Wasps",
+    "location": "South-east of Varrock",
+    "options": [
+      "None"
+    ],
+    "examine": "For storing things."
   },
   {
     "id": 38036,
@@ -123376,7 +123516,8 @@
       "The nest",
       "Aldrin nest",
       "Alderin nest",
-      "Aladrin nest"
+      "Aladrin nest",
+      "Bird nest aldarin"
     ],
     "members": true,
     "quest": "No",
@@ -123408,7 +123549,8 @@
       "The nest",
       "Aldrin nest",
       "Alderin nest",
-      "Aladrin nest"
+      "Aladrin nest",
+      "Bird nest aldarin"
     ],
     "members": true,
     "quest": "No",
@@ -152795,6 +152937,22 @@
       "Search"
     ],
     "examine": "Rock on!"
+  },
+  {
+    "id": 53727,
+    "ids": [
+      53727,
+      53731
+    ],
+    "name": "Rocks",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Search"
+    ],
+    "examine": "Some rocks that have fallen down."
   },
   {
     "id": 27062,
@@ -202509,6 +202667,51 @@
     "examine": "Looks suspicious."
   },
   {
+    "id": 53623,
+    "ids": [
+      53623
+    ],
+    "name": "Wall",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Climb-up"
+    ],
+    "examine": "I can climb up here."
+  },
+  {
+    "id": 53624,
+    "ids": [
+      53624
+    ],
+    "name": "Wall",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Climb-up"
+    ],
+    "examine": "I can climb up here."
+  },
+  {
+    "id": 53676,
+    "ids": [
+      53676
+    ],
+    "name": "Wall",
+    "aliases": [],
+    "members": true,
+    "quest": "While Guthix Sleeps",
+    "location": "Chasm of Tears",
+    "options": [
+      "Jump-down"
+    ],
+    "examine": "It's a bit steep!"
+  },
+  {
     "id": 16955,
     "ids": [
       16955
@@ -210406,7 +210609,8 @@
       "Yellowfin tuna Shoal",
       "Yellowfin tuna shoal",
       "Yellow fin shoal",
-      "Yellowfin shaol"
+      "Yellowfin shaol",
+      "Yellowfin shoals"
     ],
     "members": true,
     "quest": "No",

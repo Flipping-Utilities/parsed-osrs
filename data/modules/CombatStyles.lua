@@ -20,7 +20,7 @@ local WeaponStyles = {
 		['Accurate'] = { -- Trident only
 			['Weapon Style'] = 'Accurate',
 			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
-			['Boost'] = '+3 Magic',
+			['Boost'] = '+2 Magic',
 		},
 		['Defensive'] = {
 			['Weapon Style'] = 'Defensive',
@@ -40,7 +40,7 @@ local WeaponStyles = {
 		['Longrange'] = { -- Trident only
 			['Weapon Style'] = 'Longrange',
 			['Experience'] = '[[File:Magic icon.png|alt=Magic|link=Magic]] [[File:Defence icon.png|alt=Defence|link=Defence]] [[File:Hitpoints icon.png|alt=Hitpoints|link=Hitpoints]]',
-			['Boost'] = '+1 Magic, +3 Defence',
+			['Boost'] = '+3 Defence',
 		},
 	},
 	['Melee'] = {

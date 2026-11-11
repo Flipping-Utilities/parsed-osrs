@@ -13488,6 +13488,24 @@
     }
   },
   {
+    "id": 3220,
+    "name": "Bee dealer",
+    "aliases": [],
+    "members": true,
+    "race": "Human",
+    "location": "East of the the Grand Exchange",
+    "quest": "",
+    "gender": "",
+    "options": [
+      "Talk-to"
+    ],
+    "examine": "A bee in the hand is worth two in the hive.",
+    "position": {
+      "x": 3187,
+      "y": 3493
+    }
+  },
+  {
     "id": 3235,
     "name": "Bee keeper",
     "aliases": [
@@ -14522,6 +14540,21 @@
     ],
     "examine": "Defenders of Keldagrim.",
     "leagueRegion": "Fremennik"
+  },
+  {
+    "id": 16880,
+    "name": "Black Honey Buzzard",
+    "aliases": [
+      "Black honey buzzard"
+    ],
+    "members": true,
+    "race": "",
+    "location": "North west of Exam Centre",
+    "quest": "",
+    "gender": "",
+    "options": [],
+    "examine": "Its favourite flavour is sting.",
+    "leagueRegion": "Misthalin"
   },
   {
     "id": 4777,
@@ -46117,6 +46150,26 @@
     "leagueRegion": "Misthalin"
   },
   {
+    "id": 3216,
+    "name": "Farmer Bea",
+    "aliases": [],
+    "members": true,
+    "race": "Human",
+    "location": "North west of Exam Centre",
+    "quest": "The Birds and the Wasps",
+    "gender": "Female",
+    "options": [
+      "Talk-to",
+      "Trade",
+      "Swap-darts"
+    ],
+    "examine": "Bea believes bees be bringing big bucks.",
+    "position": {
+      "x": 3316,
+      "y": 3376
+    }
+  },
+  {
     "id": 3985,
     "name": "Farmer Brumty",
     "aliases": [
@@ -64338,6 +64391,21 @@
     }
   },
   {
+    "id": 16878,
+    "name": "Honey Buzzard",
+    "aliases": [
+      "Honey buzzard"
+    ],
+    "members": true,
+    "race": "",
+    "location": "North west of Exam Centre",
+    "quest": "",
+    "gender": "",
+    "options": [],
+    "examine": "The buzzing is wasps in its belly.",
+    "leagueRegion": "Misthalin"
+  },
+  {
     "id": 1889,
     "name": "Honour guard",
     "aliases": [
@@ -64871,7 +64939,9 @@
   {
     "id": 4182,
     "name": "Hudon",
-    "aliases": [],
+    "aliases": [
+      "Hudson"
+    ],
     "members": true,
     "race": "Human",
     "location": "Baxtorian Falls",
@@ -67473,6 +67543,35 @@
       "x": 3509,
       "y": 3209
     }
+  },
+  {
+    "id": 15900,
+    "name": "Ivan and Safalaan",
+    "aliases": [],
+    "members": true,
+    "race": "Human, half-human/half-icyene",
+    "location": "Ruined Village",
+    "quest": "The Blood Moon Rises",
+    "gender": "",
+    "options": [
+      "Escape",
+      "Quick-escape"
+    ],
+    "examine": "Ivan's making sure Safalaan is safe."
+  },
+  {
+    "id": 15899,
+    "name": "Ivan and Safalaan",
+    "aliases": [],
+    "members": true,
+    "race": "Human, half-human/half-icyene",
+    "location": "Ruined Village",
+    "quest": "The Blood Moon Rises",
+    "gender": "",
+    "options": [
+      "None"
+    ],
+    "examine": "Ivan's making sure Safalaan is safe."
   },
   {
     "id": 4440,
@@ -71086,6 +71185,22 @@
     "position": {
       "x": 3142,
       "y": 3635
+    }
+  },
+  {
+    "id": 16882,
+    "name": "Juvenile Snail",
+    "aliases": [],
+    "members": true,
+    "race": "Snail",
+    "location": "Haunted Woods",
+    "quest": "A Shell of a Friend",
+    "gender": "",
+    "options": [],
+    "examine": "A young snail. It looks lost.",
+    "position": {
+      "x": 3564,
+      "y": 3493
     }
   },
   {
@@ -97341,7 +97456,8 @@
       "Perdur",
       "Xp claim",
       "Osrs perdu",
-      "Perdu'"
+      "Perdu'",
+      "Claim quest xp"
     ],
     "members": true,
     "race": "Dwarf",
@@ -121390,6 +121506,20 @@
     "leagueRegion": "Morytania"
   },
   {
+    "id": 16884,
+    "name": "SnelmLover500",
+    "aliases": [],
+    "members": true,
+    "race": "Human",
+    "location": "Haunted Woods",
+    "quest": "A Shell of a Friend",
+    "gender": "Male",
+    "options": [
+      "Talk-to"
+    ],
+    "examine": "A snelm enthusiast."
+  },
+  {
     "id": 7383,
     "name": "Snow",
     "aliases": [],
@@ -126894,6 +127024,78 @@
       "x": 2745,
       "y": 3174
     }
+  },
+  {
+    "id": 16478,
+    "name": "Swarm of killer wasps",
+    "aliases": [
+      "Swarm of killer wasps (furious)",
+      "Killer wasp",
+      "Killer wasps"
+    ],
+    "members": true,
+    "race": "",
+    "location": "North west of Exam Centre",
+    "quest": "",
+    "gender": "",
+    "options": [
+      "Catch"
+    ],
+    "examine": "Also known as cloud of very ouch.",
+    "leagueRegion": "Misthalin"
+  },
+  {
+    "id": 16478,
+    "name": "Swarm of killer wasps (furious)",
+    "aliases": [
+      "Swarm of killer wasps (furious)",
+      "Killer wasp",
+      "Killer wasps"
+    ],
+    "members": true,
+    "race": "",
+    "location": "North west of Exam Centre",
+    "quest": "",
+    "gender": "",
+    "options": [
+      "Spray"
+    ],
+    "examine": "Also known as cloud of very, very, very, ouch, ouch, ouch.",
+    "leagueRegion": "Misthalin"
+  },
+  {
+    "id": 16476,
+    "name": "Swarm of wasps",
+    "aliases": [
+      "Swarm of wasps (furious)"
+    ],
+    "members": true,
+    "race": "",
+    "location": "North west of Exam Centre",
+    "quest": "",
+    "gender": "",
+    "options": [
+      "Catch"
+    ],
+    "examine": "Also known as cloud of ouch.",
+    "leagueRegion": "Misthalin"
+  },
+  {
+    "id": 16476,
+    "name": "Swarm of wasps (furious)",
+    "aliases": [
+      "Swarm of wasps (furious)"
+    ],
+    "members": true,
+    "race": "",
+    "location": "North west of Exam Centre",
+    "quest": "",
+    "gender": "",
+    "options": [
+      "Spray"
+    ],
+    "examine": "Also known as cloud of ouch, ouch, ouch.",
+    "leagueRegion": "Misthalin"
   },
   {
     "id": 5974,
@@ -138121,6 +138323,20 @@
     ],
     "examine": "It couldn't hide well enough.",
     "leagueRegion": "No"
+  },
+  {
+    "id": 15902,
+    "name": "Veliaf and Safalaan",
+    "aliases": [],
+    "members": true,
+    "race": "Human, half-human/half-icyene",
+    "location": "Castle Drakan",
+    "quest": "The Blood Moon Rises",
+    "gender": "",
+    "options": [
+      "None"
+    ],
+    "examine": "Veliaf's making sure Safalaan is safe."
   },
   {
     "id": 989,
